@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
-import {validateModel,mergeRecords} from '../extension-next/agent-core.js';import {mvpSummary,mvpLink} from '../extension-next/mvp.js';
+import {validateModel,mergeRecords} from '../extension-next/agent-core.js';import {mvpSummary,mvpLink,requiredReward} from '../extension-next/mvp.js';
 const f=JSON.parse(fs.readFileSync(new URL('./fixtures/banks/amex-hk-mvp.json',import.meta.url))),s={self:{}};vm.createContext(s);vm.runInContext(fs.readFileSync(new URL('../extension-next/reader.js',import.meta.url),'utf8'),s);const reader=s.self.CardyReader;
 test('HK pure parser yields distinct current/unpaid/closing balances, printed zero and explicit full date',()=>{const raw=reader.amexHkMvp(f.text,f.card),snapshot={bank:'Amex HK',region:'HK',page:'https://global.americanexpress.com/dashboard',capturedAt:new Date().toISOString(),aliases:[{id:'C1',cardId:f.card.id,currency:'HKD'}],blocks:raw.map(i=>({text:i.evidence})),links:[]};const result=validateModel({items:JSON.parse(JSON.stringify(raw)),nextLinkId:null},snapshot);assert.equal(result.rejected.length,0);const values=Object.fromEntries(result.items.map(i=>[i.key,i.value??i.date]));assert.equal(values.balance,123.45);assert.equal(values.statement,23.45);assert.equal(values.statementClosing,30);assert.equal(values.minimum,0);assert.equal(values.due,'2026-11-06');assert.equal(values['Membership Rewards'],0);assert.equal(mvpSummary(result.items,[f.card]).card.status,'updated');});
 test('HK parser does not borrow missing years, conflicting cards, currencies or history balances',()=>{assert.ok(!reader.amexHkMvp(f.text.replace('2026年11月6日','11月6日'),f.card).some(i=>i.key==='due'));assert.equal(reader.amexHkMvp(f.text+'\nOther ••••24680',f.card).length,0);assert.equal(reader.amexHkMvp(f.text,{...f.card,tail:'99999'}).length,0);assert.equal(reader.amexHkMvp(f.text,{...f.card,currency:'CAD'}).length,0);assert.ok(!reader.amexHkMvp(f.text,f.card,'billing').some(i=>i.kind==='card'));assert.ok(!reader.amexHkMvp(f.text.replace('2026年11月6日','2026年2月30日'),f.card).some(i=>i.key==='due'));});
@@ -54,4 +54,19 @@ test('payment reminders prefer newer billing evidence and do not suppress a newe
  const older={...same,minimum:12,due:'2026-11-23',fieldDates:{...same.fieldDates,minimum:minutes(60),due:minutes(60)}};
  assert.equal(latestNoPayment(older),true);assert.equal(supersededByNoPayment(older,'minimum'),true);assert.equal(supersededByNoPayment(older,'due'),true);
  assert.equal(supersededByNoPayment(older,'duePartial'),false);assert.equal(supersededByNoPayment({...older,paymentStatus:undefined},'minimum'),false);
+});
+
+test('Amex reports another named programme as not collected, and Membership Rewards pools stay separate by region',()=>{
+ const required=t=>requiredReward('Amex US',t);
+ assert.deepEqual([...reader.otherRewardLabels(['Some Hotel Points','12,345','Membership Rewards','999','Redeem points','5','Current balance','7'],required)],['Some Hotel Points']);
+ // A generic or required label is not another programme, so a missing required value stays missing.
+ for(const label of ['Available Points','Total Points','Available Membership Rewards Points','American Express Membership Rewards','可用積分','積分結餘','MR points'])assert.equal(reader.otherRewardLabels([label,'100'],required).length,0,label);
+ // Only a labelled balance names a programme: activity lines, badges and spend words do not.
+ for(const label of ['Some Hotel Points','Some SkyStyleMiles','Airline Miles','某某積分'])assert.equal(reader.rewardLabel(label),true,label);
+ for(const label of ['Points earned','Bonus points','Points expiring soon','Points redeemed','Rewards multiplier','Spend milestone','Rewards','Points','Redeem points','Rewards activity','Offers and rewards','12,345 points','Current balance','兌換積分'])assert.equal(reader.rewardLabel(label),false,label);
+ const cards=[{id:'us',bank:'Amex US',currency:'USD'},{id:'hk',bank:'Amex HK',currency:'HKD'},{id:'hk2',bank:'Amex HK',currency:'HKD'}];
+ const record=(cardId,bank,region,value)=>({kind:'reward',cardId,bank,region,key:'Membership Rewards',title:'Membership Rewards',value,currency:'points',date:'',status:'unknown',evidence:'Membership Rewards\n'+value,capturedAt:'2030-01-01T00:00:00Z',page:'https://example.test',method:'rules'});
+ const data=applyAgentRecords({cards},[record('us','Amex US','US',100),record('hk','Amex HK','HK',200),record('hk2','Amex HK','HK',200)]);
+ assert.equal(data.rewardObservations.length,3);assert.ok(data.rewardObservations.every(r=>r.poolStatus==='unconfirmed'));
+ assert.deepEqual(data.rewardObservations.map(r=>r.region),['US','HK','HK']);
 });

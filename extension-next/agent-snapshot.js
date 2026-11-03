@@ -1,5 +1,7 @@
 // Injected isolated-world function. Reads rendered text only, never form values or network bodies.
 export async function capturePage(bank,cards,contextIds=[]){
+ // Injected, so this cannot import the scope from mvp.js. tests/coverage.test.mjs fails if they differ.
+ const requiredAmexReward=new RegExp('\\bMembership Rewards\\b|\\bMR\\b|美國運通積分|美国运通积分|會員積分|会员积分','i');
  // Wait for the financial SPA body to settle, rather than reading initial zero placeholders.
  const settleStart=Date.now(),settleEnd=settleStart+6000;let previous="",stable=0;while(Date.now()<settleEnd){const text=document.querySelector("main")?.innerText||document.body?.innerText||"";if(text===previous&&text.length>120){if(++stable>=3&&Date.now()-settleStart>=1500)break;}else stable=0;previous=text;await new Promise(r=>setTimeout(r,250));}
  if(bank==='Chase'&&self.CardyReader?.chaseSnapshot)return self.CardyReader.chaseSnapshot(cards,contextIds);
@@ -137,5 +139,7 @@ export async function capturePage(bank,cards,contextIds=[]){
  if(bank==='HSBC HK'&&selectedCardId){const area=query('.cc-transaction-history-container p.zero-transaction').find(visible);if(area&&/^There are no transactions to display\.$/i.test(area.innerText.trim())&&!query('#loading-spinner').some(visible))empty.push({kind:'transaction',cardId:selectedCardId});}
  const coverage=[];
  if(bank.startsWith('Amex ')&&matches.length===1&&location.pathname.startsWith('/offers')&&selectedOffer){const counter=offerLabel(selectedOffer).match(/\((\d+)\)/);if(counter)coverage.push({kind:'offer',cardId:matches[0].id,view:offerView,expected:Number(counter[1]),confirmedEmpty:/(?:No offers (?:are )?available|You have no (?:available|registered) offers|暫時未有(?:可用)?優惠|暂时没有(?:可用)?优惠)/i.test(document.querySelector('main')?.innerText||body)});}
- return {pageHref:location.href,empty,coverage,observations,blocks:blocks.slice(0,600).map((b,i)=>({...b,id:'B'+(i+1)})),aliases,links,capturedAt:new Date().toISOString()};
+ // A named programme this version does not collect is reported, so its card is not left partial.
+ const notCollected=bank.startsWith('Amex ')&&selectedCardId&&self.CardyReader?.otherRewardLabels?self.CardyReader.otherRewardLabels(body.split('\n').map(t=>t.replace(/[®™]/g,'').trim()).filter(Boolean),t=>requiredAmexReward.test(t)).map(programme=>({cardId:'C1',programme})):[];
+ return {pageHref:location.href,empty,coverage,notCollected,observations,blocks:blocks.slice(0,600).map((b,i)=>({...b,id:'B'+(i+1)})),aliases,links,capturedAt:new Date().toISOString()};
 }

@@ -1,3 +1,4 @@
+import {readFileSync} from 'node:fs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {collectCoverage,offerCoverage} from '../extension-next/coverage.js';
@@ -38,7 +39,7 @@ test('reward reading completion is separate from unconfirmed shared pool ownersh
  assert.equal(sectionSummary([a],'not_found',[],cs).reward.status,'partial');assert.equal(sectionSummary([a,a],'not_found',[],cs).reward.status,'partial');const complete=sectionSummary([a,b],'not_found',[],cs).reward;assert.equal(complete.status,'updated');assert.equal(complete.readCards,2);assert.equal(complete.expectedCards,2);
 });
 
-import {mvpSummary,mvpLink} from '../extension-next/mvp.js';
+import {mvpSummary,mvpLink,requiredReward,AMEX_REQUIRED_SOURCE} from '../extension-next/mvp.js';
 test('MVP requires statement, minimum and full due date per card, not just balances',()=>{
  const cards=[{id:'a'},{id:'b'}],fields={balance:0,statement:0,minimum:0},patches=cards.map(c=>({id:c.id,fields}));const items=[{kind:'reward',cardId:'a'},{kind:'reward',cardId:'b'},{kind:'billing',key:'due',cardId:'a'}];let r=mvpSummary(items,cards,patches);assert.equal(r.card.status,'partial');assert.deepEqual(r.card.coverage[1].missing,['due']);assert.equal(r.reward.status,'updated');r=mvpSummary([...items,{kind:'billing',key:'due',cardId:'b'}],cards,patches);assert.equal(r.card.status,'updated');assert.deepEqual(Object.keys(r).sort(),['card','reward']);
 });
@@ -66,4 +67,26 @@ test('an explicit no-payment statement satisfies minimum and due with its reason
  const patched=mvpSummary([...read,notice],[card],[{id:'a',fields:{minimum:0}}]).card.coverage[0];assert.deepEqual(patched.notApplicable,['due']);assert.equal(patched.complete,true);
  // Balance and statement are never satisfied by it.
  assert.deepEqual(mvpSummary([notice],[card]).card.coverage[0].missing,['balance','statement']);
+});
+
+test('rewards are required only for Membership Rewards and Ultimate Rewards',()=>{
+ const reward=(cardId,key)=>({kind:'reward',cardId,key});
+ for(const [bank,key] of [['Chase','Ultimate Rewards® points'],['Amex US','Membership Rewards®'],['Amex HK','美國運通積分計劃']])assert.equal(requiredReward(bank,key),true,key);
+ for(const [bank,key] of [['Chase','Some Airline Miles'],['Amex US','Some Hotel Points'],['BOA','Ultimate Rewards'],['HSBC HK','Membership Rewards'],['SC HK','Some Miles']])assert.equal(requiredReward(bank,key),false,bank+key);
+ for(const [bank,key] of [['Amex US','American Express Membership Rewards'],['Amex US','Available Membership Rewards Points'],['Amex US','MR points'],['Amex HK','會員積分'],['Chase','Chase Ultimate Rewards points'],['Chase','UR points']])assert.equal(requiredReward(bank,key),true,key);
+ assert.ok(readFileSync(new URL('../extension-next/agent-snapshot.js',import.meta.url),'utf8').includes("new RegExp('"+AMEX_REQUIRED_SOURCE.replaceAll('\\','\\\\')+"','i')"),'the injected copy matches the scope');
+ // A bank with no required programme is complete on billing alone and says what it did not collect.
+ const boa=mvpSummary([],[{id:'a',bank:'BOA'}],[],{a:new Set(['Some Miles'])});assert.equal(boa.reward.status,'not_collected');assert.deepEqual(boa.reward.coverage[0],{cardId:'a',complete:true,missing:[],notCollected:['Some Miles']});
+ assert.deepEqual(mvpSummary([],[{id:'a',bank:'HSBC HK'}]).reward.coverage[0].notCollected,[]);
+ // An Amex or Chase card showing only another programme is not left partial.
+ const cobrand=mvpSummary([],[{id:'a',bank:'Chase'}],[],{a:new Set(['unnamed'])});assert.equal(cobrand.reward.status,'not_collected');assert.equal(cobrand.reward.coverage[0].complete,true);
+ // Amex wording alone cannot prove another programme: an unlisted name stays partial, shown with its reason.
+ for(const name of ['可兌換積分','您的積分','Redeemable Points','Amex Points','Points available to redeem','Some New Hotel Points']){const r=mvpSummary([],[{id:'a',bank:'Amex US'}],[],{a:new Set([name])}).reward.coverage[0];assert.equal(r.complete,false,name);assert.equal(r.reason,'programme_unconfirmed');assert.deepEqual(r.unconfirmed,[name]);}
+ for(const name of ['Hilton Honors Points','Marriott Bonvoy Points','Delta SkyMiles','Reward Dollars']){const r=mvpSummary([],[{id:'a',bank:'Amex US'}],[],{a:new Set([name])}).reward.coverage[0];assert.equal(r.complete,true,name);assert.deepEqual(r.notCollected,[name]);}
+ // No sign of any programme on such a card stays partial, with a reason.
+ const missing=mvpSummary([],[{id:'a',bank:'Amex HK'}]);assert.deepEqual(missing.reward.coverage[0],{cardId:'a',complete:false,missing:['reward'],reason:'reward_not_seen'});assert.equal(missing.reward.status,'not_found');
+ // Mixed: a required reading, a co-brand and a missing value.
+ const cards=[{id:'a',bank:'Chase'},{id:'b',bank:'Chase'},{id:'c',bank:'Chase'}],mixed=mvpSummary([reward('a','Ultimate Rewards')],cards,[],{b:new Set(['Some Miles'])});
+ assert.equal(mixed.reward.status,'partial');assert.deepEqual(mixed.reward.coverage.map(c=>c.complete),[true,true,false]);
+ assert.equal(mvpSummary([reward('a','Ultimate Rewards')],cards.slice(0,2),[],{b:new Set(['Some Miles'])}).reward.status,'updated');
 });
