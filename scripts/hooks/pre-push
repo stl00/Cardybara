@@ -1,0 +1,3 @@
+#!/bin/sh
+# Opt-in owner-value scan before a push. Setup is in docs/DEBUGGING.md. Reads git's ref list on stdin.
+exec python3 "$(dirname "$0")/../private_scan.py" pre-push

@@ -52,6 +52,21 @@
 
 银行区域：Amex US、Amex HK、Chase、Bank of America、HSBC HK、Standard Chartered HK、Citi US。Amex Canada 已归档，代码和样本保留，默认关闭。每张卡都要读余额、账单金额、最低还款和还款日；积分只要求 Amex Membership Rewards 和 Chase Ultimate Rewards，其他积分计划的代码保留但默认不运行，显示为“此版本不采集”。
 
+## 推送前扫描 owner 私有值（可选）
+
+CI 只检查形状，不知道真实值。`scripts/hooks/pre-push` 在本机把这些值和即将推送的内容比对，默认不启用。owner 执行一次即可，所有 worktree 共用：
+
+```sh
+git config core.hooksPath scripts/hooks && git config cardybara.privateNeedles ~/.config/cardybara/private-needles.txt
+```
+
+值文件由 owner 自己创建，放在仓库外，每行一个值（卡尾号、姓名、邮箱等），不要提交或上传。环境变量 `CARDYBARA_PRIVATE_NEEDLES` 优先于上面的 git config；`scripts/audit-release.py` 只读环境变量，设置后也会扫描源码和 `--package` 的 ZIP。
+
+- 范围：尚未到达远端的每个 commit（文件内容、文件名、作者信息和提交说明，包括后来又被删掉的值），以及本机 `release/*.zip`。
+- 短数字：少于 5 位的纯数字只在卡尾号写法里算命中（`ending NNNN`、`尾号NNNN`、`••••NNNN`、`xxxxNNNN`），所以年费、版本号不会误报。代价是不带这些写法的短数字不会被发现，金额这类值请写成 5 位以上的完整形式。
+- 失败时只报文件名或 commit，不输出值或所在行。启用后值文件缺失、为空或位于仓库内都会阻止推送，避免把“没扫”当成“干净”。
+- 这是本机防线，不是保证：`git push --no-verify` 可以跳过，没有这个 hook 文件的旧分支也不会扫描。`core.hooksPath` 还会让 `.git/hooks` 里的其他 hook 不再生效。关闭：`git config --unset core.hooksPath`。
+
 ## 浏览器边界
 
 普通 localhost 页面和银行网页可用于开发验证。工具禁止观察 `chrome-extension:` 页面时，不通过扩展存储、调试后门或其他界面绕过。解析与流程问题先在本地样本中解决；必要的最终安装与写回证据由用户正常操作并提供，不将逐次导出作为日常调试方式。实际银行金额、账户标识、截图和运行导出不得进入公开 Git 历史或 CI 产物。
