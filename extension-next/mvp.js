@@ -10,7 +10,7 @@ const requiredPattern=bank=>bank==='Chase'?REQUIRED_REWARDS.Chase:String(bank).s
 export const requiredReward=(bank,programme)=>!!requiredPattern(bank)?.test(String(programme).replace(/[®™]/g,'').trim());
 // Telling an Amex card holds another programme needs its brand: page wording alone cannot separate it from a
 // generic label for the required balance. structural: scope data, used only to avoid hiding a missing reward.
-// An unlisted name stays partial with the name shown, so a missing value is never reported as complete.
+// An unlisted name stays partial with the name shown. A listed name on a card missing its required value still reads as not collected.
 const AMEX_OTHER_PROGRAMMES=/\b(?:Hilton|Marriott|Bonvoy|Delta|SkyMiles|Reward Dollars|Cash Back|Cash Rewards|Aeroplan)\b/i;
 export const confirmedOtherProgramme=(bank,programme)=>!String(bank).startsWith('Amex ')||AMEX_OTHER_PROGRAMMES.test(String(programme));
 export function mvpSummary(items,cards,initialPatches=[],notCollected={}){
