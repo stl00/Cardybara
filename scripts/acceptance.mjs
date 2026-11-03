@@ -46,6 +46,7 @@ export function validateAcceptance(report,{sha256,runtimeBuild,now=Date.now()}){
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  const [zip,evidence,build]=process.argv.slice(2);if(!zip||!evidence||!build){console.error('Usage: node scripts/acceptance.mjs CANDIDATE.zip PRIVATE-ACCEPTANCE.json RUNTIME-BUILD');process.exit(1);}
- const result=validateAcceptance(JSON.parse(readFileSync(evidence,'utf8')),{sha256:createHash('sha256').update(readFileSync(zip)).digest('hex'),runtimeBuild:build});
+ const bytes=readFileSync(zip),result=validateAcceptance(JSON.parse(readFileSync(evidence,'utf8')),{sha256:createHash('sha256').update(bytes).digest('hex'),runtimeBuild:build});
+ if(artifactBuildId(bytes)!==build){result.passed=false;result.errors.push('runtime build is not the build in this artifact');}
  console.log(JSON.stringify(result,null,2));if(!result.passed)process.exitCode=1;
 }

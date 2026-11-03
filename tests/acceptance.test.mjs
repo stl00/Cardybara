@@ -83,3 +83,10 @@ test('promotion checks the build inside the ZIP, not the checkout',t=>{
  const stale=promote(BUILD_ID);assert.notEqual(stale.status,0);assert.equal(existsSync(published),false,'a report matching only the checkout must not publish');
  const tested=promote('zip-build');assert.equal(tested.status,0,tested.stderr);assert.equal(existsSync(published),true);
 });
+test('the acceptance command refuses a build that is not the one in the ZIP',t=>{
+ const dir=mkdtempSync(path.join(tmpdir(),'cardybara-acceptance-'));t.after(()=>rmSync(dir,{recursive:true,force:true}));
+ const zip=path.join(dir,'c.zip'),evidence=path.join(dir,'r.json');makeZip(zip,{'build-info.js':"export const BUILD_ID='zip-build';\n"});
+ const check=build=>{const r=fixture();r.artifactSha256=createHash('sha256').update(readFileSync(zip)).digest('hex');r.runtimeBuild=build;for(const bank of REQUIRED_BANKS)r.banks[bank].runtimeBuild=build;writeFileSync(evidence,JSON.stringify(r));return spawnSync(process.execPath,['scripts/acceptance.mjs',zip,evidence,build],{encoding:'utf8'});};
+ const old=check('old-build');assert.equal(old.status,1);assert.match(old.stdout,/not the build in this artifact/);
+ assert.equal(check('zip-build').status,0);
+});
