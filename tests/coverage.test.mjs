@@ -45,3 +45,22 @@ test('MVP requires statement, minimum and full due date per card, not just balan
 test('MVP navigation includes points and statements, excludes transaction and offer links',()=>{
  assert.equal(mvpLink({label:'Membership Rewards'}),true);assert.equal(mvpLink({label:'禮品換領'}),true);assert.equal(mvpLink({label:'Statements'}),true);for(const label of ['View Transactions','Offers','福利','交易记录','Rewards offers'])assert.equal(mvpLink({label}),false);
 });
+
+test('an explicit no-payment statement satisfies minimum and due with its reason and invents nothing',()=>{
+ const reason="You don't have a payment due right now.",card={id:'a'},notice={kind:'billing',cardId:'a',key:'paymentStatus',title:reason,value:null};
+ const read=[{kind:'card',cardId:'a',key:'balance',value:0},{kind:'card',cardId:'a',key:'statement',value:0},{kind:'reward',cardId:'a'}];
+ const r=mvpSummary([...read,notice],[card]);
+ assert.deepEqual(r.card.coverage[0],{cardId:'a',missing:[],complete:true,notApplicable:['minimum','due'],reason});assert.equal(r.card.status,'updated');
+ // No explicit statement: stays partial.
+ const none=mvpSummary(read,[card]);assert.deepEqual(none.card.coverage[0],{cardId:'a',missing:['minimum','due'],complete:false});assert.equal(none.card.status,'partial');
+ // Another card's statement does not apply here.
+ assert.deepEqual(mvpSummary([...read,{...notice,cardId:'b'}],[card]).card.coverage[0].missing,['minimum','due']);
+ // A printed positive minimum or due date overrides the statement, from any source.
+ assert.deepEqual(mvpSummary([...read,notice,{kind:'card',cardId:'a',key:'minimum',value:5}],[card]).card.coverage[0].missing,['due']);
+ assert.deepEqual(mvpSummary([...read,notice,{kind:'billing',cardId:'a',key:'due',value:null}],[card]).card.coverage[0].missing,['minimum']);
+ assert.deepEqual(mvpSummary([...read,notice],[card],[{id:'a',fields:{minimum:5}}]).card.coverage[0].missing,['due']);
+ // A printed zero minimum stays observed; only the due date is satisfied by the statement.
+ const zero=mvpSummary([...read,notice,{kind:'card',cardId:'a',key:'minimum',value:0}],[card]).card.coverage[0];assert.deepEqual(zero.notApplicable,['due']);assert.equal(zero.complete,true);
+ // Balance and statement are never satisfied by it.
+ assert.deepEqual(mvpSummary([notice],[card]).card.coverage[0].missing,['balance','statement']);
+});
