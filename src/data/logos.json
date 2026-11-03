@@ -381,7 +381,7 @@
    "approval": "owner-decision-2026-11-03",
    "terms": "unverified",
    "logo": "brand/logos/home-chef.png",
-   "source": "https://www.homechef.com (site favicon)"
+   "source": "https://compiled-production-assets.homechef.com/assets/fav/home_chef/favicon-196x196-1b92c821cd47e104eaa5b7bcea6fbfc1fbdad4b0e1851f6c149befedbbbedb15.png"
   },
   {
    "id": "lululemon",
@@ -469,7 +469,7 @@
    "approval": "owner-decision-2026-11-03",
    "terms": "unverified",
    "logo": "brand/logos/disney.png",
-   "source": "https://www.disney.com (site favicon)"
+   "source": "https://static-mh.content.disney.io/matterhorn/assets/favicon-94e3862e7fb9.ico"
   },
   {
    "id": "clear",
@@ -489,7 +489,7 @@
    "approval": "owner-decision-2026-11-03",
    "terms": "unverified",
    "logo": "brand/logos/clear.png",
-   "source": "https://www.clearme.com (site favicon)"
+   "source": "https://cdn.prod.website-files.com/646a6ec3f634076bc7bf77f2/647f9537d0d4bfe668bed535_clear_favicon.png"
   },
   {
    "id": "priority-pass",
@@ -509,7 +509,7 @@
    "approval": "owner-decision-2026-11-03",
    "terms": "unverified",
    "logo": "brand/logos/priority-pass.png",
-   "source": "https://www.prioritypass.com (site icon)"
+   "source": "https://www.prioritypass.com/icon.png"
   },
   {
    "id": "plaza-premium",
@@ -749,7 +749,8 @@
    "approval": "owner-decision-2026-11-03",
    "terms": "unverified",
    "logo": "brand/logos/morgan-stanley-cashplus.png",
-   "source": "https://www.morganstanley.com (site favicon)"
+   "source": "https://www.morganstanley.com/etc.clientlibs/msdotcomr5/clientlibs/components/site/resources/img/favicon-196x196.png",
+   "logoLabel": "Morgan Stanley"
   },
   {
    "id": "hilton",
@@ -879,7 +880,7 @@
    "approval": "owner-decision-2026-11-03",
    "terms": "unverified",
    "logo": "brand/logos/accor.png",
-   "source": "https://all.accor.com (site favicon)"
+   "source": "https://static-p46175-e229011.adobeaemcloud.com/a94cb9eb1ff932579db94bde99e19e82c898161919aceb909d9250d5401e2cf6/resources/images/favicon-32x32.png"
   },
   {
    "id": "wyndham",
@@ -897,7 +898,8 @@
    "approval": "owner-decision-2026-11-03",
    "terms": "unverified",
    "logo": "brand/logos/wyndham.svg",
-   "source": "https://www.wyndhamhotels.com/content/dam/wyndham/brand-icons/whr.svg"
+   "source": "https://www.wyndhamhotels.com/content/dam/wyndham/brand-icons/whr.svg",
+   "logoLabel": "Wyndham"
   },
   {
    "id": "renowned-hotels",
@@ -1255,7 +1257,7 @@
    "approval": "owner-decision-2026-11-03",
    "terms": "unverified",
    "logo": "brand/logos/malaysia-airlines.png",
-   "source": "https://www.malaysiaairlines.com (site favicon)"
+   "source": "https://www.malaysiaairlines.com/etc.clientlibs/mh/clientlibs/clientlib-vue/resources/favicon.ico"
   },
   {
    "id": "eva-air",
