@@ -15,7 +15,7 @@ A local credit-card wallet, benefits organizer and experimental read-only bank c
 
 ## One product, development first
 
-`npm run dev` runs the same React application from `src/` on loopback, with source updates reflected in the browser. Its parser/agent API uses the same server handler as the built preview; there is no separate local product. `npm run debug:bank` replays bank samples and runs the shared collector/state-machine regressions without rebuilding or installing the extension.
+`npm run dev` runs the same React application from `src/` on loopback, with source updates reflected in the browser. Its parser/agent API uses the same server handler as the built preview; there is no separate local product. It also runs the real collector without an installed extension: see "本地真实采集" in `docs/DEBUGGING.md`. `npm run debug:bank` replays bank samples and runs the shared collector/state-machine regressions without rebuilding or installing the extension.
 
 Develop and verify locally first. Commit the source, then let PR CI run tests and produce the extension artifact. Use that exact CI artifact for the final Chrome-specific installation/permission/background/restart acceptance. Do not use manual copies into an installed extension directory as the ordinary development loop. `npm run preview:wallet` is only for inspecting a previously built frontend.
 
