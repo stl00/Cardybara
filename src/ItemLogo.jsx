@@ -18,17 +18,14 @@ import CreditCardOutlined from '@ant-design/icons/es/icons/CreditCardOutlined';
 import MobileOutlined from '@ant-design/icons/es/icons/MobileOutlined';
 import WalletOutlined from '@ant-design/icons/es/icons/WalletOutlined';
 import {t,useI18n} from './i18n';
-import {logoPresentation,logoForRuleId,logoForProgramme,logoForEarning,logoForText,logoForCategory} from './logoRegistry';
+import {logoPresentation,resolveItem} from './logoRegistry';
 // Ant Design has no aeroplane; this glyph is authored for the project (see ASSET-SOURCES.md).
 const Plane=()=><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 2c-.8 0-1.4.7-1.4 1.6V9L2 14.2V16l8.6-2.6v5.2l-2.2 1.7V22l3.6-1 3.6 1v-1.7l-2.2-1.7v-5.2L22 16v-1.8L13.4 9V3.6C13.4 2.7 12.8 2 12 2z"/></svg>;
 const AirlineOutlined=props=><Icon component={Plane} {...props}/>;
 const icons={CarOutlined,TruckOutlined,RestOutlined,HomeOutlined,airline:AirlineOutlined,IdcardOutlined,CoffeeOutlined,GlobalOutlined,PlaySquareOutlined,ShoppingOutlined,HeartOutlined,GiftOutlined,CrownOutlined,SafetyOutlined,DollarOutlined,CreditCardOutlined,MobileOutlined,WalletOutlined};
-function resolve({view,ruleId,programme,earning,text,category}){
- return view||(ruleId?logoForRuleId(ruleId):programme?logoForProgramme(programme):earning?logoForEarning(earning):text?logoForText(text):logoForCategory(category));
-}
 /** The one way to show a merchant, programme or category: logo, then category icon, then nothing. */
 export default function ItemLogo({size=16,...item}){
- useI18n();const resolved=resolve(item),[broken,setBroken]=useState(false);useEffect(()=>setBroken(false),[resolved.logo]);
+ useI18n();const resolved=resolveItem(item),[broken,setBroken]=useState(false);useEffect(()=>setBroken(false),[resolved.logo]);
  const shown=logoPresentation(resolved,{broken});if(!shown)return null;
  const label=shown.labelParams?t(shown.label,shown.labelParams):t(shown.label),Glyph=icons[shown.icon];
  return <span className={`item-logo ${shown.kind==='logo'?'is-logo':'is-icon'}`} role="img" aria-label={label} title={label} style={{'--item-logo-size':`${size}px`}}>{shown.kind==='logo'?<img src={`/${shown.src}`} alt="" onError={()=>setBroken(true)}/>:<Glyph aria-hidden="true"/>}</span>;
