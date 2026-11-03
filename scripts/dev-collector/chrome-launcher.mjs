@@ -20,8 +20,8 @@ export function assertDedicatedProfile(profile,personal=personalProfiles()){
 }
 // No automation or anti-detection flags: this is a plain Chrome with a loopback debugging port.
 // Port 0 lets Chrome pick a free port and record it in the profile's DevToolsActivePort.
-export function chromeArgs(profile,{headless=false,noSandbox=false}={}){
- return ['--user-data-dir='+profile,'--remote-debugging-port=0','--remote-debugging-address=127.0.0.1','--no-first-run','--no-default-browser-check',...(headless?['--headless=new']:[]),...(noSandbox?['--no-sandbox']:[]),'about:blank'];
+export function chromeArgs(profile,{headless=false,noSandbox=false,extraArgs=[]}={}){
+ return ['--user-data-dir='+profile,'--remote-debugging-port=0','--remote-debugging-address=127.0.0.1','--no-first-run','--no-default-browser-check',...(headless?['--headless=new']:[]),...(noSandbox?['--no-sandbox']:[]),...extraArgs,'about:blank'];
 }
 export function parseActivePort(text){
  const [port,path]=String(text).trim().split('\n');
@@ -29,13 +29,15 @@ export function parseActivePort(text){
  return assertLoopbackUrl('ws://127.0.0.1:'+port+path);
 }
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
-export async function openBrowser({profile,chromePath,headless=false,noSandbox=false,extraMethods,launch=true,spawn=nodeSpawn,connect=connectCdp,timeoutMs=20000}){
+export async function openBrowser({profile,chromePath,headless=false,noSandbox=false,extraArgs,extraMethods,launch=true,spawn=nodeSpawn,connect=connectCdp,timeoutMs=20000}){
  const dir=assertDedicatedProfile(profile),portFile=join(dir,'DevToolsActivePort');
  const attach=async()=>connect(parseActivePort(await readFile(portFile,'utf8')),{extraMethods});
  try{return await attach();}catch(error){if(!launch)throw error;}
+ // One retry before treating the port file as stale: removing a live browser's file strands it.
+ await pause(500);try{return await attach();}catch{}
  await mkdir(dir,{recursive:true,mode:0o700});await chmod(dir,0o700);
  await rm(portFile,{force:true});
- const child=spawn(chromePath||await findChrome(),chromeArgs(dir,{headless,noSandbox}),{detached:true,stdio:'ignore'});
+ const child=spawn(chromePath||await findChrome(),chromeArgs(dir,{headless,noSandbox,extraArgs}),{detached:true,stdio:'ignore'});
  child.on?.('error',()=>{});child.unref?.();
  const deadline=Date.now()+timeoutMs;
  while(Date.now()<deadline){try{return await attach();}catch{await pause(150);}}

@@ -5,7 +5,7 @@ import {mkdtemp,rm,readFile} from 'node:fs/promises';
 import {networkInterfaces,tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {SYNTHETIC_METHODS} from '../scripts/dev-collector/cdp.mjs';
+import {SYNTHETIC_ARGS,SYNTHETIC_METHODS} from '../scripts/dev-collector/cdp.mjs';
 import {openBrowser,parseActivePort} from '../scripts/dev-collector/chrome-launcher.mjs';
 import {createChromeAdapter,hostPermissions} from '../scripts/dev-collector/chrome-adapter.mjs';
 import {syntheticPrepareTab} from '../scripts/dev-collector/synthetic-bank.mjs';
@@ -18,8 +18,8 @@ const until=async(fn,ms=10000)=>{const end=Date.now()+ms;for(;;){const v=await f
 async function start(mode='page',onBlocked){
  const home=await mkdtemp(join(tmpdir(),'cardybara-collector-test-'));
  const adapter=createChromeAdapter({extensionRoot,storagePath:join(home,'storage.json'),permittedHosts:hostPermissions(manifest),prepareTab:syntheticPrepareTab(mode),onBlocked,
-  openBrowser:({launch})=>openBrowser({profile:join(home,'profile'),launch,headless:true,noSandbox:process.platform==='linux',extraMethods:SYNTHETIC_METHODS})});
- const conn=await adapter.connect();
+  openBrowser:({launch})=>openBrowser({profile:join(home,'profile'),launch,headless:true,noSandbox:process.platform==='linux',extraMethods:SYNTHETIC_METHODS,extraArgs:SYNTHETIC_ARGS})});
+ const conn=await adapter.connect({launch:true});
  return {adapter,home,conn,async stop(){await conn.send('Browser.close').catch(()=>{});adapter.close();await new Promise(r=>setTimeout(r,300));await rm(home,{recursive:true,force:true,maxRetries:5,retryDelay:200}).catch(()=>{});}};
 }
 

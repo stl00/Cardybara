@@ -1,6 +1,7 @@
-// Dev-only DevTools client. It may only speak to a loopback browser and only send the
-// narrow set of methods below: nothing here can read cookies, storage, network bodies
-// or input values, and page code only ever runs in an isolated world.
+// Dev-only DevTools client. It may only speak to a loopback browser and only send the methods
+// below: no cookie, storage, network or input methods, and scripts run in an isolated world.
+// This limits this client only. The port has no authentication, so any process running as this
+// user can use it while the dedicated Chrome is open.
 import {EventEmitter} from 'node:events';
 import WebSocket from 'ws';
 
@@ -11,7 +12,10 @@ export const ALLOWED_METHODS=new Set([
 ]);
 // Interception exists only for the synthetic bank page; a real run never allows it.
 export const SYNTHETIC_METHODS=new Set(['Fetch.enable','Fetch.fulfillRequest','Browser.close']);
+// Fails every lookup, so no synthetic-mode request can reach a real host even before interception.
+export const SYNTHETIC_ARGS=['--host-resolver-rules=MAP * ~NOTFOUND'];
 
+const CALL_TIMEOUT=60000,SCRIPT_TIMEOUT=120000,HANDSHAKE_TIMEOUT=5000;
 export function assertLoopbackUrl(value){
  const u=new URL(value);
  if(u.hostname!=='127.0.0.1'||!['ws:','http:'].includes(u.protocol)||u.username||u.password)throw Error('debugging_endpoint_not_loopback');
@@ -39,7 +43,11 @@ export class CdpConnection extends EventEmitter{
   assertAllowedCall(method,params,this.extraMethods);
   if(this.closed)return Promise.reject(Error('browser_disconnected'));
   const id=this.nextId++;
-  return new Promise((resolve,reject)=>{this.pending.set(id,{resolve,reject,method});this.socket.send(JSON.stringify({id,method,params,...(sessionId?{sessionId}:{})}));});
+  return new Promise((resolve,reject)=>{
+   const timer=setTimeout(()=>{this.pending.delete(id);reject(Error('cdp_timeout:'+method));},method==='Runtime.evaluate'?SCRIPT_TIMEOUT:CALL_TIMEOUT);timer.unref?.();
+   this.pending.set(id,{resolve:v=>{clearTimeout(timer);resolve(v);},reject:e=>{clearTimeout(timer);reject(e);},method});
+   this.socket.send(JSON.stringify({id,method,params,...(sessionId?{sessionId}:{})}));
+  });
  }
  shutdown(){
   if(this.closed)return;this.closed=true;
@@ -52,7 +60,7 @@ export class CdpConnection extends EventEmitter{
 export function connectCdp(url,options={}){
  assertLoopbackUrl(url);
  return new Promise((resolve,reject)=>{
-  const socket=new WebSocket(url,{perMessageDeflate:false,maxPayload:256*1024*1024});
+  const socket=new WebSocket(url,{perMessageDeflate:false,maxPayload:256*1024*1024,handshakeTimeout:HANDSHAKE_TIMEOUT});
   socket.once('open',()=>resolve(new CdpConnection(socket,options)));
   socket.once('error',reject);
  });

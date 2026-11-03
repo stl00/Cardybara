@@ -24,12 +24,14 @@ export function isolatedShim(){
 self.__cardybaraDevReply=(id,value)=>{const w=waiting.get(id);if(w){waiting.delete(id);w(value);}};
 self.chrome={runtime:{id:${JSON.stringify(RUNTIME_ID)},sendMessage:message=>new Promise(resolve=>{const id=next++;waiting.set(id,resolve);send(JSON.stringify({id,message}));})}};})()`;
 }
-// Only a server refusal or a well-known block page counts. A login page is not a block.
+// Best effort: a refused document or a well-known block page. A login page is not a block, and a
+// block served to background requests or under another title is not seen here.
 export function blockSignal({status,title}={}){
  if([403,429,451].includes(status))return 'http_'+status;
- if(/access denied|request blocked|request unsuccessful|attention required|pardon our interruption/i.test(title||''))return 'block_page';
+ if(/access denied|request blocked|request unsuccessful|attention required|pardon our interruption|just a moment|access to this page has been denied/i.test(title||''))return 'block_page';
  return null;
 }
+const DOCUMENT_PARSED="document.readyState==='loading'?new Promise(r=>document.addEventListener('DOMContentLoaded',()=>r(),{once:true})):undefined";
 const BLOCK_PROBE="({status:performance.getEntriesByType('navigation')[0]?.responseStatus,title:document.title})";
 
 export function createStorageArea(path){
@@ -44,7 +46,7 @@ export function createStorageArea(path){
  };
 }
 
-export function createChromeAdapter({openBrowser,extensionRoot,storagePath,permittedHosts,devOrigin,notifyWallet=()=>{},onBlocked=()=>{},prepareTab=async()=>{},settleMs=0}){
+export function createChromeAdapter({openBrowser,extensionRoot,storagePath,permittedHosts,devOrigin,notifyWallet=()=>{},onBlocked=()=>{},onBrowserLost=async()=>{},prepareTab=async()=>{},settleMs=0}){
  const root=resolve(extensionRoot),tabs=new Map(),sessions=new Map(),alarms=new Map(),reported=new Set();
  const onUpdated=event(),onRemoved=event(),onAlarm=event(),onMessage=event();
  let conn=null,connecting=null;
@@ -54,18 +56,19 @@ export function createChromeAdapter({openBrowser,extensionRoot,storagePath,permi
  const fire=(t,change)=>{const {url,...rest}=change;onUpdated.fire(t.id,{...rest,...(url!==undefined&&permitted(url)?{url}:{})},visible(t));};
  const remember=info=>{
   const id=tabIdFor(info.targetId);let t=tabs.get(id);
-  if(!t){t={id,targetId:info.targetId,url:info.url,status:'complete',sessionId:null,attaching:null,frameId:null,loaderId:null,world:null,pendingUrl:null};tabs.set(id,t);}
+  if(!t){t={id,targetId:info.targetId,url:info.url,status:'complete',sessionId:null,attached:false,documentLoading:false,attaching:null,frameId:null,loaderId:null,world:null,pendingUrl:null};tabs.set(id,t);}
   else if(!t.sessionId)t.url=info.url;
   return t;
  };
  async function attach(t){
-  if(t.sessionId)return t;
+  if(t.attached)return t;
+  // Callers wait for the whole setup: a navigation must not overtake prepareTab.
   t.attaching??=(async()=>{
    const {sessionId}=await conn.send('Target.attachToTarget',{targetId:t.targetId,flatten:true});
    t.sessionId=sessionId;sessions.set(sessionId,t);
    await conn.send('Page.enable',{},sessionId);await prepareTab(conn,sessionId);
    const {frameTree}=await conn.send('Page.getFrameTree',{},sessionId);setFrame(t,frameTree.frame);
-   return t;
+   t.attached=true;return t;
   })().finally(()=>{t.attaching=null;});
   return t.attaching;
  }
@@ -83,23 +86,34 @@ export function createChromeAdapter({openBrowser,extensionRoot,storagePath,permi
    const t=remember(params.targetInfo);if(!t.sessionId&&permitted(t.url))attach(t).catch(()=>{});return;
   }
   if(method==='Target.targetDestroyed'){const t=tabs.get(tabIdFor(params.targetId));if(t)dropTab(t);return;}
+  if(method==='Target.detachedFromTarget'){const t=sessions.get(params.sessionId);if(t){sessions.delete(params.sessionId);t.sessionId=null;t.attached=false;t.world=null;}return;}
   const t=sessions.get(sessionId);if(!t)return;
   if(method==='Runtime.bindingCalled'){if(params.name===BINDING)void pageMessage(t,params);return;}
-  if(method==='Page.frameStartedLoading'&&params.frameId===t.frameId){t.status='loading';fire(t,{status:'loading'});return;}
-  if(method==='Page.frameNavigated'&&!params.frame.parentId){const before=t.url;t.pendingUrl=null;setFrame(t,params.frame);if(t.url!==before)fire(t,{url:t.url});return;}
+  if(method==='Page.frameStartedLoading'&&params.frameId===t.frameId){t.documentLoading=true;t.status='loading';fire(t,{status:'loading'});return;}
+  if(method==='Page.frameNavigated'&&!params.frame.parentId){
+   const before=t.url;t.pendingUrl=null;setFrame(t,params.frame);if(t.url!==before)fire(t,{url:t.url});
+   // Leaving the bank's hosts mid-read is how some refusals look; the page itself is out of reach.
+   if(permitted(before)&&!permitted(t.url)&&/^https?:/.test(t.url))onBlocked({tabId:t.id,host:new URL(t.url).hostname,reason:'left_permitted_hosts'});
+   return;
+  }
   if(method==='Page.navigatedWithinDocument'&&params.frameId===t.frameId){
    // Chrome reports a same-document navigation as loading then complete; background.js relies on it.
    t.pendingUrl=null;if(params.url===t.url)return;t.url=params.url;t.status='loading';fire(t,{status:'loading',url:t.url});
-   setTimeout(()=>{if(t.status==='loading'){t.status='complete';fire(t,{status:'complete'});}},settleMs);return;
+   // A route change during a page load must not report that load as complete.
+   if(!t.documentLoading)setTimeout(()=>{if(t.status==='loading'&&!t.documentLoading){t.status='complete';fire(t,{status:'complete'});}},settleMs);return;
   }
-  if(method==='Page.frameStoppedLoading'&&params.frameId===t.frameId){t.status='complete';fire(t,{status:'complete'});void probeBlock(t);}
+  if(method==='Page.frameStoppedLoading'&&params.frameId===t.frameId){t.documentLoading=false;t.status='complete';fire(t,{status:'complete'});void probeBlock(t);}
  }
  function disconnected(){
-  conn=null;for(const t of [...tabs.values()])dropTab(t);
+  conn=null;
+  // The run stops first, so losing Chrome does not move on to the next queued bank.
+  void Promise.resolve().then(onBrowserLost).catch(()=>{}).then(()=>{for(const t of [...tabs.values()])dropTab(t);});
  }
- async function connect({launch=true}={}){
+ // Only an explicit refresh may start Chrome. Closing it must not bring it back.
+ async function connect({launch=false}={}){
+  if(connecting)return connecting;
   if(conn)return conn;
-  connecting??=(async()=>{
+  connecting=(async()=>{
    const c=await openBrowser({launch});conn=c;
    c.on('event',dispatchEvent);c.on('close',disconnected);
    await c.send('Target.setDiscoverTargets',{discover:true});
@@ -151,8 +165,8 @@ export function createChromeAdapter({openBrowser,extensionRoot,storagePath,permi
  }
  function navigate(t,url){
   // Fired, not awaited: Page.navigate answers only at commit, and background.js waits on tab events.
-  t.pendingUrl=url;
-  conn.send('Page.navigate',{url},t.sessionId).then(r=>{if(r.errorText&&t.pendingUrl===url)t.pendingUrl=null;}).catch(()=>{});
+  t.pendingUrl=url;t.documentLoading=true;
+  conn.send('Page.navigate',{url},t.sessionId).then(r=>{if(r.errorText&&t.pendingUrl===url){t.pendingUrl=null;t.documentLoading=false;}}).catch(()=>{});
  }
  const liveTab=async id=>{const t=tabs.get(id);if(!t)throw missing(id);await attach(t);return t;};
  const local=createStorageArea(storagePath),session=createStorageArea(null);
@@ -196,6 +210,8 @@ export function createChromeAdapter({openBrowser,extensionRoot,storagePath,permi
    const t=await liveTab(target.tabId);
    const {contextId,loaderId}=await world(t);
    if(target.documentIds&&!target.documentIds.includes(loaderId))throw Error('No document with id');
+   // chrome.scripting defaults to document_idle; never run before the document has parsed.
+   await evaluate(t,contextId,DOCUMENT_PARSED);
    let value;
    if(files)for(const file of files){
     const path=resolve(root,file);if(!path.startsWith(root+sep))throw Error('invalid_script_path');

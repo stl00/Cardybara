@@ -4,7 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {join,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {openBrowser} from './chrome-launcher.mjs';
-import {SYNTHETIC_METHODS} from './cdp.mjs';
+import {SYNTHETIC_ARGS,SYNTHETIC_METHODS} from './cdp.mjs';
 import {createChromeAdapter,hostPermissions} from './chrome-adapter.mjs';
 import {ORIGIN} from '../../extension-next/providers.js';
 
@@ -18,16 +18,21 @@ const label=e=>String(e?.name||'Error')+': '+String(e?.message||'').replace(/\d/
 process.on('unhandledRejection',error=>console.error('[dev-collector] unhandled',label(error)));
 process.on('disconnect',()=>process.exit(0));
 
+const stopRun=async errorCode=>{await adapter.fromWallet({type:'cancel',requestId:crypto.randomUUID()}).catch(()=>{});post({event:'wallet',message:{channel:'cardybara-extension',type:'error',errorCode}});};
 const manifest=JSON.parse(await readFile(join(extensionRoot,'manifest.json'),'utf8'));
 const adapter=createChromeAdapter({
  extensionRoot,storagePath:join(home,'storage.json'),permittedHosts:hostPermissions(manifest),devOrigin:env.CARDYBARA_DEV_ORIGIN,prepareTab,
- openBrowser:({launch})=>openBrowser({profile:join(home,'chrome-profile'),launch,headless:env.CARDYBARA_COLLECTOR_HEADLESS==='1',noSandbox:env.CARDYBARA_COLLECTOR_NO_SANDBOX==='1',...(synthetic?{extraMethods:SYNTHETIC_METHODS}:{})}),
+ openBrowser:({launch})=>openBrowser({profile:join(home,'chrome-profile'),launch,headless:env.CARDYBARA_COLLECTOR_HEADLESS==='1',noSandbox:env.CARDYBARA_COLLECTOR_NO_SANDBOX==='1',...(synthetic?{extraMethods:SYNTHETIC_METHODS,extraArgs:SYNTHETIC_ARGS}:{})}),
  notifyWallet:message=>post({event:'wallet',message}),
- // The run stops here rather than retrying; only the host and the signal are reported.
- onBlocked:async({host,reason})=>{
-  console.error('[dev-collector] bank blocked the browser:',host,reason);
-  await adapter.fromWallet({type:'cancel',requestId:crypto.randomUUID()}).catch(()=>{});
-  post({event:'wallet',message:{channel:'cardybara-extension',type:'error',error:'银行拦截了开发浏览器（'+host+'，'+reason+'），已停止本次读取。'}});
+ onBlocked:async({tabId,host,reason})=>{
+  // Stops only the run reading that tab, without retrying; only host and signal are reported.
+  console.error('[dev-collector] bank page signal:',host,reason);
+  const {state}=await adapter.fromWallet({type:'hello',requestId:crypto.randomUUID()});
+  if(state?.run?.status==='running'&&state.run.jobs.some(j=>j.tabId===tabId))await stopRun('bank_blocked');
+ },
+ onBrowserLost:async()=>{
+  const {state}=await adapter.fromWallet({type:'hello',requestId:crypto.randomUUID()});
+  if(state?.run?.status==='running')await stopRun('browser_closed');
  }
 });
 globalThis.chrome=adapter.chrome;
@@ -35,13 +40,13 @@ globalThis.chrome=adapter.chrome;
 const realFetch=globalThis.fetch;
 globalThis.fetch=(url,...rest)=>String(url).startsWith(ORIGIN)?Promise.reject(Error('dev_collector_parser_disabled')):realFetch(url,...rest);
 await import('../../extension-next/background.js');
-// Reattach to a Chrome left running by the previous service instance; never launch one for this.
-await adapter.connect({launch:false}).catch(()=>{});
 process.on('message',async({id,message})=>{
  try{
-  // Start Chrome before the refresh so its launch time is not charged to tab timeouts.
-  if(message?.type==='refresh')await adapter.connect();
+  // Only a refresh may start Chrome, and its launch time is not charged to tab timeouts.
+  if(message?.type==='refresh')await adapter.connect({launch:true});
   post({event:'reply',id,result:await adapter.fromWallet(message)});
- }catch(error){console.error('[dev-collector] request failed',label(error));post({event:'reply',id,result:{ok:false,error:error?.message==='chrome_not_found'?'未找到 Chrome，请设置 CARDYBARA_CHROME_PATH。':'无法启动开发浏览器，请重试。'}});}
+ }catch(error){console.error('[dev-collector] request failed',label(error));post({event:'reply',id,result:{ok:false,errorCode:error?.message==='chrome_not_found'?'chrome_not_found':'chrome_start_failed'}});}
 });
+// Reattach to a Chrome left running by the previous service instance; never launch one for this.
+void adapter.connect().catch(()=>{});
 post({event:'ready'});

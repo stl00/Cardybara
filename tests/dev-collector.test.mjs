@@ -44,7 +44,7 @@ function setup(options={}){
 }
 async function bankTab(s){const tab=await s.chrome.tabs.create({url:BANK,active:false});s.conn.commit(BANK);s.conn.fire('Page.frameStoppedLoading',{frameId:'F1'});await flush();return tab;}
 
-test('DevTools allowlist cannot read cookies, storage or network and cannot run in the main world',()=>{
+test('the client allowlist has no cookie, storage, network or input method and cannot run in the main world',()=>{
  for(const method of ['Network.getCookies','Network.getAllCookies','Network.enable','Storage.getCookies','Network.getResponseBody','Runtime.enable','Input.insertText','Page.captureScreenshot','Fetch.enable','Fetch.fulfillRequest','Browser.close'])assert.throws(()=>assertAllowedCall(method,{}),/not_allowed/,method);
  assert.throws(()=>assertAllowedCall('Runtime.evaluate',{expression:'document.cookie'}),/main_world/);
  assert.doesNotThrow(()=>assertAllowedCall('Runtime.evaluate',{expression:'1',contextId:7}));
@@ -130,11 +130,48 @@ test('tabs: same-document navigation reports loading then complete, keeps the do
  s.conn.fire('Page.navigatedWithinDocument',{frameId:'OTHER',url:'https://secure.chase.com/iframe'});await flush();assert.equal(updates.length,2);
  assert.equal((await s.chrome.tabs.get(tab.id)).url,next);
 });
+test('tabs: a route change during a page load does not report that load complete',async()=>{
+ const s=setup(),updates=[];const tab=await s.chrome.tabs.create({url:BANK,active:false});
+ s.chrome.tabs.onUpdated.addListener((id,change)=>updates.push(change));
+ s.conn.fire('Page.frameStartedLoading',{frameId:'F1'});s.conn.commit(BANK);
+ s.conn.fire('Page.navigatedWithinDocument',{frameId:'F1',url:BANK.replace('overview','logon')});await flush();
+ assert.ok(!updates.some(u=>u.status==='complete'));assert.equal((await s.chrome.tabs.get(tab.id)).status,'loading');
+ s.conn.fire('Page.frameStoppedLoading',{frameId:'F1'});await flush();assert.equal(updates.at(-1).status,'complete');
+});
+test('Chrome starts only on request: reads and tab lookups never launch it',async()=>{
+ const s=setup();await s.chrome.tabs.query({});assert.deepEqual(s.launches.at(-1),{launch:false});
+ await s.adapter.connect({launch:true});
+ const again=setup({openBrowser:async({launch})=>{if(!launch)throw Error('no_browser');return new FakeConn();}});
+ await assert.rejects(again.chrome.tabs.query({}),/no_browser/);await assert.rejects(again.chrome.tabs.create({url:BANK}),/no_browser/);
+});
+test('attach: interception is ready before callers continue, including tabs found after a restart',async()=>{
+ const order=[];let release;const gate=new Promise(r=>{release=r;});
+ const s=setup({prepareTab:async()=>{order.push('prepare');await gate;order.push('prepared');}});
+ s.conn.targets=[{type:'page',targetId:TARGET,url:BANK}];
+ const connected=s.adapter.connect();await flush();
+ const query=s.chrome.tabs.query({}).then(tabs=>{order.push('query');return tabs;});await flush();
+ assert.deepEqual(order,['prepare'],'a concurrent caller waits for enumeration');
+ release();await connected;const tabs=await query;assert.deepEqual(order,['prepare','prepared','query']);assert.equal(tabs[0].url,undefined);
+ // A detached session is attached again on next use.
+ s.conn.fire('Page.frameNavigated',{frame:{id:'F1',url:BANK.split('#')[0],urlFragment:'#/dashboard/overview',loaderId:'L2'}});
+ s.conn.emit('event','Target.detachedFromTarget',{sessionId:'S1'});
+ const attaches=s.conn.methods('Target.attachToTarget').length;await s.chrome.scripting.executeScript({target:{tabId:tabs[0].id},func:()=>1}).catch(()=>{});
+ assert.equal(s.conn.methods('Target.attachToTarget').length,attaches+1);
+});
+test('scripting waits for the document to parse before running, like document_idle',async()=>{
+ const s=setup(),tab=await bankTab(s),seen=[];s.conn.evaluate=p=>{seen.push(p.expression);return {result:{}};};
+ await s.chrome.scripting.executeScript({target:{tabId:tab.id},func:()=>'body'});
+ const parsed=seen.findIndex(e=>e.includes('DOMContentLoaded'));assert.ok(parsed>=0&&parsed<seen.findIndex(e=>e.includes("'body'")));
+});
+test('leaving the bank hosts mid-read is reported with the host only',async()=>{
+ const s=setup(),tab=await bankTab(s);s.conn.commit('https://www.other.example/path?secret=1','L7');
+ assert.deepEqual(s.blocked,[{tabId:tab.id,host:'www.other.example',reason:'left_permitted_hosts'}]);
+});
 test('tabs: closing a tab or losing Chrome fires onRemoved',async()=>{
  const s=setup(),removed=[];s.chrome.tabs.onRemoved.addListener(id=>removed.push(id));
  const tab=await bankTab(s);
  s.conn.fire('Target.targetDestroyed',{targetId:TARGET});assert.deepEqual(removed,[tab.id]);
- const lost=setup(),gone=[];lost.chrome.tabs.onRemoved.addListener(id=>gone.push(id));const other=await bankTab(lost);lost.conn.emit('close');assert.deepEqual(gone,[other.id]);
+ let stopped=0;const lost=setup({onBrowserLost:async()=>{stopped++;assert.equal(gone.length,0,'run stops before tabs are reported closed');}}),gone=[];lost.chrome.tabs.onRemoved.addListener(id=>gone.push(id));const other=await bankTab(lost);lost.conn.emit('close');await flush();assert.deepEqual(gone,[other.id]);assert.equal(stopped,1);
 });
 test('scripting: func, args and results cross in an isolated world with document scoping',async()=>{
  const s=setup(),tab=await bankTab(s);
@@ -177,7 +214,7 @@ test('page messages: only the tab\'s current isolated context is a sender',async
 });
 test('block signal: refusals stop the run, a login page does not',async()=>{
  assert.equal(blockSignal({status:403,title:'x'}),'http_403');assert.equal(blockSignal({status:429}),'http_429');
- assert.equal(blockSignal({status:200,title:'Access Denied'}),'block_page');
+ assert.equal(blockSignal({status:200,title:'Access Denied'}),'block_page');assert.equal(blockSignal({status:200,title:'Just a moment...'}),'block_page');
  assert.equal(blockSignal({status:200,title:'Sign in'}),null);assert.equal(blockSignal({status:302}),null);assert.equal(blockSignal(),null);
  const s=setup();s.conn.evaluate=p=>p.expression.includes('responseStatus')?{result:{value:{status:403,title:'x'}}}:{result:{}};
  const tab=await s.chrome.tabs.create({url:BANK,active:false});s.conn.commit(BANK);s.conn.fire('Page.frameStoppedLoading',{frameId:'F1'});s.conn.fire('Page.frameStoppedLoading',{frameId:'F1'});await flush();await flush();
@@ -199,7 +236,8 @@ test('alarms fire once; storage is private, atomic and returns copies',async()=>
  }finally{await rm(home,{recursive:true,force:true});}
 });
 test('collector routes reject other sites and hosts',()=>{
- const req=headers=>({headers:{host:'127.0.0.1:8784',...headers}});
+ const req=headers=>({socket:{remoteAddress:'127.0.0.1'},headers:{host:'127.0.0.1:8784',...headers}});
+ assert.equal(collectorGuard({...req({}),socket:{remoteAddress:'192.168.1.5'}},8784),'not_loopback');
  assert.equal(collectorGuard(req({}),8784),null);
  assert.equal(collectorGuard(req({origin:'http://127.0.0.1:8784','sec-fetch-site':'same-origin'}),8784),null);
  assert.equal(collectorGuard(req({host:'evil.test'}),8784),'invalid_host');
