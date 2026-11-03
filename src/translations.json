@@ -1069,7 +1069,23 @@
     "美国 · Chase": "United States · Chase",
     "美国 · Hilton": "United States · Hilton",
     "美国 · BOA": "United States · BOA",
-    "HSBC 页面注明：正数原始余额为结余，负数为欠款。本页统一为正数欠款、负数结余；原始数值另行保留。": "HSBC states that positive original balances mean credit and negative mean debt. This page normalizes them to positive debt and negative credit; original values are retained separately."
+    "HSBC 页面注明：正数原始余额为结余，负数为欠款。本页统一为正数欠款、负数结余；原始数值另行保留。": "HSBC states that positive original balances mean credit and negative mean debt. This page normalizes them to positive debt and negative credit; original values are retained separately.",
+    "网约车": "Ride-share",
+    "地面交通": "Ground transport",
+    "外卖配送": "Delivery",
+    "酒店": "Hotel",
+    "航空": "Airline",
+    "机场与出入境": "Airport and border",
+    "旅行": "Travel",
+    "娱乐": "Entertainment",
+    "购物": "Shopping",
+    "健身": "Fitness",
+    "积分奖励": "Rewards",
+    "费用": "Fees",
+    "持卡管理": "Card management",
+    "渠道能力": "Channel",
+    "一般消费": "General spending",
+    "{0} 标志": "{0} logo"
   },
   "zh-TW": {
     "美国": "美國",
@@ -2141,6 +2157,22 @@
     "美国 · Chase": "美國 · Chase",
     "美国 · Hilton": "美國 · Hilton",
     "美国 · BOA": "美國 · BOA",
-    "HSBC 页面注明：正数原始余额为结余，负数为欠款。本页统一为正数欠款、负数结余；原始数值另行保留。": "HSBC 頁面註明：正數原始餘額為結餘，負數為欠款。本頁統一為正數欠款、負數結餘；原始數值另行保留。"
+    "HSBC 页面注明：正数原始余额为结余，负数为欠款。本页统一为正数欠款、负数结余；原始数值另行保留。": "HSBC 頁面註明：正數原始餘額為結餘，負數為欠款。本頁統一為正數欠款、負數結餘；原始數值另行保留。",
+    "网约车": "網約車",
+    "地面交通": "地面交通",
+    "外卖配送": "外賣配送",
+    "酒店": "酒店",
+    "航空": "航空",
+    "机场与出入境": "機場與出入境",
+    "旅行": "旅行",
+    "娱乐": "娛樂",
+    "购物": "購物",
+    "健身": "健身",
+    "积分奖励": "積分獎勵",
+    "费用": "費用",
+    "持卡管理": "持卡管理",
+    "渠道能力": "渠道能力",
+    "一般消费": "一般消費",
+    "{0} 标志": "{0} 標誌"
   }
 }

@@ -20,7 +20,7 @@ export function identifyBrand({programmeIds=[],title}={}){
 }
 function view(brand,category){
  const approved=brand?.status==='approved'&&brand.logo?brand.logo:null;
- return {brandId:brand?.id||null,name:brand?.name||null,logo:approved,category:registry.categories[category]?category:null};
+ return {brandId:brand?.id||null,name:brand?.name||null,logo:approved,category:Object.hasOwn(registry.categories,category??'')?category:null};
 }
 export function logoForRule(rule){
  if(!rule)return view(null,null);
@@ -47,4 +47,15 @@ export function logoForText(text){
  if(typeof text!=='string')return view(null,null);
  const clean=text.normalize('NFKC').replace(/\s+/g,' ').trim(),found=matches(textPatterns,clean),brand=single(found);
  return brand&&textPatterns.some(([b,re])=>b===brand&&clean.search(re)===0)?view(brand,brand.category):view(null,null);
+}
+// What to draw: logo, then category icon, then nothing. A broken file falls back like a missing one.
+export function logoPresentation(view,{broken=false}={}){
+ if(view?.logo&&view.name&&!broken)return {kind:'logo',src:view.logo,label:'{0} 标志',labelParams:[view.name]};
+ const category=Object.hasOwn(registry.categories,view?.category??'')?registry.categories[view.category]:null;
+ return category?{kind:'icon',icon:category.icon,label:category.label}:null;
+}
+// The first source that identifies anything wins; an explicit category is the last resort.
+export function resolveItem({view,ruleId,programme,earning,text,category}={}){
+ const candidates=[view,ruleId&&logoForRuleId(ruleId),programme&&logoForProgramme(programme),earning&&logoForEarning(earning),text&&logoForText(text)];
+ return candidates.find(c=>c?.logo||c?.category)||logoForCategory(category);
 }
