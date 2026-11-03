@@ -261,9 +261,7 @@
    "titleTokens": [
     "Peloton"
    ],
-   "textTokens": [
-    "Peloton"
-   ],
+   "textTokens": [],
    "status": "unverified",
    "logo": null,
    "candidate": "simple-icons@16.36.0:peloton",
@@ -815,9 +813,7 @@
     "programme.wyndham-rewards"
    ],
    "titleTokens": [],
-   "textTokens": [
-    "Wyndham"
-   ],
+   "textTokens": [],
    "status": "unverified",
    "logo": null,
    "candidate": null,

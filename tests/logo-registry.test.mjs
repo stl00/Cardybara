@@ -18,7 +18,7 @@ test('registry references only known categories',()=>{
  for(const b of registry.brands)assert.ok(known.includes(b.category),b.id);
  for(const id of [...Object.values(registry.scenarioCategories),...Object.values(registry.earningLabels),...Object.values(registry.ruleOverrides)])assert.ok(known.includes(id),id);
  assert.deepEqual(taxonomy.scenarios.map(s=>s.id).filter(id=>!registry.scenarioCategories[id]),[]);
- for(const id of Object.keys(registry.ruleOverrides))assert.ok(rules.some(r=>r.id===id),id);
+ for(const id of [...Object.keys(registry.ruleOverrides),...registry.ruleNoBrand])assert.ok(rules.some(r=>r.id===id),id);
 });
 test('a logo ships only with approval, a local file, a source and terms',()=>{
  const files=existsSync(logosDir)?readdirSync(logosDir,{recursive:true}):[];
@@ -46,8 +46,8 @@ test('an approved brand resolves to its local file',()=>{
  try{assert.equal(logoForRuleId('rule.chase-us-sapphire-reserve.dashpass').logo,'brand/logos/doordash.svg');}finally{Object.assign(brand,saved);}
 });
 test('merchant matching does not create false matches',()=>{
- for(const text of ['Tuber Farm','Ouralike Labs','Resynth Audio','uber lowercase','Walmartian','Peloton2','United States Postal','Delta Faucet','Apple Pie Bakery','Clear Skies Spa','Southwest Grill','Virgin Olive Oil','Hilton Head Golf','The Edit LDN','ANA Yoga','EVA Foam','Home Chef Catering','HK Express Courier','Plaza Premium Outlet','Priority Pass Lane','Non-Uber rides','Excludes Walmart','不含 DoorDash'])assert.equal(logoForText(text).brandId,null,text);
- assert.equal(logoForText('$10 back at DoorDash').brandId,'doordash');
+ for(const text of ['Tuber Farm','Ouralike Labs','Resynth Audio','uber lowercase','Walmartian','Peloton2','United States Postal','Delta Faucet','Apple Pie Bakery','Clear Skies Spa','Southwest Grill','Virgin Olive Oil','Hilton Head Golf','The Edit LDN','ANA Yoga','EVA Foam','Home Chef Catering','HK Express Courier','Plaza Premium Outlet','Priority Pass Lane','Non-Uber rides','Excludes Walmart','不含 DoorDash','Excl. Uber','Other than Uber','Without Walmart','除Uber外','排除 Uber','非 Uber 商户','Wyndham Estate Wines','Peloton Cycles','Uber-like'])assert.equal(logoForText(text).brandId,null,text);
+ assert.equal(logoForText('DoorDash: $10 back').brandId,'doordash');assert.equal(logoForText('$10 back at DoorDash').brandId,null,'position unknown');assert.equal(logoForText('Uber  Eats').category,'delivery');
  assert.equal(logoForText('Uber Eats').brandId,'uber-eats');assert.equal(logoForText('Uber Eats').category,'delivery');assert.equal(logoForText('Uber ride').category,'ride-share');
  assert.equal(logoForRuleId('rule.amex-us-us-morgan-stanley-platinum-card.lounge').brandId,null);assert.equal(logoForRuleId('rule.amex-us-us-morgan-stanley-platinum-card.lounge').category,'lounge');
  assert.equal(logoForText('DoorDash or Lyft').brandId,null,'two brands choose neither');
