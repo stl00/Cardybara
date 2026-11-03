@@ -10,6 +10,8 @@ import {openBrowser,parseActivePort} from '../scripts/dev-collector/chrome-launc
 import {createChromeAdapter,hostPermissions} from '../scripts/dev-collector/chrome-adapter.mjs';
 import {syntheticPrepareTab} from '../scripts/dev-collector/synthetic-bank.mjs';
 import {chaseCards} from '../extension-next/chase-navigation.js';
+import {discoverVisibleCards} from '../extension-next/discovery.js';
+import {redactStructureText,structureReport} from '../scripts/dev-collector/structure-report.js';
 import {capturePage} from '../extension-next/agent-snapshot.js';
 
 const extensionRoot=fileURLToPath(new URL('../extension-next',import.meta.url));
@@ -95,6 +97,39 @@ test('a no-payment banner left over from the previous card does not land on the 
   await back();await until(()=>exec(()=>!!document.getElementById('accounts-name-link-button-300')));
   const next=await read('9012','plain');
   assert.ok(next.includes('balance'));assert.ok(!next.includes('paymentStatus'),'the leftover banner must not apply');
+ }finally{await run.stop();}
+});
+
+test('generated Chase pages read the same however cards and programmes are named, counted or ordered',async()=>{
+ const run=await start();
+ const base=(tail,i)=>({internal:String(100+i),tail,balance:'$'+(10+i)+'.50',available:'$90.00',statement:'$4.25',closing:'$6.00',minimum:'$2.00',due:'Dec 3, 2031',points:String(1000+i)});
+ const plain=[0,1].map(i=>({...base('300'+i,i),name:'Plain Card'}));
+ const variants={renamed:plain.map((c,i)=>({...c,name:'Quokka Voyager '+i,programme:'Quokka Club Points'})),partner:plain.map(c=>({...c,name:'Zephyrine Business',partner:true,programme:'Zephyrine Trail Miles'})),authorized:plain.map(c=>({...c,name:'Authorized User Card'})),reversed:[...plain].reverse(),many:Array.from({length:12},(_,i)=>({...base('40'+String(i).padStart(2,'0'),i),name:'Card '+i}))};
+ try{
+  const {chrome}=run.adapter,events=[];chrome.tabs.onUpdated.addListener((id,c)=>events.push(c));
+  const tab=await chrome.tabs.create({url:BANK,active:false});await until(()=>events.some(e=>e.status==='complete'));
+  const exec=(func,args=[])=>chrome.scripting.executeScript({target:{tabId:tab.id},func,args}).then(r=>r[0].result);
+  for(const [name,rows] of Object.entries(variants)){
+   const mark=events.length;await exec(json=>{sessionStorage.setItem('synthetic-signed-in','1');sessionStorage.setItem('synthetic-cards',json);location.hash='#/dashboard/overview';location.reload();},[JSON.stringify(rows)]);
+   await until(()=>events.slice(mark).some(e=>e.status==='complete'));await until(()=>exec(()=>/\/overview/.test(location.hash)&&!!document.getElementById('CARD_ACCOUNTS')));
+   await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
+   const found=await exec(discoverVisibleCards,['Chase',['en-US']]);
+   assert.deepEqual(found.cards.map(c=>c.tail),rows.map(r=>r.tail),name+': found every card and no checking account');
+   const cards=rows.map(r=>({id:'c'+r.tail,bank:'Chase',tail:r.tail,currency:'USD'}));
+   for(const row of rows.slice(0,3)){
+    assert.deepEqual(await exec(chaseCards,['select',row.tail,cards]),[row.tail],name);
+    const raw=await exec(capturePage,['Chase',cards,['c'+row.tail]]);assert.equal(raw.error,undefined,name);
+    const got=Object.fromEntries(raw.observations.filter(i=>['card','reward'].includes(i.kind)).map(i=>[i.kind==='reward'?'reward':i.key,i.value]));
+    assert.deepEqual(got,{balance:Number(row.balance.replace('$','')),statement:4.25,statementClosing:6,minimum:2,reward:Number(row.points)},name+' '+row.tail);
+    assert.ok(raw.observations.some(i=>i.key==='due'&&i.date==='2031-12-03'),name);assert.deepEqual(raw.unrecognized,[],name);
+    if(row.partner)assert.equal(raw.observations.find(i=>i.kind==='reward').key,row.programme);
+    await exec(()=>{location.hash='#/dashboard/overview';});await until(()=>exec(()=>!!document.getElementById('CARD_ACCOUNTS')));
+   }
+  }
+  // Structure report: labels survive, and no name, tail or value does.
+  const report=await exec(structureReport,[redactStructureText.toString()]),dump=JSON.stringify(report);
+  assert.ok(report.rows.length>0);assert.ok(dump.includes('accounts-name-link-button-#'));
+  for(const secret of ['4000','4001','Card 0','10.50','$10','1000'])assert.ok(!dump.includes(secret),secret);
  }finally{await run.stop();}
 });
 

@@ -26,6 +26,16 @@
 
 合成演练（目录一旦用于合成或真实模式就不能混用）：`CARDYBARA_COLLECTOR_HOME=<临时目录> CARDYBARA_SYNTHETIC_BANK=page npm run dev`。此模式把已接管标签页的 HTTPS 请求答复为 `tests/fixtures/synthetic-bank.html`，并让专用 Chrome 的所有 DNS 解析失败，因此连不到银行；`CARDYBARA_SYNTHETIC_BANK=blocked` 演练被拦截。`npm run test:collector-chrome` 用真实 headless Chrome 跑 adapter，本地手动执行，不在 CI。以上都属于“流程回归”，不是真实终验。
 
+## 账户之外的卡片
+
+开发账户相当于训练集，读通它不说明别人的卡也能读。规则跟页面结构走，卡名和积分计划名只是读到的数据，不能决定某张卡或某个字段是否被读取。
+
+- `tests/out-of-sample.test.mjs` 会在产品名或积分计划名进入 `extension-next/` 时失败，并覆盖不变性、hold-out 和未识别内容的报告。`npm run test:collector-chrome` 在真实 Chrome 里用生成的页面变化卡名、数量和顺序。
+- 未识别的积分项目记为 `unrecognized_programme`，该卡积分显示待补齐，不猜值。
+- 遇到没见过的页面：在专用 Chrome 打开该页，运行 `npm run diagnose:bank`。报告写到被忽略的 `.debug/structure/`，只保留元素 id、通用标签和数值形状；词表外的词一律替换，名称、尾号和金额不会留下。发出前请自己再看一遍。
+
+证据要分开报告：合成测试只覆盖想得到的布局。真实证据目前只来自一个开发账户，要说“其他账户可用”，每家银行至少要有一位持不同卡的测试者；测试者的真实数据不进仓库。
+
 ## 三层证据
 
 | 检查 | 输入 | 通过含义 |

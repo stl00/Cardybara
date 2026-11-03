@@ -3,6 +3,7 @@ import {PROVIDERS} from './providers.js';
 // Only masked account identities cross the page boundary. Never read input values.
 // This function is serialized into the bank tab and must remain self-contained.
 export function discoverVisibleCards(bank,locales){
+ const NOT_A_CARD=/\b(?:checking|savings?|deposit|mortgage|loan|brokerage|investment|ira|cd)\b|支票|儲蓄|储蓄|存款|定期|按揭|貸款|贷款|投資|投资/i;
  const visible=e=>!!e?.getClientRects().length&&getComputedStyle(e).visibility!=='hidden';
  if([...document.querySelectorAll('input[type=password]')].some(visible))return {status:'needs_login',cards:[]};
  const lang=(document.documentElement.lang||'').replaceAll('_','-').split('-').filter(p=>p.length!==4).join('-').toLowerCase();
@@ -18,7 +19,8 @@ export function discoverVisibleCards(bank,locales){
   if(/(?:\d[ -]?){9,}/.test(text))continue;
   const matches=[...text.matchAll(/(?:[•●*xX]{2,}\s*|\.{3}\s*|ending\s+(?:in\s+)?|尾號\s*|尾号\s*)(\d{4,5})(?!\d)/gi)];
   if(matches.length!==1)continue;
-  if(!chaseGroup&&!bank.startsWith('Amex ')&&!/credit|card|visa|mastercard|sapphire|freedom|united|aeroplan|cash rewards|travel rewards|premium rewards|信用卡|白金|世界|銀聯|银联|獎賞|奖赏/i.test(text))continue;
+  // Product names are data. Only account types that are not cards are skipped.
+  if(!chaseGroup&&!bank.startsWith('Amex ')&&NOT_A_CARD.test(text))continue;
   const name=text.split('\n').map(s=>s.trim()).find(s=>s&&!/(?:\d[ -]?){9,}/.test(s))||'';
   cards.push({tail:matches[0][1],name:name.slice(0,100)});
  }

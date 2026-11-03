@@ -2,6 +2,9 @@
 (()=>{
  const labels={statementClosing:/^(?:月結單結欠|月结单结欠|賬單結欠|账单结欠|statement balance|statement closing balance)$/i,creditLimit:/^(?:credit limit|信用限額|信用額度|信用额度)$/i,balance:/^(current balance|outstanding balance|total balance|balance outstanding|總結欠|总欠款|总计结欠|總計結欠|目前結欠|現時結欠|目前結餘|結欠|結餘|現時結餘|当前余额|目前结欠|现时结欠|目前结余|结欠|结余|solde actuel)$/i,available:/^(available credit|available credit limit|available credit amount|可用信貸額|可用信貸額度|可用信用額|可用信用額度|可用額度|可用额度|可用信贷额|可用信贷额度|crédit disponible)$/i,statement:/^(statement balance|remaining statement balance|last statement balance|statement closing balance|賬單結欠|帳單結欠|月結單結欠|月結單結餘|結單結欠|结单结欠|月结单结欠|solde du relevé)$/i,minimum:/^(minimum payment due|minimum payment|minimum amount due|minimum due|最低還款|最低还款|最低還款額|最低還款金額|最低付款額|最低付款金額|最低还款额|最低还款金额|paiement minimum)$/i};
  const currencyToken=/^(?:HK\$|CA\$|US\$|\$|HKD|CAD|USD|CNY|RMB|CN¥)$/i;
+ // A rewards label by its shape: a short phrase with a rewards unit word and no digits. structural: the unit
+ // words are generic vocabulary, not programme names, and a verb-led phrase is an action, not a balance.
+ function rewardLabel(line){const t=String(line||'').trim();return t.length>=2&&t.length<=60&&!/\d/.test(t)&&/points?|miles?|rewards?|cash ?back|積分|积分|獎賞|奖赏|里數|里数|哩|萬里|万里|回贈|回赠/i.test(t)&&!/^(?:redeem|use|earn|view|see|explore|learn|go to|transfer|shop|book|pay|manage|how|about|兌換|兑换|查看|了解)\b/i.test(t)&&!/^(?:兌換|兑换|查看|了解)/.test(t);}
  function labelText(value){return value.normalize('NFKC').replace(/[\u200b-\u200d\ufeff]/g,'').replace(/[:：]\s*$/,'').replace(/\s*[（(](?:HKD|USD|CAD|港元|港幣|港币)[）)]\s*$/i,'').trim();}
  function resolveLocale(lang,locales){
   const normalized=(lang||'').replaceAll('_','-').toLowerCase();
@@ -84,7 +87,7 @@
   if(!dates.length&&new Set(partialDates.map(d=>d.text.replace(/\s/g,''))).size===1){add('billing','duePartial',null,partialDates[0].evidence);items.at(-1).title=partialDates[0].text;}
   // An overview with a positive minimum or a printed due conflicts with no-payment wording.
   if(items.some(i=>(i.key==='minimum'&&i.value>0)||['due','duePartial'].includes(i.key)))for(let i=items.length-1;i>=0;i--)if(items[i].key==='paymentStatus')items.splice(i,1);
-  if(['overview','rewards'].includes(page))for(let i=0;i<lines.length-1;i++)if(/^(?:Membership Rewards[®™]?|美國運通積分計劃|美国运通积分计划)$/i.test(lines[i])&&/^\d[\d,]*$/.test(lines[i+1])){
+  if(['overview','rewards'].includes(page))for(let i=0;i<lines.length-1;i++)if(rewardLabel(lines[i])&&/^\d[\d,]*$/.test(lines[i+1])){
    const n=Number(lines[i+1].replaceAll(',',''));if(Number.isSafeInteger(n)&&n<=1e9){add('reward',lines[i],n,lines.slice(i,i+2).join('\n'));}
   }
   // Conflicting duplicate observations are not financial evidence.
@@ -154,9 +157,11 @@
   // Needs this card's own balance on screen: a banner alone may belong to the previous card.
   if(new Set(notices).size===1&&items.some(i=>i.key==='balance')&&!String(due||'').trim()&&!items.some(i=>i.key==='minimum'&&i.value>0))items.push({kind:'billing',cardId:alias,key:'paymentStatus',title:notices[0],value:null,currency:card.currency,date:'',status:'unknown',evidence:'['+alias+']\n'+notices[0]});
   const autopay=raw['autoPay-dataItem'],a=autopay?.match(/^Automatic payments\s*\n\s*(On|Off)(?:\s|$)/i);if(a)add('billing','autopay','Automatic payments',null,card.currency,'',a[1].toLowerCase(),autopay);
-  for(const [id,programme]of [['ultimateRewards-dataItem',null],['partnerRewards-dataItem',snapshot.rewardLabel]]){
-   const text=raw[id];if(!text)continue;const lines=text.split('\n').map(s=>s.trim()).filter(Boolean),name=programme||(/^Ultimate Rewards[®™]? points$/i.test(lines[0])?lines[0]:null),numbers=lines.filter(s=>/^\d[\d,]*$/.test(s));
-   if(name&&numbers.length===1)add('reward',name,name,Number(numbers[0].replaceAll(',','')),'points','','unknown',name+'\n'+text);
+  // A rewards row is known by its element id, and its programme name is data: the row's own first line, or the control beside it.
+  for(const id of Object.keys(raw).filter(k=>/-dataItem$/.test(k)&&/reward|points|miles|cash.?back/i.test(k))){
+   const lines=String(raw[id]).split('\n').map(s=>s.trim().replace(/^\|\s*/,'')).filter(Boolean),numbers=lines.filter(s=>/^\d[\d,]*$/.test(s)),own=lines.find(s=>!/^\d[\d,]*$/.test(s)&&rewardLabel(s)),name=own||snapshot.rewardLabel;
+   if(!name||numbers.length!==1){rejected.push('unrecognized_programme');continue;}
+   add('reward',name,name,Number(numbers[0].replaceAll(',','')),'points','','unknown',name+'\n'+raw[id]);
   }
   for(const table of snapshot.tables||[]){if(!table.headers?.some(h=>/^Date\b/.test(h))||!table.headers?.some(h=>/^Amount\b/.test(h)))continue;const tx=chaseTransactions(table.rows.map(c=>({date:c[0],description:c[1],amount:c[3],status:''})),card,alias);items.push(...tx.items);rejected.push(...tx.rejected);}
   return {items,rejected};
@@ -185,7 +190,7 @@
   if(q('input[type="password"]').some(visible))return {error:'needs_login'};
   const overview=/^#\/dashboard\/overview(?:[/?]|$)/.test(route),heads=q('h1,[role="heading"][aria-level="1"]').map(text).filter(Boolean),buttons=q('button,[role="button"]');let selected=null;
   if(!overview){const evidence=/\/summary\//.test(route)?heads.join('\n'):heads.join('\n')+'\n'+buttons.filter(visible).map(e=>e.getAttribute('aria-label')||text(e)).filter(t=>/\.{3}\s*\d{4}\)?$/.test(t)).join('\n');const found=cards.filter(c=>new RegExp('\\.\\.\\.\\s*'+c.tail+'(?![0-9])').test(evidence));if(found.length!==1)return {error:'card_not_identified'};selected=found[0];if(contextIds.length===1&&selected.id!==contextIds[0])return {error:'document_changed'};}
-  const matches=selected?[selected]:cards,aliases=matches.map((c,i)=>({id:'C'+(i+1),cardId:c.id,currency:c.currency})),observations=[],blocks=[],empty=[],coverage=[];let rejected=0;
+  const matches=selected?[selected]:cards,aliases=matches.map((c,i)=>({id:'C'+(i+1),cardId:c.id,currency:c.currency})),observations=[],blocks=[],empty=[],coverage=[],unrecognized=[];let rejected=0;
   const add=i=>{const item={...i,evidence:safe(i.evidence)};observations.push(item);blocks.push({id:'B'+(blocks.length+1),text:item.evidence});};
   if(overview){
    // The overview transaction picker may be a checking account. Never expose its
@@ -195,9 +200,11 @@
     for(const [key,[part,label]]of Object.entries(suffix)){const node=document.getElementById(internal+'-'+part+'-dataItem');if(!node)continue;const raw=text(node),values=[...new Set(raw.split('\n').map(s=>money(s,c.currency,'en-US')).filter(n=>n!==null))];if(values.length===1)add({kind:'card',cardId:alias,key,title:label,value:values[0],currency:c.currency,date:'',status:'unknown',evidence:'['+alias+']\n'+text(bs[0])+'\n'+label+'\n'+raw});}
    }
   }else if(/\/summary\//.test(route)){
-   const dataItems=[...document.querySelectorAll('[id$="-dataItem"]')].map(n=>({key:n.id,text:text(n)})),fields={currentBalance:text(document.getElementById('currentBalance'))},label=q('button,[role="button"],[aria-label]').map(e=>e.getAttribute('aria-label')||text(e)).find(t=>/^(?:MileagePlus[®™]? Miles|IHG One Rewards points)$/.test(t));
+   const dataItems=[...document.querySelectorAll('[id$="-dataItem"]')].map(n=>({key:n.id,text:text(n)})),fields={currentBalance:text(document.getElementById('currentBalance'))};
+   // The nearest control naming a programme around the partner row. Two different names give none.
+   let label=null;for(let n=document.getElementById('partnerRewards-dataItem'),depth=0;n&&depth<5&&!label;n=n.parentElement,depth++){const names=[...new Set([n,...n.querySelectorAll('button,[role="button"],[aria-label]')].map(e=>(e.getAttribute('aria-label')||(e===n?'':text(e))||'').trim()).filter(rewardLabel))];if(names.length>1)break;label=names[0]||null;}
    const tables=[...document.querySelectorAll('main table')].map(t=>({headers:[...t.querySelectorAll('thead th')].map(text),rows:[...t.querySelectorAll('tbody tr')].map(tr=>[...tr.querySelectorAll('th,td')].map(text))}));
-   const result=chaseDetail({title:heads.find(t=>new RegExp('\\.\\.\\.'+selected.tail).test(t)),dataItems,fields,rewardLabel:label,paymentNotices:q('[id="title-focus-target"]').filter(e=>visible(e)&&!self.CardyChaseStaleNotices?.has(e)).map(text),tables},selected);result.items.forEach(add);rejected+=result.rejected.length;
+   const result=chaseDetail({title:heads.find(t=>new RegExp('\\.\\.\\.'+selected.tail).test(t)),dataItems,fields,rewardLabel:label,paymentNotices:q('[id="title-focus-target"]').filter(e=>visible(e)&&!self.CardyChaseStaleNotices?.has(e)).map(text),tables},selected);result.items.forEach(add);rejected+=result.rejected.length;for(const r of result.rejected)if(r==='unrecognized_programme')unrecognized.push(r);
    const noActivity=q('p,[role="paragraph"]').some(e=>visible(e)&&text(e)==='You have no activity to display from this time. Try updating your filters.');if(noActivity)empty.push({kind:'transaction',cardId:selected.id});
   }else if(/\/merchantOffers\//.test(route)){
    const initial=window.scrollY,seen=new Map();let expected=0,stable=0,last=-1;
@@ -217,7 +224,7 @@
    else if(ratios.length===1){const title=heads.find(t=>!/^Benefits\s*\(/.test(t)),validThrough=values.find(t=>/^Good through \d{1,2}\/\d{1,2}\/20\d{2}$/.test(t));if(title)chaseBenefitGauge(title,ratios[0],validThrough,selected).forEach(add);}
   }
   const current=q('h1,[role="heading"][aria-level="1"],button,[role="button"]').map(e=>e.getAttribute('aria-label')||text(e)).join('\n');if(selected&&!new RegExp('\\.\\.\\.\\s*'+selected.tail+'(?![0-9])').test(current))return {error:'document_changed'};
-  return {pageHref,capturedAt:now,aliases,observations,blocks,links:[],empty,coverage,rulesComplete:rejected===0,ruleRejected:rejected};
+  return {pageHref,capturedAt:now,aliases,observations,blocks,links:[],empty,coverage,unrecognized,rulesComplete:rejected===0,ruleRejected:rejected};
  }
  const shown=el=>el&&el.getClientRects().length>0&&el.ownerDocument.defaultView.getComputedStyle(el).visibility!=='hidden';
  function identify(text,cards){const matches=cards.filter(c=>new RegExp(`(?:^|[^0-9])${c.tail}(?:[^0-9]|$)`).test(text));return matches.length===1?matches[0].id:null;}
@@ -310,5 +317,5 @@
   // DOM readiness is event driven; this bounded observation does not hold the worker alive.
   return new Promise(resolve=>{let timer,debounce;const finish=()=>{observer.disconnect();clearTimeout(timer);clearTimeout(debounce);resolve(read(bank,cards,locales));};const observer=new MutationObserver(()=>{clearTimeout(debounce);debounce=setTimeout(()=>{current=read(bank,cards,locales);if(current.patches.length||current.status!=='no_data')finish();},150);});observer.observe(document.documentElement,{childList:true,subtree:true,characterData:true});timer=setTimeout(finish,10000);});
  }
- self.CardyReader={amexHkMvp,chaseSnapshot,chaseBenefitText,chaseBenefitGauge,chaseDate,chaseTransactions,chaseDetail,chaseOffer,amexHkTransactionRows,hsbcTransactionRows,authState,money,parseAccount,identify,chaseBindings,read,observe,resolveLocale,parseAmexOverview};
+ self.CardyReader={rewardLabel,amexHkMvp,chaseSnapshot,chaseBenefitText,chaseBenefitGauge,chaseDate,chaseTransactions,chaseDetail,chaseOffer,amexHkTransactionRows,hsbcTransactionRows,authState,money,parseAccount,identify,chaseBindings,read,observe,resolveLocale,parseAmexOverview};
 })();

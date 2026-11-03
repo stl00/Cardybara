@@ -23,7 +23,7 @@ export async function capturePage(bank,cards,contextIds=[]){
  const privateNames=bank==='Amex HK'?query('table').filter(t=>[...t.querySelectorAll('th')].some(h=>/^會員$/.test(h.innerText.trim()))).flatMap(t=>[...t.querySelectorAll('tbody tr')].map(r=>r.querySelector('td')?.innerText.trim()).filter(n=>n&&n!=='總額')):[];
  const replace=t=>{let out=redact(t);for(const name of privateNames)out=out.split(name).join('[cardholder]');matches.forEach((c,i)=>{out=out.replace(new RegExp('(^|[^0-9])'+c.tail+'(?=[^0-9]|$)','g'),'$1[C'+(i+1)+']');});return out;};
  const scopedText=t=>{const hits=cards.filter(c=>new RegExp('(?:^|[^0-9])'+c.tail+'(?:[^0-9]|$)').test(t));if(hits.length>1||hits.some(c=>!matches.some(m=>m.id===c.id)))return '';const id=hits.length===1?aliases.find(a=>a.cardId===hits[0].id)?.id:selectedCardId?aliases.find(a=>a.cardId===selectedCardId)?.id:null;return (id?'['+id+']\n':'')+replace(t);};
- const financial=/積分計劃|积分计划|points|rewards|RewardCash|offers|benefit|transaction|balance|statement|credit|purchase|payment|積分|积分|獎賞|奖赏|優惠|优惠|福利|交易|結欠|结欠|餘額|余额|月結|月结|抵扣/i;
+ const financial=/積分計劃|积分计划|points|reward|offers|benefit|transaction|balance|statement|credit|purchase|payment|積分|积分|獎賞|奖赏|優惠|优惠|福利|交易|結欠|结欠|餘額|余额|月結|月结|抵扣/i;
  const blocks=[],seen=new Set(),observations=[];let size=0;
  let sourceBody=body;
  if(bank==='HSBC HK'&&selectedCardId){
@@ -37,7 +37,8 @@ export async function capturePage(bank,cards,contextIds=[]){
   const fields=parsed?.patches?.find(p=>p.id===selectedCardId)?.fields||{};
   const labels={creditLimit:/^Credit limit:?$/i,balance:/^Account balance:?$/i,statement:/^Current amount due:?$/i,minimum:/^Total minimum payment amount:?$/i,available:/^Available credit limit:?$/i};
   for(const [key,value]of Object.entries(fields)){const at=lines.findIndex(t=>labels[key]?.test(t));if(at>=0)add({kind:'card',cardId:'C1',key,title:lines[at],value,currency:aliases[0].currency,date:'',status:'unknown',evidence:'[C1]\n'+replace(lines.slice(at,at+4).join('\n'))});}
-  const rewardAt=lines.findIndex(t=>/^RewardCash balance:?$/i.test(t));if(rewardAt>=0&&/^\d[\d,]*$/.test(lines[rewardAt+1]||'')){const value=Number(lines[rewardAt+1].replaceAll(',',''));if(Number.isSafeInteger(value)&&value<=1e9)add({kind:'reward',cardId:'C1',key:'RewardCash',title:'RewardCash',value,currency:'points',date:'',status:'unknown',evidence:'[C1]\n'+replace(lines.slice(rewardAt,rewardAt+2).join('\n'))});}
+  // One labelled rewards balance on this card's page; the programme name is whatever the page prints.
+  const rewardRows=lines.flatMap((t,i)=>{const label=t.replace(/\s+balance:?$/i,'').replace(/:$/,'').trim();return /\bbalance:?$/i.test(t)&&self.CardyReader?.rewardLabel(label)&&/^\d[\d,]*$/.test(lines[i+1]||'')?[{label,at:i,value:Number(lines[i+1].replaceAll(',',''))}]:[];});if(new Set(rewardRows.map(r=>r.label+r.value)).size===1){const {label,at,value}=rewardRows[0];if(Number.isSafeInteger(value)&&value<=1e9)add({kind:'reward',cardId:'C1',key:label,title:label,value,currency:'points',date:'',status:'unknown',evidence:'[C1]\n'+replace(lines.slice(at,at+2).join('\n'))});}
   // A full printed date is required; the current date never supplies its year.
   const dueAt=lines.findIndex(t=>/^Payment due date:?$/i.test(t));const due=dueAt>=0?lines[dueAt+1]?.match(/^(\d{1,2}) ([A-Za-z]+) (20\d{2})$/):null;if(due){const month=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'].indexOf(due[2].slice(0,3).toLowerCase())+1;if(month)add({kind:'billing',cardId:'C1',key:'due',title:'Payment due date',value:null,currency:aliases[0].currency,date:due[3]+'-'+String(month).padStart(2,'0')+'-'+due[1].padStart(2,'0'),status:'unknown',evidence:'[C1]\n'+replace(lines.slice(dueAt,dueAt+2).join('\n'))});}
   const transactions=document.getElementById('allTransactionsPanel');sourceBody=content+'\n'+(visible(transactions)?transactions.innerText:'');
@@ -58,7 +59,7 @@ export async function capturePage(bank,cards,contextIds=[]){
  // card observation, never proof that two cards share a rewards account.
  if(bank.startsWith('Amex ')&&matches.length===1){
   for(const h of query('h1,h2,h3,h4')){
-   const title=(h.innerText||'').replace(/\s+/g,' ').trim();if(!visible(h)||!/^(?:Membership Rewards\s*[®™]?|美國運通積分計劃|美国运通积分计划)$/i.test(title))continue;
+   const title=(h.innerText||'').replace(/\s+/g,' ').trim();if(!visible(h)||!self.CardyReader?.rewardLabel(title))continue;
    let parent=h;for(let depth=0;depth<3&&parent.parentElement;depth++){
     parent=parent.parentElement;const text=(parent.innerText||'').trim();if(text.length>800)break;
     const lines=text.split('\n').map(s=>s.trim()).filter(s=>s&&!/^[®™]$/.test(s));const index=lines.findIndex(s=>s.replace(/[®™]/g,'').trim()===title.replace(/[®™]/g,'').trim());const line=lines[index+1];

@@ -53,6 +53,8 @@ export async function enrichBank(ctx,io){
    stage='capture';await chrome.scripting.executeScript({target:{tabId:ctx.tabId},files:['reader.js']});const read=await chrome.scripting.executeScript({target:{tabId:ctx.tabId},func:capturePage,args:[ctx.bank,ctx.cards,currentIds]});
    if(read.length!==1||!read[0].documentId)throw Error('document_changed');const raw=read[0].result;
    if(raw?.error){error=raw.error;break;}
+   // What the page showed but the rules could not name is reported, never dropped silently.
+   for(const reason of raw.unrecognized||[]){rejected++;rejectReasons[reason]=(rejectReasons[reason]||0)+1;}
    tab.url=raw.pageHref||tab.url;if(!guidedPage(ctx.bank,tab.url))throw Error('navigation_changed');
    await check();const capturedTab=await chrome.tabs.get(ctx.tabId),capturedDocument=await chrome.scripting.executeScript({target:{tabId:ctx.tabId,documentIds:[read[0].documentId]},func:()=>true});if(capturedTab.url!==tab.url||capturedDocument[0]?.documentId!==read[0].documentId)throw Error('document_changed');
    coverage=collectCoverage(coverage,raw.coverage,ctx.cards);
