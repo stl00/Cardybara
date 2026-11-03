@@ -1,4 +1,7 @@
-import {PROVIDERS} from '../extension-next/providers.js';
+import {ACTIVE_BANKS,PROVIDERS} from '../extension-next/providers.js';
+// An archived bank shows only for a wallet already holding its cards, and never joins a refresh-all.
+export const visibleConnections=data=>data.connections.filter(c=>!PROVIDERS[c.bank]?.archived||data.cards.some(card=>card.bank===c.bank));
+export const defaultRefreshBanks=cards=>[...new Set(cards.map(c=>c.bank))].filter(b=>ACTIVE_BANKS.includes(b));
 export const WALLET_CARDS_KEY='cardybara-wallet-cards-v1';
 export function newWalletCard({bank,name,tail},id=crypto.randomUUID()){
  const p=PROVIDERS[bank];const label=String(name||'').trim();

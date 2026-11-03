@@ -19,7 +19,7 @@ for folder in ['assets','brand']:
 blank={'asOf':'','cards':[],'rewards':[],'transactions':[],'offers':[],'benefits':[],'connections':[],'spendingGoals':[]}
 # The extension always knows supported banks; cards are imported by the owner.
 from datetime import date
-blank['connections']=[{'bank':b,'note':'尚未导入卡片记录。'} for b in ['Amex US','Amex HK','Amex CA','Chase','BOA','HSBC HK','SC HK']]
+blank['connections']=[{'bank':b,'note':'尚未导入卡片记录。'} for b in ['Amex US','Amex HK','Chase','BOA','HSBC HK','SC HK']]
 files['data.json']=(json.dumps(blank,ensure_ascii=False)+'\n').encode()
 m=json.loads(files['manifest.json']);m['name']='Cardybara 卡疲扒拉 · 独立钱包预览';m['version']='1.2.0';m['action']['default_title']='打开 Cardybara';m['chrome_url_overrides']={}
 m.pop('chrome_url_overrides',None);files['manifest.json']=(json.dumps(m,ensure_ascii=False,indent=2)+'\n').encode()

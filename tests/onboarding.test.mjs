@@ -78,3 +78,16 @@ test('bank guide resumes a new wallet after login without already knowing its ca
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:['2345']},doc),true);
  doc.querySelectorAll=()=>[];assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:[]},doc),false);
 });
+
+test('Amex Canada is archived: off by default, code kept, and a wallet holding it keeps its records',async()=>{
+ const {ACTIVE_BANKS,PROVIDERS}=await import('../extension-next/providers.js'),{visibleConnections,defaultRefreshBanks,newWalletCard}=await import('../src/walletRegistry.js'),{REQUIRED_BANKS}=await import('../scripts/acceptance.mjs');
+ const seed=JSON.parse(readFileSync(new URL('../public/data.example.json',import.meta.url),'utf8'));
+ assert.ok(PROVIDERS['Amex CA'].archived);assert.ok(!ACTIVE_BANKS.includes('Amex CA'));assert.ok(!REQUIRED_BANKS.includes('Amex CA'));
+ assert.ok(!seed.connections.some(c=>c.bank==='Amex CA'));assert.ok(!readFileSync(new URL('../scripts/package-standalone.py',import.meta.url),'utf8').includes("'Amex CA'"));
+ for(const file of ['../src/WalletOnboarding.jsx','../src/CollectorPanel.jsx'])assert.match(readFileSync(new URL(file,import.meta.url),'utf8'),/ACTIVE_BANKS\.map/,file);
+ const connections=[{bank:'Amex CA'},{bank:'Chase'}],held={id:'x',bank:'Amex CA'},chase={id:'y',bank:'Chase'};
+ assert.deepEqual(visibleConnections({connections,cards:[chase]}).map(c=>c.bank),['Chase'],'hidden with no card');
+ assert.deepEqual(visibleConnections({connections,cards:[held,chase]}).map(c=>c.bank),['Amex CA','Chase'],'kept for a holder');
+ assert.deepEqual(defaultRefreshBanks([held,chase]),['Chase'],'never in a refresh-all');
+ assert.equal(newWalletCard({bank:'Amex CA',name:'Existing Card',tail:'12345'}).bank,'Amex CA','an existing record stays valid');
+});
