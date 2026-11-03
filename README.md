@@ -8,7 +8,7 @@ A local credit-card wallet, benefits organizer and experimental read-only bank c
 
 - Packaged wallet UI, three languages, card artwork and public benefit knowledge.
 - Manual fee cycles, fee waivers/refunds, Credit usage and separate-currency metrics.
-- Experimental bank-page collection. HK Amex two-card and Chase four-card flows have local acceptance evidence; this is not a guarantee for other users, products or all seven banks.
+- Experimental bank-page collection for Amex US and HK, Chase, Bank of America, HSBC HK, Standard Chartered HK and, later, Citi US. It reads balance, statement amount, minimum payment and due date for every card, and rewards for Amex Membership Rewards and Chase Ultimate Rewards only. Other programmes show as not collected. Amex Canada is archived. Real evidence comes from one development account and is no guarantee for other users or products.
 - Unknown amounts remain unknown. Yearless due dates are display-only. A no-payment message does not manufacture a numeric minimum or due date.
 - Start with an empty wallet: choose a bank to read identifiable masked card headings. If discovery cannot confirm a card, add its name and last 4–5 digits yourself. No existing backup is required. Discovery is conservative and still requires real bank acceptance for each provider.
 - AI chat currently requires the user's own optional loopback proxy/model configuration. There is no shared service, embedded developer key or included cloud quota. The wallet's manual features work without AI.
