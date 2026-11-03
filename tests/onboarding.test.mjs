@@ -45,7 +45,7 @@ test('DOM discovery ignores login fields, full numbers, deposit accounts and wro
  const el=text=>({innerText:text,getClientRects:()=>[{}]});let login=false;
  globalThis.getComputedStyle=()=>({visibility:'visible'});
  globalThis.document={documentElement:{lang:'en-US'},querySelectorAll:selector=>selector==='input[type=password]'?(login?[el('')]:[]):selector==='*'?[]:[el('Sapphire Reserve (...1234)'),el('Checking (...9999)'),el('Credit card 1234567890123456 •••• 1111')]};
- assert.deepEqual(discoverVisibleCards('Chase',['en-US']),{status:'found',cards:[{tail:'1234',name:'Sapphire Reserve (...1234)'}]});
+ assert.deepEqual(discoverVisibleCards('Chase',['en-US']),{status:'found',cards:[{tail:'1234',name:'Sapphire Reserve (...1234)'}],skipped:1});
  assert.equal(discoverVisibleCards('Amex HK',['en-HK']).status,'ambiguous');
  login=true;assert.equal(discoverVisibleCards('Chase',['en-US']).status,'needs_login');
  delete globalThis.document;delete globalThis.getComputedStyle;
