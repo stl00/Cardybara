@@ -80,7 +80,7 @@ test('bank guide resumes a new wallet after login without already knowing its ca
 });
 
 test('Amex Canada is archived: off by default, code kept, and a wallet holding it keeps its records',async()=>{
- const {ACTIVE_BANKS,PROVIDERS}=await import('../extension-next/providers.js'),{visibleConnections,defaultRefreshBanks,newWalletCard}=await import('../src/walletRegistry.js'),{REQUIRED_BANKS}=await import('../scripts/acceptance.mjs');
+ const {ACTIVE_BANKS,PROVIDERS}=await import('../extension-next/providers.js'),{visibleConnections,defaultRefreshBanks,newWalletCard,mergeWalletCards:merge,selectableBanks}=await import('../src/walletRegistry.js'),{REQUIRED_BANKS}=await import('../scripts/acceptance.mjs');
  const seed=JSON.parse(readFileSync(new URL('../public/data.example.json',import.meta.url),'utf8'));
  assert.ok(PROVIDERS['Amex CA'].archived);assert.ok(!ACTIVE_BANKS.includes('Amex CA'));assert.ok(!REQUIRED_BANKS.includes('Amex CA'));
  assert.ok(!seed.connections.some(c=>c.bank==='Amex CA'));assert.ok(!readFileSync(new URL('../scripts/package-standalone.py',import.meta.url),'utf8').includes("'Amex CA'"));
@@ -90,4 +90,11 @@ test('Amex Canada is archived: off by default, code kept, and a wallet holding i
  assert.deepEqual(visibleConnections({connections,cards:[held,chase]}).map(c=>c.bank),['Amex CA','Chase'],'kept for a holder');
  assert.deepEqual(defaultRefreshBanks([held,chase]),['Chase'],'never in a refresh-all');
  assert.equal(newWalletCard({bank:'Amex CA',name:'Existing Card',tail:'12345'}).bank,'Amex CA','an existing record stays valid');
+ // An upgraded seed has no row for the bank; the wallet restores it from the held card, and only then.
+ const card=newWalletCard({bank:'Amex CA',name:'Existing Card',tail:'12345'},'held-ca'),upgraded=merge({cards:[],connections:seed.connections},[card]);
+ assert.deepEqual(visibleConnections(upgraded).map(c=>c.bank).filter(b=>b==='Amex CA'),['Amex CA']);assert.equal(upgraded.cards[0].id,'held-ca');
+ assert.ok(!visibleConnections(merge({cards:[],connections:seed.connections},[])).some(c=>c.bank==='Amex CA'));
+ assert.deepEqual(defaultRefreshBanks([held]),[],'only archived cards leave nothing to refresh');
+ assert.deepEqual(selectableBanks(['Amex CA','Chase'],[chase]),['Chase']);assert.deepEqual(selectableBanks(['Amex CA','Chase'],[held]),['Amex CA','Chase']);
+ for(const [file,use] of [['../src/main.jsx',/defaultRefreshBanks\(data\.cards\);if\(!banks\.length\)/],['../src/main.jsx',/selectableBanks\(Object\.keys\(bankNames\)/],['../src/BankConnections.jsx',/visibleConnections\(data\)\.map/],['../src/AgentPanel.jsx',/visibleConnections\(data\)\.map/]])assert.match(readFileSync(new URL(file,import.meta.url),'utf8'),use,file);
 });
