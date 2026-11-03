@@ -11,7 +11,7 @@ export async function chaseCards(action,tail,cards=[]){
  if(found.length!==1)return {error:'chase_account_button_timeout'};
  // A status banner already on screen belongs to whatever was shown before this card.
  const before=[document];for(let i=0;i<before.length&&i<250;i++)for(const e of before[i].querySelectorAll('*'))if(e.shadowRoot)before.push(e.shadowRoot);
- self.CardyChaseStaleNotices=new WeakSet(before.flatMap(r=>[...r.querySelectorAll('[id="title-focus-target"]')]));
+ globalThis.CardyChaseStaleNotices=new WeakSet(before.flatMap(r=>[...r.querySelectorAll('[id="title-focus-target"]')]));
  found[0].e.click();
  // Rendering a detail gets its own bounded budget after the bank handles its SPA click.
  const detailDeadline=Date.now()+25000;
