@@ -2,14 +2,27 @@ import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {confirmedOtherProgramme,requiredReward} from '../extension-next/mvp.js';
+import {readZipEntry} from './read-zip.mjs';
 export const REQUIRED_CASES=['install','coldStart','manualAdd','bankDiscovery','bankReadback','restartPersistence','exportRecovery','cancel','expiredSession','upgradePersistence'];
 // Citi US is in MVP scope before its provider lands, so the gate stays closed until it is really accepted.
 export const REQUIRED_BANKS=['Amex US','Amex HK','Chase','BOA','HSBC HK','SC HK','Citi US'];
 const BILLING_FIELDS=['balance','statement','minimum','due'];
+// An observed due date needs a real calendar date and the printed text its year came from; a yearless date is display-only.
+export function dueYearEvidenced(f){
+ const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(typeof f?.date==='string'?f.date:'');if(!m)return false;
+ const d=new Date(Date.UTC(+m[1],+m[2]-1,+m[3]));
+ return d.toISOString().slice(0,10)===f.date&&typeof f.yearEvidence==='string'&&new RegExp(`(?<!\\d)${m[1]}(?!\\d)`).test(f.yearEvidence);
+}
+// The build that shipped in the artifact, read from the packaged file so a checkout can never vouch for a ZIP.
+export function artifactBuildId(zipBytes){
+ const match=/\bBUILD_ID\s*=\s*['"]([^'"]+)['"]/.exec(readZipEntry(zipBytes,'build-info.js').toString('utf8'));
+ if(!match)throw Error('Artifact does not declare a build');
+ return match[1];
+}
 export function validateAcceptance(report,{sha256,runtimeBuild,now=Date.now()}){
  const errors=[];const need=(ok,why)=>{if(!ok)errors.push(why);};
  need(report?.schema===1,'invalid schema');need(report?.artifactSha256===sha256,'artifact changed or not tested');
- need(report?.runtimeBuild===runtimeBuild,'executing worker build not verified');
+ need(typeof runtimeBuild==='string'&&runtimeBuild!==''&&report?.runtimeBuild===runtimeBuild,'executing worker build not verified');
  const env=report?.environment||{};need(env.freshChromeProfile===true,'fresh Chrome profile not verified');
  need(env.oldBackupImported===false,'old wallet backup was used');need(env.developerServicesRequired===false,'depends on developer services');
  need(/^[a-p]{32}$/.test(env.extensionId||''),'installed extension ID missing');
@@ -25,6 +38,7 @@ export function validateAcceptance(report,{sha256,runtimeBuild,now=Date.now()}){
    const notCollected=field==='reward'&&f?.status==='not_collected'&&explained&&named&&!requiredReward(bank,f.programme)&&confirmedOtherProgramme(bank,f.programme);
    // Only a payment field may be satisfied by the bank's statement that no payment is due.
    need(f?.status==='observed'||notCollected||['minimum','due'].includes(field)&&f?.status==='explicit_not_applicable'&&explained,`${bank} card ${index+1}: ${field} not verified`);
+   if(field==='due'&&f?.status==='observed')need(dueYearEvidenced(f),`${bank} card ${index+1}: due date has no year evidence`);
    const at=Date.parse(f?.capturedAt);need(Number.isFinite(at)&&at<=now+60000&&now-at<7*86400000,`${bank} card ${index+1}: ${field} date missing or stale`);
   }
  }
