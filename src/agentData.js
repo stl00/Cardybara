@@ -56,14 +56,16 @@ export function latestDueField(card){
  return card.duePartial&&partial&&(!card.due||!full||Date.parse(partial)>=Date.parse(full))?'duePartial':'due';
 }
 
-// A bank job cannot run longer than this (see Engine.progress), so a reading this close to the
-// statement came from the same run or just before it, and a positive one contradicts it.
+// A bank job's reading phase is limited to this (see Engine.progress), so a reading this close to
+// the statement almost always came from the same run, and a positive one contradicts it. A real
+// payment inside this window hides the statement until the next refresh, which fails safe.
 const SAME_RUN_MS=600000;
 export function latestNoPayment(card){
  const at=Date.parse(card.fieldDates?.paymentStatus);
  return /^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(card.paymentStatus||'')&&Number.isFinite(at)&&['minimum','due','duePartial'].every(k=>{
-  const value=Date.parse(card.fieldDates?.[k]||(card[k]!=null?card.updated:null));
-  if(!Number.isFinite(value))return true;
+  const date=card.fieldDates?.[k]||(card[k]!=null?card.updated:null);if(!date)return true;
+  // A reading with an unusable date cannot be shown to be older, so it is not replaced.
+  const value=Date.parse(date);if(!Number.isFinite(value))return false;
   const contradicts=k==='minimum'?card.minimum>0:card[k]!=null;
   return at>=value&&!(contradicts&&at-value<SAME_RUN_MS);
  });

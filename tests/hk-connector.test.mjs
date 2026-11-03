@@ -49,6 +49,7 @@ test('payment reminders prefer newer billing evidence and do not suppress a newe
  assert.equal(latestNoPayment({...same,minimum:0,fieldDates:{...same.fieldDates,minimum:minutes(1)}}),true);
  assert.equal(latestNoPayment({...same,due:'2026-11-23',fieldDates:{...same.fieldDates,due:minutes(1)}}),false);
  assert.equal(latestNoPayment({...same,duePartial:'11月23日',fieldDates:{...same.fieldDates,duePartial:minutes(1)}}),false);
+ assert.equal(latestNoPayment({...same,minimum:12,fieldDates:{...same.fieldDates,minimum:'not-a-date'}}),false);
  // An older run's reading is replaced, and the drawer can say so.
  const older={...same,minimum:12,due:'2026-11-23',fieldDates:{...same.fieldDates,minimum:minutes(60),due:minutes(60)}};
  assert.equal(latestNoPayment(older),true);assert.equal(supersededByNoPayment(older,'minimum'),true);assert.equal(supersededByNoPayment(older,'due'),true);
