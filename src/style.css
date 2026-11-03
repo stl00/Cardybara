@@ -18,7 +18,7 @@ html{scroll-behavior:smooth}body{margin:0}.app-layout{min-height:100vh}.app-side
 .bank-select{width:245px}.ant-select-item-option-content .bank-identity,.ant-select-content .bank-identity{font-size:13px}
 .connection-card{height:100%}.connection-card .ant-card-head{min-height:74px}.connection-card .ant-card-head-title{white-space:normal;padding-block:16px;font-size:15px}.connection-card .bank-identity{gap:10px}.connection-status{margin-bottom:14px}
 .reward-card .ant-card-head-title{white-space:normal;padding-block:14px}.reward-card .ant-card-head-wrapper{gap:8px}.reward-card .ant-card-extra .ant-tag{margin:0}.reward-card .ant-card-head{min-height:72px}
-.offer-title{display:flex;align-items:center;gap:8px;min-width:0}.offer-title>.ant-typography{min-width:0}
+.offer-title{display:flex;align-items:center;gap:8px;min-width:0}.offer-title>.item-logo{margin-inline-end:0}.offer-title>.ant-typography{min-width:0}
 .ant-table .bank-identity{font-size:12px;align-items:flex-start}.ant-table .bank-identity .region-flag{font-size:13px;margin-top:3px}.ant-table .bank-mark{margin-top:1px}
 .metrics .ant-statistic-title .bank-identity{font-size:13px}.metrics .ant-statistic-title{min-height:24px}
 .ant-modal-title .bank-identity{padding-right:24px}
