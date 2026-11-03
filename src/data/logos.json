@@ -1,0 +1,1194 @@
+{
+ "notice": "Marks identify the service and belong to their owners; no endorsement is implied. A logo file ships only when status is \"approved\".",
+ "categories": {
+  "ride-share": {
+   "icon": "CarOutlined",
+   "label": "网约车"
+  },
+  "ground-transport": {
+   "icon": "CarOutlined",
+   "label": "地面交通"
+  },
+  "delivery": {
+   "icon": "TruckOutlined",
+   "label": "外卖配送"
+  },
+  "dining": {
+   "icon": "RestOutlined",
+   "label": "餐饮"
+  },
+  "hotel": {
+   "icon": "HomeOutlined",
+   "label": "酒店"
+  },
+  "airline": {
+   "icon": "airline",
+   "label": "航空"
+  },
+  "airport": {
+   "icon": "IdcardOutlined",
+   "label": "机场与出入境"
+  },
+  "lounge": {
+   "icon": "CoffeeOutlined",
+   "label": "休息室"
+  },
+  "travel": {
+   "icon": "GlobalOutlined",
+   "label": "旅行"
+  },
+  "entertainment": {
+   "icon": "PlaySquareOutlined",
+   "label": "娱乐"
+  },
+  "shopping": {
+   "icon": "ShoppingOutlined",
+   "label": "购物"
+  },
+  "fitness": {
+   "icon": "HeartOutlined",
+   "label": "健身"
+  },
+  "reward": {
+   "icon": "GiftOutlined",
+   "label": "积分奖励"
+  },
+  "membership": {
+   "icon": "CrownOutlined",
+   "label": "会员"
+  },
+  "protection": {
+   "icon": "SafetyOutlined",
+   "label": "保障"
+  },
+  "fee": {
+   "icon": "DollarOutlined",
+   "label": "费用"
+  },
+  "card": {
+   "icon": "CreditCardOutlined",
+   "label": "持卡管理"
+  },
+  "channel": {
+   "icon": "MobileOutlined",
+   "label": "渠道能力"
+  },
+  "general": {
+   "icon": "WalletOutlined",
+   "label": "一般消费"
+  }
+ },
+ "scenarioCategories": {
+  "travel": "travel",
+  "hotel-stay": "hotel",
+  "dining": "dining",
+  "entertainment": "entertainment",
+  "ground-transport": "ground-transport",
+  "airport": "airport",
+  "shopping": "shopping",
+  "reward-redemption": "reward",
+  "card-ownership": "card",
+  "fitness": "fitness"
+ },
+ "ruleCategories": {
+  "credit": null,
+  "promo": null,
+  "membership": "membership",
+  "lounge": "lounge",
+  "hotel-service": "hotel",
+  "spend-unlock": "membership",
+  "protection": "protection",
+  "fee": "fee",
+  "earning": "general",
+  "transfer": "reward",
+  "channel": "channel"
+ },
+ "programmeKinds": {
+  "airline": "airline",
+  "hotel": "hotel",
+  "reward-currency": "reward",
+  "partner": "membership"
+ },
+ "ruleNoBrand": [
+  "rule.amex-us-us-morgan-stanley-platinum-card.lounge"
+ ],
+ "ruleOverrides": {
+  "rule.amex-us-us-morgan-stanley-platinum-card.digital": "entertainment",
+  "rule.amex-us-us-morgan-stanley-platinum-card.airline-fee": "airline",
+  "rule.chase-us-united-quest.rideshare": "ride-share",
+  "rule.sc-hk-hk-cathay-mastercard.variant": "card",
+  "rule.amex-us-us-hilton-honors-aspire-card.flight": "airline",
+  "rule.chase-us-ihg-premier.airline-new": "airline"
+ },
+ "earningLabels": {
+  "Chase Travel": "travel",
+  "直订航班": "airline",
+  "直订酒店": "hotel",
+  "餐饮": "dining",
+  "其他合资格消费": "general",
+  "餐厅": "dining",
+  "美国超市": "shopping",
+  "直订或Amex机票": "airline",
+  "美国网上零售": "shopping",
+  "美国加油站": "ground-transport",
+  "Hilton直订": "hotel",
+  "指定机票及租车": "travel",
+  "美国餐厅": "dining",
+  "港币基本积分": "general",
+  "外币基本积分": "general",
+  "加拿大餐饮": "dining",
+  "合资格旅行": "travel",
+  "药店": "shopping",
+  "其他消费": "general",
+  "United刷卡部分": "airline",
+  "新版其他消费": "general",
+  "餐饮、外币及指定航司": "general",
+  "自选类别": "general",
+  "超市及批发俱乐部": "shopping",
+  "网上消费 RewardCash": "shopping",
+  "指定商户 RewardCash": "general",
+  "最红自主奖赏": "reward",
+  "指定日常及旅行": "general",
+  "其他本地及海外": "general",
+  "基本积分": "general",
+  "海外消费": "general",
+  "餐饮及酒店": "general",
+  "其他港币消费": "general",
+  "Amex预付酒店": "hotel"
+ },
+ "brands": [
+  {
+   "id": "doordash",
+   "name": "DoorDash",
+   "category": "delivery",
+   "programmeIds": [
+    "programme.doordash"
+   ],
+   "titleTokens": [
+    "DoorDash",
+    "DashPass"
+   ],
+   "textTokens": [
+    "DoorDash",
+    "DashPass"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:doordash",
+   "termsUrl": "https://www.doordash.com/terms/",
+   "finding": "Official terms page returned HTTP 403 to the check; a secondary clause index lists \"no license granted to use DoorDash trademarks\". No brand guide located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "uber",
+   "name": "Uber",
+   "category": "ride-share",
+   "programmeIds": [
+    "programme.uber",
+    "programme.uber-one"
+   ],
+   "titleTokens": [
+    "Uber"
+   ],
+   "textTokens": [
+    "Uber"
+   ],
+   "notBefore": [
+    " Eats"
+   ],
+   "status": "forbidden",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:uber",
+   "termsUrl": "https://www.uber.com/us/en/legal/general-terms-of-use/",
+   "finding": "General terms require express written permission for marks beyond use incidental to the services; the brand guide applies its own acceptance terms, which were not accepted.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "uber-eats",
+   "name": "Uber Eats",
+   "category": "delivery",
+   "programmeIds": [],
+   "titleTokens": [],
+   "textTokens": [
+    "Uber Eats"
+   ],
+   "status": "forbidden",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:ubereats",
+   "termsUrl": "https://www.uber.com/us/en/legal/general-terms-of-use/",
+   "finding": "Same Uber terms: express written permission is required for marks beyond use incidental to the services.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "lyft",
+   "name": "Lyft",
+   "category": "ride-share",
+   "programmeIds": [],
+   "titleTokens": [
+    "Lyft"
+   ],
+   "textTokens": [
+    "Lyft"
+   ],
+   "status": "forbidden",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:lyft",
+   "termsUrl": "https://www.slideshare.net/slideshow/design_lyft_brand_guidelines_march2018-pdf/283233341",
+   "finding": "A third-party copy of the Lyft brand guide (v5.6, 2018) says the logo is typically authorized only for contracted partners; current official text not confirmed.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "apple",
+   "name": "Apple",
+   "category": "entertainment",
+   "programmeIds": [
+    "programme.apple"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "forbidden",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:apple",
+   "termsUrl": "https://www.apple.com/legal/intellectual-property/guidelinesfor3rdparties.html",
+   "finding": "Third parties may not use the Apple Logo without an express written trademark license.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "peloton",
+   "name": "Peloton",
+   "category": "fitness",
+   "programmeIds": [],
+   "titleTokens": [
+    "Peloton"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:peloton",
+   "termsUrl": null,
+   "finding": "Press page redirects away and the legal page returned 404 to the check. No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "stubhub",
+   "name": "StubHub",
+   "category": "entertainment",
+   "programmeIds": [],
+   "titleTokens": [
+    "StubHub"
+   ],
+   "textTokens": [
+    "StubHub"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:stubhub",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "viagogo",
+   "name": "viagogo",
+   "category": "entertainment",
+   "programmeIds": [],
+   "titleTokens": [
+    "viagogo"
+   ],
+   "textTokens": [
+    "viagogo"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "resy",
+   "name": "Resy",
+   "category": "dining",
+   "programmeIds": [
+    "programme.resy"
+   ],
+   "titleTokens": [
+    "Resy"
+   ],
+   "textTokens": [
+    "Resy"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "dunkin",
+   "name": "Dunkin",
+   "category": "dining",
+   "programmeIds": [
+    "programme.dunkin"
+   ],
+   "titleTokens": [
+    "Dunkin"
+   ],
+   "textTokens": [
+    "Dunkin"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "home-chef",
+   "name": "Home Chef",
+   "category": "dining",
+   "programmeIds": [
+    "programme.home-chef"
+   ],
+   "titleTokens": [
+    "Home Chef"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "lululemon",
+   "name": "lululemon",
+   "category": "shopping",
+   "programmeIds": [
+    "programme.lululemon"
+   ],
+   "titleTokens": [
+    "lululemon"
+   ],
+   "textTokens": [
+    "lululemon"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": "https://shop.lululemon.com/help/legal/terms-of-use",
+   "finding": "Website terms bar framing its marks without written consent and warn that unauthorized use may violate trademark law; no grant located and no rule on identifying use.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "oura",
+   "name": "Oura",
+   "category": "shopping",
+   "programmeIds": [
+    "programme.oura"
+   ],
+   "titleTokens": [
+    "Oura"
+   ],
+   "textTokens": [
+    "Oura"
+   ],
+   "status": "forbidden",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": "https://ouraring.com/guidelines-for-commercial-use",
+   "finding": "Commercial-use guidelines require written permission, which Oura may refuse or revoke (read from localized versions).",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "walmart",
+   "name": "Walmart",
+   "category": "shopping",
+   "programmeIds": [
+    "programme.walmart"
+   ],
+   "titleTokens": [
+    "Walmart"
+   ],
+   "textTokens": [
+    "Walmart"
+   ],
+   "status": "forbidden",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": "https://brandcenter.walmart.com/brand/trademarks",
+   "finding": "Brand center says its logos may only be used with prior written permission.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "disney",
+   "name": "Disney",
+   "category": "entertainment",
+   "programmeIds": [
+    "programme.disney"
+   ],
+   "titleTokens": [
+    "Disney"
+   ],
+   "textTokens": [
+    "Disney+"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "clear",
+   "name": "CLEAR",
+   "category": "airport",
+   "programmeIds": [
+    "programme.clear"
+   ],
+   "titleTokens": [
+    "CLEAR+"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "priority-pass",
+   "name": "Priority Pass",
+   "category": "lounge",
+   "programmeIds": [
+    "programme.priority-pass"
+   ],
+   "titleTokens": [
+    "Priority Pass"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "Conditions of use cover membership only. No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "plaza-premium",
+   "name": "Plaza Premium",
+   "category": "lounge",
+   "programmeIds": [
+    "programme.plaza-premium"
+   ],
+   "titleTokens": [
+    "Plaza Premium"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "alaska-lounge",
+   "name": "Alaska Lounge",
+   "category": "lounge",
+   "programmeIds": [
+    "programme.alaska-lounge"
+   ],
+   "titleTokens": [
+    "Alaska Lounge"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "chase-sapphire-lounge",
+   "name": "Chase Sapphire Lounge",
+   "category": "lounge",
+   "programmeIds": [
+    "programme.chase-sapphire-lounge"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "bundled:brand/banks/chase.svg",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "the-edit",
+   "name": "The Edit",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.the-edit"
+   ],
+   "titleTokens": [
+    "The Edit"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "bundled:brand/banks/chase.svg",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "the-shops-at-chase",
+   "name": "The Shops at Chase",
+   "category": "shopping",
+   "programmeIds": [
+    "programme.the-shops-at-chase"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "bundled:brand/banks/chase.svg",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "chase-ultimate-rewards",
+   "name": "Chase Ultimate Rewards",
+   "category": "reward",
+   "programmeIds": [
+    "programme.chase-ultimate-rewards"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "bundled:brand/banks/chase.svg",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "amex-membership-rewards",
+   "name": "Amex Membership Rewards",
+   "category": "reward",
+   "programmeIds": [
+    "programme.amex-membership-rewards-us",
+    "programme.amex-membership-rewards-hk",
+    "programme.amex-membership-rewards-ca"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "bundled:brand/banks/amex.svg",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "fine-hotels-resorts",
+   "name": "Fine Hotels + Resorts",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.fine-hotels-resorts"
+   ],
+   "titleTokens": [
+    "Fine Hotels + Resorts"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "bundled:brand/banks/amex.svg",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "the-hotel-collection",
+   "name": "The Hotel Collection",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.the-hotel-collection"
+   ],
+   "titleTokens": [
+    "The Hotel Collection"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "bundled:brand/banks/amex.svg",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "hsbc-rewardcash",
+   "name": "HSBC RewardCash",
+   "category": "reward",
+   "programmeIds": [
+    "programme.hsbc-rewardcash"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "bundled:brand/banks/hsbc.png",
+   "termsUrl": "https://www.hsbc.com/terms-and-conditions",
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "moneyback",
+   "name": "MoneyBack",
+   "category": "reward",
+   "programmeIds": [
+    "programme.moneyback"
+   ],
+   "titleTokens": [
+    "MoneyBack"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "morgan-stanley-cashplus",
+   "name": "Morgan Stanley CashPlus",
+   "category": "reward",
+   "programmeIds": [
+    "programme.morgan-stanley-cashplus"
+   ],
+   "titleTokens": [
+    "CashPlus"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "hilton",
+   "name": "Hilton",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.hilton-honors"
+   ],
+   "titleTokens": [
+    "Hilton"
+   ],
+   "textTokens": [],
+   "status": "forbidden",
+   "logo": null,
+   "candidate": "bundled:brand/banks/hilton.png",
+   "termsUrl": "https://www.hilton.com/en/p/site-usage-agreement/",
+   "finding": "Site usage agreement says its marks may not be used without prior express written consent; the media kit publishes logos without a usage grant.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "ihg",
+   "name": "IHG One Rewards",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.ihg-one-rewards"
+   ],
+   "titleTokens": [
+    "IHG"
+   ],
+   "textTokens": [
+    "IHG"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "bundled:brand/banks/ihg.svg",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "marriott",
+   "name": "Marriott Bonvoy",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.marriott-bonvoy"
+   ],
+   "titleTokens": [
+    "Marriott"
+   ],
+   "textTokens": [
+    "Marriott"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:marriott",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "hyatt",
+   "name": "World of Hyatt",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.world-of-hyatt"
+   ],
+   "titleTokens": [
+    "Hyatt"
+   ],
+   "textTokens": [
+    "Hyatt"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "radisson",
+   "name": "Radisson Rewards",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.radisson-rewards"
+   ],
+   "titleTokens": [
+    "Radisson"
+   ],
+   "textTokens": [
+    "Radisson"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "accor",
+   "name": "ALL Accor",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.all-accor"
+   ],
+   "titleTokens": [
+    "Accor"
+   ],
+   "textTokens": [
+    "Accor"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "wyndham",
+   "name": "Wyndham Rewards",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.wyndham-rewards"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "renowned-hotels",
+   "name": "Renowned Hotels and Resorts",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.renowned-hotels-and-resorts"
+   ],
+   "titleTokens": [
+    "Renowned Hotels"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "united",
+   "name": "United MileagePlus",
+   "category": "airline",
+   "programmeIds": [
+    "programme.united-mileageplus"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:unitedairlines",
+   "termsUrl": null,
+   "finding": "Terms page timed out during the check. No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "southwest",
+   "name": "Southwest",
+   "category": "airline",
+   "programmeIds": [
+    "programme.southwest",
+    "programme.southwest-rapid-rewards"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:southwestairlines",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "air-canada",
+   "name": "Air Canada",
+   "category": "airline",
+   "programmeIds": [
+    "programme.air-canada",
+    "programme.air-canada-aeroplan"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:aircanada",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "delta",
+   "name": "Delta SkyMiles",
+   "category": "airline",
+   "programmeIds": [
+    "programme.delta-skymiles"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:delta",
+   "termsUrl": "https://news.delta.com/delta-air-lines-logos-brand-guidelines",
+   "finding": "Publishes logo rules (no modification, approved colours) and a media contact, but no grant for third-party product use.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "jetblue",
+   "name": "JetBlue TrueBlue",
+   "category": "airline",
+   "programmeIds": [
+    "programme.jetblue-trueblue"
+   ],
+   "titleTokens": [],
+   "textTokens": [
+    "JetBlue"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:jetblue",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "atmos",
+   "name": "Atmos Rewards",
+   "category": "airline",
+   "programmeIds": [
+    "programme.atmos-rewards"
+   ],
+   "titleTokens": [
+    "Atmos"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "aer-lingus",
+   "name": "Aer Lingus AerClub",
+   "category": "airline",
+   "programmeIds": [
+    "programme.aer-lingus-aerclub"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "british-airways",
+   "name": "The British Airways Club",
+   "category": "airline",
+   "programmeIds": [
+    "programme.the-british-airways-club"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:britishairways",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "flying-blue",
+   "name": "Air France KLM Flying Blue",
+   "category": "airline",
+   "programmeIds": [
+    "programme.air-france-klm-flying-blue"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:airfrance",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "iberia",
+   "name": "Iberia Club",
+   "category": "airline",
+   "programmeIds": [
+    "programme.iberia-club"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:iberia",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "singapore-airlines",
+   "name": "Singapore Airlines KrisFlyer",
+   "category": "airline",
+   "programmeIds": [
+    "programme.singapore-airlines-krisflyer",
+    "programme.singapore-krisflyer"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:singaporeairlines",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "virgin-atlantic",
+   "name": "Virgin Atlantic Flying Club",
+   "category": "airline",
+   "programmeIds": [
+    "programme.virgin-atlantic-flying-club"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:virginatlantic",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "cathay",
+   "name": "Cathay Asia Miles",
+   "category": "airline",
+   "programmeIds": [
+    "programme.cathay-asia-miles"
+   ],
+   "titleTokens": [
+    "Asia Miles"
+   ],
+   "textTokens": [
+    "Asia Miles"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "hk-express",
+   "name": "HK Express",
+   "category": "airline",
+   "programmeIds": [],
+   "titleTokens": [
+    "HK Express"
+   ],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "aeromexico",
+   "name": "Aeromexico Rewards",
+   "category": "airline",
+   "programmeIds": [
+    "programme.aeromexico-rewards"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "ana",
+   "name": "ANA Mileage Club",
+   "category": "airline",
+   "programmeIds": [
+    "programme.ana-mileage-club"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:ana",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "avianca",
+   "name": "avianca lifemiles",
+   "category": "airline",
+   "programmeIds": [
+    "programme.avianca-lifemiles"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:avianca",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "malaysia-airlines",
+   "name": "Malaysia Airlines Enrich",
+   "category": "airline",
+   "programmeIds": [
+    "programme.malaysia-airlines-enrich"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "eva-air",
+   "name": "EVA Infinity MileageLands",
+   "category": "airline",
+   "programmeIds": [
+    "programme.eva-infinity-mileagelands"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "status": "unverified",
+   "logo": null,
+   "candidate": null,
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "qantas",
+   "name": "Qantas Frequent Flyer",
+   "category": "airline",
+   "programmeIds": [
+    "programme.qantas-frequent-flyer"
+   ],
+   "titleTokens": [],
+   "textTokens": [
+    "Qantas"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:qantas",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "etihad",
+   "name": "Etihad Guest",
+   "category": "airline",
+   "programmeIds": [
+    "programme.etihad-guest"
+   ],
+   "titleTokens": [],
+   "textTokens": [
+    "Etihad"
+   ],
+   "status": "unverified",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:etihadairways",
+   "termsUrl": null,
+   "finding": "No published grant for third-party identifying use was located.",
+   "checkedAt": "2026-11-03"
+  }
+ ]
+}
