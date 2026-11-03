@@ -61,6 +61,9 @@ test('an explicit no-payment statement satisfies minimum and due with its reason
  assert.deepEqual(mvpSummary([...read,notice],[card],[{id:'a',fields:{minimum:5}}]).card.coverage[0].missing,['due']);
  // A printed zero minimum stays observed; only the due date is satisfied by the statement.
  const zero=mvpSummary([...read,notice,{kind:'card',cardId:'a',key:'minimum',value:0}],[card]).card.coverage[0];assert.deepEqual(zero.notApplicable,['due']);assert.equal(zero.complete,true);
+ // A yearless due date also overrides it; a zero minimum from the overview does not.
+ assert.deepEqual(mvpSummary([...read,notice,{kind:'billing',cardId:'a',key:'duePartial',value:null}],[card]).card.coverage[0].missing,['minimum','due']);
+ const patched=mvpSummary([...read,notice],[card],[{id:'a',fields:{minimum:0}}]).card.coverage[0];assert.deepEqual(patched.notApplicable,['due']);assert.equal(patched.complete,true);
  // Balance and statement are never satisfied by it.
  assert.deepEqual(mvpSummary([notice],[card]).card.coverage[0].missing,['balance','statement']);
 });
