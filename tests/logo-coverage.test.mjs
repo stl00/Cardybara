@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {logoForRule} from '../src/logoRegistry.js';
+import {logoForRule,logoForRuleId} from '../src/logoRegistry.js';
+import {benefitProfileView} from '../src/knowledge.js';
 const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 const rules=JSON.parse(read('src/data/knowledge/rules.json'));
 // Add to this list only with a reason in the PR. It is empty today and new entries are visible in review.
@@ -19,15 +20,12 @@ test('a newly added benefit with no icon fails the check',()=>{
  assert.deepEqual(uncovered([rule]),['rule.synthetic.new']);
  assert.deepEqual(uncovered([{...rule,scenarioIds:['dining']}]),[]);
 });
-test('benefit and credit titles in the UI are drawn with ItemLogo',()=>{
- for(const file of ['src/BenefitGuide.jsx','src/PersonalWallet.jsx']){
-  const source=read(file);
-  assert.match(source,/import ItemLogo from '\.\/ItemLogo'/,file);
-  const bare=[...source.matchAll(/(.{0,40})<Text strong>\{t\((?:b\.title|task\.title|v)\)\}<\/Text>/g)].filter(m=>!m[1].includes('<ItemLogo'));
-  assert.deepEqual(bare.map(m=>m[0]),[],file);
- }
- assert.match(read('src/BenefitGuide.jsx'),/<ItemLogo programme=\{v\}\/>/,'transfer partners');
- assert.match(read('src/BenefitGuide.jsx'),/<ItemLogo earning=\{r\.label\}/,'earning rates');
- assert.match(read('src/CostTrackingUI.jsx'),/<ItemLogo ruleId=\{task\.ruleId\}\/>/,'credit amount dialog');
- assert.equal(read('src/main.jsx').match(/<ItemLogo text=/g)?.length,3,'offers and benefit rows');
+test('every benefit in a card profile carries a rule ID that resolves to an icon',()=>{
+ for(const profile of benefitProfileView())for(const b of profile.benefits)assert.ok(logoForRuleId(b.knowledgeRuleId).category,`${profile.productId}: ${b.id}`);
+});
+// A source scan of the known sites: it catches removal or a wrong ID there, not a brand-new page.
+test('known UI sites draw titles and names with ItemLogo',()=>{
+ const sites={'src/BenefitGuide.jsx':['<ItemLogo ruleId={b.knowledgeRuleId}/>','<ItemLogo programme={v}/>','<ItemLogo earning={r.label}'],'src/PersonalWallet.jsx':['<ItemLogo ruleId={task.ruleId}/><Text strong>{t(task.title)}','<ItemLogo ruleId={task.ruleId}/>{t(task.title)}','<ItemLogo ruleId={b.knowledgeRuleId}/><Text strong>{t(b.title)}','<ItemLogo ruleId={b.knowledgeRuleId} size={12}/>{t(b.title)}'],'src/CostTrackingUI.jsx':['<ItemLogo ruleId={task.ruleId}/>'],'src/main.jsx':['<ItemLogo text={o.name}/><Text strong>','<ItemLogo text={o.name}/><Text ellipsis','<ItemLogo text={offerDetail.name}/>','<ItemLogo text={b.name}/>']};
+ for(const [file,needles] of Object.entries(sites)){const source=read(file);for(const needle of needles)assert.ok(source.includes(needle),`${file}: ${needle}`);}
+ for(const file of ['src/BenefitGuide.jsx','src/PersonalWallet.jsx'])assert.doesNotMatch(read(file),/ruleId=\{(?:b|task)\.id\}/,file);
 });
