@@ -1,5 +1,5 @@
 {
- "notice": "Marks identify the service and belong to their owners; no endorsement is implied. A logo file ships only when status is \"approved\".",
+ "notice": "Marks identify the service and belong to their owners; no endorsement is implied. The owner decided on 2026-11-03 to show logos for every brand; \"terms\" records what the brand's published terms say, which that decision does not change.",
  "categories": {
   "ride-share": {
    "icon": "CarOutlined",
@@ -172,12 +172,14 @@
     "DoorDash",
     "DashPass"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:doordash",
    "termsUrl": "https://www.doordash.com/terms/",
    "finding": "Official terms page returned HTTP 403 to the check; a secondary clause index lists \"no license granted to use DoorDash trademarks\". No brand guide located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/doordash.svg",
+   "source": "simple-icons@16.36.0:doordash"
   },
   {
    "id": "uber",
@@ -196,12 +198,14 @@
    "notBefore": [
     " Eats"
    ],
-   "status": "forbidden",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:uber",
    "termsUrl": "https://www.uber.com/us/en/legal/general-terms-of-use/",
    "finding": "General terms require express written permission for marks beyond use incidental to the services; the brand guide applies its own acceptance terms, which were not accepted.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "requires-permission",
+   "logo": "brand/logos/uber.svg",
+   "source": "simple-icons@16.36.0:uber"
   },
   {
    "id": "uber-eats",
@@ -212,12 +216,14 @@
    "textTokens": [
     "Uber Eats"
    ],
-   "status": "forbidden",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:ubereats",
    "termsUrl": "https://www.uber.com/us/en/legal/general-terms-of-use/",
    "finding": "Same Uber terms: express written permission is required for marks beyond use incidental to the services.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "requires-permission",
+   "logo": "brand/logos/uber-eats.svg",
+   "source": "simple-icons@16.36.0:ubereats"
   },
   {
    "id": "lyft",
@@ -230,12 +236,14 @@
    "textTokens": [
     "Lyft"
    ],
-   "status": "forbidden",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:lyft",
    "termsUrl": "https://www.slideshare.net/slideshow/design_lyft_brand_guidelines_march2018-pdf/283233341",
    "finding": "A third-party copy of the Lyft brand guide (v5.6, 2018) says the logo is typically authorized only for contracted partners; current official text not confirmed.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "requires-permission",
+   "logo": "brand/logos/lyft.svg",
+   "source": "simple-icons@16.36.0:lyft"
   },
   {
    "id": "apple",
@@ -246,12 +254,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "forbidden",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:apple",
    "termsUrl": "https://www.apple.com/legal/intellectual-property/guidelinesfor3rdparties.html",
    "finding": "Third parties may not use the Apple Logo without an express written trademark license.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "requires-permission",
+   "logo": "brand/logos/apple.svg",
+   "source": "simple-icons@16.36.0:apple"
   },
   {
    "id": "peloton",
@@ -262,12 +272,14 @@
     "Peloton"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:peloton",
    "termsUrl": null,
    "finding": "Press page redirects away and the legal page returned 404 to the check. No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/peloton.svg",
+   "source": "simple-icons@16.36.0:peloton"
   },
   {
    "id": "stubhub",
@@ -280,30 +292,32 @@
    "textTokens": [
     "StubHub"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:stubhub",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/stubhub.svg",
+   "source": "simple-icons@16.36.0:stubhub"
   },
   {
    "id": "viagogo",
    "name": "viagogo",
    "category": "entertainment",
    "programmeIds": [],
-   "titleTokens": [
-    "viagogo"
-   ],
+   "titleTokens": [],
    "textTokens": [
     "viagogo"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/viagogo.png",
+   "source": "https://www.viagogo.com/apple-touch-icon.png"
   },
   {
    "id": "resy",
@@ -318,12 +332,14 @@
    "textTokens": [
     "Resy"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/resy.png",
+   "source": "https://resy.com/images/favicon.ico"
   },
   {
    "id": "dunkin",
@@ -338,12 +354,14 @@
    "textTokens": [
     "Dunkin"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/dunkin.svg",
+   "source": "https://www.dunkindonuts.com/brands/dun/logo.svg"
   },
   {
    "id": "home-chef",
@@ -356,12 +374,14 @@
     "Home Chef"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/home-chef.png",
+   "source": "https://compiled-production-assets.homechef.com/assets/fav/home_chef/favicon-196x196-1b92c821cd47e104eaa5b7bcea6fbfc1fbdad4b0e1851f6c149befedbbbedb15.png"
   },
   {
    "id": "lululemon",
@@ -376,12 +396,14 @@
    "textTokens": [
     "lululemon"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": "https://shop.lululemon.com/help/legal/terms-of-use",
    "finding": "Website terms bar framing its marks without written consent and warn that unauthorized use may violate trademark law; no grant located and no rule on identifying use.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/lululemon.png",
+   "source": "https://shop.lululemon.com/favicon.ico"
   },
   {
    "id": "oura",
@@ -396,12 +418,14 @@
    "textTokens": [
     "Oura"
    ],
-   "status": "forbidden",
-   "logo": null,
-   "candidate": null,
    "termsUrl": "https://ouraring.com/guidelines-for-commercial-use",
    "finding": "Commercial-use guidelines require written permission, which Oura may refuse or revoke (read from localized versions).",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "requires-permission",
+   "logo": "brand/logos/oura.png",
+   "source": "https://ouraring.com/assets/icons/apple-touch-icon.png"
   },
   {
    "id": "walmart",
@@ -416,12 +440,14 @@
    "textTokens": [
     "Walmart"
    ],
-   "status": "forbidden",
-   "logo": null,
-   "candidate": null,
    "termsUrl": "https://brandcenter.walmart.com/brand/trademarks",
    "finding": "Brand center says its logos may only be used with prior written permission.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "requires-permission",
+   "logo": "brand/logos/walmart.png",
+   "source": "https://www.walmart.com/apple-touch-icon.png"
   },
   {
    "id": "disney",
@@ -436,12 +462,14 @@
    "textTokens": [
     "Disney+"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/disney.png",
+   "source": "https://static-mh.content.disney.io/matterhorn/assets/favicon-94e3862e7fb9.ico"
   },
   {
    "id": "clear",
@@ -454,12 +482,14 @@
     "CLEAR+"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/clear.png",
+   "source": "https://cdn.prod.website-files.com/646a6ec3f634076bc7bf77f2/647f9537d0d4bfe668bed535_clear_favicon.png"
   },
   {
    "id": "priority-pass",
@@ -472,12 +502,14 @@
     "Priority Pass"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "Conditions of use cover membership only. No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/priority-pass.png",
+   "source": "https://www.prioritypass.com/icon.png"
   },
   {
    "id": "plaza-premium",
@@ -490,12 +522,14 @@
     "Plaza Premium"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/plaza-premium.png",
+   "source": "https://assets.plazapremiumlounge.com/images/favicon-16.png"
   },
   {
    "id": "alaska-lounge",
@@ -508,12 +542,14 @@
     "Alaska Lounge"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/alaska-lounge.png",
+   "source": "https://resource.alaskaair.net/favicon.ico"
   },
   {
    "id": "chase-sapphire-lounge",
@@ -524,12 +560,15 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "bundled:brand/banks/chase.svg",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "logoLabel": "Chase",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/banks/chase.ico",
+   "source": "bundled: public/brand/banks/sources.json"
   },
   {
    "id": "the-edit",
@@ -542,12 +581,15 @@
     "The Edit"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "bundled:brand/banks/chase.svg",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "logoLabel": "Chase",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/banks/chase.ico",
+   "source": "bundled: public/brand/banks/sources.json"
   },
   {
    "id": "the-shops-at-chase",
@@ -558,12 +600,15 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "bundled:brand/banks/chase.svg",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "logoLabel": "Chase",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/banks/chase.ico",
+   "source": "bundled: public/brand/banks/sources.json"
   },
   {
    "id": "chase-ultimate-rewards",
@@ -574,12 +619,15 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "bundled:brand/banks/chase.svg",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "logoLabel": "Chase",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/banks/chase.ico",
+   "source": "bundled: public/brand/banks/sources.json"
   },
   {
    "id": "amex-membership-rewards",
@@ -592,12 +640,15 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "bundled:brand/banks/amex.svg",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "logoLabel": "American Express",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/banks/amex.svg",
+   "source": "bundled: public/brand/banks/sources.json"
   },
   {
    "id": "fine-hotels-resorts",
@@ -610,12 +661,15 @@
     "Fine Hotels + Resorts"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "bundled:brand/banks/amex.svg",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "logoLabel": "American Express",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/banks/amex.svg",
+   "source": "bundled: public/brand/banks/sources.json"
   },
   {
    "id": "the-hotel-collection",
@@ -628,12 +682,15 @@
     "The Hotel Collection"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "bundled:brand/banks/amex.svg",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "logoLabel": "American Express",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/banks/amex.svg",
+   "source": "bundled: public/brand/banks/sources.json"
   },
   {
    "id": "hsbc-rewardcash",
@@ -644,12 +701,15 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "bundled:brand/banks/hsbc.png",
    "termsUrl": "https://www.hsbc.com/terms-and-conditions",
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "logoLabel": "HSBC",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/banks/hsbc.png",
+   "source": "bundled: public/brand/banks/sources.json"
   },
   {
    "id": "moneyback",
@@ -662,12 +722,14 @@
     "MoneyBack"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/moneyback.png",
+   "source": "https://www.moneyback.com.hk/favicon.ico"
   },
   {
    "id": "morgan-stanley-cashplus",
@@ -680,12 +742,15 @@
     "CashPlus"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/morgan-stanley-cashplus.png",
+   "source": "https://www.morganstanley.com/etc.clientlibs/msdotcomr5/clientlibs/components/site/resources/img/favicon-196x196.png",
+   "logoLabel": "Morgan Stanley"
   },
   {
    "id": "hilton",
@@ -698,12 +763,14 @@
     "Hilton"
    ],
    "textTokens": [],
-   "status": "forbidden",
-   "logo": null,
-   "candidate": "bundled:brand/banks/hilton.png",
    "termsUrl": "https://www.hilton.com/en/p/site-usage-agreement/",
    "finding": "Site usage agreement says its marks may not be used without prior express written consent; the media kit publishes logos without a usage grant.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "requires-permission",
+   "logo": "brand/banks/hilton.png",
+   "source": "bundled: public/brand/banks/sources.json"
   },
   {
    "id": "ihg",
@@ -718,12 +785,14 @@
    "textTokens": [
     "IHG"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "bundled:brand/banks/ihg.svg",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/banks/ihg.ico",
+   "source": "bundled: public/brand/banks/sources.json"
   },
   {
    "id": "marriott",
@@ -738,12 +807,14 @@
    "textTokens": [
     "Marriott Bonvoy"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:marriott",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/marriott.svg",
+   "source": "simple-icons@16.36.0:marriott"
   },
   {
    "id": "hyatt",
@@ -758,12 +829,14 @@
    "textTokens": [
     "World of Hyatt"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/hyatt.png",
+   "source": "https://www.hyatt.com/favicon.ico"
   },
   {
    "id": "radisson",
@@ -778,12 +851,14 @@
    "textTokens": [
     "Radisson Rewards"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/radisson.png",
+   "source": "https://www.radissonhotels.com/favicon.ico"
   },
   {
    "id": "accor",
@@ -798,12 +873,14 @@
    "textTokens": [
     "ALL Accor"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/accor.png",
+   "source": "https://static-p46175-e229011.adobeaemcloud.com/a94cb9eb1ff932579db94bde99e19e82c898161919aceb909d9250d5401e2cf6/resources/images/favicon-32x32.png"
   },
   {
    "id": "wyndham",
@@ -814,12 +891,15 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/wyndham.svg",
+   "source": "https://www.wyndhamhotels.com/content/dam/wyndham/brand-icons/whr.svg",
+   "logoLabel": "Wyndham"
   },
   {
    "id": "renowned-hotels",
@@ -832,12 +912,15 @@
     "Renowned Hotels"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "logoLabel": "Chase",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/banks/chase.ico",
+   "source": "bundled: public/brand/banks/sources.json"
   },
   {
    "id": "united",
@@ -848,12 +931,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:unitedairlines",
    "termsUrl": null,
    "finding": "Terms page timed out during the check. No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/united.svg",
+   "source": "simple-icons@16.36.0:unitedairlines"
   },
   {
    "id": "southwest",
@@ -865,12 +950,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:southwestairlines",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/southwest.svg",
+   "source": "simple-icons@16.36.0:southwestairlines"
   },
   {
    "id": "air-canada",
@@ -882,12 +969,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:aircanada",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/air-canada.svg",
+   "source": "simple-icons@16.36.0:aircanada"
   },
   {
    "id": "delta",
@@ -898,12 +987,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:delta",
    "termsUrl": "https://news.delta.com/delta-air-lines-logos-brand-guidelines",
    "finding": "Publishes logo rules (no modification, approved colours) and a media contact, but no grant for third-party product use.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/delta.svg",
+   "source": "simple-icons@16.36.0:delta"
   },
   {
    "id": "jetblue",
@@ -916,12 +1007,14 @@
    "textTokens": [
     "JetBlue"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:jetblue",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/jetblue.svg",
+   "source": "simple-icons@16.36.0:jetblue"
   },
   {
    "id": "atmos",
@@ -934,12 +1027,15 @@
     "Atmos"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "logoLabel": "Alaska Airlines",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/alaska-lounge.png",
+   "source": "https://resource.alaskaair.net/favicon.ico"
   },
   {
    "id": "aer-lingus",
@@ -950,12 +1046,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/aer-lingus.png",
+   "source": "https://www.aerlingus.com/favicon.ico"
   },
   {
    "id": "british-airways",
@@ -966,12 +1064,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:britishairways",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/british-airways.svg",
+   "source": "simple-icons@16.36.0:britishairways"
   },
   {
    "id": "flying-blue",
@@ -982,12 +1082,15 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:airfrance",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "logoLabel": "Air France",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/flying-blue.svg",
+   "source": "simple-icons@16.36.0:airfrance"
   },
   {
    "id": "iberia",
@@ -998,12 +1101,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:iberia",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/iberia.svg",
+   "source": "simple-icons@16.36.0:iberia"
   },
   {
    "id": "singapore-airlines",
@@ -1015,12 +1120,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:singaporeairlines",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/singapore-airlines.svg",
+   "source": "simple-icons@16.36.0:singaporeairlines"
   },
   {
    "id": "virgin-atlantic",
@@ -1031,12 +1138,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:virginatlantic",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/virgin-atlantic.svg",
+   "source": "simple-icons@16.36.0:virginatlantic"
   },
   {
    "id": "cathay",
@@ -1051,12 +1160,14 @@
    "textTokens": [
     "Asia Miles"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/cathay.png",
+   "source": "https://www.cathaypacific.com/content/dam/header-footer-lrp/cx-web-clip-icon.png"
   },
   {
    "id": "hk-express",
@@ -1067,12 +1178,14 @@
     "HK Express"
    ],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/hk-express.png",
+   "source": "https://www.hkexpress.com/favicon.ico"
   },
   {
    "id": "aeromexico",
@@ -1083,12 +1196,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/aeromexico.png",
+   "source": "https://aeromexico.com/favicon.ico"
   },
   {
    "id": "ana",
@@ -1099,12 +1214,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:ana",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/ana.svg",
+   "source": "simple-icons@16.36.0:ana"
   },
   {
    "id": "avianca",
@@ -1115,12 +1232,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:avianca",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/avianca.svg",
+   "source": "simple-icons@16.36.0:avianca"
   },
   {
    "id": "malaysia-airlines",
@@ -1131,12 +1250,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/malaysia-airlines.png",
+   "source": "https://www.malaysiaairlines.com/etc.clientlibs/mh/clientlibs/clientlib-vue/resources/favicon.ico"
   },
   {
    "id": "eva-air",
@@ -1147,12 +1268,14 @@
    ],
    "titleTokens": [],
    "textTokens": [],
-   "status": "unverified",
-   "logo": null,
-   "candidate": null,
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/eva-air.png",
+   "source": "https://www.evaair.com/favicon.ico"
   },
   {
    "id": "qantas",
@@ -1165,12 +1288,14 @@
    "textTokens": [
     "Qantas"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:qantas",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/qantas.svg",
+   "source": "simple-icons@16.36.0:qantas"
   },
   {
    "id": "etihad",
@@ -1183,12 +1308,14 @@
    "textTokens": [
     "Etihad"
    ],
-   "status": "unverified",
-   "logo": null,
-   "candidate": "simple-icons@16.36.0:etihadairways",
    "termsUrl": null,
    "finding": "No published grant for third-party identifying use was located.",
-   "checkedAt": "2026-11-03"
+   "checkedAt": "2026-11-03",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-03",
+   "terms": "unverified",
+   "logo": "brand/logos/etihad.svg",
+   "source": "simple-icons@16.36.0:etihadairways"
   }
  ]
 }

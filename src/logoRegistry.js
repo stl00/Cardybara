@@ -20,7 +20,7 @@ export function identifyBrand({programmeIds=[],title}={}){
 }
 function view(brand,category){
  const approved=brand?.status==='approved'&&brand.logo?brand.logo:null;
- return {brandId:brand?.id||null,name:brand?.name||null,logo:approved,category:Object.hasOwn(registry.categories,category??'')?category:null};
+ return {brandId:brand?.id||null,name:brand?.logoLabel||brand?.name||null,logo:approved,category:Object.hasOwn(registry.categories,category??'')?category:null};
 }
 export function logoForRule(rule){
  if(!rule)return view(null,null);
