@@ -59,6 +59,9 @@ test('payment reminders prefer newer billing evidence and do not suppress a newe
 test('Amex reports another named programme as not collected, and Membership Rewards pools stay separate by region',()=>{
  const required=t=>/^(?:Membership Rewards\b|美國運通積分|美国运通积分)/i.test(t);
  assert.deepEqual([...reader.otherRewardLabels(['Some Hotel Points','12,345','Membership Rewards','999','Redeem points','5','Current balance','7'],required)],['Some Hotel Points']);
+ // Only a labelled balance names a programme: activity lines, badges and spend words do not.
+ for(const label of ['Some Hotel Points','Some SkyStyleMiles','Airline Miles','某某積分'])assert.equal(reader.rewardLabel(label),true,label);
+ for(const label of ['Points earned','Bonus points','Points expiring soon','Points redeemed','Rewards multiplier','Spend milestone','Rewards','Points','Redeem points','Rewards activity','Offers and rewards','12,345 points','Current balance','兌換積分'])assert.equal(reader.rewardLabel(label),false,label);
  const cards=[{id:'us',bank:'Amex US',currency:'USD'},{id:'hk',bank:'Amex HK',currency:'HKD'},{id:'hk2',bank:'Amex HK',currency:'HKD'}];
  const record=(cardId,bank,region,value)=>({kind:'reward',cardId,bank,region,key:'Membership Rewards',title:'Membership Rewards',value,currency:'points',date:'',status:'unknown',evidence:'Membership Rewards\n'+value,capturedAt:'2030-01-01T00:00:00Z',page:'https://example.test',method:'rules'});
  const data=applyAgentRecords({cards},[record('us','Amex US','US',100),record('hk','Amex HK','HK',200),record('hk2','Amex HK','HK',200)]);

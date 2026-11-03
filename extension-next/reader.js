@@ -4,7 +4,7 @@
  const currencyToken=/^(?:HK\$|CA\$|US\$|\$|HKD|CAD|USD|CNY|RMB|CN¥)$/i;
  // A rewards label by its shape, used only to report a programme this version does not collect.
  // structural: the unit words are generic vocabulary, and a verb-led phrase is an action, not a balance.
- function rewardLabel(line){const t=String(line||'').trim();return t.length>=2&&t.length<=60&&!/\d/.test(t)&&/points?|miles?|rewards?|cash ?back|積分|积分|獎賞|奖赏|里數|里数|哩|萬里|万里|回贈|回赠/i.test(t)&&!/^(?:redeem|use|earn|view|see|explore|learn|go to|transfer|shop|book|pay|manage|how|about)\b/i.test(t)&&!/^(?:兌換|兑换|查看|了解)/.test(t);}
+ function rewardLabel(line){const t=String(line||'').trim();return t.length>=2&&t.length<=60&&!/\d/.test(t)&&/\b(?:points?|miles?|rewards?|cash ?back)\b|\S(?:Miles|Points)\b|積分|积分|獎賞|奖赏|里數|里数|哩|萬里|万里|回贈|回赠/.test(t.replace(/\b(points?|miles?|rewards?|cash ?back)\b/gi,m=>m.toLowerCase()))&&!/^(?:points?|miles?|rewards?|cash ?back)$/i.test(t)&&!/^(?:redeem|use|earn|view|see|explore|learn|go to|transfer|shop|book|pay|manage|how|about)\b/i.test(t)&&!/\b(?:earned|earning|bonus|expir\w*|redeemed|multiplier|activity|pending|per|lifetime|this (?:month|year)|offers?)\b/i.test(t)&&!/^(?:兌換|兑换|查看|了解)|已賺取|已赚取|即將到期|即将到期/.test(t);}
  function otherRewardLabels(lines,isRequired){const seen=new Set();for(let i=0;i<lines.length-1;i++)if(rewardLabel(lines[i])&&/^\d[\d,]*$/.test(lines[i+1])&&!isRequired(lines[i]))seen.add(lines[i]);return [...seen];}
  function labelText(value){return value.normalize('NFKC').replace(/[\u200b-\u200d\ufeff]/g,'').replace(/[:：]\s*$/,'').replace(/\s*[（(](?:HKD|USD|CAD|港元|港幣|港币)[）)]\s*$/i,'').trim();}
  function resolveLocale(lang,locales){
