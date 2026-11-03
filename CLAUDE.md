@@ -59,6 +59,8 @@ npm run check:release            # everything CI runs, including build and packa
 
 - Tests and `npm run check:release` pass locally; CI is green on the PR.
 - UI strings exist in all three languages (`src/translations.json`).
+- UI that names a merchant, category or programme uses `src/ItemLogo.jsx`, resolved from knowledge data rather than per-page lists; issuers and reward accounts use `BankMark`. Raw bank descriptions such as transaction merchants stay as read, because matching them risks false matches. `tests/logo-coverage.test.mjs` fails on a new credit or benefit with no icon.
+- A logo ships only as an `approved` entry in `src/data/logos.json` with a local file and its source and terms in `public/ASSET-SOURCES.md`. Otherwise the item uses its category icon. Approving a mark whose terms forbid or do not clearly allow this use is the owner's decision.
 - The PR states what was verified and at which level — fixture replay, simulated flow, or real bank — and lists what is still `not_run`.
 - No private data in the diff (see below). `scripts/audit-release.py` must still pass.
 
