@@ -2,7 +2,9 @@
 <!-- Synthetic test page, served locally by scripts/dev-collector/synthetic-bank.mjs. All values are made up. -->
 <body><main id="root"></main>
 <script>
-const cards=[
+// Generated variants come from sessionStorage, so tests can vary names, order and count.
+const generated=JSON.parse(sessionStorage.getItem('synthetic-cards')||'null');
+const cards=generated||[
  {internal:'100',tail:'1234',name:'Synthetic Rewards',balance:'$1,234.56',available:'$8,765.44',statement:'$321.00',closing:'$400.00',minimum:'$35.00',due:'Dec 19, 2030',points:'12,345'},
  {internal:'200',tail:'5678',name:'Synthetic Cash',balance:'$67.89',available:'$4,932.11',statement:'$0.00',points:'2,468',noPayment:true}
 ];
@@ -19,13 +21,13 @@ function render(){
  const route=location.hash,detail=route.match(/^#\/dashboard\/summary\/(\d+)\/CARD\/BAC/);
  if(detail){
   const c=cards.find(x=>x.internal===detail[1]);
-  root.innerHTML=`<h1>${c.name} (...${c.tail})</h1>${c.noPayment&&!leftover?`<div id="title-focus-target">You don't have a payment due right now.</div>`:''}<div id="currentBalance">${c.balance}</div><div id="remainingStatementBalance-dataItem">Remaining statement balance\n${c.statement}</div>${c.noPayment||c.plain?'':`<div id="lastStatementBalance-dataItem">Last statement balance\n${c.closing}</div><div id="minimumPaymentDue-dataItem">Minimum payment due\n${c.minimum}</div><div id="nextPaymentDueDate-dataItem">Payment due date\n${c.due}</div>`}<div id="ultimateRewards-dataItem">Ultimate Rewards® points\n${c.points}</div><a href="#/dashboard/overview">Back to accounts</a>`;
+  root.innerHTML=`<h1>${c.name} (...${c.tail})</h1>${c.noPayment&&!leftover?`<div id="title-focus-target">You don't have a payment due right now.</div>`:''}<div id="currentBalance">${c.balance}</div><div id="remainingStatementBalance-dataItem">Remaining statement balance\n${c.statement}</div>${c.noPayment||c.plain?'':`<div id="lastStatementBalance-dataItem">Last statement balance\n${c.closing}</div><div id="minimumPaymentDue-dataItem">Minimum payment due\n${c.minimum}</div><div id="nextPaymentDueDate-dataItem">Payment due date\n${c.due}</div>`}${c.partner?`<div><button aria-label="${c.programme}">i</button><div id="partnerRewards-dataItem">${c.points}</div></div>`:`<div id="ultimateRewards-dataItem">${c.programme||'Ultimate Rewards® points'}\n${c.points}</div>`}<a href="#/dashboard/overview">Back to accounts</a>`;
   root.querySelectorAll('div').forEach(d=>d.style.whiteSpace='pre-line');
   if(leftover&&c.noPayment&&!document.getElementById('title-focus-target')){const n=document.createElement('div');n.id='title-focus-target';n.textContent="You don't have a payment due right now.";document.body.prepend(n);}
   return;
  }
  if(!/^#\/dashboard\/overview/.test(route)){location.hash='#/dashboard/overview';return;}
- root.innerHTML='<h1>Synthetic accounts</h1><section id="CARD_ACCOUNTS">'+cards.map(c=>`<article><button id="accounts-name-link-button-${c.internal}">${c.name} (...${c.tail})</button><div id="${c.internal}-currentBalance-dataItem">${c.balance}</div><div id="${c.internal}-availableCredit-dataItem">${c.available}</div><div id="${c.internal}-remainingStatementBalance-dataItem">${c.statement}</div>${c.noPayment||c.plain?'':`<div id="${c.internal}-lastStatementBalance-dataItem">${c.closing}</div><div id="${c.internal}-minimumPaymentDue-dataItem">${c.minimum}</div>`}</article>`).join('')+'</section><p>Synthetic overview padding so the rendered page is long enough to settle for the reader. All values on this page are made up for tests.</p>';
+ root.innerHTML='<h1>Synthetic accounts</h1><section id="CARD_ACCOUNTS">'+cards.map(c=>`<article><button id="accounts-name-link-button-${c.internal}">${c.name} (...${c.tail})</button><div id="${c.internal}-currentBalance-dataItem">${c.balance}</div><div id="${c.internal}-availableCredit-dataItem">${c.available}</div><div id="${c.internal}-remainingStatementBalance-dataItem">${c.statement}</div>${c.noPayment||c.plain?'':`<div id="${c.internal}-lastStatementBalance-dataItem">${c.closing}</div><div id="${c.internal}-minimumPaymentDue-dataItem">${c.minimum}</div>`}</article>`).join('')+'</section>'+(generated?'<section id="OTHER_ACCOUNTS"><button id="other-account">Total Checking (...0001)</button></section>':'')+'<p>Synthetic overview padding so the rendered page is long enough to settle for the reader. All values on this page are made up for tests.</p>';
  for(const c of cards)document.getElementById('accounts-name-link-button-'+c.internal).onclick=()=>{location.hash=`#/dashboard/summary/${c.internal}/CARD/BAC`;};
 }
 addEventListener('hashchange',render);render();

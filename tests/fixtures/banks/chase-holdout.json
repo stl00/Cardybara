@@ -1,0 +1,59 @@
+{
+ "description": "Hold-out product names invented for this file. They must appear nowhere in collection code or other fixtures.",
+ "id": "chase-holdout",
+ "bank": "Chase",
+ "provenance": "synthetic; invented names and values; no live bank acceptance",
+ "cards": [
+  {
+   "id": "holdout-partner",
+   "bank": "Chase",
+   "tail": "3141",
+   "currency": "USD",
+   "name": "Quokka Voyager Business"
+  },
+  {
+   "id": "holdout-own-row",
+   "bank": "Chase",
+   "tail": "2718",
+   "currency": "USD",
+   "name": "Zephyrine Authorized User"
+  }
+ ],
+ "details": [
+  {
+   "title": "Quokka Voyager Business (...3141)",
+   "fields": {
+    "currentBalance": "$10.50",
+    "remainingStatementBalance-dataItem": "Remaining statement balance\n$4.25",
+    "minimumPaymentDue-dataItem": "Minimum payment due\n$2.00",
+    "nextPaymentDueDate-dataItem": "Payment due date\nDec 3, 2031",
+    "ultimateRewards-dataItem": "Ultimate Rewards® points\n9,876"
+   }
+  },
+  {
+   "title": "Zephyrine Authorized User (...2718)",
+   "fields": {
+    "currentBalance": "$20.75",
+    "lastStatementBalance-dataItem": "Last statement balance\n$6.50",
+    "minimumPaymentDue-dataItem": "Minimum payment due\n$3.00",
+    "nextPaymentDueDate-dataItem": "Payment due date\nDec 4, 2031",
+    "partnerRewards-dataItem": "543"
+   }
+  }
+ ],
+ "expected": [
+  {
+   "balance": 10.5,
+   "statement": 4.25,
+   "minimum": 2,
+   "due": "2031-12-03",
+   "reward": 9876
+  },
+  {
+   "balance": 20.75,
+   "statementClosing": 6.5,
+   "minimum": 3,
+   "due": "2031-12-04"
+  }
+ ]
+}
