@@ -7,7 +7,7 @@ export function redactStructureText(text){
  const out=String(text).replace(/\s+/g,' ').trim().slice(0,120);
  if(!out)return '';
  return out.split(' ').map(token=>{
-  if(/\d/.test(token))return token.replace(/\d/g,'#').replace(/[A-Za-z\u0080-￿]+/g,m=>/^(?:hk|ca|us|cn|hkd|usd|cad|cny|rmb|cr|dr|¥|\$)$/i.test(m)?m:'[x]');
+  if(/\p{N}/u.test(token))return token.replace(/\p{N}/gu,'#').replace(/\p{L}+/gu,m=>/^(?:hk|ca|us|cn|hkd|usd|cad|cny|rmb|cr|dr)$/i.test(m)?m:'[x]');
   const bare=token.replace(/^[^\p{L}]+|[^\p{L}'’]+$/gu,'');
   if(!bare)return token;
   if(words.has(bare.toLowerCase().replace('’',"'")))return token;
@@ -15,10 +15,11 @@ export function redactStructureText(text){
   return '[word]';
  }).join(' ');
 }
-export function structureReport(redactSource){
- const redact=(0,eval)('('+redactSource+')');
+export function structureReport(redact){
  const visible=e=>e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden';
- const maskId=v=>String(v||'').replace(/\d+/g,'#').slice(0,80);
+ // Long or mixed tokens can carry an identifier, so only short plain words stay.
+ const maskToken=v=>String(v||'').split(/([^\p{L}\p{N}]+)/u).map(t=>/^[A-Za-z]{1,24}$/.test(t)||!/[\p{L}\p{N}]/u.test(t)?t:'#').join('');
+ const maskId=v=>maskToken(v).slice(0,80);
  const roots=[document];for(let i=0;i<roots.length&&i<250;i++)for(const e of roots[i].querySelectorAll('*'))if(e.shadowRoot)roots.push(e.shadowRoot);
  const rows=[];
  for(const [depthRoot,root]of roots.entries())for(const e of root.querySelectorAll('*')){
@@ -28,5 +29,7 @@ export function structureReport(redactSource){
   if(!own&&!aria&&!e.id&&!role)continue;
   rows.push({tag:e.tagName.toLowerCase(),...(role?{role}:{}),...(e.id?{id:maskId(e.id)}:{}),...(aria?{aria:redact(aria)}:{}),...(own?{text:redact(own)}:{}),...(depthRoot?{shadow:true}:{})});
  }
- return {schema:1,host:location.hostname,path:location.pathname.replace(/\d+/g,'#').replace(/[a-f0-9-]{16,}/gi,'#'),hashShape:location.hash.replace(/\d+/g,'#').replace(/\?.*$/,'').slice(0,80),lang:document.documentElement.lang||'',title:redact(document.title),rows};
+ return {schema:1,host:location.hostname,path:maskToken(location.pathname),hashShape:maskToken(location.hash.replace(/\?.*$/,'')).slice(0,80),lang:document.documentElement.lang||'',title:redact(document.title),rows};
 }
+// The report as one injectable function: no eval, so a strict page CSP does not block it.
+export const injectableStructureReport={toString:()=>'()=>('+structureReport+')('+redactStructureText+')'};

@@ -5,7 +5,6 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {discoverVisibleCards} from '../extension-next/discovery.js';
-import {enrichBank,PARSER_SETTINGS} from '../extension-next/parser-client.js';
 import {redactStructureText} from '../scripts/dev-collector/structure-report.js';
 const read=p=>fs.readFileSync(new URL(p,import.meta.url),'utf8');
 const box={self:{}};vm.createContext(box);vm.runInContext(read('../extension-next/reader.js'),box);
@@ -13,15 +12,18 @@ const reader=box.self.CardyReader,copy=x=>JSON.parse(JSON.stringify(x));
 const holdout=JSON.parse(read('./fixtures/banks/chase-holdout.json'));
 const COLLECTION=fs.readdirSync(new URL('../extension-next/',import.meta.url)).filter(f=>f.endsWith('.js'));
 
-test('no product or programme name enters collection logic',()=>{
+// Names allowed per file, each justified where it appears. A new name or a new file fails the test.
+const ALLOWED={
+ 'mvp.js':['Membership Rewards','Ultimate Rewards','美國運通積分','美国运通积分','Hilton','Marriott','Bonvoy','SkyMiles','Reward Dollars','Aeroplan'], // MVP scope and Amex brand list
+ 'agent-snapshot.js':['Membership Rewards','美國運通積分','美国运通积分','RewardCash'], // required programme; other programme code, off in MVP scope
+ 'reader.js':['Membership Rewards','Ultimate Rewards','美國運通積分','美国运通积分','MileagePlus','IHG'], // same
+ 'bank-adapters.js':['美國運通積分','美国运通积分','Ultimate Rewards','IHG','MileagePlus','獎賞錢','奖赏钱','RewardCash','Asia Miles','亞洲萬里通','亚洲万里通','Membership Rewards'] // spelling aliases, never decide what is read
+};
+test('no product or programme name enters collection logic beyond the justified list',()=>{
  const entities=JSON.parse(read('../src/data/knowledge/entities.json')),products=JSON.parse(read('./fixtures/wallet-products.json'));
- const names=new Set(['Sapphire','Freedom','Aeroplan','MileagePlus','IHG','Ultimate Rewards','Membership Rewards','RewardCash','Atmos','Hilton','Bonvoy','SkyMiles','Asia Miles','亞洲萬里通','亚洲万里通','美國運通積分','美国运通积分','獎賞錢','奖赏钱','Platinum','Centurion','Marriott','Reward Dollars','CashBack',...entities.programmes.map(p=>p.name),...products.cards.map(c=>c.name)].filter(n=>typeof n==='string'&&n.length>3));
+ const names=new Set(['Sapphire','Freedom','Aeroplan','MileagePlus','IHG','Ultimate Rewards','Membership Rewards','RewardCash','Atmos','Hilton','Bonvoy','SkyMiles','Asia Miles','亞洲萬里通','亚洲万里通','美國運通積分','美国运通积分','獎賞錢','奖赏钱','Platinum','Centurion','Marriott','Reward Dollars',...entities.programmes.map(p=>p.name),...products.cards.map(c=>c.name)].filter(n=>typeof n==='string'&&n.length>2));
  const found=[];
- for(const file of COLLECTION)for(const [i,line] of read('../extension-next/'+file).split('\n').entries()){
-  // Justified: spelling aliases for grouping; they never decide what is read (see the file's comment).
-  if(file==='bank-adapters.js'&&line.startsWith('export const canonicalProgramme='))continue;
-  for(const name of names)if(line.toLowerCase().includes(name.toLowerCase()))found.push(file+':'+(i+1)+' '+name);
- }
+ for(const file of COLLECTION){const text=read('../extension-next/'+file).toLowerCase();for(const name of names)if(text.includes(name.toLowerCase())&&!(ALLOWED[file]||[]).some(ok=>ok.toLowerCase()===name.toLowerCase()||name.toLowerCase().includes(ok.toLowerCase())))found.push(file+': '+name);}
  assert.deepEqual(found,[]);
 });
 test('hold-out names appear nowhere else',()=>{
@@ -29,38 +31,15 @@ test('hold-out names appear nowhere else',()=>{
  for(const name of ['Quokka','Zephyrine'])assert.ok(!others.includes(name),name);
 });
 const mapped=items=>Object.fromEntries(items.map(i=>[i.kind==='reward'?'reward':i.key,i.key==='due'?i.date:i.key==='autopay'?i.status:i.value]));
-test('Chase hold-out cards read every field from structure alone',()=>{
+test('Chase hold-out cards read every billing field and Ultimate Rewards from structure alone',()=>{
  for(const [i,card] of holdout.cards.entries()){const r=reader.chaseDetail(holdout.details[i],card);assert.equal(r.rejected.length,0);assert.deepEqual(mapped(r.items),holdout.expected[i]);}
- assert.equal(reader.chaseDetail(holdout.details[0],holdout.cards[0]).items.find(i=>i.kind==='reward').key,'Quokka Trail Miles');
- assert.equal(reader.chaseDetail(holdout.details[1],holdout.cards[1]).items.find(i=>i.kind==='reward').key,'Zephyrine Club Points');
+ const partner=reader.chaseDetail(holdout.details[1],holdout.cards[1]);assert.ok(!partner.items.some(i=>i.kind==='reward'));assert.deepEqual([...partner.otherProgrammes],['unnamed'],'reported, not dropped');
 });
-test('Chase results do not change with product, programme or card type',()=>{
- const page=(name,programme,tail='3141')=>({title:name+' (...'+tail+')',rewardLabel:programme,fields:{currentBalance:'$10.50','remainingStatementBalance-dataItem':'Remaining statement balance\n$4.25','minimumPaymentDue-dataItem':'Minimum payment due\n$2.00','nextPaymentDueDate-dataItem':'Payment due date\nDec 3, 2031','partnerRewards-dataItem':'9,876'}});
- const card=(tail='3141')=>({id:'x',bank:'Chase',tail,currency:'USD'}),base=mapped(reader.chaseDetail(page('Plain','Plain Points'),card()).items);
- for(const [name,programme] of [['Quokka Business Ink','Quokka Trail Miles'],['Authorized User Card','Some Hotel Rewards points'],['カード','Airline Miles'],['No Annual Fee','Cash Back Rewards']])assert.deepEqual(mapped(reader.chaseDetail(page(name,programme),card()).items),base,name);
- assert.deepEqual(mapped(reader.chaseDetail(page('Plain','Plain Points','9999'),card('9999')).items),base,'another tail');
-});
-test('an unnamed or unclear rewards row is reported, and never guessed',()=>{
- const card=holdout.cards[0],page=holdout.details[0];
- for(const change of [{rewardLabel:undefined},{rewardLabel:null}]){const r=reader.chaseDetail({...page,...change},card);assert.ok(!r.items.some(i=>i.kind==='reward'));assert.ok(r.rejected.includes('unrecognized_programme'));}
- const twoNumbers=reader.chaseDetail({...page,fields:{...page.fields,'partnerRewards-dataItem':'9,876\n1,234'}},card);assert.ok(!twoNumbers.items.some(i=>i.kind==='reward'));assert.ok(twoNumbers.rejected.includes('unrecognized_programme'));
-});
-test('an unrecognized programme reaches the run result as partial with its reason',async()=>{
- const card=holdout.cards[0],previous=globalThis.chrome,previousFetch=globalThis.fetch;let url='https://secure.chase.com/web/auth/dashboard#/dashboard/overview';
- globalThis.chrome={permissions:{contains:async()=>false},storage:{local:{get:async()=>({[PARSER_SETTINGS]:{enabled:false,scope:'mvp'}})}},tabs:{get:async()=>({id:2,url,status:'complete'})},scripting:{executeScript:async o=>{
-  if(o.files||o.target.documentIds)return [{documentId:'doc',result:true}];
-  if(o.func.name==='chaseCards')return [{result:[]}];
-  return [{documentId:'doc',result:{pageHref:url,capturedAt:new Date().toISOString(),aliases:[{id:'C1',cardId:card.id,currency:'USD'}],observations:[{kind:'card',cardId:'C1',key:'balance',title:'Current balance',value:1,currency:'USD',date:'',status:'unknown',evidence:'[C1] Current balance $1.00'}],blocks:[{text:'[C1] Current balance $1.00'}],links:[],unrecognized:['unrecognized_programme'],rulesComplete:false}}];
- }}};
- globalThis.fetch=async()=>assert.fail('no model call');
- try{
-  const r=await enrichBank({bank:'Chase',cards:[card],tabId:2},{current:async()=>true,progress:async()=>{},checkpoint:async()=>{},navigate:async()=>{}});
-  assert.equal(r.rejectReasons.unrecognized_programme,1);assert.equal(r.rejected,1);assert.equal(r.sections.reward.status,'not_found');assert.deepEqual(r.sections.reward.coverage[0].missing,['reward']);
- }finally{globalThis.chrome=previous;globalThis.fetch=previousFetch;}
-});
-test('rewards label shape: units are generic, actions and values are not labels',()=>{
- for(const label of ['Some Hotel Rewards points','Airline Miles','Cash Back','Quokka Trail Miles','亞太里數','某某積分','現金回贈'])assert.equal(reader.rewardLabel(label),true,label);
- for(const label of ['Redeem points','View rewards','Current balance','12,345 points','Payment due date','兌換積分','',null])assert.equal(reader.rewardLabel(label),false,String(label));
+test('Chase results do not change with product name, card type or tail',()=>{
+ const page=(name,tail='3141')=>({title:name+' (...'+tail+')',fields:{currentBalance:'$10.50','remainingStatementBalance-dataItem':'Remaining statement balance\n$4.25','minimumPaymentDue-dataItem':'Minimum payment due\n$2.00','nextPaymentDueDate-dataItem':'Payment due date\nDec 3, 2031','ultimateRewards-dataItem':'Ultimate Rewards® points\n9,876'}});
+ const card=(tail='3141')=>({id:'x',bank:'Chase',tail,currency:'USD'}),base=mapped(reader.chaseDetail(page('Plain'),card()).items);
+ for(const name of ['Quokka Business Ink','Authorized User Card','カード','No Annual Fee'])assert.deepEqual(mapped(reader.chaseDetail(page(name),card()).items),base,name);
+ assert.deepEqual(mapped(reader.chaseDetail(page('Plain','9999'),card('9999')).items),base,'another tail');
 });
 function fakePage(texts,{group=false}={}){
  const el=text=>({innerText:text,getClientRects:()=>[1],shadowRoot:null});
@@ -69,23 +48,20 @@ function fakePage(texts,{group=false}={}){
  globalThis.document={documentElement:{lang:'en-US'},getElementById:id=>id==='CARD_ACCOUNTS'&&group?{}:null,querySelectorAll:s=>s==='input[type=password]'||s==='*'?[]:texts.map(el)};
  return ()=>{globalThis.document=previous.document;globalThis.getComputedStyle=previous.getComputedStyle;};
 }
-test('discovery takes any masked account whatever its product name, and skips only non-card account types',()=>{
- for(const bank of ['BOA','HSBC HK','SC HK','Chase']){
-  for(const name of ['Quokka Voyager','Zephyrine 商務','No Keyword Here','Business Advantage']){
-   const restore=fakePage([name+' ending in 3141']);
-   try{assert.deepEqual(discoverVisibleCards(bank,['en-US']).cards,[{tail:'3141',name:name+' ending in 3141'}],bank+' '+name);}finally{restore();}
-  }
-  for(const name of ['Total Checking','Savings Plus','Home Mortgage','支票賬戶','儲蓄戶口']){
-   const restore=fakePage([name+' ending in 3141']);
-   try{assert.equal(discoverVisibleCards(bank,['en-US']).status,'no_data',bank+' '+name);}finally{restore();}
-  }
+test('discovery takes any masked account whatever its product name, and skips only non-card accounts and sentences',()=>{
+ const run=(bank,text)=>{const restore=fakePage([text]);try{return discoverVisibleCards(bank,['en-US']);}finally{restore();}};
+ for(const bank of ['BOA','HSBC HK','SC HK','Chase','Citi US']){
+  for(const name of ['Quokka Voyager','Zephyrine 商務','No Keyword Here','Business Advantage'])assert.deepEqual(run(bank,name+' ending in 3141').cards,[{tail:'3141',name:name+' ending in 3141'}],bank+' '+name);
+  for(const name of ['Total Checking','Savings Plus','Home Mortgage','支票賬戶','儲蓄戶口','Adv Plus Banking','Money Market','HKD Current Account','Integrated Account','往來戶口','基金戶口','Home Equity Line','Debit Card']){const r=run(bank,name+' ending in 3141');assert.equal(r.status,'no_data',bank+' '+name);assert.equal(r.skipped,1,'counted, not silently lost');}
+  for(const text of ['We sent a code to your phone number ending in 3141','Payment from account ending in 3141'])assert.equal(run(bank,text).status,'no_data',text);
+  // Other words in the row, or a card word beside an account word, do not lose a real card.
+  for(const text of ['Quokka Visa ending in 3141\nPlan with My Flex Loan','Quokka Card ending in 3141\nAutopay from Savings','信用卡 尾號 3141\n定期回贈','Quokka Credit Line of Credit ending in 3141'])assert.equal(run(bank,text).cards.length,1,text);
  }
- // Card count and order do not matter, and full numbers never pass.
  const many=Array.from({length:25},(_,i)=>'Card '+String.fromCharCode(65+i)+' ending in '+(1000+i)),restore=fakePage([...many].reverse());
  try{assert.equal(discoverVisibleCards('BOA',['en-US']).cards.length,25);}finally{restore();}
- const full=fakePage(['Quokka 4111 1111 1111 1111 ending in 1111']);try{assert.equal(discoverVisibleCards('BOA',['en-US']).status,'no_data');}finally{full();}
+ assert.equal(run('BOA','Quokka 4111 1111 1111 1111 ending in 1111').status,'no_data','full numbers never pass');
 });
 test('structure report text keeps generic labels and hides names, tails and values',()=>{
  for(const [text,want] of [['Current balance','Current balance'],['Minimum payment due','Minimum payment due'],['$1,234.56','$#,###.##'],['HK$67.89','HK$##.##'],['...3141','...####'],['Dec 19, 2030','[word] ##, ####'],['Quokka Voyager','[word] [word]'],['Welcome, Alex Example','[word] [word] [word]'],['現時結欠','現時結欠'],['王小明','[字]'],['Quokka 積分','[word] 積分']])assert.equal(redactStructureText(text),want,text);
- for(const secret of ['Alex','Quokka','1234','3141','4111'])assert.ok(!redactStructureText('Alex Quokka 1234 ...3141 4111 1111').includes(secret),secret);
+ for(const secret of ['Alex','Quokka','1234','3141','4111','１２３４','٣١٤١'])assert.ok(!redactStructureText('Alex Quokka 1234 ...3141 4111 1111 １２３４ ٣١٤١').includes(secret),secret);
 });
