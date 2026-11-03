@@ -318,5 +318,62 @@
   // DOM readiness is event driven; this bounded observation does not hold the worker alive.
   return new Promise(resolve=>{let timer,debounce;const finish=()=>{observer.disconnect();clearTimeout(timer);clearTimeout(debounce);resolve(read(bank,cards,locales));};const observer=new MutationObserver(()=>{clearTimeout(debounce);debounce=setTimeout(()=>{current=read(bank,cards,locales);if(current.patches.length||current.status!=='no_data')finish();},150);});observer.observe(document.documentElement,{childList:true,subtree:true,characterData:true});timer=setTimeout(finish,10000);});
  }
- self.CardyReader={rewardLabel,otherRewardLabels,amexHkMvp,chaseSnapshot,chaseBenefitText,chaseBenefitGauge,chaseDate,chaseTransactions,chaseDetail,chaseOffer,amexHkTransactionRows,hsbcTransactionRows,authState,money,parseAccount,identify,chaseBindings,read,observe,resolveLocale,parseAmexOverview};
+ // Billing for issuers with no dedicated adapter yet. Reads one card's scoped text by label; product names play no part.
+ const ISSUER_MASK=/(?:[•●*xX]{2,}[\s-]*|\.{3}\s*|…\s*|\bending(?:\s+in)?[:\s]+|尾號[:：\s]*|尾号[:：\s]*|[-–]\s*)(\d{4,5})(?![\d.,])/gi;
+ const issuerTails=text=>[...String(text).matchAll(ISSUER_MASK)].map(m=>m[1]);
+ const holdsOther=(text,tail,otherTails)=>issuerTails(text).some(t=>t!==tail)||otherTails.some(t=>new RegExp('(?:^|[^0-9])'+t+'(?:[^0-9]|$)').test(text));
+ const MONTHS=['jan(?:uary)?','feb(?:ruary)?','mar(?:ch)?','apr(?:il)?','may','jun(?:e)?','jul(?:y)?','aug(?:ust)?','sep(?:tember)?','oct(?:ober)?','nov(?:ember)?','dec(?:ember)?'];
+ const monthOf=name=>MONTHS.findIndex(m=>new RegExp('^'+m+'$','i').test(name))+1;
+ // Only forms the validator can ground in evidence, and a numeric order only where it is certain.
+ function issuerDate(text,bank){
+  const t=String(text).trim();let y,m,d,x;
+  if(x=t.match(/^(20\d{2})年\s*(\d{1,2})月\s*(\d{1,2})日$/)||t.match(/^(20\d{2})-(\d{2})-(\d{2})$/))[y,m,d]=x.slice(1).map(Number);
+  else if(x=t.match(/^([A-Za-z]+) (\d{1,2}),? (20\d{2})$/)){m=monthOf(x[1]);d=Number(x[2]);y=Number(x[3]);}
+  else if(x=t.match(/^(\d{1,2}) ([A-Za-z]+) (20\d{2})$/)){d=Number(x[1]);m=monthOf(x[2]);y=Number(x[3]);}
+  else if(x=t.match(/^(\d{1,2})\/(\d{1,2})\/(20\d{2})$/)){y=Number(x[3]);if(['BOA','Amex US','Citi US'].includes(bank)){m=Number(x[1]);d=Number(x[2]);}else{d=Number(x[1]);m=Number(x[2]);if(d<=12)return null;}}
+  else return null;
+  if(!m||m>12||!d)return null;const iso=y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+  return Number.isFinite(Date.parse(iso))&&new Date(iso).toISOString().slice(0,10)===iso?iso:null;
+ }
+ // One labelled due date. Conflicting dates give nothing; a yearless date stays display-only.
+ function issuerDue(lines,bank,card,alias='C1'){
+  const items=[],add=(key,title,date,evidence)=>items.push({kind:'billing',cardId:alias,key,title,value:null,currency:card.currency,date,status:'unknown',evidence});
+  const full=/^(?:payment due date|due date|next payment due|還款到期日|还款到期日|繳款到期日|缴款到期日|付款到期日|到期還款日|到期还款日|最後還款日期|最后还款日期)$/i,yearless=/^(?:payment due date|還款到期日|还款到期日|繳款到期日|缴款到期日|付款到期日)$/i,dates=[],partial=[];
+  for(let i=0;i<lines.length;i++){
+   const inline=lines[i].split(/\s*[:：]\s*/),own=full.test(labelText(lines[i])),value=own?lines[i+1]:inline.length===2&&full.test(labelText(inline[0]))?inline[1]:null;if(!value)continue;
+   const evidence=own?lines.slice(i,i+2).join('\n'):lines[i],iso=issuerDate(value,bank);
+   if(iso)dates.push({iso,evidence});else if(own&&yearless.test(labelText(lines[i]))&&/^\d{1,2}月\s*\d{1,2}日$/.test(value))partial.push({value,evidence});
+  }
+  if(new Set(dates.map(d=>d.iso)).size===1)add('due','Payment due date',dates[0].iso,dates[0].evidence);
+  else if(!dates.length&&new Set(partial.map(d=>d.value.replace(/\s/g,''))).size===1)add('duePartial',partial[0].value,'',partial[0].evidence);
+  return items;
+ }
+ function issuerBilling(text,bank,card,otherTails=[],alias='C1'){
+  if(text.length>100000||!issuerTails(text).includes(card.tail)||holdsOther(text,card.tail,otherTails))return [];
+  const lines=text.replace(/[  ]/g,' ').split('\n').map(x=>x.trim()).filter(Boolean),items=[];
+  const parsed=parseAccount(text,bank,card,'en-US',new Date().toISOString(),100000);
+  for(const [key,value]of Object.entries(parsed?.fields||{})){
+   // Evidence is the labelled line that actually carries this value, not the first label of that name.
+   const digits=Math.abs(value).toFixed(2),carries=at=>lines.slice(at,at+4).join(' ').replaceAll(',','').includes(digits);
+   const at=lines.findIndex((l,i)=>(labels[key]?.test(labelText(l))||labels[key]?.test(labelText(l.split(/\s*[:：]\s*/)[0]))||labels[key]?.test(labelText(l.replace(/\s+(?:[-−(]|HK\$|US\$|\$|HKD|USD|\d).*$/,''))))&&carries(i));
+   if(at>=0)items.push({kind:'card',cardId:alias,key,title:labelText(lines[at]).slice(0,80),value,currency:card.currency,date:'',status:'unknown',evidence:lines.slice(at,at+4).join('\n')});
+  }
+  items.push(...issuerDue(lines,bank,card,alias));
+  const notices=lines.filter(l=>/^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(l));
+  if(new Set(notices).size===1&&!items.some(i=>(i.key==='minimum'&&i.value>0)||['due','duePartial'].includes(i.key)))items.push({kind:'billing',cardId:alias,key:'paymentStatus',title:notices[0],value:null,currency:card.currency,date:'',status:'unknown',evidence:notices[0]});
+  return items;
+ }
+ // The largest visible container holding this card's number and no other card's.
+ function issuerScope(tail,otherTails=[],doc=document){
+  const walker=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT),own=new RegExp('(?:^|[^0-9])'+tail+'(?:[^0-9]|$)');let best='',count=0;
+  while(walker.nextNode()&&count++<20000){
+   if(!own.test(walker.currentNode.textContent))continue;
+   for(let el=walker.currentNode.parentElement;el;el=el.parentElement){
+    if(!shown(el))continue;const t=el.innerText||'';if(t.length>16000||holdsOther(t,tail,otherTails))break;
+    if(issuerTails(t).includes(tail)&&t.length>best.length)best=t;
+   }
+  }
+  return best;
+ }
+ self.CardyReader={issuerDue,issuerBilling,issuerScope,rewardLabel,otherRewardLabels,amexHkMvp,chaseSnapshot,chaseBenefitText,chaseBenefitGauge,chaseDate,chaseTransactions,chaseDetail,chaseOffer,amexHkTransactionRows,hsbcTransactionRows,authState,money,parseAccount,identify,chaseBindings,read,observe,resolveLocale,parseAmexOverview};
 })();

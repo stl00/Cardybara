@@ -1,0 +1,20 @@
+{
+ "id": "sc-hk-en-card-details",
+ "provenance": "Synthetic text with invented values and names. Labels are assumed from public conventions, not captured from a bank page, until a real run confirms them.",
+ "billingRules": true,
+ "bank": "SC HK",
+ "locale": "en-HK",
+ "card": {
+  "id": "fixture-sc-2",
+  "bank": "SC HK",
+  "tail": "8765",
+  "currency": "HKD"
+ },
+ "text": "Tuatara Card ending in 8765\nCurrent Balance\nHKD 67.89\nStatement Balance\nHKD 0.00\nMinimum Payment\nHKD 0.00\nPayment Due Date\n19/12/2030",
+ "expected": {
+  "balance": 67.89,
+  "statement": 0,
+  "minimum": 0,
+  "due": "2030-12-19"
+ }
+}

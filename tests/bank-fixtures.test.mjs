@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {validateModel} from '../extension-next/agent-core.js';
 const context={self:{}};vm.createContext(context);
 vm.runInContext(fs.readFileSync(new URL('../extension-next/reader.js',import.meta.url),'utf8'),context);
 const reader=context.self.CardyReader;
@@ -92,4 +93,40 @@ test('Chase benefit states require printed evidence and period gauge keeps 150 d
  const c={currency:'USD'},e=reader.chaseBenefitText('Complimentary membership*\nActivation required',c);assert.equal(e.status,'requires_activation');assert.equal(e.value,null);
  assert.equal(reader.chaseBenefitText('Complimentary membership*\nActivated\nActivation required',c),null);
  const items=reader.chaseBenefitGauge('$300 Annual Dining Credit*','$0/$150','Good through 12/31/2026',c);assert.equal(items[0].key,'credit_progress');assert.equal(items[0].value,0);assert.equal(items[1].key,'credit_limit');assert.equal(items[1].value,150);assert.equal(items[0].date,'2026-12-31');
+});
+
+const issuer=name=>JSON.parse(fs.readFileSync(new URL('./fixtures/banks/'+name+'.json',import.meta.url),'utf8'));
+const fieldsOf=items=>Object.fromEntries(items.map(i=>[i.key,i.key==='due'?i.date:['paymentStatus','duePartial'].includes(i.key)?i.title:i.value]));
+for(const name of ['boa-card-details','boa-no-payment','sc-hk-zh-card-details','sc-hk-en-card-details'])test('issuer rules read billing fields and pass the validator: '+name,()=>{
+ const f=issuer(name),items=JSON.parse(JSON.stringify(reader.issuerBilling(f.text,f.bank,f.card)));
+ assert.deepEqual(fieldsOf(items),f.expected);
+ const snapshot={bank:f.bank,region:f.bank==='BOA'?'US':'HK',page:'https://example.test/account',capturedAt:'2030-01-01T00:00:00Z',aliases:[{id:'C1',cardId:f.card.id,currency:f.card.currency}],blocks:items.map(i=>({text:i.evidence})),links:[]};
+ const checked=validateModel({items,nextLinkId:null},snapshot);assert.deepEqual(checked.rejected,[]);assert.equal(checked.items.length,items.length);
+ // Results do not change with the product name.
+ const renamed=f.text.replace(/Numbat Voyager|Bilby|Kakapo|Tuatara/,'Another Product');assert.deepEqual(fieldsOf(reader.issuerBilling(renamed,f.bank,f.card)),f.expected);
+});
+test('issuer rules never mix cards or guess',()=>{
+ const f=issuer('boa-card-details'),boa=(t,others=[])=>fieldsOf(reader.issuerBilling(t,'BOA',f.card,others)),sc=issuer('sc-hk-en-card-details'),hk=t=>fieldsOf(reader.issuerBilling(t,'SC HK',sc.card));
+ for(const other of ['Visa - 5678','XXXX-XXXX-XXXX-5678','…5678','(-5678)','Ending in: 5678','Another Visa ending in 5678','••••5678','...5678'])assert.deepEqual(boa(f.text+'\n'+other+'\nCurrent Balance\n$5.00'),{},other);
+ assert.deepEqual(boa(f.text+'\nPlain 5678 row',['5678']),{},'a wallet tail in any form');
+ assert.deepEqual(boa('No card here\nCurrent Balance\n$5.00'),{},'card not identified');
+ assert.equal(boa('Visa ending in 1234\nCurrent Balance\n-$1,234.56').balance,-1234.56,'a negative amount is not a card number');
+ assert.deepEqual(boa('Visa ending in 1234\nCurrent Balance\n$5.00'),{balance:5},'nothing invented');
+ assert.equal(boa('Visa ending in 1234\nPayment Due Date\nDec 19').due,undefined,'yearless English date');
+ assert.equal(boa('Visa ending in 1234\nPayment Due Date\n12/19/2030\nDue Date\n12/20/2030').due,undefined,'conflicting dates');
+ assert.equal(hk(sc.text).due,'2030-12-19');assert.equal(hk(sc.text.replace('19/12/2030','03/04/2030')).due,undefined,'ambiguous day and month');
+ assert.equal(boa('Visa ending in 1234\nMinimum Payment Due\n$5.00\nNo payment due').paymentStatus,undefined);assert.equal(boa('Visa ending in 1234\nPayment Due Date\n12/19/2030\nNo payment due').paymentStatus,undefined);
+ // Evidence is the labelled line carrying the value, and only forms the validator accepts are parsed.
+ const late=JSON.parse(JSON.stringify(reader.issuerBilling('Visa ending in 1234\nMinimum Payment Due\nNot available\nMinimum Payment Due\n$5.00','BOA',f.card))).find(i=>i.key==='minimum');assert.match(late.evidence,/5\.00/);
+ for(const form of ['Dec. 19, 2030','Sept 19, 2030','19 Dec, 2030','19 Dec. 2030'])assert.equal(boa('Visa ending in 1234\nPayment Due Date\n'+form).due,undefined,form);
+ assert.equal(fieldsOf(reader.issuerBilling('尾號 8765\n還款到期日\n12月19日','SC HK',sc.card)).duePartial,'12月19日');
+ assert.equal(fieldsOf(reader.issuerBilling('尾號 8765\n最後還款日期\n12月19日','SC HK',sc.card)).duePartial,undefined,'only labels the validator accepts');
+ // The validator refuses an ambiguous model date too.
+ const snapshot={bank:'SC HK',region:'HK',page:'https://example.test/account',capturedAt:'2030-01-01T00:00:00Z',aliases:[{id:'C1',cardId:'x',currency:'HKD'}],blocks:[{text:'Payment Due Date\n04/03/2030'},{text:'Payment Due Date\n19/12/2030'}],links:[]};
+ const item=(date,evidence)=>({kind:'billing',cardId:'C1',key:'due',title:'Payment due date',value:null,currency:'HKD',date,status:'unknown',evidence});
+ assert.equal(validateModel({items:[item('2030-03-04','Payment Due Date\n04/03/2030')],nextLinkId:null},snapshot).items.length,0);assert.equal(validateModel({items:[item('2030-12-19','Payment Due Date\n19/12/2030')],nextLinkId:null},snapshot).items.length,1);
+});
+test('Amex US due date: labelled full date only',()=>{
+ const due=text=>JSON.parse(JSON.stringify(reader.issuerDue(text.split('\n'),'Amex US',{tail:'12345',currency:'USD'})));
+ assert.equal(due('Payment Due Date\nDec 19, 2030')[0].date,'2030-12-19');assert.equal(due('Payment Due Date\n12/03/2030')[0].date,'2030-12-03');assert.equal(due('Payment Due Date\nDec 19').length,0);assert.equal(due('Minimum Amount Due\n$0.00').length,0);
 });

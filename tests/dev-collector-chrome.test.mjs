@@ -146,6 +146,29 @@ test('collection scripts and the structure report still run under a strict page 
  }finally{await run.stop();}
 });
 
+for(const [bank,url,cards,want] of [
+ ['BOA','https://secure.bankofamerica.com/myaccounts/brain/redirect.go',['1234','5678'],[{balance:1234.56,available:8765.44,statement:321,minimum:35,due:'2030-12-19'},{balance:67.89,available:4932.11,statement:0}]],
+ ['SC HK','https://retail.sc.com/hk/nfs/login.htm',['4321','8765'],[{balance:1234.56,available:8765.44,statement:321,minimum:35,due:'2030-12-19'},{balance:67.89,available:4932.11,statement:0}]]
+])test('capture scopes each '+bank+' card on one page and reads its billing fields',async()=>{
+ const run=await start();
+ try{
+  const {chrome}=run.adapter,events=[];chrome.tabs.onUpdated.addListener((id,c)=>events.push(c));
+  const tab=await chrome.tabs.create({url,active:false});await until(()=>events.some(e=>e.status==='complete'));
+  const exec=(func,args=[])=>chrome.scripting.executeScript({target:{tabId:tab.id},func,args}).then(r=>r[0].result);
+  await exec(()=>{document.getElementById('sign-in').click();});
+  await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
+  const found=await exec(discoverVisibleCards,[bank,bank==='BOA'?['en-US']:['zh-HK']]);assert.deepEqual([...new Set(found.cards.map(c=>c.tail))],cards);
+  const list=cards.map(tail=>({id:'c'+tail,bank,tail,currency:bank==='BOA'?'USD':'HKD'}));
+  const raw=await exec(capturePage,[bank,list,[]]);assert.equal(raw.error,undefined);
+  for(const [i,tail] of cards.entries()){
+   const alias=raw.aliases.find(a=>a.cardId==='c'+tail).id,got=Object.fromEntries(raw.observations.filter(o=>o.cardId===alias&&o.key!=='paymentStatus').map(o=>[o.key,o.key==='due'?o.date:o.value]));
+   assert.deepEqual(got,want[i],tail);
+  }
+  assert.ok(!raw.observations.some(o=>o.kind==='reward'),'rewards are out of scope for these banks');
+  assert.ok(raw.observations.some(o=>o.key==='paymentStatus'&&o.cardId===raw.aliases.find(a=>a.cardId==='c'+cards[1]).id));
+ }finally{await run.stop();}
+});
+
 test('reports a refused bank response as blocked',async()=>{
  const blocked=[];const run=await start('blocked',b=>blocked.push(b));
  try{

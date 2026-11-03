@@ -19,6 +19,9 @@ for(const file of fs.readdirSync(path.join(root,'tests/fixtures/banks')).filter(
     const result=reader.chaseDetail(f.details[i],card),actual=Object.fromEntries(result.items.map(item=>[item.kind==='reward'?'reward':item.key,item.key==='due'?item.date:item.key==='autopay'?item.status:item.value]));
     const fields=compare(f.expected[i],actual);cases.push({id:f.id+'-'+card.id,bank:'Chase',provenance:f.provenance,stage:fields.every(x=>x.pass)?'passed':'field_extraction',fields,pass:fields.every(x=>x.pass)});
    }
+  }else if(f.billingRules===true&&f.card&&f.expected&&typeof f.text==='string'){
+   const items=reader.issuerBilling(f.text,f.bank,f.card),actual=Object.fromEntries(items.map(i=>[i.key,i.key==='due'?i.date:['paymentStatus','duePartial'].includes(i.key)?i.title:i.value]));
+   const fields=compare(f.expected,actual);cases.push({id:f.id,bank:f.bank,provenance:f.provenance,stage:fields.every(x=>x.pass)?'passed':'field_extraction',fields,pass:fields.every(x=>x.pass)});
   }else if(typeof f.bank==='string'&&f.card&&f.expected&&typeof f.text==='string'){
    const patch=f.bank.startsWith('Amex ')?reader.parseAmexOverview(f.text,f.heading,[f.card],f.locale,capturedAt):reader.parseAccount(f.text,f.bank,f.card,f.locale,capturedAt);
    const fields=compare(f.expected,patch?.fields||{});cases.push({id:f.id,bank:f.bank,provenance:f.provenance,stage:!patch?'card_scope':fields.every(x=>x.pass)?'passed':'field_extraction',fields,pass:!!patch&&fields.every(x=>x.pass)});
