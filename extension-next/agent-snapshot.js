@@ -52,7 +52,7 @@ export async function capturePage(bank,cards,contextIds=[]){
  }
  if(['BOA','SC HK'].includes(bank)&&self.CardyReader?.issuerBilling){
   for(const alias of aliases){
-   const card=matches.find(c=>c.id===alias.cardId),items=self.CardyReader.issuerBilling(self.CardyReader.issuerScope(card.tail),bank,card,alias.id);
+   const card=matches.find(c=>c.id===alias.cardId),others=cards.filter(c=>c.id!==card.id).map(c=>c.tail),items=self.CardyReader.issuerBilling(self.CardyReader.issuerScope(card.tail,others),bank,card,others,alias.id);
    for(const item of items){const evidence='['+alias.id+']\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
   }
  }

@@ -324,9 +324,11 @@
  const issuerTails=text=>[...String(text).matchAll(ISSUER_MASK)].map(m=>m[1]);
  // Anything else that looks like a card's last digits counts as another card, whatever its form: a wrong card is worse than a missing field.
  // Amounts, phone numbers, ranges and dates are not numbers on their own, and a bare year is not a tail unless it is masked.
- const TAIL_LIKE=/(?<![\d.,$\/])(?<!\d[-–])\d{4,5}(?![\d,\/]|\.\d|[-–]\d)/g;
- const tailLike=text=>[...String(text).matchAll(TAIL_LIKE)].map(m=>m[0]).filter(t=>!/^(?:19|20)\d\d$/.test(t));
- const holdsOther=(text,tail)=>[...tailLike(text),...issuerTails(text).filter(t=>!/^(?:19|20)\d\d$/.test(t)||t===tail)].some(t=>t!==tail);
+ const TAIL_LIKE=/(?<![\d$])(?<!\d[.,\/\-–])\d{4,5}(?!\d|[,.\/\-–]\d)/g;
+ const YEAR=/^(?:19|20)\d\d$/;
+ // A year-shaped tail still counts when masked. Only a bare year, or a statement or period end date, is ignored.
+ const maskedOther=(text,tail)=>[...String(text).matchAll(ISSUER_MASK)].some(m=>m[1]!==tail&&!(YEAR.test(m[1])&&/^ending/i.test(m[0])&&/\b(?:statement|period|cycle)\b[^\n]*$/i.test(String(text).slice(0,m.index))));
+ const holdsOther=(text,tail,otherTails=[])=>maskedOther(text,tail)||[...String(text).matchAll(TAIL_LIKE)].some(m=>m[0]!==tail&&!YEAR.test(m[0]))||otherTails.some(t=>t!==tail&&new RegExp('(?:^|[^0-9])'+t+'(?:[^0-9]|$)').test(text));
  const MONTHS=['jan(?:uary)?','feb(?:ruary)?','mar(?:ch)?','apr(?:il)?','may','jun(?:e)?','jul(?:y)?','aug(?:ust)?','sep(?:tember)?','oct(?:ober)?','nov(?:ember)?','dec(?:ember)?'];
  const monthOf=name=>MONTHS.findIndex(m=>new RegExp('^'+m+'$','i').test(name))+1;
  // Only forms the validator can ground in evidence, and a numeric order only where it is certain.
@@ -353,8 +355,8 @@
   else if(!dates.length&&new Set(partial.map(d=>d.value.replace(/\s/g,''))).size===1)add('duePartial',partial[0].value,'',partial[0].evidence);
   return items;
  }
- function issuerBilling(text,bank,card,alias='C1'){
-  if(text.length>100000||!issuerTails(text).includes(card.tail)||holdsOther(text,card.tail))return [];
+ function issuerBilling(text,bank,card,otherTails=[],alias='C1'){
+  if(text.length>100000||!issuerTails(text).includes(card.tail)||holdsOther(text,card.tail,otherTails))return [];
   const lines=text.replace(/[  ]/g,' ').split('\n').map(x=>x.trim()).filter(Boolean),items=[];
   const parsed=parseAccount(text,bank,card,'en-US',new Date().toISOString(),100000);
   for(const [key,value]of Object.entries(parsed?.fields||{})){
@@ -369,12 +371,12 @@
   return items;
  }
  // The largest visible container holding this card's number and no other card's.
- function issuerScope(tail,doc=document){
+ function issuerScope(tail,otherTails=[],doc=document){
   const walker=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT),own=new RegExp('(?:^|[^0-9])'+tail+'(?:[^0-9]|$)');let best='',count=0;
   while(walker.nextNode()&&count++<20000){
    if(!own.test(walker.currentNode.textContent))continue;
    for(let el=walker.currentNode.parentElement;el;el=el.parentElement){
-    if(!shown(el))continue;const t=el.innerText||'';if(t.length>16000||holdsOther(t,tail))break;
+    if(!shown(el))continue;const t=el.innerText||'';if(t.length>16000||holdsOther(t,tail,otherTails))break;
     if(issuerTails(t).includes(tail)&&t.length>best.length)best=t;
    }
   }

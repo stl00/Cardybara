@@ -108,6 +108,8 @@ for(const name of ['boa-card-details','boa-no-payment','sc-hk-zh-card-details','
 test('issuer rules never mix cards or guess',()=>{
  const f=issuer('boa-card-details'),boa=(t,others=[])=>fieldsOf(reader.issuerBilling(t,'BOA',f.card,others)),sc=issuer('sc-hk-en-card-details'),hk=t=>fieldsOf(reader.issuerBilling(t,'SC HK',sc.card));
  for(const other of ['Visa - 5678','XXXX-XXXX-XXXX-5678','…5678','(-5678)','Ending in: 5678','Another Visa ending in 5678','••••5678','...5678','Visa x5678','*5678','• 5678','(5678)','#5678','Plain 5678 row','ends in 5678','ending with 5678','末四位 5678','尾数 5678','后四位 5678','••••5678.','ending in 5678,'])assert.deepEqual(boa(f.text+'\n'+other+'\nCurrent Balance\n$5.00'),{},other);
+ for(const other of ['ending in 2030','••••2030','尾號 2030','XXXX-XXXX-XXXX-2045','Visa 5678,','Visa/5678'])assert.deepEqual(boa(f.text+'\n'+other+'\nCurrent Balance\n$5.00'),{},other);
+ assert.deepEqual(boa(f.text+'\nVisa 2030',['2030']),{},'a year-shaped tail already in the wallet');
  // Phone numbers, dates, ranges, amounts and years neither identify a card nor stand in for another one.
  assert.deepEqual(boa('Visa 5678\nCall 1-800-555-1234\nCurrent Balance\n$5.00'),{},'a phone number does not identify the card');
  for(const noise of ['Call 1-800-432-1000','Call 2886-8888','01-01-2030','© 2000-2030','Statement ending 2030','Dec 19, 2030','$1,234.56','1234.56'])assert.equal(boa('Visa ending in 1234\nCurrent Balance\n$5.00\n'+noise).balance,5,noise);
