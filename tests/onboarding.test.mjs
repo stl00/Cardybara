@@ -75,6 +75,8 @@ test('bank guide resumes a new wallet after login without already knowing its ca
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:[]},doc),false);password=false;
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:[]},doc),true);
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:['9999']},doc),false);
+ // The guide recognises the masked forms discovery accepts, on any bank.
+ for(const [text,ready] of [['Visa ending in 1234',true],['信用卡 尾號 1234',true],['Visa 1234',false]])assert.equal(c.cardyGuidePageReady({bank:'BOA',tails:[]},{body:{innerText:text},querySelectorAll:s=>s==='input[type=password]'?[]:[el(text)]}),ready,text);
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:['2345']},doc),true);
  doc.querySelectorAll=()=>[];assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:[]},doc),false);
 });

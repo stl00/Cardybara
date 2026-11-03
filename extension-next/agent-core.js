@@ -42,6 +42,7 @@ export function evidenceDate(date,evidence,dateOrder){
  const [y,m,d]=date.split('-').map(Number),text=canonicalEvidence(evidence);
  if(new RegExp(`\\b${y}[/.]0?${m}[/.]0?${d}\\b`).test(text))return true;
  if(dateOrder==='mdy'&&new RegExp(`\\b0?${m}/0?${d}/${y}\\b`).test(text))return true;
+ if(dateOrder==='dmy'&&new RegExp(`\\b0?${d}/0?${m}/${y}\\b`).test(text))return true;
  if(new RegExp(`${y}\\s*年\\s*0?${m}\\s*月\\s*0?${d}\\s*日`).test(text))return true;
  const months=['Jan(?:uary)?','Feb(?:ruary)?','Mar(?:ch)?','Apr(?:il)?','May','Jun(?:e)?','Jul(?:y)?','Aug(?:ust)?','Sep(?:tember)?','Oct(?:ober)?','Nov(?:ember)?','Dec(?:ember)?'];
  return new RegExp(`(?:\\b${months[m-1]}\\s+0?${d},?\\s*${y}\\b|\\b0?${d}\\s+${months[m-1]}\\s+${y}\\b|\\b0?${d}\\s+0?${m}月\\s+${y}\\b)`,'i').test(text);
@@ -69,7 +70,7 @@ export function validateModel(raw,snapshot){
   if(item.kind!=='billing'&&['on','off'].includes(item.status)){reject('unit');continue;}
   const evidence=item.evidence.replace(/\s*,\s*/g,'').replaceAll(',','').replace(/\s+(?=\.\d)/g,'');
   if(item.value!==null&&(!Number.isFinite(item.value)||Math.abs(item.value)>1e9||![...evidence.matchAll(/[-−]?(?:\d+(?:\.\d+)?)/g)].some(m=>Math.abs(Number(m[0].replace('−','-')))===Math.abs(item.value)))){reject('number');continue;}
-  if(item.date&&!evidenceDate(item.date,item.evidence,snapshot.bank.startsWith('Amex ')||snapshot.region==='US'?'mdy':undefined)){reject('date');continue;}
+  if(item.date&&!evidenceDate(item.date,item.evidence,snapshot.bank.startsWith('Amex ')||snapshot.region==='US'?'mdy':snapshot.bank==='SC HK'?'dmy':undefined)){reject('date');continue;}
   if(snapshot.aliases.length>1&&!item.evidence.includes('['+item.cardId+']')){reject('card_scope');continue;}
   if(item.kind==='card'&&snapshot.bank.startsWith('Amex ')&&!/^https:\/\/global\.americanexpress\.com\/(?:dashboard|overview)(?:[/?#]|$)/.test(snapshot.page)){reject('card_page');continue;}
   if(item.kind==='card'&&(!['balance','available','statement','statementClosing','minimum','creditLimit'].includes(item.key)||item.value===null||item.currency!==alias.currency||(!['balance','statementClosing'].includes(item.key)&&item.value<0))){reject('card');continue;}

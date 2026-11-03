@@ -1,0 +1,19 @@
+<!doctype html><html lang="zh-HK"><meta charset="utf-8"><title>Synthetic SC HK page (test only)</title>
+<!-- Synthetic test page, served locally by scripts/dev-collector/synthetic-bank.mjs. All values are made up. -->
+<body><main id="root"></main>
+<script>
+const cards=[
+ {name:'渣打示例信用卡',tail:'4321',rows:[['現時結欠','HK$1,234.56'],['可用信貸額','HK$8,765.44'],['月結單結欠','HK$321.00'],['最低還款額','HK$35.00'],['還款到期日','2030年12月19日'],['360° 獎賞積分','12,345']]},
+ {name:'渣打示例白金卡',tail:'8765',rows:[['現時結欠','HK$67.89'],['可用信貸額','HK$4,932.11'],['月結單結欠','HK$0.00'],['暫時毋須付款'],['亞洲萬里通','2,468']]}
+];
+const root=document.getElementById('root');
+function render(){
+ if(sessionStorage.getItem('synthetic-signed-in')!=='1'){
+  root.innerHTML='<h1>Synthetic sign in</h1><form><input type="password" aria-label="Synthetic password" autocomplete="off"><button type="button" id="sign-in">Sign in</button></form>';
+  document.getElementById('sign-in').onclick=()=>{sessionStorage.setItem('synthetic-signed-in','1');render();};
+  return;
+ }
+ root.innerHTML='<h1>Synthetic accounts</h1>'+cards.map(c=>'<article data-account-type="credit-card" style="white-space:pre-line">'+'<h2>'+c.name+' 尾號 '+c.tail+'</h2>'+c.rows.map(r=>'<div>'+r.join('\n')+'</div>').join('')+'</article>').join('')+'<p>All values on this page are made up for tests. This padding keeps the rendered page long enough for the reader to settle on it.</p>';
+}
+render();
+</script></body></html>

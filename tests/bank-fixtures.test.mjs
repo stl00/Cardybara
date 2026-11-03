@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {validateModel} from '../extension-next/agent-core.js';
 const context={self:{}};vm.createContext(context);
 vm.runInContext(fs.readFileSync(new URL('../extension-next/reader.js',import.meta.url),'utf8'),context);
 const reader=context.self.CardyReader;
@@ -92,4 +93,38 @@ test('Chase benefit states require printed evidence and period gauge keeps 150 d
  const c={currency:'USD'},e=reader.chaseBenefitText('Complimentary membership*\nActivation required',c);assert.equal(e.status,'requires_activation');assert.equal(e.value,null);
  assert.equal(reader.chaseBenefitText('Complimentary membership*\nActivated\nActivation required',c),null);
  const items=reader.chaseBenefitGauge('$300 Annual Dining Credit*','$0/$150','Good through 12/31/2026',c);assert.equal(items[0].key,'credit_progress');assert.equal(items[0].value,0);assert.equal(items[1].key,'credit_limit');assert.equal(items[1].value,150);assert.equal(items[0].date,'2026-12-31');
+});
+
+const issuer=name=>JSON.parse(fs.readFileSync(new URL('./fixtures/banks/'+name+'.json',import.meta.url),'utf8'));
+const fieldsOf=items=>Object.fromEntries(items.map(i=>[i.kind==='reward'?'reward':i.key,i.key==='due'?i.date:['paymentStatus','duePartial'].includes(i.key)?i.title:i.value]));
+for(const name of ['boa-card-details','boa-atmos-no-payment','sc-hk-zh-card-details','sc-hk-en-card-details'])test('issuer rules read every MVP field: '+name,()=>{
+ const f=issuer(name),items=JSON.parse(JSON.stringify(reader.issuerMvp(f.text,f.bank,f.card)));
+ assert.deepEqual(fieldsOf(items),f.expected);
+ const snapshot={bank:f.bank,region:f.bank==='BOA'?'US':'HK',page:'https://example.test/account',capturedAt:'2030-01-01T00:00:00Z',aliases:[{id:'C1',cardId:f.card.id,currency:f.card.currency}],blocks:items.map(i=>({text:i.evidence})),links:[]};
+ const checked=validateModel({items,nextLinkId:null},snapshot);assert.deepEqual(checked.rejected,[]);assert.equal(checked.items.length,items.length);
+});
+test('issuer rules never guess: other cards, ambiguous dates, yearless dates and missing values',()=>{
+ const f=issuer('boa-card-details'),boa=t=>fieldsOf(reader.issuerMvp(t,'BOA',f.card)),sc=issuer('sc-hk-en-card-details'),hk=t=>fieldsOf(reader.issuerMvp(t,'SC HK',sc.card));
+ assert.deepEqual(boa(f.text+'\nAnother Visa ending in 9999\nCurrent Balance\n$5.00'),{},'another masked card in scope');
+ assert.deepEqual(boa('No card here\nCurrent Balance\n$5.00'),{},'card not identified');
+ assert.equal(reader.issuerMvp(f.text,'Chase',f.card).length,0);
+ const missing=boa('Visa ending in 1234\nCurrent Balance\n$5.00');assert.deepEqual(missing,{balance:5},'no zero or date is invented');
+ assert.equal(boa('Visa ending in 1234\nPayment Due Date\nDec 19').due,undefined,'yearless English date');
+ assert.equal(boa('Visa ending in 1234\nPayment Due Date\n12/19/2030\nDue Date\n12/20/2030').due,undefined,'conflicting dates');
+ assert.equal(hk(sc.text).due,'2030-12-19');assert.equal(hk(sc.text.replace('19/12/2030','03/04/2030')).due,undefined,'ambiguous day and month in HK');
+ assert.equal(fieldsOf(reader.issuerMvp('尾號 8765\n還款到期日\n12月19日','SC HK',sc.card)).duePartial,'12月19日');
+ assert.equal(boa('Visa ending in 1234\nCash Rewards\n$1.00\nCash Rewards\n$2.00').reward,undefined,'conflicting rewards');
+ assert.equal(boa('Visa ending in 1234\nMinimum Payment Due\n$5.00\nNo payment due').paymentStatus,undefined,'statement contradicted by a positive minimum');
+ assert.equal(boa('Visa ending in 1234\nPayment Due Date\n12/19/2030\nNo payment due').paymentStatus,undefined,'statement contradicted by a due date');
+});
+test('Amex US and CA due dates: labelled full dates only, with the order each region uses',()=>{
+ const due=(text,bank)=>JSON.parse(JSON.stringify(reader.issuerDue(text.split('\n'),bank,{tail:'12345',currency:bank==='Amex US'?'USD':'CAD'})));
+ assert.equal(due('Payment Due Date\nDec 19, 2030','Amex US')[0].date,'2030-12-19');
+ assert.equal(due('Payment Due Date\n12/03/2030','Amex US')[0].date,'2030-12-03');
+ assert.equal(due('Payment Due Date\nDec 19, 2030','Amex CA')[0].date,'2030-12-19');
+ assert.equal(due('Payment Due Date\n12/03/2030','Amex CA').length,0,'ambiguous day and month in Canada');
+ assert.equal(due('Payment Due Date\nDec 19','Amex US').length,0,'yearless');
+ assert.equal(due('Minimum Amount Due\n$0.00','Amex US').length,0,'no label, no date');
+ const item=due('Payment Due Date\nDec 19, 2030','Amex US')[0],snapshot={bank:'Amex US',region:'US',page:'https://global.americanexpress.com/dashboard',capturedAt:'2030-01-01T00:00:00Z',aliases:[{id:'C1',cardId:'x',currency:'USD'}],blocks:[{text:item.evidence}],links:[]};
+ assert.deepEqual(validateModel({items:[item],nextLinkId:null},snapshot).rejected,[]);
 });

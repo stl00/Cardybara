@@ -1,0 +1,22 @@
+{
+ "id": "sc-hk-zh-card-details",
+ "provenance": "Synthetic text with invented values. Labels are assumed from public conventions, not captured from a bank page, until a real run confirms them.",
+ "mvp": true,
+ "bank": "SC HK",
+ "locale": "zh-HK",
+ "card": {
+  "id": "fixture-sc",
+  "bank": "SC HK",
+  "tail": "4321",
+  "currency": "HKD"
+ },
+ "text": "渣打示例信用卡 尾號 4321\n現時結欠\nHK$1,234.56\n可用信貸額\nHK$8,765.44\n月結單結欠\nHK$321.00\n最低還款額\nHK$35.00\n還款到期日\n2030年12月19日\n360° 獎賞積分\n12,345",
+ "expected": {
+  "balance": 1234.56,
+  "available": 8765.44,
+  "statement": 321,
+  "minimum": 35,
+  "due": "2030-12-19",
+  "reward": 12345
+ }
+}

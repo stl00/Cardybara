@@ -310,5 +310,68 @@
   // DOM readiness is event driven; this bounded observation does not hold the worker alive.
   return new Promise(resolve=>{let timer,debounce;const finish=()=>{observer.disconnect();clearTimeout(timer);clearTimeout(debounce);resolve(read(bank,cards,locales));};const observer=new MutationObserver(()=>{clearTimeout(debounce);debounce=setTimeout(()=>{current=read(bank,cards,locales);if(current.patches.length||current.status!=='no_data')finish();},150);});observer.observe(document.documentElement,{childList:true,subtree:true,characterData:true});timer=setTimeout(finish,10000);});
  }
- self.CardyReader={amexHkMvp,chaseSnapshot,chaseBenefitText,chaseBenefitGauge,chaseDate,chaseTransactions,chaseDetail,chaseOffer,amexHkTransactionRows,hsbcTransactionRows,authState,money,parseAccount,identify,chaseBindings,read,observe,resolveLocale,parseAmexOverview};
+ // Rule path for issuers whose pages have no dedicated adapter yet. Reads one card's scoped text:
+ // labelled values only, never a guessed year or a reward total without its own programme label.
+ const ISSUER_REWARDS={BOA:/^(?:Cash Rewards?|Atmos Rewards?(?: Points?)?|Available Points?)$/i,'SC HK':/^(?:Asia Miles|亞洲萬里通|亚洲万里通|CashBack|360° ?Rewards(?: Points?)?|360° ?獎賞(?:積分)?|360° ?奖赏(?:积分)?)$/i};
+ const ISSUER_MASK=/(?:[•●*xX]{2,}\s*|\.{3}\s*|ending\s+(?:in\s+)?|尾號\s*|尾号\s*)(\d{4,5})(?!\d)/gi;
+ function issuerDate(text,bank){
+  const months=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'],t=text.trim();let y,m,d,x;
+  if(x=t.match(/^(20\d{2})年\s*(\d{1,2})月\s*(\d{1,2})日$/)||t.match(/^(20\d{2})-(\d{2})-(\d{2})$/))[y,m,d]=x.slice(1).map(Number);
+  else if(x=t.match(/^([A-Za-z]{3,9})\.? (\d{1,2}),? (20\d{2})$/)){m=months.indexOf(x[1].slice(0,3).toLowerCase())+1;d=Number(x[2]);y=Number(x[3]);}
+  else if(x=t.match(/^(\d{1,2}) ([A-Za-z]{3,9})\.?,? (20\d{2})$/)){d=Number(x[1]);m=months.indexOf(x[2].slice(0,3).toLowerCase())+1;y=Number(x[3]);}
+  else if(x=t.match(/^(\d{1,2})\/(\d{1,2})\/(20\d{2})$/)){y=Number(x[3]);if(['BOA','Amex US'].includes(bank)){m=Number(x[1]);d=Number(x[2]);}else{d=Number(x[1]);m=Number(x[2]);if(d<=12)return null;}}
+  else return null;
+  if(!m||m>12||!d)return null;const iso=y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+  return Number.isFinite(Date.parse(iso))&&new Date(iso).toISOString().slice(0,10)===iso?iso:null;
+ }
+ // One labelled due date. Conflicting dates give nothing; a yearless date stays display-only.
+ function issuerDue(lines,bank,card,alias='C1'){
+  const items=[],add=(key,title,date,evidence)=>items.push({kind:'billing',cardId:alias,key,title,value:null,currency:card.currency,date,status:'unknown',evidence});
+  const dueLabel=/^(?:payment due date|due date|next payment due|還款到期日|还款到期日|繳款到期日|缴款到期日|付款到期日|到期還款日|到期还款日|最後還款日期|最后还款日期)$/i,dates=[],partial=[];
+  for(let i=0;i<lines.length;i++){
+   const inline=lines[i].split(/\s*[:：]\s*/),own=dueLabel.test(labelText(lines[i])),value=own?lines[i+1]:inline.length===2&&dueLabel.test(labelText(inline[0]))?inline[1]:null;if(!value)continue;
+   const evidence=own?lines.slice(i,i+2).join('\n'):lines[i],iso=issuerDate(value,bank);
+   if(iso)dates.push({iso,evidence});else if(/^\d{1,2}月\s*\d{1,2}日$/.test(value)&&own)partial.push({value,evidence});
+  }
+  if(new Set(dates.map(d=>d.iso)).size===1)add('due','Payment due date',dates[0].iso,dates[0].evidence);
+  else if(!dates.length&&new Set(partial.map(d=>d.value.replace(/\s/g,''))).size===1)add('duePartial',partial[0].value,'',partial[0].evidence);
+  return items;
+ }
+ function issuerMvp(text,bank,card,alias='C1'){
+  if(!ISSUER_REWARDS[bank]||text.length>100000)return [];
+  const masked=[...text.matchAll(ISSUER_MASK)].map(m=>m[1]);if(!masked.includes(card.tail)||masked.some(t=>t!==card.tail))return [];
+  const lines=text.replace(/[  ]/g,' ').split('\n').map(x=>x.trim()).filter(Boolean),items=[];
+  const add=(kind,key,title,value,currency,date,evidence)=>items.push({kind,cardId:alias,key,title,value,currency,date,status:'unknown',evidence});
+  const parsed=parseAccount(text,bank,card,'en-US',new Date().toISOString(),100000);
+  for(const [key,value]of Object.entries(parsed?.fields||{})){
+   const at=lines.findIndex(l=>labels[key]?.test(labelText(l))||labels[key]?.test(labelText(l.split(/\s*[:：]\s*/)[0]))||labels[key]?.test(labelText(l.replace(/\s+(?:[-−(]|HK\$|US\$|\$|HKD|USD|\d).*$/,''))));
+   if(at>=0)add('card',key,labelText(lines[at]).slice(0,80),value,card.currency,'',lines.slice(at,at+4).join('\n'));
+  }
+  items.push(...issuerDue(lines,bank,card,alias));
+  const notices=lines.filter(l=>/^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(l));
+  if(new Set(notices).size===1&&!items.some(i=>(i.key==='minimum'&&i.value>0)||['due','duePartial'].includes(i.key)))add('billing','paymentStatus',notices[0],null,card.currency,'',notices[0]);
+  // One programme label followed by one printed value; several different values prove nothing.
+  const rewards=[];
+  for(let i=0;i<lines.length-1;i++){
+   const label=lines[i].replace(/[®™]/g,'').trim();if(!ISSUER_REWARDS[bank].test(label))continue;
+   const next=lines[i+1],points=/^\d[\d,]*$/.test(next)?Number(next.replaceAll(',','')):null,cash=points===null?money(next,card.currency,'en-US'):null;
+   if(points!==null&&Number.isSafeInteger(points)&&points<=1e9)rewards.push({label:lines[i],value:points,unit:'points',evidence:lines.slice(i,i+2).join('\n')});
+   else if(cash!==null&&cash>=0)rewards.push({label:lines[i],value:cash,unit:card.currency,evidence:lines.slice(i,i+2).join('\n')});
+  }
+  if(new Set(rewards.map(r=>r.label+'|'+r.value)).size===1)add('reward',rewards[0].label,rewards[0].label,rewards[0].value,rewards[0].unit,'',rewards[0].evidence);
+  return items;
+ }
+ // The largest visible container that holds this card's masked number and no other card's.
+ function issuerScope(tail,doc=document){
+  const walker=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT),own=new RegExp('(?:^|[^0-9])'+tail+'(?:[^0-9]|$)');let best='',count=0;
+  while(walker.nextNode()&&count++<20000){
+   if(!own.test(walker.currentNode.textContent))continue;
+   for(let el=walker.currentNode.parentElement;el;el=el.parentElement){
+    if(!shown(el))continue;const t=el.innerText||'';if(t.length>16000)break;const masked=[...t.matchAll(ISSUER_MASK)].map(m=>m[1]);if(masked.some(x=>x!==tail))break;
+    if(masked.includes(tail)&&t.length>best.length)best=t;
+   }
+  }
+  return best;
+ }
+ self.CardyReader={issuerDue,issuerMvp,issuerScope,amexHkMvp,chaseSnapshot,chaseBenefitText,chaseBenefitGauge,chaseDate,chaseTransactions,chaseDetail,chaseOffer,amexHkTransactionRows,hsbcTransactionRows,authState,money,parseAccount,identify,chaseBindings,read,observe,resolveLocale,parseAmexOverview};
 })();

@@ -45,6 +45,16 @@ export async function capturePage(bank,cards,contextIds=[]){
   if(positions.every(i=>i>=0)&&self.CardyReader?.hsbcTransactionRows){const rows=tableRows.slice(1).map(tr=>{const cells=[...tr.querySelectorAll('td')].map(e=>e.innerText.trim());return {date:cells[positions[0]],tail:cells[positions[1]]?.match(/Card ending in (\d{4,5})/i)?.[1],description:cells[positions[2]],amountIn:cells[positions[3]],amountOut:cells[positions[4]]};});const parsed=self.CardyReader.hsbcTransactionRows(rows,matches[0]);for(const item of parsed.items)add({...item,key:redact(item.key),title:replace(item.title),evidence:replace(item.evidence)});}
 
  }
+ if(['Amex US','Amex CA'].includes(bank)&&selectedCardId&&self.CardyReader?.issuerDue&&/^\/(?:dashboard|overview)\/?$/.test(location.pathname)){
+  const card=matches.find(c=>c.id===selectedCardId);
+  for(const item of self.CardyReader.issuerDue(body.split('\n').map(t=>t.trim()).filter(Boolean),bank,card)){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
+ }
+ if(['BOA','SC HK'].includes(bank)&&self.CardyReader?.issuerMvp){
+  for(const alias of aliases){
+   const card=matches.find(c=>c.id===alias.cardId),items=self.CardyReader.issuerMvp(self.CardyReader.issuerScope(card.tail),bank,card,alias.id);
+   for(const item of items){const evidence='['+alias.id+']\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
+  }
+ }
  if(bank==='Amex HK'&&selectedCardId&&self.CardyReader?.amexHkMvp){
   const path=location.pathname,page=/^\/(dashboard|overview)\/?$/.test(path)?'overview':/^\/rewards\/?$/.test(path)?'rewards':'billing';
   const text=document.querySelector('main')?.innerText||body;
