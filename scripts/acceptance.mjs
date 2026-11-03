@@ -2,7 +2,7 @@ import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {pathToFileURL} from 'node:url';
 export const REQUIRED_CASES=['install','coldStart','manualAdd','bankDiscovery','bankReadback','restartPersistence','exportRecovery','cancel','expiredSession','upgradePersistence'];
-export const REQUIRED_BANKS=['Amex US','Amex HK','Amex CA','Chase','BOA','HSBC HK','SC HK'];
+export const REQUIRED_BANKS=['Amex US','Amex HK','Chase','BOA','HSBC HK','SC HK'];
 export function validateAcceptance(report,{sha256,runtimeBuild,now=Date.now()}){
  const errors=[];const need=(ok,why)=>{if(!ok)errors.push(why);};
  need(report?.schema===1,'invalid schema');need(report?.artifactSha256===sha256,'artifact changed or not tested');

@@ -5,12 +5,14 @@ const amex=['www.americanexpress.com','global.americanexpress.com'];
 export const PROVIDERS={
  'Amex US':{issuer:'Amex',region:'US',locales:['en-US'],currency:'USD',hosts:amex,regionPath:/en-us|\/us\//i,url:'https://www.americanexpress.com/en-us/account/login',evidence:'unverified'},
  'Amex HK':{issuer:'Amex',region:'HK',locales:['zh-HK','zh-CN','en-HK'],currency:'HKD',hosts:amex,regionPath:/zh-hk|en-hk|\/hk\//i,url:'https://www.americanexpress.com/zh-hk/account/login',evidence:'unverified'},
- 'Amex CA':{issuer:'Amex',region:'CA',locales:['en-CA','fr-CA'],currency:'CAD',hosts:amex,regionPath:/en-ca|fr-ca|\/canada\//i,url:'https://www.americanexpress.com/en-ca/account/login',evidence:'unverified'},
+ // Archived: code and fixtures stay, off by default. A wallet already holding these cards keeps its records.
+ 'Amex CA':{archived:true,issuer:'Amex',region:'CA',locales:['en-CA','fr-CA'],currency:'CAD',hosts:amex,regionPath:/en-ca|fr-ca|\/canada\//i,url:'https://www.americanexpress.com/en-ca/account/login',evidence:'unverified'},
  'Chase':{issuer:'Chase',region:'US',locales:['en-US'],currency:'USD',hosts:['secure.chase.com'],url:'https://secure.chase.com/web/auth/dashboard#/dashboard/overview',evidence:'legacy-four-card-amounts'},
  'BOA':{issuer:'Bank of America',region:'US',locales:['en-US'],currency:'USD',hosts:['secure.bankofamerica.com','www.bankofamerica.com'],url:'https://secure.bankofamerica.com/myaccounts/brain/redirect.go',evidence:'unverified'},
  'HSBC HK':{issuer:'HSBC',region:'HK',locales:['zh-HK','zh-CN','en-HK'],currency:'HKD',hosts:['www.hsbc.com.hk','www.ebanking.hsbc.com.hk','www.security.online-banking.hsbc.com.hk'],url:'https://www.hsbc.com.hk/online/dashboard/',evidence:'fixture-only'},
  'SC HK':{issuer:'Standard Chartered',region:'HK',locales:['zh-HK','zh-CN','en-HK'],currency:'HKD',hosts:['retail.sc.com','www.sc.com'],url:'https://retail.sc.com/hk/nfs/login.htm',evidence:'unverified'}
 };
+export const ACTIVE_BANKS=Object.keys(PROVIDERS).filter(bank=>!PROVIDERS[bank].archived);
 export function allowed(bank,href){
  try{const p=PROVIDERS[bank],u=new URL(href);return !!p&&u.protocol==='https:'&&!u.username&&!u.password&&(!u.port||u.port==='443')&&p.hosts.includes(u.hostname)&&!/(?:log.?out|log.?off|signout|signoff)/i.test(u.pathname)&&(!p.regionPath||p.regionPath.test(u.pathname));}catch{return false;}
 }
