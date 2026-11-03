@@ -1,7 +1,7 @@
 // Dev-only launcher for the dedicated collector Chrome. The browser outlives the Node
 // service on purpose: reloading collector code must not end the owner's bank session.
 import {spawn as nodeSpawn} from 'node:child_process';
-import {chmod,mkdir,readFile,rm,access} from 'node:fs/promises';
+import {chmod,mkdir,readFile,rm,access,writeFile} from 'node:fs/promises';
 import {homedir} from 'node:os';
 import {join,resolve,sep} from 'node:path';
 import {assertLoopbackUrl,connectCdp} from './cdp.mjs';
@@ -27,6 +27,19 @@ export function parseActivePort(text){
  const [port,path]=String(text).trim().split('\n');
  if(!/^\d{1,5}$/.test(port||'')||!/^\/devtools\/browser\/[\w-]+$/.test(path||''))throw Error('invalid_active_port');
  return assertLoopbackUrl('ws://127.0.0.1:'+port+path);
+}
+// A home is either synthetic or real for life: a synthetic run must never reuse a real browser
+// (no DNS block, real session), and a real run must never read through a synthetic one.
+export async function claimHomeMode(home,mode){
+ await mkdir(home,{recursive:true,mode:0o700});
+ const path=join(home,'mode'),existing=await readFile(path,'utf8').catch(()=>null);
+ if(existing!==null&&existing!==mode)throw Error('collector_home_mode_conflict');
+ if(existing===null){
+  // A home from before this marker holds a real profile.
+  const used=await access(join(home,'chrome-profile')).then(()=>true,()=>false);
+  if(used&&mode!=='real')throw Error('collector_home_mode_conflict');
+  await writeFile(path,mode,{mode:0o600});
+ }
 }
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 export async function openBrowser({profile,chromePath,headless=false,noSandbox=false,extraArgs,extraMethods,launch=true,spawn=nodeSpawn,connect=connectCdp,timeoutMs=20000}){

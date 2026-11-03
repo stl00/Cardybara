@@ -3,12 +3,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {EventEmitter} from 'node:events';
 import {execFileSync,spawnSync} from 'node:child_process';
-import {mkdtemp,readFile,rm,stat,writeFile} from 'node:fs/promises';
+import {mkdir,mkdtemp,readFile,rm,stat,writeFile} from 'node:fs/promises';
 import {tmpdir,homedir} from 'node:os';
 import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {ALLOWED_METHODS,CdpConnection,SYNTHETIC_METHODS,assertAllowedCall,assertLoopbackUrl} from '../scripts/dev-collector/cdp.mjs';
-import {assertDedicatedProfile,chromeArgs,openBrowser,parseActivePort} from '../scripts/dev-collector/chrome-launcher.mjs';
+import {assertDedicatedProfile,chromeArgs,claimHomeMode,openBrowser,parseActivePort} from '../scripts/dev-collector/chrome-launcher.mjs';
 import {WALLET_TAB_ID,blockSignal,createChromeAdapter,createStorageArea,funcExpression,hostPermissions,tabIdFor} from '../scripts/dev-collector/chrome-adapter.mjs';
 import {collectorGuard,collectorPlugin,watchedSource} from '../scripts/dev-collector/vite-plugin.mjs';
 import {ORIGIN} from '../extension-next/providers.js';
@@ -166,6 +166,31 @@ test('scripting waits for the document to parse before running, like document_id
 test('leaving the bank hosts mid-read is reported with the host only',async()=>{
  const s=setup(),tab=await bankTab(s);s.conn.commit('https://www.other.example/path?secret=1','L7');
  assert.deepEqual(s.blocked,[{tabId:tab.id,host:'www.other.example',reason:'left_permitted_hosts'}]);
+});
+test('tabs: a hash-only tabs.update still reports complete',async()=>{
+ const s=setup(),tab=await bankTab(s),updates=[];s.chrome.tabs.onUpdated.addListener((id,change)=>updates.push(change));
+ const next=BANK.replace('overview','other');await s.chrome.tabs.update(tab.id,{url:next});
+ s.conn.fire('Page.navigatedWithinDocument',{frameId:'F1',url:next});await flush();
+ assert.deepEqual(updates,[{status:'loading',url:next},{status:'complete'}]);
+});
+test('connect: a failed setup closes the connection and a later call starts over; refresh can still launch during reattach',async()=>{
+ let closes=0,opens=0;const bad=new FakeConn();bad.close=()=>{closes++;bad.emit('close');};const good=new FakeConn(),send=bad.send.bind(bad);
+ bad.send=(m,...a)=>m==='Target.getTargets'?Promise.reject(Error('cdp_timeout')):send(m,...a);
+ const s=setup({openBrowser:async()=>(++opens===1?bad:good)});
+ await assert.rejects(s.adapter.connect(),/cdp_timeout/);assert.equal(closes,1);assert.equal(await s.adapter.connect(),good);
+ let release;const launches=[];const first=new Promise((_,reject)=>{release=reject;});
+ const r=setup({openBrowser:async({launch})=>{launches.push(launch);return launch?new FakeConn():first;}});
+ const startup=r.adapter.connect();const refresh=r.adapter.connect({launch:true});release(Error('no_browser'));
+ await assert.rejects(startup,/no_browser/);await refresh;assert.deepEqual(launches,[false,true]);
+});
+test('a collector home cannot switch between synthetic and real',async()=>{
+ const home=await mkdtemp(join(tmpdir(),'cardybara-mode-'));
+ try{
+  await claimHomeMode(home,'synthetic');await claimHomeMode(home,'synthetic');
+  await assert.rejects(claimHomeMode(home,'real'),/mode_conflict/);
+  const used=await mkdtemp(join(tmpdir(),'cardybara-mode-'));await mkdir(join(used,'chrome-profile'));
+  await assert.rejects(claimHomeMode(used,'synthetic'),/mode_conflict/);await claimHomeMode(used,'real');await rm(used,{recursive:true,force:true});
+ }finally{await rm(home,{recursive:true,force:true});}
 });
 test('tabs: closing a tab or losing Chrome fires onRemoved',async()=>{
  const s=setup(),removed=[];s.chrome.tabs.onRemoved.addListener(id=>removed.push(id));

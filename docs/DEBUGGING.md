@@ -19,12 +19,12 @@
 - 专用 Chrome 在第一次刷新时才启动，用独立 profile，调试端口只绑定 127.0.0.1。档案和采集状态都在被 Git 忽略的 `.debug/dev-collector/`（可用 `CARDYBARA_COLLECTOR_HOME` 改位置）。登录、验证码和手机确认都由本人在这个窗口完成。
 - 修改 `extension-next/*.js` 或 `scripts/dev-collector/*.mjs` 后 service 自动重启，Chrome 和银行登录保留，不需要动 Chrome 的扩展页面。未完成的任务按既有规则标记为 interrupted，重新点刷新即可。
 - adapter 自身只能发送 `cdp.mjs` 白名单内的方法：不含 Network、Storage、Input，脚本只在隔离 world 运行。可注入的站点和可见的标签页 URL 与 manifest 的 host permissions 一致，页面端的消息通道只接受当前文档的隔离 world。
-- **残余风险：** 白名单只约束 adapter。调试端口没有鉴权，专用 Chrome 开着时，本机以同一用户运行的任何进程都能连接它，包括读取已登录银行的 cookie。专用 Chrome 不随 `npm run dev` 退出；不用时请关闭窗口，尤其是登录过银行之后。隔离 world 也能访问 `document.cookie`，所以“不读 cookie”靠的是注入的代码本身不去读，与扩展相同。
-- 银行拒绝文档请求（403/429/451）、显示常见拦截页或在读取中离开允许的域名时，run 立即停止并在钱包报错，不重试、不绕过。这是尽力检测：后台请求被拒或换了标题的拦截页看不到，这时结果会是读取失败。
+- **残余风险：** 白名单只约束 adapter。调试端口没有鉴权，专用 Chrome 开着时，本机任何进程（多用户机器上也包括其他用户的进程）都能连接它，包括读取已登录银行的 cookie。专用 Chrome 不随 `npm run dev` 退出；不用时请关闭窗口，尤其是登录过银行之后。隔离 world 也能访问 `document.cookie`，所以“不读 cookie”靠的是注入的代码本身不去读，与扩展相同。
+- 银行拒绝文档请求（403/429/451）、显示常见拦截页或在正在读取的任务中离开允许的域名时，run 立即停止，后面排队的银行也不再继续并在钱包报错，不重试、不绕过。这是尽力检测：后台请求被拒或换了标题的拦截页看不到，这时结果会是读取失败。
 - 关闭专用 Chrome 会停止当前 run，之后不会自动重开；下次点刷新才启动。
 - `CARDYBARA_DEV_COLLECTOR=0` 关闭。这是 dev-only 代码：`vite build` 不包含，`scripts/audit-release.py --package` 检查发布包。
 
-合成演练：`CARDYBARA_COLLECTOR_HOME=<临时目录> CARDYBARA_SYNTHETIC_BANK=page npm run dev`。此模式把已接管标签页的 HTTPS 请求答复为 `tests/fixtures/synthetic-bank.html`，并让专用 Chrome 的所有 DNS 解析失败，因此连不到银行；`CARDYBARA_SYNTHETIC_BANK=blocked` 演练被拦截。`npm run test:collector-chrome` 用真实 headless Chrome 跑 adapter，本地手动执行，不在 CI。以上都属于“流程回归”，不是真实终验。
+合成演练（目录一旦用于合成或真实模式就不能混用）：`CARDYBARA_COLLECTOR_HOME=<临时目录> CARDYBARA_SYNTHETIC_BANK=page npm run dev`。此模式把已接管标签页的 HTTPS 请求答复为 `tests/fixtures/synthetic-bank.html`，并让专用 Chrome 的所有 DNS 解析失败，因此连不到银行；`CARDYBARA_SYNTHETIC_BANK=blocked` 演练被拦截。`npm run test:collector-chrome` 用真实 headless Chrome 跑 adapter，本地手动执行，不在 CI。以上都属于“流程回归”，不是真实终验。
 
 ## 三层证据
 

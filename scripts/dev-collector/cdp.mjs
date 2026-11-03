@@ -1,7 +1,7 @@
 // Dev-only DevTools client. It may only speak to a loopback browser and only send the methods
 // below: no cookie, storage, network or input methods, and scripts run in an isolated world.
-// This limits this client only. The port has no authentication, so any process running as this
-// user can use it while the dedicated Chrome is open.
+// This limits this client only. The port has no authentication, so any local process, including
+// other users' on a shared machine, can use it while the dedicated Chrome is open.
 import {EventEmitter} from 'node:events';
 import WebSocket from 'ws';
 

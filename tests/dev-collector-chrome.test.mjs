@@ -61,6 +61,11 @@ test('injects in an isolated world, tracks documents and answers a page script t
   await chrome.scripting.executeScript({target:{tabId:tab.id},func:()=>{history.pushState(null,'','#/dashboard/other');}});
   await until(()=>events.some(e=>e.url===hash));
   const [{documentId:same}]=await chrome.scripting.executeScript({target:{tabId:tab.id,documentIds:[documentId]},func:()=>true});assert.equal(same,documentId);
+  // A hash-only tabs.update is same-document and must still end in complete.
+  const routed=BANK.replace('overview','routed'),mark=events.length;
+  await chrome.tabs.update(tab.id,{url:routed});
+  await until(()=>events.slice(mark).some(e=>e.status==='complete'));
+  assert.equal((await chrome.tabs.get(tab.id)).url,routed);assert.equal((await chrome.tabs.get(tab.id)).status,'complete');
   // A reload creates a new document and rejects stale document IDs.
   const before=events.length;await chrome.tabs.reload(tab.id);
   await until(()=>events.slice(before).some(e=>e.status==='complete'));

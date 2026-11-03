@@ -14,7 +14,7 @@
  const say=m=>{if(!m.errorCode)return m;let i=0;try{const l=localStorage.getItem('cardybara-language')||'';i=/en/i.test(l)?2:/tw|hant/i.test(l)?1:0;}catch{}const {errorCode,...rest}=m;return {...rest,error:(text[errorCode]||text.collector_unavailable)[i]};};
  const emit=m=>window.postMessage({channel:'cardybara-extension',...m},origin);
  const ask=async m=>{const r=await fetch(base+'message',{method:'POST',headers:{'Content-Type':'application/json','X-Cardybara-Client':'dev-collector'},body:JSON.stringify(m)});if(!r.ok)throw Error('collector_unavailable');return r.json();};
- const hello=()=>ask({type:'hello',requestId:crypto.randomUUID()}).then(result=>emit({type:'ready',...result})).catch(()=>{});
+ const hello=()=>ask({type:'hello',requestId:crypto.randomUUID()}).then(result=>emit({type:'ready',...say(result)})).catch(()=>{});
  const events=new EventSource(base+'events');
  events.onopen=hello;
  events.onmessage=e=>{const m=JSON.parse(e.data);if(m.restarted)void hello();else if(m.channel==='cardybara-extension')window.postMessage(say(m),origin);};

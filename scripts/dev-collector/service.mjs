@@ -3,7 +3,7 @@
 import {readFile} from 'node:fs/promises';
 import {join,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {openBrowser} from './chrome-launcher.mjs';
+import {claimHomeMode,openBrowser} from './chrome-launcher.mjs';
 import {SYNTHETIC_ARGS,SYNTHETIC_METHODS} from './cdp.mjs';
 import {createChromeAdapter,hostPermissions} from './chrome-adapter.mjs';
 import {ORIGIN} from '../../extension-next/providers.js';
@@ -12,6 +12,7 @@ const root=resolve(fileURLToPath(new URL('../..',import.meta.url))),extensionRoo
 const env=process.env,home=resolve(env.CARDYBARA_COLLECTOR_HOME||join(root,'.debug/dev-collector'));
 const synthetic=env.CARDYBARA_SYNTHETIC_BANK;
 if(synthetic&&!env.CARDYBARA_COLLECTOR_HOME)throw Error('synthetic_bank_requires_separate_home');
+await claimHomeMode(home,synthetic?'synthetic':'real');
 const prepareTab=synthetic?(await import('./synthetic-bank.mjs')).syntheticPrepareTab(synthetic):undefined;
 const post=m=>{if(process.connected)process.send(m);};
 const label=e=>String(e?.name||'Error')+': '+String(e?.message||'').replace(/\d/g,'#').slice(0,80);
@@ -28,7 +29,7 @@ const adapter=createChromeAdapter({
   // Stops only the run reading that tab, without retrying; only host and signal are reported.
   console.error('[dev-collector] bank page signal:',host,reason);
   const {state}=await adapter.fromWallet({type:'hello',requestId:crypto.randomUUID()});
-  if(state?.run?.status==='running'&&state.run.jobs.some(j=>j.tabId===tabId))await stopRun('bank_blocked');
+  if(state?.run?.status==='running'&&state.run.jobs.some(j=>j.tabId===tabId&&['opening','navigating','capturing'].includes(j.status)))await stopRun('bank_blocked');
  },
  onBrowserLost:async()=>{
   const {state}=await adapter.fromWallet({type:'hello',requestId:crypto.randomUUID()});

@@ -111,13 +111,17 @@ export function createChromeAdapter({openBrowser,extensionRoot,storagePath,permi
  }
  // Only an explicit refresh may start Chrome. Closing it must not bring it back.
  async function connect({launch=false}={}){
+  // A refresh arriving during the startup reattach still gets to launch.
+  if(connecting&&launch)await connecting.catch(()=>{});
   if(connecting)return connecting;
   if(conn)return conn;
   connecting=(async()=>{
    const c=await openBrowser({launch});conn=c;
    c.on('event',dispatchEvent);c.on('close',disconnected);
-   await c.send('Target.setDiscoverTargets',{discover:true});
-   for(const info of (await c.send('Target.getTargets')).targetInfos)if(info.type==='page'){const t=remember(info);if(permitted(t.url))await attach(t).catch(()=>{});}
+   try{
+    await c.send('Target.setDiscoverTargets',{discover:true});
+    for(const info of (await c.send('Target.getTargets')).targetInfos)if(info.type==='page'){const t=remember(info);if(permitted(t.url))await attach(t).catch(()=>{});}
+   }catch(error){c.close();throw error;}
    return c;
   })().finally(()=>{connecting=null;});
   return connecting;
@@ -165,8 +169,8 @@ export function createChromeAdapter({openBrowser,extensionRoot,storagePath,permi
  }
  function navigate(t,url){
   // Fired, not awaited: Page.navigate answers only at commit, and background.js waits on tab events.
-  t.pendingUrl=url;t.documentLoading=true;
-  conn.send('Page.navigate',{url},t.sessionId).then(r=>{if(r.errorText&&t.pendingUrl===url){t.pendingUrl=null;t.documentLoading=false;}}).catch(()=>{});
+  t.pendingUrl=url;
+  conn.send('Page.navigate',{url},t.sessionId).then(r=>{if(r.errorText&&t.pendingUrl===url)t.pendingUrl=null;}).catch(()=>{});
  }
  const liveTab=async id=>{const t=tabs.get(id);if(!t)throw missing(id);await attach(t);return t;};
  const local=createStorageArea(storagePath),session=createStorageArea(null);
