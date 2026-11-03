@@ -8,6 +8,11 @@ export const AMEX_REQUIRED_SOURCE='\\bMembership Rewards\\b|\\bMR\\b|美國運�
 const REQUIRED_REWARDS={Chase:/\bUltimate Rewards\b|\bUR\b/i,Amex:new RegExp(AMEX_REQUIRED_SOURCE,'i')};
 const requiredPattern=bank=>bank==='Chase'?REQUIRED_REWARDS.Chase:String(bank).startsWith('Amex ')?REQUIRED_REWARDS.Amex:null;
 export const requiredReward=(bank,programme)=>!!requiredPattern(bank)?.test(String(programme).replace(/[®™]/g,'').trim());
+// Telling an Amex card holds another programme needs its brand: page wording alone cannot separate it from a
+// generic label for the required balance. structural: scope data, used only to avoid hiding a missing reward.
+// An unlisted name stays partial with the name shown, so a missing value is never reported as complete.
+const AMEX_OTHER_PROGRAMMES=/\b(?:Hilton|Marriott|Bonvoy|Delta|SkyMiles|Reward Dollars|Cash Back|Cash Rewards|Aeroplan)\b/i;
+export const confirmedOtherProgramme=(bank,programme)=>!String(bank).startsWith('Amex ')||AMEX_OTHER_PROGRAMMES.test(String(programme));
 export function mvpSummary(items,cards,initialPatches=[],notCollected={}){
  const coverage=cards.map(c=>{const keys=new Set(Object.keys(initialPatches.find(p=>p.id===c.id)?.fields||{}));for(const i of items.filter(i=>i.cardId===c.id&&['card','billing'].includes(i.kind)))keys.add(i.key);const absent=['balance',...(!keys.has('statement')&&!keys.has('statementClosing')?['statement']:[]),'minimum','due'].filter(k=>!keys.has(k));
   // An explicit bank statement that no payment is due satisfies minimum and due with its recorded reason (docs/RELEASE.md). The values stay unknown, and a printed minimum or due date overrides it.
@@ -16,10 +21,10 @@ export function mvpSummary(items,cards,initialPatches=[],notCollected={}){
  const readCards=new Set(items.filter(i=>i.kind==='reward').map(i=>i.cardId));
  const rewardCoverage=cards.map(c=>{
   if(readCards.has(c.id))return {cardId:c.id,complete:true,missing:[]};
-  const other=[...(notCollected[c.id]||[])];
-  // No required programme at this bank, or the page shows this card has another programme.
+  const seen=[...(notCollected[c.id]||[])],other=seen.filter(name=>confirmedOtherProgramme(c.bank,name)),unconfirmed=seen.filter(name=>!other.includes(name));
+  // No required programme at this bank, or the page confirms this card has another programme.
   if((c.bank&&!requiredPattern(c.bank))||other.length)return {cardId:c.id,complete:true,missing:[],notCollected:other};
-  return {cardId:c.id,complete:false,missing:['reward'],reason:'reward_not_seen'};
+  return {cardId:c.id,complete:false,missing:['reward'],...(unconfirmed.length?{reason:'programme_unconfirmed',unconfirmed}:{reason:'reward_not_seen'})};
  });
  const allDone=cards.length&&rewardCoverage.every(c=>c.complete);
  return {card:{status:cards.length&&coverage.every(c=>c.complete)?'updated':coverage.some(c=>c.missing.length<4)?'partial':'not_found',count:items.filter(i=>['card','billing'].includes(i.kind)).length,coverage},reward:{status:allDone?(readCards.size?'updated':'not_collected'):readCards.size||rewardCoverage.some(c=>c.complete)?'partial':'not_found',count:items.filter(i=>i.kind==='reward').length,readCards:readCards.size,expectedCards:cards.length,coverage:rewardCoverage}};
