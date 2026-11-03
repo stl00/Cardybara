@@ -151,7 +151,8 @@
   }
   const due=raw['nextPaymentDueDate-dataItem'];if(due){const dates=due.split('\n').map(chaseDate).filter(Boolean);if(new Set(dates).size===1)add('billing','due','Payment due date',null,card.currency,dates[0],'unknown',due);}
   const notices=(snapshot.paymentNotices||[]).map(t=>String(t).trim().replace(/^Success:\s*/i,'')).filter(t=>/^You (?:don['’]t|do not) have a payment due right now[.]?$/i.test(t));
-  if(new Set(notices).size===1&&!String(due||'').trim()&&!items.some(i=>i.key==='minimum'&&i.value>0))items.push({kind:'billing',cardId:alias,key:'paymentStatus',title:notices[0],value:null,currency:card.currency,date:'',status:'unknown',evidence:'['+alias+']\n'+notices[0]});
+  // Needs this card's own balance on screen: a banner alone may belong to the previous card.
+  if(new Set(notices).size===1&&items.some(i=>i.key==='balance')&&!String(due||'').trim()&&!items.some(i=>i.key==='minimum'&&i.value>0))items.push({kind:'billing',cardId:alias,key:'paymentStatus',title:notices[0],value:null,currency:card.currency,date:'',status:'unknown',evidence:'['+alias+']\n'+notices[0]});
   const autopay=raw['autoPay-dataItem'],a=autopay?.match(/^Automatic payments\s*\n\s*(On|Off)(?:\s|$)/i);if(a)add('billing','autopay','Automatic payments',null,card.currency,'',a[1].toLowerCase(),autopay);
   for(const [id,programme]of [['ultimateRewards-dataItem',null],['partnerRewards-dataItem',snapshot.rewardLabel]]){
    const text=raw[id];if(!text)continue;const lines=text.split('\n').map(s=>s.trim()).filter(Boolean),name=programme||(/^Ultimate Rewards[®™]? points$/i.test(lines[0])?lines[0]:null),numbers=lines.filter(s=>/^\d[\d,]*$/.test(s));
@@ -196,7 +197,7 @@
   }else if(/\/summary\//.test(route)){
    const dataItems=[...document.querySelectorAll('[id$="-dataItem"]')].map(n=>({key:n.id,text:text(n)})),fields={currentBalance:text(document.getElementById('currentBalance'))},label=q('button,[role="button"],[aria-label]').map(e=>e.getAttribute('aria-label')||text(e)).find(t=>/^(?:MileagePlus[®™]? Miles|IHG One Rewards points)$/.test(t));
    const tables=[...document.querySelectorAll('main table')].map(t=>({headers:[...t.querySelectorAll('thead th')].map(text),rows:[...t.querySelectorAll('tbody tr')].map(tr=>[...tr.querySelectorAll('th,td')].map(text))}));
-   const result=chaseDetail({title:heads.find(t=>new RegExp('\\.\\.\\.'+selected.tail).test(t)),dataItems,fields,rewardLabel:label,paymentNotices:q('[id="title-focus-target"]').filter(visible).map(text),tables},selected);result.items.forEach(add);rejected+=result.rejected.length;
+   const result=chaseDetail({title:heads.find(t=>new RegExp('\\.\\.\\.'+selected.tail).test(t)),dataItems,fields,rewardLabel:label,paymentNotices:q('[id="title-focus-target"]').filter(e=>visible(e)&&!self.CardyChaseStaleNotices?.has(e)).map(text),tables},selected);result.items.forEach(add);rejected+=result.rejected.length;
    const noActivity=q('p,[role="paragraph"]').some(e=>visible(e)&&text(e)==='You have no activity to display from this time. Try updating your filters.');if(noActivity)empty.push({kind:'transaction',cardId:selected.id});
   }else if(/\/merchantOffers\//.test(route)){
    const initial=window.scrollY,seen=new Map();let expected=0,stable=0,last=-1;
