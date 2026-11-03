@@ -50,13 +50,14 @@ All files 1600×900. A CSS image viewport can clip to the card; no asset modific
 
 Marks identify the service and belong to their owners; no endorsement is implied. An open-source icon package does not grant trademark rights: Simple Icons releases its project under CC0 but [asks users to seek the correct permissions](https://github.com/simple-icons/simple-icons/blob/develop/DISCLAIMER.md) for each brand.
 
-Logos are bundled in `public/brand/logos/` and never fetched at runtime. A brand shows its logo only when `src/data/logos.json` marks it `approved`. Anything `forbidden` (terms require permission that has not been obtained) or `unverified` (no grant located) uses its category icon, and no file is bundled. This check was made on 2026-11-03 from public pages. It is not legal advice, and "unverified" does not mean the brand allows or forbids this use. "Candidate" is where a file could come from once approved.
+Logos are bundled in `public/brand/logos/` and never fetched at runtime. A brand shows its logo only when `src/data/logos.json` marks it `approved`. Anything `forbidden` (terms found require permission that has not been obtained) or `unverified` (no grant located) uses its category icon here, and no file goes in that folder. This check was made on 2026-11-03 from public pages and is not legal advice. "Unverified" does not mean the brand allows or forbids this use. "Terms page" is where to look, and the finding says whether that page could actually be read. "Candidate" is where a file could come from once approved.
 
-| Brand | Status | Shown as | Candidate | Terms checked | Finding |
+| Brand | Status | Shown as | Candidate | Terms page | Finding |
 | --- | --- | --- | --- | --- | --- |
 | DoorDash | unverified | category icon: delivery | simple-icons@16.36.0:doordash | https://www.doordash.com/terms/ | Official terms page returned HTTP 403 to the check; a secondary clause index lists "no license granted to use DoorDash trademarks". No brand guide located. |
 | Uber | forbidden | category icon: ride-share | simple-icons@16.36.0:uber | https://www.uber.com/us/en/legal/general-terms-of-use/ | General terms require express written permission for marks beyond use incidental to the services; the brand guide applies its own acceptance terms, which were not accepted. |
-| Lyft | forbidden | category icon: ride-share | simple-icons@16.36.0:lyft | https://www.lyft.com/press | A copy of the Lyft brand guide (v5.6, 2018) says the logo is typically authorized only for contracted partners; current official text not confirmed. |
+| Uber Eats | forbidden | category icon: delivery | simple-icons@16.36.0:ubereats | https://www.uber.com/us/en/legal/general-terms-of-use/ | Same Uber terms: express written permission is required for marks beyond use incidental to the services. |
+| Lyft | forbidden | category icon: ride-share | simple-icons@16.36.0:lyft | https://www.slideshare.net/slideshow/design_lyft_brand_guidelines_march2018-pdf/283233341 | A third-party copy of the Lyft brand guide (v5.6, 2018) says the logo is typically authorized only for contracted partners; current official text not confirmed. |
 | Apple | forbidden | category icon: entertainment | simple-icons@16.36.0:apple | https://www.apple.com/legal/intellectual-property/guidelinesfor3rdparties.html | Third parties may not use the Apple Logo without an express written trademark license. |
 | Peloton | unverified | category icon: fitness | simple-icons@16.36.0:peloton | not located | Press page redirects away and the legal page returned 404 to the check. No published grant for third-party identifying use was located. |
 | StubHub | unverified | category icon: entertainment | simple-icons@16.36.0:stubhub | not located | No published grant for third-party identifying use was located. |
@@ -64,7 +65,7 @@ Logos are bundled in `public/brand/logos/` and never fetched at runtime. A brand
 | Resy | unverified | category icon: dining | none | not located | No published grant for third-party identifying use was located. |
 | Dunkin | unverified | category icon: dining | none | not located | No published grant for third-party identifying use was located. |
 | Home Chef | unverified | category icon: dining | none | not located | No published grant for third-party identifying use was located. |
-| lululemon | forbidden | category icon: shopping | none | https://shop.lululemon.com/help/legal/terms-of-use | Website terms warn that unauthorized use of its marks may violate trademark law; no grant for third-party use located. |
+| lululemon | unverified | category icon: shopping | none | https://shop.lululemon.com/help/legal/terms-of-use | Website terms bar framing its marks without written consent and warn that unauthorized use may violate trademark law; no grant located and no rule on identifying use. |
 | Oura | forbidden | category icon: shopping | none | https://ouraring.com/guidelines-for-commercial-use | Commercial-use guidelines require written permission, which Oura may refuse or revoke (read from localized versions). |
 | Walmart | forbidden | category icon: shopping | none | https://brandcenter.walmart.com/brand/trademarks | Brand center says its logos may only be used with prior written permission. |
 | Disney | unverified | category icon: entertainment | none | not located | No published grant for third-party identifying use was located. |
@@ -114,7 +115,7 @@ Logos are bundled in `public/brand/logos/` and never fetched at runtime. A brand
 
 ## Issuer marks already in the wallet
 
-`public/brand/banks/` (sources in `public/brand/banks/sources.json`) predates this registry: American Express, Chase, HSBC, Standard Chartered, Bank of America, Hilton and IHG identify the user's own issuers and reward accounts in `BankMark`. Their terms have not been verified and they are awaiting an owner decision. They are not reused for other items.
+`public/brand/banks/` (sources in `public/brand/banks/sources.json`) predates this registry: American Express, Chase, HSBC, Standard Chartered, Bank of America, Hilton and IHG identify the user's own issuers and reward accounts in `BankMark`. They stay as they were pending an owner decision and are not reused for other items. Their terms have not been verified, except that Hilton's site usage agreement requires prior written consent (see Hilton above), so `hilton.png` is the most exposed of these files.
 
 ## Category icons
 

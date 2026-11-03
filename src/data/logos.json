@@ -109,6 +109,9 @@
   "reward-currency": "reward",
   "partner": "membership"
  },
+ "ruleNoBrand": [
+  "rule.amex-us-us-morgan-stanley-platinum-card.lounge"
+ ],
  "ruleOverrides": {
   "rule.amex-us-us-morgan-stanley-platinum-card.digital": "entertainment",
   "rule.amex-us-us-morgan-stanley-platinum-card.airline-fee": "airline",
@@ -143,12 +146,12 @@
   "自选类别": "general",
   "超市及批发俱乐部": "shopping",
   "网上消费 RewardCash": "shopping",
-  "指定商户 RewardCash": "shopping",
+  "指定商户 RewardCash": "general",
   "最红自主奖赏": "reward",
   "指定日常及旅行": "general",
   "其他本地及海外": "general",
   "基本积分": "general",
-  "海外消费": "travel",
+  "海外消费": "general",
   "餐饮及酒店": "general",
   "其他港币消费": "general",
   "Amex预付酒店": "hotel"
@@ -190,11 +193,30 @@
    "textTokens": [
     "Uber"
    ],
+   "notBefore": [
+    " Eats"
+   ],
    "status": "forbidden",
    "logo": null,
    "candidate": "simple-icons@16.36.0:uber",
    "termsUrl": "https://www.uber.com/us/en/legal/general-terms-of-use/",
    "finding": "General terms require express written permission for marks beyond use incidental to the services; the brand guide applies its own acceptance terms, which were not accepted.",
+   "checkedAt": "2026-11-03"
+  },
+  {
+   "id": "uber-eats",
+   "name": "Uber Eats",
+   "category": "delivery",
+   "programmeIds": [],
+   "titleTokens": [],
+   "textTokens": [
+    "Uber Eats"
+   ],
+   "status": "forbidden",
+   "logo": null,
+   "candidate": "simple-icons@16.36.0:ubereats",
+   "termsUrl": "https://www.uber.com/us/en/legal/general-terms-of-use/",
+   "finding": "Same Uber terms: express written permission is required for marks beyond use incidental to the services.",
    "checkedAt": "2026-11-03"
   },
   {
@@ -211,8 +233,8 @@
    "status": "forbidden",
    "logo": null,
    "candidate": "simple-icons@16.36.0:lyft",
-   "termsUrl": "https://www.lyft.com/press",
-   "finding": "A copy of the Lyft brand guide (v5.6, 2018) says the logo is typically authorized only for contracted partners; current official text not confirmed.",
+   "termsUrl": "https://www.slideshare.net/slideshow/design_lyft_brand_guidelines_march2018-pdf/283233341",
+   "finding": "A third-party copy of the Lyft brand guide (v5.6, 2018) says the logo is typically authorized only for contracted partners; current official text not confirmed.",
    "checkedAt": "2026-11-03"
   },
   {
@@ -335,9 +357,7 @@
    "titleTokens": [
     "Home Chef"
    ],
-   "textTokens": [
-    "Home Chef"
-   ],
+   "textTokens": [],
    "status": "unverified",
    "logo": null,
    "candidate": null,
@@ -358,11 +378,11 @@
    "textTokens": [
     "lululemon"
    ],
-   "status": "forbidden",
+   "status": "unverified",
    "logo": null,
    "candidate": null,
    "termsUrl": "https://shop.lululemon.com/help/legal/terms-of-use",
-   "finding": "Website terms warn that unauthorized use of its marks may violate trademark law; no grant for third-party use located.",
+   "finding": "Website terms bar framing its marks without written consent and warn that unauthorized use may violate trademark law; no grant located and no rule on identifying use.",
    "checkedAt": "2026-11-03"
   },
   {
@@ -453,9 +473,7 @@
    "titleTokens": [
     "Priority Pass"
    ],
-   "textTokens": [
-    "Priority Pass"
-   ],
+   "textTokens": [],
    "status": "unverified",
    "logo": null,
    "candidate": null,
@@ -473,9 +491,7 @@
    "titleTokens": [
     "Plaza Premium"
    ],
-   "textTokens": [
-    "Plaza Premium"
-   ],
+   "textTokens": [],
    "status": "unverified",
    "logo": null,
    "candidate": null,
@@ -1054,9 +1070,7 @@
    "titleTokens": [
     "HK Express"
    ],
-   "textTokens": [
-    "HK Express"
-   ],
+   "textTokens": [],
    "status": "unverified",
    "logo": null,
    "candidate": null,

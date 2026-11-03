@@ -21,11 +21,11 @@ test('registry references only known categories',()=>{
  for(const id of Object.keys(registry.ruleOverrides))assert.ok(rules.some(r=>r.id===id),id);
 });
 test('a logo ships only with approval, a local file, a source and terms',()=>{
- const files=existsSync(logosDir)?readdirSync(logosDir):[];
+ const files=existsSync(logosDir)?readdirSync(logosDir,{recursive:true}):[];
  for(const b of registry.brands){
   assert.ok(['approved','forbidden','unverified'].includes(b.status),b.id);
   assert.ok(b.finding&&b.checkedAt,b.id);
-  if(b.status==='approved'){assert.match(b.logo,/^brand\/logos\/[a-z0-9-]+\.svg$/,b.id);assert.ok(existsSync(new URL('../public/'+b.logo,import.meta.url)),b.id);assert.ok(b.termsUrl,b.id);}
+  if(b.status==='approved'){assert.match(b.logo,/^brand\/logos\/[a-z0-9-]+\.svg$/,b.id);assert.ok(existsSync(new URL('../public/'+b.logo,import.meta.url)),b.id);assert.ok(b.termsUrl&&b.candidate,b.id);}
   else assert.equal(b.logo,null,b.id);
  }
  const approved=registry.brands.filter(b=>b.status==='approved').map(b=>b.logo.split('/').at(-1));
@@ -46,9 +46,10 @@ test('an approved brand resolves to its local file',()=>{
  try{assert.equal(logoForRuleId('rule.chase-us-sapphire-reserve.dashpass').logo,'brand/logos/doordash.svg');}finally{Object.assign(brand,saved);}
 });
 test('merchant matching does not create false matches',()=>{
- for(const text of ['Tuber Farm','Ouralike Labs','Resynth Audio','uber lowercase','Walmartian','Peloton2','United States Postal','Delta Faucet','Apple Pie Bakery','Clear Skies Spa','Southwest Grill','Virgin Olive Oil','Hilton Head Golf','The Edit LDN','ANA Yoga','EVA Foam'])assert.equal(logoForText(text).brandId,null,text);
+ for(const text of ['Tuber Farm','Ouralike Labs','Resynth Audio','uber lowercase','Walmartian','Peloton2','United States Postal','Delta Faucet','Apple Pie Bakery','Clear Skies Spa','Southwest Grill','Virgin Olive Oil','Hilton Head Golf','The Edit LDN','ANA Yoga','EVA Foam','Home Chef Catering','HK Express Courier','Plaza Premium Outlet','Priority Pass Lane','Non-Uber rides','Excludes Walmart','不含 DoorDash'])assert.equal(logoForText(text).brandId,null,text);
  assert.equal(logoForText('$10 back at DoorDash').brandId,'doordash');
- assert.equal(logoForText('Uber Eats').brandId,'uber');
+ assert.equal(logoForText('Uber Eats').brandId,'uber-eats');assert.equal(logoForText('Uber Eats').category,'delivery');assert.equal(logoForText('Uber ride').category,'ride-share');
+ assert.equal(logoForRuleId('rule.amex-us-us-morgan-stanley-platinum-card.lounge').brandId,null);assert.equal(logoForRuleId('rule.amex-us-us-morgan-stanley-platinum-card.lounge').category,'lounge');
  assert.equal(logoForText('DoorDash or Lyft').brandId,null,'two brands choose neither');
  assert.equal(identifyBrand({title:'StubHub／viagogo 抵扣'}),null);
  assert.equal(identifyBrand({title:'United刷卡部分'}),null,'United is matched by programme ID only');
@@ -66,5 +67,5 @@ test('programmes, transfers and earning labels resolve exactly',()=>{
 test('ASSET-SOURCES records every brand, its status and the trademark notice',()=>{
  const doc=read('public/ASSET-SOURCES.md').toString();
  assert.match(doc,/belong to their owners/);assert.match(doc,/no endorsement/i);
- for(const b of registry.brands){const line=doc.split('\n').find(l=>l.startsWith(`| ${b.name} |`));assert.ok(line,b.name);assert.ok(line.includes(`| ${b.status} |`),b.name);assert.ok(line.includes(b.finding),b.name);}
+ for(const b of registry.brands){const line=doc.split('\n').find(l=>l.startsWith(`| ${b.name} |`));assert.ok(line,b.name);assert.ok(line.includes(`| ${b.status} |`),b.name);assert.ok(line.includes(b.finding),b.name);assert.ok(line.includes(`| ${b.termsUrl||'not located'} |`),b.name);assert.ok(line.includes(`| ${b.candidate||'none'} |`),b.name);}
 });
