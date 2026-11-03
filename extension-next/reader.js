@@ -2,6 +2,12 @@
 (()=>{
  const labels={statementClosing:/^(?:月結單結欠|月结单结欠|賬單結欠|账单结欠|statement balance|statement closing balance)$/i,creditLimit:/^(?:credit limit|信用限額|信用額度|信用额度)$/i,balance:/^(current balance|outstanding balance|total balance|balance outstanding|總結欠|总欠款|总计结欠|總計結欠|目前結欠|現時結欠|目前結餘|結欠|結餘|現時結餘|当前余额|目前结欠|现时结欠|目前结余|结欠|结余|solde actuel)$/i,available:/^(available credit|available credit limit|available credit amount|可用信貸額|可用信貸額度|可用信用額|可用信用額度|可用額度|可用额度|可用信贷额|可用信贷额度|crédit disponible)$/i,statement:/^(statement balance|remaining statement balance|last statement balance|statement closing balance|賬單結欠|帳單結欠|月結單結欠|月結單結餘|結單結欠|结单结欠|月结单结欠|solde du relevé)$/i,minimum:/^(minimum payment due|minimum payment|minimum amount due|minimum due|最低還款|最低还款|最低還款額|最低還款金額|最低付款額|最低付款金額|最低还款额|最低还款金额|paiement minimum)$/i};
  const currencyToken=/^(?:HK\$|CA\$|US\$|\$|HKD|CAD|USD|CNY|RMB|CN¥)$/i;
+ // A rewards label by its shape, used only to report a programme this version does not collect.
+ // structural: the unit words are generic vocabulary, and a verb-led phrase is an action, not a balance.
+ function rewardLabel(line){const t=String(line||'').trim();return t.length>=2&&t.length<=60&&!/\d/.test(t)&&/\b(?:points?|miles?|rewards?|cash ?back)\b|\S(?:Miles|Points)\b|積分|积分|獎賞|奖赏|里數|里数|哩|萬里|万里|回贈|回赠/.test(t.replace(/\b(points?|miles?|rewards?|cash ?back)\b/gi,m=>m.toLowerCase()))&&!/^(?:points?|miles?|rewards?|cash ?back)$/i.test(t)&&!/^(?:redeem|use|earn|view|see|explore|learn|go to|transfer|shop|book|pay|manage|how|about)\b/i.test(t)&&!/\b(?:earned|earning|bonus|expir\w*|redeemed|multiplier|activity|pending|per|lifetime|this (?:month|year)|offers?)\b/i.test(t)&&!/^(?:兌換|兑换|查看|了解)|已賺取|已赚取|即將到期|即将到期/.test(t);}
+ // Another programme must have a name of its own. "Available Points" or 積分結餘 names none, and could be the required one.
+ function namesAProgramme(label){return /[\p{L}]{2}/u.test(label.replace(/\b(?:available|total|current|your|my|the|account|balance|points?|miles?|rewards?|cash ?back|program(?:me)?)\b/gi,'').replace(/可用|總|总|現有|现有|我的|賬戶|账户|結餘|结余|餘額|余额|積分|积分|獎賞|奖赏|里數|里数|回贈|回赠|計劃|计划/g,'').trim());}
+ function otherRewardLabels(lines,isRequired){const seen=new Set();for(let i=0;i<lines.length-1;i++)if(rewardLabel(lines[i])&&namesAProgramme(lines[i])&&/^\d[\d,]*$/.test(lines[i+1])&&!isRequired(lines[i]))seen.add(lines[i]);return [...seen];}
  function labelText(value){return value.normalize('NFKC').replace(/[\u200b-\u200d\ufeff]/g,'').replace(/[:：]\s*$/,'').replace(/\s*[（(](?:HKD|USD|CAD|港元|港幣|港币)[）)]\s*$/i,'').trim();}
  function resolveLocale(lang,locales){
   const normalized=(lang||'').replaceAll('_','-').toLowerCase();
@@ -144,7 +150,7 @@
  }
  function chaseDetail(snapshot,card,alias='C1'){
   if(!new RegExp('\\(\\.\\.\\.'+card.tail+'\\)').test(snapshot.title||''))return {items:[],rejected:['card_scope']};
-  const raw={...Object.fromEntries((snapshot.dataItems||[]).map(i=>[i.key,i.text])),...snapshot.fields},items=[],rejected=[];
+  const raw={...Object.fromEntries((snapshot.dataItems||[]).map(i=>[i.key,i.text])),...snapshot.fields},items=[],rejected=[],otherProgrammes=[];
   const add=(kind,key,title,value,currency,date,status,evidence)=>items.push({kind,cardId:alias,key,title,value,currency,date,status,evidence:'['+alias+']\n'+snapshot.title+'\n'+evidence});
   for(const [key,id,label]of [['balance','currentBalance','Current balance'],['statement','remainingStatementBalance-dataItem','Remaining statement balance'],['statementClosing','lastStatementBalance-dataItem','Last statement balance'],['minimum','minimumPaymentDue-dataItem','Minimum payment due'],['available','availableCredit-dataItem','Available credit']]){
    const text=raw[id];if(typeof text!=='string')continue;const values=[...new Set(text.split('\n').map(s=>money(s,card.currency,'en-US')).filter(n=>n!==null))];if(values.length===1)add('card',key,label,values[0],card.currency,'','unknown',label+'\n'+text);
@@ -157,9 +163,11 @@
   for(const [id,programme]of [['ultimateRewards-dataItem',null],['partnerRewards-dataItem',snapshot.rewardLabel]]){
    const text=raw[id];if(!text)continue;const lines=text.split('\n').map(s=>s.trim()).filter(Boolean),name=programme||(/^Ultimate Rewards[®™]? points$/i.test(lines[0])?lines[0]:null),numbers=lines.filter(s=>/^\d[\d,]*$/.test(s));
    if(name&&numbers.length===1)add('reward',name,name,Number(numbers[0].replaceAll(',','')),'points','','unknown',name+'\n'+text);
+   // A rewards row this version cannot name is still evidence of another programme.
+   else if(id==='partnerRewards-dataItem'&&numbers.length)otherProgrammes.push('unnamed');
   }
   for(const table of snapshot.tables||[]){if(!table.headers?.some(h=>/^Date\b/.test(h))||!table.headers?.some(h=>/^Amount\b/.test(h)))continue;const tx=chaseTransactions(table.rows.map(c=>({date:c[0],description:c[1],amount:c[3],status:''})),card,alias);items.push(...tx.items);rejected.push(...tx.rejected);}
-  return {items,rejected};
+  return {items,rejected,otherProgrammes};
  }
  function chaseOffer(row,card,alias='C1',view=''){
   const label=String(row.label||''),position=label.match(/^(\d+) of (\d+)\s+(.+)$/);if(!position)return null;
@@ -185,7 +193,7 @@
   if(q('input[type="password"]').some(visible))return {error:'needs_login'};
   const overview=/^#\/dashboard\/overview(?:[/?]|$)/.test(route),heads=q('h1,[role="heading"][aria-level="1"]').map(text).filter(Boolean),buttons=q('button,[role="button"]');let selected=null;
   if(!overview){const evidence=/\/summary\//.test(route)?heads.join('\n'):heads.join('\n')+'\n'+buttons.filter(visible).map(e=>e.getAttribute('aria-label')||text(e)).filter(t=>/\.{3}\s*\d{4}\)?$/.test(t)).join('\n');const found=cards.filter(c=>new RegExp('\\.\\.\\.\\s*'+c.tail+'(?![0-9])').test(evidence));if(found.length!==1)return {error:'card_not_identified'};selected=found[0];if(contextIds.length===1&&selected.id!==contextIds[0])return {error:'document_changed'};}
-  const matches=selected?[selected]:cards,aliases=matches.map((c,i)=>({id:'C'+(i+1),cardId:c.id,currency:c.currency})),observations=[],blocks=[],empty=[],coverage=[];let rejected=0;
+  const matches=selected?[selected]:cards,aliases=matches.map((c,i)=>({id:'C'+(i+1),cardId:c.id,currency:c.currency})),observations=[],blocks=[],empty=[],coverage=[],notCollected=[];let rejected=0;
   const add=i=>{const item={...i,evidence:safe(i.evidence)};observations.push(item);blocks.push({id:'B'+(blocks.length+1),text:item.evidence});};
   if(overview){
    // The overview transaction picker may be a checking account. Never expose its
@@ -197,7 +205,7 @@
   }else if(/\/summary\//.test(route)){
    const dataItems=[...document.querySelectorAll('[id$="-dataItem"]')].map(n=>({key:n.id,text:text(n)})),fields={currentBalance:text(document.getElementById('currentBalance'))},label=q('button,[role="button"],[aria-label]').map(e=>e.getAttribute('aria-label')||text(e)).find(t=>/^(?:MileagePlus[®™]? Miles|IHG One Rewards points)$/.test(t));
    const tables=[...document.querySelectorAll('main table')].map(t=>({headers:[...t.querySelectorAll('thead th')].map(text),rows:[...t.querySelectorAll('tbody tr')].map(tr=>[...tr.querySelectorAll('th,td')].map(text))}));
-   const result=chaseDetail({title:heads.find(t=>new RegExp('\\.\\.\\.'+selected.tail).test(t)),dataItems,fields,rewardLabel:label,paymentNotices:q('[id="title-focus-target"]').filter(e=>visible(e)&&!self.CardyChaseStaleNotices?.has(e)).map(text),tables},selected);result.items.forEach(add);rejected+=result.rejected.length;
+   const result=chaseDetail({title:heads.find(t=>new RegExp('\\.\\.\\.'+selected.tail).test(t)),dataItems,fields,rewardLabel:label,paymentNotices:q('[id="title-focus-target"]').filter(e=>visible(e)&&!self.CardyChaseStaleNotices?.has(e)).map(text),tables},selected);result.items.forEach(add);rejected+=result.rejected.length;for(const programme of result.otherProgrammes||[])notCollected.push({cardId:'C1',programme});
    const noActivity=q('p,[role="paragraph"]').some(e=>visible(e)&&text(e)==='You have no activity to display from this time. Try updating your filters.');if(noActivity)empty.push({kind:'transaction',cardId:selected.id});
   }else if(/\/merchantOffers\//.test(route)){
    const initial=window.scrollY,seen=new Map();let expected=0,stable=0,last=-1;
@@ -217,7 +225,7 @@
    else if(ratios.length===1){const title=heads.find(t=>!/^Benefits\s*\(/.test(t)),validThrough=values.find(t=>/^Good through \d{1,2}\/\d{1,2}\/20\d{2}$/.test(t));if(title)chaseBenefitGauge(title,ratios[0],validThrough,selected).forEach(add);}
   }
   const current=q('h1,[role="heading"][aria-level="1"],button,[role="button"]').map(e=>e.getAttribute('aria-label')||text(e)).join('\n');if(selected&&!new RegExp('\\.\\.\\.\\s*'+selected.tail+'(?![0-9])').test(current))return {error:'document_changed'};
-  return {pageHref,capturedAt:now,aliases,observations,blocks,links:[],empty,coverage,rulesComplete:rejected===0,ruleRejected:rejected};
+  return {pageHref,capturedAt:now,aliases,observations,blocks,links:[],empty,coverage,notCollected,rulesComplete:rejected===0,ruleRejected:rejected};
  }
  const shown=el=>el&&el.getClientRects().length>0&&el.ownerDocument.defaultView.getComputedStyle(el).visibility!=='hidden';
  function identify(text,cards){const matches=cards.filter(c=>new RegExp(`(?:^|[^0-9])${c.tail}(?:[^0-9]|$)`).test(text));return matches.length===1?matches[0].id:null;}
@@ -310,5 +318,5 @@
   // DOM readiness is event driven; this bounded observation does not hold the worker alive.
   return new Promise(resolve=>{let timer,debounce;const finish=()=>{observer.disconnect();clearTimeout(timer);clearTimeout(debounce);resolve(read(bank,cards,locales));};const observer=new MutationObserver(()=>{clearTimeout(debounce);debounce=setTimeout(()=>{current=read(bank,cards,locales);if(current.patches.length||current.status!=='no_data')finish();},150);});observer.observe(document.documentElement,{childList:true,subtree:true,characterData:true});timer=setTimeout(finish,10000);});
  }
- self.CardyReader={amexHkMvp,chaseSnapshot,chaseBenefitText,chaseBenefitGauge,chaseDate,chaseTransactions,chaseDetail,chaseOffer,amexHkTransactionRows,hsbcTransactionRows,authState,money,parseAccount,identify,chaseBindings,read,observe,resolveLocale,parseAmexOverview};
+ self.CardyReader={rewardLabel,otherRewardLabels,amexHkMvp,chaseSnapshot,chaseBenefitText,chaseBenefitGauge,chaseDate,chaseTransactions,chaseDetail,chaseOffer,amexHkTransactionRows,hsbcTransactionRows,authState,money,parseAccount,identify,chaseBindings,read,observe,resolveLocale,parseAmexOverview};
 })();

@@ -1,4 +1,4 @@
-import {MVP_KINDS,mvpLink,mvpSummary} from './mvp.js';
+import {MVP_KINDS,mvpLink,mvpSummary,requiredReward} from './mvp.js';
 import {validateModel,readLink,mergeRecords} from './agent-core.js';
 import {PROVIDERS,guidedPage} from './providers.js';
 import {amexCards,amexSavedOffers,amexReadMenu,amexAccountHome} from './card-navigation.js';
@@ -38,7 +38,10 @@ export async function enrichBank(ctx,io){
  const mvp=settings?.scope!=='full';
  const ready=await parserStatus(),allowModel=ready.configured&&settings?.enabled&&settings?.cloudConsent,modelReason=ready.reason||'setup_required';
  let items=[],pages=0,rejected=0,error=null,stage='capture';const rejectReasons={};const seen=new Set(),queue=new Map();let chaseReadingDetails=ctx.bank==='Chase',chaseAllTails=[];let startingUrl=null;let currentIds=[],switchTails=[],overviewUrl=null,perCardPages=0,savedOffersRead=false,moreDetailsRead=false,chaseOffersRead=false,chaseBenefitsRead=false;const empty=[];let coverage=[];
- const summary=reason=>mvp?mvpSummary(items,ctx.cards,ctx.initialPatches||[]):sectionSummary(items,reason,empty,ctx.cards,coverage);
+ const notCollected={},noteOther=(cardId,programme)=>{if(cardId)(notCollected[cardId]??=new Set()).add(programme);};
+ // In MVP scope only required programmes are collected; others are reported, not dropped.
+ const inScope=(i,cardIdOf)=>{if(!MVP_KINDS.has(i.kind))return false;if(i.kind==='reward'&&!requiredReward(ctx.bank,i.key)){noteOther(cardIdOf(i.cardId),i.key);return false;}return true;};
+ const summary=reason=>mvp?mvpSummary(items,ctx.cards,ctx.initialPatches||[],notCollected):sectionSummary(items,reason,empty,ctx.cards,coverage);
  const check=async()=>{if(!await io.current())throw Error('cancelled');};
  const navigator=ctx.bank==='HSBC HK'?hsbcCards:ctx.bank==='Chase'?chaseCards:amexCards,canSwitch=ctx.bank==='Chase'||ctx.bank==='HSBC HK'||ctx.bank.startsWith('Amex ');
  const advanceCard=async tabUrl=>{if(!switchTails.length||!overviewUrl)return false;await check();if(tabUrl!==overviewUrl)await io.navigate(overviewUrl);const tail=switchTails.shift();const selected=await chrome.scripting.executeScript({target:{tabId:ctx.tabId},func:navigator,args:['select',tail,ctx.cards]});const selection=selected[0]?.result;if(!Array.isArray(selection)||!selection.includes(tail)){error=ctx.bank==='Chase'&&['chase_account_button_timeout','chase_detail_timeout','chase_navigation_changed'].includes(selection?.error)?selection.error:'card_not_identified';return false;}currentIds=ctx.cards.filter(c=>c.tail===tail).map(c=>c.id);queue.clear();seen.clear();perCardPages=0;savedOffersRead=false;moreDetailsRead=false;chaseOffersRead=false;chaseBenefitsRead=false;return true;};
@@ -66,14 +69,14 @@ export async function enrichBank(ctx,io){
    if(!snapshot.blocks?.length){error='no_financial_text';break;}
    seen.add(tab.url);await io.progress('understanding_page',summary('reading'));await check();
    let suggested=null;
-   if(mvp){raw.observations=(raw.observations||[]).filter(i=>MVP_KINDS.has(i.kind));}
+   if(mvp){const cardIdOf=alias=>(raw.aliases||[]).find(a=>a.id===alias)?.cardId;for(const n of raw.notCollected||[])noteOther(cardIdOf(n.cardId),n.programme);raw.observations=(raw.observations||[]).filter(i=>inScope(i,cardIdOf));}
    if(raw.observations?.length){for(let start=0;start<raw.observations.length;start+=80){const grounded=validateModel({items:raw.observations.slice(start,start+80),nextLinkId:null},snapshot);items=mergeRecords(items,grounded.items.map(i=>({...i,method:'rules'})));rejected+=grounded.rejected.length;for(const reason of grounded.rejected)rejectReasons[reason]=(rejectReasons[reason]||0)+1;await io.checkpoint(items,summary('reading'));}}
 
    for(const batch of (!allowModel||raw.rulesComplete||raw.observations?.length&&url.pathname.startsWith('/offers')?[]:snapshotBatches(snapshot))){
     await check();stage='parse';const r=await fetch(PARSER_ORIGIN+'/api/parser/parse',{method:'POST',headers:{'Content-Type':'application/json','X-Cardybara-Client':'extension'},body:JSON.stringify({snapshot:batch}),credentials:'omit',signal:AbortSignal.timeout(27000),redirect:'error'});
     if(!r.ok){const code=(await r.json().catch(()=>({}))).error;throw Error(['parser_busy','model_request_failed'].includes(code)?code:'parser_unavailable');}const body=await r.json();await check();
     const current=await chrome.tabs.get(ctx.tabId);const same=await chrome.scripting.executeScript({target:{tabId:ctx.tabId,documentIds:[read[0].documentId]},func:()=>true});if(current.url!==tab.url||same[0]?.documentId!==read[0].documentId)throw Error('document_changed');
-    const result=validateModel(body.raw,batch);items=mergeRecords(items,mvp?result.items.filter(i=>MVP_KINDS.has(i.kind)):result.items);suggested??=result.nextLinkId;rejected+=result.rejected.length;for(const reason of result.rejected)rejectReasons[reason]=(rejectReasons[reason]||0)+1;
+    const result=validateModel(body.raw,batch);items=mergeRecords(items,mvp?result.items.filter(i=>inScope(i,id=>id)):result.items);suggested??=result.nextLinkId;rejected+=result.rejected.length;for(const reason of result.rejected)rejectReasons[reason]=(rejectReasons[reason]||0)+1;
     await io.checkpoint(items,summary('reading'));
    }
    pages++;perCardPages++;
