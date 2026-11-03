@@ -62,7 +62,7 @@ test('Chase explicit no-payment banner becomes a dated status without fabricatin
  const raw=copy(reader.chaseDetail(p,f.cards[3]).items),r=validateModel({items:raw,nextLinkId:null},snapshot(3,raw));assert.deepEqual(r.rejected,[]);
  const c=applyAgentRecords({cards:[f.cards[3]]},r.items).cards[0];assert.equal(c.paymentStatus,"You don't have a payment due right now.");assert.ok(c.fieldDates.paymentStatus);assert.equal(c.statement,0);assert.equal(c.balance,12);
  for(const key of ['minimum','due','autopay'])assert.equal(c[key],undefined);
- for(const change of [{paymentNotices:["If you make a payment, you don't have a payment due right now."]},{paymentNotices:[]},{fields:{...p.fields,'minimumPaymentDue-dataItem':'Minimum payment due\n$1.00'}},{fields:{...p.fields,'nextPaymentDueDate-dataItem':'Payment due date\nNov 22'}}]){
+ for(const change of [{fields:{'remainingStatementBalance-dataItem':'Remaining statement balance\n$0.00'}},{paymentNotices:["If you make a payment, you don't have a payment due right now."]},{paymentNotices:[]},{fields:{...p.fields,'minimumPaymentDue-dataItem':'Minimum payment due\n$1.00'}},{fields:{...p.fields,'nextPaymentDueDate-dataItem':'Payment due date\nNov 22'}}]){
   assert.ok(!reader.chaseDetail({...p,...change},f.cards[3]).items.some(i=>i.key==='paymentStatus'));
  }
 });

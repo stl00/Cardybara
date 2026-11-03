@@ -56,7 +56,17 @@ export function latestDueField(card){
  return card.duePartial&&partial&&(!card.due||!full||Date.parse(partial)>=Date.parse(full))?'duePartial':'due';
 }
 
+// A bank job cannot run longer than this (see Engine.progress), so a reading this close to the
+// statement came from the same run or just before it, and a positive one contradicts it.
+const SAME_RUN_MS=600000;
 export function latestNoPayment(card){
  const at=Date.parse(card.fieldDates?.paymentStatus);
- return /^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(card.paymentStatus||'')&&Number.isFinite(at)&&['minimum','due','duePartial'].every(k=>{const date=card.fieldDates?.[k]||(card[k]!=null?card.updated:null);return !date||at>=Date.parse(date);});
+ return /^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(card.paymentStatus||'')&&Number.isFinite(at)&&['minimum','due','duePartial'].every(k=>{
+  const value=Date.parse(card.fieldDates?.[k]||(card[k]!=null?card.updated:null));
+  if(!Number.isFinite(value))return true;
+  const contradicts=k==='minimum'?card.minimum>0:card[k]!=null;
+  return at>=value&&!(contradicts&&at-value<SAME_RUN_MS);
+ });
 }
+// True for an older reading that the bank's current no-payment statement has replaced.
+export function supersededByNoPayment(card,key){return card[key]!=null&&latestNoPayment(card);}

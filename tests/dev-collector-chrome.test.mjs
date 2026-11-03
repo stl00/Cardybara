@@ -9,6 +9,8 @@ import {SYNTHETIC_ARGS,SYNTHETIC_METHODS} from '../scripts/dev-collector/cdp.mjs
 import {openBrowser,parseActivePort} from '../scripts/dev-collector/chrome-launcher.mjs';
 import {createChromeAdapter,hostPermissions} from '../scripts/dev-collector/chrome-adapter.mjs';
 import {syntheticPrepareTab} from '../scripts/dev-collector/synthetic-bank.mjs';
+import {chaseCards} from '../extension-next/chase-navigation.js';
+import {capturePage} from '../extension-next/agent-snapshot.js';
 
 const extensionRoot=fileURLToPath(new URL('../extension-next',import.meta.url));
 const manifest=JSON.parse(await readFile(join(extensionRoot,'manifest.json'),'utf8'));
@@ -74,6 +76,25 @@ test('injects in an isolated world, tracks documents and answers a page script t
   let removed=null;chrome.tabs.onRemoved.addListener(id=>{removed=id;});
   await run.conn.send('Target.closeTarget',{targetId:(await run.conn.send('Target.getTargets')).targetInfos.find(t=>t.url.startsWith('https://secure.chase.com')).targetId});
   await until(()=>removed===tab.id);
+ }finally{await run.stop();}
+});
+
+test('a no-payment banner left over from the previous card does not land on the next card',async()=>{
+ const run=await start();
+ try{
+  const {chrome}=run.adapter,events=[];chrome.tabs.onUpdated.addListener((id,c)=>events.push(c));
+  const tab=await chrome.tabs.create({url:BANK,active:false});await until(()=>events.some(e=>e.status==='complete'));
+  const exec=(func,args=[])=>chrome.scripting.executeScript({target:{tabId:tab.id},func,args}).then(r=>r[0].result);
+  const mark=events.length;await exec(()=>{sessionStorage.setItem('synthetic-signed-in','1');sessionStorage.setItem('synthetic-leftover-notice','1');location.reload();});
+  await until(()=>events.slice(mark).some(e=>e.status==='complete'));await until(()=>exec(()=>!!document.getElementById('accounts-name-link-button-300')));
+  await exec(()=>{});await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
+  const cards=[{id:'cash',bank:'Chase',tail:'5678',currency:'USD'},{id:'plain',bank:'Chase',tail:'9012',currency:'USD'}];
+  const read=async(tail,id)=>{assert.deepEqual(await exec(chaseCards,['select',tail,cards]),[tail]);const raw=await exec(capturePage,['Chase',cards,[id]]);assert.equal(raw.error,undefined);return raw.observations.map(i=>i.key);};
+  const back=()=>exec(()=>{location.hash='#/dashboard/overview';});
+  assert.ok((await read('5678','cash')).includes('paymentStatus'),'the card that shows the banner keeps it');
+  await back();await until(()=>exec(()=>!!document.getElementById('accounts-name-link-button-300')));
+  const next=await read('9012','plain');
+  assert.ok(next.includes('balance'));assert.ok(!next.includes('paymentStatus'),'the leftover banner must not apply');
  }finally{await run.stop();}
 });
 

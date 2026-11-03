@@ -7,7 +7,7 @@ test('HK MVP includes account/billing navigation without offer enrollment or spe
 
 test('HK live-shaped minimum label is read while a yearless payment date stays unknown',()=>{const text='Unknown product ••••'+f.card.tail+'\n總結欠\nHK$45.00\n最低還款\nHK$12.00\n請於此日期或之前付款\n11月 23日';const items=reader.amexHkMvp(text,f.card);assert.equal(items.find(i=>i.key==='minimum')?.value,12);assert.ok(!items.some(i=>i.key==='due'));const dated=reader.amexHkMvp(text.replace('11月 23日','2026年11月23日'),f.card);assert.equal(dated.find(i=>i.key==='due')?.date,'2026-11-23');});
 
-import {applyAgentRecords,latestDueField,latestNoPayment} from '../src/agentData.js';
+import {applyAgentRecords,latestDueField,latestNoPayment,supersededByNoPayment} from '../src/agentData.js';
 function validateHk(text){
  const raw=JSON.parse(JSON.stringify(reader.amexHkMvp('Synthetic card ••••'+f.card.tail+'\n'+text,f.card))).map(i=>({...i,evidence:'[C1]\n'+i.evidence}));
  const snapshot={bank:'Amex HK',region:'HK',page:'https://global.americanexpress.com/dashboard',capturedAt:'2026-10-29T15:45:00Z',aliases:[{id:'C1',cardId:f.card.id,currency:'HKD'}],blocks:raw.map(i=>({text:i.evidence})),links:[]};
@@ -43,4 +43,14 @@ test('payment reminders prefer newer billing evidence and do not suppress a newe
  const card={paymentStatus:'暫時毋須付款',fieldDates:{paymentStatus:'2026-10-29T15:00:00Z',due:'2026-10-28T15:00:00Z'}};
  assert.equal(latestNoPayment(card),true);assert.equal(latestNoPayment({...card,fieldDates:{...card.fieldDates,minimum:'2026-10-30T15:00:00Z'}}),false);
  assert.equal(latestNoPayment({...card,paymentStatus:'Balance is zero'}),false);
+ // A positive minimum or a due date read in the same run contradicts the statement; a zero minimum does not.
+ const at='2026-10-29T15:00:00Z',minutes=m=>new Date(Date.parse(at)-m*60000).toISOString(),same={paymentStatus:'暫時毋須付款',fieldDates:{paymentStatus:at}};
+ assert.equal(latestNoPayment({...same,minimum:12,fieldDates:{...same.fieldDates,minimum:minutes(1)}}),false);
+ assert.equal(latestNoPayment({...same,minimum:0,fieldDates:{...same.fieldDates,minimum:minutes(1)}}),true);
+ assert.equal(latestNoPayment({...same,due:'2026-11-23',fieldDates:{...same.fieldDates,due:minutes(1)}}),false);
+ assert.equal(latestNoPayment({...same,duePartial:'11月23日',fieldDates:{...same.fieldDates,duePartial:minutes(1)}}),false);
+ // An older run's reading is replaced, and the drawer can say so.
+ const older={...same,minimum:12,due:'2026-11-23',fieldDates:{...same.fieldDates,minimum:minutes(60),due:minutes(60)}};
+ assert.equal(latestNoPayment(older),true);assert.equal(supersededByNoPayment(older,'minimum'),true);assert.equal(supersededByNoPayment(older,'due'),true);
+ assert.equal(supersededByNoPayment(older,'duePartial'),false);assert.equal(supersededByNoPayment({...older,paymentStatus:undefined},'minimum'),false);
 });

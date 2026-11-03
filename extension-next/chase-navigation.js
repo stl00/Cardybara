@@ -8,7 +8,11 @@ export async function chaseCards(action,tail,cards=[]){
  if(action!=='select'||!registered.has(tail))return [];
  const buttonDeadline=Date.now()+12000;let found=[];
  while(Date.now()<buttonDeadline){if(overview())found=rows().filter(r=>r.tail===tail&&r.e.getClientRects().length);if(found.length===1)break;await new Promise(r=>setTimeout(r,100));}
- if(found.length!==1)return {error:'chase_account_button_timeout'};found[0].e.click();
+ if(found.length!==1)return {error:'chase_account_button_timeout'};
+ // A status banner already on screen belongs to whatever was shown before this card.
+ const before=[document];for(let i=0;i<before.length&&i<250;i++)for(const e of before[i].querySelectorAll('*'))if(e.shadowRoot)before.push(e.shadowRoot);
+ self.CardyChaseStaleNotices=new WeakSet(before.flatMap(r=>[...r.querySelectorAll('[id="title-focus-target"]')]));
+ found[0].e.click();
  // Rendering a detail gets its own bounded budget after the bank handles its SPA click.
  const detailDeadline=Date.now()+25000;
  // A hash update does not mean the old card's financial body has been replaced.
