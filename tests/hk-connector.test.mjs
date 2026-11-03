@@ -55,3 +55,13 @@ test('payment reminders prefer newer billing evidence and do not suppress a newe
  assert.equal(latestNoPayment(older),true);assert.equal(supersededByNoPayment(older,'minimum'),true);assert.equal(supersededByNoPayment(older,'due'),true);
  assert.equal(supersededByNoPayment(older,'duePartial'),false);assert.equal(supersededByNoPayment({...older,paymentStatus:undefined},'minimum'),false);
 });
+
+test('Amex reports another named programme as not collected, and Membership Rewards pools stay separate by region',()=>{
+ const required=t=>/^(?:Membership Rewards\b|美國運通積分|美国运通积分)/i.test(t);
+ assert.deepEqual([...reader.otherRewardLabels(['Some Hotel Points','12,345','Membership Rewards','999','Redeem points','5','Current balance','7'],required)],['Some Hotel Points']);
+ const cards=[{id:'us',bank:'Amex US',currency:'USD'},{id:'hk',bank:'Amex HK',currency:'HKD'},{id:'hk2',bank:'Amex HK',currency:'HKD'}];
+ const record=(cardId,bank,region,value)=>({kind:'reward',cardId,bank,region,key:'Membership Rewards',title:'Membership Rewards',value,currency:'points',date:'',status:'unknown',evidence:'Membership Rewards\n'+value,capturedAt:'2030-01-01T00:00:00Z',page:'https://example.test',method:'rules'});
+ const data=applyAgentRecords({cards},[record('us','Amex US','US',100),record('hk','Amex HK','HK',200),record('hk2','Amex HK','HK',200)]);
+ assert.equal(data.rewardObservations.length,3);assert.ok(data.rewardObservations.every(r=>r.poolStatus==='unconfirmed'));
+ assert.deepEqual(data.rewardObservations.map(r=>r.region),['US','HK','HK']);
+});

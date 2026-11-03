@@ -41,7 +41,10 @@ test('one Chase MVP run checkpoints all four registered details and preserves mi
  try{
   const r=await enrichBank({bank:'Chase',cards:f.cards,tabId:2},{current:async()=>true,progress:async()=>{},checkpoint:async records=>checkpoints.push(copy(records)),navigate:async href=>{url=href;}});
   assert.equal(r.error,null);assert.equal(r.pages,5);assert.deepEqual(visits,f.cards.map(c=>c.id));assert.equal(r.sections.reward.status,'updated');assert.equal(r.sections.card.status,'partial');assert.deepEqual(r.sections.card.coverage.at(-1).missing,['due']);assert.equal(r.rejected,0);
-  for(const c of f.cards)assert.ok(checkpoints.some(records=>records.some(i=>i.cardId===c.id&&i.kind==='reward')));
+  // Ultimate Rewards cards read a reward; partner-programme cards report it as not collected.
+  const rewardOf=c=>checkpoints.some(records=>records.some(i=>i.cardId===c.id&&i.kind==='reward'));
+  assert.deepEqual(f.cards.map(rewardOf),[true,false,false,true]);
+  assert.deepEqual(r.sections.reward.coverage.map(c=>c.notCollected?.length||0),[0,1,1,0]);assert.ok(r.sections.reward.coverage.every(c=>c.complete));
   assert.ok(r.items.every(i=>['card','billing','reward'].includes(i.kind)));
  }finally{globalThis.chrome=previousChrome;globalThis.fetch=previousFetch;}
 });
@@ -56,6 +59,26 @@ test('a Chase run with an explicit no-payment card completes its coverage and le
  // The same page without the statement stays partial and reports what is missing.
  const silent=copy(reader.chaseDetail({...page,paymentNotices:[]},card).items),plain=validateModel({items:silent,nextLinkId:null},snapshot(3,silent)).items;
  assert.deepEqual(mvpSummary(plain,[card]).card.coverage[0].missing,['minimum','due']);assert.equal(mvpSummary(plain,[card]).card.status,'partial');
+});
+test('a co-brand card is complete on billing and reports its programme as not collected',async()=>{
+ const card={id:'cobrand',bank:'Chase',tail:'7777',currency:'USD'},title='Sample Cobrand (...7777)',page=(rewardLabel)=>({title,rewardLabel,fields:{currentBalance:'$9.00','remainingStatementBalance-dataItem':'Remaining statement balance\n$1.00','minimumPaymentDue-dataItem':'Minimum payment due\n$1.00','nextPaymentDueDate-dataItem':'Payment due date\nDec 3, 2031','partnerRewards-dataItem':'4,321'}});
+ const unnamed=reader.chaseDetail(page(undefined),card);assert.ok(!unnamed.items.some(i=>i.kind==='reward'));assert.deepEqual(copy(unnamed.otherProgrammes),['unnamed']);
+ const labelled=copy(reader.chaseDetail(page('MileagePlus® Miles'),card).items);
+ const previousChrome=globalThis.chrome;let url='https://secure.chase.com/web/auth/dashboard#/dashboard/summary/1/CARD/BAC',overview=false;
+ const run=async settings=>{
+  globalThis.chrome={permissions:{contains:async()=>false},storage:{local:{get:async()=>({[PARSER_SETTINGS]:settings})}},tabs:{get:async()=>({id:2,url,status:'complete'})},scripting:{executeScript:async o=>{
+   if(o.files||o.target.documentIds)return [{documentId:'doc',result:true}];
+   if(o.func.name==='chaseCards')return [{result:[]}];
+   return [{documentId:'doc',result:{pageHref:url,capturedAt:new Date().toISOString(),aliases:[{id:'C1',cardId:card.id,currency:'USD'}],observations:labelled,blocks:labelled.map(i=>({text:i.evidence})),links:[],rulesComplete:true}}];
+  }}};
+  return enrichBank({bank:'Chase',cards:[card],tabId:2},{current:async()=>true,progress:async()=>{},checkpoint:async()=>{},navigate:async href=>{url=href;}});
+ };
+ try{
+  const mvp=await run({scope:'mvp'});
+  assert.ok(!mvp.items.some(i=>i.kind==='reward'),'other programmes are off by default');
+  assert.equal(mvp.sections.reward.status,'not_collected');assert.deepEqual(mvp.sections.reward.coverage[0].notCollected,['MileagePlus® Miles']);assert.equal(mvp.sections.card.status,'updated');
+  const full=await run({scope:'full'});assert.ok(full.items.some(i=>i.kind==='reward'),'the code stays available in full scope');
+ }finally{globalThis.chrome=previousChrome;}
 });
 test('Chase explicit no-payment banner becomes a dated status without fabricating minimum, due or AutoPay',()=>{
  const p={...f.details[3],fields:{currentBalance:'$12.00','remainingStatementBalance-dataItem':'Remaining statement balance\n$0.00'},paymentNotices:["Success:\nYou don't have a payment due right now."]};
