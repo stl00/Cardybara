@@ -5,6 +5,7 @@ import vm from 'node:vm';
 import {validateModel} from '../extension-next/agent-core.js';
 import {enrichBank,PARSER_SETTINGS} from '../extension-next/parser-client.js';
 import {applyAgentRecords} from '../src/agentData.js';
+import {mvpSummary} from '../extension-next/mvp.js';
 const f=JSON.parse(fs.readFileSync(new URL('./fixtures/banks/chase-four-card-mvp.json',import.meta.url)));
 const box={self:{}};vm.createContext(box);vm.runInContext(fs.readFileSync(new URL('../extension-next/reader.js',import.meta.url),'utf8'),box);
 const reader=box.self.CardyReader,copy=x=>JSON.parse(JSON.stringify(x));
@@ -45,6 +46,17 @@ test('one Chase MVP run checkpoints all four registered details and preserves mi
  }finally{globalThis.chrome=previousChrome;globalThis.fetch=previousFetch;}
 });
 
+test('a Chase run with an explicit no-payment card completes its coverage and leaves minimum and due unknown',async()=>{
+ const card=f.cards[3],page={title:card.name+' (...'+card.tail+')',fields:{currentBalance:'$12.00','remainingStatementBalance-dataItem':'Remaining statement balance\n$0.00','ultimateRewards-dataItem':'Ultimate Rewards® points\n0'},paymentNotices:["Success:\nYou don't have a payment due right now."]};
+ const raw=copy(reader.chaseDetail(page,card).items),{items}=validateModel({items:raw,nextLinkId:null},snapshot(3,raw));
+ const coverage=mvpSummary(items,[card]);
+ assert.deepEqual(coverage.card.coverage[0],{cardId:card.id,missing:[],complete:true,notApplicable:['minimum','due'],reason:"You don't have a payment due right now."});
+ assert.equal(coverage.card.status,'updated');
+ const c=applyAgentRecords({cards:[card]},items).cards[0];assert.equal(c.minimum,undefined);assert.equal(c.due,undefined);assert.equal(c.paymentStatus,"You don't have a payment due right now.");
+ // The same page without the statement stays partial and reports what is missing.
+ const silent=copy(reader.chaseDetail({...page,paymentNotices:[]},card).items),plain=validateModel({items:silent,nextLinkId:null},snapshot(3,silent)).items;
+ assert.deepEqual(mvpSummary(plain,[card]).card.coverage[0].missing,['minimum','due']);assert.equal(mvpSummary(plain,[card]).card.status,'partial');
+});
 test('Chase explicit no-payment banner becomes a dated status without fabricating minimum, due or AutoPay',()=>{
  const p={...f.details[3],fields:{currentBalance:'$12.00','remainingStatementBalance-dataItem':'Remaining statement balance\n$0.00'},paymentNotices:["Success:\nYou don't have a payment due right now."]};
  const raw=copy(reader.chaseDetail(p,f.cards[3]).items),r=validateModel({items:raw,nextLinkId:null},snapshot(3,raw));assert.deepEqual(r.rejected,[]);

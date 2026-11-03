@@ -32,11 +32,13 @@ test('HK worker reads two arbitrary products, navigates rewards and statements, 
 test('a failed optional billing page preserves the first card and continues reading the next card',()=>runFlow(true));
 
 import {applyAgentRecords} from '../src/agentData.js';
-test('HK worker persists explicit no-payment and yearless due on separate cards and reports partial coverage',async()=>{
+test('HK worker persists explicit no-payment and yearless due on separate cards; only the no-payment card has minimum and due satisfied',async()=>{
  const {state,cards}=await runFlow(false,true),records=state.agentRecords;
  const data=applyAgentRecords({cards},records);
  assert.equal(data.cards[0].paymentStatus,'暫時毋須付款');assert.equal(data.cards[0].minimum,undefined);assert.equal(data.cards[0].due,undefined);
  assert.equal(data.cards[1].duePartial,'11月 23日');assert.equal(data.cards[1].due,undefined);assert.equal(data.cards[1].minimum,12);
  assert.ok(data.cards.every(c=>Object.values(c.fieldDates).every(d=>Number.isFinite(Date.parse(d)))));
- assert.ok(state.run.jobs[0].sections.card.coverage.every(c=>c.missing.includes('due')));
+ const [noPayment,yearless]=state.run.jobs[0].sections.card.coverage;
+ assert.ok(!noPayment.missing.includes('minimum')&&!noPayment.missing.includes('due'));assert.deepEqual(noPayment.notApplicable,['minimum','due']);assert.equal(noPayment.reason,'暫時毋須付款');
+ assert.ok(yearless.missing.includes('due'));assert.equal(yearless.notApplicable,undefined);assert.equal(state.run.jobs[0].status,'partial');
 });
