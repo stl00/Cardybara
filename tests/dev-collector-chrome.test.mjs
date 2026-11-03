@@ -166,6 +166,14 @@ for(const [bank,url,cards,want] of [
   }
   assert.ok(!raw.observations.some(o=>o.kind==='reward'),'rewards are out of scope for these banks');
   assert.ok(raw.observations.some(o=>o.key==='paymentStatus'&&o.cardId===raw.aliases.find(a=>a.cardId==='c'+cards[1]).id));
+  if(bank==='BOA'){
+   // A sibling card in a form this code has never seen, and not in the wallet, must not lend its fields.
+   const mark=events.length;await exec(()=>{sessionStorage.setItem('synthetic-cards',JSON.stringify([{name:'Own Card',tail:'1234',rows:[['Current Balance','$5.00'],['No payment due']]},{name:'Unknown Visa',mask:' x5678',tail:'5678',rows:[['Minimum Payment Due','$9.00'],['Payment Due Date','12/19/2030']]}]));location.reload();});
+   await until(()=>events.slice(mark).some(e=>e.status==='complete'));await until(()=>exec(()=>/Own Card/.test(document.body.innerText)));
+   await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
+   const own=[{id:'own',bank,tail:'1234',currency:'USD'}],only=await exec(capturePage,[bank,own,[]]);assert.equal(only.error,undefined);
+   const keys=only.observations.map(o=>o.key);assert.ok(keys.includes('balance'));assert.ok(keys.includes('paymentStatus'));assert.ok(!keys.includes('minimum'),'no borrowed minimum');assert.ok(!keys.includes('due'),'no borrowed due date');
+  }
  }finally{await run.stop();}
 });
 

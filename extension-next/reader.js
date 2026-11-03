@@ -319,9 +319,14 @@
   return new Promise(resolve=>{let timer,debounce;const finish=()=>{observer.disconnect();clearTimeout(timer);clearTimeout(debounce);resolve(read(bank,cards,locales));};const observer=new MutationObserver(()=>{clearTimeout(debounce);debounce=setTimeout(()=>{current=read(bank,cards,locales);if(current.patches.length||current.status!=='no_data')finish();},150);});observer.observe(document.documentElement,{childList:true,subtree:true,characterData:true});timer=setTimeout(finish,10000);});
  }
  // Billing for issuers with no dedicated adapter yet. Reads one card's scoped text by label; product names play no part.
- const ISSUER_MASK=/(?:[•●*xX]{2,}[\s-]*|\.{3}\s*|…\s*|\bending(?:\s+in)?[:\s]+|尾號[:：\s]*|尾号[:：\s]*|[-–]\s*)(\d{4,5})(?![\d.,])/gi;
+ // Our own number must appear in a masked form. Hyphens count only after a non-digit, so a phone number or date never does.
+ const ISSUER_MASK=/(?:[•●*xX]{2,}[\s-]*|[•●*xX]\s*|\.{3}\s*|…\s*|\bending(?:\s+(?:in|with))?[:\s]+|\bends\s+in[:\s]+|尾[號号数數][:：\s]*|[末后後]四位[:：\s]*|(?<!\d)[-–]\s*)(\d{4,5})(?!\d)(?!\.\d)/gi;
  const issuerTails=text=>[...String(text).matchAll(ISSUER_MASK)].map(m=>m[1]);
- const holdsOther=(text,tail,otherTails)=>issuerTails(text).some(t=>t!==tail)||otherTails.some(t=>new RegExp('(?:^|[^0-9])'+t+'(?:[^0-9]|$)').test(text));
+ // Anything else that looks like a card's last digits counts as another card, whatever its form: a wrong card is worse than a missing field.
+ // Amounts, phone numbers, ranges and dates are not numbers on their own, and a bare year is not a tail unless it is masked.
+ const TAIL_LIKE=/(?<![\d.,$\/])(?<!\d[-–])\d{4,5}(?![\d,\/]|\.\d|[-–]\d)/g;
+ const tailLike=text=>[...String(text).matchAll(TAIL_LIKE)].map(m=>m[0]).filter(t=>!/^(?:19|20)\d\d$/.test(t));
+ const holdsOther=(text,tail)=>[...tailLike(text),...issuerTails(text).filter(t=>!/^(?:19|20)\d\d$/.test(t)||t===tail)].some(t=>t!==tail);
  const MONTHS=['jan(?:uary)?','feb(?:ruary)?','mar(?:ch)?','apr(?:il)?','may','jun(?:e)?','jul(?:y)?','aug(?:ust)?','sep(?:tember)?','oct(?:ober)?','nov(?:ember)?','dec(?:ember)?'];
  const monthOf=name=>MONTHS.findIndex(m=>new RegExp('^'+m+'$','i').test(name))+1;
  // Only forms the validator can ground in evidence, and a numeric order only where it is certain.
@@ -348,13 +353,13 @@
   else if(!dates.length&&new Set(partial.map(d=>d.value.replace(/\s/g,''))).size===1)add('duePartial',partial[0].value,'',partial[0].evidence);
   return items;
  }
- function issuerBilling(text,bank,card,otherTails=[],alias='C1'){
-  if(text.length>100000||!issuerTails(text).includes(card.tail)||holdsOther(text,card.tail,otherTails))return [];
+ function issuerBilling(text,bank,card,alias='C1'){
+  if(text.length>100000||!issuerTails(text).includes(card.tail)||holdsOther(text,card.tail))return [];
   const lines=text.replace(/[  ]/g,' ').split('\n').map(x=>x.trim()).filter(Boolean),items=[];
   const parsed=parseAccount(text,bank,card,'en-US',new Date().toISOString(),100000);
   for(const [key,value]of Object.entries(parsed?.fields||{})){
    // Evidence is the labelled line that actually carries this value, not the first label of that name.
-   const digits=Math.abs(value).toFixed(2),carries=at=>lines.slice(at,at+4).join(' ').replaceAll(',','').includes(digits);
+   const digits=new RegExp('(?<![\\d.])'+Math.abs(value).toFixed(2).replace('.','\\.')+'(?!\\d)'),carries=at=>digits.test(lines.slice(at,at+4).join(' ').replaceAll(',',''));
    const at=lines.findIndex((l,i)=>(labels[key]?.test(labelText(l))||labels[key]?.test(labelText(l.split(/\s*[:：]\s*/)[0]))||labels[key]?.test(labelText(l.replace(/\s+(?:[-−(]|HK\$|US\$|\$|HKD|USD|\d).*$/,''))))&&carries(i));
    if(at>=0)items.push({kind:'card',cardId:alias,key,title:labelText(lines[at]).slice(0,80),value,currency:card.currency,date:'',status:'unknown',evidence:lines.slice(at,at+4).join('\n')});
   }
@@ -364,12 +369,12 @@
   return items;
  }
  // The largest visible container holding this card's number and no other card's.
- function issuerScope(tail,otherTails=[],doc=document){
+ function issuerScope(tail,doc=document){
   const walker=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT),own=new RegExp('(?:^|[^0-9])'+tail+'(?:[^0-9]|$)');let best='',count=0;
   while(walker.nextNode()&&count++<20000){
    if(!own.test(walker.currentNode.textContent))continue;
    for(let el=walker.currentNode.parentElement;el;el=el.parentElement){
-    if(!shown(el))continue;const t=el.innerText||'';if(t.length>16000||holdsOther(t,tail,otherTails))break;
+    if(!shown(el))continue;const t=el.innerText||'';if(t.length>16000||holdsOther(t,tail))break;
     if(issuerTails(t).includes(tail)&&t.length>best.length)best=t;
    }
   }

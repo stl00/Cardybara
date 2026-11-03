@@ -107,8 +107,12 @@ for(const name of ['boa-card-details','boa-no-payment','sc-hk-zh-card-details','
 });
 test('issuer rules never mix cards or guess',()=>{
  const f=issuer('boa-card-details'),boa=(t,others=[])=>fieldsOf(reader.issuerBilling(t,'BOA',f.card,others)),sc=issuer('sc-hk-en-card-details'),hk=t=>fieldsOf(reader.issuerBilling(t,'SC HK',sc.card));
- for(const other of ['Visa - 5678','XXXX-XXXX-XXXX-5678','…5678','(-5678)','Ending in: 5678','Another Visa ending in 5678','••••5678','...5678'])assert.deepEqual(boa(f.text+'\n'+other+'\nCurrent Balance\n$5.00'),{},other);
- assert.deepEqual(boa(f.text+'\nPlain 5678 row',['5678']),{},'a wallet tail in any form');
+ for(const other of ['Visa - 5678','XXXX-XXXX-XXXX-5678','…5678','(-5678)','Ending in: 5678','Another Visa ending in 5678','••••5678','...5678','Visa x5678','*5678','• 5678','(5678)','#5678','Plain 5678 row','ends in 5678','ending with 5678','末四位 5678','尾数 5678','后四位 5678','••••5678.','ending in 5678,'])assert.deepEqual(boa(f.text+'\n'+other+'\nCurrent Balance\n$5.00'),{},other);
+ // Phone numbers, dates, ranges, amounts and years neither identify a card nor stand in for another one.
+ assert.deepEqual(boa('Visa 5678\nCall 1-800-555-1234\nCurrent Balance\n$5.00'),{},'a phone number does not identify the card');
+ for(const noise of ['Call 1-800-432-1000','Call 2886-8888','01-01-2030','© 2000-2030','Statement ending 2030','Dec 19, 2030','$1,234.56','1234.56'])assert.equal(boa('Visa ending in 1234\nCurrent Balance\n$5.00\n'+noise).balance,5,noise);
+ assert.equal(JSON.parse(JSON.stringify(reader.issuerBilling('Visa ending in 1234\nMinimum Payment Due\n$5.00\nCredit Limit\n$35.00','BOA',f.card))).find(i=>i.key==='minimum').evidence.includes('5.00'),true);
+ const window=JSON.parse(JSON.stringify(reader.issuerBilling('Visa ending in 1234\nMinimum Payment Due\n$35.00\nNote\nMinimum Payment Due\n$35.00','BOA',f.card))).find(i=>i.key==='minimum');assert.match(window.evidence,/35\.00/);
  assert.deepEqual(boa('No card here\nCurrent Balance\n$5.00'),{},'card not identified');
  assert.equal(boa('Visa ending in 1234\nCurrent Balance\n-$1,234.56').balance,-1234.56,'a negative amount is not a card number');
  assert.deepEqual(boa('Visa ending in 1234\nCurrent Balance\n$5.00'),{balance:5},'nothing invented');

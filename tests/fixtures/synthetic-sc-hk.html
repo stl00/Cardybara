@@ -2,9 +2,9 @@
 <!-- Synthetic test page, served locally by scripts/dev-collector/synthetic-bank.mjs. All values are made up. -->
 <body><main id="root"></main>
 <script>
-const cards=[
- {name:'渣打示例信用卡',tail:'4321',rows:[['現時結欠','HK$1,234.56'],['可用信貸額','HK$8,765.44'],['月結單結欠','HK$321.00'],['最低還款額','HK$35.00'],['還款到期日','2030年12月19日'],['360° 獎賞積分','12,345']]},
- {name:'渣打示例白金卡',tail:'8765',rows:[['現時結欠','HK$67.89'],['可用信貸額','HK$4,932.11'],['月結單結欠','HK$0.00'],['暫時毋須付款'],['亞洲萬里通','2,468']]}
+const cards=JSON.parse(sessionStorage.getItem('synthetic-cards')||'null')||[
+ {name:'渣打示例信用卡',tail:'4321',rows:[['現時結欠','HK$1,234.56'],['可用信貸額','HK$8,765.44'],['月結單結欠','HK$321.00'],['最低還款額','HK$35.00'],['還款到期日','2030年12月19日'],['某某積分','12,345']]},
+ {name:'渣打示例白金卡',tail:'8765',rows:[['現時結欠','HK$67.89'],['可用信貸額','HK$4,932.11'],['月結單結欠','HK$0.00'],['暫時毋須付款'],['袋熊里數','2,468']]}
 ];
 const root=document.getElementById('root');
 function render(){
