@@ -2,7 +2,7 @@
 
 @AGENTS.md
 
-Cardybara (卡疲扒拉) is a local credit-card wallet: React 19 + Ant Design (default theme, zh-CN / zh-TW / en) packaged as a Manifest V3 Chrome extension with read-only bank collection. MVP scope: Amex US/HK/CA, Chase, BOA, HSBC HK, SC HK — rewards, balance, statement amount, minimum payment, due date.
+Cardybara (卡疲扒拉) is a local credit-card wallet: React 19 + Ant Design (default theme, zh-CN / zh-TW / en) packaged as a Manifest V3 Chrome extension with read-only bank collection. MVP scope: Amex US/HK, Chase, BOA, HSBC HK, SC HK, Citi US — balance, statement amount, minimum payment and due date for every card; rewards for Amex Membership Rewards and Chase Ultimate Rewards only. Amex CA is archived.
 
 Read before changing behaviour: `README.md`, `docs/DEBUGGING.md` (dev loop and evidence levels), `docs/RELEASE.md` (release gate).
 
