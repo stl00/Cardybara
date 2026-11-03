@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Cardybara 卡皮扒拉 · 银行刷新",
+  "version": "1.0.0",
+  "description": "从已登录的银行页面读取卡片余额，回传到你的私人 Cardybara 卡皮扒拉。",
+  "permissions": [
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.americanexpress.com/*",
+    "https://global.americanexpress.com/*",
+    "https://secure.chase.com/*",
+    "https://secure.bankofamerica.com/*",
+    "https://www.bankofamerica.com/*",
+    "https://www.hsbc.com.hk/*",
+    "https://www.ebanking.hsbc.com.hk/*",
+    "https://www.security.online-banking.hsbc.com.hk/*",
+    "https://retail.sc.com/*",
+    "https://www.sc.com/*",
+    "http://127.0.0.1/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://127.0.0.1/*"
+      ],
+      "js": [
+        "dashboard.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

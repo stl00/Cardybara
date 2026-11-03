@@ -1,0 +1,15 @@
+name: Bug
+description: Something in the wallet UI or tooling behaves incorrectly.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: Steps, expected result and actual result. No personal financial data.
+    validations:
+      required: true
+  - type: input
+    id: build
+    attributes:
+      label: Version / environment

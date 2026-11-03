@@ -1,0 +1,37 @@
+name: Bank collection problem
+description: A bank page field is missing, wrong or not discovered.
+labels: [bank, bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not paste real amounts, card numbers, account IDs, screenshots or page HTML. Describe values by shape (for example: 'balance shown as $X,XXX.XX')."
+  - type: dropdown
+    id: bank
+    attributes:
+      label: Bank / region
+      options: [Amex US, Amex HK, Amex CA, Chase, Bank of America, HSBC HK, Standard Chartered HK, Other]
+    validations:
+      required: true
+  - type: checkboxes
+    id: fields
+    attributes:
+      label: Affected fields
+      options:
+        - label: Card discovery
+        - label: Rewards / points
+        - label: Balance
+        - label: Statement amount
+        - label: Minimum payment
+        - label: Due date
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed vs expected
+      description: What the bank page shows (by shape) and what Cardybara recorded.
+    validations:
+      required: true
+  - type: input
+    id: build
+    attributes:
+      label: Runtime build / version
+      description: From the popup or wallet settings, or "localhost dev".

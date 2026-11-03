@@ -1,0 +1,6 @@
+<!doctype html><meta charset="utf-8"><title>Cardybara statement collector fixture</title>
+<h1>Deidentified transaction fixture — no bank connection</h1>
+<main><button aria-label="open_title">-12345</button><h2>Statement activity</h2><p>04 Sep - 03 Oct 2026</p>
+<table><tbody><tr><td>03 Oct</td><td>Merchant Alpha</td><td>CAD 10.00</td><td>posted</td></tr><tr><td>03 Sep</td><td>Merchant Beta</td><td>-CAD 15.13</td><td>posted</td></tr></tbody></table></main>
+<button id="run">Run collector test</button><pre id="result">Not run</pre>
+<script type="module">import{capturePage}from'/qa/agent-snapshot.js';document.querySelector('#run').onclick=async()=>{try{const s=await capturePage('Amex CA',[{id:'fixture-card',tail:'12345',currency:'CAD'}]);document.querySelector('#result').textContent=JSON.stringify(s,null,2);}catch(e){document.querySelector('#result').textContent=e.name+': '+e.message;}};</script>

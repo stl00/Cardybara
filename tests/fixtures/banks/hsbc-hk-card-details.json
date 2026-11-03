@@ -1,0 +1,9 @@
+{
+  "id": "hsbc-hk-account-detail-labels",
+  "provenance": "Reconstructed from HSBC Red details observed 2026-10-26; synthetic amount and masked tail. No complete account number. Not proof of wallet writeback.",
+  "bank": "HSBC HK",
+  "locale": "en-HK",
+  "card": {"id":"fixture-hsbc","bank":"HSBC HK","tail":"1234","currency":"HKD"},
+  "text": "HSBC Red Credit Card\nAccount number: ••••1234\nAccount balance:\n25.00\nHKD\nRewardCash balance:\n2\nCurrent amount due:\n0.00 HKD\nTotal minimum payment amount:\n0.00 HKD\nPayment due date:\n02 Nov 2026\nThere are no transactions to display.",
+  "expected": {"balance":-25,"statement":0,"minimum":0}
+}

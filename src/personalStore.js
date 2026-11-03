@@ -1,0 +1,12 @@
+import {validatePersonalEvent} from './personalBenefits.js';
+const DB='cardybara-personal',VERSION=1,STORE='benefit-events';
+function open(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB,VERSION);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'id',autoIncrement:true}).createIndex('eventId','event.id',{unique:true});};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);req.onblocked=()=>reject(Error('storage_blocked'));});}
+async function transaction(mode,action){const db=await open();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,mode);let value;tx.oncomplete=()=>{db.close();resolve(value)};tx.onerror=tx.onabort=()=>{db.close();reject(tx.error||Error('storage_failed'))};action(tx.objectStore(STORE),v=>{value=v});});}
+export async function readBenefitEvents(){return transaction('readonly',(store,done)=>{const req=store.getAll();req.onsuccess=()=>{try{done(req.result.map(x=>validatePersonalEvent(x.event)))}catch{store.transaction.abort()}};});}
+export async function appendBenefitEvent(key,status,revisionId,details={}){
+ const event=await transaction('readwrite',(store,done)=>{const last=store.openCursor(null,'prev');last.onsuccess=()=>{try{const at=new Date(Math.max(Date.now(),Date.parse(last.result?.value.event.at||'1970-01-01T00:00:00Z')+1)).toISOString();const event=validatePersonalEvent({schema:1,id:crypto.randomUUID(),key,status,revisionId,at,...(details.usage?{usage:details.usage}:{})});store.add({event});done(event);}catch{store.transaction.abort()}};});window.dispatchEvent(new Event('cardybara-personal-change'));return event;
+}
+export async function importBenefitEvents(backup){
+ if(backup?.schema!==1||!Array.isArray(backup.events)||backup.events.length>20000)throw Error('invalid_personal_backup');
+ const unique=new Map();for(const item of backup.events){const event=validatePersonalEvent(item);if(unique.has(event.id)&&JSON.stringify(unique.get(event.id))!==JSON.stringify(event))throw Error('conflicting_event_id');unique.set(event.id,event);}const events=[...unique.values()];await transaction('readwrite',store=>{for(const event of events){const req=store.index('eventId').get(event.id);req.onsuccess=()=>{if(!req.result)store.add({event});else if(JSON.stringify(req.result.event)!==JSON.stringify(event))store.transaction.abort();};}});window.dispatchEvent(new Event('cardybara-personal-change'));
+}

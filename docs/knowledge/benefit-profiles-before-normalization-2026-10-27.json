@@ -1,0 +1,857 @@
+{
+  "schema": 1,
+  "asOf": "2026-10-27",
+  "sources": {
+    "csr-product": {
+      "title": "Chase · CSR 产品与费率",
+      "url": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve",
+      "checkedAt": "2026-10-27",
+      "authority": "official"
+    },
+    "csr-benefits": {
+      "title": "Chase · CSR 福利总览",
+      "url": "https://www.chase.com/sapphire-cards/personal/reserve",
+      "checkedAt": "2026-10-27",
+      "authority": "official"
+    },
+    "csr-terms": {
+      "title": "Chase · 个人 CSR 详细条款",
+      "url": "https://www.chase.com/personal/credit-cards/offerdetails/chasesapphire",
+      "checkedAt": "2026-10-27",
+      "authority": "official"
+    },
+    "ihg": {
+      "title": "Chase · IHG 会籍说明",
+      "url": "https://www.chase.com/personal/credit-cards/education/chase-cards/ihg-platinum-elite-status-with-chase-sapphire-reserve",
+      "checkedAt": "2026-10-27",
+      "authority": "official"
+    },
+    "doordash": {
+      "title": "DoorDash · Chase 权益现行规则",
+      "url": "https://help.doordash.com/en-us/consumers/article/chase-partnership?chasewebview=false",
+      "checkedAt": "2026-10-27",
+      "authority": "official"
+    },
+    "partners": {
+      "title": "Chase · 官方转点伙伴",
+      "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+      "checkedAt": "2026-10-27",
+      "authority": "official"
+    },
+    "hsbc-terms": {
+      "title": "HSBC · 奖赏钱条款（2026-10-12 生效）",
+      "url": "https://www.hsbc.com.hk/credit-cards/rewards/terms/",
+      "checkedAt": "2026-10-27",
+      "authority": "official"
+    },
+    "hsbc-redeem": {
+      "title": "HSBC · 网页里数兑换入口",
+      "url": "https://www.hsbc.com.hk/credit-cards/rewards/mileage-programme/redeem/",
+      "checkedAt": "2026-10-27",
+      "authority": "official"
+    },
+    "hsbc-app": {
+      "title": "HSBC · Reward+ 功能",
+      "url": "https://www.hsbc.com.hk/credit-cards/rewards/app/",
+      "checkedAt": "2026-10-27",
+      "authority": "official"
+    },
+    "hsbc-everymile": {
+      "title": "HSBC · EveryMile 计划",
+      "url": "https://www.hsbc.com.hk/credit-cards/products/everymile/",
+      "checkedAt": "2026-10-27",
+      "authority": "official"
+    },
+    "forum-csr": {
+      "title": "美卡论坛 · 2025 年新版 CSR 讨论（仅作线索）",
+      "url": "https://www.uscardforum.com/t/topic/403416",
+      "checkedAt": "2026-10-27",
+      "authority": "community"
+    }
+  },
+  "profiles": [
+    {
+      "productId": "chase-us-sapphire-reserve",
+      "checkedAt": "2026-10-27",
+      "coverage": "pilot-core-rules-and-protection-summaries",
+      "fees": {
+        "currency": "USD",
+        "primaryAnnual": 795,
+        "additionalAnnual": 195,
+        "scope": "published-standard-fees-not-actual-account-charge",
+        "sourceIds": [
+          "csr-product"
+        ]
+      },
+      "earningRates": [
+        {
+          "label": "Chase Travel",
+          "multiplier": 8,
+          "sourceIds": [
+            "csr-product"
+          ]
+        },
+        {
+          "label": "直订航班",
+          "multiplier": 4,
+          "sourceIds": [
+            "csr-product"
+          ]
+        },
+        {
+          "label": "直订酒店",
+          "multiplier": 4,
+          "sourceIds": [
+            "csr-product"
+          ]
+        },
+        {
+          "label": "餐饮",
+          "multiplier": 3,
+          "sourceIds": [
+            "csr-product"
+          ]
+        },
+        {
+          "label": "其他合资格消费",
+          "multiplier": 1,
+          "sourceIds": [
+            "csr-product"
+          ]
+        }
+      ],
+      "benefits": [
+        {
+          "id": "travel",
+          "title": "旅行消费抵扣",
+          "category": "credit",
+          "period": "account-anniversary",
+          "amount": 300,
+          "currency": "USD",
+          "condition": "符合旅行类别；周期按账户周年而非自然年；获抵扣部分不赚点。",
+          "sourceIds": [
+            "csr-terms"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified"
+        },
+        {
+          "id": "edit",
+          "title": "The Edit 酒店抵扣",
+          "category": "credit",
+          "period": "calendar-year",
+          "amount": 500,
+          "currency": "USD",
+          "condition": "预付至少两晚；每笔最多250美元；2026年起按自然年累计。",
+          "sourceIds": [
+            "csr-terms"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "perTransactionCap": 250,
+          "validFrom": "2026-01-01"
+        },
+        {
+          "id": "select-hotels-2026",
+          "title": "2026 指定酒店抵扣",
+          "category": "credit",
+          "period": "calendar-year",
+          "amount": 250,
+          "currency": "USD",
+          "condition": "Chase Travel 指定酒店预付至少两晚；仅2026年。",
+          "sourceIds": [
+            "csr-terms"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "validFrom": "2026-01-01",
+          "validThrough": "2026-12-31"
+        },
+        {
+          "id": "dining",
+          "title": "指定餐厅抵扣",
+          "category": "credit",
+          "period": "calendar-half-year",
+          "amount": 150,
+          "currency": "USD",
+          "condition": "仅指定餐厅直接消费；每半年150美元。",
+          "sourceIds": [
+            "csr-terms"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "annualMaximum": 300,
+          "bankAliases": [
+            "$300 Annual Dining Credit*"
+          ]
+        },
+        {
+          "id": "stubhub",
+          "title": "StubHub／viagogo 抵扣",
+          "category": "credit",
+          "period": "calendar-half-year",
+          "amount": 150,
+          "currency": "USD",
+          "condition": "需登记；直接购票；礼品卡及英国国际站不适用。",
+          "sourceIds": [
+            "csr-terms"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "requiresEnrollment": true,
+          "annualMaximum": 300,
+          "validThrough": "2027-12-31"
+        },
+        {
+          "id": "peloton",
+          "title": "Peloton 会员抵扣",
+          "category": "credit",
+          "period": "calendar-month",
+          "amount": 10,
+          "currency": "USD",
+          "condition": "需登记；美国直接订阅；第三方应用商店不适用。",
+          "sourceIds": [
+            "csr-terms"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "requiresEnrollment": true,
+          "annualMaximum": 120,
+          "validThrough": "2027-12-31"
+        },
+        {
+          "id": "lyft",
+          "title": "Lyft 应用内优惠",
+          "category": "promo",
+          "period": "calendar-month",
+          "amount": 10,
+          "currency": "USD",
+          "condition": "须以合资格卡直接付款；不支持电子钱包付款。",
+          "sourceIds": [
+            "csr-terms"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "validThrough": "2027-09-30"
+        },
+        {
+          "id": "dashpass",
+          "title": "DashPass 会员",
+          "category": "membership",
+          "period": "activation-based",
+          "amount": null,
+          "currency": null,
+          "condition": "需美国账户开通；会员有效期依激活日期确认。",
+          "sourceIds": [
+            "doordash"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "requiresEnrollment": true,
+          "enrollBy": "2029-12-31",
+          "partner": "DoorDash"
+        },
+        {
+          "id": "doordash-general",
+          "title": "DoorDash 通用优惠",
+          "category": "promo",
+          "period": "calendar-month",
+          "amount": 15,
+          "currency": "USD",
+          "condition": "需有效DashPass并用该卡付款；月底不结转。",
+          "sourceIds": [
+            "doordash"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "requiresEnrollment": true,
+          "validFrom": "2026-10-01",
+          "partner": "DoorDash"
+        },
+        {
+          "id": "doordash-retail",
+          "title": "DoorDash 非餐饮优惠",
+          "category": "promo",
+          "period": "calendar-month",
+          "amount": 10,
+          "currency": "USD",
+          "condition": "每月两张；每单限用一张；月底不结转。",
+          "sourceIds": [
+            "doordash"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "requiresEnrollment": true,
+          "quantity": 2,
+          "partner": "DoorDash"
+        },
+        {
+          "id": "apple-tv",
+          "title": "Apple TV 订阅",
+          "category": "membership",
+          "period": "activation-based",
+          "amount": null,
+          "currency": null,
+          "condition": "主卡需登记并关联Apple账户；原订阅处理依条款。",
+          "sourceIds": [
+            "csr-terms"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "requiresEnrollment": true,
+          "enrollBy": "2027-06-22",
+          "partner": "Apple"
+        },
+        {
+          "id": "apple-music",
+          "title": "Apple Music 个人订阅",
+          "category": "membership",
+          "period": "activation-based",
+          "amount": null,
+          "currency": null,
+          "condition": "主卡需登记；家庭版及Apple One不能视为个人版。",
+          "sourceIds": [
+            "csr-terms"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "requiresEnrollment": true,
+          "enrollBy": "2027-06-22",
+          "partner": "Apple"
+        },
+        {
+          "id": "ihg-platinum",
+          "title": "IHG 白金会籍",
+          "category": "membership",
+          "period": "fixed-date",
+          "amount": null,
+          "currency": null,
+          "condition": "主卡关联IHG账号；生效可能需三周；并非钻石会籍。",
+          "sourceIds": [
+            "ihg"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "requiresEnrollment": true,
+          "validThrough": "2027-12-31",
+          "partner": "IHG One Rewards",
+          "tier": "Platinum Elite"
+        },
+        {
+          "id": "priority-pass",
+          "title": "Priority Pass 休息室",
+          "category": "lounge",
+          "period": "ongoing",
+          "amount": null,
+          "currency": null,
+          "condition": "官方条款列自动激活；准入凭证及客人数受限制。",
+          "sourceIds": [
+            "csr-terms"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "partner": "Priority Pass",
+          "requiresEnrollment": false
+        },
+        {
+          "id": "sapphire-lounges",
+          "title": "Chase Sapphire 休息室",
+          "category": "lounge",
+          "period": "ongoing",
+          "amount": null,
+          "currency": null,
+          "condition": "按参与地点和准入条款使用；不等同航空精英会籍。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "partner": "Chase Sapphire Lounge"
+        },
+        {
+          "id": "air-canada-lounge",
+          "title": "加拿大航空休息室",
+          "category": "lounge",
+          "period": "ongoing",
+          "amount": null,
+          "currency": null,
+          "condition": "星盟当日出发／转机；指定地点；一位客人；不含YUL及Signature Suites。",
+          "sourceIds": [
+            "csr-terms"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "partner": "Air Canada",
+          "tier": null
+        },
+        {
+          "id": "global-entry",
+          "title": "Global Entry／TSA／NEXUS 抵扣",
+          "category": "credit",
+          "period": "rolling-four-years",
+          "amount": 120,
+          "currency": "USD",
+          "condition": "每四年一笔合资格申请费；须核对上次使用日期。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified"
+        },
+        {
+          "id": "edit-stay",
+          "title": "The Edit 入住待遇",
+          "category": "hotel-service",
+          "period": "per-stay",
+          "amount": null,
+          "currency": null,
+          "condition": "经指定渠道预订；早餐及酒店消费额度按酒店条款，升级视房态。",
+          "sourceIds": [
+            "csr-terms"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "partner": "The Edit"
+        },
+        {
+          "id": "hyatt-explorist",
+          "title": "Hyatt Explorist 会籍",
+          "category": "spend-unlock",
+          "period": "earned-year-plus-next",
+          "amount": null,
+          "currency": null,
+          "condition": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "spendThreshold": 75000,
+          "partner": "World of Hyatt",
+          "tier": "Explorist"
+        },
+        {
+          "id": "ihg-diamond",
+          "title": "IHG 钻石会籍",
+          "category": "spend-unlock",
+          "period": "earned-year-plus-next",
+          "amount": null,
+          "currency": null,
+          "condition": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "spendThreshold": 75000,
+          "partner": "IHG One Rewards",
+          "tier": "Diamond Elite"
+        },
+        {
+          "id": "southwest-alist",
+          "title": "Southwest A-List 会籍",
+          "category": "spend-unlock",
+          "period": "earned-year-plus-next",
+          "amount": null,
+          "currency": null,
+          "condition": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "spendThreshold": 75000,
+          "partner": "Southwest Rapid Rewards",
+          "tier": "A-List"
+        },
+        {
+          "id": "southwest-credit",
+          "title": "Southwest Chase Travel 抵扣",
+          "category": "spend-unlock",
+          "period": "earned-year-plus-next",
+          "amount": 500,
+          "currency": "USD",
+          "condition": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "spendThreshold": 75000,
+          "partner": "Southwest",
+          "tier": null
+        },
+        {
+          "id": "shops-credit",
+          "title": "The Shops at Chase 抵扣",
+          "category": "spend-unlock",
+          "period": "earned-year-plus-next",
+          "amount": 250,
+          "currency": "USD",
+          "condition": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "spendThreshold": 75000,
+          "partner": "The Shops at Chase",
+          "tier": null
+        },
+        {
+          "id": "trip-cancel",
+          "title": "旅行取消／中断保障",
+          "category": "protection",
+          "period": "event-based",
+          "amount": null,
+          "currency": null,
+          "condition": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "verification": "summary-only"
+        },
+        {
+          "id": "trip-delay",
+          "title": "旅行延误保障",
+          "category": "protection",
+          "period": "event-based",
+          "amount": null,
+          "currency": null,
+          "condition": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "verification": "summary-only"
+        },
+        {
+          "id": "baggage-delay",
+          "title": "行李延误保障",
+          "category": "protection",
+          "period": "event-based",
+          "amount": null,
+          "currency": null,
+          "condition": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "verification": "summary-only"
+        },
+        {
+          "id": "evacuation",
+          "title": "紧急撤离保障",
+          "category": "protection",
+          "period": "event-based",
+          "amount": null,
+          "currency": null,
+          "condition": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "verification": "summary-only"
+        },
+        {
+          "id": "rental",
+          "title": "租车损坏保障",
+          "category": "protection",
+          "period": "event-based",
+          "amount": null,
+          "currency": null,
+          "condition": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "verification": "summary-only"
+        },
+        {
+          "id": "roadside",
+          "title": "道路救援",
+          "category": "protection",
+          "period": "event-based",
+          "amount": null,
+          "currency": null,
+          "condition": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "verification": "summary-only"
+        },
+        {
+          "id": "purchase",
+          "title": "购物保护",
+          "category": "protection",
+          "period": "event-based",
+          "amount": null,
+          "currency": null,
+          "condition": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "verification": "summary-only"
+        },
+        {
+          "id": "return",
+          "title": "退货保护",
+          "category": "protection",
+          "period": "event-based",
+          "amount": null,
+          "currency": null,
+          "condition": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "verification": "summary-only"
+        },
+        {
+          "id": "warranty",
+          "title": "延长保修",
+          "category": "protection",
+          "period": "event-based",
+          "amount": null,
+          "currency": null,
+          "condition": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+          "sourceIds": [
+            "csr-benefits"
+          ],
+          "checkedAt": "2026-10-27",
+          "accountState": "unverified",
+          "verification": "summary-only"
+        }
+      ],
+      "transferPartners": [
+        {
+          "category": "airline",
+          "programme": "Aer Lingus AerClub",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        },
+        {
+          "category": "airline",
+          "programme": "The British Airways Club",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        },
+        {
+          "category": "airline",
+          "programme": "Air France KLM Flying Blue",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        },
+        {
+          "category": "airline",
+          "programme": "Iberia Club",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        },
+        {
+          "category": "airline",
+          "programme": "JetBlue TrueBlue",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        },
+        {
+          "category": "airline",
+          "programme": "Singapore Airlines KrisFlyer",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        },
+        {
+          "category": "airline",
+          "programme": "Southwest Rapid Rewards",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        },
+        {
+          "category": "airline",
+          "programme": "United MileagePlus",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        },
+        {
+          "category": "airline",
+          "programme": "Virgin Atlantic Flying Club",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        },
+        {
+          "category": "airline",
+          "programme": "Air Canada Aeroplan",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        },
+        {
+          "category": "hotel",
+          "programme": "IHG One Rewards",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        },
+        {
+          "category": "hotel",
+          "programme": "Marriott Bonvoy",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        },
+        {
+          "category": "hotel",
+          "programme": "World of Hyatt",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        },
+        {
+          "category": "hotel",
+          "programme": "Wyndham Rewards",
+          "relationship": "transfer-only",
+          "ratio": null,
+          "accountLinked": "unverified",
+          "sourceIds": [
+            "partners"
+          ]
+        }
+      ],
+      "communitySourceIds": [
+        "forum-csr"
+      ],
+      "changeNotes": [
+        {
+          "effectiveFrom": "2026-01-01",
+          "text": "The Edit 按自然年累计，旧论坛帖的半年重置不沿用。",
+          "sourceIds": [
+            "csr-terms"
+          ]
+        },
+        {
+          "effectiveFrom": "2026-10-01",
+          "text": "个人版DoorDash通用优惠提高到每月15美元；不套用商业版规则。",
+          "sourceIds": [
+            "doordash"
+          ]
+        }
+      ]
+    }
+  ],
+  "hsbcRewardCash": {
+    "checkedAt": "2026-10-27",
+    "termsEffectiveFrom": "2026-10-12",
+    "liveAccountVerifiedThisRun": false,
+    "capabilities": [
+      {
+        "feature": "普通信用卡奖赏钱余额／到期",
+        "channel": "web-partial",
+        "finding": "条款提及账单及适用网银资料；账户页面可读范围仍需登录实测。",
+        "sourceIds": [
+          "hsbc-terms"
+        ]
+      },
+      {
+        "feature": "普通卡里数兑换资料",
+        "channel": "web-entry",
+        "finding": "官网保留网页里数兑换入口；资格和兑换路径按卡种区分。",
+        "sourceIds": [
+          "hsbc-redeem"
+        ]
+      },
+      {
+        "feature": "EveryMile／Privé 兑换",
+        "channel": "app-only",
+        "finding": "商品或里数兑换须通过Reward+，不能通过网银。",
+        "sourceIds": [
+          "hsbc-terms",
+          "hsbc-redeem"
+        ]
+      },
+      {
+        "feature": "独立奖赏钱账户",
+        "channel": "app-only",
+        "finding": "信息查看及兑换均仅限Reward+。",
+        "sourceIds": [
+          "hsbc-terms"
+        ]
+      },
+      {
+        "feature": "Pay with RC／活动登记记录",
+        "channel": "app",
+        "finding": "Reward+提供抵扣及活动登记记录；不能承诺网页完整覆盖。",
+        "sourceIds": [
+          "hsbc-app"
+        ]
+      },
+      {
+        "feature": "合并与转移",
+        "channel": "restricted",
+        "finding": "不同卡种存在合并限制；EveryMile不能接收转入，也不能作为结算合并卡。",
+        "sourceIds": [
+          "hsbc-terms"
+        ]
+      }
+    ],
+    "interpretation": "普通RC、EveryMile RC及独立RC账户分开建模，不自动折算里程或合并余额。"
+  }
+}

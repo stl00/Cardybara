@@ -1,0 +1,159 @@
+{
+  "description": "Public product inventory for deterministic tests; no account balances, account identifiers, credentials or live readings.",
+  "cards": [
+    {
+      "id": "gold",
+      "name": "American Express Gold Card",
+      "bank": "Amex US",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "id": "ms-platinum",
+      "name": "Morgan Stanley Platinum Card",
+      "bank": "Amex US",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "id": "blue",
+      "name": "Blue Cash Everyday",
+      "bank": "Amex US",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "id": "aspire",
+      "name": "Hilton Honors Aspire Card",
+      "bank": "Amex US",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "id": "corporate",
+      "name": "Corporate Card",
+      "bank": "Amex US",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "id": "reserve",
+      "name": "Sapphire Reserve",
+      "bank": "Chase",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "id": "hk-platinum",
+      "name": "The Platinum Card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "currency": "HKD"
+    },
+    {
+      "id": "ca-platinum",
+      "name": "Platinum Card",
+      "bank": "Amex CA",
+      "region": "CA",
+      "currency": "CAD"
+    },
+    {
+      "id": "freedom",
+      "name": "Freedom Unlimited",
+      "bank": "Chase",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "id": "atmos",
+      "name": "Atmos Rewards Summit Visa Infinite",
+      "bank": "BOA",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "id": "boa-cash",
+      "name": "Customized Cash Rewards Visa Signature",
+      "bank": "BOA",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "id": "red",
+      "name": "Red Credit Card",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "currency": "HKD"
+    },
+    {
+      "id": "pulse",
+      "name": "Pulse Dual Currency Diamond",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "currency": "HKD"
+    },
+    {
+      "id": "premier",
+      "name": "Premier Credit Card",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "currency": "HKD"
+    },
+    {
+      "id": "hsbc-gold",
+      "name": "Visa Gold Card",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "currency": "HKD"
+    },
+    {
+      "id": "easy",
+      "name": "easy Credit Card",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "currency": "HKD"
+    },
+    {
+      "id": "chase-a",
+      "name": "United Quest",
+      "bank": "Chase",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "id": "chase-b",
+      "name": "IHG Premier",
+      "bank": "Chase",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "id": "hsbc-signature",
+      "name": "HSBC Visa Signature Card",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "currency": "HKD"
+    },
+    {
+      "id": "hsbc-everymile",
+      "name": "HSBC EveryMile Card",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "currency": "HKD"
+    },
+    {
+      "id": "hk-explorer",
+      "name": "American Express Explorer Credit Card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "currency": "HKD"
+    },
+    {
+      "id": "sc-cathay",
+      "name": "Cathay Mastercard",
+      "bank": "SC HK",
+      "region": "HK",
+      "currency": "HKD"
+    }
+  ]
+}

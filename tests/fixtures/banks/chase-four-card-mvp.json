@@ -1,0 +1,24 @@
+{
+  "description": "Synthetic Chase detail widgets; no account data or identifiers.",
+  "cards": [
+    {"id":"sample-ur","bank":"Chase","tail":"1111","currency":"USD","name":"Sample UR Card"},
+    {"id":"sample-air","bank":"Chase","tail":"2222","currency":"USD","name":"Sample Airline Card"},
+    {"id":"sample-hotel","bank":"Chase","tail":"3333","currency":"USD","name":"Sample Hotel Card"},
+    {"id":"sample-credit","bank":"Chase","tail":"4444","currency":"USD","name":"Sample Credit Card"}
+  ],
+  "details": [
+    {"title":"Sample UR Card (...1111)","fields":{"currentBalance":"$45.67","remainingStatementBalance-dataItem":"Remaining statement balance\n$12.34","lastStatementBalance-dataItem":"Last statement balance\n$30.00","minimumPaymentDue-dataItem":"Minimum payment due\n$5.00","nextPaymentDueDate-dataItem":"Payment due date\nNov 19, 2030","autoPay-dataItem":"Automatic payments\nOn","ultimateRewards-dataItem":"Ultimate Rewards® points\n1,234"}},
+    {"title":"Sample Airline Card (...2222)","rewardLabel":"MileagePlus® Miles","fields":{"currentBalance":"$23.00","remainingStatementBalance-dataItem":"Remaining statement balance\n$0.00","minimumPaymentDue-dataItem":"Minimum payment due\n$0.00","nextPaymentDueDate-dataItem":"Payment due date\n11/20/2030","partnerRewards-dataItem":"MileagePlus® Miles\n234"}},
+    {"title":"Sample Hotel Card (...3333)","rewardLabel":"IHG One Rewards points","fields":{"currentBalance":"$70.00","remainingStatementBalance-dataItem":"Remaining statement balance\n$50.00","minimumPaymentDue-dataItem":"Minimum payment due\n$10.00","nextPaymentDueDate-dataItem":"Payment due date\nNov 21, 2030","partnerRewards-dataItem":"IHG One Rewards points\n345"}},
+    {"title":"Sample Credit Card (...4444)","fields":{"currentBalance":"-$7.20","lastStatementBalance-dataItem":"Last statement balance\n-$7.20","minimumPaymentDue-dataItem":"Minimum payment due\n$0.00","nextPaymentDueDate-dataItem":"Payment due date\nNov 22","ultimateRewards-dataItem":"Ultimate Rewards® points\n0"}}
+  ],
+  "bank": "Chase",
+  "id": "chase-four-card-mvp",
+  "provenance": "synthetic; no live bank acceptance",
+  "expected": [
+    {"balance": 45.67, "statement": 12.34, "statementClosing": 30, "minimum": 5, "due": "2030-11-19", "reward": 1234, "autopay": "on"},
+    {"balance": 23, "statement": 0, "minimum": 0, "due": "2030-11-20", "reward": 234},
+    {"balance": 70, "statement": 50, "minimum": 10, "due": "2030-11-21", "reward": 345},
+    {"balance": -7.2, "statementClosing": -7.2, "minimum": 0, "due": null, "reward": 0}
+  ]
+}

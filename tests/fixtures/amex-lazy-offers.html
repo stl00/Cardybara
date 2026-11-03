@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><title>Cardybara lazy-list QA</title>
+<style>body{font:14px system-ui;margin:24px}#run{position:fixed;top:12px;right:12px;z-index:5;padding:12px}section{min-height:110px;border-bottom:1px solid #ddd}#result{white-space:pre-wrap}</style>
+<h1>Deidentified collector fixture — no bank connection</h1><p id="qa-status" role="status" style="padding:16px;background:#e6f4ff;border-radius:8px">Ready for collector verification</p>
+<main><button aria-label="open_title">-12345</button><button role="radio" aria-checked="true">Available (20)</button><div id="offers"></div><div style="height:1000px"></div></main>
+<button id="run">Run collector test</button><pre id="result">Not run</pre>
+<script type="module">
+import{capturePage}from'/qa/agent-snapshot.js';
+const list=document.querySelector('#offers');
+function row(n){const e=document.createElement('section');e.setAttribute('aria-label','offer info');e.id='fixture-'+n;const title='Fixture shop '+n;e.innerHTML=`<p>${title}</p><p>Spend CAD100 and receive CAD10. Expires 2026-12-31</p><button aria-label="Add to card offer: ${title}">Register your Card</button>`;list.append(e);}
+for(let n=1;n<=19;n++)row(n);
+let added=false;window.addEventListener('scroll',()=>{if(window.scrollY>100&&!added){added=true;row(20);if(new URLSearchParams(location.search).get('case')==='card-change')document.querySelector('[aria-label=open_title]').textContent='-99999';}});
+document.querySelector('#run').onclick=async()=>{try{const s=await capturePage('Amex CA',[{id:'fixture-card',tail:'12345',currency:'CAD'}]);document.querySelector('#result').textContent=JSON.stringify(s,null,2);document.querySelector('#qa-status').textContent=s.error==='document_changed'?'PASS: card changed — prior card data rejected':s.observations?.length===20?'PASS: all 20 offers captured, including the delayed final row':'FAIL: incomplete collector result';}catch(e){document.querySelector('#result').textContent=JSON.stringify({exception:e.name,message:e.message});}};
+</script>

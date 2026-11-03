@@ -1,0 +1,1804 @@
+{
+  "schema": 1,
+  "asOf": "2026-10-27",
+  "scope": "Product identity and artwork only; not bank-parser coverage or account rewards",
+  "products": [
+    {
+      "id": "chase-us-sapphire-reserve",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Sapphire Reserve",
+      "aliases": [
+        "Sapphire Reserve",
+        "Chase Sapphire Reserve Credit Card",
+        "Chase Sapphire Reserve",
+        "CSR"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Ultimate Rewards"
+      ],
+      "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "chase-sapphire-reserve-official.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://www.chase.com/content/dam/unified-assets/sapphire-cards/personal/reserve/card_sapphireRes-VI_chip_RFID.png"
+      },
+      "rewardSource": {
+        "url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0550_Web.pdf",
+        "checkedAt": "2026-10-27"
+      }
+    },
+    {
+      "id": "amex-hk-hk-the-platinum-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "The Platinum Card",
+      "aliases": [
+        "The Platinum Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Membership Rewards"
+      ],
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "catalog-c3cb3becfceba8e5.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/chg_plat_metal_hk_480x304.png"
+      },
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+        "checkedAt": "2026-10-27"
+      }
+    },
+    {
+      "id": "chase-us-freedom-unlimited",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Freedom Unlimited",
+      "aliases": [
+        "Freedom Unlimited",
+        "Chase Freedom Unlimited Credit Card",
+        "Chase Freedom Unlimited"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/freedom/unlimited",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "catalog-52666b8112e8f98b.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/freedom_unlimited_card_alt.png"
+      }
+    },
+    {
+      "id": "hsbc-hk-hk-red-credit-card",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "name": "Red Credit Card",
+      "aliases": [
+        "Red Credit Card",
+        "HSBC Red Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.hsbc.com.hk/credit-cards/products/red/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "hsbc-red-promo.jpg",
+        "verification": "legacy-asset",
+        "sourceUrl": null,
+        "crop": {
+          "canvasWidth": 1600,
+          "canvasHeight": 900,
+          "x": 440,
+          "y": 224,
+          "width": 720,
+          "height": 453
+        }
+      }
+    },
+    {
+      "id": "hsbc-hk-hk-pulse-dual-currency-diamond",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "name": "Pulse Dual Currency Diamond",
+      "aliases": [
+        "Pulse Dual Currency Diamond",
+        "HSBC Pulse Dual Currency Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.hsbc.com.hk/credit-cards/products/unionpay-dual-currency-diamond/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "hsbc-pulse-promo.jpg",
+        "verification": "legacy-asset",
+        "sourceUrl": null,
+        "crop": {
+          "canvasWidth": 1600,
+          "canvasHeight": 900,
+          "x": 440,
+          "y": 224,
+          "width": 720,
+          "height": 453
+        }
+      }
+    },
+    {
+      "id": "hsbc-hk-hk-premier-credit-card",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "name": "Premier Credit Card",
+      "aliases": [
+        "Premier Credit Card",
+        "Premier MasterCard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.hsbc.com.hk/credit-cards/products/premier-mastercard/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "hsbc-premier-promo.jpg",
+        "verification": "legacy-asset",
+        "sourceUrl": null,
+        "crop": {
+          "canvasWidth": 1600,
+          "canvasHeight": 900,
+          "x": 574,
+          "y": 90,
+          "width": 452,
+          "height": 720
+        }
+      }
+    },
+    {
+      "id": "hsbc-hk-hk-visa-gold-card",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "name": "Visa Gold Card",
+      "aliases": [
+        "Visa Gold Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.hsbc.com.hk/credit-cards/products/visa-gold/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "hsbc-gold-promo.jpg",
+        "verification": "legacy-asset",
+        "sourceUrl": null,
+        "crop": {
+          "canvasWidth": 1600,
+          "canvasHeight": 900,
+          "x": 440,
+          "y": 224,
+          "width": 720,
+          "height": 453
+        }
+      }
+    },
+    {
+      "id": "hsbc-hk-hk-easy-credit-card",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "name": "easy Credit Card",
+      "aliases": [
+        "easy Credit Card",
+        "HSBC easy Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.hsbc.com.hk/credit-cards/products/visa-platinum/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "hsbc-easy-promo.jpg",
+        "verification": "legacy-asset",
+        "sourceUrl": null,
+        "crop": {
+          "canvasWidth": 1600,
+          "canvasHeight": 900,
+          "x": 574,
+          "y": 90,
+          "width": 452,
+          "height": 720
+        }
+      }
+    },
+    {
+      "id": "chase-us-united-quest",
+      "bank": "Chase",
+      "region": "US",
+      "name": "United Quest",
+      "aliases": [
+        "United Quest",
+        "United Quest Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-quest",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "catalog-0551862e102b8421.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/united_quest_new_card.png"
+      }
+    },
+    {
+      "id": "chase-us-ihg-premier",
+      "bank": "Chase",
+      "region": "US",
+      "name": "IHG Premier",
+      "aliases": [
+        "IHG Premier",
+        "IHG One Rewards Premier Credit Card",
+        "IHG One Rewards Premier"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "catalog-84b28abcd58f042b.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ihgpremiercardart2026.png"
+      }
+    },
+    {
+      "id": "hsbc-hk-hk-hsbc-visa-signature-card",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "name": "HSBC Visa Signature Card",
+      "aliases": [
+        "HSBC Visa Signature Card",
+        "Visa Signature Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.hsbc.com.hk/credit-cards/products/visa-signature/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "hsbc-signature-promo.jpg",
+        "verification": "legacy-asset",
+        "sourceUrl": null,
+        "crop": {
+          "canvasWidth": 1600,
+          "canvasHeight": 900,
+          "x": 440,
+          "y": 224,
+          "width": 720,
+          "height": 453
+        }
+      }
+    },
+    {
+      "id": "hsbc-hk-hk-hsbc-everymile-card",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "name": "HSBC EveryMile Card",
+      "aliases": [
+        "HSBC EveryMile Card",
+        "HSBC EveryMile Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.hsbc.com.hk/credit-cards/products/everymile/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "hsbc-everymile-promo.jpg",
+        "verification": "legacy-asset",
+        "sourceUrl": null,
+        "crop": {
+          "canvasWidth": 1600,
+          "canvasHeight": 900,
+          "x": 440,
+          "y": 224,
+          "width": 720,
+          "height": 453
+        }
+      }
+    },
+    {
+      "id": "amex-hk-hk-american-express-explorer-credit-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Explorer Credit Card",
+      "aliases": [
+        "American Express Explorer Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Membership Rewards"
+      ],
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "catalog-113950bed69652ad.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/explorer_emb_hk_480x304.png"
+      },
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/hk/en/credit-cards/explorer-credit-card/",
+        "checkedAt": "2026-10-27"
+      }
+    },
+    {
+      "id": "sc-hk-hk-cathay-mastercard",
+      "bank": "SC HK",
+      "region": "HK",
+      "name": "Cathay Mastercard",
+      "aliases": [
+        "Cathay Mastercard",
+        "Standard Chartered Cathay Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.sc.com/hk/credit-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "art": {
+        "file": "sc-cathay-standard.jpg",
+        "verification": "legacy-asset",
+        "sourceUrl": null,
+        "crop": {
+          "canvasWidth": 400,
+          "canvasHeight": 400,
+          "x": 98,
+          "y": 38,
+          "width": 204,
+          "height": 324
+        }
+      }
+    },
+    {
+      "id": "chase-us-chase-freedom-flex-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Chase Freedom Flex Credit Card",
+      "aliases": [
+        "Chase Freedom Flex Credit Card",
+        "Freedom Flex",
+        "Chase Freedom Flex"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-4a8bcb7eabfa7ace.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/freedom_flex_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/freedom/flex",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-chase-freedom-rise-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Chase Freedom Rise Credit Card",
+      "aliases": [
+        "Chase Freedom Rise Credit Card",
+        "Freedom Rise",
+        "Chase Freedom Rise"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-0c830429e8714f4c.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/freedom_rise_alt_card2.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/freedom/rise",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-chase-sapphire-preferred-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Chase Sapphire Preferred Credit Card",
+      "aliases": [
+        "Chase Sapphire Preferred Credit Card",
+        "Sapphire Preferred",
+        "Chase Sapphire Preferred"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-6c8d36582258aad9.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/sapphire-preferredcard2026.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-slate-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Slate Credit Card",
+      "aliases": [
+        "Slate Credit Card",
+        "Slate"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-372cbf27bc11bf67.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/slate_dagger_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/balance-transfer-credit-cards/slate",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-slate-edge-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Slate Edge Credit Card",
+      "aliases": [
+        "Slate Edge Credit Card",
+        "Slate Edge"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-920c356f4dbc4d2d.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/slate_edge_card_alt.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/credit-building-credit-cards/slate/edge",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-united-explorer-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "United Explorer Card",
+      "aliases": [
+        "United Explorer Card",
+        "United Explorer"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-d3b8ab4680c528fc.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/united_explorer_new_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-united-gateway-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "United Gateway Card",
+      "aliases": [
+        "United Gateway Card",
+        "United Gateway"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-5e707b549fa15997.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art//united_gateway_new_ribbon_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-gateway",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-united-club-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "United Club Card",
+      "aliases": [
+        "United Club Card",
+        "United Club"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-5159d6b4dbe5b9a8.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/united_club_new_infinite_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/club-infinite",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-plus-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Southwest Rapid Rewards Plus Credit Card",
+      "aliases": [
+        "Southwest Rapid Rewards Plus Credit Card",
+        "Southwest Rapid Rewards Plus"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-e6459695e127b342.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_plus_card_New.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/plus",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-priority-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Southwest Rapid Rewards Priority Credit Card",
+      "aliases": [
+        "Southwest Rapid Rewards Priority Credit Card",
+        "Southwest Rapid Rewards Priority"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-1042103e56c61f53.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_priority_card-2.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-premier-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Southwest Rapid Rewards Premier Credit Card",
+      "aliases": [
+        "Southwest Rapid Rewards Premier Credit Card",
+        "Southwest Rapid Rewards Premier"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-3e6ee6b2f72ba33b.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_premier_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/premier",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-marriott-bonvoy-boundless-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Marriott Bonvoy Boundless Credit Card",
+      "aliases": [
+        "Marriott Bonvoy Boundless Credit Card",
+        "Marriott Bonvoy Boundless"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-6523ebb78d751e8e.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/marriott-bonvoy-boundless-card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-marriott-bonvoy-bountiful-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Marriott Bonvoy Bountiful Credit Card",
+      "aliases": [
+        "Marriott Bonvoy Bountiful Credit Card",
+        "Marriott Bonvoy Bountiful"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-403af8bc5aa1d2dd.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/marriott_bonvoy_bountiful_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bountiful",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-marriott-bonvoy-bold-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Marriott Bonvoy Bold Credit Card",
+      "aliases": [
+        "Marriott Bonvoy Bold Credit Card",
+        "Marriott Bonvoy Bold"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-ada5a8d57ddc75cb.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/marriott_bonvoy_bold_card_NAF.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-ihg-one-rewards-premier-select-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "IHG One Rewards Premier Select Credit Card",
+      "aliases": [
+        "IHG One Rewards Premier Select Credit Card",
+        "IHG One Rewards Premier Select"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-641ad681ed8efdf5.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ihg_premier_select_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-ihg-one-rewards-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "IHG One Rewards Credit Card",
+      "aliases": [
+        "IHG One Rewards Credit Card",
+        "IHG One Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-bb97716ea3a6a52f.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ihg-one-rewardscard.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/one-rewards",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-world-of-hyatt-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "World of Hyatt Credit Card",
+      "aliases": [
+        "World of Hyatt Credit Card",
+        "World of Hyatt"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-dac5a40e3c203b13.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/world_of_hyatt_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-disney-inspire-visa-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Disney Inspire Visa Card",
+      "aliases": [
+        "Disney Inspire Visa Card",
+        "Disney Inspire Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-b2bbc89642cd8f4c.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/disney-inspire.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/inspire",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-disney-premier-visa-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Disney Premier Visa Card",
+      "aliases": [
+        "Disney Premier Visa Card",
+        "Disney Premier Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-4ff4047a239b8504.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/disney_sleeping_beauty_premier_vs_Jan_2026.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/premier",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-disney-visa-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Disney Visa Card",
+      "aliases": [
+        "Disney Visa Card",
+        "Disney Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-5745ef75e099ddd7.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/disney_vintage_mickey_Jan_2026.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/rewards",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-prime-visa",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Prime Visa",
+      "aliases": [
+        "Prime Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-0a488c07a714641f.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/prime-visa.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/amazon-prime-rewards",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-amazon-visa",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Amazon Visa",
+      "aliases": [
+        "Amazon Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-145fc53ed80f1711.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/amazon-visa.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/amazon-rewards",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-air-canada-aeroplan-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Air Canada Aeroplan Card",
+      "aliases": [
+        "Air Canada Aeroplan Card",
+        "Air Canada Aeroplan"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-19c9c2d4a1f57ceb.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/AirCanada_Aeroplan_cardart.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/aircanada/aeroplan",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-british-airways-visa-signature-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "British Airways Visa Signature Credit Card",
+      "aliases": [
+        "British Airways Visa Signature Credit Card",
+        "British Airways Visa Signature"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-f1d70b154a9ca624.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/british-airways.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/avios/british-airways",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-aer-lingus-visa-signature-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Aer Lingus Visa Signature Credit Card",
+      "aliases": [
+        "Aer Lingus Visa Signature Credit Card",
+        "Aer Lingus Visa Signature"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-0e708455fb3062ac.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/aer_lingus_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/avios/aer-lingus",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-iberia-visa-signature-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Iberia Visa Signature Credit Card",
+      "aliases": [
+        "Iberia Visa Signature Credit Card",
+        "Iberia Visa Signature"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-c3f19c1b741999c4.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/iberia_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-doordash-rewards-mastercard",
+      "bank": "Chase",
+      "region": "US",
+      "name": "DoorDash Rewards Mastercard",
+      "aliases": [
+        "DoorDash Rewards Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-d5914a79716f8c31.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/doordash_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/doordash",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-instacart-mastercard",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Instacart Mastercard",
+      "aliases": [
+        "Instacart Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-94ef818124f2d15d.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/instacart_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/instacart",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-ink-business-unlimited-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Ink Business Unlimited Credit Card",
+      "aliases": [
+        "Ink Business Unlimited Credit Card",
+        "Ink Business Unlimited"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-985ef35ce0a06e83.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ink_unlimited_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/unlimited",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-ink-business-cash-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Ink Business Cash Credit Card",
+      "aliases": [
+        "Ink Business Cash Credit Card",
+        "Ink Business Cash"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-8bff684c5b5447e6.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ink_cash_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/cash",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-ink-business-preferred-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Ink Business Preferred Credit Card",
+      "aliases": [
+        "Ink Business Preferred Credit Card",
+        "Ink Business Preferred"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-ff14fa08229f50ff.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ink_preferred_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-ink-business-premier-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Ink Business Premier Credit Card",
+      "aliases": [
+        "Ink Business Premier Credit Card",
+        "Ink Business Premier"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-159f029fa7e69a5b.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ink_business_premier_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/premier",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-sapphire-reserve-for-business-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Sapphire Reserve for Business Credit Card",
+      "aliases": [
+        "Sapphire Reserve for Business Credit Card",
+        "Sapphire Reserve for Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-256773f46ab51fa8.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/sapphire_reserve_biz_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-united-business-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "United Business Card",
+      "aliases": [
+        "United Business Card",
+        "United Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-11906044496ffce7.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/united_biz_new_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/united/united-business-card",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-united-club-business-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "United Club Business Card",
+      "aliases": [
+        "United Club Business Card",
+        "United Club Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-705cc418c4cfc5dc.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/united_club_biz_new_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/united/united-club-business",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-performance-business-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Southwest Rapid Rewards Performance Business Credit Card",
+      "aliases": [
+        "Southwest Rapid Rewards Performance Business Credit Card",
+        "Southwest Rapid Rewards Performance Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-2c8ceac70604fffb.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_performance_biz_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/performance-business",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-premier-business-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "Southwest Rapid Rewards Premier Business Credit Card",
+      "aliases": [
+        "Southwest Rapid Rewards Premier Business Credit Card",
+        "Southwest Rapid Rewards Premier Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-3e002bf25cea948c.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_premier_biz_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/premier-business",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-ihg-one-rewards-business-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "IHG One Rewards Business Credit Card",
+      "aliases": [
+        "IHG One Rewards Business Credit Card",
+        "IHG One Rewards Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-8dff39b71d2ef1e1.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ihg-one-rewards-biz-card2026.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/IHG/business",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "chase-us-world-of-hyatt-business-credit-card",
+      "bank": "Chase",
+      "region": "US",
+      "name": "World of Hyatt Business Credit Card",
+      "aliases": [
+        "World of Hyatt Business Credit Card",
+        "World of Hyatt Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-ea7caf95d61b0361.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/world_hyatt_biz_card.png"
+      },
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/world-of-hyatt/hyatt-business-card",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "hsbc-hk-hk-visa-gold-card-for-students",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "name": "Visa Gold Card for Students",
+      "aliases": [
+        "Visa Gold Card for Students"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.hsbc.com.hk/credit-cards/products/student-visa-gold/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "hsbc-hk-hk-unionpay-dual-currency-card",
+      "bank": "HSBC HK",
+      "region": "HK",
+      "name": "UnionPay Dual Currency Card",
+      "aliases": [
+        "UnionPay Dual Currency Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.hsbc.com.hk/credit-cards/products/unionpay-dual-currency-classic/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "sc-hk-hk-simply-cash-visa-card",
+      "bank": "SC HK",
+      "region": "HK",
+      "name": "Simply Cash Visa Card",
+      "aliases": [
+        "Simply Cash Visa Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.sc.com/hk/credit-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "sc-hk-hk-standard-chartered-smart-credit-card",
+      "bank": "SC HK",
+      "region": "HK",
+      "name": "Standard Chartered Smart Credit Card",
+      "aliases": [
+        "Standard Chartered Smart Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.sc.com/hk/credit-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "sc-hk-hk-a-point-card",
+      "bank": "SC HK",
+      "region": "HK",
+      "name": "A. Point Card",
+      "aliases": [
+        "A. Point Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.sc.com/hk/credit-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-platinum-credit-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Platinum Credit Card",
+      "aliases": [
+        "American Express Platinum Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-blue-cash-credit-card-from-american-express",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "Blue Cash Credit Card from American Express",
+      "aliases": [
+        "Blue Cash Credit Card from American Express"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-ad9431b19e10a62a.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/Blue_Cash_Credit_Card.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-essential-credit-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Essential Credit Card",
+      "aliases": [
+        "American Express Essential Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-0d21e21108664026.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/Essential_Credit_Card.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-gold-credit-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Gold Credit Card",
+      "aliases": [
+        "American Express Gold Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-d1d76dd9ea2a1eaf.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/Gold_Credit_Card.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-credit-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Credit Card",
+      "aliases": [
+        "American Express Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-9434cf347c64d406.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/American_Express_Credit_Card.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-peninsula-platinum-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Peninsula Platinum Card",
+      "aliases": [
+        "American Express Peninsula Platinum Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-5c14be7d0d09fe45.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/Peninsula_Platinum_Card.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-peninsula-gold-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Peninsula Gold Card",
+      "aliases": [
+        "American Express Peninsula Gold Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-080108a7ec1feb52.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/peninsula_gold_dod_hk_480x304.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-gold-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Gold Card",
+      "aliases": [
+        "American Express Gold Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-97954ddabc8dec15.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/Gold_Card.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Card",
+      "aliases": [
+        "American Express Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-14c82e666ec41c2f.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/American_Express_Card.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-corporate-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Corporate Card",
+      "aliases": [
+        "American Express Corporate Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-b2a6dc3fe202a313.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/Corporate_Card.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-gold-corporate-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Gold Corporate Card",
+      "aliases": [
+        "American Express Gold Corporate Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-691e873ca896777f.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/Gold_Corporate_Card.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-gold-business-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Gold Business Card",
+      "aliases": [
+        "American Express Gold Business Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-75b709420ac4ec3b.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/Gold_Business_Card.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-business-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Business Card",
+      "aliases": [
+        "American Express Business Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-8c87beb66e9f8a21.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/Business_Card.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-classic-corporate-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Classic Corporate Card",
+      "aliases": [
+        "American Express Classic Corporate Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-18be94cb62294ede.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/ch_hk/images/cards/corporate-classic-card.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-hk-hk-american-express-elite-corporate-card",
+      "bank": "Amex HK",
+      "region": "HK",
+      "name": "American Express Elite Corporate Card",
+      "aliases": [
+        "American Express Elite Corporate Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": {
+        "file": "catalog-990221b505ef1ef0.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/ch_hk/images/cards/corporate-elite-card.png"
+      },
+      "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-bank-of-america-unlimited-cash-rewards",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Bank of America Unlimited Cash Rewards",
+      "aliases": [
+        "Bank of America Unlimited Cash Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-atmos-rewards-ascent-visa-signature",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Atmos Rewards Ascent Visa Signature",
+      "aliases": [
+        "Atmos Rewards Ascent Visa Signature"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-royal-one-visa-signature",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Royal ONE Visa Signature",
+      "aliases": [
+        "Royal ONE Visa Signature"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-royal-one-plus-visa-signature",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Royal ONE Plus Visa Signature",
+      "aliases": [
+        "Royal ONE Plus Visa Signature"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-allways-rewards-visa",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Allways Rewards Visa",
+      "aliases": [
+        "Allways Rewards Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-ca-ca-american-express-cobalt-card",
+      "bank": "Amex CA",
+      "region": "CA",
+      "name": "American Express Cobalt Card",
+      "aliases": [
+        "American Express Cobalt Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Membership Rewards"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/ca/en/legal/cardmember-agreements.html",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/en-ca/credit-cards/compare-credit-cards/?cardList=cobalt-card",
+        "checkedAt": "2026-10-27"
+      }
+    },
+    {
+      "id": "amex-ca-ca-american-express-gold-rewards-card",
+      "bank": "Amex CA",
+      "region": "CA",
+      "name": "American Express Gold Rewards Card",
+      "aliases": [
+        "American Express Gold Rewards Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Membership Rewards"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/ca/en/legal/cardmember-agreements.html",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/en-ca/credit-cards/compare-credit-cards/?cardList=cobalt-card",
+        "checkedAt": "2026-10-27"
+      }
+    },
+    {
+      "id": "amex-ca-ca-simplycash-card-from-american-express",
+      "bank": "Amex CA",
+      "region": "CA",
+      "name": "SimplyCash Card from American Express",
+      "aliases": [
+        "SimplyCash Card from American Express"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/ca/en/legal/cardmember-agreements.html",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-ca-ca-simplycash-preferred-card-from-american-express",
+      "bank": "Amex CA",
+      "region": "CA",
+      "name": "SimplyCash Preferred Card from American Express",
+      "aliases": [
+        "SimplyCash Preferred Card from American Express"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/ca/en/legal/cardmember-agreements.html",
+      "checkedAt": "2026-10-27",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-us-us-american-express-gold-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "American Express Gold Card",
+      "aliases": [
+        "American Express Gold Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/",
+      "checkedAt": null,
+      "verification": "needs-review",
+      "art": {
+        "file": "gold.png",
+        "verification": "legacy-asset",
+        "sourceUrl": null
+      }
+    },
+    {
+      "id": "amex-us-us-morgan-stanley-platinum-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Morgan Stanley Platinum Card",
+      "aliases": [
+        "Morgan Stanley Platinum Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/",
+      "checkedAt": null,
+      "verification": "needs-review",
+      "art": {
+        "file": "amex-ms-platinum.svg",
+        "verification": "legacy-asset",
+        "sourceUrl": null
+      }
+    },
+    {
+      "id": "amex-us-us-blue-cash-everyday",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Blue Cash Everyday",
+      "aliases": [
+        "Blue Cash Everyday"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/",
+      "checkedAt": null,
+      "verification": "needs-review",
+      "art": {
+        "file": "blue.png",
+        "verification": "legacy-asset",
+        "sourceUrl": null
+      }
+    },
+    {
+      "id": "amex-us-us-hilton-honors-aspire-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Hilton Honors Aspire Card",
+      "aliases": [
+        "Hilton Honors Aspire Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/",
+      "checkedAt": null,
+      "verification": "needs-review",
+      "art": {
+        "file": "aspire.png",
+        "verification": "legacy-asset",
+        "sourceUrl": null
+      }
+    },
+    {
+      "id": "amex-us-us-corporate-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Corporate Card",
+      "aliases": [
+        "Corporate Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/",
+      "checkedAt": null,
+      "verification": "needs-review",
+      "art": {
+        "file": "amex-us-corporate-green-variant-unconfirmed.png",
+        "verification": "legacy-asset",
+        "sourceUrl": null
+      }
+    },
+    {
+      "id": "amex-ca-ca-platinum-card",
+      "bank": "Amex CA",
+      "region": "CA",
+      "name": "Platinum Card",
+      "aliases": [
+        "Platinum Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/en-ca/credit-cards/all-cards/",
+      "checkedAt": null,
+      "verification": "needs-review",
+      "art": {
+        "file": "amex-ca-platinum.png",
+        "verification": "legacy-asset",
+        "sourceUrl": null
+      }
+    },
+    {
+      "id": "boa-us-atmos-rewards-summit-visa-infinite",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Atmos Rewards Summit Visa Infinite",
+      "aliases": [
+        "Atmos Rewards Summit Visa Infinite"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/",
+      "checkedAt": null,
+      "verification": "needs-review",
+      "art": {
+        "file": "boa-atmos-summit.png",
+        "verification": "legacy-asset",
+        "sourceUrl": null
+      }
+    },
+    {
+      "id": "boa-us-customized-cash-rewards-visa-signature",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Customized Cash Rewards Visa Signature",
+      "aliases": [
+        "Customized Cash Rewards Visa Signature"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/",
+      "checkedAt": null,
+      "verification": "needs-review",
+      "art": {
+        "file": "boa-customized-cash.png",
+        "verification": "legacy-asset",
+        "sourceUrl": null
+      }
+    }
+  ]
+}

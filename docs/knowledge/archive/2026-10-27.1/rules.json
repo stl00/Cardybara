@@ -1,0 +1,3979 @@
+[
+  {
+    "id": "rule.chase-us-sapphire-reserve.travel",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.travel@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行消费抵扣",
+      "summary": "符合旅行类别；周期按账户周年而非自然年；获抵扣部分不赚点。",
+      "howToUse": [
+        "先核对账户周年起止；不要按每年1月1日推算剩余额度。",
+        "使用这张卡支付符合旅行类别的消费，并在银行账单中核对抵扣。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 300,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "符合旅行类别；周期按账户周年而非自然年；获抵扣部分不赚点。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.edit",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.edit@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel",
+      "hotel-stay"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "The Edit 酒店抵扣",
+      "summary": "预付至少两晚；每笔最多250美元；2026年起按自然年累计。",
+      "howToUse": [
+        "选择 The Edit 的合资格预付住宿，检查至少两晚要求。",
+        "分别检查每笔上限和自然年累计上限，再核对银行实际抵扣。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-year",
+      "amount": 500,
+      "currency": "USD",
+      "perTransactionCap": 250
+    },
+    "validity": {
+      "effectiveFrom": "2026-01-01",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "预付至少两晚；每笔最多250美元；2026年起按自然年累计。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.select-hotels-2026",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.select-hotels-2026@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "2026 指定酒店抵扣",
+      "summary": "Chase Travel 指定酒店预付至少两晚；仅2026年。",
+      "howToUse": [
+        "核对2026年指定酒店名单，并选择至少两晚的合资格预付预订。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-year",
+      "amount": 250,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": "2026-01-01",
+      "effectiveThrough": "2026-12-31",
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase Travel 指定酒店预付至少两晚；仅2026年。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.dining",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.dining@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "dining"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "指定餐厅抵扣",
+      "summary": "仅指定餐厅直接消费；每半年150美元。",
+      "howToUse": [
+        "先核对当前参与餐厅，确认交易由餐厅直接收款。",
+        "核对本半年已使用额度，不使用全年上限推算本半年剩额。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-half-year",
+      "amount": 150,
+      "currency": "USD",
+      "annualMaximum": 300,
+      "bankAliases": [
+        "$300 Annual Dining Credit*"
+      ]
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "仅指定餐厅直接消费；每半年150美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.stubhub",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.stubhub@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "entertainment"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "StubHub／viagogo 抵扣",
+      "summary": "需登记；直接购票；礼品卡及英国国际站不适用。",
+      "howToUse": [
+        "先核对登记状态，再检查购票网站和支付方式。",
+        "礼品卡及英国国际站排除条件需要在付款前确认。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-half-year",
+      "amount": 150,
+      "currency": "USD",
+      "requiresEnrollment": true,
+      "annualMaximum": 300
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": "2027-12-31",
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.enrolled",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "unparsedText": "需登记；直接购票；礼品卡及英国国际站不适用。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.peloton",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.peloton@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "fitness"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Peloton 会员抵扣",
+      "summary": "需登记；美国直接订阅；第三方应用商店不适用。",
+      "howToUse": [
+        "核对已登记和美国直接订阅资格。",
+        "检查订阅收款渠道；第三方应用商店订阅不按此规则推断可抵扣。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-month",
+      "amount": 10,
+      "currency": "USD",
+      "requiresEnrollment": true,
+      "annualMaximum": 120
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": "2027-12-31",
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.enrolled",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "unparsedText": "需登记；美国直接订阅；第三方应用商店不适用。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.lyft",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.lyft@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "promo",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Lyft 应用内优惠",
+      "summary": "须以合资格卡直接付款；不支持电子钱包付款。",
+      "howToUse": [
+        "在 Lyft 核对本月优惠及合资格卡付款方式；不要使用电子钱包推断资格。"
+      ]
+    },
+    "terms": {
+      "category": "promo",
+      "period": "calendar-month",
+      "amount": 10,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": "2027-09-30",
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须以合资格卡直接付款；不支持电子钱包付款。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2026-11-26",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.dashpass",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.dashpass@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "dining"
+    ],
+    "programmeIds": [
+      "programme.doordash"
+    ],
+    "content": {
+      "title": "DashPass 会员",
+      "summary": "需美国账户开通；会员有效期依激活日期确认。",
+      "howToUse": [
+        "在银行指定路径核对 DashPass 开通资格及登记期限。",
+        "开通后的实际到期日需要从个人会员账户读取。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "activation-based",
+      "amount": null,
+      "currency": null,
+      "requiresEnrollment": true,
+      "partner": "DoorDash"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": "2029-12-31"
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.enrolled",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "unparsedText": "需美国账户开通；会员有效期依激活日期确认。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "doordash"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.doordash-general",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.doordash-general@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "promo",
+    "scenarioIds": [
+      "dining",
+      "shopping"
+    ],
+    "programmeIds": [
+      "programme.doordash"
+    ],
+    "content": {
+      "title": "DoorDash 通用优惠",
+      "summary": "需有效DashPass并用该卡付款；月底不结转。",
+      "howToUse": [
+        "核对有效 DashPass、当前月优惠以及合资格卡付款方式。",
+        "使用前检查应用内实际优惠；月底未用不能按可结转处理。"
+      ]
+    },
+    "terms": {
+      "category": "promo",
+      "period": "calendar-month",
+      "amount": 15,
+      "currency": "USD",
+      "requiresEnrollment": true,
+      "partner": "DoorDash"
+    },
+    "validity": {
+      "effectiveFrom": "2026-10-01",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.enrolled",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "unparsedText": "需有效DashPass并用该卡付款；月底不结转。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "doordash"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2026-11-26",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.doordash-retail",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.doordash-retail@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "promo",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [
+      "programme.doordash"
+    ],
+    "content": {
+      "title": "DoorDash 非餐饮优惠",
+      "summary": "每月两张；每单限用一张；月底不结转。",
+      "howToUse": [
+        "核对当前月两张非餐饮优惠及订单资格。",
+        "每单仅用一张；不得把两张券视为单笔20美元抵扣。"
+      ]
+    },
+    "terms": {
+      "category": "promo",
+      "period": "calendar-month",
+      "amount": 10,
+      "currency": "USD",
+      "requiresEnrollment": true,
+      "quantity": 2,
+      "partner": "DoorDash"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.enrolled",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "unparsedText": "每月两张；每单限用一张；月底不结转。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "doordash"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2026-11-26",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.apple-tv",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.apple-tv@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "entertainment"
+    ],
+    "programmeIds": [
+      "programme.apple"
+    ],
+    "content": {
+      "title": "Apple TV 订阅",
+      "summary": "主卡需登记并关联Apple账户；原订阅处理依条款。",
+      "howToUse": [
+        "由主卡持有人核对登记路径及截止日，再确认 Apple 账号关联。",
+        "原有订阅如何处理须查看条款及个人 Apple 账户。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "activation-based",
+      "amount": null,
+      "currency": null,
+      "requiresEnrollment": true,
+      "partner": "Apple"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": "2027-06-22"
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.enrolled",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "unparsedText": "主卡需登记并关联Apple账户；原订阅处理依条款。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.apple-music",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.apple-music@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "entertainment"
+    ],
+    "programmeIds": [
+      "programme.apple"
+    ],
+    "content": {
+      "title": "Apple Music 个人订阅",
+      "summary": "主卡需登记；家庭版及Apple One不能视为个人版。",
+      "howToUse": [
+        "核对个人订阅登记及截止日；家庭订阅和 Apple One 单独判断。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "activation-based",
+      "amount": null,
+      "currency": null,
+      "requiresEnrollment": true,
+      "partner": "Apple"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": "2027-06-22"
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.enrolled",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "unparsedText": "主卡需登记；家庭版及Apple One不能视为个人版。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.ihg-platinum",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.ihg-platinum@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "IHG 白金会籍",
+      "summary": "主卡关联IHG账号；生效可能需三周；并非钻石会籍。",
+      "howToUse": [
+        "核对主卡身份并关联正确的 IHG One Rewards 账户。",
+        "等待会籍生效后在 IHG 账户核对等级和到期日；不标成钻石。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "fixed-date",
+      "amount": null,
+      "currency": null,
+      "requiresEnrollment": true,
+      "partner": "IHG One Rewards",
+      "tier": "Platinum Elite"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": "2027-12-31",
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.enrolled",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "unparsedText": "主卡关联IHG账号；生效可能需三周；并非钻石会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ihg"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.priority-pass",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.priority-pass@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "lounge",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.priority-pass"
+    ],
+    "content": {
+      "title": "Priority Pass 休息室",
+      "summary": "官方条款列自动激活；准入凭证及客人数受限制。",
+      "howToUse": [
+        "核对个人准入凭证、参与休息室和携客条件。",
+        "公开自动激活规则不替代个人凭证和现场准入核验。"
+      ]
+    },
+    "terms": {
+      "category": "lounge",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null,
+      "partner": "Priority Pass",
+      "requiresEnrollment": false
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方条款列自动激活；准入凭证及客人数受限制。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.sapphire-lounges",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.sapphire-lounges@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "lounge",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.chase-sapphire-lounge"
+    ],
+    "content": {
+      "title": "Chase Sapphire 休息室",
+      "summary": "按参与地点和准入条款使用；不等同航空精英会籍。",
+      "howToUse": [
+        "按参与地点和准入条款使用；不等同航空精英会籍。",
+        "使用前核对官方参与地点、当前条件和个人资格。"
+      ]
+    },
+    "terms": {
+      "category": "lounge",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null,
+      "partner": "Chase Sapphire Lounge"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "按参与地点和准入条款使用；不等同航空精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.air-canada-lounge",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.air-canada-lounge@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "lounge",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.air-canada"
+    ],
+    "content": {
+      "title": "加拿大航空休息室",
+      "summary": "星盟当日出发／转机；指定地点；一位客人；不含YUL及Signature Suites。",
+      "howToUse": [
+        "核对当日星盟行程、指定地点及携客人数。",
+        "排除 YUL 及 Signature Suites；休息室权益不代表航空会籍。"
+      ]
+    },
+    "terms": {
+      "category": "lounge",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null,
+      "partner": "Air Canada",
+      "tier": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "星盟当日出发／转机；指定地点；一位客人；不含YUL及Signature Suites。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.global-entry",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.global-entry@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Global Entry／TSA／NEXUS 抵扣",
+      "summary": "每四年一笔合资格申请费；须核对上次使用日期。",
+      "howToUse": [
+        "先核对过去四年是否已经使用过这项申请费抵扣。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "rolling-four-years",
+      "amount": 120,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每四年一笔合资格申请费；须核对上次使用日期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.edit-stay",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.edit-stay@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "hotel-service",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.the-edit"
+    ],
+    "content": {
+      "title": "The Edit 入住待遇",
+      "summary": "经指定渠道预订；早餐及酒店消费额度按酒店条款，升级视房态。",
+      "howToUse": [
+        "选择符合 The Edit 条款的预订路径，并查看酒店当次入住待遇。",
+        "早餐及酒店消费额度按酒店条件核对；升级不得保证。"
+      ]
+    },
+    "terms": {
+      "category": "hotel-service",
+      "period": "per-stay",
+      "amount": null,
+      "currency": null,
+      "partner": "The Edit"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "经指定渠道预订；早餐及酒店消费额度按酒店条款，升级视房态。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.hyatt-explorist",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.hyatt-explorist@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.world-of-hyatt"
+    ],
+    "content": {
+      "title": "Hyatt Explorist 会籍",
+      "summary": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+      "howToUse": [
+        "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+        "在银行核对达标年份、解锁记录及有效期；不要因持卡推断已经达标。"
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "earned-year-plus-next",
+      "amount": null,
+      "currency": null,
+      "spendThreshold": 75000,
+      "partner": "World of Hyatt",
+      "tier": "Explorist"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 75000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.ihg-diamond",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.ihg-diamond@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "IHG 钻石会籍",
+      "summary": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+      "howToUse": [
+        "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+        "在银行核对达标年份、解锁记录及有效期；不要因持卡推断已经达标。"
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "earned-year-plus-next",
+      "amount": null,
+      "currency": null,
+      "spendThreshold": 75000,
+      "partner": "IHG One Rewards",
+      "tier": "Diamond Elite"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 75000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.southwest-alist",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.southwest-alist@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "Southwest A-List 会籍",
+      "summary": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+      "howToUse": [
+        "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+        "在银行核对达标年份、解锁记录及有效期；不要因持卡推断已经达标。"
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "earned-year-plus-next",
+      "amount": null,
+      "currency": null,
+      "spendThreshold": 75000,
+      "partner": "Southwest Rapid Rewards",
+      "tier": "A-List"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 75000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.southwest-credit",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.southwest-credit@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [
+      "programme.southwest"
+    ],
+    "content": {
+      "title": "Southwest Chase Travel 抵扣",
+      "summary": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+      "howToUse": [
+        "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+        "在银行核对达标年份、解锁记录及有效期；不要因持卡推断已经达标。"
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "earned-year-plus-next",
+      "amount": 500,
+      "currency": "USD",
+      "spendThreshold": 75000,
+      "partner": "Southwest",
+      "tier": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 75000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.shops-credit",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.shops-credit@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [
+      "programme.the-shops-at-chase"
+    ],
+    "content": {
+      "title": "The Shops at Chase 抵扣",
+      "summary": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+      "howToUse": [
+        "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
+        "在银行核对达标年份、解锁记录及有效期；不要因持卡推断已经达标。"
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "earned-year-plus-next",
+      "amount": 250,
+      "currency": "USD",
+      "spendThreshold": 75000,
+      "partner": "The Shops at Chase",
+      "tier": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 75000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.trip-cancel",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.trip-cancel@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行取消／中断保障",
+      "summary": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "summary-only",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.trip-delay@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "summary-only",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.baggage-delay",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.baggage-delay@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李延误保障",
+      "summary": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "summary-only",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.evacuation",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.evacuation@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "紧急撤离保障",
+      "summary": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "summary-only",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.rental",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.rental@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "summary-only",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.roadside",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.roadside@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "道路救援",
+      "summary": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "summary-only",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.purchase",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.purchase@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保护",
+      "summary": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "summary-only",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.return",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.return@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "退货保护",
+      "summary": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "summary-only",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.warranty",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.warranty@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-benefits"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "summary-only",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.fee-primary@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "howToUse": [
+        "核对适用卡种及官方条款。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "执行前核对个人账户状态；知识库不自动执行登记、付款或转点。"
+      ]
+    },
+    "terms": {
+      "amount": 795,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-product"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.fee-additional@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "howToUse": [
+        "核对适用卡种及官方条款。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "执行前核对个人账户状态；知识库不自动执行登记、付款或转点。"
+      ]
+    },
+    "terms": {
+      "amount": 195,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-product"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.earning-0@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards"
+    ],
+    "content": {
+      "title": "Chase Travel",
+      "summary": "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。",
+      "howToUse": [
+        "核对适用卡种及官方条款。",
+        "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。",
+        "执行前核对个人账户状态；知识库不自动执行登记、付款或转点。"
+      ]
+    },
+    "terms": {
+      "multiplier": 8,
+      "unit": "points-per-USD",
+      "spendCategory": "Chase Travel",
+      "creditedSpendMayNotEarn": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-product"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.earning-1@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards"
+    ],
+    "content": {
+      "title": "直订航班",
+      "summary": "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。",
+      "howToUse": [
+        "核对适用卡种及官方条款。",
+        "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。",
+        "执行前核对个人账户状态；知识库不自动执行登记、付款或转点。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "points-per-USD",
+      "spendCategory": "直订航班",
+      "creditedSpendMayNotEarn": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-product"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.earning-2@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards"
+    ],
+    "content": {
+      "title": "直订酒店",
+      "summary": "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。",
+      "howToUse": [
+        "核对适用卡种及官方条款。",
+        "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。",
+        "执行前核对个人账户状态；知识库不自动执行登记、付款或转点。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "points-per-USD",
+      "spendCategory": "直订酒店",
+      "creditedSpendMayNotEarn": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-product"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.earning-3",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.earning-3@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards"
+    ],
+    "content": {
+      "title": "餐饮",
+      "summary": "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。",
+      "howToUse": [
+        "核对适用卡种及官方条款。",
+        "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。",
+        "执行前核对个人账户状态；知识库不自动执行登记、付款或转点。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "餐饮",
+      "creditedSpendMayNotEarn": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-product"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.earning-4",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.earning-4@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards"
+    ],
+    "content": {
+      "title": "其他合资格消费",
+      "summary": "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。",
+      "howToUse": [
+        "核对适用卡种及官方条款。",
+        "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。",
+        "执行前核对个人账户状态；知识库不自动执行登记、付款或转点。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他合资格消费",
+      "creditedSpendMayNotEarn": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布基础赚取倍率；抵扣消费部分、渠道和商户类别限制须查条款。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "csr-product"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-aer-lingus-aerclub",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-aer-lingus-aerclub@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.aer-lingus-aerclub"
+    ],
+    "content": {
+      "title": "Aer Lingus AerClub",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.aer-lingus-aerclub",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-the-british-airways-club",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-the-british-airways-club@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "The British Airways Club",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.the-british-airways-club",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-air-france-klm-flying-blue",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-air-france-klm-flying-blue@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.air-france-klm-flying-blue"
+    ],
+    "content": {
+      "title": "Air France KLM Flying Blue",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.air-france-klm-flying-blue",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-iberia-club",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-iberia-club@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.iberia-club"
+    ],
+    "content": {
+      "title": "Iberia Club",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.iberia-club",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-jetblue-trueblue",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-jetblue-trueblue@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.jetblue-trueblue"
+    ],
+    "content": {
+      "title": "JetBlue TrueBlue",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.jetblue-trueblue",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-singapore-airlines-krisflyer",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-singapore-airlines-krisflyer@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.singapore-airlines-krisflyer"
+    ],
+    "content": {
+      "title": "Singapore Airlines KrisFlyer",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.singapore-airlines-krisflyer",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-southwest-rapid-rewards",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-southwest-rapid-rewards@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "Southwest Rapid Rewards",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.southwest-rapid-rewards",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-united-mileageplus",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-united-mileageplus@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "United MileagePlus",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.united-mileageplus",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-virgin-atlantic-flying-club",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-virgin-atlantic-flying-club@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.virgin-atlantic-flying-club"
+    ],
+    "content": {
+      "title": "Virgin Atlantic Flying Club",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.virgin-atlantic-flying-club",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-air-canada-aeroplan",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-air-canada-aeroplan@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "Air Canada Aeroplan",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.air-canada-aeroplan",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-ihg-one-rewards",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-ihg-one-rewards@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "IHG One Rewards",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.ihg-one-rewards",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-marriott-bonvoy",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-marriott-bonvoy@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.marriott-bonvoy",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-world-of-hyatt",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-world-of-hyatt@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.world-of-hyatt"
+    ],
+    "content": {
+      "title": "World of Hyatt",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.world-of-hyatt",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-wyndham-rewards",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-wyndham-rewards@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.wyndham-rewards"
+    ],
+    "content": {
+      "title": "Wyndham Rewards",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.wyndham-rewards",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.hsbc-hk.rewardcash.channel-0",
+    "revision": 1,
+    "revisionId": "rule.hsbc-hk.rewardcash.channel-0@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "channel-capability",
+    "productIds": [],
+    "market": {
+      "country": "HK",
+      "issuer": "HSBC"
+    },
+    "category": "channel",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hsbc-rewardcash"
+    ],
+    "content": {
+      "title": "普通信用卡奖赏钱余额／到期",
+      "summary": "条款提及账单及适用网银资料；账户页面可读范围仍需登录实测。",
+      "howToUse": [
+        "核对适用卡种及官方条款。",
+        "条款提及账单及适用网银资料；账户页面可读范围仍需登录实测。",
+        "执行前核对个人账户状态；知识库不自动执行登记、付款或转点。"
+      ]
+    },
+    "terms": {
+      "channel": "web-partial",
+      "liveAccountVerified": false
+    },
+    "validity": {
+      "effectiveFrom": "2026-10-12",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款提及账单及适用网银资料；账户页面可读范围仍需登录实测。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "hsbc-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2026-11-26",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.hsbc-hk.rewardcash.channel-1",
+    "revision": 1,
+    "revisionId": "rule.hsbc-hk.rewardcash.channel-1@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "channel-capability",
+    "productIds": [],
+    "market": {
+      "country": "HK",
+      "issuer": "HSBC"
+    },
+    "category": "channel",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hsbc-rewardcash"
+    ],
+    "content": {
+      "title": "普通卡里数兑换资料",
+      "summary": "官网保留网页里数兑换入口；资格和兑换路径按卡种区分。",
+      "howToUse": [
+        "核对适用卡种及官方条款。",
+        "官网保留网页里数兑换入口；资格和兑换路径按卡种区分。",
+        "执行前核对个人账户状态；知识库不自动执行登记、付款或转点。"
+      ]
+    },
+    "terms": {
+      "channel": "web-entry",
+      "liveAccountVerified": false
+    },
+    "validity": {
+      "effectiveFrom": "2026-10-12",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官网保留网页里数兑换入口；资格和兑换路径按卡种区分。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "hsbc-redeem"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2026-11-26",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.hsbc-hk.rewardcash.channel-2",
+    "revision": 1,
+    "revisionId": "rule.hsbc-hk.rewardcash.channel-2@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "channel-capability",
+    "productIds": [],
+    "market": {
+      "country": "HK",
+      "issuer": "HSBC"
+    },
+    "category": "channel",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hsbc-rewardcash"
+    ],
+    "content": {
+      "title": "EveryMile／Privé 兑换",
+      "summary": "商品或里数兑换须通过Reward+，不能通过网银。",
+      "howToUse": [
+        "核对适用卡种及官方条款。",
+        "商品或里数兑换须通过Reward+，不能通过网银。",
+        "执行前核对个人账户状态；知识库不自动执行登记、付款或转点。"
+      ]
+    },
+    "terms": {
+      "channel": "app-only",
+      "liveAccountVerified": false
+    },
+    "validity": {
+      "effectiveFrom": "2026-10-12",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "商品或里数兑换须通过Reward+，不能通过网银。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "hsbc-terms",
+        "hsbc-redeem"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2026-11-26",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.hsbc-hk.rewardcash.channel-3",
+    "revision": 1,
+    "revisionId": "rule.hsbc-hk.rewardcash.channel-3@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "channel-capability",
+    "productIds": [],
+    "market": {
+      "country": "HK",
+      "issuer": "HSBC"
+    },
+    "category": "channel",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hsbc-rewardcash"
+    ],
+    "content": {
+      "title": "独立奖赏钱账户",
+      "summary": "信息查看及兑换均仅限Reward+。",
+      "howToUse": [
+        "核对适用卡种及官方条款。",
+        "信息查看及兑换均仅限Reward+。",
+        "执行前核对个人账户状态；知识库不自动执行登记、付款或转点。"
+      ]
+    },
+    "terms": {
+      "channel": "app-only",
+      "liveAccountVerified": false
+    },
+    "validity": {
+      "effectiveFrom": "2026-10-12",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "信息查看及兑换均仅限Reward+。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "hsbc-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2026-11-26",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.hsbc-hk.rewardcash.channel-4",
+    "revision": 1,
+    "revisionId": "rule.hsbc-hk.rewardcash.channel-4@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "channel-capability",
+    "productIds": [],
+    "market": {
+      "country": "HK",
+      "issuer": "HSBC"
+    },
+    "category": "channel",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hsbc-rewardcash"
+    ],
+    "content": {
+      "title": "Pay with RC／活动登记记录",
+      "summary": "Reward+提供抵扣及活动登记记录；不能承诺网页完整覆盖。",
+      "howToUse": [
+        "核对适用卡种及官方条款。",
+        "Reward+提供抵扣及活动登记记录；不能承诺网页完整覆盖。",
+        "执行前核对个人账户状态；知识库不自动执行登记、付款或转点。"
+      ]
+    },
+    "terms": {
+      "channel": "app",
+      "liveAccountVerified": false
+    },
+    "validity": {
+      "effectiveFrom": "2026-10-12",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Reward+提供抵扣及活动登记记录；不能承诺网页完整覆盖。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "hsbc-app"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2026-11-26",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.hsbc-hk.rewardcash.channel-5",
+    "revision": 1,
+    "revisionId": "rule.hsbc-hk.rewardcash.channel-5@2026-10-27.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "channel-capability",
+    "productIds": [],
+    "market": {
+      "country": "HK",
+      "issuer": "HSBC"
+    },
+    "category": "channel",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hsbc-rewardcash"
+    ],
+    "content": {
+      "title": "合并与转移",
+      "summary": "不同卡种存在合并限制；EveryMile不能接收转入，也不能作为结算合并卡。",
+      "howToUse": [
+        "核对适用卡种及官方条款。",
+        "不同卡种存在合并限制；EveryMile不能接收转入，也不能作为结算合并卡。",
+        "执行前核对个人账户状态；知识库不自动执行登记、付款或转点。"
+      ]
+    },
+    "terms": {
+      "channel": "restricted",
+      "liveAccountVerified": false
+    },
+    "validity": {
+      "effectiveFrom": "2026-10-12",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "不同卡种存在合并限制；EveryMile不能接收转入，也不能作为结算合并卡。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "hsbc-terms"
+      ],
+      "checkedAt": "2026-10-27",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-10-27",
+      "reviewAfter": "2026-11-26",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  }
+]

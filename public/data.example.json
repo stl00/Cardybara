@@ -1,0 +1,39 @@
+{
+  "asOf": "",
+  "cards": [],
+  "rewards": [],
+  "transactions": [],
+  "offers": [],
+  "benefits": [],
+  "connections": [
+    {
+      "bank": "Amex US",
+      "note": ""
+    },
+    {
+      "bank": "Amex HK",
+      "note": ""
+    },
+    {
+      "bank": "Amex CA",
+      "note": ""
+    },
+    {
+      "bank": "Chase",
+      "note": ""
+    },
+    {
+      "bank": "BOA",
+      "note": ""
+    },
+    {
+      "bank": "HSBC HK",
+      "note": ""
+    },
+    {
+      "bank": "SC HK",
+      "note": ""
+    }
+  ],
+  "spendingGoals": []
+}

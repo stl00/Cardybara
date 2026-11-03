@@ -1,0 +1,443 @@
+[
+  {
+    "id": "csr-product",
+    "title": "Chase · CSR 产品与费率",
+    "url": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "csr-benefits",
+    "title": "Chase · CSR 福利总览",
+    "url": "https://www.chase.com/sapphire-cards/personal/reserve",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "csr-terms",
+    "title": "Chase · 个人 CSR 详细条款",
+    "url": "https://www.chase.com/personal/credit-cards/offerdetails/chasesapphire",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "ihg",
+    "title": "Chase · IHG 会籍说明",
+    "url": "https://www.chase.com/personal/credit-cards/education/chase-cards/ihg-platinum-elite-status-with-chase-sapphire-reserve",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "doordash",
+    "title": "DoorDash · Chase 权益现行规则",
+    "url": "https://help.doordash.com/en-us/consumers/article/chase-partnership?chasewebview=false",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "partners",
+    "title": "Chase · 官方转点伙伴",
+    "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-terms",
+    "title": "HSBC · 奖赏钱条款（2026-10-12 生效）",
+    "url": "https://www.hsbc.com.hk/credit-cards/rewards/terms/",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-redeem",
+    "title": "HSBC · 网页里数兑换入口",
+    "url": "https://www.hsbc.com.hk/credit-cards/rewards/mileage-programme/redeem/",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-app",
+    "title": "HSBC · Reward+ 功能",
+    "url": "https://www.hsbc.com.hk/credit-cards/rewards/app/",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-everymile",
+    "title": "HSBC · EveryMile 计划",
+    "url": "https://www.hsbc.com.hk/credit-cards/products/everymile/",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "forum-csr",
+    "title": "美卡论坛 · 2025 年新版 CSR 讨论（仅作线索）",
+    "url": "https://www.uscardforum.com/t/topic/403416",
+    "checkedAt": "2026-10-27",
+    "authority": "community"
+  },
+  {
+    "id": "gold-us",
+    "url": "https://www.americanexpress.com/en-us/credit-cards/credit-intel/gold-card-rewards-points/",
+    "title": "Amex US Gold · 费用与核心权益",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "gold-us-earn",
+    "url": "https://www.americanexpress.com/en-us/account/get-started/gold/earn-rewards",
+    "title": "Amex US Gold · 赚点规则",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "ms-us",
+    "url": "https://global.americanexpress.com/card-benefits/view-all/morgan-stanley-platinum-card",
+    "title": "Amex · Morgan Stanley Platinum 专属权益",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "ms-fee",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-adhoc-2025-09-18/morgan-stanley-platinum-09-18-2025.pdf",
+    "title": "Amex · Morgan Stanley Platinum 2025-09-18协议",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "ms-au",
+    "url": "https://www.americanexpress.com/en-us/benefits/additional-card/additional-platinum-card/terms-and-conditions/",
+    "title": "Amex · Morgan Stanley 附属卡收费",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "ms-cashplus",
+    "url": "https://www.morganstanley.com/wealth-disclosures/cashplusaccountdisclosurestatement.pdf",
+    "title": "Morgan Stanley · CashPlus 条件",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "bce-us",
+    "url": "https://www.americanexpress.com/us/credit-cards/card/blue-cash-everyday/",
+    "title": "Amex · Blue Cash Everyday",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "bce-terms",
+    "url": "https://global.americanexpress.com/card-benefits/terms/blue-cash-everyday",
+    "title": "Amex · BCE 抵扣条款",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "aspire-us",
+    "url": "https://www.americanexpress.com/us/credit-cards/card/hilton-honors-aspire/",
+    "title": "Amex · Hilton Aspire",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "aspire-terms",
+    "url": "https://global.americanexpress.com/card-benefits/terms/hilton-aspire",
+    "title": "Amex · Aspire 详细条款",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "corporate-us",
+    "url": "https://www.americanexpress.com/en-us/business/corporate/benefits/index.shtml",
+    "title": "Amex · Corporate 各等级权益",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "platinum-hk",
+    "url": "https://www.americanexpress.com/hk/en/credit-cards/platinum-card/",
+    "title": "Amex HK · The Platinum Card",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "platinum-hk-earn",
+    "url": "https://www.americanexpress.com/hk/en/benefits/the-platinum-card/3xmembership-rewards-points.html",
+    "title": "Amex HK · 白金基本积分",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "platinum-hk-accelerator",
+    "url": "https://www.americanexpress.com/en-hk/benefits/offers/shopping/platinum-membership-rewards-accelerator/index.html",
+    "title": "Amex HK · 白金积分加速条款",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "platinum-ca",
+    "url": "https://www.americanexpress.com/en-ca/charge-cards/the-platinum-card/",
+    "title": "Amex Canada · Platinum",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "platinum-ca-travel",
+    "url": "https://www.americanexpress.com/en-ca/benefits/travel/the-platinum-card/",
+    "title": "Amex Canada · 白金旅行与2027变更",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "platinum-ca-benefits",
+    "url": "https://www.americanexpress.com/en-ca/benefits/the-platinum-card/",
+    "title": "Amex Canada · 白金餐饮福利",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "platinum-ca-earn",
+    "url": "https://www.americanexpress.com/ca/en/benefits/membership-benefits/index.html",
+    "title": "Amex Canada · 基本赚点",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "freedom-us",
+    "url": "https://creditcards.chase.com/cash-back-credit-cards/freedom/unlimited",
+    "title": "Chase · Freedom Unlimited",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "quest-us",
+    "url": "https://creditcards.chase.com/travel-credit-cards/united/united-quest",
+    "title": "Chase · United Quest",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "quest-perks",
+    "url": "https://www.chase.com/personal/credit-cards/united/united-quest-card",
+    "title": "Chase · Quest 持卡福利",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "ihg-current",
+    "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier",
+    "title": "Chase · IHG Premier 新版公开产品",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "ihg-2026-change",
+    "url": "https://media.chase.com/news/ihg-premier-select-card-portfolio-updates",
+    "title": "Chase · 2026-10-01 IHG改版与老账户过渡",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "ihg-holder",
+    "url": "https://www.chase.com/personal/credit-cards/ihg/premier/premier-perks",
+    "title": "Chase · IHG Premier 既有持卡福利",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "atmos-us",
+    "url": "https://newsroom.bankofamerica.com/content/newsroom/press-releases/2025/08/alaska-airlines-and-bank-of-america-present-a-new-premium-credit.html",
+    "title": "BOA · Atmos Summit 官方发布",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "atmos-fee",
+    "url": "https://www.bankofamerica.com/credit-cards/travel-credit-cards/",
+    "title": "BOA · 旅行卡费用",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "boa-cash-us",
+    "url": "https://www.bankofamerica.com/credit-cards/products/cash-back-credit-card/",
+    "title": "BOA · Customized Cash Rewards",
+    "checkedAt": "2026-10-28",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-fees-20260801",
+    "url": "https://www.hsbc.com.hk/content/dam/hsbc/hk/docs/ways-to-bank/bank-tariff/20260801-guide.pdf",
+    "title": "HSBC · 2026-08-01生效收费表",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-red",
+    "url": "https://www.hsbc.com.hk/credit-cards/products/red/",
+    "title": "HSBC HK · red",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-pulse",
+    "url": "https://www.hsbc.com.hk/credit-cards/products/unionpay-dual-currency-diamond/",
+    "title": "HSBC HK · pulse",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-premier",
+    "url": "https://www.hsbc.com.hk/credit-cards/products/premier-mastercard/",
+    "title": "HSBC HK · premier",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-visa-gold",
+    "url": "https://www.hsbc.com.hk/credit-cards/products/visa-gold/",
+    "title": "HSBC HK · visa-gold",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-easy",
+    "url": "https://www.hsbc.com.hk/credit-cards/products/visa-platinum/",
+    "title": "HSBC HK · easy",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-signature",
+    "url": "https://www.hsbc.com.hk/credit-cards/products/visa-signature/",
+    "title": "HSBC HK · signature",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "explorer-hk",
+    "url": "https://www.americanexpress.com/hk/en/credit-cards/explorer-credit-card/",
+    "title": "Amex HK · Explorer",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "explorer-mr",
+    "url": "https://www.americanexpress.com/content/dam/amex/hk/benefits/pdf/FN_Explorer_MR_CH.pdf",
+    "title": "Amex HK · Explorer 基本积分条款",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "explorer-bonus",
+    "url": "https://www.americanexpress.com/en-hk/rewards/membership-rewards/about-program",
+    "title": "Amex HK · 2026本地积分活动",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "cathay-hk",
+    "url": "https://www.sc.com/hk/credit-cards/cathay/",
+    "title": "渣打 · Cathay 各版本费用与待遇",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "cathay-earn",
+    "url": "https://www.sc.com/hk/credit-cards/cathay/selected-categories-spending-rewards/",
+    "title": "渣打 · Cathay 分类里数",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "mr-us-partners",
+    "url": "https://global.americanexpress.com/rewards/transfer",
+    "title": "Amex US · 已核对部分转点伙伴",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "mr-ca-partners",
+    "url": "https://www.americanexpress.com/ca/en/benefits/membership-benefits/travel.html",
+    "title": "Amex Canada · 转点计划",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "mr-hk-partners",
+    "url": "https://www.americanexpress.com/en-hk/rewards/membership-rewards/travel/airlines",
+    "title": "Amex HK · 航空转点名单与限制",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-choice",
+    "url": "https://www.hsbc.com.hk/credit-cards/rewards/your-choice/",
+    "title": "HSBC · 最红自主奖赏登记与分类",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "ms-uber-monthly",
+    "url": "https://apply.americanexpress.com/amex-morgan-stanley%20-credit-cards/?page_url=38",
+    "title": "Amex · Morgan Stanley当前产品与Uber、娱乐、旅行条款",
+    "checkedAt": "2026-10-28",
+    "authority": "official"
+  },
+  {
+    "id": "coupon-gold-guide-20261029",
+    "title": "Amex Gold 官方会员指南及可索引权益条款",
+    "url": "https://www.americanexpress.com/en-us/account/get-started/gold/explore-benefits?searchresult=uber+eats+benefit",
+    "checkedAt": "2026-10-29",
+    "authority": "official"
+  },
+  {
+    "id": "coupon-uber-amex-20261029",
+    "title": "Uber 官方 Amex Uber Cash 使用与到期说明",
+    "url": "https://www.uber.com/us/en/u/amex/",
+    "checkedAt": "2026-10-29",
+    "authority": "official"
+  },
+  {
+    "id": "coupon-aspire-flight-20261029",
+    "title": "Amex Aspire 官方机票抵扣条款（搜索索引可读）",
+    "url": "https://global.americanexpress.com/card-benefits/detail/flight-credit/hilton-aspire",
+    "checkedAt": "2026-10-29",
+    "authority": "official"
+  },
+  {
+    "id": "coupon-aspire-resort-20261029",
+    "title": "Amex Aspire 官方 Resort 条款（搜索索引可读）",
+    "url": "https://global.americanexpress.com/card-benefits/terms/hilton-aspire",
+    "checkedAt": "2026-10-29",
+    "authority": "official"
+  },
+  {
+    "id": "coupon-csr-terms-20261029",
+    "title": "Chase 个人 Sapphire Reserve 官方详细条款",
+    "url": "https://www.chase.com/personal/credit-cards/offerdetails/chasesapphire",
+    "checkedAt": "2026-10-29",
+    "authority": "official"
+  },
+  {
+    "id": "coupon-peloton-chase-20261029",
+    "title": "Peloton 官方 Chase 会员权益与FAQ",
+    "url": "https://www.onepeloton.com/chase-sapphire-reserve",
+    "checkedAt": "2026-10-29",
+    "authority": "official"
+  },
+  {
+    "id": "coupon-ms-print-20261029",
+    "title": "Amex Morgan Stanley Platinum 官方申请印刷版权益条款",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/partner/print/personal-card/msb/morgan-stanley-platinum-card/ep-msb-mcs-58?print=false",
+    "checkedAt": "2026-10-29",
+    "authority": "official"
+  },
+  {
+    "id": "coupon-ms-product-20261029",
+    "title": "Amex Morgan Stanley Platinum 官方产品权益说明",
+    "url": "https://apply.americanexpress.com/amex-morgan-stanley%20-credit-cards/?page_url=38",
+    "checkedAt": "2026-10-29",
+    "authority": "official"
+  }
+]

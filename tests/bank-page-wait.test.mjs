@@ -1,0 +1,9 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {waitBankPage,renderedBankPage} from '../extension-next/bank-page-wait.js';
+const href='https://global.americanexpress.com/activity/statements';
+function scenario(readyAt){let time=0;return {now:()=>time,current:async()=>true,getTab:async()=>({url:href}),rendered:async()=>({href,ready:time>=readyAt}),pause:async ms=>{time+=ms}};}
+test('bank navigation tolerates a 30-second render and remains bounded at 45 seconds',async()=>{const delayed=scenario(30000);await waitBankPage('Amex HK',href,delayed);assert.equal(delayed.now(),30000);const stuck=scenario(Infinity);await assert.rejects(waitBankPage('Amex HK',href,stuck),/navigation_timeout/);assert.equal(stuck.now(),45000);});
+test('bank navigation stops on cancellation or a foreign redirect',async()=>{await assert.rejects(waitBankPage('Amex HK',href,{...scenario(0),current:async()=>false}),/cancelled/);await assert.rejects(waitBankPage('Amex HK',href,{...scenario(0),getTab:async()=>({url:'https://example.com/activity/statements'})}),/navigation_changed/);});
+test('rendered content can be captured while optional resources are loading',()=>{const old=globalThis.document,oldLocation=globalThis.location;try{globalThis.location={origin:'https://global.americanexpress.com',pathname:'/activity/statements',hash:''};globalThis.document={readyState:'loading',querySelector:()=>({innerText:'x'.repeat(201)})};assert.equal(renderedBankPage().ready,true);document.querySelector=()=>({innerText:'Loading'});assert.equal(renderedBankPage().ready,false);document.readyState='complete';assert.equal(renderedBankPage().ready,true);}finally{globalThis.document=old;globalThis.location=oldLocation;}});
+
+test('current bank document can be ready before tab URL metadata catches up',async()=>{await waitBankPage('Amex HK',href,{...scenario(0),getTab:async()=>({url:'https://global.americanexpress.com/dashboard'})});});

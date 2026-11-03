@@ -1,0 +1,569 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cardybara:knowledge-rule:1.0.0",
+  "title": "Cardybara public knowledge rule revision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "revision",
+    "revisionId",
+    "supersedes",
+    "status",
+    "kind",
+    "productIds",
+    "market",
+    "category",
+    "scenarioIds",
+    "programmeIds",
+    "content",
+    "terms",
+    "validity",
+    "conditions",
+    "evidence",
+    "review",
+    "personalState"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^rule\\.[a-z0-9.-]+$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "revisionId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "supersedes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "published",
+        "rejected"
+      ]
+    },
+    "kind": {
+      "enum": [
+        "benefit",
+        "fee",
+        "earning-rate",
+        "transfer-relationship",
+        "channel-capability"
+      ]
+    },
+    "productIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "market": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "country",
+        "issuer"
+      ],
+      "properties": {
+        "country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "issuer": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "category": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scenarioIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "programmeIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "summary",
+        "howToUse"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "howToUse": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "terms": {
+      "type": "object",
+      "properties": {
+        "coupon": {
+          "$ref": "#/$defs/coupon"
+        }
+      }
+    },
+    "validity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "effectiveFrom",
+        "effectiveThrough",
+        "enrollBy"
+      ],
+      "properties": {
+        "effectiveFrom": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effectiveThrough": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enrollBy": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "conditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "coverage",
+        "all",
+        "unparsedText"
+      ],
+      "properties": {
+        "coverage": {
+          "const": "partial"
+        },
+        "all": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "field",
+              "op",
+              "value"
+            ],
+            "properties": {
+              "field": {
+                "enum": [
+                  "account.enrolled",
+                  "account.eligibleCalendarYearSpend"
+                ]
+              },
+              "op": {
+                "enum": [
+                  "eq",
+                  "gte"
+                ]
+              },
+              "value": {
+                "type": [
+                  "number",
+                  "boolean",
+                  "string"
+                ]
+              },
+              "currency": {
+                "type": "string"
+              },
+              "timeScope": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "unparsedText": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceIds",
+        "checkedAt",
+        "verification",
+        "supports",
+        "fullTermsReviewed"
+      ],
+      "properties": {
+        "sourceIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "checkedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "verification": {
+          "enum": [
+            "official-summary",
+            "summary-only"
+          ]
+        },
+        "supports": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "fullTermsReviewed": {
+          "const": false
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checkedAt",
+        "reviewAfter",
+        "state"
+      ],
+      "properties": {
+        "checkedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "reviewAfter": {
+          "type": "string",
+          "format": "date"
+        },
+        "state": {
+          "const": "reviewed-summary"
+        }
+      }
+    },
+    "personalState": {
+      "const": "not-in-public-knowledge"
+    }
+  },
+  "$defs": {
+    "coupon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "delivery",
+        "capScope",
+        "enrollment",
+        "eligibleCountries",
+        "eligibleMerchants",
+        "eligibleChannels",
+        "excludedPurchases",
+        "conditionalPurchases",
+        "redemption",
+        "carryover",
+        "posting",
+        "refundPolicy",
+        "additionalCards",
+        "minimumNights",
+        "review"
+      ],
+      "properties": {
+        "schema": {
+          "const": 1
+        },
+        "delivery": {
+          "enum": [
+            "statement-credit",
+            "wallet-credit",
+            "checkout-discount"
+          ]
+        },
+        "capScope": {
+          "enum": [
+            "card-account",
+            "primary-cardmember",
+            "person",
+            "unknown"
+          ]
+        },
+        "enrollment": {
+          "enum": [
+            "required",
+            "link-card",
+            "not-required",
+            "unknown"
+          ]
+        },
+        "eligibleCountries": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          }
+        },
+        "eligibleMerchants": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "eligibleChannels": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "excludedPurchases": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "conditionalPurchases": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "redemption": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "couponsPerPeriod",
+            "perCouponAmount",
+            "separateOrders",
+            "unusedPortionForfeited"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "cumulative",
+                "single-coupon",
+                "multiple-coupons"
+              ]
+            },
+            "couponsPerPeriod": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "perCouponAmount": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 0
+            },
+            "separateOrders": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "unusedPortionForfeited": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            }
+          }
+        },
+        "carryover": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "posting": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "maximumDays",
+            "timingBasis",
+            "deadlineTimeZone"
+          ],
+          "properties": {
+            "maximumDays": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "timingBasis": {
+              "enum": [
+                "merchant-reported-date",
+                "account-posting-date",
+                "merchant-wallet",
+                "checkout",
+                "unknown"
+              ]
+            },
+            "deadlineTimeZone": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "refundPolicy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "additionalCards": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eligible",
+            "sharesCap"
+          ],
+          "properties": {
+            "eligible": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "sharesCap": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            }
+          }
+        },
+        "minimumNights": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "checkedAt",
+            "sourceIds",
+            "section",
+            "access",
+            "unresolved"
+          ],
+          "properties": {
+            "checkedAt": {
+              "type": "string",
+              "format": "date"
+            },
+            "sourceIds": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            },
+            "section": {
+              "type": "string",
+              "minLength": 1
+            },
+            "access": {
+              "enum": [
+                "official-page",
+                "official-indexed-terms",
+                "mixed"
+              ]
+            },
+            "unresolved": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

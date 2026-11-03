@@ -1,0 +1,70 @@
+[
+  {
+    "id": "chase-us-sapphire-reserve",
+    "aliases": [
+      "Sapphire Reserve",
+      "Chase Sapphire Reserve Credit Card",
+      "Chase Sapphire Reserve",
+      "CSR"
+    ],
+    "rewardPrograms": [
+      "Ultimate Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0550_Web.pdf",
+      "checkedAt": "2026-10-27"
+    }
+  },
+  {
+    "id": "amex-hk-hk-the-platinum-card",
+    "aliases": [
+      "The Platinum Card"
+    ],
+    "rewardPrograms": [
+      "Membership Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "checkedAt": "2026-10-27"
+    }
+  },
+  {
+    "id": "amex-hk-hk-american-express-explorer-credit-card",
+    "aliases": [
+      "American Express Explorer Credit Card"
+    ],
+    "rewardPrograms": [
+      "Membership Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://www.americanexpress.com/hk/en/credit-cards/explorer-credit-card/",
+      "checkedAt": "2026-10-27"
+    }
+  },
+  {
+    "id": "amex-ca-ca-american-express-cobalt-card",
+    "aliases": [
+      "American Express Cobalt Card"
+    ],
+    "rewardPrograms": [
+      "Membership Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://www.americanexpress.com/en-ca/credit-cards/compare-credit-cards/?cardList=cobalt-card",
+      "checkedAt": "2026-10-27"
+    }
+  },
+  {
+    "id": "amex-ca-ca-american-express-gold-rewards-card",
+    "aliases": [
+      "American Express Gold Rewards Card"
+    ],
+    "rewardPrograms": [
+      "Membership Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://www.americanexpress.com/en-ca/credit-cards/compare-credit-cards/?cardList=cobalt-card",
+      "checkedAt": "2026-10-27"
+    }
+  }
+]

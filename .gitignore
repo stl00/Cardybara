@@ -1,0 +1,44 @@
+node_modules
+.DS_Store
+
+# Local model credentials; never ship these to the browser.
+.env
+.env.*
+!.env.example
+
+# Offline debug reports; never ship diagnostic data.
+.debug/
+
+# Generated builds and extension installers (rebuild from source).
+/dist/
+/public/*.zip
+/extension-next/*.zip
+*.log
+__pycache__/
+
+# Local wallet data and hosting configuration stay on this machine.
+/public/data.json
+/.openai/
+
+# Runtime evidence can contain personal account information.
+/docs/*
+!/docs/SESSION_HANDOFF.md
+!/docs/CARD_CATALOGUE.md
+!/docs/COST_TRACKING.md
+!/docs/WALLET_AGENT_MVP.md
+!/docs/DEBUGGING.md
+!/docs/EXTENSION_RELEASE.md
+!/docs/BENEFITS_PILOT.md
+!/docs/knowledge/
+/docs/knowledge/HELD_CARD_COVERAGE.md
+/evals/*live*.json
+/evals/latest-offline.json
+
+# Binary archives remain local; original brand source concepts are versioned.
+*.zip
+
+!/docs/INTEGRATION_REVIEW_*.md
+
+/release/
+!/docs/RELEASE.md
+!/docs/STORE_LISTING.md

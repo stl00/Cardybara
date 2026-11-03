@@ -1,0 +1,7 @@
+{
+ "id":"amex-hk-mvp", "provenance":"Synthetic values and identity using previously observed HK overview/rewards labels; explicit due-date examples are defensive fixtures, not claims of live page support.",
+ "bank":"Amex HK", "locale":"zh-HK", "card":{"id":"unseen-hk-product","bank":"Amex HK","tail":"13579","currency":"HKD"},
+ "heading":"Unseen card ••••13579",
+ "text":"Unseen card ••••13579\n總結欠\nHK$123.45\n未繳付月結單結欠\nHK$23.45\n月結單結欠\nHK$30.00\n最低還款額\nHK$0.00\n可用信貸額度\nHK$9,876.55\n還款到期日\n2026年11月6日\nMembership Rewards\n0",
+ "expected":{"balance":123.45,"available":9876.55,"statement":23.45,"statementClosing":30,"minimum":0}
+}

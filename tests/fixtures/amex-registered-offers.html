@@ -1,0 +1,8 @@
+<!doctype html><meta charset="utf-8"><title>Cardybara collector fixture</title>
+<h1>Collector QA — deidentified fixture, not a live account</h1>
+<main><button aria-label="open_title">-12345</button>
+<button role="radio" aria-checked="true" id="ENROLLED">Registered to Card (2)</button>
+<div role="region" aria-label="offer info"><button><img alt="Test Merchant One"><p>Spend at least $25 and earn a $25 credit.</p><p>Test Merchant One</p><p>Expires</p><span>2030-01-31</span></button><span>Registered to Card ••••12345</span></div>
+<div role="region" aria-label="offer info"><button><img alt="Test Merchant Two"><p>Get $25 back annually when you dine at select restaurants.</p><p>Test Merchant Two</p><p>Expires</p><span>2030-01-31</span></button><span>Registered to Card ••••12345</span></div>
+</main><button id="run">Run collector test</button><pre id="result">Not run</pre>
+<script type="module">import{capturePage}from'/qa/agent-snapshot.js';document.querySelector('#run').onclick=async()=>{try{const s=await capturePage('Amex CA',[{id:'fixture-card',tail:'12345',currency:'CAD'}]);document.querySelector('#result').textContent=JSON.stringify(s,null,2);}catch(e){document.querySelector('#result').textContent=e.name+': '+e.message;}};</script>

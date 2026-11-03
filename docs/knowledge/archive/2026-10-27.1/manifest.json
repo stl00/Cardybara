@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "snapshotId": "cardybara-public-knowledge-2026-10-27.1",
+  "asOf": "2026-10-27",
+  "locale": "zh-CN",
+  "files": [
+    "taxonomy.json",
+    "entities.json",
+    "sources.json",
+    "rules.json"
+  ],
+  "productCatalogue": "../card-products.json",
+  "pilotProductIds": [
+    "chase-us-sapphire-reserve"
+  ],
+  "profileMetadata": {
+    "chase-us-sapphire-reserve": {
+      "checkedAt": "2026-10-27",
+      "coverage": "pilot-core-rules-and-protection-summaries",
+      "communitySourceIds": [
+        "forum-csr"
+      ],
+      "changeNotes": [
+        {
+          "effectiveFrom": "2026-01-01",
+          "text": "The Edit 按自然年累计，旧论坛帖的半年重置不沿用。",
+          "sourceIds": [
+            "csr-terms"
+          ]
+        },
+        {
+          "effectiveFrom": "2026-10-01",
+          "text": "个人版DoorDash通用优惠提高到每月15美元；不套用商业版规则。",
+          "sourceIds": [
+            "doordash"
+          ]
+        }
+      ]
+    }
+  },
+  "hsbcRewardCash": {
+    "checkedAt": "2026-10-27",
+    "termsEffectiveFrom": "2026-10-12",
+    "liveAccountVerifiedThisRun": false,
+    "interpretation": "普通RC、EveryMile RC及独立RC账户分开建模，不自动折算里程或合并余额。"
+  },
+  "policy": {
+    "personalDataAllowed": false,
+    "automaticFinancialActions": false,
+    "unknownValue": null,
+    "publicationRequiresEvidence": true
+  }
+}

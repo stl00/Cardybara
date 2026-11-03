@@ -1,0 +1,18 @@
+// Replay dated, redacted observations without accessing Chrome or wallet storage.
+import fs from 'node:fs';import path from 'node:path';import vm from 'node:vm';
+import {validateModel,mergeRecords} from '../extension-next/agent-core.js';
+const out=process.argv[2];if(!out)throw Error('Usage: node scripts/replay-chase.mjs <outputs-directory>');
+const read=n=>JSON.parse(fs.readFileSync(path.join(out,n),'utf8'));
+const cards=JSON.parse(fs.readFileSync(new URL('../public/data.json',import.meta.url))).cards.filter(c=>c.bank==='Chase');
+const sandbox={self:{}};vm.createContext(sandbox);vm.runInContext(fs.readFileSync(new URL('../extension-next/reader.js',import.meta.url),'utf8'),sandbox);const reader=sandbox.self.CardyReader;
+let records=[];const rejected=[],checks=[];
+function accept(items,p,card){for(let n=0;n<items.length;n+=80){const batch=JSON.parse(JSON.stringify(items.slice(n,n+80))),s={bank:'Chase',region:'US',page:p.page||'https://secure.chase.com/web/auth/dashboard',capturedAt:p.observedAt,aliases:[{id:'C1',cardId:card.id,currency:card.currency}],blocks:batch.map(i=>({text:i.evidence})),links:[]};const r=validateModel({items:batch,nextLinkId:null},s);records=mergeRecords(records,r.items.map(i=>({...i,method:'rules'})));rejected.push(...r.rejected.map(reason=>({cardId:card.id,reason})));}}
+const pages=read('chase-card-pages-2026-10-27.json').pages;
+for(const p of pages){const card=cards.find(c=>c.tail===p.tail);if(!card)throw Error('Unregistered card');const rewardLabel=/United/.test(card.name)?read('chase-united-reward-label-2026-10-27.json').label:/IHG/.test(card.name)?read('chase-ihg-extra-2026-10-27.json').rewardLabel:undefined;const r=reader.chaseDetail({...p,rewardLabel},card);accept(r.items,p,card);rejected.push(...r.rejected.map(reason=>({cardId:card.id,reason})));}
+for(const p of read('chase-offer-lists-2026-10-27.json').lists){const card=cards.find(c=>c.tail===p.tail),items=p.rows.map(row=>reader.chaseOffer(row,card)).filter(Boolean);accept(items,p,card);checks.push({tail:p.tail,scope:'offer-list-summary',expected:p.expected,observed:p.rows.length,parsed:items.length,uniqueTitles:new Set(items.map(i=>i.title)).size,complete:p.expected===items.length});}
+// Only the hub collected with explicit main/shadow scope is accepted as catalogue evidence.
+for(const p of read('chase-benefits-2026-10-27.json').pages.filter(p=>p.scopeValidated===true)){const card=cards.find(c=>c.tail===p.tail);if(card)accept(p.links.map(l=>reader.chaseBenefitText(l.text,card)).filter(Boolean),p,card);}
+const sapphire=cards.find(c=>/Sapphire/.test(c.name)),dining=read('chase-dining-benefit-2026-10-27.json');accept(reader.chaseBenefitGauge(dining.headings.find(t=>!/Benefits/.test(t)),dining.ratios[0],dining.validThrough[0],sapphire),dining,sapphire);
+const spend=read('chase-sapphire-spend-progress-2026-10-27.json'),context=spend.contexts.filter(t=>t.includes(spend.ratios[0])).sort((a,b)=>a.length-b.length)[0];accept(reader.chaseBenefitGauge('Spend & unlock more benefits',spend.ratios[0],'Dec 31, 2026',sapphire,'C1',context),spend,sapphire);
+const report={mode:'offline-replay-of-observed-bank-pages',walletWritten:false,fullHistoricalCoverage:false,benefitCatalogueComplete:false,offerTermsRead:false,checks,rejected,records};fs.writeFileSync(path.join(out,'chase-normalized-2026-10-27.json'),JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify({records:records.length,byKind:Object.fromEntries([...new Set(records.map(r=>r.kind))].map(k=>[k,records.filter(r=>r.kind===k).length])),offers:Object.fromEntries(['available','added'].map(k=>[k,records.filter(r=>r.kind==='offer'&&r.status===k).length])),checks,rejected},null,2));if(rejected.length)process.exitCode=1;

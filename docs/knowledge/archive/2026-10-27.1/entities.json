@@ -1,0 +1,148 @@
+{
+  "programmes": [
+    {
+      "id": "programme.doordash",
+      "name": "DoorDash",
+      "kind": "partner",
+      "aliases": []
+    },
+    {
+      "id": "programme.apple",
+      "name": "Apple",
+      "kind": "partner",
+      "aliases": []
+    },
+    {
+      "id": "programme.ihg-one-rewards",
+      "name": "IHG One Rewards",
+      "kind": "hotel",
+      "aliases": []
+    },
+    {
+      "id": "programme.priority-pass",
+      "name": "Priority Pass",
+      "kind": "partner",
+      "aliases": []
+    },
+    {
+      "id": "programme.chase-sapphire-lounge",
+      "name": "Chase Sapphire Lounge",
+      "kind": "partner",
+      "aliases": []
+    },
+    {
+      "id": "programme.air-canada",
+      "name": "Air Canada",
+      "kind": "partner",
+      "aliases": []
+    },
+    {
+      "id": "programme.the-edit",
+      "name": "The Edit",
+      "kind": "partner",
+      "aliases": []
+    },
+    {
+      "id": "programme.world-of-hyatt",
+      "name": "World of Hyatt",
+      "kind": "hotel",
+      "aliases": []
+    },
+    {
+      "id": "programme.southwest-rapid-rewards",
+      "name": "Southwest Rapid Rewards",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.southwest",
+      "name": "Southwest",
+      "kind": "partner",
+      "aliases": []
+    },
+    {
+      "id": "programme.the-shops-at-chase",
+      "name": "The Shops at Chase",
+      "kind": "partner",
+      "aliases": []
+    },
+    {
+      "id": "programme.aer-lingus-aerclub",
+      "name": "Aer Lingus AerClub",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.the-british-airways-club",
+      "name": "The British Airways Club",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.air-france-klm-flying-blue",
+      "name": "Air France KLM Flying Blue",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.iberia-club",
+      "name": "Iberia Club",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.jetblue-trueblue",
+      "name": "JetBlue TrueBlue",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.singapore-airlines-krisflyer",
+      "name": "Singapore Airlines KrisFlyer",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.united-mileageplus",
+      "name": "United MileagePlus",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.virgin-atlantic-flying-club",
+      "name": "Virgin Atlantic Flying Club",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.air-canada-aeroplan",
+      "name": "Air Canada Aeroplan",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.marriott-bonvoy",
+      "name": "Marriott Bonvoy",
+      "kind": "hotel",
+      "aliases": []
+    },
+    {
+      "id": "programme.wyndham-rewards",
+      "name": "Wyndham Rewards",
+      "kind": "hotel",
+      "aliases": []
+    },
+    {
+      "id": "programme.hsbc-rewardcash",
+      "name": "HSBC RewardCash",
+      "kind": "reward-currency",
+      "aliases": []
+    },
+    {
+      "id": "programme.chase-ultimate-rewards",
+      "name": "Chase Ultimate Rewards",
+      "kind": "reward-currency",
+      "aliases": []
+    }
+  ]
+}

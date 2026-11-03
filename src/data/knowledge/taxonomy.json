@@ -1,0 +1,129 @@
+{
+  "categories": [
+    {
+      "id": "credit",
+      "label": "抵扣"
+    },
+    {
+      "id": "promo",
+      "label": "优惠券"
+    },
+    {
+      "id": "membership",
+      "label": "会员"
+    },
+    {
+      "id": "lounge",
+      "label": "休息室"
+    },
+    {
+      "id": "hotel-service",
+      "label": "酒店待遇"
+    },
+    {
+      "id": "spend-unlock",
+      "label": "消费解锁"
+    },
+    {
+      "id": "protection",
+      "label": "保障"
+    },
+    {
+      "id": "fee",
+      "label": "费用"
+    },
+    {
+      "id": "earning",
+      "label": "积分赚取"
+    },
+    {
+      "id": "transfer",
+      "label": "转点关系"
+    },
+    {
+      "id": "channel",
+      "label": "渠道能力"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "travel",
+      "label": "旅行"
+    },
+    {
+      "id": "hotel-stay",
+      "label": "酒店入住"
+    },
+    {
+      "id": "dining",
+      "label": "餐饮"
+    },
+    {
+      "id": "entertainment",
+      "label": "娱乐订阅与票务"
+    },
+    {
+      "id": "ground-transport",
+      "label": "地面交通"
+    },
+    {
+      "id": "airport",
+      "label": "机场出行"
+    },
+    {
+      "id": "shopping",
+      "label": "购物"
+    },
+    {
+      "id": "reward-redemption",
+      "label": "积分兑换"
+    },
+    {
+      "id": "card-ownership",
+      "label": "持卡管理"
+    },
+    {
+      "id": "fitness",
+      "label": "健身"
+    }
+  ],
+  "ruleKinds": [
+    "benefit",
+    "fee",
+    "earning-rate",
+    "transfer-relationship",
+    "channel-capability"
+  ],
+  "conditionOps": [
+    "eq",
+    "gte"
+  ],
+  "conditionFields": [
+    "account.enrolled",
+    "account.eligibleCalendarYearSpend"
+  ],
+  "periods": [
+    "calendar-year",
+    "calendar-half-year",
+    "calendar-quarter",
+    "calendar-month",
+    "account-anniversary",
+    "rolling-four-years",
+    "activation-based",
+    "fixed-date",
+    "ongoing",
+    "per-stay",
+    "earned-year-plus-next",
+    "event-based",
+    "annual-fee",
+    "promotion-period",
+    "per-trip"
+  ],
+  "rateUnits": [
+    "points-per-USD",
+    "points-per-CAD",
+    "points-per-HKD",
+    "cashback-percent",
+    "HKD-per-mile"
+  ]
+}

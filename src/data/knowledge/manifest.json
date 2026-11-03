@@ -1,0 +1,411 @@
+{
+  "schemaVersion": "1.2.0",
+  "snapshotId": "cardybara-public-knowledge-2026-10-29.coupon-2",
+  "asOf": "2026-10-29",
+  "locale": "zh-CN",
+  "files": [
+    "taxonomy.json",
+    "entities.json",
+    "sources.json",
+    "rules.json"
+  ],
+  "productCatalogue": "../card-products.json",
+  "pilotProductIds": [
+    "chase-us-sapphire-reserve"
+  ],
+  "profileMetadata": {
+    "chase-us-sapphire-reserve": {
+      "checkedAt": "2026-10-27",
+      "coverage": "pilot-core-rules-and-protection-summaries",
+      "communitySourceIds": [
+        "forum-csr"
+      ],
+      "changeNotes": [
+        {
+          "effectiveFrom": "2026-01-01",
+          "text": "The Edit 按自然年累计，旧论坛帖的半年重置不沿用。",
+          "sourceIds": [
+            "csr-terms"
+          ]
+        },
+        {
+          "effectiveFrom": "2026-10-01",
+          "text": "个人版DoorDash通用优惠提高到每月15美元；不套用商业版规则。",
+          "sourceIds": [
+            "doordash"
+          ]
+        }
+      ]
+    },
+    "amex-us-us-american-express-gold-card": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "Amex US",
+        "country": "US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-morgan-stanley-platinum-card": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "Amex US",
+        "country": "US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [
+        {
+          "effectiveFrom": "2026-10-27",
+          "text": "首张附属白金卡标准年费为0，之后每张195美元；旧账户以通知为准。",
+          "sourceIds": [
+            "ms-au"
+          ]
+        }
+      ],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-blue-cash-everyday": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "Amex US",
+        "country": "US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-hilton-honors-aspire-card": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "Amex US",
+        "country": "US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-corporate-card": {
+      "checkedAt": "2026-10-27",
+      "coverage": "variant-unconfirmed",
+      "market": {
+        "issuer": "Amex US",
+        "country": "US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Corporate Card等级及雇主方案未确认；不能套用Corporate Green、Gold或Platinum。"
+      ],
+      "feeNotes": null
+    },
+    "amex-hk-hk-the-platinum-card": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "Amex HK",
+        "country": "HK"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [
+        {
+          "effectiveFrom": "2026-10-27",
+          "text": "含两张免年费附属卡；白金签账卡与同等级信用卡的账户形态仍需核对。",
+          "sourceIds": [
+            "platinum-hk"
+          ]
+        }
+      ],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-ca-ca-platinum-card": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "Amex CA",
+        "country": "CA"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-freedom-unlimited": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "Chase",
+        "country": "US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-united-quest": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "Chase",
+        "country": "US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-ihg-premier": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "Chase",
+        "country": "US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [
+        {
+          "effectiveFrom": "2026-10-27",
+          "text": "新版公布年费150美元；老账户2027年调整，当前实际年费不得直接覆盖。",
+          "sourceIds": [
+            "ihg-2026-change"
+          ]
+        }
+      ],
+      "knowledgeGaps": [
+        "2026年10月改版；老账户福利按个人通知生效，年费2027调整，未确认你的切换日。"
+      ],
+      "feeNotes": null
+    },
+    "boa-us-atmos-rewards-summit-visa-infinite": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "BOA",
+        "country": "US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "boa-us-customized-cash-rewards-visa-signature": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "BOA",
+        "country": "US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "hsbc-hk-hk-red-credit-card": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "HSBC HK",
+        "country": "HK"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [
+        {
+          "effectiveFrom": "2026-10-27",
+          "text": "标准年费永久豁免；显示0代表公开豁免，不代表已读取个人扣费。",
+          "sourceIds": [
+            "hsbc-fees-20260801"
+          ]
+        }
+      ],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "hsbc-hk-hk-pulse-dual-currency-diamond": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "HSBC HK",
+        "country": "HK"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "hsbc-hk-hk-premier-credit-card": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "HSBC HK",
+        "country": "HK"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [
+        {
+          "effectiveFrom": "2026-10-27",
+          "text": "标准年费永久豁免；显示0代表公开豁免，不代表已读取个人扣费。",
+          "sourceIds": [
+            "hsbc-fees-20260801"
+          ]
+        }
+      ],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "hsbc-hk-hk-visa-gold-card": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "HSBC HK",
+        "country": "HK"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "hsbc-hk-hk-easy-credit-card": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "HSBC HK",
+        "country": "HK"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "hsbc-hk-hk-hsbc-visa-signature-card": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "HSBC HK",
+        "country": "HK"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "hsbc-hk-hk-hsbc-everymile-card": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "HSBC HK",
+        "country": "HK"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-hk-hk-american-express-explorer-credit-card": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "Amex HK",
+        "country": "HK"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "sc-hk-hk-cathay-mastercard": {
+      "checkedAt": "2026-10-27",
+      "coverage": "core-public-rules-reviewed",
+      "market": {
+        "issuer": "SC HK",
+        "country": "HK"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "按普通Cathay Mastercard整理；未证明为Priority Banking或Priority Private，不能套用其贵宾室及优先待遇。"
+      ],
+      "feeNotes": null
+    }
+  },
+  "hsbcRewardCash": {
+    "checkedAt": "2026-10-27",
+    "termsEffectiveFrom": "2026-10-12",
+    "liveAccountVerifiedThisRun": false,
+    "interpretation": "普通RC、EveryMile RC及独立RC账户分开建模，不自动折算里程或合并余额。"
+  },
+  "policy": {
+    "personalDataAllowed": false,
+    "automaticFinancialActions": false,
+    "unknownValue": null,
+    "publicationRequiresEvidence": true
+  },
+  "profileProductIds": [
+    "chase-us-sapphire-reserve",
+    "amex-us-us-american-express-gold-card",
+    "amex-us-us-morgan-stanley-platinum-card",
+    "amex-us-us-blue-cash-everyday",
+    "amex-us-us-hilton-honors-aspire-card",
+    "amex-us-us-corporate-card",
+    "amex-hk-hk-the-platinum-card",
+    "amex-ca-ca-platinum-card",
+    "chase-us-freedom-unlimited",
+    "chase-us-united-quest",
+    "chase-us-ihg-premier",
+    "boa-us-atmos-rewards-summit-visa-infinite",
+    "boa-us-customized-cash-rewards-visa-signature",
+    "hsbc-hk-hk-red-credit-card",
+    "hsbc-hk-hk-pulse-dual-currency-diamond",
+    "hsbc-hk-hk-premier-credit-card",
+    "hsbc-hk-hk-visa-gold-card",
+    "hsbc-hk-hk-easy-credit-card",
+    "hsbc-hk-hk-hsbc-visa-signature-card",
+    "hsbc-hk-hk-hsbc-everymile-card",
+    "amex-hk-hk-american-express-explorer-credit-card",
+    "sc-hk-hk-cathay-mastercard"
+  ]
+}

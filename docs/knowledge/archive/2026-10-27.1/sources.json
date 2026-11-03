@@ -1,0 +1,79 @@
+[
+  {
+    "id": "csr-product",
+    "title": "Chase · CSR 产品与费率",
+    "url": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "csr-benefits",
+    "title": "Chase · CSR 福利总览",
+    "url": "https://www.chase.com/sapphire-cards/personal/reserve",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "csr-terms",
+    "title": "Chase · 个人 CSR 详细条款",
+    "url": "https://www.chase.com/personal/credit-cards/offerdetails/chasesapphire",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "ihg",
+    "title": "Chase · IHG 会籍说明",
+    "url": "https://www.chase.com/personal/credit-cards/education/chase-cards/ihg-platinum-elite-status-with-chase-sapphire-reserve",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "doordash",
+    "title": "DoorDash · Chase 权益现行规则",
+    "url": "https://help.doordash.com/en-us/consumers/article/chase-partnership?chasewebview=false",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "partners",
+    "title": "Chase · 官方转点伙伴",
+    "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-terms",
+    "title": "HSBC · 奖赏钱条款（2026-10-12 生效）",
+    "url": "https://www.hsbc.com.hk/credit-cards/rewards/terms/",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-redeem",
+    "title": "HSBC · 网页里数兑换入口",
+    "url": "https://www.hsbc.com.hk/credit-cards/rewards/mileage-programme/redeem/",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-app",
+    "title": "HSBC · Reward+ 功能",
+    "url": "https://www.hsbc.com.hk/credit-cards/rewards/app/",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "hsbc-everymile",
+    "title": "HSBC · EveryMile 计划",
+    "url": "https://www.hsbc.com.hk/credit-cards/products/everymile/",
+    "checkedAt": "2026-10-27",
+    "authority": "official"
+  },
+  {
+    "id": "forum-csr",
+    "title": "美卡论坛 · 2025 年新版 CSR 讨论（仅作线索）",
+    "url": "https://www.uscardforum.com/t/topic/403416",
+    "checkedAt": "2026-10-27",
+    "authority": "community"
+  }
+]

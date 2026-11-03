@@ -1,0 +1,46 @@
+{
+  "name": "cardybara",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 8766",
+    "test:collector": "node --test tests/collector.test.mjs tests/live.test.mjs",
+    "package:extension": "python3 scripts/package-extension.py",
+    "test:refresh": "node --test tests/dev-server.test.mjs tests/local-workflow.test.mjs tests/acceptance.test.mjs tests/onboarding.test.mjs tests/chase-connector.test.mjs tests/bank-page-wait.test.mjs tests/hk-connector.test.mjs tests/hk-worker.test.mjs tests/cost-tracking.test.mjs tests/agent-quality.test.mjs tests/chat-agent.test.mjs tests/personal-wallet.test.mjs tests/knowledge.test.mjs tests/benefits.test.mjs tests/agent.test.mjs tests/bank-fixtures.test.mjs tests/card-navigation.test.mjs tests/refresh.test.mjs tests/collector.test.mjs tests/live.test.mjs tests/i18n.test.mjs tests/unified-worker.test.mjs tests/coverage.test.mjs tests/coupon-knowledge.test.mjs",
+    "debug:bank": "node scripts/debug-bank.mjs",
+    "knowledge": "node scripts/knowledge.mjs",
+    "eval:agent": "node scripts/eval-agent.mjs",
+    "eval:agent:live": "node scripts/eval-agent.mjs --live",
+    "check:agent": "node --test tests/chat-agent.test.mjs tests/agent-quality.test.mjs && node scripts/eval-agent.mjs",
+    "check:hk": "node --test tests/bank-page-wait.test.mjs tests/hk-connector.test.mjs tests/hk-worker.test.mjs tests/card-navigation.test.mjs tests/refresh.test.mjs",
+    "package:local-connector": "python3 scripts/package-local-connector.py",
+    "build:connector-lab": "node scripts/build-connector-lab.mjs",
+    "init:local": "node scripts/init-local.mjs",
+    "check:chase": "node --test tests/chase-connector.test.mjs tests/card-navigation.test.mjs tests/refresh.test.mjs tests/bank-fixtures.test.mjs",
+    "check:coupons": "node --test tests/coupon-knowledge.test.mjs && node scripts/audit-coupons.mjs",
+    "check:release-source": "python3 scripts/audit-release.py",
+    "build:release": "vite build && python3 scripts/build-release.py",
+    "check:release-package": "python3 scripts/audit-release.py --package",
+    "check:release": "npm run check:release-source && npm run check:fixtures && npm run test:refresh && npm run check:agent && npm run check:coupons && npm run build:release && npm run check:release-package",
+    "check:acceptance": "node scripts/acceptance.mjs",
+    "check:fixtures": "node scripts/debug-bank.mjs --parse-only",
+    "preview:wallet": "node scripts/dev-server.mjs"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^6.0.0",
+    "@ant-design/x": "^2.9.0",
+    "antd": "^6.0.0",
+    "openai": "^7.45.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "fake-indexeddb": "^6.2.6",
+    "vite": "^6.0.0"
+  }
+}

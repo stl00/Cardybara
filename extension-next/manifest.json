@@ -1,0 +1,64 @@
+{
+  "manifest_version": 3,
+  "name": "Cardybara 卡疲扒拉 · 预览版",
+  "version": "1.1.0",
+  "description": "卡片钱包与银行页面采集，支持规则解析及可选的 AI 辅助核对。",
+  "permissions": [
+    "scripting",
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://www.americanexpress.com/*",
+    "https://global.americanexpress.com/*",
+    "https://secure.chase.com/*",
+    "https://secure.bankofamerica.com/*",
+    "https://www.bankofamerica.com/*",
+    "https://www.hsbc.com.hk/*",
+    "https://www.ebanking.hsbc.com.hk/*",
+    "https://www.security.online-banking.hsbc.com.hk/*",
+    "https://retail.sc.com/*",
+    "https://www.sc.com/*",
+    "http://127.0.0.1/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://127.0.0.1/*"
+      ],
+      "js": [
+        "dashboard.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "minimum_chrome_version": "106",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Cardybara · 采集状态",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "optional_host_permissions": [
+    "https://api.deepseek.com/*",
+    "https://generativelanguage.googleapis.com/*",
+    "http://127.0.0.1/*"
+  ]
+}

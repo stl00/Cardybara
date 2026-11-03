@@ -1,0 +1,18 @@
+{
+  "id": "amex-us-remaining-statement",
+  "provenance": "Reconstructed from observed US Platinum dashboard labels, synthetic amount and tail; not live wallet acceptance.",
+  "bank": "Amex US",
+  "locale": "en-US",
+  "card": {
+    "id": "fixture-us",
+    "bank": "Amex US",
+    "tail": "12345",
+    "currency": "USD"
+  },
+  "heading": "Platinum ••••12345",
+  "text": "Platinum ••••12345\nRemaining Statement Balance\nMore info on remaining_statement_balance_tooltip\n$0.00\nPayment not required at this time\nTotal Balance\nMore info on total_balance_tooltip\n$4,321.98",
+  "expected": {
+    "balance": 4321.98,
+    "statement": 0
+  }
+}

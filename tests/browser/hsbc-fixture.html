@@ -1,0 +1,43 @@
+<!doctype html><html lang="en-HK"><meta charset="utf-8"><title>Cardybara synthetic HSBC parser fixture</title>
+<style>body{font-family:system-ui;max-width:1000px;margin:30px auto}td,th{padding:10px}div,p{white-space:pre-line}pre{white-space:pre-wrap}.account-detail-row{margin:10px}</style>
+<h2>Synthetic fixture — no real bank data</h2><button id="run">Run DOM integration checks</button><pre id="result">Not run</pre>
+<main>
+<div class="account-summary-title-detail"><div><h1 id="account-summary-name">HSBC Test Credit Card</h1><select-account-dropdown hidden>Other card 9876 RMB 999.00</select-account-dropdown></div><div class="account-detail-row">Account number:
+••••1234</div><div class="account-detail-row">RewardCash balance
+12</div></div>
+<div id="ledger-account-amount">Account balance
+25.00 HKD</div>
+<div id="credit-card-amount-due-value">0.00 HKD</div><div id="credit-card-total-minimum-payment-amount-value">0.00 HKD</div><p>Payment due date
+02 Nov 2026</p>
+<div id="account-details-overlay" hidden>Account number:
+••••1234
+Account balance
+25.00 HKD
+Current amount due
+0.00 HKD
+Total minimum payment amount
+0.00 HKD
+Payment due date
+02 Nov 2026
+Credit limit
+3,141.59 HKD
+Available credit limit
+1,025.00 HKD</div>
+<div class="cc-transaction-history-container"><div id="allTransactionsPanel"><table><thead><tr><th>Transaction date</th><th>Card</th><th>Description</th><th>Amount in</th><th>Amount out</th></tr></thead><tbody><tr><td>04 Oct 2026</td><td>Card ending in 1234</td><td>TEST REFUND</td><td>10.00 HKD</td><td></td></tr><tr><td>05 Oct 2026</td><td>Card ending in 1234</td><td>TEST PURCHASE</td><td></td><td>20.00 HKD</td></tr></tbody></table></div><p class="zero-transaction" hidden>There are no transactions to display.</p></div>
+</main>
+<script src="./reader.js"></script><script type="module">
+import {capturePage} from './agent-snapshot.js';
+const cards=[{id:'test',tail:'1234',bank:'HSBC HK',currency:'HKD'},{id:'other',tail:'9876',bank:'HSBC HK',currency:'CNY'}];
+document.querySelector('#run').onclick=async()=>{
+ const results=[];const check=(name,pass)=>results.push({name,pass});
+ try{
+  const main=await capturePage('HSBC HK',cards);check('selected-card-excludes-menu',main.aliases?.length===1&&main.aliases[0].cardId==='test');
+  const tx=main.observations?.filter(i=>i.kind==='transaction');check('column-directions',tx?.length===2&&tx[0].value===-10&&tx[1].value===20&&tx.every(i=>i.status==='unknown'));
+  document.querySelector('#account-details-overlay').hidden=false;
+  const detail=await capturePage('HSBC HK',cards);check('overlay-five-amount-fields',detail.observations?.filter(i=>i.kind==='card').length===5);check('credit-sign',detail.observations?.some(i=>i.kind==='card'&&i.key==='balance'&&i.value===-25));
+  document.querySelector('#account-details-overlay').hidden=true;document.querySelector('table').hidden=true;document.querySelector('.zero-transaction').hidden=false;
+  const empty=await capturePage('HSBC HK',cards);check('explicit-empty-outside-table-panel',empty.empty?.some(i=>i.kind==='transaction'&&i.cardId==='test'));check('hidden-table-not-collected',!empty.observations?.some(i=>i.kind==='transaction'));
+  document.querySelector('#result').textContent=JSON.stringify({passed:results.every(r=>r.pass),results},null,2);
+ }catch(error){document.querySelector('#result').textContent=JSON.stringify({error:String(error),results});}
+};
+</script>

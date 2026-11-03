@@ -1,0 +1,10 @@
+{
+  "id": "amex-ca-overview-tooltip",
+  "provenance": "Reconstructed from user-provided masked diagnostic; synthetic amounts and card tail. Not a captured bank page or live acceptance.",
+  "bank": "Amex CA",
+  "locale": "en-CA",
+  "card": {"id":"fixture-ca","bank":"Amex CA","tail":"12345","currency":"CAD"},
+  "heading": "Platinum Card ••••12345",
+  "text": "Platinum Card ••••12345\nOutstanding Balance\nMore info on remaining_statement_balance_tooltip\n$123.45\n04 Sep - 03 Oct\nAmount is due\nMinimum Amount Due\n$0.00\nCurrent Balance\nMore info on total_balance_tooltip\n$456.78",
+  "expected": {"balance":456.78,"statement":123.45,"minimum":0}
+}
