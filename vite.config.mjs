@@ -1,11 +1,12 @@
 import {defineConfig} from 'vite';
 import {createWalletHandler} from './scripts/dev-server.mjs';
+import {collectorPlugin} from './scripts/dev-collector/vite-plugin.mjs';
 
 // Development and the packaged wallet share src/ and the same parser/agent APIs.
 // Only the runtime adapter differs. This plugin does not enter extension bundles.
 export default defineConfig({
- server:{host:'127.0.0.1',port:8766,strictPort:true,fs:{deny:['.env','.env.*','*.{crt,pem}','**/.git/**','**/.debug/**']}},
- plugins:[{
+ server:{host:'127.0.0.1',port:8766,strictPort:true,watch:{ignored:['**/.debug/**']},fs:{deny:['.env','.env.*','*.{crt,pem}','**/.git/**','**/.debug/**']}},
+ plugins:[collectorPlugin(),{
   name:'cardybara-local-api',
   configureServer(server){
    const api=createWalletHandler({port:server.config.server.port,staticFiles:false});

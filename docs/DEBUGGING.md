@@ -12,6 +12,18 @@
 
 同一空钱包模板 `public/data.example.json` 供本地初始化和发布包使用，避免默认银行列表等差异。开发 API 与构建预览共用 `scripts/dev-server.mjs` 的处理器。模型密钥留在服务端 `.env.local`，也可通过 `CARDYBARA_MODEL_CONFIG` 指向自己的配置文件，不进入客户端与安装包。
 
+## 本地真实采集（不安装扩展）
+
+`npm run dev` 同时以子进程启动 `scripts/dev-collector/`：在 Node 下运行未修改的 `extension-next/background.js`，由 Chrome API adapter 通过 DevTools 协议驱动一个专用 Chrome。页面显示“浏览器采集已就绪”后，用钱包的正常入口点“连接银行”或“刷新银行”。
+
+- 专用 Chrome 在第一次刷新时才启动，用独立 profile，调试端口只绑定 127.0.0.1。档案和采集状态都在被 Git 忽略的 `.debug/dev-collector/`（可用 `CARDYBARA_COLLECTOR_HOME` 改位置）。登录、验证码和手机确认都由本人在这个窗口完成。
+- 修改 `extension-next/*.js` 或 `scripts/dev-collector/*.mjs` 后 service 自动重启，Chrome 和银行登录保留，不需要动 Chrome 的扩展页面。未完成的任务按既有规则标记为 interrupted，重新点刷新即可。
+- adapter 只能发送 `cdp.mjs` 白名单内的方法：不含 Network、Storage、Input，页面脚本只在隔离 world 运行。可注入的站点和可见的标签页 URL 与 manifest 的 host permissions 一致，页面端的消息通道只接受当前文档的隔离 world。
+- 银行返回 403/429/451 或明显的拦截页时，run 立即停止并在钱包报错，不重试、不绕过。
+- `CARDYBARA_DEV_COLLECTOR=0` 关闭。这是 dev-only 代码：`vite build` 不包含，`scripts/audit-release.py --package` 检查发布包。
+
+合成演练：`CARDYBARA_COLLECTOR_HOME=<临时目录> CARDYBARA_SYNTHETIC_BANK=page npm run dev`。此模式拦截专用 Chrome 的全部 HTTPS 请求，返回 `tests/fixtures/synthetic-bank.html`，不连接银行；`CARDYBARA_SYNTHETIC_BANK=blocked` 演练被拦截。`npm run test:collector-chrome` 用真实 headless Chrome 跑 adapter，本地手动执行，不在 CI。以上都属于“流程回归”，不是真实终验。
+
 ## 三层证据
 
 | 检查 | 输入 | 通过含义 |

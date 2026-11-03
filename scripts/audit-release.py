@@ -32,8 +32,13 @@ if needles:
   if private and not n.endswith(('.png','.jpg','.jpeg','.webp','.ico','.pdf','.woff2','.svg')) and n!='package-lock.json' and private.search((r/n).read_bytes().decode('utf8','ignore')):raise SystemExit('Owner private value in: '+n)
 if '--package' in sys.argv:
  cfg=json.loads((r/'release.json').read_text());p=r/'release'/('cardybara-'+cfg['label']+'.zip')
+ p=next((Path(a.split('=',1)[1]) for a in sys.argv if a.startswith('--package-file=')),p)
  with zipfile.ZipFile(p) as z:
-  names=z.namelist();assert 'manifest.json' in names and 'index.html' in names
+  names=z.namelist()
+  # The localhost collector (scripts/dev-collector) is development-only and must never ship.
+  for n in names:
+   if 'dev-collector' in n or any(marker in z.read(n) for marker in [b'__cardybara/collector',b'__cardybaraDev',b'cardybara-dev-collector']):raise SystemExit('Dev-only collector code in package: '+n)
+  assert 'manifest.json' in names and 'index.html' in names
   m=json.loads(z.read('manifest.json'));assert m['manifest_version']==3 and m['version']==cfg['version'];assert not m.get('content_scripts');assert not any(x.startswith('http:') for x in m['host_permissions'])
   d=json.loads(z.read('data.json'));assert d['cards']==[] and d['rewards']==[];assert d==json.loads((r/'public/data.example.json').read_text()),'Local and packaged empty-wallet seeds differ'
   for n in names:
