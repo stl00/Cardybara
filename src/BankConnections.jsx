@@ -5,6 +5,7 @@ import LinkOutlined from '@ant-design/icons/es/icons/LinkOutlined';
 import CheckCircleOutlined from '@ant-design/icons/es/icons/CheckCircleOutlined';
 import {BankIdentity} from './Identity';
 import CollectorPanel from './CollectorPanel';
+import {visibleConnections} from './walletRegistry.js';
 import {t,useI18n,formatDateTime,formatReadDate} from './i18n';
 const {Text,Paragraph}=Typography;
 const sectionNames={card:'余额与账单',reward:'积分'};
@@ -14,7 +15,7 @@ export default function BankConnections({data,connected,collectorConnected,colle
  useI18n();
  const guides={needs_login:'请在银行官网登录，然后在引导条点击“读取本页”。',needs_confirmation:'请在银行 App 完成确认，再读取页面。',no_data:'未识别到金额。请打开具体卡片详情后重试。',ambiguous:'账户或币种不明确，暂未更新金额。',load_error:'银行页面没有正常加载，请在官网检查后重试。',timeout:'读取超时，已保留之前的数据。'};
  return <><div className="connection-intro"><Flex align="center" justify="space-between" wrap gap={16}><Space><span className={`connection-indicator ${connected?'ready':''}`}><CheckCircleOutlined/></span><div><Text strong>{connected?t('浏览器采集已就绪'):t('先连接 Chrome 扩展')}</Text><div><Text type="secondary">{t('你在银行官网登录，卡疲扒拉读取当前页面。')}</Text></div></div></Space><Button onClick={onSetup} icon={<LinkOutlined/>}>{connected?t('查看使用说明'):t('连接扩展')}</Button></Flex></div>
- <Row gutter={[20,20]}>{data.connections.map(connection=>{
+ <Row gutter={[20,20]}>{visibleConnections(data).map(connection=>{
   const cards=data.cards.filter(card=>card.bank===connection.bank);
   const job=collectorState?.run?.jobs.find(job=>job.bank===connection.bank);
   const status=job?.status||connection.liveStatus;
