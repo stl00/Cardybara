@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
-import {PROVIDERS} from '../extension-next/providers.js';
-test('development and release use one empty seven-bank seed',()=>{
+import {ACTIVE_BANKS} from '../extension-next/providers.js';
+test('development and release use one empty seed of active banks',()=>{
  const seed=JSON.parse(readFileSync(new URL('../public/data.example.json',import.meta.url),'utf8'));
- assert.deepEqual(seed.connections.map(c=>c.bank).sort(),Object.keys(PROVIDERS).sort());
+ assert.deepEqual(seed.connections.map(c=>c.bank).sort(),[...ACTIVE_BANKS].sort());
  for(const key of ['cards','rewards','transactions','offers','benefits'])assert.deepEqual(seed[key],[]);
 });
 test('local parser preflight supports mixed bank fixture formats without claiming live acceptance',()=>{
