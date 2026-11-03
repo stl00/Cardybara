@@ -5,7 +5,9 @@
  // A rewards label by its shape, used only to report a programme this version does not collect.
  // structural: the unit words are generic vocabulary, and a verb-led phrase is an action, not a balance.
  function rewardLabel(line){const t=String(line||'').trim();return t.length>=2&&t.length<=60&&!/\d/.test(t)&&/\b(?:points?|miles?|rewards?|cash ?back)\b|\S(?:Miles|Points)\b|積分|积分|獎賞|奖赏|里數|里数|哩|萬里|万里|回贈|回赠/.test(t.replace(/\b(points?|miles?|rewards?|cash ?back)\b/gi,m=>m.toLowerCase()))&&!/^(?:points?|miles?|rewards?|cash ?back)$/i.test(t)&&!/^(?:redeem|use|earn|view|see|explore|learn|go to|transfer|shop|book|pay|manage|how|about)\b/i.test(t)&&!/\b(?:earned|earning|bonus|expir\w*|redeemed|multiplier|activity|pending|per|lifetime|this (?:month|year)|offers?)\b/i.test(t)&&!/^(?:兌換|兑换|查看|了解)|已賺取|已赚取|即將到期|即将到期/.test(t);}
- function otherRewardLabels(lines,isRequired){const seen=new Set();for(let i=0;i<lines.length-1;i++)if(rewardLabel(lines[i])&&/^\d[\d,]*$/.test(lines[i+1])&&!isRequired(lines[i]))seen.add(lines[i]);return [...seen];}
+ // Another programme must have a name of its own. "Available Points" or 積分結餘 names none, and could be the required one.
+ function namesAProgramme(label){return /[\p{L}]{2}/u.test(label.replace(/\b(?:available|total|current|your|my|the|account|balance|points?|miles?|rewards?|cash ?back|program(?:me)?)\b/gi,'').replace(/可用|總|总|現有|现有|我的|賬戶|账户|結餘|结余|餘額|余额|積分|积分|獎賞|奖赏|里數|里数|回贈|回赠|計劃|计划/g,'').trim());}
+ function otherRewardLabels(lines,isRequired){const seen=new Set();for(let i=0;i<lines.length-1;i++)if(rewardLabel(lines[i])&&namesAProgramme(lines[i])&&/^\d[\d,]*$/.test(lines[i+1])&&!isRequired(lines[i]))seen.add(lines[i]);return [...seen];}
  function labelText(value){return value.normalize('NFKC').replace(/[\u200b-\u200d\ufeff]/g,'').replace(/[:：]\s*$/,'').replace(/\s*[（(](?:HKD|USD|CAD|港元|港幣|港币)[）)]\s*$/i,'').trim();}
  function resolveLocale(lang,locales){
   const normalized=(lang||'').replaceAll('_','-').toLowerCase();

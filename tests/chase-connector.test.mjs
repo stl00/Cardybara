@@ -74,6 +74,11 @@ test('a co-brand card is complete on billing and reports its programme as not co
   return enrichBank({bank:'Chase',cards:[card],tabId:2},{current:async()=>true,progress:async()=>{},checkpoint:async()=>{},navigate:async href=>{url=href;}});
  };
  try{
+  // A page-reported programme maps through the snapshot's alias to the real card, and a required label from any source is kept.
+  const billingOnly=labelled.filter(i=>i.kind!=='reward'),rewardRows=labelled.filter(i=>i.kind==='reward');labelled.splice(0,labelled.length,...billingOnly);const flow=async extra=>{const original=chrome.scripting.executeScript;chrome.scripting.executeScript=async o=>{const r=await original(o);if(r[0]?.result?.observations)Object.assign(r[0].result,extra);return r;};return enrichBank({bank:'Chase',cards:[card],tabId:2},{current:async()=>true,progress:async()=>{},checkpoint:async()=>{},navigate:async()=>{}});};
+  await run({scope:'mvp'});const seen=await flow({notCollected:[{cardId:'C1',programme:'unnamed'}]});assert.deepEqual(seen.sections.reward.coverage[0].notCollected,['unnamed']);assert.equal(seen.sections.reward.coverage[0].cardId,card.id);
+  const none=await flow({notCollected:[]});assert.deepEqual(none.sections.reward.coverage[0].missing,['reward']);assert.equal(none.sections.reward.coverage[0].reason,'reward_not_seen');
+  labelled.push(...rewardRows);
   const mvp=await run({scope:'mvp'});
   assert.ok(!mvp.items.some(i=>i.kind==='reward'),'other programmes are off by default');
   assert.equal(mvp.sections.reward.status,'not_collected');assert.deepEqual(mvp.sections.reward.coverage[0].notCollected,['MileagePlus® Miles']);assert.equal(mvp.sections.card.status,'updated');

@@ -1,7 +1,7 @@
 // Injected isolated-world function. Reads rendered text only, never form values or network bodies.
 export async function capturePage(bank,cards,contextIds=[]){
- // Injected, so this cannot import the scope from mvp.js; tests keep the two in step.
- const requiredAmexReward=/^(?:Membership Rewards\b|美國運通積分|美国运通积分)/i;
+ // Injected, so this cannot import the scope from mvp.js. tests/coverage.test.mjs fails if they differ.
+ const requiredAmexReward=new RegExp('\\bMembership Rewards\\b|\\bMR\\b|美國運通積分|美国运通积分|會員積分|会员积分','i');
  // Wait for the financial SPA body to settle, rather than reading initial zero placeholders.
  const settleStart=Date.now(),settleEnd=settleStart+6000;let previous="",stable=0;while(Date.now()<settleEnd){const text=document.querySelector("main")?.innerText||document.body?.innerText||"";if(text===previous&&text.length>120){if(++stable>=3&&Date.now()-settleStart>=1500)break;}else stable=0;previous=text;await new Promise(r=>setTimeout(r,250));}
  if(bank==='Chase'&&self.CardyReader?.chaseSnapshot)return self.CardyReader.chaseSnapshot(cards,contextIds);

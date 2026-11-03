@@ -3,7 +3,9 @@ export const MVP_KINDS=new Set(['card','billing','reward']);
 export function mvpLink(link){if(/^(?:禮品換領|礼品换领)$/.test(link.label))return true;if(/^(?:賬項|账项)$/.test(link.label)){try{return /^\/activity(?:\/|$)/.test(new URL(link.href).pathname)}catch{return false}}return /rewards|points|statement|積分|积分|獎賞|奖赏|月結|月结/i.test(link.label)&&!/offer|benefit|優惠|优惠|福利|禮遇|礼遇|transaction|交易/i.test(link.label);}
 // Rewards required by this version, per issuer. structural: this is the product scope, not a page rule.
 // Other programmes' code stays in place and runs only in full scope; here they are reported as not collected.
-const REQUIRED_REWARDS={Chase:/^Ultimate Rewards\b/i,Amex:/^(?:Membership Rewards\b|美國運通積分|美国运通积分)/i};
+// Matched anywhere in the label: a page or model may print "Available Membership Rewards Points".
+export const AMEX_REQUIRED_SOURCE='\\bMembership Rewards\\b|\\bMR\\b|美國運通積分|美国运通积分|會員積分|会员积分';
+const REQUIRED_REWARDS={Chase:/\bUltimate Rewards\b|\bUR\b/i,Amex:new RegExp(AMEX_REQUIRED_SOURCE,'i')};
 const requiredPattern=bank=>bank==='Chase'?REQUIRED_REWARDS.Chase:String(bank).startsWith('Amex ')?REQUIRED_REWARDS.Amex:null;
 export const requiredReward=(bank,programme)=>!!requiredPattern(bank)?.test(String(programme).replace(/[®™]/g,'').trim());
 export function mvpSummary(items,cards,initialPatches=[],notCollected={}){
