@@ -18,7 +18,7 @@ html{scroll-behavior:smooth}body{margin:0}.app-layout{min-height:100vh}.app-side
 .bank-select{width:245px}.ant-select-item-option-content .bank-identity,.ant-select-content .bank-identity{font-size:13px}
 .connection-card{height:100%}.connection-card .ant-card-head{min-height:74px}.connection-card .ant-card-head-title{white-space:normal;padding-block:16px;font-size:15px}.connection-card .bank-identity{gap:10px}.connection-status{margin-bottom:14px}
 .reward-card .ant-card-head-title{white-space:normal;padding-block:14px}.reward-card .ant-card-head-wrapper{gap:8px}.reward-card .ant-card-extra .ant-tag{margin:0}.reward-card .ant-card-head{min-height:72px}
-.offer-title{display:flex;align-items:center;gap:8px;min-width:0}.offer-title>.ant-typography{min-width:0}
+.offer-title{display:flex;align-items:center;gap:8px;min-width:0}.offer-title>.item-logo{margin-inline-end:0}.offer-title>.ant-typography{min-width:0}
 .ant-table .bank-identity{font-size:12px;align-items:flex-start}.ant-table .bank-identity .region-flag{font-size:13px;margin-top:3px}.ant-table .bank-mark{margin-top:1px}
 .metrics .ant-statistic-title .bank-identity{font-size:13px}.metrics .ant-statistic-title{min-height:24px}
 .ant-modal-title .bank-identity{padding-right:24px}
@@ -59,3 +59,6 @@ html{scroll-behavior:smooth}body{margin:0}.app-layout{min-height:100vh}.app-side
 .main-layout.advisor-layout{height:100dvh;min-height:0;overflow:hidden}.advisor-layout .app-header{flex-shrink:0}.advisor-layout .advisor-content{flex:1;min-height:0}
 .chat-x .chat-header{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .bank-card-coverage{display:flex;flex-direction:column;gap:10px;padding:14px 0;border-bottom:1px solid #f0f0f0}.bank-card-coverage>.ant-flex>.ant-typography{font-size:12px}.bank-card-coverage .ant-tag{font-size:11px;margin:0}
+.item-logo{width:var(--item-logo-size,16px);height:var(--item-logo-size,16px);flex:0 0 var(--item-logo-size,16px);display:inline-flex;align-items:center;justify-content:center;margin-inline-end:6px;vertical-align:-0.15em;line-height:1;font-size:var(--item-logo-size,16px)}
+.item-logo.is-icon{color:inherit;opacity:.65}
+.item-logo.is-logo{border-radius:4px;background:#fff;border:1px solid #0000000a;overflow:hidden}.item-logo.is-logo img{width:100%;height:100%;object-fit:contain;display:block}
