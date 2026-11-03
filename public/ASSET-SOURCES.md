@@ -50,73 +50,75 @@ All files 1600×900. A CSS image viewport can clip to the card; no asset modific
 
 Marks identify the service and belong to their owners; no endorsement is implied. An open-source icon package does not grant trademark rights: Simple Icons releases its project under CC0 but [asks users to seek the correct permissions](https://github.com/simple-icons/simple-icons/blob/develop/DISCLAIMER.md) for each brand.
 
-Logos are bundled in `public/brand/logos/` and never fetched at runtime. A brand shows its logo only when `src/data/logos.json` marks it `approved`. Anything `forbidden` (terms found require permission that has not been obtained) or `unverified` (no grant located) uses its category icon here, and no file goes in that folder. This check was made on 2026-11-03 from public pages and is not legal advice. "Unverified" does not mean the brand allows or forbids this use. "Terms page" is where to look, and the finding says whether that page could actually be read. "Candidate" is where a file could come from once approved.
+Logos are bundled locally and never fetched at runtime. **On 2026-11-03 the owner decided to show a logo for every brand below. This is the project owner's decision, not permission from any brand.** No brand has granted permission. "Terms" records what the check found on public pages that day: `requires-permission` means published terms found require permission that has not been obtained; `unverified` means no grant could be located, which does not mean the brand allows or forbids this use. This is not legal advice. If a brand objects, set its entry to `unapproved` in `src/data/logos.json` and remove its file; the item then shows its category icon.
 
-| Brand | Status | Shown as | Candidate | Terms page | Finding |
+Files from official sites are the site's own favicon or touch icon, resized to at most 64 pixels; some are low resolution. Some programmes show their operator's mark, and are labelled as that operator: Chase (The Edit, The Shops at Chase, Chase Sapphire Lounge, Chase Ultimate Rewards, Renowned Hotels and Resorts), American Express (Membership Rewards, Fine Hotels + Resorts, The Hotel Collection), HSBC (RewardCash), Alaska Airlines (Atmos Rewards) and Air France (Flying Blue).
+
+| Brand | Terms | File | Source | Terms page | Finding |
 | --- | --- | --- | --- | --- | --- |
-| DoorDash | unverified | category icon: delivery | simple-icons@16.36.0:doordash | https://www.doordash.com/terms/ | Official terms page returned HTTP 403 to the check; a secondary clause index lists "no license granted to use DoorDash trademarks". No brand guide located. |
-| Uber | forbidden | category icon: ride-share | simple-icons@16.36.0:uber | https://www.uber.com/us/en/legal/general-terms-of-use/ | General terms require express written permission for marks beyond use incidental to the services; the brand guide applies its own acceptance terms, which were not accepted. |
-| Uber Eats | forbidden | category icon: delivery | simple-icons@16.36.0:ubereats | https://www.uber.com/us/en/legal/general-terms-of-use/ | Same Uber terms: express written permission is required for marks beyond use incidental to the services. |
-| Lyft | forbidden | category icon: ride-share | simple-icons@16.36.0:lyft | https://www.slideshare.net/slideshow/design_lyft_brand_guidelines_march2018-pdf/283233341 | A third-party copy of the Lyft brand guide (v5.6, 2018) says the logo is typically authorized only for contracted partners; current official text not confirmed. |
-| Apple | forbidden | category icon: entertainment | simple-icons@16.36.0:apple | https://www.apple.com/legal/intellectual-property/guidelinesfor3rdparties.html | Third parties may not use the Apple Logo without an express written trademark license. |
-| Peloton | unverified | category icon: fitness | simple-icons@16.36.0:peloton | not located | Press page redirects away and the legal page returned 404 to the check. No published grant for third-party identifying use was located. |
-| StubHub | unverified | category icon: entertainment | simple-icons@16.36.0:stubhub | not located | No published grant for third-party identifying use was located. |
-| viagogo | unverified | category icon: entertainment | none | not located | No published grant for third-party identifying use was located. |
-| Resy | unverified | category icon: dining | none | not located | No published grant for third-party identifying use was located. |
-| Dunkin | unverified | category icon: dining | none | not located | No published grant for third-party identifying use was located. |
-| Home Chef | unverified | category icon: dining | none | not located | No published grant for third-party identifying use was located. |
-| lululemon | unverified | category icon: shopping | none | https://shop.lululemon.com/help/legal/terms-of-use | Website terms bar framing its marks without written consent and warn that unauthorized use may violate trademark law; no grant located and no rule on identifying use. |
-| Oura | forbidden | category icon: shopping | none | https://ouraring.com/guidelines-for-commercial-use | Commercial-use guidelines require written permission, which Oura may refuse or revoke (read from localized versions). |
-| Walmart | forbidden | category icon: shopping | none | https://brandcenter.walmart.com/brand/trademarks | Brand center says its logos may only be used with prior written permission. |
-| Disney | unverified | category icon: entertainment | none | not located | No published grant for third-party identifying use was located. |
-| CLEAR | unverified | category icon: airport | none | not located | No published grant for third-party identifying use was located. |
-| Priority Pass | unverified | category icon: lounge | none | not located | Conditions of use cover membership only. No published grant for third-party identifying use was located. |
-| Plaza Premium | unverified | category icon: lounge | none | not located | No published grant for third-party identifying use was located. |
-| Alaska Lounge | unverified | category icon: lounge | none | not located | No published grant for third-party identifying use was located. |
-| Chase Sapphire Lounge | unverified | category icon: lounge | bundled:brand/banks/chase.svg | not located | No published grant for third-party identifying use was located. |
-| The Edit | unverified | category icon: hotel | bundled:brand/banks/chase.svg | not located | No published grant for third-party identifying use was located. |
-| The Shops at Chase | unverified | category icon: shopping | bundled:brand/banks/chase.svg | not located | No published grant for third-party identifying use was located. |
-| Chase Ultimate Rewards | unverified | category icon: reward | bundled:brand/banks/chase.svg | not located | No published grant for third-party identifying use was located. |
-| Amex Membership Rewards | unverified | category icon: reward | bundled:brand/banks/amex.svg | not located | No published grant for third-party identifying use was located. |
-| Fine Hotels + Resorts | unverified | category icon: hotel | bundled:brand/banks/amex.svg | not located | No published grant for third-party identifying use was located. |
-| The Hotel Collection | unverified | category icon: hotel | bundled:brand/banks/amex.svg | not located | No published grant for third-party identifying use was located. |
-| HSBC RewardCash | unverified | category icon: reward | bundled:brand/banks/hsbc.png | https://www.hsbc.com/terms-and-conditions | No published grant for third-party identifying use was located. |
-| MoneyBack | unverified | category icon: reward | none | not located | No published grant for third-party identifying use was located. |
-| Morgan Stanley CashPlus | unverified | category icon: reward | none | not located | No published grant for third-party identifying use was located. |
-| Hilton | forbidden | category icon: hotel | bundled:brand/banks/hilton.png | https://www.hilton.com/en/p/site-usage-agreement/ | Site usage agreement says its marks may not be used without prior express written consent; the media kit publishes logos without a usage grant. |
-| IHG One Rewards | unverified | category icon: hotel | bundled:brand/banks/ihg.svg | not located | No published grant for third-party identifying use was located. |
-| Marriott Bonvoy | unverified | category icon: hotel | simple-icons@16.36.0:marriott | not located | No published grant for third-party identifying use was located. |
-| World of Hyatt | unverified | category icon: hotel | none | not located | No published grant for third-party identifying use was located. |
-| Radisson Rewards | unverified | category icon: hotel | none | not located | No published grant for third-party identifying use was located. |
-| ALL Accor | unverified | category icon: hotel | none | not located | No published grant for third-party identifying use was located. |
-| Wyndham Rewards | unverified | category icon: hotel | none | not located | No published grant for third-party identifying use was located. |
-| Renowned Hotels and Resorts | unverified | category icon: hotel | none | not located | No published grant for third-party identifying use was located. |
-| United MileagePlus | unverified | category icon: airline | simple-icons@16.36.0:unitedairlines | not located | Terms page timed out during the check. No published grant for third-party identifying use was located. |
-| Southwest | unverified | category icon: airline | simple-icons@16.36.0:southwestairlines | not located | No published grant for third-party identifying use was located. |
-| Air Canada | unverified | category icon: airline | simple-icons@16.36.0:aircanada | not located | No published grant for third-party identifying use was located. |
-| Delta SkyMiles | unverified | category icon: airline | simple-icons@16.36.0:delta | https://news.delta.com/delta-air-lines-logos-brand-guidelines | Publishes logo rules (no modification, approved colours) and a media contact, but no grant for third-party product use. |
-| JetBlue TrueBlue | unverified | category icon: airline | simple-icons@16.36.0:jetblue | not located | No published grant for third-party identifying use was located. |
-| Atmos Rewards | unverified | category icon: airline | none | not located | No published grant for third-party identifying use was located. |
-| Aer Lingus AerClub | unverified | category icon: airline | none | not located | No published grant for third-party identifying use was located. |
-| The British Airways Club | unverified | category icon: airline | simple-icons@16.36.0:britishairways | not located | No published grant for third-party identifying use was located. |
-| Air France KLM Flying Blue | unverified | category icon: airline | simple-icons@16.36.0:airfrance | not located | No published grant for third-party identifying use was located. |
-| Iberia Club | unverified | category icon: airline | simple-icons@16.36.0:iberia | not located | No published grant for third-party identifying use was located. |
-| Singapore Airlines KrisFlyer | unverified | category icon: airline | simple-icons@16.36.0:singaporeairlines | not located | No published grant for third-party identifying use was located. |
-| Virgin Atlantic Flying Club | unverified | category icon: airline | simple-icons@16.36.0:virginatlantic | not located | No published grant for third-party identifying use was located. |
-| Cathay Asia Miles | unverified | category icon: airline | none | not located | No published grant for third-party identifying use was located. |
-| HK Express | unverified | category icon: airline | none | not located | No published grant for third-party identifying use was located. |
-| Aeromexico Rewards | unverified | category icon: airline | none | not located | No published grant for third-party identifying use was located. |
-| ANA Mileage Club | unverified | category icon: airline | simple-icons@16.36.0:ana | not located | No published grant for third-party identifying use was located. |
-| avianca lifemiles | unverified | category icon: airline | simple-icons@16.36.0:avianca | not located | No published grant for third-party identifying use was located. |
-| Malaysia Airlines Enrich | unverified | category icon: airline | none | not located | No published grant for third-party identifying use was located. |
-| EVA Infinity MileageLands | unverified | category icon: airline | none | not located | No published grant for third-party identifying use was located. |
-| Qantas Frequent Flyer | unverified | category icon: airline | simple-icons@16.36.0:qantas | not located | No published grant for third-party identifying use was located. |
-| Etihad Guest | unverified | category icon: airline | simple-icons@16.36.0:etihadairways | not located | No published grant for third-party identifying use was located. |
+| DoorDash | unverified | brand/logos/doordash.svg | simple-icons@16.36.0:doordash | https://www.doordash.com/terms/ | Official terms page returned HTTP 403 to the check; a secondary clause index lists "no license granted to use DoorDash trademarks". No brand guide located. |
+| Uber | requires-permission | brand/logos/uber.svg | simple-icons@16.36.0:uber | https://www.uber.com/us/en/legal/general-terms-of-use/ | General terms require express written permission for marks beyond use incidental to the services; the brand guide applies its own acceptance terms, which were not accepted. |
+| Uber Eats | requires-permission | brand/logos/uber-eats.svg | simple-icons@16.36.0:ubereats | https://www.uber.com/us/en/legal/general-terms-of-use/ | Same Uber terms: express written permission is required for marks beyond use incidental to the services. |
+| Lyft | requires-permission | brand/logos/lyft.svg | simple-icons@16.36.0:lyft | https://www.slideshare.net/slideshow/design_lyft_brand_guidelines_march2018-pdf/283233341 | A third-party copy of the Lyft brand guide (v5.6, 2018) says the logo is typically authorized only for contracted partners; current official text not confirmed. |
+| Apple | requires-permission | brand/logos/apple.svg | simple-icons@16.36.0:apple | https://www.apple.com/legal/intellectual-property/guidelinesfor3rdparties.html | Third parties may not use the Apple Logo without an express written trademark license. |
+| Peloton | unverified | brand/logos/peloton.svg | simple-icons@16.36.0:peloton | not located | Press page redirects away and the legal page returned 404 to the check. No published grant for third-party identifying use was located. |
+| StubHub | unverified | brand/logos/stubhub.svg | simple-icons@16.36.0:stubhub | not located | No published grant for third-party identifying use was located. |
+| viagogo | unverified | brand/logos/viagogo.png | https://www.viagogo.com/apple-touch-icon.png | not located | No published grant for third-party identifying use was located. |
+| Resy | unverified | brand/logos/resy.png | https://resy.com/images/favicon.ico | not located | No published grant for third-party identifying use was located. |
+| Dunkin | unverified | brand/logos/dunkin.svg | https://www.dunkindonuts.com/brands/dun/logo.svg | not located | No published grant for third-party identifying use was located. |
+| Home Chef | unverified | brand/logos/home-chef.png | https://www.homechef.com (site favicon) | not located | No published grant for third-party identifying use was located. |
+| lululemon | unverified | brand/logos/lululemon.png | https://shop.lululemon.com/favicon.ico | https://shop.lululemon.com/help/legal/terms-of-use | Website terms bar framing its marks without written consent and warn that unauthorized use may violate trademark law; no grant located and no rule on identifying use. |
+| Oura | requires-permission | brand/logos/oura.png | https://ouraring.com/assets/icons/apple-touch-icon.png | https://ouraring.com/guidelines-for-commercial-use | Commercial-use guidelines require written permission, which Oura may refuse or revoke (read from localized versions). |
+| Walmart | requires-permission | brand/logos/walmart.png | https://www.walmart.com/apple-touch-icon.png | https://brandcenter.walmart.com/brand/trademarks | Brand center says its logos may only be used with prior written permission. |
+| Disney | unverified | brand/logos/disney.png | https://www.disney.com (site favicon) | not located | No published grant for third-party identifying use was located. |
+| CLEAR | unverified | brand/logos/clear.png | https://www.clearme.com (site favicon) | not located | No published grant for third-party identifying use was located. |
+| Priority Pass | unverified | brand/logos/priority-pass.png | https://www.prioritypass.com (site icon) | not located | Conditions of use cover membership only. No published grant for third-party identifying use was located. |
+| Plaza Premium | unverified | brand/logos/plaza-premium.png | https://assets.plazapremiumlounge.com/images/favicon-16.png | not located | No published grant for third-party identifying use was located. |
+| Alaska Lounge | unverified | brand/logos/alaska-lounge.png | https://resource.alaskaair.net/favicon.ico | not located | No published grant for third-party identifying use was located. |
+| Chase Sapphire Lounge | unverified | brand/banks/chase.ico | bundled: public/brand/banks/sources.json | not located | No published grant for third-party identifying use was located. |
+| The Edit | unverified | brand/banks/chase.ico | bundled: public/brand/banks/sources.json | not located | No published grant for third-party identifying use was located. |
+| The Shops at Chase | unverified | brand/banks/chase.ico | bundled: public/brand/banks/sources.json | not located | No published grant for third-party identifying use was located. |
+| Chase Ultimate Rewards | unverified | brand/banks/chase.ico | bundled: public/brand/banks/sources.json | not located | No published grant for third-party identifying use was located. |
+| Amex Membership Rewards | unverified | brand/banks/amex.svg | bundled: public/brand/banks/sources.json | not located | No published grant for third-party identifying use was located. |
+| Fine Hotels + Resorts | unverified | brand/banks/amex.svg | bundled: public/brand/banks/sources.json | not located | No published grant for third-party identifying use was located. |
+| The Hotel Collection | unverified | brand/banks/amex.svg | bundled: public/brand/banks/sources.json | not located | No published grant for third-party identifying use was located. |
+| HSBC RewardCash | unverified | brand/banks/hsbc.png | bundled: public/brand/banks/sources.json | https://www.hsbc.com/terms-and-conditions | No published grant for third-party identifying use was located. |
+| MoneyBack | unverified | brand/logos/moneyback.png | https://www.moneyback.com.hk/favicon.ico | not located | No published grant for third-party identifying use was located. |
+| Morgan Stanley CashPlus | unverified | brand/logos/morgan-stanley-cashplus.png | https://www.morganstanley.com (site favicon) | not located | No published grant for third-party identifying use was located. |
+| Hilton | requires-permission | brand/banks/hilton.png | bundled: public/brand/banks/sources.json | https://www.hilton.com/en/p/site-usage-agreement/ | Site usage agreement says its marks may not be used without prior express written consent; the media kit publishes logos without a usage grant. |
+| IHG One Rewards | unverified | brand/banks/ihg.ico | bundled: public/brand/banks/sources.json | not located | No published grant for third-party identifying use was located. |
+| Marriott Bonvoy | unverified | brand/logos/marriott.svg | simple-icons@16.36.0:marriott | not located | No published grant for third-party identifying use was located. |
+| World of Hyatt | unverified | brand/logos/hyatt.png | https://www.hyatt.com/favicon.ico | not located | No published grant for third-party identifying use was located. |
+| Radisson Rewards | unverified | brand/logos/radisson.png | https://www.radissonhotels.com/favicon.ico | not located | No published grant for third-party identifying use was located. |
+| ALL Accor | unverified | brand/logos/accor.png | https://all.accor.com (site favicon) | not located | No published grant for third-party identifying use was located. |
+| Wyndham Rewards | unverified | brand/logos/wyndham.svg | https://www.wyndhamhotels.com/content/dam/wyndham/brand-icons/whr.svg | not located | No published grant for third-party identifying use was located. |
+| Renowned Hotels and Resorts | unverified | brand/banks/chase.ico | bundled: public/brand/banks/sources.json | not located | No published grant for third-party identifying use was located. |
+| United MileagePlus | unverified | brand/logos/united.svg | simple-icons@16.36.0:unitedairlines | not located | Terms page timed out during the check. No published grant for third-party identifying use was located. |
+| Southwest | unverified | brand/logos/southwest.svg | simple-icons@16.36.0:southwestairlines | not located | No published grant for third-party identifying use was located. |
+| Air Canada | unverified | brand/logos/air-canada.svg | simple-icons@16.36.0:aircanada | not located | No published grant for third-party identifying use was located. |
+| Delta SkyMiles | unverified | brand/logos/delta.svg | simple-icons@16.36.0:delta | https://news.delta.com/delta-air-lines-logos-brand-guidelines | Publishes logo rules (no modification, approved colours) and a media contact, but no grant for third-party product use. |
+| JetBlue TrueBlue | unverified | brand/logos/jetblue.svg | simple-icons@16.36.0:jetblue | not located | No published grant for third-party identifying use was located. |
+| Atmos Rewards | unverified | brand/logos/alaska-lounge.png | https://resource.alaskaair.net/favicon.ico | not located | No published grant for third-party identifying use was located. |
+| Aer Lingus AerClub | unverified | brand/logos/aer-lingus.png | https://www.aerlingus.com/favicon.ico | not located | No published grant for third-party identifying use was located. |
+| The British Airways Club | unverified | brand/logos/british-airways.svg | simple-icons@16.36.0:britishairways | not located | No published grant for third-party identifying use was located. |
+| Air France KLM Flying Blue | unverified | brand/logos/flying-blue.svg | simple-icons@16.36.0:airfrance | not located | No published grant for third-party identifying use was located. |
+| Iberia Club | unverified | brand/logos/iberia.svg | simple-icons@16.36.0:iberia | not located | No published grant for third-party identifying use was located. |
+| Singapore Airlines KrisFlyer | unverified | brand/logos/singapore-airlines.svg | simple-icons@16.36.0:singaporeairlines | not located | No published grant for third-party identifying use was located. |
+| Virgin Atlantic Flying Club | unverified | brand/logos/virgin-atlantic.svg | simple-icons@16.36.0:virginatlantic | not located | No published grant for third-party identifying use was located. |
+| Cathay Asia Miles | unverified | brand/logos/cathay.png | https://www.cathaypacific.com/content/dam/header-footer-lrp/cx-web-clip-icon.png | not located | No published grant for third-party identifying use was located. |
+| HK Express | unverified | brand/logos/hk-express.png | https://www.hkexpress.com/favicon.ico | not located | No published grant for third-party identifying use was located. |
+| Aeromexico Rewards | unverified | brand/logos/aeromexico.png | https://aeromexico.com/favicon.ico | not located | No published grant for third-party identifying use was located. |
+| ANA Mileage Club | unverified | brand/logos/ana.svg | simple-icons@16.36.0:ana | not located | No published grant for third-party identifying use was located. |
+| avianca lifemiles | unverified | brand/logos/avianca.svg | simple-icons@16.36.0:avianca | not located | No published grant for third-party identifying use was located. |
+| Malaysia Airlines Enrich | unverified | brand/logos/malaysia-airlines.png | https://www.malaysiaairlines.com (site favicon) | not located | No published grant for third-party identifying use was located. |
+| EVA Infinity MileageLands | unverified | brand/logos/eva-air.png | https://www.evaair.com/favicon.ico | not located | No published grant for third-party identifying use was located. |
+| Qantas Frequent Flyer | unverified | brand/logos/qantas.svg | simple-icons@16.36.0:qantas | not located | No published grant for third-party identifying use was located. |
+| Etihad Guest | unverified | brand/logos/etihad.svg | simple-icons@16.36.0:etihadairways | not located | No published grant for third-party identifying use was located. |
 
-## Issuer marks already in the wallet
+## Issuer marks
 
-`public/brand/banks/` (sources in `public/brand/banks/sources.json`) predates this registry: American Express, Chase, HSBC, Standard Chartered, Bank of America, Hilton and IHG identify the user's own issuers and reward accounts in `BankMark`. They stay as they were pending an owner decision and are not reused for other items. Their terms have not been verified, except that Hilton's site usage agreement requires prior written consent (see Hilton above), so `hilton.png` is the most exposed of these files.
+`public/brand/banks/` (sources in `public/brand/banks/sources.json`) holds American Express, Chase, HSBC, Standard Chartered, Bank of America, Hilton and IHG. They identify the user's own issuers and reward accounts in `BankMark`, and the owner's decision above covers them. Their terms have not been verified, except that Hilton's site usage agreement requires prior written consent.
 
 ## Category icons
 
-Category icons come from `@ant-design/icons` (MIT). The airline icon is authored locally for this project.
+Items that name no single brand show a category icon from `@ant-design/icons` (MIT). The airline icon is authored locally for this project.
