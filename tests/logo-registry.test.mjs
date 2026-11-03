@@ -34,7 +34,7 @@ test('a logo ships only with approval, a local file and a source',()=>{
  for(const file of files){
   const bytes=readFileSync(new URL(file,logosDir));
   assert.ok(bytes.length<=16*1024,`${file} is too large`);
-  if(file.endsWith('.svg'))assert.doesNotMatch(bytes.toString(),/<script|\son\w+=|href="http/i,file);
+  if(file.endsWith('.svg'))assert.doesNotMatch(bytes.toString(),/<script|<foreignObject|\son\w+=|href=["']?https?:/i,file);
  }
 });
 test('brands resolve to their local logo, and to the category when not approved',()=>{
@@ -73,6 +73,6 @@ test('programmes, transfers and earning labels resolve exactly',()=>{
 });
 test('ASSET-SOURCES records every brand, its status and the trademark notice',()=>{
  const doc=read('public/ASSET-SOURCES.md').toString();
- assert.match(doc,/belong to their owners/);assert.match(doc,/no endorsement/i);
+ assert.match(doc,/belong to their owners/);assert.equal(doc.match(/^# Merchant and programme marks$/gm).length,1,'one marks section');assert.match(doc,/no endorsement/i);
  for(const b of registry.brands){const line=doc.split('\n').find(l=>l.startsWith(`| ${b.name} |`));assert.ok(line,b.name);assert.ok(line.includes(`| ${b.terms} |`),b.name);assert.ok(line.includes(b.finding),b.name);assert.ok(line.includes(`| ${b.termsUrl||'not located'} |`),b.name);assert.ok(line.includes(`| ${b.source} |`),b.name);}
 });
