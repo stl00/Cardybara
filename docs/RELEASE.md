@@ -1,6 +1,6 @@
 # Cardybara alpha release
 
-Version metadata lives in release.json. The numeric manifest version is separate from the prerelease label. The release builder packages the standalone wallet, an empty seed of the MVP regions and locally bundled code. It excludes local data, credentials, personal runtime evidence, source maps and archived ZIPs. ZIP entries have stable ordering/timestamps and per-file checksums.
+Version metadata lives in release.json. The numeric manifest version is separate from the prerelease label. The release builder packages the standalone wallet, an empty seed of the active banks and locally bundled code. It excludes local data, credentials, personal runtime evidence, source maps and archived ZIPs. ZIP entries have stable ordering/timestamps and per-file checksums.
 
 The standalone build has no ordinary-website bridge content script and no required loopback host access. Bank hosts remain declared; model/loopback hosts are optional. Optional local model requests require the user to configure/consent to that connection. No developer model credentials are provided.
 
@@ -31,7 +31,7 @@ Required real-Chrome journeys: installation; empty first launch; manual card add
 
 MVP regions: Amex US, Amex HK, Chase, Bank of America, HSBC HK, Standard Chartered HK and Citi US. Amex Canada is archived and not part of acceptance. Citi US stays required, so the gate stays closed until it is really accepted.
 
-For each region, verify every card's balance, statement amount, minimum and payment date against the bank page, plus its Membership Rewards or Ultimate Rewards if it has one, including the actual collection time and executing worker build. An explicit bank statement that a payment is not due may satisfy a payment field with its recorded reason. Other rewards programmes are not collected in this version: record `status: "not_collected"` with the programme name and a reason. Neither can stand in for a required programme. Missing data and yearless dates are not completed acceptance.
+For each region, verify every card's balance, statement amount, minimum and payment date against the bank page, plus its Membership Rewards or Ultimate Rewards if it has one, including the actual collection time and executing worker build. An explicit bank statement that a payment is not due may satisfy the minimum and due date, not the balance or statement amount, with its recorded reason. Other rewards programmes are not collected in this version: record `status: "not_collected"` with the programme name and a reason. At Amex the name must be a listed brand, as in the wallet. Neither can stand in for a required programme. Missing data and yearless dates are not completed acceptance.
 
 `node scripts/acceptance.mjs CANDIDATE.zip PRIVATE-REPORT.json RUNTIME-BUILD` fails closed on a pending case, old worker, old/mismatched artifact, imported owner backup, developer-service dependency or missing bank acceptance. After it passes, `node scripts/promote-release.mjs CANDIDATE.zip PRIVATE-REPORT.json --publish` additionally compares the GitHub draft asset's SHA-256 before publishing. These checks validate the evidence record; a tester must truthfully observe the real browser and bank results. GitHub owners can bypass local tooling, so the documented review gate remains mandatory.
 

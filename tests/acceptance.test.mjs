@@ -11,13 +11,18 @@ test('release gate fails closed without actual installation and every bank field
 test('the gate matches the MVP regions and reward scope, and still fails closed',()=>{
  assert.deepEqual([...REQUIRED_BANKS].sort(),['Amex HK','Amex US','BOA','Chase','Citi US','HSBC HK','SC HK']);
  const r=fixture(),set=(bank,change)=>{const copy=structuredClone(r);Object.assign(copy.banks[bank].cards[0].fields.reward,change);return validateAcceptance(copy,options).passed;};
- const out={status:'not_collected',reason:'Not collected in this version.',programme:'Some Hotel Points'};
+ const out={status:'not_collected',reason:'Not collected in this version.',programme:'Hilton Honors Points'};
  assert.equal(set('BOA',out),true);assert.equal(set('Chase',out),true,'a co-brand card');
  assert.equal(set('BOA',{...out,programme:undefined}),false,'must name the programme');assert.equal(set('BOA',{...out,reason:''}),false,'must say why');
  assert.equal(set('Chase',{...out,programme:'Ultimate Rewards points'}),false);assert.equal(set('Amex US',{...out,programme:'Membership Rewards'}),false);assert.equal(set('Amex HK',{...out,programme:'美國運通積分計劃'}),false);
+ for(const programme of ['Ultimate  Rewards','Ultimate\u00a0Rewards','Ultimate-Rewards','Ultimate Reward','UR'])assert.equal(set('Chase',{...out,programme}),false,programme);
+ for(const programme of ['MembershipRewards','Membership Reward','會員 積分','MR','Points','積分','n/a','Some Unlisted Points'])assert.equal(set('Amex US',{...out,programme}),false,programme);
+ for(const programme of ['Points','n/a','none'])assert.equal(set('BOA',{...out,programme}),false,programme);
+ assert.equal(set('BOA',{...out,reason:'        '}),false,'blank reason');
  assert.equal(set('Chase',{status:'explicit_not_applicable',reason:'Bank shows no reward.'}),false,'a reward cannot be waived that way');
  for(const field of ['balance','statement','minimum','due']){const copy=structuredClone(r);Object.assign(copy.banks.BOA.cards[0].fields[field],out);assert.equal(validateAcceptance(copy,options).passed,false,field);}
  const noCiti=structuredClone(r);delete noCiti.banks['Citi US'];assert.equal(validateAcceptance(noCiti,options).passed,false);
+ for(const field of ['balance','statement']){const copy=structuredClone(r);Object.assign(copy.banks.BOA.cards[0].fields[field],{status:'explicit_not_applicable',reason:'Bank states no payment is due.'});assert.equal(validateAcceptance(copy,options).passed,false,field);}
  const noPay=structuredClone(r);Object.assign(noPay.banks.BOA.cards[0].fields.minimum,{status:'explicit_not_applicable',reason:'Bank states no payment is due.'});assert.equal(validateAcceptance(noPay,options).passed,true);
 });
 test('release gate refuses changed bytes, stale/old workers, imported backups and developer dependencies',()=>{

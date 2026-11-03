@@ -9,7 +9,7 @@ body:
     id: bank
     attributes:
       label: Bank / region
-      options: [Amex US, Amex HK, Amex CA, Chase, Bank of America, HSBC HK, Standard Chartered HK, Other]
+      options: [Amex US, Amex HK, Citi US, Chase, Bank of America, HSBC HK, Standard Chartered HK, Other]
     validations:
       required: true
   - type: checkboxes

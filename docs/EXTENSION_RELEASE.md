@@ -20,12 +20,15 @@
 
 ## 实际覆盖矩阵
 
+积分只要求 Amex Membership Rewards 和 Chase Ultimate Rewards，当前范围以 `README.md` 和 `docs/RELEASE.md` 为准；此表下方各列是早期记录。
+
 | 银行 / 地区 | 语言框架 | 金额字段 | 实测证据 | 积分 / Offers / 福利 / 交易 / 到期日 |
 |---|---|---|---|---|
 | Chase US | en-US | balance / available / statement / minimum | 部分真实字段曾读取成功；后续单卡刷新超时，稳定性未通过 | 未支持 |
 | HSBC HK | zh-HK / zh-CN / en-HK | 余额反号处理；available/minimum 框架；statement 禁用 | 繁简英合成样例通过；实际 DOM 待验收；HKD/CNY 未明确分区则跳过 | 未支持 |
 | Amex US | en-US | 框架 | 未验证；generic global 地区不明确时拒绝 | 未支持 |
 | Amex HK | zh-HK / zh-CN / en-HK | 框架 | 未验证 | 未支持 |
+| Citi US | en-US | 尚未加入 provider | 未验证 | 只读账单字段 |
 | Amex CA（已归档） | en-CA / fr-CA | 框架；法语金额样例 | 不在 MVP 范围 | 未支持 |
 | BOA US | en-US | 框架 | 未验证 1.1.0 | 未支持 |
 | SC HK | zh-HK / zh-CN / en-HK | 框架 | 旧版上一轮需登录；1.1.0 未验证 | 未支持 |
