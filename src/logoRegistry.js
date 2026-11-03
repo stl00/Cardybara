@@ -48,3 +48,9 @@ export function logoForText(text){
  const clean=text.normalize('NFKC').replace(/\s+/g,' ').trim(),found=matches(textPatterns,clean),brand=single(found);
  return brand&&textPatterns.some(([b,re])=>b===brand&&clean.search(re)===0)?view(brand,brand.category):view(null,null);
 }
+// What to draw: logo, then category icon, then nothing. A broken file falls back like a missing one.
+export function logoPresentation(view,{broken=false}={}){
+ if(view?.logo&&!broken)return {kind:'logo',src:view.logo,label:'{0} 标志',labelParams:[view.name]};
+ const category=registry.categories[view?.category];
+ return category?{kind:'icon',icon:category.icon,label:category.label}:null;
+}
