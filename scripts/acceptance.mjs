@@ -1,8 +1,11 @@
 import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {pathToFileURL} from 'node:url';
+import {confirmedOtherProgramme,requiredReward} from '../extension-next/mvp.js';
 export const REQUIRED_CASES=['install','coldStart','manualAdd','bankDiscovery','bankReadback','restartPersistence','exportRecovery','cancel','expiredSession','upgradePersistence'];
-export const REQUIRED_BANKS=['Amex US','Amex HK','Chase','BOA','HSBC HK','SC HK'];
+// Citi US is in MVP scope before its provider lands, so the gate stays closed until it is really accepted.
+export const REQUIRED_BANKS=['Amex US','Amex HK','Chase','BOA','HSBC HK','SC HK','Citi US'];
+const BILLING_FIELDS=['balance','statement','minimum','due'];
 export function validateAcceptance(report,{sha256,runtimeBuild,now=Date.now()}){
  const errors=[];const need=(ok,why)=>{if(!ok)errors.push(why);};
  need(report?.schema===1,'invalid schema');need(report?.artifactSha256===sha256,'artifact changed or not tested');
@@ -16,8 +19,12 @@ export function validateAcceptance(report,{sha256,runtimeBuild,now=Date.now()}){
   const b=report?.banks?.[bank];need(b?.status==='passed'&&Number.isInteger(b?.cardCount)&&b.cardCount>0&&b.runtimeBuild===runtimeBuild,`${bank}: real bank acceptance missing`);
   const captured=Date.parse(b?.capturedAt);need(Number.isFinite(captured)&&captured<=now+60000&&now-captured<7*86400000,`${bank}: current readback date missing`);
   need(Array.isArray(b?.cards)&&b.cards.length===b.cardCount&&b.visibleCardCount===b.cardCount,`${bank}: per-card coverage missing`);
-  for(const [index,card] of (Array.isArray(b?.cards)?b.cards:[]).entries())for(const field of ['reward','balance','statement','minimum','due']){
-   const f=card?.fields?.[field];need(f?.status==='observed'||f?.status==='explicit_not_applicable'&&typeof f.reason==='string'&&f.reason.length>5,`${bank} card ${index+1}: ${field} not verified`);
+  for(const [index,card] of (Array.isArray(b?.cards)?b.cards:[]).entries())for(const field of ['reward',...BILLING_FIELDS]){
+   const f=card?.fields?.[field],explained=typeof f?.reason==='string'&&f.reason.trim().length>5,named=typeof f?.programme==='string'&&/\p{L}{2}/u.test(f.programme)&&!/^\s*(?:points?|miles?|rewards?|cash ?back|n\/?a|none|unknown|積分|积分|獎賞|奖赏)\s*$/i.test(f.programme);
+   // Rewards are required for Membership Rewards and Ultimate Rewards only. Any other programme must be named as not collected; a required one never can be.
+   const notCollected=field==='reward'&&f?.status==='not_collected'&&explained&&named&&!requiredReward(bank,f.programme)&&confirmedOtherProgramme(bank,f.programme);
+   // Only a payment field may be satisfied by the bank's statement that no payment is due.
+   need(f?.status==='observed'||notCollected||['minimum','due'].includes(field)&&f?.status==='explicit_not_applicable'&&explained,`${bank} card ${index+1}: ${field} not verified`);
    const at=Date.parse(f?.capturedAt);need(Number.isFinite(at)&&at<=now+60000&&now-at<7*86400000,`${bank} card ${index+1}: ${field} date missing or stale`);
   }
  }

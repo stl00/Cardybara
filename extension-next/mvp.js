@@ -7,7 +7,9 @@ export function mvpLink(link){if(/^(?:禮品換領|礼品换领)$/.test(link.lab
 export const AMEX_REQUIRED_SOURCE='\\bMembership Rewards\\b|\\bMR\\b|美國運通積分|美国运通积分|會員積分|会员积分';
 const REQUIRED_REWARDS={Chase:/\bUltimate Rewards\b|\bUR\b/i,Amex:new RegExp(AMEX_REQUIRED_SOURCE,'i')};
 const requiredPattern=bank=>bank==='Chase'?REQUIRED_REWARDS.Chase:String(bank).startsWith('Amex ')?REQUIRED_REWARDS.Amex:null;
-export const requiredReward=(bank,programme)=>!!requiredPattern(bank)?.test(String(programme).replace(/[®™]/g,'').trim());
+// Spacing, punctuation and a singular form do not make a required programme into another one.
+const REQUIRED_COMPACT={Chase:/ultimatereward/,Amex:/membershipreward|美國運通積分|美国运通积分|會員積分|会员积分/};
+export const requiredReward=(bank,programme)=>{const pattern=requiredPattern(bank);if(!pattern)return false;const label=String(programme).normalize('NFKC').replace(/[®™]/g,'').trim(),compact=label.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');return pattern.test(label)||(bank==='Chase'?REQUIRED_COMPACT.Chase:REQUIRED_COMPACT.Amex).test(compact);};
 // Telling an Amex card holds another programme needs its brand: page wording alone cannot separate it from a
 // generic label for the required balance. structural: scope data, used only to avoid hiding a missing reward.
 // An unlisted name stays partial with the name shown. A listed name on a card missing its required value still reads as not collected.
