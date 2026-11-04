@@ -107,6 +107,22 @@ test('HSBC same-URL card switching reads each registered card and its detail ove
  const result=await enrichBank({bank:'HSBC HK',cards,tabId:2},{current:async()=>true,progress:async()=>{},checkpoint:async r=>checkpoints.push(structuredClone(r)),navigate:async()=>assert.fail('same-URL account controls should handle card navigation')});
  assert.equal(result.error,null);assert.equal(result.pages,4);assert.equal(panels,2);assert.equal(result.items.length,4);assert.equal(result.items.filter(i=>i.kind==='billing').length,2);assert.deepEqual(new Set(result.items.map(i=>i.cardId)),new Set(['red','gold']));assert.ok(checkpoints.length>=4);
 });
+test('Citi opens each card by a click and waits for the page, then returns to the summary',async()=>{
+ const summary='https://online.citi.com/US/ag/dashboard/summary',detail='https://online.citi.com/US/ag/dashboard/credit-card';
+ const cards=[{id:'a',bank:'Citi US',tail:'2345',currency:'USD'},{id:'b',bank:'Citi US',tail:'6789',currency:'USD'}];let url=summary,card=null;const arrivals=[],back=[];
+ globalThis.chrome={permissions:{contains:async()=>true},storage:{local:{get:async()=>({[PARSER_SETTINGS]:{scope:'mvp',enabled:false,cloudConsent:false}})}},tabs:{get:async()=>({id:2,url,status:'complete'})},scripting:{executeScript:async o=>{
+  if(o.files)return [{documentId:'injected'}];
+  if(o.target.documentIds&&o.func?.name!=='capturePage')return [{documentId:'citi-doc',result:true}];
+  if(o.func.name==='citiCards'){if(o.args[0]==='list')return [{result:['2345','6789']}];if(o.args[0]==='select'){card=cards.find(c=>c.tail===o.args[1]);return [{result:{arriving:detail,tail:o.args[1]}}];}return [{result:[]}];}
+  if(url===summary)return [{documentId:'citi-doc',result:{pageHref:url,aliases:[],blocks:[{id:'B1',text:'Summary'}],observations:[],links:[],capturedAt:'2030-01-01T00:00:00Z'}}];
+  const evidence='[C1] Current Balance $1.00';
+  return [{documentId:'citi-doc',result:{pageHref:url,aliases:[{id:'C1',cardId:card.id,currency:'USD'}],blocks:[{id:'B1',text:evidence}],observations:[{kind:'card',cardId:'C1',key:'balance',title:'Current Balance',value:1,currency:'USD',date:'',status:'unknown',evidence}],links:[],capturedAt:'2030-01-01T00:00:00Z'}}];
+ }}};
+ globalThis.fetch=async()=>({ok:true,json:async()=>({configured:false})});
+ const result=await enrichBank({bank:'Citi US',cards,tabId:2},{current:async()=>true,progress:async()=>{},checkpoint:async()=>{},arrive:async href=>{arrivals.push(href);url=href;},navigate:async href=>{back.push(href);url=href;}});
+ assert.equal(result.error,null);assert.deepEqual(arrivals,[detail,detail],'the click decides, never a direct address');assert.ok(back.length>=1&&back.every(h=>h===summary),'only ever back to the summary, never to the card page');
+ assert.deepEqual(new Set(result.items.map(i=>i.cardId)),new Set(['a','b']));
+});
 test('rules keep running without model setup or cloud consent',async()=>{
  const h=harness({enabled:false,consent:false,permission:false}),execute=chrome.scripting.executeScript;
  chrome.scripting.executeScript=async o=>{const result=await execute(o);if(o.func?.name==='capturePage')result[0].result.observations=[modelItem];return result;};

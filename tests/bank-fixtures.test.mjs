@@ -152,6 +152,7 @@ test('Amex US due date: labelled full date only',()=>{
 test('Citi US reads month-first dates, leaves missing fields unknown and reports rewards as not collected',async()=>{
  const f=issuer('citi-card-details'),citi=t=>fieldsOf(reader.issuerBilling(t,'Citi US',f.card));
  assert.equal(citi('Card ending in 2345\nPayment Due Date\n12/03/2030').due,'2030-12-03');
+ assert.equal(citi('Card - 2345\nPayment due on Dec 3, 2030').due,'2030-12-03');assert.deepEqual(JSON.parse(JSON.stringify(reader.issuerDue(['Payment due on Dec 3, 2030'],'BOA',{tail:'2345',currency:'USD'}))),[],'one bank\'s wording does not reach another');assert.equal(citi('Card - 2345\nPayment due on Dec 3').due,undefined,'no year, no date');
  assert.deepEqual(citi('Card ending in 2345\nCurrent Balance\n$5.00'),{balance:5},'nothing invented');
  assert.deepEqual(citi('Card ending in 2345\nCurrent Balance\n$5.00\nOther Card ending in 6789'),{},'another card in scope');
  const {mvpSummary}=await import('../extension-next/mvp.js'),r=mvpSummary([],[{id:'a',bank:'Citi US'}]);assert.equal(r.reward.status,'not_collected');
