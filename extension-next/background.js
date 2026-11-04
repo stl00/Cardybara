@@ -32,10 +32,13 @@ async function next(){
  }catch{await publish(await engine.fail(ctx,'load_error',{stage:'open_bank',code:'bank_tab_unavailable'}));}
 }
 async function active(tabId){const s=await engine.load(),j=s.run?.jobs.find(j=>j.tabId===tabId&&['navigating','capturing'].includes(j.status));return s.run?.status==='running'&&j?{...j,generation:s.run.generation,runId:s.run.id}:null;}
+const readPageTried=new Set();
 async function loaded(tabId,url){
  let stage='prepare';
  await ready;let ctx=await active(tabId);if(!ctx||ctx.status!=='navigating')return;
  if(!guidedPage(ctx.bank,url)){await publish(await engine.fail(ctx,'navigation_changed'));return;}
+ // Once per run for a bank, since a retry starts a new attempt: a server sending the details page back must not become a loop.
+ const readPage=PROVIDERS[ctx.bank].readPage;if(readPage?.from.test(new URL(url).pathname)&&!readPageTried.has(ctx.runId+'|'+ctx.bank)){readPageTried.add(ctx.runId+'|'+ctx.bank);try{await bounded(chrome.tabs.update(tabId,{url:readPage.url,active:true}));}catch{await publish(await engine.fail(ctx,'load_error',{stage:'open_bank',code:'bank_tab_unavailable'}));}return;}
  try{
   const s=await engine.capture(ctx);if(!s)return;ctx={...ctx,...s.run.jobs.find(j=>j.attemptId===ctx.attemptId)};
   await notify(s);stage='inject_reader';const injection=await bounded(chrome.scripting.executeScript({target:{tabId},files:['reader.js']}));

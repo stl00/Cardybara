@@ -3,6 +3,8 @@
 function cardyGuidePageReady(config,doc=document){
  const visible=e=>e.getClientRects().length>0&&getComputedStyle(e).visibility!=='hidden';
  if([...doc.querySelectorAll('input[type=password]')].some(visible))return false;
+ // SC HK prints no masked tail on its signed-in pages, whether or not cards are registered. A code prompt is not signed in yet.
+ if(config.bank==='SC HK')return /\/nfs\/ibank\//.test(location.pathname)&&!([...doc.querySelectorAll('input[type=text],input[type=tel],input[type=number]')].some(visible)&&/one.?time|security code|verification code|sms|驗證碼|验证码|保安編碼/i.test(doc.body?.innerText||''));
  if(config.tails.length)return config.tails.some(t=>new RegExp('(?:^|[^0-9])'+t+'(?:[^0-9]|$)').test(doc.body?.innerText||''));
  const selector=config.bank==='Chase'?'#CARD_ACCOUNTS [id^="accounts-name-link-button-"]':'h1,h2,h3,[role="option"],.account-detail-row';
  if(config.bank==='BOA'&&[...doc.querySelectorAll('[id^="account-card-container-"] a')].some(e=>visible(e)&&/\s-\s\d{4,5}$/.test((e.innerText||'').trim())))return true;

@@ -16,6 +16,8 @@ export async function capturePage(bank,cards,contextIds=[]){
  if(bank.startsWith('Amex ')){const selected=query('button[aria-label=\"open_title\"],[role=\"combobox\"][aria-label=\"Open to manage your other accounts\"]').filter(visible).map(e=>e.innerText||'').join('\n');const scoped=cards.filter(c=>new RegExp('(?:^|[^0-9])'+c.tail+'(?:[^0-9]|$)').test(selected));if(scoped.length===1){matches=scoped;selectedCardId=scoped[0].id;}}
  const hsbcMetadata=()=>{const h=document.getElementById('account-summary-name');const root=h?.closest('.account-summary-title-detail');return root?[...root.children].filter(e=>e.classList.contains('account-detail-row')).map(e=>e.innerText||'').join('\n'):'';};
  if(bank==='HSBC HK'&&visible(document.getElementById('account-summary-name'))){const selected=hsbcMetadata();const scoped=cards.filter(c=>new RegExp('(?:^|[^0-9])'+c.tail+'(?:[^0-9]|$)').test(selected));if(scoped.length!==1)return {error:'card_not_identified'};matches=scoped;selectedCardId=scoped[0].id;}
+ let scPage=null;
+ if(bank==='SC HK'&&/\/card_details\.htm$/.test(location.pathname)&&self.CardyReader?.scDetails){scPage=self.CardyReader.scDetails(cards);if(!scPage?.card)return {error:'card_not_identified'};matches=[scPage.card];selectedCardId=scPage.card.id;}
  // BOA account details: the page's own heading names the card, outside any link or button.
  let boaHeading='',boaHeadingsNow=()=>'';
  if(bank==='BOA'&&/^\/myaccounts\//.test(location.pathname)){const headings=boaHeadingsNow=()=>[...document.querySelectorAll('span,h1,h2')].filter(e=>visible(e)&&!e.closest('a,button')&&/\s-\s\d{4,5}$/.test((e.innerText||'').trim())&&(e.innerText||'').length<120).map(e=>e.innerText.trim()).join('\n');const until=Date.now()+8000;boaHeading=headings();while(!boaHeading&&Date.now()<until){await new Promise(r=>setTimeout(r,200));boaHeading=headings();}const scoped=cards.filter(c=>new RegExp('\\s-\\s'+c.tail+'$','m').test(boaHeading));if(scoped.length!==1)return {error:'card_not_identified'};matches=scoped;selectedCardId=scoped[0].id;}
@@ -53,7 +55,11 @@ export async function capturePage(bank,cards,contextIds=[]){
  if(bank==='Amex US'&&selectedCardId&&self.CardyReader?.issuerDue&&/^\/(?:dashboard|overview)\/?$/.test(location.pathname)){
   for(const item of self.CardyReader.issuerDue(body.split('\n').map(t=>t.trim()).filter(Boolean),bank,matches.find(c=>c.id===selectedCardId))){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
  }
- if(boaHeading&&self.CardyReader?.issuerBilling){
+ if(scPage?.text){
+  for(const item of self.CardyReader.issuerBilling(scPage.text,bank,scPage.card)){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
+  // Nothing else from this page leaves it: it prints the full card number, in forms redaction may not catch.
+  return {pageHref:location.href,empty:[],coverage:[],notCollected:[],observations,blocks,aliases,links:[],capturedAt:new Date().toISOString(),rulesComplete:true};
+ }else if(boaHeading&&self.CardyReader?.issuerBilling){
   // The billing block runs from the current balance to the payment control. Below it are transactions.
   const lines=(document.body?.innerText||'').split('\n').map(t=>t.trim()).filter(Boolean),from=lines.findIndex(t=>/^current balance:?$/i.test(t)),to=lines.findIndex((t,i)=>i>from&&/^make payment$/i.test(t)),block=from<0?[]:lines.slice(from,to>from?to:from+40);
   for(const item of self.CardyReader.issuerBilling(boaHeading+'\n'+block.join('\n'),bank,matches[0])){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}

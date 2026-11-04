@@ -149,7 +149,6 @@ test('collection scripts and the structure report still run under a strict page 
 
 for(const [bank,url,cards,want] of [
  ['Citi US','https://www.citi.com/',['2345','6789'],[{balance:1234.56,available:8765.44,statement:321,minimum:35,due:'2030-12-19'},{balance:67.89,available:4932.11,statement:0}]],
- ['SC HK','https://retail.sc.com/hk/nfs/login.htm',['4321','8765'],[{balance:1234.56,available:8765.44,statement:321,minimum:35,due:'2030-12-19'},{balance:67.89,available:4932.11,statement:0}]]
 ])test('capture scopes each '+bank+' card on one page and reads its billing fields',async()=>{
  const run=await start();
  try{
@@ -196,6 +195,31 @@ test('BOA: cards come from the Credit cards group, and billing from each card\'s
   mark=events.length;await chrome.tabs.update(tab.id,{url:slow.href});await until(()=>events.slice(mark).some(e=>e.status==='complete'));
   await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
   const raw=await exec(capturePage,['BOA',cards,['c1234']]);assert.equal(raw.error,undefined);assert.ok(raw.observations.some(o=>o.key==='balance'));
+ }finally{await run.stop();}
+});
+
+test('SC HK: reads the details table, and the full card number never leaves the page',async()=>{
+ const run=await start();
+ try{
+  const {chrome}=run.adapter,events=[];chrome.tabs.onUpdated.addListener((id,c)=>events.push(c));
+  const tab=await chrome.tabs.create({url:'https://retail.sc.com/hk/nfs/login.htm',active:false});await until(()=>events.some(e=>e.status==='complete'));
+  const exec=(func,args=[])=>chrome.scripting.executeScript({target:{tabId:tab.id},func,args}).then(r=>r[0].result);
+  let mark=events.length;await exec(()=>{document.getElementById('sign-in').click();});await until(()=>events.slice(mark).some(e=>e.status==='complete'));
+  mark=events.length;await chrome.tabs.update(tab.id,{url:'https://retail.sc.com/hk/nfs/ibank/card_details.htm'});await until(()=>events.slice(mark).some(e=>e.status==='complete'));await until(()=>exec(()=>!!document.querySelector('tr')).catch(()=>false));
+  await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
+  const found=await exec(discoverVisibleCards,['SC HK',['zh-HK','zh-CN','en-HK']]);assert.deepEqual(found,{status:'found',cards:[{tail:'4321',name:'Synthetic Kakapo Card'}]});
+  const cards=[{id:'sc',bank:'SC HK',tail:'4321',currency:'HKD'}],raw=await exec(capturePage,['SC HK',cards,[]]);assert.equal(raw.error,undefined);
+  assert.deepEqual(Object.fromEntries(raw.observations.filter(o=>o.kind==='card').map(o=>[o.key,o.value])),{balance:1234.56,creditLimit:10000,available:8765.44,statement:321,minimum:35});
+  assert.equal(raw.observations.find(o=>o.key==='due').date,'2030-12-03','day first');
+  assert.ok(!JSON.stringify([found,raw]).includes('4000123412344321'),'no full card number in anything that leaves the page');
+  assert.equal(raw.observations.length,raw.blocks.length,'nothing but the read fields is sent on');
+  // Spaced with non-breaking spaces, which general redaction does not catch.
+  mark=events.length;await exec(()=>{sessionStorage.setItem('synthetic-spaced','1');location.reload();});await until(()=>events.slice(mark).some(e=>e.status==='complete'));await until(()=>exec(()=>!!document.querySelector('tr')).catch(()=>false));
+  await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
+  const spaced=await exec(capturePage,['SC HK',cards,[]]),spacedFound=await exec(discoverVisibleCards,['SC HK',['en-HK']]),dump=JSON.stringify([spaced,spacedFound]).replace(/\\u00a0|\u00a0/g,'');
+  assert.equal(spacedFound.cards[0].tail,'4321');assert.ok(!/4000.?1234/.test(dump),'spaced full number stays on the page');
+  assert.ok(await exec(()=>self.CardyReader.scDetails([{id:'x',tail:'4321'}]).card.id==='x'));
+  assert.equal((await exec(capturePage,['SC HK',[{id:'other',bank:'SC HK',tail:'9999',currency:'HKD'}],[]])).error,'card_not_identified','another card in the wallet does not borrow this page');
  }finally{await run.stop();}
 });
 
