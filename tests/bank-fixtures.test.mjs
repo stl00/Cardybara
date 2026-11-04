@@ -131,17 +131,19 @@ test('issuer rules never mix cards or guess',()=>{
  assert.deepEqual(boa('Visa ending in 1234\nCurrent Balance\n$5.00'),{balance:5},'nothing invented');
  assert.equal(boa('Visa ending in 1234\nPayment Due Date\nDec 19').due,undefined,'yearless English date');
  assert.equal(boa('Visa ending in 1234\nPayment Due Date\n12/19/2030\nDue Date\n12/20/2030').due,undefined,'conflicting dates');
- assert.equal(hk(sc.text).due,'2030-12-19');assert.equal(hk(sc.text.replace('19/12/2030','03/04/2030')).due,undefined,'ambiguous day and month');
+ assert.equal(hk(sc.text).due,'2030-12-19');assert.equal(hk(sc.text.replace('19/12/2030','03/04/2030')).due,'2030-04-03','SC HK prints day first');
  assert.equal(boa('Visa ending in 1234\nMinimum Payment Due\n$5.00\nNo payment due').paymentStatus,undefined);assert.equal(boa('Visa ending in 1234\nPayment Due Date\n12/19/2030\nNo payment due').paymentStatus,undefined);
  // Evidence is the labelled line carrying the value, and only forms the validator accepts are parsed.
  const late=JSON.parse(JSON.stringify(reader.issuerBilling('Visa ending in 1234\nMinimum Payment Due\nNot available\nMinimum Payment Due\n$5.00','BOA',f.card))).find(i=>i.key==='minimum');assert.match(late.evidence,/5\.00/);
  for(const form of ['Dec. 19, 2030','Sept 19, 2030','19 Dec, 2030','19 Dec. 2030'])assert.equal(boa('Visa ending in 1234\nPayment Due Date\n'+form).due,undefined,form);
  assert.equal(fieldsOf(reader.issuerBilling('尾號 8765\n還款到期日\n12月19日','SC HK',sc.card)).duePartial,'12月19日');
  assert.equal(fieldsOf(reader.issuerBilling('尾號 8765\n最後還款日期\n12月19日','SC HK',sc.card)).duePartial,undefined,'only labels the validator accepts');
- // The validator refuses an ambiguous model date too.
+ // Other banks without a known order accept no numeric date.
+ assert.equal(reader.issuerDue(['Payment Due Date','03/04/2030'],'HSBC HK',{tail:'1',currency:'HKD'}).length,0);
  const snapshot={bank:'SC HK',region:'HK',page:'https://example.test/account',capturedAt:'2030-01-01T00:00:00Z',aliases:[{id:'C1',cardId:'x',currency:'HKD'}],blocks:[{text:'Payment Due Date\n04/03/2030'},{text:'Payment Due Date\n19/12/2030'}],links:[]};
+ // Day first at SC HK: the month-first reading of the same text does not pass.
  const item=(date,evidence)=>({kind:'billing',cardId:'C1',key:'due',title:'Payment due date',value:null,currency:'HKD',date,status:'unknown',evidence});
- assert.equal(validateModel({items:[item('2030-03-04','Payment Due Date\n04/03/2030')],nextLinkId:null},snapshot).items.length,0);assert.equal(validateModel({items:[item('2030-12-19','Payment Due Date\n19/12/2030')],nextLinkId:null},snapshot).items.length,1);
+ assert.equal(validateModel({items:[item('2030-04-03','Payment Due Date\n04/03/2030')],nextLinkId:null},snapshot).items.length,0);assert.equal(validateModel({items:[item('2030-03-04','Payment Due Date\n04/03/2030')],nextLinkId:null},snapshot).items.length,1);assert.equal(validateModel({items:[item('2030-12-19','Payment Due Date\n19/12/2030')],nextLinkId:null},snapshot).items.length,1);
 });
 test('Amex US due date: labelled full date only',()=>{
  const due=text=>JSON.parse(JSON.stringify(reader.issuerDue(text.split('\n'),'Amex US',{tail:'12345',currency:'USD'})));

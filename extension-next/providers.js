@@ -11,7 +11,8 @@ export const PROVIDERS={
  'BOA':{issuer:'Bank of America',region:'US',locales:['en-US'],currency:'USD',hosts:['secure.bankofamerica.com','www.bankofamerica.com'],url:'https://secure.bankofamerica.com/myaccounts/brain/redirect.go',evidence:'unverified'},
  'HSBC HK':{issuer:'HSBC',region:'HK',locales:['zh-HK','zh-CN','en-HK'],currency:'HKD',hosts:['www.hsbc.com.hk','www.ebanking.hsbc.com.hk','www.security.online-banking.hsbc.com.hk'],url:'https://www.hsbc.com.hk/online/dashboard/',evidence:'fixture-only'},
  'Citi US':{issuer:'Citi',region:'US',locales:['en-US'],currency:'USD',hosts:['www.citi.com','online.citi.com'],url:'https://www.citi.com/',evidence:'unverified'},
- 'SC HK':{issuer:'Standard Chartered',region:'HK',locales:['zh-HK','zh-CN','en-HK'],currency:'HKD',hosts:['retail.sc.com','www.sc.com'],url:'https://retail.sc.com/hk/nfs/login.htm',evidence:'unverified'}
+ // SC's post-login pages hold no billing fields; its account details page does, and opens directly.
+ 'SC HK':{readPage:{from:/^\/hk\/nfs\/ibank\/(?:landing|account_overview|card_summary)\.htm$/,url:'https://retail.sc.com/hk/nfs/ibank/card_details.htm'},issuer:'Standard Chartered',region:'HK',locales:['zh-HK','zh-CN','en-HK'],currency:'HKD',hosts:['retail.sc.com','www.sc.com'],url:'https://retail.sc.com/hk/nfs/login.htm',evidence:'unverified'}
 };
 export const ACTIVE_BANKS=Object.keys(PROVIDERS).filter(bank=>!PROVIDERS[bank].archived);
 export function allowed(bank,href){

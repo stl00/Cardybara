@@ -1,6 +1,6 @@
 // Isolated-world DOM reader. Never reads form values, network responses or cookies.
 (()=>{
- const labels={statementClosing:/^(?:月結單結欠|月结单结欠|賬單結欠|账单结欠|statement balance|statement closing balance)$/i,creditLimit:/^(?:total credit line|credit limit|信用限額|信用額度|信用额度)$/i,balance:/^(current balance|outstanding balance|total balance|balance outstanding|總結欠|总欠款|总计结欠|總計結欠|目前結欠|現時結欠|目前結餘|結欠|結餘|現時結餘|当前余额|目前结欠|现时结欠|目前结余|结欠|结余|solde actuel)$/i,available:/^(total credit available|available credit|available credit limit|available credit amount|可用信貸額|可用信貸額度|可用信用額|可用信用額度|可用額度|可用额度|可用信贷额|可用信贷额度|crédit disponible)$/i,statement:/^(statement balance|remaining statement balance|last statement balance|statement closing balance|賬單結欠|帳單結欠|月結單結欠|月結單結餘|結單結欠|结单结欠|月结单结欠|solde du relevé)$/i,minimum:/^(total min payment due|total minimum payment due|minimum payment due|minimum payment|minimum amount due|minimum due|最低還款|最低还款|最低還款額|最低還款金額|最低付款額|最低付款金額|最低还款额|最低还款金额|paiement minimum)$/i};
+ const labels={statementClosing:/^(?:月結單結欠|月结单结欠|賬單結欠|账单结欠|statement balance|statement closing balance)$/i,creditLimit:/^(?:approved credit limit|total credit line|credit limit|信用限額|信用額度|信用额度)$/i,balance:/^(current balance|outstanding balance|total balance|balance outstanding|總結欠|总欠款|总计结欠|總計結欠|目前結欠|現時結欠|目前結餘|結欠|結餘|現時結餘|当前余额|目前结欠|现时结欠|目前结余|结欠|结余|solde actuel)$/i,available:/^(total credit available|available credit|available credit limit|available credit amount|可用信貸額|可用信貸額度|可用信用額|可用信用額度|可用額度|可用额度|可用信贷额|可用信贷额度|crédit disponible)$/i,statement:/^(billed balance|statement balance|remaining statement balance|last statement balance|statement closing balance|賬單結欠|帳單結欠|月結單結欠|月結單結餘|結單結欠|结单结欠|月结单结欠|solde du relevé)$/i,minimum:/^(total min payment due|total minimum payment due|minimum payment due|minimum payment|minimum amount due|minimum due|最低還款|最低还款|最低還款額|最低還款金額|最低付款額|最低付款金額|最低还款额|最低还款金额|paiement minimum)$/i};
  const currencyToken=/^(?:HK\$|CA\$|US\$|\$|HKD|CAD|USD|CNY|RMB|CN¥)$/i;
  // A rewards label by its shape, used only to report a programme this version does not collect.
  // structural: the unit words are generic vocabulary, and a verb-led phrase is an action, not a balance.
@@ -331,13 +331,13 @@
  const holdsOther=(text,tail,otherTails=[])=>maskedOther(text,tail)||[...String(text).matchAll(TAIL_LIKE)].some(m=>m[0]!==tail&&!YEAR.test(m[0]))||otherTails.some(t=>t!==tail&&new RegExp('(?:^|[^0-9])'+t+'(?:[^0-9]|$)').test(text));
  const MONTHS=['jan(?:uary)?','feb(?:ruary)?','mar(?:ch)?','apr(?:il)?','may','jun(?:e)?','jul(?:y)?','aug(?:ust)?','sep(?:tember)?','oct(?:ober)?','nov(?:ember)?','dec(?:ember)?'];
  const monthOf=name=>MONTHS.findIndex(m=>new RegExp('^'+m+'$','i').test(name))+1;
- // Only forms the validator can ground in evidence, and a numeric order only where it is certain.
+ // Only forms the validator can ground in evidence. Numeric order is per bank, from its real pages: SC HK prints day first.
  function issuerDate(text,bank){
   const t=String(text).trim();let y,m,d,x;
   if(x=t.match(/^(20\d{2})年\s*(\d{1,2})月\s*(\d{1,2})日$/)||t.match(/^(20\d{2})-(\d{2})-(\d{2})$/))[y,m,d]=x.slice(1).map(Number);
   else if(x=t.match(/^([A-Za-z]+) (\d{1,2}),? (20\d{2})$/)){m=monthOf(x[1]);d=Number(x[2]);y=Number(x[3]);}
   else if(x=t.match(/^(\d{1,2}) ([A-Za-z]+) (20\d{2})$/)){d=Number(x[1]);m=monthOf(x[2]);y=Number(x[3]);}
-  else if(x=t.match(/^(\d{1,2})\/(\d{1,2})\/(20\d{2})$/)){y=Number(x[3]);if(['BOA','Amex US','Citi US'].includes(bank)){m=Number(x[1]);d=Number(x[2]);}else{d=Number(x[1]);m=Number(x[2]);if(d<=12)return null;}}
+  else if(x=t.match(/^(\d{1,2})\/(\d{1,2})\/(20\d{2})$/)){y=Number(x[3]);if(['BOA','Amex US','Citi US'].includes(bank)){m=Number(x[1]);d=Number(x[2]);}else if(bank==='SC HK'){d=Number(x[1]);m=Number(x[2]);}else return null;}
   else return null;
   if(!m||m>12||!d)return null;const iso=y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0');
   return Number.isFinite(Date.parse(iso))&&new Date(iso).toISOString().slice(0,10)===iso?iso:null;
@@ -389,5 +389,14 @@
   }
   return best;
  }
- self.CardyReader={issuerDue,issuerBilling,issuerScope,rewardLabel,otherRewardLabels,amexHkMvp,chaseSnapshot,chaseBenefitText,chaseBenefitGauge,chaseDate,chaseTransactions,chaseDetail,chaseOffer,amexHkTransactionRows,hsbcTransactionRows,authState,money,parseAccount,identify,chaseBindings,read,observe,resolveLocale,parseAmexOverview};
+ // SC HK account details: a table of "Label: | value" rows. The page prints the full card number, so only its last four digits are ever kept.
+ function scDetails(cards,doc=document){
+  const cell=label=>{for(const r of doc.querySelectorAll('tr')){const c=[...r.cells],i=c.findIndex(x=>(x.innerText||'').trim()===label);if(i>=0&&c[i+1])return (c[i+1].innerText||'').trim();}return '';};
+  const digits=(cell('Card Number:').match(/\d[\d -]{7,}\d/)?.[0]||'').replace(/\D/g,''),tail=digits.length>=12?digits.slice(-4):null;if(!tail)return null;
+  const card=cards.find(c=>c.tail===tail);if(!card)return {tail};
+  const lines=['Card ending in '+tail];
+  for(const label of ['Current Balance:','Approved Credit Limit:','Available Credit Limit:','Billed Balance:','Minimum Payment Due:','Payment Due Date:']){const value=cell(label);if(value)lines.push(label,value);}
+  return {tail,card,text:lines.join('\n')};
+ }
+ self.CardyReader={scDetails,issuerDue,issuerBilling,issuerScope,rewardLabel,otherRewardLabels,amexHkMvp,chaseSnapshot,chaseBenefitText,chaseBenefitGauge,chaseDate,chaseTransactions,chaseDetail,chaseOffer,amexHkTransactionRows,hsbcTransactionRows,authState,money,parseAccount,identify,chaseBindings,read,observe,resolveLocale,parseAmexOverview};
 })();

@@ -42,8 +42,7 @@ export function evidenceDate(date,evidence,dateOrder){
  const [y,m,d]=date.split('-').map(Number),text=canonicalEvidence(evidence);
  if(new RegExp(`\\b${y}[/.]0?${m}[/.]0?${d}\\b`).test(text))return true;
  if(dateOrder==='mdy'&&new RegExp(`\\b0?${m}/0?${d}/${y}\\b`).test(text))return true;
- // Day first only where it cannot be read the other way round.
- if(dateOrder==='dmy'&&d>12&&new RegExp(`\\b0?${d}/0?${m}/${y}\\b`).test(text))return true;
+ if(dateOrder==='dmy'&&new RegExp(`\\b0?${d}/0?${m}/${y}\\b`).test(text))return true;
  if(new RegExp(`${y}\\s*年\\s*0?${m}\\s*月\\s*0?${d}\\s*日`).test(text))return true;
  const months=['Jan(?:uary)?','Feb(?:ruary)?','Mar(?:ch)?','Apr(?:il)?','May','Jun(?:e)?','Jul(?:y)?','Aug(?:ust)?','Sep(?:tember)?','Oct(?:ober)?','Nov(?:ember)?','Dec(?:ember)?'];
  return new RegExp(`(?:\\b${months[m-1]}\\s+0?${d},?\\s*${y}\\b|\\b0?${d}\\s+${months[m-1]}\\s+${y}\\b|\\b0?${d}\\s+0?${m}月\\s+${y}\\b)`,'i').test(text);

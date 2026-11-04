@@ -36,6 +36,7 @@ async function loaded(tabId,url){
  let stage='prepare';
  await ready;let ctx=await active(tabId);if(!ctx||ctx.status!=='navigating')return;
  if(!guidedPage(ctx.bank,url)){await publish(await engine.fail(ctx,'navigation_changed'));return;}
+ const readPage=PROVIDERS[ctx.bank].readPage;if(readPage?.from.test(new URL(url).pathname)){try{await bounded(chrome.tabs.update(tabId,{url:readPage.url,active:true}));}catch{await publish(await engine.fail(ctx,'load_error',{stage:'open_bank',code:'bank_tab_unavailable'}));}return;}
  try{
   const s=await engine.capture(ctx);if(!s)return;ctx={...ctx,...s.run.jobs.find(j=>j.attemptId===ctx.attemptId)};
   await notify(s);stage='inject_reader';const injection=await bounded(chrome.scripting.executeScript({target:{tabId},files:['reader.js']}));
