@@ -1449,8 +1449,7 @@
     "酒店直接消费": "Purchases made directly with hotels",
     "每月最多10美元，限美国指定服务商，须登记。": "Up to $10 each month on U.S. rideshare purchases with select providers. Enrollment required.",
     "每月最多10美元，限美国合资格 Resy 餐厅，须登记。": "Up to $10 each month at qualifying U.S. Resy restaurants. Enrollment required.",
-    "页面只列名称，金额和周期未在该卡读取内容中确认。": "The page names this benefit; amount and period were not confirmed for this card.",
-    "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。": "A 20% statement credit on eligible Delta in-flight purchases.",
+    "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。": "Every 4 years: $120 for Global Entry or up to $85 for TSA PreCheck.",
     "American Express · Delta SkyMiles Reserve American Express Card 官方产品页": "American Express · Delta SkyMiles Reserve American Express Card official product page",
     "Sky Club 次数、Centurion 访问、Companion Certificate、MQD 和免费行李的细节未录入。": "Sky Club visits, Centurion access, Companion Certificate, MQD and free bag details are not recorded.",
     "每月最多20美元，须登记，限美国合资格 Resy 餐厅。": "With an enrolled Card, up to $20 per month at qualifying U.S. Resy restaurants.",
@@ -1487,13 +1486,12 @@
     "Delta 和酒店直接消费": "Purchases made directly with Delta and hotels",
     "交通、美国运输或大额消费": "Transit, U.S. shipping or large purchases",
     "合计每年前10万美元（页面只写每年）；单笔5,000美元以上算大额；多个加速比例时只取较高者。": "Up to $100K of combined eligible purchases per year; the page does not say how the year is counted. Single purchases of $5K or more count as large. Only the higher accelerator applies.",
-    "每年最多120美元，须登记。": "Up to $120 in statement credits annually on eligible Resy purchases. Enrollment required.",
-    "每年最多200美元；周期的起算方式未结构化。": "An annual statement credit of up to $200 through Delta Stays. How the year is counted is not structured here.",
-    "Global Entry 120美元，或 TSA PreCheck 最多85美元；周期未结构化。": "$120 for Global Entry or up to $85 for TSA PreCheck; how often is not structured here.",
+    "每年最多200美元，须通过 Delta Stays 预付酒店或度假屋；周期的起算方式未结构化。": "An annual statement credit of up to $200 on prepaid hotels or vacation rentals through Delta Stays. How the year is counted is not structured here.",
     "American Express · Delta SkyMiles Gold Business Card 官方产品页": "American Express · Delta SkyMiles Gold Business Card official product page",
     "美国广告和运输各有每年5万美元额度的2倍，未单列。首年优惠是否适用未核实。免费行李未录入。": "2X on U.S. advertising and on U.S. shipping, each up to $50,000 per year, is not listed separately. Whether the intro fee applies is unverified. Free bags are not recorded.",
     "每年最多150美元，限预付；周期的起算方式未结构化。": "Up to $150 back annually on eligible prepaid bookings. How the year is counted is not structured here.",
-    "首次续卡后每月最多10美元，须登记，限美国指定服务商。": "After your first Card renewal, enroll to earn up to $10 each month on U.S. rideshare purchases with select providers."
+    "首次续卡后每月最多10美元，须登记，限美国指定服务商。": "After your first Card renewal, enroll to earn up to $10 each month on U.S. rideshare purchases with select providers.",
+    "以抵扣形式返还，限合资格的 Delta 机上消费。": "A 20% statement credit on eligible Delta in-flight purchases."
   },
   "zh-TW": {
     "美国": "美國",
@@ -2945,8 +2943,7 @@
     "酒店直接消费": "酒店直接消費",
     "每月最多10美元，限美国指定服务商，须登记。": "每月最多10美元，限美國指定服務商，須登記。",
     "每月最多10美元，限美国合资格 Resy 餐厅，须登记。": "每月最多10美元，限美國合資格 Resy 餐廳，須登記。",
-    "页面只列名称，金额和周期未在该卡读取内容中确认。": "頁面只列名稱，金額和週期未在該卡讀取內容中確認。",
-    "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。": "以抵扣形式返還，限 Delta 機上餐飲等合資格消費。",
+    "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。": "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。",
     "American Express · Delta SkyMiles Reserve American Express Card 官方产品页": "American Express · Delta SkyMiles Reserve American Express Card 官方產品頁",
     "Sky Club 次数、Centurion 访问、Companion Certificate、MQD 和免费行李的细节未录入。": "Sky Club 次數、Centurion 訪問、Companion Certificate、MQD 和免費行李的細節未錄入。",
     "每月最多20美元，须登记，限美国合资格 Resy 餐厅。": "每月最多20美元，須登記，限美國合資格 Resy 餐廳。",
@@ -2983,12 +2980,11 @@
     "Delta 和酒店直接消费": "Delta 和酒店直接消費",
     "交通、美国运输或大额消费": "交通、美國運輸或大額消費",
     "合计每年前10万美元（页面只写每年）；单笔5,000美元以上算大额；多个加速比例时只取较高者。": "合計每年前10萬美元（頁面只寫每年）；單筆5,000美元以上算大額；多個加速比例時只取較高者。",
-    "每年最多120美元，须登记。": "每年最多120美元，須登記。",
-    "每年最多200美元；周期的起算方式未结构化。": "每年最多200美元；週期的起算方式未結構化。",
-    "Global Entry 120美元，或 TSA PreCheck 最多85美元；周期未结构化。": "Global Entry 120美元，或 TSA PreCheck 最多85美元；週期未結構化。",
+    "每年最多200美元，须通过 Delta Stays 预付酒店或度假屋；周期的起算方式未结构化。": "每年最多200美元，須透過 Delta Stays 預付酒店或度假屋；週期的起算方式未結構化。",
     "American Express · Delta SkyMiles Gold Business Card 官方产品页": "American Express · Delta SkyMiles Gold Business Card 官方產品頁",
     "美国广告和运输各有每年5万美元额度的2倍，未单列。首年优惠是否适用未核实。免费行李未录入。": "美國廣告和運輸各有每年5萬美元額度的2倍，未單列。首年優惠是否適用未核實。免費行李未錄入。",
     "每年最多150美元，限预付；周期的起算方式未结构化。": "每年最多150美元，限預付；週期的起算方式未結構化。",
-    "首次续卡后每月最多10美元，须登记，限美国指定服务商。": "首次續卡後每月最多10美元，須登記，限美國指定服務商。"
+    "首次续卡后每月最多10美元，须登记，限美国指定服务商。": "首次續卡後每月最多10美元，須登記，限美國指定服務商。",
+    "以抵扣形式返还，限合资格的 Delta 机上消费。": "以抵扣形式返還，限合資格的 Delta 機上消費。"
   }
 }

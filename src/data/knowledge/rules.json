@@ -38598,26 +38598,26 @@
       "country": "US",
       "issuer": "Amex US"
     },
-    "category": "membership",
+    "category": "credit",
     "scenarioIds": [
       "airport"
     ],
     "programmeIds": [],
     "content": {
       "title": "Global Entry 或 TSA PreCheck 申请费抵扣",
-      "summary": "页面只列名称，金额和周期未在该卡读取内容中确认。",
-      "sourceText": "Fee Credit for Global Entry or TSA PreCheck",
+      "summary": "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。",
+      "sourceText": "Receive either a $120 statement credit for a Global Entry application fee",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "页面只列名称，金额和周期未在该卡读取内容中确认。",
+        "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
     "terms": {
-      "category": "membership",
-      "period": null,
-      "amount": null,
-      "currency": null
+      "category": "credit",
+      "period": "rolling-four-years",
+      "amount": 120,
+      "currency": "USD"
     },
     "validity": {
       "effectiveFrom": null,
@@ -38627,7 +38627,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "页面只列名称，金额和周期未在该卡读取内容中确认。"
+      "unparsedText": "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。"
     },
     "evidence": {
       "sourceIds": [
@@ -38671,11 +38671,11 @@
     "programmeIds": [],
     "content": {
       "title": "机上消费20%返还",
-      "summary": "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。",
+      "summary": "以抵扣形式返还，限 Delta 机上餐饮。",
       "sourceText": "20% Back On In-Flight Purchases",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。",
+        "以抵扣形式返还，限 Delta 机上餐饮。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -38693,7 +38693,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。"
+      "unparsedText": "以抵扣形式返还，限 Delta 机上餐饮。"
     },
     "evidence": {
       "sourceIds": [
@@ -41203,18 +41203,18 @@
     ],
     "content": {
       "title": "Resy 餐厅抵扣",
-      "summary": "每年最多120美元，须登记。",
-      "sourceText": "Earn up to $120 in statement credits annually after making eligible Resy purchases",
+      "summary": "每月最多10美元，限美国合资格 Resy 餐厅，须登记。",
+      "sourceText": "you can earn up to $10 per month in statement credits on eligible purchases",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "每年最多120美元，须登记。",
+        "每月最多10美元，限美国合资格 Resy 餐厅，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
     "terms": {
       "category": "credit",
-      "period": null,
-      "amount": 120,
+      "period": "calendar-month",
+      "amount": 10,
       "currency": "USD",
       "requiresEnrollment": true
     },
@@ -41226,7 +41226,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "每年最多120美元，须登记。"
+      "unparsedText": "每月最多10美元，限美国合资格 Resy 餐厅，须登记。"
     },
     "evidence": {
       "sourceIds": [
@@ -41270,11 +41270,11 @@
     "programmeIds": [],
     "content": {
       "title": "Delta Stays 抵扣",
-      "summary": "每年最多200美元；周期的起算方式未结构化。",
+      "summary": "每年最多200美元，须通过 Delta Stays 预付酒店或度假屋；周期的起算方式未结构化。",
       "sourceText": "an annual statement credit of up to $200 after using your",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "每年最多200美元；周期的起算方式未结构化。",
+        "每年最多200美元，须通过 Delta Stays 预付酒店或度假屋；周期的起算方式未结构化。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -41292,7 +41292,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "每年最多200美元；周期的起算方式未结构化。"
+      "unparsedText": "每年最多200美元，须通过 Delta Stays 预付酒店或度假屋；周期的起算方式未结构化。"
     },
     "evidence": {
       "sourceIds": [
@@ -41336,17 +41336,17 @@
     "programmeIds": [],
     "content": {
       "title": "Global Entry 或 TSA PreCheck 申请费抵扣",
-      "summary": "Global Entry 120美元，或 TSA PreCheck 最多85美元；周期未结构化。",
+      "summary": "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。",
       "sourceText": "Receive either a $120 statement credit for a Global Entry application fee",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "Global Entry 120美元，或 TSA PreCheck 最多85美元；周期未结构化。",
+        "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
     "terms": {
       "category": "credit",
-      "period": null,
+      "period": "rolling-four-years",
       "amount": 120,
       "currency": "USD"
     },
@@ -41358,7 +41358,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Global Entry 120美元，或 TSA PreCheck 最多85美元；周期未结构化。"
+      "unparsedText": "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。"
     },
     "evidence": {
       "sourceIds": [
@@ -41878,11 +41878,11 @@
     "programmeIds": [],
     "content": {
       "title": "机上消费20%返还",
-      "summary": "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。",
+      "summary": "以抵扣形式返还，限合资格的 Delta 机上消费。",
       "sourceText": "Receive a 20% savings in the form of a statement credit on eligible Delta in-flight purchases",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。",
+        "以抵扣形式返还，限合资格的 Delta 机上消费。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -41900,7 +41900,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。"
+      "unparsedText": "以抵扣形式返还，限合资格的 Delta 机上消费。"
     },
     "evidence": {
       "sourceIds": [

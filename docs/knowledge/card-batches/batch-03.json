@@ -213,18 +213,20 @@
           "key": "trusted-traveler",
           "zh": "Global Entry 或 TSA PreCheck 申请费抵扣",
           "en": "Global Entry or TSA PreCheck credit",
-          "noteZh": "页面只列名称，金额和周期未在该卡读取内容中确认。",
-          "noteEn": "The page names this benefit; amount and period were not confirmed for this card.",
+          "noteZh": "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。",
+          "noteEn": "Every 4 years: $120 for Global Entry or up to $85 for TSA PreCheck.",
           "scenario": "airport",
-          "category": "membership",
-          "quote": "Fee Credit for Global Entry or TSA PreCheck"
+          "category": "credit",
+          "quote": "Receive either a $120 statement credit for a Global Entry application fee",
+          "amount": 120,
+          "period": "rolling-four-years"
         },
         {
           "key": "inflight",
           "zh": "机上消费20%返还",
           "en": "20% back on in-flight purchases",
-          "noteZh": "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。",
-          "noteEn": "A 20% statement credit on eligible Delta in-flight purchases.",
+          "noteZh": "以抵扣形式返还，限 Delta 机上餐饮。",
+          "noteEn": "A 20% statement credit on eligible Delta in-flight food and beverage purchases.",
           "scenario": "airport",
           "category": "membership",
           "period": "ongoing",
@@ -734,22 +736,23 @@
           "key": "resy",
           "zh": "Resy 餐厅抵扣",
           "en": "Resy credit",
-          "noteZh": "每年最多120美元，须登记。",
-          "noteEn": "Up to $120 in statement credits annually on eligible Resy purchases. Enrollment required.",
-          "amount": 120,
+          "noteZh": "每月最多10美元，限美国合资格 Resy 餐厅，须登记。",
+          "noteEn": "Up to $10 per month at qualifying U.S. Resy restaurants. Enrollment required.",
+          "amount": 10,
           "scenario": "dining",
           "programmeIds": [
             "programme.resy"
           ],
           "enrollment": true,
-          "quote": "Earn up to $120 in statement credits annually after making eligible Resy purchases"
+          "quote": "you can earn up to $10 per month in statement credits on eligible purchases",
+          "period": "calendar-month"
         },
         {
           "key": "delta-stays",
           "zh": "Delta Stays 抵扣",
           "en": "Delta Stays credit",
-          "noteZh": "每年最多200美元；周期的起算方式未结构化。",
-          "noteEn": "An annual statement credit of up to $200 through Delta Stays. How the year is counted is not structured here.",
+          "noteZh": "每年最多200美元，须通过 Delta Stays 预付酒店或度假屋；周期的起算方式未结构化。",
+          "noteEn": "An annual statement credit of up to $200 on prepaid hotels or vacation rentals through Delta Stays. How the year is counted is not structured here.",
           "amount": 200,
           "scenario": "hotel-stay",
           "quote": "an annual statement credit of up to $200 after using your"
@@ -758,11 +761,12 @@
           "key": "trusted-traveler",
           "zh": "Global Entry 或 TSA PreCheck 申请费抵扣",
           "en": "Global Entry or TSA PreCheck credit",
-          "noteZh": "Global Entry 120美元，或 TSA PreCheck 最多85美元；周期未结构化。",
-          "noteEn": "$120 for Global Entry or up to $85 for TSA PreCheck; how often is not structured here.",
+          "noteZh": "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。",
+          "noteEn": "Every 4 years: $120 for Global Entry or up to $85 for TSA PreCheck.",
           "amount": 120,
           "scenario": "airport",
-          "quote": "Receive either a $120 statement credit for a Global Entry application fee"
+          "quote": "Receive either a $120 statement credit for a Global Entry application fee",
+          "period": "rolling-four-years"
         }
       ],
       "unknown": [
@@ -865,7 +869,7 @@
           "key": "inflight",
           "zh": "机上消费20%返还",
           "en": "20% back on in-flight purchases",
-          "noteZh": "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。",
+          "noteZh": "以抵扣形式返还，限合资格的 Delta 机上消费。",
           "noteEn": "A 20% statement credit on eligible Delta in-flight purchases.",
           "scenario": "airport",
           "category": "membership",
