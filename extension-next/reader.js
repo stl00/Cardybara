@@ -57,8 +57,8 @@
    }
    const unique=[...new Set(values)];if(unique.length===1)fields[key]=bank==='HSBC HK'&&key==='balance'?-unique[0]:unique[0];
   }
-  // Amex HK prints the remaining statement balance only once part of it is paid; until then the statement balance is what is owed.
-  if(bank==='Amex HK'&&fields.statement===undefined&&fields.statementClosing!==undefined)fields.statement=fields.statementClosing;
+  // Inferred from page structure: with no remaining statement balance printed, Amex HK's statement balance stands in. A printed remaining balance that can't be read stays unknown, and a credit is not an amount owed.
+  if(bank==='Amex HK'&&fields.statement===undefined&&fields.statementClosing>=0&&!lines.some(l=>/^(?:未繳付月結單結欠|未缴付月结单结欠|remaining statement balance)$/i.test(labelText(l))))fields.statement=fields.statementClosing;
   return Object.keys(fields).length?{id:card.id,fields,capturedAt,locale}:null;
  }
 

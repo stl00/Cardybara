@@ -157,6 +157,8 @@ test('Amex HK statement: the remaining balance when printed, otherwise the state
  assert.deepEqual(Object.fromEntries(run('月結單結欠\nMore info on statement_balance_tooltip\nHK$30.00\n總結欠\nMore info on total_balance_tooltip\nHK$123.45')),{statement:30,statementClosing:30,balance:123.45});
  assert.equal(Object.fromEntries(run('月結單結欠\nHK$30.00\n未繳付月結單結欠\nHK$23.45\n總結欠\nHK$123.45')).statement,23.45);
  assert.deepEqual(run('總結欠\nHK$123.45'),[['balance',123.45]],'neither printed, so unknown');
+ assert.equal(Object.fromEntries(run('未繳付月結單結欠\n待更新\n月結單結欠\nHK$30.00\n總結欠\nHK$123.45')).statement,undefined,'a printed remaining balance that cannot be read stays unknown');
+ assert.equal(Object.fromEntries(run('月結單結欠\n-HK$30.00\n總結欠\nHK$123.45')).statement,undefined,'a credit is not an amount owed');
  const noPay=run('未繳付月結單結欠\nHK$0.00\n暫時毋須付款\n總結欠\n-HK$1,234.50');assert.deepEqual(noPay.find(i=>i[0]==='balance'),['balance',-1234.5]);assert.ok(noPay.some(i=>i[0]==='paymentStatus'));
 });
 test('Amex US prints its due date on the next line, and a missing year stays missing',()=>{
