@@ -150,5 +150,9 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   const before=state().run.id;read='updated';captureError='needs_confirmation';await tick();await wait(()=>state().run.id!==before);await finished();
   assert.equal(settings().banks.BOA.state,'stopped','a challenge after a partial read stops the bank');
   const challenged=state().run.id;allow();captureError=null;await tick();assert.equal(state().run.id,challenged,'and it is not retried');
+  // A worker that died mid-run: the check must settle that run, not replace it.
+  await say({type:'dev-schedule-set',enabled:false});await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60});
+  store['cardybara-state-v2']={...state(),run:{...state().run,id:'interrupted-run',status:'interrupted',jobs:state().run.jobs.map(j=>({...j,status:'interrupted'}))}};store['cardybara-dev-run']={id:'interrupted-run',restoreTab:null};
+  const created=calls.created.length;await tick();assert.equal(state().run.id,'interrupted-run','not replaced');assert.equal(settings().banks.BOA.state,'stopped','its stop is kept');assert.equal(store['cardybara-dev-run'].done,true);assert.equal(calls.created.length,created);
  }finally{rmSync(dir,{recursive:true,force:true});}
 });

@@ -24,17 +24,18 @@ async function pageShape(job){
  try{const tab=await chrome.tabs.get(job.tabId);if(!guidedPage(job.bank,tab.url))return null;const read=chrome.scripting.executeScript({target:{tabId:job.tabId},files:['dev-structure-report.js']});const [{result}]=await Promise.race([read,new Promise((_,no)=>setTimeout(()=>no(Error('timeout')),8000))]);return result||null;}catch{return null;}
 }
 // Handles a scheduled run once it ends, including one a worker restart or reload interrupted. The stop is saved
-// first, so nothing after it can lose it. A repeat only repeats the report.
-const finishRun=()=>serial(async()=>{
+// first, so nothing after it can lose it. A repeat repeats the report and closes only a tab still on the bank.
+async function settleRun(){
  const state=await engine.load(),run=state.run,mine=(await chrome.storage.local.get(RUN))[RUN];
  if(!run?.scheduled||run.status==='running'||mine?.id!==run.id||mine.done)return;
  const settings=afterRun(await loadSettings(),run,Date.now());await saveSettings(settings);await showState(settings);
  const pages={};for(const job of run.jobs)if((job.status!=='updated'||job.readError)&&Number.isInteger(job.tabId))pages[job.bank]=await pageShape(job);
- for(const job of run.jobs)if(job.owned&&Number.isInteger(job.tabId))await chrome.tabs.remove(job.tabId).catch(()=>{});
+ for(const job of run.jobs)if(job.owned&&Number.isInteger(job.tabId)){const tab=await chrome.tabs.get(job.tabId).catch(()=>null);if(tab&&guidedPage(job.bank,tab.url))await chrome.tabs.remove(job.tabId).catch(()=>{});}
  if(Number.isInteger(mine.restoreTab)){const current=(await chrome.tabs.query({active:true,lastFocusedWindow:true}))[0];if(current&&run.jobs.some(j=>j.tabId===current.id))await chrome.tabs.update(mine.restoreTab,{active:true}).catch(()=>{});}
  await deliver(buildReport({run,state,pages,build:'dev',now:Date.now()}));
  await chrome.storage.local.set({[RUN]:{...mine,done:true}});
-});
+}
+const finishRun=()=>serial(settleRun);
 async function bankTabs(){
  const tabs=await chrome.tabs.query({}),focused=await chrome.windows.getLastFocused().catch(()=>null),signedIn=[],inUse=[];
  for(const bank of ACTIVE_BANKS){
@@ -48,7 +49,8 @@ async function bankTabs(){
  return {signedIn,inUse};
 }
 const tick=()=>serial(async()=>{
- await ready;const settings=await loadSettings();if(!settings.enabled)return;await deliver();
+ // An unfinished run settles first, so a new run can't replace it and lose its stop.
+ await ready;await settleRun();const settings=await loadSettings();if(!settings.enabled)return;await deliver();
  if((await chrome.idle.queryState(IDLE_SECONDS))!=='idle')return;
  const state=await engine.load();if(state.run?.status==='running')return;
  const known=(state.discoveredCards||[]).filter(c=>ACTIVE_BANKS.includes(c.bank)),{signedIn,inUse}=await bankTabs(),now=Date.now();
