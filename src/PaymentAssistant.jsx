@@ -20,7 +20,7 @@ function usePaymentMarks(){
 function dueText(item){
  const {cycle,days,state}=item;
  if(state==='no_payment')return t('银行显示无需付款');
- if(state==='nothing_billed')return t('读到的本期账单为零');
+ if(state==='nothing_billed')return t('读到的账单没有应付金额');
  if(cycle?.kind==='yearless')return t('还款日 {0}（银行未提供年份）',[cycle.label]);
  if(!cycle)return t('还款日未读取');
  if(days===-1)return t('还款日 {0} · 昨天',[cycle.date]);
@@ -38,7 +38,7 @@ function StateTags({item}){
   {!handled&&state==='yearless'&&<Tag color="warning">{t('年份未知')}</Tag>}
   {!handled&&state==='autopay'&&<Tag color="processing">{t('自动还款已开启')}</Tag>}
   {!handled&&state==='no_payment'&&<Tag>{t('无需付款')}</Tag>}
-  {!handled&&state==='nothing_billed'&&<Tag>{t('账单为零')}</Tag>}
+  {!handled&&state==='nothing_billed'&&<Tag>{t('没有应付金额')}</Tag>}
   {!handled&&state==='unknown'&&<Tag>{t('未读取')}</Tag>}
   {stale&&<Tag color="orange">{t('读数已过期')}</Tag>}</>;
 }
@@ -87,7 +87,7 @@ export default function PaymentAssistant({cards,hidden=false,urls,onDetail,onRef
  const row=item=><PaymentRow key={item.card.id} item={item} money={money} urls={urls} onDetail={onDetail} onMark={onMark} onUndo={onUndo}/>;
  const counts={all:view.rest.length+view.handled.length,handled:view.handled.length};
  for(const item of view.rest){const group=paymentGroup(item);counts[group]=(counts[group]||0)+1;}
- const options=[['all','全部'],['due','待还款'],['autopay','自动还款'],['no_payment','无需付款'],['unknown','未读取或过期'],['handled','已处理']].filter(([value])=>value==='all'||counts[value]).map(([value,label])=>({value,label:`${t(label)} ${counts[value]}`}));
+ const options=[['all','全部'],['due','待还款'],['autopay','自动还款'],['no_payment','无需付款'],['nothing_billed','没有应付金额'],['unknown','未读取或过期'],['handled','已处理']].filter(([value])=>value==='all'||counts[value]).map(([value,label])=>({value,label:`${t(label)} ${counts[value]}`}));
  const active=options.some(o=>o.value===filter)?filter:'all';
  const pool=active==='handled'?view.handled:active==='all'?[...view.rest,...view.handled]:view.rest.filter(i=>paymentGroup(i)===active);
  const query=search.trim().toLowerCase();

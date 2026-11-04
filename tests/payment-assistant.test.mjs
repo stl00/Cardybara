@@ -91,11 +91,13 @@ test('a statement read as zero is not a bill to act on, and is not called no pay
  }
  assert.equal(item({statement:0,minimum:25,due:'2026-11-05'}).state,'due','a read minimum still has to be paid');
  assert.equal(item({minimum:0,due:'2026-11-05'}).state,'due','an unread statement is not zero');
+ const older=card({statement:0,due:'2026-11-05'});older.fieldDates.statement='2026-09-01T15:00:00Z';assert.equal(paymentItem(older,[],today).state,'due','an older zero statement does not hide a newer due date');
+ const undated=card({statement:0,due:'2026-11-05'});undated.fieldDates.statement='not a date';assert.equal(paymentItem(undated,[],today).state,'due');
 });
 test('old readings are filtered with the rollup they are counted in',()=>{
  const old=card({autopay:'on',due:'2026-11-20'});for(const k of Object.keys(old.fieldDates))old.fieldDates[k]='2026-09-01T15:00:00Z';
  assert.equal(paymentGroup(paymentItem(old,[],today)),'unknown');assert.equal(paymentGroup(item({autopay:'on'})),'autopay');
- assert.equal(paymentGroup(item({statement:0})),'no_payment');
+ assert.equal(paymentGroup(item({statement:0})),'nothing_billed','never filed under the bank saying no payment is due');
 });
 test('a mark dated in the future is ignored so it cannot outlive its cycle',()=>{
  const future={key:JSON.stringify(['a','yearless','11月6日']),at:'2099-01-01T00:00:00.000Z'};

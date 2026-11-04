@@ -52,7 +52,9 @@ export function paymentItem(card,marks=[],asOf=walletDay()){
  const readAt=known.length?oldestReading(card,known,asOf):null,stale=known.length>0&&isOld(readAt);
  // Only the due date's own reading can say a bill is overdue; an old autopay reading cannot hide it.
  const dueOld=cycle?.kind==='date'&&isOld(oldestReading(card,['due'],asOf));
- const nothingBilled=Number.isFinite(card.statement)&&card.statement<=0&&(card.minimum==null||card.minimum===0);
+ // A zero statement older than the due date belongs to an earlier bill and says nothing about this one.
+ const statementDay=readDay(card.fieldDates?.statement||card.updated,asOf),dueDay=cycle?readDay(card.fieldDates?.[cycle.kind==='date'?'due':'duePartial']||card.updated,asOf):null;
+ const nothingBilled=Number.isFinite(card.statement)&&card.statement<=0&&(card.minimum==null||card.minimum===0)&&!!statementDay&&(!cycle||(!!dueDay&&statementDay>=dueDay));
  const days=cycle?.kind==='date'?daysBetween(asOf,cycle.date):null,autopayOn=card.autopay==='on';
  let state;
  if(noPayment)state='no_payment';
@@ -94,11 +96,10 @@ export function paymentView(cards,marks=[],asOf=walletDay()){
   action:action.length,
  };
 }
-export const PAYMENT_GROUPS=['due','autopay','no_payment','unknown'];
 export function paymentGroup(item){
  if(item.state==='unknown'||item.state==='stale'||item.stale)return 'unknown';
  if(['overdue','due','yearless'].includes(item.state))return 'due';
- return item.state==='nothing_billed'?'no_payment':item.state;
+ return item.state;
 }
 
 const validMark=m=>m&&typeof m.key==='string'&&m.key.length<=300&&typeof m.at==='string'&&Number.isFinite(Date.parse(m.at))&&Date.parse(m.at)<=Date.now()+DAY_MS&&(()=>{try{const k=JSON.parse(m.key);return Array.isArray(k)&&k.length===3&&k.every(x=>typeof x==='string')&&['date','yearless'].includes(k[1]);}catch{return false}})();
