@@ -57,6 +57,8 @@
    }
    const unique=[...new Set(values)];if(unique.length===1)fields[key]=bank==='HSBC HK'&&key==='balance'?-unique[0]:unique[0];
   }
+  // Inferred from page structure: with no remaining statement balance printed, Amex HK's statement balance stands in. A printed remaining balance that can't be read stays unknown, and a credit is not an amount owed.
+  if(bank==='Amex HK'&&fields.statement===undefined&&fields.statementClosing>=0&&!lines.some(l=>/^(?:未繳付月結單結欠|未缴付月结单结欠|remaining statement balance)$/i.test(labelText(l))))fields.statement=fields.statementClosing;
   return Object.keys(fields).length?{id:card.id,fields,capturedAt,locale}:null;
  }
 
@@ -70,7 +72,7 @@
   if(page==='overview'){
    const parsed=parseAccount(text,'Amex HK',card,'zh-HK',new Date().toISOString(),100000);
    for(const [key,value]of Object.entries(parsed?.fields||{})){
-    const label=key==='statement'?/^(?:未繳付月結單結欠|未缴付月结单结欠|remaining statement balance)$/i:labels[key];
+    const remaining=/^(?:未繳付月結單結欠|未缴付月结单结欠|remaining statement balance)$/i,label=key==='statement'&&lines.some(l=>remaining.test(labelText(l)))?remaining:key==='statement'?labels.statementClosing:labels[key];
     const at=lines.findIndex(l=>label?.test(labelText(l)));if(at>=0){const evidence=lines.slice(at,at+5).join('\n');if(evidence.length<1000)add('card',key,value,evidence);}
    }
   }
@@ -90,7 +92,7 @@
   if(!dates.length&&new Set(partialDates.map(d=>d.text.replace(/\s/g,''))).size===1){add('billing','duePartial',null,partialDates[0].evidence);items.at(-1).title=partialDates[0].text;}
   // An overview with a positive minimum or a printed due conflicts with no-payment wording.
   if(items.some(i=>(i.key==='minimum'&&i.value>0)||['due','duePartial'].includes(i.key)))for(let i=items.length-1;i>=0;i--)if(items[i].key==='paymentStatus')items.splice(i,1);
-  if(['overview','rewards'].includes(page))for(let i=0;i<lines.length-1;i++)if(/^(?:Membership Rewards[®™]?|美國運通積分計劃|美国运通积分计划)$/i.test(lines[i])&&/^\d[\d,]*$/.test(lines[i+1])){
+  if(['overview','rewards'].includes(page))for(let i=0;i<lines.length-1;i++)if(/^(?:Membership Rewards[®™]?(?: Points)?|美國運通積分計劃|美国运通积分计划)$/i.test(lines[i])&&/^\d[\d,]*$/.test(lines[i+1])){
    const n=Number(lines[i+1].replaceAll(',',''));if(Number.isSafeInteger(n)&&n<=1e9){add('reward',lines[i],n,lines.slice(i,i+2).join('\n'));}
   }
   // Conflicting duplicate observations are not financial evidence.
@@ -355,6 +357,8 @@
    const evidence=own?lines.slice(i,i+2).join('\n'):lines[i],iso=issuerDate(value,bank);
    if(iso)dates.push({iso,evidence});else if(own&&yearless.test(labelText(lines[i]))&&/^\d{1,2}月\s*\d{1,2}日$/.test(value))partial.push({value,evidence});
   }
+  // Amex US prints the date on the line after this label, usually without a year.
+  for(let i=0;i<lines.length-1;i++){if(!/^your payment is due on$/i.test(lines[i]))continue;const iso=issuerDate(lines[i+1],bank),both=lines.slice(i,i+2).join('\n');if(iso)dates.push({iso,evidence:both});else if(/^[A-Za-z]{3,9} \d{1,2}$/.test(lines[i+1])&&monthOf(lines[i+1].split(' ')[0]))partial.push({value:lines[i+1],evidence:both});}
   // Citi prints "Payment due on Nov 19, 2030" on one line.
  if(bank==='Citi US')for(const line of lines){const on=line.match(/^payment due on (.+)$/i);if(!on)continue;const iso=issuerDate(on[1],bank);if(iso)dates.push({iso,evidence:line});}
  // A minimum printed with its date on one line, e.g. "$35.00 due Nov 19". The year is never assumed.
@@ -379,7 +383,7 @@
    if(at>=0)items.push({kind:'card',cardId:alias,key,title:labelText(lines[at]).slice(0,80),value,currency:card.currency,date:'',status:'unknown',evidence:lines.slice(at,at+4).join('\n')});
   }
   items.push(...issuerDue(lines,bank,card,alias));
-  const notices=lines.filter(l=>/^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(l));
+  const notices=lines.filter(l=>/^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|Payment not required at this time|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(l));
   if(new Set(notices).size===1&&!items.some(i=>(i.key==='minimum'&&i.value>0)||['due','duePartial'].includes(i.key)))items.push({kind:'billing',cardId:alias,key:'paymentStatus',title:notices[0],value:null,currency:card.currency,date:'',status:'unknown',evidence:notices[0]});
   return items;
  }

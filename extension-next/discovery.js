@@ -15,7 +15,7 @@ export function discoverVisibleCards(bank,locales){
  const LIKELY_NOT_A_CARD=/\b(?:checking|savings?|deposit|brokerage|investment|ira|cd|money market|current account|integrated account|banking|we|you|your|from)\b|支票|儲蓄|储蓄|存款|定期|投資|投资|往來|往来|基金|綜合|综合/i;
  const skipped=new Set();
  const chaseGroup=bank==='Chase'&&!!document.getElementById?.('CARD_ACCOUNTS');
- const selectors=bank==='Chase'?(chaseGroup?'#CARD_ACCOUNTS [id^="accounts-name-link-button-"]':'[id^="accounts-name-link-button-"]'):bank.startsWith('Amex ')?'h1,h2,h3,button[aria-label="rowLevelAriaLabel"],#simple-switcher-listbox [role="option"]':bank==='HSBC HK'?'#account-summary-name,.account-detail-row,[role="option"],h1,h2,h3':'h1,h2,h3,[role="row"],article,[data-account-type="credit-card"]';
+ const selectors=bank==='Chase'?(chaseGroup?'#CARD_ACCOUNTS [id^="accounts-name-link-button-"]':'[id^="accounts-name-link-button-"]'):bank.startsWith('Amex ')?'h1,h2,h3,[id^="tile-"][id$="-name"],button[aria-label="rowLevelAriaLabel"],#simple-switcher-listbox [role="option"]':bank==='HSBC HK'?'#account-summary-name,.account-detail-row,[role="option"],h1,h2,h3':'h1,h2,h3,[role="row"],article,[data-account-type="credit-card"]';
  // SC HK's details page prints the full card number. Only its last four digits leave this function.
  if(bank==='SC HK'&&typeof location!=='undefined'&&/\/card_details\.htm$/.test(location.pathname)){const cell=label=>{for(const r of document.querySelectorAll('tr')){const c=[...r.cells],i=c.findIndex(x=>(x.innerText||'').trim()===label);if(i>=0&&c[i+1])return (c[i+1].innerText||'').trim();}return '';};const digits=(cell('Card Number:').match(/\d(?:[\d\s.\u2013-]*\d){7,}/)?.[0]||'').replace(/\D/g,''),name=cell('Card Type:').replace(/^Credit Card Account\s+/i,'').replace(/\d/g,'').trim().slice(0,100);return digits.length>=12?{status:'found',cards:[{tail:digits.slice(-4),name}]}:{status:'no_data',cards:[]};}
  // Citi lists each card's account details link as "Name-tail". Other accounts link elsewhere.
@@ -46,8 +46,10 @@ export function discoverVisibleCards(bank,locales){
    const rows=text.split('\n').map(s=>s.trim()).filter(Boolean),own=rows.find(s=>ACCOUNT_LINE.test(s))||'',identity=[rows[0],own].join('\n');
    if(!own||own.length>90||NEVER_A_CARD.test(identity)||NOT_AN_ACCOUNT.test(own)||(LIKELY_NOT_A_CARD.test(identity)&&!A_CARD.test(identity))){skipped.add(text);continue;}
   }
+  // Amex lists deposit accounts beside its cards, in a tile that says Available Balance or under a deposit name.
+  if(bank.startsWith('Amex ')&&(/^available balance$/im.test(el.closest?.('[role="button"]')?.innerText||'')||/\b(?:savings?|checking|deposit|money market)\b/i.test(text.split('\n')[0])&&!A_CARD.test(text.split('\n')[0]))){skipped.add(matches[0][1]);continue;}
   const name=text.split('\n').map(s=>s.trim()).find(s=>s&&!/(?:\d[ -]?){9,}/.test(s))||'';
-  cards.push({tail:matches[0][1],name:name.slice(0,100)});
+  cards.push({tail:matches[0][1],name:(bank.startsWith('Amex ')?name.replace(/\s*[•●*]{2,}\s*\d{4,5}$/,'')||name:name).slice(0,100)});
  }
  return {status:cards.length?'found':'no_data',cards,...(skipped.size?{skipped:skipped.size}:{})};
 }

@@ -65,6 +65,8 @@ test('discovery takes any masked account whatever its product name, and skips on
  assert.equal(run('BOA','Total Checking ending in 3141','Total Checking ending in 3141').skipped,1);
  // Inside a bank's card group and on Amex, structure already decides.
  assert.equal(run('Amex US','Debit-looking Name ••••31415').cards[0].tail,'31415');
+ assert.equal(run('Amex US','Quokka Savings\n••••3141').status,'no_data','Amex lists deposit accounts beside its cards');
+ assert.equal(run('Amex US','Quokka Savings Card ••••31415').cards[0].tail,'31415');
  const many=Array.from({length:25},(_,i)=>'Card '+String.fromCharCode(65+i)+' ending in '+(1000+i));
  assert.equal(run('BOA',...[...many].reverse()).cards.length,25);
  assert.equal(run('BOA','Quokka 4111 1111 1111 1111 ending in 1111').status,'no_data','full numbers never pass');

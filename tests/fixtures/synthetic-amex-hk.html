@@ -1,0 +1,28 @@
+<!doctype html><html lang="zh-HK"><meta charset="utf-8"><title>Synthetic Amex HK page (test only)</title>
+<!-- Synthetic test page, served locally by scripts/dev-collector/synthetic-bank.mjs. All values are made up. -->
+<style>.line{white-space:pre-line}</style>
+<body><main id="root"></main>
+<script>
+const accounts=[
+ {name:'Synthetic Numbat Card',tail:'13579',rows:['月結單結欠','More info on statement_balance_tooltip','HK$0.00','9月 22日 - 10月 21日','暫時毋須付款','總結欠','More info on total_balance_tooltip','HK$0.00','可用信用額','More info on available_credit_tooltip','HK$9,000.00'],points:'0'},
+ {name:'Synthetic Bilby Card',tail:'24680',rows:['未繳付月結單結欠','More info on remaining_statement_balance_tooltip','HK$0.00','暫時毋須付款','總結欠','More info on total_balance_tooltip','-HK$1,234.50','可用信用額','More info on available_credit_tooltip','HK$8,000.00'],points:'0'}
+];
+const root=document.getElementById('root');let selected=0,filled=0,open=false;
+function render(){
+ if(sessionStorage.getItem('synthetic-signed-in')!=='1'){
+  root.innerHTML='<h1>Synthetic sign in</h1><form><input type="password" aria-label="Synthetic password" autocomplete="off"><button type="button" id="sign-in">Sign in</button></form>';
+  document.getElementById('sign-in').onclick=()=>{sessionStorage.setItem('synthetic-signed-in','1');history.replaceState({},'','/dashboard');render();};
+  return;
+ }
+ const a=accounts[selected];
+ root.innerHTML=`<button aria-label="open_title" id="switch">-${a.tail}</button>
+ ${open?'<div role="dialog"><button aria-label="Close" id="close">關閉</button>'+accounts.map((x,i)=>`<button aria-label="rowLevelAriaLabel" data-i="${i}">${x.name}••••${x.tail}</button>`).join('')+'</div>':''}
+ <h2>${a.name} ••••${a.tail}</h2><div class="line">${filled===selected?a.rows.join('\n'):''}</div>
+ ${filled===selected?`<section><h2>美國運通積分計劃</h2><div>${a.points}</div><div>使用積分</div></section>`:''}
+ <div class="line">到期\n31/12/2030</div>`;
+ document.getElementById('switch').onclick=()=>{open=true;render();};
+ const x=document.getElementById('close');if(x)x.onclick=()=>{open=false;render();};
+ for(const e of root.querySelectorAll('[aria-label="rowLevelAriaLabel"]'))e.onclick=()=>{open=false;selected=Number(e.dataset.i);render();setTimeout(()=>{filled=selected;render();},500);};
+}
+render();
+</script>
