@@ -360,9 +360,9 @@
  function issuerBilling(text,bank,card,otherTails=[],alias='C1'){
   if(text.length>100000||!issuerTails(text).includes(card.tail)||holdsOther(text,card.tail,otherTails))return [];
   const raw=text.replace(/[\u00a0\u202f]/g,' ').split('\n').map(x=>x.trim()).filter(Boolean);
-  // A one-word help control can sit between a "Label:" and its value; it is not part of either.
+  // A known help control can sit between a "Label:" and its value. Any other word there leaves the value unpaired.
   const isValue=l=>/^(?:[-−]?\s*(?:HK\$|US\$|\$|HKD|USD)\s*[-−]?[\d,]+\.\d{2})/.test(l||'');
-  const lines=raw.filter((l,i)=>!(/^[A-Za-z]+$/.test(l)&&/:$/.test(raw[i-1]||'')&&isValue(raw[i+1])));
+  const lines=raw.filter((l,i)=>!(/^(?:layer|info|help)$/i.test(l)&&/:$/.test(raw[i-1]||'')&&isValue(raw[i+1])));
   // Money parsing sees the amount alone; a due date on that line is read separately.
   const moneyText=lines.map(l=>isValue(l)?l.replace(/\s+due\s+.*$/i,''):l).join('\n'),items=[];
   const parsed=parseAccount(moneyText,bank,card,'en-US',new Date().toISOString(),100000);

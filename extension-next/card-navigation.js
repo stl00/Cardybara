@@ -52,11 +52,11 @@ export function amexClickReadLink(href){
  if(!links.length)return false;links[0].click();return true;
 }
 
-// BOA accounts overview: card links sit in the group headed "Credit cards". Returns a detail link to open, never a payment control.
+// BOA accounts overview: card links sit in the group headed "Credit cards". Only the account details target is ever returned.
 export async function boaCards(action,tail){
  if(location.hostname!=='secure.bankofamerica.com'||!/^\/accounts-home\/?$/.test(location.pathname))return [];
  if(action==='close')return [];
- const rowsNow=()=>{const group=[...document.querySelectorAll('[id^="account-card-container-"]')].find(g=>/^credit cards?$/i.test((g.querySelector('h3')?.innerText||'').trim()));return group?[...group.querySelectorAll('a[href]')].map(a=>({a,tail:(a.innerText||'').trim().match(/\s-\s(\d{4,5})$/)?.[1]})).filter(r=>r.tail):[];};
+ const rowsNow=()=>{const group=[...document.querySelectorAll('[id^="account-card-container-"]')].find(g=>/^credit cards?$/i.test((g.querySelector('h3')?.innerText||'').trim()));return group?[...group.querySelectorAll('a[href]')].filter(a=>{const u=new URL(a.href,location.href);return u.origin===location.origin&&u.pathname==='/myaccounts/brain/redirect.go'&&u.searchParams.get('target')==='acctDetails';}).map(a=>({a,tail:(a.innerText||'').trim().match(/\s-\s(\d{4,5})$/)?.[1]})).filter(r=>r.tail):[];};
  // The overview renders after the document loads.
  const end=Date.now()+12000;let rows=rowsNow();while(!rows.length&&Date.now()<end){await new Promise(r=>setTimeout(r,200));rows=rowsNow();}
  if(action==='list')return [...new Set(rows.map(r=>r.tail))];

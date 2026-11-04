@@ -60,6 +60,19 @@ test('a Chase run with an explicit no-payment card completes its coverage and le
  const silent=copy(reader.chaseDetail({...page,paymentNotices:[]},card).items),plain=validateModel({items:silent,nextLinkId:null},snapshot(3,silent)).items;
  assert.deepEqual(mvpSummary(plain,[card]).card.coverage[0].missing,['minimum','due']);assert.equal(mvpSummary(plain,[card]).card.status,'partial');
 });
+test('one BOA card still opens its detail page, starting from any page',async()=>{
+ const card={id:'one',bank:'BOA',tail:'1234',currency:'USD'},home='https://secure.bankofamerica.com/accounts-home/',detail='https://secure.bankofamerica.com/myaccounts/brain/redirect.go?target=acctDetails&x=1',previous=globalThis.chrome,visits=[];
+ for(const start of [home,detail]){
+  let url=start;visits.length=0;
+  globalThis.chrome={permissions:{contains:async()=>false},storage:{local:{get:async()=>({[PARSER_SETTINGS]:{scope:'mvp'}})}},tabs:{get:async()=>({id:2,url,status:'complete'})},scripting:{executeScript:async o=>{
+   if(o.files||o.target.documentIds)return [{documentId:'doc',result:true}];
+   if(o.func.name==='boaCards')return [{result:o.args[0]==='list'?['1234']:o.args[0]==='select'?{href:detail,tail:'1234'}:[]}];
+   const onDetail=url===detail,observations=[{kind:'card',cardId:'C1',key:onDetail?'minimum':'balance',title:'x',value:1,currency:'USD',date:'',status:'unknown',evidence:'[C1] x $1.00'}];
+   return [{documentId:'doc',result:{pageHref:url,capturedAt:new Date().toISOString(),aliases:[{id:'C1',cardId:card.id,currency:'USD'}],observations,blocks:[{text:'[C1] x $1.00'}],links:[],rulesComplete:true}}];
+  }}};
+  try{const r=await enrichBank({bank:'BOA',cards:[card],tabId:2},{current:async()=>true,progress:async()=>{},checkpoint:async()=>{},navigate:async href=>{visits.push(href);url=href;}});assert.ok(visits.includes(detail),start);assert.ok(r.items.some(i=>i.key==='minimum'),start);assert.equal(r.error,null);assert.equal(url,home,'ends back on the overview');}finally{globalThis.chrome=previous;}
+ }
+});
 test('a co-brand card is complete on billing and reports its programme as not collected',async()=>{
  const card={id:'cobrand',bank:'Chase',tail:'7777',currency:'USD'},title='Sample Cobrand (...7777)',page=(rewardLabel)=>({title,rewardLabel,fields:{currentBalance:'$9.00','remainingStatementBalance-dataItem':'Remaining statement balance\n$1.00','minimumPaymentDue-dataItem':'Minimum payment due\n$1.00','nextPaymentDueDate-dataItem':'Payment due date\nDec 3, 2031','partnerRewards-dataItem':'4,321'}});
  const unnamed=reader.chaseDetail(page(undefined),card);assert.ok(!unnamed.items.some(i=>i.kind==='reward'));assert.deepEqual(copy(unnamed.otherProgrammes),['unnamed']);

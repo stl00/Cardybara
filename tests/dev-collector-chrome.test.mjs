@@ -181,7 +181,7 @@ test('BOA: cards come from the Credit cards group, and billing from each card\'s
   const cards=found.cards.map(c=>({id:'c'+c.tail,bank:'BOA',tail:c.tail,currency:'USD'}));
   assert.deepEqual(await exec(boaCards,['list',null]),['1234','5678']);
   for(const [tail,want] of [['1234',{balance:1234.56,available:8765.44,creditLimit:10000,minimum:35,statement:321}],['5678',{balance:67.89,available:4932.11,creditLimit:10000,statement:0}]]){
-   const {href}=await exec(boaCards,['select',tail]);assert.match(href,/redirect\.go\?card=/);
+   const {href}=await exec(boaCards,['select',tail]);assert.match(href,/target=acctDetails/);
    mark=events.length;await chrome.tabs.update(tab.id,{url:href});await until(()=>events.slice(mark).some(e=>e.status==='complete'));await until(()=>exec(()=>!!document.getElementById('credit-1')).catch(()=>false));
    await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
    const raw=await exec(capturePage,['BOA',cards,['c'+tail]]);assert.equal(raw.error,undefined,tail);assert.deepEqual(raw.aliases.map(a=>a.cardId),['c'+tail]);

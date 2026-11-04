@@ -70,9 +70,9 @@ test('discovery takes any masked account whatever its product name, and skips on
  assert.equal(run('BOA','Quokka 4111 1111 1111 1111 ending in 1111').status,'no_data','full numbers never pass');
 });
 test('BOA discovery uses the Credit cards group and keeps deposit accounts out, whatever the product is called',()=>{
- const link=text=>({innerText:text,getClientRects:()=>[1]}),group=(title,links)=>({querySelector:()=>({innerText:title}),querySelectorAll:()=>links.map(link),getClientRects:()=>[1]});
+ const link=([text,href='https://secure.bankofamerica.com/myaccounts/brain/redirect.go?target=acctDetails&x=1'])=>({innerText:text,href,getClientRects:()=>[1]}),group=(title,links)=>({querySelector:()=>({innerText:title}),querySelectorAll:()=>links.map(link),getClientRects:()=>[1]});
  const previous={document:globalThis.document,getComputedStyle:globalThis.getComputedStyle};globalThis.getComputedStyle=()=>({visibility:'visible'});
- globalThis.document={documentElement:{lang:'en-US'},getElementById:()=>null,querySelectorAll:s=>s==='input[type=password]'||s==='*'?[]:s.startsWith('[id^="account-card-container-"]')?[group('Banking',['Total Savings - 0001']),group('Credit cards',['Quokka Banking Card - 3141','Zephyrine - 2718','Statement Date - 9999 link text that is far too long to be a card name in any wallet at all, which proves the length bound here - 1111'])]:[]};
+ globalThis.document={documentElement:{lang:'en-US'},getElementById:()=>null,querySelectorAll:s=>s==='input[type=password]'||s==='*'?[]:s.startsWith('[id^="account-card-container-"]')?[group('Banking',[['Total Savings - 0001']]),group('Credit cards',[['Quokka Banking Card - 3141'],['Zephyrine - 2718'],['Statement Date - 9999 link text that is far too long to be a card name in any wallet at all, which proves the length bound here - 1111'],['Pay - 4444','https://secure.bankofamerica.com/payments/pay']])]:[]};
  try{assert.deepEqual(discoverVisibleCards('BOA',['en-US']).cards,[{tail:'3141',name:'Quokka Banking Card'},{tail:'2718',name:'Zephyrine'}]);}finally{globalThis.document=previous.document;globalThis.getComputedStyle=previous.getComputedStyle;}
 });
 test('structure report text keeps generic labels and hides names, tails and values',()=>{

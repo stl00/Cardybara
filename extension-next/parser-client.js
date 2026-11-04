@@ -48,6 +48,7 @@ export async function enrichBank(ctx,io){
  if(canSwitch)await chrome.scripting.executeScript({target:{tabId:ctx.tabId},func:navigator,args:['close',null,ctx.cards]}).catch(()=>{});
  if(ctx.bank==='HSBC HK'){const first=ctx.cards.find(c=>c.bank==='HSBC HK');if(first)await chrome.scripting.executeScript({target:{tabId:ctx.tabId},func:hsbcCards,args:['select',first.tail,ctx.cards]}).catch(()=>{});}
  try{
+  if(ctx.bank==='BOA'){const initial=await chrome.tabs.get(ctx.tabId);if(!/^\/accounts-home\/?$/.test(new URL(initial.url).pathname)){await check();await io.navigate('https://secure.bankofamerica.com/accounts-home/');}}
   if(ctx.bank==='Chase'){const initial=await chrome.tabs.get(ctx.tabId);if(!/^#\/dashboard\/overview(?:[/?]|$)/.test(new URL(initial.url).hash)){await check();await io.navigate(PROVIDERS.Chase.url);}}
   if(ctx.bank==='Amex HK'){const entry=await chrome.tabs.get(ctx.tabId);if(!/^\/(?:dashboard|overview)\/?$/.test(new URL(entry.url).pathname)){const home=await chrome.scripting.executeScript({target:{tabId:ctx.tabId},func:amexAccountHome});const href=home[0]?.result;if(typeof href==='string'&&guidedPage(ctx.bank,href)){await check();await io.navigate(href);}}}
   for(let n=0;n<40;n++){
@@ -62,7 +63,8 @@ export async function enrichBank(ctx,io){
    if(raw.aliases?.length===1)currentIds=raw.aliases.map(a=>a.cardId);
    for(const e of raw.empty||[])if(ctx.cards.some(c=>c.id===e.cardId)&&['offer','transaction'].includes(e.kind)&&!empty.some(x=>x.kind===e.kind&&x.cardId===e.cardId))empty.push(e);
    const url=new URL(tab.url),links=[];
-   if(canSwitch&&!overviewUrl&&(ctx.bank==='BOA'?/^\/accounts-home\/?$/.test(url.pathname):ctx.bank==='HSBC HK'?/^\/online\/dashboard\/?$/.test(url.pathname):ctx.bank==='Chase'?/^#\/dashboard\/overview(?:[/?]|$)/.test(url.hash):/^\/(?:dashboard|overview)\/?$/.test(url.pathname))){overviewUrl=tab.url;const found=await chrome.scripting.executeScript({target:{tabId:ctx.tabId},func:navigator,args:['list',null,ctx.cards]});switchTails=(found[0]?.result||[]).filter(t=>ctx.cards.some(c=>c.tail===t&&!currentIds.includes(c.id)));if(ctx.bank==='Chase')chaseAllTails=[...switchTails];}
+   if(canSwitch&&!overviewUrl&&(ctx.bank==='BOA'?/^\/accounts-home\/?$/.test(url.pathname):ctx.bank==='HSBC HK'?/^\/online\/dashboard\/?$/.test(url.pathname):ctx.bank==='Chase'?/^#\/dashboard\/overview(?:[/?]|$)/.test(url.hash):/^\/(?:dashboard|overview)\/?$/.test(url.pathname))){overviewUrl=tab.url;const found=await chrome.scripting.executeScript({target:{tabId:ctx.tabId},func:navigator,args:['list',null,ctx.cards]});// BOA's overview has no billing fields, so even a single card must open its detail page.
+switchTails=(found[0]?.result||[]).filter(t=>ctx.cards.some(c=>c.tail===t&&(ctx.bank==='BOA'||!currentIds.includes(c.id))));if(ctx.bank==='Chase')chaseAllTails=[...switchTails];}
    if(ctx.bank==='Amex HK'){const menu=await chrome.scripting.executeScript({target:{tabId:ctx.tabId},func:amexReadMenu});raw.links=[...(raw.links||[]),...(Array.isArray(menu[0]?.result)?menu[0].result:[])];}
    // BOA billing is on each card's detail page, reached above; its rewards and statements links add nothing in scope.
    for(const link of ctx.bank==='BOA'?[]:raw.links||[]){if(mvp&&!mvpLink(link))continue;const href=readLink(link.label,link.href,tab.url);if(href&&(mvp||!/\/activity\/statements$/.test(new URL(href).pathname))&&guidedPage(ctx.bank,href)&&!links.some(l=>l.href===href))links.push({id:'L'+(links.length+1),label:link.label,href});if(links.length===12)break;}
