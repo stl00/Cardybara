@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {convertPoints,readingsFor,routesForProduct,transferProgrammes,transferRoutes} from '../src/transferRoutes.js';
+import {convertPoints,readingsFor,routesForCard,transferProgrammes,transferRoutes} from '../src/transferRoutes.js';
 const [mrUs,ur,mrHk]=transferProgrammes;
 const route=(programme,id)=>transferRoutes(programme.id).find(r=>r.partnerId===id&&(!r.cardSpecific||r.terms.ratio));
 test('published rates convert in whole units and never round leftovers up',()=>{
@@ -24,13 +24,21 @@ test('an unstated rate gives no number and a stated programme-wide phrase does n
  assert.equal(convertPoints(1500,route(ur,'programme.world-of-hyatt').terms).receive,750);
  for(const bad of [0,-1,1.5,NaN,null,'1000'])assert.deepEqual(convertPoints(bad,route(mrUs,'programme.delta-skymiles').terms),{status:'no-points'});
 });
-test('a card-specific rate is only applied to the cards it names',()=>{
+test('a chosen card only gets rates that list it, and every partner stays visible',()=>{
  const routes=transferRoutes(ur.id),hyatt=rows=>rows.filter(r=>r.partnerId==='programme.world-of-hyatt');
- assert.equal(hyatt(routes).length,2);
- const [preferred]=hyatt(routesForProduct(routes,'chase-us-chase-sapphire-preferred-credit-card'));assert.deepEqual(preferred.terms.ratio,{from:4,to:3});
- const [reserve]=hyatt(routesForProduct(routes,'chase-us-sapphire-reserve'));assert.equal(reserve.terms.ratio,null);
- assert.equal(hyatt(routesForProduct(routes,'chase-us-freedom-unlimited')).length,0,'an unlisted card gets neither rate');
- assert.equal(hyatt(routesForProduct(routes,null)).length,2,'no card chosen shows both, each labelled');
+ const of=productId=>routesForCard(routes,{hasCard:true,productId});
+ assert.deepEqual(hyatt(of('chase-us-chase-sapphire-preferred-credit-card')).map(r=>r.terms.ratio),[{from:4,to:3}]);
+ assert.deepEqual(hyatt(of('chase-us-sapphire-reserve')).map(r=>r.terms.ratio),[null]);
+ for(const unlisted of ['chase-us-freedom-unlimited',null]){const rows=of(unlisted);assert.equal(rows.length,14,'one row per partner');assert.ok(rows.every(r=>r.coverage==='card-not-listed'&&r.terms.ratio===null&&!r.terms.ratioStatement));}
+ assert.equal(hyatt(routesForCard(routes)).length,2,'no card chosen shows both, each labelled');
+});
+test('an Amex card outside the evidence gets no number, even with a published programme rate',()=>{
+ for(const [programme,productId] of [[mrUs,'amex-us-us-blue-cash-everyday'],[mrUs,null],[mrHk,null]]){const rows=routesForCard(transferRoutes(programme.id),{hasCard:true,productId});assert.ok(rows.every(r=>r.coverage==='card-not-listed'&&convertPoints(50000,r.terms).status==='ratio-unknown'));}
+ assert.ok(routesForCard(transferRoutes(mrUs.id),{hasCard:true,productId:'amex-us-us-american-express-gold-card'}).every(r=>r.coverage==='listed'&&r.terms.ratio));
+});
+test('an unstated minimum is not reported as a minimum',()=>{
+ const hyatt=route(ur,'programme.world-of-hyatt').terms;assert.deepEqual(convertPoints(999,hyatt),{status:'below-increment',incrementPoints:1000});
+ assert.equal(convertPoints(100,route(mrUs,'programme.delta-skymiles').terms).status,'below-minimum');
 });
 test('fees and per-transfer maximums come from the rule',()=>{
  const delta=convertPoints(100000,route(mrUs,'programme.delta-skymiles').terms);assert.equal(delta.fees[0].charge,60);
@@ -45,6 +53,7 @@ test('readings stay per card, per programme and per market',()=>{
  assert.deepEqual(readingsFor(mrHk,accounts,cards).map(r=>r.amount),[5000]);
  assert.deepEqual(readingsFor(ur,accounts,cards).map(r=>r.amount),[700]);
  assert.deepEqual(readingsFor(ur,{current:[]},cards),[]);
+ const partial=readingsFor(ur,{current:[{id:'6',bank:'Chase',region:'US',label:'Ultimate Rewards',amount:12.5,card:'z'}]},cards);assert.equal(partial.length,1,'a non-integer reading is shown, not dropped');assert.equal(partial[0].usable,false);
 });
 test('every partner lands in the airline or hotel list so none disappears from the page',()=>{
  for(const programme of transferProgrammes)for(const r of transferRoutes(programme.id))assert.ok(['airline','hotel'].includes(r.kind),r.partner);
