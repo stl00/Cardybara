@@ -9,6 +9,9 @@ export function request(m){
  if(['disconnect','connect','clear','focus-bank'].includes(m.type)){
   if(!keys(m,['type','requestId','bank','channel'])||!Object.hasOwn(PROVIDERS,m.bank))throw Error('invalid_bank');return m;
  }
+ if(m.type==='remove-card'){
+  if(!keys(m,['type','requestId','bank','cardId','tail','channel'])||!Object.hasOwn(PROVIDERS,m.bank)||!token(m.cardId)||!/^\d{4,5}$/.test(m.tail))throw Error('invalid_card');return m;
+ }
  if(m.type!=='refresh'||!keys(m,['type','requestId','banks','cards','cardId','channel'])||!Array.isArray(m.banks)||!m.banks.length||m.banks.length>7||new Set(m.banks).size!==m.banks.length||m.banks.some(b=>!Object.hasOwn(PROVIDERS,b))||!Array.isArray(m.cards)||m.cards.length>40)throw Error('invalid_scope');
  const ids=new Set();
  for(const c of m.cards){

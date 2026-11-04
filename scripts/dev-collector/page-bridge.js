@@ -20,7 +20,7 @@
  events.onmessage=e=>{const m=JSON.parse(e.data);if(m.restarted)void hello();else if(m.channel==='cardybara-extension')window.postMessage(say(m),origin);};
  window.addEventListener('message',async e=>{
   if(e.source!==window||e.origin!==origin||e.data?.channel!=='cardybara-dashboard')return;
-  const m=e.data;if(!['hello','refresh','cancel','export','disconnect','clear','connect'].includes(m.type)||JSON.stringify(m).length>16000)return;
+  const m=e.data;if(!['hello','refresh','cancel','export','disconnect','clear','connect','remove-card'].includes(m.type)||JSON.stringify(m).length>16000)return;
   try{const result=await ask(m);emit({type:m.type==='hello'?'ready':'ack',requestId:m.requestId,...say(result)});}catch{emit(say({type:'error',requestId:m.requestId,errorCode:'collector_unavailable'}));}
  });
 })();

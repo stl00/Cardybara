@@ -22,3 +22,20 @@ export function mergeWalletCards(base,extra=[]){
  const connections=Array.isArray(base.connections)?[...base.connections,...[...new Set([...ACTIVE_BANKS,...cards.map(c=>c.bank)])].filter(b=>!base.connections.some(c=>c.bank===b)).map(bank=>({bank,note:''}))]:base.connections;
  return {...base,cards,connections};
 }
+// A removal outlives the seed, an imported snapshot and a discovery record that has not been cleared yet.
+export const WALLET_REMOVED_KEY='cardybara-wallet-removed-v1';
+const removedRow=(card,removed)=>removed.some(r=>r.id===card.id||(card.identitySource==='bank-page'&&r.bank===card.bank&&r.tail===card.tail));
+export const withoutRemoved=(base,removed=[])=>({...base,cards:base.cards.filter(c=>!removedRow(c,removed))});
+export const withoutRemovedCards=(cards,removed=[])=>cards.filter(c=>!removedRow(c,removed));
+export function removeWalletCard(registry,removed,card){
+ // A registry row with this tail is this card, or was hidden by it when the wallet merged duplicates.
+ return {registry:registry.filter(c=>c.id!==card.id&&!(c.bank===card.bank&&c.tail===card.tail)),removed:[...removed.filter(r=>r.id!==card.id),{id:card.id,bank:card.bank,tail:card.tail}]};
+}
+// Importing a card is the user asking for it back. A manual add needs no lift: its new id is not hidden, and lifting would bring back the removed row in its place.
+export const liftRemoval=(removed,cards)=>removed.filter(r=>!cards.some(c=>c.id===r.id||(c.bank===r.bank&&c.tail===r.tail)));
+// Removals the collector has not applied, for example because the extension was away when the card was removed.
+export const pendingRemovals=(state,removed)=>state?.run?.status==='running'?[]:removed.filter(r=>state?.records?.[r.bank]?.[r.id]||(state?.discoveredCards||[]).some(c=>c.bank===r.bank&&c.tail===r.tail));
+export function withoutLiveCard(live,card){
+ const entry=live[card.bank];if(!entry?.patches?.some(p=>p.id===card.id))return live;
+ return {...live,[card.bank]:{...entry,patches:entry.patches.filter(p=>p.id!==card.id)}};
+}
