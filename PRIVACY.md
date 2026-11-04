@@ -14,6 +14,10 @@ Cloud parsing is optional and requires configured permissions and consent. When 
 
 The conversational assistant uses the configured local proxy to send chat text and necessary public card/benefit information and explicit manual benefit marks to DeepSeek. Its read-only tools do not expose bank balances or card numbers. It has no included shared API key. The local proxy key is stored in the user's private .env.local; direct-parser keys, when configured through the extension, are session-scoped. The optional loopback proxy is HTTP restricted to the user's own machine; provider requests use HTTPS.
 
+## Reminders
+
+Bill and benefit reminders are optional and off by default. Turning them on asks Chrome for notification permission. Reminders are decided on this device and shown only while a wallet page is open. They show a card or benefit name, and show an amount only if the user asks for that, because notifications can appear on a lock screen. Reminder settings and a list of reminders already shown stay in local browser storage. Nothing is sent to a server.
+
 ## Retention, exports and deletion
 
 Local readings/ledgers remain until the user clears them or removes the relevant browser origin/extension. Task and evidence state is bounded and may be replaced during later runs. Exporting creates a sensitive local file under the user's control. Clearing the extension does not necessarily clear a separate website-origin wallet or exported files. Uninstalling may delete extension data; back up first.

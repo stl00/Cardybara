@@ -68,7 +68,7 @@ html{scroll-behavior:smooth}body{margin:0}.app-layout{min-height:100vh}.app-side
 .credit-filters{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:8px}.credit-search{flex:1 1 220px;max-width:320px}.credit-categories{flex:1 1 100%}.credit-categories .ant-tag{margin-inline-end:0;display:inline-flex;align-items:center}
 @media(max-width:767px){.credit-search{max-width:none;flex-basis:100%}.credit-manager .ant-card-head-wrapper{flex-wrap:wrap;row-gap:4px;padding-block:8px}.credit-manager .ant-card-extra{margin-inline-start:0}.credit-manager .ant-card-body{padding:12px 16px}}
 /* Payment assistant: rows use Ant Design tokens so a future dark theme needs no changes here. */
-.payment-assistant .ant-card-head{flex-wrap:wrap;padding-block:10px}.payment-assistant .ant-card-head-wrapper{flex-wrap:wrap;row-gap:4px}.payment-assistant .ant-card-extra{margin-inline-start:0}.payment-assistant .ant-card-head-title{flex:0 0 auto;overflow:visible}
+.payment-assistant .ant-card-head{flex-wrap:wrap;padding-block:10px}.payment-assistant .ant-card-head-wrapper{flex-wrap:wrap;gap:4px 16px;justify-content:space-between}.payment-assistant .ant-card-extra{margin-inline-start:0}.payment-assistant .ant-card-head-title{flex:0 0 auto;overflow:visible}
 .payment-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--ant-color-split,rgba(5,5,5,.06))}
 .payment-row:first-child{padding-top:0}.payment-row-main{display:flex;flex-direction:column;gap:4px;flex:1 1 320px;min-width:0}
 .payment-row .ant-tag{margin-inline-end:0}.payment-due{font-size:15px}.payment-facts,.payment-hint,.payment-foot{font-size:12px}.payment-actions{flex:0 0 auto}
