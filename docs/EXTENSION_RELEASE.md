@@ -28,7 +28,7 @@
 | HSBC HK | zh-HK / zh-CN / en-HK | 余额反号处理；available/minimum 框架；statement 禁用 | 繁简英合成样例通过；实际 DOM 待验收；HKD/CNY 未明确分区则跳过 | 未支持 |
 | Amex US | en-US | 框架 | 未验证；generic global 地区不明确时拒绝 | 未支持 |
 | Amex HK | zh-HK / zh-CN / en-HK | 框架 | 未验证 | 未支持 |
-| Citi US | en-US | 尚未加入 provider | 未验证 | 只读账单字段 |
+| Citi US | en-US | 按标签读取账单字段 | 未验证实际页面 | 只读账单字段 |
 | Amex CA（已归档） | en-CA / fr-CA | 框架；法语金额样例 | 不在 MVP 范围 | 未支持 |
 | BOA US | en-US | 框架 | 未验证 1.1.0 | 未支持 |
 | SC HK | zh-HK / zh-CN / en-HK | 框架 | 旧版上一轮需登录；1.1.0 未验证 | 未支持 |

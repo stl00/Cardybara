@@ -10,6 +10,7 @@ const banks={
  'HSBC HK':['hsbc.png','香港汇丰','HK'],
  'SC HK':['sc.png','香港渣打','HK'],
  BOA:['boa.png','Bank of America','US'],
+ 'Citi US':['citi.svg','Citi','US'],
  Hilton:['hilton.png','Hilton Honors','US'],
  IHG:['ihg.ico','IHG One Rewards','US']
 };

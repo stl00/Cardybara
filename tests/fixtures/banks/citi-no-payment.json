@@ -1,0 +1,19 @@
+{
+ "id": "citi-no-payment",
+ "provenance": "Synthetic text with invented values and names. Labels are assumed from public conventions, not captured from a bank page, until a real run confirms them.",
+ "billingRules": true,
+ "bank": "Citi US",
+ "locale": "en-US",
+ "card": {
+  "id": "fixture-citi-2",
+  "bank": "Citi US",
+  "tail": "6789",
+  "currency": "USD"
+ },
+ "text": "Dingo Card ending in 6789\nCurrent Balance\n$67.89\nStatement Balance\n$0.00\nNo payment due",
+ "expected": {
+  "balance": 67.89,
+  "statement": 0,
+  "paymentStatus": "No payment due"
+ }
+}

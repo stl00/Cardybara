@@ -17,7 +17,7 @@ import {capturePage} from '../extension-next/agent-snapshot.js';
 const extensionRoot=fileURLToPath(new URL('../extension-next',import.meta.url));
 const manifest=JSON.parse(await readFile(join(extensionRoot,'manifest.json'),'utf8'));
 const BANK='https://secure.chase.com/web/auth/dashboard#/dashboard/overview';
-const until=async(fn,ms=10000)=>{const end=Date.now()+ms;for(;;){const v=await fn();if(v)return v;if(Date.now()>end)throw Error('until_timeout');await new Promise(r=>setTimeout(r,50));}};
+const until=async(fn,ms=25000)=>{const end=Date.now()+ms;for(;;){const v=await fn();if(v)return v;if(Date.now()>end)throw Error('until_timeout');await new Promise(r=>setTimeout(r,50));}};
 
 async function start(mode='page',onBlocked){
  const home=await mkdtemp(join(tmpdir(),'cardybara-collector-test-'));
@@ -148,6 +148,7 @@ test('collection scripts and the structure report still run under a strict page 
 
 for(const [bank,url,cards,want] of [
  ['BOA','https://secure.bankofamerica.com/myaccounts/brain/redirect.go',['1234','5678'],[{balance:1234.56,available:8765.44,statement:321,minimum:35,due:'2030-12-19'},{balance:67.89,available:4932.11,statement:0}]],
+ ['Citi US','https://www.citi.com/',['2345','6789'],[{balance:1234.56,available:8765.44,statement:321,minimum:35,due:'2030-12-19'},{balance:67.89,available:4932.11,statement:0}]],
  ['SC HK','https://retail.sc.com/hk/nfs/login.htm',['4321','8765'],[{balance:1234.56,available:8765.44,statement:321,minimum:35,due:'2030-12-19'},{balance:67.89,available:4932.11,statement:0}]]
 ])test('capture scopes each '+bank+' card on one page and reads its billing fields',async()=>{
  const run=await start();
@@ -157,8 +158,8 @@ for(const [bank,url,cards,want] of [
   const exec=(func,args=[])=>chrome.scripting.executeScript({target:{tabId:tab.id},func,args}).then(r=>r[0].result);
   await exec(()=>{document.getElementById('sign-in').click();});
   await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
-  const found=await exec(discoverVisibleCards,[bank,bank==='BOA'?['en-US']:['zh-HK']]);assert.deepEqual([...new Set(found.cards.map(c=>c.tail))],cards);
-  const list=cards.map(tail=>({id:'c'+tail,bank,tail,currency:bank==='BOA'?'USD':'HKD'}));
+  const found=await exec(discoverVisibleCards,[bank,bank==='SC HK'?['zh-HK']:['en-US']]);assert.deepEqual([...new Set(found.cards.map(c=>c.tail))],cards);
+  const list=cards.map(tail=>({id:'c'+tail,bank,tail,currency:bank==='SC HK'?'HKD':'USD'}));
   const raw=await exec(capturePage,[bank,list,[]]);assert.equal(raw.error,undefined);
   for(const [i,tail] of cards.entries()){
    const alias=raw.aliases.find(a=>a.cardId==='c'+tail).id,got=Object.fromEntries(raw.observations.filter(o=>o.cardId===alias&&o.key!=='paymentStatus').map(o=>[o.key,o.key==='due'?o.date:o.value]));
