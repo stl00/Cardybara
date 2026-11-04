@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Builds the local dev extension: the release code plus extension-dev/, outside the repository, at a path that
 // survives worktrees. Never a release candidate: only a CI artifact can be one.
+import {statSync} from 'node:fs';
 import {cp,mkdir,readFile,readdir,rename,rm,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {homedir} from 'node:os';
@@ -13,10 +14,11 @@ if(!process.argv.includes('--no-wallet')&&!process.argv.includes('--reuse-wallet
 // Never replace a folder this script didn't build, such as a mistyped path.
 const existing=await readdir(target).catch(()=>[]);if(existing.length&&!existing.includes('build-stamp.json')){console.error('Refusing to replace a folder that is not a dev extension: '+target);process.exit(1);}
 await rm(work,{recursive:true,force:true});await mkdir(work,{recursive:true});
-const skip=/\.zip$|(^|\/)\.[^/]*$/;
-await cp(join(root,'extension-next'),work,{recursive:true,filter:p=>!skip.test(p)});
+// The same files build-release.py takes, so the dev build holds nothing the package doesn't.
+const sourceFile=/\.(?:js|json|html|css|svg|png|txt|md)$/,walletFile=/\.(?:js|css|svg|png|jpg|jpeg|webp|ico|json)$/,isDir=p=>statSync(p).isDirectory();
+await cp(join(root,'extension-next'),work,{recursive:true,filter:p=>{const rel=relative(join(root,'extension-next'),p);return !rel.split('/').some(x=>x.startsWith('.'))&&rel!=='CHECKSUMS.json'&&(isDir(p)||sourceFile.test(p));}});
 await cp(join(root,'extension-dev'),work,{recursive:true});
-if(!process.argv.includes('--no-wallet'))for(const name of ['index.html','cardybara.svg','assets','brand'])await cp(join(root,'dist',name),join(work,name),{recursive:true});
+if(!process.argv.includes('--no-wallet'))for(const name of ['index.html','cardybara.svg','assets','brand'])await cp(join(root,'dist',name),join(work,name),{recursive:true,filter:p=>{const rel=relative(join(root,'dist'),p);return !rel.split('/').includes('archive')&&(isDir(p)||rel===name||walletFile.test(p));}});
 await cp(join(root,'public/data.example.json'),join(work,'data.json'));
 await rm(join(work,'dashboard.js'),{force:true});
 // A file injected as is, so a strict page CSP cannot block it. Its last expression is the report.

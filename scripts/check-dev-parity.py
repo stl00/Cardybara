@@ -26,11 +26,16 @@ def compare(dev):
  d=json.loads((dev/'manifest.json').read_text())
  if set(d['permissions'])-{'idle'}!=set(m['permissions']):problems.append('permissions differ beyond idle')
  if set(h for h in d['host_permissions'] if not h.startswith('http:'))!=set(m['host_permissions']):problems.append('bank hosts differ')
- if d.get('optional_permissions')!=m.get('optional_permissions'):problems.append('optional permissions differ')
  if d.get('content_scripts') or m.get('content_scripts'):problems.append('a content script is present')
- # Anything else at the top level of the dev build has to be on the short list, so nothing extra can read a bank.
- for f in dev.iterdir():
-  if f.is_file() and f.name not in names and f.name not in DEV_ONLY:problems.append('unexpected dev file: '+f.name)
+ # Every other manifest key must match, so a page policy or exposed resource can't differ unnoticed.
+ labels={'name','version','version_name','description','background','action','permissions','host_permissions','optional_host_permissions','content_scripts'}
+ for key in (set(d)|set(m))-labels:
+  if d.get(key)!=m.get(key):problems.append('manifest differs: '+key)
+ if set(d.get('optional_host_permissions',[]))-set(m.get('optional_host_permissions',[])):problems.append('optional hosts wider than the package')
+ # Anything else in the dev build has to be on the short list, so nothing extra can read a bank.
+ for f in dev.rglob('*'):
+  rel=f.relative_to(dev).as_posix()
+  if f.is_file() and rel not in names and rel not in DEV_ONLY:problems.append('unexpected dev file: '+rel)
  return problems
 if '--dev-dir' in args:problems=compare(Path(args['--dev-dir']))
 else:
