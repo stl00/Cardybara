@@ -68,7 +68,7 @@ export function CreditManager({cards,compact=false,hidden=false}){
  {more>0&&!(compact&&singleCard)&&<Flex justify="center"><Button type="link" onClick={()=>compact&&!singleCard?location.hash='credits':setExpanded(true)}>{t('查看其余 {0} 项',[more])}</Button></Flex>}
  {!compact&&expanded&&!view.filtered&&view.rows.length>SHORT_LIST&&<Flex justify="center"><Button type="link" onClick={()=>setExpanded(false)}>{t('收起')}</Button></Flex>}
  {!rows.length&&<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={!ready?t('正在读取你的福利标记…'):view.filtered?t('没有匹配的福利，请调整筛选条件'):t('本期已处理，或没有可确定周期的 Credit')}/>}
- {!compact&&<Paragraph type="secondary" style={{marginTop:16}}>{t('标记由你记录，可撤销；新周期重新确认。')} {t('这里是公开周期清单，不代表已登记或仍有余额。周年不明和版本未确认的福利在卡片详情中查看。钱包打开时显示临期提示；关闭后请用导出的本期日历提醒，后续周期需重新添加。')}</Paragraph>}
+ {!compact&&<Paragraph type="secondary" style={{marginTop:16}}>{t('标记由你记录，可撤销；新周期重新确认。')} {t('这里是公开周期清单，不代表已登记或仍有余额。周年不明和版本未确认的福利在卡片详情中查看。钱包打开时显示临期提示；钱包关闭时，可以在设置里开启提醒，或用导出的本期日历提醒，日历的后续周期需重新添加。')}</Paragraph>}
  <CreditAmountModal task={editingUsage} previous={editingUsage?latest(editingUsage):null} onClose={()=>setEditingUsage(null)} onSave={async v=>{const task=editingUsage;await mark(task.key,v.amount>=task.limit?'used':v.amount>0?'partial':'unused',task.revisionId,v.amount>0?{usage:{amount:v.amount,value:v.value??null,date:v.date,currency:task.currency,limit:task.limit,title:task.title}}:{});}}/>
  </Card>;
 }
