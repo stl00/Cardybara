@@ -63,3 +63,15 @@ export async function boaCards(action,tail){
  if(action==='select'){const found=rows.filter(r=>r.tail===tail);return found.length===1?{href:found[0].a.href,tail}:[];}
  return [];
 }
+
+// Citi summary: each card has an account details link named "Name-tail". Checking accounts link elsewhere, and only this target is returned.
+export async function citiCards(action,tail){
+ if(location.hostname!=='online.citi.com'||!/^\/US\/ag\/dashboard\/summary\/?$/.test(location.pathname))return [];
+ if(action==='close')return [];
+ const rowsNow=()=>[...document.querySelectorAll('a[href]')].filter(a=>{const u=new URL(a.href,location.href);return u.origin===location.origin&&u.pathname==='/accountdetails';}).map(a=>({a,tail:(a.innerText||a.textContent||'').trim().match(/-\s*(\d{4,5})$/)?.[1]})).filter(r=>r.tail);
+ const end=Date.now()+12000;let rows=rowsNow();while(!rows.length&&Date.now()<end){await new Promise(r=>setTimeout(r,200));rows=rowsNow();}
+ if(action==='list')return [...new Set(rows.map(r=>r.tail))];
+ // This link only works when clicked in the page. The click starts a full navigation, which would cut off this script's reply, so it runs just after.
+ if(action==='select'){const hrefs=new Set(rows.filter(r=>r.tail===tail).map(r=>r.a.href));if(hrefs.size!==1)return [];const link=rows.find(r=>r.tail===tail).a;setTimeout(()=>link.click(),150);return {arriving:'https://online.citi.com/US/ag/dashboard/credit-card',tail};}
+ return [];
+}

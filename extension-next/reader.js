@@ -351,7 +351,9 @@
    const evidence=own?lines.slice(i,i+2).join('\n'):lines[i],iso=issuerDate(value,bank);
    if(iso)dates.push({iso,evidence});else if(own&&yearless.test(labelText(lines[i]))&&/^\d{1,2}月\s*\d{1,2}日$/.test(value))partial.push({value,evidence});
   }
-  // A minimum printed with its date on one line, e.g. "$35.00 due Nov 19". The year is never assumed.
+  // Citi prints "Payment due on Nov 19, 2030" on one line.
+ for(const line of lines){const on=line.match(/^payment due on (.+)$/i);if(!on)continue;const iso=issuerDate(on[1],bank);if(iso)dates.push({iso,evidence:line});}
+ // A minimum printed with its date on one line, e.g. "$35.00 due Nov 19". The year is never assumed.
   for(let i=0;i<lines.length;i++){const combined=(lines[i+1]||'').match(/^\S*\d\S* due ([A-Za-z]{3,9} \d{1,2}(?:, 20\d{2})?)$/i);if(!combined||!labels.minimum.test(labelText(lines[i])))continue;const date=issuerDate(combined[1],bank),both=lines.slice(i,i+2).join('\n');if(date)dates.push({iso:date,evidence:both});else if(monthOf(combined[1].split(' ')[0]))partial.push({value:combined[1],evidence:both});}
   if(new Set(dates.map(d=>d.iso)).size===1)add('due','Payment due date',dates[0].iso,dates[0].evidence);
   else if(!dates.length&&new Set(partial.map(d=>d.value.replace(/\s/g,''))).size===1)add('duePartial',partial[0].value,'',partial[0].evidence);

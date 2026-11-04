@@ -60,11 +60,13 @@ async function loaded(tabId,url){
   const diag=await bounded(chrome.scripting.executeScript({target:{tabId,documentIds:[doc]},func:()=>self.CardyReader?.lastDiagnostic||null}));if(diag[0]?.result)await chrome.storage.local.set({'cardybara:last-read-diagnostic':{bank:ctx.bank,...diag[0].result}});
   stage='validate_result';const checkpoint=await engine.checkpointRead(ctx,results[0].result);if(!checkpoint)return;await notify(checkpoint);let enrichment=null;
   if(!['needs_login','needs_confirmation','ambiguous'].includes(results[0].result.status)){
+   const arrive=href=>waitBankPage(ctx.bank,href,{now:()=>Date.now(),current:()=>engine.current(ctx),getTab:()=>bounded(chrome.tabs.get(tabId)),rendered:async()=>{const ready=await bounded(chrome.scripting.executeScript({target:{tabId},func:renderedBankPage}),2000).catch(()=>[]);return ready[0]?.result||null;},pause:ms=>new Promise(resolve=>setTimeout(resolve,ms))});
    enrichment=await enrichBank({...ctx,initialPatches:results[0].result.patches||[]},{
     current:()=>engine.current(ctx),
     progress:async(phase,sections)=>{const state=await engine.progress(ctx,phase,sections);if(state){await chrome.alarms.create('cardybara:'+ctx.attemptId,{when:state.run.jobs.find(j=>j.attemptId===ctx.attemptId).deadline});await notify(state);}},
     checkpoint:async(items,sections)=>{const state=await engine.checkpoint(ctx,items,sections);if(state)await notify(state);},
-    navigate:async href=>{let clicked=false;if(ctx.bank==='Amex HK'){const action=await bounded(chrome.scripting.executeScript({target:{tabId},func:amexClickReadLink,args:[href]})).catch(()=>[]);clicked=action[0]?.result===true;}if(!clicked)await bounded(chrome.tabs.update(tabId,{url:href,active:true}));await waitBankPage(ctx.bank,href,{now:()=>Date.now(),current:()=>engine.current(ctx),getTab:()=>bounded(chrome.tabs.get(tabId)),rendered:async()=>{const ready=await bounded(chrome.scripting.executeScript({target:{tabId},func:renderedBankPage}),2000).catch(()=>[]);return ready[0]?.result||null;},pause:ms=>new Promise(resolve=>setTimeout(resolve,ms))});}
+    navigate:async href=>{let clicked=false;if(ctx.bank==='Amex HK'){const action=await bounded(chrome.scripting.executeScript({target:{tabId},func:amexClickReadLink,args:[href]})).catch(()=>[]);clicked=action[0]?.result===true;}if(!clicked)await bounded(chrome.tabs.update(tabId,{url:href,active:true}));await arrive(href);},
+    arrive
    });
    if(enrichment.scope!=='mvp'&&results[0].result.patches?.length)enrichment.sections.card={status:'updated',count:new Set([...results[0].result.patches.map(p=>p.id),...enrichment.items.filter(i=>i.kind==='card').map(i=>i.cardId)]).size};
   }
