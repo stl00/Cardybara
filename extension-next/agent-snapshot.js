@@ -17,12 +17,15 @@ export async function capturePage(bank,cards,contextIds=[]){
  if(bank.startsWith('Amex ')){const selected=query('button[aria-label=\"open_title\"],[role=\"combobox\"][aria-label=\"Open to manage your other accounts\"]').filter(visible).map(e=>e.innerText||'').join('\n');const scoped=cards.filter(c=>new RegExp('(?:^|[^0-9])'+c.tail+'(?:[^0-9]|$)').test(selected));if(scoped.length===1){matches=scoped;selectedCardId=scoped[0].id;}}
  // HSBC repeats some ids on a hidden copy, so only the shown one counts.
  const hsbcById=id=>[...document.querySelectorAll(`[id="${id}"]`)].find(visible)||null;
- const hsbcIdentity=()=>hsbcById('account-number-value')?.innerText||hsbcMetadata();
+ // A full number identifies a card by its last group only.
+ const hsbcIdentity=()=>{const text=hsbcById('account-number-value')?.innerText||hsbcMetadata();return text.match(/(?<!\d)\d{4}[- ]\d{4}[- ]\d{4}[- ](\d{4})(?!\d)/)?.[1]||text;};
  const hsbcMetadata=()=>{const h=hsbcById('account-summary-name');const root=h?.closest('.account-summary-title-detail');return root?[...root.children].filter(e=>e.classList.contains('account-detail-row')).map(e=>e.innerText||'').join('\n'):'';};
  // After a switch the previous card stays on screen, then amounts fill in. Wait for this card's own number and amounts; a card that never shows them reads as what it shows.
  if(bank==='HSBC HK'&&hsbcById('account-summary-name')){
-  const want=cards.filter(c=>contextIds.includes(c.id)),ready=()=>(want.length!==1||new RegExp('(?:^|[^0-9])'+want[0].tail+'(?:[^0-9]|$)').test(hsbcById('account-number-value')?.innerText||''))&&['ledger-account-amount','credit-card-amount-due-value','credit-card-total-minimum-payment-amount-value'].every(id=>/\d/.test(hsbcById(id)?.innerText||''))&&!query('#loading-spinner').some(visible);
-  const until=Date.now()+12000;while(!ready()&&Date.now()<until)await new Promise(r=>setTimeout(r,200));
+  const want=cards.filter(c=>contextIds.includes(c.id)),amounts=()=>['ledger-account-amount','credit-card-amount-due-value','credit-card-total-minimum-payment-amount-value'].map(id=>hsbcById(id)?.innerText||''),ready=()=>(want.length!==1||hsbcIdentity()===want[0].tail)&&amounts().every(t=>/\d/.test(t))&&!query('#loading-spinner').some(visible);
+  const until=Date.now()+12000;let held='',since=0;
+  // Amounts can change just after the number does, so they must also hold still briefly.
+  while(Date.now()<until){const now=amounts().join('|');if(!ready()||now!==held){held=now;since=Date.now();}else if(Date.now()-since>=800)break;await new Promise(r=>setTimeout(r,200));}
  }
  if(bank==='HSBC HK'&&hsbcById('account-summary-name')){const selected=hsbcIdentity();const scoped=cards.filter(c=>new RegExp('(?:^|[^0-9])'+c.tail+'(?:[^0-9]|$)').test(selected));if(scoped.length!==1)return {error:'card_not_identified'};matches=scoped;selectedCardId=scoped[0].id;}
  // Citi card dashboard: the card's own "Name - tail" line sits directly above its Current Balance. A wait covers the previous card still on screen.

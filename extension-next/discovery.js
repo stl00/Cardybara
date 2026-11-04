@@ -30,7 +30,7 @@ export function discoverVisibleCards(bank,locales){
   const listed=rows.flatMap(row=>{const text=(row.innerText||'').trim(),tail=text.match(FULL)?.[1];if(!tail)return [];const name=text.split('\n').map(s=>s.trim()).find(s=>s&&!/\d{3}/.test(s))||'',currency=text.match(/\b(HKD|CNY|USD)\b/)?.[1];if(NEVER_A_CARD.test(name)||!['HKD','CNY'].includes(currency)){left++;return [];}return [{tail,name:name.slice(0,100),currency}];});
   if(listed.length)return {status:'found',cards:listed,...(left?{skipped:left}:{})};
   // A selected card shows no list; report that card only.
-  const title=[...document.querySelectorAll('[id="account-summary-name"]')].find(visible),number=document.getElementById('account-number-value'),tail=visible(number)?(number.innerText||'').match(FULL)?.[1]:null;
+  const title=[...document.querySelectorAll('[id="account-summary-name"]')].find(visible),number=[...document.querySelectorAll('[id="account-number-value"]')].find(visible),tail=(number?.innerText||'').match(FULL)?.[1];
   if(title&&tail&&!NEVER_A_CARD.test(title.innerText||''))return {status:'found',cards:[{tail,name:(title.innerText||'').replace(/\d/g,'').trim().slice(0,100),currency:/人民幣|人民币|\bRMB\b|\bCNY\b/i.test(title.innerText||'')?'CNY':'HKD'}]};
  }
  const roots=[document];for(let i=0;i<roots.length&&i<100;i++)for(const e of roots[i].querySelectorAll('*'))if(e.shadowRoot)roots.push(e.shadowRoot);

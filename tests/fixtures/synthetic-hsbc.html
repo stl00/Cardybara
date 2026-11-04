@@ -10,7 +10,7 @@ const accounts=[
  {name:'Synthetic Bilby-人民幣',number:'4000-0000-0000-9012',amount:'-67.89',currency:'CNY',balance:'-67.89',due:'67.89',min:'50.00',date:'2030年12月9日',limit:'5,000.00',available:'4,932.11'},
  {name:'Synthetic 外幣卡',number:'4000-0000-0000-3456',amount:'1.00',currency:'USD'}
 ];
-const root=document.getElementById('root');let selected=null,menu=false,overlay=false;
+const root=document.getElementById('root');let selected=null,filled=null,menu=false,overlay=false;
 const row=(a,tag,id,index)=>`<${tag} id="${id}${index}" ${tag==='div'?'role="link" tabindex="0"':''} class="line" data-i="${index}"><h3>${a.name}</h3>戶口號碼\n${a.number}\n${a.number}\n結餘\n${a.amount}\n${a.currency}</${tag}>`;
 function render(){
  if(sessionStorage.getItem('synthetic-signed-in')!=='1'){
@@ -20,23 +20,23 @@ function render(){
  }
  if(selected===null){root.innerHTML='<h1>主頁</h1><div id="domestic-account-list">'+accounts.map((a,i)=>row(a,'div','account-container-',i)).join('')+'</div>';}
  else{
-  const a=accounts[selected];
+  const a=accounts[selected],b=accounts[filled];
   root.innerHTML=`<h1 id="account-summary-name" class="hide">${a.name}</h1>
   <div class="account-summary-title-detail"><div><h1 id="account-summary-name">${a.name}</h1></div>
    <div class="account-detail-row line">戶口號碼:\n<span id="account-number-value">${a.number}</span></div>
    <div class="account-detail-row line">「獎賞錢」結餘:\n1234</div></div>
   <button id="change-account-button" aria-expanded="${menu}">更改戶口</button>
   <div>${menu?accounts.map((x,i)=>row(x,'button','dropdown-item-',i)).join(''):''}</div>
-  <div id="ledger-account-amount" class="line">戶口結餘:\n${a.balance}\n${a.currency}</div>
-  <div class="line">最新應繳結欠:\n<span id="credit-card-amount-due-value">${a.due} ${a.currency}</span><span id="credit-card-amount-due-value" class="hide">999.00 ${a.currency}</span></div>
-  <div class="line">最低付款總額:\n<span id="credit-card-total-minimum-payment-amount-value">${a.min} ${a.currency}</span></div>
+  <div id="ledger-account-amount" class="line">戶口結餘:\n${b.balance}\n${a.currency}</div>
+  <div class="line">最新應繳結欠:\n<span id="credit-card-amount-due-value">${b.due} ${a.currency}</span><span id="credit-card-amount-due-value" class="hide">999.00 ${a.currency}</span></div>
+  <div class="line">最低付款總額:\n<span id="credit-card-total-minimum-payment-amount-value">${b.min} ${a.currency}</span></div>
   <div class="line">付款到期日:\n${a.date}</div>
   <button id="show-account-details-overlay">查看更多資料</button>
   <div id="account-details-overlay" class="line ${overlay?'':'hide'}"><button id="account-details-overlay-close-btn-account-details-overlay">關閉</button>
 戶口結餘\n${a.balance} ${a.currency}\n最新應繳結欠\n${a.due} ${a.currency}\n目前最低付款額\n1.00 ${a.currency}\n付款到期日\n${a.date}\n上一期結單結欠／結餘\n777.00 ${a.currency}\n最低付款總額\n${a.min} ${a.currency}\n信用限額\n${a.limit} ${a.currency}\n可用信用限額\n${a.available} ${a.currency}</div>`;
  }
- // A switch keeps the previous card on screen for a moment, as the real page does.
- for(const e of root.querySelectorAll('[id^="account-container-"],button[id^="dropdown-item-"]'))e.onclick=()=>{menu=false;overlay=false;render();const next=Number(e.dataset.i);setTimeout(()=>{selected=next;render();},selected===null?0:700);};
+ // A switch keeps the previous card on screen for a moment, then its number changes before its amounts, as the real page can.
+ for(const e of root.querySelectorAll('[id^="account-container-"],button[id^="dropdown-item-"]'))e.onclick=()=>{menu=false;overlay=false;render();const next=Number(e.dataset.i);const first=selected===null;setTimeout(()=>{selected=next;if(first)filled=next;render();setTimeout(()=>{filled=next;render();},first?0:400);},first?0:700);};
  const on=(id,f)=>{const e=document.getElementById(id);if(e)e.onclick=f;};
  on('change-account-button',()=>{menu=!menu;render();});on('show-account-details-overlay',()=>{overlay=true;render();});on('account-details-overlay-close-btn-account-details-overlay',()=>{overlay=false;render();});
 }

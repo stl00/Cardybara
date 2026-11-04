@@ -4,10 +4,10 @@ export const visibleConnections=data=>data.connections.filter(c=>!PROVIDERS[c.ba
 export const selectableBanks=(banks,cards)=>banks.filter(b=>!PROVIDERS[b]?.archived||cards.some(c=>c.bank===b));
 export const defaultRefreshBanks=cards=>[...new Set(cards.map(c=>c.bank))].filter(b=>ACTIVE_BANKS.includes(b));
 export const WALLET_CARDS_KEY='cardybara-wallet-cards-v1';
-export function newWalletCard({bank,name,tail},id=crypto.randomUUID()){
+export function newWalletCard({bank,name,tail,currency},id=crypto.randomUUID()){
  const p=PROVIDERS[bank];const label=String(name||'').trim();
  if(!p||!label||label.length>100||/[<>\u0000-\u001f]/.test(label)||/(?:\d[ -]?){9,}/.test(label)||typeof tail!=='string'||!/^\d{4,5}$/.test(tail)||typeof id!=='string'||!/^[a-zA-Z0-9-]{1,64}$/.test(id))throw Error('invalid_card');
- return {id,bank,name:label,tail,region:p.region,currency:p.currency,identitySource:'manual'};
+ return {id,bank,name:label,tail,region:p.region,currency:p.cardCurrencies?.includes(currency)?currency:p.currency,identitySource:'manual'};
 }
 export function mergeWalletCards(base,extra=[]){
  if(!Array.isArray(extra)||extra.length>40)throw Error('invalid_registry');

@@ -4,6 +4,17 @@ import {newWalletCard,mergeWalletCards,withoutRemoved,withoutRemovedCards,remove
 import {PROVIDERS} from '../extension-next/providers.js';
 import {request} from '../extension-next/protocol.js';
 import {normalizeDiscoveredCards,discoverVisibleCards} from '../extension-next/discovery.js';
+test('a CNY card stays CNY from discovery through the wallet, a second refresh and the snapshot',async()=>{
+ const {request}=await import('../extension-next/protocol.js'),{collectorSnapshot}=await import('../src/collector.js');
+ const found=normalizeDiscoveredCards('HSBC HK',[{tail:'9012',name:'Synthetic',currency:'CNY'},{tail:'1234',name:'Other',currency:'HKD'}]);
+ const wallet=mergeWalletCards({cards:[],connections:[]},found).cards;assert.deepEqual(wallet.map(c=>c.currency),['CNY','HKD']);
+ const refresh=wallet.map(({id,bank,tail,currency})=>({id,bank,tail,currency}));
+ assert.equal(request({type:'refresh',requestId:'r1',banks:['HSBC HK'],cards:refresh}).cards[0].currency,'CNY');
+ assert.throws(()=>request({type:'refresh',requestId:'r1',banks:['HSBC HK'],cards:[{...refresh[0],currency:'USD'}]}),/invalid_card/);
+ assert.throws(()=>request({type:'refresh',requestId:'r1',banks:['Chase'],cards:[{...refresh[0],bank:'Chase'}]}),/invalid_card/);
+ const f={value:67.89,currency:'CNY',capturedAt:new Date().toISOString(),source:{issuer:'HSBC',region:'HK',page:'account-overview'},locale:'zh-HK',status:'observed',adapterVersion:'1.1.0'};
+ const live=collectorSnapshot({schema:2,revision:1,run:null,disabled:[],records:{'HSBC HK':{[wallet[0].id]:{balance:f}}}},wallet);assert.equal(live['HSBC HK'].patches[0].fields.balance,67.89);
+});
 test('a discovered card keeps a printed currency only when its bank supports it',()=>{
  assert.equal(normalizeDiscoveredCards('HSBC HK',[{tail:'1234',name:'A',currency:'CNY'}])[0].currency,'CNY');
  assert.equal(normalizeDiscoveredCards('HSBC HK',[{tail:'1234',name:'A'}])[0].currency,'HKD');

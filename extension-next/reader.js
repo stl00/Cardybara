@@ -271,7 +271,7 @@
   // Exclude the account-switch menu: it contains balances for other cards and
   // deposit accounts, including other currencies.
   const metadata=[...root.children].filter(e=>e.classList.contains('account-detail-row')).map(e=>e.innerText||'').join('\n');
-  const id=identify(byId('account-number-value')?.innerText||metadata,cards);if(!id)return {status:'no_data',patches:[]};
+  const number=byId('account-number-value')?.innerText||metadata,id=identify(number.match(/(?<!\d)\d{4}[- ]\d{4}[- ]\d{4}[- ](\d{4})(?!\d)/)?.[1]||number,cards);if(!id)return {status:'no_data',patches:[]};
   const card=cards.find(c=>c.id===id),ledger=byId('ledger-account-amount');
   let text=[title.innerText,metadata,ledger?.innerText||''].join('\n');
   for(const [label,key]of [['Current amount due','credit-card-amount-due-value'],['Total minimum payment amount','credit-card-total-minimum-payment-amount-value']]){const e=byId(key);if(e)text+='\n'+label+'\n'+e.innerText;}
