@@ -13,9 +13,9 @@ export async function capturePage(bank,cards,contextIds=[]){
  if(bank==='HSBC HK'&&/^\/security(?:\/|$)/.test(location.pathname)){if(document.title==='Security code | Log on | HSBC')return {error:'needs_confirmation'};if(/^(?:Username|Password) \| Log on \| HSBC$/.test(document.title))return {error:'needs_login'};}
  const redact=t=>String(t).replace(/https?:\/\/\S+/gi,'[link]').replace(/[\w.+-]+@[\w.-]+\.[a-z]{2,}/gi,'[email]').replace(/(?:\d[ -]?){8,19}/g,value=>{const date=value.trim();return /^\d{4}-\d{2}-\d{2}$/.test(date)&&Number.isFinite(Date.parse(date))&&new Date(date).toISOString().slice(0,10)===date?value:'[number]';}).replace(/\b(?:Welcome|Hello|Hi|Dear)\s+[^\n,]{2,60}/gi,'[greeting]').replace(/(?:歡迎|欢迎|您好)[^\n，,]{0,60}/g,'[greeting]');
  // A switch blanks the balances and keeps the previous card named for a moment. Wait for this card and its balance; a card that never shows one reads as what it shows.
- if(bank==='Amex US'&&/^\/dashboard\/?$/.test(location.pathname)&&contextIds.length===1){
+ if(bank.startsWith('Amex ')&&/^\/dashboard\/?$/.test(location.pathname)&&contextIds.length===1){
   const want=cards.find(c=>c.id===contextIds[0]),switcher=()=>query('button[aria-label="open_title"],[role="combobox"][aria-label="Open to manage your other accounts"]').filter(visible).map(e=>e.innerText||'').join('\n');
-  const balances=()=>(document.body?.innerText||'').split('\n').map(t=>t.trim()).filter((t,i,all)=>/^\$/.test(t)&&/total balance|statement balance|minimum payment|tooltip/i.test(all[i-1]||'')).join('|');
+  const balances=()=>(document.body?.innerText||'').split('\n').map(t=>t.trim()).filter((t,i,all)=>/^-?(?:HK)?\$/.test(t)&&/total balance|statement balance|minimum payment|tooltip/i.test(all[i-1]||'')).join('|');
   const until=Date.now()+12000;let held='',since=0;
   while(want&&Date.now()<until){const now=balances(),ready=new RegExp('(?:^|[^0-9])'+want.tail+'(?:[^0-9]|$)').test(switcher())&&/\$/.test(now);if(!ready||now!==held){held=now;since=Date.now();}else if(Date.now()-since>=800)break;await new Promise(r=>setTimeout(r,200));}
  }
