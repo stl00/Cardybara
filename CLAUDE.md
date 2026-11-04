@@ -36,7 +36,7 @@ Each workstream runs in its own session and git worktree, with one writer per ar
 - Writers do not accept their own work; review is done by a separate read-only agent.
 - Do not run bank workstreams in parallel until the collector infrastructure works, because they depend on it.
 - Real bank pages are one shared resource: read one bank at a time. Amex regions share a login domain and their sessions replace each other.
-- When a bank refuses the dedicated Chrome, the owner may allow debugging in their everyday Chrome: new tabs for that bank only, masked script output, findings recorded as structure-based rules with synthetic fixtures. Report it as "plugin code on the everyday Chrome page", state what it did not exercise, and keep installed-extension acceptance `not_run`. See `docs/DEBUGGING.md`.
+- A bank that rejected automation is never retried by Claude in another browser, the owner's everyday Chrome included, whatever the consent. It goes through the plugin's own route; if it also rejects the plugin, mark it unsupported. See `docs/DEBUGGING.md`.
 - Batch bank logins into one request to the owner instead of interrupting repeatedly. If a bank blocks automation, stop and report; never evade detection.
 
 **Claude decides alone:** issues, branches, code, PRs, CI fixes, and merges to `main` as above. Choose reversible defaults by convention and report them afterwards.
