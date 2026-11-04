@@ -9,7 +9,7 @@ SKIP=('.png','.jpg','.jpeg','.webp','.ico','.pdf','.woff2','.svg')
 SKIP_NAMES=('package-lock.json',)
 # A number this short occurs everywhere (fees, versions, sizes), so it counts only where a card tail is written.
 SHORT_DIGITS=5
-TAIL=r'(?:\b(?:ending|ends?)(?:\s+(?:in|with))?[\s:#]*|\blast[\s_-]?(?:4|5|four|five)["\'\s:=]*|尾[号號][\s:：#]*|末[四五]位[\s:：#]*|[xX*•·●]{2,}[\s-]*|\.{3}\s*)'
+TAIL=r'(?:\b(?:ending(?:\s+(?:in|with))?|ends?\s+(?:in|with))["\'\s:#=]*|\blast[\s_-]?(?:4|5|four|five)(?:\s+digits)?["\'\s:=]*|尾[号號][为為]?[\s:：#]*|末[四五]位[\s:：#]*|[xX*•·●]{2,}[\s-]*|\.{3}\s*)'
 def git(*args,**kw):return subprocess.run(['git',*args],capture_output=True,**kw)
 def configured_path():
  path=os.environ.get('CARDYBARA_PRIVATE_NEEDLES')
@@ -44,7 +44,7 @@ def matcher(values):
   digits=sum(c.isdigit() for c in value)
   escaped=re.escape(value)
   if re.fullmatch(r'[\d.,]+',value):
-   parts.append((TAIL if digits<SHORT_DIGITS else r'(?<![\d.])')+escaped+r'(?!\d)')
+   parts.append((TAIL if digits<SHORT_DIGITS else r'(?<!\d)(?<!\d\.)')+escaped+r'(?!\d)')
   else:
    parts.append(r'(?<![A-Za-z0-9])'+escaped+r'(?![A-Za-z0-9])')
  return Private(re.compile('|'.join(parts),re.IGNORECASE),re.compile('|'.join(map(re.escape,values)),re.IGNORECASE))
@@ -54,6 +54,23 @@ def scan_zip(private,path):
  with zipfile.ZipFile(path) as z:
   for name in z.namelist():
    if scannable(name) and hit(private,z.read(name)):raise SystemExit(f'Owner private value in: {private.label(Path(path).name)}:{private.label(name)}')
+def already_on(remote_name):
+ """Only this remote's refs prove a commit is already there; another remote may be private.
+
+ A URL, a name that would act as a glob, or a fetch address that is not the push address proves nothing, so everything is scanned.
+ """
+ fetch,push=git('remote','get-url',remote_name),git('remote','get-url','--push',remote_name)
+ if fetch.returncode or push.returncode or fetch.stdout!=push.stdout or re.search(r'[*?\[]',remote_name):return []
+ return ['--not',f'--remotes={remote_name}']
+def scan_object(private,sha,kind):
+ if kind=='blob':
+  if hit(private,git('cat-file','blob',sha,check=True).stdout):raise SystemExit(f'Owner private value in tagged file: {sha[:12]}')
+  return
+ for entry in git('ls-tree','-r','-z',sha,check=True).stdout.decode('utf8','surrogateescape').split('\0'):
+  if not entry:continue
+  meta,name=entry.split('\t',1);mode,kind_,blob=meta.split()
+  if private.search(name):raise SystemExit(f'Owner private value in a file name: {sha[:12]}')
+  if kind_=='blob' and scannable(name) and hit(private,git('cat-file','blob',blob,check=True).stdout):raise SystemExit(f'Owner private value in: {private.label(name)} ({sha[:12]})')
 def scan_refs(private,lines,remote_name):
  zero=re.compile(r'^0+$')
  for line in lines:
@@ -61,10 +78,16 @@ def scan_refs(private,lines,remote_name):
   if len(fields)!=4 or zero.match(fields[1]):continue
   local_ref,local,remote_ref,remote=fields
   if private.search(local_ref) or private.search(remote_ref):raise SystemExit('Owner private value in a ref name being pushed.')
-  if git('cat-file','-t',local,check=True).stdout.strip()==b'tag' and hit(private,git('cat-file','-p',local,check=True).stdout):raise SystemExit(f'Owner private value in tag: {local[:12]}')
+  # A tag can wrap another tag, or a file or tree instead of a commit, and those never appear in rev-list.
+  target=local
+  while (kind:=git('cat-file','-t',target,check=True).stdout.decode().strip())=='tag':
+   tag=git('cat-file','-p',target,check=True).stdout
+   if hit(private,tag):raise SystemExit(f'Owner private value in tag: {target[:12]}')
+   target=tag.split(b'\n',1)[0].split()[1].decode()
+  if kind!='commit':
+   scan_object(private,target,kind);continue
   known=not zero.match(remote) and git('cat-file','-e',remote+'^{commit}').returncode==0
-  # Only this remote's refs prove a commit is already there; another remote may be private. A URL matches no ref, so everything is scanned.
-  scan_commits(private,[f'{remote}..{local}'] if known else [local,'--not',f'--remotes={remote_name}'])
+  scan_commits(private,[f'{remote}..{local}'] if known else [local,*already_on(remote_name)])
 def scan_commits(private,revs):
  """Every commit going out, because a value removed by a later commit still leaks through history."""
  for commit in git('rev-list',*revs,check=True).stdout.decode().split():

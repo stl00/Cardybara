@@ -98,3 +98,24 @@ test('committer, annotated tag and ref name are scanned, and a value in a file n
 test('a submodule entry neither crashes the scan nor blocks a clean push',t=>{
  const s=sandbox(t),head=s.git('rev-parse','HEAD').trim();s.git('update-index','--add','--cacheinfo',`160000,${head},vendored`);s.git('commit','-q','-m','Add gitlink');const r=s.push();assert.equal(r.status,0,r.stderr);
 });
+test('a five-digit tail after a mask or a dot is found, and a decimal fraction is not',t=>{
+ const five='77001';
+ for(const text of [`Platinum (...${five})`,`x.${five}`,`ending ${five}`]){const s=sandbox(t,[five]);s.commit('a.txt',text+'\n');const r=s.push();assert.notEqual(r.status,0,text);assert.equal(r.stderr.includes(five),false);}
+ const s=sandbox(t,[five]);s.commit('a.txt',`rate 0.${five}\n`);assert.equal(s.push().status,0);
+});
+test('tags that wrap a file, a tree or another tag are scanned',t=>{
+ const blob=sandbox(t);writeFileSync(path.join(blob.repo,'x.txt'),`id ${LONG}\n`);const sha=blob.git('hash-object','-w','x.txt').trim();blob.git('tag','held',sha);refused(blob.push({},'origin','refs/tags/held'),'tagged file');
+ const tree=sandbox(t);tree.commit('a.txt',`id ${LONG}\n`);tree.git('tag','held','HEAD^{tree}');refused(tree.push({},'origin','refs/tags/held'),'a\\.txt');
+ const nested=sandbox(t);nested.git('tag','-a','inner','-m',`Note ${LONG}`);nested.git('tag','-a','outer','-m','clean','inner');refused(nested.push({},'origin','refs/tags/outer'),'tag');
+ const clean=sandbox(t);clean.git('tag','-a','v1','-m','clean');const r=clean.push({},'origin','refs/tags/v1');assert.equal(r.status,0,r.stderr);
+});
+test('refs from a different fetch address do not count as already pushed',t=>{
+ const s=sandbox(t),other=path.join(s.dir,'public.git');execFileSync('git',['init','-q','--bare',other],{env});
+ s.commit('a.txt',`id ${LONG}\n`);assert.equal(s.push({},'origin','HEAD:refs/heads/main','--no-verify').status,0);
+ s.git('fetch','-q','origin');s.git('remote','set-url','--push','origin',other);
+ refused(s.push({},'origin','HEAD:refs/heads/fresh'),'a\\.txt');
+});
+test('a commit on the same remote under another branch is not scanned again',t=>{
+ const s=sandbox(t);s.commit('a.txt',`id ${LONG}\n`);assert.equal(s.push({},'origin','HEAD:refs/heads/main','--no-verify').status,0);s.git('fetch','-q','origin');
+ const r=s.push({},'origin','HEAD:refs/heads/fresh');assert.equal(r.status,0,r.stderr);
+});
