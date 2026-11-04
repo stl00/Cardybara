@@ -191,7 +191,16 @@
   "超市、餐饮、娱乐和流媒体": "general",
   "Capital One Business Travel 酒店和租车": "travel",
   "Capital One Business Travel 机票和度假屋": "travel",
-  "Capital One Business Travel 酒店、度假屋和租车": "travel"
+  "Capital One Business Travel 酒店、度假屋和租车": "travel",
+  "Delta 直接消费": "airline",
+  "Delta 机票和 Delta Vacations": "airline",
+  "酒店直接消费": "hotel",
+  "Marriott Bonvoy 酒店": "hotel",
+  "全球餐厅和直订航班": "general",
+  "全球餐厅和美国超市": "general",
+  "Hilton 旗下酒店直接消费": "hotel",
+  "Delta 和酒店直接消费": "travel",
+  "交通、美国运输或大额消费": "general"
  },
  "brands": [
   {

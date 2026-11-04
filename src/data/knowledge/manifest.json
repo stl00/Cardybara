@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-04.cards-2",
+  "snapshotId": "cardybara-public-knowledge-2026-11-04.cards-3",
   "asOf": "2026-11-04",
   "locale": "zh-CN",
   "files": [
@@ -672,6 +672,124 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "amex-us-us-delta-skymiles-gold-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "首年优惠年费是否适用取决于个人资格，未核实。Delta Stays 抵扣的细节未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-delta-skymiles-platinum-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Companion Certificate、MQD 和 Delta Stays 的细节未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-delta-skymiles-reserve-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Sky Club 次数、Centurion 访问、Companion Certificate 和 MQD 的细节未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-marriott-bonvoy-brilliant-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "年度免费房晚和 Earned Choice Award 的细节未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-marriott-bonvoy-bevy-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-hilton-honors-business-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-delta-skymiles-platinum-business-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Companion Certificate 和其他福利的细节未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-delta-skymiles-gold-business-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "美国广告和运输类别的2倍及其上限未结构化。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -728,6 +846,14 @@
     "capital-one-us-venture-x-rewards-credit-card",
     "capital-one-us-savor-credit-card",
     "capital-one-us-venture-x-business-card",
-    "capital-one-us-spark-cash-plus-card"
+    "capital-one-us-spark-cash-plus-card",
+    "amex-us-us-delta-skymiles-gold-card",
+    "amex-us-us-delta-skymiles-platinum-card",
+    "amex-us-us-delta-skymiles-reserve-card",
+    "amex-us-us-marriott-bonvoy-brilliant-card",
+    "amex-us-us-marriott-bonvoy-bevy-card",
+    "amex-us-us-hilton-honors-business-card",
+    "amex-us-us-delta-skymiles-platinum-business-card",
+    "amex-us-us-delta-skymiles-gold-business-card"
   ]
 }
