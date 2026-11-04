@@ -1,8 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
+import {readdir,readFile} from 'node:fs/promises';
 import {subscribeSystemDark,systemPrefersDark} from '../src/colorScheme.js';
 
+const walletComponents=async()=>(await readdir(new URL('../src/',import.meta.url))).filter(name=>name.endsWith('.jsx')).map(name=>`src/${name}`);
 const read=path=>readFile(new URL(`../${path}`,import.meta.url),'utf8');
 const COLOUR=/#[0-9a-fA-F]{3,8}\b|\brgba?\([^)]*\)/g;
 // Only these may stay literal. Everything else must use a token or a --cb-* variable, or it stays light in dark mode.
@@ -33,17 +34,18 @@ test('every --cb- colour has a dark value and every use is defined',async()=>{
 });
 
 test('inline surfaces in the wallet do not hard-code light colours',async()=>{
- const light=/(background|borderTop|border|color):\s*'[^']*(#[fF]{3}\b|#[fF]{6}\b|#f0f0f0|#fafafa|#f3f4f6)/;
- for(const path of ['src/ChatAdvisor.jsx','src/CostTrackingUI.jsx','src/main.jsx','src/PersonalWallet.jsx','src/PaymentAssistant.jsx','src/RewardsView.jsx','src/BankConnections.jsx','src/WalletOnboarding.jsx'])assert.doesNotMatch(await read(path),light,path);
+ const light=/\b(background|backgroundColor|border[A-Za-z]*|color):\s*'[^']*(#[fF]{3}\b|#[fF]{6}\b|#eee\b|#f0f0f0|#f5f5f5|#fafafa|#f3f4f6)/;
+ for(const path of await walletComponents())assert.doesNotMatch(await read(path),light,path);
 });
 
 test('the theme comes from the system and reaches confirmation dialogs',async()=>{
- const i18n=await read('src/i18n.jsx'),main=await read('src/main.jsx'),html=await read('index.html');
+ const i18n=await read('src/i18n.jsx'),html=await read('index.html');
  assert.match(i18n,/theme\.darkAlgorithm/);
  assert.match(i18n,/useSyncExternalStore\(subscribeSystemDark, systemPrefersDark\)/);
+ assert.match(i18n,/theme=\{dark \? DARK_THEME : LIGHT_THEME\}/);
  assert.match(html,/<meta name="color-scheme" content="light dark">/);
- // Modal.confirm renders outside ConfigProvider and would stay light.
- assert.doesNotMatch(main,/\bModal\.(confirm|info|success|warning|error)\(/);
+ // Static calls render outside ConfigProvider and would stay light.
+ for(const path of await walletComponents())assert.doesNotMatch(await read(path),/\bModal\.(confirm|info|success|warning|error)\(/,path);
 });
 
 test('system preference is read live and listeners are removed',()=>{
