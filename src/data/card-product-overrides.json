@@ -474,5 +474,21 @@
     "name": "Spark Cash Plus Card",
     "currencies": [],
     "art": null
+  },
+  {
+    "id": "chase-us-freedom-unlimited",
+    "art": {
+      "file": "chase-freedom-unlimited.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://www.chase.com/content/dam/unified-assets/card-art/chase-freedom/freedom-unlimited/card_freedomUtld_V.png"
+    }
+  },
+  {
+    "id": "chase-us-chase-freedom-rise-credit-card",
+    "art": {
+      "file": "chase-freedom-rise.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://www.chase.com/content/dam/unified-assets/card-art/chase-freedom/freedom-rise/card_freedomRise_V.png"
+    }
   }
 ]
