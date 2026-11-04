@@ -14,13 +14,14 @@ export class Engine{
  async load(){const s=await this.io.load();if(!s)return blank();if(s.schema!==2)throw Error('unsupported_storage_version');return structuredClone(s);}
  async save(s){s.revision++;await this.io.save(s);return s;}
  recover(){return this.serial(async()=>{const s=await this.load();let migrated=false;for(const j of s.run?.jobs||[])if(j.sections?.reward?.status==='updated'&&!Number.isInteger(j.sections.reward.readCards)){j.sections.reward.status='partial';migrated=true;}if(migrated)await this.save(s);if(s.run?.status==='running'){for(const j of s.run.jobs)if(pending(j))j.status='interrupted';s.run.status='interrupted';await this.save(s);}return s;});}
- start(input,owner){return this.serial(async()=>{
+ start(input,owner,{scheduled=false}={}){return this.serial(async()=>{
   const m=request(input),s=await this.load();if(s.run?.status==='running')throw Error('busy');
   if(m.banks.some(b=>s.disabled.includes(b)))throw Error('bank_disabled');
   for(const previous of s.run?.jobs||[])if(!pending(previous))(s.lastBankJobs??={})[previous.bank]=structuredClone(previous);
   // A tail shared by two cards of one bank cannot identify either, so it stays out of the job and out of discovery.
   const shared=bank=>[...new Set(m.cards.filter(c=>c.bank===bank&&m.cards.filter(x=>x.bank===bank&&x.tail===c.tail).length>1).map(c=>c.tail))];
   s.run={id:m.requestId,generation:this.io.uuid(),owner,status:'running',startedAt:this.io.now(),jobs:m.banks.map(bank=>({bank,cards:m.cards.filter(c=>c.bank===bank&&!shared(bank).includes(c.tail)),...(shared(bank).length?{excludedTails:shared(bank)}:{}),...(m.cardId?{cardId:m.cardId}:{}),attemptId:this.io.uuid(),status:'queued',tabId:null,owned:false,navigation:0}))};
+  if(scheduled)s.run.scheduled=true;
   await this.save(s);return s;
  });}
  claim(){return this.serial(async()=>{const s=await this.load();if(s.run?.status!=='running'||s.run.jobs.some(j=>pending(j)&&j.status!=='queued'))return null;const j=s.run.jobs.find(j=>j.status==='queued');if(!j)return null;j.status='opening';j.startedAt=this.io.now();j.deadline=j.startedAt+60000;await this.save(s);return {runId:s.run.id,generation:s.run.generation,...j};});}

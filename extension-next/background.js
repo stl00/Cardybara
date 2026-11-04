@@ -8,18 +8,18 @@ import {createAgent} from './agent-runtime.js';
 import {Engine,STATE_KEY} from './engine.js';
 import {ORIGIN,PROVIDERS,VERSION,allowed,guidedPage} from './providers.js';
 import {trusted,request} from './protocol.js';
-const engine=new Engine({load:async()=>(await chrome.storage.local.get(STATE_KEY))[STATE_KEY],save:s=>chrome.storage.local.set({[STATE_KEY]:s}),uuid:()=>crypto.randomUUID(),now:()=>Date.now()});
+export const engine=new Engine({load:async()=>(await chrome.storage.local.get(STATE_KEY))[STATE_KEY],save:s=>chrome.storage.local.set({[STATE_KEY]:s}),uuid:()=>crypto.randomUUID(),now:()=>Date.now()});
 const agent=createAgent({apply:items=>engine.approve(items),changed:async()=>notify(await engine.load())});
 const ownPage=sender=>sender.id===chrome.runtime.id&&sender.url?.split('#')[0]===chrome.runtime.getURL('index.html');
 const walletUrl=()=>chrome.runtime.getURL('index.html');
 const isWallet=url=>{try{return new URL(url).origin===ORIGIN||url.split('#')[0]===walletUrl();}catch{return false;}};
-const ready=(async()=>{await chrome.storage.local.setAccessLevel({accessLevel:'TRUSTED_CONTEXTS'});await agent.recover();return engine.recover();})();
+export const ready=(async()=>{await chrome.storage.local.setAccessLevel({accessLevel:'TRUSTED_CONTEXTS'});await agent.recover();return engine.recover();})();
 const bounded=(promise,ms=8000)=>{let timer;return Promise.race([promise,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('operation_timeout')),ms)})]).finally(()=>clearTimeout(timer));};
 function publicState(s){return {schema:2,runtimeBuild:BUILD_ID,revision:s.revision,discoveredCards:s.discoveredCards||[],run:s.run?{id:s.run.id,status:s.run.status,jobs:s.run.jobs.map(({bank,status,received,finishedAt,phase,sections,pages,rejected,rejectReasons,tabId,diagnostic,readError})=>({bank,status,received,finishedAt,phase,sections,pages,rejected,rejectReasons,tabId,diagnostic,readError}))}:null,records:s.records,disabled:s.disabled,lastBankJobs:s.lastBankJobs||{},agentRecords:s.agentRecords||[]};}
 async function exposedState(s){const d=await chrome.storage.local.get('cardybara:last-capture-error');return {...publicState(s),lastCaptureError:d['cardybara:last-capture-error']||null};}
 async function notify(s){if(s?.run)try{const tab=await bounded(chrome.tabs.get(s.run.owner),2000);if(isWallet(tab.url)){const m={channel:'cardybara-extension',type:'state',version:VERSION,state:await exposedState(s)};await bounded(tab.url.split('#')[0]===walletUrl()?chrome.runtime.sendMessage(m):chrome.tabs.sendMessage(tab.id,m),2000);}}catch{}}
 async function publish(s){if(s){await notify(s);for(const j of s.run?.jobs||[])if(j.tabId!=null)void showGuide({...j,runId:s.run.id});void next();}}
-async function next(){
+export async function next(){
  await ready;const ctx=await engine.claim();if(!ctx)return;
  try{
   await chrome.alarms.create('cardybara:'+ctx.attemptId,{when:ctx.deadline});
@@ -76,7 +76,8 @@ async function loaded(tabId,url){
 }
 function guideView(s,j){return {bank:j.bank,status:j.status,received:j.received||0,attemptId:j.attemptId,runId:s.run.id,phase:j.phase,sections:j.sections};}
 async function showGuide(ctx){
- try{if(['cancelled','interrupted','cleared','disconnected','tab_closed'].includes(ctx.status))return;const tab=await bounded(chrome.tabs.get(ctx.tabId));if(!guidedPage(ctx.bank,tab.url))return;
+ // A run nobody started by hand asks nothing of anyone: its state shows in the wallet.
+ try{if((await engine.load()).run?.scheduled)return;if(['cancelled','interrupted','cleared','disconnected','tab_closed'].includes(ctx.status))return;const tab=await bounded(chrome.tabs.get(ctx.tabId));if(!guidedPage(ctx.bank,tab.url))return;
   const injected=await bounded(chrome.scripting.executeScript({target:{tabId:ctx.tabId},files:['guide.js']}));const documentId=injected[0]?.documentId;if(!documentId)return;
   await bounded(chrome.scripting.executeScript({target:{tabId:ctx.tabId,documentIds:[documentId]},func:config=>self.CardyGuide.mount(config),args:[{bank:ctx.bank,status:ctx.status,received:ctx.received||0,phase:ctx.phase,sections:ctx.sections,runId:ctx.runId,attemptId:ctx.attemptId,tails:ctx.cards.map(c=>c.tail),expiresAt:ctx.guideExpiresAt||Date.now()+900000}]}));
  }catch{}
