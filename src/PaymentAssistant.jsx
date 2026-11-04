@@ -6,7 +6,8 @@ import {CardIdentity} from './Identity';
 import {walletDay} from './personalBenefits';
 import {PAYMENT_MARKS_KEY,paymentGroup,paymentView,readPaymentMarks,withPaymentMark,withoutPaymentMark} from './paymentStates';
 const {Text}=Typography;
-const CHANGE='cardybara-payment-marks-change';
+export const PAYMENT_MARKS_CHANGE='cardybara-payment-marks-change';
+const CHANGE=PAYMENT_MARKS_CHANGE;
 const SEARCH_FROM=6;
 
 export function loadPaymentMarks(){try{return readPaymentMarks(localStorage);}catch{return []}}
