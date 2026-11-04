@@ -4,6 +4,7 @@ import {t,useI18n} from './i18n';
 import {usePersonalMarks} from './PersonalWallet.jsx';
 import {PAYMENT_MARKS_CHANGE,loadPaymentMarks} from './PaymentAssistant.jsx';
 import {LEAD_DAYS,REMINDER_SENT_KEY,REMINDER_SETTINGS_KEY,SCHEDULE_DAYS,normalizeSettings,pendingNotifications,pruneSent,publishSchedule,readSent,readSettings} from './reminders.js';
+import {PAYMENT_MARKS_KEY} from './paymentStates.js';
 import {reminderText} from '../extension-next/reminder-core.js';
 const {Paragraph,Text}=Typography;
 const CHECK_MS=30*60000,CHANGE='cardybara-reminder-settings-change';
@@ -51,9 +52,11 @@ export function ReminderRunner({cards}){
     publishing.current=publishing.current.then(async()=>publishSchedule({area:chrome.storage.local,storage:localStorage,granted:await chrome.permissions.contains({permissions:['notifications']}),cards:latestCards.current,marks:loadPaymentMarks(),events,asOf:day,phrases:phrases(),translate:t})).catch(()=>{});
    }catch{/* A reminder must never break the wallet. */}
   };
-  check();const timer=setInterval(check,CHECK_MS);
-  for(const name of ['focus','storage',CHANGE,PAYMENT_MARKS_CHANGE])window.addEventListener(name,check);
-  return()=>{clearInterval(timer);for(const name of ['focus','storage',CHANGE,PAYMENT_MARKS_CHANGE])window.removeEventListener(name,check)};
+  // Another tab's card changes arrive through the cards prop once this tab has reloaded them, so they are not checked here against the old cards.
+  const fromOtherTab=e=>{if([REMINDER_SETTINGS_KEY,PAYMENT_MARKS_KEY].includes(e.key))check();};
+  check();const timer=setInterval(check,CHECK_MS);window.addEventListener('storage',fromOtherTab);
+  for(const name of ['focus',CHANGE,PAYMENT_MARKS_CHANGE])window.addEventListener(name,check);
+  return()=>{clearInterval(timer);window.removeEventListener('storage',fromOtherTab);for(const name of ['focus',CHANGE,PAYMENT_MARKS_CHANGE])window.removeEventListener(name,check)};
  },[day,events,ready,language,signature]);
  return null;
 }

@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import {DEFAULT_SETTINGS,REMINDER_SENT_KEY,REMINDER_SETTINGS_KEY,buildSchedule,fireTime,mergeSent,pendingNotifications,publishSchedule} from '../src/reminders.js';
 import {paymentItem,withPaymentMark} from '../src/paymentStates.js';
 import {walletDay} from '../src/personalBenefits.js';
-import {REMINDER_ALARM,REMINDER_LOG_KEY,REMINDER_SCHEDULE_KEY,dueNotifications,nextFireAt,readSchedule,reminderDay} from '../extension-next/reminder-core.js';
+import {RETRY_MS,REMINDER_ALARM,REMINDER_LOG_KEY,REMINDER_SCHEDULE_KEY,dueNotifications,nextFireAt,readSchedule,reminderDay} from '../extension-next/reminder-core.js';
 import {createReminderWorker} from '../extension-next/reminder-worker.js';
 const asOf='2026-11-04',read='2026-11-03T15:00:00Z';
 const card=(id,fields={})=>({id,bank:'Chase',name:'Synthetic '+id,currency:'USD',updated:'2026-11-03',fieldDates:Object.fromEntries(Object.keys(fields).map(k=>[k,read])),...fields});
@@ -45,12 +45,23 @@ test('reminders fire with no wallet page open and only when due',async()=>{
  const due=fakeChrome({store:early.store});await worker(due,entry.fireAt).tick();
  assert.equal(due.shown.length,1);assert.equal(due.shown[0].id,entry.id);assert.equal(due.shown[0].title,'Bill');assert.equal(due.shown[0].message,'Synthetic a · 3 days left');assert.match(due.shown[0].iconUrl,/icons\/128\.png$/);
 });
-test('an alarm or a new schedule wakes the worker, and other events do not',async()=>{
- const f=fakeChrome({store:seeded([card('a',{due:'2026-11-05'})])}),w=createReminderWorker({chrome:f.chrome,now:()=>at('2026-11-04')});w.listen();
- f.fire('alarm',{name:'cardybara:some-bank-attempt'});f.fire('changed',{[REMINDER_LOG_KEY]:{}},'local');f.fire('changed',{[REMINDER_SCHEDULE_KEY]:{}},'session');
- await w.tick();const after=f.shown.length;assert.equal(after,1);
- f.store.values[REMINDER_LOG_KEY]=[];f.fire('alarm',{name:REMINDER_ALARM});await w.tick();
- assert.equal(f.shown.length,2,'a cleared log fires again, proving the alarm reached the worker');
+test('only its own alarm, a new schedule, startup, install or the permission wakes the worker',async()=>{
+ const store=seeded([card('a',{due:'2026-11-20'})]);let reads=0;const get=store.get.bind(store);store.get=keys=>{reads++;return get(keys);};
+ const f=fakeChrome({store});createReminderWorker({chrome:f.chrome,now:()=>at('2026-11-04')}).listen();
+ const settled=()=>new Promise(r=>setImmediate(r));
+ for(const [name,...args] of [['alarm',{name:'cardybara:some-bank-attempt'}],['changed',{[REMINDER_LOG_KEY]:{}},'local'],['changed',{[REMINDER_SCHEDULE_KEY]:{}},'session'],['added',{permissions:['tabs']}]]){f.fire(name,...args);await settled();assert.equal(reads,0,name);}
+ let expected=0;
+ for(const [name,...args] of [['alarm',{name:REMINDER_ALARM}],['changed',{[REMINDER_SCHEDULE_KEY]:{}},'local'],['startup'],['installed'],['added',{permissions:['notifications']}]]){f.fire(name,...args);await settled();assert.equal(reads,++expected,name);}
+});
+test('a failed send is retried by a later alarm, not left waiting for the next sync',async()=>{
+ const c=card('a',{due:'2026-11-05'}),now=at(asOf),f=fakeChrome({store:seeded([c]),failCreate:true});await worker(f,now).tick();
+ assert.deepEqual(f.shown,[]);assert.equal(f.alarms.get(REMINDER_ALARM),now+RETRY_MS);
+ const ok=fakeChrome({store:f.store});await worker(ok,now+RETRY_MS).tick();assert.equal(ok.shown.length,1);assert.notEqual(ok.alarms.get(REMINDER_ALARM),now+2*RETRY_MS,'no retry once sent');
+});
+test('a wallet tab reloads cards changed in another tab, and waits for that before replanning',()=>{
+ const main=readFileSync(new URL('../src/main.jsx',import.meta.url),'utf8'),ui=readFileSync(new URL('../src/ReminderSettings.jsx',import.meta.url),'utf8');
+ assert.match(main,/\[LIVE_KEY,WALLET_CARDS_KEY,WALLET_REMOVED_KEY,'cardybara-import'\]\.includes\(e\.key\)/);assert.match(main,/addEventListener\('storage',sync\)/);
+ assert.match(ui,/\[REMINDER_SETTINGS_KEY,PAYMENT_MARKS_KEY\]\.includes\(e\.key\)/);assert.doesNotMatch(ui,/addEventListener\('storage',check\)/);
 });
 test('nothing fires twice, even when wake-ups arrive together or the worker restarts',async()=>{
  const f=fakeChrome({store:seeded([card('a',{due:'2026-11-05'})])}),now=at('2026-11-04'),w=worker(f,now);
@@ -80,6 +91,7 @@ test('a bill marked handled stops firing once the page has synced, and undoing b
 test('an unchanged plan is not written again, so a sync does not wake the worker',async()=>{
  const store=area(),args={area:store,storage:page({[REMINDER_SETTINGS_KEY]:JSON.stringify(on)}),granted:true,cards:[card('a',{due:'2026-11-05'})],marks:[],events:[],asOf,phrases};
  await publishSchedule(args);await publishSchedule(args);assert.equal(store.writes,1);
+ const sorted=v=>Array.isArray(v)?v.map(sorted):v&&typeof v==='object'?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a<b?-1:1).map(([k,x])=>[k,sorted(x)])):v;store.values[REMINDER_SCHEDULE_KEY]=sorted(store.values[REMINDER_SCHEDULE_KEY]);await publishSchedule(args);assert.equal(store.writes,1,'Chrome may return keys in another order');
 });
 test('off, or without the permission, no plan stays stored and nothing fires',async()=>{
  const c=card('a',{due:'2026-11-05'});

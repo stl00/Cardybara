@@ -5,7 +5,7 @@
 export const REMINDER_SCHEDULE_KEY='cardybara:reminder-schedule',REMINDER_LOG_KEY='cardybara:reminder-sent';
 // Must not start with "cardybara:", which background.js treats as a bank attempt's timeout.
 export const REMINDER_ALARM='cardybara-reminder:next';
-export const SCHEDULE_SCHEMA=1,SINGLE_LIMIT=3;
+export const SCHEDULE_SCHEMA=1,SINGLE_LIMIT=3,RETRY_MS=3600000;
 const SENT_KEEP_DAYS=120,MAX_ENTRIES=300,DAY_MS=86400000;
 const chicagoDay=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit'});
 /** The same calendar as walletDay() in the wallet, so a day count here matches the page's. */

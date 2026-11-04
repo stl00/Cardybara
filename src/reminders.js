@@ -86,6 +86,8 @@ export function buildSchedule({cards,marks,events,settings,sent,asOf,phrases,tra
  }
  return {schema:SCHEDULE_SCHEMA,enabled:true,phrases,entries:[...entries.values()].sort((a,b)=>a.fireAt-b.fireAt||a.id.localeCompare(b.id)).slice(0,MAX_ENTRIES)};
 }
+// Chrome may hand stored objects back with their keys in another order.
+const canonical=value=>JSON.stringify(value,(_,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a<b?-1:1)):v);
 /** Both logs count as sent, so a reminder shown by either the page or the worker is never repeated. */
 export function mergeSent(a,b){const rows=new Map();for(const r of [...a,...b])if(!rows.has(r.id))rows.set(r.id,r);return [...rows.values()];}
 /**
@@ -98,6 +100,6 @@ export async function publishSchedule({area,storage,granted,cards,marks,events,a
  const stored=await area.get([REMINDER_SCHEDULE_KEY,REMINDER_LOG_KEY]),page=readSent(storage),sent=mergeSent(page,readLog(stored[REMINDER_LOG_KEY]));
  if(sent.length!==page.length)try{storage.setItem(REMINDER_SENT_KEY,JSON.stringify(pruneSent(sent,asOf)));}catch{/* The worker's own log still stops a repeat. */}
  const schedule=buildSchedule({cards,marks,events,settings,sent,asOf,phrases,translate});
- if(JSON.stringify(stored[REMINDER_SCHEDULE_KEY])!==JSON.stringify(schedule))await area.set({[REMINDER_SCHEDULE_KEY]:schedule});
+ if(canonical(stored[REMINDER_SCHEDULE_KEY])!==canonical(schedule))await area.set({[REMINDER_SCHEDULE_KEY]:schedule});
  return schedule;
 }
