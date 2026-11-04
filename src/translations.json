@@ -1092,7 +1092,9 @@
     "移除这张卡？": "Remove this card?",
     "这张卡和它的本机读数会从钱包中移除，银行页面也不会再把它自动加回来。如果以后需要，可以手动添加。": "This card and its local readings will be removed from the wallet, and bank pages will not add it back automatically. You can add it manually later if you need it.",
     "移除": "Remove",
-    "卡片已移除。": "Card removed."
+    "卡片已移除。": "Card removed.",
+    "机票与航司": "Flights and airlines",
+    "机场出行": "Airport"
   },
   "zh-TW": {
     "美国": "美國",
@@ -2187,6 +2189,8 @@
     "移除这张卡？": "移除這張卡？",
     "这张卡和它的本机读数会从钱包中移除，银行页面也不会再把它自动加回来。如果以后需要，可以手动添加。": "這張卡和它的本機讀數會從錢包中移除，銀行頁面也不會再把它自動加回來。如果以後需要，可以手動新增。",
     "移除": "移除",
-    "卡片已移除。": "卡片已移除。"
+    "卡片已移除。": "卡片已移除。",
+    "机票与航司": "機票與航司",
+    "机场出行": "機場出行"
   }
 }
