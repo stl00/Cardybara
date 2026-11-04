@@ -29,7 +29,8 @@
       "rewardSource": {
         "url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0550_Web.pdf",
         "checkedAt": "2026-10-27"
-      }
+      },
+      "transferProgrammeId": "programme.chase-ultimate-rewards"
     },
     {
       "id": "amex-hk-hk-the-platinum-card",
@@ -54,7 +55,8 @@
       "rewardSource": {
         "url": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
         "checkedAt": "2026-10-27"
-      }
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-hk"
     },
     {
       "id": "chase-us-freedom-unlimited",
@@ -336,7 +338,8 @@
       "rewardSource": {
         "url": "https://www.americanexpress.com/hk/en/credit-cards/explorer-credit-card/",
         "checkedAt": "2026-10-27"
-      }
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-hk"
     },
     {
       "id": "sc-hk-hk-cathay-mastercard",
@@ -419,7 +422,9 @@
         "Chase Sapphire Preferred"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Ultimate Rewards"
+      ],
       "art": {
         "file": "catalog-6c8d36582258aad9.png",
         "verification": "issuer-asset",
@@ -427,7 +432,12 @@
       },
       "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
       "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "verification": "issuer-listed",
+      "transferProgrammeId": "programme.chase-ultimate-rewards",
+      "rewardSource": {
+        "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-slate-credit-card",
@@ -975,7 +985,9 @@
         "Ink Business Preferred"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Ultimate Rewards"
+      ],
       "art": {
         "file": "catalog-ff14fa08229f50ff.png",
         "verification": "issuer-asset",
@@ -983,7 +995,12 @@
       },
       "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
       "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "verification": "issuer-listed",
+      "transferProgrammeId": "programme.chase-ultimate-rewards",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-ink-business-premier-credit-card",
@@ -1665,7 +1682,8 @@
         "file": "gold.png",
         "verification": "legacy-asset",
         "sourceUrl": null
-      }
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-us"
     },
     {
       "id": "amex-us-us-morgan-stanley-platinum-card",
@@ -1684,7 +1702,8 @@
         "file": "amex-ms-platinum.svg",
         "verification": "legacy-asset",
         "sourceUrl": null
-      }
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-us"
     },
     {
       "id": "amex-us-us-blue-cash-everyday",
