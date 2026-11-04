@@ -74,3 +74,32 @@ test('structure report text keeps generic labels and hides names, tails and valu
  for(const [text,want] of [['Current balance','Current balance'],['Minimum payment due','Minimum payment due'],['$1,234.56','$#,###.##'],['HK$67.89','HK$##.##'],['...3141','...####'],['Dec 19, 2030','[word] ##, ####'],['Quokka Voyager','[word] [word]'],['Welcome, Alex Example','[word] [word] [word]'],['現時結欠','現時結欠'],['王小明','[字]'],['Quokka 積分','[word] 積分']])assert.equal(redactStructureText(text),want,text);
  for(const secret of ['Alex','Quokka','1234','3141','4111','１２３４','٣١٤١'])assert.ok(!redactStructureText('Alex Quokka 1234 ...3141 4111 1111 １２３４ ٣١٤١').includes(secret),secret);
 });
+
+// Hold-outs for the other regions: invented names found nowhere in collection code, varying name, tail length and order.
+const fixtureOf=name=>JSON.parse(read('./fixtures/banks/'+name+'.json'));
+test('hold-out names for Amex and HSBC appear nowhere in collection code',()=>{
+ const code=COLLECTION.map(f=>read('../extension-next/'+f)).join('\n');for(const name of ['Axolotl','Gecko'])assert.ok(!code.includes(name),name);
+});
+test('Amex US and HK billing does not change with product name or tail length',()=>{
+ for(const [name,from] of [['amex-us-remaining-statement','Platinum'],['amex-hk-mvp','Unseen card']]){
+  const f=fixtureOf(name),read=(text,heading,card)=>JSON.parse(JSON.stringify(reader.parseAmexOverview(text,heading,[card],f.locale,'2030-01-01T00:00:00Z')?.fields||{}));
+  assert.deepEqual(read(f.text,f.heading,f.card),f.expected,name);
+  for(const product of ['Axolotl Business Reserve','Gecko Authorized User'])assert.deepEqual(read(f.text.replaceAll(from,product),f.heading.replace(from,product),f.card),f.expected,name+' '+product);
+  const shortTail={...f.card,tail:'4242'};assert.deepEqual(read(f.text.replaceAll(f.card.tail,'4242').replaceAll(from,'Axolotl'),f.heading.replace(f.card.tail,'4242').replace(from,'Axolotl'),shortTail),f.expected,name+' four-digit tail');
+ }
+});
+test('Amex HK reads Membership Rewards whatever the card is called, and another card in scope gives nothing',()=>{
+ const f=fixtureOf('amex-hk-mvp'),keys=text=>JSON.parse(JSON.stringify(reader.amexHkMvp(text,f.card,'overview')));
+ const base=keys(f.text),renamed=keys(f.text.replaceAll('Unseen card','Axolotl Reserve'));
+ assert.deepEqual(renamed.map(i=>[i.key,i.value,i.date]),base.map(i=>[i.key,i.value,i.date]));assert.ok(base.some(i=>i.kind==='reward'&&i.value===0),'a printed zero stays a reading');
+ assert.equal(keys(f.text+'\nOther card ••••24680').length,0);
+});
+test('HSBC billing does not change with product name or tail, and its rewards stay out of scope',async()=>{
+ const f=fixtureOf('hsbc-hk-card-details'),read=(text,card)=>JSON.parse(JSON.stringify(reader.parseAccount(text,f.bank,card,f.locale,'2030-01-01T00:00:00Z')?.fields||{}));
+ assert.deepEqual(read(f.text,f.card),f.expected);assert.deepEqual(read(f.text.replace('HSBC Red Credit Card','Gecko Premier Business'),f.card),f.expected);
+ assert.deepEqual(read(f.text.replaceAll(f.card.tail,'86420').replace('HSBC Red Credit Card','Axolotl'),{...f.card,tail:'86420'}),f.expected,'five-digit tail');
+ const {requiredReward}=await import('../extension-next/mvp.js');assert.equal(requiredReward('HSBC HK','RewardCash'),false);
+});
+test('masked identities keep their region currency: another currency in scope reads nothing',()=>{
+ const f=fixtureOf('hsbc-hk-card-details');assert.equal(reader.parseAccount(f.text+'\nCNY 5.00',f.bank,f.card,f.locale,'2030-01-01T00:00:00Z'),null);
+});
