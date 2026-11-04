@@ -16,7 +16,7 @@ The conversational assistant uses the configured local proxy to send chat text a
 
 ## Reminders
 
-Bill and benefit reminders are optional and off by default. Turning them on asks Chrome for notification permission. Reminders are decided on this device and shown only while a wallet page is open. They show a card or benefit name, and show an amount only if the user asks for that, because notifications can appear on a lock screen. Reminder settings and a list of reminders already shown stay in local browser storage. Nothing is sent to a server.
+Bill and benefit reminders are optional and off by default. Turning them on asks Chrome for notification permission. Reminders are decided on this device. So that they can arrive with the wallet page closed while Chrome is running, the wallet page saves a short plan in the extension's local storage for its background worker: reminder ids, card and benefit names, dates and notification wording, and a bill amount only if the user asks for amounts. Reminders show a card or benefit name, and show an amount only if the user asks for that, because notifications can appear on a lock screen. The plan is replaced whenever the wallet page syncs and removed when reminders are turned off. Reminder settings and a list of reminders already shown stay in local browser storage, and uninstalling the extension removes them. Nothing is sent to a server.
 
 ## Retention, exports and deletion
 

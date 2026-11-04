@@ -68,7 +68,7 @@ test('the sent log tolerates damage and stays bounded',()=>{
 });
 test('notifications stay optional in the package and every string has translations',()=>{
  const build=readFileSync(new URL('../scripts/build-release.py',import.meta.url),'utf8'),manifest=JSON.parse(readFileSync(new URL('../extension-next/manifest.json',import.meta.url),'utf8'));
- assert.ok(!manifest.permissions.includes('notifications'));assert.match(build,/optional_permissions'\]=\[.*'notifications'/);
+ assert.ok(!manifest.permissions.includes('notifications'));assert.deepEqual(manifest.optional_permissions,['notifications']);assert.doesNotMatch(build,/optional_permissions/,'the package inherits the manifest and must not list it twice');
  const ui=readFileSync(new URL('../src/ReminderSettings.jsx',import.meta.url),'utf8'),catalog=JSON.parse(readFileSync(new URL('../src/translations.json',import.meta.url),'utf8'));
  for(const [,key] of ui.matchAll(/t\('([^']+)'/g))for(const language of ['en-US','zh-TW'])assert.ok(catalog[language][key],`${language}: ${key}`);
 });

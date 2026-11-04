@@ -8,6 +8,8 @@ import {createAgent} from './agent-runtime.js';
 import {Engine,STATE_KEY} from './engine.js';
 import {ORIGIN,PROVIDERS,VERSION,allowed,guidedPage} from './providers.js';
 import {trusted,request} from './protocol.js';
+import {createReminderWorker} from './reminder-worker.js';
+createReminderWorker({chrome}).listen();
 const engine=new Engine({load:async()=>(await chrome.storage.local.get(STATE_KEY))[STATE_KEY],save:s=>chrome.storage.local.set({[STATE_KEY]:s}),uuid:()=>crypto.randomUUID(),now:()=>Date.now()});
 const agent=createAgent({apply:items=>engine.approve(items),changed:async()=>notify(await engine.load())});
 const ownPage=sender=>sender.id===chrome.runtime.id&&sender.url?.split('#')[0]===chrome.runtime.getURL('index.html');
