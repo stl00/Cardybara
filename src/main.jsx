@@ -125,7 +125,7 @@ if(page==='advisor')body=<WalletAdvisor cards={displayed.cards}/>;
 if(page==='wallet')body=data.cards.length?cardsSection:<div className="empty-wallet"><Empty description={t('导入卡片备份，开始管理钱包')}/><Button type="primary" onClick={()=>inputRef.current.click()}>{t('导入备份')}</Button></div>;
 if(page==='guide')body=<BenefitGuide data={displayed}/>;
 if(page==='catalog')body=<CardCatalog/>;
-if(page==='rewards')body=<RewardsView accounts={rewardView} cards={displayed.cards} count={count}/>;
+if(page==='rewards')body=<RewardsView accounts={rewardView} cards={displayed.cards} count={count} hidden={hidden}/>;
 
 if(page==='benefits')body=<><Alert type="info" showIcon title={t('福利按记录周期展示')} description={t('历史周期不代表当前可用额度，请核对周期与采集日期。')} style={{marginBottom:24}}/>{[...new Set(displayed.benefits.map(b=>b.card||'gold'))].map(id=><Card key={id} title={<CardIdentity card={data.cards.find(c=>c.id===id)}/>} className="benefits-panel" style={{marginBottom:20}}>{renderBenefitRows(displayed.benefits.filter(b=>(b.card||'gold')===id))}<Paragraph type="secondary" className="source-note">{t('银行进度可能延迟；退款或取消可能使抵扣撤回。Uber Cash 使用情况未验证。')}</Paragraph></Card>)}{!displayed.benefits.length&&<Empty description={t('其他卡片福利进度待采集')}/>}</>;
 if(page==='benefits'&&data.spendingGoals?.length)body=<>{body}{data.spendingGoals.map(g=><Card key={g.card} title={<BankIdentity bank={data.cards.find(c=>c.id===g.card)?.bank} label={`${data.cards.find(c=>c.id===g.card)?.name} · ${t(g.name)}`}/>} style={{marginTop:24}}><Statistic title={t("已计入消费 / 目标")} value={g.spent} formatter={()=>`${amount(g.spent,g.currency)} / ${currency(g.target,g.currency)}`}/><Progress percent={Math.min(100,Math.round(g.spent/g.target*100))}/><Text type="secondary">{t(g.note)} · {g.date}</Text></Card>)}</>;
