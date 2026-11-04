@@ -104,6 +104,6 @@ export default function PaymentAssistant({cards,hidden=false,urls,onDetail,onRef
    </Flex>
    {rows.length?rows.map(row):<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t('没有匹配的卡片，请调整筛选条件')}/>}
   </>}]}/>}
-  <Text type="secondary" className="payment-foot">{t('钱包不会替你付款。“已处理”只是你在本机的记号，下一期账单会重新提醒。')}</Text>
+  <Text type="secondary" className="payment-foot">{t('钱包不会替你付款。“已处理”只是你在本机的记号，下一期账单会重新提醒。')} <a href="#settings">{t('设置提醒')}</a></Text>
  </Card>;
 }

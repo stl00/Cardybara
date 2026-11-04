@@ -65,7 +65,7 @@ export function paymentItem(card,marks=[],asOf=walletDay()){
  else if(cycle)state='due';
  else state='unknown'; // Amounts without a due date still cannot say when to pay.
  const soon=state==='due'&&days<=SOON_DAYS;
- return {card,key,cycle,state,soon,days,stale,readAt,autopay:autopayOn?'on':card.autopay==='off'?'off':'unknown',handled:state!=='nothing_billed'&&isHandled(key,marks,asOf),canMark:!!key&&state!=='nothing_billed'};
+ return {card,key,cycle,state,soon,days,stale,readAt,autopay:autopayOn?'on':card.autopay==='off'?'off':'unknown',autopayOld:autopayOn&&isOld(oldestReading(card,['autopay'],asOf)),handled:state!=='nothing_billed'&&isHandled(key,marks,asOf),canMark:!!key&&state!=='nothing_billed'};
 }
 
 const RANKS={overdue:0,yearless:3,stale:5,autopay:6,nothing_billed:7,no_payment:7,unknown:8};
