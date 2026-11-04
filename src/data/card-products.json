@@ -489,15 +489,21 @@
         "United Explorer"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "United MileagePlus"
+      ],
       "art": {
         "file": "catalog-d3b8ab4680c528fc.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/united_explorer_new_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-united-gateway-card",
@@ -529,15 +535,21 @@
         "United Club"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "United MileagePlus"
+      ],
       "art": {
         "file": "catalog-5159d6b4dbe5b9a8.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/united_club_new_infinite_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/club-infinite",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/united/club-infinite",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-southwest-rapid-rewards-plus-credit-card",
@@ -549,15 +561,21 @@
         "Southwest Rapid Rewards Plus"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Southwest Rapid Rewards"
+      ],
       "art": {
         "file": "catalog-e6459695e127b342.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_plus_card_New.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/plus",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/southwest/plus",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-southwest-rapid-rewards-priority-credit-card",
@@ -569,15 +587,21 @@
         "Southwest Rapid Rewards Priority"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Southwest Rapid Rewards"
+      ],
       "art": {
         "file": "catalog-1042103e56c61f53.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_priority_card-2.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/southwest/priority",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-southwest-rapid-rewards-premier-credit-card",
@@ -589,15 +613,21 @@
         "Southwest Rapid Rewards Premier"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Southwest Rapid Rewards"
+      ],
       "art": {
         "file": "catalog-3e6ee6b2f72ba33b.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_premier_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/premier",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/southwest/premier",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-marriott-bonvoy-boundless-credit-card",
@@ -609,15 +639,21 @@
         "Marriott Bonvoy Boundless"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Marriott Bonvoy"
+      ],
       "art": {
         "file": "catalog-6523ebb78d751e8e.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/marriott-bonvoy-boundless-card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-marriott-bonvoy-bountiful-credit-card",
@@ -689,15 +725,21 @@
         "IHG One Rewards"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "IHG One Rewards"
+      ],
       "art": {
         "file": "catalog-bb97716ea3a6a52f.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ihg-one-rewardscard.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/one-rewards",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/one-rewards",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-world-of-hyatt-credit-card",
@@ -709,15 +751,21 @@
         "World of Hyatt"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "World of Hyatt"
+      ],
       "art": {
         "file": "catalog-dac5a40e3c203b13.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/world_of_hyatt_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-disney-inspire-visa-card",
@@ -827,15 +875,21 @@
         "Air Canada Aeroplan"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Air Canada Aeroplan"
+      ],
       "art": {
         "file": "catalog-19c9c2d4a1f57ceb.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/AirCanada_Aeroplan_cardart.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/aircanada/aeroplan",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/aircanada/aeroplan",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-british-airways-visa-signature-credit-card",
@@ -1019,7 +1073,7 @@
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ink_business_premier_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/premier",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-04",
       "verification": "issuer-listed"
     },
     {

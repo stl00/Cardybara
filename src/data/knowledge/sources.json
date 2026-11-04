@@ -684,5 +684,75 @@
     "title": "American Express · Delta SkyMiles Gold Business Card 官方产品页",
     "checkedAt": "2026-11-04",
     "authority": "official"
+  },
+  {
+    "id": "card-chase-us-united-explorer-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer",
+    "title": "Chase · United Explorer Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-united-club-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/united/club-infinite",
+    "title": "Chase · United Club Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-southwest-rapid-rewards-plus-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/southwest/plus",
+    "title": "Chase · Southwest Rapid Rewards Plus Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-southwest-rapid-rewards-priority-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/southwest/priority",
+    "title": "Chase · Southwest Rapid Rewards Priority Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-southwest-rapid-rewards-premier-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/southwest/premier",
+    "title": "Chase · Southwest Rapid Rewards Premier Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless",
+    "title": "Chase · Marriott Bonvoy Boundless Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-ihg-one-rewards-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/one-rewards",
+    "title": "Chase · IHG One Rewards Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-world-of-hyatt-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card",
+    "title": "Chase · World of Hyatt Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-air-canada-aeroplan-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/aircanada/aeroplan",
+    "title": "Chase · Air Canada Aeroplan Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-ink-business-premier-credit-card",
+    "url": "https://creditcards.chase.com/business-credit-cards/ink/premier",
+    "title": "Chase · Ink Business Premier Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
   }
 ]
