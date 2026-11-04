@@ -1,6 +1,6 @@
 // Isolated-world DOM reader. Never reads form values, network responses or cookies.
 (()=>{
- const labels={statementClosing:/^(?:月結單結欠|月结单结欠|賬單結欠|账单结欠|statement balance|statement closing balance)$/i,creditLimit:/^(?:approved credit limit|total credit line|credit limit|信用限額|信用額度|信用额度)$/i,balance:/^(current balance|outstanding balance|total balance|balance outstanding|總結欠|总欠款|总计结欠|總計結欠|目前結欠|現時結欠|目前結餘|結欠|結餘|現時結餘|当前余额|目前结欠|现时结欠|目前结余|结欠|结余|solde actuel)$/i,available:/^(total credit available|available credit|available credit limit|available credit amount|可用信貸額|可用信貸額度|可用信用額|可用信用額度|可用額度|可用额度|可用信贷额|可用信贷额度|crédit disponible)$/i,statement:/^(billed balance|statement balance|remaining statement balance|last statement balance|statement closing balance|賬單結欠|帳單結欠|月結單結欠|月結單結餘|結單結欠|结单结欠|月结单结欠|solde du relevé)$/i,minimum:/^(total min payment due|total minimum payment due|minimum payment due|minimum payment|minimum amount due|minimum due|最低還款|最低还款|最低還款額|最低還款金額|最低付款額|最低付款金額|最低还款额|最低还款金额|paiement minimum)$/i};
+ const labels={statementClosing:/^(?:月結單結欠|月结单结欠|賬單結欠|账单结欠|statement balance|statement closing balance)$/i,creditLimit:/^(?:approved credit limit|total credit line|credit limit|信用限額|信用額度|信用额度)$/i,balance:/^(current balance|outstanding balance|total balance|balance outstanding|總結欠|总欠款|总计结欠|總計結欠|目前結欠|現時結欠|目前結餘|結欠|結餘|現時結餘|当前余额|目前结欠|现时结欠|目前结余|结欠|结余|solde actuel)$/i,available:/^(total credit available|available credit|available credit limit|available credit amount|可用信貸額|可用信貸額度|可用信用額|可用信用額度|可用信用限額|可用信用限额|可用額度|可用额度|可用信贷额|可用信贷额度|crédit disponible)$/i,statement:/^(billed balance|statement balance|remaining statement balance|last statement balance|statement closing balance|賬單結欠|帳單結欠|月結單結欠|月結單結餘|結單結欠|结单结欠|月结单结欠|solde du relevé)$/i,minimum:/^(total min payment due|total minimum payment due|minimum payment due|minimum payment|minimum amount due|minimum due|最低還款|最低还款|最低還款額|最低還款金額|最低付款額|最低付款金額|最低还款额|最低还款金额|paiement minimum)$/i};
  const currencyToken=/^(?:HK\$|CA\$|US\$|\$|HKD|CAD|USD|CNY|RMB|CN¥)$/i;
  // A rewards label by its shape, used only to report a programme this version does not collect.
  // structural: the unit words are generic vocabulary, and a verb-led phrase is an action, not a balance.
@@ -42,7 +42,7 @@
   if(card.currency==='HKD'&&/CNY|RMB|CN¥|人民幣|人民币/i.test(text))return null;
   for(const [key,baseLabel]of Object.entries(labels)){
    if(key==='statementClosing'&&bank!=='Amex HK')continue;
-   const hsbcLabels={balance:/^(?:balance|account balance|current balance|outstanding balance|total balance|目前結欠|現時結欠|目前結餘|現時結餘|結欠|結餘|当前余额|目前结欠|现时结欠|目前结余|结欠|结余)$/i,statement:/^current amount due$/i,minimum:/^(?:total minimum payment amount|minimum payment due|minimum payment|minimum amount due|minimum due|最低還款|最低还款|最低還款額|最低還款金額|最低付款額|最低付款金額|最低还款额|最低还款金额)$/i};
+   const hsbcLabels={balance:/^(?:balance|account balance|current balance|outstanding balance|total balance|目前結欠|現時結欠|目前結餘|現時結餘|結欠|結餘|当前余额|目前结欠|现时结欠|目前结余|结欠|结余|戶口結餘|户口结余)$/i,statement:/^(?:current amount due|最新應繳結欠|最新应缴结欠)$/i,minimum:/^(?:total minimum payment amount|最低付款總額|最低付款总额|minimum payment due|minimum payment|minimum amount due|minimum due|最低還款|最低还款|最低還款額|最低還款金額|最低付款額|最低付款金額|最低还款额|最低还款金额)$/i};
    const label=bank==='HSBC HK'?(hsbcLabels[key]||baseLabel):bank==='Amex HK'&&key==='statement'?/^(?:未繳付月結單結欠|未缴付月结单结欠|remaining statement balance)$/i:baseLabel;
    const values=[];
    for(let i=0;i<lines.length;i++){
@@ -97,6 +97,8 @@
   return items.filter(i=>!items.some(x=>x.kind===i.kind&&x.key===i.key&&x.value!==i.value)).filter((i,n,a)=>a.findIndex(x=>x.kind===i.kind&&x.key===i.key)===n);
  }
  function authState(bank,pathname,title){
+  // An ended session lands on the public home page of the language in use.
+  if(bank==='HSBC HK'&&/^\/[a-z]{2}-[a-z]{2}\/?$/.test(pathname))return 'needs_login';
   if(bank!=='HSBC HK'||!/^\/security(?:\/|$)/.test(pathname))return null;
   if(title==='Security code | Log on | HSBC')return 'needs_confirmation';
   if(/^(?:Username|Password) \| Log on \| HSBC$/.test(title))return 'needs_login';
@@ -262,16 +264,18 @@
   return chaseBindings(bindings,cards,new Date().toISOString());
  }
  function readHsbcDetails(doc,cards,locale){
-  const title=doc.getElementById('account-summary-name');if(!shown(title))return null;
+  // The page repeats some ids on a hidden copy, so only the shown one counts.
+  const byId=id=>[...doc.querySelectorAll(`[id="${id}"]`)].find(shown)||null;
+  const title=byId('account-summary-name');if(!title)return null;
   const root=title.closest('.account-summary-title-detail');if(!root)return {status:'no_data',patches:[]};
   // Exclude the account-switch menu: it contains balances for other cards and
   // deposit accounts, including other currencies.
   const metadata=[...root.children].filter(e=>e.classList.contains('account-detail-row')).map(e=>e.innerText||'').join('\n');
-  const id=identify(metadata,cards);if(!id)return {status:'no_data',patches:[]};
-  const card=cards.find(c=>c.id===id),ledger=doc.getElementById('ledger-account-amount');
+  const id=identify(byId('account-number-value')?.innerText||metadata,cards);if(!id)return {status:'no_data',patches:[]};
+  const card=cards.find(c=>c.id===id),ledger=byId('ledger-account-amount');
   let text=[title.innerText,metadata,ledger?.innerText||''].join('\n');
-  for(const [label,key]of [['Current amount due','credit-card-amount-due-value'],['Total minimum payment amount','credit-card-total-minimum-payment-amount-value']]){const e=doc.getElementById(key);if(shown(e))text+='\n'+label+'\n'+e.innerText;}
-  const overlay=doc.getElementById('account-details-overlay');if(shown(overlay))text+='\n'+overlay.innerText;
+  for(const [label,key]of [['Current amount due','credit-card-amount-due-value'],['Total minimum payment amount','credit-card-total-minimum-payment-amount-value']]){const e=byId(key);if(e)text+='\n'+label+'\n'+e.innerText;}
+  const overlay=byId('account-details-overlay');if(overlay)text+='\n'+overlay.innerText;
   const patch=parseAccount(text,'HSBC HK',card,locale,new Date().toISOString());
   return {status:patch?'updated':'no_data',patches:patch?[patch]:[]};
  }

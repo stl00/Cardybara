@@ -4,6 +4,12 @@ import {newWalletCard,mergeWalletCards,withoutRemoved,withoutRemovedCards,remove
 import {PROVIDERS} from '../extension-next/providers.js';
 import {request} from '../extension-next/protocol.js';
 import {normalizeDiscoveredCards,discoverVisibleCards} from '../extension-next/discovery.js';
+test('a discovered card keeps a printed currency only when its bank supports it',()=>{
+ assert.equal(normalizeDiscoveredCards('HSBC HK',[{tail:'1234',name:'A',currency:'CNY'}])[0].currency,'CNY');
+ assert.equal(normalizeDiscoveredCards('HSBC HK',[{tail:'1234',name:'A'}])[0].currency,'HKD');
+ assert.deepEqual(normalizeDiscoveredCards('HSBC HK',[{tail:'1234',name:'A',currency:'USD'}]),[]);
+ assert.deepEqual(normalizeDiscoveredCards('Chase',[{tail:'1234',name:'A',currency:'CNY'}]),[]);
+});
 import {Engine} from '../extension-next/engine.js';
 import vm from 'node:vm';
 import {readFileSync} from 'node:fs';

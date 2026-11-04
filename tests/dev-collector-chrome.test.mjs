@@ -12,6 +12,7 @@ import {syntheticPrepareTab} from '../scripts/dev-collector/synthetic-bank.mjs';
 import {chaseCards} from '../extension-next/chase-navigation.js';
 import {boaCards} from '../extension-next/card-navigation.js';
 import {discoverVisibleCards} from '../extension-next/discovery.js';
+import {hsbcCards,hsbcMoreDetails} from '../extension-next/hsbc-navigation.js';
 import {injectableStructureReport} from '../scripts/dev-collector/structure-report.js';
 import {capturePage} from '../extension-next/agent-snapshot.js';
 
@@ -166,6 +167,30 @@ for(const [bank,url,cards,want] of [
   }
   assert.ok(!raw.observations.some(o=>o.kind==='reward'),'rewards are out of scope for these banks');
   assert.ok(raw.observations.some(o=>o.key==='paymentStatus'&&o.cardId===raw.aliases.find(a=>a.cardId==='c'+cards[1]).id));
+ }finally{await run.stop();}
+});
+
+test('HSBC: zh-HK rows give last-four identities, and each card reads through hidden duplicate ids',async()=>{
+ const run=await start();
+ try{
+  const {chrome}=run.adapter,events=[];chrome.tabs.onUpdated.addListener((id,c)=>events.push(c));
+  const tab=await chrome.tabs.create({url:'https://www.hsbc.com.hk/zh-hk/online/dashboard/',active:false});await until(()=>events.some(e=>e.status==='complete'));
+  const exec=(func,args=[])=>chrome.scripting.executeScript({target:{tabId:tab.id},func,args}).then(r=>r[0].result);
+  await exec(()=>{document.getElementById('sign-in').click();});
+  await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
+  const found=await exec(discoverVisibleCards,['HSBC HK',['zh-HK']]);
+  assert.deepEqual(found.cards.map(c=>[c.tail,c.currency]),[['1234','HKD'],['5678','HKD'],['9012','CNY']],'no deposit account, no unsupported currency');assert.equal(found.skipped,1);
+  assert.ok(!JSON.stringify(found).includes('4000'),'only the last four digits leave the page');
+  const cards=found.cards.map(c=>({id:'c'+c.tail,bank:'HSBC HK',tail:c.tail,currency:c.currency}));
+  assert.deepEqual(await exec(hsbcCards,['list',null,cards]),['1234','5678','9012']);
+  for(const [tail,currency,want,due] of [['1234','HKD',{balance:1234.56,statement:321,minimum:35,creditLimit:10000,available:8765.44},'2030-12-19'],['5678','HKD',{balance:-25,statement:0,minimum:0,creditLimit:10000,available:10025},'2030-12-02'],['9012','CNY',{balance:67.89,statement:67.89,minimum:50,creditLimit:5000,available:4932.11},'2030-12-09']]){
+   assert.deepEqual(await exec(hsbcCards,['select',tail,cards]),[tail]);
+   assert.equal(await exec(hsbcMoreDetails),true);
+   const raw=await exec(capturePage,['HSBC HK',cards,['c'+tail]]);assert.equal(raw.error,undefined,tail);assert.deepEqual(raw.aliases.map(a=>[a.cardId,a.currency]),[['c'+tail,currency]]);
+   assert.deepEqual(Object.fromEntries(raw.observations.filter(o=>o.kind==='card').map(o=>[o.key,o.value])),want,tail);
+   assert.equal(raw.observations.find(o=>o.key==='due')?.date,due,tail);
+   assert.ok(!JSON.stringify(raw).includes('4000-0000'),'a full number never leaves the page');
+  }
  }finally{await run.stop();}
 });
 

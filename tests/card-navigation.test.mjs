@@ -24,6 +24,17 @@ test('selector does nothing outside account overview or dashboard',async()=>{
  const f=fixture();location.pathname='/payments/pay';assert.deepEqual(await amexCards('list'),[]);assert.deepEqual(f.state(),{expanded:false,selected:null,financialClicks:0});
 });
 
+test('HSBC: a locale-prefixed dashboard lists div rows, and only the card number identifies a row',async()=>{
+ const {hsbcCards,hsbcMoreDetails}=await import('../extension-next/hsbc-navigation.js');let clicked=null;
+ const row=(id,text)=>({innerText:text,getClientRects:()=>[{}],click:()=>{clicked=id;}});
+ const rows=[row('a','Deposit\n111-222222-333\n1234.56\nHKD'),row('b','Card one\n4000-0000-0000-1234\n4000-0000-0000-1234\n5678.00\nHKD'),row('c','Card two\n4000-0000-0000-5678\n4000-0000-0000-5678\n1234.00\nHKD')];
+ globalThis.location={hostname:'www.hsbc.com.hk',pathname:'/zh-hk/online/dashboard/'};globalThis.getComputedStyle=()=>({visibility:'visible'});
+ let asked=null;globalThis.document={getElementById:()=>null,querySelectorAll:s=>{asked=s;return rows;}};
+ const cards=[{bank:'HSBC HK',tail:'1234'},{bank:'HSBC HK',tail:'5678'}];
+ assert.deepEqual(await hsbcCards('list',null,cards),['1234','5678']);assert.equal(asked,'[id^="account-container-"]');
+ assert.deepEqual(await hsbcCards('select','5678',cards),['5678']);assert.equal(clicked,'c','not the row whose amount looks like that tail');
+ globalThis.location.pathname='/zh-hk/online/payments/';assert.deepEqual(await hsbcCards('list',null,cards),[]);assert.equal(hsbcMoreDetails(),false);
+});
 test('HSBC selector stays inside observed account controls and registered tails',async()=>{
  const {hsbcCards,hsbcMoreDetails}=await import('../extension-next/hsbc-navigation.js');let expanded=false,selected=null,overlay=false,payment=0;
  const node=(text,click)=>({innerText:text,getClientRects:()=>[{}],click});
