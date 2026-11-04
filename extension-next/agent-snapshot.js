@@ -78,9 +78,11 @@ export async function capturePage(bank,cards,contextIds=[]){
   if(positions.every(i=>i>=0)&&self.CardyReader?.hsbcTransactionRows){const rows=tableRows.slice(1).map(tr=>{const cells=[...tr.querySelectorAll('td')].map(e=>e.innerText.trim());return {date:cells[positions[0]],tail:cells[positions[1]]?.match(/Card ending in (\d{4,5})/i)?.[1],description:cells[positions[2]],amountIn:cells[positions[3]],amountOut:cells[positions[4]]};});const parsed=self.CardyReader.hsbcTransactionRows(rows,matches[0]);for(const item of parsed.items)add({...item,key:redact(item.key),title:replace(item.title),evidence:replace(item.evidence)});}
 
  }
- // Without a model, this is what records a switched-to card's billing fields. Another registered card's number on the page stops it.
+ // Without a model, this is what records a switched-to card's billing fields. The switcher already names the card, so only its billing block is read: activity rows below it print store numbers and other accounts.
  if(bank==='Amex US'&&selectedCardId&&self.CardyReader?.issuerBilling&&/^\/(?:dashboard|overview)\/?$/.test(location.pathname)){
-  for(const item of self.CardyReader.issuerBilling(body,bank,matches.find(c=>c.id===selectedCardId),cards.filter(c=>c.id!==selectedCardId).map(c=>c.tail))){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
+  const all=body.split('\n').map(t=>t.trim()).filter(Boolean),from=all.findIndex(t=>/^(?:(?:remaining )?statement balance|minimum payment due|your payment is due on|payment not required at this time|total balance)$/i.test(t)),totalAt=all.findIndex((t,i)=>i>=from&&/^total balance$/i.test(t)),card=matches.find(c=>c.id===selectedCardId);
+  const billingBlock=from<0?[]:all.slice(from,totalAt>=0?totalAt+3:from+24);
+  for(const item of billingBlock.length?self.CardyReader.issuerBilling(['••••'+card.tail,...billingBlock].join('\n'),bank,card,cards.filter(c=>c.id!==selectedCardId).map(c=>c.tail)):[]){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
  }
  if(citiBlock){
   for(const item of self.CardyReader.issuerBilling(citiBlock.block.join('\n'),bank,matches[0])){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}

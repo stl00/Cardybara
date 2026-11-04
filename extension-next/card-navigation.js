@@ -4,7 +4,7 @@ export async function amexCards(action,tail){
  if(location.hostname!=='global.americanexpress.com'||!/^\/(?:dashboard|overview|rewards(?:\/summary)?|offers(?:\/(?:eligible|enrolled|redeemed))?)\/?$/.test(location.pathname))return [];
  const visible=e=>e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden';
  // The US overview lists each account as a tile instead of a menu. A deposit account's tile says Available Balance.
- if(/^\/overview\/?$/.test(location.pathname)&&document.documentElement.lang==='en-US'){
+ if(/^\/overview\/?$/.test(location.pathname)&&(document.documentElement.lang||'').toLowerCase()==='en-us'){
   const tilesNow=()=>[...document.querySelectorAll('[id^="tile-"][id$="-name"]')].filter(visible).map(e=>e.closest('[role="button"]')).filter(e=>e&&!/^available balance$/im.test(e.innerText||''));
   const end=Date.now()+4000;let tiles=tilesNow();while(!tiles.length&&action!=='close'&&Date.now()<end){await new Promise(r=>setTimeout(r,150));tiles=tilesNow();}
   if(tiles.length||action==='close'){
