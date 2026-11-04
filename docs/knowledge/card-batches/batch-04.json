@@ -71,8 +71,8 @@
           "key": "first-bag",
           "zh": "首件托运行李免费",
           "en": "Free first checked bag",
-          "noteZh": "主卡持卡人和一名同行人；须用本卡购票并在订单中填写 MileagePlus 号码；开户后90天内的航班除外。",
-          "noteEn": "For the primary Cardmember and one companion. The primary Cardmember must buy the ticket with the card and include their MileagePlus number, except flights within 90 days of opening the account.",
+          "noteZh": "主卡持卡人和一名同行人；须在订单中填写 MileagePlus 号码，并用本卡购票（开户后90天内的航班免购票要求）。",
+          "noteEn": "For the primary Cardmember and one companion. The MileagePlus number must be on the booking, and the ticket bought with the card, except that the purchase requirement is waived for flights within 90 days of opening the account.",
           "scenario": "airport",
           "category": "membership",
           "period": "per-trip",
@@ -180,8 +180,8 @@
           "key": "bags",
           "zh": "前两件托运行李免费",
           "en": "Free first and second checked bags",
-          "noteZh": "主卡持卡人和一名同行人；须用本卡购票并在订单中填写 MileagePlus 号码；开户后90天内的航班除外。",
-          "noteEn": "For the primary Cardmember and one companion. The primary Cardmember must buy the ticket with the card and include their MileagePlus number, except flights within 90 days of opening the account.",
+          "noteZh": "主卡持卡人和一名同行人；须在订单中填写 MileagePlus 号码，并用本卡购票（开户后90天内的航班免购票要求）。",
+          "noteEn": "For the primary Cardmember and one companion. The MileagePlus number must be on the booking, and the ticket bought with the card, except that the purchase requirement is waived for flights within 90 days of opening the account.",
           "scenario": "airport",
           "category": "membership",
           "period": "per-trip",
@@ -207,8 +207,8 @@
       ],
       "unknown": [
         {
-          "zh": "United Club 会员资格及其条件、Premier Access、PQP 和其他合作方抵扣未录入。",
-          "en": "United Club membership and its conditions, Premier Access, PQP and other partner credits are not recorded."
+          "zh": "United Club 会员资格及其条件、Premier Access、PQP、里程折扣和其他合作方抵扣未录入。",
+          "en": "United Club membership and its conditions, Premier Access, PQP, the award discount and other partner credits are not recorded."
         }
       ]
     },
@@ -377,8 +377,8 @@
       ],
       "unknown": [
         {
-          "zh": "免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
-          "en": "Free checked bags, flight discounts, seat selection, boarding group and limited-time Lyft rates are not recorded."
+          "zh": "免费托运行李、选座、登机组别和限时 Lyft 倍率未录入。",
+          "en": "Free checked bags, seat selection, boarding group and limited-time Lyft rates are not recorded."
         }
       ]
     },
@@ -514,8 +514,8 @@
             "currency": "USD",
             "period": null
           },
-          "noteZh": "每年合计前6,000美元，之后按2倍；这里的“每年”从开户日起算到12月账单日，不是自然年。",
-          "noteEn": "On the first $6,000 in combined purchases annually, then 2X. \"Annually\" runs from the account open date to the December statement date, not a calendar year.",
+          "noteZh": "每年合计前6,000美元，之后按2倍；“每年”按开户日和12月账单周期计算，不是自然年。",
+          "noteEn": "On the first $6,000 in combined purchases annually, then 2X. \"Annually\" follows the account open date and December statement cycles, not a calendar year.",
           "quote": "Earn 3X points for every $1 on the first $6,000 spent in combined purchases annually"
         },
         {
@@ -532,14 +532,13 @@
           "key": "airline-credit",
           "zh": "航空消费抵扣",
           "en": "Airline statement credits",
-          "noteZh": "限时至2027年6月30日：2026年6月4日至12月31日、2027年1月1日至6月30日各消费满250美元，各得50美元，须直接向航空公司消费；老持卡人须激活一次。是否达标未核实。",
-          "noteEn": "Through 6/30/2027: spend $250 directly with airlines between June 4 and Dec. 31, 2026 for $50, and another $250 between Jan. 1 and June 30, 2027 for another $50. Existing cardmembers must activate once. Whether you reach it is unverified.",
+          "noteZh": "限时优惠，须直接向航空公司每期消费满250美元得50美元。新持卡人：2026年6月4日至12月31日、2027年1月1日至6月30日，自动登记。2026年1月7日前的持卡人：2026年上半年和下半年两期，到12月31日结束，须激活一次。是否达标未核实。",
+          "noteEn": "A limited offer: $50 per period after $250 directly with airlines. New cardmembers: June 4 to Dec. 31, 2026 and Jan. 1 to June 30, 2027, registered automatically. Cardmembers by 1/7/2026: the two halves of 2026, ending 12/31/2026, with a one-time activation. Whether you reach it is unverified.",
           "amount": 50,
           "period": null,
           "scenario": "airport",
           "quote": "Spend $250 between June 4 and Dec. 31, 2026 to earn a $50 statement credit",
           "category": "spend-unlock",
-          "enrollment": true,
           "validity": {
             "effectiveThrough": "2027-06-30"
           }
@@ -599,7 +598,7 @@
           "multiplier": 3,
           "unit": "points-per-USD",
           "category": "general",
-          "quote": "Earn 3X points on dining and gas stations"
+          "quote": "You’ll earn 3 points for each $1 spent on purchases made in the following rewards categories: grocery stores"
         },
         {
           "zh": "公用事业、网络电话和指定流媒体",
@@ -628,8 +627,8 @@
           "key": "fourth-night",
           "zh": "第四晚免费",
           "en": "4th Reward Night free",
-          "noteZh": "2026年12月31日后须满足年度消费要求（自然年5,000美元），用积分连住四晚时第四晚免费；是否达标未核实。",
-          "noteEn": "After December 31, 2026, an annual spend requirement applies ($5,000 in a calendar year) for a free 4th night when redeeming points for four consecutive nights. Whether you reach it is unverified.",
+          "noteZh": "2026年12月31日后须满足年度消费要求（自然年5,000美元），用积分连住四晚时第四晚免费，资格持续到达标当年余下时间和下一自然年；是否达标未核实。",
+          "noteEn": "After December 31, 2026, an annual spend requirement applies ($5,000 in a calendar year) for a free 4th night when redeeming points for four consecutive nights, lasting the rest of that year and the next. Whether you reach it is unverified.",
           "scenario": "hotel-stay",
           "category": "spend-unlock",
           "period": null,
@@ -655,8 +654,8 @@
       ],
       "unknown": [
         {
-          "zh": "Elite Night Credits 和消费解锁的 Gold Elite 未录入。",
-          "en": "Elite Night Credits and the spend-unlocked Gold Elite are not recorded."
+          "zh": "Elite Night Credits、消费解锁的1万点奖励和 Gold Elite 未录入。",
+          "en": "Elite Night Credits, the spend-unlocked 10,000 bonus points and Gold Elite are not recorded."
         }
       ]
     },

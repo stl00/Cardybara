@@ -42356,11 +42356,11 @@
     ],
     "content": {
       "title": "首件托运行李免费",
-      "summary": "主卡持卡人和一名同行人；须用本卡购票并在订单中填写 MileagePlus 号码；开户后90天内的航班除外。",
+      "summary": "主卡持卡人和一名同行人；须在订单中填写 MileagePlus 号码，并用本卡购票（开户后90天内的航班免购票要求）。",
       "sourceText": "the primary Cardmember and one companion can each check a first standard bag for free",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "主卡持卡人和一名同行人；须用本卡购票并在订单中填写 MileagePlus 号码；开户后90天内的航班除外。",
+        "主卡持卡人和一名同行人；须在订单中填写 MileagePlus 号码，并用本卡购票（开户后90天内的航班免购票要求）。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -42378,7 +42378,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "主卡持卡人和一名同行人；须用本卡购票并在订单中填写 MileagePlus 号码；开户后90天内的航班除外。"
+      "unparsedText": "主卡持卡人和一名同行人；须在订单中填写 MileagePlus 号码，并用本卡购票（开户后90天内的航班免购票要求）。"
     },
     "evidence": {
       "sourceIds": [
@@ -42971,11 +42971,11 @@
     ],
     "content": {
       "title": "前两件托运行李免费",
-      "summary": "主卡持卡人和一名同行人；须用本卡购票并在订单中填写 MileagePlus 号码；开户后90天内的航班除外。",
+      "summary": "主卡持卡人和一名同行人；须在订单中填写 MileagePlus 号码，并用本卡购票（开户后90天内的航班免购票要求）。",
       "sourceText": "the primary Cardmember and one companion can each check a first and second standard bags for free",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "主卡持卡人和一名同行人；须用本卡购票并在订单中填写 MileagePlus 号码；开户后90天内的航班除外。",
+        "主卡持卡人和一名同行人；须在订单中填写 MileagePlus 号码，并用本卡购票（开户后90天内的航班免购票要求）。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -42993,7 +42993,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "主卡持卡人和一名同行人；须用本卡购票并在订单中填写 MileagePlus 号码；开户后90天内的航班除外。"
+      "unparsedText": "主卡持卡人和一名同行人；须在订单中填写 MileagePlus 号码，并用本卡购票（开户后90天内的航班免购票要求）。"
     },
     "evidence": {
       "sourceIds": [
@@ -44611,11 +44611,11 @@
     ],
     "content": {
       "title": "超市、加油站和餐饮",
-      "summary": "每年合计前6,000美元，之后按2倍；这里的“每年”从开户日起算到12月账单日，不是自然年。",
+      "summary": "每年合计前6,000美元，之后按2倍；“每年”按开户日和12月账单周期计算，不是自然年。",
       "sourceText": "Earn 3X points for every $1 on the first $6,000 spent in combined purchases annually",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "每年合计前6,000美元，之后按2倍；这里的“每年”从开户日起算到12月账单日，不是自然年。",
+        "每年合计前6,000美元，之后按2倍；“每年”按开户日和12月账单周期计算，不是自然年。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -44638,7 +44638,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "每年合计前6,000美元，之后按2倍；这里的“每年”从开户日起算到12月账单日，不是自然年。"
+      "unparsedText": "每年合计前6,000美元，之后按2倍；“每年”按开户日和12月账单周期计算，不是自然年。"
     },
     "evidence": {
       "sourceIds": [
@@ -44751,11 +44751,11 @@
     "programmeIds": [],
     "content": {
       "title": "航空消费抵扣",
-      "summary": "限时至2027年6月30日：2026年6月4日至12月31日、2027年1月1日至6月30日各消费满250美元，各得50美元，须直接向航空公司消费；老持卡人须激活一次。是否达标未核实。",
+      "summary": "限时优惠，须直接向航空公司每期消费满250美元得50美元。新持卡人：2026年6月4日至12月31日、2027年1月1日至6月30日，自动登记。2026年1月7日前的持卡人：2026年上半年和下半年两期，到12月31日结束，须激活一次。是否达标未核实。",
       "sourceText": "Spend $250 between June 4 and Dec. 31, 2026 to earn a $50 statement credit",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "限时至2027年6月30日：2026年6月4日至12月31日、2027年1月1日至6月30日各消费满250美元，各得50美元，须直接向航空公司消费；老持卡人须激活一次。是否达标未核实。",
+        "限时优惠，须直接向航空公司每期消费满250美元得50美元。新持卡人：2026年6月4日至12月31日、2027年1月1日至6月30日，自动登记。2026年1月7日前的持卡人：2026年上半年和下半年两期，到12月31日结束，须激活一次。是否达标未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -44763,8 +44763,7 @@
       "category": "spend-unlock",
       "period": null,
       "amount": 50,
-      "currency": "USD",
-      "requiresEnrollment": true
+      "currency": "USD"
     },
     "validity": {
       "effectiveFrom": null,
@@ -44774,7 +44773,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "限时至2027年6月30日：2026年6月4日至12月31日、2027年1月1日至6月30日各消费满250美元，各得50美元，须直接向航空公司消费；老持卡人须激活一次。是否达标未核实。"
+      "unparsedText": "限时优惠，须直接向航空公司每期消费满250美元得50美元。新持卡人：2026年6月4日至12月31日、2027年1月1日至6月30日，自动登记。2026年1月7日前的持卡人：2026年上半年和下半年两期，到12月31日结束，须激活一次。是否达标未核实。"
     },
     "evidence": {
       "sourceIds": [
@@ -45026,7 +45025,7 @@
     "content": {
       "title": "超市、加油站和餐厅",
       "summary": "公布赚取比例；类别范围和限额以条款为准。",
-      "sourceText": "Earn 3X points on dining and gas stations",
+      "sourceText": "You’ll earn 3 points for each $1 spent on purchases made in the following rewards categories: grocery stores",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
         "公布赚取比例；类别范围和限额以条款为准。",
@@ -45232,11 +45231,11 @@
     ],
     "content": {
       "title": "第四晚免费",
-      "summary": "2026年12月31日后须满足年度消费要求（自然年5,000美元），用积分连住四晚时第四晚免费；是否达标未核实。",
+      "summary": "2026年12月31日后须满足年度消费要求（自然年5,000美元），用积分连住四晚时第四晚免费，资格持续到达标当年余下时间和下一自然年；是否达标未核实。",
       "sourceText": "After December 31, 2026: You will have to meet an annual spend requirement",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "2026年12月31日后须满足年度消费要求（自然年5,000美元），用积分连住四晚时第四晚免费；是否达标未核实。",
+        "2026年12月31日后须满足年度消费要求（自然年5,000美元），用积分连住四晚时第四晚免费，资格持续到达标当年余下时间和下一自然年；是否达标未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -45254,7 +45253,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "2026年12月31日后须满足年度消费要求（自然年5,000美元），用积分连住四晚时第四晚免费；是否达标未核实。"
+      "unparsedText": "2026年12月31日后须满足年度消费要求（自然年5,000美元），用积分连住四晚时第四晚免费，资格持续到达标当年余下时间和下一自然年；是否达标未核实。"
     },
     "evidence": {
       "sourceIds": [
@@ -47470,6 +47469,75 @@
     "id": "rule.chase-us-ihg-one-rewards-business-credit-card.earning-2",
     "revision": 1,
     "revisionId": "rule.chase-us-ihg-one-rewards-business-credit-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-ihg-one-rewards-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "其他旅行和办公用品店",
+      "summary": "限2026年12月31日前入账；之后这部分按3倍。",
+      "sourceText": "purchases that post to your account through December 31, 2026",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "限2026年12月31日前入账；之后这部分按3倍。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "points-per-USD",
+      "spendCategory": "其他旅行和办公用品店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": "2026-12-31",
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "限2026年12月31日前入账；之后这部分按3倍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ihg-one-rewards-business-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-business-credit-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-business-credit-card.earning-3@2026-11-04.1",
     "supersedes": null,
     "status": "published",
     "kind": "earning-rate",
@@ -50074,11 +50142,11 @@
     "programmeIds": [],
     "content": {
       "title": "流媒体抵扣",
-      "summary": "每12个月15美元，须连续11个自然月有合资格流媒体消费后自动抵扣。",
+      "summary": "每12个月15美元，须连续11个自然月有合资格流媒体消费后自动抵扣；12个月从何时起算页面未写明。",
       "sourceText": "An automatic statement credit of $15 per 12-month period",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "每12个月15美元，须连续11个自然月有合资格流媒体消费后自动抵扣。",
+        "每12个月15美元，须连续11个自然月有合资格流媒体消费后自动抵扣；12个月从何时起算页面未写明。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -50096,7 +50164,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "每12个月15美元，须连续11个自然月有合资格流媒体消费后自动抵扣。"
+      "unparsedText": "每12个月15美元，须连续11个自然月有合资格流媒体消费后自动抵扣；12个月从何时起算页面未写明。"
     },
     "evidence": {
       "sourceIds": [
@@ -50476,11 +50544,11 @@
     "programmeIds": [],
     "content": {
       "title": "航空消费抵扣",
-      "summary": "每年50美元，须有至少50美元航空消费；首年从开户起，之后按年费入账后的12个月计算。",
+      "summary": "每年50美元，须有至少50美元航空消费；首年从开户起，之后的12个月从年费入账次月1日起算。",
       "sourceText": "$50 annual statement credit with $50 minimum airline purchase",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "每年50美元，须有至少50美元航空消费；首年从开户起，之后按年费入账后的12个月计算。",
+        "每年50美元，须有至少50美元航空消费；首年从开户起，之后的12个月从年费入账次月1日起算。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -50498,7 +50566,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "每年50美元，须有至少50美元航空消费；首年从开户起，之后按年费入账后的12个月计算。"
+      "unparsedText": "每年50美元，须有至少50美元航空消费；首年从开户起，之后的12个月从年费入账次月1日起算。"
     },
     "evidence": {
       "sourceIds": [

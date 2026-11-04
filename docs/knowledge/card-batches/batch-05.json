@@ -61,7 +61,7 @@
           "zh": "机上消费25%返还",
           "en": "25% back on inflight purchases",
           "noteZh": "限 United 机上餐饮、Wi-Fi 和 Club 高级饮品。",
-          "noteEn": "On United inflight and Club premium drink purchases.",
+          "noteEn": "On United inflight food, beverages and Wi-Fi and on Club premium drink purchases.",
           "scenario": "airport",
           "category": "membership",
           "period": "ongoing",
@@ -191,6 +191,19 @@
           "unit": "points-per-USD",
           "category": "general",
           "quote": "Earn 5X points on flights booked directly, car rentals, dining, select advertising and at gas stations"
+        },
+        {
+          "zh": "其他旅行和办公用品店",
+          "en": "Other travel and office supply stores",
+          "multiplier": 5,
+          "unit": "points-per-USD",
+          "category": "general",
+          "noteZh": "限2026年12月31日前入账；之后这部分按3倍。",
+          "noteEn": "For purchases posting through December 31, 2026; these then earn 3X.",
+          "quote": "purchases that post to your account through December 31, 2026",
+          "validity": {
+            "effectiveThrough": "2026-12-31"
+          }
         },
         {
           "zh": "其他消费",
@@ -388,8 +401,8 @@
       ],
       "unknown": [
         {
-          "zh": "免费托运行李、航班折扣、选座未录入。2027年1月1日起 TQP 规则改变。",
-          "en": "Free checked bags, flight discounts and seat selection are not recorded. TQP rules change from January 1, 2027."
+          "zh": "免费托运行李、航班折扣、选座未录入。2027年1月1日起每消费1美元另得1 TQP。",
+          "en": "Free checked bags, flight discounts and seat selection are not recorded. Starting January 1, 2027, you also earn 1 TQP for each $1 spent."
         }
       ]
     },
@@ -505,8 +518,8 @@
       ],
       "unknown": [
         {
-          "zh": "免费托运行李、航班折扣、选座未录入。2027年1月1日起 TQP 规则改变。",
-          "en": "Free checked bags, flight discounts and seat selection are not recorded. TQP rules change from January 1, 2027."
+          "zh": "免费托运行李、选座未录入。2027年1月1日起每消费1美元另得1 TQP。",
+          "en": "Free checked bags and seat selection are not recorded. Starting January 1, 2027, you also earn 1 TQP for each $1 spent."
         }
       ]
     },
@@ -553,7 +566,7 @@
       "unknown": [
         {
           "zh": "季度上限：本页没有金额。Discover 的返现日历页写1,500美元，未确认对应当前季度，所以没有采用。首年 Cashback Match 这类新卡优惠不收录。",
-          "en": "Quarterly maximum: no amount on this page. Discover’s cashback calendar page says $1,500 but its currency is unconfirmed, so it is not used. New card offers such as the first-year Cashback Match are not recorded."
+          "en": "Quarterly maximum: no amount on this page. Discover’s cashback calendar page says $1,500 but it is not confirmed to apply to the current quarter, so it is not used. New card offers such as the first-year Cashback Match are not recorded."
         }
       ]
     },
@@ -596,7 +609,7 @@
           "category": "general",
           "quote": "2% cash back on one everyday category you choose each quarter",
           "noteZh": "每季须选择并激活类别，否则只有1%。",
-          "noteEn": " You must choose and activate categories each quarter, or earn no more than 1%."
+          "noteEn": "You must choose and activate categories each quarter, or earn no more than 1%."
         },
         {
           "zh": "Travel Center 预付旅行",
@@ -689,12 +702,13 @@
           "key": "streaming",
           "zh": "流媒体抵扣",
           "en": "Streaming credit",
-          "noteZh": "每12个月15美元，须连续11个自然月有合资格流媒体消费后自动抵扣。",
-          "noteEn": "An automatic $15 statement credit per 12-month period, after 11 consecutive months of eligible streaming purchases.",
+          "noteZh": "每12个月15美元，须连续11个自然月有合资格流媒体消费后自动抵扣；12个月从何时起算页面未写明。",
+          "noteEn": "An automatic $15 statement credit per 12-month period, after 11 consecutive months of eligible streaming purchases. The page does not say when the 12 months start.",
           "amount": 15,
           "scenario": "entertainment",
           "quote": "An automatic statement credit of $15 per 12-month period",
-          "category": "spend-unlock"
+          "category": "spend-unlock",
+          "period": null
         }
       ]
     },
@@ -757,8 +771,8 @@
           "key": "airline-credit",
           "zh": "航空消费抵扣",
           "en": "Annual airline statement credit",
-          "noteZh": "每年50美元，须有至少50美元航空消费；首年从开户起，之后按年费入账后的12个月计算。",
-          "noteEn": "A $50 annual statement credit with a $50 minimum airline purchase. Available at account opening in the first year, then counted over 12 months from the annual fee posting.",
+          "noteZh": "每年50美元，须有至少50美元航空消费；首年从开户起，之后的12个月从年费入账次月1日起算。",
+          "noteEn": "A $50 annual statement credit with a $50 minimum airline purchase. Available at account opening in the first year; after that the 12 months start on the first day of the month after the annual fee is assessed.",
           "amount": 50,
           "scenario": "airport",
           "quote": "$50 annual statement credit with $50 minimum airline purchase"
