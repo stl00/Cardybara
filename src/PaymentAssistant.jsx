@@ -20,6 +20,7 @@ function usePaymentMarks(){
 function dueText(item){
  const {cycle,days,state}=item;
  if(state==='no_payment')return t('银行显示无需付款');
+ if(state==='nothing_billed')return t('读到的本期账单为零');
  if(cycle?.kind==='yearless')return t('还款日 {0}（银行未提供年份）',[cycle.label]);
  if(!cycle)return t('还款日未读取');
  if(days===-1)return t('还款日 {0} · 昨天',[cycle.date]);
@@ -37,6 +38,7 @@ function StateTags({item}){
   {!handled&&state==='yearless'&&<Tag color="warning">{t('年份未知')}</Tag>}
   {!handled&&state==='autopay'&&<Tag color="processing">{t('自动还款已开启')}</Tag>}
   {!handled&&state==='no_payment'&&<Tag>{t('无需付款')}</Tag>}
+  {!handled&&state==='nothing_billed'&&<Tag>{t('账单为零')}</Tag>}
   {!handled&&state==='unknown'&&<Tag>{t('未读取')}</Tag>}
   {stale&&<Tag color="orange">{t('读数已过期')}</Tag>}</>;
 }
@@ -90,7 +92,7 @@ export default function PaymentAssistant({cards,hidden=false,urls,onDetail,onRef
  const pool=active==='handled'?view.handled:active==='all'?[...view.rest,...view.handled]:view.rest.filter(i=>paymentGroup(i)===active);
  const query=search.trim().toLowerCase();
  const rows=query?pool.filter(i=>[i.card.name,i.card.bank,i.card.tail].join(' ').toLowerCase().includes(query)):pool;
- const headline=view.action?(view.urgent?t('{0} 笔要尽快处理，共 {1} 笔待还款',[view.urgent,view.action]):t('{0} 笔待还款，近期没有到期',[view.action])):t('没有已知要处理的账单');
+ const headline=view.action?(view.urgent?t('{0} 笔要尽快处理，共 {1} 笔待还款',[view.urgent,view.action]):t('{0} 笔待还款',[view.action])):t('没有已知要处理的账单');
  const unjudged=view.refresh.length>0&&<Alert className="payment-refresh" type="info" showIcon title={t('{0} 张卡的账单未读取或读数已过期，暂时无法判断是否要还款',[view.refresh.length])} action={<Button size="small" onClick={onRefresh}>{t('刷新银行')}</Button>}/>;
  return <Card className="payment-assistant" style={{marginBottom:20}} title={t('现在要处理')} extra={<Text type="secondary" className="payment-headline">{headline}</Text>}>
   {view.top.map(row)}

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {paymentItem,paymentView,paymentRank,paymentKey,paymentCycle,withPaymentMark,withoutPaymentMark,mergePaymentMarks,readPaymentMarks,PAYMENT_MARKS_KEY,VISIBLE_ITEMS,isHandled} from '../src/paymentStates.js';
+import {paymentGroup,paymentItem,paymentView,paymentRank,paymentKey,paymentCycle,withPaymentMark,withoutPaymentMark,mergePaymentMarks,readPaymentMarks,PAYMENT_MARKS_KEY,VISIBLE_ITEMS,isHandled} from '../src/paymentStates.js';
 const today='2026-11-04',read='2026-11-03T15:00:00Z';
 const card=(fields={},id='a')=>({id,bank:'Chase',name:'Synthetic '+id,currency:'USD',updated:'2026-11-03',fieldDates:Object.fromEntries(Object.keys(fields).map(k=>[k,read])),...fields});
 const item=(fields,marks=[])=>paymentItem(card(fields),marks,today);
@@ -73,6 +73,35 @@ test('marks tolerate damaged storage and backup restore rejects malformed files'
  assert.throws(()=>mergePaymentMarks([],{schema:1,marks:[good,{key:'bad',at:'2026-11-04T10:00:00.000Z'}]}),/invalid_payment_backup/);
  assert.throws(()=>mergePaymentMarks([],{schema:2,marks:[]}),/invalid_payment_backup/);
  const later={...good,at:'2026-11-05T10:00:00.000Z'};assert.deepEqual(mergePaymentMarks([later],{schema:1,marks:[good]}),[later]);
+});
+test('an unusable or future reading date counts as unknown, not fresh',()=>{
+ for(const bad of ['2026-13-01','not a date','2099-01-01T00:00:00Z']){
+  const c=card({due:'2026-11-01'});c.fieldDates.due=bad;const row=paymentItem(c,[],today);
+  assert.equal(row.readAt,null,bad);assert.equal(row.stale,true,bad);assert.equal(row.state,'stale',bad);
+ }
+});
+test('only the due date reading decides overdue, and the old field is still labelled',()=>{
+ const c=card({due:'2026-11-03',autopay:'off',statement:5});c.fieldDates.autopay='2026-09-01T15:00:00Z';
+ const row=paymentItem(c,[],today);assert.equal(row.state,'overdue');assert.equal(row.stale,true);assert.equal(row.readAt,'2026-09-01');
+ assert.deepEqual(paymentView([c],[],today).top.map(i=>i.card.id),['a']);
+});
+test('a statement read as zero is not a bill to act on, and is not called no payment due',()=>{
+ for(const fields of [{statement:0,minimum:0,due:'2026-11-05'},{statement:0,due:'2026-11-01'},{statement:-3,minimum:0,due:'2026-11-05',autopay:'on'}]){
+  const row=item(fields);assert.equal(row.state,'nothing_billed');assert.equal(row.canMark,false);assert.equal(paymentView([row.card],[],today).action,0);
+ }
+ assert.equal(item({statement:0,minimum:25,due:'2026-11-05'}).state,'due','a read minimum still has to be paid');
+ assert.equal(item({minimum:0,due:'2026-11-05'}).state,'due','an unread statement is not zero');
+});
+test('old readings are filtered with the rollup they are counted in',()=>{
+ const old=card({autopay:'on',due:'2026-11-20'});for(const k of Object.keys(old.fieldDates))old.fieldDates[k]='2026-09-01T15:00:00Z';
+ assert.equal(paymentGroup(paymentItem(old,[],today)),'unknown');assert.equal(paymentGroup(item({autopay:'on'})),'autopay');
+ assert.equal(paymentGroup(item({statement:0})),'no_payment');
+});
+test('a mark dated in the future is ignored so it cannot outlive its cycle',()=>{
+ const future={key:JSON.stringify(['a','yearless','11月6日']),at:'2099-01-01T00:00:00.000Z'};
+ assert.deepEqual(readPaymentMarks({getItem:()=>JSON.stringify([future])}),[]);
+ assert.throws(()=>mergePaymentMarks([],{schema:1,marks:[future]}),/invalid_payment_backup/);
+ assert.equal(isHandled(future.key,[future],today),false);
 });
 test('the assistant keeps the wallet read-only and has all its strings in three languages',()=>{
  const ui=readFileSync(new URL('../src/PaymentAssistant.jsx',import.meta.url),'utf8'),catalog=JSON.parse(readFileSync(new URL('../src/translations.json',import.meta.url),'utf8'));

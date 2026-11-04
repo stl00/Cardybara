@@ -11,11 +11,14 @@ const DAY_MS=86400000;
 const isoDay=/^\d{4}-\d{2}-\d{2}$/;
 const chicagoDay=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit'});
 const daysBetween=(from,to)=>Math.round((Date.parse(to+'T00:00:00Z')-Date.parse(from+'T00:00:00Z'))/DAY_MS);
-function readDay(value){
- if(isoDay.test(value||''))return value;
- const date=new Date(value);return value&&Number.isFinite(date.getTime())?chicagoDay.format(date):null;
-}
 const validDate=value=>typeof value==='string'&&isoDay.test(value)&&Number.isFinite(Date.parse(value+'T00:00:00Z'))&&new Date(value+'T00:00:00Z').toISOString().slice(0,10)===value;
+// An unusable or future reading date says nothing about the reading's age, so it counts as unknown.
+function readDay(value,asOf){
+ let day=null;
+ if(isoDay.test(value||''))day=validDate(value)?value:null;
+ else{const date=new Date(value);if(value&&Number.isFinite(date.getTime()))day=chicagoDay.format(date);}
+ return day&&daysBetween(day,asOf)>=-1?day:null;
+}
 
 /** The bill a card is currently in: a full date, a yearless bank label, or none. A year is never added. */
 export function paymentCycle(card){
@@ -26,10 +29,10 @@ export function paymentCycle(card){
 export function paymentKey(card,cycle){return cycle?JSON.stringify([card.id,cycle.kind,cycle.kind==='date'?cycle.date:cycle.label]):null;}
 
 // The oldest of the readings on the row, because one fresh field does not make the others fresh.
-function oldestReading(card,keys){
+function oldestReading(card,keys,asOf){
  let oldest=null;
  for(const key of keys){
-  const day=readDay(card.fieldDates?.[key]||card.updated);
+  const day=readDay(card.fieldDates?.[key]||card.updated,asOf);
   if(!day)return null;
   if(!oldest||day<oldest)oldest=day;
  }
@@ -38,28 +41,32 @@ function oldestReading(card,keys){
 export function isHandled(key,marks,asOf=walletDay()){
  const mark=key&&marks.find(m=>m.key===key);if(!mark)return false;
  if(JSON.parse(key)[1]!=='yearless')return true;
- const day=readDay(mark.at);return !!day&&daysBetween(day,asOf)<=YEARLESS_MARK_DAYS;
+ const day=readDay(mark.at,asOf);return !!day&&daysBetween(day,asOf)<=YEARLESS_MARK_DAYS;
 }
 
 /** One card's payment state. `stale` is separate because an old reading can be in any state. */
 export function paymentItem(card,marks=[],asOf=walletDay()){
  const cycle=paymentCycle(card),noPayment=latestNoPayment(card),key=paymentKey(card,cycle);
  const known=noPayment?['paymentStatus']:[...(cycle?[cycle.kind==='date'?'due':'duePartial']:[]),...['statement','minimum'].filter(k=>card[k]!=null),...(card.autopay==='on'||card.autopay==='off'?['autopay']:[])];
- const readAt=known.length?oldestReading(card,known):null,age=readAt?daysBetween(readAt,asOf):null;
- const stale=known.length>0&&(age==null||age>STALE_DAYS);
+ const isOld=day=>!day||daysBetween(day,asOf)>STALE_DAYS;
+ const readAt=known.length?oldestReading(card,known,asOf):null,stale=known.length>0&&isOld(readAt);
+ // Only the due date's own reading can say a bill is overdue; an old autopay reading cannot hide it.
+ const dueOld=cycle?.kind==='date'&&isOld(oldestReading(card,['due'],asOf));
+ const nothingBilled=Number.isFinite(card.statement)&&card.statement<=0&&(card.minimum==null||card.minimum===0);
  const days=cycle?.kind==='date'?daysBetween(asOf,cycle.date):null,autopayOn=card.autopay==='on';
  let state;
  if(noPayment)state='no_payment';
- else if(days!=null&&days<0)state=stale?'stale':'overdue'; // An old reading cannot show that today's bill is unpaid.
+ else if(nothingBilled)state='nothing_billed'; // As read from the bank; not the same as the bank saying no payment is due.
+ else if(days!=null&&days<0)state=dueOld?'stale':'overdue'; // An old reading cannot show that today's bill is unpaid.
  else if(autopayOn)state='autopay';
  else if(cycle?.kind==='yearless')state='yearless';
  else if(cycle)state='due';
  else state='unknown'; // Amounts without a due date still cannot say when to pay.
  const soon=state==='due'&&days<=SOON_DAYS;
- return {card,key,cycle,state,soon,days,stale,readAt,autopay:autopayOn?'on':card.autopay==='off'?'off':'unknown',handled:isHandled(key,marks,asOf),canMark:!!key};
+ return {card,key,cycle,state,soon,days,stale,readAt,autopay:autopayOn?'on':card.autopay==='off'?'off':'unknown',handled:state!=='nothing_billed'&&isHandled(key,marks,asOf),canMark:!!key&&state!=='nothing_billed'};
 }
 
-const RANKS={overdue:0,yearless:3,stale:5,autopay:6,no_payment:7,unknown:8};
+const RANKS={overdue:0,yearless:3,stale:5,autopay:6,nothing_billed:7,no_payment:7,unknown:8};
 export function paymentRank(item){
  if(item.state==='overdue')return item.autopay==='on'?1:0;
  if(item.state==='due')return item.soon?2:4;
@@ -89,12 +96,12 @@ export function paymentView(cards,marks=[],asOf=walletDay()){
 }
 export const PAYMENT_GROUPS=['due','autopay','no_payment','unknown'];
 export function paymentGroup(item){
+ if(item.state==='unknown'||item.state==='stale'||item.stale)return 'unknown';
  if(['overdue','due','yearless'].includes(item.state))return 'due';
- if(item.state==='stale')return 'unknown';
- return item.state;
+ return item.state==='nothing_billed'?'no_payment':item.state;
 }
 
-const validMark=m=>m&&typeof m.key==='string'&&m.key.length<=300&&typeof m.at==='string'&&Number.isFinite(Date.parse(m.at))&&(()=>{try{const k=JSON.parse(m.key);return Array.isArray(k)&&k.length===3&&k.every(x=>typeof x==='string')&&['date','yearless'].includes(k[1]);}catch{return false}})();
+const validMark=m=>m&&typeof m.key==='string'&&m.key.length<=300&&typeof m.at==='string'&&Number.isFinite(Date.parse(m.at))&&Date.parse(m.at)<=Date.now()+DAY_MS&&(()=>{try{const k=JSON.parse(m.key);return Array.isArray(k)&&k.length===3&&k.every(x=>typeof x==='string')&&['date','yearless'].includes(k[1]);}catch{return false}})();
 export function readPaymentMarks(storage){
  try{const rows=JSON.parse(storage.getItem(PAYMENT_MARKS_KEY));return Array.isArray(rows)?rows.filter(validMark).map(({key,at})=>({key,at})):[];}catch{return []}
 }
@@ -104,6 +111,6 @@ export function withoutPaymentMark(marks,key){return marks.filter(m=>m.key!==key
 export function mergePaymentMarks(marks,backup){
  if(backup?.schema!==1||!Array.isArray(backup.marks)||backup.marks.length>MAX_MARKS||!backup.marks.every(validMark))throw Error('invalid_payment_backup');
  const merged=new Map(marks.map(m=>[m.key,m]));
- for(const {key,at} of backup.marks)if(!merged.has(key)||merged.get(key).at<at)merged.set(key,{key,at});
+ for(const {key,at} of backup.marks)if(!merged.has(key)||Date.parse(merged.get(key).at)<Date.parse(at))merged.set(key,{key,at});
  return [...merged.values()];
 }

@@ -1119,12 +1119,11 @@
     "标记已处理": "Mark handled",
     "去银行": "Go to bank",
     "已标记本期已处理；钱包没有付款。": "Marked handled for this cycle. The wallet made no payment.",
-    "{0} 笔要尽快处理，共 {1} 笔待还款": "{0} need attention soon, {1} to pay in all",
-    "{0} 笔待还款，近期没有到期": "{0} to pay, none due soon",
+    "{0} 笔要尽快处理，共 {1} 笔待还款": "Need attention soon: {0} · To pay: {1}",
     "没有已知要处理的账单": "No known bills to handle",
-    "{0} 张卡的账单未读取或读数已过期，暂时无法判断是否要还款": "{0} cards have unread or old bill readings, so the wallet can't tell whether payment is needed",
+    "{0} 张卡的账单未读取或读数已过期，暂时无法判断是否要还款": "Cards with unread or old bill readings: {0}. The wallet can't tell whether payment is needed.",
     "现在要处理": "Needs attention now",
-    "其余 {0} 张卡": "Other {0} cards",
+    "其余 {0} 张卡": "Other cards ({0})",
     "搜索卡名、银行或尾号": "Search card, bank or last digits",
     "搜索账单": "Search bills",
     "钱包不会替你付款。“已处理”只是你在本机的记号，下一期账单会重新提醒。": "The wallet never pays for you. “Handled” is only your own note on this device, and the next bill shows up again.",
@@ -1133,7 +1132,10 @@
     "钱包全貌与积分": "Wallet summary and points",
     "先看现在要处理的账单和福利，其他内容都在下面。": "Start with the bills and benefits that need you now. Everything else is below.",
     "还款日 {0} · 昨天": "Due {0} · yesterday",
-    "还款日 {0} · 明天到期": "Due {0} · tomorrow"
+    "还款日 {0} · 明天到期": "Due {0} · tomorrow",
+    "{0} 笔待还款": "To pay: {0}",
+    "读到的本期账单为零": "Statement read as zero",
+    "账单为零": "Nothing billed"
   },
   "zh-TW": {
     "美国": "美國",
@@ -2256,7 +2258,6 @@
     "去银行": "前往銀行",
     "已标记本期已处理；钱包没有付款。": "已標記本期已處理；錢包沒有付款。",
     "{0} 笔要尽快处理，共 {1} 笔待还款": "{0} 筆要儘快處理，共 {1} 筆待還款",
-    "{0} 笔待还款，近期没有到期": "{0} 筆待還款，近期沒有到期",
     "没有已知要处理的账单": "沒有已知要處理的帳單",
     "{0} 张卡的账单未读取或读数已过期，暂时无法判断是否要还款": "{0} 張卡的帳單未讀取或讀數已過期，暫時無法判斷是否要還款",
     "现在要处理": "現在要處理",
@@ -2269,6 +2270,9 @@
     "钱包全貌与积分": "錢包全貌與積分",
     "先看现在要处理的账单和福利，其他内容都在下面。": "先看現在要處理的帳單和福利，其他內容都在下面。",
     "还款日 {0} · 昨天": "還款日 {0} · 昨天",
-    "还款日 {0} · 明天到期": "還款日 {0} · 明天到期"
+    "还款日 {0} · 明天到期": "還款日 {0} · 明天到期",
+    "{0} 笔待还款": "{0} 筆待還款",
+    "读到的本期账单为零": "讀到的本期帳單為零",
+    "账单为零": "帳單為零"
   }
 }
