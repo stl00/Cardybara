@@ -1,19 +1,26 @@
 <!doctype html><html lang="en-US"><meta charset="utf-8"><title>Synthetic BOA page (test only)</title>
-<!-- Synthetic test page, served locally by scripts/dev-collector/synthetic-bank.mjs. All values are made up. -->
+<!-- Synthetic test page, served locally by scripts/dev-collector/synthetic-bank.mjs. Structure follows a real page; all names and values are made up. -->
 <body><main id="root"></main>
 <script>
 const cards=JSON.parse(sessionStorage.getItem('synthetic-cards')||'null')||[
- {name:'Synthetic Numbat Visa',tail:'1234',rows:[['Current Balance','$1,234.56'],['Available Credit','$8,765.44'],['Statement Balance','$321.00'],['Minimum Payment Due','$35.00'],['Payment Due Date','12/19/2030'],['Numbat Points','1,234']]},
- {name:'Synthetic Bilby Visa',tail:'5678',rows:[['Current Balance','$67.89'],['Available Credit','$4,932.11'],['Statement Balance','$0.00'],['No payment due'],['Bilby Points','2,468']]}
+ {name:'Synthetic Numbat Visa',tail:'1234',balance:'$1,234.56',available:'$8,765.44',min:'$35.00 due Dec 19',statement:'$321.00'},
+ {name:'Synthetic Bilby Visa',tail:'5678',balance:'$67.89',available:'$4,932.11',statement:'$0.00',noMin:true}
 ];
 const root=document.getElementById('root');
+function row(label,value,help){return '<div>'+label+'</div>'+(help?'<div>Info</div>':'')+'<div>'+value+'</div>';}
 function render(){
  if(sessionStorage.getItem('synthetic-signed-in')!=='1'){
   root.innerHTML='<h1>Synthetic sign in</h1><form><input type="password" aria-label="Synthetic password" autocomplete="off"><button type="button" id="sign-in">Sign in</button></form>';
-  document.getElementById('sign-in').onclick=()=>{sessionStorage.setItem('synthetic-signed-in','1');render();};
+  document.getElementById('sign-in').onclick=()=>{sessionStorage.setItem('synthetic-signed-in','1');location.href='/accounts-home/';};
   return;
  }
- root.innerHTML='<h1>Synthetic accounts</h1>'+cards.map(c=>'<article data-account-type="credit-card" style="white-space:pre-line">'+'<h2>'+c.name+(c.mask||' ending in '+c.tail)+'</h2>'+c.rows.map(r=>'<div>'+r.join('\n')+'</div>').join('')+'</article>').join('')+'<p>All values on this page are made up for tests. This padding keeps the rendered page long enough for the reader to settle on it.</p>';
+ const card=new URLSearchParams(location.search).get('card');
+ if(card){const c=cards.find(x=>x.tail===card);
+  root.innerHTML='<span>'+c.name+' - '+c.tail+'</span><div id="credit-1">'+row('Current balance:',c.balance,true)+row('Total credit available:',c.available)+row('Total credit line:','$10,000.00')+row('Last payment date:','01/02/2030')+row('Last payment:','$1,000.00')+'<a href="#">View your statements</a>'+(c.noMin?'':row('Total Min Payment Due:',c.min,true))+row('Statement Balance:',c.statement,true)+'</div><a id="makePaymentLink" href="#">Make payment</a><table><tr><td>Synthetic merchant 40012</td><td>$9.99</td></tr></table>';
+  return;}
+ if(location.pathname!=='/accounts-home/'){location.replace('/accounts-home/');return;}
+ root.innerHTML='<h1>Synthetic welcome</h1><a href="/rewards" id="view-your-rewards-link">View your rewards</a><div id="account-card-container-0"><h3>Banking</h3><a href="/myaccounts/brain/redirect.go?card=0001">Synthetic Checking - 0001</a><span>Current Balance</span><span>$50.00</span></div><div id="account-card-container-1"><h3>Credit cards</h3>'+cards.map(c=>'<div><a href="/myaccounts/brain/redirect.go?card='+c.tail+'">'+c.name+' - '+c.tail+'</a><span>Current Balance</span><span>'+c.balance+'</span><button aria-label="Pay">Pay</button></div>').join('')+'</div><p>All values on this page are made up for tests. This padding keeps the rendered page long enough for the reader to settle on it.</p>';
 }
-render();
+// Regression mode: the app renders after the document has loaded, as the real one does.
+if(sessionStorage.getItem('synthetic-slow')==='1')setTimeout(render,1500);else render();
 </script></body></html>

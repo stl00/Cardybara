@@ -106,6 +106,8 @@ for(const name of ['boa-card-details','boa-no-payment','sc-hk-zh-card-details','
  const renamed=f.text.replace(/Numbat Voyager|Bilby|Kakapo|Tuatara|Wallaby Traveler|Dingo/,'Another Product');assert.deepEqual(fieldsOf(reader.issuerBilling(renamed,f.bank,f.card)),f.expected);
 });
 test('issuer rules never mix cards or guess',()=>{
+ // A full date printed with the minimum is a due date; a yearless one is never completed.
+ assert.equal(fieldsOf(reader.issuerBilling('Visa ending in 1234\nTotal Min Payment Due:\nInfo\n$35.00 due Dec 19, 2030','BOA',{id:'x',tail:'1234',currency:'USD'})).due,'2030-12-19');
  const f=issuer('boa-card-details'),boa=(t,others=[])=>fieldsOf(reader.issuerBilling(t,'BOA',f.card,others)),sc=issuer('sc-hk-en-card-details'),hk=t=>fieldsOf(reader.issuerBilling(t,'SC HK',sc.card));
  for(const other of ['Visa - 5678','XXXX-XXXX-XXXX-5678','…5678','(-5678)','Ending in: 5678','Another Visa ending in 5678','••••5678','...5678','Visa x5678','*5678','• 5678','(5678)','#5678','Plain 5678 row','ends in 5678','ending with 5678','末四位 5678','尾数 5678','后四位 5678','••••5678.','ending in 5678,'])assert.deepEqual(boa(f.text+'\n'+other+'\nCurrent Balance\n$5.00'),{},other);
  for(const other of ['ending in 2030','••••2030','尾號 2030','XXXX-XXXX-XXXX-2045','Visa 5678,','Visa/5678'])assert.deepEqual(boa(f.text+'\n'+other+'\nCurrent Balance\n$5.00'),{},other);

@@ -1,6 +1,6 @@
 // Isolated-world DOM reader. Never reads form values, network responses or cookies.
 (()=>{
- const labels={statementClosing:/^(?:月結單結欠|月结单结欠|賬單結欠|账单结欠|statement balance|statement closing balance)$/i,creditLimit:/^(?:credit limit|信用限額|信用額度|信用额度)$/i,balance:/^(current balance|outstanding balance|total balance|balance outstanding|總結欠|总欠款|总计结欠|總計結欠|目前結欠|現時結欠|目前結餘|結欠|結餘|現時結餘|当前余额|目前结欠|现时结欠|目前结余|结欠|结余|solde actuel)$/i,available:/^(available credit|available credit limit|available credit amount|可用信貸額|可用信貸額度|可用信用額|可用信用額度|可用額度|可用额度|可用信贷额|可用信贷额度|crédit disponible)$/i,statement:/^(statement balance|remaining statement balance|last statement balance|statement closing balance|賬單結欠|帳單結欠|月結單結欠|月結單結餘|結單結欠|结单结欠|月结单结欠|solde du relevé)$/i,minimum:/^(minimum payment due|minimum payment|minimum amount due|minimum due|最低還款|最低还款|最低還款額|最低還款金額|最低付款額|最低付款金額|最低还款额|最低还款金额|paiement minimum)$/i};
+ const labels={statementClosing:/^(?:月結單結欠|月结单结欠|賬單結欠|账单结欠|statement balance|statement closing balance)$/i,creditLimit:/^(?:total credit line|credit limit|信用限額|信用額度|信用额度)$/i,balance:/^(current balance|outstanding balance|total balance|balance outstanding|總結欠|总欠款|总计结欠|總計結欠|目前結欠|現時結欠|目前結餘|結欠|結餘|現時結餘|当前余额|目前结欠|现时结欠|目前结余|结欠|结余|solde actuel)$/i,available:/^(total credit available|available credit|available credit limit|available credit amount|可用信貸額|可用信貸額度|可用信用額|可用信用額度|可用額度|可用额度|可用信贷额|可用信贷额度|crédit disponible)$/i,statement:/^(statement balance|remaining statement balance|last statement balance|statement closing balance|賬單結欠|帳單結欠|月結單結欠|月結單結餘|結單結欠|结单结欠|月结单结欠|solde du relevé)$/i,minimum:/^(total min payment due|total minimum payment due|minimum payment due|minimum payment|minimum amount due|minimum due|最低還款|最低还款|最低還款額|最低還款金額|最低付款額|最低付款金額|最低还款额|最低还款金额|paiement minimum)$/i};
  const currencyToken=/^(?:HK\$|CA\$|US\$|\$|HKD|CAD|USD|CNY|RMB|CN¥)$/i;
  // A rewards label by its shape, used only to report a programme this version does not collect.
  // structural: the unit words are generic vocabulary, and a verb-led phrase is an action, not a balance.
@@ -351,14 +351,21 @@
    const evidence=own?lines.slice(i,i+2).join('\n'):lines[i],iso=issuerDate(value,bank);
    if(iso)dates.push({iso,evidence});else if(own&&yearless.test(labelText(lines[i]))&&/^\d{1,2}月\s*\d{1,2}日$/.test(value))partial.push({value,evidence});
   }
+  // A minimum printed with its date on one line, e.g. "$35.00 due Nov 19". The year is never assumed.
+  for(let i=0;i<lines.length;i++){const combined=(lines[i+1]||'').match(/^\S*\d\S* due ([A-Za-z]{3,9} \d{1,2}(?:, 20\d{2})?)$/i);if(!combined||!labels.minimum.test(labelText(lines[i])))continue;const date=issuerDate(combined[1],bank),both=lines.slice(i,i+2).join('\n');if(date)dates.push({iso:date,evidence:both});else if(monthOf(combined[1].split(' ')[0]))partial.push({value:combined[1],evidence:both});}
   if(new Set(dates.map(d=>d.iso)).size===1)add('due','Payment due date',dates[0].iso,dates[0].evidence);
   else if(!dates.length&&new Set(partial.map(d=>d.value.replace(/\s/g,''))).size===1)add('duePartial',partial[0].value,'',partial[0].evidence);
   return items;
  }
  function issuerBilling(text,bank,card,otherTails=[],alias='C1'){
   if(text.length>100000||!issuerTails(text).includes(card.tail)||holdsOther(text,card.tail,otherTails))return [];
-  const lines=text.replace(/[  ]/g,' ').split('\n').map(x=>x.trim()).filter(Boolean),items=[];
-  const parsed=parseAccount(text,bank,card,'en-US',new Date().toISOString(),100000);
+  const raw=text.replace(/[\u00a0\u202f]/g,' ').split('\n').map(x=>x.trim()).filter(Boolean);
+  // A one-word help control can sit between a "Label:" and its value; it is not part of either.
+  const isValue=l=>/^(?:[-−]?\s*(?:HK\$|US\$|\$|HKD|USD)\s*[-−]?[\d,]+\.\d{2})/.test(l||'');
+  const lines=raw.filter((l,i)=>!(/^[A-Za-z]+$/.test(l)&&/:$/.test(raw[i-1]||'')&&isValue(raw[i+1])));
+  // Money parsing sees the amount alone; a due date on that line is read separately.
+  const moneyText=lines.map(l=>isValue(l)?l.replace(/\s+due\s+.*$/i,''):l).join('\n'),items=[];
+  const parsed=parseAccount(moneyText,bank,card,'en-US',new Date().toISOString(),100000);
   for(const [key,value]of Object.entries(parsed?.fields||{})){
    // Evidence is the labelled line that actually carries this value, not the first label of that name.
    const digits=new RegExp('(?<![\\d.])'+Math.abs(value).toFixed(2).replace('.','\\.')+'(?!\\d)'),carries=at=>digits.test(lines.slice(at,at+4).join(' ').replaceAll(',',''));
