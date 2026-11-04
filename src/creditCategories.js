@@ -7,7 +7,7 @@ import rules from './data/knowledge/rules.json' with {type:'json'};
 export const CREDIT_CATEGORIES=data.categories;
 const known=new Set(data.categories.map(c=>c.id));
 const byId=new Map();
-for(const rule of rules)if(!byId.has(rule.id)||byId.get(rule.id).revision<rule.revision)byId.set(rule.id,rule);
+for(const rule of rules)if(rule.status==='published'&&(!byId.has(rule.id)||byId.get(rule.id).revision<rule.revision))byId.set(rule.id,rule);
 
 /** Every use of a rule, in display order. An uncategorized rule returns [] rather than a guess. */
 export function creditCategoriesForRule(rule){

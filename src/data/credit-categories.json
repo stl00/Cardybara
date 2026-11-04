@@ -30,7 +30,6 @@
     "rule.amex-us-us-morgan-stanley-platinum-card.digital": ["entertainment"],
     "rule.amex-us-us-morgan-stanley-platinum-card.uber": ["ride-share", "dining"],
     "rule.amex-us-us-morgan-stanley-platinum-card.uber-one": ["ride-share", "dining"],
-    "rule.amex-us-us-american-express-gold-card.uber": ["ride-share", "dining"],
     "rule.amex-us-us-hilton-honors-aspire-card.flight": ["airline"],
     "rule.chase-us-united-quest.travelbank": ["airline"],
     "rule.chase-us-united-quest.award-discount": ["airline"],

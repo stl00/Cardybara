@@ -27,6 +27,16 @@ test('airline has its own category, and scenario tags that were too broad are co
  assert.deepEqual(creditCategoriesForRuleId('rule.amex-us-us-morgan-stanley-platinum-card.digital'),['entertainment']);
  assert.deepEqual(creditCategoriesForRuleId('rule.chase-us-united-quest.bags'),['airline']);
 });
+test('every override resolves to exactly what it is meant to',()=>{
+ const p='rule.amex-us-us-morgan-stanley-platinum-card.',expected={
+  'rule.chase-us-sapphire-reserve.edit':['hotel'],[p+'airline-fee']:['airline'],[p+'digital']:['entertainment'],[p+'uber']:['dining','ride-share'],[p+'uber-one']:['dining','ride-share'],
+  'rule.amex-us-us-hilton-honors-aspire-card.flight':['airline'],'rule.chase-us-united-quest.travelbank':['airline'],'rule.chase-us-united-quest.award-discount':['airline'],'rule.chase-us-united-quest.bags':['airline'],
+  'rule.chase-us-ihg-premier.airline-new':['airline'],'rule.chase-us-ihg-premier.travelbank':['airline'],'rule.boa-us-atmos-rewards-summit-visa-infinite.companion':['airline'],'rule.boa-us-atmos-rewards-summit-visa-infinite.partner-fees':['airline'],
+  'rule.hsbc-hk-hk-red-credit-card.hkexpress':['airline'],'rule.boa-us-customized-cash-rewards-visa-signature.first-year':['reward'],
+ };
+ assert.deepEqual(Object.keys(data.ruleOverrides).sort(),Object.keys(expected).sort());
+ for(const [id,list] of Object.entries(expected))assert.deepEqual(creditCategoriesForRuleId(id),list,id);
+});
 test('a credit can have several categories',()=>{
  assert.deepEqual(creditCategoriesForRuleId('rule.chase-us-sapphire-reserve.doordash-general'),['dining','shopping']);
  assert.deepEqual(creditCategoriesForRuleId('rule.amex-us-us-american-express-gold-card.uber'),['dining','ride-share']);
