@@ -251,6 +251,6 @@ test('ambiguous aliases and foreign product ids cannot silently select another p
 });
 test('catalogue excludes personal account data and application labels',()=>{
  for(const p of cardProducts){assert.ok(p.id&&p.bank&&p.region&&p.name&&p.sourceUrl);assert.ok(!/apply now|links to product/i.test(p.name));for(const key of ['tail','balance','minimum','due','accountId','capturedAt'])assert.ok(!(key in p));}
- assert.equal(new Set(cardProducts.map(p=>p.id)).size,cardProducts.length);assert.equal(new Set(cardProducts.map(p=>p.bank)).size,7);
+ assert.equal(new Set(cardProducts.map(p=>p.id)).size,cardProducts.length);const collected=new Set(['Chase','Amex US','Amex HK','Amex CA','BOA','HSBC HK','SC HK','Citi US']);for(const p of cardProducts)if(!collected.has(p.bank))assert.equal(p.collection,'not-supported',p.id);
  const art=cardPresentation({bank:'Chase',region:'US',name:'Sapphire Reserve',art:'reserve.jpg'}).art;assert.equal(art.file,'chase-sapphire-reserve-official.png');assert.equal(art.verification,'issuer-asset');
 });
