@@ -152,6 +152,15 @@ test('issuer rules never mix cards or guess',()=>{
  const item=(date,evidence)=>({kind:'billing',cardId:'C1',key:'due',title:'Payment due date',value:null,currency:'HKD',date,status:'unknown',evidence});
  assert.equal(validateModel({items:[item('2030-04-03','Payment Due Date\n04/03/2030')],nextLinkId:null},snapshot).items.length,0);assert.equal(validateModel({items:[item('2030-03-04','Payment Due Date\n04/03/2030')],nextLinkId:null},snapshot).items.length,1);assert.equal(validateModel({items:[item('2030-12-19','Payment Due Date\n19/12/2030')],nextLinkId:null},snapshot).items.length,1);
 });
+test('Amex HK statement: the remaining balance when printed, otherwise the statement balance',()=>{
+ const card={id:'hk',bank:'Amex HK',tail:'13579',currency:'HKD'},run=text=>JSON.parse(JSON.stringify(reader.amexHkMvp('••••13579\n'+text,card))).map(i=>[i.key,i.value]);
+ assert.deepEqual(Object.fromEntries(run('月結單結欠\nMore info on statement_balance_tooltip\nHK$30.00\n總結欠\nMore info on total_balance_tooltip\nHK$123.45')),{statement:30,statementClosing:30,balance:123.45});
+ assert.equal(Object.fromEntries(run('月結單結欠\nHK$30.00\n未繳付月結單結欠\nHK$23.45\n總結欠\nHK$123.45')).statement,23.45);
+ assert.deepEqual(run('總結欠\nHK$123.45'),[['balance',123.45]],'neither printed, so unknown');
+ assert.equal(Object.fromEntries(run('未繳付月結單結欠\n待更新\n月結單結欠\nHK$30.00\n總結欠\nHK$123.45')).statement,undefined,'a printed remaining balance that cannot be read stays unknown');
+ assert.equal(Object.fromEntries(run('月結單結欠\n-HK$30.00\n總結欠\nHK$123.45')).statement,undefined,'a credit is not an amount owed');
+ const noPay=run('未繳付月結單結欠\nHK$0.00\n暫時毋須付款\n總結欠\n-HK$1,234.50');assert.deepEqual(noPay.find(i=>i[0]==='balance'),['balance',-1234.5]);assert.ok(noPay.some(i=>i[0]==='paymentStatus'));
+});
 test('Amex US prints its due date on the next line, and a missing year stays missing',()=>{
  const due=text=>JSON.parse(JSON.stringify(reader.issuerDue(text.split('\n'),'Amex US',{tail:'12345',currency:'USD'}))).map(i=>[i.key,i.date||i.title]);
  assert.deepEqual(due('Your Payment is Due on\nNovember 19'),[['duePartial','November 19']]);

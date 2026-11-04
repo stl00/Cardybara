@@ -223,6 +223,26 @@ test('Amex US: overview tiles give cards only, and each card reads after its bal
  }finally{await run.stop();}
 });
 
+test('Amex HK: the switcher lists cards, and each reads after its balances fill in',async()=>{
+ const run=await start();
+ try{
+  const {chrome}=run.adapter,events=[];chrome.tabs.onUpdated.addListener((id,c)=>events.push(c));
+  const tab=await chrome.tabs.create({url:'https://global.americanexpress.com/dashboard?synthetic=hk',active:false});await until(()=>events.some(e=>e.status==='complete'));
+  const exec=(func,args=[])=>chrome.scripting.executeScript({target:{tabId:tab.id},func,args}).then(r=>r[0].result);
+  await exec(()=>{document.getElementById('sign-in').click();});
+  await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
+  const discovered=await exec(amexCards,['discover']);assert.deepEqual(discovered.map(c=>c.tail),['13579','24680']);
+  const cards=discovered.map(c=>({id:'c'+c.tail,bank:'Amex HK',tail:c.tail,currency:'HKD'}));
+  const fields=raw=>Object.fromEntries(raw.observations.filter(o=>['card','reward'].includes(o.kind)||o.key==='paymentStatus').map(o=>[o.key,o.kind==='billing'?o.title:o.value]));
+  const first=await exec(capturePage,['Amex HK',cards,['c13579']]);assert.equal(first.error,undefined);
+  assert.deepEqual(fields(first),{statementClosing:0,available:9000,balance:0,statement:0,'美國運通積分計劃':0,paymentStatus:'暫時毋須付款'});
+  assert.deepEqual(await exec(amexCards,['select','24680']),['24680']);
+  const second=await exec(capturePage,['Amex HK',cards,['c24680']]);assert.equal(second.error,undefined);assert.deepEqual(second.aliases.map(a=>a.cardId),['c24680']);
+  assert.deepEqual(fields(second),{available:8000,balance:-1234.5,statement:0,'美國運通積分計劃':0,paymentStatus:'暫時毋須付款'});
+  assert.ok(!second.observations.some(o=>o.key==='due'),'an offer\'s expiry is not a due date');
+ }finally{await run.stop();}
+});
+
 test('BOA: cards come from the Credit cards group, and billing from each card\'s detail page',async()=>{
  const run=await start();
  try{

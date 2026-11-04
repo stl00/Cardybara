@@ -57,6 +57,8 @@
    }
    const unique=[...new Set(values)];if(unique.length===1)fields[key]=bank==='HSBC HK'&&key==='balance'?-unique[0]:unique[0];
   }
+  // Inferred from page structure: with no remaining statement balance printed, Amex HK's statement balance stands in. A printed remaining balance that can't be read stays unknown, and a credit is not an amount owed.
+  if(bank==='Amex HK'&&fields.statement===undefined&&fields.statementClosing>=0&&!lines.some(l=>/^(?:未繳付月結單結欠|未缴付月结单结欠|remaining statement balance)$/i.test(labelText(l))))fields.statement=fields.statementClosing;
   return Object.keys(fields).length?{id:card.id,fields,capturedAt,locale}:null;
  }
 
@@ -70,7 +72,7 @@
   if(page==='overview'){
    const parsed=parseAccount(text,'Amex HK',card,'zh-HK',new Date().toISOString(),100000);
    for(const [key,value]of Object.entries(parsed?.fields||{})){
-    const label=key==='statement'?/^(?:未繳付月結單結欠|未缴付月结单结欠|remaining statement balance)$/i:labels[key];
+    const remaining=/^(?:未繳付月結單結欠|未缴付月结单结欠|remaining statement balance)$/i,label=key==='statement'&&lines.some(l=>remaining.test(labelText(l)))?remaining:key==='statement'?labels.statementClosing:labels[key];
     const at=lines.findIndex(l=>label?.test(labelText(l)));if(at>=0){const evidence=lines.slice(at,at+5).join('\n');if(evidence.length<1000)add('card',key,value,evidence);}
    }
   }
