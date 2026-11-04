@@ -19,6 +19,11 @@ export async function capturePage(bank,cards,contextIds=[]){
  const hsbcById=id=>[...document.querySelectorAll(`[id="${id}"]`)].find(visible)||null;
  const hsbcIdentity=()=>hsbcById('account-number-value')?.innerText||hsbcMetadata();
  const hsbcMetadata=()=>{const h=hsbcById('account-summary-name');const root=h?.closest('.account-summary-title-detail');return root?[...root.children].filter(e=>e.classList.contains('account-detail-row')).map(e=>e.innerText||'').join('\n'):'';};
+ // After a switch the previous card stays on screen, then amounts fill in. Wait for this card's own number and amounts; a card that never shows them reads as what it shows.
+ if(bank==='HSBC HK'&&hsbcById('account-summary-name')){
+  const want=cards.filter(c=>contextIds.includes(c.id)),ready=()=>(want.length!==1||new RegExp('(?:^|[^0-9])'+want[0].tail+'(?:[^0-9]|$)').test(hsbcById('account-number-value')?.innerText||''))&&['ledger-account-amount','credit-card-amount-due-value','credit-card-total-minimum-payment-amount-value'].every(id=>/\d/.test(hsbcById(id)?.innerText||''))&&!query('#loading-spinner').some(visible);
+  const until=Date.now()+12000;while(!ready()&&Date.now()<until)await new Promise(r=>setTimeout(r,200));
+ }
  if(bank==='HSBC HK'&&hsbcById('account-summary-name')){const selected=hsbcIdentity();const scoped=cards.filter(c=>new RegExp('(?:^|[^0-9])'+c.tail+'(?:[^0-9]|$)').test(selected));if(scoped.length!==1)return {error:'card_not_identified'};matches=scoped;selectedCardId=scoped[0].id;}
  let scPage=null;
  if(bank==='SC HK'&&/\/card_details\.htm$/.test(location.pathname)&&self.CardyReader?.scDetails){scPage=self.CardyReader.scDetails(cards);if(!scPage?.card)return {error:'card_not_identified'};matches=[scPage.card];selectedCardId=scPage.card.id;}
@@ -41,7 +46,7 @@ export async function capturePage(bank,cards,contextIds=[]){
   const h=hsbcById('account-summary-name'),ledger=hsbcById('ledger-account-amount'),overlay=hsbcById('account-details-overlay');
   const bits=[h?.innerText||'',hsbcMetadata(),ledger?.innerText||''];
   for(const [label,id]of [['Current amount due','credit-card-amount-due-value'],['Total minimum payment amount','credit-card-total-minimum-payment-amount-value']]){const e=hsbcById(id);if(e)bits.push(label+'\n'+e.innerText);}
-  const pageLines=body.split('\n').map(t=>t.trim()).filter(Boolean),dueLabels=pageLines.flatMap((t,i)=>/^(?:Payment due date|付款到期日)\s*[:：]?$/i.test(t)&&pageLines[i+1]?[pageLines[i+1]]:[]);if(new Set(dueLabels).size===1)bits.push('Payment due date\n'+dueLabels[0]);
+  const pageLines=(document.body?.innerText||'').split('\n').map(t=>t.trim()).filter(Boolean),dueLabels=pageLines.flatMap((t,i)=>/^(?:Payment due date|付款到期日)\s*[:：]?$/i.test(t)&&pageLines[i+1]?[pageLines[i+1]]:[]);if(new Set(dueLabels).size===1)bits.push('Payment due date\n'+dueLabels[0]);
   if(visible(overlay))bits.push(overlay.innerText);
   const content=bits.join('\n'),lines=content.split('\n').map(t=>t.trim()).filter(Boolean),add=item=>{blocks.push({id:'B'+(blocks.length+1),text:item.evidence});observations.push(item);size+=item.evidence.length;};
   const parsed=self.CardyReader?.read(bank,matches,['en-HK','zh-HK','zh-CN']);

@@ -35,7 +35,8 @@ function render(){
   <div id="account-details-overlay" class="line ${overlay?'':'hide'}"><button id="account-details-overlay-close-btn-account-details-overlay">關閉</button>
 戶口結餘\n${a.balance} ${a.currency}\n最新應繳結欠\n${a.due} ${a.currency}\n目前最低付款額\n1.00 ${a.currency}\n付款到期日\n${a.date}\n上一期結單結欠／結餘\n777.00 ${a.currency}\n最低付款總額\n${a.min} ${a.currency}\n信用限額\n${a.limit} ${a.currency}\n可用信用限額\n${a.available} ${a.currency}</div>`;
  }
- for(const e of root.querySelectorAll('[id^="account-container-"],button[id^="dropdown-item-"]'))e.onclick=()=>{selected=Number(e.dataset.i);menu=false;overlay=false;render();};
+ // A switch keeps the previous card on screen for a moment, as the real page does.
+ for(const e of root.querySelectorAll('[id^="account-container-"],button[id^="dropdown-item-"]'))e.onclick=()=>{menu=false;overlay=false;render();const next=Number(e.dataset.i);setTimeout(()=>{selected=next;render();},selected===null?0:700);};
  const on=(id,f)=>{const e=document.getElementById(id);if(e)e.onclick=f;};
  on('change-account-button',()=>{menu=!menu;render();});on('show-account-details-overlay',()=>{overlay=true;render();});on('account-details-overlay-close-btn-account-details-overlay',()=>{overlay=false;render();});
 }

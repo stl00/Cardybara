@@ -185,6 +185,8 @@ test('HSBC: zh-HK rows give last-four identities, and each card reads through hi
   assert.deepEqual(await exec(hsbcCards,['list',null,cards]),['1234','5678','9012']);
   for(const [tail,currency,want,due] of [['1234','HKD',{balance:1234.56,statement:321,minimum:35,creditLimit:10000,available:8765.44},'2030-12-19'],['5678','HKD',{balance:-25,statement:0,minimum:0,creditLimit:10000,available:10025},'2030-12-02'],['9012','CNY',{balance:67.89,statement:67.89,minimum:50,creditLimit:5000,available:4932.11},'2030-12-09']]){
    assert.deepEqual(await exec(hsbcCards,['select',tail,cards]),[tail]);
+   // Captured right after the click: the capture must wait for this card, not read the previous one.
+   const early=await exec(capturePage,['HSBC HK',cards,['c'+tail]]);assert.deepEqual(early.aliases?.map(a=>a.cardId),['c'+tail],tail);
    assert.equal(await exec(hsbcMoreDetails),true);
    const raw=await exec(capturePage,['HSBC HK',cards,['c'+tail]]);assert.equal(raw.error,undefined,tail);assert.deepEqual(raw.aliases.map(a=>[a.cardId,a.currency]),[['c'+tail,currency]]);
    assert.deepEqual(Object.fromEntries(raw.observations.filter(o=>o.kind==='card').map(o=>[o.key,o.value])),want,tail);
