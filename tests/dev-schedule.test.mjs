@@ -132,7 +132,7 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   idle='active';tabs=[{id:5,url:href,status:'complete',windowId:1,active:false}];await tick();assert.equal(state()?.run,undefined,'it waits until Chrome is idle');
   idle='idle';await tick();await finished();
   assert.equal(state().run.scheduled,true);assert.equal(settings().banks.BOA.state,'ok');assert.deepEqual(calls.removed,[],'the owner\'s own tab stays open');assert.ok(!calls.files.includes('guide.js'),'a scheduled run asks nothing');
-  assert.equal(calls.posts.length,1);assert.ok(!JSON.stringify(calls.posts).match(/3141|Quokka/));assert.equal(calls.posts[0].banks[0].bank,'BOA');
+  assert.equal(calls.posts.length,1);assert.ok(!JSON.stringify(calls.posts.map(({at,...rest})=>rest)).match(/3141|Quokka/),'at is a timestamp, the one number that can hold these digits by chance');assert.equal(calls.posts.every(validReport),true);assert.equal(calls.posts[0].banks[0].bank,'BOA');
   const runId=state().run.id;await tick();assert.equal(state().run.id,runId,'the minimum interval holds');
 
   tabs=[];read='needs_login';allow();await tick();await wait(()=>state().run.id!==runId);await finished();
