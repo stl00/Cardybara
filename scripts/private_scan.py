@@ -59,7 +59,7 @@ def already_on(remote_name):
 
  A URL, a name that would act as a glob, or a fetch address that is not the push address proves nothing, so everything is scanned.
  """
- fetch,push=git('remote','get-url',remote_name),git('remote','get-url','--push',remote_name)
+ fetch,push=git('remote','get-url',remote_name),git('remote','get-url','--push','--all',remote_name)
  if fetch.returncode or push.returncode or fetch.stdout!=push.stdout or re.search(r'[*?\[]',remote_name):return []
  return ['--not',f'--remotes={remote_name}']
 def scan_object(private,sha,kind):

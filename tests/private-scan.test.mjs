@@ -114,6 +114,10 @@ test('refs from a different fetch address do not count as already pushed',t=>{
  s.commit('a.txt',`id ${LONG}\n`);assert.equal(s.push({},'origin','HEAD:refs/heads/main','--no-verify').status,0);
  s.git('fetch','-q','origin');s.git('remote','set-url','--push','origin',other);
  refused(s.push({},'origin','HEAD:refs/heads/fresh'),'a\\.txt');
+ const both=sandbox(t),extra=path.join(both.dir,'public.git'),own=both.git('remote','get-url','origin').trim();execFileSync('git',['init','-q','--bare',extra],{env});
+ both.commit('a.txt',`id ${LONG}\n`);assert.equal(both.push({},'origin','HEAD:refs/heads/main','--no-verify').status,0);both.git('fetch','-q','origin');
+ both.git('remote','set-url','--add','--push','origin',own);both.git('remote','set-url','--add','--push','origin',extra);
+ refused(both.push({},'origin','HEAD:refs/heads/fresh'),'a\\.txt');
 });
 test('a commit on the same remote under another branch is not scanned again',t=>{
  const s=sandbox(t);s.commit('a.txt',`id ${LONG}\n`);assert.equal(s.push({},'origin','HEAD:refs/heads/main','--no-verify').status,0);s.git('fetch','-q','origin');
