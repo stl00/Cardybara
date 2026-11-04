@@ -6,7 +6,7 @@
  chrome.runtime.onMessage.addListener(m=>{if(m.channel==='cardybara-extension'&&m.type==='state'&&JSON.stringify(m).length<150000)emit(m);});
  window.addEventListener('message',async e=>{
   if(e.source!==window||e.origin!==origin||e.data?.channel!=='cardybara-dashboard')return;
-  const m=e.data;if(!['hello','refresh','cancel','export','disconnect','clear','connect'].includes(m.type)||JSON.stringify(m).length>16000)return;
+  const m=e.data;if(!['hello','refresh','cancel','export','disconnect','clear','connect','remove-card'].includes(m.type)||JSON.stringify(m).length>16000)return;
   try{const result=await chrome.runtime.sendMessage(m);emit({type:m.type==='hello'?'ready':'ack',requestId:m.requestId,...result});}catch{emit({type:'error',requestId:m.requestId,error:'扩展未能保存或响应，请重试。'});}
  });
 })();
