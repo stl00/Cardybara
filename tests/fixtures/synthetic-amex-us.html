@@ -22,7 +22,7 @@ function render(){
  root.innerHTML=`<div role="combobox" aria-label="Open to manage your other accounts" aria-expanded="${open}" id="switch">${a.name}\n••••${a.tail}</div>
  ${open?'<div id="simple-switcher-listbox">'+accounts.map((x,i)=>`<div role="option" data-i="${i}" class="line">${x.name}\n••••${x.tail}</div>`).join('')+'</div>':''}
  <h2 class="line">${a.name} ••••${a.tail}</h2><div class="line">${filled===selected?a.rows.join('\n'):''}</div>
- ${filled===selected?`<section><h2>Membership Rewards® Points</h2><div>${a.points}</div><div>Use Points</div></section>`:''}`;
+ ${filled===selected?`<section><h2>Membership Rewards® Points</h2><div>${a.points}</div><div>Use Points</div></section><section class="line">SYNTH MART #4521\nPayment from account ending in 6789\nPO Box 12345\n${accounts.filter(x=>x!==a&&!x.available).map(x=>'Rewards shared with ••••'+x.tail).join('\n')}</section>`:''}`;
  document.getElementById('switch').onclick=()=>{open=!open;render();};
  for(const e of root.querySelectorAll('[role=option]'))e.onclick=()=>{open=false;goTo(Number(e.dataset.i));};
 }
