@@ -238,12 +238,14 @@
       "fee": {
         "amount": 595,
         "currency": "USD",
-        "quote": "The Annual Fee is $595"
+        "quote": "The Annual Fee is $595",
+        "embedded": true
       },
       "additionalFee": {
         "amount": 75,
         "currency": "USD",
-        "quote": "Annual fee for authorized users: $75"
+        "quote": "Annual fee for authorized users: $75",
+        "embedded": true
       }
     },
     {
@@ -371,7 +373,8 @@
       "fee": {
         "amount": 99,
         "currency": "USD",
-        "quote": "$0 Intro Annual Fee for the first year; $99 thereafter"
+        "quote": "$0 Intro Annual Fee for the first year; $99 thereafter",
+        "embedded": true
       }
     },
     {
@@ -498,7 +501,8 @@
       "fee": {
         "amount": 695,
         "currency": "USD",
-        "quote": "with a $695 annual fee"
+        "quote": "with a $695 annual fee",
+        "embedded": true
       }
     },
     {
@@ -665,7 +669,8 @@
           "noteEn": "A $300 annual Capital One Travel credit. How the year is counted is not stated on this card page.",
           "amount": 300,
           "scenario": "travel",
-          "quote": "Receive a $300 annual Capital One Travel credit"
+          "quote": "Receive a $300 annual Capital One Travel credit",
+          "embedded": true
         },
         {
           "key": "anniversary-miles",
@@ -676,7 +681,8 @@
           "scenario": "card-ownership",
           "category": "membership",
           "period": "account-anniversary",
-          "quote": "10,000 miles anniversary bonus"
+          "quote": "10,000 miles anniversary bonus",
+          "embedded": true
         }
       ],
       "unknown": [

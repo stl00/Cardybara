@@ -75,17 +75,23 @@ def main():
     ]
     missing = []
 
-    def check(card, quote):
+    def check(card, quote, embedded=False):
         if len(quote.split()) > 22:
             missing.append(f"{card['id']}: quote too long, keep it short: {quote}")
         if not args.pages:
             return
-        # Issuers keep some terms in embedded page data, so the raw HTML counts as the page too.
+        # Embedded page data can describe other cards on the same page, so a fact taken from it must
+        # be marked, which sends a reviewer to the block it came from. Visible text is the default.
         page = Path(args.pages) / f"{card['page']}.txt"
         raw = page.with_suffix('.html')
-        text = clean(page.read_text()) + ' ' + (clean(html.unescape(re.sub(r'<[^>]{0,300}>', ' ', raw.read_text(errors='ignore')))) if raw.exists() else '')
-        if clean(quote) not in text:
+        visible = clean(page.read_text())
+        if clean(quote) in visible:
+            return
+        data = clean(html.unescape(re.sub(r'<[^>]{0,300}>', ' ', raw.read_text(errors='ignore')))) if raw.exists() else ''
+        if clean(quote) not in data:
             missing.append(f"{card['id']}: {quote}")
+        elif not embedded:
+            missing.append(f"{card['id']}: only in embedded page data, mark it embedded: {quote}")
 
     for card in batch['cards']:
         pid = card['id']
@@ -105,7 +111,7 @@ def main():
             patch['collection'] = card['collection']
         link = card.get('transfer')
         if link:
-            check(card, link['quote'])
+            check(card, link['quote'], link.get('embedded', False))
             patch.update(rewardPrograms=[link['name']], rewardSource={'url': card['url'], 'checkedAt': checked})
             # linkOnly names the programme a card earns; its partners are not verified yet.
             if not link.get('linkOnly'):
@@ -120,8 +126,8 @@ def main():
         manifest['profileProductIds'].append(pid)
         manifest['profileMetadata'][pid] = {'checkedAt': checked, 'coverage': 'issuer-page-summary', 'market': market, 'communitySourceIds': [], 'changeNotes': [], 'knowledgeGaps': gaps, 'feeNotes': None}
 
-        def rule(key, kind, category, scenes, programme_ids, title, summary, quote, terms, validity=None):
-            check(card, quote)
+        def rule(key, kind, category, scenes, programme_ids, title, summary, quote, terms, validity=None, embedded=False):
+            check(card, quote, embedded)
             id = f'rule.{pid}.{key}'
             valid = {'effectiveFrom': None, 'effectiveThrough': None, 'enrollBy': None, **(validity or {})}
             rules.append({
@@ -139,7 +145,7 @@ def main():
         fee_summary = txt('公布标准年费，不代表个人已收取或已获豁免。', 'Published standard fee; it does not show a personal charge or waiver.')
         for role, fee in [('primary', card.get('fee')), ('additional', card.get('additionalFee'))]:
             if fee:
-                rule(f'fee-{role}', 'fee', 'fee', ['card-ownership'], [], fee_title[role], fee_summary, fee['quote'], {'amount': fee['amount'], 'currency': fee['currency'], 'period': 'annual-fee', 'billingCycle': 'issuer-account-terms', 'cardholderRole': role, 'actualCharge': None})
+                rule(f'fee-{role}', 'fee', 'fee', ['card-ownership'], [], fee_title[role], fee_summary, fee['quote'], {'amount': fee['amount'], 'currency': fee['currency'], 'period': 'annual-fee', 'billingCycle': 'issuer-account-terms', 'cardholderRole': role, 'actualCharge': None}, embedded=fee.get('embedded', False))
         programme_ids = [link['programmeId']] if link else []
         for index, row in enumerate(card.get('earning', [])):
             label = txt(row['zh'], row['en'])
@@ -147,13 +153,13 @@ def main():
             if row['unit'] not in taxonomy['rateUnits']:
                 taxonomy['rateUnits'].append(row['unit'])
             summary = txt(row.get('noteZh') or '公布赚取比例；类别范围和限额以条款为准。', row.get('noteEn') or 'Published earning rate; category scope and caps follow the terms.')
-            rule(f'earning-{index}', 'earning-rate', 'earning', ['reward-redemption'], programme_ids, label, summary, row['quote'], {'multiplier': row['multiplier'], 'unit': row['unit'], 'spendCategory': label, 'spendCap': row.get('cap'), 'creditedSpendMayNotEarn': None}, row.get('validity'))
+            rule(f'earning-{index}', 'earning-rate', 'earning', ['reward-redemption'], programme_ids, label, summary, row['quote'], {'multiplier': row['multiplier'], 'unit': row['unit'], 'spendCategory': label, 'spendCap': row.get('cap'), 'creditedSpendMayNotEarn': None}, row.get('validity'), row.get('embedded', False))
         for row in card.get('credits', []):
             title, summary = txt(row['zh'], row['en']), txt(row['noteZh'], row['noteEn'])
             terms = {'category': row.get('category', 'credit'), 'period': row.get('period'), 'amount': row.get('amount'), 'currency': row.get('currency', 'USD' if row.get('amount') is not None else None)}
             if 'enrollment' in row:
                 terms['requiresEnrollment'] = row['enrollment']
-            rule(row['key'], 'benefit', row.get('category', 'credit'), [row['scenario']], row.get('programmeIds', []), title, summary, row['quote'], terms, row.get('validity'))
+            rule(row['key'], 'benefit', row.get('category', 'credit'), [row['scenario']], row.get('programmeIds', []), title, summary, row['quote'], terms, row.get('validity'), row.get('embedded', False))
 
     for key, value in tr['zh-TW'].items():
         tr['zh-TW'][key] = value.replace('托執行李', '托運行李').replace('髮卡', '發卡').replace('美元后', '美元後')
