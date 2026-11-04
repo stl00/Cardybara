@@ -81,6 +81,8 @@ test('bank guide resumes a new wallet after login without already knowing its ca
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:[]},doc),false);password=false;
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:[]},doc),true);
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:['9999']},doc),false);
+ // HSBC prints full numbers in its rows. A deposit account's shape doesn't count as signed in with a card.
+ for(const [row,ready] of [['Card\n4000-0000-0000-1234',true],['Deposit\n111-222222-333',false]])assert.equal(c.cardyGuidePageReady({bank:'HSBC HK',tails:[]},{body:{innerText:row},querySelectorAll:s=>s==='input[type=password]'?[]:s.includes('account-container')?[el(row)]:[]}),ready,row);
  // SC HK prints no masked tail: signed-in pages are ready with or without registered cards, and a code prompt is not.
  const previousLocation=c.location;
  for(const [path,text,tails,ready] of [['/hk/nfs/ibank/landing.htm','Welcome',[],true],['/hk/nfs/ibank/landing.htm','Welcome',['4321'],true],['/hk/nfs/login.htm','Sign in',['4321'],false],['/hk/nfs/ibank/landing.htm','Enter your one-time password',['4321'],false],['/hk/nfs/ibank/landing.htm','About SMS alerts in the menu',['4321'],true]]){c.location={pathname:path};const box=/Enter your/.test(text);assert.equal(c.cardyGuidePageReady({bank:'SC HK',tails},{body:{innerText:text},querySelectorAll:s=>box&&s.includes('type=text')?[el('')]:[]}),ready,path+text);}
