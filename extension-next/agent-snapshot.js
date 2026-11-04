@@ -12,6 +12,13 @@ export async function capturePage(bank,cards,contextIds=[]){
  if(bank==='HSBC HK'&&/^\/[a-z]{2}-[a-z]{2}\/?$/.test(location.pathname))return {error:'needs_login'};
  if(bank==='HSBC HK'&&/^\/security(?:\/|$)/.test(location.pathname)){if(document.title==='Security code | Log on | HSBC')return {error:'needs_confirmation'};if(/^(?:Username|Password) \| Log on \| HSBC$/.test(document.title))return {error:'needs_login'};}
  const redact=t=>String(t).replace(/https?:\/\/\S+/gi,'[link]').replace(/[\w.+-]+@[\w.-]+\.[a-z]{2,}/gi,'[email]').replace(/(?:\d[ -]?){8,19}/g,value=>{const date=value.trim();return /^\d{4}-\d{2}-\d{2}$/.test(date)&&Number.isFinite(Date.parse(date))&&new Date(date).toISOString().slice(0,10)===date?value:'[number]';}).replace(/\b(?:Welcome|Hello|Hi|Dear)\s+[^\n,]{2,60}/gi,'[greeting]').replace(/(?:歡迎|欢迎|您好)[^\n，,]{0,60}/g,'[greeting]');
+ // A switch blanks the balances and keeps the previous card named for a moment. Wait for this card and its balance; a card that never shows one reads as what it shows.
+ if(bank==='Amex US'&&/^\/dashboard\/?$/.test(location.pathname)&&contextIds.length===1){
+  const want=cards.find(c=>c.id===contextIds[0]),switcher=()=>query('button[aria-label="open_title"],[role="combobox"][aria-label="Open to manage your other accounts"]').filter(visible).map(e=>e.innerText||'').join('\n');
+  const balances=()=>(document.body?.innerText||'').split('\n').map(t=>t.trim()).filter(Boolean).filter((t,i,all)=>/^-?\$/.test(t)&&/total balance|statement balance|minimum payment|tooltip/i.test(all[i-1]||'')||/membership rewards/i.test(all[i-1]||'')).join('|');
+  const until=Date.now()+12000;let held='',since=0;
+  while(want&&Date.now()<until){const now=balances(),ready=new RegExp('(?:^|[^0-9])'+want.tail+'(?:[^0-9]|$)').test(switcher())&&/\$/.test(now);if(!ready||now!==held){held=now;since=Date.now();}else if(Date.now()-since>=800)break;await new Promise(r=>setTimeout(r,200));}
+ }
  const body=[document.body?.innerText||'',...roots.slice(1).flatMap(root=>[...root.children].filter(visible).map(e=>e.innerText||''))].join('\n');
  let selectedCardId=null;let matches=cards.filter(c=>new RegExp('(?:^|[^0-9])'+c.tail+'(?:[^0-9]|$)').test(body));
  if(bank.startsWith('Amex ')){const selected=query('button[aria-label=\"open_title\"],[role=\"combobox\"][aria-label=\"Open to manage your other accounts\"]').filter(visible).map(e=>e.innerText||'').join('\n');const scoped=cards.filter(c=>new RegExp('(?:^|[^0-9])'+c.tail+'(?:[^0-9]|$)').test(selected));if(scoped.length===1){matches=scoped;selectedCardId=scoped[0].id;}}
@@ -71,8 +78,11 @@ export async function capturePage(bank,cards,contextIds=[]){
   if(positions.every(i=>i>=0)&&self.CardyReader?.hsbcTransactionRows){const rows=tableRows.slice(1).map(tr=>{const cells=[...tr.querySelectorAll('td')].map(e=>e.innerText.trim());return {date:cells[positions[0]],tail:cells[positions[1]]?.match(/Card ending in (\d{4,5})/i)?.[1],description:cells[positions[2]],amountIn:cells[positions[3]],amountOut:cells[positions[4]]};});const parsed=self.CardyReader.hsbcTransactionRows(rows,matches[0]);for(const item of parsed.items)add({...item,key:redact(item.key),title:replace(item.title),evidence:replace(item.evidence)});}
 
  }
- if(bank==='Amex US'&&selectedCardId&&self.CardyReader?.issuerDue&&/^\/(?:dashboard|overview)\/?$/.test(location.pathname)){
-  for(const item of self.CardyReader.issuerDue(body.split('\n').map(t=>t.trim()).filter(Boolean),bank,matches.find(c=>c.id===selectedCardId))){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
+ // Without a model, this is what records a switched-to card's billing fields. The switcher already names the card, so only its billing block is read: activity rows below it print store numbers and other accounts.
+ if(bank==='Amex US'&&selectedCardId&&self.CardyReader?.issuerBilling&&/^\/(?:dashboard|overview)\/?$/.test(location.pathname)){
+  const all=body.split('\n').map(t=>t.trim()).filter(Boolean),from=all.findIndex(t=>/^(?:(?:remaining )?statement balance|minimum payment due|your payment is due on|payment not required at this time|total balance)$/i.test(t)),totalAt=all.findIndex((t,i)=>i>=from&&/^total balance$/i.test(t)),card=matches.find(c=>c.id===selectedCardId);
+  const billingBlock=from<0?[]:all.slice(from,totalAt>=0?totalAt+3:from+24);
+  for(const item of billingBlock.length?self.CardyReader.issuerBilling(['••••'+card.tail,...billingBlock].join('\n'),bank,card,cards.filter(c=>c.id!==selectedCardId).map(c=>c.tail)):[]){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
  }
  if(citiBlock){
   for(const item of self.CardyReader.issuerBilling(citiBlock.block.join('\n'),bank,matches[0])){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
@@ -103,7 +113,7 @@ export async function capturePage(bank,cards,contextIds=[]){
  // card observation, never proof that two cards share a rewards account.
  if(bank.startsWith('Amex ')&&matches.length===1){
   for(const h of query('h1,h2,h3,h4')){
-   const title=(h.innerText||'').replace(/\s+/g,' ').trim();if(!visible(h)||!/^(?:Membership Rewards\s*[®™]?|美國運通積分計劃|美国运通积分计划)$/i.test(title))continue;
+   const title=(h.innerText||'').replace(/\s+/g,' ').trim();if(!visible(h)||!/^(?:Membership Rewards\s*[®™]?(?:\s*Points)?|美國運通積分計劃|美国运通积分计划)$/i.test(title))continue;
    let parent=h;for(let depth=0;depth<3&&parent.parentElement;depth++){
     parent=parent.parentElement;const text=(parent.innerText||'').trim();if(text.length>800)break;
     const lines=text.split('\n').map(s=>s.trim()).filter(s=>s&&!/^[®™]$/.test(s));const index=lines.findIndex(s=>s.replace(/[®™]/g,'').trim()===title.replace(/[®™]/g,'').trim());const line=lines[index+1];

@@ -152,6 +152,26 @@ test('issuer rules never mix cards or guess',()=>{
  const item=(date,evidence)=>({kind:'billing',cardId:'C1',key:'due',title:'Payment due date',value:null,currency:'HKD',date,status:'unknown',evidence});
  assert.equal(validateModel({items:[item('2030-04-03','Payment Due Date\n04/03/2030')],nextLinkId:null},snapshot).items.length,0);assert.equal(validateModel({items:[item('2030-03-04','Payment Due Date\n04/03/2030')],nextLinkId:null},snapshot).items.length,1);assert.equal(validateModel({items:[item('2030-12-19','Payment Due Date\n19/12/2030')],nextLinkId:null},snapshot).items.length,1);
 });
+test('Amex US prints its due date on the next line, and a missing year stays missing',()=>{
+ const due=text=>JSON.parse(JSON.stringify(reader.issuerDue(text.split('\n'),'Amex US',{tail:'12345',currency:'USD'}))).map(i=>[i.key,i.date||i.title]);
+ assert.deepEqual(due('Your Payment is Due on\nNovember 19'),[['duePartial','November 19']]);
+ assert.deepEqual(due('Your Payment is Due on\nNovember 19, 2030'),[['due','2030-11-19']]);
+ assert.deepEqual(due('Your Payment is Due on\nMake Payment'),[]);
+});
+test('the validator accepts a yearless Amex US due date only as printed',async()=>{
+ const {billingObservation}=await import('../extension-next/agent-core.js'),item=(title,evidence)=>({kind:'billing',key:'duePartial',title,value:null,date:'',status:'unknown',evidence});
+ assert.equal(billingObservation(item('November 19','[C1]\nYour Payment is Due on\nNovember 19')),true);
+ assert.equal(billingObservation(item('November 19','[C1]\nYour Payment is Due on\nNovember 18')),false);
+ assert.equal(billingObservation(item('February 30','[C1]\nYour Payment is Due on\nFebruary 30')),false);
+});
+test('Amex US billing from its card page, with the wording it prints',()=>{
+ const card={id:'us',bank:'Amex US',tail:'12345',currency:'USD'},run=(text,other=[])=>JSON.parse(JSON.stringify(reader.issuerBilling(text,'Amex US',card,other)));
+ const owed='Quokka ••••12345\nStatement Balance\nMore info on statement_balance_tooltip\n$321.00\nSep 22 - Oct 21\nYour Payment is Due on\nNovember 19\nMinimum Payment Due\nMore info on minimum_payment_due_tooltip\n$35.00\nTotal Balance\nMore info on total_balance_tooltip\n$1,234.56';
+ assert.deepEqual(Object.fromEntries(run(owed).map(i=>[i.key,i.value??i.title])),{balance:1234.56,statement:321,minimum:35,duePartial:'November 19'});
+ assert.deepEqual(run(owed+'\nOther ••••67890',['67890']),[],'another registered card on the page stops it');
+ const clear=run('Quokka ••••12345\nRemaining Statement Balance\n$0.00\nPayment not required at this time\nTotal Balance\n$67.89');assert.equal(clear.find(i=>i.key==='paymentStatus')?.title,'Payment not required at this time');assert.equal(clear.find(i=>i.key==='statement')?.value,0);
+ assert.ok(!run(owed+'\nPayment not required at this time').some(i=>i.key==='paymentStatus'),'a minimum or due date outranks the notice');
+});
 test('Amex US due date: labelled full date only',()=>{
  const due=text=>JSON.parse(JSON.stringify(reader.issuerDue(text.split('\n'),'Amex US',{tail:'12345',currency:'USD'})));
  assert.equal(due('Payment Due Date\nDec 19, 2030')[0].date,'2030-12-19');assert.equal(due('Payment Due Date\n12/03/2030')[0].date,'2030-12-03');assert.equal(due('Payment Due Date\nDec 19').length,0);assert.equal(due('Minimum Amount Due\n$0.00').length,0);

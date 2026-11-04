@@ -62,7 +62,7 @@ export function latestDueField(card){
 const SAME_RUN_MS=600000;
 export function latestNoPayment(card){
  const at=Date.parse(card.fieldDates?.paymentStatus);
- return /^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(card.paymentStatus||'')&&Number.isFinite(at)&&['minimum','due','duePartial'].every(k=>{
+ return /^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|Payment not required at this time|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(card.paymentStatus||'')&&Number.isFinite(at)&&['minimum','due','duePartial'].every(k=>{
   const date=card.fieldDates?.[k]||(card[k]!=null?card.updated:null);if(!date)return true;
   // A reading with an unusable date cannot be shown to be older, so it is not replaced.
   const value=Date.parse(date);if(!Number.isFinite(value))return false;
