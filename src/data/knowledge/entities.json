@@ -347,6 +347,30 @@
       "name": "Uber One",
       "kind": "partner",
       "aliases": []
+    },
+    {
+      "id": "programme.emirates-skywards",
+      "name": "Emirates Skywards",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.qatar-privilege-club",
+      "name": "Qatar Airways Privilege Club",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.choice-privileges",
+      "name": "Choice Privileges",
+      "kind": "hotel",
+      "aliases": []
+    },
+    {
+      "id": "programme.leaders-club",
+      "name": "The Leading Hotels of the World Leaders Club",
+      "kind": "hotel",
+      "aliases": []
     }
   ]
 }
