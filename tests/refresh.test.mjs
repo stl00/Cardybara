@@ -141,6 +141,18 @@ test('Amex US opens the first card from its tile and switches the rest in place,
  assert.ok(!navigated.slice(0,-1).includes(overview),'no page load between cards');
  assert.deepEqual(new Set(result.items.map(i=>i.cardId)),new Set(['a','b']));
 });
+test('one registered Amex US card named on the overview still opens from its tile',async()=>{
+ const overview='https://global.americanexpress.com/overview',detail='https://global.americanexpress.com/dashboard?account_key=synthetic',card={id:'a',bank:'Amex US',tail:'12345',currency:'USD'};let url=overview;const picked=[];
+ globalThis.chrome={permissions:{contains:async()=>true},storage:{local:{get:async()=>({[PARSER_SETTINGS]:{scope:'mvp',enabled:false,cloudConsent:false}})}},tabs:{get:async()=>({id:2,url,status:'complete'})},scripting:{executeScript:async o=>{
+  if(o.files)return [{documentId:'injected'}];
+  if(o.target.documentIds&&o.func?.name!=='capturePage')return [{documentId:'amex-doc',result:true}];
+  if(o.func.name==='amexCards'){if(o.args[0]==='list')return [{result:['12345']}];if(o.args[0]==='select'){picked.push(o.args[1]);url=detail;return [{result:[o.args[1]]}];}return [{result:[]}];}
+  return [{documentId:'amex-doc',result:{pageHref:url,aliases:[{id:'C1',cardId:'a',currency:'USD'}],blocks:[{id:'B1',text:'[C1] Page'}],observations:[],links:[],capturedAt:'2030-01-01T00:00:00Z'}}];
+ }}};
+ globalThis.fetch=async()=>({ok:true,json:async()=>({configured:false})});
+ const result=await enrichBank({bank:'Amex US',cards:[card],tabId:2},{current:async()=>true,progress:async()=>{},checkpoint:async()=>{},navigate:async href=>{url=href;}});
+ assert.equal(result.error,null);assert.deepEqual(picked,['12345'],'the tile is clicked, so the card page is read');
+});
 test('rules keep running without model setup or cloud consent',async()=>{
  const h=harness({enabled:false,consent:false,permission:false}),execute=chrome.scripting.executeScript;
  chrome.scripting.executeScript=async o=>{const result=await execute(o);if(o.func?.name==='capturePage')result[0].result.observations=[modelItem];return result;};

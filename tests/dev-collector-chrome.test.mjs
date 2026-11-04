@@ -11,6 +11,7 @@ import {createChromeAdapter,hostPermissions} from '../scripts/dev-collector/chro
 import {syntheticPrepareTab} from '../scripts/dev-collector/synthetic-bank.mjs';
 import {chaseCards} from '../extension-next/chase-navigation.js';
 import {amexCards,boaCards,citiCards} from '../extension-next/card-navigation.js';
+import {validateModel} from '../extension-next/agent-core.js';
 import {discoverVisibleCards} from '../extension-next/discovery.js';
 import {hsbcCards,hsbcMoreDetails} from '../extension-next/hsbc-navigation.js';
 import {injectableStructureReport} from '../scripts/dev-collector/structure-report.js';
@@ -213,12 +214,32 @@ test('Amex US: overview tiles give cards only, and each card reads after its bal
   assert.deepEqual(await exec(amexCards,['select','12345']),['12345']);
   const first=await exec(capturePage,['Amex US',cards,['c12345']]);assert.equal(first.error,undefined);assert.deepEqual(first.aliases.map(a=>a.cardId),['c12345']);
   const got=raw=>Object.fromEntries(raw.observations.map(o=>[o.key.replace(/[®™]/g,''),o.kind==='billing'?o.title:o.value]));
-  assert.deepEqual(got(first),{'Membership Rewards Points':12345,duePartial:'November 19'},'the reader adds billing fields, the capture adds these');
-  const read=await exec((c)=>self.CardyReader.read('Amex US',c,['en-US']),[cards]);assert.deepEqual(read.patches[0].fields,{statement:321,minimum:35,balance:1234.56});
+  assert.deepEqual(got(first),{statement:321,minimum:35,balance:1234.56,'Membership Rewards Points':12345,duePartial:'November 19'},'capture alone records every field: without a model nothing else reads a switched-to card');
+  const checked=validateModel({items:first.observations,nextLinkId:null},{scope:'mvp',bank:'Amex US',region:'US',page:'https://global.americanexpress.com/dashboard',aliases:first.aliases,blocks:first.blocks,links:[],capturedAt:first.capturedAt});assert.deepEqual(checked.rejected,[],'the validator accepts what capture records');
   assert.deepEqual(await exec(amexCards,['select','67890']),['67890']);
   const second=await exec(capturePage,['Amex US',cards,['c67890']]);assert.deepEqual(second.aliases.map(a=>a.cardId),['c67890']);
-  assert.deepEqual(got(second),{'Membership Rewards Points':12345,paymentStatus:'Payment not required at this time'});
+  assert.deepEqual(got(second),{statement:0,balance:67.89,'Membership Rewards Points':12345,paymentStatus:'Payment not required at this time'});
   assert.equal(await exec(()=>location.pathname),'/dashboard');
+ }finally{await run.stop();}
+});
+
+test('Amex HK: the switcher lists cards, and each reads after its balances fill in',async()=>{
+ const run=await start();
+ try{
+  const {chrome}=run.adapter,events=[];chrome.tabs.onUpdated.addListener((id,c)=>events.push(c));
+  const tab=await chrome.tabs.create({url:'https://global.americanexpress.com/dashboard?synthetic=hk',active:false});await until(()=>events.some(e=>e.status==='complete'));
+  const exec=(func,args=[])=>chrome.scripting.executeScript({target:{tabId:tab.id},func,args}).then(r=>r[0].result);
+  await exec(()=>{document.getElementById('sign-in').click();});
+  await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
+  const discovered=await exec(amexCards,['discover']);assert.deepEqual(discovered.map(c=>c.tail),['13579','24680']);
+  const cards=discovered.map(c=>({id:'c'+c.tail,bank:'Amex HK',tail:c.tail,currency:'HKD'}));
+  const fields=raw=>Object.fromEntries(raw.observations.filter(o=>['card','reward'].includes(o.kind)||o.key==='paymentStatus').map(o=>[o.key,o.kind==='billing'?o.title:o.value]));
+  const first=await exec(capturePage,['Amex HK',cards,['c13579']]);assert.equal(first.error,undefined);
+  assert.deepEqual(fields(first),{statementClosing:0,available:9000,balance:0,statement:0,'美國運通積分計劃':0,paymentStatus:'暫時毋須付款'});
+  assert.deepEqual(await exec(amexCards,['select','24680']),['24680']);
+  const second=await exec(capturePage,['Amex HK',cards,['c24680']]);assert.equal(second.error,undefined);assert.deepEqual(second.aliases.map(a=>a.cardId),['c24680']);
+  assert.deepEqual(fields(second),{available:8000,balance:-1234.5,statement:0,'美國運通積分計劃':0,paymentStatus:'暫時毋須付款'});
+  assert.ok(!second.observations.some(o=>o.key==='due'),'an offer\'s expiry is not a due date');
  }finally{await run.stop();}
 });
 
