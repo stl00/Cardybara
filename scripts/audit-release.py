@@ -4,6 +4,7 @@ from pathlib import Path
 import subprocess,re,json,zipfile,hashlib,sys,posixpath,os
 from html.parser import HTMLParser
 from urllib.parse import urlsplit
+import private_scan
 r=Path(__file__).resolve().parents[1]
 patterns=[rb'gh[pousr]_[A-Za-z0-9]{25,}',rb'github_pat_[A-Za-z0-9_]{30,}',rb'sk-[A-Za-z0-9_-]{24,}',rb'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----']
 def inspect(name,b):
@@ -25,14 +26,14 @@ for n in paths:
  if note.search((r/n).read_bytes().decode('utf8','ignore')):raise SystemExit('Personal card note: '+n)
 # Optional owner-only values, one per line, in a file outside the repository. Never echo a value.
 needles=os.environ.get('CARDYBARA_PRIVATE_NEEDLES')
-if needles:
- values=[x.strip() for x in Path(needles).read_text().splitlines() if x.strip()]
- private=re.compile(r'(?<![\d.])(?:'+'|'.join(map(re.escape,values))+r')(?!\d)') if values else None
+private=private_scan.matcher(private_scan.load_values(needles)) if needles else None
+if private:
  for n in paths:
-  if private and not n.endswith(('.png','.jpg','.jpeg','.webp','.ico','.pdf','.woff2','.svg')) and n!='package-lock.json' and private.search((r/n).read_bytes().decode('utf8','ignore')):raise SystemExit('Owner private value in: '+n)
+  if private_scan.scannable(n) and private_scan.hit(private,(r/n).read_bytes()):raise SystemExit('Owner private value in: '+private.label(n))
 if '--package' in sys.argv:
  cfg=json.loads((r/'release.json').read_text());p=r/'release'/('cardybara-'+cfg['label']+'.zip')
  p=next((Path(a.split('=',1)[1]) for a in sys.argv if a.startswith('--package-file=')),p)
+ if private:private_scan.scan_zip(private,p)
  with zipfile.ZipFile(p) as z:
   names=z.namelist()
   # The localhost collector (scripts/dev-collector) is development-only and must never ship.
