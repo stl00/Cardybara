@@ -26,6 +26,14 @@
 
 合成演练（目录一旦用于合成或真实模式就不能混用）：`CARDYBARA_COLLECTOR_HOME=<临时目录> CARDYBARA_SYNTHETIC_BANK=page npm run dev`。此模式把已接管标签页的 HTTPS 请求答复为 `tests/fixtures/synthetic-bank.html`，并让专用 Chrome 的所有 DNS 解析失败，因此连不到银行；`CARDYBARA_SYNTHETIC_BANK=blocked` 演练被拦截。`npm run test:collector-chrome` 用真实 headless Chrome 跑 adapter，也在 CI 中运行。以上都属于“流程回归”，不是真实终验。
 
+## 银行拒绝自动化时
+
+如果银行拒绝专用 Chrome、拦截 Claude 的工具，或者出现验证，Claude 就停下并报告。**被拒绝的银行不能换一个浏览器由 Claude 重试**，不管 owner 是否同意，因为这可能等于绕过 bot 检测。日常 Chrome、其他 profile 或其他驱动方式都算换浏览器。
+
+这家银行之后只走插件自身的路线：由 owner 安装，由插件自己的代码读页面。如果银行也拒绝插件，就标记为不支持，不再找别的办法。
+
+2026-11-04 曾在 owner 的日常 Chrome 里读过 HSBC HK、Amex US 和 Amex HK 各一次，当时用的是后来撤回的授权。这些观察已经写成规则，不再重复。写进 PR 时要注明证据来自这次运行。这种比对只覆盖发现、切卡和金额规则，不证明 `capturePage`、校验器和钱包写回能走通；这些仍靠合成页面上的真实 Chrome 测试，安装版验收保持 `not_run`。
+
 ## 账户之外的卡片
 
 开发账户相当于训练集，读通它不说明别人的卡也能读。账单字段和发现卡片都跟页面结构走，卡名只是读到的数据，不能决定某张卡是否被读取。
