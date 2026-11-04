@@ -35,12 +35,12 @@
 | 3 | Delta SkyMiles Platinum Business Card | $350 | 3 | 4 | Delta SkyMiles | 已支持的银行，未验收 | Companion Certificate 和免费行李的细节未录入。 | https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-platinum/ |
 | 3 | Delta SkyMiles Gold Business Card | $150 | 3 | 4 | Delta SkyMiles | 已支持的银行，未验收 | 美国广告和运输各有每年5万美元额度的2倍，未单列。首年优惠是否适用未核实。免费行李未录入。 | https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-gold/ |
 | 4 | Chase United Explorer | $150 | 4 | 4 | United MileagePlus | 已支持的银行，未验收 | Club 通行证、登机组别、里程折扣、另一项100美元旅行额度和其他合作方抵扣未录入。首年优惠是否适用未核实。 | https://creditcards.chase.com/travel-credit-cards/united/united-explorer |
-| 4 | Chase United Club | $695 | 5 | 2 | United MileagePlus | 已支持的银行，未验收 | United Club 会员资格及其条件、Premier Access、PQP 和其他合作方抵扣未录入。 | https://creditcards.chase.com/travel-credit-cards/united/club-infinite |
+| 4 | Chase United Club | $695 | 5 | 2 | United MileagePlus | 已支持的银行，未验收 | United Club 会员资格及其条件、Premier Access、PQP、里程折扣和其他合作方抵扣未录入。 | https://creditcards.chase.com/travel-credit-cards/united/club-infinite |
 | 4 | Chase Southwest Rapid Rewards Plus | $99 | 3 | 2 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。 | https://creditcards.chase.com/travel-credit-cards/southwest/plus |
-| 4 | Chase Southwest Rapid Rewards Priority | $229 | 3 | 3 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。 | https://creditcards.chase.com/travel-credit-cards/southwest/priority |
+| 4 | Chase Southwest Rapid Rewards Priority | $229 | 3 | 3 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、选座、登机组别和限时 Lyft 倍率未录入。 | https://creditcards.chase.com/travel-credit-cards/southwest/priority |
 | 4 | Chase Southwest Rapid Rewards Premier | $149 | 3 | 3 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。 | https://creditcards.chase.com/travel-credit-cards/southwest/premier |
 | 4 | Chase Marriott Bonvoy Boundless | $95 | 3 | 2 | Marriott Bonvoy | 已支持的银行，未验收 | 年度免费房晚未录入。 | https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless |
-| 4 | Chase Ihg One Rewards | $0 | 4 | 2 | IHG One Rewards | 已支持的银行，未验收 | Elite Night Credits 和消费解锁的 Gold Elite 未录入。 | https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/one-rewards |
+| 4 | Chase Ihg One Rewards | $0 | 4 | 2 | IHG One Rewards | 已支持的银行，未验收 | Elite Night Credits、消费解锁的1万点奖励和 Gold Elite 未录入。 | https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/one-rewards |
 | 4 | Chase World Of Hyatt | $95 | 3 | 1 | World of Hyatt | 已支持的银行，未验收 | 年度免费房晚、Tier Qualifying Night 和消费解锁的额外房晚未录入。 | https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card |
 | 4 | Chase Air Canada Aeroplan | $195 | 5 | 1 | Air Canada Aeroplan | 已支持的银行，未验收 | Aeroplan 25K 会籍、免费托运行李和 FLY15OFF 未录入。 | https://creditcards.chase.com/travel-credit-cards/aircanada/aeroplan |
 | 4 | Chase Ink Business Premier | $195 | 3 | 0 | — | 已支持的银行，未验收 | 限时 Lyft 倍率未录入。 | https://creditcards.chase.com/business-credit-cards/ink/premier |
