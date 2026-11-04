@@ -18,7 +18,7 @@ export function mergeWalletCards(base,extra=[]){
   if(cards.length>=40)throw Error('card_limit');
   cards.push({...clean,identitySource:c.identitySource==='bank-page'?'bank-page':'manual'});
  }
- // A package upgrade replaces the seed, so a held bank that left it still needs its row.
- const connections=Array.isArray(base.connections)?[...base.connections,...[...new Set(cards.map(c=>c.bank))].filter(b=>!base.connections.some(c=>c.bank===b)).map(bank=>({bank,note:''}))]:base.connections;
+ // A saved seed can be older than the product, and an upgrade can drop a held bank: every active or held bank needs its row.
+ const connections=Array.isArray(base.connections)?[...base.connections,...[...new Set([...ACTIVE_BANKS,...cards.map(c=>c.bank)])].filter(b=>!base.connections.some(c=>c.bank===b)).map(bank=>({bank,note:''}))]:base.connections;
  return {...base,cards,connections};
 }

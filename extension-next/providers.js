@@ -10,6 +10,7 @@ export const PROVIDERS={
  'Chase':{issuer:'Chase',region:'US',locales:['en-US'],currency:'USD',hosts:['secure.chase.com'],url:'https://secure.chase.com/web/auth/dashboard#/dashboard/overview',evidence:'one-account'},
  'BOA':{issuer:'Bank of America',region:'US',locales:['en-US'],currency:'USD',hosts:['secure.bankofamerica.com','www.bankofamerica.com'],url:'https://secure.bankofamerica.com/myaccounts/brain/redirect.go',evidence:'unverified'},
  'HSBC HK':{issuer:'HSBC',region:'HK',locales:['zh-HK','zh-CN','en-HK'],currency:'HKD',hosts:['www.hsbc.com.hk','www.ebanking.hsbc.com.hk','www.security.online-banking.hsbc.com.hk'],url:'https://www.hsbc.com.hk/online/dashboard/',evidence:'fixture-only'},
+ 'Citi US':{issuer:'Citi',region:'US',locales:['en-US'],currency:'USD',hosts:['www.citi.com','online.citi.com'],url:'https://www.citi.com/',evidence:'unverified'},
  'SC HK':{issuer:'Standard Chartered',region:'HK',locales:['zh-HK','zh-CN','en-HK'],currency:'HKD',hosts:['retail.sc.com','www.sc.com'],url:'https://retail.sc.com/hk/nfs/login.htm',evidence:'unverified'}
 };
 export const ACTIVE_BANKS=Object.keys(PROVIDERS).filter(bank=>!PROVIDERS[bank].archived);

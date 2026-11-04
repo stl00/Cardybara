@@ -1,0 +1,21 @@
+{
+ "id": "citi-card-details",
+ "provenance": "Synthetic text with invented values and names. Labels are assumed from public conventions, not captured from a bank page, until a real run confirms them.",
+ "billingRules": true,
+ "bank": "Citi US",
+ "locale": "en-US",
+ "card": {
+  "id": "fixture-citi",
+  "bank": "Citi US",
+  "tail": "2345",
+  "currency": "USD"
+ },
+ "text": "Wallaby Traveler Card ending in 2345\nCurrent Balance\n$1,234.56\nAvailable Credit\n$8,765.44\nStatement Balance\n$321.00\nMinimum Payment Due\n$35.00\nPayment Due Date\nDec 19, 2030",
+ "expected": {
+  "balance": 1234.56,
+  "available": 8765.44,
+  "statement": 321,
+  "minimum": 35,
+  "due": "2030-12-19"
+ }
+}

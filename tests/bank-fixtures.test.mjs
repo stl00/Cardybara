@@ -97,13 +97,13 @@ test('Chase benefit states require printed evidence and period gauge keeps 150 d
 
 const issuer=name=>JSON.parse(fs.readFileSync(new URL('./fixtures/banks/'+name+'.json',import.meta.url),'utf8'));
 const fieldsOf=items=>Object.fromEntries(items.map(i=>[i.key,i.key==='due'?i.date:['paymentStatus','duePartial'].includes(i.key)?i.title:i.value]));
-for(const name of ['boa-card-details','boa-no-payment','sc-hk-zh-card-details','sc-hk-en-card-details'])test('issuer rules read billing fields and pass the validator: '+name,()=>{
+for(const name of ['boa-card-details','boa-no-payment','sc-hk-zh-card-details','sc-hk-en-card-details','citi-card-details','citi-no-payment'])test('issuer rules read billing fields and pass the validator: '+name,()=>{
  const f=issuer(name),items=JSON.parse(JSON.stringify(reader.issuerBilling(f.text,f.bank,f.card)));
  assert.deepEqual(fieldsOf(items),f.expected);
- const snapshot={bank:f.bank,region:f.bank==='BOA'?'US':'HK',page:'https://example.test/account',capturedAt:'2030-01-01T00:00:00Z',aliases:[{id:'C1',cardId:f.card.id,currency:f.card.currency}],blocks:items.map(i=>({text:i.evidence})),links:[]};
+ const snapshot={bank:f.bank,region:f.bank==='SC HK'?'HK':'US',page:'https://example.test/account',capturedAt:'2030-01-01T00:00:00Z',aliases:[{id:'C1',cardId:f.card.id,currency:f.card.currency}],blocks:items.map(i=>({text:i.evidence})),links:[]};
  const checked=validateModel({items,nextLinkId:null},snapshot);assert.deepEqual(checked.rejected,[]);assert.equal(checked.items.length,items.length);
  // Results do not change with the product name.
- const renamed=f.text.replace(/Numbat Voyager|Bilby|Kakapo|Tuatara/,'Another Product');assert.deepEqual(fieldsOf(reader.issuerBilling(renamed,f.bank,f.card)),f.expected);
+ const renamed=f.text.replace(/Numbat Voyager|Bilby|Kakapo|Tuatara|Wallaby Traveler|Dingo/,'Another Product');assert.deepEqual(fieldsOf(reader.issuerBilling(renamed,f.bank,f.card)),f.expected);
 });
 test('issuer rules never mix cards or guess',()=>{
  const f=issuer('boa-card-details'),boa=(t,others=[])=>fieldsOf(reader.issuerBilling(t,'BOA',f.card,others)),sc=issuer('sc-hk-en-card-details'),hk=t=>fieldsOf(reader.issuerBilling(t,'SC HK',sc.card));
@@ -135,4 +135,19 @@ test('issuer rules never mix cards or guess',()=>{
 test('Amex US due date: labelled full date only',()=>{
  const due=text=>JSON.parse(JSON.stringify(reader.issuerDue(text.split('\n'),'Amex US',{tail:'12345',currency:'USD'})));
  assert.equal(due('Payment Due Date\nDec 19, 2030')[0].date,'2030-12-19');assert.equal(due('Payment Due Date\n12/03/2030')[0].date,'2030-12-03');assert.equal(due('Payment Due Date\nDec 19').length,0);assert.equal(due('Minimum Amount Due\n$0.00').length,0);
+});
+test('Citi US reads month-first dates, leaves missing fields unknown and reports rewards as not collected',async()=>{
+ const f=issuer('citi-card-details'),citi=t=>fieldsOf(reader.issuerBilling(t,'Citi US',f.card));
+ assert.equal(citi('Card ending in 2345\nPayment Due Date\n12/03/2030').due,'2030-12-03');
+ assert.deepEqual(citi('Card ending in 2345\nCurrent Balance\n$5.00'),{balance:5},'nothing invented');
+ assert.deepEqual(citi('Card ending in 2345\nCurrent Balance\n$5.00\nOther Card ending in 6789'),{},'another card in scope');
+ const {mvpSummary}=await import('../extension-next/mvp.js'),r=mvpSummary([],[{id:'a',bank:'Citi US'}]);assert.equal(r.reward.status,'not_collected');
+});
+test('Citi US is a registered provider with exact hosts',async()=>{
+ const {PROVIDERS,ACTIVE_BANKS,allowed,guidedPage}=await import('../extension-next/providers.js'),manifest=JSON.parse(fs.readFileSync(new URL('../extension-next/manifest.json',import.meta.url),'utf8'));
+ assert.ok(ACTIVE_BANKS.includes('Citi US'));assert.equal(PROVIDERS['Citi US'].currency,'USD');assert.deepEqual(PROVIDERS['Citi US'].locales,['en-US']);
+ for(const host of PROVIDERS['Citi US'].hosts)assert.ok(manifest.host_permissions.includes('https://'+host+'/*'),host);
+ assert.equal(allowed('Citi US',PROVIDERS['Citi US'].url),true);assert.equal(guidedPage('Citi US','https://online.citi.com/US/ag/dashboard'),true);
+ for(const url of ['https://citi.com.evil.test/','https://evil.test/www.citi.com','http://online.citi.com/','https://online.citi.com:8443/','https://creditcards.citi.com/','https://online.citi.com/US/logout','https://user:x@online.citi.com/'])assert.equal(allowed('Citi US',url),false,url);
+ const seed=JSON.parse(fs.readFileSync(new URL('../public/data.example.json',import.meta.url),'utf8'));assert.ok(seed.connections.some(c=>c.bank==='Citi US'));
 });

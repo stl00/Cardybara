@@ -4,7 +4,6 @@ import {pathToFileURL} from 'node:url';
 import {confirmedOtherProgramme,requiredReward} from '../extension-next/mvp.js';
 import {readZipEntry} from './read-zip.mjs';
 export const REQUIRED_CASES=['install','coldStart','manualAdd','bankDiscovery','bankReadback','restartPersistence','exportRecovery','cancel','expiredSession','upgradePersistence'];
-// Citi US is in MVP scope before its provider lands, so the gate stays closed until it is really accepted.
 export const REQUIRED_BANKS=['Amex US','Amex HK','Chase','BOA','HSBC HK','SC HK','Citi US'];
 const BILLING_FIELDS=['balance','statement','minimum','due'];
 // An observed due date needs a real calendar date and the printed text its year came from; a yearless date is display-only.

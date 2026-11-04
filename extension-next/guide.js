@@ -5,7 +5,7 @@ function cardyGuidePageReady(config,doc=document){
  if([...doc.querySelectorAll('input[type=password]')].some(visible))return false;
  if(config.tails.length)return config.tails.some(t=>new RegExp('(?:^|[^0-9])'+t+'(?:[^0-9]|$)').test(doc.body?.innerText||''));
  const selector=config.bank==='Chase'?'#CARD_ACCOUNTS [id^="accounts-name-link-button-"]':'h1,h2,h3,[role="option"],.account-detail-row';
- return [...doc.querySelectorAll(selector)].some(e=>visible(e)&&/(?:[•●*xX]{2,}\s*|\.{3}\s*)(\d{4,5})(?!\d)/.test(e.innerText||''));
+ return [...doc.querySelectorAll(selector)].some(e=>visible(e)&&/(?:[•●*xX]{2,}\s*|\.{3}\s*|\bending\s+(?:in\s+)?|尾號\s*|尾号\s*)(\d{4,5})(?!\d)/i.test(e.innerText||''));
 }
 (()=>{
  if(self.CardyGuide?.build==='new-user-2')return;

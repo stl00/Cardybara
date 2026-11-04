@@ -10,6 +10,7 @@ const banks={
  'HSBC HK':['hsbc.png','香港汇丰','HK'],
  'SC HK':['sc.png','香港渣打','HK'],
  BOA:['boa.png','Bank of America','US'],
+ 'Citi US':[null,'Citi','US'],
  Hilton:['hilton.png','Hilton Honors','US'],
  IHG:['ihg.ico','IHG One Rewards','US']
 };
@@ -22,7 +23,7 @@ export function RegionLabel({region,label}){
 }
 export function BankMark({bank,size=24}){
  const [broken,setBroken]=useState(false);const entry=banks[bank];
- return <span className="bank-mark" style={{'--bank-mark-size':`${size}px`}} aria-hidden="true">{entry&&!broken?<img src={`/brand/banks/${entry[0]}`} alt="" onError={()=>setBroken(true)}/>:<BankOutlined/>}</span>;
+ return <span className="bank-mark" style={{'--bank-mark-size':`${size}px`}} aria-hidden="true">{entry?.[0]&&!broken?<img src={`/brand/banks/${entry[0]}`} alt="" onError={()=>setBroken(true)}/>:<BankOutlined/>}</span>;
 }
 export function BankIdentity({bank,label,flag=true,size=24}){
  useI18n();const entry=banks[bank];

@@ -1,0 +1,19 @@
+<!doctype html><html lang="en-US"><meta charset="utf-8"><title>Synthetic Citi page (test only)</title>
+<!-- Synthetic test page, served locally by scripts/dev-collector/synthetic-bank.mjs. All values are made up. -->
+<body><main id="root"></main>
+<script>
+const cards=JSON.parse(sessionStorage.getItem('synthetic-cards')||'null')||[
+ {name:'Synthetic Wallaby Card',tail:'2345',rows:[['Current Balance','$1,234.56'],['Available Credit','$8,765.44'],['Statement Balance','$321.00'],['Minimum Payment Due','$35.00'],['Payment Due Date','12/19/2030'],['Wallaby Points','1,234']]},
+ {name:'Synthetic Dingo Card',tail:'6789',rows:[['Current Balance','$67.89'],['Available Credit','$4,932.11'],['Statement Balance','$0.00'],['No payment due'],['Dingo Miles','2,468']]}
+];
+const root=document.getElementById('root');
+function render(){
+ if(sessionStorage.getItem('synthetic-signed-in')!=='1'){
+  root.innerHTML='<h1>Synthetic sign in</h1><form><input type="password" aria-label="Synthetic password" autocomplete="off"><button type="button" id="sign-in">Sign in</button></form>';
+  document.getElementById('sign-in').onclick=()=>{sessionStorage.setItem('synthetic-signed-in','1');render();};
+  return;
+ }
+ root.innerHTML='<h1>Synthetic accounts</h1>'+cards.map(c=>'<article data-account-type="credit-card" style="white-space:pre-line">'+'<h2>'+c.name+(c.mask||' ending in '+c.tail)+'</h2>'+c.rows.map(r=>'<div>'+r.join('\n')+'</div>').join('')+'</article>').join('')+'<p>All values on this page are made up for tests. This padding keeps the rendered page long enough for the reader to settle on it.</p>';
+}
+render();
+</script></body></html>

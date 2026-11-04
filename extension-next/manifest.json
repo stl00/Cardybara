@@ -19,6 +19,8 @@
     "https://www.security.online-banking.hsbc.com.hk/*",
     "https://retail.sc.com/*",
     "https://www.sc.com/*",
+    "https://www.citi.com/*",
+    "https://online.citi.com/*",
     "http://127.0.0.1/*"
   ],
   "background": {

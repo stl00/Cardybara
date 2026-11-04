@@ -29,6 +29,10 @@
     {
       "bank": "SC HK",
       "note": ""
+    },
+    {
+      "bank": "Citi US",
+      "note": ""
     }
   ],
   "spendingGoals": []

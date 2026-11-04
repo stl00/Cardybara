@@ -50,7 +50,7 @@
 
 ## MVP 范围
 
-银行区域：Amex US、Amex HK、Chase、Bank of America、HSBC HK、Standard Chartered HK、Citi US（provider 尚未加入）。Amex Canada 已归档，代码和样本保留，默认关闭。每张卡都要读余额、账单金额、最低还款和还款日；积分只要求 Amex Membership Rewards 和 Chase Ultimate Rewards，其他积分计划的代码保留但默认不运行，显示为“此版本不采集”。
+银行区域：Amex US、Amex HK、Chase、Bank of America、HSBC HK、Standard Chartered HK、Citi US。Amex Canada 已归档，代码和样本保留，默认关闭。每张卡都要读余额、账单金额、最低还款和还款日；积分只要求 Amex Membership Rewards 和 Chase Ultimate Rewards，其他积分计划的代码保留但默认不运行，显示为“此版本不采集”。
 
 ## 浏览器边界
 
