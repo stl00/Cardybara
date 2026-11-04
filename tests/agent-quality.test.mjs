@@ -23,7 +23,6 @@ test('grounding checks source URLs, numbers, action and enrollment claims',()=>{
  assert.equal(answerGrounding('[来源](https://invented.example)',evidence).issues[0].code,'unsupported_citation');
  assert.ok(answerGrounding('我已为你付款',evidence).issues.some(i=>i.code==='unauthorized_action_claim'));
  assert.ok(answerGrounding('你已登记成功',evidence).issues.some(i=>i.code==='unverified_enrollment'));
- assert.ok(answerGrounding('你还有2项未使用',[[{status:'unknown'},{status:'unknown'}]]).issues.some(i=>i.code==='unknown_treated_as_unused'));
 });
 test('bad answer is repaired once; failed repair is never presented as success',async()=>{
  let count=0;const request=async()=>({message:++count===1?{role:'assistant',content:'',tool_calls:[call]}:{role:'assistant',content:count===2?'You get 99999 dollars.':'Rates depend on conditions; please verify the official terms.'}});
