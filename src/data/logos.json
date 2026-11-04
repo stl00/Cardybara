@@ -1316,6 +1316,78 @@
    "terms": "unverified",
    "logo": "brand/logos/etihad.svg",
    "source": "simple-icons@16.36.0:etihadairways"
+  },
+  {
+   "id": "emirates-skywards",
+   "name": "Emirates Skywards",
+   "category": "airline",
+   "programmeIds": [
+    "programme.emirates-skywards"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "qatar-privilege-club",
+   "name": "Qatar Airways Privilege Club",
+   "category": "airline",
+   "programmeIds": [
+    "programme.qatar-privilege-club"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "choice-privileges",
+   "name": "Choice Privileges",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.choice-privileges"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "leaders-club",
+   "name": "The Leading Hotels of the World Leaders Club",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.leaders-club"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
   }
  ]
 }

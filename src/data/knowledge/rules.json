@@ -20676,5 +20676,6892 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-aer-lingus-aerclub",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-aer-lingus-aerclub@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-aer-lingus-aerclub@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.aer-lingus-aerclub"
+    ],
+    "content": {
+      "title": "Aer Lingus AerClub",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.aer-lingus-aerclub",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-aer-lingus-aerclub"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-the-british-airways-club",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-the-british-airways-club@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-the-british-airways-club@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "The British Airways Club",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.the-british-airways-club",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-the-british-airways-club"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-air-france-klm-flying-blue",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-air-france-klm-flying-blue@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-air-france-klm-flying-blue@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.air-france-klm-flying-blue"
+    ],
+    "content": {
+      "title": "Air France KLM Flying Blue",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.air-france-klm-flying-blue",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-air-france-klm-flying-blue"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-iberia-club",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-iberia-club@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-iberia-club@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.iberia-club"
+    ],
+    "content": {
+      "title": "Iberia Club",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.iberia-club",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-iberia-club"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-jetblue-trueblue",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-jetblue-trueblue@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-jetblue-trueblue@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.jetblue-trueblue"
+    ],
+    "content": {
+      "title": "JetBlue TrueBlue",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.jetblue-trueblue",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-jetblue-trueblue"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-singapore-airlines-krisflyer",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-singapore-airlines-krisflyer@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-singapore-airlines-krisflyer@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.singapore-airlines-krisflyer"
+    ],
+    "content": {
+      "title": "Singapore Airlines KrisFlyer",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.singapore-airlines-krisflyer",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-singapore-airlines-krisflyer"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-southwest-rapid-rewards",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-southwest-rapid-rewards@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-southwest-rapid-rewards@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "Southwest Rapid Rewards",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.southwest-rapid-rewards",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-southwest-rapid-rewards"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-united-mileageplus",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-united-mileageplus@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-united-mileageplus@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "United MileagePlus",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.united-mileageplus",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-united-mileageplus"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-virgin-atlantic-flying-club",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-virgin-atlantic-flying-club@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-virgin-atlantic-flying-club@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.virgin-atlantic-flying-club"
+    ],
+    "content": {
+      "title": "Virgin Atlantic Flying Club",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.virgin-atlantic-flying-club",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-virgin-atlantic-flying-club"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-air-canada-aeroplan",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-air-canada-aeroplan@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-air-canada-aeroplan@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "Air Canada Aeroplan",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.air-canada-aeroplan",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-air-canada-aeroplan"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-ihg-one-rewards",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-ihg-one-rewards@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-ihg-one-rewards@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "IHG One Rewards",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.ihg-one-rewards",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-ihg-one-rewards"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-marriott-bonvoy",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-marriott-bonvoy@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-marriott-bonvoy@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.marriott-bonvoy",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-marriott-bonvoy"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-world-of-hyatt",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-world-of-hyatt@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-world-of-hyatt@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.world-of-hyatt"
+    ],
+    "content": {
+      "title": "World of Hyatt",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.world-of-hyatt",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-world-of-hyatt-unstated"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.transfer-wyndham-rewards",
+    "revision": 2,
+    "revisionId": "rule.chase-us-sapphire-reserve.transfer-wyndham-rewards@2026-11-04.2",
+    "supersedes": "rule.chase-us-sapphire-reserve.transfer-wyndham-rewards@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.wyndham-rewards"
+    ],
+    "content": {
+      "title": "Wyndham Rewards",
+      "summary": "官方转点伙伴关系；不自动授予精英会籍。",
+      "howToUse": [
+        "核对当前登录转点页的兑换比例、最低数量及条件。",
+        "核对个人目标计划账号关联；这里的名单不证明已关联。",
+        "任何转点须由用户决定和确认，知识库只提供资料。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.wyndham-rewards",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-wyndham-rewards"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官方转点伙伴关系；不自动授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-american-express-gold-card.transfer-aer-lingus-aerclub",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-american-express-gold-card.transfer-aer-lingus-aerclub@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-american-express-gold-card.transfer-aer-lingus-aerclub@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.aer-lingus-aerclub"
+    ],
+    "content": {
+      "title": "Aer Lingus AerClub",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.aer-lingus-aerclub",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-aer-lingus-aerclub"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-american-express-gold-card.transfer-aeromexico-rewards",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-american-express-gold-card.transfer-aeromexico-rewards@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-american-express-gold-card.transfer-aeromexico-rewards@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.aeromexico-rewards"
+    ],
+    "content": {
+      "title": "Aeromexico Rewards",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.aeromexico-rewards",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-aeromexico-rewards"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-american-express-gold-card.transfer-air-canada-aeroplan",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-american-express-gold-card.transfer-air-canada-aeroplan@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-american-express-gold-card.transfer-air-canada-aeroplan@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "Air Canada Aeroplan",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.air-canada-aeroplan",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-air-canada-aeroplan"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-american-express-gold-card.transfer-air-france-klm-flying-blue",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-american-express-gold-card.transfer-air-france-klm-flying-blue@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-american-express-gold-card.transfer-air-france-klm-flying-blue@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.air-france-klm-flying-blue"
+    ],
+    "content": {
+      "title": "Air France KLM Flying Blue",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.air-france-klm-flying-blue",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-air-france-klm-flying-blue"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-american-express-gold-card.transfer-ana-mileage-club",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-american-express-gold-card.transfer-ana-mileage-club@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-american-express-gold-card.transfer-ana-mileage-club@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.ana-mileage-club"
+    ],
+    "content": {
+      "title": "ANA Mileage Club",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.ana-mileage-club",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-ana-mileage-club"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-american-express-gold-card.transfer-avianca-lifemiles",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-american-express-gold-card.transfer-avianca-lifemiles@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-american-express-gold-card.transfer-avianca-lifemiles@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.avianca-lifemiles"
+    ],
+    "content": {
+      "title": "avianca lifemiles",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.avianca-lifemiles",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-avianca-lifemiles"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-american-express-gold-card.transfer-cathay-asia-miles",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-american-express-gold-card.transfer-cathay-asia-miles@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-american-express-gold-card.transfer-cathay-asia-miles@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.cathay-asia-miles"
+    ],
+    "content": {
+      "title": "Cathay Asia Miles",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.cathay-asia-miles",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-cathay-asia-miles"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-aer-lingus-aerclub",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-aer-lingus-aerclub@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-aer-lingus-aerclub@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.aer-lingus-aerclub"
+    ],
+    "content": {
+      "title": "Aer Lingus AerClub",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.aer-lingus-aerclub",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-aer-lingus-aerclub"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-aeromexico-rewards",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-aeromexico-rewards@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-aeromexico-rewards@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.aeromexico-rewards"
+    ],
+    "content": {
+      "title": "Aeromexico Rewards",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.aeromexico-rewards",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-aeromexico-rewards"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-air-canada-aeroplan",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-air-canada-aeroplan@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-air-canada-aeroplan@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "Air Canada Aeroplan",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.air-canada-aeroplan",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-air-canada-aeroplan"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-air-france-klm-flying-blue",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-air-france-klm-flying-blue@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-air-france-klm-flying-blue@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.air-france-klm-flying-blue"
+    ],
+    "content": {
+      "title": "Air France KLM Flying Blue",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.air-france-klm-flying-blue",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-air-france-klm-flying-blue"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-ana-mileage-club",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-ana-mileage-club@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-ana-mileage-club@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.ana-mileage-club"
+    ],
+    "content": {
+      "title": "ANA Mileage Club",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.ana-mileage-club",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-ana-mileage-club"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-avianca-lifemiles",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-avianca-lifemiles@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-avianca-lifemiles@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.avianca-lifemiles"
+    ],
+    "content": {
+      "title": "avianca lifemiles",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.avianca-lifemiles",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-avianca-lifemiles"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-cathay-asia-miles",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-cathay-asia-miles@2026-11-04.2",
+    "supersedes": "rule.amex-us-us-morgan-stanley-platinum-card.transfer-cathay-asia-miles@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.cathay-asia-miles"
+    ],
+    "content": {
+      "title": "Cathay Asia Miles",
+      "summary": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。",
+      "howToUse": [
+        "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.cathay-asia-miles",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-us.transfer-cathay-asia-miles"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开列为转点伙伴；实际兑换比例、最低转点和个人关联需登录核对，转点不赠送精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-hk-hk-the-platinum-card.transfer-cathay-asia-miles",
+    "revision": 2,
+    "revisionId": "rule.amex-hk-hk-the-platinum-card.transfer-cathay-asia-miles@2026-11-04.2",
+    "supersedes": "rule.amex-hk-hk-the-platinum-card.transfer-cathay-asia-miles@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card"
+    ],
+    "market": {
+      "issuer": "Amex HK",
+      "country": "HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.cathay-asia-miles"
+    ],
+    "content": {
+      "title": "Cathay Asia Miles",
+      "summary": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。",
+      "howToUse": [
+        "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.cathay-asia-miles",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-hk.transfer-cathay-asia-miles"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-hk-hk-the-platinum-card.transfer-malaysia-airlines-enrich",
+    "revision": 2,
+    "revisionId": "rule.amex-hk-hk-the-platinum-card.transfer-malaysia-airlines-enrich@2026-11-04.2",
+    "supersedes": "rule.amex-hk-hk-the-platinum-card.transfer-malaysia-airlines-enrich@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card"
+    ],
+    "market": {
+      "issuer": "Amex HK",
+      "country": "HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.malaysia-airlines-enrich"
+    ],
+    "content": {
+      "title": "Malaysia Airlines Enrich",
+      "summary": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。",
+      "howToUse": [
+        "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.malaysia-airlines-enrich",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-hk.transfer-malaysia-airlines-enrich"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-hk-hk-the-platinum-card.transfer-eva-infinity-mileagelands",
+    "revision": 2,
+    "revisionId": "rule.amex-hk-hk-the-platinum-card.transfer-eva-infinity-mileagelands@2026-11-04.2",
+    "supersedes": "rule.amex-hk-hk-the-platinum-card.transfer-eva-infinity-mileagelands@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card"
+    ],
+    "market": {
+      "issuer": "Amex HK",
+      "country": "HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.eva-infinity-mileagelands"
+    ],
+    "content": {
+      "title": "EVA Infinity MileageLands",
+      "summary": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。",
+      "howToUse": [
+        "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.eva-infinity-mileagelands",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-hk.transfer-eva-infinity-mileagelands"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-hk-hk-the-platinum-card.transfer-qantas-frequent-flyer",
+    "revision": 2,
+    "revisionId": "rule.amex-hk-hk-the-platinum-card.transfer-qantas-frequent-flyer@2026-11-04.2",
+    "supersedes": "rule.amex-hk-hk-the-platinum-card.transfer-qantas-frequent-flyer@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card"
+    ],
+    "market": {
+      "issuer": "Amex HK",
+      "country": "HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.qantas-frequent-flyer"
+    ],
+    "content": {
+      "title": "Qantas Frequent Flyer",
+      "summary": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。",
+      "howToUse": [
+        "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.qantas-frequent-flyer",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-hk.transfer-qantas-frequent-flyer"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-hk-hk-the-platinum-card.transfer-singapore-krisflyer",
+    "revision": 2,
+    "revisionId": "rule.amex-hk-hk-the-platinum-card.transfer-singapore-krisflyer@2026-11-04.2",
+    "supersedes": "rule.amex-hk-hk-the-platinum-card.transfer-singapore-krisflyer@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card"
+    ],
+    "market": {
+      "issuer": "Amex HK",
+      "country": "HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.singapore-krisflyer"
+    ],
+    "content": {
+      "title": "Singapore KrisFlyer",
+      "summary": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。",
+      "howToUse": [
+        "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.singapore-krisflyer",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-hk.transfer-singapore-krisflyer"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-hk-hk-the-platinum-card.transfer-the-british-airways-club",
+    "revision": 2,
+    "revisionId": "rule.amex-hk-hk-the-platinum-card.transfer-the-british-airways-club@2026-11-04.2",
+    "supersedes": "rule.amex-hk-hk-the-platinum-card.transfer-the-british-airways-club@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card"
+    ],
+    "market": {
+      "issuer": "Amex HK",
+      "country": "HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "The British Airways Club",
+      "summary": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。",
+      "howToUse": [
+        "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.the-british-airways-club",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-hk.transfer-the-british-airways-club"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-cathay-asia-miles",
+    "revision": 2,
+    "revisionId": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-cathay-asia-miles@2026-11-04.2",
+    "supersedes": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-cathay-asia-miles@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "issuer": "Amex HK",
+      "country": "HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.cathay-asia-miles"
+    ],
+    "content": {
+      "title": "Cathay Asia Miles",
+      "summary": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。",
+      "howToUse": [
+        "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.cathay-asia-miles",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-hk.transfer-cathay-asia-miles"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-malaysia-airlines-enrich",
+    "revision": 2,
+    "revisionId": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-malaysia-airlines-enrich@2026-11-04.2",
+    "supersedes": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-malaysia-airlines-enrich@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "issuer": "Amex HK",
+      "country": "HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.malaysia-airlines-enrich"
+    ],
+    "content": {
+      "title": "Malaysia Airlines Enrich",
+      "summary": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。",
+      "howToUse": [
+        "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.malaysia-airlines-enrich",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-hk.transfer-malaysia-airlines-enrich"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-eva-infinity-mileagelands",
+    "revision": 2,
+    "revisionId": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-eva-infinity-mileagelands@2026-11-04.2",
+    "supersedes": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-eva-infinity-mileagelands@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "issuer": "Amex HK",
+      "country": "HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.eva-infinity-mileagelands"
+    ],
+    "content": {
+      "title": "EVA Infinity MileageLands",
+      "summary": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。",
+      "howToUse": [
+        "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.eva-infinity-mileagelands",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-hk.transfer-eva-infinity-mileagelands"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-qantas-frequent-flyer",
+    "revision": 2,
+    "revisionId": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-qantas-frequent-flyer@2026-11-04.2",
+    "supersedes": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-qantas-frequent-flyer@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "issuer": "Amex HK",
+      "country": "HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.qantas-frequent-flyer"
+    ],
+    "content": {
+      "title": "Qantas Frequent Flyer",
+      "summary": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。",
+      "howToUse": [
+        "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.qantas-frequent-flyer",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-hk.transfer-qantas-frequent-flyer"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-singapore-krisflyer",
+    "revision": 2,
+    "revisionId": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-singapore-krisflyer@2026-11-04.2",
+    "supersedes": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-singapore-krisflyer@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "issuer": "Amex HK",
+      "country": "HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.singapore-krisflyer"
+    ],
+    "content": {
+      "title": "Singapore KrisFlyer",
+      "summary": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。",
+      "howToUse": [
+        "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.singapore-krisflyer",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-hk.transfer-singapore-krisflyer"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-the-british-airways-club",
+    "revision": 2,
+    "revisionId": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-the-british-airways-club@2026-11-04.2",
+    "supersedes": "rule.amex-hk-hk-american-express-explorer-credit-card.transfer-the-british-airways-club@2026-10-27.1",
+    "status": "withdrawn",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "issuer": "Amex HK",
+      "country": "HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "The British Airways Club",
+      "summary": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。",
+      "howToUse": [
+        "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.the-british-airways-club",
+      "ratio": null,
+      "grantsEliteStatus": false,
+      "accountLinked": null,
+      "replacedByRuleId": "rule.programme.amex-membership-rewards-hk.transfer-the-british-airways-club"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-partners"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-aer-lingus-aerclub",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-aer-lingus-aerclub@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.aer-lingus-aerclub"
+    ],
+    "content": {
+      "title": "Aer Lingus AerClub",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.aer-lingus-aerclub",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-aeromexico-rewards",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-aeromexico-rewards@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.aeromexico-rewards"
+    ],
+    "content": {
+      "title": "Aeromexico Rewards",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.aeromexico-rewards",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1600
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-air-canada-aeroplan",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-air-canada-aeroplan@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "Air Canada Aeroplan",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.air-canada-aeroplan",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-air-france-klm-flying-blue",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-air-france-klm-flying-blue@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.air-france-klm-flying-blue"
+    ],
+    "content": {
+      "title": "Air France KLM Flying Blue",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.air-france-klm-flying-blue",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-ana-mileage-club",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-ana-mileage-club@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.ana-mileage-club"
+    ],
+    "content": {
+      "title": "ANA Mileage Club",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.ana-mileage-club",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 4,
+        "unit": "days",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-avianca-lifemiles",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-avianca-lifemiles@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.avianca-lifemiles"
+    ],
+    "content": {
+      "title": "avianca lifemiles",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.avianca-lifemiles",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 750000,
+      "estimatedTime": {
+        "value": 72,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-cathay-asia-miles",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-cathay-asia-miles@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.cathay-asia-miles"
+    ],
+    "content": {
+      "title": "Cathay Asia Miles",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.cathay-asia-miles",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 800
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-choice-privileges",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-choice-privileges@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.choice-privileges"
+    ],
+    "content": {
+      "title": "Choice Privileges",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.choice-privileges",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 9999000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-delta-skymiles",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-delta-skymiles@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "Delta SkyMiles",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；转入美国航司计划须付消费税抵销费（每点0.0006美元，上限99美元）。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.delta-skymiles",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [
+        {
+          "kind": "excise-tax-offset",
+          "perPoint": 0.0006,
+          "maximum": 99,
+          "currency": "USD"
+        }
+      ],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；转入美国航司计划须付消费税抵销费（每点0.0006美元，上限99美元）。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-emirates-skywards",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-emirates-skywards@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.emirates-skywards"
+    ],
+    "content": {
+      "title": "Emirates Skywards",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.emirates-skywards",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 800
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-hilton-honors",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-hilton-honors@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "Hilton Honors",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.hilton-honors",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 3000000,
+      "estimatedTime": {
+        "value": 24,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 2000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-iberia-club",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-iberia-club@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.iberia-club"
+    ],
+    "content": {
+      "title": "Iberia Club",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.iberia-club",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-jetblue-trueblue",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-jetblue-trueblue@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.jetblue-trueblue"
+    ],
+    "content": {
+      "title": "JetBlue TrueBlue",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；转入美国航司计划须付消费税抵销费（每点0.0006美元，上限99美元）。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.jetblue-trueblue",
+      "ratio": null,
+      "minimumPoints": 250,
+      "incrementPoints": 250,
+      "maximumPoints": 999750,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [
+        {
+          "kind": "excise-tax-offset",
+          "perPoint": 0.0006,
+          "maximum": 99,
+          "currency": "USD"
+        }
+      ],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 250,
+        "to": 200
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；转入美国航司计划须付消费税抵销费（每点0.0006美元，上限99美元）。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-marriott-bonvoy",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-marriott-bonvoy@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.marriott-bonvoy",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-qantas-frequent-flyer",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-qantas-frequent-flyer@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.qantas-frequent-flyer"
+    ],
+    "content": {
+      "title": "Qantas Frequent Flyer",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.qantas-frequent-flyer",
+      "ratio": null,
+      "minimumPoints": 500,
+      "incrementPoints": 500,
+      "maximumPoints": 999500,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 500,
+        "to": 500
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-qatar-privilege-club",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-qatar-privilege-club@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.qatar-privilege-club"
+    ],
+    "content": {
+      "title": "Qatar Airways Privilege Club",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.qatar-privilege-club",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 750000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-singapore-airlines-krisflyer",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-singapore-airlines-krisflyer@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.singapore-airlines-krisflyer"
+    ],
+    "content": {
+      "title": "Singapore Airlines KrisFlyer",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.singapore-airlines-krisflyer",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-the-british-airways-club",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-the-british-airways-club@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "The British Airways Club",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.the-british-airways-club",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-leaders-club",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-leaders-club@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.leaders-club"
+    ],
+    "content": {
+      "title": "The Leading Hotels of the World Leaders Club",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.leaders-club",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 72,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 250
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-us.transfer-virgin-atlantic-flying-club",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-us.transfer-virgin-atlantic-flying-club@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-us-us-american-express-gold-card",
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us",
+      "programme.virgin-atlantic-flying-club"
+    ],
+    "content": {
+      "title": "Virgin Atlantic Flying Club",
+      "summary": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-us",
+      "toProgrammeId": "programme.virgin-atlantic-flying-club",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": 1000,
+      "maximumPoints": 999000,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex US 转点页公布的比例、最低数量、增量和预计时间；不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-us-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-hk.transfer-cathay-asia-miles",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-hk.transfer-cathay-asia-miles@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card",
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "country": "HK",
+      "issuer": "Amex HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.cathay-asia-miles"
+    ],
+    "content": {
+      "title": "Cathay Asia Miles",
+      "summary": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开，须登录查看。999,000 与 9,999,000 两个单笔上限在页面上并存，未采用。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.cathay-asia-miles",
+      "ratio": null,
+      "minimumPoints": 18000,
+      "incrementPoints": 9000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开，须登录查看。999,000 与 9,999,000 两个单笔上限在页面上并存，未采用。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-hk.transfer-malaysia-airlines-enrich",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-hk.transfer-malaysia-airlines-enrich@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card",
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "country": "HK",
+      "issuer": "Amex HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.malaysia-airlines-enrich"
+    ],
+    "content": {
+      "title": "Malaysia Airlines Enrich",
+      "summary": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开。该计划单位带星号，但页面没有对应脚注。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.malaysia-airlines-enrich",
+      "ratio": null,
+      "minimumPoints": 18000,
+      "incrementPoints": 9000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 10,
+        "unit": "days",
+        "qualifier": "up-to"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开。该计划单位带星号，但页面没有对应脚注。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-hk.transfer-eva-infinity-mileagelands",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-hk.transfer-eva-infinity-mileagelands@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card",
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "country": "HK",
+      "issuer": "Amex HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.eva-infinity-mileagelands"
+    ],
+    "content": {
+      "title": "EVA Infinity MileageLands",
+      "summary": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开，须登录查看。999,000 与 9,999,000 两个单笔上限在页面上并存，未采用。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.eva-infinity-mileagelands",
+      "ratio": null,
+      "minimumPoints": 18000,
+      "incrementPoints": 9000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 10,
+        "unit": "days",
+        "qualifier": "up-to"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开，须登录查看。999,000 与 9,999,000 两个单笔上限在页面上并存，未采用。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-hk.transfer-qantas-frequent-flyer",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-hk.transfer-qantas-frequent-flyer@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card",
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "country": "HK",
+      "issuer": "Amex HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.qantas-frequent-flyer"
+    ],
+    "content": {
+      "title": "Qantas Frequent Flyer",
+      "summary": "Amex HK 只公开 Turbo 计划费率；每次转点收取300港元行政费，Centurion及Corporate持卡人除外。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.qantas-frequent-flyer",
+      "ratio": null,
+      "minimumPoints": 18000,
+      "incrementPoints": 9000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [
+        {
+          "kind": "administration",
+          "amount": 300,
+          "currency": "HKD",
+          "exempt": [
+            "Centurion",
+            "Corporate"
+          ]
+        }
+      ],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex HK 只公开 Turbo 计划费率；每次转点收取300港元行政费，Centurion及Corporate持卡人除外。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-hk.transfer-singapore-krisflyer",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-hk.transfer-singapore-krisflyer@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card",
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "country": "HK",
+      "issuer": "Amex HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.singapore-krisflyer"
+    ],
+    "content": {
+      "title": "Singapore KrisFlyer",
+      "summary": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开。该计划单位带星号，但页面没有对应脚注。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.singapore-krisflyer",
+      "ratio": null,
+      "minimumPoints": 18000,
+      "incrementPoints": 9000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 15,
+        "unit": "days",
+        "qualifier": "up-to"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开。该计划单位带星号，但页面没有对应脚注。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-hk.transfer-the-british-airways-club",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-hk.transfer-the-british-airways-club@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card",
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "country": "HK",
+      "issuer": "Amex HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "The British Airways Club",
+      "summary": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开。该计划单位带星号，但页面没有对应脚注。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.the-british-airways-club",
+      "ratio": null,
+      "minimumPoints": 18000,
+      "incrementPoints": 9000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开。该计划单位带星号，但页面没有对应脚注。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-hk.transfer-virgin-atlantic-flying-club",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-hk.transfer-virgin-atlantic-flying-club@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card",
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "country": "HK",
+      "issuer": "Amex HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.virgin-atlantic-flying-club"
+    ],
+    "content": {
+      "title": "Virgin Atlantic Flying Club",
+      "summary": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开，须登录查看。999,000 与 9,999,000 两个单笔上限在页面上并存，未采用。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.virgin-atlantic-flying-club",
+      "ratio": null,
+      "minimumPoints": 18000,
+      "incrementPoints": 9000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开，须登录查看。999,000 与 9,999,000 两个单笔上限在页面上并存，未采用。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-hk.transfer-all-accor",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-hk.transfer-all-accor@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card",
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "country": "HK",
+      "issuer": "Amex HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.all-accor"
+    ],
+    "content": {
+      "title": "ALL Accor",
+      "summary": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开，须登录查看。999,000 与 9,999,000 两个单笔上限在页面上并存，未采用。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.all-accor",
+      "ratio": null,
+      "minimumPoints": 25000,
+      "incrementPoints": 12500,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 25,
+        "to": 1
+      },
+      "condition": "turbo-program",
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开，须登录查看。999,000 与 9,999,000 两个单笔上限在页面上并存，未采用。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-hk.transfer-hilton-honors",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-hk.transfer-hilton-honors@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card",
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "country": "HK",
+      "issuer": "Amex HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "Hilton Honors",
+      "summary": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开，须登录查看。999,000 与 9,999,000 两个单笔上限在页面上并存，未采用。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.hilton-honors",
+      "ratio": null,
+      "minimumPoints": 8000,
+      "incrementPoints": 8000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 64,
+        "to": 10
+      },
+      "condition": "turbo-program",
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开，须登录查看。999,000 与 9,999,000 两个单笔上限在页面上并存，未采用。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.amex-membership-rewards-hk.transfer-marriott-bonvoy",
+    "revision": 1,
+    "revisionId": "rule.programme.amex-membership-rewards-hk.transfer-marriott-bonvoy@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "amex-hk-hk-the-platinum-card",
+      "amex-hk-hk-american-express-explorer-credit-card"
+    ],
+    "market": {
+      "country": "HK",
+      "issuer": "Amex HK"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-hk",
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy",
+      "summary": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开，须登录查看。999,000 与 9,999,000 两个单笔上限在页面上并存，未采用。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.amex-membership-rewards-hk",
+      "toProgrammeId": "programme.marriott-bonvoy",
+      "ratio": null,
+      "minimumPoints": 9000,
+      "incrementPoints": 9000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "estimated"
+      },
+      "fees": [],
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 9,
+        "to": 1
+      },
+      "condition": "turbo-program",
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开，须登录查看。999,000 与 9,999,000 两个单笔上限在页面上并存，未采用。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "mr-hk-transfer"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-aer-lingus-aerclub",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-aer-lingus-aerclub@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve",
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.aer-lingus-aerclub"
+    ],
+    "content": {
+      "title": "Aer Lingus AerClub",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.aer-lingus-aerclub",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csp-benefits",
+        "ur-csr-agreement",
+        "ur-csp-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-the-british-airways-club",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-the-british-airways-club@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve",
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "The British Airways Club",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.the-british-airways-club",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csp-benefits",
+        "ur-csr-agreement",
+        "ur-csp-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-air-france-klm-flying-blue",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-air-france-klm-flying-blue@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve",
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.air-france-klm-flying-blue"
+    ],
+    "content": {
+      "title": "Air France KLM Flying Blue",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.air-france-klm-flying-blue",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csp-benefits",
+        "ur-csr-agreement",
+        "ur-csp-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-iberia-club",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-iberia-club@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve",
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.iberia-club"
+    ],
+    "content": {
+      "title": "Iberia Club",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.iberia-club",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csp-benefits",
+        "ur-csr-agreement",
+        "ur-csp-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-jetblue-trueblue",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-jetblue-trueblue@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve",
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.jetblue-trueblue"
+    ],
+    "content": {
+      "title": "JetBlue TrueBlue",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.jetblue-trueblue",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csp-benefits",
+        "ur-csr-agreement",
+        "ur-csp-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-singapore-airlines-krisflyer",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-singapore-airlines-krisflyer@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve",
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.singapore-airlines-krisflyer"
+    ],
+    "content": {
+      "title": "Singapore Airlines KrisFlyer",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.singapore-airlines-krisflyer",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csp-benefits",
+        "ur-csr-agreement",
+        "ur-csp-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-southwest-rapid-rewards",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-southwest-rapid-rewards@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve",
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "Southwest Rapid Rewards",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.southwest-rapid-rewards",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csp-benefits",
+        "ur-csr-agreement",
+        "ur-csp-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-united-mileageplus",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-united-mileageplus@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve",
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "United MileagePlus",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.united-mileageplus",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csp-benefits",
+        "ur-csr-agreement",
+        "ur-csp-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-virgin-atlantic-flying-club",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-virgin-atlantic-flying-club@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve",
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.virgin-atlantic-flying-club"
+    ],
+    "content": {
+      "title": "Virgin Atlantic Flying Club",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.virgin-atlantic-flying-club",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csp-benefits",
+        "ur-csr-agreement",
+        "ur-csp-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-air-canada-aeroplan",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-air-canada-aeroplan@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve",
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "Air Canada Aeroplan",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.air-canada-aeroplan",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csp-benefits",
+        "ur-csr-agreement",
+        "ur-csp-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-ihg-one-rewards",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-ihg-one-rewards@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve",
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "IHG One Rewards",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.ihg-one-rewards",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csp-benefits",
+        "ur-csr-agreement",
+        "ur-csp-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-marriott-bonvoy",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-marriott-bonvoy@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve",
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.marriott-bonvoy",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csp-benefits",
+        "ur-csr-agreement",
+        "ur-csp-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-wyndham-rewards",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-wyndham-rewards@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve",
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.wyndham-rewards"
+    ],
+    "content": {
+      "title": "Wyndham Rewards",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.wyndham-rewards",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csp-benefits",
+        "ur-csr-agreement",
+        "ur-csp-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-world-of-hyatt",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-world-of-hyatt@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-chase-sapphire-preferred-credit-card",
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.world-of-hyatt"
+    ],
+    "content": {
+      "title": "World of Hyatt",
+      "summary": "Sapphire Preferred 与 Ink Business Preferred 页面公布了 World of Hyatt 的转点比例，2026年10月1日起生效；具体比例见积分页。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.world-of-hyatt",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 4,
+        "to": 3
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": "2026-10-01",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Sapphire Preferred 与 Ink Business Preferred 页面公布了 World of Hyatt 的转点比例，2026年10月1日起生效；具体比例见积分页。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-csp-benefits",
+        "ur-ibp-product",
+        "ur-transfer-guide"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.chase-ultimate-rewards.transfer-world-of-hyatt-unstated",
+    "revision": 1,
+    "revisionId": "rule.programme.chase-ultimate-rewards.transfer-world-of-hyatt-unstated@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.chase-ultimate-rewards",
+      "programme.world-of-hyatt"
+    ],
+    "content": {
+      "title": "World of Hyatt",
+      "summary": "本卡页面没有公布 World of Hyatt 比例；其他卡公布的比例不套用到本卡，须登录转点页核对。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.chase-ultimate-rewards",
+      "toProgrammeId": "programme.world-of-hyatt",
+      "ratio": null,
+      "minimumPoints": null,
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 7,
+        "unit": "business-days",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "feeStatement": "may-be-charged",
+      "final": true,
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "本卡页面没有公布 World of Hyatt 比例；其他卡公布的比例不套用到本卡，须登录转点页核对。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ur-transfer-guide",
+        "ur-csr-agreement"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]

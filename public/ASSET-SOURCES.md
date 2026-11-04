@@ -116,6 +116,10 @@ Some programmes show a related company's mark, and are labelled as that company:
 | EVA Infinity MileageLands | unverified | brand/logos/eva-air.png | https://www.evaair.com/favicon.ico | not located | No published grant for third-party identifying use was located. |
 | Qantas Frequent Flyer | unverified | brand/logos/qantas.svg | simple-icons@16.36.0:qantas | not located | No published grant for third-party identifying use was located. |
 | Etihad Guest | unverified | brand/logos/etihad.svg | simple-icons@16.36.0:etihadairways | not located | No published grant for third-party identifying use was located. |
+| Emirates Skywards | unverified | null | null | not located | Not checked; no mark is shipped. |
+| Qatar Airways Privilege Club | unverified | null | null | not located | Not checked; no mark is shipped. |
+| Choice Privileges | unverified | null | null | not located | Not checked; no mark is shipped. |
+| The Leading Hotels of the World Leaders Club | unverified | null | null | not located | Not checked; no mark is shipped. |
 
 ## Issuer marks
 
