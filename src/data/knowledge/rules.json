@@ -41184,5 +41184,4247 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-explorer-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-explorer-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-united-explorer-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $0 intro annual fee for the first year, then $150",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 150,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-explorer-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-explorer-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-explorer-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-explorer-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "United 机票（合计）",
+      "summary": "合计数，包含 MileagePlus 会员本身的6倍和本卡的3倍。",
+      "sourceText": "9x total miles on eligible United flights",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "合计数，包含 MileagePlus 会员本身的6倍和本卡的3倍。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 9,
+      "unit": "miles-per-USD",
+      "spendCategory": "United 机票（合计）",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "合计数，包含 MileagePlus 会员本身的6倍和本卡的3倍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-explorer-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-explorer-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-explorer-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-explorer-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "其他 United 消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3x miles on all other eligible United purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "miles-per-USD",
+      "spendCategory": "其他 United 消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-explorer-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-explorer-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-explorer-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-explorer-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "直订酒店",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2x miles on hotel stays when booked with the hotel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "直订酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-explorer-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-explorer-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-explorer-card.earning-3@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-explorer-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "餐饮",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2x miles on dining including eligible delivery services",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "餐饮",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-explorer-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-explorer-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-explorer-card.earning-4@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-explorer-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1x mile on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "miles-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-explorer-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-explorer-card.trusted-traveler",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-explorer-card.trusted-traveler@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-explorer-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Global Entry、TSA PreCheck 或 NEXUS 申请费抵扣",
+      "summary": "每四年最多120美元。",
+      "sourceText": "Up to $120 as a statement credit for Global Entry, TSA Precheck or NEXUS every 4 years",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每四年最多120美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "rolling-four-years",
+      "amount": 120,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每四年最多120美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-explorer-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-explorer-card.first-bag",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-explorer-card.first-bag@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-explorer-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "首件托运行李免费",
+      "summary": "主卡持卡人和一名同行人。",
+      "sourceText": "the primary Cardmember and one companion can each check a first standard bag for free",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "主卡持卡人和一名同行人。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "主卡持卡人和一名同行人。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-explorer-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-explorer-card.inflight",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-explorer-card.inflight@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-explorer-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "机上消费25%返还",
+      "summary": "以抵扣形式返还，限 United 航班的餐饮和 Wi-Fi。",
+      "sourceText": "25% back as a statement credit on purchases of food, beverages and Wi-Fi on board United-operated flights",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以抵扣形式返还，限 United 航班的餐饮和 Wi-Fi。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以抵扣形式返还，限 United 航班的餐饮和 Wi-Fi。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-explorer-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-explorer-card.travel-credit",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-explorer-card.travel-credit@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-explorer-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "United 旅行额度",
+      "summary": "自然年消费满1万美元后得100美元；是否达标未核实。",
+      "sourceText": "Earn after you spend $10,000 with your United SM Explorer Card within a calendar year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "自然年消费满1万美元后得100美元；是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "自然年消费满1万美元后得100美元；是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-explorer-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-united-club-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $695",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 695,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-club-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "United 机票（合计）",
+      "summary": "合计数，包含 MileagePlus 会员本身的6倍和本卡的5倍。",
+      "sourceText": "11x total miles on eligible United flights",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "合计数，包含 MileagePlus 会员本身的6倍和本卡的5倍。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 11,
+      "unit": "miles-per-USD",
+      "spendCategory": "United 机票（合计）",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "合计数，包含 MileagePlus 会员本身的6倍和本卡的5倍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-club-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "其他 United 消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "5x miles on all other eligible United purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "miles-per-USD",
+      "spendCategory": "其他 United 消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-club-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "Renowned Hotels and Resorts 预付",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "5x miles on hotel stays when you prepay directly through Renowned Hotels and Resorts",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "miles-per-USD",
+      "spendCategory": "Renowned Hotels and Resorts 预付",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-card.earning-3@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-club-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "餐饮",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2x miles on dining including eligible delivery services",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "餐饮",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-card.earning-4@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-club-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1x mile on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "miles-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-card.bags",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-card.bags@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "前两件托运行李免费",
+      "summary": "主卡持卡人和一名同行人。",
+      "sourceText": "the primary Cardmember and one companion can each check a first and second standard bags for free",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "主卡持卡人和一名同行人。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "主卡持卡人和一名同行人。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-card.renowned-hotels",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-card.renowned-hotels@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.renowned-hotels-and-resorts"
+    ],
+    "content": {
+      "title": "Renowned Hotels and Resorts 抵扣",
+      "summary": "每年最多200美元；周期的起算方式未结构化。",
+      "sourceText": "Up to $200 in credits annually",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年最多200美元；周期的起算方式未结构化。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": 200,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年最多200美元；周期的起算方式未结构化。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-plus-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $99 applied to first billing statement",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 99,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-plus-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-plus-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "Southwest 消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 points for each dollar spent on Southwest Airlines purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "Southwest 消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-plus-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-plus-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "加油站和超市",
+      "summary": "每个账户周年合计前5,000美元；之后按1倍。",
+      "sourceText": "at gas stations and grocery stores on the first $5,000 in combined purchases per anniversary year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户周年合计前5,000美元；之后按1倍。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "加油站和超市",
+      "spendCap": {
+        "amount": 5000,
+        "currency": "USD",
+        "period": "account-anniversary"
+      },
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户周年合计前5,000美元；之后按1倍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-plus-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-plus-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 1 point for each dollar spent on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-plus-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.inflight",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.inflight@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-plus-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "机上消费25%返还",
+      "summary": "以抵扣形式返还，限 Southwest 航班。",
+      "sourceText": "25% back on inflight purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以抵扣形式返还，限 Southwest 航班。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以抵扣形式返还，限 Southwest 航班。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-plus-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-priority-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $229 applied to first billing statement",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 229,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-priority-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-priority-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "Southwest 消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 4 points for each dollar spent on Southwest Airlines purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "points-per-USD",
+      "spendCategory": "Southwest 消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-priority-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-priority-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "加油站和餐厅",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 points for each dollar spent at gas stations and restaurants",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "加油站和餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-priority-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-priority-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 1 point for each dollar spent on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-priority-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.inflight",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.inflight@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-priority-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "机上消费25%返还",
+      "summary": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
+      "sourceText": "You will receive 25% back on Southwest Airlines inflight purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-priority-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.a-list-tqp",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.a-list-tqp@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-priority-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "A-List 进度积分",
+      "summary": "每年每消费5,000美元得2,500 TQP；个人进度未核实。",
+      "sourceText": "Earn 2,500 tier qualifying points (TQPs) toward A-List status for every $5,000 spent in purchases annually",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年每消费5,000美元得2,500 TQP；个人进度未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年每消费5,000美元得2,500 TQP；个人进度未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-priority-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $149 applied to first billing statement",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 149,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "Southwest 消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 3 points for each dollar spent on Southwest Airlines purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "Southwest 消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "超市和餐厅",
+      "summary": "每个账户周年合计前8,000美元；之后按1倍。",
+      "sourceText": "Earn 2 points for each dollar spent at grocery stores and restaurants on the first $8,000 in combined purchases per anniversary year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户周年合计前8,000美元；之后按1倍。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "超市和餐厅",
+      "spendCap": {
+        "amount": 8000,
+        "currency": "USD",
+        "period": "account-anniversary"
+      },
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户周年合计前8,000美元；之后按1倍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 1 point for each dollar spent on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.inflight",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.inflight@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "机上消费25%返还",
+      "summary": "以抵扣形式返还，限 Southwest 航班。",
+      "sourceText": "25% back on inflight purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以抵扣形式返还，限 Southwest 航班。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以抵扣形式返还，限 Southwest 航班。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.a-list-tqp",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.a-list-tqp@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "A-List 进度积分",
+      "summary": "每年每消费5,000美元得1,500 TQP；个人进度未核实。",
+      "sourceText": "Earn 1,500 tier qualifying points (TQPs) toward A-List status for every $5,000 spent in purchases annually",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年每消费5,000美元得1,500 TQP；个人进度未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年每消费5,000美元得1,500 TQP；个人进度未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-boundless-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-boundless-credit-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-marriott-bonvoy-boundless-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $95",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-boundless-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-boundless-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-boundless-credit-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-marriott-bonvoy-boundless-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy 酒店",
+      "summary": "本卡的比例；页面的17倍合计还包含会员和会籍部分。",
+      "sourceText": "Earn 6X points for every $1 spent at over 7,000 hotels participating in Marriott Bonvoy",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "本卡的比例；页面的17倍合计还包含会员和会籍部分。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 6,
+      "unit": "points-per-USD",
+      "spendCategory": "Marriott Bonvoy 酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "本卡的比例；页面的17倍合计还包含会员和会籍部分。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-boundless-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-boundless-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-boundless-credit-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-marriott-bonvoy-boundless-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "超市、加油站和餐饮",
+      "summary": "每年合计前6,000美元；之后按2倍。周期的起算方式以条款为准。",
+      "sourceText": "Earn 3X points for every $1 on the first $6,000 spent in combined purchases annually",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年合计前6,000美元；之后按2倍。周期的起算方式以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "超市、加油站和餐饮",
+      "spendCap": {
+        "amount": 6000,
+        "currency": "USD",
+        "period": "calendar-year"
+      },
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年合计前6,000美元；之后按2倍。周期的起算方式以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-boundless-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-boundless-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-boundless-credit-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-marriott-bonvoy-boundless-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2X points for every $1 you spend on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-boundless-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-boundless-credit-card.airline-credit",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-boundless-credit-card.airline-credit@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-marriott-bonvoy-boundless-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "航空消费抵扣",
+      "summary": "半年一次、每次50美元，须直接向航空公司消费；限期优惠，半年如何划分和后续是否延续未核实。",
+      "sourceText": "That's $50 in statement credits semi-annually",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "半年一次、每次50美元，须直接向航空公司消费；限期优惠，半年如何划分和后续是否延续未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": 50,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "半年一次、每次50美元，须直接向航空公司消费；限期优惠，半年如何划分和后续是否延续未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-boundless-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-boundless-credit-card.silver-elite",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-boundless-credit-card.silver-elite@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-marriott-bonvoy-boundless-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy Silver Elite 会籍",
+      "summary": "公开规则；个人会籍未核实。",
+      "sourceText": "with Silver Elite Status, a benefit of being a Marriott Bonvoy Boundless cardmember",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公开规则；个人会籍未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开规则；个人会籍未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-boundless-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-credit-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-ihg-one-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $0",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ihg-one-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-credit-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-ihg-one-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "IHG 酒店",
+      "summary": "本卡的比例；页面的17倍合计还包含会员和会籍部分。",
+      "sourceText": "You'll earn 5 points for each $1 spent on qualifying purchases made at hotels participating in IHG One Rewards",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "本卡的比例；页面的17倍合计还包含会员和会籍部分。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "points-per-USD",
+      "spendCategory": "IHG 酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "本卡的比例；页面的17倍合计还包含会员和会籍部分。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ihg-one-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-credit-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-ihg-one-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "超市、加油站和餐厅",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "You’ll earn 3 points for each $1 spent on purchases made in the following rewards categories",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "超市、加油站和餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ihg-one-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-credit-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-ihg-one-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2X points per $1 spent on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ihg-one-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-credit-card.fourth-night",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-credit-card.fourth-night@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ihg-one-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "第四晚免费",
+      "summary": "2027年起，自然年消费满5,000美元后解锁，用积分连住四晚时适用；是否达标未核实。",
+      "sourceText": "Starting in 2027, spend $5,000 on purchases in a calendar year and unlock a 4th Reward Night free",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "2027年起，自然年消费满5,000美元后解锁，用积分连住四晚时适用；是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": "2027-01-01",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "2027年起，自然年消费满5,000美元后解锁，用积分连住四晚时适用；是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ihg-one-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-credit-card.silver-elite",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-credit-card.silver-elite@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ihg-one-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "IHG Silver Elite 会籍",
+      "summary": "公开规则；个人会籍未核实。",
+      "sourceText": "with Silver Elite Status",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公开规则；个人会籍未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开规则；个人会籍未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ihg-one-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-world-of-hyatt-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-world-of-hyatt-credit-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-world-of-hyatt-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $95",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-world-of-hyatt-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-world-of-hyatt-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-world-of-hyatt-credit-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-world-of-hyatt-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.world-of-hyatt"
+    ],
+    "content": {
+      "title": "餐厅、机票、通勤等类别",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 2X Bonus Points per $1 spent at restaurants, on airline tickets purchased directly from airlines, on local transit and commuting",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "餐厅、机票、通勤等类别",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-world-of-hyatt-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-world-of-hyatt-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-world-of-hyatt-credit-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-world-of-hyatt-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.world-of-hyatt"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "You’ll earn 1 World of Hyatt Bonus Point for each $1 USD spent on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-world-of-hyatt-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-world-of-hyatt-credit-card.doordash-promo",
+    "revision": 1,
+    "revisionId": "rule.chase-us-world-of-hyatt-credit-card.doordash-promo@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-world-of-hyatt-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "promo",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [
+      "programme.doordash"
+    ],
+    "content": {
+      "title": "DoorDash 每季优惠",
+      "summary": "激活 DashPass 后，每季一笔非餐厅订单减10美元。",
+      "sourceText": "you will receive a $10 off discount each calendar quarter at checkout on one qualifying non-restaurant order on DoorDash",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "激活 DashPass 后，每季一笔非餐厅订单减10美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "promo",
+      "period": "calendar-quarter",
+      "amount": 10,
+      "currency": "USD",
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "激活 DashPass 后，每季一笔非餐厅订单减10美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-world-of-hyatt-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-air-canada-aeroplan-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-air-canada-aeroplan-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-air-canada-aeroplan-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $195",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 195,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-air-canada-aeroplan-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-air-canada-aeroplan-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-air-canada-aeroplan-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-air-canada-aeroplan-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "Air Canada 直接消费和旅行",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3X points per $1 spent on travel purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "Air Canada 直接消费和旅行",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-air-canada-aeroplan-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-air-canada-aeroplan-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-air-canada-aeroplan-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-air-canada-aeroplan-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "超市",
+      "summary": "2026年12月31日前入账的按3倍，之后按2倍。",
+      "sourceText": "2X points per $1 spent at grocery stores",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "2026年12月31日前入账的按3倍，之后按2倍。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "超市",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "2026年12月31日前入账的按3倍，之后按2倍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-air-canada-aeroplan-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-air-canada-aeroplan-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-air-canada-aeroplan-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-air-canada-aeroplan-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "餐饮",
+      "summary": "2026年12月31日前入账的按3倍，之后按2倍。",
+      "sourceText": "2X points per $1 spent on dining, including takeout and eligible delivery services",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "2026年12月31日前入账的按3倍，之后按2倍。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "餐饮",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "2026年12月31日前入账的按3倍，之后按2倍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-air-canada-aeroplan-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-air-canada-aeroplan-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.chase-us-air-canada-aeroplan-card.earning-3@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-air-canada-aeroplan-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "加油站",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2X points per $1 spent at gas stations",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "加油站",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-air-canada-aeroplan-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-air-canada-aeroplan-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.chase-us-air-canada-aeroplan-card.earning-4@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-air-canada-aeroplan-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1X points per $1 spent on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-air-canada-aeroplan-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-air-canada-aeroplan-card.air-canada-credit",
+    "revision": 1,
+    "revisionId": "rule.chase-us-air-canada-aeroplan-card.air-canada-credit@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-air-canada-aeroplan-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.air-canada"
+    ],
+    "content": {
+      "title": "Air Canada 抵扣",
+      "summary": "每年两次、每次最多50美元；具体周期未结构化。",
+      "sourceText": "Receive up to $50 in Air Canada statement credits delivered twice annually",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年两次、每次最多50美元；具体周期未结构化。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": 50,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年两次、每次最多50美元；具体周期未结构化。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-air-canada-aeroplan-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-premier-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-premier-credit-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-ink-business-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $195",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 195,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-premier-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-premier-credit-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-ink-business-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Chase Travel",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 5% cash back on travel purchased through Chase Travel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Chase Travel",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-premier-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-premier-credit-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-ink-business-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "单笔5,000美元以上消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn a total of 2.5% cash back on every purchase of $5,000 or more",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2.5,
+      "unit": "cashback-percent",
+      "spendCategory": "单笔5,000美元以上消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-premier-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-premier-credit-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-ink-business-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "unlimited 2% cash back on all other business purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]

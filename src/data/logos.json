@@ -200,7 +200,19 @@
   "全球餐厅和美国超市": "general",
   "Hilton 旗下酒店直接消费": "hotel",
   "Delta 和酒店直接消费": "travel",
-  "交通、美国运输或大额消费": "general"
+  "交通、美国运输或大额消费": "general",
+  "United 机票（合计）": "airline",
+  "其他 United 消费": "airline",
+  "Renowned Hotels and Resorts 预付": "hotel",
+  "Southwest 消费": "airline",
+  "加油站和超市": "general",
+  "超市和餐厅": "general",
+  "超市、加油站和餐饮": "general",
+  "IHG 酒店": "hotel",
+  "超市、加油站和餐厅": "general",
+  "餐厅、机票、通勤等类别": "general",
+  "Air Canada 直接消费和旅行": "travel",
+  "单笔5,000美元以上消费": "general"
  },
  "brands": [
   {

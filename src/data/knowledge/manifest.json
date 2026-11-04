@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-04.cards-3",
+  "snapshotId": "cardybara-public-knowledge-2026-11-04.cards-4",
   "asOf": "2026-11-04",
   "locale": "zh-CN",
   "files": [
@@ -790,6 +790,150 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "chase-us-united-explorer-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "页面所说的其他合作方抵扣未逐项录入。首年优惠是否适用未核实。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-united-club-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "United Club 会员资格的条件和其他合作方抵扣未逐项录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-southwest-rapid-rewards-plus-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-southwest-rapid-rewards-priority-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-southwest-rapid-rewards-premier-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-marriott-bonvoy-boundless-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "年度免费房晚未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-ihg-one-rewards-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-world-of-hyatt-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Hyatt 酒店消费的赚取比例和年度免费房晚未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-air-canada-aeroplan-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-ink-business-premier-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -854,6 +998,16 @@
     "amex-us-us-marriott-bonvoy-bevy-card",
     "amex-us-us-hilton-honors-business-card",
     "amex-us-us-delta-skymiles-platinum-business-card",
-    "amex-us-us-delta-skymiles-gold-business-card"
+    "amex-us-us-delta-skymiles-gold-business-card",
+    "chase-us-united-explorer-card",
+    "chase-us-united-club-card",
+    "chase-us-southwest-rapid-rewards-plus-credit-card",
+    "chase-us-southwest-rapid-rewards-priority-credit-card",
+    "chase-us-southwest-rapid-rewards-premier-credit-card",
+    "chase-us-marriott-bonvoy-boundless-credit-card",
+    "chase-us-ihg-one-rewards-credit-card",
+    "chase-us-world-of-hyatt-credit-card",
+    "chase-us-air-canada-aeroplan-card",
+    "chase-us-ink-business-premier-credit-card"
   ]
 }
