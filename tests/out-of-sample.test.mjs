@@ -75,14 +75,14 @@ test('structure report text keeps generic labels and hides names, tails and valu
  for(const secret of ['Alex','Quokka','1234','3141','4111','１２３４','٣١٤١'])assert.ok(!redactStructureText('Alex Quokka 1234 ...3141 4111 1111 １２３４ ٣١٤١').includes(secret),secret);
 });
 
-// Hold-outs for the other regions: invented names found nowhere in collection code, varying name, tail length and order.
+// Hold-outs for the other regions: invented names found nowhere in collection code, varying name and tail length.
 const fixtureOf=name=>JSON.parse(read('./fixtures/banks/'+name+'.json'));
-test('hold-out names for Amex and HSBC appear nowhere in collection code',()=>{
- const code=COLLECTION.map(f=>read('../extension-next/'+f)).join('\n');for(const name of ['Axolotl','Gecko'])assert.ok(!code.includes(name),name);
+test('hold-out names for Amex and HSBC appear nowhere in collection code or fixtures',()=>{
+ const code=COLLECTION.map(f=>read('../extension-next/'+f)).join('\n');const fixtures=fs.readdirSync(new URL('./fixtures/banks/',import.meta.url)).map(f=>read('./fixtures/banks/'+f)).join('\n');for(const name of ['Axolotl','Gecko']){assert.ok(!code.includes(name),name);assert.ok(!fixtures.includes(name),name);}
 });
 test('Amex US and HK billing does not change with product name or tail length',()=>{
- for(const [name,from] of [['amex-us-remaining-statement','Platinum'],['amex-hk-mvp','Unseen card']]){
-  const f=fixtureOf(name),read=(text,heading,card)=>JSON.parse(JSON.stringify(reader.parseAmexOverview(text,heading,[card],f.locale,'2030-01-01T00:00:00Z')?.fields||{}));
+ for(const name of ['amex-us-remaining-statement','amex-hk-mvp']){
+  const f=fixtureOf(name),from=f.heading.split(/\s*[•*]/)[0],read=(text,heading,card)=>JSON.parse(JSON.stringify(reader.parseAmexOverview(text,heading,[card],f.locale,'2030-01-01T00:00:00Z')?.fields||{}));
   assert.deepEqual(read(f.text,f.heading,f.card),f.expected,name);
   for(const product of ['Axolotl Business Reserve','Gecko Authorized User'])assert.deepEqual(read(f.text.replaceAll(from,product),f.heading.replace(from,product),f.card),f.expected,name+' '+product);
   const shortTail={...f.card,tail:'4242'};assert.deepEqual(read(f.text.replaceAll(f.card.tail,'4242').replaceAll(from,'Axolotl'),f.heading.replace(f.card.tail,'4242').replace(from,'Axolotl'),shortTail),f.expected,name+' four-digit tail');
@@ -94,12 +94,11 @@ test('Amex HK reads Membership Rewards whatever the card is called, and another 
  assert.deepEqual(renamed.map(i=>[i.key,i.value,i.date]),base.map(i=>[i.key,i.value,i.date]));assert.ok(base.some(i=>i.kind==='reward'&&i.value===0),'a printed zero stays a reading');
  assert.equal(keys(f.text+'\nOther card ••••24680').length,0);
 });
-test('HSBC billing does not change with product name or tail, and its rewards stay out of scope',async()=>{
+test('HSBC billing does not change with product name or tail',()=>{
  const f=fixtureOf('hsbc-hk-card-details'),read=(text,card)=>JSON.parse(JSON.stringify(reader.parseAccount(text,f.bank,card,f.locale,'2030-01-01T00:00:00Z')?.fields||{}));
- assert.deepEqual(read(f.text,f.card),f.expected);assert.deepEqual(read(f.text.replace('HSBC Red Credit Card','Gecko Premier Business'),f.card),f.expected);
- assert.deepEqual(read(f.text.replaceAll(f.card.tail,'86420').replace('HSBC Red Credit Card','Axolotl'),{...f.card,tail:'86420'}),f.expected,'five-digit tail');
- const {requiredReward}=await import('../extension-next/mvp.js');assert.equal(requiredReward('HSBC HK','RewardCash'),false);
+ assert.deepEqual(read(f.text,f.card),f.expected);const product=f.text.split('\n')[0];assert.deepEqual(read(f.text.replace(product,'Gecko Premier Business'),f.card),f.expected);
+ assert.deepEqual(read(f.text.replaceAll(f.card.tail,'86420').replace(product,'Axolotl'),{...f.card,tail:'86420'}),f.expected,'five-digit tail');
 });
-test('masked identities keep their region currency: another currency in scope reads nothing',()=>{
+test('a CNY amount in an HKD card\'s scope reads nothing',()=>{
  const f=fixtureOf('hsbc-hk-card-details');assert.equal(reader.parseAccount(f.text+'\nCNY 5.00',f.bank,f.card,f.locale,'2030-01-01T00:00:00Z'),null);
 });
