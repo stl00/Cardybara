@@ -171,7 +171,25 @@
   "AmexTravel.com 机票和预付酒店": "travel",
   "主要商业类别或5,000美元以上消费": "general",
   "每个账单周期消费最高的两个类别": "general",
-  "所有合资格消费": "general"
+  "所有合资格消费": "general",
+  "cititravel.com 酒店、租车和景点": "travel",
+  "机票和其他酒店": "travel",
+  "超市": "shopping",
+  "加油站和充电站": "ground-transport",
+  "cititravel.com 机票": "airline",
+  "Citi Nights 餐厅": "dining",
+  "其他时段餐厅": "dining",
+  "American Airlines 消费": "airline",
+  "餐厅和外卖": "dining",
+  "加油站": "ground-transport",
+  "Capital One Travel 酒店、度假屋和租车": "travel",
+  "Capital One Entertainment": "entertainment",
+  "Capital One Travel 酒店和租车": "travel",
+  "Capital One Travel 机票和度假屋": "travel",
+  "超市、餐饮、娱乐和流媒体": "general",
+  "Capital One Business Travel 酒店和租车": "travel",
+  "Capital One Business Travel 机票和度假屋": "travel",
+  "Capital One Business Travel 酒店、度假屋和租车": "travel"
  },
  "brands": [
   {
@@ -1394,6 +1412,60 @@
    "category": "hotel",
    "programmeIds": [
     "programme.leaders-club"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "citi-thankyou",
+   "name": "Citi ThankYou Points",
+   "category": "reward",
+   "programmeIds": [
+    "programme.citi-thankyou"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "aadvantage",
+   "name": "American Airlines AAdvantage",
+   "category": "airline",
+   "programmeIds": [
+    "programme.aadvantage"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "capital-one-miles",
+   "name": "Capital One Miles",
+   "category": "reward",
+   "programmeIds": [
+    "programme.capital-one-miles"
    ],
    "titleTokens": [],
    "textTokens": [],

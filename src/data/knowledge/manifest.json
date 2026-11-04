@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-04.cards-1",
+  "snapshotId": "cardybara-public-knowledge-2026-11-04.cards-2",
   "asOf": "2026-11-04",
   "locale": "zh-CN",
   "files": [
@@ -522,6 +522,156 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "citi-us-citi-strata-premier-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Citi US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "ThankYou 转点伙伴和比例尚未核对。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "citi-us-citi-strata-elite-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Citi US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "年费：页面的金额由脚本载入，读取的公开内容里没有数字，留作未知。",
+        "ThankYou 转点伙伴和比例尚未核对。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "citi-us-citi-double-cash-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Citi US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "年费：页面的金额由脚本载入，读取的公开内容里没有数字，留作未知。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "citi-us-citi-aadvantage-platinum-select-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Citi US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "年费：页面只写首年豁免，金额由脚本载入，读取的公开内容里没有数字，留作未知。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "citi-us-citi-aadvantage-executive-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Citi US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "主卡年费：金额由脚本载入，读取的公开内容里没有数字，留作未知。其他消费的赚取比例未结构化。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "capital-one-us-venture-rewards-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Capital One"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "转点伙伴和比例尚未核对。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "capital-one-us-venture-x-rewards-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Capital One"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "年度旅行额度、周年奖励里程和 Global Entry：读取到的公开内容没有数字，留作未知。",
+        "转点伙伴和比例尚未核对。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "capital-one-us-savor-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Capital One"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "capital-one-us-venture-x-business-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Capital One"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "转点伙伴和比例尚未核对。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "capital-one-us-spark-cash-plus-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Capital One"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -568,6 +718,16 @@
     "amex-us-us-the-platinum-card",
     "amex-us-us-business-platinum-card",
     "amex-us-us-business-gold-card",
-    "amex-us-us-blue-business-plus-credit-card"
+    "amex-us-us-blue-business-plus-credit-card",
+    "citi-us-citi-strata-premier-card",
+    "citi-us-citi-strata-elite-card",
+    "citi-us-citi-double-cash-card",
+    "citi-us-citi-aadvantage-platinum-select-card",
+    "citi-us-citi-aadvantage-executive-card",
+    "capital-one-us-venture-rewards-credit-card",
+    "capital-one-us-venture-x-rewards-credit-card",
+    "capital-one-us-savor-credit-card",
+    "capital-one-us-venture-x-business-card",
+    "capital-one-us-spark-cash-plus-card"
   ]
 }

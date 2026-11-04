@@ -1,0 +1,213 @@
+{
+  "batch": 2,
+  "checkedAt": "2026-11-04",
+  "reviewAfter": "2027-02-02",
+  "programmes": [
+    {"id": "programme.citi-thankyou", "name": "Citi ThankYou Points", "kind": "reward-currency"},
+    {"id": "programme.aadvantage", "name": "American Airlines AAdvantage", "kind": "airline"},
+    {"id": "programme.capital-one-miles", "name": "Capital One Miles", "kind": "reward-currency"}
+  ],
+  "cards": [
+    {
+      "id": "citi-us-citi-strata-premier-card",
+      "page": "citi-premier",
+      "issuer": "Citi",
+      "new": {"bank": "Citi US", "region": "US", "name": "Citi Strata Premier Card"},
+      "aliases": ["Citi Strata Premier", "Citi Strata Premier Credit Card"],
+      "url": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
+      "transfer": {"name": "Citi ThankYou Points", "programmeId": "programme.citi-thankyou", "linkOnly": true, "quote": "ThankYou"},
+      "fee": {"amount": 95, "currency": "USD", "quote": "Annual fee - $95"},
+      "earning": [
+        {"zh": "cititravel.com 酒店、租车和景点", "en": "Hotels, car rentals and attractions on cititravel.com", "multiplier": 10, "unit": "points-per-USD", "category": "travel", "quote": "10 points per dollar spent on Hotels, Car Rentals and Attractions booked on cititravel.com"},
+        {"zh": "机票和其他酒店", "en": "Air travel and other hotel purchases", "multiplier": 3, "unit": "points-per-USD", "category": "travel", "quote": "3 points per dollar spent on Air Travel and Other Hotel Purchases"},
+        {"zh": "餐厅", "en": "Restaurants", "multiplier": 3, "unit": "points-per-USD", "category": "dining", "quote": "3 points per dollar spent at Restaurants"},
+        {"zh": "超市", "en": "Supermarkets", "multiplier": 3, "unit": "points-per-USD", "category": "shopping", "quote": "3 points per dollar spent at Supermarkets"},
+        {"zh": "加油站和充电站", "en": "Gas and EV charging stations", "multiplier": 3, "unit": "points-per-USD", "category": "ground-transport", "quote": "3 points per dollar spent on Gas & EV Charging Stations"},
+        {"zh": "其他消费", "en": "All other purchases", "multiplier": 1, "unit": "points-per-USD", "category": "general", "quote": "1 point per dollar spent on All Other Purchases"}
+      ],
+      "credits": [
+        {"key": "hotel-benefit", "zh": "年度酒店优惠", "en": "Annual hotel benefit", "noteZh": "每自然年一次，通过 cititravel.com 或指定电话预订、单次住宿满500美元（不含税费）减100美元，预订时直接抵扣。", "noteEn": "Once per calendar year, $100 off a single hotel stay of $500 or more, excluding taxes and fees, booked through cititravel.com or the listed phone line. Applied at booking.", "amount": 100, "period": "calendar-year", "scenario": "hotel-stay", "quote": "Once per calendar year, enjoy $100 off a single hotel stay of $500 or more"}
+      ],
+      "unknown": [{"zh": "ThankYou 转点伙伴和比例尚未核对。", "en": "ThankYou transfer partners and rates are not yet checked."}]
+    },
+    {
+      "id": "citi-us-citi-strata-elite-card",
+      "page": "citi-strata-elite",
+      "issuer": "Citi",
+      "new": {"bank": "Citi US", "region": "US", "name": "Citi Strata Elite Card"},
+      "aliases": ["Citi Strata Elite", "Citi Strata Elite Credit Card"],
+      "url": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card",
+      "transfer": {"name": "Citi ThankYou Points", "programmeId": "programme.citi-thankyou", "linkOnly": true, "quote": "ThankYou"},
+      "earning": [
+        {"zh": "cititravel.com 酒店、租车和景点", "en": "Hotels, car rentals and attractions on cititravel.com", "multiplier": 12, "unit": "points-per-USD", "category": "travel", "quote": "12 points per dollar spent on Hotels, Car Rentals, and Attractions booked on cititravel.com"},
+        {"zh": "cititravel.com 机票", "en": "Air travel on cititravel.com", "multiplier": 6, "unit": "points-per-USD", "category": "airline", "quote": "6 points per dollar spent on Air Travel booked on cititravel.com"},
+        {"zh": "Citi Nights 餐厅", "en": "Restaurants on Citi Nights", "multiplier": 6, "unit": "points-per-USD", "category": "dining", "noteZh": "周五和周六晚6点至早6点（美东时间）。", "noteEn": "Friday and Saturday from 6 PM to 6 AM ET.", "quote": "6 points per dollar spent at Restaurants on Citi Nights"},
+        {"zh": "其他时段餐厅", "en": "Restaurants at any other time", "multiplier": 3, "unit": "points-per-USD", "category": "dining", "quote": "3 points per dollar spent at Restaurants any other time"},
+        {"zh": "其他消费", "en": "All other purchases", "multiplier": 1.5, "unit": "points-per-USD", "category": "general", "quote": "1.5 points per dollar spent on All Other Purchases"}
+      ],
+      "credits": [
+        {"key": "hotel-benefit", "zh": "年度酒店优惠", "en": "Annual hotel benefit", "noteZh": "每自然年最多减300美元，须通过 cititravel.com 预订至少两晚。", "noteEn": "Up to $300 off a hotel stay of 2 nights or more each calendar year, booked through cititravel.com.", "amount": 300, "period": "calendar-year", "scenario": "hotel-stay", "quote": "Each calendar year, enjoy up to $300 off a hotel stay of 2 nights or more when booked through cititravel.com"},
+        {"key": "splurge", "zh": "Splurge 抵扣", "en": "Splurge Credit", "noteZh": "每自然年最多200美元，从指定品牌中最多选两个，部分有排除。", "noteEn": "Up to $200 each calendar year on up to 2 of the listed brands; some exclusions apply.", "amount": 200, "period": "calendar-year", "scenario": "shopping", "quote": "Every calendar year, earn up to $200 in statement credits on your choice of up to 2 of the following brands"},
+        {"key": "blacklane", "zh": "Blacklane 抵扣", "en": "Blacklane credit", "noteZh": "每半年最多100美元。", "noteEn": "Up to $100 January through June and up to $100 July through December.", "amount": 100, "period": "calendar-half-year", "scenario": "ground-transport", "quote": "Earn up to $100 on Blacklane purchases January through June and up to $100 July through December"},
+        {"key": "trusted-traveler", "zh": "Global Entry 或 TSA PreCheck 申请费抵扣", "en": "Global Entry or TSA PreCheck application fee credit", "noteZh": "每四年最多120美元。", "noteEn": "Up to $120 every four years.", "amount": 120, "period": "rolling-four-years", "scenario": "airport", "quote": "Receive a statement credit, up to $120 every four years"}
+      ],
+      "unknown": [
+        {"zh": "年费：页面的金额由脚本载入，读取的公开内容里没有数字，留作未知。", "en": "Annual fee: the amount loads by script and is missing from the public text read, so it stays unknown."},
+        {"zh": "ThankYou 转点伙伴和比例尚未核对。", "en": "ThankYou transfer partners and rates are not yet checked."}
+      ]
+    },
+    {
+      "id": "citi-us-citi-double-cash-card",
+      "page": "citi-double",
+      "issuer": "Citi",
+      "new": {"bank": "Citi US", "region": "US", "name": "Citi Double Cash Card"},
+      "aliases": ["Citi Double Cash", "Citi Double Cash Credit Card"],
+      "url": "https://www.citi.com/credit-cards/citi-double-cash-credit-card",
+      "transfer": {"name": "Citi ThankYou Points", "programmeId": "programme.citi-thankyou", "linkOnly": true, "quote": "Cash back is earned in the form of ThankYou"},
+      "earning": [
+        {"zh": "所有消费", "en": "All purchases", "multiplier": 2, "unit": "cashback-percent", "category": "general", "noteZh": "消费时1%，还款时再1%。", "noteEn": "1% when you buy, plus 1% as you pay.", "quote": "Earn unlimited 1% cash back when you buy, plus an additional 1% as you pay, on every purchase"}
+      ],
+      "unknown": [{"zh": "年费：页面的金额由脚本载入，读取的公开内容里没有数字，留作未知。", "en": "Annual fee: the amount loads by script and is missing from the public text read, so it stays unknown."}]
+    },
+    {
+      "id": "citi-us-citi-aadvantage-platinum-select-card",
+      "page": "citi-aa-plat",
+      "issuer": "Citi",
+      "new": {"bank": "Citi US", "region": "US", "name": "Citi / AAdvantage Platinum Select Card"},
+      "aliases": ["Citi AAdvantage Platinum Select", "Citi / AAdvantage Platinum Select World Elite Mastercard", "AAdvantage Platinum Select"],
+      "url": "https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard",
+      "transfer": {"name": "American Airlines AAdvantage", "programmeId": "programme.aadvantage", "linkOnly": true, "quote": "AAdvantage"},
+      "earning": [
+        {"zh": "American Airlines 消费", "en": "Eligible American Airlines purchases", "multiplier": 2, "unit": "miles-per-USD", "category": "airline", "quote": "Earn 2 AAdvantage miles for every $1 spent on eligible American Airlines purchases"},
+        {"zh": "餐厅和外卖", "en": "Restaurants, including takeout", "multiplier": 2, "unit": "miles-per-USD", "category": "dining", "quote": "Earn 2 AAdvantage miles for every $1 spent at restaurants, including takeout"},
+        {"zh": "加油站", "en": "Gas stations", "multiplier": 2, "unit": "miles-per-USD", "category": "ground-transport", "quote": "spent at gas stations"},
+        {"zh": "其他消费", "en": "All other purchases", "multiplier": 1, "unit": "miles-per-USD", "category": "general", "quote": "Earn 1 AAdvantage mile for every $1 spent on all other purchases"}
+      ],
+      "credits": [
+        {"key": "checked-bag", "zh": "美国国内航线首件托运行李免费", "en": "First checked bag free on domestic American Airlines itineraries", "noteZh": "你和同一订单最多4名同行人。", "noteEn": "For you and up to 4 companions on the same reservation.", "scenario": "airport", "category": "membership", "period": "per-trip", "quote": "1 free checked bag on domestic American Airlines itineraries for you and up to 4 travel companions"}
+      ],
+      "unknown": [{"zh": "年费：页面只写首年豁免，金额由脚本载入，读取的公开内容里没有数字，留作未知。", "en": "Annual fee: the page says it is waived for the first year, but the amount loads by script and is missing from the public text read."}]
+    },
+    {
+      "id": "citi-us-citi-aadvantage-executive-card",
+      "page": "citi-aa-exec",
+      "issuer": "Citi",
+      "new": {"bank": "Citi US", "region": "US", "name": "Citi / AAdvantage Executive Card"},
+      "aliases": ["Citi AAdvantage Executive", "Citi / AAdvantage Executive World Legend Mastercard", "AAdvantage Executive"],
+      "url": "https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard",
+      "transfer": {"name": "American Airlines AAdvantage", "programmeId": "programme.aadvantage", "linkOnly": true, "quote": "AAdvantage"},
+      "additionalFee": {"amount": 175, "currency": "USD", "quote": "Add up to 3 Authorized Users to your card for an annual fee of $175"},
+      "earning": [
+        {"zh": "American Airlines 消费", "en": "Eligible American Airlines purchases", "multiplier": 4, "unit": "miles-per-USD", "category": "airline", "noteZh": "自然年消费满15万美元后，合计每美元5英里。", "noteEn": "After $150,000 in purchases in a calendar year, a total of 5 miles per $1.", "quote": "Earn 4 AAdvantage miles for every $1 spent on eligible American Airlines purchases"}
+      ],
+      "credits": [
+        {"key": "aa-vacations", "zh": "American Airlines Vacations 抵扣", "en": "American Airlines Vacations credit", "noteZh": "每半年最多250美元。", "noteEn": "Up to $250 January through June and up to $250 July through December.", "amount": 250, "period": "calendar-half-year", "scenario": "travel", "quote": "Earn up to $250 on purchases January through June and up to $250 July through December"},
+        {"key": "inkind", "zh": "inKind 餐饮额度", "en": "inKind dining credits", "noteZh": "每年200美元，须把卡加入 inKind 应用；周期的起算方式未结构化。", "noteEn": "$200 annually when you add your card to the inKind app. How the year is counted is not structured here.", "amount": 200, "scenario": "dining", "enrollment": true, "quote": "Get $200 in Citi / AAdvantage Executive Dining Credits annually with inKind"},
+        {"key": "lyft", "zh": "Lyft 额度", "en": "Lyft credits", "noteZh": "一个自然月乘车满3次得15美元，全年最多180美元。", "noteEn": "A $15 Lyft credit after 3 eligible rides in a calendar month, up to $180 annually.", "amount": 15, "period": "calendar-month", "scenario": "ground-transport", "quote": "After taking 3 eligible rides in a calendar month, earn a $15 Lyft credit"},
+        {"key": "inflight", "zh": "机上和 Admirals Club 消费抵扣", "en": "Inflight and Admirals Club credit", "noteZh": "每自然年最多100美元。", "noteEn": "Up to $100 each calendar year.", "amount": 100, "period": "calendar-year", "scenario": "airport", "quote": "Every calendar year, earn up to $100 in statement credits on inflight and eligible Admirals Club purchases"},
+        {"key": "trusted-traveler", "zh": "Global Entry 或 TSA PreCheck 申请费抵扣", "en": "Global Entry or TSA PreCheck application fee credit", "noteZh": "每四年最多120美元。", "noteEn": "Up to $120 every 4 years.", "amount": 120, "period": "rolling-four-years", "scenario": "airport", "quote": "Receive a statement credit, up to $120 every 4 years"},
+        {"key": "admirals-club", "zh": "Admirals Club 会员", "en": "Admirals Club membership", "noteZh": "主卡持卡人的会员资格；同行规则以条款为准。", "noteEn": "Membership for the primary cardmember; guest rules follow the terms.", "scenario": "airport", "category": "lounge", "period": "ongoing", "quote": "The only card with Admirals Club membership"}
+      ],
+      "unknown": [{"zh": "主卡年费：金额由脚本载入，读取的公开内容里没有数字，留作未知。其他消费的赚取比例未结构化。", "en": "Primary annual fee: the amount loads by script and is missing from the public text read. Other earning rates are not structured."}]
+    },
+    {
+      "id": "capital-one-us-venture-rewards-credit-card",
+      "page": "cap1-venture",
+      "issuer": "Capital One",
+      "collection": "not-supported",
+      "new": {"bank": "Capital One", "region": "US", "name": "Venture Rewards Credit Card"},
+      "aliases": ["Capital One Venture", "Capital One Venture Rewards", "Venture Rewards"],
+      "url": "https://www.capitalone.com/credit-cards/venture/",
+      "transfer": {"name": "Capital One Miles", "programmeId": "programme.capital-one-miles", "linkOnly": true, "quote": "2X miles"},
+      "fee": {"amount": 95, "currency": "USD", "quote": "Annual fee $95"},
+      "earning": [
+        {"zh": "Capital One Travel 酒店、度假屋和租车", "en": "Hotels, vacation rentals and rental cars through Capital One Travel", "multiplier": 5, "unit": "miles-per-USD", "category": "travel", "quote": "Earn 5X miles on hotels, vacation rentals and rental cars booked through Capital One Travel"},
+        {"zh": "Capital One Entertainment", "en": "Capital One Entertainment", "multiplier": 5, "unit": "miles-per-USD", "category": "entertainment", "quote": "Earn 5X miles on purchases"},
+        {"zh": "所有消费", "en": "Every purchase", "multiplier": 2, "unit": "miles-per-USD", "category": "general", "quote": "Earn unlimited 2X miles per dollar on every purchase, every day"}
+      ],
+      "credits": [
+        {"key": "lifestyle-collection", "zh": "Lifestyle Collection 体验额度", "en": "Lifestyle Collection experience credit", "noteZh": "每次预订50美元，酒店结账时抵扣。", "noteEn": "$50 with every Lifestyle Collection booking, applied at checkout by the hotel.", "amount": 50, "period": "per-stay", "scenario": "hotel-stay", "quote": "Receive a $50 experience credit with every Lifestyle Collection booking"},
+        {"key": "trusted-traveler", "zh": "Global Entry 或 TSA PreCheck 申请费抵扣", "en": "Global Entry or TSA PreCheck application fee credit", "noteZh": "最多120美元；周期未结构化。", "noteEn": "Up to $120; how often is not structured here.", "amount": 120, "scenario": "airport", "quote": "Receive up to a $120 statement credit when you use your Venture Rewards card to apply for Global Entry or TSA PreCheck"}
+      ],
+      "unknown": [{"zh": "转点伙伴和比例尚未核对。", "en": "Transfer partners and rates are not yet checked."}]
+    },
+    {
+      "id": "capital-one-us-venture-x-rewards-credit-card",
+      "page": "cap1-vx",
+      "issuer": "Capital One",
+      "collection": "not-supported",
+      "new": {"bank": "Capital One", "region": "US", "name": "Venture X Rewards Credit Card"},
+      "aliases": ["Capital One Venture X", "Venture X", "Venture X Rewards"],
+      "url": "https://www.capitalone.com/credit-cards/venture-x/",
+      "transfer": {"name": "Capital One Miles", "programmeId": "programme.capital-one-miles", "linkOnly": true, "quote": "transfer miles to your choice of 15+ travel loyalty programs"},
+      "fee": {"amount": 395, "currency": "USD", "quote": "Annual Fee $395"},
+      "earning": [
+        {"zh": "Capital One Travel 酒店和租车", "en": "Hotels and rental cars through Capital One Travel", "multiplier": 10, "unit": "miles-per-USD", "category": "travel", "quote": "10X Miles on hotels & rental cars booked through Capital One Travel"},
+        {"zh": "Capital One Travel 机票和度假屋", "en": "Flights and vacation rentals through Capital One Travel", "multiplier": 5, "unit": "miles-per-USD", "category": "travel", "quote": "5X Miles on flights and vacation rentals"},
+        {"zh": "Capital One Entertainment", "en": "Capital One Entertainment", "multiplier": 5, "unit": "miles-per-USD", "category": "entertainment", "quote": "earn 5X miles on Capital One Entertainment purchases"},
+        {"zh": "其他消费", "en": "All other purchases", "multiplier": 2, "unit": "miles-per-USD", "category": "general", "quote": "2X Miles on all other purchases, every day"}
+      ],
+      "credits": [
+        {"key": "premier-collection", "zh": "Premier Collection 体验额度", "en": "Premier Collection experience credit", "noteZh": "最多100美元，酒店结账时用于合资格消费。", "noteEn": "Up to $100, applied at checkout by the hotel to qualifying charges.", "amount": 100, "period": "per-stay", "scenario": "hotel-stay", "quote": "Premier Collection hotel experience credit will be applied at checkout by hotel to qualifying charges up to $100"}
+      ],
+      "unknown": [
+        {"zh": "年度旅行额度、周年奖励里程和 Global Entry：读取到的公开内容没有数字，留作未知。", "en": "Annual travel credit, anniversary miles and Global Entry: no figures in the public text read, so they stay unknown."},
+        {"zh": "转点伙伴和比例尚未核对。", "en": "Transfer partners and rates are not yet checked."}
+      ]
+    },
+    {
+      "id": "capital-one-us-savor-credit-card",
+      "page": "cap1-savor",
+      "issuer": "Capital One",
+      "collection": "not-supported",
+      "new": {"bank": "Capital One", "region": "US", "name": "Savor Credit Card"},
+      "aliases": ["Capital One Savor", "Savor Cash Rewards", "Savor"],
+      "url": "https://www.capitalone.com/credit-cards/savor/",
+      "fee": {"amount": 0, "currency": "USD", "quote": "$0 annual fee"},
+      "earning": [
+        {"zh": "Capital One Entertainment", "en": "Capital One Entertainment", "multiplier": 8, "unit": "cashback-percent", "category": "entertainment", "quote": "Earn unlimited 8% cash back on Capital One Entertainment purchases"},
+        {"zh": "超市、餐饮、娱乐和流媒体", "en": "Grocery stores, dining, entertainment and popular streaming", "multiplier": 3, "unit": "cashback-percent", "category": "general", "quote": "Earn unlimited 3% cash back at grocery stores, on dining, entertainment and popular streaming services"},
+        {"zh": "其他消费", "en": "All other purchases", "multiplier": 1, "unit": "cashback-percent", "category": "general", "quote": "plus 1% cash back on all other purchases"}
+      ]
+    },
+    {
+      "id": "capital-one-us-venture-x-business-card",
+      "page": "cap1-vxb",
+      "issuer": "Capital One",
+      "collection": "not-supported",
+      "new": {"bank": "Capital One", "region": "US", "name": "Venture X Business Card"},
+      "aliases": ["Capital One Venture X Business", "Venture X Business"],
+      "url": "https://www.capitalone.com/small-business/credit-cards/venture-x-business/",
+      "transfer": {"name": "Capital One Miles", "programmeId": "programme.capital-one-miles", "linkOnly": true, "quote": "2X miles on every purchase"},
+      "fee": {"amount": 395, "currency": "USD", "quote": "$395 annual fee"},
+      "earning": [
+        {"zh": "Capital One Business Travel 酒店和租车", "en": "Hotels and rental cars through Capital One Business Travel", "multiplier": 10, "unit": "miles-per-USD", "category": "travel", "quote": "Book through Capital One Business Travel to earn 10X miles on hotels and rental cars"},
+        {"zh": "Capital One Business Travel 机票和度假屋", "en": "Flights and vacation rentals through Capital One Business Travel", "multiplier": 5, "unit": "miles-per-USD", "category": "travel", "quote": "and 5X miles on flights and vacation rentals"},
+        {"zh": "所有消费", "en": "Every purchase", "multiplier": 2, "unit": "miles-per-USD", "category": "general", "quote": "2X miles on every purchase"}
+      ],
+      "credits": [
+        {"key": "travel", "zh": "Capital One Business Travel 年度额度", "en": "Annual Capital One Business Travel credit", "noteZh": "每年300美元，须通过 Capital One Business Travel 预订；周期的起算方式未结构化。", "noteEn": "An annual $300 credit when you book through Capital One Business Travel. How the year is counted is not structured here.", "amount": 300, "scenario": "travel", "quote": "An annual $300 credit when you book through Capital One Business Travel"},
+        {"key": "anniversary-miles", "zh": "周年奖励里程", "en": "Anniversary bonus miles", "noteZh": "每个账户周年10,000里程；页面标的100美元价值是发卡行说法，这里不当作每点价值。", "noteEn": "10,000 bonus miles on your anniversary. The dollar value is the issuer's wording and is not used here as a value per mile.", "scenario": "card-ownership", "category": "membership", "period": "account-anniversary", "quote": "10,000 bonus miles ($100 value) on your anniversary"},
+        {"key": "trusted-traveler", "zh": "Global Entry 或 TSA PreCheck 申请费抵扣", "en": "Global Entry or TSA PreCheck application fee credit", "noteZh": "最多120美元；周期未结构化。", "noteEn": "Up to $120; how often is not structured here.", "amount": 120, "scenario": "airport", "quote": "Receive up to a $120 statement credit on Global Entry or TSA PreCheck"}
+      ],
+      "unknown": [{"zh": "转点伙伴和比例尚未核对。", "en": "Transfer partners and rates are not yet checked."}]
+    },
+    {
+      "id": "capital-one-us-spark-cash-plus-card",
+      "page": "cap1-sparkcashplus",
+      "issuer": "Capital One",
+      "collection": "not-supported",
+      "new": {"bank": "Capital One", "region": "US", "name": "Spark Cash Plus Card"},
+      "aliases": ["Capital One Spark Cash Plus", "Spark Cash Plus", "Spark 2% Cash Plus"],
+      "url": "https://www.capitalone.com/small-business/credit-cards/spark-cash-plus/",
+      "fee": {"amount": 150, "currency": "USD", "quote": "Get your $150 annual fee refunded every year you spend at least $150,000"},
+      "earning": [
+        {"zh": "Capital One Business Travel 酒店、度假屋和租车", "en": "Hotels, vacation rentals and rental cars through Capital One Business Travel", "multiplier": 5, "unit": "cashback-percent", "category": "travel", "quote": "Earn unlimited 5% cash back on hotels, vacation rentals and rental cars booked through Capital One Business Travel"},
+        {"zh": "所有消费", "en": "Every purchase", "multiplier": 2, "unit": "cashback-percent", "category": "general", "quote": "2% Cash Back Business Card"}
+      ],
+      "credits": [
+        {"key": "fee-refund", "zh": "年费退还", "en": "Annual fee refund", "noteZh": "每年消费满15万美元退还150美元年费；是否达标未核实。", "noteEn": "The $150 annual fee is refunded every year you spend at least $150,000. Whether you reach it is unverified.", "amount": 150, "period": "account-anniversary", "scenario": "card-ownership", "category": "spend-unlock", "quote": "Get your $150 annual fee refunded every year you spend at least $150,000"}
+      ]
+    }
+  ]
+}

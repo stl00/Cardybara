@@ -11,6 +11,10 @@ const banks={
  'SC HK':['sc.png','香港渣打','HK'],
  BOA:['boa.png','Bank of America','US'],
  'Citi US':[null,'Citi','US'],
+ 'Capital One':[null,'Capital One','US'],
+ Discover:[null,'Discover','US'],
+ 'U.S. Bank':[null,'U.S. Bank','US'],
+ 'Wells Fargo':[null,'Wells Fargo','US'],
  Hilton:['hilton.png','Hilton Honors','US'],
  IHG:['ihg.ico','IHG One Rewards','US']
 };

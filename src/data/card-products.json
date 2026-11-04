@@ -1920,6 +1920,235 @@
         "checkedAt": "2026-11-04"
       },
       "transferProgrammeId": "programme.amex-membership-rewards-us"
+    },
+    {
+      "id": "citi-us-citi-strata-premier-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi Strata Premier Card",
+      "aliases": [
+        "Citi Strata Premier Card",
+        "Citi Strata Premier",
+        "Citi Strata Premier Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Citi ThankYou Points"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "citi-us-citi-strata-elite-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi Strata Elite Card",
+      "aliases": [
+        "Citi Strata Elite Card",
+        "Citi Strata Elite",
+        "Citi Strata Elite Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Citi ThankYou Points"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "citi-us-citi-double-cash-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi Double Cash Card",
+      "aliases": [
+        "Citi Double Cash Card",
+        "Citi Double Cash",
+        "Citi Double Cash Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Citi ThankYou Points"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-double-cash-credit-card",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-double-cash-credit-card",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "citi-us-citi-aadvantage-platinum-select-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi / AAdvantage Platinum Select Card",
+      "aliases": [
+        "Citi / AAdvantage Platinum Select Card",
+        "Citi AAdvantage Platinum Select",
+        "Citi / AAdvantage Platinum Select World Elite Mastercard",
+        "AAdvantage Platinum Select"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "American Airlines AAdvantage"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "citi-us-citi-aadvantage-executive-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi / AAdvantage Executive Card",
+      "aliases": [
+        "Citi / AAdvantage Executive Card",
+        "Citi AAdvantage Executive",
+        "Citi / AAdvantage Executive World Legend Mastercard",
+        "AAdvantage Executive"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "American Airlines AAdvantage"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "capital-one-us-venture-rewards-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Venture Rewards Credit Card",
+      "aliases": [
+        "Venture Rewards Credit Card",
+        "Capital One Venture",
+        "Capital One Venture Rewards",
+        "Venture Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Capital One Miles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/venture/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://www.capitalone.com/credit-cards/venture/",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "capital-one-us-venture-x-rewards-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Venture X Rewards Credit Card",
+      "aliases": [
+        "Venture X Rewards Credit Card",
+        "Capital One Venture X",
+        "Venture X",
+        "Venture X Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Capital One Miles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/venture-x/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://www.capitalone.com/credit-cards/venture-x/",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "capital-one-us-savor-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Savor Credit Card",
+      "aliases": [
+        "Savor Credit Card",
+        "Capital One Savor",
+        "Savor Cash Rewards",
+        "Savor"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/savor/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-venture-x-business-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Venture X Business Card",
+      "aliases": [
+        "Venture X Business Card",
+        "Capital One Venture X Business",
+        "Venture X Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Capital One Miles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/venture-x-business/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://www.capitalone.com/small-business/credit-cards/venture-x-business/",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "capital-one-us-spark-cash-plus-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Spark Cash Plus Card",
+      "aliases": [
+        "Spark Cash Plus Card",
+        "Capital One Spark Cash Plus",
+        "Spark Cash Plus",
+        "Spark 2% Cash Plus"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/spark-cash-plus/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
     }
   ]
 }

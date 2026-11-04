@@ -120,6 +120,9 @@ Some programmes show a related company's mark, and are labelled as that company:
 | Qatar Airways Privilege Club | unverified | null | null | not located | Not checked; no mark is shipped. |
 | Choice Privileges | unverified | null | null | not located | Not checked; no mark is shipped. |
 | The Leading Hotels of the World Leaders Club | unverified | null | null | not located | Not checked; no mark is shipped. |
+| Citi ThankYou Points | unverified | null | null | not located | Not checked; no mark is shipped. |
+| American Airlines AAdvantage | unverified | null | null | not located | Not checked; no mark is shipped. |
+| Capital One Miles | unverified | null | null | not located | Not checked; no mark is shipped. |
 
 ## Issuer marks
 

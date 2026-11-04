@@ -42,12 +42,16 @@ def main():
     review_after = batch['reviewAfter']
     rules, sources, manifest = read(base / 'rules.json'), read(base / 'sources.json'), read(base / 'manifest.json')
     entities, taxonomy = read(base / 'entities.json'), read(base / 'taxonomy.json')
+    logos = read(root / 'src/data/logos.json')
+    asset_rows = []
     for programme in batch.get('programmes', []):
         if not any(e['id'] == programme['id'] for e in entities['programmes']):
             entities['programmes'].append({**programme, 'aliases': []})
+            # A new brand gets no mark until the owner approves it; the category icon shows instead.
+            logos['brands'].append({'id': programme['id'].split('.', 1)[1], 'name': programme['name'], 'category': 'airline' if programme['kind'] == 'airline' else 'reward', 'programmeIds': [programme['id']], 'titleTokens': [], 'textTokens': [], 'termsUrl': None, 'finding': 'Not checked; no mark is shipped.', 'checkedAt': checked, 'status': 'unapproved', 'approval': None, 'terms': 'unverified', 'logo': None, 'source': None})
+            asset_rows.append(f"| {programme['name']} | unverified | null | null | not located | Not checked; no mark is shipped. |")
     products = read(root / 'src/data/card-products.json')
     overrides = read(root / 'src/data/card-product-overrides.json')
-    logos = read(root / 'src/data/logos.json')
     tr = read(root / 'src/translations.json')
 
     def txt(zh, en):
@@ -152,6 +156,12 @@ def main():
     write(root / 'src/data/card-product-overrides.json', overrides)
     write(root / 'src/translations.json', tr)
     write(root / 'src/data/logos.json', logos, indent=1)
+    if asset_rows:
+        assets = root / 'public/ASSET-SOURCES.md'
+        anchor = '| The Leading Hotels of the World Leaders Club |'
+        lines = assets.read_text().split('\n')
+        at = next(i for i, line in enumerate(lines) if line.startswith(anchor))
+        assets.write_text('\n'.join(lines[:at + 1] + asset_rows + lines[at + 1:]))
     write_coverage()
     print('cards', len(batch['cards']), 'rules', len(rules), 'sources', len(sources))
 
