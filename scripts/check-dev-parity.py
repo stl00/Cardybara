@@ -18,6 +18,9 @@ def compare(dev):
   for n in sorted(names-PACKAGE_ONLY-DEV_DROPS):
    f=dev/n
    if not f.is_file():problems.append('missing from the dev build: '+n)
+   # The same empty wallet, serialized by a different tool.
+   elif n=='data.json':
+    if json.loads(f.read_bytes())!=json.loads(z.read(n)):problems.append('differs from the release package: data.json')
    elif f.read_bytes()!=z.read(n):problems.append('differs from the release package: '+n)
   m=json.loads(z.read('manifest.json'))
  d=json.loads((dev/'manifest.json').read_text())

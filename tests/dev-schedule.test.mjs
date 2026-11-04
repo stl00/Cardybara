@@ -86,7 +86,8 @@ test('the parity check fails when the dev build runs different code from the rel
   const built=spawnSync(process.execPath,['scripts/build-dev-extension.mjs','--no-wallet'],{cwd:root,encoding:'utf8',env:{...process.env,CARDYBARA_DEV_EXTENSION_DIR:join(dir,'ext')}});assert.equal(built.status,0,built.stderr);
   const manifest=JSON.parse(readFileSync(join(dir,'ext/manifest.json'),'utf8')),release={...manifest,permissions:manifest.permissions.filter(p=>p!=='idle'),host_permissions:manifest.host_permissions.filter(h=>!h.startsWith('http:'))};
   writeFileSync(join(dir,'m.json'),JSON.stringify(release));
-  const make=(name,source)=>spawnSync('python3',['-c',"import sys,zipfile\nz=zipfile.ZipFile(sys.argv[1],'w');z.writestr('manifest.json',open(sys.argv[2]).read());z.writestr('reader.js',open(sys.argv[3]).read());z.close()",join(dir,name),join(dir,'m.json'),source]);
+  // A package holding every shared file, as the real one does.
+  const make=(name,source)=>spawnSync('python3',['-c',"import sys,zipfile,pathlib\nz=zipfile.ZipFile(sys.argv[1],'w')\nfor f in pathlib.Path(sys.argv[4]).iterdir():\n if f.is_file() and f.name not in ['manifest.json','reader.js','background-dev.js','schedule-core.js','dev-popup.html','dev-popup.js','dev-build-info.js','build-stamp.json','dev-structure-report.js']:z.write(f,f.name)\nz.writestr('manifest.json',open(sys.argv[2]).read());z.writestr('reader.js',open(sys.argv[3]).read());z.close()",join(dir,name),join(dir,'m.json'),source,join(dir,'ext')]);
   const check=(zip,dev=join(dir,'ext'))=>spawnSync('python3',['scripts/check-dev-parity.py','--dev-dir='+dev,'--package-file='+join(dir,zip)],{cwd:root,encoding:'utf8'});
   make('same.zip',join(root,'extension-next/reader.js'));const same=check('same.zip');assert.equal(same.status,0,same.stdout+same.stderr);
   writeFileSync(join(dir,'other.js'),readFileSync(join(root,'extension-next/reader.js'),'utf8')+'\n// changed\n');make('other.zip',join(dir,'other.js'));

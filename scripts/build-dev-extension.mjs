@@ -22,7 +22,7 @@ await rm(join(work,'dashboard.js'),{force:true});
 // A file injected as is, so a strict page CSP cannot block it. Its last expression is the report.
 await writeFile(join(work,'dev-structure-report.js'),'('+structureReport+')('+redactStructureText+');\n');
 const manifest=JSON.parse(await readFile(join(work,'manifest.json'),'utf8'));
-manifest.name='Cardybara Dev';manifest.background={service_worker:'background-dev.js',type:'module'};manifest.action.default_popup='dev-popup.html';manifest.action.default_title='Cardybara Dev';manifest.permissions=[...manifest.permissions,'idle'];
+manifest.name='Cardybara Dev';manifest.background={service_worker:'background-dev.js',type:'module'};manifest.action.default_popup='dev-popup.html';manifest.action.default_title='Cardybara Dev';manifest.permissions=[...manifest.permissions,'idle'];manifest.optional_permissions=[...new Set([...(manifest.optional_permissions||[]),'notifications'])];
 delete manifest.content_scripts;
 // A page on localhost can't reach the extension: no content script and no external connections. This permission only lets the report be sent.
 manifest.host_permissions=[...manifest.host_permissions.filter(h=>!h.startsWith('http:')),'http://127.0.0.1:8766/*'];manifest.optional_host_permissions=(manifest.optional_host_permissions||[]).filter(h=>!h.startsWith('http:'));
