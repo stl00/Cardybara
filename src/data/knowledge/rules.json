@@ -37512,7 +37512,7 @@
       "programme.delta-skymiles"
     ],
     "content": {
-      "title": "美国餐厅",
+      "title": "餐厅（外卖和配送限美国）",
       "summary": "公布赚取比例；类别范围和限额以条款为准。",
       "sourceText": "get rewarded with 2X Miles at restaurants plus takeout and delivery in the U.S.",
       "howToUse": [
@@ -37524,7 +37524,7 @@
     "terms": {
       "multiplier": 2,
       "unit": "miles-per-USD",
-      "spendCategory": "美国餐厅",
+      "spendCategory": "餐厅（外卖和配送限美国）",
       "spendCap": null,
       "creditedSpendMayNotEarn": null
     },
@@ -38263,7 +38263,7 @@
       "programme.delta-skymiles"
     ],
     "content": {
-      "title": "美国餐厅",
+      "title": "餐厅（外卖和配送限美国）",
       "summary": "公布赚取比例；类别范围和限额以条款为准。",
       "sourceText": "2X MILES On Dining At restaurants, including takeout and delivery in the U.S.",
       "howToUse": [
@@ -38275,7 +38275,7 @@
     "terms": {
       "multiplier": 2,
       "unit": "miles-per-USD",
-      "spendCategory": "美国餐厅",
+      "spendCategory": "餐厅（外卖和配送限美国）",
       "spendCap": null,
       "creditedSpendMayNotEarn": null
     },
@@ -38562,6 +38562,138 @@
       "coverage": "partial",
       "all": [],
       "unparsedText": "每月最多10美元，限美国合资格 Resy 餐厅，须登记。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-platinum-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-platinum-card.trusted-traveler",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-platinum-card.trusted-traveler@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Global Entry 或 TSA PreCheck 申请费抵扣",
+      "summary": "页面只列名称，金额和周期未在该卡读取内容中确认。",
+      "sourceText": "Fee Credit for Global Entry or TSA PreCheck",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面只列名称，金额和周期未在该卡读取内容中确认。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": null,
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面只列名称，金额和周期未在该卡读取内容中确认。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-platinum-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-platinum-card.inflight",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-platinum-card.inflight@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "机上消费20%返还",
+      "summary": "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。",
+      "sourceText": "20% Back On In-Flight Purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。"
     },
     "evidence": {
       "sourceIds": [
@@ -39624,17 +39756,17 @@
     "programmeIds": [],
     "content": {
       "title": "Global Entry 或 TSA PreCheck 申请费抵扣",
-      "summary": "Global Entry 120美元，或 TSA PreCheck 最多85美元；周期未结构化。",
+      "summary": "Global Entry 120美元，或 TSA PreCheck 最多85美元；四年内只给一次。",
       "sourceText": "Receive either a $120 statement credit for Global Entry or a statement credit for up to $85 for TSA PreCheck",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "Global Entry 120美元，或 TSA PreCheck 最多85美元；周期未结构化。",
+        "Global Entry 120美元，或 TSA PreCheck 最多85美元；四年内只给一次。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
     "terms": {
       "category": "credit",
-      "period": null,
+      "period": "rolling-four-years",
       "amount": 120,
       "currency": "USD"
     },
@@ -39646,7 +39778,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Global Entry 120美元，或 TSA PreCheck 最多85美元；周期未结构化。"
+      "unparsedText": "Global Entry 120美元，或 TSA PreCheck 最多85美元；四年内只给一次。"
     },
     "evidence": {
       "sourceIds": [
@@ -40153,6 +40285,74 @@
     "personalState": "not-in-public-knowledge"
   },
   {
+    "id": "rule.amex-us-us-marriott-bonvoy-bevy-card.free-night",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-bevy-card.free-night@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-bevy-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "消费解锁免费房晚",
+      "summary": "自然年消费满1.5万美元得1晚；是否达标未核实。",
+      "sourceText": "can earn 1 Free Night Award after spending $15,000 on eligible purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "自然年消费满1.5万美元得1晚；是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "自然年消费满1.5万美元得1晚；是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-bevy-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
     "id": "rule.amex-us-us-hilton-honors-business-card.fee-primary",
     "revision": 1,
     "revisionId": "rule.amex-us-us-hilton-honors-business-card.fee-primary@2026-11-04.1",
@@ -40174,7 +40374,7 @@
     "content": {
       "title": "主卡年费",
       "summary": "公布标准年费，不代表个人已收取或已获豁免。",
-      "sourceText": "$125 Annual Fee",
+      "sourceText": "$195 Annual Fee",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
         "公布标准年费，不代表个人已收取或已获豁免。",
@@ -40182,11 +40382,79 @@
       ]
     },
     "terms": {
-      "amount": 125,
+      "amount": 195,
       "currency": "USD",
       "period": "annual-fee",
       "billingCycle": "issuer-account-terms",
       "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-business-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-business-card.fee-additional@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-hilton-honors-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "offers an Employee Card option with no annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
       "actualCharge": null
     },
     "validity": {
@@ -40431,6 +40699,142 @@
     "personalState": "not-in-public-knowledge"
   },
   {
+    "id": "rule.amex-us-us-hilton-honors-business-card.gold-status",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-business-card.gold-status@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "Hilton Honors Gold 会籍",
+      "summary": "公开规则；个人会籍未核实。",
+      "sourceText": "Enjoy even more perks as a Hilton Honors Gold member",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公开规则；个人会籍未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公开规则；个人会籍未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-business-card.diamond-upgrade",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-business-card.diamond-upgrade@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "Diamond 会籍升级",
+      "summary": "自然年消费满4万美元可升级；是否达标未核实。",
+      "sourceText": "Spend $40,000 on eligible purchases on your Card in a calendar year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "自然年消费满4万美元可升级；是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "自然年消费满4万美元可升级；是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
     "id": "rule.amex-us-us-delta-skymiles-platinum-business-card.fee-primary",
     "revision": 1,
     "revisionId": "rule.amex-us-us-delta-skymiles-platinum-business-card.fee-primary@2026-11-04.1",
@@ -40590,11 +40994,11 @@
     ],
     "content": {
       "title": "交通、美国运输或大额消费",
-      "summary": "合计每年前10万美元；单笔5,000美元以上算大额。",
+      "summary": "合计每年前10万美元（页面只写每年）；单笔5,000美元以上算大额；多个加速比例时只取较高者。",
       "sourceText": "up to $100K of combined eligible purchases per year",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "合计每年前10万美元；单笔5,000美元以上算大额。",
+        "合计每年前10万美元（页面只写每年）；单笔5,000美元以上算大额；多个加速比例时只取较高者。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -40605,7 +41009,7 @@
       "spendCap": {
         "amount": 100000,
         "currency": "USD",
-        "period": "calendar-year"
+        "period": null
       },
       "creditedSpendMayNotEarn": null
     },
@@ -40617,7 +41021,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "合计每年前10万美元；单笔5,000美元以上算大额。"
+      "unparsedText": "合计每年前10万美元（页面只写每年）；单笔5,000美元以上算大额；多个加速比例时只取较高者。"
     },
     "evidence": {
       "sourceIds": [
@@ -40754,6 +41158,207 @@
       "coverage": "partial",
       "all": [],
       "unparsedText": "每月最多10美元，限美国指定服务商，须登记。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-platinum-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-platinum-business-card.resy",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-platinum-business-card.resy@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-platinum-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "dining"
+    ],
+    "programmeIds": [
+      "programme.resy"
+    ],
+    "content": {
+      "title": "Resy 餐厅抵扣",
+      "summary": "每年最多120美元，须登记。",
+      "sourceText": "Earn up to $120 in statement credits annually after making eligible Resy purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年最多120美元，须登记。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": 120,
+      "currency": "USD",
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年最多120美元，须登记。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-platinum-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-platinum-business-card.delta-stays",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-platinum-business-card.delta-stays@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-platinum-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Delta Stays 抵扣",
+      "summary": "每年最多200美元；周期的起算方式未结构化。",
+      "sourceText": "an annual statement credit of up to $200 after using your",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年最多200美元；周期的起算方式未结构化。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": 200,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年最多200美元；周期的起算方式未结构化。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-platinum-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-platinum-business-card.trusted-traveler",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-platinum-business-card.trusted-traveler@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-platinum-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Global Entry 或 TSA PreCheck 申请费抵扣",
+      "summary": "Global Entry 120美元，或 TSA PreCheck 最多85美元；周期未结构化。",
+      "sourceText": "Receive either a $120 statement credit for a Global Entry application fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "Global Entry 120美元，或 TSA PreCheck 最多85美元；周期未结构化。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": 120,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Global Entry 120美元，或 TSA PreCheck 最多85美元；周期未结构化。"
     },
     "evidence": {
       "sourceIds": [
@@ -41163,6 +41768,139 @@
       "coverage": "partial",
       "all": [],
       "unparsedText": "每年最多150美元，限预付；周期的起算方式未结构化。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-gold-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-gold-business-card.rideshare",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-gold-business-card.rideshare@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-gold-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "网约车抵扣",
+      "summary": "首次续卡后每月最多10美元，须登记，限美国指定服务商。",
+      "sourceText": "After your first Card renewal, enroll and earn up to $10 in statement credits each month",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "首次续卡后每月最多10美元，须登记，限美国指定服务商。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-month",
+      "amount": 10,
+      "currency": "USD",
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "首次续卡后每月最多10美元，须登记，限美国指定服务商。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-gold-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-gold-business-card.inflight",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-gold-business-card.inflight@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-gold-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "机上消费20%返还",
+      "summary": "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。",
+      "sourceText": "Receive a 20% savings in the form of a statement credit on eligible Delta in-flight purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以抵扣形式返还，限 Delta 机上餐饮等合资格消费。"
     },
     "evidence": {
       "sourceIds": [
