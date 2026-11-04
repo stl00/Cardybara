@@ -21,21 +21,13 @@
       },
       "earning": [
         {
-          "zh": "United 机票（合计）",
-          "en": "Eligible United flights, total",
-          "multiplier": 9,
-          "unit": "miles-per-USD",
-          "category": "airline",
-          "noteZh": "合计数，包含 MileagePlus 会员本身的6倍和本卡的3倍。",
-          "noteEn": "A total: 6x as a MileagePlus member plus 3x from the card.",
-          "quote": "9x total miles on eligible United flights"
-        },
-        {
-          "zh": "其他 United 消费",
-          "en": "All other eligible United purchases",
+          "zh": "United 消费",
+          "en": "United purchases",
           "multiplier": 3,
           "unit": "miles-per-USD",
           "category": "airline",
+          "noteZh": "本卡的比例；页面的9倍合计还包含主卡持卡人机票作为 MileagePlus 会员的6倍，Basic Economy 不同。",
+          "noteEn": "The card's own rate. The 9x total on the page also counts 6x on the primary cardmember's fare as a MileagePlus member; Basic Economy differs.",
           "quote": "3x miles on all other eligible United purchases"
         },
         {
@@ -79,8 +71,8 @@
           "key": "first-bag",
           "zh": "首件托运行李免费",
           "en": "Free first checked bag",
-          "noteZh": "主卡持卡人和一名同行人。",
-          "noteEn": "For the primary Cardmember and one companion.",
+          "noteZh": "主卡持卡人和一名同行人；须用本卡购票并在订单中填写 MileagePlus 号码；开户后90天内的航班除外。",
+          "noteEn": "For the primary Cardmember and one companion. The primary Cardmember must buy the ticket with the card and include their MileagePlus number, except flights within 90 days of opening the account.",
           "scenario": "airport",
           "category": "membership",
           "period": "per-trip",
@@ -93,8 +85,8 @@
           "key": "inflight",
           "zh": "机上消费25%返还",
           "en": "25% back on inflight purchases",
-          "noteZh": "以抵扣形式返还，限 United 航班的餐饮和 Wi-Fi。",
-          "noteEn": "A statement credit on food, beverages and Wi-Fi on United-operated flights.",
+          "noteZh": "以抵扣形式返还，限 United 机上餐饮、Wi-Fi 和 Club 高级饮品。",
+          "noteEn": "A statement credit on food, beverages and Wi-Fi on board and on Club premium drinks.",
           "scenario": "airport",
           "category": "membership",
           "period": "ongoing",
@@ -118,8 +110,8 @@
       ],
       "unknown": [
         {
-          "zh": "页面所说的其他合作方抵扣未逐项录入。首年优惠是否适用未核实。",
-          "en": "The other partner credits on the page are not recorded individually. Whether the intro fee applies is unverified."
+          "zh": "Club 通行证、登机组别、里程折扣、另一项100美元旅行额度和其他合作方抵扣未录入。首年优惠是否适用未核实。",
+          "en": "Club passes, boarding group, award discount, the other $100 travel credit and other partner credits are not recorded. Whether the intro fee applies is unverified."
         }
       ]
     },
@@ -141,21 +133,13 @@
       },
       "earning": [
         {
-          "zh": "United 机票（合计）",
-          "en": "Eligible United flights, total",
-          "multiplier": 11,
-          "unit": "miles-per-USD",
-          "category": "airline",
-          "noteZh": "合计数，包含 MileagePlus 会员本身的6倍和本卡的5倍。",
-          "noteEn": "A total: 6x as a MileagePlus member plus 5x from the card.",
-          "quote": "11x total miles on eligible United flights"
-        },
-        {
-          "zh": "其他 United 消费",
-          "en": "All other eligible United purchases",
+          "zh": "United 消费",
+          "en": "United purchases",
           "multiplier": 5,
           "unit": "miles-per-USD",
           "category": "airline",
+          "noteZh": "本卡的比例；页面的11倍合计还包含主卡持卡人机票作为 MileagePlus 会员的6倍，Basic Economy 不同。",
+          "noteEn": "The card's own rate. The 11x total on the page also counts 6x on the primary cardmember's fare as a MileagePlus member; Basic Economy differs.",
           "quote": "5x miles on all other eligible United purchases"
         },
         {
@@ -165,6 +149,14 @@
           "unit": "miles-per-USD",
           "category": "hotel",
           "quote": "5x miles on hotel stays when you prepay directly through Renowned Hotels and Resorts"
+        },
+        {
+          "zh": "其他旅行",
+          "en": "All other travel",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "travel",
+          "quote": "2x miles on all other travel including airfare, trains, local transit"
         },
         {
           "zh": "餐饮",
@@ -188,8 +180,8 @@
           "key": "bags",
           "zh": "前两件托运行李免费",
           "en": "Free first and second checked bags",
-          "noteZh": "主卡持卡人和一名同行人。",
-          "noteEn": "For the primary Cardmember and one companion.",
+          "noteZh": "主卡持卡人和一名同行人；须用本卡购票并在订单中填写 MileagePlus 号码；开户后90天内的航班除外。",
+          "noteEn": "For the primary Cardmember and one companion. The primary Cardmember must buy the ticket with the card and include their MileagePlus number, except flights within 90 days of opening the account.",
           "scenario": "airport",
           "category": "membership",
           "period": "per-trip",
@@ -202,20 +194,21 @@
           "key": "renowned-hotels",
           "zh": "Renowned Hotels and Resorts 抵扣",
           "en": "Renowned Hotels and Resorts credit",
-          "noteZh": "每年最多200美元；周期的起算方式未结构化。",
-          "noteEn": "Up to $200 annually. How the year is counted is not structured here.",
+          "noteZh": "每个账户周年最多200美元，须预付（Pay Now）。",
+          "noteEn": "Up to $200 each anniversary year on prepaid stays through Renowned Hotels and Resorts, using Pay Now.",
           "amount": 200,
           "scenario": "hotel-stay",
           "programmeIds": [
             "programme.renowned-hotels-and-resorts"
           ],
-          "quote": "Up to $200 in credits annually"
+          "quote": "each anniversary year on hotel accommodations when you prepay directly through Renowned Hotels",
+          "period": "account-anniversary"
         }
       ],
       "unknown": [
         {
-          "zh": "United Club 会员资格的条件和其他合作方抵扣未逐项录入。",
-          "en": "United Club membership conditions and the other partner credits are not recorded individually."
+          "zh": "United Club 会员资格及其条件、Premier Access、PQP 和其他合作方抵扣未录入。",
+          "en": "United Club membership and its conditions, Premier Access, PQP and other partner credits are not recorded."
         }
       ]
     },
@@ -256,7 +249,7 @@
             "period": "account-anniversary"
           },
           "noteZh": "每个账户周年合计前5,000美元；之后按1倍。",
-          "noteEn": "On the first $5,000 in combined purchases per anniversary year.",
+          "noteEn": "On the first $5,000 in combined purchases per anniversary year, then 1X.",
           "quote": "at gas stations and grocery stores on the first $5,000 in combined purchases per anniversary year"
         },
         {
@@ -273,12 +266,32 @@
           "key": "inflight",
           "zh": "机上消费25%返还",
           "en": "25% back on inflight purchases",
-          "noteZh": "以抵扣形式返还，限 Southwest 航班。",
-          "noteEn": "A statement credit on Southwest Airlines flights.",
+          "noteZh": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
+          "noteEn": "A statement credit on drinks and WiFi on Southwest Airlines flights.",
           "scenario": "airport",
           "category": "membership",
           "period": "ongoing",
           "quote": "25% back on inflight purchases"
+        },
+        {
+          "key": "anniversary-points",
+          "zh": "周年积分",
+          "en": "Anniversary points",
+          "noteZh": "每年3,000点；个人到账未核实。",
+          "noteEn": "3,000 anniversary points each year. Personal posting is unverified.",
+          "scenario": "card-ownership",
+          "category": "membership",
+          "period": "account-anniversary",
+          "programmeIds": [
+            "programme.southwest-rapid-rewards"
+          ],
+          "quote": "3,000 anniversary points each year"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
+          "en": "Free checked bags, flight discounts, seat selection, boarding group and limited-time Lyft rates are not recorded."
         }
       ]
     },
@@ -346,6 +359,26 @@
           "category": "spend-unlock",
           "period": "ongoing",
           "quote": "Earn 2,500 tier qualifying points (TQPs) toward A-List status for every $5,000 spent in purchases annually"
+        },
+        {
+          "key": "anniversary-points",
+          "zh": "周年积分",
+          "en": "Anniversary points",
+          "noteZh": "每年7,500点；个人到账未核实。",
+          "noteEn": "7,500 anniversary points each year. Personal posting is unverified.",
+          "scenario": "card-ownership",
+          "category": "membership",
+          "period": "account-anniversary",
+          "programmeIds": [
+            "programme.southwest-rapid-rewards"
+          ],
+          "quote": "7,500 anniversary points each year"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
+          "en": "Free checked bags, flight discounts, seat selection, boarding group and limited-time Lyft rates are not recorded."
         }
       ]
     },
@@ -386,7 +419,7 @@
             "period": "account-anniversary"
           },
           "noteZh": "每个账户周年合计前8,000美元；之后按1倍。",
-          "noteEn": "On the first $8,000 in combined purchases per anniversary year.",
+          "noteEn": "On the first $8,000 in combined purchases per anniversary year, then 1X.",
           "quote": "Earn 2 points for each dollar spent at grocery stores and restaurants on the first $8,000 in combined purchases per anniversary year"
         },
         {
@@ -403,8 +436,8 @@
           "key": "inflight",
           "zh": "机上消费25%返还",
           "en": "25% back on inflight purchases",
-          "noteZh": "以抵扣形式返还，限 Southwest 航班。",
-          "noteEn": "A statement credit on Southwest Airlines flights.",
+          "noteZh": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
+          "noteEn": "A statement credit on drinks and WiFi on Southwest Airlines flights.",
           "scenario": "airport",
           "category": "membership",
           "period": "ongoing",
@@ -420,6 +453,26 @@
           "category": "spend-unlock",
           "period": "ongoing",
           "quote": "Earn 1,500 tier qualifying points (TQPs) toward A-List status for every $5,000 spent in purchases annually"
+        },
+        {
+          "key": "anniversary-points",
+          "zh": "周年积分",
+          "en": "Anniversary points",
+          "noteZh": "每年6,000点；个人到账未核实。",
+          "noteEn": "6,000 anniversary points each year. Personal posting is unverified.",
+          "scenario": "card-ownership",
+          "category": "membership",
+          "period": "account-anniversary",
+          "programmeIds": [
+            "programme.southwest-rapid-rewards"
+          ],
+          "quote": "6,000 anniversary points each year"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
+          "en": "Free checked bags, flight discounts, seat selection, boarding group and limited-time Lyft rates are not recorded."
         }
       ]
     },
@@ -459,10 +512,10 @@
           "cap": {
             "amount": 6000,
             "currency": "USD",
-            "period": "calendar-year"
+            "period": null
           },
-          "noteZh": "每年合计前6,000美元；之后按2倍。周期的起算方式以条款为准。",
-          "noteEn": "On the first $6,000 in combined purchases annually, then 2X. How the year is counted follows the terms.",
+          "noteZh": "每年合计前6,000美元，之后按2倍；这里的“每年”从开户日起算到12月账单日，不是自然年。",
+          "noteEn": "On the first $6,000 in combined purchases annually, then 2X. \"Annually\" runs from the account open date to the December statement date, not a calendar year.",
           "quote": "Earn 3X points for every $1 on the first $6,000 spent in combined purchases annually"
         },
         {
@@ -479,12 +532,17 @@
           "key": "airline-credit",
           "zh": "航空消费抵扣",
           "en": "Airline statement credits",
-          "noteZh": "半年一次、每次50美元，须直接向航空公司消费；限期优惠，半年如何划分和后续是否延续未核实。",
-          "noteEn": "$50 semi-annually on purchases made directly with airlines. A limited offer; how the half-years divide and whether it continues are unverified.",
+          "noteZh": "限时至2027年6月30日：2026年6月4日至12月31日、2027年1月1日至6月30日各消费满250美元，各得50美元，须直接向航空公司消费；老持卡人须激活一次。是否达标未核实。",
+          "noteEn": "Through 6/30/2027: spend $250 directly with airlines between June 4 and Dec. 31, 2026 for $50, and another $250 between Jan. 1 and June 30, 2027 for another $50. Existing cardmembers must activate once. Whether you reach it is unverified.",
           "amount": 50,
           "period": null,
           "scenario": "airport",
-          "quote": "That's $50 in statement credits semi-annually"
+          "quote": "Spend $250 between June 4 and Dec. 31, 2026 to earn a $50 statement credit",
+          "category": "spend-unlock",
+          "enrollment": true,
+          "validity": {
+            "effectiveThrough": "2027-06-30"
+          }
         },
         {
           "key": "silver-elite",
@@ -541,7 +599,20 @@
           "multiplier": 3,
           "unit": "points-per-USD",
           "category": "general",
-          "quote": "You’ll earn 3 points for each $1 spent on purchases made in the following rewards categories"
+          "quote": "Earn 3X points on dining and gas stations"
+        },
+        {
+          "zh": "公用事业、网络电话和指定流媒体",
+          "en": "Utilities; internet, cable and phone; select streaming",
+          "multiplier": 3,
+          "unit": "points-per-USD",
+          "category": "general",
+          "noteZh": "限2026年12月31日前入账的消费。",
+          "noteEn": "For purchases posting through December 31, 2026.",
+          "quote": "purchases that post to your account through December 31, 2026 in the following rewards categories",
+          "validity": {
+            "effectiveThrough": "2026-12-31"
+          }
         },
         {
           "zh": "其他消费",
@@ -557,18 +628,15 @@
           "key": "fourth-night",
           "zh": "第四晚免费",
           "en": "4th Reward Night free",
-          "noteZh": "2027年起，自然年消费满5,000美元后解锁，用积分连住四晚时适用；是否达标未核实。",
-          "noteEn": "Starting in 2027, spend $5,000 in a calendar year to unlock it when redeeming points for four consecutive nights. Whether you reach it is unverified.",
+          "noteZh": "2026年12月31日后须满足年度消费要求（自然年5,000美元），用积分连住四晚时第四晚免费；是否达标未核实。",
+          "noteEn": "After December 31, 2026, an annual spend requirement applies ($5,000 in a calendar year) for a free 4th night when redeeming points for four consecutive nights. Whether you reach it is unverified.",
           "scenario": "hotel-stay",
           "category": "spend-unlock",
-          "period": "calendar-year",
+          "period": null,
           "programmeIds": [
             "programme.ihg-one-rewards"
           ],
-          "quote": "Starting in 2027, spend $5,000 on purchases in a calendar year and unlock a 4th Reward Night free",
-          "validity": {
-            "effectiveFrom": "2027-01-01"
-          }
+          "quote": "After December 31, 2026: You will have to meet an annual spend requirement"
         },
         {
           "key": "silver-elite",
@@ -583,6 +651,12 @@
             "programme.ihg-one-rewards"
           ],
           "quote": "with Silver Elite Status"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "Elite Night Credits 和消费解锁的 Gold Elite 未录入。",
+          "en": "Elite Night Credits and the spend-unlocked Gold Elite are not recorded."
         }
       ]
     },
@@ -603,6 +677,14 @@
         "quote": "ANNUAL FEE $95"
       },
       "earning": [
+        {
+          "zh": "Hyatt 酒店",
+          "en": "Hyatt hotels",
+          "multiplier": 4,
+          "unit": "points-per-USD",
+          "category": "hotel",
+          "quote": "4 Bonus Points per $1 spent on qualifying purchases at Hyatt Hotels"
+        },
         {
           "zh": "餐厅、机票、通勤等类别",
           "en": "Restaurants, airline tickets, local transit and other listed categories",
@@ -625,8 +707,8 @@
           "key": "doordash-promo",
           "zh": "DoorDash 每季优惠",
           "en": "Quarterly DoorDash promo",
-          "noteZh": "激活 DashPass 后，每季一笔非餐厅订单减10美元。",
-          "noteEn": "Once DashPass is activated, $10 off one qualifying non-restaurant order each calendar quarter.",
+          "noteZh": "激活 DashPass 后，每季一笔非餐厅订单减10美元；须用本卡付款，未用完作废；免费期后 DashPass 会自动扣费。",
+          "noteEn": "Once DashPass is activated, $10 off one non-restaurant order each calendar quarter, paying with this card. Unused value is lost, and DashPass bills automatically after the free period.",
           "amount": 10,
           "period": "calendar-quarter",
           "scenario": "shopping",
@@ -640,8 +722,8 @@
       ],
       "unknown": [
         {
-          "zh": "Hyatt 酒店消费的赚取比例和年度免费房晚未录入。",
-          "en": "The earning rate at Hyatt hotels and the annual free night are not recorded."
+          "zh": "年度免费房晚、Tier Qualifying Night 和消费解锁的额外房晚未录入。",
+          "en": "The annual free night, tier qualifying nights and the spend-unlocked free night are not recorded."
         }
       ]
     },
@@ -676,8 +758,8 @@
           "multiplier": 2,
           "unit": "points-per-USD",
           "category": "shopping",
-          "noteZh": "2026年12月31日前入账的按3倍，之后按2倍。",
-          "noteEn": "3X for purchases posting by December 31, 2026, then 2X.",
+          "noteZh": "当前为3倍：2026年12月31日前入账按3倍，之后按这里记录的2倍。",
+          "noteEn": "3X now for purchases posting by December 31, 2026, then the 2X recorded here.",
           "quote": "2X points per $1 spent at grocery stores"
         },
         {
@@ -686,8 +768,8 @@
           "multiplier": 2,
           "unit": "points-per-USD",
           "category": "dining",
-          "noteZh": "2026年12月31日前入账的按3倍，之后按2倍。",
-          "noteEn": "3X for purchases posting by December 31, 2026, then 2X.",
+          "noteZh": "当前为3倍：2026年12月31日前入账按3倍，之后按这里记录的2倍。",
+          "noteEn": "3X now for purchases posting by December 31, 2026, then the 2X recorded here.",
           "quote": "2X points per $1 spent on dining, including takeout and eligible delivery services"
         },
         {
@@ -712,14 +794,21 @@
           "key": "air-canada-credit",
           "zh": "Air Canada 抵扣",
           "en": "Air Canada statement credits",
-          "noteZh": "每年两次、每次最多50美元；具体周期未结构化。",
-          "noteEn": "Up to $50 delivered twice annually. The exact periods are not structured here.",
+          "noteZh": "每半年最多50美元，须直接向 Air Canada 合资格消费；礼品卡、租车和酒店预订等除外。",
+          "noteEn": "Up to $50 from January to June and up to $50 from July to December on eligible purchases directly with Air Canada; gift cards, car rentals, hotel bookings and others are excluded.",
           "amount": 50,
           "scenario": "airport",
           "programmeIds": [
             "programme.air-canada"
           ],
-          "quote": "Receive up to $50 in Air Canada statement credits delivered twice annually"
+          "quote": "from January 1 through June 30 and up to $50 from July 1 through December 31",
+          "period": "calendar-half-year"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "Aeroplan 25K 会籍、免费托运行李和 FLY15OFF 未录入。",
+          "en": "Aeroplan 25K status, free checked bags and FLY15OFF are not recorded."
         }
       ]
     },
@@ -757,6 +846,12 @@
           "unit": "cashback-percent",
           "category": "general",
           "quote": "unlimited 2% cash back on all other business purchases"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "限时 Lyft 倍率未录入。",
+          "en": "The limited-time Lyft earning rate is not recorded."
         }
       ]
     }
