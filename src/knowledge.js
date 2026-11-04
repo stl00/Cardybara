@@ -112,6 +112,7 @@ export function validateKnowledge(){
    if(r.terms.coupon.review?.checkedAt!==r.evidence.checkedAt||(!Array.isArray(r.terms.coupon.review?.sourceIds)||r.terms.coupon.review.sourceIds.some(id=>!r.evidence.sourceIds.includes(id))))fail('coupon evidence mismatch');
   }
  }
+ for(const p of cardProducts)if(p.transferProgrammeId){const market=rules.find(r=>r.kind==='transfer-relationship'&&r.status==='published'&&r.terms.fromProgrammeId===p.transferProgrammeId)?.market;if(!programmeIds.has(p.transferProgrammeId))errors.push(`${p.id}: unknown transfer programme`);else if(market&&(market.issuer!==p.bank||market.country!==p.region))errors.push(`${p.id}: transfer programme from another issuer or market`);}
  for(const [id,rows] of ids){rows.sort((a,b)=>a.revision-b.revision);for(let i=0;i<rows.length;i++){if(i===0&&rows[i].supersedes!==null)errors.push(`${id}: missing root revision`);if(i>0&&(rows[i].revision<=rows[i-1].revision||rows[i].supersedes!==rows[i-1].revisionId||rows[i].evidence.checkedAt<rows[i-1].evidence.checkedAt))errors.push(`${id}: broken revision chain`);}}
  return {valid:errors.length===0,errors,rules:rules.length,uniqueRules:ids.size,programmes:entities.programmes.length,sources:sources.length};
 }

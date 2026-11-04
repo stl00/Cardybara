@@ -130,6 +130,13 @@ test('a withdrawn revision leaves current answers but stays in history, and its 
  const next=getKnowledgeRule(rows.at(-1).terms.replacedByRuleId);assert.ok(next.productIds.includes(csr));assert.equal(next.transferRate.rate,null);
  assert.equal(resolveRuleRevisions(rows,{asOf:'2026-11-04'}).length,0);
 });
+test('rule text gives the assistant no rate to repeat for another card',async()=>{
+ const {runWalletTool}=await import('../src/walletAgent.js');const {answerGrounding}=await import('../src/answerGrounding.js');
+ const cards=[{id:'a',bank:'Chase',region:'US',name:'Sapphire Reserve'},{id:'b',bank:'Chase',region:'US',name:'Chase Sapphire Preferred Credit Card'}];
+ const result=runWalletTool({id:'t',type:'function',function:{name:'get_card_rules',arguments:JSON.stringify({kind:'transfer-relationship',programme:'Hyatt'})}},{cards,day:'2026-11-04'});
+ assert.ok(result.rules.length);assert.ok(!JSON.stringify(result).includes('750'));assert.ok(!/4\s*:\s*3/.test(JSON.stringify(result)));
+ assert.ok(answerGrounding('Your Sapphire Reserve gets 750 Hyatt points for 1,000 points.',[result]).issues.some(i=>i.code==='unsupported_number'));
+});
 test('published rates cannot loosen the answer check before the assistant can tell cards apart',async()=>{
  const {answerGrounding}=await import('../src/answerGrounding.js');
  const evidence=[{rules:queryKnowledge({kind:'transfer-relationship',productId:csp}).rules}];

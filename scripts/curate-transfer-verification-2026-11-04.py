@@ -121,8 +121,9 @@ SUMMARY_HK = txt('Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费�
 SUMMARY_HK_NOTE = txt('Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开。该计划单位带星号，但页面没有对应脚注。', 'Amex HK publishes Turbo Program rates only. The partner unit carries an asterisk with no matching footnote on the page.')
 SUMMARY_HK_QANTAS = txt('Amex HK 只公开 Turbo 计划费率；每次转点收取300港元行政费，Centurion及Corporate持卡人除外。', 'Amex HK publishes Turbo Program rates only; a HK$300 administration fee applies per transfer, except for Centurion and Corporate Cardmembers.')
 SUMMARY_UR = txt('Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。', 'Chase does not state this partner individually, so no result is computed. Increments of 1,000 points; most process by the next business day, up to 7 business days. A point transfer fee may be charged, and Chase says it will tell you first.')
-SUMMARY_HYATT = txt('Sapphire Preferred 与 Ink Business Preferred 页面公布：2026年10月1日起转 World of Hyatt 为4:3（1,000点得750点）。', 'Published on the Sapphire Preferred and Ink Business Preferred pages: from October 1, 2026, points transfer to World of Hyatt at 4:3 (1,000 points gives 750).')
-SUMMARY_HYATT_OTHER = txt('本卡页面没有公布 World of Hyatt 比例；其他卡的4:3不套用到本卡，须登录转点页核对。', 'This card\'s pages do not state a World of Hyatt rate; the 4:3 stated for other cards is not applied here. Check the signed-in transfer page.')
+# Rule text reaches the assistant, so it names no rate: a number here would ground a claim about any card.
+SUMMARY_HYATT = txt('Sapphire Preferred 与 Ink Business Preferred 页面公布了 World of Hyatt 的转点比例，2026年10月1日起生效；具体比例见积分页。', 'The Sapphire Preferred and Ink Business Preferred pages publish a World of Hyatt transfer rate, effective October 1, 2026; the points page shows it.')
+SUMMARY_HYATT_OTHER = txt('本卡页面没有公布 World of Hyatt 比例；其他卡公布的比例不套用到本卡，须登录转点页核对。', 'This card\'s pages do not state a World of Hyatt rate; a rate published for other cards is not applied here. Check the signed-in transfer page.')
 
 
 def rule(id, from_id, to_id, product_ids, issuer, country, summary, terms, source_ids, effective_from=None):
