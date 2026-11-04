@@ -62,3 +62,16 @@ html{scroll-behavior:smooth}body{margin:0}.app-layout{min-height:100vh}.app-side
 .item-logo{width:var(--item-logo-size,16px);height:var(--item-logo-size,16px);flex:0 0 var(--item-logo-size,16px);display:inline-flex;align-items:center;justify-content:center;margin-inline-end:6px;vertical-align:-0.15em;line-height:1;font-size:var(--item-logo-size,16px)}
 .item-logo.is-icon{color:inherit;opacity:.65}
 .item-logo.is-logo{border-radius:4px;background:#fff;border:1px solid #0000000a;overflow:hidden}.item-logo.is-logo img{width:100%;height:100%;object-fit:contain;display:block}
+
+/* Benefit view: a short list, with categories and search for the rest. */
+.credit-row{padding:12px 0;border-bottom:1px solid var(--ant-color-split,rgba(5,5,5,.06))}.credit-row-main{flex:1 1 320px;min-width:0}.credit-row-main .ant-tag{margin-inline-end:0}.credit-row-card{margin:6px 0 2px}.credit-row-facts{font-size:12px}.credit-row .ant-collapse{margin-top:2px}.credit-row .ant-collapse-header{padding:2px 0!important;font-size:12px;color:var(--ant-color-text-secondary,rgba(0,0,0,.45))}.credit-row .ant-collapse-content-box{padding:4px 0 0!important}
+.credit-filters{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:8px}.credit-search{flex:1 1 220px;max-width:320px}.credit-categories{flex:1 1 100%}.credit-categories .ant-tag{margin-inline-end:0;display:inline-flex;align-items:center}
+@media(max-width:767px){.credit-search{max-width:none;flex-basis:100%}.credit-manager .ant-card-head-wrapper{flex-wrap:wrap;row-gap:4px;padding-block:8px}.credit-manager .ant-card-extra{margin-inline-start:0}.credit-manager .ant-card-body{padding:12px 16px}}
+/* Payment assistant: rows use Ant Design tokens so a future dark theme needs no changes here. */
+.payment-assistant .ant-card-head{flex-wrap:wrap;padding-block:10px}.payment-assistant .ant-card-head-wrapper{flex-wrap:wrap;row-gap:4px}.payment-assistant .ant-card-extra{margin-inline-start:0}.payment-assistant .ant-card-head-title{flex:0 0 auto;overflow:visible}
+.payment-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--ant-color-split,rgba(5,5,5,.06))}
+.payment-row:first-child{padding-top:0}.payment-row-main{display:flex;flex-direction:column;gap:4px;flex:1 1 320px;min-width:0}
+.payment-row .ant-tag{margin-inline-end:0}.payment-due{font-size:15px}.payment-facts,.payment-hint,.payment-foot{font-size:12px}.payment-actions{flex:0 0 auto}
+.payment-refresh{margin:12px 0}.payment-rest{margin:4px -16px 0}.payment-filter{max-width:100%;overflow-x:auto}.payment-search{width:220px}.payment-foot{display:block;margin-top:8px}
+@media(max-width:767px){.payment-assistant .ant-card-body{padding:12px 16px}.payment-search{width:100%}.payment-actions{flex:1 1 100%}.page-heading .ant-space{width:100%}.page-overview .wallet-data-status,.page-overview .page-heading .ant-typography-secondary{display:none}}
+
