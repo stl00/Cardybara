@@ -1,0 +1,210 @@
+{
+  "batch": 1,
+  "checkedAt": "2026-11-04",
+  "reviewAfter": "2027-02-02",
+  "cards": [
+    {
+      "id": "chase-us-chase-sapphire-preferred-credit-card",
+      "page": "ch-chase-sapphire-preferred-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
+      "fee": {"amount": 95, "currency": "USD", "quote": "$95 annual fee"},
+      "earning": [
+        {"zh": "Chase Travel", "en": "Chase Travel", "multiplier": 5, "unit": "points-per-USD", "category": "travel", "quote": "5x points on Chase Travel"},
+        {"zh": "餐饮", "en": "Dining", "multiplier": 3, "unit": "points-per-USD", "category": "dining", "quote": "3x points on dining"},
+        {"zh": "加油站、充电和指定度假屋", "en": "Gas stations, EV charging and vacation homes at top brands", "multiplier": 3, "unit": "points-per-USD", "category": "ground-transport", "quote": "3x points on gas stations, EV charging, and vacation homes at top brands"},
+        {"zh": "指定流媒体和线上杂货", "en": "Top streaming services and online grocery", "multiplier": 3, "unit": "points-per-USD", "category": "shopping", "noteZh": "公布赚取比例；部分商户除外，以条款为准。", "noteEn": "Published earning rate; exclusions apply, see the terms.", "quote": "3x points on top streaming services and online grocery, exclusions apply"},
+        {"zh": "其他旅行", "en": "All other travel", "multiplier": 2, "unit": "points-per-USD", "category": "travel", "quote": "2x points on all other travel"},
+        {"zh": "其他消费", "en": "All other purchases", "multiplier": 1, "unit": "points-per-USD", "category": "general", "quote": "1X points on all other purchases"}
+      ],
+      "credits": [
+        {"key": "hotel-credit", "zh": "Chase Travel 酒店抵扣", "en": "Annual Chase Travel hotel credit", "noteZh": "通过 Chase Travel 用本卡订酒店自动抵扣；“每年”从开户日起算，不是自然年；被抵扣的前100美元不赚点。", "noteEn": "Applied automatically to hotel purchases through Chase Travel with this card. The year starts on the account open date, and the first $100 earns no points.", "amount": 100, "period": "account-anniversary", "scenario": "hotel-stay", "quote": "up to an annual maximum accumulation of $100"},
+        {"key": "trusted-traveler", "zh": "Global Entry、TSA PreCheck 或 NEXUS 申请费抵扣", "en": "Global Entry, TSA PreCheck or NEXUS application fee credit", "noteZh": "每四年一次，须用本卡支付申请费。", "noteEn": "One statement credit every four years for an application fee charged to the card.", "amount": 120, "period": "rolling-four-years", "scenario": "airport", "quote": "one statement credit of up to $120 every four years"},
+        {"key": "doordash-promo", "zh": "DoorDash 每月优惠", "en": "Monthly DoorDash promo", "noteZh": "DashPass 会员每月10美元，可用于杂货和零售等订单；须在2029年12月31日前激活 DashPass。", "noteEn": "$10 each month for DashPass members on groceries, retail and more; activate DashPass by December 31, 2029.", "amount": 10, "period": "calendar-month", "scenario": "dining", "category": "promo", "programmeIds": ["programme.doordash"], "enrollment": true, "quote": "DashPass members get a $10 promo each month", "validity": {"enrollBy": "2029-12-31"}},
+        {"key": "apple-tv", "zh": "Apple TV 会员", "en": "Complimentary Apple TV", "noteZh": "一年免费 Apple TV，须在2026年12月31日前激活。", "noteEn": "A year of complimentary Apple TV when activated by December 31, 2026.", "period": "activation-based", "scenario": "entertainment", "category": "membership", "programmeIds": ["programme.apple"], "enrollment": true, "quote": "Get a year of complimentary Apple TV when activated by December 31, 2026", "validity": {"enrollBy": "2026-12-31"}}
+      ],
+      "unknown": [{"zh": "附属卡年费未在读取到的页面内容中确认。", "en": "The authorized user fee was not confirmed in the page text read."}]
+    },
+    {
+      "id": "chase-us-ink-business-preferred-credit-card",
+      "page": "ch-ink-business-preferred-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
+      "fee": {"amount": 95, "currency": "USD", "quote": "ANNUAL FEE $95"},
+      "earning": [
+        {"zh": "运输、广告、网络电话和旅行", "en": "Shipping, advertising, internet, cable, phone and travel", "multiplier": 3, "unit": "points-per-USD", "category": "general", "cap": {"amount": 150000, "currency": "USD", "period": "account-anniversary"}, "noteZh": "每个账户周年内合计前15万美元；之后按1倍。", "noteEn": "On the first $150,000 in combined purchases each account anniversary year.", "quote": "Earn 3 points per $1 on the first $150,000 spent in combined purchases"},
+        {"zh": "其他消费", "en": "All other purchases", "multiplier": 1, "unit": "points-per-USD", "category": "general", "quote": "Earn 1 point per $1 on all other purchases"}
+      ],
+      "credits": [
+        {"key": "doordash-promo", "zh": "DoorDash 每月优惠", "en": "Monthly DoorDash promo", "noteZh": "激活 DashPass 后每月最多10美元，用于杂货和零售订单；须在2027年12月31日前激活。", "noteEn": "Up to $10 a month on grocery and retail DoorDash orders once DashPass is activated by December 31, 2027.", "amount": 10, "period": "calendar-month", "scenario": "dining", "category": "promo", "programmeIds": ["programme.doordash"], "enrollment": true, "quote": "up to $10 a month on grocery and retail DoorDash orders", "validity": {"enrollBy": "2027-12-31"}}
+      ],
+      "unknown": [{"zh": "员工卡免费，但具体费用条款未结构化。", "en": "Employee cards are described as no additional cost; the fee terms are not structured here."}]
+    },
+    {
+      "id": "chase-us-ink-business-cash-credit-card",
+      "page": "ch-ink-business-cash-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/business-credit-cards/ink/cash",
+      "fee": {"amount": 0, "currency": "USD", "quote": "Annual Fee $0"},
+      "earning": [
+        {"zh": "办公用品、网络电话", "en": "Office supply stores; internet, cable and phone", "multiplier": 5, "unit": "cashback-percent", "category": "shopping", "cap": {"amount": 25000, "currency": "USD", "period": "account-anniversary"}, "noteZh": "每个账户周年内合计前2.5万美元；之后按1%。", "noteEn": "On the first $25,000 in combined purchases each account anniversary year.", "quote": "Earn 5% cash back on the first $25,000 spent in combined purchases at office supply stores and on internet, cable and phone services each account anniversary year"},
+        {"zh": "加油站和餐厅", "en": "Gas stations and restaurants", "multiplier": 2, "unit": "cashback-percent", "category": "general", "cap": {"amount": 25000, "currency": "USD", "period": "account-anniversary"}, "noteZh": "每个账户周年内合计前2.5万美元；之后按1%。", "noteEn": "On the first $25,000 in combined purchases each account anniversary year.", "quote": "Earn 2% cash back on the first $25,000 spent in combined purchases at gas stations and"},
+        {"zh": "其他消费", "en": "All other purchases", "multiplier": 1, "unit": "cashback-percent", "category": "general", "quote": "You’ll earn 1% Cash Back rewards for each $1 spent"}
+      ],
+      "credits": [
+        {"key": "instacart", "zh": "Instacart 每月抵扣", "en": "Monthly Instacart credit", "noteZh": "须有有效 Instacart+ 会员并在2025年5月1日至2027年12月31日间激活；免费会员期结束后会自动续费。", "noteEn": "Needs an active Instacart+ membership activated from 5/1/2025 through 12/31/2027; the free membership renews automatically afterwards.", "amount": 20, "period": "calendar-month", "scenario": "shopping", "category": "promo", "enrollment": true, "quote": "receive a $20 credit in your Instacart account each month", "validity": {"enrollBy": "2027-12-31"}}
+      ]
+    },
+    {
+      "id": "chase-us-ink-business-unlimited-credit-card",
+      "page": "ch-ink-business-unlimited-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/business-credit-cards/ink/unlimited",
+      "fee": {"amount": 0, "currency": "USD", "quote": "ANNUAL FEE $0"},
+      "earning": [
+        {"zh": "所有消费", "en": "Every purchase", "multiplier": 1.5, "unit": "cashback-percent", "category": "general", "quote": "Earn unlimited 1.5% Cash Back rewards on every purchase"}
+      ],
+      "credits": [
+        {"key": "instacart", "zh": "Instacart 每月抵扣", "en": "Monthly Instacart credit", "noteZh": "须有有效 Instacart+ 会员并在2025年5月1日至2027年12月31日间激活；免费会员期结束后会自动续费。", "noteEn": "Needs an active Instacart+ membership activated from 5/1/2025 through 12/31/2027; the free membership renews automatically afterwards.", "amount": 20, "period": "calendar-month", "scenario": "shopping", "category": "promo", "enrollment": true, "quote": "receive a $20 credit in your Instacart account each month", "validity": {"enrollBy": "2027-12-31"}}
+      ]
+    },
+    {
+      "id": "chase-us-chase-freedom-flex-credit-card",
+      "page": "ch-chase-freedom-flex-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/cash-back-credit-cards/freedom/flex",
+      "fee": {"amount": 0, "currency": "USD", "quote": "$0 annual fee"},
+      "earning": [
+        {"zh": "每季轮换类别", "en": "Rotating quarterly categories", "multiplier": 5, "unit": "cashback-percent", "category": "general", "cap": {"amount": 1500, "currency": "USD", "period": "calendar-quarter"}, "noteZh": "每季须激活，合计前1,500美元；之后按1%。", "noteEn": "Activate each quarter; up to $1,500 in combined purchases.", "quote": "Activate each quarter to earn 5% cash back on up to $1,500 in combined purchases"},
+        {"zh": "Chase Travel", "en": "Chase Travel", "multiplier": 5, "unit": "cashback-percent", "category": "travel", "quote": "Earn 5% on travel purchased through Chase Travel"},
+        {"zh": "餐厅", "en": "Restaurants", "multiplier": 3, "unit": "cashback-percent", "category": "dining", "quote": "Earn 3% on dining at restaurants"},
+        {"zh": "药店", "en": "Drugstores", "multiplier": 3, "unit": "cashback-percent", "category": "shopping", "quote": "Earn 3% on drugstore purchases"},
+        {"zh": "其他消费", "en": "All other purchases", "multiplier": 1, "unit": "cashback-percent", "category": "general", "quote": "Earn 1% on all other purchases"}
+      ],
+      "credits": [
+        {"key": "doordash-promo", "zh": "DoorDash 每季优惠", "en": "Quarterly DoorDash promo", "noteZh": "DashPass 会员每季最多10美元，仅限非餐厅订单，至2029年12月31日。", "noteEn": "Up to $10 off quarterly on non-restaurant DoorDash orders for DashPass members through December 31, 2029.", "amount": 10, "period": "calendar-quarter", "scenario": "shopping", "category": "promo", "programmeIds": ["programme.doordash"], "quote": "DashPass members get up to $10 off quarterly on non-restaurant DoorDash orders", "validity": {"effectiveThrough": "2029-12-31"}}
+      ]
+    },
+    {
+      "id": "chase-us-sapphire-reserve-for-business-credit-card",
+      "page": "ch-sapphire-reserve-for-business-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
+      "fee": {"amount": 795, "currency": "USD", "quote": "$795 annual fee"},
+      "earning": [
+        {"zh": "Chase Travel 和 The Edit", "en": "Chase Travel, including The Edit", "multiplier": 8, "unit": "points-per-USD", "category": "travel", "quote": "8x points on all purchases through Chase Travel"},
+        {"zh": "直订航班和酒店", "en": "Flights and hotels booked direct", "multiplier": 4, "unit": "points-per-USD", "category": "travel", "quote": "4x points on flights & hotels booked direct"},
+        {"zh": "社交媒体和搜索广告", "en": "Social media and search engine advertising", "multiplier": 3, "unit": "points-per-USD", "category": "general", "cap": {"amount": 1000000, "currency": "USD", "period": "account-anniversary"}, "noteZh": "每个账户周年内前100万美元。", "noteEn": "On the first $1,000,000 spent each account anniversary year.", "quote": "3x points on social media & search engine advertising"},
+        {"zh": "其他消费", "en": "All other purchases", "multiplier": 1, "unit": "points-per-USD", "category": "general", "quote": "1x points on all other purchases"}
+      ],
+      "credits": [
+        {"key": "travel", "zh": "旅行消费抵扣", "en": "Annual travel credit", "noteZh": "每个账户周年最多300美元。", "noteEn": "Up to $300 in statement credits each anniversary year.", "amount": 300, "period": "account-anniversary", "scenario": "travel", "quote": "Receive up to $300 in statement credits each anniversary year"},
+        {"key": "edit", "zh": "The Edit 住宿抵扣", "en": "Credit for stays with The Edit", "noteZh": "每年最多500美元，单笔最多250美元；2027年1月1日起另有变化。周期的起算方式未结构化。", "noteEn": "Up to $500 annually with a maximum of $250 per transaction; this changes from January 1, 2027. How the year is counted is not structured here.", "amount": 500, "scenario": "hotel-stay", "programmeIds": ["programme.the-edit"], "quote": "Get up to $500 in automatic statement credits annually for bookings made with The Edit, with a maximum of $250 per transaction"},
+        {"key": "trusted-traveler", "zh": "Global Entry、TSA PreCheck 或 NEXUS 申请费抵扣", "en": "Global Entry, TSA PreCheck or NEXUS application fee credit", "noteZh": "每四年一次，须用本卡支付申请费。", "noteEn": "One statement credit every four years for an application fee charged to the card.", "amount": 120, "period": "rolling-four-years", "scenario": "airport", "quote": "Receive one statement credit of up to $120 every four years"},
+        {"key": "google-workspace", "zh": "Google Workspace 抵扣", "en": "Google Workspace credit", "noteZh": "每年最多200美元，须直接向 Google Workspace 购买，至2027年12月31日。周期的起算方式未结构化。", "noteEn": "Up to $200 in annual statement credits on purchases made directly on Google Workspace through 12/31/27. How the year is counted is not structured here.", "amount": 200, "scenario": "shopping", "quote": "earn up to $200 in annual statement credits on purchases made directly on Google Workspace", "validity": {"effectiveThrough": "2027-12-31"}},
+        {"key": "ziprecruiter", "zh": "ZipRecruiter 抵扣", "en": "ZipRecruiter credit", "noteZh": "每半年最多200美元，须直接向 ZipRecruiter 购买。", "noteEn": "Up to $200 January through June and up to $200 July through December on purchases made directly with ZipRecruiter.", "amount": 200, "period": "calendar-half-year", "scenario": "shopping", "quote": "You'll earn up to $200 in statement credits January through June and up to $200 in statement credits July through December"},
+        {"key": "lyft", "zh": "Lyft 每月抵扣", "en": "Monthly Lyft credit", "noteZh": "Lyft 应用内每月最多10美元，至2027年9月30日。", "noteEn": "Up to $10 in monthly in-app credits on rides through 9/30/27.", "amount": 10, "period": "calendar-month", "scenario": "ground-transport", "quote": "up to $10 in monthly in-app credits", "validity": {"effectiveThrough": "2027-09-30"}},
+        {"key": "doordash-promo", "zh": "DoorDash 每月优惠", "en": "Monthly DoorDash promos", "noteZh": "DashPass 会员每月最多25美元，分为餐厅和杂货零售等优惠。", "noteEn": "Up to $25 each month for DashPass members, split into restaurant and grocery or retail promos.", "amount": 25, "period": "calendar-month", "scenario": "dining", "category": "promo", "programmeIds": ["programme.doordash"], "quote": "DashPass members get up to $25 each month to spend on DoorDash"}
+      ],
+      "unknown": [
+        {"zh": "转点伙伴：页面只写“1:1 转到主要酒店和航空计划”，没有列出伙伴。", "en": "Transfer partners: the page says 1:1 to leading hotel and airline programmes but names none."},
+        {"zh": "只录入主要抵扣，页面上还有其他福利。", "en": "Only the main credits are recorded; the page lists other benefits."}
+      ]
+    },
+    {
+      "id": "amex-us-us-the-platinum-card",
+      "page": "amex-platinum",
+      "issuer": "American Express",
+      "new": {"bank": "Amex US", "region": "US", "name": "The Platinum Card"},
+      "aliases": ["Platinum Card", "The Platinum Card from American Express", "American Express Platinum Card"],
+      "url": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
+      "transfer": {"programmeId": "programme.amex-membership-rewards-us", "name": "Membership Rewards", "quote": "How do I earn Membership Reward"},
+      "fee": {"amount": 895, "currency": "USD", "quote": "The annual fee for the Platinum Card is $895"},
+      "additionalFee": {"amount": 195, "currency": "USD", "quote": "Platinum Card is $195"},
+      "earning": [
+        {"zh": "直订航班或 Amex Travel 机票", "en": "Flights booked directly with airlines or through American Express Travel", "multiplier": 5, "unit": "points-per-USD", "category": "airline", "cap": {"amount": 500000, "currency": "USD", "period": "calendar-year"}, "noteZh": "每个自然年前50万美元。", "noteEn": "On up to $500,000 on these purchases per calendar year.", "quote": "on up to $500,000 on these purchases per calendar year"},
+        {"zh": "Amex Travel 预付酒店", "en": "Prepaid hotels on American Express Travel", "multiplier": 5, "unit": "points-per-USD", "category": "hotel", "quote": "5X Points on Prepaid Hotels Booked on American Express Travel"}
+      ],
+      "credits": [
+        {"key": "hotel-credit", "zh": "FHR 或 THC 预付酒店抵扣", "en": "Fine Hotels + Resorts or The Hotel Collection credit", "noteZh": "每半年最多300美元，须通过 Amex Travel 预付；2027年1月1日起 FHR 须至少住两晚。", "noteEn": "Up to $300 semi-annually on prepaid bookings through American Express Travel. From January 1, 2027, Fine Hotels + Resorts needs a two-night minimum.", "amount": 300, "period": "calendar-half-year", "scenario": "hotel-stay", "programmeIds": ["programme.fine-hotels-resorts", "programme.the-hotel-collection"], "quote": "Get up to $300 in statement credits semi-annually on prepaid Fine Hotels + Resorts program or The Hotel Collection bookings"},
+        {"key": "uber-cash", "zh": "Uber Cash", "en": "Uber Cash", "noteZh": "每月15美元，12月另加20美元，限美国境内乘车或订单，须把卡加入 Uber 账户。", "noteEn": "$15 monthly plus a $20 bonus in December for rides or orders in the U.S., once the Card is added to your Uber account.", "amount": 15, "period": "calendar-month", "scenario": "ground-transport", "programmeIds": ["programme.uber"], "quote": "to get $15 in Uber Cash monthly, plus a $20 bonus in December"},
+        {"key": "uber-one", "zh": "Uber One 抵扣", "en": "Uber One credit", "noteZh": "每自然年最多120美元，须用本卡购买自动续费的 Uber One。", "noteEn": "Up to $120 each calendar year after you buy an auto-renewing Uber One membership with the Card.", "amount": 120, "period": "calendar-year", "scenario": "ground-transport", "programmeIds": ["programme.uber-one"], "quote": "up to $120 in statement credits each calendar year after you purchase an auto-renewing Uber One membership"},
+        {"key": "airline-fee", "zh": "航空杂费抵扣", "en": "Airline fee credit", "noteZh": "每自然年最多200美元，限所选一家航空的杂费。", "noteEn": "Up to $200 per calendar year for incidental fees charged by your one selected qualifying airline.", "amount": 200, "period": "calendar-year", "scenario": "airport", "quote": "Statement credits per calendar year for incidental fees charged by your one selected qualifying airline"},
+        {"key": "clear", "zh": "CLEAR+ 抵扣", "en": "CLEAR+ credit", "noteZh": "每自然年最多219美元，限自动续费的 CLEAR+ 会员，不含税费。", "noteEn": "Up to $219 per calendar year for an auto-renewing CLEAR+ membership, excluding taxes and fees.", "amount": 219, "period": "calendar-year", "scenario": "airport", "programmeIds": ["programme.clear"], "quote": "Up to $219 CLEAR+ Credit Statement credits per calendar year"},
+        {"key": "resy", "zh": "Resy 餐厅抵扣", "en": "Resy credit", "noteZh": "每季最多100美元，限美国合资格 Resy 餐厅，须登记。", "noteEn": "Up to $100 quarterly at qualifying U.S. Resy restaurants. Enrollment required.", "amount": 100, "period": "calendar-quarter", "scenario": "dining", "programmeIds": ["programme.resy"], "enrollment": true, "quote": "Statement credits up to $100 quarterly when you make eligible purchases at qualifying U.S."},
+        {"key": "digital-entertainment", "zh": "数字娱乐抵扣", "en": "Digital entertainment credit", "noteZh": "每月最多25美元，限参与的合作商户。", "noteEn": "Up to $25 monthly on eligible purchases at participating partners.", "amount": 25, "period": "calendar-month", "scenario": "entertainment", "quote": "Statement credits earned monthly of up to $25 on eligible purchases at participating partners"},
+        {"key": "lululemon", "zh": "lululemon 抵扣", "en": "lululemon credit", "noteZh": "每季最多75美元，限美国门店（奥特莱斯除外）和 lululemon.com。", "noteEn": "Up to $75 quarterly at U.S. lululemon retail stores, excluding outlets, and lululemon.com.", "amount": 75, "period": "calendar-quarter", "scenario": "shopping", "programmeIds": ["programme.lululemon"], "quote": "Statement credits up to $75 quarterly for eligible purchases at U.S. lululemon retail stores"},
+        {"key": "walmart-plus", "zh": "Walmart+ 抵扣", "en": "Walmart+ credit", "noteZh": "每月最多12.95美元加适用税费，限一份自动续费的月付会员。", "noteEn": "Up to $12.95 monthly plus applicable taxes for one auto-renewing monthly Walmart+ membership.", "amount": 12.95, "period": "calendar-month", "scenario": "shopping", "programmeIds": ["programme.walmart"], "quote": "up to $12.95 monthly plus applicable taxes"}
+      ],
+      "unknown": [
+        {"zh": "只录入主要抵扣，页面上还有其他福利。多数抵扣的登记要求未结构化，留作未知。", "en": "Only the main credits are recorded; the page lists other benefits. Enrollment on most credits is not structured and stays unknown."},
+        {"zh": "其他消费的赚取比例未结构化。", "en": "The earning rate on other purchases is not structured."}
+      ]
+    },
+    {
+      "id": "amex-us-us-business-platinum-card",
+      "page": "amex-bizplat",
+      "issuer": "American Express",
+      "new": {"bank": "Amex US", "region": "US", "name": "Business Platinum Card"},
+      "aliases": ["The Business Platinum Card", "Business Platinum Card from American Express"],
+      "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-platinum-credit-card-amex/",
+      "transfer": {"programmeId": "programme.amex-membership-rewards-us", "name": "Membership Rewards", "quote": "Earn 5X Membership Rewards points on flights and prepaid hotels booked on AmexTravel.com"},
+      "fee": {"amount": 895, "currency": "USD", "quote": "Annual Fee: $895"},
+      "earning": [
+        {"zh": "AmexTravel.com 机票和预付酒店", "en": "Flights and prepaid hotels on AmexTravel.com", "multiplier": 5, "unit": "points-per-USD", "category": "travel", "quote": "Earn 5X Membership Rewards points on flights and prepaid hotels booked on AmexTravel.com"},
+        {"zh": "主要商业类别或5,000美元以上消费", "en": "Key business categories or purchases of $5K or more", "multiplier": 2, "unit": "points-per-USD", "category": "general", "noteZh": "类别范围和合并计算规则以条款为准。", "noteEn": "Category scope and how bonuses combine follow the terms.", "quote": "Earn 2X points on eligible purchases in key business categories, or on purchases of $5K or more"},
+        {"zh": "其他合资格消费", "en": "Other eligible purchases", "multiplier": 1, "unit": "points-per-USD", "category": "general", "quote": "1X POINTS On Other Eligible Purchases"}
+      ],
+      "credits": [
+        {"key": "hotel-credit", "zh": "FHR 或 THC 预付酒店抵扣", "en": "Fine Hotels + Resorts or The Hotel Collection credit", "noteZh": "每半年最多300美元，须通过 Amex Travel 预付；2027年1月1日起 FHR 须至少住两晚。", "noteEn": "Up to $300 semi-annually on prepaid bookings through American Express Travel. From January 1, 2027, Fine Hotels + Resorts needs a two-night minimum.", "amount": 300, "period": "calendar-half-year", "scenario": "hotel-stay", "programmeIds": ["programme.fine-hotels-resorts", "programme.the-hotel-collection"], "quote": "Get up to $300 in statement credits semi-annually on prepaid Fine Hotels + Resorts or The Hotel Collection bookings"},
+        {"key": "airline-fee", "zh": "航空杂费抵扣", "en": "Airline fee credit", "noteZh": "每自然年最多200美元，限所选一家航空的杂费。", "noteEn": "Up to $200 per calendar year for incidental fees charged by your one selected qualifying airline.", "amount": 200, "period": "calendar-year", "scenario": "airport", "quote": "Statement credits up to $200 per calendar year for incidental fees charged by your one selected qualifying airline"},
+        {"key": "clear", "zh": "CLEAR Plus 抵扣", "en": "CLEAR Plus credit", "noteZh": "每自然年最多219美元，限自动续费会员，不含税费。", "noteEn": "Up to $219 per calendar year for an auto-renewing CLEAR Plus membership, excluding taxes and fees.", "amount": 219, "period": "calendar-year", "scenario": "airport", "programmeIds": ["programme.clear"], "quote": "Statement credits up to $219 per calendar year for an auto-renewing CLEAR Plus Membership"},
+        {"key": "hilton", "zh": "Hilton 抵扣", "en": "Hilton credit", "noteZh": "每季最多50美元，须登记并直接向 Hilton 购买。", "noteEn": "Up to $50 per quarter on eligible purchases made directly with a Hilton property. Enrollment required.", "amount": 50, "period": "calendar-quarter", "scenario": "hotel-stay", "programmeIds": ["programme.hilton-honors"], "enrollment": true, "quote": "up to $200 in statement credits per calendar year (up to $50 per quarter)"},
+        {"key": "dell", "zh": "Dell Technologies 抵扣", "en": "Dell Technologies credit", "noteZh": "每自然年最多150美元；消费满5,000美元后再得1,000美元。", "noteEn": "Up to $150 on U.S. purchases directly with Dell Technologies, plus $1,000 after you spend $5,000 or more, per calendar year.", "amount": 150, "period": "calendar-year", "scenario": "shopping", "quote": "Statement credits up to $150 on U.S. purchases directly with Dell Technologies"},
+        {"key": "adobe", "zh": "Adobe 抵扣", "en": "Adobe credit", "noteZh": "每自然年250美元，须直接向 Adobe 消费满600美元，须登记。", "noteEn": "A $250 statement credit per calendar year after you spend $600 or more on U.S. purchases directly with Adobe. Enrollment required.", "amount": 250, "period": "calendar-year", "scenario": "shopping", "enrollment": true, "quote": "A $250 statement credit per calendar year after you spend $600 or more on U.S. purchases directly with Adobe"},
+        {"key": "indeed", "zh": "Indeed 抵扣", "en": "Indeed credit", "noteZh": "每季最多90美元，须登记。", "noteEn": "Up to $90 quarterly for purchases with Indeed. Enrollment required.", "amount": 90, "period": "calendar-quarter", "scenario": "shopping", "enrollment": true, "quote": "Get up to $90 in statement credits quarterly for purchases with Indeed"},
+        {"key": "wireless", "zh": "无线通信抵扣", "en": "Wireless credit", "noteZh": "每月最多10美元，须直接向无线通信商购买。", "noteEn": "Up to $10 per month for wireless telephone service purchases made directly with a wireless provider.", "amount": 10, "period": "calendar-month", "scenario": "shopping", "quote": "Get up to $10 in statement credits per month for wireless telephone service purchases"}
+      ],
+      "unknown": [
+        {"zh": "只录入主要抵扣，页面上还有其他福利。附属卡年费未确认。", "en": "Only the main credits are recorded; the page lists other benefits. The employee card fee is unconfirmed."}
+      ]
+    },
+    {
+      "id": "amex-us-us-business-gold-card",
+      "page": "amex-bizgold",
+      "issuer": "American Express",
+      "new": {"bank": "Amex US", "region": "US", "name": "Business Gold Card"},
+      "aliases": ["American Express Business Gold Card"],
+      "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-gold-card-amex/",
+      "transfer": {"programmeId": "programme.amex-membership-rewards-us", "name": "Membership Rewards", "quote": "Earn 4X Membership Rewards points on the top 2 categories"},
+      "fee": {"amount": 375, "currency": "USD", "quote": "Annual Fee: $375"},
+      "earning": [
+        {"zh": "每月消费最高的两个类别", "en": "Top 2 eligible categories each month", "multiplier": 4, "unit": "points-per-USD", "category": "general", "cap": {"amount": 150000, "currency": "USD", "period": "calendar-year"}, "noteZh": "每自然年合计前15万美元；之后按1倍。", "noteEn": "On the first $150,000 in combined purchases each calendar year.", "quote": "4X points are earned on the first $150,000 in combined purchases each calendar year"},
+        {"zh": "机票和预付酒店", "en": "Flights and prepaid hotels", "multiplier": 3, "unit": "points-per-USD", "category": "travel", "quote": "3X POINTS On Flights & Pre-Paid Hotels"},
+        {"zh": "其他合资格消费", "en": "Other eligible purchases", "multiplier": 1, "unit": "points-per-USD", "category": "general", "quote": "1X POINTS On All Other Eligible Purchases"}
+      ],
+      "credits": [
+        {"key": "flexible-business", "zh": "灵活商业抵扣", "en": "Flexible business credit", "noteZh": "每月最多20美元，限 Grubhub、办公用品店和 UPS.com 的美国消费，须登记。", "noteEn": "Up to $20 each month on eligible U.S. purchases at Grubhub, office supply stores and UPS.com. Enrollment required.", "amount": 20, "period": "calendar-month", "scenario": "shopping", "enrollment": true, "quote": "Earn up to $20 in statement credits each month after you use the Card for eligible U.S. purchases at Grubhub, Office Supply Stores, and shipments at UPS.com"},
+        {"key": "chatgpt", "zh": "ChatGPT Business 抵扣", "en": "ChatGPT Business credit", "noteZh": "每自然年最多300美元，限美国购买，须登记。", "noteEn": "Up to $300 per calendar year on U.S. purchases of ChatGPT Business subscriptions. Enrollment required.", "amount": 300, "period": "calendar-year", "scenario": "shopping", "enrollment": true, "quote": "Get up to $300 back in statement credits per calendar year on U.S. purchases of ChatGPT Business subscriptions"},
+        {"key": "squarespace", "zh": "Squarespace 抵扣", "en": "Squarespace credit", "noteZh": "每自然年最多150美元，限美国购买，须登记。", "noteEn": "Up to $150 per calendar year for U.S. purchases with Squarespace. Enrollment required.", "amount": 150, "period": "calendar-year", "scenario": "shopping", "enrollment": true, "quote": "Enroll and get up to $150 in statement credits per calendar year for U.S. purchases with Squarespace"},
+        {"key": "walmart-plus", "zh": "Walmart+ 抵扣", "en": "Walmart+ credit", "noteZh": "每月最多12.95美元加税，限一份月付会员。", "noteEn": "Up to $12.95 plus applicable taxes each month for one monthly Walmart+ membership.", "amount": 12.95, "period": "calendar-month", "scenario": "shopping", "programmeIds": ["programme.walmart"], "quote": "get up to $12.95 plus applicable taxes (excluding Plus Ups) back each month"}
+      ],
+      "unknown": [
+        {"zh": "员工卡年费按张数变化，未结构化。", "en": "The employee card fee varies by number of cards and is not structured."}
+      ]
+    },
+    {
+      "id": "amex-us-us-blue-business-plus-credit-card",
+      "page": "amex-bbp",
+      "issuer": "American Express",
+      "new": {"bank": "Amex US", "region": "US", "name": "Blue Business Plus Credit Card"},
+      "aliases": ["The Blue Business Plus Credit Card", "Blue Business Plus Credit Card from American Express", "Blue Business Plus"],
+      "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-blue-business-plus-credit-card-amex/",
+      "transfer": {"programmeId": "programme.amex-membership-rewards-us", "name": "Membership Rewards", "quote": "or transferred to participating airline"},
+      "fee": {"amount": 0, "currency": "USD", "quote": "with no category restrictions and no annual fee"},
+      "earning": [
+        {"zh": "所有合资格消费", "en": "Eligible purchases", "multiplier": 2, "unit": "points-per-USD", "category": "general", "cap": {"amount": 50000, "currency": "USD", "period": "calendar-year"}, "noteZh": "每自然年前5万美元；之后按1倍。", "noteEn": "On the first $50,000 in eligible purchases per calendar year, then 1X.", "quote": "Earn 2X points on the first $50,000 in eligible purchases per calendar year and 1X points thereafter"}
+      ]
+    }
+  ]
+}

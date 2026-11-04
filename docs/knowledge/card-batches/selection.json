@@ -1,0 +1,15 @@
+{
+  "method": "2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。钱包已有资料的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这 50 张。",
+  "cards": [
+    {"id": "chase-us-chase-sapphire-preferred-credit-card", "name": "Chase Sapphire Preferred"},
+    {"id": "chase-us-ink-business-preferred-credit-card", "name": "Chase Ink Business Preferred"},
+    {"id": "chase-us-ink-business-cash-credit-card", "name": "Chase Ink Business Cash"},
+    {"id": "chase-us-ink-business-unlimited-credit-card", "name": "Chase Ink Business Unlimited"},
+    {"id": "chase-us-chase-freedom-flex-credit-card", "name": "Chase Freedom Flex"},
+    {"id": "chase-us-sapphire-reserve-for-business-credit-card", "name": "Chase Sapphire Reserve for Business"},
+    {"id": "amex-us-us-the-platinum-card", "name": "Amex Platinum"},
+    {"id": "amex-us-us-business-platinum-card", "name": "Amex Business Platinum"},
+    {"id": "amex-us-us-business-gold-card", "name": "Amex Business Gold"},
+    {"id": "amex-us-us-blue-business-plus-credit-card", "name": "Amex Blue Business Plus"}
+  ]
+}
