@@ -381,7 +381,7 @@
    if(at>=0)items.push({kind:'card',cardId:alias,key,title:labelText(lines[at]).slice(0,80),value,currency:card.currency,date:'',status:'unknown',evidence:lines.slice(at,at+4).join('\n')});
   }
   items.push(...issuerDue(lines,bank,card,alias));
-  const notices=lines.filter(l=>/^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(l));
+  const notices=lines.filter(l=>/^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|Payment not required at this time|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(l));
   if(new Set(notices).size===1&&!items.some(i=>(i.key==='minimum'&&i.value>0)||['due','duePartial'].includes(i.key)))items.push({kind:'billing',cardId:alias,key:'paymentStatus',title:notices[0],value:null,currency:card.currency,date:'',status:'unknown',evidence:notices[0]});
   return items;
  }

@@ -15,7 +15,7 @@ export async function capturePage(bank,cards,contextIds=[]){
  // A switch blanks the balances and keeps the previous card named for a moment. Wait for this card and its balance; a card that never shows one reads as what it shows.
  if(bank==='Amex US'&&/^\/dashboard\/?$/.test(location.pathname)&&contextIds.length===1){
   const want=cards.find(c=>c.id===contextIds[0]),switcher=()=>query('button[aria-label="open_title"],[role="combobox"][aria-label="Open to manage your other accounts"]').filter(visible).map(e=>e.innerText||'').join('\n');
-  const balances=()=>(document.body?.innerText||'').split('\n').map(t=>t.trim()).filter((t,i,all)=>/^\$/.test(t)&&/total balance|statement balance|minimum payment|tooltip/i.test(all[i-1]||'')).join('|');
+  const balances=()=>(document.body?.innerText||'').split('\n').map(t=>t.trim()).filter(Boolean).filter((t,i,all)=>/^-?\$/.test(t)&&/total balance|statement balance|minimum payment|tooltip/i.test(all[i-1]||'')||/membership rewards/i.test(all[i-1]||'')).join('|');
   const until=Date.now()+12000;let held='',since=0;
   while(want&&Date.now()<until){const now=balances(),ready=new RegExp('(?:^|[^0-9])'+want.tail+'(?:[^0-9]|$)').test(switcher())&&/\$/.test(now);if(!ready||now!==held){held=now;since=Date.now();}else if(Date.now()-since>=800)break;await new Promise(r=>setTimeout(r,200));}
  }
@@ -78,12 +78,9 @@ export async function capturePage(bank,cards,contextIds=[]){
   if(positions.every(i=>i>=0)&&self.CardyReader?.hsbcTransactionRows){const rows=tableRows.slice(1).map(tr=>{const cells=[...tr.querySelectorAll('td')].map(e=>e.innerText.trim());return {date:cells[positions[0]],tail:cells[positions[1]]?.match(/Card ending in (\d{4,5})/i)?.[1],description:cells[positions[2]],amountIn:cells[positions[3]],amountOut:cells[positions[4]]};});const parsed=self.CardyReader.hsbcTransactionRows(rows,matches[0]);for(const item of parsed.items)add({...item,key:redact(item.key),title:replace(item.title),evidence:replace(item.evidence)});}
 
  }
- if(bank==='Amex US'&&selectedCardId&&self.CardyReader?.issuerDue&&/^\/(?:dashboard|overview)\/?$/.test(location.pathname)){
-  for(const item of self.CardyReader.issuerDue(body.split('\n').map(t=>t.trim()).filter(Boolean),bank,matches.find(c=>c.id===selectedCardId))){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
- }
- if(bank==='Amex US'&&selectedCardId&&/^\/(?:dashboard|overview)\/?$/.test(location.pathname)&&!observations.some(o=>['due','duePartial'].includes(o.key))){
-  // Printed under a zero statement balance. A minimum or a due date on the page outranks it.
-  const notice=body.split('\n').map(t=>t.trim()).find(t=>/^Payment not required at this time\.?$/i.test(t));if(notice&&!/^Minimum Payment Due$/im.test(body)){const evidence='[C1]\n'+notice;blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({kind:'billing',cardId:'C1',key:'paymentStatus',title:notice,value:null,currency:aliases[0].currency,date:'',status:'unknown',evidence});size+=evidence.length;}
+ // Without a model, this is what records a switched-to card's billing fields. Another registered card's number on the page stops it.
+ if(bank==='Amex US'&&selectedCardId&&self.CardyReader?.issuerBilling&&/^\/(?:dashboard|overview)\/?$/.test(location.pathname)){
+  for(const item of self.CardyReader.issuerBilling(body,bank,matches.find(c=>c.id===selectedCardId),cards.filter(c=>c.id!==selectedCardId).map(c=>c.tail))){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
  }
  if(citiBlock){
   for(const item of self.CardyReader.issuerBilling(citiBlock.block.join('\n'),bank,matches[0])){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
