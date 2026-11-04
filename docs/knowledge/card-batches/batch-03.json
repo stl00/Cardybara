@@ -1,0 +1,888 @@
+{
+  "batch": 3,
+  "checkedAt": "2026-11-04",
+  "reviewAfter": "2027-02-02",
+  "cards": [
+    {
+      "id": "amex-us-us-delta-skymiles-gold-card",
+      "page": "amex-delta-gold",
+      "issuer": "American Express",
+      "new": {
+        "bank": "Amex US",
+        "region": "US",
+        "name": "Delta SkyMiles Gold American Express Card"
+      },
+      "aliases": [
+        "Delta SkyMiles Gold Card",
+        "Delta SkyMiles Gold"
+      ],
+      "url": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/",
+      "transfer": {
+        "name": "Delta SkyMiles",
+        "programmeId": "programme.delta-skymiles",
+        "linkOnly": true,
+        "quote": "Earn 2 miles for every dollar spent on eligible purchases made directly with Delta"
+      },
+      "fee": {
+        "amount": 150,
+        "currency": "USD",
+        "quote": "After that, the annual fee will be $150"
+      },
+      "earning": [
+        {
+          "zh": "餐厅（外卖和配送限美国）",
+          "en": "Restaurants (takeout and delivery in the U.S.)",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "dining",
+          "quote": "get rewarded with 2X Miles at restaurants plus takeout and delivery in the U.S."
+        },
+        {
+          "zh": "美国超市",
+          "en": "U.S. supermarkets",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "shopping",
+          "quote": "2X MILES On Groceries At U.S. supermarkets"
+        },
+        {
+          "zh": "Delta 直接消费",
+          "en": "Purchases made directly with Delta",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "airline",
+          "quote": "Earn 2 miles for every dollar spent on eligible purchases made directly with Delta"
+        },
+        {
+          "zh": "其他合资格消费",
+          "en": "All other eligible purchases",
+          "multiplier": 1,
+          "unit": "miles-per-USD",
+          "category": "general",
+          "quote": "Earn 1 Mile per dollar spent on all other eligible purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "delta-flight",
+          "zh": "Delta 机票额度",
+          "en": "Delta Flight Credit",
+          "noteZh": "自然年消费满1万美元后得200美元；是否达标未核实。",
+          "noteEn": "A $200 Delta Flight Credit after $10,000 in eligible purchases in a calendar year. Whether you reach it is unverified.",
+          "amount": 200,
+          "period": "calendar-year",
+          "scenario": "travel",
+          "category": "spend-unlock",
+          "programmeIds": [
+            "programme.delta-skymiles"
+          ],
+          "quote": "After you spend $10,000 in eligible purchases on your Card in a calendar year, you can receive a $200 Delta Flight Credit"
+        },
+        {
+          "key": "rideshare",
+          "zh": "网约车抵扣",
+          "en": "Rideshare credit",
+          "noteZh": "首次续卡后每月最多10美元，限美国指定服务商，须登记。",
+          "noteEn": "After your first Card renewal, up to $10 each month on U.S. rideshare purchases with select providers. Enrollment required.",
+          "amount": 10,
+          "period": "calendar-month",
+          "scenario": "ground-transport",
+          "quote": "After your first Card renewal, earn up to $10 in statement credits each month",
+          "enrollment": true
+        },
+        {
+          "key": "inflight",
+          "zh": "机上消费20%返还",
+          "en": "20% back on in-flight purchases",
+          "noteZh": "以抵扣形式返还，限 Delta 机上餐饮。",
+          "noteEn": "A 20% statement credit on eligible Delta in-flight food and beverage purchases.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "ongoing",
+          "quote": "Receive a 20% savings in the form of a statement credit"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "首年优惠年费是否适用取决于个人资格，未核实。Delta Stays 和免费行李的细节未录入。附加卡年费未确认。",
+          "en": "Whether the intro fee applies is unverified. Delta Stays and free bag details are not recorded. The additional card fee is unconfirmed."
+        }
+      ]
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-platinum-card",
+      "page": "amex-delta-plat",
+      "issuer": "American Express",
+      "new": {
+        "bank": "Amex US",
+        "region": "US",
+        "name": "Delta SkyMiles Platinum American Express Card"
+      },
+      "aliases": [
+        "Delta SkyMiles Platinum Card",
+        "Delta SkyMiles Platinum"
+      ],
+      "url": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-platinum-american-express-card/",
+      "transfer": {
+        "name": "Delta SkyMiles",
+        "programmeId": "programme.delta-skymiles",
+        "linkOnly": true,
+        "quote": "earn 3X Miles on Delta flights and Delta Vacations"
+      },
+      "fee": {
+        "amount": 350,
+        "currency": "USD",
+        "quote": "The annual fee for the Delta SkyMiles Platinum American Express Card is $350"
+      },
+      "additionalFee": {
+        "amount": 0,
+        "currency": "USD",
+        "quote": "There is no annual fee for Additional Cards"
+      },
+      "earning": [
+        {
+          "zh": "Delta 机票和 Delta Vacations",
+          "en": "Delta flights and Delta Vacations",
+          "multiplier": 3,
+          "unit": "miles-per-USD",
+          "category": "airline",
+          "quote": "When you earn 3X Miles on Delta flights and Delta Vacations"
+        },
+        {
+          "zh": "酒店直接消费",
+          "en": "Purchases made directly with hotels",
+          "multiplier": 3,
+          "unit": "miles-per-USD",
+          "category": "hotel",
+          "quote": "Earn 3X Miles on purchases made directly with hotels"
+        },
+        {
+          "zh": "餐厅（外卖和配送限美国）",
+          "en": "Restaurants (takeout and delivery in the U.S.)",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "dining",
+          "quote": "2X MILES On Dining At restaurants, including takeout and delivery in the U.S."
+        },
+        {
+          "zh": "美国超市",
+          "en": "U.S. supermarkets",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "shopping",
+          "quote": "2X MILES On Groceries At U.S. supermarkets"
+        },
+        {
+          "zh": "其他合资格消费",
+          "en": "All other eligible purchases",
+          "multiplier": 1,
+          "unit": "miles-per-USD",
+          "category": "general",
+          "quote": "Earn 1X per dollar spent on all other eligible purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "rideshare",
+          "zh": "网约车抵扣",
+          "en": "Rideshare credit",
+          "noteZh": "每月最多10美元，限美国指定服务商，须登记。",
+          "noteEn": "Up to $10 each month on U.S. rideshare purchases with select providers. Enrollment required.",
+          "amount": 10,
+          "period": "calendar-month",
+          "scenario": "ground-transport",
+          "quote": "earn up to $10 back in statement credits each month after you use your",
+          "enrollment": true
+        },
+        {
+          "key": "resy",
+          "zh": "Resy 餐厅抵扣",
+          "en": "Resy credit",
+          "noteZh": "每月最多10美元，限美国合资格 Resy 餐厅，须登记。",
+          "noteEn": "Up to $10 each month at qualifying U.S. Resy restaurants. Enrollment required.",
+          "amount": 10,
+          "period": "calendar-month",
+          "scenario": "dining",
+          "programmeIds": [
+            "programme.resy"
+          ],
+          "quote": "Get up to $10 in statement credits each month at over 10,000 qualifying U.S.",
+          "enrollment": true
+        },
+        {
+          "key": "trusted-traveler",
+          "zh": "Global Entry 或 TSA PreCheck 申请费抵扣",
+          "en": "Global Entry or TSA PreCheck credit",
+          "noteZh": "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。",
+          "noteEn": "Every 4 years: $120 for Global Entry or up to $85 for TSA PreCheck.",
+          "scenario": "airport",
+          "category": "credit",
+          "quote": "Receive either a $120 statement credit for a Global Entry application fee",
+          "amount": 120,
+          "period": "rolling-four-years"
+        },
+        {
+          "key": "inflight",
+          "zh": "机上消费20%返还",
+          "en": "20% back on in-flight purchases",
+          "noteZh": "以抵扣形式返还，限 Delta 机上餐饮。",
+          "noteEn": "A 20% statement credit on eligible Delta in-flight food and beverage purchases.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "ongoing",
+          "quote": "20% Back On In-Flight Purchases"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "Companion Certificate、MQD、Delta Stays 和免费行李的细节未录入。",
+          "en": "Companion Certificate, MQD, Delta Stays and free bag details are not recorded."
+        }
+      ]
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-reserve-card",
+      "page": "amex-delta-res",
+      "issuer": "American Express",
+      "new": {
+        "bank": "Amex US",
+        "region": "US",
+        "name": "Delta SkyMiles Reserve American Express Card"
+      },
+      "aliases": [
+        "Delta SkyMiles Reserve Card",
+        "Delta SkyMiles Reserve"
+      ],
+      "url": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-reserve-american-express-card/",
+      "transfer": {
+        "name": "Delta SkyMiles",
+        "programmeId": "programme.delta-skymiles",
+        "linkOnly": true,
+        "quote": "earn 3X Miles on Delta flights and Delta Vacations"
+      },
+      "fee": {
+        "amount": 650,
+        "currency": "USD",
+        "quote": "The annual fee for the Delta SkyMiles Reserve American Express Card is $650"
+      },
+      "additionalFee": {
+        "amount": 175,
+        "currency": "USD",
+        "quote": "The annual fee for each Additional Delta SkyMiles Reserve American Express Card is $175"
+      },
+      "earning": [
+        {
+          "zh": "Delta 机票和 Delta Vacations",
+          "en": "Delta flights and Delta Vacations",
+          "multiplier": 3,
+          "unit": "miles-per-USD",
+          "category": "airline",
+          "quote": "When you earn 3X Miles on Delta flights and Delta Vacations"
+        },
+        {
+          "zh": "其他合资格消费",
+          "en": "All other eligible purchases",
+          "multiplier": 1,
+          "unit": "miles-per-USD",
+          "category": "general",
+          "quote": "Earn 1 mile per dollar for all other eligible purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "resy",
+          "zh": "Resy 餐厅抵扣",
+          "en": "Resy credit",
+          "noteZh": "每月最多20美元，须登记，限美国合资格 Resy 餐厅。",
+          "noteEn": "With an enrolled Card, up to $20 per month at qualifying U.S. Resy restaurants.",
+          "amount": 20,
+          "period": "calendar-month",
+          "scenario": "dining",
+          "programmeIds": [
+            "programme.resy"
+          ],
+          "enrollment": true,
+          "quote": "you can earn up to $20 per month in statement credits on eligible purchases at over 10,000 qualifying U.S."
+        },
+        {
+          "key": "rideshare",
+          "zh": "网约车抵扣",
+          "en": "Rideshare credit",
+          "noteZh": "每月最多10美元，限美国指定服务商，须登记。",
+          "noteEn": "Up to $10 each month on U.S. rideshare purchases with select providers. Enrollment required.",
+          "amount": 10,
+          "period": "calendar-month",
+          "scenario": "ground-transport",
+          "quote": "Earn up to $10 in statement credits each month after using your Delta SkyMiles Reserve American Express Card on U.S. rideshare purchases",
+          "enrollment": true
+        },
+        {
+          "key": "delta-stays",
+          "zh": "Delta Stays 抵扣",
+          "en": "Delta Stays credit",
+          "noteZh": "每年最多200美元，须用本卡通过 Delta Stays 预付酒店或度假屋；周期的起算方式未结构化。",
+          "noteEn": "An annual statement credit of up to $200 on prepaid hotels or vacation rentals through Delta Stays. How the year is counted is not structured here.",
+          "amount": 200,
+          "scenario": "hotel-stay",
+          "quote": "an annual statement credit of up to $200 after using your"
+        },
+        {
+          "key": "trusted-traveler",
+          "zh": "Global Entry 或 TSA PreCheck 申请费抵扣",
+          "en": "Global Entry or TSA PreCheck credit",
+          "noteZh": "Global Entry 每四年一次120美元，或 TSA PreCheck 五年期最多85美元。",
+          "noteEn": "Every 4 years for Global Entry ($120), or up to $85 for a five-year TSA PreCheck membership.",
+          "amount": 120,
+          "period": "rolling-four-years",
+          "scenario": "airport",
+          "quote": "Receive either a statement credit every 4 years after you apply for Global Entry ($120)"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "Sky Club 次数、Centurion 访问、Companion Certificate、MQD 和免费行李的细节未录入。",
+          "en": "Sky Club visits, Centurion access, Companion Certificate, MQD and free bag details are not recorded."
+        }
+      ]
+    },
+    {
+      "id": "amex-us-us-marriott-bonvoy-brilliant-card",
+      "page": "amex-marriott-brilliant",
+      "issuer": "American Express",
+      "new": {
+        "bank": "Amex US",
+        "region": "US",
+        "name": "Marriott Bonvoy Brilliant American Express Card"
+      },
+      "aliases": [
+        "Marriott Bonvoy Brilliant Card",
+        "Marriott Bonvoy Brilliant"
+      ],
+      "url": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/",
+      "transfer": {
+        "name": "Marriott Bonvoy",
+        "programmeId": "programme.marriott-bonvoy",
+        "linkOnly": true,
+        "quote": "6X points at hotels participating in Marriott Bonvoy"
+      },
+      "fee": {
+        "amount": 650,
+        "currency": "USD",
+        "quote": "The annual fee for the Marriott Bonvoy Brilliant American Express Card is $650"
+      },
+      "additionalFee": {
+        "amount": 0,
+        "currency": "USD",
+        "quote": "There is no annual fee for Additional Cards"
+      },
+      "earning": [
+        {
+          "zh": "Marriott Bonvoy 酒店",
+          "en": "Hotels participating in Marriott Bonvoy",
+          "multiplier": 6,
+          "unit": "points-per-USD",
+          "category": "hotel",
+          "quote": "6X points at hotels participating in Marriott Bonvoy"
+        },
+        {
+          "zh": "全球餐厅和直订航班",
+          "en": "Restaurants worldwide and flights booked directly with airlines",
+          "multiplier": 3,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "3X points at restaurants worldwide and on flights booked directly with airlines"
+        },
+        {
+          "zh": "其他合资格消费",
+          "en": "All other eligible purchases",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "2X points on all other eligible purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "dining",
+          "zh": "Brilliant 餐饮抵扣",
+          "en": "Brilliant Dining Credit",
+          "noteZh": "每月最多25美元，限全球餐厅。",
+          "noteEn": "Up to $25 per month at restaurants worldwide.",
+          "amount": 25,
+          "period": "calendar-month",
+          "scenario": "dining",
+          "quote": "$25 per month) in statement credits for eligible purchases made on the Marriott Bonvoy Brilliant Card at restaurants worldwide"
+        },
+        {
+          "key": "platinum-elite",
+          "zh": "Marriott Bonvoy Platinum Elite 会籍",
+          "en": "Marriott Bonvoy Platinum Elite status",
+          "noteZh": "公开规则；个人会籍未核实。",
+          "noteEn": "Public rule; personal status is unverified.",
+          "scenario": "hotel-stay",
+          "category": "membership",
+          "period": "ongoing",
+          "programmeIds": [
+            "programme.marriott-bonvoy"
+          ],
+          "quote": "With complimentary Marriott Bonvoy Platinum Elite status"
+        },
+        {
+          "key": "trusted-traveler",
+          "zh": "Global Entry 或 TSA PreCheck 申请费抵扣",
+          "en": "Global Entry or TSA PreCheck credit",
+          "noteZh": "Global Entry 120美元，或 TSA PreCheck 最多85美元；四年内只给一次。",
+          "noteEn": "$120 for Global Entry or up to $85 for TSA PreCheck; only one credit in a 4 year period.",
+          "amount": 120,
+          "scenario": "airport",
+          "quote": "Receive either a $120 statement credit for Global Entry or a statement credit for up to $85 for TSA PreCheck",
+          "period": "rolling-four-years"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "年度免费房晚、Earned Choice Award、100美元房产抵扣、25晚 Elite Night Credits 未录入。Priority Pass：页面说法互相矛盾，留作未知。",
+          "en": "Free Night Award, Earned Choice Award, the $100 property credit and 25 Elite Night Credits are not recorded. Priority Pass: the page contradicts itself, so it stays unknown."
+        }
+      ]
+    },
+    {
+      "id": "amex-us-us-marriott-bonvoy-bevy-card",
+      "page": "amex-bevy",
+      "issuer": "American Express",
+      "new": {
+        "bank": "Amex US",
+        "region": "US",
+        "name": "Marriott Bonvoy Bevy American Express Card"
+      },
+      "aliases": [
+        "Marriott Bonvoy Bevy Card",
+        "Marriott Bonvoy Bevy"
+      ],
+      "url": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-bevy/",
+      "transfer": {
+        "name": "Marriott Bonvoy",
+        "programmeId": "programme.marriott-bonvoy",
+        "linkOnly": true,
+        "quote": "6X points at hotels participating in Marriott Bonvoy"
+      },
+      "fee": {
+        "amount": 250,
+        "currency": "USD",
+        "quote": "The annual fee for the Marriott Bonvoy Bevy American Express Card is $250"
+      },
+      "additionalFee": {
+        "amount": 0,
+        "currency": "USD",
+        "quote": "There is no annual fee for Additional Cards"
+      },
+      "earning": [
+        {
+          "zh": "Marriott Bonvoy 酒店",
+          "en": "Hotels participating in Marriott Bonvoy",
+          "multiplier": 6,
+          "unit": "points-per-USD",
+          "category": "hotel",
+          "quote": "6X points at hotels participating in Marriott Bonvoy"
+        },
+        {
+          "zh": "全球餐厅和美国超市",
+          "en": "Restaurants worldwide and U.S. supermarkets",
+          "multiplier": 4,
+          "unit": "points-per-USD",
+          "category": "general",
+          "cap": {
+            "amount": 15000,
+            "currency": "USD",
+            "period": "calendar-year"
+          },
+          "noteZh": "每自然年合计前1.5万美元；之后按2倍。",
+          "noteEn": "On up to $15,000 in combined purchases per calendar year, then 2X.",
+          "quote": "on up to $15,000 in combined purchases at restaurants and U.S. supermarkets per calendar year, then 2X points"
+        },
+        {
+          "zh": "其他合资格消费",
+          "en": "All other eligible purchases",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "2X points on all other eligible purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "bonus-per-stay",
+          "zh": "每次住宿1,000点奖励",
+          "en": "1,000 bonus points per stay",
+          "noteZh": "须直接向 Marriott 预订的付费合资格住宿。",
+          "noteEn": "Per paid eligible stay booked directly with Marriott.",
+          "scenario": "hotel-stay",
+          "category": "membership",
+          "period": "per-stay",
+          "programmeIds": [
+            "programme.marriott-bonvoy"
+          ],
+          "quote": "Earn 1,000 Marriott Bonvoy bonus points per paid eligible stay booked directly with Marriott"
+        },
+        {
+          "key": "gold-elite",
+          "zh": "Marriott Bonvoy Gold Elite 会籍",
+          "en": "Marriott Bonvoy Gold Elite status",
+          "noteZh": "公开规则；个人会籍未核实。",
+          "noteEn": "Public rule; personal status is unverified.",
+          "scenario": "hotel-stay",
+          "category": "membership",
+          "period": "ongoing",
+          "programmeIds": [
+            "programme.marriott-bonvoy"
+          ],
+          "quote": "With complimentary Marriott Bonvoy Gold Elite status"
+        },
+        {
+          "key": "free-night",
+          "zh": "消费解锁免费房晚",
+          "en": "Free Night Award after spending",
+          "noteZh": "自然年消费满1.5万美元得1晚；是否达标未核实。",
+          "noteEn": "1 Free Night Award after spending $15,000 in a calendar year. Whether you reach it is unverified.",
+          "scenario": "hotel-stay",
+          "category": "spend-unlock",
+          "period": "calendar-year",
+          "programmeIds": [
+            "programme.marriott-bonvoy"
+          ],
+          "quote": "can earn 1 Free Night Award after spending $15,000 on eligible purchases"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "15晚 Elite Night Credits 未录入。",
+          "en": "15 Elite Night Credits are not recorded."
+        }
+      ]
+    },
+    {
+      "id": "amex-us-us-hilton-honors-business-card",
+      "page": "amex-hilton-biz",
+      "issuer": "American Express",
+      "new": {
+        "bank": "Amex US",
+        "region": "US",
+        "name": "Hilton Honors American Express Business Card"
+      },
+      "aliases": [
+        "Hilton Honors Business Card",
+        "Hilton Honors Business"
+      ],
+      "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/hilton-honors/",
+      "transfer": {
+        "name": "Hilton Honors",
+        "programmeId": "programme.hilton-honors",
+        "linkOnly": true,
+        "quote": "Earn 12X Hilton Honors Bonus Points"
+      },
+      "earning": [
+        {
+          "zh": "Hilton 旗下酒店直接消费",
+          "en": "Hotels and resorts in the Hilton portfolio",
+          "multiplier": 12,
+          "unit": "points-per-USD",
+          "category": "hotel",
+          "quote": "Earn 12X Hilton Honors Bonus Points on eligible purchases made directly with hotels and resorts within the Hilton portfolio"
+        },
+        {
+          "zh": "其他合资格消费",
+          "en": "Other eligible purchases",
+          "multiplier": 5,
+          "unit": "points-per-USD",
+          "category": "general",
+          "cap": {
+            "amount": 100000,
+            "currency": "USD",
+            "period": "calendar-year"
+          },
+          "noteZh": "每自然年前10万美元；之后按3倍。",
+          "noteEn": "On the first $100,000 each calendar year, then 3X.",
+          "quote": "Earn 5X Hilton Honors Bonus Points on the first $100,000 of eligible purchases each calendar year, then earn 3X"
+        }
+      ],
+      "credits": [
+        {
+          "key": "hilton-credit",
+          "zh": "Hilton 抵扣",
+          "en": "Hilton credit",
+          "noteZh": "每季最多60美元，须直接向 Hilton 旗下酒店消费。",
+          "noteEn": "Up to $60 each quarter on purchases made directly with a property in the Hilton portfolio.",
+          "amount": 60,
+          "period": "calendar-quarter",
+          "scenario": "hotel-stay",
+          "programmeIds": [
+            "programme.hilton-honors"
+          ],
+          "quote": "Get up to $60 in statement credits each quarter for purchases made directly with a property"
+        },
+        {
+          "key": "gold-status",
+          "zh": "Hilton Honors Gold 会籍",
+          "en": "Hilton Honors Gold status",
+          "noteZh": "公开规则；个人会籍未核实。",
+          "noteEn": "Public rule; personal status is unverified.",
+          "scenario": "hotel-stay",
+          "category": "membership",
+          "period": "ongoing",
+          "programmeIds": [
+            "programme.hilton-honors"
+          ],
+          "quote": "Enjoy even more perks as a Hilton Honors Gold member"
+        },
+        {
+          "key": "diamond-upgrade",
+          "zh": "Diamond 会籍升级",
+          "en": "Hilton Honors Diamond upgrade",
+          "noteZh": "自然年消费满4万美元可升级；是否达标未核实。",
+          "noteEn": "Spend $40,000 in a calendar year to earn the upgrade. Whether you reach it is unverified.",
+          "scenario": "hotel-stay",
+          "category": "spend-unlock",
+          "period": "calendar-year",
+          "programmeIds": [
+            "programme.hilton-honors"
+          ],
+          "quote": "Spend $40,000 on eligible purchases on your Card in a calendar year"
+        }
+      ],
+      "fee": {
+        "amount": 195,
+        "currency": "USD",
+        "embedded": true,
+        "quote": "$195 Annual Fee"
+      },
+      "additionalFee": {
+        "amount": 0,
+        "currency": "USD",
+        "quote": "offers an Employee Card option with no annual fee"
+      }
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-platinum-business-card",
+      "page": "amex-delta-plat-biz",
+      "issuer": "American Express",
+      "new": {
+        "bank": "Amex US",
+        "region": "US",
+        "name": "Delta SkyMiles Platinum Business Card"
+      },
+      "aliases": [
+        "Delta SkyMiles Platinum Business American Express Card",
+        "Delta SkyMiles Platinum Business"
+      ],
+      "url": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-platinum/",
+      "transfer": {
+        "name": "Delta SkyMiles",
+        "programmeId": "programme.delta-skymiles",
+        "linkOnly": true,
+        "quote": "3X MILES At Delta & Hotels"
+      },
+      "fee": {
+        "amount": 350,
+        "currency": "USD",
+        "quote": "The Delta SkyMiles Platinum Business Card has a $350 annual fee"
+      },
+      "earning": [
+        {
+          "zh": "Delta 和酒店直接消费",
+          "en": "Purchases made directly with Delta and hotels",
+          "multiplier": 3,
+          "unit": "miles-per-USD",
+          "category": "travel",
+          "quote": "3X MILES At Delta & Hotels Per every eligible dollar spent on purchases made directly with Delta and hotels"
+        },
+        {
+          "zh": "交通、美国运输或大额消费",
+          "en": "Transit, U.S. shipping or large purchases",
+          "multiplier": 1.5,
+          "unit": "miles-per-USD",
+          "category": "general",
+          "cap": {
+            "amount": 100000,
+            "currency": "USD",
+            "period": null
+          },
+          "noteZh": "合计每年前10万美元（页面只写每年）；单笔5,000美元以上算大额；多个加速比例时只取较高者。",
+          "noteEn": "Up to $100K of combined eligible purchases per year; the page does not say how the year is counted. Single purchases of $5K or more count as large. Only the higher accelerator applies.",
+          "quote": "up to $100K of combined eligible purchases per year"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "miles-per-USD",
+          "category": "general",
+          "quote": "1X MILES On Other Purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "rideshare",
+          "zh": "网约车抵扣",
+          "en": "Rideshare credit",
+          "noteZh": "每月最多10美元，限美国指定服务商，须登记。",
+          "noteEn": "Up to $10 each month on U.S. rideshare purchases with select providers. Enrollment required.",
+          "amount": 10,
+          "period": "calendar-month",
+          "scenario": "ground-transport",
+          "quote": "Earn up to $10 back in statement credits each month on U.S. rideshare purchases with select providers",
+          "enrollment": true
+        },
+        {
+          "key": "resy",
+          "zh": "Resy 餐厅抵扣",
+          "en": "Resy credit",
+          "noteZh": "每月最多10美元，限美国合资格 Resy 餐厅，须登记。",
+          "noteEn": "Up to $10 per month at qualifying U.S. Resy restaurants. Enrollment required.",
+          "amount": 10,
+          "scenario": "dining",
+          "programmeIds": [
+            "programme.resy"
+          ],
+          "enrollment": true,
+          "quote": "you can earn up to $10 per month in statement credits on eligible purchases",
+          "period": "calendar-month"
+        },
+        {
+          "key": "delta-stays",
+          "zh": "Delta Stays 抵扣",
+          "en": "Delta Stays credit",
+          "noteZh": "每年最多200美元，须通过 Delta Stays 预付酒店或度假屋；周期的起算方式未结构化。",
+          "noteEn": "An annual statement credit of up to $200 on prepaid hotels or vacation rentals through Delta Stays. How the year is counted is not structured here.",
+          "amount": 200,
+          "scenario": "hotel-stay",
+          "quote": "an annual statement credit of up to $200 after using your"
+        },
+        {
+          "key": "trusted-traveler",
+          "zh": "Global Entry 或 TSA PreCheck 申请费抵扣",
+          "en": "Global Entry or TSA PreCheck credit",
+          "noteZh": "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。",
+          "noteEn": "Every 4 years: $120 for Global Entry or up to $85 for TSA PreCheck.",
+          "amount": 120,
+          "scenario": "airport",
+          "quote": "Receive either a $120 statement credit for a Global Entry application fee",
+          "period": "rolling-four-years"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "Companion Certificate 和免费行李的细节未录入。",
+          "en": "Companion Certificate and free bag details are not recorded."
+        }
+      ]
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-gold-business-card",
+      "page": "amex-delta-gold-biz",
+      "issuer": "American Express",
+      "new": {
+        "bank": "Amex US",
+        "region": "US",
+        "name": "Delta SkyMiles Gold Business Card"
+      },
+      "aliases": [
+        "Delta SkyMiles Gold Business American Express Card",
+        "Delta SkyMiles Gold Business"
+      ],
+      "url": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-gold/",
+      "transfer": {
+        "name": "Delta SkyMiles",
+        "programmeId": "programme.delta-skymiles",
+        "linkOnly": true,
+        "quote": "2X MILES At Delta"
+      },
+      "fee": {
+        "amount": 150,
+        "currency": "USD",
+        "quote": "has a $0 introductory annual fee for the first year, then $150"
+      },
+      "earning": [
+        {
+          "zh": "Delta 直接消费",
+          "en": "Purchases made directly with Delta",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "airline",
+          "quote": "2X MILES At Delta Per every eligible dollar spent on purchases made directly with Delta"
+        },
+        {
+          "zh": "餐厅",
+          "en": "Restaurants",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "dining",
+          "quote": "2X MILES At Restaurants"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "miles-per-USD",
+          "category": "general",
+          "quote": "1X MILES On Other Purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "delta-flight",
+          "zh": "Delta 机票额度",
+          "en": "Delta Flight Credit",
+          "noteZh": "自然年消费满1万美元后得200美元；是否达标未核实。",
+          "noteEn": "A $200 Delta Flight Credit after $10,000 in purchases in a calendar year. Whether you reach it is unverified.",
+          "amount": 200,
+          "period": "calendar-year",
+          "scenario": "travel",
+          "category": "spend-unlock",
+          "programmeIds": [
+            "programme.delta-skymiles"
+          ],
+          "quote": "after you spend $10,000 in purchases on your Card in a calendar year"
+        },
+        {
+          "key": "delta-stays",
+          "zh": "Delta Stays 抵扣",
+          "en": "Delta Stays credit",
+          "noteZh": "每年最多150美元，限预付；周期的起算方式未结构化。",
+          "noteEn": "Up to $150 back annually on eligible prepaid bookings. How the year is counted is not structured here.",
+          "amount": 150,
+          "scenario": "hotel-stay",
+          "quote": "Members can earn up to $150 back annually on eligible prepaid"
+        },
+        {
+          "key": "rideshare",
+          "zh": "网约车抵扣",
+          "en": "Rideshare credit",
+          "noteZh": "首次续卡后每月最多10美元，须登记，限美国指定服务商。",
+          "noteEn": "After your first Card renewal, enroll to earn up to $10 each month on U.S. rideshare purchases with select providers.",
+          "amount": 10,
+          "period": "calendar-month",
+          "scenario": "ground-transport",
+          "enrollment": true,
+          "quote": "After your first Card renewal, enroll and earn up to $10 in statement credits each month"
+        },
+        {
+          "key": "inflight",
+          "zh": "机上消费20%返还",
+          "en": "20% back on in-flight purchases",
+          "noteZh": "以抵扣形式返还，限合资格的 Delta 机上消费。",
+          "noteEn": "A 20% statement credit on eligible Delta in-flight purchases.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "ongoing",
+          "quote": "Receive a 20% savings in the form of a statement credit on eligible Delta in-flight purchases"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "美国广告和运输各有每年5万美元额度的2倍，未单列。首年优惠是否适用未核实。免费行李未录入。",
+          "en": "2X on U.S. advertising and on U.S. shipping, each up to $50,000 per year, is not listed separately. Whether the intro fee applies is unverified. Free bags are not recorded."
+        }
+      ]
+    }
+  ]
+}
