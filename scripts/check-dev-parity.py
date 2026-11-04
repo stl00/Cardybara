@@ -31,7 +31,11 @@ def compare(dev):
  labels={'name','version','version_name','description','background','action','permissions','host_permissions','optional_host_permissions','content_scripts'}
  for key in (set(d)|set(m))-labels:
   if d.get(key)!=m.get(key):problems.append('manifest differs: '+key)
- if set(d.get('optional_host_permissions',[]))-set(m.get('optional_host_permissions',[])):problems.append('optional hosts wider than the package')
+ # The dev build gives up only the package's localhost permission, so no local server can feed a read.
+ if set(h for h in d.get('optional_host_permissions',[]) if not h.startswith('http:'))!=set(h for h in m.get('optional_host_permissions',[]) if not h.startswith('http:')) or any(h.startswith('http:') for h in d.get('optional_host_permissions',[])):problems.append('optional hosts differ')
+ strip=lambda a:{k:v for k,v in a.items() if k not in ['default_popup','default_title']}
+ if strip(d.get('action',{}))!=strip(m.get('action',{})):problems.append('manifest differs: action')
+ if d.get('background')!={'service_worker':'background-dev.js','type':'module'} or m.get('background',{}).get('type')!='module':problems.append('manifest differs: background')
  # Anything else in the dev build has to be on the short list, so nothing extra can read a bank.
  for f in dev.rglob('*'):
   rel=f.relative_to(dev).as_posix()
