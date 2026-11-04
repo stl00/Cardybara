@@ -10,6 +10,7 @@ Needs opencc-python-reimplemented on PYTHONPATH.
   python3 scripts/curate-card-batch.py docs/knowledge/card-batches/batch-01.json --pages /path/to/pages
 """
 import argparse
+import html
 import json
 import re
 from pathlib import Path
@@ -18,6 +19,14 @@ from opencc import OpenCC
 root = Path(__file__).resolve().parents[1]
 base = root / 'src/data/knowledge'
 cc = OpenCC('s2twp')
+
+
+def traditional(zh):
+    # OpenCC's mistakes on words this catalogue uses often.
+    text = cc.convert(zh)
+    for wrong, right in (('托執行李', '托運行李'), ('髮卡', '發卡'), ('后', '後')):
+        text = text.replace(wrong, right)
+    return text
 
 
 def read(path):
@@ -57,7 +66,7 @@ def main():
     def txt(zh, en):
         # An existing translation stays: other screens already show it for this Chinese text.
         tr['en-US'].setdefault(zh, en)
-        tr['zh-TW'].setdefault(zh, cc.convert(zh))
+        tr['zh-TW'].setdefault(zh, traditional(zh))
         return zh
 
     steps = [
@@ -71,8 +80,11 @@ def main():
             missing.append(f"{card['id']}: quote too long, keep it short: {quote}")
         if not args.pages:
             return
+        # Issuers keep some terms in embedded page data, so the raw HTML counts as the page too.
         page = Path(args.pages) / f"{card['page']}.txt"
-        if clean(quote) not in clean(page.read_text()):
+        raw = page.with_suffix('.html')
+        text = clean(page.read_text()) + ' ' + (clean(html.unescape(re.sub(r'<[^>]{0,300}>', ' ', raw.read_text(errors='ignore')))) if raw.exists() else '')
+        if clean(quote) not in text:
             missing.append(f"{card['id']}: {quote}")
 
     for card in batch['cards']:
@@ -143,6 +155,8 @@ def main():
                 terms['requiresEnrollment'] = row['enrollment']
             rule(row['key'], 'benefit', row.get('category', 'credit'), [row['scenario']], row.get('programmeIds', []), title, summary, row['quote'], terms, row.get('validity'))
 
+    for key, value in tr['zh-TW'].items():
+        tr['zh-TW'][key] = value.replace('托執行李', '托運行李').replace('髮卡', '發卡')
     if missing:
         raise SystemExit('Quotes not found on the saved issuer pages:\n' + '\n'.join(missing))
     manifest['snapshotId'] = f"cardybara-public-knowledge-{checked}.cards-{batch['batch']}"
