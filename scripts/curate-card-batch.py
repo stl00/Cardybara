@@ -156,7 +156,7 @@ def main():
             rule(row['key'], 'benefit', row.get('category', 'credit'), [row['scenario']], row.get('programmeIds', []), title, summary, row['quote'], terms, row.get('validity'))
 
     for key, value in tr['zh-TW'].items():
-        tr['zh-TW'][key] = value.replace('托執行李', '托運行李').replace('髮卡', '發卡')
+        tr['zh-TW'][key] = value.replace('托執行李', '托運行李').replace('髮卡', '發卡').replace('美元后', '美元後')
     if missing:
         raise SystemExit('Quotes not found on the saved issuer pages:\n' + '\n'.join(missing))
     manifest['snapshotId'] = f"cardybara-public-knowledge-{checked}.cards-{batch['batch']}"

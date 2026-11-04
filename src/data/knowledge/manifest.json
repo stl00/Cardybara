@@ -548,7 +548,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "年费：页面的金额由脚本载入，读取的公开内容里没有数字，留作未知。",
+        "只录入主要抵扣和赚取比例，Priority Pass、Admirals Club 通行证等未录入。",
         "ThankYou 转点伙伴和比例尚未核对。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
@@ -564,7 +564,6 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "年费：页面的金额由脚本载入，读取的公开内容里没有数字，留作未知。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -579,7 +578,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "年费：页面只写首年豁免，金额由脚本载入，读取的公开内容里没有数字，留作未知。",
+        "首年优惠是否适用未核实。优先登机等其他福利未录入。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -594,7 +593,8 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "主卡年费：金额由脚本载入，读取的公开内容里没有数字，留作未知。其他消费的赚取比例未结构化。",
+        "附属卡年费：页面写“最多3名175美元，之后每名175美元”，看不出前3名是合计还是每名，留作未知。",
+        "其他消费的赚取比例和 Avis、Omni 等其他福利未录入。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -624,7 +624,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "年度旅行额度、周年奖励里程和 Global Entry：读取到的公开内容没有数字，留作未知。",
+        "Global Entry 的金额未在页面内容中确认。",
         "转点伙伴和比例尚未核对。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],

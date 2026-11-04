@@ -17,13 +17,13 @@
 | 1 | Amex Business Gold | $375 | 3 | 4 | Membership Rewards | 已支持的银行，未验收 | 员工卡年费：页面写“前五张95美元，之后每张95美元”，看不出前五张是合计还是每张，留作未知。 | https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-gold-card-amex/ |
 | 1 | Amex Blue Business Plus | $0 | 1 | 0 | Membership Rewards | 已支持的银行，未验收 | — | https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-blue-business-plus-credit-card-amex/ |
 | 2 | Citi Strata Premier Card | $95 | 6 | 1 | Citi ThankYou Points | 已支持的银行，未验收 | ThankYou 转点伙伴和比例尚未核对。 | https://www.citi.com/credit-cards/citi-strata-premier-credit-card |
-| 2 | Citi Strata Elite Card | 未知 | 5 | 4 | Citi ThankYou Points | 已支持的银行，未验收 | 年费：页面的金额由脚本载入，读取的公开内容里没有数字，留作未知。；ThankYou 转点伙伴和比例尚未核对。 | https://www.citi.com/credit-cards/citi-strata-elite-credit-card |
-| 2 | Citi Double Cash Card | 未知 | 1 | 0 | Citi ThankYou Points | 已支持的银行，未验收 | 年费：页面的金额由脚本载入，读取的公开内容里没有数字，留作未知。 | https://www.citi.com/credit-cards/citi-double-cash-credit-card |
-| 2 | Citi / AAdvantage Platinum Select Card | 未知 | 4 | 1 | American Airlines AAdvantage | 已支持的银行，未验收 | 年费：页面只写首年豁免，金额由脚本载入，读取的公开内容里没有数字，留作未知。 | https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard |
-| 2 | Citi / AAdvantage Executive Card | 未知 | 1 | 6 | American Airlines AAdvantage | 已支持的银行，未验收 | 主卡年费：金额由脚本载入，读取的公开内容里没有数字，留作未知。其他消费的赚取比例未结构化。 | https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard |
+| 2 | Citi Strata Elite Card | $595 | 5 | 4 | Citi ThankYou Points | 已支持的银行，未验收 | 只录入主要抵扣和赚取比例，Priority Pass、Admirals Club 通行证等未录入。；ThankYou 转点伙伴和比例尚未核对。 | https://www.citi.com/credit-cards/citi-strata-elite-credit-card |
+| 2 | Citi Double Cash Card | $0 | 2 | 0 | Citi ThankYou Points | 已支持的银行，未验收 | — | https://www.citi.com/credit-cards/citi-double-cash-credit-card |
+| 2 | Citi / AAdvantage Platinum Select Card | $99 | 4 | 1 | American Airlines AAdvantage | 已支持的银行，未验收 | 首年优惠是否适用未核实。优先登机等其他福利未录入。 | https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard |
+| 2 | Citi / AAdvantage Executive Card | $695 | 2 | 6 | American Airlines AAdvantage | 已支持的银行，未验收 | 附属卡年费：页面写“最多3名175美元，之后每名175美元”，看不出前3名是合计还是每名，留作未知。；其他消费的赚取比例和 Avis、Omni 等其他福利未录入。 | https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard |
 | 2 | Venture Rewards Credit Card | $95 | 3 | 2 | Capital One Miles | 暂不支持 | 转点伙伴和比例尚未核对。 | https://www.capitalone.com/credit-cards/venture/ |
-| 2 | Venture X Rewards Credit Card | $395 | 4 | 1 | Capital One Miles | 暂不支持 | 年度旅行额度、周年奖励里程和 Global Entry：读取到的公开内容没有数字，留作未知。；转点伙伴和比例尚未核对。 | https://www.capitalone.com/credit-cards/venture-x/ |
-| 2 | Savor Credit Card | $0 | 3 | 0 | — | 暂不支持 | — | https://www.capitalone.com/credit-cards/savor/ |
+| 2 | Venture X Rewards Credit Card | $395 | 4 | 3 | Capital One Miles | 暂不支持 | Global Entry 的金额未在页面内容中确认。；转点伙伴和比例尚未核对。 | https://www.capitalone.com/credit-cards/venture-x/ |
+| 2 | Savor Credit Card | $0 | 4 | 0 | — | 暂不支持 | — | https://www.capitalone.com/credit-cards/savor/ |
 | 2 | Venture X Business Card | $395 | 3 | 3 | Capital One Miles | 暂不支持 | 转点伙伴和比例尚未核对。 | https://www.capitalone.com/small-business/credit-cards/venture-x-business/ |
 | 2 | Spark Cash Plus Card | $150 | 2 | 1 | — | 暂不支持 | — | https://www.capitalone.com/small-business/credit-cards/spark-cash-plus/ |
 | — | Delta SkyMiles Gold American Express Card | — | — | — | — | — | 待处理 | — |
