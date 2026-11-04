@@ -1,0 +1,858 @@
+{
+  "batch": 4,
+  "checkedAt": "2026-11-04",
+  "reviewAfter": "2027-02-02",
+  "cards": [
+    {
+      "id": "chase-us-united-explorer-card",
+      "page": "chase-us-united-explorer-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer",
+      "transfer": {
+        "name": "United MileagePlus",
+        "programmeId": "programme.united-mileageplus",
+        "linkOnly": true,
+        "quote": "9x total miles on eligible United flights"
+      },
+      "fee": {
+        "amount": 150,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $0 intro annual fee for the first year, then $150"
+      },
+      "earning": [
+        {
+          "zh": "United 消费",
+          "en": "United purchases",
+          "multiplier": 3,
+          "unit": "miles-per-USD",
+          "category": "airline",
+          "noteZh": "本卡的比例；页面的9倍合计还包含主卡持卡人机票作为 MileagePlus 会员的6倍，Basic Economy 不同。",
+          "noteEn": "The card's own rate. The 9x total on the page also counts 6x on the primary cardmember's fare as a MileagePlus member; Basic Economy differs.",
+          "quote": "3x miles on all other eligible United purchases"
+        },
+        {
+          "zh": "直订酒店",
+          "en": "Hotel stays booked with the hotel",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "hotel",
+          "quote": "2x miles on hotel stays when booked with the hotel"
+        },
+        {
+          "zh": "餐饮",
+          "en": "Dining",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "dining",
+          "quote": "2x miles on dining including eligible delivery services"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "miles-per-USD",
+          "category": "general",
+          "quote": "1x mile on all other purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "trusted-traveler",
+          "zh": "Global Entry、TSA PreCheck 或 NEXUS 申请费抵扣",
+          "en": "Global Entry, TSA PreCheck or NEXUS application fee credit",
+          "noteZh": "每四年最多120美元。",
+          "noteEn": "Up to $120 every 4 years.",
+          "amount": 120,
+          "period": "rolling-four-years",
+          "scenario": "airport",
+          "quote": "Up to $120 as a statement credit for Global Entry, TSA Precheck or NEXUS every 4 years"
+        },
+        {
+          "key": "first-bag",
+          "zh": "首件托运行李免费",
+          "en": "Free first checked bag",
+          "noteZh": "主卡持卡人和一名同行人；须在订单中填写 MileagePlus 号码，并用本卡购票（开户后90天内的航班免购票要求）。",
+          "noteEn": "For the primary Cardmember and one companion. The MileagePlus number must be on the booking, and the ticket bought with the card, except that the purchase requirement is waived for flights within 90 days of opening the account.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "per-trip",
+          "programmeIds": [
+            "programme.united-mileageplus"
+          ],
+          "quote": "the primary Cardmember and one companion can each check a first standard bag for free"
+        },
+        {
+          "key": "inflight",
+          "zh": "机上消费25%返还",
+          "en": "25% back on inflight purchases",
+          "noteZh": "以抵扣形式返还，限 United 机上餐饮、Wi-Fi 和 Club 高级饮品。",
+          "noteEn": "A statement credit on food, beverages and Wi-Fi on board and on Club premium drinks.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "ongoing",
+          "quote": "25% back as a statement credit on purchases of food, beverages and Wi-Fi on board United-operated flights"
+        },
+        {
+          "key": "travel-credit",
+          "zh": "United 旅行额度",
+          "en": "United travel credit",
+          "noteZh": "自然年消费满1万美元后得100美元；是否达标未核实。",
+          "noteEn": "$100 after you spend $10,000 within a calendar year. Whether you reach it is unverified.",
+          "amount": 100,
+          "period": "calendar-year",
+          "scenario": "travel",
+          "category": "spend-unlock",
+          "programmeIds": [
+            "programme.united-mileageplus"
+          ],
+          "quote": "Earn after you spend $10,000 with your United SM Explorer Card within a calendar year"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "Club 通行证、登机组别、里程折扣、另一项100美元旅行额度和其他合作方抵扣未录入。首年优惠是否适用未核实。",
+          "en": "Club passes, boarding group, award discount, the other $100 travel credit and other partner credits are not recorded. Whether the intro fee applies is unverified."
+        }
+      ]
+    },
+    {
+      "id": "chase-us-united-club-card",
+      "page": "chase-us-united-club-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/travel-credit-cards/united/club-infinite",
+      "transfer": {
+        "name": "United MileagePlus",
+        "programmeId": "programme.united-mileageplus",
+        "linkOnly": true,
+        "quote": "11x total miles on eligible United flights"
+      },
+      "fee": {
+        "amount": 695,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $695"
+      },
+      "earning": [
+        {
+          "zh": "United 消费",
+          "en": "United purchases",
+          "multiplier": 5,
+          "unit": "miles-per-USD",
+          "category": "airline",
+          "noteZh": "本卡的比例；页面的11倍合计还包含主卡持卡人机票作为 MileagePlus 会员的6倍，Basic Economy 不同。",
+          "noteEn": "The card's own rate. The 11x total on the page also counts 6x on the primary cardmember's fare as a MileagePlus member; Basic Economy differs.",
+          "quote": "5x miles on all other eligible United purchases"
+        },
+        {
+          "zh": "Renowned Hotels and Resorts 预付",
+          "en": "Prepaid stays through Renowned Hotels and Resorts",
+          "multiplier": 5,
+          "unit": "miles-per-USD",
+          "category": "hotel",
+          "quote": "5x miles on hotel stays when you prepay directly through Renowned Hotels and Resorts"
+        },
+        {
+          "zh": "其他旅行",
+          "en": "All other travel",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "travel",
+          "quote": "2x miles on all other travel including airfare, trains, local transit"
+        },
+        {
+          "zh": "餐饮",
+          "en": "Dining",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "dining",
+          "quote": "2x miles on dining including eligible delivery services"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "miles-per-USD",
+          "category": "general",
+          "quote": "1x mile on all other purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "bags",
+          "zh": "前两件托运行李免费",
+          "en": "Free first and second checked bags",
+          "noteZh": "主卡持卡人和一名同行人；须在订单中填写 MileagePlus 号码，并用本卡购票（开户后90天内的航班免购票要求）。",
+          "noteEn": "For the primary Cardmember and one companion. The MileagePlus number must be on the booking, and the ticket bought with the card, except that the purchase requirement is waived for flights within 90 days of opening the account.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "per-trip",
+          "programmeIds": [
+            "programme.united-mileageplus"
+          ],
+          "quote": "the primary Cardmember and one companion can each check a first and second standard bags for free"
+        },
+        {
+          "key": "renowned-hotels",
+          "zh": "Renowned Hotels and Resorts 抵扣",
+          "en": "Renowned Hotels and Resorts credit",
+          "noteZh": "每个账户周年最多200美元，须预付（Pay Now）。",
+          "noteEn": "Up to $200 each anniversary year on prepaid stays through Renowned Hotels and Resorts, using Pay Now.",
+          "amount": 200,
+          "scenario": "hotel-stay",
+          "programmeIds": [
+            "programme.renowned-hotels-and-resorts"
+          ],
+          "quote": "each anniversary year on hotel accommodations when you prepay directly through Renowned Hotels",
+          "period": "account-anniversary"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "United Club 会员资格及其条件、Premier Access、PQP、里程折扣和其他合作方抵扣未录入。",
+          "en": "United Club membership and its conditions, Premier Access, PQP, the award discount and other partner credits are not recorded."
+        }
+      ]
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-plus-credit-card",
+      "page": "chase-us-southwest-rapid-rewards-plus-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/travel-credit-cards/southwest/plus",
+      "transfer": {
+        "name": "Southwest Rapid Rewards",
+        "programmeId": "programme.southwest-rapid-rewards",
+        "linkOnly": true,
+        "quote": "Earn 2 points for each dollar spent on Southwest Airlines purchases"
+      },
+      "fee": {
+        "amount": 99,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $99 applied to first billing statement"
+      },
+      "earning": [
+        {
+          "zh": "Southwest 消费",
+          "en": "Southwest Airlines purchases",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "airline",
+          "quote": "Earn 2 points for each dollar spent on Southwest Airlines purchases"
+        },
+        {
+          "zh": "加油站和超市",
+          "en": "Gas stations and grocery stores",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "general",
+          "cap": {
+            "amount": 5000,
+            "currency": "USD",
+            "period": "account-anniversary"
+          },
+          "noteZh": "每个账户周年合计前5,000美元；之后按1倍。",
+          "noteEn": "On the first $5,000 in combined purchases per anniversary year, then 1X.",
+          "quote": "at gas stations and grocery stores on the first $5,000 in combined purchases per anniversary year"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 1 point for each dollar spent on all other purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "inflight",
+          "zh": "机上消费25%返还",
+          "en": "25% back on inflight purchases",
+          "noteZh": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
+          "noteEn": "A statement credit on drinks and WiFi on Southwest Airlines flights.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "ongoing",
+          "quote": "25% back on inflight purchases"
+        },
+        {
+          "key": "anniversary-points",
+          "zh": "周年积分",
+          "en": "Anniversary points",
+          "noteZh": "每年3,000点；个人到账未核实。",
+          "noteEn": "3,000 anniversary points each year. Personal posting is unverified.",
+          "scenario": "card-ownership",
+          "category": "membership",
+          "period": "account-anniversary",
+          "programmeIds": [
+            "programme.southwest-rapid-rewards"
+          ],
+          "quote": "3,000 anniversary points each year"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
+          "en": "Free checked bags, flight discounts, seat selection, boarding group and limited-time Lyft rates are not recorded."
+        }
+      ]
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-priority-credit-card",
+      "page": "chase-us-southwest-rapid-rewards-priority-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/travel-credit-cards/southwest/priority",
+      "transfer": {
+        "name": "Southwest Rapid Rewards",
+        "programmeId": "programme.southwest-rapid-rewards",
+        "linkOnly": true,
+        "quote": "Earn 4 points for each dollar spent on Southwest Airlines purchases"
+      },
+      "fee": {
+        "amount": 229,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $229 applied to first billing statement"
+      },
+      "earning": [
+        {
+          "zh": "Southwest 消费",
+          "en": "Southwest Airlines purchases",
+          "multiplier": 4,
+          "unit": "points-per-USD",
+          "category": "airline",
+          "quote": "Earn 4 points for each dollar spent on Southwest Airlines purchases"
+        },
+        {
+          "zh": "加油站和餐厅",
+          "en": "Gas stations and restaurants",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 2 points for each dollar spent at gas stations and restaurants"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 1 point for each dollar spent on all other purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "inflight",
+          "zh": "机上消费25%返还",
+          "en": "25% back on inflight purchases",
+          "noteZh": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
+          "noteEn": "A statement credit on drinks and WiFi on Southwest Airlines flights.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "ongoing",
+          "quote": "You will receive 25% back on Southwest Airlines inflight purchases"
+        },
+        {
+          "key": "a-list-tqp",
+          "zh": "A-List 进度积分",
+          "en": "Tier qualifying points toward A-List",
+          "noteZh": "每年每消费5,000美元得2,500 TQP；个人进度未核实。",
+          "noteEn": "2,500 TQPs for every $5,000 spent annually. Personal progress is unverified.",
+          "scenario": "travel",
+          "category": "spend-unlock",
+          "period": "ongoing",
+          "quote": "Earn 2,500 tier qualifying points (TQPs) toward A-List status for every $5,000 spent in purchases annually"
+        },
+        {
+          "key": "anniversary-points",
+          "zh": "周年积分",
+          "en": "Anniversary points",
+          "noteZh": "每年7,500点；个人到账未核实。",
+          "noteEn": "7,500 anniversary points each year. Personal posting is unverified.",
+          "scenario": "card-ownership",
+          "category": "membership",
+          "period": "account-anniversary",
+          "programmeIds": [
+            "programme.southwest-rapid-rewards"
+          ],
+          "quote": "7,500 anniversary points each year"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "免费托运行李、选座、登机组别和限时 Lyft 倍率未录入。",
+          "en": "Free checked bags, seat selection, boarding group and limited-time Lyft rates are not recorded."
+        }
+      ]
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-premier-credit-card",
+      "page": "chase-us-southwest-rapid-rewards-premier-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/travel-credit-cards/southwest/premier",
+      "transfer": {
+        "name": "Southwest Rapid Rewards",
+        "programmeId": "programme.southwest-rapid-rewards",
+        "linkOnly": true,
+        "quote": "Earn 3 points for each dollar spent on Southwest Airlines purchases"
+      },
+      "fee": {
+        "amount": 149,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $149 applied to first billing statement"
+      },
+      "earning": [
+        {
+          "zh": "Southwest 消费",
+          "en": "Southwest Airlines purchases",
+          "multiplier": 3,
+          "unit": "points-per-USD",
+          "category": "airline",
+          "quote": "Earn 3 points for each dollar spent on Southwest Airlines purchases"
+        },
+        {
+          "zh": "超市和餐厅",
+          "en": "Grocery stores and restaurants",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "general",
+          "cap": {
+            "amount": 8000,
+            "currency": "USD",
+            "period": "account-anniversary"
+          },
+          "noteZh": "每个账户周年合计前8,000美元；之后按1倍。",
+          "noteEn": "On the first $8,000 in combined purchases per anniversary year, then 1X.",
+          "quote": "Earn 2 points for each dollar spent at grocery stores and restaurants on the first $8,000 in combined purchases per anniversary year"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 1 point for each dollar spent on all other purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "inflight",
+          "zh": "机上消费25%返还",
+          "en": "25% back on inflight purchases",
+          "noteZh": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
+          "noteEn": "A statement credit on drinks and WiFi on Southwest Airlines flights.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "ongoing",
+          "quote": "25% back on inflight purchases"
+        },
+        {
+          "key": "a-list-tqp",
+          "zh": "A-List 进度积分",
+          "en": "Tier qualifying points toward A-List",
+          "noteZh": "每年每消费5,000美元得1,500 TQP；个人进度未核实。",
+          "noteEn": "1,500 TQPs for every $5,000 spent annually. Personal progress is unverified.",
+          "scenario": "travel",
+          "category": "spend-unlock",
+          "period": "ongoing",
+          "quote": "Earn 1,500 tier qualifying points (TQPs) toward A-List status for every $5,000 spent in purchases annually"
+        },
+        {
+          "key": "anniversary-points",
+          "zh": "周年积分",
+          "en": "Anniversary points",
+          "noteZh": "每年6,000点；个人到账未核实。",
+          "noteEn": "6,000 anniversary points each year. Personal posting is unverified.",
+          "scenario": "card-ownership",
+          "category": "membership",
+          "period": "account-anniversary",
+          "programmeIds": [
+            "programme.southwest-rapid-rewards"
+          ],
+          "quote": "6,000 anniversary points each year"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
+          "en": "Free checked bags, flight discounts, seat selection, boarding group and limited-time Lyft rates are not recorded."
+        }
+      ]
+    },
+    {
+      "id": "chase-us-marriott-bonvoy-boundless-credit-card",
+      "page": "chase-us-marriott-bonvoy-boundless-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless",
+      "transfer": {
+        "name": "Marriott Bonvoy",
+        "programmeId": "programme.marriott-bonvoy",
+        "linkOnly": true,
+        "quote": "Earn 6X points for every $1 spent at over 7,000 hotels participating in Marriott Bonvoy"
+      },
+      "fee": {
+        "amount": 95,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $95"
+      },
+      "earning": [
+        {
+          "zh": "Marriott Bonvoy 酒店",
+          "en": "Hotels participating in Marriott Bonvoy",
+          "multiplier": 6,
+          "unit": "points-per-USD",
+          "category": "hotel",
+          "noteZh": "本卡的比例；页面的17倍合计还包含会员和会籍部分。",
+          "noteEn": "The card's own rate; the 17X total on the page also counts member and status earnings.",
+          "quote": "Earn 6X points for every $1 spent at over 7,000 hotels participating in Marriott Bonvoy"
+        },
+        {
+          "zh": "超市、加油站和餐饮",
+          "en": "Grocery stores, gas stations and dining",
+          "multiplier": 3,
+          "unit": "points-per-USD",
+          "category": "general",
+          "cap": {
+            "amount": 6000,
+            "currency": "USD",
+            "period": null
+          },
+          "noteZh": "每年合计前6,000美元，之后按2倍；“每年”按开户日和12月账单周期计算，不是自然年。",
+          "noteEn": "On the first $6,000 in combined purchases annually, then 2X. \"Annually\" follows the account open date and December statement cycles, not a calendar year.",
+          "quote": "Earn 3X points for every $1 on the first $6,000 spent in combined purchases annually"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 2X points for every $1 you spend on all other purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "airline-credit",
+          "zh": "航空消费抵扣",
+          "en": "Airline statement credits",
+          "noteZh": "限时优惠，须直接向航空公司每期消费满250美元得50美元。新持卡人：2026年6月4日至12月31日、2027年1月1日至6月30日，自动登记。2026年1月7日前的持卡人：2026年上半年和下半年两期，到12月31日结束，须激活一次。是否达标未核实。",
+          "noteEn": "A limited offer: $50 per period after $250 directly with airlines. New cardmembers: June 4 to Dec. 31, 2026 and Jan. 1 to June 30, 2027, registered automatically. Cardmembers by 1/7/2026: the two halves of 2026, ending 12/31/2026, with a one-time activation. Whether you reach it is unverified.",
+          "amount": 50,
+          "period": null,
+          "scenario": "airport",
+          "quote": "Spend $250 between June 4 and Dec. 31, 2026 to earn a $50 statement credit",
+          "category": "spend-unlock",
+          "validity": {
+            "effectiveThrough": "2027-06-30"
+          }
+        },
+        {
+          "key": "silver-elite",
+          "zh": "Marriott Bonvoy Silver Elite 会籍",
+          "en": "Marriott Bonvoy Silver Elite status",
+          "noteZh": "公开规则；个人会籍未核实。",
+          "noteEn": "Public rule; personal status is unverified.",
+          "scenario": "hotel-stay",
+          "category": "membership",
+          "period": "ongoing",
+          "programmeIds": [
+            "programme.marriott-bonvoy"
+          ],
+          "quote": "with Silver Elite Status, a benefit of being a Marriott Bonvoy Boundless cardmember"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "年度免费房晚未录入。",
+          "en": "The annual free night is not recorded."
+        }
+      ]
+    },
+    {
+      "id": "chase-us-ihg-one-rewards-credit-card",
+      "page": "chase-us-ihg-one-rewards-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/one-rewards",
+      "transfer": {
+        "name": "IHG One Rewards",
+        "programmeId": "programme.ihg-one-rewards",
+        "linkOnly": true,
+        "quote": "You'll earn 5 points for each $1 spent on qualifying purchases made at hotels participating in IHG One Rewards"
+      },
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $0"
+      },
+      "earning": [
+        {
+          "zh": "IHG 酒店",
+          "en": "Hotels participating in IHG One Rewards",
+          "multiplier": 5,
+          "unit": "points-per-USD",
+          "category": "hotel",
+          "noteZh": "本卡的比例；页面的17倍合计还包含会员和会籍部分。",
+          "noteEn": "The card's own rate; the 17X total on the page also counts member and status earnings.",
+          "quote": "You'll earn 5 points for each $1 spent on qualifying purchases made at hotels participating in IHG One Rewards"
+        },
+        {
+          "zh": "超市、加油站和餐厅",
+          "en": "Grocery stores, gas stations and dining",
+          "multiplier": 3,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "You’ll earn 3 points for each $1 spent on purchases made in the following rewards categories: grocery stores"
+        },
+        {
+          "zh": "公用事业、网络电话和指定流媒体",
+          "en": "Utilities; internet, cable and phone; select streaming",
+          "multiplier": 3,
+          "unit": "points-per-USD",
+          "category": "general",
+          "noteZh": "限2026年12月31日前入账的消费。",
+          "noteEn": "For purchases posting through December 31, 2026.",
+          "quote": "purchases that post to your account through December 31, 2026 in the following rewards categories",
+          "validity": {
+            "effectiveThrough": "2026-12-31"
+          }
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 2X points per $1 spent on all other purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "fourth-night",
+          "zh": "第四晚免费",
+          "en": "4th Reward Night free",
+          "noteZh": "2026年12月31日后须满足年度消费要求（自然年5,000美元），用积分连住四晚时第四晚免费，资格持续到达标当年余下时间和下一自然年；是否达标未核实。",
+          "noteEn": "After December 31, 2026, an annual spend requirement applies ($5,000 in a calendar year) for a free 4th night when redeeming points for four consecutive nights, lasting the rest of that year and the next. Whether you reach it is unverified.",
+          "scenario": "hotel-stay",
+          "category": "spend-unlock",
+          "period": null,
+          "programmeIds": [
+            "programme.ihg-one-rewards"
+          ],
+          "quote": "After December 31, 2026: You will have to meet an annual spend requirement"
+        },
+        {
+          "key": "silver-elite",
+          "zh": "IHG Silver Elite 会籍",
+          "en": "IHG Silver Elite status",
+          "noteZh": "公开规则；个人会籍未核实。",
+          "noteEn": "Public rule; personal status is unverified.",
+          "scenario": "hotel-stay",
+          "category": "membership",
+          "period": "ongoing",
+          "programmeIds": [
+            "programme.ihg-one-rewards"
+          ],
+          "quote": "with Silver Elite Status"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "Elite Night Credits、消费解锁的1万点奖励和 Gold Elite 未录入。",
+          "en": "Elite Night Credits, the spend-unlocked 10,000 bonus points and Gold Elite are not recorded."
+        }
+      ]
+    },
+    {
+      "id": "chase-us-world-of-hyatt-credit-card",
+      "page": "chase-us-world-of-hyatt-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card",
+      "transfer": {
+        "name": "World of Hyatt",
+        "programmeId": "programme.world-of-hyatt",
+        "linkOnly": true,
+        "quote": "You'll earn 2 World of Hyatt Bonus Points"
+      },
+      "fee": {
+        "amount": 95,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $95"
+      },
+      "earning": [
+        {
+          "zh": "Hyatt 酒店",
+          "en": "Hyatt hotels",
+          "multiplier": 4,
+          "unit": "points-per-USD",
+          "category": "hotel",
+          "quote": "4 Bonus Points per $1 spent on qualifying purchases at Hyatt Hotels"
+        },
+        {
+          "zh": "餐厅、机票、通勤等类别",
+          "en": "Restaurants, airline tickets, local transit and other listed categories",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn unlimited 2X Bonus Points per $1 spent at restaurants, on airline tickets purchased directly from airlines, on local transit and commuting"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "You’ll earn 1 World of Hyatt Bonus Point for each $1 USD spent on all other purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "doordash-promo",
+          "zh": "DoorDash 每季优惠",
+          "en": "Quarterly DoorDash promo",
+          "noteZh": "激活 DashPass 后，每季一笔非餐厅订单减10美元；须用本卡付款，未用完作废；免费期后 DashPass 会自动扣费。",
+          "noteEn": "Once DashPass is activated, $10 off one non-restaurant order each calendar quarter, paying with this card. Unused value is lost, and DashPass bills automatically after the free period.",
+          "amount": 10,
+          "period": "calendar-quarter",
+          "scenario": "shopping",
+          "category": "promo",
+          "programmeIds": [
+            "programme.doordash"
+          ],
+          "enrollment": true,
+          "quote": "you will receive a $10 off discount each calendar quarter at checkout on one qualifying non-restaurant order on DoorDash"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "年度免费房晚、Tier Qualifying Night 和消费解锁的额外房晚未录入。",
+          "en": "The annual free night, tier qualifying nights and the spend-unlocked free night are not recorded."
+        }
+      ]
+    },
+    {
+      "id": "chase-us-air-canada-aeroplan-card",
+      "page": "chase-us-air-canada-aeroplan-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/travel-credit-cards/aircanada/aeroplan",
+      "transfer": {
+        "name": "Air Canada Aeroplan",
+        "programmeId": "programme.air-canada-aeroplan",
+        "linkOnly": true,
+        "quote": "3X points per $1 spent on travel purchases"
+      },
+      "fee": {
+        "amount": 195,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $195"
+      },
+      "earning": [
+        {
+          "zh": "Air Canada 直接消费和旅行",
+          "en": "Air Canada directly and travel",
+          "multiplier": 3,
+          "unit": "points-per-USD",
+          "category": "travel",
+          "quote": "3X points per $1 spent on travel purchases"
+        },
+        {
+          "zh": "超市",
+          "en": "Grocery stores",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "shopping",
+          "noteZh": "当前为3倍：2026年12月31日前入账按3倍，之后按这里记录的2倍。",
+          "noteEn": "3X now for purchases posting by December 31, 2026, then the 2X recorded here.",
+          "quote": "2X points per $1 spent at grocery stores"
+        },
+        {
+          "zh": "餐饮",
+          "en": "Dining",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "dining",
+          "noteZh": "当前为3倍：2026年12月31日前入账按3倍，之后按这里记录的2倍。",
+          "noteEn": "3X now for purchases posting by December 31, 2026, then the 2X recorded here.",
+          "quote": "2X points per $1 spent on dining, including takeout and eligible delivery services"
+        },
+        {
+          "zh": "加油站",
+          "en": "Gas stations",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "ground-transport",
+          "quote": "2X points per $1 spent at gas stations"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "1X points per $1 spent on all other purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "air-canada-credit",
+          "zh": "Air Canada 抵扣",
+          "en": "Air Canada statement credits",
+          "noteZh": "每半年最多50美元，须直接向 Air Canada 合资格消费；礼品卡、租车和酒店预订等除外。",
+          "noteEn": "Up to $50 from January to June and up to $50 from July to December on eligible purchases directly with Air Canada; gift cards, car rentals, hotel bookings and others are excluded.",
+          "amount": 50,
+          "scenario": "airport",
+          "programmeIds": [
+            "programme.air-canada"
+          ],
+          "quote": "from January 1 through June 30 and up to $50 from July 1 through December 31",
+          "period": "calendar-half-year"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "Aeroplan 25K 会籍、免费托运行李和 FLY15OFF 未录入。",
+          "en": "Aeroplan 25K status, free checked bags and FLY15OFF are not recorded."
+        }
+      ]
+    },
+    {
+      "id": "chase-us-ink-business-premier-credit-card",
+      "page": "chase-us-ink-business-premier-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/business-credit-cards/ink/premier",
+      "fee": {
+        "amount": 195,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $195"
+      },
+      "earning": [
+        {
+          "zh": "Chase Travel",
+          "en": "Chase Travel",
+          "multiplier": 5,
+          "unit": "cashback-percent",
+          "category": "travel",
+          "quote": "Earn unlimited 5% cash back on travel purchased through Chase Travel"
+        },
+        {
+          "zh": "单笔5,000美元以上消费",
+          "en": "Purchases of $5,000 or more",
+          "multiplier": 2.5,
+          "unit": "cashback-percent",
+          "category": "general",
+          "quote": "Earn a total of 2.5% cash back on every purchase of $5,000 or more"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other business purchases",
+          "multiplier": 2,
+          "unit": "cashback-percent",
+          "category": "general",
+          "quote": "unlimited 2% cash back on all other business purchases"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "限时 Lyft 倍率未录入。",
+          "en": "The limited-time Lyft earning rate is not recorded."
+        }
+      ]
+    }
+  ]
+}
