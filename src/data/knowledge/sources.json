@@ -558,5 +558,75 @@
     "title": "American Express · Blue Business Plus Credit Card 官方产品页",
     "checkedAt": "2026-11-04",
     "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-strata-premier-card",
+    "url": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
+    "title": "Citi · Citi Strata Premier Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-strata-elite-card",
+    "url": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card",
+    "title": "Citi · Citi Strata Elite Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-double-cash-card",
+    "url": "https://www.citi.com/credit-cards/citi-double-cash-credit-card",
+    "title": "Citi · Citi Double Cash Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-aadvantage-platinum-select-card",
+    "url": "https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard",
+    "title": "Citi · Citi / AAdvantage Platinum Select Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-aadvantage-executive-card",
+    "url": "https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard",
+    "title": "Citi · Citi / AAdvantage Executive Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-venture-rewards-credit-card",
+    "url": "https://www.capitalone.com/credit-cards/venture/",
+    "title": "Capital One · Venture Rewards Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-venture-x-rewards-credit-card",
+    "url": "https://www.capitalone.com/credit-cards/venture-x/",
+    "title": "Capital One · Venture X Rewards Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-savor-credit-card",
+    "url": "https://www.capitalone.com/credit-cards/savor/",
+    "title": "Capital One · Savor Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-venture-x-business-card",
+    "url": "https://www.capitalone.com/small-business/credit-cards/venture-x-business/",
+    "title": "Capital One · Venture X Business Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-spark-cash-plus-card",
+    "url": "https://www.capitalone.com/small-business/credit-cards/spark-cash-plus/",
+    "title": "Capital One · Spark Cash Plus Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
   }
 ]

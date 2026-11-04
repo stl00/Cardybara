@@ -10,6 +10,7 @@ Needs opencc-python-reimplemented on PYTHONPATH.
   python3 scripts/curate-card-batch.py docs/knowledge/card-batches/batch-01.json --pages /path/to/pages
 """
 import argparse
+import html
 import json
 import re
 from pathlib import Path
@@ -18,6 +19,14 @@ from opencc import OpenCC
 root = Path(__file__).resolve().parents[1]
 base = root / 'src/data/knowledge'
 cc = OpenCC('s2twp')
+
+
+def traditional(zh):
+    # OpenCC's mistakes on words this catalogue uses often.
+    text = cc.convert(zh)
+    for wrong, right in (('托執行李', '托運行李'), ('髮卡', '發卡'), ('后', '後')):
+        text = text.replace(wrong, right)
+    return text
 
 
 def read(path):
@@ -42,18 +51,22 @@ def main():
     review_after = batch['reviewAfter']
     rules, sources, manifest = read(base / 'rules.json'), read(base / 'sources.json'), read(base / 'manifest.json')
     entities, taxonomy = read(base / 'entities.json'), read(base / 'taxonomy.json')
+    logos = read(root / 'src/data/logos.json')
+    asset_rows = []
     for programme in batch.get('programmes', []):
         if not any(e['id'] == programme['id'] for e in entities['programmes']):
             entities['programmes'].append({**programme, 'aliases': []})
+            # A new brand gets no mark until the owner approves it; the category icon shows instead.
+            logos['brands'].append({'id': programme['id'].split('.', 1)[1], 'name': programme['name'], 'category': 'airline' if programme['kind'] == 'airline' else 'reward', 'programmeIds': [programme['id']], 'titleTokens': [], 'textTokens': [], 'termsUrl': None, 'finding': 'Not checked; no mark is shipped.', 'checkedAt': checked, 'status': 'unapproved', 'approval': None, 'terms': 'unverified', 'logo': None, 'source': None})
+            asset_rows.append(f"| {programme['name']} | unverified | null | null | not located | Not checked; no mark is shipped. |")
     products = read(root / 'src/data/card-products.json')
     overrides = read(root / 'src/data/card-product-overrides.json')
-    logos = read(root / 'src/data/logos.json')
     tr = read(root / 'src/translations.json')
 
     def txt(zh, en):
         # An existing translation stays: other screens already show it for this Chinese text.
         tr['en-US'].setdefault(zh, en)
-        tr['zh-TW'].setdefault(zh, cc.convert(zh))
+        tr['zh-TW'].setdefault(zh, traditional(zh))
         return zh
 
     steps = [
@@ -67,8 +80,11 @@ def main():
             missing.append(f"{card['id']}: quote too long, keep it short: {quote}")
         if not args.pages:
             return
+        # Issuers keep some terms in embedded page data, so the raw HTML counts as the page too.
         page = Path(args.pages) / f"{card['page']}.txt"
-        if clean(quote) not in clean(page.read_text()):
+        raw = page.with_suffix('.html')
+        text = clean(page.read_text()) + ' ' + (clean(html.unescape(re.sub(r'<[^>]{0,300}>', ' ', raw.read_text(errors='ignore')))) if raw.exists() else '')
+        if clean(quote) not in text:
             missing.append(f"{card['id']}: {quote}")
 
     for card in batch['cards']:
@@ -139,6 +155,8 @@ def main():
                 terms['requiresEnrollment'] = row['enrollment']
             rule(row['key'], 'benefit', row.get('category', 'credit'), [row['scenario']], row.get('programmeIds', []), title, summary, row['quote'], terms, row.get('validity'))
 
+    for key, value in tr['zh-TW'].items():
+        tr['zh-TW'][key] = value.replace('托執行李', '托運行李').replace('髮卡', '發卡').replace('美元后', '美元後')
     if missing:
         raise SystemExit('Quotes not found on the saved issuer pages:\n' + '\n'.join(missing))
     manifest['snapshotId'] = f"cardybara-public-knowledge-{checked}.cards-{batch['batch']}"
@@ -152,6 +170,12 @@ def main():
     write(root / 'src/data/card-product-overrides.json', overrides)
     write(root / 'src/translations.json', tr)
     write(root / 'src/data/logos.json', logos, indent=1)
+    if asset_rows:
+        assets = root / 'public/ASSET-SOURCES.md'
+        anchor = '| The Leading Hotels of the World Leaders Club |'
+        lines = assets.read_text().split('\n')
+        at = next(i for i, line in enumerate(lines) if line.startswith(anchor))
+        assets.write_text('\n'.join(lines[:at + 1] + asset_rows + lines[at + 1:]))
     write_coverage()
     print('cards', len(batch['cards']), 'rules', len(rules), 'sources', len(sources))
 

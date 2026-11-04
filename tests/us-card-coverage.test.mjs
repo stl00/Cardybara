@@ -26,7 +26,7 @@ test('each recorded fact has an official source, a date and the issuer wording',
  }
 });
 test('the assistant answers a listed card with its official source',()=>{
- for(const card of cards){const p=product(card.id);const result=runWalletTool(call('get_card_rules',{kind:'fee'}),{cards:[{id:'x',bank:p.bank,region:p.region,name:p.name}],events:[],day:'2026-11-04'});assert.ok(result.rules.length,card.id);assert.ok(JSON.stringify(result).includes(card.url),card.id);}
+ for(const card of cards){assert.ok(card.fee,`${card.id} has no annual fee`);const p=product(card.id);const result=runWalletTool(call('get_card_rules',{kind:'fee'}),{cards:[{id:'x',bank:p.bank,region:p.region,name:p.name}],events:[],day:'2026-11-04'});assert.ok(result.rules.length,card.id);assert.ok(JSON.stringify(result).includes(card.url),card.id);}
 });
 test('a held listed card gets a profile that marks personal state unverified',()=>{
  for(const card of cards){const p=product(card.id),profile=profileForCard({bank:p.bank,region:p.region,name:p.name});assert.ok(profile,card.id);assert.ok(profile.knowledgeGaps.length,card.id);for(const b of profile.benefits)assert.equal(b.accountState,'unverified');}

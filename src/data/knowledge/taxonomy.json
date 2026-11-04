@@ -124,6 +124,7 @@
     "points-per-CAD",
     "points-per-HKD",
     "cashback-percent",
-    "HKD-per-mile"
+    "HKD-per-mile",
+    "miles-per-USD"
   ]
 }

@@ -32883,5 +32883,4543 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-premier-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-premier-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "citi-us-citi-strata-premier-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Annual fee - $95",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-premier-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-premier-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-premier-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou"
+    ],
+    "content": {
+      "title": "cititravel.com 酒店、租车和景点",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "10 points per dollar spent on Hotels, Car Rentals and Attractions booked on cititravel.com",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 10,
+      "unit": "points-per-USD",
+      "spendCategory": "cititravel.com 酒店、租车和景点",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-premier-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-premier-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-premier-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou"
+    ],
+    "content": {
+      "title": "机票和其他酒店",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3 points per dollar spent on Air Travel and Other Hotel Purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "机票和其他酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-premier-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-premier-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-premier-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou"
+    ],
+    "content": {
+      "title": "餐厅",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3 points per dollar spent at Restaurants",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-premier-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-premier-card.earning-3@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-premier-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou"
+    ],
+    "content": {
+      "title": "超市",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3 points per dollar spent at Supermarkets",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "超市",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-premier-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-premier-card.earning-4@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-premier-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou"
+    ],
+    "content": {
+      "title": "加油站和充电站",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3 points per dollar spent on Gas & EV Charging Stations",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "加油站和充电站",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-premier-card.earning-5",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-premier-card.earning-5@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-premier-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1 point per dollar spent on All Other Purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-premier-card.hotel-benefit",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-premier-card.hotel-benefit@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-premier-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "年度酒店优惠",
+      "summary": "每自然年一次，通过 cititravel.com 或指定电话预订、单次住宿满500美元（不含税费）减100美元，预订时直接抵扣。",
+      "sourceText": "Once per calendar year, enjoy $100 off a single hotel stay of $500 or more",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每自然年一次，通过 cititravel.com 或指定电话预订、单次住宿满500美元（不含税费）减100美元，预订时直接抵扣。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-year",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每自然年一次，通过 cititravel.com 或指定电话预订、单次住宿满500美元（不含税费）减100美元，预订时直接抵扣。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "The Annual Fee is $595",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 595,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.fee-additional@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Annual fee for authorized users: $75",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 75,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou"
+    ],
+    "content": {
+      "title": "cititravel.com 酒店、租车和景点",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "12 points per dollar spent on Hotels, Car Rentals, and Attractions booked on cititravel.com",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 12,
+      "unit": "points-per-USD",
+      "spendCategory": "cititravel.com 酒店、租车和景点",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou"
+    ],
+    "content": {
+      "title": "cititravel.com 机票",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "6 points per dollar spent on Air Travel booked on cititravel.com",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 6,
+      "unit": "points-per-USD",
+      "spendCategory": "cititravel.com 机票",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou"
+    ],
+    "content": {
+      "title": "Citi Nights 餐厅",
+      "summary": "周五和周六晚6点至早6点（美东时间）。",
+      "sourceText": "6 points per dollar spent at Restaurants on Citi Nights",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "周五和周六晚6点至早6点（美东时间）。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 6,
+      "unit": "points-per-USD",
+      "spendCategory": "Citi Nights 餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "周五和周六晚6点至早6点（美东时间）。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.earning-3@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou"
+    ],
+    "content": {
+      "title": "其他时段餐厅",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3 points per dollar spent at Restaurants any other time",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "其他时段餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.earning-4@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1.5 points per dollar spent on All Other Purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1.5,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.hotel-benefit",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.hotel-benefit@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "年度酒店优惠",
+      "summary": "每自然年最多减300美元，须通过 cititravel.com 预订至少两晚。",
+      "sourceText": "Each calendar year, enjoy up to $300 off a hotel stay of 2 nights or more when booked through cititravel.com",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每自然年最多减300美元，须通过 cititravel.com 预订至少两晚。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-year",
+      "amount": 300,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每自然年最多减300美元，须通过 cititravel.com 预订至少两晚。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.splurge",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.splurge@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Splurge 抵扣",
+      "summary": "每自然年最多200美元，从指定品牌中最多选两个，部分有排除。",
+      "sourceText": "Every calendar year, earn up to $200 in statement credits on your choice of up to 2 of the following brands",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每自然年最多200美元，从指定品牌中最多选两个，部分有排除。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-year",
+      "amount": 200,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每自然年最多200美元，从指定品牌中最多选两个，部分有排除。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.blacklane",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.blacklane@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Blacklane 抵扣",
+      "summary": "每半年最多100美元。",
+      "sourceText": "Earn up to $100 on Blacklane purchases January through June and up to $100 July through December",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每半年最多100美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-half-year",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每半年最多100美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.trusted-traveler",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.trusted-traveler@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Global Entry 或 TSA PreCheck 申请费抵扣",
+      "summary": "每四年最多120美元。",
+      "sourceText": "Receive a statement credit, up to $120 every four years",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每四年最多120美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "rolling-four-years",
+      "amount": 120,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每四年最多120美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-double-cash-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-double-cash-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "citi-us-citi-double-cash-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "does not charge an annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-double-cash-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-double-cash-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-double-cash-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-double-cash-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou"
+    ],
+    "content": {
+      "title": "Citi Travel 酒店、租车和景点",
+      "summary": "合计：常规2%之外另加3%。",
+      "sourceText": "an additional 3% cash back on hotels, car rentals, and attractions booked through the Citi Travel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "合计：常规2%之外另加3%。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Citi Travel 酒店、租车和景点",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "合计：常规2%之外另加3%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-double-cash-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-double-cash-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-double-cash-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-double-cash-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou"
+    ],
+    "content": {
+      "title": "所有消费",
+      "summary": "消费时1%，还款时再1%；须按时至少还最低额。",
+      "sourceText": "Earn unlimited 1% cash back when you buy, plus an additional 1% as you pay, on every purchase",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "消费时1%，还款时再1%；须按时至少还最低额。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "消费时1%，还款时再1%；须按时至少还最低额。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-double-cash-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-platinum-select-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-platinum-select-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "citi-us-citi-aadvantage-platinum-select-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$0 Intro Annual Fee for the first year; $99 thereafter",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 99,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-platinum-select-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-platinum-select-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-platinum-select-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-platinum-select-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.aadvantage"
+    ],
+    "content": {
+      "title": "American Airlines 消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 AAdvantage miles for every $1 spent on eligible American Airlines purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "American Airlines 消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-platinum-select-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-platinum-select-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-platinum-select-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-platinum-select-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.aadvantage"
+    ],
+    "content": {
+      "title": "餐厅和外卖",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 AAdvantage miles for every $1 spent at restaurants, including takeout",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "餐厅和外卖",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-platinum-select-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-platinum-select-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-platinum-select-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-platinum-select-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.aadvantage"
+    ],
+    "content": {
+      "title": "加油站",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "spent at gas stations",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "加油站",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-platinum-select-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-platinum-select-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-platinum-select-card.earning-3@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-platinum-select-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.aadvantage"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 1 AAdvantage mile for every $1 spent on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "miles-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-platinum-select-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-platinum-select-card.checked-bag",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-platinum-select-card.checked-bag@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-platinum-select-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "美国国内航线首件托运行李免费",
+      "summary": "你和同一订单最多4名同行人。",
+      "sourceText": "1 free checked bag on domestic American Airlines itineraries for you and up to 4 travel companions",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "你和同一订单最多4名同行人。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "你和同一订单最多4名同行人。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-platinum-select-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-executive-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-executive-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "citi-us-citi-aadvantage-executive-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "with a $695 annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 695,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-executive-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-executive-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-executive-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-executive-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.aadvantage"
+    ],
+    "content": {
+      "title": "AAdvantage Hotels 和 AAdvantage Cars",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 12 AAdvantage miles for every $1 spent on eligible AAdvantage Hotels bookings",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 12,
+      "unit": "miles-per-USD",
+      "spendCategory": "AAdvantage Hotels 和 AAdvantage Cars",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-executive-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-executive-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-executive-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-executive-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.aadvantage"
+    ],
+    "content": {
+      "title": "American Airlines 消费",
+      "summary": "自然年消费满15万美元后，合计每美元5英里。",
+      "sourceText": "Earn 4 AAdvantage miles for every $1 spent on eligible American Airlines purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "自然年消费满15万美元后，合计每美元5英里。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "miles-per-USD",
+      "spendCategory": "American Airlines 消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "自然年消费满15万美元后，合计每美元5英里。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-executive-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-executive-card.aa-vacations",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-executive-card.aa-vacations@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-executive-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "American Airlines Vacations 抵扣",
+      "summary": "每半年最多250美元。",
+      "sourceText": "Earn up to $250 on purchases January through June and up to $250 July through December",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每半年最多250美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-half-year",
+      "amount": 250,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每半年最多250美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-executive-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-executive-card.inkind",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-executive-card.inkind@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-executive-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "dining"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "inKind 餐饮额度",
+      "summary": "每半年100美元，须把卡加入 inKind 应用；不能结转。",
+      "sourceText": "$100 to use from January-June and $100 to use from July-December",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每半年100美元，须把卡加入 inKind 应用；不能结转。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-half-year",
+      "amount": 100,
+      "currency": "USD",
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每半年100美元，须把卡加入 inKind 应用；不能结转。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-executive-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-executive-card.lyft",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-executive-card.lyft@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-executive-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Lyft 额度",
+      "summary": "自然月内乘车满3次后得15美元，全年最多180美元；只算主卡持卡人的合资格行程，额度30天后过期；2027年2月1日起 Wait & Save 不算。是否达标未核实。",
+      "sourceText": "After taking 3 eligible rides in a calendar month, earn a $15 Lyft credit",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "自然月内乘车满3次后得15美元，全年最多180美元；只算主卡持卡人的合资格行程，额度30天后过期；2027年2月1日起 Wait & Save 不算。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-month",
+      "amount": 15,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "自然月内乘车满3次后得15美元，全年最多180美元；只算主卡持卡人的合资格行程，额度30天后过期；2027年2月1日起 Wait & Save 不算。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-executive-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-executive-card.inflight",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-executive-card.inflight@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-executive-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "机上和 Admirals Club 消费抵扣",
+      "summary": "每自然年最多100美元。",
+      "sourceText": "Every calendar year, earn up to $100 in statement credits on inflight and eligible Admirals Club purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每自然年最多100美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-year",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每自然年最多100美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-executive-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-executive-card.trusted-traveler",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-executive-card.trusted-traveler@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-executive-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Global Entry 或 TSA PreCheck 申请费抵扣",
+      "summary": "每四年最多120美元。",
+      "sourceText": "Receive a statement credit, up to $120 every 4 years",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每四年最多120美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "rolling-four-years",
+      "amount": 120,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每四年最多120美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-executive-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-executive-card.admirals-club",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-executive-card.admirals-club@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-executive-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "lounge",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Admirals Club 会员",
+      "summary": "主卡持卡人的会员资格，可带最多2名客人或直系亲属。",
+      "sourceText": "The only card with Admirals Club membership",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "主卡持卡人的会员资格，可带最多2名客人或直系亲属。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "lounge",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "主卡持卡人的会员资格，可带最多2名客人或直系亲属。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-executive-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-rewards-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-rewards-credit-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Annual fee $95",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-rewards-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-rewards-credit-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "Capital One Travel 酒店、度假屋和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 5X miles on hotels, vacation rentals and rental cars booked through Capital One Travel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "miles-per-USD",
+      "spendCategory": "Capital One Travel 酒店、度假屋和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-rewards-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-rewards-credit-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "Capital One Entertainment",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 5X miles on purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "miles-per-USD",
+      "spendCategory": "Capital One Entertainment",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-rewards-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-rewards-credit-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "所有消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 2X miles per dollar on every purchase, every day",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-rewards-credit-card.lifestyle-collection",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-rewards-credit-card.lifestyle-collection@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Lifestyle Collection 体验额度",
+      "summary": "每次预订50美元，酒店结账时抵扣。",
+      "sourceText": "Receive a $50 experience credit with every Lifestyle Collection booking",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每次预订50美元，酒店结账时抵扣。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "per-stay",
+      "amount": 50,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每次预订50美元，酒店结账时抵扣。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-rewards-credit-card.trusted-traveler",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-rewards-credit-card.trusted-traveler@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Global Entry 或 TSA PreCheck 申请费抵扣",
+      "summary": "最多120美元；周期未结构化。",
+      "sourceText": "Receive up to a $120 statement credit when you use your Venture Rewards card to apply for Global Entry or TSA PreCheck",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "最多120美元；周期未结构化。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": 120,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "最多120美元；周期未结构化。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-rewards-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-rewards-credit-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-venture-x-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Annual Fee $395",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 395,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-rewards-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-rewards-credit-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-venture-x-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "Capital One Travel 酒店和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "10X Miles on hotels & rental cars booked through Capital One Travel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 10,
+      "unit": "miles-per-USD",
+      "spendCategory": "Capital One Travel 酒店和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-rewards-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-rewards-credit-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-venture-x-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "Capital One Travel 机票和度假屋",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "5X Miles on flights and vacation rentals",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "miles-per-USD",
+      "spendCategory": "Capital One Travel 机票和度假屋",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-rewards-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-rewards-credit-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-venture-x-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "Capital One Entertainment",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "earn 5X miles on Capital One Entertainment purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "miles-per-USD",
+      "spendCategory": "Capital One Entertainment",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-rewards-credit-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-rewards-credit-card.earning-3@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-venture-x-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2X Miles on all other purchases, every day",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-rewards-credit-card.premier-collection",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-rewards-credit-card.premier-collection@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-x-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Premier Collection 体验额度",
+      "summary": "最多100美元，酒店结账时用于合资格消费。",
+      "sourceText": "Premier Collection hotel experience credit will be applied at checkout by hotel to qualifying charges up to $100",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "最多100美元，酒店结账时用于合资格消费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "per-stay",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "最多100美元，酒店结账时用于合资格消费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-rewards-credit-card.travel",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-rewards-credit-card.travel@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-x-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Travel 年度额度",
+      "summary": "每年300美元；周期的起算方式未在该卡页面写明。",
+      "sourceText": "Receive a $300 annual Capital One Travel credit",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年300美元；周期的起算方式未在该卡页面写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": 300,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年300美元；周期的起算方式未在该卡页面写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-rewards-credit-card.anniversary-miles",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-rewards-credit-card.anniversary-miles@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-x-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "周年奖励里程",
+      "summary": "每个账户周年10,000里程；个人到账未核实。",
+      "sourceText": "10,000 miles anniversary bonus",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户周年10,000里程；个人到账未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户周年10,000里程；个人到账未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-savor-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savor-credit-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-savor-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$0 annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savor-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-savor-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savor-credit-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-savor-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Entertainment",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 8% cash back on Capital One Entertainment purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 8,
+      "unit": "cashback-percent",
+      "spendCategory": "Capital One Entertainment",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savor-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-savor-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savor-credit-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-savor-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Travel 酒店、度假屋和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 5% cash back on hotels, vacation rentals and rental cars booked through Capital One Travel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Capital One Travel 酒店、度假屋和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savor-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-savor-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savor-credit-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-savor-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "超市、餐饮、娱乐和流媒体",
+      "summary": "Walmart、Target 等大型超市除外。",
+      "sourceText": "Earn unlimited 3% cash back at grocery stores, on dining, entertainment and popular streaming services",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "Walmart、Target 等大型超市除外。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "cashback-percent",
+      "spendCategory": "超市、餐饮、娱乐和流媒体",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Walmart、Target 等大型超市除外。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savor-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-savor-credit-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savor-credit-card.earning-3@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-savor-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "plus 1% cash back on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savor-credit-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-business-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-business-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$395 annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 395,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-business-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-business-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "Capital One Business Travel 酒店和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Book through Capital One Business Travel to earn 10X miles on hotels and rental cars",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 10,
+      "unit": "miles-per-USD",
+      "spendCategory": "Capital One Business Travel 酒店和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-business-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-business-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "Capital One Business Travel 机票和度假屋",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "and 5X miles on flights and vacation rentals",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "miles-per-USD",
+      "spendCategory": "Capital One Business Travel 机票和度假屋",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-business-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-business-card.earning-2@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "所有消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2X miles on every purchase",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-business-card.travel",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-business-card.travel@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Business Travel 年度额度",
+      "summary": "每个账户周年300美元，须通过 Capital One Business Travel 预订；到下一周年前一天失效。",
+      "sourceText": "An annual $300 credit when you book through Capital One Business Travel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户周年300美元，须通过 Capital One Business Travel 预订；到下一周年前一天失效。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 300,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户周年300美元，须通过 Capital One Business Travel 预订；到下一周年前一天失效。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-business-card.anniversary-miles",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-business-card.anniversary-miles@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "周年奖励里程",
+      "summary": "每个账户周年10,000里程；页面标的100美元价值是发卡行说法，这里不当作每点价值。",
+      "sourceText": "10,000 bonus miles ($100 value) on your anniversary",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户周年10,000里程；页面标的100美元价值是发卡行说法，这里不当作每点价值。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "membership",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户周年10,000里程；页面标的100美元价值是发卡行说法，这里不当作每点价值。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-business-card.trusted-traveler",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-business-card.trusted-traveler@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Global Entry 或 TSA PreCheck 申请费抵扣",
+      "summary": "每个账户每四年一次，最多120美元。",
+      "sourceText": "Receive up to a $120 statement credit on Global Entry or TSA PreCheck",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户每四年一次，最多120美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "rolling-four-years",
+      "amount": 120,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户每四年一次，最多120美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-cash-plus-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-cash-plus-card.fee-primary@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-spark-cash-plus-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Get your $150 annual fee refunded every year you spend at least $150,000",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 150,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-cash-plus-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-cash-plus-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-cash-plus-card.earning-0@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-spark-cash-plus-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Business Travel 酒店、度假屋和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 5% cash back on hotels, vacation rentals and rental cars booked through Capital One Business Travel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Capital One Business Travel 酒店、度假屋和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-cash-plus-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-cash-plus-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-cash-plus-card.earning-1@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-spark-cash-plus-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2% Cash Back Business Card",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-cash-plus-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-cash-plus-card.fee-refund",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-cash-plus-card.fee-refund@2026-11-04.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-cash-plus-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "年费退还",
+      "summary": "在会员周年日前净消费满15万美元，以抵扣方式退还150美元年费；是否达标未核实。",
+      "sourceText": "Get your $150 annual fee refunded every year you spend at least $150,000",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "在会员周年日前净消费满15万美元，以抵扣方式退还150美元年费；是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "account-anniversary",
+      "amount": 150,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在会员周年日前净消费满15万美元，以抵扣方式退还150美元年费；是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-cash-plus-card"
+      ],
+      "checkedAt": "2026-11-04",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]
