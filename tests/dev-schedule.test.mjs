@@ -32,6 +32,8 @@ test('a failure stops its bank until the owner turns the schedule off and on',()
  assert.equal(classifyJob({status:'needs_login'}).state,'login_expired');
  for(const status of ['updated','partial'])assert.equal(classifyJob({status}).state,'ok');
  for(const status of ['needs_confirmation','ambiguous','no_data','load_error','timeout','navigation_changed','tab_closed','interrupted','cancelled'])assert.equal(classifyJob({status}).state,'stopped',status);
+ assert.equal(classifyJob({status:'partial',readError:'needs_login'}).state,'login_expired','a login mid-run is not a success');
+ for(const readError of ['needs_confirmation','document_changed'])assert.equal(classifyJob({status:'updated',readError}).state,'stopped',readError);
  const stopped=afterRun(on(),{jobs:[{bank:'BOA',status:'load_error'}]},5);assert.equal(setEnabled(stopped,true).banks.BOA.state,'stopped','saving again is not a retry');
  assert.deepEqual(setEnabled(setEnabled(stopped,false),true).banks,{});
  assert.equal(markAttempted(on(),['BOA'],7).banks.BOA.lastAttemptAt,7);
@@ -54,6 +56,7 @@ test('the dev build has no way in from localhost, and never touches a credential
   assert.equal(m.content_scripts,undefined);assert.equal(m.externally_connectable,undefined);assert.equal(m.background.service_worker,'background-dev.js');
   assert.deepEqual(m.host_permissions.filter(h=>h.startsWith('http:')),['http://127.0.0.1:8766/*']);assert.deepEqual((m.optional_host_permissions||[]).filter(h=>h.startsWith('http:')),[]);
   assert.ok(!readdirSync(join(dir,'ext')).includes('dashboard.js'));
+  writeFileSync(join(dir,'keep.txt'),'x');const refused=spawnSync(process.execPath,['scripts/build-dev-extension.mjs','--no-wallet'],{cwd:root,encoding:'utf8',env:{...process.env,CARDYBARA_DEV_EXTENSION_DIR:dir}});assert.notEqual(refused.status,0,'a folder it did not build is not replaced');assert.ok(readdirSync(dir).includes('keep.txt'));
   for(const name of ['background-dev.js','schedule-core.js','dev-popup.js']){
    const code=readFileSync(join(root,'extension-dev',name),'utf8');
    for(const banned of [/onMessageExternal/,/onConnectExternal/,/WebSocket/,/EventSource/,/\.click\(/,/\.submit\(/,/type=.?password/,/\.value\s*=[^=].*(?:password|code)/i,/cookies/])assert.ok(!banned.test(code),name+' '+banned);
@@ -93,7 +96,7 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
  const dir=mkdtempSync(join(tmpdir(),'cardybara-dev-worker-'));
  try{
   const built=spawnSync(process.execPath,['scripts/build-dev-extension.mjs','--no-wallet'],{cwd:root,encoding:'utf8',env:{...process.env,CARDYBARA_DEV_EXTENSION_DIR:join(dir,'ext')}});assert.equal(built.status,0,built.stderr);
-  const store={},L={},calls={files:[],created:[],removed:[],reloads:0,posts:[]};let idle='idle',tabs=[],nextTab=10,read='updated',stamp=JSON.parse(readFileSync(join(dir,'ext/build-stamp.json'),'utf8')).stamp;
+  const store={'cardybara-parser-settings':{scope:'mvp',enabled:true,cloudConsent:true}},L={},calls={files:[],created:[],removed:[],reloads:0,posts:[]};let idle='idle',tabs=[],nextTab=10,read='updated',captureError=null,stamp=JSON.parse(readFileSync(join(dir,'ext/build-stamp.json'),'utf8')).stamp;
   const listen=name=>{L[name]=[];return {addListener:f=>L[name].push(f)};};
   const href='https://secure.bankofamerica.com/accounts-home/';
   globalThis.chrome={runtime:{id:'dev',getURL:p=>'chrome-extension://dev/'+p,onMessage:listen('message'),sendMessage:async()=>{},reload:()=>{calls.reloads++;}},permissions:{contains:async()=>true},
@@ -107,12 +110,12 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
     if(o.files){calls.files.push(o.files[0]);return [{documentId:doc,result:o.files[0]==='dev-structure-report.js'?{path:'/accounts-home/',rows:[{text:'Balance $#,###.##'}]}:undefined}];}
     if(name==='discoverVisibleCards')return [{documentId:doc,result:read==='needs_login'?{status:'needs_login',cards:[]}:{status:'found',cards:[{tail:'3141',name:'Quokka'}]}}];
     if(name==='boaCards')return [{documentId:doc,result:o.args[0]==='list'?[]:[]}];
-    if(name==='capturePage'){const evidence='[C1] Current Balance $1.00';return [{documentId:doc,result:{pageHref:href,aliases:[{id:'C1',cardId:'discovered-boa-3141',currency:'USD'}],blocks:[{id:'B1',text:evidence}],observations:[],links:[],capturedAt:new Date().toISOString()}}];}
+    if(name==='capturePage'){if(captureError)return [{documentId:doc,result:{error:captureError}}];const evidence='[C1] Current Balance $1.00';return [{documentId:doc,result:{pageHref:href,aliases:[{id:'C1',cardId:'discovered-boa-3141',currency:'USD'}],blocks:[{id:'B1',text:evidence}],observations:[],links:[],capturedAt:new Date().toISOString()}}];}
     if(o.args?.length===3)return [{documentId:doc,result:{status:read,patches:read==='updated'?[{id:'discovered-boa-3141',fields:{balance:1},locale:'en-US',capturedAt:new Date().toISOString()}]:[]}}];
     return [{documentId:doc,result:o.args?.[0]?.length!==undefined?read!=='needs_login':true}];
    }}};
   chrome.storage.session=chrome.storage.local;
-  globalThis.fetch=async(url,o)=>{if(String(url).endsWith('build-stamp.json'))return {json:async()=>({stamp})};if(String(url).endsWith('/api/dev/diagnostics')){calls.posts.push(JSON.parse(o.body));return {ok:true};}return {ok:false,json:async()=>({})};};
+  globalThis.fetch=async(url,o)=>{if(String(url).endsWith('build-stamp.json'))return {json:async()=>({stamp})};if(String(url).endsWith('/api/dev/diagnostics')){calls.posts.push(JSON.parse(o.body));return {ok:true};}if(String(url).endsWith('/api/parser/parse'))calls.parser=true;if(String(url).endsWith('/api/parser/status'))return {ok:true,json:async()=>({configured:true})};return {ok:false,json:async()=>({})};};
   await import(pathToFileURL(join(dir,'ext/background-dev.js')).href);
   const state=()=>store['cardybara-state-v2'];const wait=async f=>{const end=Date.now()+5000;while(Date.now()<end){if(await f())return;await new Promise(r=>setTimeout(r,15));}assert.fail('timed out: '+JSON.stringify({run:state()?.run&&{status:state().run.status,jobs:state().run.jobs.map(j=>[j.bank,j.status,j.diagnostic,j.readError,j.phase])},mine:store['cardybara-dev-run'],err:store['cardybara:last-capture-error']}));};
   const alarm=async name=>{for(const f of L.alarm)f({name});await new Promise(r=>setTimeout(r,60));};
@@ -140,8 +143,12 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   assert.equal(settings().banks.BOA.state,'stopped');const stopped=state().run.id;allow();await tick();assert.equal(state().run.id,stopped,'a stopped bank is not retried');
   assert.equal(calls.posts.at(-1).banks[0].page.rows[0].text,'Balance $#,###.##','the failed page\'s shape is reported');
 
+  assert.ok(!calls.parser,'a scheduled run sends nothing to the model route');
   await alarm('cardybara-dev-reload');assert.equal(calls.reloads,0,'the same build does nothing');
   stamp='rebuilt';await alarm('cardybara-dev-reload');assert.equal(calls.reloads,1);await alarm('cardybara-dev-reload');assert.equal(calls.reloads,1,'one try per build');assert.equal(state().run.id,stopped,'a new build never starts a refresh');
-  delete store.devReloadTried;
+  assert.equal((await say({type:'dev-schedule-set',enabled:false})).ok,true);assert.equal((await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60})).ok,true);
+  const before=state().run.id;read='updated';captureError='needs_confirmation';await tick();await wait(()=>state().run.id!==before);await finished();
+  assert.equal(settings().banks.BOA.state,'stopped','a challenge after a partial read stops the bank');
+  const challenged=state().run.id;allow();captureError=null;await tick();assert.equal(state().run.id,challenged,'and it is not retried');
  }finally{rmSync(dir,{recursive:true,force:true});}
 });

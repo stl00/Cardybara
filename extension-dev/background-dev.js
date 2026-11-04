@@ -21,24 +21,26 @@ async function deliver(report){
  catch{await chrome.storage.local.set({[PENDING]:body});}
 }
 async function pageShape(job){
- try{const tab=await chrome.tabs.get(job.tabId);if(!guidedPage(job.bank,tab.url))return null;const [{result}]=await chrome.scripting.executeScript({target:{tabId:job.tabId},files:['dev-structure-report.js']});return result||null;}catch{return null;}
+ try{const tab=await chrome.tabs.get(job.tabId);if(!guidedPage(job.bank,tab.url))return null;const read=chrome.scripting.executeScript({target:{tabId:job.tabId},files:['dev-structure-report.js']});const [{result}]=await Promise.race([read,new Promise((_,no)=>setTimeout(()=>no(Error('timeout')),8000))]);return result||null;}catch{return null;}
 }
-// Handles a scheduled run once it ends, including one a worker restart interrupted.
+// Handles a scheduled run once it ends, including one a worker restart or reload interrupted. The stop is saved
+// first, so nothing after it can lose it. A repeat only repeats the report.
 const finishRun=()=>serial(async()=>{
  const state=await engine.load(),run=state.run,mine=(await chrome.storage.local.get(RUN))[RUN];
  if(!run?.scheduled||run.status==='running'||mine?.id!==run.id||mine.done)return;
- await chrome.storage.local.set({[RUN]:{...mine,done:true}});
- const pages={};for(const job of run.jobs)if(job.status!=='updated'&&Number.isInteger(job.tabId))pages[job.bank]=await pageShape(job);
+ const settings=afterRun(await loadSettings(),run,Date.now());await saveSettings(settings);await showState(settings);
+ const pages={};for(const job of run.jobs)if((job.status!=='updated'||job.readError)&&Number.isInteger(job.tabId))pages[job.bank]=await pageShape(job);
  for(const job of run.jobs)if(job.owned&&Number.isInteger(job.tabId))await chrome.tabs.remove(job.tabId).catch(()=>{});
  if(Number.isInteger(mine.restoreTab)){const current=(await chrome.tabs.query({active:true,lastFocusedWindow:true}))[0];if(current&&run.jobs.some(j=>j.tabId===current.id))await chrome.tabs.update(mine.restoreTab,{active:true}).catch(()=>{});}
- const settings=afterRun(await loadSettings(),run,Date.now());await saveSettings(settings);await showState(settings);
  await deliver(buildReport({run,state,pages,build:'dev',now:Date.now()}));
+ await chrome.storage.local.set({[RUN]:{...mine,done:true}});
 });
 async function bankTabs(){
  const tabs=await chrome.tabs.query({}),focused=await chrome.windows.getLastFocused().catch(()=>null),signedIn=[],inUse=[];
  for(const bank of ACTIVE_BANKS){
-  for(const tab of tabs.filter(t=>guidedPage(bank,t.url))){
-   if(tab.active&&focused?.focused&&tab.windowId===focused.id){inUse.push(bank);break;}
+  const own=tabs.filter(t=>guidedPage(bank,t.url));
+  if(own.some(tab=>tab.active&&focused?.focused&&tab.windowId===focused.id)){inUse.push(bank);continue;}
+  for(const tab of own){
    const found=await chrome.scripting.executeScript({target:{tabId:tab.id},func:discoverVisibleCards,args:[bank,PROVIDERS[bank].locales]}).catch(()=>[]);
    if(found[0]?.result?.status==='found'){signedIn.push(bank);break;}
   }
@@ -57,12 +59,12 @@ const tick=()=>serial(async()=>{
  void next();
 });
 // An unpacked extension reads this file from disk, so a new build is noticed with no network and no page. It never reads a bank or starts a refresh.
-async function reloadIfRebuilt(){
+const reloadIfRebuilt=()=>serial(async()=>{
  const stamp=await fetch(chrome.runtime.getURL('build-stamp.json'),{cache:'no-store'}).then(r=>r.json()).then(j=>j.stamp).catch(()=>null);if(!stamp||stamp===DEV_STAMP)return;
- const state=await engine.load();if(state.run?.status==='running')return;
+ const state=await engine.load(),mine=(await chrome.storage.local.get(RUN))[RUN];if(state.run?.status==='running'||(state.run?.scheduled&&mine?.id===state.run.id&&!mine.done))return;
  const {devReloadTried}=await chrome.storage.local.get('devReloadTried');if(devReloadTried===stamp)return;
  await chrome.storage.local.set({devReloadTried:stamp});chrome.runtime.reload();
-}
+});
 chrome.alarms.onAlarm.addListener(alarm=>{if(alarm.name===TICK)void tick().catch(()=>{});if(alarm.name===RELOAD)void reloadIfRebuilt().catch(()=>{});});
 chrome.idle.setDetectionInterval(IDLE_SECONDS);
 chrome.idle.onStateChanged.addListener(state=>{if(state==='idle')void tick().catch(()=>{});});

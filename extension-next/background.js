@@ -61,7 +61,7 @@ async function loaded(tabId,url){
   stage='validate_result';const checkpoint=await engine.checkpointRead(ctx,results[0].result);if(!checkpoint)return;await notify(checkpoint);let enrichment=null;
   if(!['needs_login','needs_confirmation','ambiguous'].includes(results[0].result.status)){
    const arrive=href=>waitBankPage(ctx.bank,href,{now:()=>Date.now(),current:()=>engine.current(ctx),getTab:()=>bounded(chrome.tabs.get(tabId)),rendered:async()=>{const ready=await bounded(chrome.scripting.executeScript({target:{tabId},func:renderedBankPage}),2000).catch(()=>[]);return ready[0]?.result||null;},pause:ms=>new Promise(resolve=>setTimeout(resolve,ms))});
-   enrichment=await enrichBank({...ctx,initialPatches:results[0].result.patches||[]},{
+   enrichment=await enrichBank({...ctx,scheduled:(await engine.load()).run?.scheduled===true,initialPatches:results[0].result.patches||[]},{
     current:()=>engine.current(ctx),
     progress:async(phase,sections)=>{const state=await engine.progress(ctx,phase,sections);if(state){await chrome.alarms.create('cardybara:'+ctx.attemptId,{when:state.run.jobs.find(j=>j.attemptId===ctx.attemptId).deadline});await notify(state);}},
     checkpoint:async(items,sections)=>{const state=await engine.checkpoint(ctx,items,sections);if(state)await notify(state);},
@@ -76,7 +76,7 @@ async function loaded(tabId,url){
 }
 function guideView(s,j){return {bank:j.bank,status:j.status,received:j.received||0,attemptId:j.attemptId,runId:s.run.id,phase:j.phase,sections:j.sections};}
 async function showGuide(ctx){
- // A run nobody started by hand asks nothing of anyone: its state shows in the wallet.
+ // A run nobody started by hand asks nothing of anyone: its state shows in the dev popup, and in the wallet when opened.
  try{if((await engine.load()).run?.scheduled)return;if(['cancelled','interrupted','cleared','disconnected','tab_closed'].includes(ctx.status))return;const tab=await bounded(chrome.tabs.get(ctx.tabId));if(!guidedPage(ctx.bank,tab.url))return;
   const injected=await bounded(chrome.scripting.executeScript({target:{tabId:ctx.tabId},files:['guide.js']}));const documentId=injected[0]?.documentId;if(!documentId)return;
   await bounded(chrome.scripting.executeScript({target:{tabId:ctx.tabId,documentIds:[documentId]},func:config=>self.CardyGuide.mount(config),args:[{bank:ctx.bank,status:ctx.status,received:ctx.received||0,phase:ctx.phase,sections:ctx.sections,runId:ctx.runId,attemptId:ctx.attemptId,tails:ctx.cards.map(c=>c.tail),expiresAt:ctx.guideExpiresAt||Date.now()+900000}]}));

@@ -9,8 +9,10 @@ export const normalizeInterval=value=>INTERVALS.includes(value)?value:Math.max(M
 export function setEnabled(settings,enabled,intervalMinutes=settings.intervalMinutes){return {...settings,enabled:enabled===true,intervalMinutes:normalizeInterval(intervalMinutes),banks:enabled===true&&!settings.enabled?{}:settings.banks};}
 // A successful read carries on. An expired login waits for the owner's own signed-in tab. Anything else stops the bank.
 export function classifyJob(job){
+ // A login or challenge can appear mid-run, after something was read, so the read's own error decides first.
+ if(job.status==='needs_login'||job.readError==='needs_login')return {state:'login_expired',reason:'needs_login'};
+ if(job.readError)return {state:'stopped',reason:/^[a-z_]{1,40}$/.test(job.readError)?job.readError:'unknown'};
  if(OK.includes(job.status))return {state:'ok',reason:job.status};
- if(job.status==='needs_login')return {state:'login_expired',reason:'needs_login'};
  return {state:'stopped',reason:/^[a-z_]{1,40}$/.test(job.status||'')?job.status:'unknown'};
 }
 export function afterRun(settings,run,now){const banks={...settings.banks};for(const job of run.jobs)banks[job.bank]={...banks[job.bank],...classifyJob(job),finishedAt:now};return {...settings,banks};}
@@ -36,9 +38,9 @@ function scrub(value){
 }
 const word=v=>typeof v==='string'&&/^[a-z_]{1,40}$/.test(v)?v:undefined;
 export function jobReport(job,state,page=null){
- const ids=new Set((job.cards||[]).map(c=>c.id)),counts={},note=key=>{if(FIELD_KEYS.includes(key))counts[key]=(counts[key]||0)+1;};
- for(const [id,fields]of Object.entries(state.records?.[job.bank]||{}))if(ids.has(id))for(const key of Object.keys(fields))note(key);
- for(const item of state.agentRecords||[])if(item.bank===job.bank&&ids.has(item.cardId)&&['card','billing'].includes(item.kind))note(item.key);
+ const ids=new Set((job.cards||[]).map(c=>c.id)),counts={},note=key=>{if(FIELD_KEYS.includes(key))counts[key]=(counts[key]||0)+1;},fresh=at=>!job.startedAt||Date.parse(at)>=job.startedAt-5000;
+ for(const [id,fields]of Object.entries(state.records?.[job.bank]||{}))if(ids.has(id))for(const [key,field]of Object.entries(fields))if(fresh(field?.capturedAt))note(key);
+ for(const item of state.agentRecords||[])if(item.bank===job.bank&&ids.has(item.cardId)&&['card','billing'].includes(item.kind)&&fresh(item.capturedAt))note(item.key);
  return {bank:job.bank,status:word(job.status)||'unknown',step:word(job.diagnostic?.stage)||null,code:word(job.diagnostic?.code)||word(job.readError)||null,phase:word(job.phase)||null,cards:ids.size,read:Number.isFinite(job.received)?job.received:0,rejected:Number.isFinite(job.rejected)?job.rejected:0,rejectReasons:Object.keys(job.rejectReasons||{}).map(word).filter(Boolean),sections:Object.fromEntries(Object.entries(job.sections||{}).map(([k,v])=>[word(k)||'other',word(v?.status)||'unknown'])),fields:counts,page};
 }
 export function buildReport({run,state,pages={},build,now}){return scrub({schema:1,at:now,build,run:word(run.status)||'unknown',banks:run.jobs.map(job=>jobReport(job,state,pages[job.bank]||null))});}

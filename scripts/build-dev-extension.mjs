@@ -10,6 +10,8 @@ import {spawnSync} from 'node:child_process';
 import {structureReport,redactStructureText} from './dev-collector/structure-report.js';
 const root=join(dirname(fileURLToPath(import.meta.url)),'..'),target=process.env.CARDYBARA_DEV_EXTENSION_DIR||join(homedir(),'.cardybara','dev-extension'),work=target+'.building';
 if(!process.argv.includes('--no-wallet')){const r=spawnSync('npx',['vite','build'],{cwd:root,stdio:'inherit'});if(r.status)process.exit(r.status);}
+// Never replace a folder this script didn't build, such as a mistyped path.
+const existing=await readdir(target).catch(()=>[]);if(existing.length&&!existing.includes('build-stamp.json')){console.error('Refusing to replace a folder that is not a dev extension: '+target);process.exit(1);}
 await rm(work,{recursive:true,force:true});await mkdir(work,{recursive:true});
 const skip=/\.zip$|(^|\/)\.[^/]*$/;
 await cp(join(root,'extension-next'),work,{recursive:true,filter:p=>!skip.test(p)});
