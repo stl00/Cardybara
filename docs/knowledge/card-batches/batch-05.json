@@ -1,0 +1,676 @@
+{
+  "batch": 5,
+  "checkedAt": "2026-11-04",
+  "reviewAfter": "2027-02-02",
+  "cards": [
+    {
+      "id": "chase-us-united-gateway-card",
+      "page": "chase-us-united-gateway-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/travel-credit-cards/united/united-gateway",
+      "transfer": {
+        "name": "United MileagePlus",
+        "programmeId": "programme.united-mileageplus",
+        "linkOnly": true,
+        "quote": "5x total miles on eligible United flights"
+      },
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $0"
+      },
+      "earning": [
+        {
+          "zh": "United 机票（合计）",
+          "en": "Eligible United flights, total",
+          "multiplier": 5,
+          "unit": "miles-per-USD",
+          "category": "airline",
+          "noteZh": "合计数，包含 MileagePlus 会员本身的3倍和本卡的2倍。",
+          "noteEn": "A total: 3x as a MileagePlus member plus 2x from the card.",
+          "quote": "5x total miles on eligible United flights"
+        },
+        {
+          "zh": "其他 United 消费",
+          "en": "All other eligible United purchases",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "airline",
+          "quote": "2x miles on all other eligible United purchases"
+        },
+        {
+          "zh": "加油站",
+          "en": "Gas stations",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "ground-transport",
+          "quote": "2x miles at gas stations"
+        },
+        {
+          "zh": "本地交通和通勤",
+          "en": "Local transit and commuting",
+          "multiplier": 2,
+          "unit": "miles-per-USD",
+          "category": "ground-transport",
+          "quote": "2x miles on local transit and commuting"
+        }
+      ],
+      "credits": [
+        {
+          "key": "inflight",
+          "zh": "机上消费25%返还",
+          "en": "25% back on inflight purchases",
+          "noteZh": "限 United 机上和 Club 高级饮品。",
+          "noteEn": "On United inflight and Club premium drink purchases.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "ongoing",
+          "quote": "receive 25% back on United inflight and Club premium drink purchases"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "两件托运行李的获得条件未录入。",
+          "en": "The conditions for the two checked bags are not recorded."
+        }
+      ]
+    },
+    {
+      "id": "chase-us-ihg-one-rewards-premier-select-credit-card",
+      "page": "chase-us-ihg-one-rewards-premier-select-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select",
+      "transfer": {
+        "name": "IHG One Rewards",
+        "programmeId": "programme.ihg-one-rewards",
+        "linkOnly": true,
+        "quote": "That's 12X points with this card"
+      },
+      "fee": {
+        "amount": 350,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $350"
+      },
+      "earning": [
+        {
+          "zh": "IHG 酒店",
+          "en": "IHG Hotels and Resorts",
+          "multiplier": 12,
+          "unit": "points-per-USD",
+          "category": "hotel",
+          "noteZh": "本卡的比例；页面的28倍合计还包含会员和会籍部分。",
+          "noteEn": "The card's own rate; the 28X total on the page also counts member and status earnings.",
+          "quote": "That's 12X points with this card"
+        },
+        {
+          "zh": "餐饮和其他旅行",
+          "en": "Dining and all other travel",
+          "multiplier": 6,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 6X points on dining and all other travel, including rideshare"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 3,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 3X points per $1 spent on all other purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "food-beverage",
+          "zh": "IHG 餐饮券",
+          "en": "Food and Beverage Reward",
+          "noteZh": "每季75美元，限 IHG 酒店使用。",
+          "noteEn": "A $75 Food and Beverage Reward voucher quarterly, to redeem at IHG Hotels.",
+          "amount": 75,
+          "period": "calendar-quarter",
+          "scenario": "hotel-stay",
+          "category": "hotel-service",
+          "programmeIds": [
+            "programme.ihg-one-rewards"
+          ],
+          "quote": "Enjoy a $75 Food and Beverage Reward voucher quarterly to redeem at IHG Hotels"
+        },
+        {
+          "key": "platinum-elite",
+          "zh": "IHG Platinum Elite 会籍",
+          "en": "IHG Platinum Elite status",
+          "noteZh": "公开规则；个人会籍未核实。",
+          "noteEn": "Public rule; personal status is unverified.",
+          "scenario": "hotel-stay",
+          "category": "membership",
+          "period": "ongoing",
+          "programmeIds": [
+            "programme.ihg-one-rewards"
+          ],
+          "quote": "with Platinum Elite Status, a benefit of this card"
+        }
+      ]
+    },
+    {
+      "id": "chase-us-ihg-one-rewards-business-credit-card",
+      "page": "chase-us-ihg-one-rewards-business-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/business-credit-cards/IHG/business",
+      "transfer": {
+        "name": "IHG One Rewards",
+        "programmeId": "programme.ihg-one-rewards",
+        "linkOnly": true,
+        "quote": "That's 10X points with this card"
+      },
+      "fee": {
+        "amount": 200,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $200"
+      },
+      "earning": [
+        {
+          "zh": "IHG 酒店",
+          "en": "IHG Hotels and Resorts",
+          "multiplier": 10,
+          "unit": "points-per-USD",
+          "category": "hotel",
+          "noteZh": "本卡的比例；页面的26倍合计还包含会员和会籍部分。",
+          "noteEn": "The card's own rate; the 26X total on the page also counts member and status earnings.",
+          "quote": "That's 10X points with this card"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 3,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 3X points per $1 spent on all other purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "food-beverage",
+          "zh": "IHG 餐饮券",
+          "en": "Food and Beverage Reward",
+          "noteZh": "每季25美元，限 IHG 酒店使用。",
+          "noteEn": "A $25 Food and Beverage Reward voucher quarterly, to redeem at IHG Hotels.",
+          "amount": 25,
+          "period": "calendar-quarter",
+          "scenario": "hotel-stay",
+          "category": "hotel-service",
+          "programmeIds": [
+            "programme.ihg-one-rewards"
+          ],
+          "quote": "Enjoy a $25 Food and Beverage Reward voucher quarterly to redeem at IHG Hotels"
+        },
+        {
+          "key": "airline-credit",
+          "zh": "航空消费抵扣",
+          "en": "Airline statement credit",
+          "noteZh": "自然年直接向航空公司购票满250美元得100美元，至2027年12月31日。",
+          "noteEn": "$100 when you spend at least $250 on flights purchased directly with the airline each calendar year, through 12/31/27.",
+          "amount": 100,
+          "period": "calendar-year",
+          "scenario": "airport",
+          "quote": "When you spend at least $250 on flights purchased directly with the airline each calendar year through 12/31/27",
+          "validity": {
+            "effectiveThrough": "2027-12-31"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chase-us-world-of-hyatt-business-credit-card",
+      "page": "chase-us-world-of-hyatt-business-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/business-credit-cards/world-of-hyatt/hyatt-business-card",
+      "transfer": {
+        "name": "World of Hyatt",
+        "programmeId": "programme.world-of-hyatt",
+        "linkOnly": true,
+        "quote": "Earn 2 Bonus Points total per $1 spent in your top three spend categories each quarter"
+      },
+      "fee": {
+        "amount": 199,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $199"
+      },
+      "earning": [
+        {
+          "zh": "每季消费最高的三个类别",
+          "en": "Top three spend categories each quarter",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 2 Bonus Points total per $1 spent in your top three spend categories each quarter"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "earn 1 Bonus Point per $1 spent on all other purchases"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "Hyatt 酒店消费比例和福利未录入。",
+          "en": "The earning rate at Hyatt hotels and the benefits are not recorded."
+        }
+      ]
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-premier-business-credit-card",
+      "page": "chase-us-southwest-rapid-rewards-premier-business-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/business-credit-cards/southwest/premier",
+      "transfer": {
+        "name": "Southwest Rapid Rewards",
+        "programmeId": "programme.southwest-rapid-rewards",
+        "linkOnly": true,
+        "quote": "Earn 3 points per $1 spent on Southwest Airlines"
+      },
+      "fee": {
+        "amount": 149,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $149 applied to first billing statement"
+      },
+      "earning": [
+        {
+          "zh": "Southwest 消费",
+          "en": "Southwest Airlines purchases",
+          "multiplier": 3,
+          "unit": "points-per-USD",
+          "category": "airline",
+          "quote": "Earn 3 points per $1 spent on Southwest Airlines"
+        },
+        {
+          "zh": "加油站和餐厅",
+          "en": "Gas stations and restaurants",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "general",
+          "cap": {
+            "amount": 8000,
+            "currency": "USD",
+            "period": "account-anniversary"
+          },
+          "noteZh": "每个账户周年合计前8,000美元；之后按1倍。",
+          "noteEn": "On the first $8,000 in combined purchases per anniversary year.",
+          "quote": "at gas stations and restaurants on the first $8,000 in combined purchases per anniversary year"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 1 point per $1 spent on all other purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "inflight",
+          "zh": "机上消费25%返还",
+          "en": "25% back on inflight purchases",
+          "noteZh": "以抵扣形式返还，限 Southwest 航班。",
+          "noteEn": "A statement credit on Southwest Airlines flights.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "ongoing",
+          "quote": "25% back on inflight purchases"
+        },
+        {
+          "key": "a-list-tqp",
+          "zh": "A-List 进度积分",
+          "en": "Tier qualifying points toward A-List",
+          "noteZh": "每消费5,000美元得2,000 TQP，至2026年12月31日；个人进度未核实。",
+          "noteEn": "2,000 TQPs for every $5,000 spent, through 12/31/2026. Personal progress is unverified.",
+          "scenario": "travel",
+          "category": "spend-unlock",
+          "period": "ongoing",
+          "quote": "Earn 2,000 tier qualifying points (TQPs) toward A-List status for every $5,000 spent in purchases through 12/31/2026",
+          "validity": {
+            "effectiveThrough": "2026-12-31"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-performance-business-credit-card",
+      "page": "chase-us-southwest-rapid-rewards-performance-business-credit-card",
+      "issuer": "Chase",
+      "url": "https://creditcards.chase.com/business-credit-cards/southwest/performance",
+      "transfer": {
+        "name": "Southwest Rapid Rewards",
+        "programmeId": "programme.southwest-rapid-rewards",
+        "linkOnly": true,
+        "quote": "Earn 4 points per $1 spent on Southwest Airline purchases"
+      },
+      "fee": {
+        "amount": 299,
+        "currency": "USD",
+        "quote": "ANNUAL FEE $299 applied to first billing statement"
+      },
+      "earning": [
+        {
+          "zh": "Southwest 消费",
+          "en": "Southwest Airlines purchases",
+          "multiplier": 4,
+          "unit": "points-per-USD",
+          "category": "airline",
+          "quote": "Earn 4 points per $1 spent on Southwest Airline purchases"
+        },
+        {
+          "zh": "直订酒店",
+          "en": "Hotels booked directly",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "hotel",
+          "quote": "Earn 2 points per $1 spent on hotel accommodations booked directly with the hotel"
+        },
+        {
+          "zh": "加油站和餐厅",
+          "en": "Gas stations and restaurants",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 2 points per $1 spent on gas station and restaurant purchases"
+        },
+        {
+          "zh": "本地交通和通勤",
+          "en": "Local transit and commuting",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "ground-transport",
+          "quote": "Earn 2 points per $1 spent on local transit and commuting, including rideshare services"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 1 point per $1 spent on all other purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "trusted-traveler",
+          "zh": "Global Entry、TSA PreCheck 或 NEXUS 申请费抵扣",
+          "en": "Global Entry, TSA PreCheck or NEXUS application fee credit",
+          "noteZh": "每四年最多120美元。",
+          "noteEn": "Up to $120 every four years.",
+          "amount": 120,
+          "period": "rolling-four-years",
+          "scenario": "airport",
+          "quote": "Receive one statement credit of up to $120 every four years"
+        },
+        {
+          "key": "inflight",
+          "zh": "机上消费25%返还",
+          "en": "25% back on inflight purchases",
+          "noteZh": "以抵扣形式返还，限 Southwest 航班。",
+          "noteEn": "A statement credit on Southwest Airlines flights.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "ongoing",
+          "quote": "25% back on inflight purchases"
+        }
+      ]
+    },
+    {
+      "id": "discover-us-discover-it-cash-back-credit-card",
+      "page": "discover-it",
+      "issuer": "Discover",
+      "collection": "not-supported",
+      "new": {
+        "bank": "Discover",
+        "region": "US",
+        "name": "Discover it Cash Back Credit Card"
+      },
+      "aliases": [
+        "Discover it Cash Back",
+        "Discover it"
+      ],
+      "url": "https://www.discover.com/credit-cards/cash-back/it-card/",
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "quote": "No annual fee"
+      },
+      "earning": [
+        {
+          "zh": "每季轮换类别",
+          "en": "Rotating quarterly categories",
+          "multiplier": 5,
+          "unit": "cashback-percent",
+          "category": "general",
+          "noteZh": "每季须激活，有季度上限；上限金额由脚本载入，留作未知。",
+          "noteEn": "Activate each quarter, up to a quarterly maximum. The maximum loads by script and stays unknown.",
+          "quote": "Earn 5% cash back on everyday purchases at different places you shop each quarter, up to the quarterly maximum when you activate"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "cashback-percent",
+          "category": "general",
+          "quote": "earn 1% cash back on all other purchases"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "季度上限金额由脚本载入，读取的公开内容里没有数字。",
+          "en": "The quarterly maximum loads by script and is missing from the public text read."
+        }
+      ]
+    },
+    {
+      "id": "us-bank-us-cash-plus-visa-signature-card",
+      "page": "usb-cashplus",
+      "issuer": "U.S. Bank",
+      "collection": "not-supported",
+      "new": {
+        "bank": "U.S. Bank",
+        "region": "US",
+        "name": "U.S. Bank Cash+ Visa Signature Card"
+      },
+      "aliases": [
+        "U.S. Bank Cash+",
+        "Cash+ Visa Signature"
+      ],
+      "url": "https://www.usbank.com/credit-cards/cash-plus-visa-signature-credit-card.html",
+      "earning": [
+        {
+          "zh": "自选两个类别",
+          "en": "Two categories you choose",
+          "multiplier": 5,
+          "unit": "cashback-percent",
+          "category": "general",
+          "cap": {
+            "amount": 2000,
+            "currency": "USD",
+            "period": "calendar-quarter"
+          },
+          "noteZh": "每季合计前2,000美元。",
+          "noteEn": "On your first $2,000 in combined eligible purchases each quarter.",
+          "quote": "5% cash back 2 on your first $2,000 in combined eligible purchases each quarter on two categories you choose"
+        },
+        {
+          "zh": "自选一个日常类别",
+          "en": "One everyday category you choose",
+          "multiplier": 2,
+          "unit": "cashback-percent",
+          "category": "general",
+          "quote": "2% cash back on one everyday category you choose each quarter"
+        },
+        {
+          "zh": "Travel Center 预付旅行",
+          "en": "Prepaid travel in the Travel Center",
+          "multiplier": 5,
+          "unit": "cashback-percent",
+          "category": "travel",
+          "quote": "5% cash back on prepaid travel"
+        },
+        {
+          "zh": "其他合资格消费",
+          "en": "All other eligible purchases",
+          "multiplier": 1,
+          "unit": "cashback-percent",
+          "category": "general",
+          "quote": "1% cash back on all other eligible purchases"
+        }
+      ],
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "quote": "Enjoy all the benefits with no annual fee"
+      }
+    },
+    {
+      "id": "us-bank-us-altitude-go-visa-signature-card",
+      "page": "usb-altitude-go",
+      "issuer": "U.S. Bank",
+      "collection": "not-supported",
+      "new": {
+        "bank": "U.S. Bank",
+        "region": "US",
+        "name": "U.S. Bank Altitude Go Visa Signature Card"
+      },
+      "aliases": [
+        "U.S. Bank Altitude Go",
+        "Altitude Go"
+      ],
+      "url": "https://www.usbank.com/credit-cards/altitude-go-visa-signature-credit-card.html",
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "quote": "Enjoy no annual fee"
+      },
+      "earning": [
+        {
+          "zh": "餐饮、外卖和餐厅配送",
+          "en": "Dining, takeout and restaurant delivery",
+          "multiplier": 4,
+          "unit": "points-per-USD",
+          "category": "dining",
+          "cap": {
+            "amount": 2000,
+            "currency": "USD",
+            "period": "calendar-quarter"
+          },
+          "noteZh": "每季前2,000美元。",
+          "noteEn": "On your first $2,000 each quarter.",
+          "quote": "on dining, takeout and restaurant delivery on your first $2,000 each quarter"
+        },
+        {
+          "zh": "超市、加油站和充电站",
+          "en": "Grocery stores, gas and EV charging stations",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "general",
+          "noteZh": "部分商户除外。",
+          "noteEn": "Discount stores, supercenters and wholesale clubs are excluded.",
+          "quote": "2X points at grocery stores and gas stations/EV charging stations"
+        },
+        {
+          "zh": "流媒体",
+          "en": "Streaming services",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "entertainment",
+          "quote": "2X points on streaming services"
+        },
+        {
+          "zh": "其他合资格消费",
+          "en": "All other eligible purchases",
+          "multiplier": 1,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "1X point on all other eligible purchases"
+        }
+      ],
+      "credits": [
+        {
+          "key": "streaming",
+          "zh": "流媒体抵扣",
+          "en": "Streaming credit",
+          "noteZh": "15美元，用于年付流媒体；条件以条款为准。",
+          "noteEn": "A $15 credit for annual streaming service purchases; conditions follow the terms.",
+          "amount": 15,
+          "scenario": "entertainment",
+          "quote": "Get a $15 credit for annual streaming service purchases"
+        }
+      ]
+    },
+    {
+      "id": "wells-fargo-us-autograph-journey-visa-card",
+      "page": "wf-journey",
+      "issuer": "Wells Fargo",
+      "collection": "not-supported",
+      "new": {
+        "bank": "Wells Fargo",
+        "region": "US",
+        "name": "Wells Fargo Autograph Journey Visa Card"
+      },
+      "aliases": [
+        "Autograph Journey",
+        "Wells Fargo Autograph Journey"
+      ],
+      "url": "https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/",
+      "earning": [
+        {
+          "zh": "酒店",
+          "en": "Hotels",
+          "multiplier": 5,
+          "unit": "points-per-USD",
+          "category": "hotel",
+          "quote": "5X points with hotels"
+        },
+        {
+          "zh": "航空",
+          "en": "Airlines",
+          "multiplier": 4,
+          "unit": "points-per-USD",
+          "category": "airline",
+          "quote": "4X points with airlines"
+        },
+        {
+          "zh": "餐厅和其他旅行",
+          "en": "Restaurants and other travel",
+          "multiplier": 3,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "3X points on restaurants and other travel"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "earn 1X points on other purchases"
+        }
+      ],
+      "fee": {
+        "amount": 95,
+        "currency": "USD",
+        "quote": "has an annual fee of $95"
+      },
+      "credits": [
+        {
+          "key": "airline-credit",
+          "zh": "航空消费抵扣",
+          "en": "Annual airline statement credit",
+          "noteZh": "每年50美元，须有至少50美元航空消费；周期的起算方式以条款为准。",
+          "noteEn": "A $50 annual statement credit with a $50 minimum airline purchase. How the year is counted follows the terms.",
+          "amount": 50,
+          "scenario": "airport",
+          "quote": "$50 annual statement credit with $50 minimum airline purchase"
+        }
+      ]
+    }
+  ]
+}

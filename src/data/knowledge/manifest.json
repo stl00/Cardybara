@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-04.cards-4",
+  "snapshotId": "cardybara-public-knowledge-2026-11-04.cards-5",
   "asOf": "2026-11-04",
   "locale": "zh-CN",
   "files": [
@@ -934,6 +934,149 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "chase-us-united-gateway-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "两件托运行李的获得条件未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-ihg-one-rewards-premier-select-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-ihg-one-rewards-business-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-world-of-hyatt-business-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Hyatt 酒店消费比例和福利未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-southwest-rapid-rewards-premier-business-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-southwest-rapid-rewards-performance-business-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "discover-us-discover-it-cash-back-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Discover"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "季度上限金额由脚本载入，读取的公开内容里没有数字。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "us-bank-us-cash-plus-visa-signature-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "U.S. Bank"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "us-bank-us-altitude-go-visa-signature-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "U.S. Bank"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "wells-fargo-us-autograph-journey-visa-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Wells Fargo"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -1008,6 +1151,16 @@
     "chase-us-ihg-one-rewards-credit-card",
     "chase-us-world-of-hyatt-credit-card",
     "chase-us-air-canada-aeroplan-card",
-    "chase-us-ink-business-premier-credit-card"
+    "chase-us-ink-business-premier-credit-card",
+    "chase-us-united-gateway-card",
+    "chase-us-ihg-one-rewards-premier-select-credit-card",
+    "chase-us-ihg-one-rewards-business-credit-card",
+    "chase-us-world-of-hyatt-business-credit-card",
+    "chase-us-southwest-rapid-rewards-premier-business-credit-card",
+    "chase-us-southwest-rapid-rewards-performance-business-credit-card",
+    "discover-us-discover-it-cash-back-credit-card",
+    "us-bank-us-cash-plus-visa-signature-card",
+    "us-bank-us-altitude-go-visa-signature-card",
+    "wells-fargo-us-autograph-journey-visa-card"
   ]
 }

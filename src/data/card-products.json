@@ -515,15 +515,21 @@
         "United Gateway"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "United MileagePlus"
+      ],
       "art": {
         "file": "catalog-5e707b549fa15997.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art//united_gateway_new_ribbon_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-gateway",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/united/united-gateway",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-united-club-card",
@@ -705,15 +711,21 @@
         "IHG One Rewards Premier Select"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "IHG One Rewards"
+      ],
       "art": {
         "file": "catalog-641ad681ed8efdf5.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ihg_premier_select_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-ihg-one-rewards-credit-card",
@@ -1152,15 +1164,21 @@
         "Southwest Rapid Rewards Performance Business"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Southwest Rapid Rewards"
+      ],
       "art": {
         "file": "catalog-2c8ceac70604fffb.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_performance_biz_card.png"
       },
-      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/performance-business",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/performance",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/business-credit-cards/southwest/performance",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-southwest-rapid-rewards-premier-business-credit-card",
@@ -1172,15 +1190,21 @@
         "Southwest Rapid Rewards Premier Business"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Southwest Rapid Rewards"
+      ],
       "art": {
         "file": "catalog-3e002bf25cea948c.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_premier_biz_card.png"
       },
-      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/premier-business",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/premier",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/business-credit-cards/southwest/premier",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-ihg-one-rewards-business-credit-card",
@@ -1192,15 +1216,21 @@
         "IHG One Rewards Business"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "IHG One Rewards"
+      ],
       "art": {
         "file": "catalog-8dff39b71d2ef1e1.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ihg-one-rewards-biz-card2026.png"
       },
       "sourceUrl": "https://creditcards.chase.com/business-credit-cards/IHG/business",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/business-credit-cards/IHG/business",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-world-of-hyatt-business-credit-card",
@@ -1212,15 +1242,21 @@
         "World of Hyatt Business"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "World of Hyatt"
+      ],
       "art": {
         "file": "catalog-ea7caf95d61b0361.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/world_hyatt_biz_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/business-credit-cards/world-of-hyatt/hyatt-business-card",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/business-credit-cards/world-of-hyatt/hyatt-business-card",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "hsbc-hk-hk-visa-gold-card-for-students",
@@ -2387,6 +2423,78 @@
         "url": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-gold/",
         "checkedAt": "2026-11-04"
       }
+    },
+    {
+      "id": "discover-us-discover-it-cash-back-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Cash Back Credit Card",
+      "aliases": [
+        "Discover it Cash Back Credit Card",
+        "Discover it Cash Back",
+        "Discover it"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.discover.com/credit-cards/cash-back/it-card/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-cash-plus-visa-signature-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "U.S. Bank Cash+ Visa Signature Card",
+      "aliases": [
+        "U.S. Bank Cash+ Visa Signature Card",
+        "U.S. Bank Cash+",
+        "Cash+ Visa Signature"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.usbank.com/credit-cards/cash-plus-visa-signature-credit-card.html",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-altitude-go-visa-signature-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "U.S. Bank Altitude Go Visa Signature Card",
+      "aliases": [
+        "U.S. Bank Altitude Go Visa Signature Card",
+        "U.S. Bank Altitude Go",
+        "Altitude Go"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.usbank.com/credit-cards/altitude-go-visa-signature-credit-card.html",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-autograph-journey-visa-card",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo Autograph Journey Visa Card",
+      "aliases": [
+        "Wells Fargo Autograph Journey Visa Card",
+        "Autograph Journey",
+        "Wells Fargo Autograph Journey"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
     }
   ]
 }

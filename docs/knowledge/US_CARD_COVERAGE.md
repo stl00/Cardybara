@@ -44,15 +44,15 @@
 | 4 | Chase World Of Hyatt | $95 | 2 | 1 | World of Hyatt | 已支持的银行，未验收 | Hyatt 酒店消费的赚取比例和年度免费房晚未录入。 | https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card |
 | 4 | Chase Air Canada Aeroplan | $195 | 5 | 1 | Air Canada Aeroplan | 已支持的银行，未验收 | — | https://creditcards.chase.com/travel-credit-cards/aircanada/aeroplan |
 | 4 | Chase Ink Business Premier | $195 | 3 | 0 | — | 已支持的银行，未验收 | — | https://creditcards.chase.com/business-credit-cards/ink/premier |
-| — | Chase United Gateway | — | — | — | — | — | 待处理 | — |
-| — | Chase Ihg One Rewards Premier Select | — | — | — | — | — | 待处理 | — |
-| — | Chase Ihg One Rewards Business | — | — | — | — | — | 待处理 | — |
-| — | Chase World Of Hyatt Business | — | — | — | — | — | 待处理 | — |
-| — | Chase Southwest Rapid Rewards Premier Business | — | — | — | — | — | 待处理 | — |
-| — | Chase Southwest Rapid Rewards Performance Business | — | — | — | — | — | 待处理 | — |
-| — | Discover it Cash Back Credit Card | — | — | — | — | — | 待处理 | — |
-| — | U.S. Bank Cash+ Visa Signature Card | — | — | — | — | — | 待处理 | — |
-| — | U.S. Bank Altitude Go Visa Signature Card | — | — | — | — | — | 待处理 | — |
-| — | Wells Fargo Autograph Journey Visa Card | — | — | — | — | — | 待处理 | — |
+| 5 | Chase United Gateway | $0 | 4 | 1 | United MileagePlus | 已支持的银行，未验收 | 两件托运行李的获得条件未录入。 | https://creditcards.chase.com/travel-credit-cards/united/united-gateway |
+| 5 | Chase Ihg One Rewards Premier Select | $350 | 3 | 2 | IHG One Rewards | 已支持的银行，未验收 | — | https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select |
+| 5 | Chase Ihg One Rewards Business | $200 | 2 | 2 | IHG One Rewards | 已支持的银行，未验收 | — | https://creditcards.chase.com/business-credit-cards/IHG/business |
+| 5 | Chase World Of Hyatt Business | $199 | 2 | 0 | World of Hyatt | 已支持的银行，未验收 | Hyatt 酒店消费比例和福利未录入。 | https://creditcards.chase.com/business-credit-cards/world-of-hyatt/hyatt-business-card |
+| 5 | Chase Southwest Rapid Rewards Premier Business | $149 | 3 | 2 | Southwest Rapid Rewards | 已支持的银行，未验收 | — | https://creditcards.chase.com/business-credit-cards/southwest/premier |
+| 5 | Chase Southwest Rapid Rewards Performance Business | $299 | 5 | 2 | Southwest Rapid Rewards | 已支持的银行，未验收 | — | https://creditcards.chase.com/business-credit-cards/southwest/performance |
+| 5 | Discover it Cash Back Credit Card | $0 | 2 | 0 | — | 暂不支持 | 季度上限金额由脚本载入，读取的公开内容里没有数字。 | https://www.discover.com/credit-cards/cash-back/it-card/ |
+| 5 | U.S. Bank Cash+ Visa Signature Card | $0 | 4 | 0 | — | 暂不支持 | — | https://www.usbank.com/credit-cards/cash-plus-visa-signature-credit-card.html |
+| 5 | U.S. Bank Altitude Go Visa Signature Card | $0 | 4 | 1 | — | 暂不支持 | — | https://www.usbank.com/credit-cards/altitude-go-visa-signature-credit-card.html |
+| 5 | Wells Fargo Autograph Journey Visa Card | $95 | 4 | 1 | — | 暂不支持 | — | https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/ |
 | — | Citi Custom Cash | — | — | — | — | — | Citi 页面显示 Not Available，读不到资料，已跳过。 | — |
 | — | BOA Premium Rewards | — | — | — | — | — | 发卡行页面的公开内容里读不到年费和赚取比例，已跳过。 | — |
