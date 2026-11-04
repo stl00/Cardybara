@@ -106,6 +106,17 @@ for(const name of ['boa-card-details','boa-no-payment','sc-hk-zh-card-details','
  const renamed=f.text.replace(/Numbat Voyager|Bilby|Kakapo|Tuatara|Wallaby Traveler|Dingo/,'Another Product');assert.deepEqual(fieldsOf(reader.issuerBilling(renamed,f.bank,f.card)),f.expected);
 });
 test('issuer rules never mix cards or guess',()=>{
+ // Only a known help word is skipped: any other word leaves a value unpaired.
+ assert.equal(fieldsOf(reader.issuerBilling('Visa ending in 1234\nMinimum Payment Due:\nNone\n$500.00','BOA',{id:'x',tail:'1234',currency:'USD'})).minimum,undefined);
+ assert.equal(fieldsOf(reader.issuerBilling('Visa ending in 1234\nStatement Balance:\nPending\n$500.00','BOA',{id:'x',tail:'1234',currency:'USD'})).statement,undefined);
+ // Only a real month and day with its own label passes the validator.
+ const dueItem=(title,evidence)=>({kind:'billing',cardId:'C1',key:'duePartial',title,value:null,currency:'USD',date:'',status:'unknown',evidence});
+ const dueSnap=evidence=>({bank:'BOA',region:'US',page:'https://example.test',capturedAt:'2030-01-01T00:00:00Z',aliases:[{id:'C1',cardId:'x',currency:'USD'}],blocks:[{text:evidence}],links:[]});
+ const passes=(title,evidence)=>validateModel({items:[dueItem(title,evidence)],nextLinkId:null},dueSnap(evidence)).items.length===1;
+ assert.equal(passes('Nov 19','Total Min Payment Due:\n$35.00 due Nov 19'),true);
+ for(const [title,evidence] of [['Feb 31','Total Min Payment Due:\n$35.00 due Feb 31'],['Janitor 5','Total Min Payment Due:\n$35.00 due Janitor 5'],['Nov 19','No payment due\nwas due Nov 19']])assert.equal(passes(title,evidence),false,title);
+ // A full date printed with the minimum is a due date; a yearless one is never completed.
+ assert.equal(fieldsOf(reader.issuerBilling('Visa ending in 1234\nTotal Min Payment Due:\nlayer\n$35.00 due Dec 19, 2030','BOA',{id:'x',tail:'1234',currency:'USD'})).due,'2030-12-19');
  const f=issuer('boa-card-details'),boa=(t,others=[])=>fieldsOf(reader.issuerBilling(t,'BOA',f.card,others)),sc=issuer('sc-hk-en-card-details'),hk=t=>fieldsOf(reader.issuerBilling(t,'SC HK',sc.card));
  for(const other of ['Visa - 5678','XXXX-XXXX-XXXX-5678','…5678','(-5678)','Ending in: 5678','Another Visa ending in 5678','••••5678','...5678','Visa x5678','*5678','• 5678','(5678)','#5678','Plain 5678 row','ends in 5678','ending with 5678','末四位 5678','尾数 5678','后四位 5678','••••5678.','ending in 5678,'])assert.deepEqual(boa(f.text+'\n'+other+'\nCurrent Balance\n$5.00'),{},other);
  for(const other of ['ending in 2030','••••2030','尾號 2030','XXXX-XXXX-XXXX-2045','Visa 5678,','Visa/5678'])assert.deepEqual(boa(f.text+'\n'+other+'\nCurrent Balance\n$5.00'),{},other);

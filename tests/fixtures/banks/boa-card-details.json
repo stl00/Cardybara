@@ -1,6 +1,6 @@
 {
  "id": "boa-card-details",
- "provenance": "Synthetic text with invented values and names. Labels are assumed from public conventions, not captured from a bank page, until a real run confirms them.",
+ "provenance": "Synthetic text with invented values and names. Structure and labels follow a real page observed through the local collector, with no real values.",
  "billingRules": true,
  "bank": "BOA",
  "locale": "en-US",
@@ -10,12 +10,13 @@
   "tail": "1234",
   "currency": "USD"
  },
- "text": "Numbat Voyager Visa - 1234\nCurrent Balance\n$1,234.56\nAvailable Credit\n$8,765.44\nStatement Balance\n$321.00\nMinimum Payment Due\n$35.00\nPayment Due Date\n12/19/2030",
+ "text": "Numbat Voyager Visa - 1234\nCurrent balance:\nlayer\n$1,234.56\nTotal credit available:\n$8,765.44\nTotal credit line:\n$10,000.00\nTotal Min Payment Due:\nlayer\n$35.00 due Dec 19\nStatement Balance:\nlayer\n$321.00",
  "expected": {
   "balance": 1234.56,
   "available": 8765.44,
-  "statement": 321,
+  "creditLimit": 10000,
   "minimum": 35,
-  "due": "2030-12-19"
+  "duePartial": "Dec 19",
+  "statement": 321
  }
 }

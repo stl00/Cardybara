@@ -54,6 +54,9 @@ export function billingObservation(item){
  const evidence=item.evidence.replace(/^\[C\d+\]\n/,'');
  if(item.key==='paymentStatus')return /^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(item.title)&&canonicalEvidence(evidence)===canonicalEvidence(item.title);
  if(item.key!=='duePartial')return false;
+ // An English month and day printed with the minimum, as in "$35.00 due Nov 19".
+ const en=item.title.match(/^(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?) (\d{1,2})$/i);
+ if(en){const month=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'].indexOf(en[1].slice(0,3).toLowerCase()),day=Number(en[2]);return day>=1&&day<=[31,29,31,30,31,30,31,31,30,31,30,31][month]&&new RegExp('\\bdue '+item.title+'$','i').test(canonicalEvidence(evidence))&&/^(?:total )?min(?:imum)? payment due:?$/i.test(evidence.split('\n')[0].trim());}
  const m=item.title.match(/^(\d{1,2})月\s*(\d{1,2})日$/);if(!m)return false;
  const month=Number(m[1]),day=Number(m[2]);
  return month>=1&&month<=12&&day>=1&&day<=[31,29,31,30,31,30,31,31,30,31,30,31][month-1]&&/^(?:還款到期日|还款到期日|繳款到期日|缴款到期日|付款到期日|請於此日期或之前付款|请于此日期或之前付款|Payment due date)[:：]?$/i.test(evidence.split('\n')[0])&&canonicalEvidence(evidence.split('\n').slice(1).join('\n'))===canonicalEvidence(item.title);

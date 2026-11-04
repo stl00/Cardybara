@@ -10,6 +10,7 @@ import {openBrowser,parseActivePort} from '../scripts/dev-collector/chrome-launc
 import {createChromeAdapter,hostPermissions} from '../scripts/dev-collector/chrome-adapter.mjs';
 import {syntheticPrepareTab} from '../scripts/dev-collector/synthetic-bank.mjs';
 import {chaseCards} from '../extension-next/chase-navigation.js';
+import {boaCards} from '../extension-next/card-navigation.js';
 import {discoverVisibleCards} from '../extension-next/discovery.js';
 import {injectableStructureReport} from '../scripts/dev-collector/structure-report.js';
 import {capturePage} from '../extension-next/agent-snapshot.js';
@@ -147,7 +148,6 @@ test('collection scripts and the structure report still run under a strict page 
 });
 
 for(const [bank,url,cards,want] of [
- ['BOA','https://secure.bankofamerica.com/myaccounts/brain/redirect.go',['1234','5678'],[{balance:1234.56,available:8765.44,statement:321,minimum:35,due:'2030-12-19'},{balance:67.89,available:4932.11,statement:0}]],
  ['Citi US','https://www.citi.com/',['2345','6789'],[{balance:1234.56,available:8765.44,statement:321,minimum:35,due:'2030-12-19'},{balance:67.89,available:4932.11,statement:0}]],
  ['SC HK','https://retail.sc.com/hk/nfs/login.htm',['4321','8765'],[{balance:1234.56,available:8765.44,statement:321,minimum:35,due:'2030-12-19'},{balance:67.89,available:4932.11,statement:0}]]
 ])test('capture scopes each '+bank+' card on one page and reads its billing fields',async()=>{
@@ -167,14 +167,35 @@ for(const [bank,url,cards,want] of [
   }
   assert.ok(!raw.observations.some(o=>o.kind==='reward'),'rewards are out of scope for these banks');
   assert.ok(raw.observations.some(o=>o.key==='paymentStatus'&&o.cardId===raw.aliases.find(a=>a.cardId==='c'+cards[1]).id));
-  if(bank==='BOA'){
-   // A sibling card in a form this code has never seen, and not in the wallet, must not lend its fields.
-   const mark=events.length;await exec(()=>{sessionStorage.setItem('synthetic-cards',JSON.stringify([{name:'Own Card',tail:'1234',rows:[['Current Balance','$5.00'],['No payment due']]},{name:'Unknown Visa',mask:' x5678',tail:'5678',rows:[['Minimum Payment Due','$9.00'],['Payment Due Date','12/19/2030']]}]));location.reload();});
-   await until(()=>events.slice(mark).some(e=>e.status==='complete'));await until(()=>exec(()=>/Own Card/.test(document.body.innerText)));
+ }finally{await run.stop();}
+});
+
+test('BOA: cards come from the Credit cards group, and billing from each card\'s detail page',async()=>{
+ const run=await start();
+ try{
+  const {chrome}=run.adapter,events=[];chrome.tabs.onUpdated.addListener((id,c)=>events.push(c));
+  const tab=await chrome.tabs.create({url:'https://secure.bankofamerica.com/myaccounts/brain/redirect.go',active:false});await until(()=>events.some(e=>e.status==='complete'));
+  const exec=(func,args=[])=>chrome.scripting.executeScript({target:{tabId:tab.id},func,args}).then(r=>r[0].result);
+  let mark=events.length;await exec(()=>{document.getElementById('sign-in').click();});await until(()=>exec(()=>!!document.getElementById('account-card-container-1')).catch(()=>false));
+  const found=await exec(discoverVisibleCards,['BOA',['en-US']]);assert.deepEqual(found.cards,[{tail:'1234',name:'Synthetic Numbat Visa'},{tail:'5678',name:'Synthetic Bilby Visa'}],'no deposit account');
+  const cards=found.cards.map(c=>({id:'c'+c.tail,bank:'BOA',tail:c.tail,currency:'USD'}));
+  assert.deepEqual(await exec(boaCards,['list',null]),['1234','5678']);
+  for(const [tail,want] of [['1234',{balance:1234.56,available:8765.44,creditLimit:10000,minimum:35,statement:321}],['5678',{balance:67.89,available:4932.11,creditLimit:10000,statement:0}]]){
+   const {href}=await exec(boaCards,['select',tail]);assert.match(href,/target=acctDetails/);
+   mark=events.length;await chrome.tabs.update(tab.id,{url:href});await until(()=>events.slice(mark).some(e=>e.status==='complete'));await until(()=>exec(()=>!!document.getElementById('credit-1')).catch(()=>false));
    await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
-   const own=[{id:'own',bank,tail:'1234',currency:'USD'}],only=await exec(capturePage,[bank,own,[]]);assert.equal(only.error,undefined);
-   const keys=only.observations.map(o=>o.key);assert.ok(keys.includes('balance'));assert.ok(keys.includes('paymentStatus'));assert.ok(!keys.includes('minimum'),'no borrowed minimum');assert.ok(!keys.includes('due'),'no borrowed due date');
+   const raw=await exec(capturePage,['BOA',cards,['c'+tail]]);assert.equal(raw.error,undefined,tail);assert.deepEqual(raw.aliases.map(a=>a.cardId),['c'+tail]);
+   assert.deepEqual(Object.fromEntries(raw.observations.filter(o=>o.kind==='card').map(o=>[o.key,o.value])),want,tail);
+   assert.equal(raw.observations.find(o=>o.key==='duePartial')?.title,tail==='1234'?'Dec 19':undefined,'the year is never assumed');assert.ok(!raw.observations.some(o=>o.key==='due'));
+   mark=events.length;await chrome.tabs.update(tab.id,{url:'https://secure.bankofamerica.com/accounts-home/'});await until(()=>events.slice(mark).some(e=>e.status==='complete'));await until(()=>exec(()=>!!document.getElementById('account-card-container-1')).catch(()=>false));
   }
+  assert.deepEqual(await exec(boaCards,['select','0001']),[],'a deposit account is not selectable');
+  // A slow app: the document is ready long before the card list and the heading are.
+  mark=events.length;await exec(()=>{sessionStorage.setItem('synthetic-slow','1');location.reload();});await until(()=>events.slice(mark).some(e=>e.status==='complete'));
+  const slow=await exec(boaCards,['select','1234']);assert.match(slow.href,/card=1234/);
+  mark=events.length;await chrome.tabs.update(tab.id,{url:slow.href});await until(()=>events.slice(mark).some(e=>e.status==='complete'));
+  await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
+  const raw=await exec(capturePage,['BOA',cards,['c1234']]);assert.equal(raw.error,undefined);assert.ok(raw.observations.some(o=>o.key==='balance'));
  }finally{await run.stop();}
 });
 

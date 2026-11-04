@@ -16,6 +16,9 @@ export function discoverVisibleCards(bank,locales){
  const skipped=new Set();
  const chaseGroup=bank==='Chase'&&!!document.getElementById?.('CARD_ACCOUNTS');
  const selectors=bank==='Chase'?(chaseGroup?'#CARD_ACCOUNTS [id^="accounts-name-link-button-"]':'[id^="accounts-name-link-button-"]'):bank.startsWith('Amex ')?'h1,h2,h3,button[aria-label="rowLevelAriaLabel"],#simple-switcher-listbox [role="option"]':bank==='HSBC HK'?'#account-summary-name,.account-detail-row,[role="option"],h1,h2,h3':'h1,h2,h3,[role="row"],article,[data-account-type="credit-card"]';
+ // BOA lists cards as links under the group headed "Credit cards", separate from deposit accounts.
+ const boaGroup=bank==='BOA'?[...document.querySelectorAll('[id^="account-card-container-"]')].find(g=>/^credit cards?$/i.test((g.querySelector?.('h3')?.innerText||'').trim())):null;
+ if(boaGroup){const cards=[...boaGroup.querySelectorAll('a')].filter(a=>visible(a)&&/\/myaccounts\/brain\/redirect\.go\?(?:.*&)?target=acctDetails(?:&|$)/.test(a.href||'')).flatMap(a=>{const text=(a.innerText||'').trim(),tail=text.match(/\s-\s(\d{4,5})$/)?.[1];return tail&&text.length<=120&&!/(?:\d[ -]?){9,}/.test(text)?[{tail,name:text.replace(/\s-\s\d{4,5}$/,'').slice(0,100)}]:[];});return {status:cards.length?'found':'no_data',cards};}
  const roots=[document];for(let i=0;i<roots.length&&i<100;i++)for(const e of roots[i].querySelectorAll('*'))if(e.shadowRoot)roots.push(e.shadowRoot);
  const cards=[];
  for(const el of roots.flatMap(r=>[...r.querySelectorAll(selectors)]).filter(visible)){
