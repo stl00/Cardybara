@@ -3,10 +3,12 @@ import manifest from './data/knowledge/manifest.json' with {type:'json'};
 import taxonomy from './data/knowledge/taxonomy.json' with {type:'json'};
 import entities from './data/knowledge/entities.json' with {type:'json'};
 import sources from './data/knowledge/sources.json' with {type:'json'};
-import rules from './data/knowledge/rules.json' with {type:'json'};
+import storedRules from './data/knowledge/rules.json' with {type:'json'};
 import {cardProducts} from './productCatalog.js';
 import {validateCoupon} from './couponKnowledge.js';
 const copy=value=>structuredClone(value);
+// A programme's transfer rule reaches every card the catalogue links to that programme.
+const rules=storedRules.map(r=>r.terms?.appliesTo==='linked-products'?{...r,productIds:[...new Set([...r.productIds,...cardProducts.filter(p=>p.transferProgrammeId===r.terms.fromProgrammeId).map(p=>p.id)])]}:r);
 export const knowledgeManifest=copy(manifest);
 export const knowledgeTaxonomy=copy(taxonomy);
 export const knowledgeEntities=copy(entities);
@@ -68,13 +70,13 @@ export function benefitProfileView({asOf=manifest.asOf}={}){
   return {productId,...copy(meta),fees:{currency:fee('primary')?.terms.currency||null,primaryAnnual:fee('primary')?.terms.amount??null,additionalAnnual:fee('additional')?.terms.amount??null,scope:'published-standard-fees-not-actual-account-charge',sourceIds:fee('primary')?.evidence.sourceIds||[]},
    earningRates:rows.filter(r=>r.kind==='earning-rate').map(r=>({label:r.terms.spendCategory,multiplier:r.terms.multiplier,...(r.terms.unit!=='points-per-USD'?{unit:r.terms.unit}:{}),...(productId!=='chase-us-sapphire-reserve'?{condition:r.content.summary}:{}),sourceIds:r.evidence.sourceIds})),
    benefits:rows.filter(r=>r.kind==='benefit').sort((a,b)=>rules.findIndex(r=>r.revisionId===a.revisionId)-rules.findIndex(r=>r.revisionId===b.revisionId)).map(r=>({id:r.id.split('.').at(-1),...copy(r.terms),title:r.content.title,condition:r.content.summary,sourceIds:r.evidence.sourceIds,checkedAt:r.evidence.checkedAt,accountState:'unverified',...(r.validity.effectiveFrom?{validFrom:r.validity.effectiveFrom}:{}),...(r.validity.effectiveThrough?{validThrough:r.validity.effectiveThrough}:{}),...(r.validity.enrollBy?{enrollBy:r.validity.enrollBy}:{}),...(r.evidence.verification==='summary-only'?{verification:'summary-only'}:{}),knowledgeRuleId:r.id,revisionId:r.revisionId,howToUse:copy(r.content.howToUse)})),
-   transferPartners:rows.filter(r=>r.kind==='transfer-relationship').map(r=>{const p=entities.programmes.find(p=>p.id===r.terms.toProgrammeId);return {category:p.kind,programme:p.name,relationship:r.terms.relationship,ratio:r.terms.ratio,ratioCondition:r.terms.ratioCondition??null,accountLinked:'unverified',sourceIds:r.evidence.sourceIds};})};
+   transferPartners:rows.filter(r=>r.kind==='transfer-relationship').map(r=>{const p=entities.programmes.find(p=>p.id===r.terms.toProgrammeId);return {category:p.kind,programme:p.name,relationship:r.terms.relationship,ratio:r.transferRate?.rate??null,ratioCondition:r.transferRate?.condition??null,ratesReviewed:!!r.transferRate,accountLinked:'unverified',sourceIds:r.evidence.sourceIds};})};
  });
 }
 export const benefitSourceView=Object.fromEntries(sources.map(s=>[s.id,copy(s)]));
 export const hsbcRewardCashView={...copy(manifest.hsbcRewardCash),capabilities:queryKnowledge({kind:'channel-capability',includeInactive:true}).rules.map(r=>({feature:r.content.title,channel:r.terms.channel,finding:r.content.summary,sourceIds:r.evidence.sourceIds}))};
 export function validateKnowledge(){
- const errors=[],ids=new Map(),revIds=new Set(),sourceIds=new Set(sources.map(s=>s.id)),productIds=new Set(cardProducts.map(p=>p.id)),programmeIds=new Set(entities.programmes.map(p=>p.id)),ruleIds=new Set(rules.map(r=>r.id));
+ const errors=[],ids=new Map(),revIds=new Set(),sourceIds=new Set(sources.map(s=>s.id)),productIds=new Set(cardProducts.map(p=>p.id)),programmeIds=new Set(entities.programmes.map(p=>p.id));
  for(const r of rules){
   const fail=m=>errors.push(`${r.revisionId}: ${m}`);
   if(revIds.has(r.revisionId))fail('duplicate revision ID');revIds.add(r.revisionId);
@@ -96,13 +98,14 @@ export function validateKnowledge(){
   for(const c of r.conditions.all)if(!taxonomy.conditionOps.includes(c.op)||!taxonomy.conditionFields.includes(c.field))fail('unsupported condition');
   if(r.personalState!=='not-in-public-knowledge')fail('personal state in public knowledge');
   if(r.kind==='transfer-relationship'&&r.status==='published'){
-   const ratio=r.terms.ratio;
-   if(ratio!==null&&!(Number.isInteger(ratio?.from)&&Number.isInteger(ratio?.to)&&ratio.from>0&&ratio.to>0))fail('transfer ratio must be null or positive whole numbers');
+   const ratio=r.transferRate?.rate??null;
+   if(r.terms.ratio!==null)fail('rates belong in transferRate until the assistant can tell cards apart');
+   if(ratio!==null&&!(Number.isInteger(ratio?.from)&&Number.isInteger(ratio?.to)&&ratio.from>0&&ratio.to>0))fail('transfer rate must be null or positive whole numbers');
    if(r.terms.fromProgrammeId&&!r.programmeIds.includes(r.terms.fromProgrammeId))fail('transfer source programme not linked');
    if(!r.productIds.length)fail('transfer rule without products');
    for(const key of ['minimumPoints','incrementPoints','maximumPoints'])if(r.terms[key]!==undefined&&r.terms[key]!==null&&!(Number.isInteger(r.terms[key])&&r.terms[key]>0))fail(`invalid ${key}`);
   }
-  if(r.status==='withdrawn'&&!ruleIds.has(r.terms.replacedByRuleId))fail('withdrawn rule must name its replacement');
+  if(r.status==='withdrawn'){const next=rules.find(x=>x.id===r.terms.replacedByRuleId);if(!next||r.productIds.some(id=>!next.productIds.includes(id)))fail('withdrawn rule must name a replacement covering its cards');}
   if(r.terms.coupon){
    for(const error of validateCoupon(r.terms.coupon,r.terms,[...sourceIds]))fail('coupon: '+error);
    if(r.kind!=='benefit'||!['credit','promo'].includes(r.category))fail('coupon outside benefit credit/promo');

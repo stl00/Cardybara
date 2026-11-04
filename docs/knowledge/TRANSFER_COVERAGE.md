@@ -4,12 +4,16 @@
 
 ## 口径
 
-- **MR US**：页面列出的 20 个伙伴全部有比例、最低数量、增量、上限和预计时间。转入美国航司计划（这里记为 Delta、JetBlue）收消费税抵销费。
+- **MR US**：页面列出的 20 个伙伴全部有比例、最低数量、增量、上限和预计时间。页面只写“转入美国航司计划”收消费税抵销费，这里按 Delta、JetBlue 记录，属于据此判断。
 - **MR HK**：只公开 Turbo 计划费率，未登记 Turbo 的费率须登录查看，未记录。页面同时写了 999,000 和 9,999,000 两个单笔上限，无法判断，上限留空。Emirates Skywards 页面写明暂停，不收录。Enrich、KrisFlyer、British Airways 的单位带星号但页面没有脚注。
-- **UR**：Chase 只说“多数伙伴 1:1”，并没有逐项列明，因此 13 个伙伴的比例留空，不计算里程。旧新闻稿中的 1:1 属于过去的声明，不当作当前比例。
-- **World of Hyatt**：Sapphire Preferred 和 Ink Business Preferred 页面写明 2026-10-01 起 4:3。Sapphire Reserve 及 Sapphire Reserve for Business 的页面没有写，比例留空，不套用其他卡。最低数量未写，只写了 1,000 点增量。
+- **UR 比例**：Sapphire Preferred 页面只说“多数伙伴 1:1”，没有逐项列明；Ink Business Preferred 页面让用户登录查看。因此 13 个伙伴的比例留空，不计算里程。旧新闻稿中的 1:1 属于过去的声明，不当作当前比例。
+- **World of Hyatt**：Sapphire Preferred 和 Ink Business Preferred 页面写明 2026-10-01 起 4:3。Sapphire Reserve 的页面没有写，比例留空，不套用其他卡。
+- **UR 费用和门槛**：协议写明可能收取转点费，并会在转点前告知，所以费用记为“可能收取”，不是没有。最低数量未写，只写了 1,000 点增量。
+- **Sapphire Reserve for Business**：产品页只写“1:1 转到主要酒店和航空计划”，没有列出伙伴，Chase 指南也没有提到这张卡，所以暂不关联伙伴。
 
 转点通常不可撤销：两家官方都写明转点后不能退回。伙伴关系不代表已关联账号，也不授予精英会籍。
+
+比例记录在 `transferRate`，`terms.ratio` 保持为空：assistant 目前分不清每张卡的比例，要等 #72 的确定性工具接入后才使用这些比例。
 
 ## 明细
 
@@ -45,18 +49,18 @@
 | MR HK | ALL Accor | 25 → 1 (Turbo) | 25,000 | 12,500 | — | estimated 48 hours | — | https://www.americanexpress.com/en-hk/rewards/membership-rewards/travel/all |
 | MR HK | Hilton Honors | 64 → 10 (Turbo) | 8,000 | 8,000 | — | estimated 48 hours | — | https://www.americanexpress.com/en-hk/rewards/membership-rewards/travel/all |
 | MR HK | Marriott Bonvoy | 9 → 1 (Turbo) | 9,000 | 9,000 | — | estimated 48 hours | — | https://www.americanexpress.com/en-hk/rewards/membership-rewards/travel/all |
-| UR | Aer Lingus AerClub | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
-| UR | The British Airways Club | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
-| UR | Air France KLM Flying Blue | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
-| UR | Iberia Club | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
-| UR | JetBlue TrueBlue | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
-| UR | Singapore Airlines KrisFlyer | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
-| UR | Southwest Rapid Rewards | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
-| UR | United MileagePlus | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
-| UR | Virgin Atlantic Flying Club | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
-| UR | Air Canada Aeroplan | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
-| UR | IHG One Rewards | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
-| UR | Marriott Bonvoy | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
-| UR | Wyndham Rewards | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
-| UR | World of Hyatt (CSP / Ink Preferred) | 4 → 3 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/sapphire-cards/personal/preferred |
-| UR | World of Hyatt (CSR / CSR Business) | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | — | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | Aer Lingus AerClub | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | The British Airways Club | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | Air France KLM Flying Blue | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | Iberia Club | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | JetBlue TrueBlue | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | Singapore Airlines KrisFlyer | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | Southwest Rapid Rewards | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | United MileagePlus | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | Virgin Atlantic Flying Club | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | Air Canada Aeroplan | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | IHG One Rewards | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | Marriott Bonvoy | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | Wyndham Rewards | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+| UR | World of Hyatt (Sapphire Preferred / Ink Business Preferred) | 4 → 3 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/sapphire-cards/personal/preferred |
+| UR | World of Hyatt (Sapphire Reserve) | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |

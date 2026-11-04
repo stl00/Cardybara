@@ -21555,7 +21555,7 @@
       "ratio": null,
       "grantsEliteStatus": false,
       "accountLinked": null,
-      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-world-of-hyatt"
+      "replacedByRuleId": "rule.programme.chase-ultimate-rewards.transfer-world-of-hyatt-unstated"
     },
     "validity": {
       "effectiveFrom": null,
@@ -23460,11 +23460,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.aer-lingus-aerclub",
-      "ratio": {
-        "from": 1000,
-        "to": 1000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -23475,8 +23471,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -23543,11 +23548,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.aeromexico-rewards",
-      "ratio": {
-        "from": 1000,
-        "to": 1600
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -23558,8 +23559,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1600
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -23626,11 +23636,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.air-canada-aeroplan",
-      "ratio": {
-        "from": 1000,
-        "to": 1000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -23641,8 +23647,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -23709,11 +23724,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.air-france-klm-flying-blue",
-      "ratio": {
-        "from": 1000,
-        "to": 1000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -23724,8 +23735,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -23792,11 +23812,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.ana-mileage-club",
-      "ratio": {
-        "from": 1000,
-        "to": 1000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -23807,8 +23823,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -23875,11 +23900,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.avianca-lifemiles",
-      "ratio": {
-        "from": 1000,
-        "to": 1000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 750000,
@@ -23890,8 +23911,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -23958,11 +23988,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.cathay-asia-miles",
-      "ratio": {
-        "from": 1000,
-        "to": 800
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -23973,8 +23999,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 800
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -24041,11 +24076,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.choice-privileges",
-      "ratio": {
-        "from": 1000,
-        "to": 1000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 9999000,
@@ -24056,8 +24087,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -24124,11 +24164,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.delta-skymiles",
-      "ratio": {
-        "from": 1000,
-        "to": 1000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -24146,8 +24182,17 @@
         }
       ],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -24214,11 +24259,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.emirates-skywards",
-      "ratio": {
-        "from": 1000,
-        "to": 800
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -24229,8 +24270,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 800
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -24297,11 +24347,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.hilton-honors",
-      "ratio": {
-        "from": 1000,
-        "to": 2000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 3000000,
@@ -24312,8 +24358,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 2000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -24380,11 +24435,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.iberia-club",
-      "ratio": {
-        "from": 1000,
-        "to": 1000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -24395,8 +24446,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -24463,11 +24523,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.jetblue-trueblue",
-      "ratio": {
-        "from": 250,
-        "to": 200
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 250,
       "incrementPoints": 250,
       "maximumPoints": 999750,
@@ -24485,8 +24541,17 @@
         }
       ],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 250,
+        "to": 200
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -24553,11 +24618,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.marriott-bonvoy",
-      "ratio": {
-        "from": 1000,
-        "to": 1000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -24568,8 +24629,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -24636,11 +24706,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.qantas-frequent-flyer",
-      "ratio": {
-        "from": 500,
-        "to": 500
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 500,
       "incrementPoints": 500,
       "maximumPoints": 999500,
@@ -24651,8 +24717,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 500,
+        "to": 500
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -24719,11 +24794,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.qatar-privilege-club",
-      "ratio": {
-        "from": 1000,
-        "to": 1000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 750000,
@@ -24734,8 +24805,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -24802,11 +24882,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.singapore-airlines-krisflyer",
-      "ratio": {
-        "from": 1000,
-        "to": 1000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -24817,8 +24893,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -24885,11 +24970,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.the-british-airways-club",
-      "ratio": {
-        "from": 1000,
-        "to": 1000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -24900,8 +24981,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -24968,11 +25058,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.leaders-club",
-      "ratio": {
-        "from": 1000,
-        "to": 250
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -24983,8 +25069,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 250
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -25051,11 +25146,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-us",
       "toProgrammeId": "programme.virgin-atlantic-flying-club",
-      "ratio": {
-        "from": 1000,
-        "to": 1000
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": 1000,
       "incrementPoints": 1000,
       "maximumPoints": 999000,
@@ -25066,8 +25157,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1000,
+        "to": 1000
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -25134,11 +25234,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-hk",
       "toProgrammeId": "programme.cathay-asia-miles",
-      "ratio": {
-        "from": 18000,
-        "to": 1000
-      },
-      "ratioCondition": "turbo-program",
+      "ratio": null,
       "minimumPoints": 18000,
       "incrementPoints": 9000,
       "maximumPoints": null,
@@ -25149,8 +25245,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -25217,11 +25322,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-hk",
       "toProgrammeId": "programme.malaysia-airlines-enrich",
-      "ratio": {
-        "from": 18000,
-        "to": 1000
-      },
-      "ratioCondition": "turbo-program",
+      "ratio": null,
       "minimumPoints": 18000,
       "incrementPoints": 9000,
       "maximumPoints": null,
@@ -25232,8 +25333,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -25300,11 +25410,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-hk",
       "toProgrammeId": "programme.eva-infinity-mileagelands",
-      "ratio": {
-        "from": 18000,
-        "to": 1000
-      },
-      "ratioCondition": "turbo-program",
+      "ratio": null,
       "minimumPoints": 18000,
       "incrementPoints": 9000,
       "maximumPoints": null,
@@ -25315,8 +25421,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -25383,11 +25498,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-hk",
       "toProgrammeId": "programme.qantas-frequent-flyer",
-      "ratio": {
-        "from": 18000,
-        "to": 1000
-      },
-      "ratioCondition": "turbo-program",
+      "ratio": null,
       "minimumPoints": 18000,
       "incrementPoints": 9000,
       "maximumPoints": null,
@@ -25408,8 +25519,17 @@
         }
       ],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -25476,11 +25596,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-hk",
       "toProgrammeId": "programme.singapore-krisflyer",
-      "ratio": {
-        "from": 18000,
-        "to": 1000
-      },
-      "ratioCondition": "turbo-program",
+      "ratio": null,
       "minimumPoints": 18000,
       "incrementPoints": 9000,
       "maximumPoints": null,
@@ -25491,8 +25607,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -25559,11 +25684,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-hk",
       "toProgrammeId": "programme.the-british-airways-club",
-      "ratio": {
-        "from": 18000,
-        "to": 1000
-      },
-      "ratioCondition": "turbo-program",
+      "ratio": null,
       "minimumPoints": 18000,
       "incrementPoints": 9000,
       "maximumPoints": null,
@@ -25574,8 +25695,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -25642,11 +25772,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-hk",
       "toProgrammeId": "programme.virgin-atlantic-flying-club",
-      "ratio": {
-        "from": 18000,
-        "to": 1000
-      },
-      "ratioCondition": "turbo-program",
+      "ratio": null,
       "minimumPoints": 18000,
       "incrementPoints": 9000,
       "maximumPoints": null,
@@ -25657,8 +25783,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 18000,
+        "to": 1000
+      },
+      "condition": "turbo-program",
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -25725,11 +25860,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-hk",
       "toProgrammeId": "programme.all-accor",
-      "ratio": {
-        "from": 25,
-        "to": 1
-      },
-      "ratioCondition": "turbo-program",
+      "ratio": null,
       "minimumPoints": 25000,
       "incrementPoints": 12500,
       "maximumPoints": null,
@@ -25740,8 +25871,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 25,
+        "to": 1
+      },
+      "condition": "turbo-program",
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -25808,11 +25948,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-hk",
       "toProgrammeId": "programme.hilton-honors",
-      "ratio": {
-        "from": 64,
-        "to": 10
-      },
-      "ratioCondition": "turbo-program",
+      "ratio": null,
       "minimumPoints": 8000,
       "incrementPoints": 8000,
       "maximumPoints": null,
@@ -25823,8 +25959,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 64,
+        "to": 10
+      },
+      "condition": "turbo-program",
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -25891,11 +26036,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.amex-membership-rewards-hk",
       "toProgrammeId": "programme.marriott-bonvoy",
-      "ratio": {
-        "from": 9,
-        "to": 1
-      },
-      "ratioCondition": "turbo-program",
+      "ratio": null,
       "minimumPoints": 9000,
       "incrementPoints": 9000,
       "maximumPoints": null,
@@ -25906,8 +26047,17 @@
       },
       "fees": [],
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 9,
+        "to": 1
+      },
+      "condition": "turbo-program",
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -25949,8 +26099,7 @@
     "productIds": [
       "chase-us-sapphire-reserve",
       "chase-us-chase-sapphire-preferred-credit-card",
-      "chase-us-ink-business-preferred-credit-card",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-ink-business-preferred-credit-card"
     ],
     "market": {
       "country": "US",
@@ -25966,7 +26115,7 @@
     ],
     "content": {
       "title": "Aer Lingus AerClub",
-      "summary": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
       "howToUse": [
         "转点前在银行转点页核对当前比例、最低数量和费用。",
         "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
@@ -25977,15 +26126,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.aer-lingus-aerclub",
       "ratio": null,
-      "ratioStatement": {
-        "ratio": {
-          "from": 1,
-          "to": 1
-        },
-        "scope": "most-partners",
-        "sourceId": "ur-csp-benefits"
-      },
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -25994,10 +26134,27 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -26007,13 +26164,14 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。"
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
     },
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
         "ur-csp-benefits",
-        "ur-csr-agreement"
+        "ur-csr-agreement",
+        "ur-csp-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",
@@ -26041,8 +26199,7 @@
     "productIds": [
       "chase-us-sapphire-reserve",
       "chase-us-chase-sapphire-preferred-credit-card",
-      "chase-us-ink-business-preferred-credit-card",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-ink-business-preferred-credit-card"
     ],
     "market": {
       "country": "US",
@@ -26058,7 +26215,7 @@
     ],
     "content": {
       "title": "The British Airways Club",
-      "summary": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
       "howToUse": [
         "转点前在银行转点页核对当前比例、最低数量和费用。",
         "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
@@ -26069,15 +26226,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.the-british-airways-club",
       "ratio": null,
-      "ratioStatement": {
-        "ratio": {
-          "from": 1,
-          "to": 1
-        },
-        "scope": "most-partners",
-        "sourceId": "ur-csp-benefits"
-      },
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -26086,10 +26234,27 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -26099,13 +26264,14 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。"
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
     },
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
         "ur-csp-benefits",
-        "ur-csr-agreement"
+        "ur-csr-agreement",
+        "ur-csp-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",
@@ -26133,8 +26299,7 @@
     "productIds": [
       "chase-us-sapphire-reserve",
       "chase-us-chase-sapphire-preferred-credit-card",
-      "chase-us-ink-business-preferred-credit-card",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-ink-business-preferred-credit-card"
     ],
     "market": {
       "country": "US",
@@ -26150,7 +26315,7 @@
     ],
     "content": {
       "title": "Air France KLM Flying Blue",
-      "summary": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
       "howToUse": [
         "转点前在银行转点页核对当前比例、最低数量和费用。",
         "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
@@ -26161,15 +26326,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.air-france-klm-flying-blue",
       "ratio": null,
-      "ratioStatement": {
-        "ratio": {
-          "from": 1,
-          "to": 1
-        },
-        "scope": "most-partners",
-        "sourceId": "ur-csp-benefits"
-      },
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -26178,10 +26334,27 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -26191,13 +26364,14 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。"
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
     },
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
         "ur-csp-benefits",
-        "ur-csr-agreement"
+        "ur-csr-agreement",
+        "ur-csp-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",
@@ -26225,8 +26399,7 @@
     "productIds": [
       "chase-us-sapphire-reserve",
       "chase-us-chase-sapphire-preferred-credit-card",
-      "chase-us-ink-business-preferred-credit-card",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-ink-business-preferred-credit-card"
     ],
     "market": {
       "country": "US",
@@ -26242,7 +26415,7 @@
     ],
     "content": {
       "title": "Iberia Club",
-      "summary": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
       "howToUse": [
         "转点前在银行转点页核对当前比例、最低数量和费用。",
         "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
@@ -26253,15 +26426,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.iberia-club",
       "ratio": null,
-      "ratioStatement": {
-        "ratio": {
-          "from": 1,
-          "to": 1
-        },
-        "scope": "most-partners",
-        "sourceId": "ur-csp-benefits"
-      },
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -26270,10 +26434,27 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -26283,13 +26464,14 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。"
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
     },
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
         "ur-csp-benefits",
-        "ur-csr-agreement"
+        "ur-csr-agreement",
+        "ur-csp-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",
@@ -26317,8 +26499,7 @@
     "productIds": [
       "chase-us-sapphire-reserve",
       "chase-us-chase-sapphire-preferred-credit-card",
-      "chase-us-ink-business-preferred-credit-card",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-ink-business-preferred-credit-card"
     ],
     "market": {
       "country": "US",
@@ -26334,7 +26515,7 @@
     ],
     "content": {
       "title": "JetBlue TrueBlue",
-      "summary": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
       "howToUse": [
         "转点前在银行转点页核对当前比例、最低数量和费用。",
         "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
@@ -26345,15 +26526,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.jetblue-trueblue",
       "ratio": null,
-      "ratioStatement": {
-        "ratio": {
-          "from": 1,
-          "to": 1
-        },
-        "scope": "most-partners",
-        "sourceId": "ur-csp-benefits"
-      },
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -26362,10 +26534,27 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -26375,13 +26564,14 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。"
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
     },
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
         "ur-csp-benefits",
-        "ur-csr-agreement"
+        "ur-csr-agreement",
+        "ur-csp-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",
@@ -26409,8 +26599,7 @@
     "productIds": [
       "chase-us-sapphire-reserve",
       "chase-us-chase-sapphire-preferred-credit-card",
-      "chase-us-ink-business-preferred-credit-card",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-ink-business-preferred-credit-card"
     ],
     "market": {
       "country": "US",
@@ -26426,7 +26615,7 @@
     ],
     "content": {
       "title": "Singapore Airlines KrisFlyer",
-      "summary": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
       "howToUse": [
         "转点前在银行转点页核对当前比例、最低数量和费用。",
         "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
@@ -26437,15 +26626,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.singapore-airlines-krisflyer",
       "ratio": null,
-      "ratioStatement": {
-        "ratio": {
-          "from": 1,
-          "to": 1
-        },
-        "scope": "most-partners",
-        "sourceId": "ur-csp-benefits"
-      },
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -26454,10 +26634,27 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -26467,13 +26664,14 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。"
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
     },
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
         "ur-csp-benefits",
-        "ur-csr-agreement"
+        "ur-csr-agreement",
+        "ur-csp-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",
@@ -26501,8 +26699,7 @@
     "productIds": [
       "chase-us-sapphire-reserve",
       "chase-us-chase-sapphire-preferred-credit-card",
-      "chase-us-ink-business-preferred-credit-card",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-ink-business-preferred-credit-card"
     ],
     "market": {
       "country": "US",
@@ -26518,7 +26715,7 @@
     ],
     "content": {
       "title": "Southwest Rapid Rewards",
-      "summary": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
       "howToUse": [
         "转点前在银行转点页核对当前比例、最低数量和费用。",
         "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
@@ -26529,15 +26726,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.southwest-rapid-rewards",
       "ratio": null,
-      "ratioStatement": {
-        "ratio": {
-          "from": 1,
-          "to": 1
-        },
-        "scope": "most-partners",
-        "sourceId": "ur-csp-benefits"
-      },
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -26546,10 +26734,27 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -26559,13 +26764,14 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。"
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
     },
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
         "ur-csp-benefits",
-        "ur-csr-agreement"
+        "ur-csr-agreement",
+        "ur-csp-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",
@@ -26593,8 +26799,7 @@
     "productIds": [
       "chase-us-sapphire-reserve",
       "chase-us-chase-sapphire-preferred-credit-card",
-      "chase-us-ink-business-preferred-credit-card",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-ink-business-preferred-credit-card"
     ],
     "market": {
       "country": "US",
@@ -26610,7 +26815,7 @@
     ],
     "content": {
       "title": "United MileagePlus",
-      "summary": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
       "howToUse": [
         "转点前在银行转点页核对当前比例、最低数量和费用。",
         "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
@@ -26621,15 +26826,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.united-mileageplus",
       "ratio": null,
-      "ratioStatement": {
-        "ratio": {
-          "from": 1,
-          "to": 1
-        },
-        "scope": "most-partners",
-        "sourceId": "ur-csp-benefits"
-      },
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -26638,10 +26834,27 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -26651,13 +26864,14 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。"
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
     },
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
         "ur-csp-benefits",
-        "ur-csr-agreement"
+        "ur-csr-agreement",
+        "ur-csp-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",
@@ -26685,8 +26899,7 @@
     "productIds": [
       "chase-us-sapphire-reserve",
       "chase-us-chase-sapphire-preferred-credit-card",
-      "chase-us-ink-business-preferred-credit-card",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-ink-business-preferred-credit-card"
     ],
     "market": {
       "country": "US",
@@ -26702,7 +26915,7 @@
     ],
     "content": {
       "title": "Virgin Atlantic Flying Club",
-      "summary": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
       "howToUse": [
         "转点前在银行转点页核对当前比例、最低数量和费用。",
         "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
@@ -26713,15 +26926,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.virgin-atlantic-flying-club",
       "ratio": null,
-      "ratioStatement": {
-        "ratio": {
-          "from": 1,
-          "to": 1
-        },
-        "scope": "most-partners",
-        "sourceId": "ur-csp-benefits"
-      },
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -26730,10 +26934,27 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -26743,13 +26964,14 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。"
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
     },
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
         "ur-csp-benefits",
-        "ur-csr-agreement"
+        "ur-csr-agreement",
+        "ur-csp-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",
@@ -26777,8 +26999,7 @@
     "productIds": [
       "chase-us-sapphire-reserve",
       "chase-us-chase-sapphire-preferred-credit-card",
-      "chase-us-ink-business-preferred-credit-card",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-ink-business-preferred-credit-card"
     ],
     "market": {
       "country": "US",
@@ -26794,7 +27015,7 @@
     ],
     "content": {
       "title": "Air Canada Aeroplan",
-      "summary": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
       "howToUse": [
         "转点前在银行转点页核对当前比例、最低数量和费用。",
         "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
@@ -26805,15 +27026,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.air-canada-aeroplan",
       "ratio": null,
-      "ratioStatement": {
-        "ratio": {
-          "from": 1,
-          "to": 1
-        },
-        "scope": "most-partners",
-        "sourceId": "ur-csp-benefits"
-      },
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -26822,10 +27034,27 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -26835,13 +27064,14 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。"
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
     },
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
         "ur-csp-benefits",
-        "ur-csr-agreement"
+        "ur-csr-agreement",
+        "ur-csp-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",
@@ -26869,8 +27099,7 @@
     "productIds": [
       "chase-us-sapphire-reserve",
       "chase-us-chase-sapphire-preferred-credit-card",
-      "chase-us-ink-business-preferred-credit-card",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-ink-business-preferred-credit-card"
     ],
     "market": {
       "country": "US",
@@ -26886,7 +27115,7 @@
     ],
     "content": {
       "title": "IHG One Rewards",
-      "summary": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
       "howToUse": [
         "转点前在银行转点页核对当前比例、最低数量和费用。",
         "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
@@ -26897,15 +27126,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.ihg-one-rewards",
       "ratio": null,
-      "ratioStatement": {
-        "ratio": {
-          "from": 1,
-          "to": 1
-        },
-        "scope": "most-partners",
-        "sourceId": "ur-csp-benefits"
-      },
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -26914,10 +27134,27 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -26927,13 +27164,14 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。"
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
     },
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
         "ur-csp-benefits",
-        "ur-csr-agreement"
+        "ur-csr-agreement",
+        "ur-csp-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",
@@ -26961,8 +27199,7 @@
     "productIds": [
       "chase-us-sapphire-reserve",
       "chase-us-chase-sapphire-preferred-credit-card",
-      "chase-us-ink-business-preferred-credit-card",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-ink-business-preferred-credit-card"
     ],
     "market": {
       "country": "US",
@@ -26978,7 +27215,7 @@
     ],
     "content": {
       "title": "Marriott Bonvoy",
-      "summary": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
       "howToUse": [
         "转点前在银行转点页核对当前比例、最低数量和费用。",
         "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
@@ -26989,15 +27226,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.marriott-bonvoy",
       "ratio": null,
-      "ratioStatement": {
-        "ratio": {
-          "from": 1,
-          "to": 1
-        },
-        "scope": "most-partners",
-        "sourceId": "ur-csp-benefits"
-      },
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -27006,10 +27234,27 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -27019,13 +27264,14 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。"
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
     },
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
         "ur-csp-benefits",
-        "ur-csr-agreement"
+        "ur-csr-agreement",
+        "ur-csp-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",
@@ -27053,8 +27299,7 @@
     "productIds": [
       "chase-us-sapphire-reserve",
       "chase-us-chase-sapphire-preferred-credit-card",
-      "chase-us-ink-business-preferred-credit-card",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-ink-business-preferred-credit-card"
     ],
     "market": {
       "country": "US",
@@ -27070,7 +27315,7 @@
     ],
     "content": {
       "title": "Wyndham Rewards",
-      "summary": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。",
+      "summary": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。",
       "howToUse": [
         "转点前在银行转点页核对当前比例、最低数量和费用。",
         "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
@@ -27081,15 +27326,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.wyndham-rewards",
       "ratio": null,
-      "ratioStatement": {
-        "ratio": {
-          "from": 1,
-          "to": 1
-        },
-        "scope": "most-partners",
-        "sourceId": "ur-csp-benefits"
-      },
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -27098,10 +27334,27 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
+      "appliesTo": "linked-products",
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": {
+        "ratio": {
+          "from": 1,
+          "to": 1
+        },
+        "scope": "most-partners",
+        "statedForProductIds": [
+          "chase-us-chase-sapphire-preferred-credit-card"
+        ],
+        "sourceId": "ur-csp-benefits"
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -27111,13 +27364,14 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。"
+      "unparsedText": "Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。"
     },
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
         "ur-csp-benefits",
-        "ur-csr-agreement"
+        "ur-csr-agreement",
+        "ur-csp-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",
@@ -27170,11 +27424,7 @@
       "relationship": "transfer-only",
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.world-of-hyatt",
-      "ratio": {
-        "from": 4,
-        "to": 3
-      },
-      "ratioCondition": null,
+      "ratio": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -27183,10 +27433,19 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 4,
+        "to": 3
+      },
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": "2026-10-01",
@@ -27228,8 +27487,7 @@
     "status": "published",
     "kind": "transfer-relationship",
     "productIds": [
-      "chase-us-sapphire-reserve",
-      "chase-us-sapphire-reserve-for-business-credit-card"
+      "chase-us-sapphire-reserve"
     ],
     "market": {
       "country": "US",
@@ -27256,7 +27514,6 @@
       "fromProgrammeId": "programme.chase-ultimate-rewards",
       "toProgrammeId": "programme.world-of-hyatt",
       "ratio": null,
-      "ratioCondition": null,
       "minimumPoints": null,
       "incrementPoints": 1000,
       "maximumPoints": null,
@@ -27265,10 +27522,16 @@
         "unit": "business-days",
         "qualifier": "up-to"
       },
-      "fees": [],
+      "fees": null,
+      "feeStatement": "may-be-charged",
       "final": true,
       "grantsEliteStatus": false,
       "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": null
     },
     "validity": {
       "effectiveFrom": null,
@@ -27283,8 +27546,7 @@
     "evidence": {
       "sourceIds": [
         "ur-transfer-guide",
-        "ur-csr-agreement",
-        "ur-csr-business-product"
+        "ur-csr-agreement"
       ],
       "checkedAt": "2026-11-04",
       "verification": "official-summary",

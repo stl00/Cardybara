@@ -68,7 +68,28 @@
     }
   },
   {
+    "id": "amex-us-us-american-express-gold-card",
+    "transferProgrammeId": "programme.amex-membership-rewards-us"
+  },
+  {
+    "id": "amex-us-us-morgan-stanley-platinum-card",
+    "transferProgrammeId": "programme.amex-membership-rewards-us"
+  },
+  {
+    "id": "amex-hk-hk-the-platinum-card",
+    "transferProgrammeId": "programme.amex-membership-rewards-hk"
+  },
+  {
+    "id": "amex-hk-hk-american-express-explorer-credit-card",
+    "transferProgrammeId": "programme.amex-membership-rewards-hk"
+  },
+  {
+    "id": "chase-us-sapphire-reserve",
+    "transferProgrammeId": "programme.chase-ultimate-rewards"
+  },
+  {
     "id": "chase-us-chase-sapphire-preferred-credit-card",
+    "transferProgrammeId": "programme.chase-ultimate-rewards",
     "rewardPrograms": [
       "Ultimate Rewards"
     ],
@@ -79,21 +100,12 @@
   },
   {
     "id": "chase-us-ink-business-preferred-credit-card",
+    "transferProgrammeId": "programme.chase-ultimate-rewards",
     "rewardPrograms": [
       "Ultimate Rewards"
     ],
     "rewardSource": {
       "url": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
-      "checkedAt": "2026-11-04"
-    }
-  },
-  {
-    "id": "chase-us-sapphire-reserve-for-business-credit-card",
-    "rewardPrograms": [
-      "Ultimate Rewards"
-    ],
-    "rewardSource": {
-      "url": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
       "checkedAt": "2026-11-04"
     }
   }

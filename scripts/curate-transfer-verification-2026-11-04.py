@@ -3,6 +3,10 @@
 
 Runs once and offline: every value below was read from the issuer page named by its source.
 A field a page does not state stays null. Needs opencc-python-reimplemented on PYTHONPATH.
+
+Rates live in the rule's top-level transferRate, not in terms.ratio. The assistant receives terms
+as is and can only tell a card's rate apart through the deterministic tool planned in #72, so until
+then terms.ratio stays null and its answer check keeps rejecting any stated ratio.
 """
 import json
 from pathlib import Path
@@ -39,7 +43,7 @@ S_MR_HK = source('mr-hk-transfer', 'https://www.americanexpress.com/en-hk/reward
 S_UR_GUIDE = source('ur-transfer-guide', 'https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points', 'Chase · Ultimate Rewards 转点指南', 'Chase · How to transfer Ultimate Rewards points')
 S_UR_CSP = source('ur-csp-benefits', 'https://www.chase.com/sapphire-cards/personal/preferred', 'Chase · Sapphire Preferred 福利页（转点比例）', 'Chase · Sapphire Preferred benefits (transfer rates)')
 S_UR_IBP = source('ur-ibp-product', 'https://creditcards.chase.com/business-credit-cards/ink/business-preferred', 'Chase · Ink Business Preferred 产品页（Hyatt 比例）', 'Chase · Ink Business Preferred product page (Hyatt rate)')
-S_UR_CSRB = source('ur-csr-business-product', 'https://creditcards.chase.com/business-credit-cards/sapphire/reserve', 'Chase · Sapphire Reserve for Business 产品页', 'Chase · Sapphire Reserve for Business product page')
+S_UR_CSP_AGREEMENT = source('ur-csp-agreement', 'https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0551_0560_Web.pdf', 'Chase · Sapphire Preferred Ultimate Rewards 计划协议', 'Chase · Sapphire Preferred Ultimate Rewards program agreement')
 S_UR_AGREEMENT = source('ur-csr-agreement', 'https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0550_Web.pdf', 'Chase · Sapphire Reserve Ultimate Rewards 计划协议', 'Chase · Sapphire Reserve Ultimate Rewards program agreement')
 
 
@@ -101,8 +105,9 @@ HK_ROWS = [
     ('programme.marriott-bonvoy', 9, 1, 9000, 9000, hours(48), [], False),
 ]
 UR_PARTNERS = ['programme.aer-lingus-aerclub', 'programme.the-british-airways-club', 'programme.air-france-klm-flying-blue', 'programme.iberia-club', 'programme.jetblue-trueblue', 'programme.singapore-airlines-krisflyer', 'programme.southwest-rapid-rewards', 'programme.united-mileageplus', 'programme.virgin-atlantic-flying-club', 'programme.air-canada-aeroplan', 'programme.ihg-one-rewards', 'programme.marriott-bonvoy', 'programme.wyndham-rewards']
-CSR, CSP, IBP, CSRB = 'chase-us-sapphire-reserve', 'chase-us-chase-sapphire-preferred-credit-card', 'chase-us-ink-business-preferred-credit-card', 'chase-us-sapphire-reserve-for-business-credit-card'
-UR_PRODUCTS = [CSR, CSP, IBP, CSRB]
+# The Chase guide names these three cards. Sapphire Reserve for Business names no partner on its page.
+CSR, CSP, IBP = 'chase-us-sapphire-reserve', 'chase-us-chase-sapphire-preferred-credit-card', 'chase-us-ink-business-preferred-credit-card'
+UR_PRODUCTS = [CSR, CSP, IBP]
 MR_US_PRODUCTS = ['amex-us-us-american-express-gold-card', 'amex-us-us-morgan-stanley-platinum-card']
 MR_HK_PRODUCTS = ['amex-hk-hk-the-platinum-card', 'amex-hk-hk-american-express-explorer-credit-card']
 
@@ -115,7 +120,7 @@ SUMMARY_US_FEE = txt('Amex US 转点页公布的比例、最低数量、增量�
 SUMMARY_HK = txt('Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开，须登录查看。999,000 与 9,999,000 两个单笔上限在页面上并存，未采用。', 'Amex HK publishes Turbo Program rates only; other rates require login. The page shows both 999,000 and 9,999,000 as the per-transaction maximum, so neither is used.')
 SUMMARY_HK_NOTE = txt('Amex HK 只公开 Turbo 计划费率；未登记 Turbo 的费率未公开。该计划单位带星号，但页面没有对应脚注。', 'Amex HK publishes Turbo Program rates only. The partner unit carries an asterisk with no matching footnote on the page.')
 SUMMARY_HK_QANTAS = txt('Amex HK 只公开 Turbo 计划费率；每次转点收取300港元行政费，Centurion及Corporate持卡人除外。', 'Amex HK publishes Turbo Program rates only; a HK$300 administration fee applies per transfer, except for Centurion and Corporate Cardmembers.')
-SUMMARY_UR = txt('Chase 称多数伙伴为1:1，但没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日。', 'Chase says most partners transfer at 1:1 but does not state this partner individually, so no result is computed. Increments of 1,000 points; most process by the next business day, up to 7 business days.')
+SUMMARY_UR = txt('Chase 没有逐项列明本伙伴比例，因此不计算里程；增量1,000点，多数下一营业日到账，最长7个营业日；可能收取转点费，Chase 会在转点前告知。', 'Chase does not state this partner individually, so no result is computed. Increments of 1,000 points; most process by the next business day, up to 7 business days. A point transfer fee may be charged, and Chase says it will tell you first.')
 SUMMARY_HYATT = txt('Sapphire Preferred 与 Ink Business Preferred 页面公布：2026年10月1日起转 World of Hyatt 为4:3（1,000点得750点）。', 'Published on the Sapphire Preferred and Ink Business Preferred pages: from October 1, 2026, points transfer to World of Hyatt at 4:3 (1,000 points gives 750).')
 SUMMARY_HYATT_OTHER = txt('本卡页面没有公布 World of Hyatt 比例；其他卡的4:3不套用到本卡，须登录转点页核对。', 'This card\'s pages do not state a World of Hyatt rate; the 4:3 stated for other cards is not applied here. Check the signed-in transfer page.')
 
@@ -124,12 +129,15 @@ def rule(id, from_id, to_id, product_ids, issuer, country, summary, terms, sourc
     partner = next(e for e in entities['programmes'] if e['id'] == to_id)
     tr['en-US'].setdefault(partner['name'], partner['name'])
     tr['zh-TW'].setdefault(partner['name'], partner['name'])
+    terms = dict(terms)
+    rate = {'rate': terms.pop('ratio'), 'condition': terms.pop('ratioCondition', None), 'statement': terms.pop('ratioStatement', None)}
     return {
         'id': id, 'revision': 1, 'revisionId': f'{id}@{CHECKED}.1', 'supersedes': None, 'status': 'published',
         'kind': 'transfer-relationship', 'productIds': product_ids, 'market': {'country': country, 'issuer': issuer},
         'category': 'transfer', 'scenarioIds': ['reward-redemption'], 'programmeIds': [from_id, to_id],
         'content': {'title': partner['name'], 'summary': summary, 'howToUse': CHECK_STEPS},
-        'terms': {'relationship': 'transfer-only', 'fromProgrammeId': from_id, 'toProgrammeId': to_id, **terms, 'grantsEliteStatus': False, 'accountLinked': None},
+        'terms': {'relationship': 'transfer-only', 'fromProgrammeId': from_id, 'toProgrammeId': to_id, 'ratio': None, **terms, 'grantsEliteStatus': False, 'accountLinked': None},
+        'transferRate': rate,
         'validity': {'effectiveFrom': effective_from, 'effectiveThrough': None, 'enrollBy': None},
         'conditions': {'coverage': 'partial', 'all': [], 'unparsedText': summary},
         'evidence': {'sourceIds': source_ids, 'checkedAt': CHECKED, 'verification': 'official-summary', 'supports': ['content.summary', 'terms', 'validity'], 'fullTermsReviewed': False},
@@ -145,25 +153,25 @@ def slug(id):
 new = []
 for to, points, units, inc, maximum, time, fees in US_ROWS:
     new.append(rule(f'rule.programme.{slug(MR_US)}.transfer-{slug(to)}', MR_US, to, MR_US_PRODUCTS, 'Amex US', 'US', SUMMARY_US_FEE if fees else SUMMARY_US,
-                    {'ratio': {'from': points, 'to': units}, 'ratioCondition': None, 'minimumPoints': points, 'incrementPoints': inc, 'maximumPoints': maximum, 'estimatedTime': time, 'fees': fees, 'final': True}, [S_MR_US]))
+                    {'ratio': {'from': points, 'to': units}, 'ratioCondition': None, 'minimumPoints': points, 'incrementPoints': inc, 'maximumPoints': maximum, 'estimatedTime': time, 'fees': fees, 'final': True, 'appliesTo': 'linked-products'}, [S_MR_US]))
 for to, points, units, minimum, inc, time, fees, note in HK_ROWS:
     new.append(rule(f'rule.programme.{slug(MR_HK)}.transfer-{slug(to)}', MR_HK, to, MR_HK_PRODUCTS, 'Amex HK', 'HK', SUMMARY_HK_QANTAS if fees else SUMMARY_HK_NOTE if note else SUMMARY_HK,
-                    {'ratio': {'from': points, 'to': units}, 'ratioCondition': 'turbo-program', 'minimumPoints': minimum, 'incrementPoints': inc, 'maximumPoints': None, 'estimatedTime': time, 'fees': fees, 'final': True}, [S_MR_HK]))
-UR_COMMON = {'ratioCondition': None, 'minimumPoints': None, 'incrementPoints': 1000, 'maximumPoints': None, 'estimatedTime': days(7, 'business-days'), 'fees': [], 'final': True}
-MOST = {'ratio': {'from': 1, 'to': 1}, 'scope': 'most-partners', 'sourceId': S_UR_CSP}
+                    {'ratio': {'from': points, 'to': units}, 'ratioCondition': 'turbo-program', 'minimumPoints': minimum, 'incrementPoints': inc, 'maximumPoints': None, 'estimatedTime': time, 'fees': fees, 'final': True, 'appliesTo': 'linked-products'}, [S_MR_HK]))
+UR_COMMON = {'ratioCondition': None, 'minimumPoints': None, 'incrementPoints': 1000, 'maximumPoints': None, 'estimatedTime': days(7, 'business-days'), 'fees': None, 'feeStatement': 'may-be-charged', 'final': True}
+# Stated on the Sapphire Preferred page only; the Ink Business Preferred page says to log in instead.
+MOST = {'ratio': {'from': 1, 'to': 1}, 'scope': 'most-partners', 'statedForProductIds': [CSP], 'sourceId': S_UR_CSP}
 for to in UR_PARTNERS:
-    new.append(rule(f'rule.programme.{slug(UR)}.transfer-{slug(to)}', UR, to, UR_PRODUCTS, 'Chase', 'US', SUMMARY_UR, {'ratio': None, 'ratioStatement': MOST, **UR_COMMON}, [S_UR_GUIDE, S_UR_CSP, S_UR_AGREEMENT]))
+    new.append(rule(f'rule.programme.{slug(UR)}.transfer-{slug(to)}', UR, to, UR_PRODUCTS, 'Chase', 'US', SUMMARY_UR, {'ratio': None, 'ratioStatement': MOST, **UR_COMMON, 'appliesTo': 'linked-products'}, [S_UR_GUIDE, S_UR_CSP, S_UR_AGREEMENT, S_UR_CSP_AGREEMENT]))
 HYATT = 'programme.world-of-hyatt'
 new.append(rule(f'rule.programme.{slug(UR)}.transfer-{slug(HYATT)}', UR, HYATT, [CSP, IBP], 'Chase', 'US', SUMMARY_HYATT, {'ratio': {'from': 4, 'to': 3}, **UR_COMMON}, [S_UR_CSP, S_UR_IBP, S_UR_GUIDE], effective_from='2026-10-01'))
-new.append(rule(f'rule.programme.{slug(UR)}.transfer-{slug(HYATT)}-unstated', UR, HYATT, [CSR, CSRB], 'Chase', 'US', SUMMARY_HYATT_OTHER, {'ratio': None, **UR_COMMON}, [S_UR_GUIDE, S_UR_AGREEMENT, S_UR_CSRB]))
+new.append(rule(f'rule.programme.{slug(UR)}.transfer-{slug(HYATT)}-unstated', UR, HYATT, [CSR], 'Chase', 'US', SUMMARY_HYATT_OTHER, {'ratio': None, **UR_COMMON}, [S_UR_GUIDE, S_UR_AGREEMENT]))
 
 # One rule per programme and partner replaces the per-card copies, which stay in history.
-replaced = {(r['terms']['fromProgrammeId'], r['terms']['toProgrammeId']): r['id'] for r in new if not r['id'].endswith('-unstated')}
 withdrawn = []
 for old in rules:
     if old['kind'] != 'transfer-relationship' or old['terms']['fromProgrammeId'] not in (MR_US, MR_HK, UR):
         continue
-    next_id = replaced.get((old['terms']['fromProgrammeId'], old['terms']['toProgrammeId']))
+    next_id = next((r['id'] for r in new if r['terms']['fromProgrammeId'] == old['terms']['fromProgrammeId'] and r['terms']['toProgrammeId'] == old['terms']['toProgrammeId'] and set(old['productIds']) <= set(r['productIds'])), None)
     if not next_id:
         raise SystemExit(f'partner dropped from the official list, decide explicitly: {old["id"]}')
     row = json.loads(json.dumps(old))
@@ -176,13 +184,25 @@ rules.extend(withdrawn)
 rules.extend(new)
 
 # Which cards reach which programme comes from the issuer pages above, not from card names.
-for pid, programme, url in [
-    (CSP, 'Ultimate Rewards', 'https://www.chase.com/sapphire-cards/personal/preferred'), (IBP, 'Ultimate Rewards', 'https://creditcards.chase.com/business-credit-cards/ink/business-preferred'),
-    (CSRB, 'Ultimate Rewards', 'https://creditcards.chase.com/business-credit-cards/sapphire/reserve'),
+for pid, programme_id, programme, url in [
+    *[(p, MR_US, None, None) for p in MR_US_PRODUCTS], *[(p, MR_HK, None, None) for p in MR_HK_PRODUCTS], (CSR, UR, None, None),
+    (CSP, UR, 'Ultimate Rewards', 'https://www.chase.com/sapphire-cards/personal/preferred'),
+    (IBP, UR, 'Ultimate Rewards', 'https://creditcards.chase.com/business-credit-cards/ink/business-preferred'),
 ]:
-    patch = {'id': pid, 'rewardPrograms': [programme], 'rewardSource': {'url': url, 'checkedAt': CHECKED}}
+    patch = {'id': pid, 'transferProgrammeId': programme_id}
+    if programme:
+        patch.update(rewardPrograms=[programme], rewardSource={'url': url, 'checkedAt': CHECKED})
     next(p for p in products['products'] if p['id'] == pid).update({k: v for k, v in patch.items() if k != 'id'})
     overrides.append(patch)
+
+for zh, en, tw in [
+    ('仅 Turbo 计划费率', 'Turbo Program rate only', '僅 Turbo 計畫費率'),
+    ('官方未逐项列明；以登录后的转点页为准', 'Not stated per partner; check the signed-in transfer page', '官方未逐項列明；以登入後的轉點頁為準'),
+    ('未核对；以登录后的转点页为准', 'Not checked; see the signed-in transfer page', '未核對；以登入後的轉點頁為準'),
+    ('比例来自发卡行公开页面；没有列明或尚未核对的留空。个人账号关联未核实，不会执行转点。', 'Rates come from public issuer pages; anything not stated or not yet checked stays blank. Account links are unverified and no transfers are performed.', '比例來自發卡行公開頁面；沒有列明或尚未核對的留空。個人帳號關聯未核實，不會執行轉點。'),
+]:
+    tr['en-US'][zh] = en
+    tr['zh-TW'][zh] = tw
 
 manifest['asOf'] = CHECKED
 manifest['snapshotId'] = f'cardybara-public-knowledge-{CHECKED}.transfers-1'
@@ -191,4 +211,33 @@ for f, d in [('rules.json', rules), ('entities.json', entities), ('sources.json'
 for path, d in [('src/translations.json', tr), ('src/data/card-products.json', products), ('src/data/card-product-overrides.json', overrides)]:
     (root / path).write_text(json.dumps(d, ensure_ascii=False, indent=2) + '\n')
 (root / 'src/data/logos.json').write_text(json.dumps(logos, ensure_ascii=False, indent=1) + '\n')
+names = {e['id']: e['name'] for e in entities['programmes']}
+urls = {x['id']: x['url'] for x in sources}
+labels = {MR_US: 'MR US', MR_HK: 'MR HK', UR: 'UR'}
+fmt = lambda v: f'{v:,}' if v else '—'
+doc = [
+    '# 转点数据核对（MR US / MR HK / UR）', '',
+    '核对日期 2026-11-04，只读公开页面，未登录。比例、门槛和时间照发卡行原样记录，页面没写的留空（—）。转点奖励活动不在范围内。Amex CA 已归档，未核对。', '',
+    '## 口径', '',
+    '- **MR US**：页面列出的 20 个伙伴全部有比例、最低数量、增量、上限和预计时间。页面只写“转入美国航司计划”收消费税抵销费，这里按 Delta、JetBlue 记录，属于据此判断。',
+    '- **MR HK**：只公开 Turbo 计划费率，未登记 Turbo 的费率须登录查看，未记录。页面同时写了 999,000 和 9,999,000 两个单笔上限，无法判断，上限留空。Emirates Skywards 页面写明暂停，不收录。Enrich、KrisFlyer、British Airways 的单位带星号但页面没有脚注。',
+    '- **UR 比例**：Sapphire Preferred 页面只说“多数伙伴 1:1”，没有逐项列明；Ink Business Preferred 页面让用户登录查看。因此 13 个伙伴的比例留空，不计算里程。旧新闻稿中的 1:1 属于过去的声明，不当作当前比例。',
+    '- **World of Hyatt**：Sapphire Preferred 和 Ink Business Preferred 页面写明 2026-10-01 起 4:3。Sapphire Reserve 的页面没有写，比例留空，不套用其他卡。',
+    '- **UR 费用和门槛**：协议写明可能收取转点费，并会在转点前告知，所以费用记为“可能收取”，不是没有。最低数量未写，只写了 1,000 点增量。',
+    '- **Sapphire Reserve for Business**：产品页只写“1:1 转到主要酒店和航空计划”，没有列出伙伴，Chase 指南也没有提到这张卡，所以暂不关联伙伴。', '',
+    '转点通常不可撤销：两家官方都写明转点后不能退回。伙伴关系不代表已关联账号，也不授予精英会籍。', '',
+    '比例记录在 `transferRate`，`terms.ratio` 保持为空：assistant 目前分不清每张卡的比例，要等 #72 的确定性工具接入后才使用这些比例。', '',
+    '## 明细', '',
+    '| 计划 | 伙伴 | 比例（点→单位） | 最低 | 增量 | 单笔上限 | 预计时间 | 费用 | 来源 |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- |',
+]
+for x in new:
+    t, rate = x['terms'], x['transferRate']
+    ratio = rate['rate']
+    shown = f"{ratio['from']:,} → {ratio['to']:,}" + (' (Turbo)' if rate['condition'] else '') if ratio else '未逐项列明'
+    who = ' (Sapphire Reserve)' if x['id'].endswith('-unstated') else ' (Sapphire Preferred / Ink Business Preferred)' if t['toProgrammeId'] == HYATT else ''
+    fee = '可能收取' if t.get('feeStatement') else '; '.join(f['kind'] for f in t['fees']) or '—'
+    time = t['estimatedTime']
+    doc.append(f"| {labels[t['fromProgrammeId']]} | {names[t['toProgrammeId']]}{who} | {shown} | {fmt(t['minimumPoints'])} | {fmt(t['incrementPoints'])} | {fmt(t['maximumPoints'])} | {time['qualifier']} {time['value']} {time['unit']} | {fee} | {urls[x['evidence']['sourceIds'][0]]} |")
+(root / 'docs/knowledge/TRANSFER_COVERAGE.md').write_text('\n'.join(doc) + '\n')
 print('new rules', len(new), 'withdrawn', len(withdrawn), 'rules', len(rules), 'sources', len(sources))

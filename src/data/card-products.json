@@ -29,7 +29,8 @@
       "rewardSource": {
         "url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0550_Web.pdf",
         "checkedAt": "2026-10-27"
-      }
+      },
+      "transferProgrammeId": "programme.chase-ultimate-rewards"
     },
     {
       "id": "amex-hk-hk-the-platinum-card",
@@ -54,7 +55,8 @@
       "rewardSource": {
         "url": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
         "checkedAt": "2026-10-27"
-      }
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-hk"
     },
     {
       "id": "chase-us-freedom-unlimited",
@@ -336,7 +338,8 @@
       "rewardSource": {
         "url": "https://www.americanexpress.com/hk/en/credit-cards/explorer-credit-card/",
         "checkedAt": "2026-10-27"
-      }
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-hk"
     },
     {
       "id": "sc-hk-hk-cathay-mastercard",
@@ -430,6 +433,7 @@
       "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed",
+      "transferProgrammeId": "programme.chase-ultimate-rewards",
       "rewardSource": {
         "url": "https://www.chase.com/sapphire-cards/personal/preferred",
         "checkedAt": "2026-11-04"
@@ -992,6 +996,7 @@
       "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed",
+      "transferProgrammeId": "programme.chase-ultimate-rewards",
       "rewardSource": {
         "url": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
         "checkedAt": "2026-11-04"
@@ -1027,9 +1032,7 @@
         "Sapphire Reserve for Business"
       ],
       "currencies": [],
-      "rewardPrograms": [
-        "Ultimate Rewards"
-      ],
+      "rewardPrograms": [],
       "art": {
         "file": "catalog-256773f46ab51fa8.png",
         "verification": "issuer-asset",
@@ -1037,11 +1040,7 @@
       },
       "sourceUrl": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
       "checkedAt": "2026-10-27",
-      "verification": "issuer-listed",
-      "rewardSource": {
-        "url": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
-        "checkedAt": "2026-11-04"
-      }
+      "verification": "issuer-listed"
     },
     {
       "id": "chase-us-united-business-card",
@@ -1683,7 +1682,8 @@
         "file": "gold.png",
         "verification": "legacy-asset",
         "sourceUrl": null
-      }
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-us"
     },
     {
       "id": "amex-us-us-morgan-stanley-platinum-card",
@@ -1702,7 +1702,8 @@
         "file": "amex-ms-platinum.svg",
         "verification": "legacy-asset",
         "sourceUrl": null
-      }
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-us"
     },
     {
       "id": "amex-us-us-blue-cash-everyday",
