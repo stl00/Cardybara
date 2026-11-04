@@ -14,6 +14,7 @@ No bank login credentials, full account numbers, cookies or authentication token
 All images fetched from public issuer websites; no authenticated banking pages accessed. Exact image URLs: `sources.json`.
 
 ## Ready clean artwork
+- `chase-freedom-rise.png`: official Chase Freedom Rise without the promotional ribbon. Source page: https://www.chase.com/personal/credit-cards/freedom/rise
 - `chase-freedom-unlimited.png`: official Chase Freedom Unlimited, 1080×720 with transparent padding. Source page: https://www.chase.com/personal/credit-cards/freedom/unlimited
 - `boa-customized-cash.png`: BOA Customized Cash Rewards Visa Signature, 500×315 transparent PNG. Source page: https://www.bankofamerica.com/credit-cards/products/cash-back-credit-card/
 - `boa-atmos-summit.png`: BOA Atmos Rewards Summit Visa Infinite, 300×189 transparent PNG. Source page: https://newsroom.bankofamerica.com/content/newsroom/press-releases/2025/08/alaska-airlines-and-bank-of-america-present-a-new-premium-credit.html
@@ -30,10 +31,12 @@ All files 1600×900. A CSS image viewport can clip to the card; no asset modific
 - `hsbc-premier-promo.jpg`: current HSBC HK Premier Mastercard, vertical. Bounds approx x574,y90,w452,h720. Source: https://www.hsbc.com.hk/credit-cards/products/
 
 ## Not resolved
+- Chase Slate Edge: the available official image carries a promotional ribbon; no clean official source found yet.
 - Amex Corporate: specific variant unknown. Official HK page exposes several Corporate variants, but no evidence identifies this user's variant. Keep existing marked illustrative card rather than misidentify it.
 - HSBC clean transparent assets: official page assets are promotional JPGs; clipping these known official card regions is sufficient for accurate display.
 
 {
+  "chase-freedom-rise.png": "https://www.chase.com/content/dam/unified-assets/card-art/chase-freedom/freedom-rise/card_freedomRise_V.png",
   "chase-freedom-unlimited.png": "https://www.chase.com/content/dam/unified-assets/card-art/chase-freedom/freedom-unlimited/card_freedomUtld_V.png",
   "amex-ca-platinum.png": "https://icm.aexp-static.com/Internet/internationalcardshop/en_ca/images/cards/The_Platinum_Card.png",
   "amex-hk-platinum.png": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/chg_plat_metal_hk_480x304.png",

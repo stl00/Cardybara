@@ -74,9 +74,9 @@
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed",
       "art": {
-        "file": "catalog-52666b8112e8f98b.png",
+        "file": "chase-freedom-unlimited.png",
         "verification": "issuer-asset",
-        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/freedom_unlimited_card_alt.png"
+        "sourceUrl": "https://www.chase.com/content/dam/unified-assets/card-art/chase-freedom/freedom-unlimited/card_freedomUtld_V.png"
       }
     },
     {
@@ -403,9 +403,9 @@
       "currencies": [],
       "rewardPrograms": [],
       "art": {
-        "file": "catalog-0c830429e8714f4c.png",
+        "file": "chase-freedom-rise.png",
         "verification": "issuer-asset",
-        "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/freedom_rise_alt_card2.png"
+        "sourceUrl": "https://www.chase.com/content/dam/unified-assets/card-art/chase-freedom/freedom-rise/card_freedomRise_V.png"
       },
       "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/freedom/rise",
       "checkedAt": "2026-10-27",
