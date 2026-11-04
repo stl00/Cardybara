@@ -1,0 +1,32 @@
+<!doctype html><html lang="en-US"><meta charset="utf-8"><title>Synthetic Amex US page (test only)</title>
+<!-- Synthetic test page, served locally by scripts/dev-collector/synthetic-bank.mjs. All values are made up. -->
+<style>.line{white-space:pre-line}</style>
+<body><main id="root"></main>
+<script>
+const accounts=[
+ {name:'Synthetic Numbat Card',tail:'12345',total:'$1,234.56',rows:['Statement Balance','More info on statement_balance_tooltip','$321.00','Sep 22 - Oct 21','Your Payment is Due on','November 19','Minimum Payment Due','More info on minimum_payment_due_tooltip','$35.00','Total Balance','More info on total_balance_tooltip','$1,234.56'],points:'12,345'},
+ {name:'Synthetic Bilby Card',tail:'67890',total:'$67.89',rows:['Remaining Statement Balance','More info on remaining_statement_balance_tooltip','$0.00','Sep 22 - Oct 21','Payment not required at this time','Total Balance','More info on total_balance_tooltip','$67.89'],points:'12,345'},
+ {name:'Synthetic Savings',tail:'4321',available:'$9.00'}
+];
+const root=document.getElementById('root');let selected=null,filled=null,open=false;
+const tile=(a,i)=>`<div role="button" tabindex="0" data-i="${i}" class="line">${a.available?'Available Balance':'Total Balance'}\n${a.available||a.total}\n<div id="tile-${i}-personal-name">${a.name} ••••${a.tail}</div></div>`;
+function goTo(next){const first=selected===null;history.pushState({},'','/dashboard?account_key=synthetic');selected=next;filled=first?null:filled;render();setTimeout(()=>{filled=next;render();},500);}
+function render(){
+ if(sessionStorage.getItem('synthetic-signed-in')!=='1'){
+  root.innerHTML='<h1>Synthetic sign in</h1><form><input type="password" aria-label="Synthetic password" autocomplete="off"><button type="button" id="sign-in">Sign in</button></form>';
+  document.getElementById('sign-in').onclick=()=>{sessionStorage.setItem('synthetic-signed-in','1');history.replaceState({},'','/overview');render();};
+  return;
+ }
+ if(selected===null){root.innerHTML='<h1>Overview</h1>'+accounts.map(tile).join('')+'<p>Offer for your card (••••99999)</p>';for(const e of root.querySelectorAll('[role=button]'))e.onclick=()=>goTo(Number(e.dataset.i));return;}
+ const a=accounts[selected];
+ root.innerHTML=`<div role="combobox" aria-label="Open to manage your other accounts" aria-expanded="${open}" id="switch">${a.name}\n••••${a.tail}</div>
+ ${open?'<div id="simple-switcher-listbox">'+accounts.map((x,i)=>`<div role="option" data-i="${i}" class="line">${x.name}\n••••${x.tail}</div>`).join('')+'</div>':''}
+ <h2 class="line">${a.name} ••••${a.tail}</h2><div class="line">${filled===selected?a.rows.join('\n'):''}</div>
+ ${filled===selected?`<section><h2>Membership Rewards® Points</h2><div>${a.points}</div><div>Use Points</div></section>`:''}`;
+ document.getElementById('switch').onclick=()=>{open=!open;render();};
+ for(const e of root.querySelectorAll('[role=option]'))e.onclick=()=>{open=false;goTo(Number(e.dataset.i));};
+}
+addEventListener('popstate',()=>{selected=null;render();});
+if(location.pathname==='/overview')selected=null;
+render();
+</script>

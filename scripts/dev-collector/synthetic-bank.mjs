@@ -3,7 +3,7 @@
 import {readFile} from 'node:fs/promises';
 export function syntheticPrepareTab(mode){
  const file=name=>readFile(new URL('../../tests/fixtures/'+name,import.meta.url));
- const pages={'secure.chase.com':file('synthetic-bank.html'),'secure.bankofamerica.com':file('synthetic-boa.html'),'www.bankofamerica.com':file('synthetic-boa.html'),'retail.sc.com':file('synthetic-sc-hk.html'),'www.sc.com':file('synthetic-sc-hk.html'),'www.citi.com':file('synthetic-citi.html'),'online.citi.com':file('synthetic-citi.html'),'www.hsbc.com.hk':file('synthetic-hsbc.html')};
+ const pages={'secure.chase.com':file('synthetic-bank.html'),'secure.bankofamerica.com':file('synthetic-boa.html'),'www.bankofamerica.com':file('synthetic-boa.html'),'retail.sc.com':file('synthetic-sc-hk.html'),'www.sc.com':file('synthetic-sc-hk.html'),'www.citi.com':file('synthetic-citi.html'),'online.citi.com':file('synthetic-citi.html'),'www.hsbc.com.hk':file('synthetic-hsbc.html'),'global.americanexpress.com':file('synthetic-amex-us.html')};
  const blocked=mode==='blocked';
  const seen=new WeakSet();
  return async(conn,sessionId)=>{

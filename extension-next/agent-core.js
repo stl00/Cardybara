@@ -51,7 +51,7 @@ export function evidenceDate(date,evidence,dateOrder){
 export function billingObservation(item){
  if(item.kind!=='billing'||item.value!==null||item.date||item.status!=='unknown')return false;
  const evidence=item.evidence.replace(/^\[C\d+\]\n/,'');
- if(item.key==='paymentStatus')return /^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(item.title)&&canonicalEvidence(evidence)===canonicalEvidence(item.title);
+ if(item.key==='paymentStatus')return /^(?:暫時毋須付款|暂时毋须付款|No payment (?:is )?(?:required|due)|Payment not required at this time|You (?:don['’]t|do not) have a payment due right now)(?:[。.!！])?$/i.test(item.title)&&canonicalEvidence(evidence)===canonicalEvidence(item.title);
  if(item.key!=='duePartial')return false;
  // An English month and day printed with the minimum, as in "$35.00 due Nov 19".
  const en=item.title.match(/^(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?) (\d{1,2})$/i);

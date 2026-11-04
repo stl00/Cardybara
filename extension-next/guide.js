@@ -6,7 +6,7 @@ function cardyGuidePageReady(config,doc=document){
  // SC HK prints no masked tail on its signed-in pages, whether or not cards are registered. A code prompt is not signed in yet.
  if(config.bank==='SC HK')return /\/nfs\/ibank\//.test(location.pathname)&&!([...doc.querySelectorAll('input[type=text],input[type=tel],input[type=number]')].some(visible)&&/one.?time|security code|verification code|sms|驗證碼|验证码|保安編碼/i.test(doc.body?.innerText||''));
  if(config.tails.length)return config.tails.some(t=>new RegExp('(?:^|[^0-9])'+t+'(?:[^0-9]|$)').test(doc.body?.innerText||''));
- const selector=config.bank==='Chase'?'#CARD_ACCOUNTS [id^="accounts-name-link-button-"]':'h1,h2,h3,[role="option"],.account-detail-row';
+ const selector=config.bank==='Chase'?'#CARD_ACCOUNTS [id^="accounts-name-link-button-"]':'h1,h2,h3,[role="option"],.account-detail-row,[id^="tile-"][id$="-name"]';
  // HSBC prints full numbers in its account rows, and the selected card has its own number field.
  if(config.bank==='HSBC HK'&&[...doc.querySelectorAll('[id^="account-container-"],#account-number-value')].some(e=>visible(e)&&/(?<!\d)\d{4}[- ]\d{4}[- ]\d{4}[- ]\d{4}(?!\d)/.test(e.innerText||'')))return true;
  if(config.bank==='Citi US'&&[...doc.querySelectorAll('a[href*="accountdetails"]')].some(e=>/-\s*\d{4,5}$/.test((e.innerText||e.textContent||'').trim())))return true;

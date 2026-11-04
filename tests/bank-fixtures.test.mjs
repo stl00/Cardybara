@@ -152,6 +152,12 @@ test('issuer rules never mix cards or guess',()=>{
  const item=(date,evidence)=>({kind:'billing',cardId:'C1',key:'due',title:'Payment due date',value:null,currency:'HKD',date,status:'unknown',evidence});
  assert.equal(validateModel({items:[item('2030-04-03','Payment Due Date\n04/03/2030')],nextLinkId:null},snapshot).items.length,0);assert.equal(validateModel({items:[item('2030-03-04','Payment Due Date\n04/03/2030')],nextLinkId:null},snapshot).items.length,1);assert.equal(validateModel({items:[item('2030-12-19','Payment Due Date\n19/12/2030')],nextLinkId:null},snapshot).items.length,1);
 });
+test('Amex US prints its due date on the next line, and a missing year stays missing',()=>{
+ const due=text=>JSON.parse(JSON.stringify(reader.issuerDue(text.split('\n'),'Amex US',{tail:'12345',currency:'USD'}))).map(i=>[i.key,i.date||i.title]);
+ assert.deepEqual(due('Your Payment is Due on\nNovember 19'),[['duePartial','November 19']]);
+ assert.deepEqual(due('Your Payment is Due on\nNovember 19, 2030'),[['due','2030-11-19']]);
+ assert.deepEqual(due('Your Payment is Due on\nMake Payment'),[]);
+});
 test('Amex US due date: labelled full date only',()=>{
  const due=text=>JSON.parse(JSON.stringify(reader.issuerDue(text.split('\n'),'Amex US',{tail:'12345',currency:'USD'})));
  assert.equal(due('Payment Due Date\nDec 19, 2030')[0].date,'2030-12-19');assert.equal(due('Payment Due Date\n12/03/2030')[0].date,'2030-12-03');assert.equal(due('Payment Due Date\nDec 19').length,0);assert.equal(due('Minimum Amount Due\n$0.00').length,0);
