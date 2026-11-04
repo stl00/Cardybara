@@ -392,7 +392,7 @@
  // SC HK account details: a table of "Label: | value" rows. The page prints the full card number, so only its last four digits are ever kept.
  function scDetails(cards,doc=document){
   const cell=label=>{for(const r of doc.querySelectorAll('tr')){const c=[...r.cells],i=c.findIndex(x=>(x.innerText||'').trim()===label);if(i>=0&&c[i+1])return (c[i+1].innerText||'').trim();}return '';};
-  const digits=(cell('Card Number:').match(/\d[\d -]{7,}\d/)?.[0]||'').replace(/\D/g,''),tail=digits.length>=12?digits.slice(-4):null;if(!tail)return null;
+  const digits=(cell('Card Number:').match(/\d(?:[\d\s.\u2013-]*\d){7,}/)?.[0]||'').replace(/\D/g,''),tail=digits.length>=12?digits.slice(-4):null;if(!tail)return null;
   const card=cards.find(c=>c.tail===tail);if(!card)return {tail};
   const lines=['Card ending in '+tail];
   for(const label of ['Current Balance:','Approved Credit Limit:','Available Credit Limit:','Billed Balance:','Minimum Payment Due:','Payment Due Date:']){const value=cell(label);if(value)lines.push(label,value);}

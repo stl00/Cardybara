@@ -75,6 +75,10 @@ test('bank guide resumes a new wallet after login without already knowing its ca
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:[]},doc),false);password=false;
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:[]},doc),true);
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:['9999']},doc),false);
+ // SC HK prints no masked tail: signed-in pages are ready with or without registered cards, and a code prompt is not.
+ const previousLocation=c.location;
+ for(const [path,text,tails,ready] of [['/hk/nfs/ibank/landing.htm','Welcome',[],true],['/hk/nfs/ibank/landing.htm','Welcome',['4321'],true],['/hk/nfs/login.htm','Sign in',['4321'],false],['/hk/nfs/ibank/landing.htm','Enter your one-time password',['4321'],false]]){c.location={pathname:path};assert.equal(c.cardyGuidePageReady({bank:'SC HK',tails},{body:{innerText:text},querySelectorAll:()=>[]}),ready,path+text);}
+ c.location=previousLocation;
  // The guide recognises the masked forms discovery accepts, on any bank.
  for(const [text,ready] of [['Visa ending in 1234',true],['信用卡 尾號 1234',true],['Visa 1234',false],['Pending 1234',false],['Spending 2030',false]])assert.equal(c.cardyGuidePageReady({bank:'BOA',tails:[]},{body:{innerText:text},querySelectorAll:s=>s==='input[type=password]'?[]:[el(text)]}),ready,text);
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:['2345']},doc),true);

@@ -212,6 +212,13 @@ test('SC HK: reads the details table, and the full card number never leaves the 
   assert.deepEqual(Object.fromEntries(raw.observations.filter(o=>o.kind==='card').map(o=>[o.key,o.value])),{balance:1234.56,creditLimit:10000,available:8765.44,statement:321,minimum:35});
   assert.equal(raw.observations.find(o=>o.key==='due').date,'2030-12-03','day first');
   assert.ok(!JSON.stringify([found,raw]).includes('4000123412344321'),'no full card number in anything that leaves the page');
+  assert.equal(raw.observations.length,raw.blocks.length,'nothing but the read fields is sent on');
+  // Spaced with non-breaking spaces, which general redaction does not catch.
+  mark=events.length;await exec(()=>{sessionStorage.setItem('synthetic-spaced','1');location.reload();});await until(()=>events.slice(mark).some(e=>e.status==='complete'));await until(()=>exec(()=>!!document.querySelector('tr')).catch(()=>false));
+  await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
+  const spaced=await exec(capturePage,['SC HK',cards,[]]),spacedFound=await exec(discoverVisibleCards,['SC HK',['en-HK']]),dump=JSON.stringify([spaced,spacedFound]).replace(/\\u00a0|\u00a0/g,'');
+  assert.equal(spacedFound.cards[0].tail,'4321');assert.ok(!/4000.?1234/.test(dump),'spaced full number stays on the page');
+  assert.ok(await exec(()=>self.CardyReader.scDetails([{id:'x',tail:'4321'}]).card.id==='x'));
   assert.equal((await exec(capturePage,['SC HK',[{id:'other',bank:'SC HK',tail:'9999',currency:'HKD'}],[]])).error,'card_not_identified','another card in the wallet does not borrow this page');
  }finally{await run.stop();}
 });
