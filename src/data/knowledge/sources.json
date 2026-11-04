@@ -439,5 +439,54 @@
     "url": "https://apply.americanexpress.com/amex-morgan-stanley%20-credit-cards/?page_url=38",
     "checkedAt": "2026-10-29",
     "authority": "official"
+  },
+  {
+    "id": "mr-us-transfer",
+    "url": "https://global.americanexpress.com/rewards/transfer",
+    "title": "Amex US · Membership Rewards 转点页（未登录公开内容）",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "mr-hk-transfer",
+    "url": "https://www.americanexpress.com/en-hk/rewards/membership-rewards/travel/all",
+    "title": "Amex HK · Membership Rewards 转点伙伴（Turbo 费率）",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "ur-transfer-guide",
+    "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+    "title": "Chase · Ultimate Rewards 转点指南",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "ur-csp-benefits",
+    "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+    "title": "Chase · Sapphire Preferred 福利页（转点比例）",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "ur-ibp-product",
+    "url": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
+    "title": "Chase · Ink Business Preferred 产品页（Hyatt 比例）",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "ur-csr-business-product",
+    "url": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
+    "title": "Chase · Sapphire Reserve for Business 产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "ur-csr-agreement",
+    "url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0550_Web.pdf",
+    "title": "Chase · Sapphire Reserve Ultimate Rewards 计划协议",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
   }
 ]

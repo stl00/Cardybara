@@ -47,7 +47,8 @@
       "enum": [
         "draft",
         "published",
-        "rejected"
+        "rejected",
+        "withdrawn"
       ]
     },
     "kind": {

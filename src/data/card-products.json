@@ -419,7 +419,9 @@
         "Chase Sapphire Preferred"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Ultimate Rewards"
+      ],
       "art": {
         "file": "catalog-6c8d36582258aad9.png",
         "verification": "issuer-asset",
@@ -427,7 +429,11 @@
       },
       "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
       "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-slate-credit-card",
@@ -975,7 +981,9 @@
         "Ink Business Preferred"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Ultimate Rewards"
+      ],
       "art": {
         "file": "catalog-ff14fa08229f50ff.png",
         "verification": "issuer-asset",
@@ -983,7 +991,11 @@
       },
       "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
       "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-ink-business-premier-credit-card",
@@ -1015,7 +1027,9 @@
         "Sapphire Reserve for Business"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Ultimate Rewards"
+      ],
       "art": {
         "file": "catalog-256773f46ab51fa8.png",
         "verification": "issuer-asset",
@@ -1023,7 +1037,11 @@
       },
       "sourceUrl": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
       "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-united-business-card",

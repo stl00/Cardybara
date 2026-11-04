@@ -86,3 +86,34 @@ test('quarterly credits use the correct calendar boundaries and future Canadian 
  assert.equal(benefitStatus(ca.benefits.find(b=>b.id==='lounge-2027'),'2026-10-27'),'not_started');
  assert.equal(benefitStatus(ca.benefits.find(b=>b.id==='lounge'),'2027-01-01'),'expired');
 });
+const transferRule=(from,to,productId)=>queryKnowledge({kind:'transfer-relationship',programmeId:from,productId}).rules.filter(r=>r.terms.toProgrammeId===to);
+const mrUs='programme.amex-membership-rewards-us',mrHk='programme.amex-membership-rewards-hk',ur='programme.chase-ultimate-rewards',gold='amex-us-us-american-express-gold-card',hkPlatinum='amex-hk-hk-the-platinum-card';
+test('verified transfer rows keep the published rate per programme and market',()=>{
+ const one=(from,to,product)=>{const rows=transferRule(from,to,product);assert.equal(rows.length,1,to);return rows[0].terms;};
+ assert.deepEqual(one(mrUs,'programme.aeromexico-rewards',gold).ratio,{from:1000,to:1600});
+ assert.deepEqual(one(mrUs,'programme.cathay-asia-miles',gold).ratio,{from:1000,to:800});
+ assert.deepEqual(one(mrUs,'programme.hilton-honors',gold).ratio,{from:1000,to:2000});
+ assert.equal(one(mrUs,'programme.jetblue-trueblue',gold).incrementPoints,250);
+ assert.equal(one(mrUs,'programme.delta-skymiles',gold).fees[0].kind,'excise-tax-offset');
+ const hk=one(mrHk,'programme.hilton-honors',hkPlatinum);assert.deepEqual(hk.ratio,{from:64,to:10});assert.equal(hk.ratioCondition,'turbo-program');assert.equal(hk.minimumPoints,8000);assert.equal(hk.maximumPoints,null);
+ assert.deepEqual(one(mrHk,'programme.cathay-asia-miles',hkPlatinum).ratio,{from:18000,to:1000},'a US rate never leaks into HK');
+});
+test('"most partners at 1:1" and a 4:3 stated for other cards are not applied where a page is silent',()=>{
+ const csp='chase-us-chase-sapphire-preferred-credit-card';
+ const hyatt=transferRule(ur,'programme.world-of-hyatt',csp);assert.equal(hyatt.length,1);assert.deepEqual(hyatt[0].terms.ratio,{from:4,to:3});assert.equal(hyatt[0].validity.effectiveFrom,'2026-10-01');
+ const reserve=transferRule(ur,'programme.world-of-hyatt',csr);assert.equal(reserve.length,1);assert.equal(reserve[0].terms.ratio,null);
+ const united=transferRule(ur,'programme.united-mileageplus',csr)[0].terms;assert.equal(united.ratio,null);assert.equal(united.ratioStatement.scope,'most-partners');assert.equal(united.minimumPoints,null);assert.equal(united.incrementPoints,1000);
+});
+test('verified transfers list every official partner and carry a dated official source',()=>{
+ const all=queryKnowledge({kind:'transfer-relationship'}).rules;
+ const count=id=>all.filter(r=>r.terms.fromProgrammeId===id).length;
+ assert.equal(count(mrUs),20);assert.equal(count(mrHk),10);assert.equal(count(ur),15);
+ for(const r of all.filter(r=>[mrUs,mrHk,ur].includes(r.terms.fromProgrammeId))){assert.ok(knowledgeSources(r.evidence.sourceIds).every(s=>s.authority==='official'&&s.url.startsWith('https://')&&s.checkedAt==='2026-11-04'),r.id);assert.equal(r.terms.final,true,r.id);assert.equal(r.terms.accountLinked,null,r.id);assert.equal(r.terms.grantsEliteStatus,false,r.id);}
+ assert.equal(all.filter(r=>r.terms.toProgrammeId==='programme.emirates-skywards'&&r.terms.fromProgrammeId===mrHk).length,0,'HK says Emirates is unavailable');
+});
+test('a withdrawn revision leaves current answers but stays in history',()=>{
+ const old='rule.chase-us-sapphire-reserve.transfer-world-of-hyatt';
+ assert.equal(getKnowledgeRule(old),null);assert.equal(getKnowledgeRule(old,{asOf:'2026-11-03'}).revision,1);
+ const rows=ruleRevisions(old);assert.equal(rows.at(-1).status,'withdrawn');assert.ok(getKnowledgeRule(rows.at(-1).terms.replacedByRuleId));
+ assert.equal(resolveRuleRevisions(rows,{asOf:'2026-11-04'}).length,0);
+});
