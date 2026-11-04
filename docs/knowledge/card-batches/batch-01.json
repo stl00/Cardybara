@@ -481,8 +481,8 @@
           "key": "edit",
           "zh": "The Edit 住宿抵扣",
           "en": "Credit for stays with The Edit",
-          "noteZh": "每自然年最多500美元，单笔最多250美元；2027年1月1日起增至1,000美元。",
-          "noteEn": "Up to $500 each calendar year with a maximum of $250 per transaction. From January 1, 2027 this rises to $1,000.",
+          "noteZh": "每自然年最多500美元，单笔最多250美元，限预付且至少住两晚；2027年1月1日起增至1,000美元。",
+          "noteEn": "Up to $500 each calendar year with a maximum of $250 per transaction, on prepaid stays of 2 nights or more. From January 1, 2027 this rises to $1,000.",
           "amount": 500,
           "scenario": "hotel-stay",
           "programmeIds": [
@@ -548,8 +548,8 @@
           "key": "doordash-promo",
           "zh": "DoorDash 每月优惠",
           "en": "Monthly DoorDash promos",
-          "noteZh": "DashPass 会员每月最多25美元，须激活，至2027年12月31日。",
-          "noteEn": "Up to $25 each month for DashPass members, once activated, through 12/31/27.",
+          "noteZh": "DashPass 会员每月最多25美元，须激活，至2027年12月31日；分为5美元餐厅优惠和两张10美元杂货零售等优惠，不能一次用完。",
+          "noteEn": "Up to $25 each month for DashPass members, once activated, through 12/31/27: a $5 restaurant promo and two $10 promos for groceries, retail and more.",
           "amount": 25,
           "period": "calendar-month",
           "scenario": "shopping",
@@ -1053,11 +1053,12 @@
           "quote": "get up to $12.95 plus applicable taxes (excluding Plus Ups) back each month"
         }
       ],
-      "additionalFee": {
-        "amount": 95,
-        "currency": "USD",
-        "quote": "The annual fee for the Employee Business Gold Card is $95 for the first five Cards"
-      }
+      "unknown": [
+        {
+          "zh": "员工卡年费：页面写“前五张95美元，之后每张95美元”，看不出前五张是合计还是每张，留作未知。",
+          "en": "Employee card fee: the page says $95 for the first five cards and then $95 for each after that, which does not settle whether the first five are per card or combined."
+        }
+      ]
     },
     {
       "id": "amex-us-us-blue-business-plus-credit-card",

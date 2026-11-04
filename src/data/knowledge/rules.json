@@ -30039,11 +30039,11 @@
     ],
     "content": {
       "title": "The Edit 住宿抵扣",
-      "summary": "每自然年最多500美元，单笔最多250美元；2027年1月1日起增至1,000美元。",
+      "summary": "每自然年最多500美元，单笔最多250美元，限预付且至少住两晚；2027年1月1日起增至1,000美元。",
       "sourceText": "Get up to $500 in automatic statement credits annually for bookings made with The Edit, with a maximum of $250 per transaction",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "每自然年最多500美元，单笔最多250美元；2027年1月1日起增至1,000美元。",
+        "每自然年最多500美元，单笔最多250美元，限预付且至少住两晚；2027年1月1日起增至1,000美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -30061,7 +30061,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "每自然年最多500美元，单笔最多250美元；2027年1月1日起增至1,000美元。"
+      "unparsedText": "每自然年最多500美元，单笔最多250美元，限预付且至少住两晚；2027年1月1日起增至1,000美元。"
     },
     "evidence": {
       "sourceIds": [
@@ -30371,11 +30371,11 @@
     ],
     "content": {
       "title": "DoorDash 每月优惠",
-      "summary": "DashPass 会员每月最多25美元，须激活，至2027年12月31日。",
+      "summary": "DashPass 会员每月最多25美元，须激活，至2027年12月31日；分为5美元餐厅优惠和两张10美元杂货零售等优惠，不能一次用完。",
       "sourceText": "DashPass members get up to $25 each month to spend on DoorDash",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "DashPass 会员每月最多25美元，须激活，至2027年12月31日。",
+        "DashPass 会员每月最多25美元，须激活，至2027年12月31日；分为5美元餐厅优惠和两张10美元杂货零售等优惠，不能一次用完。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -30394,7 +30394,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "DashPass 会员每月最多25美元，须激活，至2027年12月31日。"
+      "unparsedText": "DashPass 会员每月最多25美元，须激活，至2027年12月31日；分为5美元餐厅优惠和两张10美元杂货零售等优惠，不能一次用完。"
     },
     "evidence": {
       "sourceIds": [
@@ -32230,74 +32230,6 @@
       "period": "annual-fee",
       "billingCycle": "issuer-account-terms",
       "cardholderRole": "primary",
-      "actualCharge": null
-    },
-    "validity": {
-      "effectiveFrom": null,
-      "effectiveThrough": null,
-      "enrollBy": null
-    },
-    "conditions": {
-      "coverage": "partial",
-      "all": [],
-      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
-    },
-    "evidence": {
-      "sourceIds": [
-        "card-amex-us-us-business-gold-card"
-      ],
-      "checkedAt": "2026-11-04",
-      "verification": "official-summary",
-      "supports": [
-        "content.summary",
-        "content.sourceText",
-        "terms",
-        "validity"
-      ],
-      "fullTermsReviewed": false
-    },
-    "review": {
-      "checkedAt": "2026-11-04",
-      "reviewAfter": "2027-02-02",
-      "state": "reviewed-summary"
-    },
-    "personalState": "not-in-public-knowledge"
-  },
-  {
-    "id": "rule.amex-us-us-business-gold-card.fee-additional",
-    "revision": 1,
-    "revisionId": "rule.amex-us-us-business-gold-card.fee-additional@2026-11-04.1",
-    "supersedes": null,
-    "status": "published",
-    "kind": "fee",
-    "productIds": [
-      "amex-us-us-business-gold-card"
-    ],
-    "market": {
-      "country": "US",
-      "issuer": "Amex US"
-    },
-    "category": "fee",
-    "scenarioIds": [
-      "card-ownership"
-    ],
-    "programmeIds": [],
-    "content": {
-      "title": "附属卡年费",
-      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
-      "sourceText": "The annual fee for the Employee Business Gold Card is $95 for the first five Cards",
-      "howToUse": [
-        "先核对卡种、当前官方条款和适用条件。",
-        "公布标准年费，不代表个人已收取或已获豁免。",
-        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
-      ]
-    },
-    "terms": {
-      "amount": 95,
-      "currency": "USD",
-      "period": "annual-fee",
-      "billingCycle": "issuer-account-terms",
-      "cardholderRole": "additional",
       "actualCharge": null
     },
     "validity": {

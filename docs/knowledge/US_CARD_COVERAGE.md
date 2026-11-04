@@ -14,5 +14,5 @@
 | 1 | Chase Sapphire Reserve for Business | $795 | 4 | 7 | Ultimate Rewards | 已支持的银行，未验收 | 转点伙伴：页面只写“1:1 转到主要酒店和航空计划”，没有列出伙伴。；只录入主要抵扣，页面上还有其他福利。限时 Lyft 倍率未录入。 | https://creditcards.chase.com/business-credit-cards/sapphire/reserve |
 | 1 | Amex Platinum | $895 | 3 | 9 | Membership Rewards | 已支持的银行，未验收 | 只录入主要抵扣，页面上还有其他福利。其余抵扣没有写明登记要求的，留作未知。 | https://www.americanexpress.com/us/credit-cards/card/platinum/ |
 | 1 | Amex Business Platinum | $895 | 3 | 8 | Membership Rewards | 已支持的银行，未验收 | 只录入主要抵扣，页面上还有其他福利。员工卡分多档，费用未结构化。 | https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-platinum-credit-card-amex/ |
-| 1 | Amex Business Gold | $375 | 3 | 4 | Membership Rewards | 已支持的银行，未验收 | — | https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-gold-card-amex/ |
+| 1 | Amex Business Gold | $375 | 3 | 4 | Membership Rewards | 已支持的银行，未验收 | 员工卡年费：页面写“前五张95美元，之后每张95美元”，看不出前五张是合计还是每张，留作未知。 | https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-gold-card-amex/ |
 | 1 | Amex Blue Business Plus | $0 | 1 | 0 | Membership Rewards | 已支持的银行，未验收 | — | https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-blue-business-plus-credit-card-amex/ |
