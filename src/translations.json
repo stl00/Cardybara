@@ -1142,7 +1142,9 @@
     "仅 Turbo 计划费率": "Turbo Program rate only",
     "官方未逐项列明；以登录后的转点页为准": "Not stated per partner; check the signed-in transfer page",
     "未核对；以登录后的转点页为准": "Not checked; see the signed-in transfer page",
-    "比例来自发卡行公开页面；没有列明或尚未核对的留空。个人账号关联未核实，不会执行转点。": "Rates come from public issuer pages; anything not stated or not yet checked stays blank. Account links are unverified and no transfers are performed."
+    "比例来自发卡行公开页面；没有列明或尚未核对的留空。个人账号关联未核实，不会执行转点。": "Rates come from public issuer pages; anything not stated or not yet checked stays blank. Account links are unverified and no transfers are performed.",
+    "机票与航司": "Flights and airlines",
+    "机场出行": "Airport"
   },
   "zh-TW": {
     "美国": "美國",
@@ -2287,6 +2289,8 @@
     "仅 Turbo 计划费率": "僅 Turbo 計畫費率",
     "官方未逐项列明；以登录后的转点页为准": "官方未逐項列明；以登入後的轉點頁為準",
     "未核对；以登录后的转点页为准": "未核對；以登入後的轉點頁為準",
-    "比例来自发卡行公开页面；没有列明或尚未核对的留空。个人账号关联未核实，不会执行转点。": "比例來自發卡行公開頁面；沒有列明或尚未核對的留空。個人帳號關聯未核實，不會執行轉點。"
+    "比例来自发卡行公开页面；没有列明或尚未核对的留空。个人账号关联未核实，不会执行转点。": "比例來自發卡行公開頁面；沒有列明或尚未核對的留空。個人帳號關聯未核實，不會執行轉點。",
+    "机票与航司": "機票與航司",
+    "机场出行": "機場出行"
   }
 }
