@@ -64,7 +64,7 @@ export async function boaCards(action,tail){
  return [];
 }
 
-// Citi summary: each card has an account details link named "Name-tail". Checking accounts link elsewhere, and only this target is returned.
+// Citi summary: each card has an account details link named "Name-tail". Other accounts link elsewhere, and only this target is returned.
 export async function citiCards(action,tail){
  if(location.hostname!=='online.citi.com'||!/^\/US\/ag\/dashboard\/summary\/?$/.test(location.pathname))return [];
  if(action==='close')return [];
