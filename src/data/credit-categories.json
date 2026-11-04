@@ -1,0 +1,44 @@
+{
+  "categories": [
+    {"id": "hotel", "label": "酒店"},
+    {"id": "airline", "label": "机票与航司"},
+    {"id": "dining", "label": "餐饮"},
+    {"id": "ride-share", "label": "网约车"},
+    {"id": "shopping", "label": "购物"},
+    {"id": "entertainment", "label": "娱乐"},
+    {"id": "fitness", "label": "健身"},
+    {"id": "airport", "label": "机场出行"},
+    {"id": "travel", "label": "旅行"},
+    {"id": "reward", "label": "积分奖励"},
+    {"id": "card", "label": "持卡管理"}
+  ],
+  "scenarioDefaults": {
+    "hotel-stay": ["hotel"],
+    "travel": ["travel"],
+    "dining": ["dining"],
+    "ground-transport": ["ride-share"],
+    "shopping": ["shopping"],
+    "entertainment": ["entertainment"],
+    "fitness": ["fitness"],
+    "airport": ["airport"],
+    "reward-redemption": ["reward"],
+    "card-ownership": ["card"]
+  },
+  "ruleOverrides": {
+    "rule.chase-us-sapphire-reserve.edit": ["hotel"],
+    "rule.amex-us-us-morgan-stanley-platinum-card.airline-fee": ["airline"],
+    "rule.amex-us-us-morgan-stanley-platinum-card.digital": ["entertainment"],
+    "rule.amex-us-us-morgan-stanley-platinum-card.uber": ["ride-share", "dining"],
+    "rule.amex-us-us-morgan-stanley-platinum-card.uber-one": ["ride-share", "dining"],
+    "rule.amex-us-us-hilton-honors-aspire-card.flight": ["airline"],
+    "rule.chase-us-united-quest.travelbank": ["airline"],
+    "rule.chase-us-united-quest.award-discount": ["airline"],
+    "rule.chase-us-united-quest.bags": ["airline"],
+    "rule.chase-us-ihg-premier.airline-new": ["airline"],
+    "rule.chase-us-ihg-premier.travelbank": ["airline"],
+    "rule.boa-us-atmos-rewards-summit-visa-infinite.companion": ["airline"],
+    "rule.boa-us-atmos-rewards-summit-visa-infinite.partner-fees": ["airline"],
+    "rule.hsbc-hk-hk-red-credit-card.hkexpress": ["airline"],
+    "rule.boa-us-customized-cash-rewards-visa-signature.first-year": ["reward"]
+  }
+}
