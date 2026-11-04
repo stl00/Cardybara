@@ -42,7 +42,7 @@ export async function claimHomeMode(home,mode){
  }
 }
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
-export async function openBrowser({profile,chromePath,headless=false,noSandbox=false,extraArgs,extraMethods,launch=true,spawn=nodeSpawn,connect=connectCdp,timeoutMs=20000}){
+export async function openBrowser({profile,chromePath,headless=false,noSandbox=false,extraArgs,extraMethods,launch=true,spawn=nodeSpawn,connect=connectCdp,timeoutMs=45000}){
  const dir=assertDedicatedProfile(profile),portFile=join(dir,'DevToolsActivePort');
  const attach=async()=>connect(parseActivePort(await readFile(portFile,'utf8')),{extraMethods});
  try{return await attach();}catch(error){if(!launch)throw error;}
