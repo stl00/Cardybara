@@ -47,7 +47,8 @@
       "enum": [
         "draft",
         "published",
-        "rejected"
+        "rejected",
+        "withdrawn"
       ]
     },
     "kind": {
@@ -121,6 +122,10 @@
         "summary": {
           "type": "string",
           "minLength": 1
+        },
+        "sourceText": {
+          "type": "string",
+          "description": "Short English wording from the issuer page that supports this rule."
         },
         "howToUse": {
           "type": "array",
@@ -305,6 +310,17 @@
         "state": {
           "const": "reviewed-summary"
         }
+      }
+    },
+    "transferRate": {
+      "type": "object",
+      "description": "Published transfer rate. Kept out of terms so the assistant only gets it through a per-card tool.",
+      "additionalProperties": false,
+      "required": ["rate", "condition", "statement"],
+      "properties": {
+        "rate": {"type": ["object", "null"]},
+        "condition": {"type": ["string", "null"]},
+        "statement": {"type": ["object", "null"]}
       }
     },
     "personalState": {

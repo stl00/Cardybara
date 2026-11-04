@@ -1,0 +1,207 @@
+{
+  "method": "2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这 50 张。",
+  "cards": [
+    {
+      "id": "chase-us-chase-sapphire-preferred-credit-card",
+      "name": "Chase Sapphire Preferred"
+    },
+    {
+      "id": "chase-us-ink-business-preferred-credit-card",
+      "name": "Chase Ink Business Preferred"
+    },
+    {
+      "id": "chase-us-ink-business-cash-credit-card",
+      "name": "Chase Ink Business Cash"
+    },
+    {
+      "id": "chase-us-ink-business-unlimited-credit-card",
+      "name": "Chase Ink Business Unlimited"
+    },
+    {
+      "id": "chase-us-chase-freedom-flex-credit-card",
+      "name": "Chase Freedom Flex"
+    },
+    {
+      "id": "chase-us-sapphire-reserve-for-business-credit-card",
+      "name": "Chase Sapphire Reserve for Business"
+    },
+    {
+      "id": "amex-us-us-the-platinum-card",
+      "name": "Amex Platinum"
+    },
+    {
+      "id": "amex-us-us-business-platinum-card",
+      "name": "Amex Business Platinum"
+    },
+    {
+      "id": "amex-us-us-business-gold-card",
+      "name": "Amex Business Gold"
+    },
+    {
+      "id": "amex-us-us-blue-business-plus-credit-card",
+      "name": "Amex Blue Business Plus"
+    },
+    {
+      "id": "citi-us-citi-strata-premier-card",
+      "name": "Citi Strata Premier Card"
+    },
+    {
+      "id": "citi-us-citi-strata-elite-card",
+      "name": "Citi Strata Elite Card"
+    },
+    {
+      "id": "citi-us-citi-double-cash-card",
+      "name": "Citi Double Cash Card"
+    },
+    {
+      "id": "citi-us-citi-aadvantage-platinum-select-card",
+      "name": "Citi / AAdvantage Platinum Select Card"
+    },
+    {
+      "id": "citi-us-citi-aadvantage-executive-card",
+      "name": "Citi / AAdvantage Executive Card"
+    },
+    {
+      "id": "capital-one-us-venture-rewards-credit-card",
+      "name": "Venture Rewards Credit Card"
+    },
+    {
+      "id": "capital-one-us-venture-x-rewards-credit-card",
+      "name": "Venture X Rewards Credit Card"
+    },
+    {
+      "id": "capital-one-us-savor-credit-card",
+      "name": "Savor Credit Card"
+    },
+    {
+      "id": "capital-one-us-venture-x-business-card",
+      "name": "Venture X Business Card"
+    },
+    {
+      "id": "capital-one-us-spark-cash-plus-card",
+      "name": "Spark Cash Plus Card"
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-gold-card",
+      "name": "Delta SkyMiles Gold American Express Card"
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-platinum-card",
+      "name": "Delta SkyMiles Platinum American Express Card"
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-reserve-card",
+      "name": "Delta SkyMiles Reserve American Express Card"
+    },
+    {
+      "id": "amex-us-us-marriott-bonvoy-brilliant-card",
+      "name": "Marriott Bonvoy Brilliant American Express Card"
+    },
+    {
+      "id": "amex-us-us-marriott-bonvoy-bevy-card",
+      "name": "Marriott Bonvoy Bevy American Express Card"
+    },
+    {
+      "id": "amex-us-us-hilton-honors-business-card",
+      "name": "Hilton Honors American Express Business Card"
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-platinum-business-card",
+      "name": "Delta SkyMiles Platinum Business Card"
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-gold-business-card",
+      "name": "Delta SkyMiles Gold Business Card"
+    },
+    {
+      "id": "chase-us-united-explorer-card",
+      "name": "Chase United Explorer"
+    },
+    {
+      "id": "chase-us-united-club-card",
+      "name": "Chase United Club"
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-plus-credit-card",
+      "name": "Chase Southwest Rapid Rewards Plus"
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-priority-credit-card",
+      "name": "Chase Southwest Rapid Rewards Priority"
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-premier-credit-card",
+      "name": "Chase Southwest Rapid Rewards Premier"
+    },
+    {
+      "id": "chase-us-marriott-bonvoy-boundless-credit-card",
+      "name": "Chase Marriott Bonvoy Boundless"
+    },
+    {
+      "id": "chase-us-ihg-one-rewards-credit-card",
+      "name": "Chase Ihg One Rewards"
+    },
+    {
+      "id": "chase-us-world-of-hyatt-credit-card",
+      "name": "Chase World Of Hyatt"
+    },
+    {
+      "id": "chase-us-air-canada-aeroplan-card",
+      "name": "Chase Air Canada Aeroplan"
+    },
+    {
+      "id": "chase-us-ink-business-premier-credit-card",
+      "name": "Chase Ink Business Premier"
+    },
+    {
+      "id": "chase-us-united-gateway-card",
+      "name": "Chase United Gateway"
+    },
+    {
+      "id": "chase-us-ihg-one-rewards-premier-select-credit-card",
+      "name": "Chase Ihg One Rewards Premier Select"
+    },
+    {
+      "id": "chase-us-ihg-one-rewards-business-credit-card",
+      "name": "Chase Ihg One Rewards Business"
+    },
+    {
+      "id": "chase-us-world-of-hyatt-business-credit-card",
+      "name": "Chase World Of Hyatt Business"
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-premier-business-credit-card",
+      "name": "Chase Southwest Rapid Rewards Premier Business"
+    },
+    {
+      "id": "chase-us-southwest-rapid-rewards-performance-business-credit-card",
+      "name": "Chase Southwest Rapid Rewards Performance Business"
+    },
+    {
+      "id": "discover-us-discover-it-cash-back-credit-card",
+      "name": "Discover it Cash Back Credit Card"
+    },
+    {
+      "id": "us-bank-us-cash-plus-visa-signature-card",
+      "name": "U.S. Bank Cash+ Visa Signature Card"
+    },
+    {
+      "id": "us-bank-us-altitude-go-visa-signature-card",
+      "name": "U.S. Bank Altitude Go Visa Signature Card"
+    },
+    {
+      "id": "wells-fargo-us-autograph-journey-visa-card",
+      "name": "Wells Fargo Autograph Journey Visa Card"
+    },
+    {
+      "id": "skip-citi-custom-cash",
+      "name": "Citi Custom Cash",
+      "skip": "Citi 页面显示 Not Available，读不到资料，已跳过。"
+    },
+    {
+      "id": "skip-boa-premium-rewards",
+      "name": "BOA Premium Rewards",
+      "skip": "发卡行页面的公开内容里读不到年费和赚取比例，已跳过。"
+    }
+  ]
+}

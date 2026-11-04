@@ -154,7 +154,54 @@
   "海外消费": "general",
   "餐饮及酒店": "general",
   "其他港币消费": "general",
-  "Amex预付酒店": "hotel"
+  "Amex预付酒店": "hotel",
+  "加油站、充电和指定度假屋": "ground-transport",
+  "指定流媒体和线上杂货": "shopping",
+  "其他旅行": "travel",
+  "货运、社交媒体和搜索广告、网络电话和旅行": "general",
+  "办公用品、网络电话": "shopping",
+  "加油站和餐厅": "general",
+  "所有消费": "general",
+  "每季轮换类别": "general",
+  "Chase Travel 和 The Edit": "travel",
+  "直订航班和酒店": "travel",
+  "社交媒体和搜索广告": "general",
+  "直订航班或 Amex Travel 机票": "airline",
+  "Amex Travel 预付酒店": "hotel",
+  "AmexTravel.com 机票和预付酒店": "travel",
+  "主要商业类别或5,000美元以上消费": "general",
+  "每个账单周期消费最高的两个类别": "general",
+  "所有合资格消费": "general",
+  "cititravel.com 酒店、租车和景点": "travel",
+  "机票和其他酒店": "travel",
+  "超市": "shopping",
+  "加油站和充电站": "ground-transport",
+  "cititravel.com 机票": "airline",
+  "Citi Nights 餐厅": "dining",
+  "其他时段餐厅": "dining",
+  "Citi Travel 酒店、租车和景点": "travel",
+  "American Airlines 消费": "airline",
+  "餐厅和外卖": "dining",
+  "加油站": "ground-transport",
+  "AAdvantage Hotels 和 AAdvantage Cars": "travel",
+  "Capital One Travel 酒店、度假屋和租车": "travel",
+  "Capital One Entertainment": "entertainment",
+  "Capital One Travel 酒店和租车": "travel",
+  "Capital One Travel 机票和度假屋": "travel",
+  "超市、餐饮、娱乐和流媒体": "general",
+  "Capital One Business Travel 酒店和租车": "travel",
+  "Capital One Business Travel 机票和度假屋": "travel",
+  "Capital One Business Travel 酒店、度假屋和租车": "travel",
+  "餐厅（外卖和配送限美国）": "dining",
+  "Delta 直接消费": "airline",
+  "Delta 机票和 Delta Vacations": "airline",
+  "酒店直接消费": "hotel",
+  "Marriott Bonvoy 酒店": "hotel",
+  "全球餐厅和直订航班": "general",
+  "全球餐厅和美国超市": "general",
+  "Hilton 旗下酒店直接消费": "hotel",
+  "Delta 和酒店直接消费": "travel",
+  "交通、美国运输或大额消费": "general"
  },
  "brands": [
   {
@@ -1316,6 +1363,132 @@
    "terms": "unverified",
    "logo": "brand/logos/etihad.svg",
    "source": "simple-icons@16.36.0:etihadairways"
+  },
+  {
+   "id": "emirates-skywards",
+   "name": "Emirates Skywards",
+   "category": "airline",
+   "programmeIds": [
+    "programme.emirates-skywards"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "qatar-privilege-club",
+   "name": "Qatar Airways Privilege Club",
+   "category": "airline",
+   "programmeIds": [
+    "programme.qatar-privilege-club"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "choice-privileges",
+   "name": "Choice Privileges",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.choice-privileges"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "leaders-club",
+   "name": "The Leading Hotels of the World Leaders Club",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.leaders-club"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "citi-thankyou",
+   "name": "Citi ThankYou Points",
+   "category": "reward",
+   "programmeIds": [
+    "programme.citi-thankyou"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "aadvantage",
+   "name": "American Airlines AAdvantage",
+   "category": "airline",
+   "programmeIds": [
+    "programme.aadvantage"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "capital-one-miles",
+   "name": "Capital One Miles",
+   "category": "reward",
+   "programmeIds": [
+    "programme.capital-one-miles"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
   }
  ]
 }

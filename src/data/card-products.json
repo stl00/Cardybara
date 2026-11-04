@@ -29,7 +29,8 @@
       "rewardSource": {
         "url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0550_Web.pdf",
         "checkedAt": "2026-10-27"
-      }
+      },
+      "transferProgrammeId": "programme.chase-ultimate-rewards"
     },
     {
       "id": "amex-hk-hk-the-platinum-card",
@@ -54,7 +55,8 @@
       "rewardSource": {
         "url": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
         "checkedAt": "2026-10-27"
-      }
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-hk"
     },
     {
       "id": "chase-us-freedom-unlimited",
@@ -336,7 +338,8 @@
       "rewardSource": {
         "url": "https://www.americanexpress.com/hk/en/credit-cards/explorer-credit-card/",
         "checkedAt": "2026-10-27"
-      }
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-hk"
     },
     {
       "id": "sc-hk-hk-cathay-mastercard",
@@ -384,7 +387,7 @@
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/freedom_flex_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/freedom/flex",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-04",
       "verification": "issuer-listed"
     },
     {
@@ -419,15 +422,22 @@
         "Chase Sapphire Preferred"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Ultimate Rewards"
+      ],
       "art": {
         "file": "catalog-6c8d36582258aad9.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/sapphire-preferredcard2026.png"
       },
       "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "transferProgrammeId": "programme.chase-ultimate-rewards",
+      "rewardSource": {
+        "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-slate-credit-card",
@@ -942,7 +952,7 @@
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ink_unlimited_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/unlimited",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-04",
       "verification": "issuer-listed"
     },
     {
@@ -962,7 +972,7 @@
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ink_cash_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/cash",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-04",
       "verification": "issuer-listed"
     },
     {
@@ -975,15 +985,22 @@
         "Ink Business Preferred"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Ultimate Rewards"
+      ],
       "art": {
         "file": "catalog-ff14fa08229f50ff.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ink_preferred_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "transferProgrammeId": "programme.chase-ultimate-rewards",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-ink-business-premier-credit-card",
@@ -1015,15 +1032,21 @@
         "Sapphire Reserve for Business"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Ultimate Rewards"
+      ],
       "art": {
         "file": "catalog-256773f46ab51fa8.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/sapphire_reserve_biz_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
+        "checkedAt": "2026-11-04"
+      }
     },
     {
       "id": "chase-us-united-business-card",
@@ -1665,7 +1688,8 @@
         "file": "gold.png",
         "verification": "legacy-asset",
         "sourceUrl": null
-      }
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-us"
     },
     {
       "id": "amex-us-us-morgan-stanley-platinum-card",
@@ -1684,7 +1708,8 @@
         "file": "amex-ms-platinum.svg",
         "verification": "legacy-asset",
         "sourceUrl": null
-      }
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-us"
     },
     {
       "id": "amex-us-us-blue-cash-everyday",
@@ -1798,6 +1823,515 @@
         "file": "boa-customized-cash.png",
         "verification": "legacy-asset",
         "sourceUrl": null
+      }
+    },
+    {
+      "id": "amex-us-us-the-platinum-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "The Platinum Card",
+      "aliases": [
+        "The Platinum Card",
+        "The Platinum Card from American Express",
+        "American Express Platinum Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Membership Rewards"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
+        "checkedAt": "2026-11-04"
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-us"
+    },
+    {
+      "id": "amex-us-us-business-platinum-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Business Platinum Card",
+      "aliases": [
+        "Business Platinum Card",
+        "The Business Platinum Card",
+        "Business Platinum Card from American Express"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Membership Rewards"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-platinum-credit-card-amex/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-platinum-credit-card-amex/",
+        "checkedAt": "2026-11-04"
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-us"
+    },
+    {
+      "id": "amex-us-us-business-gold-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Business Gold Card",
+      "aliases": [
+        "Business Gold Card",
+        "American Express Business Gold Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Membership Rewards"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-gold-card-amex/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-gold-card-amex/",
+        "checkedAt": "2026-11-04"
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-us"
+    },
+    {
+      "id": "amex-us-us-blue-business-plus-credit-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Blue Business Plus Credit Card",
+      "aliases": [
+        "Blue Business Plus Credit Card",
+        "The Blue Business Plus Credit Card",
+        "Blue Business Plus Credit Card from American Express",
+        "Blue Business Plus"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Membership Rewards"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-blue-business-plus-credit-card-amex/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-blue-business-plus-credit-card-amex/",
+        "checkedAt": "2026-11-04"
+      },
+      "transferProgrammeId": "programme.amex-membership-rewards-us"
+    },
+    {
+      "id": "citi-us-citi-strata-premier-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi Strata Premier Card",
+      "aliases": [
+        "Citi Strata Premier Card",
+        "Citi Strata Premier",
+        "Citi Strata Premier Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Citi ThankYou Points"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "citi-us-citi-strata-elite-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi Strata Elite Card",
+      "aliases": [
+        "Citi Strata Elite Card",
+        "Citi Strata Elite",
+        "Citi Strata Elite Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Citi ThankYou Points"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "citi-us-citi-double-cash-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi Double Cash Card",
+      "aliases": [
+        "Citi Double Cash Card",
+        "Citi Double Cash",
+        "Citi Double Cash Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Citi ThankYou Points"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-double-cash-credit-card",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-double-cash-credit-card",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "citi-us-citi-aadvantage-platinum-select-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi / AAdvantage Platinum Select Card",
+      "aliases": [
+        "Citi / AAdvantage Platinum Select Card",
+        "Citi AAdvantage Platinum Select",
+        "Citi / AAdvantage Platinum Select World Elite Mastercard",
+        "AAdvantage Platinum Select"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "American Airlines AAdvantage"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "citi-us-citi-aadvantage-executive-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi / AAdvantage Executive Card",
+      "aliases": [
+        "Citi / AAdvantage Executive Card",
+        "Citi AAdvantage Executive",
+        "Citi / AAdvantage Executive World Legend Mastercard",
+        "AAdvantage Executive"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "American Airlines AAdvantage"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "capital-one-us-venture-rewards-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Venture Rewards Credit Card",
+      "aliases": [
+        "Venture Rewards Credit Card",
+        "Capital One Venture",
+        "Capital One Venture Rewards",
+        "Venture Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Capital One Miles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/venture/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://www.capitalone.com/credit-cards/venture/",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "capital-one-us-venture-x-rewards-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Venture X Rewards Credit Card",
+      "aliases": [
+        "Venture X Rewards Credit Card",
+        "Capital One Venture X",
+        "Venture X",
+        "Venture X Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Capital One Miles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/venture-x/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://www.capitalone.com/credit-cards/venture-x/",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "capital-one-us-savor-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Savor Credit Card",
+      "aliases": [
+        "Savor Credit Card",
+        "Capital One Savor",
+        "Savor Cash Rewards",
+        "Savor"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/savor/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-venture-x-business-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Venture X Business Card",
+      "aliases": [
+        "Venture X Business Card",
+        "Capital One Venture X Business",
+        "Venture X Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Capital One Miles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/venture-x-business/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://www.capitalone.com/small-business/credit-cards/venture-x-business/",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "capital-one-us-spark-cash-plus-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Spark Cash Plus Card",
+      "aliases": [
+        "Spark Cash Plus Card",
+        "Capital One Spark Cash Plus",
+        "Spark Cash Plus",
+        "Spark 2% Cash Plus"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/spark-cash-plus/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-gold-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Delta SkyMiles Gold American Express Card",
+      "aliases": [
+        "Delta SkyMiles Gold American Express Card",
+        "Delta SkyMiles Gold Card",
+        "Delta SkyMiles Gold"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Delta SkyMiles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-platinum-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Delta SkyMiles Platinum American Express Card",
+      "aliases": [
+        "Delta SkyMiles Platinum American Express Card",
+        "Delta SkyMiles Platinum Card",
+        "Delta SkyMiles Platinum"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Delta SkyMiles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-platinum-american-express-card/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-platinum-american-express-card/",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-reserve-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Delta SkyMiles Reserve American Express Card",
+      "aliases": [
+        "Delta SkyMiles Reserve American Express Card",
+        "Delta SkyMiles Reserve Card",
+        "Delta SkyMiles Reserve"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Delta SkyMiles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-reserve-american-express-card/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-reserve-american-express-card/",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "amex-us-us-marriott-bonvoy-brilliant-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Marriott Bonvoy Brilliant American Express Card",
+      "aliases": [
+        "Marriott Bonvoy Brilliant American Express Card",
+        "Marriott Bonvoy Brilliant Card",
+        "Marriott Bonvoy Brilliant"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Marriott Bonvoy"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "amex-us-us-marriott-bonvoy-bevy-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Marriott Bonvoy Bevy American Express Card",
+      "aliases": [
+        "Marriott Bonvoy Bevy American Express Card",
+        "Marriott Bonvoy Bevy Card",
+        "Marriott Bonvoy Bevy"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Marriott Bonvoy"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-bevy/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-bevy/",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "amex-us-us-hilton-honors-business-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Hilton Honors American Express Business Card",
+      "aliases": [
+        "Hilton Honors American Express Business Card",
+        "Hilton Honors Business Card",
+        "Hilton Honors Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Hilton Honors"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/hilton-honors/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/hilton-honors/",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-platinum-business-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Delta SkyMiles Platinum Business Card",
+      "aliases": [
+        "Delta SkyMiles Platinum Business Card",
+        "Delta SkyMiles Platinum Business American Express Card",
+        "Delta SkyMiles Platinum Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Delta SkyMiles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-platinum/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-platinum/",
+        "checkedAt": "2026-11-04"
+      }
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-gold-business-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Delta SkyMiles Gold Business Card",
+      "aliases": [
+        "Delta SkyMiles Gold Business Card",
+        "Delta SkyMiles Gold Business American Express Card",
+        "Delta SkyMiles Gold Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Delta SkyMiles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-gold/",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-gold/",
+        "checkedAt": "2026-11-04"
       }
     }
   ]
