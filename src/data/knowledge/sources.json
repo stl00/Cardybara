@@ -785,14 +785,14 @@
   },
   {
     "id": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
-    "url": "https://creditcards.chase.com/business-credit-cards/southwest/premier",
+    "url": "https://creditcards.chase.com/business-credit-cards/southwest/premier-business",
     "title": "Chase · Southwest Rapid Rewards Premier Business Credit Card 官方产品页",
     "checkedAt": "2026-11-04",
     "authority": "official"
   },
   {
     "id": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
-    "url": "https://creditcards.chase.com/business-credit-cards/southwest/performance",
+    "url": "https://creditcards.chase.com/business-credit-cards/southwest/performance-business",
     "title": "Chase · Southwest Rapid Rewards Performance Business Credit Card 官方产品页",
     "checkedAt": "2026-11-04",
     "authority": "official"
@@ -822,6 +822,13 @@
     "id": "card-wells-fargo-us-autograph-journey-visa-card",
     "url": "https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/",
     "title": "Wells Fargo · Wells Fargo Autograph Journey Visa Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-custom-cash-card",
+    "url": "https://www.citi.com/credit-cards/citi-custom-cash-credit-card",
+    "title": "Citi · Citi Custom Cash Card 官方产品页",
     "checkedAt": "2026-11-04",
     "authority": "official"
   }

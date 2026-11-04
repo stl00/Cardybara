@@ -1172,11 +1172,11 @@
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_performance_biz_card.png"
       },
-      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/performance",
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/performance-business",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
       "rewardSource": {
-        "url": "https://creditcards.chase.com/business-credit-cards/southwest/performance",
+        "url": "https://creditcards.chase.com/business-credit-cards/southwest/performance-business",
         "checkedAt": "2026-11-04"
       }
     },
@@ -1198,11 +1198,11 @@
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_premier_biz_card.png"
       },
-      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/premier",
+      "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/premier-business",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
       "rewardSource": {
-        "url": "https://creditcards.chase.com/business-credit-cards/southwest/premier",
+        "url": "https://creditcards.chase.com/business-credit-cards/southwest/premier-business",
         "checkedAt": "2026-11-04"
       }
     },
@@ -2495,6 +2495,22 @@
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
       "collection": "not-supported"
+    },
+    {
+      "id": "citi-us-citi-custom-cash-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi Custom Cash Card",
+      "aliases": [
+        "Citi Custom Cash Card",
+        "Citi Custom Cash"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-custom-cash-credit-card",
+      "checkedAt": "2026-11-04",
+      "verification": "issuer-listed"
     }
   ]
 }

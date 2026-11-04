@@ -1,6 +1,6 @@
 # 美国常见卡片覆盖表
 
-2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这 50 张。
+2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这份名单。 名单共 50 项：49 张有资料，1 张因发卡行页面读不到数字而跳过。
 
 “读取”指插件能否自动读取账户数据；这里的资料只是公开产品信息，不代表该银行已能采集或已验收。卡面暂不新增，发卡行图片的使用条款未确认。
 
@@ -26,33 +26,33 @@
 | 2 | Savor Credit Card | $0 | 4 | 0 | — | 暂不支持 | — | https://www.capitalone.com/credit-cards/savor/ |
 | 2 | Venture X Business Card | $395 | 3 | 3 | Capital One Miles | 暂不支持 | 转点伙伴和比例尚未核对。 | https://www.capitalone.com/small-business/credit-cards/venture-x-business/ |
 | 2 | Spark Cash Plus Card | $150 | 2 | 1 | — | 暂不支持 | — | https://www.capitalone.com/small-business/credit-cards/spark-cash-plus/ |
-| 3 | Delta SkyMiles Gold American Express Card | $150 | 4 | 3 | Delta SkyMiles | 已支持的银行，未验收 | 首年优惠年费是否适用取决于个人资格，未核实。Delta Stays 抵扣的细节未录入。 | https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/ |
-| 3 | Delta SkyMiles Platinum American Express Card | $350 | 5 | 2 | Delta SkyMiles | 已支持的银行，未验收 | Companion Certificate、MQD 和 Delta Stays 的细节未录入。 | https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-platinum-american-express-card/ |
-| 3 | Delta SkyMiles Reserve American Express Card | $650 | 2 | 4 | Delta SkyMiles | 已支持的银行，未验收 | Sky Club 次数、Centurion 访问、Companion Certificate 和 MQD 的细节未录入。 | https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-reserve-american-express-card/ |
-| 3 | Marriott Bonvoy Brilliant American Express Card | $650 | 3 | 3 | Marriott Bonvoy | 已支持的银行，未验收 | 年度免费房晚和 Earned Choice Award 的细节未录入。 | https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/ |
-| 3 | Marriott Bonvoy Bevy American Express Card | $250 | 3 | 2 | Marriott Bonvoy | 已支持的银行，未验收 | — | https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-bevy/ |
-| 3 | Hilton Honors American Express Business Card | $125 | 2 | 1 | Hilton Honors | 已支持的银行，未验收 | — | https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/hilton-honors/ |
-| 3 | Delta SkyMiles Platinum Business Card | $350 | 3 | 1 | Delta SkyMiles | 已支持的银行，未验收 | Companion Certificate 和其他福利的细节未录入。 | https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-platinum/ |
-| 3 | Delta SkyMiles Gold Business Card | $150 | 3 | 2 | Delta SkyMiles | 已支持的银行，未验收 | 美国广告和运输类别的2倍及其上限未结构化。 | https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-gold/ |
-| 4 | Chase United Explorer | $150 | 5 | 4 | United MileagePlus | 已支持的银行，未验收 | 页面所说的其他合作方抵扣未逐项录入。首年优惠是否适用未核实。 | https://creditcards.chase.com/travel-credit-cards/united/united-explorer |
-| 4 | Chase United Club | $695 | 5 | 2 | United MileagePlus | 已支持的银行，未验收 | United Club 会员资格的条件和其他合作方抵扣未逐项录入。 | https://creditcards.chase.com/travel-credit-cards/united/club-infinite |
-| 4 | Chase Southwest Rapid Rewards Plus | $99 | 3 | 1 | Southwest Rapid Rewards | 已支持的银行，未验收 | — | https://creditcards.chase.com/travel-credit-cards/southwest/plus |
-| 4 | Chase Southwest Rapid Rewards Priority | $229 | 3 | 2 | Southwest Rapid Rewards | 已支持的银行，未验收 | — | https://creditcards.chase.com/travel-credit-cards/southwest/priority |
-| 4 | Chase Southwest Rapid Rewards Premier | $149 | 3 | 2 | Southwest Rapid Rewards | 已支持的银行，未验收 | — | https://creditcards.chase.com/travel-credit-cards/southwest/premier |
+| 3 | Delta SkyMiles Gold American Express Card | $150 | 4 | 3 | Delta SkyMiles | 已支持的银行，未验收 | 首年优惠年费是否适用取决于个人资格，未核实。Delta Stays 和免费行李的细节未录入。附加卡年费未确认。 | https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/ |
+| 3 | Delta SkyMiles Platinum American Express Card | $350 | 5 | 4 | Delta SkyMiles | 已支持的银行，未验收 | Companion Certificate、MQD、Delta Stays 和免费行李的细节未录入。 | https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-platinum-american-express-card/ |
+| 3 | Delta SkyMiles Reserve American Express Card | $650 | 2 | 4 | Delta SkyMiles | 已支持的银行，未验收 | Sky Club 次数、Centurion 访问、Companion Certificate、MQD 和免费行李的细节未录入。 | https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-reserve-american-express-card/ |
+| 3 | Marriott Bonvoy Brilliant American Express Card | $650 | 3 | 3 | Marriott Bonvoy | 已支持的银行，未验收 | 年度免费房晚、Earned Choice Award、100美元房产抵扣、25晚 Elite Night Credits 未录入。Priority Pass：页面说法互相矛盾，留作未知。 | https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/ |
+| 3 | Marriott Bonvoy Bevy American Express Card | $250 | 3 | 3 | Marriott Bonvoy | 已支持的银行，未验收 | 15晚 Elite Night Credits 未录入。 | https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-bevy/ |
+| 3 | Hilton Honors American Express Business Card | $195 | 2 | 3 | Hilton Honors | 已支持的银行，未验收 | — | https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/hilton-honors/ |
+| 3 | Delta SkyMiles Platinum Business Card | $350 | 3 | 4 | Delta SkyMiles | 已支持的银行，未验收 | Companion Certificate 和免费行李的细节未录入。 | https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-platinum/ |
+| 3 | Delta SkyMiles Gold Business Card | $150 | 3 | 4 | Delta SkyMiles | 已支持的银行，未验收 | 美国广告和运输各有每年5万美元额度的2倍，未单列。首年优惠是否适用未核实。免费行李未录入。 | https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-gold/ |
+| 4 | Chase United Explorer | $150 | 4 | 4 | United MileagePlus | 已支持的银行，未验收 | Club 通行证、登机组别、里程折扣、另一项100美元旅行额度和其他合作方抵扣未录入。首年优惠是否适用未核实。 | https://creditcards.chase.com/travel-credit-cards/united/united-explorer |
+| 4 | Chase United Club | $695 | 5 | 2 | United MileagePlus | 已支持的银行，未验收 | United Club 会员资格及其条件、Premier Access、PQP 和其他合作方抵扣未录入。 | https://creditcards.chase.com/travel-credit-cards/united/club-infinite |
+| 4 | Chase Southwest Rapid Rewards Plus | $99 | 3 | 2 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。 | https://creditcards.chase.com/travel-credit-cards/southwest/plus |
+| 4 | Chase Southwest Rapid Rewards Priority | $229 | 3 | 3 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。 | https://creditcards.chase.com/travel-credit-cards/southwest/priority |
+| 4 | Chase Southwest Rapid Rewards Premier | $149 | 3 | 3 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。 | https://creditcards.chase.com/travel-credit-cards/southwest/premier |
 | 4 | Chase Marriott Bonvoy Boundless | $95 | 3 | 2 | Marriott Bonvoy | 已支持的银行，未验收 | 年度免费房晚未录入。 | https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless |
-| 4 | Chase Ihg One Rewards | $0 | 3 | 2 | IHG One Rewards | 已支持的银行，未验收 | — | https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/one-rewards |
-| 4 | Chase World Of Hyatt | $95 | 2 | 1 | World of Hyatt | 已支持的银行，未验收 | Hyatt 酒店消费的赚取比例和年度免费房晚未录入。 | https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card |
-| 4 | Chase Air Canada Aeroplan | $195 | 5 | 1 | Air Canada Aeroplan | 已支持的银行，未验收 | — | https://creditcards.chase.com/travel-credit-cards/aircanada/aeroplan |
-| 4 | Chase Ink Business Premier | $195 | 3 | 0 | — | 已支持的银行，未验收 | — | https://creditcards.chase.com/business-credit-cards/ink/premier |
-| 5 | Chase United Gateway | $0 | 4 | 1 | United MileagePlus | 已支持的银行，未验收 | 两件托运行李的获得条件未录入。 | https://creditcards.chase.com/travel-credit-cards/united/united-gateway |
-| 5 | Chase Ihg One Rewards Premier Select | $350 | 3 | 2 | IHG One Rewards | 已支持的银行，未验收 | — | https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select |
-| 5 | Chase Ihg One Rewards Business | $200 | 2 | 2 | IHG One Rewards | 已支持的银行，未验收 | — | https://creditcards.chase.com/business-credit-cards/IHG/business |
-| 5 | Chase World Of Hyatt Business | $199 | 2 | 0 | World of Hyatt | 已支持的银行，未验收 | Hyatt 酒店消费比例和福利未录入。 | https://creditcards.chase.com/business-credit-cards/world-of-hyatt/hyatt-business-card |
-| 5 | Chase Southwest Rapid Rewards Premier Business | $149 | 3 | 2 | Southwest Rapid Rewards | 已支持的银行，未验收 | — | https://creditcards.chase.com/business-credit-cards/southwest/premier |
-| 5 | Chase Southwest Rapid Rewards Performance Business | $299 | 5 | 2 | Southwest Rapid Rewards | 已支持的银行，未验收 | — | https://creditcards.chase.com/business-credit-cards/southwest/performance |
-| 5 | Discover it Cash Back Credit Card | $0 | 2 | 0 | — | 暂不支持 | 季度上限金额由脚本载入，读取的公开内容里没有数字。 | https://www.discover.com/credit-cards/cash-back/it-card/ |
+| 4 | Chase IHG One Rewards | $0 | 4 | 2 | IHG One Rewards | 已支持的银行，未验收 | Elite Night Credits 和消费解锁的 Gold Elite 未录入。 | https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/one-rewards |
+| 4 | Chase World of Hyatt | $95 | 3 | 1 | World of Hyatt | 已支持的银行，未验收 | 年度免费房晚、Tier Qualifying Night 和消费解锁的额外房晚未录入。 | https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card |
+| 4 | Chase Air Canada Aeroplan | $195 | 5 | 1 | Air Canada Aeroplan | 已支持的银行，未验收 | Aeroplan 25K 会籍、免费托运行李和 FLY15OFF 未录入。 | https://creditcards.chase.com/travel-credit-cards/aircanada/aeroplan |
+| 4 | Chase Ink Business Premier | $195 | 3 | 0 | — | 已支持的银行，未验收 | 限时 Lyft 倍率未录入。 | https://creditcards.chase.com/business-credit-cards/ink/premier |
+| 5 | Chase United Gateway | $0 | 4 | 1 | United MileagePlus | 已支持的银行，未验收 | 自然年消费满1万美元解锁的8倍机票、里程折扣和托运行李未录入。 | https://creditcards.chase.com/travel-credit-cards/united/united-gateway |
+| 5 | Chase IHG One Rewards Premier Select | $350 | 3 | 2 | IHG One Rewards | 已支持的银行，未验收 | 200美元航空抵扣、周年免费房晚、Global Entry、DashPass、Instacart、United TravelBank、Elite Night Credits 和 Diamond 条件未录入。 | https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select |
+| 5 | Chase IHG One Rewards Business | $200 | 3 | 2 | IHG One Rewards | 已支持的银行，未验收 | Platinum Elite、周年免费房晚、Expensify、Global Entry、DashPass、Instacart 和2027年起的 Diamond 条件未录入。 | https://creditcards.chase.com/business-credit-cards/IHG/business |
+| 5 | Chase World of Hyatt Business | $199 | 4 | 0 | World of Hyatt | 已支持的银行，未验收 | 100美元 Hyatt 抵扣、Discoverist 和 Tier Qualifying Night 未录入。 | https://creditcards.chase.com/business-credit-cards/world-of-hyatt/hyatt-business-card |
+| 5 | Chase Southwest Rapid Rewards Premier Business | $149 | 3 | 3 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、航班折扣、选座未录入。2027年1月1日起 TQP 规则改变。 | https://creditcards.chase.com/business-credit-cards/southwest/premier-business |
+| 5 | Chase Southwest Rapid Rewards Performance Business | $299 | 5 | 4 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、航班折扣、选座未录入。2027年1月1日起 TQP 规则改变。 | https://creditcards.chase.com/business-credit-cards/southwest/performance-business |
+| 5 | Discover it Cash Back Credit Card | $0 | 2 | 0 | — | 暂不支持 | 季度上限：本页没有金额。Discover 的返现日历页写1,500美元，未确认对应当前季度，所以没有采用。首年 Cashback Match 这类新卡优惠不收录。 | https://www.discover.com/credit-cards/cash-back/it-card/ |
 | 5 | U.S. Bank Cash+ Visa Signature Card | $0 | 4 | 0 | — | 暂不支持 | — | https://www.usbank.com/credit-cards/cash-plus-visa-signature-credit-card.html |
 | 5 | U.S. Bank Altitude Go Visa Signature Card | $0 | 4 | 1 | — | 暂不支持 | — | https://www.usbank.com/credit-cards/altitude-go-visa-signature-credit-card.html |
-| 5 | Wells Fargo Autograph Journey Visa Card | $95 | 4 | 1 | — | 暂不支持 | — | https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/ |
-| — | Citi Custom Cash | — | — | — | — | — | Citi 页面显示 Not Available，读不到资料，已跳过。 | — |
+| 5 | Wells Fargo Autograph Journey Visa Card | $95 | 4 | 1 | — | 暂不支持 | 转点伙伴和比例尚未核对；页面写明可以转到部分旅行计划。 | https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/ |
+| 5 | Citi Custom Cash | $0 | 2 | 0 | — | 已支持的银行，未验收 | Citi 自2026年5月28日起停止受理新申请，已持卡者不受影响；资料来自页面内嵌数据，可见页面显示 Not Available。 | https://www.citi.com/credit-cards/citi-custom-cash-credit-card |
 | — | BOA Premium Rewards | — | — | — | — | — | 发卡行页面的公开内容里读不到年费和赚取比例，已跳过。 | — |

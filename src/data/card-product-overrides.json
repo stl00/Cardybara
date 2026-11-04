@@ -836,27 +836,27 @@
   },
   {
     "id": "chase-us-southwest-rapid-rewards-premier-business-credit-card",
-    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/premier",
+    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/premier-business",
     "checkedAt": "2026-11-04",
     "verification": "issuer-listed",
     "rewardPrograms": [
       "Southwest Rapid Rewards"
     ],
     "rewardSource": {
-      "url": "https://creditcards.chase.com/business-credit-cards/southwest/premier",
+      "url": "https://creditcards.chase.com/business-credit-cards/southwest/premier-business",
       "checkedAt": "2026-11-04"
     }
   },
   {
     "id": "chase-us-southwest-rapid-rewards-performance-business-credit-card",
-    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/performance",
+    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/performance-business",
     "checkedAt": "2026-11-04",
     "verification": "issuer-listed",
     "rewardPrograms": [
       "Southwest Rapid Rewards"
     ],
     "rewardSource": {
-      "url": "https://creditcards.chase.com/business-credit-cards/southwest/performance",
+      "url": "https://creditcards.chase.com/business-credit-cards/southwest/performance-business",
       "checkedAt": "2026-11-04"
     }
   },
@@ -925,6 +925,21 @@
     "bank": "Wells Fargo",
     "region": "US",
     "name": "Wells Fargo Autograph Journey Visa Card",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "citi-us-citi-custom-cash-card",
+    "sourceUrl": "https://www.citi.com/credit-cards/citi-custom-cash-credit-card",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Citi Custom Cash Card",
+      "Citi Custom Cash"
+    ],
+    "bank": "Citi US",
+    "region": "US",
+    "name": "Citi Custom Cash Card",
     "currencies": [],
     "art": null
   }

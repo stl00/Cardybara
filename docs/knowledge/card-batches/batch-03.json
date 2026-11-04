@@ -30,8 +30,8 @@
       },
       "earning": [
         {
-          "zh": "美国餐厅",
-          "en": "Restaurants in the U.S.",
+          "zh": "餐厅（外卖和配送限美国）",
+          "en": "Restaurants (takeout and delivery in the U.S.)",
           "multiplier": 2,
           "unit": "miles-per-USD",
           "category": "dining",
@@ -104,8 +104,8 @@
       ],
       "unknown": [
         {
-          "zh": "首年优惠年费是否适用取决于个人资格，未核实。Delta Stays 抵扣的细节未录入。",
-          "en": "Whether the intro fee applies to you is unverified. Delta Stays credit details are not recorded."
+          "zh": "首年优惠年费是否适用取决于个人资格，未核实。Delta Stays 和免费行李的细节未录入。附加卡年费未确认。",
+          "en": "Whether the intro fee applies is unverified. Delta Stays and free bag details are not recorded. The additional card fee is unconfirmed."
         }
       ]
     },
@@ -157,8 +157,8 @@
           "quote": "Earn 3X Miles on purchases made directly with hotels"
         },
         {
-          "zh": "美国餐厅",
-          "en": "Restaurants in the U.S.",
+          "zh": "餐厅（外卖和配送限美国）",
+          "en": "Restaurants (takeout and delivery in the U.S.)",
           "multiplier": 2,
           "unit": "miles-per-USD",
           "category": "dining",
@@ -208,12 +208,35 @@
           ],
           "quote": "Get up to $10 in statement credits each month at over 10,000 qualifying U.S.",
           "enrollment": true
+        },
+        {
+          "key": "trusted-traveler",
+          "zh": "Global Entry 或 TSA PreCheck 申请费抵扣",
+          "en": "Global Entry or TSA PreCheck credit",
+          "noteZh": "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。",
+          "noteEn": "Every 4 years: $120 for Global Entry or up to $85 for TSA PreCheck.",
+          "scenario": "airport",
+          "category": "credit",
+          "quote": "Receive either a $120 statement credit for a Global Entry application fee",
+          "amount": 120,
+          "period": "rolling-four-years"
+        },
+        {
+          "key": "inflight",
+          "zh": "机上消费20%返还",
+          "en": "20% back on in-flight purchases",
+          "noteZh": "以抵扣形式返还，限 Delta 机上餐饮。",
+          "noteEn": "A 20% statement credit on eligible Delta in-flight food and beverage purchases.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "ongoing",
+          "quote": "20% Back On In-Flight Purchases"
         }
       ],
       "unknown": [
         {
-          "zh": "Companion Certificate、MQD 和 Delta Stays 的细节未录入。",
-          "en": "Companion Certificate, MQD and Delta Stays details are not recorded."
+          "zh": "Companion Certificate、MQD、Delta Stays 和免费行李的细节未录入。",
+          "en": "Companion Certificate, MQD, Delta Stays and free bag details are not recorded."
         }
       ]
     },
@@ -317,8 +340,8 @@
       ],
       "unknown": [
         {
-          "zh": "Sky Club 次数、Centurion 访问、Companion Certificate 和 MQD 的细节未录入。",
-          "en": "Sky Club visits, Centurion access, Companion Certificate and MQD details are not recorded."
+          "zh": "Sky Club 次数、Centurion 访问、Companion Certificate、MQD 和免费行李的细节未录入。",
+          "en": "Sky Club visits, Centurion access, Companion Certificate, MQD and free bag details are not recorded."
         }
       ]
     },
@@ -408,17 +431,18 @@
           "key": "trusted-traveler",
           "zh": "Global Entry 或 TSA PreCheck 申请费抵扣",
           "en": "Global Entry or TSA PreCheck credit",
-          "noteZh": "Global Entry 120美元，或 TSA PreCheck 最多85美元；周期未结构化。",
-          "noteEn": "$120 for Global Entry or up to $85 for TSA PreCheck; how often is not structured here.",
+          "noteZh": "Global Entry 120美元，或 TSA PreCheck 最多85美元；四年内只给一次。",
+          "noteEn": "$120 for Global Entry or up to $85 for TSA PreCheck; only one credit in a 4 year period.",
           "amount": 120,
           "scenario": "airport",
-          "quote": "Receive either a $120 statement credit for Global Entry or a statement credit for up to $85 for TSA PreCheck"
+          "quote": "Receive either a $120 statement credit for Global Entry or a statement credit for up to $85 for TSA PreCheck",
+          "period": "rolling-four-years"
         }
       ],
       "unknown": [
         {
-          "zh": "年度免费房晚和 Earned Choice Award 的细节未录入。",
-          "en": "Free Night Award and Earned Choice Award details are not recorded."
+          "zh": "年度免费房晚、Earned Choice Award、100美元房产抵扣、25晚 Elite Night Credits 未录入。Priority Pass：页面说法互相矛盾，留作未知。",
+          "en": "Free Night Award, Earned Choice Award, the $100 property credit and 25 Elite Night Credits are not recorded. Priority Pass: the page contradicts itself, so it stays unknown."
         }
       ]
     },
@@ -513,6 +537,26 @@
             "programme.marriott-bonvoy"
           ],
           "quote": "With complimentary Marriott Bonvoy Gold Elite status"
+        },
+        {
+          "key": "free-night",
+          "zh": "消费解锁免费房晚",
+          "en": "Free Night Award after spending",
+          "noteZh": "自然年消费满1.5万美元得1晚；是否达标未核实。",
+          "noteEn": "1 Free Night Award after spending $15,000 in a calendar year. Whether you reach it is unverified.",
+          "scenario": "hotel-stay",
+          "category": "spend-unlock",
+          "period": "calendar-year",
+          "programmeIds": [
+            "programme.marriott-bonvoy"
+          ],
+          "quote": "can earn 1 Free Night Award after spending $15,000 on eligible purchases"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "15晚 Elite Night Credits 未录入。",
+          "en": "15 Elite Night Credits are not recorded."
         }
       ]
     },
@@ -575,12 +619,46 @@
             "programme.hilton-honors"
           ],
           "quote": "Get up to $60 in statement credits each quarter for purchases made directly with a property"
+        },
+        {
+          "key": "gold-status",
+          "zh": "Hilton Honors Gold 会籍",
+          "en": "Hilton Honors Gold status",
+          "noteZh": "公开规则；个人会籍未核实。",
+          "noteEn": "Public rule; personal status is unverified.",
+          "scenario": "hotel-stay",
+          "category": "membership",
+          "period": "ongoing",
+          "programmeIds": [
+            "programme.hilton-honors"
+          ],
+          "quote": "Enjoy even more perks as a Hilton Honors Gold member"
+        },
+        {
+          "key": "diamond-upgrade",
+          "zh": "Diamond 会籍升级",
+          "en": "Hilton Honors Diamond upgrade",
+          "noteZh": "自然年消费满4万美元可升级；是否达标未核实。",
+          "noteEn": "Spend $40,000 in a calendar year to earn the upgrade. Whether you reach it is unverified.",
+          "scenario": "hotel-stay",
+          "category": "spend-unlock",
+          "period": "calendar-year",
+          "programmeIds": [
+            "programme.hilton-honors"
+          ],
+          "quote": "Spend $40,000 on eligible purchases on your Card in a calendar year"
         }
       ],
       "fee": {
-        "amount": 125,
+        "amount": 195,
         "currency": "USD",
-        "quote": "$125 Annual Fee"
+        "embedded": true,
+        "quote": "$195 Annual Fee"
+      },
+      "additionalFee": {
+        "amount": 0,
+        "currency": "USD",
+        "quote": "offers an Employee Card option with no annual fee"
       }
     },
     {
@@ -626,10 +704,10 @@
           "cap": {
             "amount": 100000,
             "currency": "USD",
-            "period": "calendar-year"
+            "period": null
           },
-          "noteZh": "合计每年前10万美元；单笔5,000美元以上算大额。",
-          "noteEn": "Up to $100K of combined eligible purchases per year; single purchases of $5K or more count as large.",
+          "noteZh": "合计每年前10万美元（页面只写每年）；单笔5,000美元以上算大额；多个加速比例时只取较高者。",
+          "noteEn": "Up to $100K of combined eligible purchases per year; the page does not say how the year is counted. Single purchases of $5K or more count as large. Only the higher accelerator applies.",
           "quote": "up to $100K of combined eligible purchases per year"
         },
         {
@@ -653,12 +731,48 @@
           "scenario": "ground-transport",
           "quote": "Earn up to $10 back in statement credits each month on U.S. rideshare purchases with select providers",
           "enrollment": true
+        },
+        {
+          "key": "resy",
+          "zh": "Resy 餐厅抵扣",
+          "en": "Resy credit",
+          "noteZh": "每月最多10美元，限美国合资格 Resy 餐厅，须登记。",
+          "noteEn": "Up to $10 per month at qualifying U.S. Resy restaurants. Enrollment required.",
+          "amount": 10,
+          "scenario": "dining",
+          "programmeIds": [
+            "programme.resy"
+          ],
+          "enrollment": true,
+          "quote": "you can earn up to $10 per month in statement credits on eligible purchases",
+          "period": "calendar-month"
+        },
+        {
+          "key": "delta-stays",
+          "zh": "Delta Stays 抵扣",
+          "en": "Delta Stays credit",
+          "noteZh": "每年最多200美元，须通过 Delta Stays 预付酒店或度假屋；周期的起算方式未结构化。",
+          "noteEn": "An annual statement credit of up to $200 on prepaid hotels or vacation rentals through Delta Stays. How the year is counted is not structured here.",
+          "amount": 200,
+          "scenario": "hotel-stay",
+          "quote": "an annual statement credit of up to $200 after using your"
+        },
+        {
+          "key": "trusted-traveler",
+          "zh": "Global Entry 或 TSA PreCheck 申请费抵扣",
+          "en": "Global Entry or TSA PreCheck credit",
+          "noteZh": "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。",
+          "noteEn": "Every 4 years: $120 for Global Entry or up to $85 for TSA PreCheck.",
+          "amount": 120,
+          "scenario": "airport",
+          "quote": "Receive either a $120 statement credit for a Global Entry application fee",
+          "period": "rolling-four-years"
         }
       ],
       "unknown": [
         {
-          "zh": "Companion Certificate 和其他福利的细节未录入。",
-          "en": "Companion Certificate and other benefit details are not recorded."
+          "zh": "Companion Certificate 和免费行李的细节未录入。",
+          "en": "Companion Certificate and free bag details are not recorded."
         }
       ]
     },
@@ -738,12 +852,35 @@
           "amount": 150,
           "scenario": "hotel-stay",
           "quote": "Members can earn up to $150 back annually on eligible prepaid"
+        },
+        {
+          "key": "rideshare",
+          "zh": "网约车抵扣",
+          "en": "Rideshare credit",
+          "noteZh": "首次续卡后每月最多10美元，须登记，限美国指定服务商。",
+          "noteEn": "After your first Card renewal, enroll to earn up to $10 each month on U.S. rideshare purchases with select providers.",
+          "amount": 10,
+          "period": "calendar-month",
+          "scenario": "ground-transport",
+          "enrollment": true,
+          "quote": "After your first Card renewal, enroll and earn up to $10 in statement credits each month"
+        },
+        {
+          "key": "inflight",
+          "zh": "机上消费20%返还",
+          "en": "20% back on in-flight purchases",
+          "noteZh": "以抵扣形式返还，限合资格的 Delta 机上消费。",
+          "noteEn": "A 20% statement credit on eligible Delta in-flight purchases.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "ongoing",
+          "quote": "Receive a 20% savings in the form of a statement credit on eligible Delta in-flight purchases"
         }
       ],
       "unknown": [
         {
-          "zh": "美国广告和运输类别的2倍及其上限未结构化。",
-          "en": "The 2X on U.S. advertising and shipping and its caps are not structured."
+          "zh": "美国广告和运输各有每年5万美元额度的2倍，未单列。首年优惠是否适用未核实。免费行李未录入。",
+          "en": "2X on U.S. advertising and on U.S. shipping, each up to $50,000 per year, is not listed separately. Whether the intro fee applies is unverified. Free bags are not recorded."
         }
       ]
     }

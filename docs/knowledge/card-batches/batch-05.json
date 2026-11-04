@@ -21,21 +21,13 @@
       },
       "earning": [
         {
-          "zh": "United 机票（合计）",
-          "en": "Eligible United flights, total",
-          "multiplier": 5,
-          "unit": "miles-per-USD",
-          "category": "airline",
-          "noteZh": "合计数，包含 MileagePlus 会员本身的3倍和本卡的2倍。",
-          "noteEn": "A total: 3x as a MileagePlus member plus 2x from the card.",
-          "quote": "5x total miles on eligible United flights"
-        },
-        {
-          "zh": "其他 United 消费",
-          "en": "All other eligible United purchases",
+          "zh": "United 消费",
+          "en": "United purchases",
           "multiplier": 2,
           "unit": "miles-per-USD",
           "category": "airline",
+          "noteZh": "本卡的比例；页面的5倍合计还包含主卡持卡人机票作为 MileagePlus 会员的3倍。",
+          "noteEn": "The card's own rate. The 5x total on the page also counts 3x on the primary cardmember's fare as a MileagePlus member.",
           "quote": "2x miles on all other eligible United purchases"
         },
         {
@@ -53,6 +45,14 @@
           "unit": "miles-per-USD",
           "category": "ground-transport",
           "quote": "2x miles on local transit and commuting"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "miles-per-USD",
+          "category": "general",
+          "quote": "1x mile on all other purchases"
         }
       ],
       "credits": [
@@ -60,7 +60,7 @@
           "key": "inflight",
           "zh": "机上消费25%返还",
           "en": "25% back on inflight purchases",
-          "noteZh": "限 United 机上和 Club 高级饮品。",
+          "noteZh": "限 United 机上餐饮、Wi-Fi 和 Club 高级饮品。",
           "noteEn": "On United inflight and Club premium drink purchases.",
           "scenario": "airport",
           "category": "membership",
@@ -70,8 +70,8 @@
       ],
       "unknown": [
         {
-          "zh": "两件托运行李的获得条件未录入。",
-          "en": "The conditions for the two checked bags are not recorded."
+          "zh": "自然年消费满1万美元解锁的8倍机票、里程折扣和托运行李未录入。",
+          "en": "The $10,000 calendar year unlocks (8x flights, award discount, checked bags) are not recorded."
         }
       ]
     },
@@ -124,8 +124,8 @@
           "key": "food-beverage",
           "zh": "IHG 餐饮券",
           "en": "Food and Beverage Reward",
-          "noteZh": "每季75美元，限 IHG 酒店使用。",
-          "noteEn": "A $75 Food and Beverage Reward voucher quarterly, to redeem at IHG Hotels.",
+          "noteZh": "每季75美元，限 IHG 酒店使用，须记入主卡持卡人的房账；当季过期，余额作废。",
+          "noteEn": "A $75 Food and Beverage Reward voucher quarterly, to redeem at IHG Hotels, captured on the primary cardmember's room bill. It lapses with the quarter and unused value is lost.",
           "amount": 75,
           "period": "calendar-quarter",
           "scenario": "hotel-stay",
@@ -148,6 +148,12 @@
             "programme.ihg-one-rewards"
           ],
           "quote": "with Platinum Elite Status, a benefit of this card"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "200美元航空抵扣、周年免费房晚、Global Entry、DashPass、Instacart、United TravelBank、Elite Night Credits 和 Diamond 条件未录入。",
+          "en": "The $200 airline credit, anniversary free night, Global Entry, DashPass, Instacart, United TravelBank, Elite Night Credits and the Diamond condition are not recorded."
         }
       ]
     },
@@ -179,6 +185,14 @@
           "quote": "That's 10X points with this card"
         },
         {
+          "zh": "直订航班、租车、餐饮、指定广告和加油站",
+          "en": "Flights booked directly, car rentals, dining, select advertising and gas stations",
+          "multiplier": 5,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 5X points on flights booked directly, car rentals, dining, select advertising and at gas stations"
+        },
+        {
           "zh": "其他消费",
           "en": "All other purchases",
           "multiplier": 3,
@@ -192,8 +206,8 @@
           "key": "food-beverage",
           "zh": "IHG 餐饮券",
           "en": "Food and Beverage Reward",
-          "noteZh": "每季25美元，限 IHG 酒店使用。",
-          "noteEn": "A $25 Food and Beverage Reward voucher quarterly, to redeem at IHG Hotels.",
+          "noteZh": "每季25美元，限 IHG 酒店使用，须记入主卡持卡人的房账；当季过期，余额作废。",
+          "noteEn": "A $25 Food and Beverage Reward voucher quarterly, to redeem at IHG Hotels, captured on the primary cardmember's room bill. It lapses with the quarter and unused value is lost.",
           "amount": 25,
           "period": "calendar-quarter",
           "scenario": "hotel-stay",
@@ -217,6 +231,12 @@
             "effectiveThrough": "2027-12-31"
           }
         }
+      ],
+      "unknown": [
+        {
+          "zh": "Platinum Elite、周年免费房晚、Expensify、Global Entry、DashPass、Instacart 和2027年起的 Diamond 条件未录入。",
+          "en": "Platinum Elite, the anniversary free night, Expensify, Global Entry, DashPass, Instacart and the Diamond condition from 2027 are not recorded."
+        }
       ]
     },
     {
@@ -237,12 +257,28 @@
       },
       "earning": [
         {
+          "zh": "Hyatt 酒店",
+          "en": "Hyatt hotels",
+          "multiplier": 4,
+          "unit": "points-per-USD",
+          "category": "hotel",
+          "quote": "4 Bonus Points per $1 spent on qualifying purchases at Hyatt Hotels"
+        },
+        {
           "zh": "每季消费最高的三个类别",
           "en": "Top three spend categories each quarter",
           "multiplier": 2,
           "unit": "points-per-USD",
           "category": "general",
           "quote": "Earn 2 Bonus Points total per $1 spent in your top three spend categories each quarter"
+        },
+        {
+          "zh": "健身房和健身会员",
+          "en": "Fitness club and gym memberships",
+          "multiplier": 2,
+          "unit": "points-per-USD",
+          "category": "general",
+          "quote": "Earn 2 Bonus Points per $1 spent on fitness club and gym memberships"
         },
         {
           "zh": "其他消费",
@@ -255,8 +291,8 @@
       ],
       "unknown": [
         {
-          "zh": "Hyatt 酒店消费比例和福利未录入。",
-          "en": "The earning rate at Hyatt hotels and the benefits are not recorded."
+          "zh": "100美元 Hyatt 抵扣、Discoverist 和 Tier Qualifying Night 未录入。",
+          "en": "The $100 Hyatt credit, Discoverist and tier qualifying nights are not recorded."
         }
       ]
     },
@@ -264,7 +300,7 @@
       "id": "chase-us-southwest-rapid-rewards-premier-business-credit-card",
       "page": "chase-us-southwest-rapid-rewards-premier-business-credit-card",
       "issuer": "Chase",
-      "url": "https://creditcards.chase.com/business-credit-cards/southwest/premier",
+      "url": "https://creditcards.chase.com/business-credit-cards/southwest/premier-business",
       "transfer": {
         "name": "Southwest Rapid Rewards",
         "programmeId": "programme.southwest-rapid-rewards",
@@ -314,8 +350,8 @@
           "key": "inflight",
           "zh": "机上消费25%返还",
           "en": "25% back on inflight purchases",
-          "noteZh": "以抵扣形式返还，限 Southwest 航班。",
-          "noteEn": "A statement credit on Southwest Airlines flights.",
+          "noteZh": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
+          "noteEn": "A statement credit on drinks and WiFi on Southwest Airlines flights.",
           "scenario": "airport",
           "category": "membership",
           "period": "ongoing",
@@ -334,6 +370,26 @@
           "validity": {
             "effectiveThrough": "2026-12-31"
           }
+        },
+        {
+          "key": "anniversary-points",
+          "zh": "周年积分",
+          "en": "Anniversary points",
+          "noteZh": "每年6,000点；个人到账未核实。",
+          "noteEn": "6,000 anniversary points each year. Personal posting is unverified.",
+          "scenario": "card-ownership",
+          "category": "membership",
+          "period": "account-anniversary",
+          "programmeIds": [
+            "programme.southwest-rapid-rewards"
+          ],
+          "quote": "6,000 anniversary points"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "免费托运行李、航班折扣、选座未录入。2027年1月1日起 TQP 规则改变。",
+          "en": "Free checked bags, flight discounts and seat selection are not recorded. TQP rules change from January 1, 2027."
         }
       ]
     },
@@ -341,7 +397,7 @@
       "id": "chase-us-southwest-rapid-rewards-performance-business-credit-card",
       "page": "chase-us-southwest-rapid-rewards-performance-business-credit-card",
       "issuer": "Chase",
-      "url": "https://creditcards.chase.com/business-credit-cards/southwest/performance",
+      "url": "https://creditcards.chase.com/business-credit-cards/southwest/performance-business",
       "transfer": {
         "name": "Southwest Rapid Rewards",
         "programmeId": "programme.southwest-rapid-rewards",
@@ -411,12 +467,46 @@
           "key": "inflight",
           "zh": "机上消费25%返还",
           "en": "25% back on inflight purchases",
-          "noteZh": "以抵扣形式返还，限 Southwest 航班。",
-          "noteEn": "A statement credit on Southwest Airlines flights.",
+          "noteZh": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
+          "noteEn": "A statement credit on drinks and WiFi on Southwest Airlines flights.",
           "scenario": "airport",
           "category": "membership",
           "period": "ongoing",
           "quote": "25% back on inflight purchases"
+        },
+        {
+          "key": "anniversary-points",
+          "zh": "周年积分",
+          "en": "Anniversary points",
+          "noteZh": "每年9,000点；个人到账未核实。",
+          "noteEn": "9,000 anniversary points each year. Personal posting is unverified.",
+          "scenario": "card-ownership",
+          "category": "membership",
+          "period": "account-anniversary",
+          "programmeIds": [
+            "programme.southwest-rapid-rewards"
+          ],
+          "quote": "9,000 anniversary points"
+        },
+        {
+          "key": "a-list-tqp",
+          "zh": "A-List 进度积分",
+          "en": "Tier qualifying points toward A-List",
+          "noteZh": "每消费5,000美元得2,500 TQP，至2026年12月31日；个人进度未核实。",
+          "noteEn": "2,500 TQPs for every $5,000 spent, through 12/31/2026. Personal progress is unverified.",
+          "scenario": "travel",
+          "category": "spend-unlock",
+          "period": "ongoing",
+          "quote": "Earn 2,500 tier qualifying points (TQPs) toward A-List status for every $5,000 spent",
+          "validity": {
+            "effectiveThrough": "2026-12-31"
+          }
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "免费托运行李、航班折扣、选座未录入。2027年1月1日起 TQP 规则改变。",
+          "en": "Free checked bags, flight discounts and seat selection are not recorded. TQP rules change from January 1, 2027."
         }
       ]
     },
@@ -447,8 +537,8 @@
           "multiplier": 5,
           "unit": "cashback-percent",
           "category": "general",
-          "noteZh": "每季须激活，有季度上限；上限金额由脚本载入，留作未知。",
-          "noteEn": "Activate each quarter, up to a quarterly maximum. The maximum loads by script and stays unknown.",
+          "noteZh": "每季须激活，有季度上限；本页没有写上限金额。",
+          "noteEn": "Activate each quarter, up to a quarterly maximum; this page does not state the amount.",
           "quote": "Earn 5% cash back on everyday purchases at different places you shop each quarter, up to the quarterly maximum when you activate"
         },
         {
@@ -462,8 +552,8 @@
       ],
       "unknown": [
         {
-          "zh": "季度上限金额由脚本载入，读取的公开内容里没有数字。",
-          "en": "The quarterly maximum loads by script and is missing from the public text read."
+          "zh": "季度上限：本页没有金额。Discover 的返现日历页写1,500美元，未确认对应当前季度，所以没有采用。首年 Cashback Match 这类新卡优惠不收录。",
+          "en": "Quarterly maximum: no amount on this page. Discover’s cashback calendar page says $1,500 but its currency is unconfirmed, so it is not used. New card offers such as the first-year Cashback Match are not recorded."
         }
       ]
     },
@@ -494,8 +584,8 @@
             "currency": "USD",
             "period": "calendar-quarter"
           },
-          "noteZh": "每季合计前2,000美元。",
-          "noteEn": "On your first $2,000 in combined eligible purchases each quarter.",
+          "noteZh": "每季合计前2,000美元。每季须选择并激活类别，否则只有1%。",
+          "noteEn": "On your first $2,000 in combined eligible purchases each quarter. You must choose and activate categories each quarter, or earn no more than 1%.",
           "quote": "5% cash back 2 on your first $2,000 in combined eligible purchases each quarter on two categories you choose"
         },
         {
@@ -504,7 +594,9 @@
           "multiplier": 2,
           "unit": "cashback-percent",
           "category": "general",
-          "quote": "2% cash back on one everyday category you choose each quarter"
+          "quote": "2% cash back on one everyday category you choose each quarter",
+          "noteZh": "每季须选择并激活类别，否则只有1%。",
+          "noteEn": " You must choose and activate categories each quarter, or earn no more than 1%."
         },
         {
           "zh": "Travel Center 预付旅行",
@@ -571,7 +663,7 @@
           "multiplier": 2,
           "unit": "points-per-USD",
           "category": "general",
-          "noteZh": "部分商户除外。",
+          "noteZh": "不含折扣店、大型超市和批发俱乐部。",
           "noteEn": "Discount stores, supercenters and wholesale clubs are excluded.",
           "quote": "2X points at grocery stores and gas stations/EV charging stations"
         },
@@ -597,11 +689,12 @@
           "key": "streaming",
           "zh": "流媒体抵扣",
           "en": "Streaming credit",
-          "noteZh": "15美元，用于年付流媒体；条件以条款为准。",
-          "noteEn": "A $15 credit for annual streaming service purchases; conditions follow the terms.",
+          "noteZh": "每12个月15美元，须连续11个自然月有合资格流媒体消费后自动抵扣。",
+          "noteEn": "An automatic $15 statement credit per 12-month period, after 11 consecutive months of eligible streaming purchases.",
           "amount": 15,
           "scenario": "entertainment",
-          "quote": "Get a $15 credit for annual streaming service purchases"
+          "quote": "An automatic statement credit of $15 per 12-month period",
+          "category": "spend-unlock"
         }
       ]
     },
@@ -651,7 +744,7 @@
           "multiplier": 1,
           "unit": "points-per-USD",
           "category": "general",
-          "quote": "earn 1X points on other purchases"
+          "quote": "1X points on other purchases"
         }
       ],
       "fee": {
@@ -664,11 +757,70 @@
           "key": "airline-credit",
           "zh": "航空消费抵扣",
           "en": "Annual airline statement credit",
-          "noteZh": "每年50美元，须有至少50美元航空消费；周期的起算方式以条款为准。",
-          "noteEn": "A $50 annual statement credit with a $50 minimum airline purchase. How the year is counted follows the terms.",
+          "noteZh": "每年50美元，须有至少50美元航空消费；首年从开户起，之后按年费入账后的12个月计算。",
+          "noteEn": "A $50 annual statement credit with a $50 minimum airline purchase. Available at account opening in the first year, then counted over 12 months from the annual fee posting.",
           "amount": 50,
           "scenario": "airport",
           "quote": "$50 annual statement credit with $50 minimum airline purchase"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "转点伙伴和比例尚未核对；页面写明可以转到部分旅行计划。",
+          "en": "Transfer partners and rates are not yet checked; the page says points can transfer to select travel programmes."
+        }
+      ]
+    },
+    {
+      "id": "citi-us-citi-custom-cash-card",
+      "page": "citi-custom",
+      "issuer": "Citi",
+      "new": {
+        "bank": "Citi US",
+        "region": "US",
+        "name": "Citi Custom Cash Card"
+      },
+      "aliases": [
+        "Citi Custom Cash"
+      ],
+      "url": "https://www.citi.com/credit-cards/citi-custom-cash-credit-card",
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "embedded": true,
+        "quote": "No Annual Fee"
+      },
+      "earning": [
+        {
+          "zh": "每个账单周期消费最高的合资格类别",
+          "en": "Top eligible spend category each billing cycle",
+          "multiplier": 5,
+          "unit": "cashback-percent",
+          "category": "general",
+          "cap": {
+            "amount": 500,
+            "currency": "USD",
+            "period": "billing-cycle"
+          },
+          "noteZh": "每个账单周期前500美元；合资格类别页面没有列出。",
+          "noteEn": "Up to $500 spent each billing cycle; the page does not list the eligible categories.",
+          "embedded": true,
+          "quote": "Earn 5% cash back on your top eligible spend category each billing cycle up to $500 spent"
+        },
+        {
+          "zh": "其他消费",
+          "en": "All other purchases",
+          "multiplier": 1,
+          "unit": "cashback-percent",
+          "category": "general",
+          "embedded": true,
+          "quote": "Earn 1% cash back thereafter on all other purchases"
+        }
+      ],
+      "unknown": [
+        {
+          "zh": "Citi 自2026年5月28日起停止受理新申请，已持卡者不受影响；资料来自页面内嵌数据，可见页面显示 Not Available。",
+          "en": "Citi stopped accepting applications on May 28, 2026, and existing cardmembers are not affected. Facts come from embedded page data; the visible page shows Not Available."
         }
       ]
     }
