@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newWalletCard,mergeWalletCards} from '../src/walletRegistry.js';
+import {newWalletCard,mergeWalletCards,withoutRemoved,withoutRemovedCards,removeWalletCard,liftRemoval,pendingRemovals,withoutLiveCard} from '../src/walletRegistry.js';
 import {PROVIDERS} from '../extension-next/providers.js';
 import {request} from '../extension-next/protocol.js';
 import {normalizeDiscoveredCards,discoverVisibleCards} from '../extension-next/discovery.js';
@@ -102,4 +102,66 @@ test('Amex Canada is archived: off by default, code kept, and a wallet holding i
  assert.deepEqual(defaultRefreshBanks([held]),[],'only archived cards leave nothing to refresh');
  assert.deepEqual(selectableBanks(['Amex CA','Chase'],[chase]),['Chase']);assert.deepEqual(selectableBanks(['Amex CA','Chase'],[held]),['Amex CA','Chase']);
  for(const [file,use] of [['../src/main.jsx',/defaultRefreshBanks\(data\.cards\);if\(!banks\.length\)/],['../src/main.jsx',/selectableBanks\(Object\.keys\(bankNames\)/],['../src/BankConnections.jsx',/visibleConnections\(data\)\.map/],['../src/AgentPanel.jsx',/visibleConnections\(data\)\.map/]])assert.match(readFileSync(new URL(file,import.meta.url),'utf8'),use,file);
+});
+
+function engine(){let saved;const io={load:async()=>saved,save:async s=>saved=structuredClone(s),uuid:()=>crypto.randomUUID(),now:()=>Date.now()};return new Engine(io);}
+const held=(id,bank,tail)=>({id,bank,tail,currency:PROVIDERS[bank].currency});
+const reading=at=>({value:1,currency:'USD',status:'observed',capturedAt:at});
+async function discoverOnce(e,cards,rows,owner=1){await e.start({type:'refresh',requestId:crypto.randomUUID(),banks:['Chase'],cards},owner);const job=await e.claim();const ctx={generation:(await e.load()).run.generation,attemptId:job.attemptId};const state=await e.discover(ctx,rows);await e.cancel(owner);return state;}
+test('removing a card clears its records and discovery, and leaves every other card alone',async()=>{
+ const e=engine();await discoverOnce(e,[],[{tail:'1111',name:'False find'},{tail:'2222',name:'Real find'}]);
+ const s=await e.load(),at=new Date().toISOString();
+ s.records={Chase:{'discovered-chase-1111':{balance:reading(at)},'discovered-chase-2222':{balance:reading(at)}},'Amex US':{'discovered-chase-1111':{balance:reading(at)}}};
+ s.agentRecords=[{bank:'Chase',cardId:'discovered-chase-1111',key:'a'},{bank:'Chase',cardId:'discovered-chase-2222',key:'b'},{bank:'Amex US',cardId:'discovered-chase-1111',key:'c'}];
+ await e.io.save(s);
+ const after=await e.removeCard({bank:'Chase',cardId:'discovered-chase-1111',tail:'1111'},1);
+ assert.deepEqual(after.discoveredCards.map(c=>c.tail),['2222']);
+ assert.deepEqual(Object.keys(after.records.Chase),['discovered-chase-2222'],'the other card keeps its readings');
+ assert.ok(after.records['Amex US']['discovered-chase-1111'],'another bank is untouched');
+ assert.deepEqual(after.agentRecords.map(i=>i.key),['b','c']);
+ const last=await e.removeCard({bank:'Chase',cardId:'discovered-chase-2222',tail:'2222'},1);assert.equal(last.records.Chase,undefined);
+});
+test('a removed false discovery does not return, but the same tail held in the wallet still reads',async()=>{
+ const e=engine();await discoverOnce(e,[],[{tail:'1111',name:'False find'}]);
+ await e.removeCard({bank:'Chase',cardId:'discovered-chase-1111',tail:'1111'},1);
+ const again=await discoverOnce(e,[],[{tail:'1111',name:'False find'},{tail:'3333',name:'New find'}]);
+ assert.deepEqual(again.discoveredCards.map(c=>c.tail),['3333']);assert.deepEqual(again.run.jobs[0].cards.map(c=>c.tail),['3333']);
+ const manual=held('manual-one','Chase','1111');
+ const added=await discoverOnce(e,[manual],[{tail:'1111',name:'Now real'}]);
+ assert.deepEqual(added.run.jobs[0].cards.map(c=>c.id),['manual-one']);
+});
+test('a card cannot be removed while its bank is being read, or by a tab that does not own the run',async()=>{
+ const e=engine();await e.start({type:'refresh',requestId:'run-one',banks:['Chase'],cards:[held('a','Chase','1111')]},1);
+ await assert.rejects(e.removeCard({bank:'Chase',cardId:'a',tail:'1111'},1),/busy/);
+ await assert.rejects(e.removeCard({bank:'Chase',cardId:'a',tail:'1111'},2),/not_run_owner/);
+ const other=await e.removeCard({bank:'Amex US',cardId:'b',tail:'2222'},1);assert.equal(other.run.status,'running');
+});
+test('a same-bank duplicate tail excluded at start is not added back by discovery',async()=>{
+ const e=engine(),state=await discoverOnce(e,[held('a','Chase','1111'),held('b','Chase','1111'),held('c','Chase','2222')],[{tail:'1111',name:'Either card'},{tail:'2222',name:'Other'},{tail:'4444',name:'New'}]);
+ const job=state.run.jobs[0];
+ assert.deepEqual(job.cards.map(c=>c.id),['c','discovered-chase-4444']);assert.deepEqual(job.excludedTails,['1111']);
+ assert.deepEqual(state.discoveredCards.map(c=>c.tail),['4444']);
+ const e2=engine(),other=await discoverOnce(e2,[held('a','Amex US','1111'),held('b','Amex US','1111')],[{tail:'1111',name:'Different bank, same tail'}]);
+ assert.deepEqual(other.discoveredCards.map(c=>c.tail),['1111'],'scoped to the bank');
+});
+test('the protocol accepts a removal only for one well-formed card',()=>{
+ const m={type:'remove-card',requestId:'remove-one',bank:'Chase',cardId:'card-1',tail:'1234'};assert.equal(request(m).cardId,'card-1');
+ for(const change of [{bank:'Unknown'},{cardId:'../x'},{tail:'12'},{tail:'1234567890123456'},{extra:1}])assert.throws(()=>request({...m,...change}),JSON.stringify(change));
+});
+test('the wallet keeps a removal through reloads and discovery until the user adds the card back',()=>{
+ const manual=newWalletCard({bank:'Chase',name:'Mistyped',tail:'1234'},'manual-one'),keep=newWalletCard({bank:'Chase',name:'Keep',tail:'5678'},'manual-two'),seed={id:'seed-one',bank:'Chase',tail:'9999',name:'Seed',region:'US',currency:'USD'};
+ const first=removeWalletCard([manual,keep],[],manual);assert.deepEqual(first.registry.map(c=>c.id),['manual-two']);
+ const next=removeWalletCard(first.registry,first.removed,seed);
+ const base={cards:[seed,keep,{...seed,id:'seed-two',tail:'1234'}],connections:[]},kept=withoutRemoved(base,next.removed).cards.map(c=>c.id);
+ assert.deepEqual(kept,['manual-two','seed-two'],'a seed row hides by id, and another held card sharing the tail stays');
+ const found={id:'discovered-chase-1234',bank:'Chase',tail:'1234',identitySource:'bank-page'},other={...found,id:'discovered-chase-1111',tail:'1111'};
+ assert.deepEqual(withoutRemovedCards([found,other],next.removed).map(c=>c.id),['discovered-chase-1111'],'late discovery does not bring it back');
+ assert.deepEqual(liftRemoval(next.removed,[{bank:'Chase',tail:'1234'}]).map(r=>r.id),['seed-one'],'adding the tail back lifts only that removal');
+ assert.deepEqual(pendingRemovals({records:{Chase:{'manual-one':{}}},discoveredCards:[]},next.removed).map(r=>r.id),['manual-one']);
+ assert.deepEqual(pendingRemovals({records:{},discoveredCards:[{bank:'Chase',tail:'9999'}]},next.removed).map(r=>r.id),['seed-one']);
+ assert.deepEqual(pendingRemovals({records:{},discoveredCards:[]},next.removed),[],'applied removals are not sent again');
+ const live={Chase:{status:'updated',patches:[{id:'manual-one'},{id:'manual-two'}]}};assert.deepEqual(withoutLiveCard(live,manual).Chase.patches,[{id:'manual-two'}]);assert.equal(withoutLiveCard(live,seed),live);
+});
+test('the removal message reaches the worker through the page bridge',()=>{
+ for(const bridge of ['extension-next/dashboard.js','scripts/dev-collector/page-bridge.js'])assert.match(readFileSync(bridge,'utf8'),/'remove-card'/,bridge);assert.match(readFileSync('extension-next/background.js','utf8'),/m\.type==='remove-card'/);
 });

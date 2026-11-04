@@ -105,6 +105,7 @@ chrome.runtime.onMessage.addListener((raw,sender,reply)=>{
   else if(m.type==='focus-bank'){s=await engine.load();const job=s.run?.jobs.find(j=>j.bank===m.bank);if(!Number.isInteger(job?.tabId))throw Error('bank_tab_missing');const tab=await chrome.tabs.get(job.tabId);if(!guidedPage(m.bank,tab.url))throw Error('bank_tab_changed');await chrome.tabs.update(tab.id,{active:true});}
   else if(m.type==='cancel'){s=await engine.cancel(owner);await notify(s);}
   else if(['disconnect','clear','connect'].includes(m.type)){s=await engine.bank(m.bank,m.type,owner);if(['clear','disconnect'].includes(m.type))await agent.invalidate(m.bank);await publish(s);}
+  else if(m.type==='remove-card'){s=await engine.removeCard(m,owner);await agent.invalidate(m.bank);await publish(s);}
   else s=await engine.load();
   reply({ok:true,requestId:m.requestId,version:VERSION,state:await exposedState(s)});
  })().catch(()=>reply({ok:false,error:'操作未完成，请检查扩展状态或重试。'}));

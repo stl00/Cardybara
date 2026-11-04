@@ -1087,7 +1087,12 @@
     "持卡管理": "Card management",
     "渠道能力": "Channel",
     "一般消费": "General spending",
-    "{0} 标志": "{0} logo"
+    "{0} 标志": "{0} logo",
+    "移除此卡": "Remove this card",
+    "移除这张卡？": "Remove this card?",
+    "这张卡和它的本机读数会从钱包中移除，银行页面也不会再把它自动加回来。如果以后需要，可以手动添加。": "This card and its local readings will be removed from the wallet, and bank pages will not add it back automatically. You can add it manually later if you need it.",
+    "移除": "Remove",
+    "卡片已移除。": "Card removed."
   },
   "zh-TW": {
     "美国": "美國",
@@ -2177,6 +2182,11 @@
     "持卡管理": "持卡管理",
     "渠道能力": "渠道能力",
     "一般消费": "一般消費",
-    "{0} 标志": "{0} 標誌"
+    "{0} 标志": "{0} 標誌",
+    "移除此卡": "移除此卡",
+    "移除这张卡？": "移除這張卡？",
+    "这张卡和它的本机读数会从钱包中移除，银行页面也不会再把它自动加回来。如果以后需要，可以手动添加。": "這張卡和它的本機讀數會從錢包中移除，銀行頁面也不會再把它自動加回來。如果以後需要，可以手動新增。",
+    "移除": "移除",
+    "卡片已移除。": "卡片已移除。"
   }
 }
