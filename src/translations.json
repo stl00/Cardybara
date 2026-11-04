@@ -1187,14 +1187,15 @@
     "本卡页面没有公布 World of Hyatt 比例；其他卡公布的比例不套用到本卡，须登录转点页核对。": "This card's pages do not state a World of Hyatt rate; a rate published for other cards is not applied here. Check the signed-in transfer page.",
     "机票与航司": "Flights and airlines",
     "机场出行": "Airport",
-    "未知：这张卡不在已核对范围内": "Unknown: this card is outside what was checked",
-    "这张卡不在已核对范围内": "This card is outside what was checked",
     "不足一个增量（{0} 点）": "Less than one increment ({0} points)",
     "仅适用：{0}": "Only: {0}",
     "页面未列明：{0}": "Not stated for: {0}",
     "每点 ${0}，上限 ${1}": "${0} per point, up to ${1}",
     "（{0} 除外）": "(except {0})",
-    "这个读数不是整数，不用于计算；可以输入积分数试算。": "This reading is not a whole number, so it is not used. You can enter points to try the numbers."
+    "未知：这个读数的卡不在已核对范围内": "Unknown: the card behind this reading is outside what was checked",
+    "这个读数的卡不在已核对范围内": "The card behind this reading is outside what was checked",
+    "这个读数不是整数，不用于计算；可以输入积分数，或不选卡后试算。": "This reading is not a whole number, so it is not used. Enter points, or choose no card to try the numbers.",
+    "不选卡，看全部比例": "No card: show all rates"
   },
   "zh-TW": {
     "美国": "美國",
@@ -2384,13 +2385,14 @@
     "本卡页面没有公布 World of Hyatt 比例；其他卡公布的比例不套用到本卡，须登录转点页核对。": "本卡頁面沒有公佈 World of Hyatt 比例；其他卡公佈的比例不套用到本卡，須登入轉點頁核對。",
     "机票与航司": "機票與航司",
     "机场出行": "機場出行",
-    "未知：这张卡不在已核对范围内": "未知：這張卡不在已核對範圍內",
-    "这张卡不在已核对范围内": "這張卡不在已核對範圍內",
     "不足一个增量（{0} 点）": "不足一個增量（{0} 點）",
     "仅适用：{0}": "僅適用：{0}",
     "页面未列明：{0}": "頁面未列明：{0}",
     "每点 ${0}，上限 ${1}": "每點 ${0}，上限 ${1}",
     "（{0} 除外）": "（{0} 除外）",
-    "这个读数不是整数，不用于计算；可以输入积分数试算。": "這個讀數不是整數，不用於計算；可以輸入積分數試算。"
+    "未知：这个读数的卡不在已核对范围内": "未知：這個讀數的卡不在已核對範圍內",
+    "这个读数的卡不在已核对范围内": "這個讀數的卡不在已核對範圍內",
+    "这个读数不是整数，不用于计算；可以输入积分数，或不选卡后试算。": "這個讀數不是整數，不用於計算；可以輸入積分數，或不選卡後試算。",
+    "不选卡，看全部比例": "不選卡，看全部比例"
   }
 }

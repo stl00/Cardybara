@@ -7,16 +7,17 @@ import {knowledgeSources} from './knowledge';
 import {cardProducts} from './productCatalog';
 import {convertPoints,readingsFor,routesForCard,transferProgrammes,transferRoutes} from './transferRoutes';
 const {Paragraph,Text,Link}=Typography;
+const NO_CARD='no-card';
 const whole=n=>Number(n).toLocaleString('en-US');
 const unitLabels={hours:'{0} 小时','days':'{0} 天','business-days':'{0} 个营业日'};
 const timeLabel=time=>time?`${time.qualifier==='up-to'?t('最长'):t('预计')} ${t(unitLabels[time.unit],[time.value])}`:t('未列明');
 const feeLabel=fee=>fee.kind==='excise-tax-offset'?t('消费税抵销费'):t('行政费');
-const cardNames=ids=>ids.map(id=>cardProducts.find(p=>p.id===id)?.name||id).join('、');
-const feeDetail=fee=>fee.perPoint?t('每点 ${0}，上限 ${1}',[fee.perPoint,fee.maximum]):`${money(fee.amount,fee.currency)}${fee.exempt?.length?` ${t('（{0} 除外）',[fee.exempt.join('、')])}`:''}`;
+const cardNames=ids=>ids.map(id=>cardProducts.find(p=>p.id===id)?.name||id).join(' / ');
+const feeDetail=fee=>fee.perPoint?t('每点 ${0}，上限 ${1}',[fee.perPoint,fee.maximum]):`${money(fee.amount,fee.currency)}${fee.exempt?.length?` ${t('（{0} 除外）',[fee.exempt.join(' / ')])}`:''}`;
 const money=(value,currency)=>`${currency==='HKD'?'HK$':'$'}${Number(value).toLocaleString('en-US',{minimumFractionDigits:value%1?2:0,maximumFractionDigits:2})}`;
 // Hidden balances must not reappear through a computed result, so nothing is prefilled or derived.
 function Result({row,points,hidden}){
- if(row.coverage==='card-not-listed')return <Text type="secondary">{t('未知：这张卡不在已核对范围内')}</Text>;
+ if(row.coverage==='card-not-listed')return <Text type="secondary">{t('未知：这个读数的卡不在已核对范围内')}</Text>;
  const result=convertPoints(points,row.terms);
  if(result.status==='ratio-unknown')return <Text type="secondary">{t('未知：官方未列明此比例')}</Text>;
  if(hidden&&points!=null)return '••••';
@@ -28,7 +29,7 @@ function Result({row,points,hidden}){
 function PartnerTable({rows,points,hidden}){
  const columns=[
   {title:t('计划'),render:(_,r)=><><ItemLogo programme={r.partnerId}/> {r.partner}{r.cardSpecific?<div><Text type="secondary">{r.terms.ratio?t('仅适用：{0}',[cardNames(r.productIds)]):t('页面未列明：{0}',[cardNames(r.productIds)])}</Text></div>:null}</>},
-  {title:t('兑换比例'),render:(_,r)=>r.coverage==='card-not-listed'?t('这张卡不在已核对范围内'):r.terms.ratio?<>{whole(r.terms.ratio.from)} → {whole(r.terms.ratio.to)}{r.terms.ratioCondition==='turbo-program'?<div><Tag>{t('仅 Turbo 计划费率')}</Tag></div>:null}</>:<>{t('未逐项列明')}{r.terms.ratioStatement?<div><Text type="secondary">{t('Sapphire Preferred 页面称多数伙伴 {0}:{1}',[r.terms.ratioStatement.ratio.from,r.terms.ratioStatement.ratio.to])}</Text></div>:null}</>},
+  {title:t('兑换比例'),render:(_,r)=>r.coverage==='card-not-listed'?t('这个读数的卡不在已核对范围内'):r.terms.ratio?<>{whole(r.terms.ratio.from)} → {whole(r.terms.ratio.to)}{r.terms.ratioCondition==='turbo-program'?<div><Tag>{t('仅 Turbo 计划费率')}</Tag></div>:null}</>:<>{t('未逐项列明')}{r.terms.ratioStatement?<div><Text type="secondary">{t('Sapphire Preferred 页面称多数伙伴 {0}:{1}',[r.terms.ratioStatement.ratio.from,r.terms.ratioStatement.ratio.to])}</Text></div>:null}</>},
   {title:t('可得'),render:(_,r)=><Result row={r} points={points} hidden={hidden}/>},
   {title:t('最低 / 增量'),render:(_,r)=><>{r.terms.minimumPoints?whole(r.terms.minimumPoints):t('未列明')} / {r.terms.incrementPoints?whole(r.terms.incrementPoints):t('未列明')}</>},
   {title:t('到账时间'),render:(_,r)=>timeLabel(r.terms.estimatedTime)},
@@ -38,16 +39,16 @@ function PartnerTable({rows,points,hidden}){
 }
 function ProgrammePanel({programme,accounts,cards,count,hidden}){
  const readings=readingsFor(programme,accounts,cards),[selected,setSelected]=useState(null),[manual,setManual]=useState(null);
- const reading=readings.find(r=>r.key===selected)||readings[0]||null,points=manual??(reading?.usable?reading.amount:null),all=transferRoutes(programme.id);
+ const reading=selected===NO_CARD?null:readings.find(r=>r.key===selected)||readings[0]||null,points=manual??(reading?.usable?reading.amount:null),all=transferRoutes(programme.id);
  // Typing a number keeps the chosen card's scope: an amount must never change which rate applies.
  const rows=routesForCard(all,{hasCard:!!reading,productId:reading?.productId??null});
  const airlines=rows.filter(r=>r.kind==='airline'),hotels=rows.filter(r=>r.kind==='hotel'),sources=knowledgeSources([...new Set(all.flatMap(r=>r.sourceIds))]);
  return <><Flex gap={16} wrap align="end" style={{marginBottom:16}}>
-  {readings.length?<div><Text type="secondary">{t('卡片读数')}</Text><br/><Select aria-label={t('卡片读数')} value={reading?.key} onChange={v=>{setSelected(v);setManual(null);}} style={{minWidth:260}} options={readings.map(r=>({value:r.key,label:`${r.cardRecord?.name||r.label} · ${count(r.amount)}`}))}/></div>:null}
+  {readings.length?<div><Text type="secondary">{t('卡片读数')}</Text><br/><Select aria-label={t('卡片读数')} value={reading?.key??NO_CARD} onChange={v=>{setSelected(v);setManual(null);}} style={{minWidth:260}} options={readings.map(r=>({value:r.key,label:`${r.cardRecord?.name||r.label} · ${count(r.amount)}`})).concat({value:NO_CARD,label:t('不选卡，看全部比例')})}/></div>:null}
   <div><Text type="secondary">{t('试算积分')}</Text><br/><InputNumber aria-label={t('试算积分')} min={0} precision={0} max={1000000000} step={1000} value={manual} placeholder={hidden||!reading?.usable?t('输入积分数'):whole(reading.amount)} onChange={v=>setManual(v??null)} style={{width:180}}/></div>
  </Flex>
  {!readings.length?<Alert showIcon type="info" title={t('尚未读取这个计划的积分')} description={t('刷新对应银行后会显示读数；也可以先输入积分数试算。')} style={{marginBottom:16}}/>:readings.length>1?<Paragraph type="secondary">{t('多张卡的读数分别列出；共用积分池未确认，不合计。')}</Paragraph>:null}
- {reading&&!reading.usable&&manual==null?<Paragraph type="secondary">{t('这个读数不是整数，不用于计算；可以输入积分数试算。')}</Paragraph>:null}
+ {reading&&!reading.usable&&manual==null?<Paragraph type="secondary">{t('这个读数不是整数，不用于计算；可以输入积分数，或不选卡后试算。')}</Paragraph>:null}
  {reading?.historical&&manual==null?<Paragraph type="secondary">{t('历史记录；本次尚未取得更新读数。')}</Paragraph>:null}
  {programme.id.endsWith('-hk')?<Alert showIcon type="warning" title={t('香港只公开 Turbo 计划费率')} description={t('是否已登记 Turbo 未核实，未登记的费率须登录查看。把已有伙伴账号加入转点时，页面列明每次收取400港元行政费，部分卡种除外。')} style={{marginBottom:16}}/>:null}
  {programme.id.includes('ultimate')?<Alert showIcon type="warning" title={t('Chase 没有逐项公布比例')} description={t('Sapphire Preferred 页面只说多数伙伴1:1，没有逐项列明，因此这些伙伴不计算结果。World of Hyatt 的4:3只有 Sapphire Preferred 和 Ink Business Preferred 页面写明。')} style={{marginBottom:16}}/>:null}

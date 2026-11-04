@@ -54,6 +54,7 @@ test('readings stay per card, per programme and per market',()=>{
  assert.deepEqual(readingsFor(ur,accounts,cards).map(r=>r.amount),[700]);
  assert.deepEqual(readingsFor(ur,{current:[]},cards),[]);
  const partial=readingsFor(ur,{current:[{id:'6',bank:'Chase',region:'US',label:'Ultimate Rewards',amount:12.5,card:'z'}]},cards);assert.equal(partial.length,1,'a non-integer reading is shown, not dropped');assert.equal(partial[0].usable,false);
+ const both=readingsFor(mrUs,{current:[{id:'a',bank:'Amex US',region:'US',label:'Membership Rewards',amount:1,card:'g'},{id:'us-mr',bank:'Amex US',region:'US',label:'Membership Rewards',amount:2,card:'g',historical:true}]},cards);assert.equal(new Set(both.map(r=>r.key)).size,2,'each reading can be chosen');
 });
 test('every partner lands in the airline or hotel list so none disappears from the page',()=>{
  for(const programme of transferProgrammes)for(const r of transferRoutes(programme.id))assert.ok(['airline','hotel'].includes(r.kind),r.partner);
