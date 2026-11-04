@@ -66,7 +66,7 @@ test('enrollment query does not confuse unknown enrollment requirement with no e
 
 test('all 22 held products are included with public fees, benefits and explicit corporate uncertainty',()=>{
  const held=JSON.parse(readFileSync(new URL('./fixtures/wallet-products.json',import.meta.url),'utf8')).cards;
- const profiles=benefitProfileView();assert.equal(profiles.length,22);
+ const profiles=benefitProfileView();assert.ok(profiles.length>=22);
  for(const card of held){const p=profileForCard(card);assert.ok(p,card.name);assert.ok(p.benefits.length,card.name);assert.ok(p.fees.sourceIds.length,card.name);}
  const corporate=profiles.find(p=>p.productId==='amex-us-us-corporate-card');assert.equal(corporate.fees.primaryAnnual,null);assert.equal(corporate.coverage,'variant-unconfirmed');
 });

@@ -108,5 +108,144 @@
       "url": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
       "checkedAt": "2026-11-04"
     }
+  },
+  {
+    "id": "chase-us-chase-sapphire-preferred-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "chase-us-ink-business-preferred-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "chase-us-ink-business-cash-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/cash",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "chase-us-ink-business-unlimited-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/unlimited",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "chase-us-chase-freedom-flex-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/freedom/flex",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "chase-us-sapphire-reserve-for-business-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "Ultimate Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "amex-us-us-the-platinum-card",
+    "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "aliases": [
+      "The Platinum Card",
+      "The Platinum Card from American Express",
+      "American Express Platinum Card"
+    ],
+    "rewardPrograms": [
+      "Membership Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
+      "checkedAt": "2026-11-04"
+    },
+    "transferProgrammeId": "programme.amex-membership-rewards-us",
+    "bank": "Amex US",
+    "region": "US",
+    "name": "The Platinum Card",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "amex-us-us-business-platinum-card",
+    "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-platinum-credit-card-amex/",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Business Platinum Card",
+      "The Business Platinum Card",
+      "Business Platinum Card from American Express"
+    ],
+    "rewardPrograms": [
+      "Membership Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-platinum-credit-card-amex/",
+      "checkedAt": "2026-11-04"
+    },
+    "transferProgrammeId": "programme.amex-membership-rewards-us",
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Business Platinum Card",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "amex-us-us-business-gold-card",
+    "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-gold-card-amex/",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Business Gold Card",
+      "American Express Business Gold Card"
+    ],
+    "rewardPrograms": [
+      "Membership Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-gold-card-amex/",
+      "checkedAt": "2026-11-04"
+    },
+    "transferProgrammeId": "programme.amex-membership-rewards-us",
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Business Gold Card",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "amex-us-us-blue-business-plus-credit-card",
+    "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-blue-business-plus-credit-card-amex/",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Blue Business Plus Credit Card",
+      "The Blue Business Plus Credit Card",
+      "Blue Business Plus Credit Card from American Express",
+      "Blue Business Plus"
+    ],
+    "rewardPrograms": [
+      "Membership Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-blue-business-plus-credit-card-amex/",
+      "checkedAt": "2026-11-04"
+    },
+    "transferProgrammeId": "programme.amex-membership-rewards-us",
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Blue Business Plus Credit Card",
+    "currencies": [],
+    "art": null
   }
 ]

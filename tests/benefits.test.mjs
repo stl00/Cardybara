@@ -4,7 +4,7 @@ import {benefitProfiles,benefitSources,hsbcRewardCash,profileForCard,benefitPeri
 const profile=benefitProfiles[0],rule=id=>profile.benefits.find(b=>b.id===id);
 test('benefit profile matches personal CSR without attaching business or foreign cards',()=>{
  assert.equal(profileForCard({bank:'Chase',region:'US',name:'Chase Sapphire Reserve'}),profile);
- assert.equal(profileForCard({bank:'Chase',region:'US',name:'Sapphire Reserve for Business'}),null);
+ assert.equal(profileForCard({bank:'Chase',region:'US',name:'Sapphire Reserve for Business'}).productId,'chase-us-sapphire-reserve-for-business-credit-card','the business card has its own profile');
  assert.equal(profileForCard({bank:'Chase',region:'CA',name:'Chase Sapphire Reserve'}),null);
  assert.equal(profileForCard({bank:'Chase',region:'US',name:'unknown card'}),null);
 });
