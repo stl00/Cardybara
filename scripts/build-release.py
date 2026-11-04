@@ -11,7 +11,7 @@ for folder in ['assets','brand']:
  for p in (r/'dist'/folder).rglob('*'):
   if p.is_file() and 'archive' not in p.parts and p.suffix in ['.js','.css','.svg','.png','.jpg','.jpeg','.webp','.ico','.json']:files[str(p.relative_to(r/'dist'))]=p.read_bytes()
 m=json.loads(files['manifest.json']);m.update(name='Cardybara · 卡疲扒拉 Alpha',version=cfg['version'],version_name=cfg['label'],description='Local card wallet with read-only bank collection. Alpha: empty-wallet setup and read-only bank collection; coverage varies. Optional AI requires setup.')
-m['host_permissions']=[x for x in m['host_permissions'] if not x.startswith('http://127.0.0.1')];m.pop('content_scripts',None);m['action']['default_title']='Open Cardybara';files['manifest.json']=(json.dumps(m,ensure_ascii=False,indent=2)+'\n').encode()
+m['host_permissions']=[x for x in m['host_permissions'] if not x.startswith('http://127.0.0.1')];m.pop('content_scripts',None);m['optional_permissions']=[*m.get('optional_permissions',[]),'notifications'];m['action']['default_title']='Open Cardybara';files['manifest.json']=(json.dumps(m,ensure_ascii=False,indent=2)+'\n').encode()
 blank=json.loads((r/'public/data.example.json').read_text());files['data.json']=json.dumps(blank,ensure_ascii=False).encode()
 files['README.md']=(r/'README.md').read_bytes();files['RELEASE-NOTES.txt']=(r/'docs/RELEASE.md').read_bytes();files['CHECKSUMS.json']=json.dumps({n:hashlib.sha256(b).hexdigest() for n,b in sorted(files.items())},indent=2).encode()
 with tempfile.TemporaryDirectory(prefix='cardybara-release-smoke-') as tmp:
