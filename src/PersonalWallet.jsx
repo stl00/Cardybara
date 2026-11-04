@@ -72,6 +72,7 @@ export function CreditManager({cards,compact=false,hidden=false}){
  <CreditAmountModal task={editingUsage} previous={editingUsage?latest(editingUsage):null} onClose={()=>setEditingUsage(null)} onSave={async v=>{const task=editingUsage;await mark(task.key,v.amount>=task.limit?'used':v.amount>0?'partial':'unused',task.revisionId,v.amount>0?{usage:{amount:v.amount,value:v.value??null,date:v.date,currency:task.currency,limit:task.limit,title:task.title}}:{});}}/>
  </Card>;
 }
+export const usePersonalMarks=()=>useContext(Personal);
 export function PortfolioSummary({cards,hidden}){const {events}=useContext(Personal);return <PortfolioMetrics cards={cards} benefitEvents={events} hidden={hidden}/>;}
 export function CardBenefitDetails({card,hidden=false}){
  useI18n();const {events}=useContext(Personal),p=profileForCard(card);if(!p)return <FeeTracker card={card} benefitEvents={events} hidden={hidden}/>;

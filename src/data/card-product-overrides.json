@@ -660,6 +660,129 @@
     "art": null
   },
   {
+    "id": "chase-us-united-explorer-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "United MileagePlus"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-united-club-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/club-infinite",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "United MileagePlus"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/united/club-infinite",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-southwest-rapid-rewards-plus-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/plus",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "Southwest Rapid Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/southwest/plus",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-southwest-rapid-rewards-priority-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "Southwest Rapid Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/southwest/priority",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-southwest-rapid-rewards-premier-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/premier",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "Southwest Rapid Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/southwest/premier",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-marriott-bonvoy-boundless-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "Marriott Bonvoy"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-ihg-one-rewards-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/one-rewards",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "IHG One Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/one-rewards",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-world-of-hyatt-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "World of Hyatt"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-air-canada-aeroplan-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/aircanada/aeroplan",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "Air Canada Aeroplan"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/aircanada/aeroplan",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-ink-business-premier-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/ink/premier",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed"
+  },
+  {
     "id": "chase-us-freedom-unlimited",
     "art": {
       "file": "chase-freedom-unlimited.png",
