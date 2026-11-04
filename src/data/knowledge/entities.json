@@ -371,6 +371,24 @@
       "name": "The Leading Hotels of the World Leaders Club",
       "kind": "hotel",
       "aliases": []
+    },
+    {
+      "id": "programme.citi-thankyou",
+      "name": "Citi ThankYou Points",
+      "kind": "reward-currency",
+      "aliases": []
+    },
+    {
+      "id": "programme.aadvantage",
+      "name": "American Airlines AAdvantage",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.capital-one-miles",
+      "name": "Capital One Miles",
+      "kind": "reward-currency",
+      "aliases": []
     }
   ]
 }
