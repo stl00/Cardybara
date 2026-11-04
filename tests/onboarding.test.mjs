@@ -75,6 +75,8 @@ test('bank guide resumes a new wallet after login without already knowing its ca
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:[]},doc),false);password=false;
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:[]},doc),true);
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:['9999']},doc),false);
+ // The guide recognises the masked forms discovery accepts, on any bank.
+ for(const [text,ready] of [['Visa ending in 1234',true],['信用卡 尾號 1234',true],['Visa 1234',false]])assert.equal(c.cardyGuidePageReady({bank:'BOA',tails:[]},{body:{innerText:text},querySelectorAll:s=>s==='input[type=password]'?[]:[el(text)]}),ready,text);
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:['2345']},doc),true);
  doc.querySelectorAll=()=>[];assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:[]},doc),false);
 });
@@ -94,6 +96,8 @@ test('Amex Canada is archived: off by default, code kept, and a wallet holding i
  const card=newWalletCard({bank:'Amex CA',name:'Existing Card',tail:'12345'},'held-ca'),upgraded=merge({cards:[],connections:seed.connections},[card]);
  assert.deepEqual(visibleConnections(upgraded).map(c=>c.bank).filter(b=>b==='Amex CA'),['Amex CA']);assert.equal(upgraded.cards[0].id,'held-ca');
  assert.ok(!visibleConnections(merge({cards:[],connections:seed.connections},[])).some(c=>c.bank==='Amex CA'));
+ // A wallet saved before a new bank was added still gets its row.
+ assert.ok(merge({cards:[],connections:[{bank:'Chase'}]},[]).connections.some(c=>c.bank==='Citi US'));
  assert.deepEqual(defaultRefreshBanks([held]),[],'only archived cards leave nothing to refresh');
  assert.deepEqual(selectableBanks(['Amex CA','Chase'],[chase]),['Chase']);assert.deepEqual(selectableBanks(['Amex CA','Chase'],[held]),['Amex CA','Chase']);
  for(const [file,use] of [['../src/main.jsx',/defaultRefreshBanks\(data\.cards\);if\(!banks\.length\)/],['../src/main.jsx',/selectableBanks\(Object\.keys\(bankNames\)/],['../src/BankConnections.jsx',/visibleConnections\(data\)\.map/],['../src/AgentPanel.jsx',/visibleConnections\(data\)\.map/]])assert.match(readFileSync(new URL(file,import.meta.url),'utf8'),use,file);
