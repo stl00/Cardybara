@@ -29,7 +29,7 @@ needles=os.environ.get('CARDYBARA_PRIVATE_NEEDLES')
 private=private_scan.matcher(private_scan.load_values(needles)) if needles else None
 if private:
  for n in paths:
-  if private_scan.scannable(n) and private_scan.hit(private,(r/n).read_bytes()):raise SystemExit('Owner private value in: '+n)
+  if private_scan.scannable(n) and private_scan.hit(private,(r/n).read_bytes()):raise SystemExit('Owner private value in: '+private.label(n))
 if '--package' in sys.argv:
  cfg=json.loads((r/'release.json').read_text());p=r/'release'/('cardybara-'+cfg['label']+'.zip')
  p=next((Path(a.split('=',1)[1]) for a in sys.argv if a.startswith('--package-file=')),p)
