@@ -33,4 +33,12 @@ test('real credit tasks reach the view with categories and stay sorted by end da
  const cards=JSON.parse(readFileSync(new URL('./fixtures/wallet-products.json',import.meta.url),'utf8')).cards,view=creditView(creditTasks(cards,asOf),[],asOf);
  assert.ok(view.categories.length>=4);const ends=view.rows.map(r=>r.task.period.end);assert.deepEqual(ends,[...ends].sort());
 });
+test('a past month has ended, so nothing in it counts as ending soon',()=>{
+ const view=creditView(tasks,[],'2026-11-30',{live:false});assert.deepEqual(view.ending,[]);assert.ok(view.rows.every(r=>!r.endingSoon));assert.equal(view.open.length,3);
+});
+test('a category that empties out falls back to all instead of stranding the user',()=>{
+ const hotel=tasks[1],view=creditView(tasks,[mark(hotel,'used')],asOf,{category:'hotel'});
+ assert.equal(view.category,'all');assert.equal(view.filtered,false);assert.equal(view.rows.length,2);
+ assert.equal(creditView(tasks,[],asOf,{category:'hotel'}).category,'hotel');
+});
 test('an empty wallet produces an empty view',()=>{const view=creditView([],[],asOf);assert.deepEqual([view.rows,view.categories,view.ending],[[],[],[]]);});
