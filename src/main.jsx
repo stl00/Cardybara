@@ -52,7 +52,7 @@ import BenefitGuide from './BenefitGuide.jsx';
 import {BankIdentity,BankMark,RegionLabel,RegionFlag,CardIdentity,RewardRegion,rewardBank} from './Identity';
 const {Header,Sider,Content,Footer}=Layout,{Title,Text,Paragraph,Link}=Typography;
 const getCountries=()=> ({US:t("美国"),HK:t("香港"),CA:t("加拿大")});
-const getBankNames=()=> ({'Amex US':t("American Express 美国"),'Amex HK':t("American Express 香港"),'Amex CA':t("American Express 加拿大"),'HSBC HK':t("香港汇丰"),'SC HK':t("香港渣打"),'Chase':'Chase','BOA':'Bank of America'});
+const getBankNames=()=> ({'Citi US':'Citi','Amex US':t("American Express 美国"),'Amex HK':t("American Express 香港"),'Amex CA':t("American Express 加拿大"),'HSBC HK':t("香港汇丰"),'SC HK':t("香港渣打"),'Chase':'Chase','BOA':'Bank of America'});
 const urls={'Amex US':'https://www.americanexpress.com/en-us/account/login','Amex HK':'https://www.americanexpress.com/zh-hk/account/login','Citi US':'https://www.citi.com/','Amex CA':'https://www.americanexpress.com/en-ca/account/login','Chase':'https://secure.chase.com/web/auth/?treatment=chase','HSBC HK':'https://www.hsbc.com.hk/','SC HK':'https://www.sc.com/hk/','BOA':'https://www.bankofamerica.com/'};
 const showArchivedHighlights=false;
 const getPages=()=> ([['overview',t("总览"),<AppstoreOutlined/>],['wallet',t("卡片钱包"),<CreditCardOutlined/>],['rewards',t("积分账户"),<WalletOutlined/>],['benefits',t("福利进度"),<GiftOutlined/>],['offers',t("卡片优惠"),<TagsOutlined/>],['transactions',t("交易记录"),<SwapOutlined/>],['connections',t("银行连接"),<LinkOutlined/>],['catalog',t('卡片资料库'),<CreditCardOutlined/>],['credits',t('本期福利'),<GiftOutlined/>],['advisor',t('用卡助手'),<GiftOutlined/>],['guide',t('福利资料库'),<GiftOutlined/>],['settings',t('设置'),<BankOutlined/>]]);
