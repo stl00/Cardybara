@@ -101,3 +101,5 @@ inspectRuleRequirements只是解释已知部分条件：缺失为unknown，已�
 2026-10-29：coupon book 专项标准见 [COUPON_BOOK_STANDARD.md](COUPON_BOOK_STANDARD.md)。当前62条活跃credit/promo记录中，22条新增结构化领取与排除条件；40条仍为摘要，不能称完整核对。另有2027-01-01才生效的MS住宿修订。
 
 2026-11-04：MR US、MR HK、UR 的转点比例、门槛和时间已按官方页面核对，见 [TRANSFER_COVERAGE.md](TRANSFER_COVERAGE.md)。转点改为每个计划和伙伴一条记录（`rule.programme.*`），用 productIds 列出适用卡；旧的逐卡记录新增 `withdrawn` 修订后退出当前查询，历史查询仍可见。
+
+2026-11-04：美国常见卡片按批次录入，见 [US_CARD_COVERAGE.md](US_CARD_COVERAGE.md)。批次资料在 `card-batches/`，每条事实带发卡行原文；`scripts/curate-card-batch.py --pages` 会逐条核对原文确实出现在保存的官方页面里。

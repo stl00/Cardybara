@@ -154,7 +154,24 @@
   "海外消费": "general",
   "餐饮及酒店": "general",
   "其他港币消费": "general",
-  "Amex预付酒店": "hotel"
+  "Amex预付酒店": "hotel",
+  "加油站、充电和指定度假屋": "ground-transport",
+  "指定流媒体和线上杂货": "shopping",
+  "其他旅行": "travel",
+  "货运、社交媒体和搜索广告、网络电话和旅行": "general",
+  "办公用品、网络电话": "shopping",
+  "加油站和餐厅": "general",
+  "所有消费": "general",
+  "每季轮换类别": "general",
+  "Chase Travel 和 The Edit": "travel",
+  "直订航班和酒店": "travel",
+  "社交媒体和搜索广告": "general",
+  "直订航班或 Amex Travel 机票": "airline",
+  "Amex Travel 预付酒店": "hotel",
+  "AmexTravel.com 机票和预付酒店": "travel",
+  "主要商业类别或5,000美元以上消费": "general",
+  "每个账单周期消费最高的两个类别": "general",
+  "所有合资格消费": "general"
  },
  "brands": [
   {
