@@ -160,6 +160,9 @@ test('the wallet keeps a removal through reloads and discovery until the user ad
  assert.deepEqual(pendingRemovals({records:{Chase:{'manual-one':{}}},discoveredCards:[]},next.removed).map(r=>r.id),['manual-one']);
  assert.deepEqual(pendingRemovals({records:{},discoveredCards:[{bank:'Chase',tail:'9999'}]},next.removed).map(r=>r.id),['seed-one']);
  assert.deepEqual(pendingRemovals({records:{},discoveredCards:[]},next.removed),[],'applied removals are not sent again');
+ assert.deepEqual(pendingRemovals({run:{status:'running'},records:{Chase:{'manual-one':{}}},discoveredCards:[]},next.removed),[],'not sent during a run, when the worker would refuse');
+ const typed=newWalletCard({bank:'Chase',name:'Correct name',tail:'9999'},'manual-new');assert.deepEqual(mergeWalletCards(withoutRemoved({cards:[seed]},next.removed),[typed]).cards.map(c=>c.id),['manual-new'],'a manual add of a removed seed tail shows the new card, not the seed row');
+ const hidden={id:'discovered-chase-9999',bank:'Chase',tail:'9999',identitySource:'bank-page'};assert.deepEqual(removeWalletCard([hidden,keep],[],seed).registry.map(c=>c.id),['manual-two'],'a registry row hidden by the removed card goes with it');
  const live={Chase:{status:'updated',patches:[{id:'manual-one'},{id:'manual-two'}]}};assert.deepEqual(withoutLiveCard(live,manual).Chase.patches,[{id:'manual-two'}]);assert.equal(withoutLiveCard(live,seed),live);
 });
 test('the removal message reaches the worker through the page bridge',()=>{
