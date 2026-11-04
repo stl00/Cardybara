@@ -15,7 +15,7 @@ export function request(m){
  if(m.type!=='refresh'||!keys(m,['type','requestId','banks','cards','cardId','channel'])||!Array.isArray(m.banks)||!m.banks.length||m.banks.length>7||new Set(m.banks).size!==m.banks.length||m.banks.some(b=>!Object.hasOwn(PROVIDERS,b))||!Array.isArray(m.cards)||m.cards.length>40)throw Error('invalid_scope');
  const ids=new Set();
  for(const c of m.cards){
-  if(!keys(c,['id','bank','tail','currency'])||!token(c.id)||ids.has(c.id)||!Object.hasOwn(PROVIDERS,c.bank)||!/^\d{4,5}$/.test(c.tail)||c.currency!==PROVIDERS[c.bank].currency)throw Error('invalid_card');ids.add(c.id);
+  if(!keys(c,['id','bank','tail','currency'])||!token(c.id)||ids.has(c.id)||!Object.hasOwn(PROVIDERS,c.bank)||!/^\d{4,5}$/.test(c.tail)||!(PROVIDERS[c.bank].cardCurrencies||[PROVIDERS[c.bank].currency]).includes(c.currency))throw Error('invalid_card');ids.add(c.id);
  }
  if(m.cardId!==undefined&&(!token(m.cardId)||m.banks.length!==1||!m.cards.some(c=>c.id===m.cardId&&c.bank===m.banks[0])))throw Error('invalid_card_scope');
  return m;

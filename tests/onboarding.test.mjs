@@ -4,6 +4,25 @@ import {newWalletCard,mergeWalletCards,withoutRemoved,withoutRemovedCards,remove
 import {PROVIDERS} from '../extension-next/providers.js';
 import {request} from '../extension-next/protocol.js';
 import {normalizeDiscoveredCards,discoverVisibleCards} from '../extension-next/discovery.js';
+test('a CNY card stays CNY from discovery through the wallet, a second refresh and the snapshot',async()=>{
+ const {request}=await import('../extension-next/protocol.js'),{collectorSnapshot}=await import('../src/collector.js');
+ const found=normalizeDiscoveredCards('HSBC HK',[{tail:'9012',name:'Synthetic',currency:'CNY'},{tail:'1234',name:'Other',currency:'HKD'}]);
+ const wallet=mergeWalletCards({cards:[],connections:[]},found).cards;assert.deepEqual(wallet.map(c=>c.currency),['CNY','HKD']);
+ const stale=[{...wallet[0],currency:'HKD'},wallet[1]];assert.deepEqual(mergeWalletCards({cards:stale,connections:[]},found).cards.map(c=>c.currency),['CNY','HKD'],'a stored currency follows the bank page');
+ const manual={...wallet[0],currency:'HKD',identitySource:'manual'};assert.equal(mergeWalletCards({cards:[manual],connections:[]},found).cards[0].currency,'HKD','a manual card is left alone');
+ const refresh=wallet.map(({id,bank,tail,currency})=>({id,bank,tail,currency}));
+ assert.equal(request({type:'refresh',requestId:'r1',banks:['HSBC HK'],cards:refresh}).cards[0].currency,'CNY');
+ assert.throws(()=>request({type:'refresh',requestId:'r1',banks:['HSBC HK'],cards:[{...refresh[0],currency:'USD'}]}),/invalid_card/);
+ assert.throws(()=>request({type:'refresh',requestId:'r1',banks:['Chase'],cards:[{...refresh[0],bank:'Chase'}]}),/invalid_card/);
+ const f={value:67.89,currency:'CNY',capturedAt:new Date().toISOString(),source:{issuer:'HSBC',region:'HK',page:'account-overview'},locale:'zh-HK',status:'observed',adapterVersion:'1.1.0'};
+ const live=collectorSnapshot({schema:2,revision:1,run:null,disabled:[],records:{'HSBC HK':{[wallet[0].id]:{balance:f}}}},wallet);assert.equal(live['HSBC HK'].patches[0].fields.balance,67.89);
+});
+test('a discovered card keeps a printed currency only when its bank supports it',()=>{
+ assert.equal(normalizeDiscoveredCards('HSBC HK',[{tail:'1234',name:'A',currency:'CNY'}])[0].currency,'CNY');
+ assert.equal(normalizeDiscoveredCards('HSBC HK',[{tail:'1234',name:'A'}])[0].currency,'HKD');
+ assert.deepEqual(normalizeDiscoveredCards('HSBC HK',[{tail:'1234',name:'A',currency:'USD'}]),[]);
+ assert.deepEqual(normalizeDiscoveredCards('Chase',[{tail:'1234',name:'A',currency:'CNY'}]),[]);
+});
 import {Engine} from '../extension-next/engine.js';
 import vm from 'node:vm';
 import {readFileSync} from 'node:fs';
@@ -75,6 +94,8 @@ test('bank guide resumes a new wallet after login without already knowing its ca
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:[]},doc),false);password=false;
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:[]},doc),true);
  assert.equal(c.cardyGuidePageReady({bank:'Chase',tails:['9999']},doc),false);
+ // HSBC prints full numbers in its rows. A deposit account's shape doesn't count as signed in with a card.
+ for(const [row,ready] of [['Card\n4000-0000-0000-1234',true],['Deposit\n111-222222-333',false]])assert.equal(c.cardyGuidePageReady({bank:'HSBC HK',tails:[]},{body:{innerText:row},querySelectorAll:s=>s==='input[type=password]'?[]:s.includes('account-container')?[el(row)]:[]}),ready,row);
  // SC HK prints no masked tail: signed-in pages are ready with or without registered cards, and a code prompt is not.
  const previousLocation=c.location;
  for(const [path,text,tails,ready] of [['/hk/nfs/ibank/landing.htm','Welcome',[],true],['/hk/nfs/ibank/landing.htm','Welcome',['4321'],true],['/hk/nfs/login.htm','Sign in',['4321'],false],['/hk/nfs/ibank/landing.htm','Enter your one-time password',['4321'],false],['/hk/nfs/ibank/landing.htm','About SMS alerts in the menu',['4321'],true]]){c.location={pathname:path};const box=/Enter your/.test(text);assert.equal(c.cardyGuidePageReady({bank:'SC HK',tails},{body:{innerText:text},querySelectorAll:s=>box&&s.includes('type=text')?[el('')]:[]}),ready,path+text);}

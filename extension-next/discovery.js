@@ -24,6 +24,15 @@ export function discoverVisibleCards(bank,locales){
  // BOA lists cards as links under the group headed "Credit cards", separate from deposit accounts.
  const boaGroup=bank==='BOA'?[...document.querySelectorAll('[id^="account-card-container-"]')].find(g=>/^credit cards?$/i.test((g.querySelector?.('h3')?.innerText||'').trim())):null;
  if(boaGroup){const cards=[...boaGroup.querySelectorAll('a')].filter(a=>visible(a)&&/\/myaccounts\/brain\/redirect\.go\?(?:.*&)?target=acctDetails(?:&|$)/.test(a.href||'')).flatMap(a=>{const text=(a.innerText||'').trim(),tail=text.match(/\s-\s(\d{4,5})$/)?.[1];return tail&&text.length<=120&&!/(?:\d[ -]?){9,}/.test(text)?[{tail,name:text.replace(/\s-\s\d{4,5}$/,'').slice(0,100)}]:[];});return {status:cards.length?'found':'no_data',cards};}
+ // HSBC lists every account as a row and prints a card's full number, so the number's shape separates cards from deposit accounts. Only its last four digits leave this function.
+ if(bank==='HSBC HK'){
+  const FULL=/(?<!\d)\d{4}[- ]\d{4}[- ]\d{4}[- ](\d{4})(?!\d)/,rows=[...document.querySelectorAll('[id^="account-container-"],button[id^="dropdown-item-"]')].filter(visible);let left=0;
+  const listed=rows.flatMap(row=>{const text=(row.innerText||'').trim(),tail=text.match(FULL)?.[1];if(!tail)return [];const name=text.split('\n').map(s=>s.trim()).find(s=>s&&!/\d{3}/.test(s))||'',currency=text.match(/\b(HKD|CNY|USD)\b/)?.[1];if(NEVER_A_CARD.test(name)||!['HKD','CNY'].includes(currency)){left++;return [];}return [{tail,name:name.slice(0,100),currency}];});
+  if(listed.length)return {status:'found',cards:listed,...(left?{skipped:left}:{})};
+  // A selected card shows no list; report that card only.
+  const title=[...document.querySelectorAll('[id="account-summary-name"]')].find(visible),number=[...document.querySelectorAll('[id="account-number-value"]')].find(visible),tail=(number?.innerText||'').match(FULL)?.[1];
+  if(title&&tail&&!NEVER_A_CARD.test(title.innerText||''))return {status:'found',cards:[{tail,name:(title.innerText||'').replace(/\d/g,'').trim().slice(0,100),currency:/人民幣|人民币|\bRMB\b|\bCNY\b/i.test(title.innerText||'')?'CNY':'HKD'}]};
+ }
  const roots=[document];for(let i=0;i<roots.length&&i<100;i++)for(const e of roots[i].querySelectorAll('*'))if(e.shadowRoot)roots.push(e.shadowRoot);
  const cards=[];
  for(const el of roots.flatMap(r=>[...r.querySelectorAll(selectors)]).filter(visible)){
@@ -47,9 +56,9 @@ export function normalizeDiscoveredCards(bank,rows){
  const p=PROVIDERS[bank];if(!p||!Array.isArray(rows)||rows.length>40)throw Error('invalid_discovery');
  const result=new Map();
  for(const row of rows){
-  if(!row||Object.keys(row).some(k=>!['tail','name'].includes(k))||typeof row.tail!=='string'||!/^\d{4,5}$/.test(row.tail)||typeof row.name!=='string'||row.name.length>100||/[<>\u0000-\u001f]/.test(row.name)||/(?:\d[ -]?){9,}/.test(row.name))continue;
+  if(!row||Object.keys(row).some(k=>!['tail','name','currency'].includes(k))||(row.currency!==undefined&&!(p.cardCurrencies||[p.currency]).includes(row.currency))||typeof row.tail!=='string'||!/^\d{4,5}$/.test(row.tail)||typeof row.name!=='string'||row.name.length>100||/[<>\u0000-\u001f]/.test(row.name)||/(?:\d[ -]?){9,}/.test(row.name))continue;
   const id=`discovered-${bank.toLowerCase().replaceAll(' ','-')}-${row.tail}`;
-  result.set(row.tail,{id,bank,region:p.region,currency:p.currency,tail:row.tail,name:row.name||`${p.issuer} •••• ${row.tail}`,identitySource:'bank-page'});
+  result.set(row.tail,{id,bank,region:p.region,currency:row.currency||p.currency,tail:row.tail,name:row.name||`${p.issuer} •••• ${row.tail}`,identitySource:'bank-page'});
  }
  return [...result.values()];
 }

@@ -1,0 +1,9 @@
+{
+  "id": "hsbc-hk-zh-account-detail-labels",
+  "provenance": "Label order and value shapes observed on the zh-HK dashboard, 2026-11-04. All values and the card number are synthetic.",
+  "bank": "HSBC HK",
+  "locale": "zh-HK",
+  "card": {"id":"fixture-hsbc-zh","bank":"HSBC HK","tail":"1234","currency":"HKD"},
+  "text": "Synthetic 信用卡\n戶口號碼:\n4000-0000-0000-1234\n4000-0000-0000-1234\n「獎賞錢」結餘:\n12\n戶口結餘:\n-1,234.56\nHKD\n最新應繳結欠\n321.00 HKD\n最低付款總額\n35.00 HKD\n目前最低付款額\n1.00 HKD\n上一期結單結欠／結餘\n777.00 HKD\n付款到期日\n2030年12月19日",
+  "expected": {"balance":1234.56,"statement":321,"minimum":35}
+}

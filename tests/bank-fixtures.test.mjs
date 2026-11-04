@@ -8,6 +8,11 @@ vm.runInContext(fs.readFileSync(new URL('../extension-next/reader.js',import.met
 const reader=context.self.CardyReader;
 const fixture=JSON.parse(fs.readFileSync(new URL('./fixtures/banks/amex-ca-overview.json',import.meta.url),'utf8'));
 const hsbcFixture=JSON.parse(fs.readFileSync(new URL('./fixtures/banks/hsbc-hk-card-details.json',import.meta.url),'utf8'));
+test('HSBC zh-HK labels: a debt reads positive, and the current minimum and last statement stay apart',()=>{
+ const f=JSON.parse(fs.readFileSync(new URL('./fixtures/banks/hsbc-hk-zh-card-details.json',import.meta.url),'utf8'));
+ assert.deepEqual(JSON.parse(JSON.stringify(reader.parseAccount(f.text,f.bank,f.card,f.locale,'2030-01-01T00:00:00Z').fields)),f.expected);
+ assert.deepEqual(JSON.parse(JSON.stringify(reader.issuerDue(f.text.split('\n'),f.bank,f.card).map(i=>[i.key,i.date]))),[['due','2030-12-19']]);
+});
 test('HSBC detail labels preserve credit sign and explicit zero statement/minimum',()=>{
  const f=hsbcFixture;
  const r=reader.parseAccount(f.text,f.bank,f.card,f.locale,'2026-10-26T14:00:00Z');
@@ -52,6 +57,8 @@ test('HSBC authentication pages are distinguished from unread financial fields',
  assert.equal(reader.authState('HSBC HK','/security','Username | Log on | HSBC'),'needs_login');
  assert.equal(reader.authState('HSBC HK','/security','Security code | Log on | HSBC'),'needs_confirmation');
  assert.equal(reader.authState('HSBC HK','/online/dashboard','Password | Log on | HSBC'),null);
+ assert.equal(reader.authState('HSBC HK','/zh-hk/','滙豐香港'),'needs_login','an ended session lands on the public home page');
+ assert.equal(reader.authState('HSBC HK','/zh-hk/online/dashboard/','主頁'),null);
  assert.equal(reader.authState('Chase','/security','Password | Log on | HSBC'),null);
 });
 
