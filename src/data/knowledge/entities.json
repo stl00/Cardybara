@@ -207,7 +207,7 @@
     {
       "id": "programme.hilton-honors",
       "name": "Hilton Honors",
-      "kind": "partner",
+      "kind": "hotel",
       "aliases": []
     },
     {
@@ -219,7 +219,7 @@
     {
       "id": "programme.all-accor",
       "name": "ALL Accor",
-      "kind": "partner",
+      "kind": "hotel",
       "aliases": []
     },
     {
@@ -267,7 +267,7 @@
     {
       "id": "programme.cathay-asia-miles",
       "name": "Cathay Asia Miles",
-      "kind": "partner",
+      "kind": "airline",
       "aliases": []
     },
     {
