@@ -25,6 +25,13 @@ export async function capturePage(bank,cards,contextIds=[]){
   const until=Date.now()+12000;while(!ready()&&Date.now()<until)await new Promise(r=>setTimeout(r,200));
  }
  if(bank==='HSBC HK'&&hsbcById('account-summary-name')){const selected=hsbcIdentity();const scoped=cards.filter(c=>new RegExp('(?:^|[^0-9])'+c.tail+'(?:[^0-9]|$)').test(selected));if(scoped.length!==1)return {error:'card_not_identified'};matches=scoped;selectedCardId=scoped[0].id;}
+ // Citi card dashboard: the card's own "Name - tail" line sits directly above its Current Balance. A wait covers the previous card still on screen.
+ let citiBlock=null;
+ if(bank==='Citi US'&&/^\/US\/ag\/dashboard\/credit-card\/?$/.test(location.pathname)){
+  const find=()=>{const lines=(document.body?.innerText||'').split('\n').map(t=>t.trim()).filter(Boolean),at=lines.findIndex((l,i)=>/\s-\s\d{4,5}$/.test(l)&&/^current balance$/i.test(lines[i+1]||''));if(at<0)return null;const stop=lines.findIndex((l,i)=>i>at&&/^make payment$/i.test(l));return {tail:lines[at].match(/(\d{4,5})$/)[1],heading:lines[at],block:lines.slice(at,stop>at?stop:at+24)};};
+  const wanted=contextIds.length===1?cards.find(c=>c.id===contextIds[0])?.tail:null,until=Date.now()+10000;citiBlock=find();while((!citiBlock||(wanted&&citiBlock.tail!==wanted))&&Date.now()<until){await new Promise(r=>setTimeout(r,200));citiBlock=find();}
+  const card=citiBlock&&cards.find(c=>c.tail===citiBlock.tail);if(!card)return {error:'card_not_identified'};matches=[card];selectedCardId=card.id;
+ }
  let scPage=null;
  if(bank==='SC HK'&&/\/card_details\.htm$/.test(location.pathname)&&self.CardyReader?.scDetails){scPage=self.CardyReader.scDetails(cards);if(!scPage?.card)return {error:'card_not_identified'};matches=[scPage.card];selectedCardId=scPage.card.id;}
  // BOA account details: the page's own heading names the card, outside any link or button.
@@ -64,7 +71,9 @@ export async function capturePage(bank,cards,contextIds=[]){
  if(bank==='Amex US'&&selectedCardId&&self.CardyReader?.issuerDue&&/^\/(?:dashboard|overview)\/?$/.test(location.pathname)){
   for(const item of self.CardyReader.issuerDue(body.split('\n').map(t=>t.trim()).filter(Boolean),bank,matches.find(c=>c.id===selectedCardId))){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
  }
- if(scPage?.text){
+ if(citiBlock){
+  for(const item of self.CardyReader.issuerBilling(citiBlock.block.join('\n'),bank,matches[0])){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
+ }else if(scPage?.text){
   for(const item of self.CardyReader.issuerBilling(scPage.text,bank,scPage.card)){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
   // Nothing else from this page leaves it: it prints the full card number, in forms redaction may not catch.
   return {pageHref:location.href,empty:[],coverage:[],notCollected:[],observations,blocks,aliases,links:[],capturedAt:new Date().toISOString(),rulesComplete:true};
@@ -72,7 +81,7 @@ export async function capturePage(bank,cards,contextIds=[]){
   // The billing block runs from the current balance to the payment control. Below it are transactions.
   const lines=(document.body?.innerText||'').split('\n').map(t=>t.trim()).filter(Boolean),from=lines.findIndex(t=>/^current balance:?$/i.test(t)),to=lines.findIndex((t,i)=>i>from&&/^make payment$/i.test(t)),block=from<0?[]:lines.slice(from,to>from?to:from+40);
   for(const item of self.CardyReader.issuerBilling(boaHeading+'\n'+block.join('\n'),bank,matches[0])){const evidence='[C1]\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
- }else if(['BOA','SC HK','Citi US'].includes(bank)&&self.CardyReader?.issuerBilling){
+ }else if(['BOA','SC HK'].includes(bank)&&self.CardyReader?.issuerBilling){
   for(const alias of aliases){
    const card=matches.find(c=>c.id===alias.cardId),others=cards.filter(c=>c.id!==card.id).map(c=>c.tail),items=self.CardyReader.issuerBilling(self.CardyReader.issuerScope(card.tail,others),bank,card,others,alias.id);
    for(const item of items){const evidence='['+alias.id+']\n'+replace(item.evidence);blocks.push({id:'B'+(blocks.length+1),text:evidence});observations.push({...item,evidence});size+=evidence.length;}
@@ -166,7 +175,7 @@ export async function capturePage(bank,cards,contextIds=[]){
  const links=[];
  for(const a of query('a[href]')){if(!visible(a)||a.closest('footer,header,nav,[id=\"cardybara-bank-guide\"]'))continue;let label=replace(a.innerText||'').trim();if(/\/offers(?:\?|$)/.test(a.href))label='優惠 · '+label;if(/\/(?:activity(?:\/(?:recent|transactions))?|transactions)\/?(?:[?#]|$)/.test(a.href))label='交易 · '+label;if(label&&label.length<100)links.push({label,href:a.href});if(links.length>=150)break;}
  const empty=[];if(matches.length===1){const id=matches[0].id;const area=document.querySelector('main')?.innerText||'';if(/^\/activity(?:\/(?:recent|transactions|statement))?$/.test(location.pathname)&&/(?:您在此賬單週期內沒有賬項[。.]?|您在此账单周期内没有账项[。.]?|沒有最近交易|没有最近交易|No recent transactions|No transactions (?:to display|found)|You don.t have any transactions since your last statement\.)/i.test(area))empty.push({kind:'transaction',cardId:id})}
- if(selectedCardId){const currentHeader=boaHeading?boaHeadingsNow():(bank==='HSBC HK'?hsbcIdentity():query('button[aria-label="open_title"],[role="combobox"][aria-label="Open to manage your other accounts"]').filter(visible).map(e=>e.innerText||'').join('\n'));const selected=cards.find(c=>c.id===selectedCardId);if(!new RegExp('(?:^|[^0-9])'+selected.tail+'(?:[^0-9]|$)').test(currentHeader))return {error:'document_changed'};}
+ if(selectedCardId){const currentHeader=citiBlock?citiBlock.heading:boaHeading?boaHeadingsNow():(bank==='HSBC HK'?hsbcIdentity():query('button[aria-label="open_title"],[role="combobox"][aria-label="Open to manage your other accounts"]').filter(visible).map(e=>e.innerText||'').join('\n'));const selected=cards.find(c=>c.id===selectedCardId);if(!new RegExp('(?:^|[^0-9])'+selected.tail+'(?:[^0-9]|$)').test(currentHeader))return {error:'document_changed'};}
  if(bank==='HSBC HK'&&selectedCardId){const area=query('.cc-transaction-history-container p.zero-transaction').find(visible);if(area&&/^There are no transactions to display\.$/i.test(area.innerText.trim())&&!query('#loading-spinner').some(visible))empty.push({kind:'transaction',cardId:selectedCardId});}
  const coverage=[];
  if(bank.startsWith('Amex ')&&matches.length===1&&location.pathname.startsWith('/offers')&&selectedOffer){const counter=offerLabel(selectedOffer).match(/\((\d+)\)/);if(counter)coverage.push({kind:'offer',cardId:matches[0].id,view:offerView,expected:Number(counter[1]),confirmedEmpty:/(?:No offers (?:are )?available|You have no (?:available|registered) offers|暫時未有(?:可用)?優惠|暂时没有(?:可用)?优惠)/i.test(document.querySelector('main')?.innerText||body)});}

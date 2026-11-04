@@ -10,7 +10,7 @@ import {openBrowser,parseActivePort} from '../scripts/dev-collector/chrome-launc
 import {createChromeAdapter,hostPermissions} from '../scripts/dev-collector/chrome-adapter.mjs';
 import {syntheticPrepareTab} from '../scripts/dev-collector/synthetic-bank.mjs';
 import {chaseCards} from '../extension-next/chase-navigation.js';
-import {boaCards} from '../extension-next/card-navigation.js';
+import {boaCards,citiCards} from '../extension-next/card-navigation.js';
 import {discoverVisibleCards} from '../extension-next/discovery.js';
 import {hsbcCards,hsbcMoreDetails} from '../extension-next/hsbc-navigation.js';
 import {injectableStructureReport} from '../scripts/dev-collector/structure-report.js';
@@ -148,25 +148,27 @@ test('collection scripts and the structure report still run under a strict page 
  }finally{await run.stop();}
 });
 
-for(const [bank,url,cards,want] of [
- ['Citi US','https://www.citi.com/',['2345','6789'],[{balance:1234.56,available:8765.44,statement:321,minimum:35,due:'2030-12-19'},{balance:67.89,available:4932.11,statement:0}]],
-])test('capture scopes each '+bank+' card on one page and reads its billing fields',async()=>{
+test('Citi US: cards come from their details links, and billing from the card dashboard',async()=>{
  const run=await start();
  try{
   const {chrome}=run.adapter,events=[];chrome.tabs.onUpdated.addListener((id,c)=>events.push(c));
-  const tab=await chrome.tabs.create({url,active:false});await until(()=>events.some(e=>e.status==='complete'));
+  const tab=await chrome.tabs.create({url:'https://www.citi.com/',active:false});await until(()=>events.some(e=>e.status==='complete'));
   const exec=(func,args=[])=>chrome.scripting.executeScript({target:{tabId:tab.id},func,args}).then(r=>r[0].result);
-  await exec(()=>{document.getElementById('sign-in').click();});
-  await chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']});
-  const found=await exec(discoverVisibleCards,[bank,bank==='SC HK'?['zh-HK']:['en-US']]);assert.deepEqual([...new Set(found.cards.map(c=>c.tail))],cards);
-  const list=cards.map(tail=>({id:'c'+tail,bank,tail,currency:bank==='SC HK'?'HKD':'USD'}));
-  const raw=await exec(capturePage,[bank,list,[]]);assert.equal(raw.error,undefined);
-  for(const [i,tail] of cards.entries()){
-   const alias=raw.aliases.find(a=>a.cardId==='c'+tail).id,got=Object.fromEntries(raw.observations.filter(o=>o.cardId===alias&&o.key!=='paymentStatus').map(o=>[o.key,o.key==='due'?o.date:o.value]));
-   assert.deepEqual(got,want[i],tail);
+  let mark=events.length;await exec(()=>{document.getElementById('sign-in').click();});await until(()=>exec(()=>/summary/.test(location.pathname)&&!!document.querySelector('h2')).catch(()=>false));
+  // The www host signs in; the real summary lives on online.citi.com.
+  mark=events.length;await chrome.tabs.update(tab.id,{url:'https://online.citi.com/'});await until(()=>events.slice(mark).some(e=>e.status==='complete'));
+  await exec(()=>{sessionStorage.setItem('synthetic-signed-in','1');location.href='/US/ag/dashboard/summary';});await until(()=>exec(()=>/summary/.test(location.pathname)&&!!document.querySelector('h2')).catch(()=>false));
+  const found=await exec(discoverVisibleCards,['Citi US',['en-US']]);assert.deepEqual(found.cards.map(c=>c.tail),['2345','6789'],'no checking account, no payment link');
+  const cards=found.cards.map(c=>({id:'c'+c.tail,bank:'Citi US',tail:c.tail,currency:'USD'}));
+  assert.deepEqual(await exec(citiCards,['list',null]),['2345','6789']);assert.deepEqual(await exec(citiCards,['select','0001']),[]);
+  for(const [tail,want,due] of [['2345',{balance:1234.56,available:8765.44,creditLimit:10000,statement:321,minimum:35},'2030-12-19'],['6789',{balance:-7.2,available:4932.11,creditLimit:5000,statement:0,minimum:0},'2030-12-20']]){
+   const sel=await exec(citiCards,['select',tail]);assert.match(sel.arriving,/\/US\/ag\/dashboard\/credit-card$/);
+   await until(()=>exec(()=>/credit-card/.test(location.pathname)).catch(()=>false));
+   await until(()=>chrome.scripting.executeScript({target:{tabId:tab.id},files:['reader.js']}).then(()=>true).catch(()=>false));
+   const raw=await exec(capturePage,['Citi US',cards,['c'+tail]]);assert.equal(raw.error,undefined,tail);assert.deepEqual(raw.aliases.map(a=>a.cardId),['c'+tail]);
+   assert.deepEqual(Object.fromEntries(raw.observations.filter(o=>o.kind==='card').map(o=>[o.key,o.value])),want,tail);assert.equal(raw.observations.find(o=>o.key==='due')?.date,due);assert.ok(!raw.observations.some(o=>o.kind==='reward'));
+   mark=events.length;await chrome.tabs.update(tab.id,{url:'https://online.citi.com/US/ag/dashboard/summary'});await until(()=>exec(()=>/summary/.test(location.pathname)&&!!document.querySelector('h2')).catch(()=>false));
   }
-  assert.ok(!raw.observations.some(o=>o.kind==='reward'),'rewards are out of scope for these banks');
-  assert.ok(raw.observations.some(o=>o.key==='paymentStatus'&&o.cardId===raw.aliases.find(a=>a.cardId==='c'+cards[1]).id));
  }finally{await run.stop();}
 });
 
