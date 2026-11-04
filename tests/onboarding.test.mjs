@@ -8,6 +8,8 @@ test('a CNY card stays CNY from discovery through the wallet, a second refresh a
  const {request}=await import('../extension-next/protocol.js'),{collectorSnapshot}=await import('../src/collector.js');
  const found=normalizeDiscoveredCards('HSBC HK',[{tail:'9012',name:'Synthetic',currency:'CNY'},{tail:'1234',name:'Other',currency:'HKD'}]);
  const wallet=mergeWalletCards({cards:[],connections:[]},found).cards;assert.deepEqual(wallet.map(c=>c.currency),['CNY','HKD']);
+ const stale=[{...wallet[0],currency:'HKD'},wallet[1]];assert.deepEqual(mergeWalletCards({cards:stale,connections:[]},found).cards.map(c=>c.currency),['CNY','HKD'],'a stored currency follows the bank page');
+ const manual={...wallet[0],currency:'HKD',identitySource:'manual'};assert.equal(mergeWalletCards({cards:[manual],connections:[]},found).cards[0].currency,'HKD','a manual card is left alone');
  const refresh=wallet.map(({id,bank,tail,currency})=>({id,bank,tail,currency}));
  assert.equal(request({type:'refresh',requestId:'r1',banks:['HSBC HK'],cards:refresh}).cards[0].currency,'CNY');
  assert.throws(()=>request({type:'refresh',requestId:'r1',banks:['HSBC HK'],cards:[{...refresh[0],currency:'USD'}]}),/invalid_card/);

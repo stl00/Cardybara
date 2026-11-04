@@ -14,6 +14,9 @@ export function mergeWalletCards(base,extra=[]){
  const cards=[...base.cards];
  for(const c of extra){
   const clean=newWalletCard(c,c.id);
+  // The bank page is the authority on a card it listed, so a stored currency follows it rather than failing every reading.
+  const held=cards.findIndex(old=>old.id===clean.id&&old.identitySource==='bank-page'&&c.identitySource==='bank-page'&&c.currency&&old.currency!==clean.currency);
+  if(held>=0){cards[held]={...cards[held],currency:clean.currency};continue;}
   if(cards.some(old=>old.id===clean.id||old.bank===clean.bank&&old.tail===clean.tail))continue;
   if(cards.length>=40)throw Error('card_limit');
   cards.push({...clean,identitySource:c.identitySource==='bank-page'?'bank-page':'manual'});
