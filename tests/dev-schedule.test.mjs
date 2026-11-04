@@ -80,6 +80,20 @@ test('the package audit fails on a real zip holding a dev scheduling feature',()
   }
  }finally{rmSync(dir,{recursive:true,force:true});}
 });
+test('the parity check fails when the dev build runs different code from the release package',()=>{
+ const dir=mkdtempSync(join(tmpdir(),'cardybara-parity-test-'));
+ try{
+  const built=spawnSync(process.execPath,['scripts/build-dev-extension.mjs','--no-wallet'],{cwd:root,encoding:'utf8',env:{...process.env,CARDYBARA_DEV_EXTENSION_DIR:join(dir,'ext')}});assert.equal(built.status,0,built.stderr);
+  const manifest=JSON.parse(readFileSync(join(dir,'ext/manifest.json'),'utf8')),release={...manifest,permissions:manifest.permissions.filter(p=>p!=='idle'),host_permissions:manifest.host_permissions.filter(h=>!h.startsWith('http:'))};
+  writeFileSync(join(dir,'m.json'),JSON.stringify(release));
+  const make=(name,source)=>spawnSync('python3',['-c',"import sys,zipfile\nz=zipfile.ZipFile(sys.argv[1],'w');z.writestr('manifest.json',open(sys.argv[2]).read());z.writestr('reader.js',open(sys.argv[3]).read());z.close()",join(dir,name),join(dir,'m.json'),source]);
+  const check=(zip,dev=join(dir,'ext'))=>spawnSync('python3',['scripts/check-dev-parity.py','--dev-dir='+dev,'--package-file='+join(dir,zip)],{cwd:root,encoding:'utf8'});
+  make('same.zip',join(root,'extension-next/reader.js'));const same=check('same.zip');assert.equal(same.status,0,same.stdout+same.stderr);
+  writeFileSync(join(dir,'other.js'),readFileSync(join(root,'extension-next/reader.js'),'utf8')+'\n// changed\n');make('other.zip',join(dir,'other.js'));
+  const other=check('other.zip');assert.notEqual(other.status,0);assert.match(other.stdout+other.stderr,/differs from the release package: reader\.js/);
+  writeFileSync(join(dir,'ext/extra-reader.js'),'x');const extra=check('same.zip');assert.notEqual(extra.status,0);assert.match(extra.stdout+extra.stderr,/unexpected dev file: extra-reader\.js/);
+ }finally{rmSync(dir,{recursive:true,force:true});}
+});
 test('the local server stores a redacted report from the dev extension and refuses anything else',async()=>{
  const dir=mkdtempSync(join(tmpdir(),'cardybara-diag-'));process.env.CARDYBARA_DEV_DIAGNOSTICS_DIR=dir;
  const {createWalletHandler}=await import('../scripts/dev-server.mjs');const server=http.createServer(createWalletHandler({port:18791,staticFiles:false}));await new Promise(r=>server.listen(18791,'127.0.0.1',r));

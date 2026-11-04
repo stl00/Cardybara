@@ -47,7 +47,7 @@ if '--package' in sys.argv:
   assert 'manifest.json' in names and 'index.html' in names
   m=json.loads(z.read('manifest.json'));
   if m['background']['service_worker']!='background.js' or m['action'].get('default_popup')=='dev-popup.html' or 'idle' in m['permissions']:raise SystemExit('Dev-only scheduled refresh in package: manifest.json')
-  assert m['manifest_version']==3 and m['version']==cfg['version'];assert not m.get('content_scripts');assert not any(x.startswith('http:') for x in m['host_permissions'])
+  assert m['manifest_version']==3 and m['version']==cfg['version'];assert not m.get('content_scripts');assert 'notifications' not in m['permissions'] and 'notifications' in m['optional_permissions'],'Notifications must stay optional';assert not any(x.startswith('http:') for x in m['host_permissions'])
   d=json.loads(z.read('data.json'));assert d['cards']==[] and d['rewards']==[];assert d==json.loads((r/'public/data.example.json').read_text()),'Local and packaged empty-wallet seeds differ'
   for n in names:
    assert not n.startswith('/') and '..' not in Path(n).parts and not n.endswith(('.zip','.map','.env'))
