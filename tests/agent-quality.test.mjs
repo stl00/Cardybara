@@ -6,12 +6,12 @@ import {answerGrounding} from '../src/answerGrounding.js';
 import {runAgentTurn} from '../src/agentSession.js';
 import {validateChat} from '../scripts/chat-agent.mjs';
 const comparison={category:'dining',country:'US',currency:'USD',amount:100};
-const call={id:'c1',type:'function',function:{name:'compare_cards',arguments:JSON.stringify(comparison)}};
+const call={id:'c1',type:'function',function:{name:'choose_card',arguments:JSON.stringify(comparison)}};
 test('context keeps recent complete messages and typed scenario, discards stale tool evidence',()=>{
  const history=[{role:'user',content:'old question'},{role:'assistant',content:'',tool_calls:[call]},{role:'tool',tool_call_id:'c1',content:'{"secret_old_balance":123}'},{role:'assistant',content:'old reply'}];
  for(let i=0;i<15;i++)history.push({role:'user',content:'q'+i},{role:'assistant',content:'a'.repeat(4000)});
- const p=prepareAgentContext(history);assert.ok(p.chars<=22000);assert.ok(p.droppedTurns>0);assert.deepEqual(p.memory.lastComparison,comparison);assert.ok(!JSON.stringify(p.messages).includes('secret_old_balance'));assert.ok(p.messages.every(m=>m.role!=='tool'&&!m.tool_calls));
- assert.equal(p.messages.at(-2).content,'q14');assert.throws(()=>validateMemory({password:'bad'}));assert.throws(()=>validateMemory({lastComparison:{...comparison,cookie:'bad'}}));
+ const p=prepareAgentContext(history);assert.ok(p.chars<=22000);assert.ok(p.droppedTurns>0);assert.deepEqual(p.memory.lastPurchase,comparison);assert.ok(!JSON.stringify(p.messages).includes('secret_old_balance'));assert.ok(p.messages.every(m=>m.role!=='tool'&&!m.tool_calls));
+ assert.equal(p.messages.at(-2).content,'q14');assert.throws(()=>validateMemory({password:'bad'}));assert.throws(()=>validateMemory({lastPurchase:{...comparison,cookie:'bad'}}));
  assert.doesNotThrow(()=>validateChat({messages:[{role:'user',content:'next'}],memory:p.memory}));
 });
 test('grounding checks source URLs, numbers, action and enrollment claims',()=>{
@@ -25,8 +25,8 @@ test('grounding checks source URLs, numbers, action and enrollment claims',()=>{
  assert.ok(answerGrounding('你已登记成功',evidence).issues.some(i=>i.code==='unverified_enrollment'));
 });
 test('bad answer is repaired once; failed repair is never presented as success',async()=>{
- let count=0;const request=async()=>({message:++count===1?{role:'assistant',content:'',tool_calls:[call]}:{role:'assistant',content:count===2?'You get 99999 dollars.':'Rates depend on conditions; please verify the official terms.'}});
- const r=await runAgentTurn({history:[],question:'US dining USD100',context,request});assert.equal(count,3);assert.equal(r.trace.at(-1).type,'repair');assert.ok(!JSON.stringify(r.messages).includes('99999'));assert.deepEqual(r.memory.lastComparison,comparison);
+ let count=0;const request=async()=>({message:++count===1?{role:'assistant',content:'',tool_calls:[call]}:{role:'assistant',content:count===2?'You get 99999 dollars.':'Use Freedom Unlimited. Rates depend on conditions; please verify the official terms.'}});
+ const r=await runAgentTurn({history:[],question:'US dining USD100',context,request});assert.equal(count,3);assert.equal(r.trace.at(-1).type,'repair');assert.ok(!JSON.stringify(r.messages).includes('99999'));assert.deepEqual(r.memory.lastPurchase,comparison);
  await assert.rejects(()=>runAgentTurn({history:[],question:'test',context,request:async()=>({message:{role:'assistant',content:'[source](https://invented.example)'}})}),/answer_not_grounded/);
 });
 test('new frontend remains usable with the previous local proxy during rollout',async()=>{

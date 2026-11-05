@@ -2,12 +2,12 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {performance} from 'node:perf_hooks';
-import {context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,planGroundingCases} from '../evals/fixtures.mjs';
+import {context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,planGroundingCases,decisionCases} from '../evals/fixtures.mjs';
 import {resolveTripDates} from '../src/tripDates.js';
 import {searchBenefitKnowledge} from '../src/benefitSearch.js';
 import {queryKnowledge} from '../src/knowledge.js';
 import {matchCardProduct} from '../src/productCatalog.js';
-import {recommendCards} from '../src/spendAdvisor.js';
+import {chooseCard} from '../src/cardDecision.js';
 import {prepareAgentContext} from '../src/agentContext.js';
 import {answerGrounding} from '../src/answerGrounding.js';
 import {runAgentTurn} from '../src/agentSession.js';
@@ -28,11 +28,10 @@ if(!live){
   check(c.id,checks,{rank:rank>=0?rank+1:null,matches:r.total,ms:Math.round(performance.now()-start)});
  }
  report.retrieval={cases:n,hitAt12:hits/n,meanReciprocalRank:rr/n,sharedQueries:{count:shared,beforeHitAt12:baseline/shared,afterHitAt12:sharedHits/shared},note:'Development-set expected-record hit@12, not exhaustive recall or held-out generalization.'};
- const byProduct=id=>context.cards.find(x=>x.productId===id)?.id;
- for(const c of [
-  {id:'cash-and-distinct-points',q:{category:'dining',country:'US',currency:'USD',amount:100},card:'chase-us-freedom-unlimited',reward:3},
-  {id:'canada-currency',q:{category:'dining',country:'CA',currency:'CAD',amount:100},card:'amex-ca-ca-platinum-card',reward:200},
- ]){const r=recommendCards(context.cards,{intent:'recommend',...c.q},{asOf:context.day}),candidate=r.candidates.find(x=>x.cardId===byProduct(c.card));check(c.id,{exactReward:candidate?.reward===c.reward,currencyScoped:r.candidates.every(x=>x.currency===c.q.currency),noRawPointWinner:!r.winner||r.winner.unit==='cashback-percent'});}
+ for(const c of decisionCases){
+  const r=chooseCard(c.args,{...referenceContext,events:c.events||[]});
+  check(c.id,{expected:c.check(r)},{choice:r.choice?.kind,certainty:r.choice?.certainty||null});
+ }
  for(const c of publicRuleCases){
   const result=runWalletTool({id:c.id,function:{name:'get_card_rules',arguments:JSON.stringify(c.args)}},context);
   const rule=result.rules.find(r=>!c.role||r.terms.cardholderRole===c.role);
@@ -44,8 +43,7 @@ if(!live){
  }
  const planEvidence=[runWalletTool({id:'grounding',function:{name:'query_credits',arguments:JSON.stringify({use:'hotel',when:'12月'})}},referenceContext)];
  for(const [id,answer,code] of planGroundingCases)check(id,{caught:answerGrounding(answer,planEvidence).issues.some(i=>i.code===code)});
- check('missing-context',{clarify:recommendCards(context.cards,{intent:'recommend',amount:100},{asOf:context.day}).kind==='clarify'});
- const old=Array.from({length:30},(_,i)=>[{role:'user',content:'question '+i},{role:'assistant',content:'reply '.repeat(1000)}]).flat();const prep=prepareAgentContext(old,{lastComparison:{category:'dining',country:'US',currency:'USD',amount:100}});check('bounded-context',{bounded:prep.chars<=22000,keepsLatest:prep.messages.some(x=>x.content==='question 29'),memory:prep.memory.lastComparison.amount===100});
+ const old=Array.from({length:30},(_,i)=>[{role:'user',content:'question '+i},{role:'assistant',content:'reply '.repeat(1000)}]).flat();const prep=prepareAgentContext(old,{lastPurchase:{category:'dining',country:'US',currency:'USD',amount:100}});check('bounded-context',{bounded:prep.chars<=22000,keepsLatest:prep.messages.some(x=>x.content==='question 29'),memory:prep.memory.lastPurchase.amount===100});
  for(const [id,answer,evidence,code] of [
   ['unknown-transfer-ratio','Transfer at 1:1',[{rules:[{kind:'transfer-relationship',revision:1,terms:{ratio:null}}]}],'unsupported_transfer_ratio'],
   ['no-tool-invented-number','Your card returns 99 USD',[],'unsupported_number'],
@@ -65,18 +63,19 @@ if(!live){
   try{
    const request=async p=>{const m=await chatAgent(env,p);for(const call of m.tool_calls||[])calls.push({name:call.function.name,args:JSON.parse(call.function.arguments)});return {message:m}};
    let history=[],memory=c.memory||{};
-   const caseContext={...(c.expectTool==='query_credits'?referenceContext:context),events:c.events||context.events};
+   const caseContext={...(['query_credits','choose_card'].includes(c.expectTool)?referenceContext:context),events:c.events||context.events};
    for(const question of c.setupQuestions||[]){const setup=await runAgentTurn({history,memory,question,context:caseContext,request});history=setup.messages;memory=setup.memory;}
    calls.length=0;
    const r=await runAgentTurn({history,memory,question:c.question,context:caseContext,request});
-   const checks={completed:!!r.answer.trim(),modelAnswered:!r.trace.some(t=>t.type==='fallback'),readOnly:calls.every(x=>['list_cards','compare_cards','find_benefits','get_card_rules','query_credits'].includes(x.name)),bounded:r.tools.length<=16};
+   const checks={completed:!!r.answer.trim(),modelAnswered:!r.trace.some(t=>t.type==='fallback'),readOnly:calls.every(x=>['list_cards','choose_card','find_benefits','get_card_rules','query_credits'].includes(x.name)),bounded:r.tools.length<=16};
    if(c.expectTool)checks.expectedTool=calls.some(x=>x.name===c.expectTool);
-   if(c.forbidTool)checks.noPrematureCalculation=!calls.some(x=>x.name===c.forbidTool);
-   if(c.expectedArgs)checks.expectedArguments=calls.some(x=>x.name===c.expectTool&&Object.entries(c.expectedArgs).every(([k,v])=>x.args[k]===v));
+   // Either tool carries these terms, so either is a correct choice.
+   if(c.expectTools)checks.expectedTool=calls.some(x=>c.expectTools.includes(x.name));
+      if(c.expectedArgs)checks.expectedArguments=calls.some(x=>x.name===c.expectTool&&Object.entries(c.expectedArgs).every(([k,v])=>x.args[k]===v));
    if(c.expectedWindow)checks.expectedWindow=calls.some(x=>{const w=x.name==='query_credits'&&resolveTripDates(x.args.when,context.day);return w?.ok&&w.start===c.expectedWindow.start&&w.end===c.expectedWindow.end;});
    if(c.expectedTrip)checks.expectedTrip=r.memory.trip?.start===c.expectedTrip.start;
    if(c.answerPatterns)checks.coversNamedProgrammes=c.answerPatterns.every(pattern=>new RegExp(pattern,'i').test(r.answer));
-   if(c.clarify)checks.asksForContext=/\?|？|币种|幣種|地区|地區|哪国|哪國|currency|country|where/i.test(r.answer);
+   if(c.answersFirst)checks.answersBeforeAsking=calls.some(x=>x.name==='choose_card');
    check(c.id,checks,{ms:Math.round(performance.now()-start),toolNames:calls.map(x=>x.name),answerChars:r.answer.length,trace:r.trace,context:r.context});
   }catch(error){check(c.id,{completed:false},{ms:Math.round(performance.now()-start),error:error.message==='answer_not_grounded'?'answer_not_grounded':'model_or_execution_failed',...(error.codes?{codes:error.codes}:{}),toolNames:calls.map(x=>x.name)});}
   console.log(c.id+': '+(report.cases.at(-1).passed?'PASS':'FAIL'));

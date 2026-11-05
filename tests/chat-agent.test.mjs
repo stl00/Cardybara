@@ -8,8 +8,8 @@ const cards=JSON.parse(readFileSync(new URL('./fixtures/wallet-products.json',im
 const context={cards,events:[],day:'2026-10-28'};
 const call=(name,args={},id='c1')=>({id,type:'function',function:{name,arguments:JSON.stringify(args)}});
 test('agent tools are read-only, validate every argument and expose no bank identifiers',()=>{
- assert.throws(()=>validateToolCall(call('pay_bill')));assert.throws(()=>validateToolCall(call('list_cards',{cookies:true})));assert.throws(()=>validateToolCall(call('compare_cards',{category:'dining',country:'US',currency:'USD',amount:-1})));
- const result=runWalletTool(call('compare_cards',{category:'dining',country:'US',currency:'USD',amount:100}),context);assert.equal(result.winner.reward,3);assert.ok(result.candidates.some(c=>c.rewardLabel==='MR (US)'));assert.ok(!JSON.stringify(result).includes('cardId'));
+ assert.throws(()=>validateToolCall(call('pay_bill')));assert.throws(()=>validateToolCall(call('list_cards',{cookies:true})));assert.throws(()=>validateToolCall(call('choose_card',{category:'dining',country:'US',currency:'USD',amount:-1})));
+ const result=runWalletTool(call('choose_card',{category:'dining',country:'US',currency:'USD',amount:100}),context);assert.equal(result.choice.card,'Freedom Unlimited');assert.equal(result.choice.value,3);assert.ok(result.rows.some(r=>r.earn.programme?.includes('Membership Rewards')));assert.ok(!JSON.stringify(result).includes('cardId'));
  const found=runWalletTool(call('find_benefits',{query:'hotel',cardName:'not a held card'}),context);assert.equal(found.rules.length,0);assert.match(found.coverage,/not an exhaustive/);
  const inv=runWalletTool(call('list_cards'),context);assert.equal(inv.length,22);assert.deepEqual(Object.keys(inv[0]).sort(),['currency','name','region']);
  const credits=runWalletTool(call('query_credits'),context);assert.ok(Object.values(credits.groups).flat().every(c=>['unknown','not-applicable'].includes(c.status)));assert.ok(!JSON.stringify(credits).includes('"balance"'));
