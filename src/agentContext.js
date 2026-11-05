@@ -1,9 +1,19 @@
 import {validateToolCall} from './walletAgent.js';
+import {CREDIT_USES} from './creditQuery.js';
+import {isRealDate,tripDays,MAX_TRIP_DAYS} from './tripDates.js';
+const TRIP_PRECISIONS=['days','part-of-month','month','holiday'];
+// Dates reach memory only after code resolved them; free text never does.
+function validateTrip(raw){
+ const keys=['use','start','end','precision','destination','assumed'];
+ if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!keys.includes(k))||raw.use!==undefined&&!CREDIT_USES.includes(raw.use)||!TRIP_PRECISIONS.includes(raw.precision)||!isRealDate(raw.start)||!isRealDate(raw.end)||raw.start>raw.end||tripDays(raw.start,raw.end)>MAX_TRIP_DAYS||raw.destination!==undefined&&!/^[A-Z]{2}$/.test(raw.destination)||raw.assumed!==undefined&&typeof raw.assumed!=='boolean')throw Error('invalid_memory');
+ return {...(raw.use?{use:raw.use}:{}),start:raw.start,end:raw.end,precision:raw.precision,...(raw.destination?{destination:raw.destination}:{}),...(raw.assumed?{assumed:true}:{})};
+}
 export function validateMemory(raw={}){
- if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>k!=='lastComparison'))throw Error('invalid_memory');
- if(!raw.lastComparison)return {};
- const args=validateToolCall({id:'memory',function:{name:'compare_cards',arguments:JSON.stringify(raw.lastComparison)}}).args;
- return {lastComparison:args};
+ if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!['lastComparison','trip'].includes(k)))throw Error('invalid_memory');
+ return {
+  ...(raw.lastComparison?{lastComparison:validateToolCall({id:'memory',function:{name:'compare_cards',arguments:JSON.stringify(raw.lastComparison)}}).args}:{}),
+  ...(raw.trip?{trip:validateTrip(raw.trip)}:{})
+ };
 }
 export function prepareAgentContext(history,memory={},{maxTurns=6,maxChars=22000}={}){
  const state=validateMemory(memory),turns=[];let turn;
