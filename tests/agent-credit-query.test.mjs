@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {referenceCards as cards,creditMark,planIds} from '../evals/fixtures.mjs';
 import {resolveTripDates} from '../src/tripDates.js';
-import {queryCredits} from '../src/creditQuery.js';
+import {queryCredits,creditNamesForCards} from '../src/creditQuery.js';
 import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
 import {validateMemory} from '../src/agentContext.js';
 import {answerGrounding} from '../src/answerGrounding.js';
@@ -64,6 +64,11 @@ test('second review: marked items survive truncation first, and remembered exact
  const stated=runWalletTool(call({reuseRememberedDates:true,use:'dining'}),{...wallet,trip:{start:'2026-12-20',end:'2026-12-27',precision:'days'}});
  assert.ok(!stated.window.assumptions.includes('dates-were-assumed-earlier'));
  assert.throws(()=>validateMemory({trip:{start:'2026-12-20',end:'2026-12-27',precision:'days',assumed:'yes'}}),/invalid_memory/);
+});
+test('re-check: New Year keeps its own year, and an approximate day is not an exact one',()=>{
+ for(const [phrase,today,start,end] of [['明年元旦',TODAY,'2026-12-31','2027-01-01'],['明年元旦','2026-12-28','2026-12-31','2027-01-01'],['今年元旦','2027-01-01','2026-12-31','2027-01-01'],['元旦',TODAY,'2026-12-31','2027-01-01']]){const r=resolveTripDates(phrase,today);assert.deepEqual([r.start,r.end],[start,end],phrase);}
+ for(const phrase of ['今年圣诞到明年元旦','from Dec 30','around Dec 30','about Dec 30','12月30日左右','12月30日前后'])assert.equal(resolveTripDates(phrase,TODAY).ok,false,phrase);
+ for(const phrase of ['圣诞前后','around Christmas','around December','12月左右'])assert.equal(resolveTripDates(phrase,TODAY).ok,true,phrase);
 });
 test('unresolvable dates fail closed instead of being guessed',()=>{
  for(const [phrase,reason] of [['找个时间','unparsed_dates'],['春节','unparsed_dates'],['2月30日','invalid_dates'],['2026-02-30','invalid_dates'],['2026年1月','past_dates'],['2026-12-31 to 2026-12-01','invalid_dates'],['2026-11-05 to 2027-06-01','window_too_long']])assert.deepEqual(resolveTripDates(phrase,TODAY),{ok:false,reason},phrase);
@@ -276,6 +281,23 @@ test('second review: universal claims, crossed hedges and more verbs',()=>{
  for(const answer of ['You still have to book through Chase for The Edit.','You still have 57 days to use The Edit.','The Edit credit is not used for flights.','The Edit has not been marked used or unused.','Unused status is not tracked for The Edit.','The Edit 还可以用于预付订单。'])
   assert.ok(!issues('2026 年 12 月。'+answer+'\n'+allItems,[{...noMarks[0],today:'57'}]).includes('unknown_treated_as_unused'),answer);
  assert.ok(!issues('2026 年 12 月。你有 1 项标记为未用：The Edit 酒店抵扣。其他未标记。\n'+allItems,oneOpen).includes('unknown_treated_as_unused'));
+});
+test('re-check: a named credit the lookup did not return, or no lookup at all, is still checked',async()=>{
+ const names=creditNamesForCards(cards,TODAY);assert.ok(names.some(n=>n.title==='Uber Cash'));assert.ok(names.some(n=>n.titles.en==='The Edit hotel credit'));
+ assert.deepEqual(creditNamesForCards([{id:'x',name:'Mystery Card',bank:'B',region:'US',currency:'USD'}],TODAY),[]);
+ const none=(answer,evidence=[])=>answerGrounding(answer,evidence,{creditNames:names}).issues.map(i=>i.code);
+ for(const answer of ['The Edit 没用。','The Edit is unused.','Resy 还没用。'])assert.ok(none(answer).includes('unused_claim_without_evidence'),answer);
+ assert.deepEqual(none('这个方法没用。'),[]);
+ const oneOpen=[plan('12月',{events:[creditMark(CSR,EDIT,'2026-01-01','2026-12-31','unused')]})];
+ assert.ok(none('2026 年 12 月。Uber Cash 没用。\n'+allItems,oneOpen).includes('unknown_treated_as_unused'));
+ assert.deepEqual(none('2026 年 12 月。The Edit 酒店抵扣没用。其他未标记。\n'+allItems,oneOpen),[]);
+ const m=script(['The Edit 没用。','你想查哪段日期的 credit？']);
+ const r=await runAgentTurn({history:[],question:'The Edit 用了吗',context:wallet,request:m.request});assert.equal(r.trace.at(-1).type,'repair');assert.equal(r.answer,'你想查哪段日期的 credit？');
+});
+test('re-check: exact dates reused twice stay exact',async()=>{
+ const trip={start:'2026-12-20',end:'2026-12-27',precision:'days'};
+ const r=await runAgentTurn({history:[],memory:{trip},question:'那餐饮呢',context:wallet,request:script([[call({use:'dining',reuseRememberedDates:true})],'按 2026 年 12 月算，这些没有标记，不确定是否用过。'+allItems]).request}).catch(e=>e);
+ assert.equal(r.memory?.trip?.assumed,undefined);
 });
 test('second review: the fallback never hides what it could not answer',()=>{
  const dec=plan('12月'),jan=plan('1月');

@@ -71,6 +71,15 @@ function latestUsage(key,revisionId,events){
  const event=events.filter(e=>e.key===key).sort((a,b)=>Date.parse(b.at)-Date.parse(a.at)||b.id.localeCompare(a.id))[0];
  return event?.revisionId===revisionId?event.usage||null:null;
 }
+/** Every name a held card's credits go by, so a claim about one the lookup didn't return can still be checked. */
+export function creditNamesForCards(cards,day){
+ const names=new Map();
+ for(const card of cards){
+  const match=matchCardProduct(card);if(match.status!=='matched'||!match.product?.id||!isRealDate(day))continue;
+  for(const rule of queryKnowledge({productId:match.product.id,kind:'benefit',asOf:day,includeInactive:true}).rules)if(relevant(rule)){const zh=rule.content.title;names.set(zh,{title:zh,titles:{'zh-TW':translations['zh-TW']?.[zh]||zh,en:translations['en-US']?.[zh]||null}});}
+ }
+ return [...names.values()];
+}
 export const CREDIT_USES=CREDIT_CATEGORIES.map(c=>c.id);
 export function queryCredits({use,when,destination,reuseRememberedDates},{cards,events=[],day,trip,brief=false}){
  if(!isRealDate(day))throw TypeError('queryCredits needs the wallet day');

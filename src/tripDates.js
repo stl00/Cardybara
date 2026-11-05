@@ -47,6 +47,7 @@ const toEndpoint=([,y,m,part,d])=>{
  return {year:y?Number(y):null,month,from:d?Number(d):range?range[0]:1,to:d?Number(d):range?range[1]:null,kind:d?'day':part?'part':'month'};
 };
 const FILLER=/^(?:(?:的|左右|前后|前後|期间|期間|时候|時候|节|節|假期|那|呢|吧|in|on|at|from|around|the|of|during|for|about|holiday|holidays|season|time|呢)+)$/;
+const APPROXIMATE=/左右|前后|前後|^from$|^around$|^about$/;
 const failure=reason=>({ok:false,reason});
 function finish(start,end,precision,assumptions,phrase,today){
  if(!isRealDate(start)||!isRealDate(end)||start>end)return failure('invalid_dates');
@@ -77,6 +78,8 @@ export function resolveTripDates(phrase,today){
  const forcedYear=yearMatch?Number(yearMatch[1]):marker||null;
  const body=(yearMatch?text.replace(/^\s*20\d{2}年?\s*/,''):text).replace(marker?/@NEXT|@THIS/g:/$^/,'');
  const hasX=body.includes('<X>'),hasN=body.includes('<N>');
+ // 今年圣诞到明年元旦 names two years for one range, which one forced year can't hold.
+ if(hasX&&hasN&&/@(?:NEXT|THIS)\s*<N>/.test(text))return failure('unparsed_dates');
  let first=null,second=null,rest=body,precision=null,extra=[];
  const take=re=>{const m=rest.match(re);if(m)rest=rest.slice(0,m.index)+' '+rest.slice(m.index+m[0].length);return m;};
  if(hasX||hasN){
@@ -89,7 +92,8 @@ export function resolveTripDates(phrase,today){
   }else if(take(/<X>/)){
    first={year:forcedYear,month:12,from:1,to:null};second=first;extra=['christmas-assumed-whole-december-no-stay-dates-given'];
   }else if(take(/<N>/)){
-   first={year:forcedYear,month:12,from:31,to:null};second={year:forcedYear?forcedYear+1:null,month:1,from:1,to:1};extra=['new-year-assumed-12-31-to-01-01'];
+   // The year stated with New Year is the year of January 1.
+   first={year:forcedYear?forcedYear-1:null,month:12,from:31,to:null};second={year:forcedYear,month:1,from:1,to:1};extra=['new-year-assumed-12-31-to-01-01'];
   }
   precision='holiday';
  }else{
@@ -107,7 +111,10 @@ export function resolveTripDates(phrase,today){
   if(precision==='part-of-month')extra=['part-of-month-assumed-from-phrase'];
  }
  // Only filler may remain. Any other word could change the dates, such as "after", "for five nights" or "前", so it means ask.
- if(rest.replace(/[\s,，.。、!！?？]+/g,' ').split(' ').filter(Boolean).some(word=>!FILLER.test(word)))return failure('unparsed_dates');
+ const left=rest.replace(/[\s,，.。、!！?？]+/g,' ').split(' ').filter(Boolean);
+ if(left.some(word=>!FILLER.test(word)))return failure('unparsed_dates');
+ // "Around Dec 30" must not read as exactly that day.
+ if(precision==='days'&&left.some(word=>APPROXIMATE.test(word)))return failure('unparsed_dates');
  const placed=placeYears(first,second,today);
  // 5/6 reads differently in the US and Hong Kong, so the reading is stated.
  const slash=raw.match(/(?<!\d)(\d{1,2})\/(\d{1,2})(?!\d)/);

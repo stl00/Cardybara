@@ -13,7 +13,7 @@ const norm=s=>String(s||'').normalize('NFKC').toLowerCase();
 function titleAnchors(item){
  const titles=[item.title,item.titles?.['zh-TW'],item.titles?.en].filter(Boolean).map(norm);
  // A partial brand phrase such as "The Edit" still names the item in a reworded answer.
- const brands=titles.flatMap(t=>t.match(/[a-z][a-z+&' -]{3,}[a-z]/g)||[]).map(t=>t.replace(/^the /,'').replace(/ (?:credit|credits|hotel|hotels)$/,'').trim()).filter(t=>t.length>=4&&!['credit','lodging','travel','hotel','hotels'].includes(t));
+ const brands=titles.flatMap(t=>t.match(/[a-z][a-z+&' -]{2,}[a-z]/g)||[]).map(t=>t.replace(/^the /,'').replace(/ (?:credit|credits|hotel|hotels)$/,'').trim()).filter(t=>t.length>=4&&!['credit','lodging','travel','hotel','hotels'].includes(t));
  return [...new Set([...titles,...brands])];
 }
 const cardAnchors=item=>norm(item.card).split(/[^a-z0-9]+/).filter(w=>w.length>=3&&!GENERIC_CARD_WORDS.has(w));
@@ -51,8 +51,10 @@ function claimScopes(answer,anchors){
  }
  return scopes.map(s=>({text:norm(s.text),sentence:norm(s.sentence)}));
 }
-export function creditClaimIssues(answer,evidence){
- const issues=[],{open,closed,any}=statusItems(evidence);
+export function creditClaimIssues(answer,evidence,creditNames=[]){
+ const issues=[],{open,closed:returned,any}=statusItems(evidence);
+ // A held credit the lookup didn't return, or no lookup at all, has no mark in evidence either.
+ const closed=[...returned,...creditNames.filter(n=>!returned.some(r=>r.title===n.title))];
  for(const scope of claimScopes(answer,[...closed,...open].flatMap(titleAnchors))){
   // Prefer the claiming clause; only a clause naming nothing falls back to its sentence.
   const allAnchors=[...closed,...open].flatMap(titleAnchors),text=mentions(scope.text,allAnchors)?scope.text:scope.sentence;
@@ -60,8 +62,8 @@ export function creditClaimIssues(answer,evidence){
   const openTitles=new Set(open.map(i=>i.title));
   const bad=closed.filter(item=>!openTitles.has(item.title)&&mentions(text,titleAnchors(item)));
   // "All of them are unused" is false whenever one is not confirmed unused.
-  if(!bad.length&&closed.length&&UNIVERSAL.test(text)){issues.push({code:'unknown_treated_as_unused',sentence:text.slice(0,160)});continue;}
-  if(bad.length){for(const item of bad)issues.push({code:'unknown_treated_as_unused',value:item.title,sentence:text.slice(0,160)});continue;}
+  if(!bad.length&&returned.length&&UNIVERSAL.test(text)){issues.push({code:'unknown_treated_as_unused',sentence:text.slice(0,160)});continue;}
+  if(bad.length){for(const item of bad)issues.push({code:any?'unknown_treated_as_unused':'unused_claim_without_evidence',value:item.title,sentence:text.slice(0,160)});continue;}
   if(mentions(text,open.flatMap(titleAnchors)))continue;
   // Nothing is confirmed unused, so a general claim of non-use cannot be true.
   if(any&&!open.length)issues.push({code:'unknown_treated_as_unused',sentence:text.slice(0,160)});
