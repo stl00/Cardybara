@@ -160,8 +160,9 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   const allow=()=>{for(const b of Object.values(settings().banks))delete b.lastAttemptAt;};
   const finished=()=>wait(()=>state()?.run?.status&&state().run.status!=='running'&&store['cardybara-dev-run']?.done);
 
+  store['cardybara-dev-pending-report']={schema:1,at:1,build:'dev',run:'complete',banks:[]};
   const runPosts=()=>calls.posts.filter(p=>p.run!=='skipped'),skipPosts=()=>calls.posts.filter(p=>p.run==='skipped');
-  await tick();assert.equal(state()?.run,undefined,'off until the owner turns it on');assert.equal(settings().skips.BOA,'off');assert.equal(skipPosts().length,1,'off is reported, once');await tick();assert.equal(skipPosts().length,1,'no report while nothing changes');
+  await tick();assert.equal(store['cardybara-dev-pending-report'],undefined,'a report waiting from an earlier build is sent, not a crash');assert.equal(calls.posts[0].run,'complete');assert.equal(calls.posts.filter(p=>p.run==='skipped').length,1,'off is reported, once');calls.posts.length=0;await new Promise(r=>setTimeout(r,20));assert.equal(state()?.run,undefined,'off until the owner turns it on');assert.equal(settings().skips.BOA,'off');await tick();assert.equal(skipPosts().length,0,'nothing changed since startup');
   assert.equal((await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60},{id:'dev',url:'http://127.0.0.1:8766/'}))?.ok,false,'only its own popup can turn it on');
   assert.equal((await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60})).ok,true);
   await tick();assert.equal(state()?.run,undefined);assert.deepEqual(calls.created,[],'no card and no signed-in tab: nothing opens');assert.equal(settings().skips.BOA,'no_tab');assert.equal(skipPosts().at(-1).banks.find(b=>b.bank==='BOA').reason,'no_tab','a change is reported');

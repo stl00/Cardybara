@@ -14,11 +14,15 @@ const loadSettings=async()=>(await chrome.storage.local.get(SETTINGS_KEY))[SETTI
 const saveSettings=settings=>chrome.storage.local.set({[SETTINGS_KEY]:settings});
 async function showState(settings){const attention=Object.values(settings.banks).some(b=>['stopped','login_expired'].includes(b.state));await chrome.action.setBadgeText({text:settings.enabled&&attention?'!':''});}
 
-// Sends reports oldest first. If the local server is off they wait for the next check; nothing is asked of the owner.
+// Sends reports oldest first. If the server is off they wait for the next check; if it refuses one, that one is dropped, since sending it again can't help. Nothing is asked of the owner.
 async function deliver(report){
- const waiting=[...((await chrome.storage.local.get(PENDING))[PENDING]||[]),...(report?[report]:[])].slice(-5);
+ const stored=(await chrome.storage.local.get(PENDING))[PENDING];
+ // An earlier build kept a single report here.
+ const waiting=[...(Array.isArray(stored)?stored:stored?[stored]:[]),...(report?[report]:[])];
+ // Room for five: the oldest skip reports go first, so a run's findings stay.
+ while(waiting.length>5){const old=waiting.findIndex(r=>r.run==='skipped');waiting.splice(old<0?0:old,1);}
  while(waiting.length){
-  try{const r=await fetch(REPORT_URL,{method:'POST',headers:{'Content-Type':'application/json','X-Cardybara-Client':'extension-dev'},body:JSON.stringify(waiting[0]),credentials:'omit',redirect:'error',signal:AbortSignal.timeout(5000)});if(!r.ok)throw Error('refused');waiting.shift();}
+  try{const r=await fetch(REPORT_URL,{method:'POST',headers:{'Content-Type':'application/json','X-Cardybara-Client':'extension-dev'},body:JSON.stringify(waiting[0]),credentials:'omit',redirect:'error',signal:AbortSignal.timeout(5000)});if(!r.ok&&r.status>=500)break;waiting.shift();}
   catch{break;}
  }
  if(waiting.length)await chrome.storage.local.set({[PENDING]:waiting});else await chrome.storage.local.remove(PENDING);
@@ -44,7 +48,8 @@ async function bankTabs(banks){
  const tabs=await chrome.tabs.query({}),seen={};
  for(const bank of banks){
   for(const tab of tabs.filter(t=>guidedPage(bank,t.url))){
-   const found=await chrome.scripting.executeScript({target:{tabId:tab.id},func:discoverVisibleCards,args:[bank,PROVIDERS[bank].locales]}).catch(()=>[]);
+   // A hung tab can't stall every later check.
+   const found=await Promise.race([chrome.scripting.executeScript({target:{tabId:tab.id},func:discoverVisibleCards,args:[bank,PROVIDERS[bank].locales]}),new Promise((_,no)=>setTimeout(()=>no(Error('timeout')),5000))]).catch(()=>[]);
    const status=found[0]?.result?.status;
    seen[bank]=status==='found'?'found':['needs_login','ambiguous','no_data'].includes(status)?status:(seen[bank]||'failed');
    if(status==='found')break;
@@ -56,7 +61,9 @@ async function bankTabs(banks){
 const check=({mayRead})=>serial(async()=>{
  // An unfinished run settles first, so a new run can't replace it and lose its stop.
  await ready;await settleRun();let settings=await loadSettings();await deliver();
- const state=await engine.load();if(state.run?.status==='running')return;
+ const state=await engine.load();
+ // No check of tabs during a read: the popup just says which banks are being read.
+ if(state.run?.status==='running'){const reading=state.run.jobs.map(j=>j.bank);await saveSettings({...settings,skips:{...settings.skips,...Object.fromEntries(reading.map(bank=>[bank,'reading']))},lastCheckAt:Date.now()});return;}
  const known=(state.discoveredCards||[]).filter(c=>ACTIVE_BANKS.includes(c.bank)),now=Date.now(),idle=await chrome.idle.queryState(IDLE_SECONDS);
  const input={settings,activeBanks:ACTIVE_BANKS,disabled:state.disabled,withCards:[...new Set(known.map(c=>c.bank))],idle,now},settled=['off','disconnected','stopped','not_due'],before=decideBanks(input);
  // A bank that can't be read anyway isn't touched, even by the read-only tab check.
@@ -88,4 +95,4 @@ chrome.runtime.onMessage.addListener((raw,sender,reply)=>{
  void (async()=>{if(raw.type==='dev-schedule-set')await serial(async()=>{const settings=setEnabled(await loadSettings(),raw.enabled,raw.intervalMinutes);await saveSettings(settings);await showState(settings);});await Promise.race([check({mayRead:false}),new Promise(done=>setTimeout(done,3000))]);reply({ok:true,settings:await loadSettings()});})().catch(()=>reply({ok:false}));
  return true;
 });
-void (async()=>{await ready;await finishRun();await check({mayRead:false});for(const [name,periodInMinutes]of [[TICK,CHECK_MINUTES],[RELOAD,1]])if(!await chrome.alarms.get(name))await chrome.alarms.create(name,{periodInMinutes});})().catch(()=>{});
+void (async()=>{for(const [name,periodInMinutes]of [[TICK,CHECK_MINUTES],[RELOAD,1]])if(!await chrome.alarms.get(name))await chrome.alarms.create(name,{periodInMinutes});await ready;await finishRun();await check({mayRead:false});})().catch(()=>{});

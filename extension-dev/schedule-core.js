@@ -17,7 +17,7 @@ export function classifyJob(job){
 }
 export function afterRun(settings,run,now){const banks={...settings.banks};for(const job of run.jobs)banks[job.bank]={...banks[job.bank],...classifyJob(job),finishedAt:now};return {...settings,banks};}
 // Why each bank will or won't be read at a check, so a check that starts nothing still says why.
-export const SKIP_REASONS=['off','disconnected','stopped','not_due','no_tab','signed_out','other_region','no_cards_found','check_failed','amex_turn','not_idle','ready'];
+export const SKIP_REASONS=['off','disconnected','stopped','not_due','no_tab','signed_out','other_region','no_cards_found','check_failed','amex_turn','not_idle','ready','reading'];
 const TAB_REASON={none:'no_tab',needs_login:'signed_out',ambiguous:'other_region',no_data:'no_cards_found',failed:'check_failed'};
 // A bank is opened only if it read fine last time. Otherwise the owner's own signed-in tab must exist, so a login
 // page is never hit again and again. When Chrome is idle, a frontmost tab is not in use, so it counts like any other.
@@ -39,11 +39,11 @@ export const skipSignature=reasons=>JSON.stringify(Object.entries(reasons).sort(
 export const skipReport=(reasons,now)=>scrub({schema:1,at:now,build:'dev',run:'skipped',banks:Object.entries(reasons).map(([bank,reason])=>({bank,status:'skipped',reason:word(reason)||'unknown'}))});
 export const POPUP_WORDS={
  en:{on:'Refresh on a schedule',every:'At most every',hours:'h',checked:'Last check',note:'It reads when Chrome has been idle for 2 minutes. It never signs in and sends only a redacted report to this computer.',wallet:'Open wallet',
-  off:'Schedule is off',disconnected:'Disconnected in the wallet',stopped:'Stopped: turn the schedule off and on to try again',not_due:'Read recently; waiting for the interval',no_tab:'No bank tab open',signed_out:'Signed out. It will read after you next sign in',other_region:'The open tab is for another region',no_cards_found:'Tab open, but no card found on the page',check_failed:'Could not check the tab',amex_turn:'Waiting: Amex reads one region at a time',not_idle:'Ready; waiting until Chrome is idle',ready:'Reads at the next check'},
+  off:'Schedule is off',disconnected:'Disconnected in the wallet',stopped:'Stopped: turn the schedule off and on to try again',not_due:'Waiting for the interval',no_tab:'No bank tab open',signed_out:'Signed out. It will read after you next sign in',other_region:'The open tab is for another region',no_cards_found:'Tab open, but no card found on the page',check_failed:'Could not check the tab',amex_turn:'Waiting: Amex reads one region at a time',not_idle:'Ready; waiting until Chrome is idle',ready:'Reads at the next check',reading:'Reading now'},
  'zh-CN':{on:'定时刷新',every:'最短间隔',hours:' 小时',checked:'上次检查',note:'Chrome 空闲 2 分钟后才读取。插件不会替你登录，只向本机发送脱敏报告。',wallet:'打开钱包',
-  off:'定时刷新未打开',disconnected:'已在钱包里断开',stopped:'已停止：关掉再打开定时刷新后才会重试',not_due:'刚读过，等下一个间隔',no_tab:'没有打开这家银行的标签页',signed_out:'已退出登录。你下次登录后会自动读取',other_region:'打开的标签页属于其他地区',no_cards_found:'标签页已打开，但页面上没找到卡片',check_failed:'无法检查标签页',amex_turn:'等待中：Amex 一次只读一个地区',not_idle:'已就绪，等 Chrome 空闲',ready:'下次检查时读取'},
+  off:'定时刷新未打开',disconnected:'已在钱包里断开',stopped:'已停止：关掉再打开定时刷新后才会重试',not_due:'等下一个间隔',no_tab:'没有打开这家银行的标签页',signed_out:'已退出登录。你下次登录后会自动读取',other_region:'打开的标签页属于其他地区',no_cards_found:'标签页已打开，但页面上没找到卡片',check_failed:'无法检查标签页',amex_turn:'等待中：Amex 一次只读一个地区',not_idle:'已就绪，等 Chrome 空闲',ready:'下次检查时读取',reading:'正在读取'},
  'zh-TW':{on:'定時重新整理',every:'最短間隔',hours:' 小時',checked:'上次檢查',note:'Chrome 閒置 2 分鐘後才讀取。外掛不會替你登入，只向本機傳送去識別化報告。',wallet:'開啟錢包',
-  off:'定時重新整理未開啟',disconnected:'已在錢包中中斷連線',stopped:'已停止：關掉再打開定時重新整理後才會重試',not_due:'剛讀過，等下一個間隔',no_tab:'沒有開啟這家銀行的分頁',signed_out:'已登出。你下次登入後會自動讀取',other_region:'開啟的分頁屬於其他地區',no_cards_found:'分頁已開啟，但頁面上找不到卡片',check_failed:'無法檢查分頁',amex_turn:'等待中：Amex 一次只讀一個地區',not_idle:'已就緒，等 Chrome 閒置',ready:'下次檢查時讀取'}
+  off:'定時重新整理未開啟',disconnected:'已在錢包中中斷連線',stopped:'已停止：關掉再打開定時重新整理後才會重試',not_due:'等下一個間隔',no_tab:'沒有開啟這家銀行的分頁',signed_out:'已登出。你下次登入後會自動讀取',other_region:'開啟的分頁屬於其他地區',no_cards_found:'分頁已開啟，但頁面上找不到卡片',check_failed:'無法檢查分頁',amex_turn:'等待中：Amex 一次只讀一個地區',not_idle:'已就緒，等 Chrome 閒置',ready:'下次檢查時讀取',reading:'正在讀取'}
 };
 export function markAttempted(settings,banks,now){const next={...settings.banks};for(const bank of banks)next[bank]={...next[bank],lastAttemptAt:now};return {...settings,banks:next};}
 // Fails closed: every string loses its digits, so amounts and tails cannot pass even if a label slipped through.
