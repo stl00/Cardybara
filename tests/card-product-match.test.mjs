@@ -18,6 +18,8 @@ test('HSBC HK zh-HK page names match through public Chinese names, in either cha
  assert.equal(hk('滙財金卡'),'hsbc-hk-hk-visa-gold-card');assert.equal(hk('滙財金卡 - 學生卡'),'hsbc-hk-hk-visa-gold-card-for-students');
  assert.equal(hk('卓越理財信用卡'),'hsbc-hk-hk-premier-credit-card');assert.equal(hk('滙豐 Visa Signature 卡'),'hsbc-hk-hk-hsbc-visa-signature-card');
  assert.equal(hk('滙豐EveryMile信用卡'),'hsbc-hk-hk-hsbc-everymile-card');
+ assert.equal(hk('滙豐滙財金卡'),'hsbc-hk-hk-visa-gold-card');assert.equal(hk('銀聯雙幣信用卡'),'hsbc-hk-hk-unionpay-dual-currency-card','not the Pulse card, whose name also contains it');
+ assert.equal(id('Chase','US','Sapphire Reserve® Card'),'chase-us-sapphire-reserve','several words are not a bare tier');
 });
 test('a fallback or generic name stays unknown, and tiers or business cards never cross',()=>{
  for(const n of ['American Express •••• 12345','Card','Synthetic Numbat Card',''])assert.equal(us(n),'unknown',n);

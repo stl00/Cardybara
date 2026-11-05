@@ -20,5 +20,5 @@ export function applyCardProductChoices(cards,choices,products=cardProducts){
 }
 export function mergeCardProductChoices(choices,backup){
  if(backup?.schema!==1||!Array.isArray(backup.choices)||backup.choices.length>MAX||clean(backup.choices).length!==backup.choices.length)throw Error('invalid_card_product_backup');
- const merged=new Map(choices.map(c=>[c.cardId,c]));for(const c of clean(backup.choices))merged.set(c.cardId,c);return [...merged.values()];
+ const merged=new Map(choices.map(c=>[c.cardId,c]));for(const c of clean(backup.choices))merged.set(c.cardId,c);return [...merged.values()].slice(0,MAX);
 }
