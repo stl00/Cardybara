@@ -75,4 +75,4 @@ A passing build, test or replay is not real bank acceptance. Never mark acceptan
 - Bank access is read-only: no payments, transfers, offer enrolment or settings changes. The owner performs logins, passcodes and device confirmations; never read or store passwords, cookies, one-time codes or full card numbers.
 - Never commit or upload: `public/data.json`, `.env*` (except `.env.example`), `.debug/`, `release/`, `dist/`, ZIPs, runtime exports, real bank snapshots or screenshots, or absolute personal paths.
 - The owner's older private source tree and its git history must never be merged, pushed or referenced as an ancestor here. Port changes as reviewed patches only.
-- Model keys stay in the local server's private config; never in client code, the extension package, logs or CI.
+- A model key the owner enters lives only in the extension's `chrome.storage.local` (owner decision 2026-11-05). Never put it in code, the extension package, logs, diagnostics reports, exports, Git or CI, and send it only to the model provider's API.
