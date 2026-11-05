@@ -47,7 +47,10 @@ function matchClause(clause,purchase,card){
  return {needs,via:clause.via,optional:false,base:!!clause.base};
 }
 const unitOrCard=card=>card.currency;
-const samePortal=(named,via)=>{const a=norm(named).replace(/[^a-z0-9]/g,''),b=norm(via).replace(/[^a-z0-9]/g,'');return a.length>=4&&b.length>=4&&(a.includes(b)||b.includes(a));};
+// A portal is named by its issuer, not by a word every portal shares, so "Travel" alone matches none.
+const PORTAL_WORDS=new Set(['travel','business','portal','the','and','com','hotels','cars','resorts','entertainment','one']);
+const portalTokens=name=>norm(name).replace(/\.com\b/g,' ').replace(/travel/g,' ').split(/[^a-z0-9]+/).filter(w=>w.length>=3&&!PORTAL_WORDS.has(w));
+const samePortal=(named,via)=>{const a=portalTokens(named),b=new Set(portalTokens(via));return a.some(w=>b.has(w));};
 const isForeign=(purchase,card)=>!!(purchase.country&&purchase.country!==card.region||purchase.currency&&purchase.currency!==card.currency);
 function earnFor(rule,purchase,card,spend,baseRate){
  const {multiplier,unit}=rule.terms,currency=unitCurrency(unit),amountKnown=Number.isFinite(spend)&&purchase.currency&&(unit==='cashback-percent'?purchase.currency===card.currency:purchase.currency===currency);
@@ -126,7 +129,9 @@ function evaluateCard(card,purchase,{day,events}){
   unclassified,_baseRate:base?base.rule.terms:null
  }};
 }
-const programmeAliases={'membership rewards':['mr','membership rewards'],'ultimate rewards':['ur','ultimate rewards'],'thankyou':['ty','thankyou','thank you']};
+const programmeAliases={'membership rewards':['mr','membership rewards'],'ultimate rewards':['ur','ultimate rewards'],'thankyou':['ty','thankyou','thank you'],'cathay':['asia miles','cathay']};
+// Only these run separately per region, so only they need the region named.
+const REGIONAL=['membership rewards','ultimate rewards','thankyou'];
 const REGION_TOKEN=/(?:^|\s)(us|hk|ca)$/;
 /** A value is in cents of the card's own currency. A bare MR or UR means the US programme; another region must be named. */
 function pointValueFor(programme,card,region,values){
@@ -135,7 +140,7 @@ function pointValueFor(programme,card,region,values){
  const name=norm(programme||card),nameRegion=name.match(REGION_TOKEN)?.[1]||region.toLowerCase();
  for(const [key,cents] of Object.entries(values)){
   const k=norm(key).trim(),keyRegion=k.match(REGION_TOKEN)?.[1]||'us',base=k.replace(REGION_TOKEN,'').trim();
-  if(keyRegion!==nameRegion)continue;
+  if(REGIONAL.some(full=>name.includes(full))&&keyRegion!==nameRegion)continue;
   if(base&&(name.includes(base)||Object.entries(programmeAliases).some(([full,aliases])=>name.includes(full)&&aliases.includes(base))))return cents;
  }
  return null;

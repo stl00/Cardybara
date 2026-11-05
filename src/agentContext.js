@@ -13,8 +13,10 @@ const PURCHASE_KEYS=['category','amount','currency','country','channel','pointVa
 /** A point value survives only if the user's own words this turn contain it, or memory already held it. */
 export function statedPointValues(values,question,remembered={}){
  if(!values)return null;
- const said=new Set((question.normalize('NFKC').match(/\d+(?:\.\d+)?/g)||[]).map(Number));
- const kept=Object.fromEntries(Object.entries(values).filter(([k,v])=>said.has(v)||remembered?.[k]===v));
+ const text=question.normalize('NFKC').toLowerCase();
+ // The number must be said as a value: next to a cents unit, or right after the programme's name. "Dinner for 2" is not a point value.
+ const stated=(key,value)=>{const n=String(value).replace('.','\\.'),name=key.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return new RegExp(`(?<![\\d.])${n}\\s*(?:美分|港分|分|cents?|¢)`).test(text)||new RegExp(`${name}[^\\d]{0,12}(?<![\\d.])${n}(?![\\d.])`).test(text);};
+ const kept=Object.fromEntries(Object.entries(values).filter(([k,v])=>stated(k,v)||remembered?.[k]===v));
  return Object.keys(kept).length?kept:null;
 }
 export function purchaseMemory(raw,strict=false){

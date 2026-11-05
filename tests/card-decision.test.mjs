@@ -157,6 +157,19 @@ test('review: grounding catches market-wide claims and loose pricing, and allows
  const valued=[pick({...usDining,pointValues:{MR:2}})];
  assert.ok(answerGrounding('用 American Express Gold Card。Sapphire Reserve 的 300 UR 约值 3 美元。',valued).issues.some(i=>i.code==='unstated_point_value'),'a value for MR does not price UR');
 });
+test('second review: generic portal words, numbers that are not values, miles, and the fallback for valued points',async()=>{
+ const strata=catalogue.find(c=>c.productId==='citi-us-citi-strata-elite-card'),two={...wallet,cards:[strata,...cards.filter(c=>c.name==='Sapphire Reserve')]};
+ const hotel={category:'hotel',channel:'portal',amount:500,currency:'USD',country:'US'};
+ for(const portal of ['Travel','travel portal','The Travel','Business Travel']){const r=chooseCard({...hotel,portal},two);assert.notEqual(row(r,'Sapphire Reserve').earn.via,'Chase Travel',portal);assert.notEqual(row(r,strata.name)?.earn.via,'cititravel.com',portal);}
+ assert.equal(row(chooseCard({...hotel,portal:'Citi Travel'},two),strata.name).earn.via,'cititravel.com');
+ const {statedPointValues}=await import('../src/agentContext.js');
+ for(const [question,values] of [['Dinner for 2 at a US restaurant, 100 USD. Which card?',{MR:2}],['Spend $1,000 on dining',{MR:1}],['2 people, 2 nights',{UR:2}]])assert.equal(statedPointValues(values,question),null,question);
+ for(const [question,values] of [['MR 一点值 2 美分',{MR:2}],['I value MR at 1.5',{MR:1.5}],['UR is worth 1.25 cents',{UR:1.25}],['亚洲万里通 10 港分一里',{'Asia Miles':10}]])assert.deepEqual(statedPointValues(values,question),values,question);
+ const cathay=pick({category:'other',amount:1200,currency:'HKD',country:'HK',pointValues:{'Asia Miles':10}}).rows.find(r=>/Cathay/.test(r.card));assert.equal(cathay.centsPerPoint,10);
+ const noAmount=pick({category:'other',currency:'HKD',country:'HK',pointValues:{'Asia Miles':10}}).rows.find(r=>/Cathay/.test(r.card));assert.equal(noAmount.percentAtYourPointValue,Math.round(10/noAmount.earn.rate*100)/100);
+ const gold=chooseCard({category:'dining',currency:'USD',pointValues:{MR:2}},{...wallet,cards:cards.filter(c=>['American Express Gold Card','Freedom Unlimited'].includes(c.name))});
+ for(const [q,expect] of [['刷哪张',/2 分，4 倍积分约合消费的 8%/],['Which card?',/2 cents a point, 4x points are worth about 8%/]]){const text=renderChoiceAnswer(gold,q);assert.match(text,expect);assert.ok(!/4% (?:返现|cash back)/.test(text));assert.deepEqual(answerGrounding(text,[gold],{contextText:q}).issues,[]);}
+});
 test('an ambiguous merchant answers first and shows the other coding',()=>{
  const costco=pick({merchant:'Costco',alternateCategory:'supermarket',amount:100,currency:'USD',country:'US'});
  assert.equal(costco.choice.kind,'use-card');assert.ok(costco.assumptions.includes('category-unknown-base-rates-used'));
