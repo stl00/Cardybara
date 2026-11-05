@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {matchCardProduct,productCore,cardProducts} from '../src/productCatalog.js';
+import {mergeWalletCards} from '../src/walletRegistry.js';
 import {applyCardProductChoices,withCardProductChoice,readCardProductChoices,mergeCardProductChoices,CARD_PRODUCT_KEY} from '../src/cardProductChoice.js';
 const json=p=>JSON.parse(readFileSync(new URL(p,import.meta.url),'utf8'));
 const id=(bank,region,name)=>{const m=matchCardProduct({bank,region,name});return m.status==='matched'?m.product.id:m.status;};
@@ -59,4 +60,11 @@ test('picker strings exist in three languages',()=>{
  const catalog=json('../src/translations.json');
  for(const file of ['../src/CardProductPicker.jsx','../src/CardArt.jsx'])for(const [,key] of readFileSync(new URL(file,import.meta.url),'utf8').matchAll(/t\('([^']+)'/g))for(const l of ['en-US','zh-TW'])assert.ok(catalog[l][key],`${l}: ${key}`);
  for(const key of ['卡面待补全','未识别卡种，打开卡片可选择'])assert.ok(catalog['en-US'][key],key);
+});
+test('a card discovered on a bank page keeps bank and region through the wallet registry, so it can match',()=>{
+ const found=[{id:'discovered-hsbc-hk-1234',bank:'HSBC HK',region:'HK',currency:'HKD',tail:'1234',name:'滙豐Red信用卡',identitySource:'bank-page'},{id:'discovered-amex-us-12345',bank:'Amex US',region:'US',currency:'USD',tail:'12345',name:'American Express® Gold Card',identitySource:'bank-page'}];
+ const cards=mergeWalletCards({cards:[],connections:[]},found).cards;
+ assert.deepEqual(cards.map(c=>[c.bank,c.region]),[['HSBC HK','HK'],['Amex US','US']]);
+ assert.deepEqual(cards.map(c=>matchCardProduct(c).product?.id),['hsbc-hk-hk-red-credit-card','amex-us-us-american-express-gold-card']);
+ assert.ok(cards.every(c=>matchCardProduct(c).product.art?.file),'and the matched products have art');
 });
