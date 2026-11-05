@@ -43,7 +43,7 @@ if '--package' in sys.argv:
   for n in names:
    if 'dev-collector' in n or any(marker in z.read(n) for marker in [b'__cardybara/collector',b'__cardybaraDev',b'cardybara-dev-collector']):raise SystemExit('Dev-only collector code in package: '+n)
    # The scheduled refresh, its diagnostics and self-reload exist only in the local dev build.
-   if any(x in n for x in ['background-dev','dev-popup','schedule-core','dev-build-info','build-stamp','dev-structure-report']) or any(marker in z.read(n) for marker in [b'cardybara-dev-schedule',b'/api/dev/diagnostics',b'build-stamp.json',b'dev-popup.html']):raise SystemExit('Dev-only scheduled refresh in package: '+n)
+   if any(x in n for x in ['background-dev','dev-popup','schedule-core','dev-build-info','build-stamp','dev-structure-report']) or any(marker in z.read(n) for marker in [b'cardybara-dev-schedule',b'/api/dev/diagnostics',b'build-stamp.json',b'dev-popup.html',b'dev-read-now']):raise SystemExit('Dev-only scheduled refresh in package: '+n)
   assert 'manifest.json' in names and 'index.html' in names
   m=json.loads(z.read('manifest.json'));
   if m['background']['service_worker']!='background.js' or m['action'].get('default_popup')=='dev-popup.html' or 'idle' in m['permissions']:raise SystemExit('Dev-only scheduled refresh in package: manifest.json')
