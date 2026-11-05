@@ -6,7 +6,7 @@ import {queryCredits} from '../src/creditQuery.js';
 import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
 import {validateMemory} from '../src/agentContext.js';
 import {answerGrounding} from '../src/answerGrounding.js';
-import {renderCreditAnswer,answerLanguage} from '../src/creditAnswer.js';
+import {renderCreditAnswer,renderCreditAnswers,answerLanguage} from '../src/creditAnswer.js';
 import {runAgentTurn} from '../src/agentSession.js';
 import {chatAgent,validateChat} from '../scripts/chat-agent.mjs';
 import {requestAdvisor} from '../src/advisorTransport.js';
@@ -38,12 +38,32 @@ test('review cases: phrases that once parsed silently wrong now resolve correctl
   ['2026年12月20日至2027年1月5日','2026-12-20','2027-01-05','days'],['Dec 20, 2026 to Jan 5, 2027','2026-12-20','2027-01-05','days'],['2026/12/20-2026/12/27','2026-12-20','2026-12-27','days'],['2026-12-20 thru 2026-12-27','2026-12-20','2026-12-27','days'],['2026年12月到2027年1月','2026-12-01','2027-01-31','month'],['dec 2026 to jan 2027','2026-12-01','2027-01-31','month'],
   ['25 December','2026-12-25','2026-12-25','days'],['20-27 Dec','2026-12-20','2026-12-27','days'],['十二月二十五日','2026-12-25','2026-12-25','days'],['20 Dec to 5 Jan','2026-12-20','2027-01-05','days'],['十二月二十日到一月五日','2026-12-20','2027-01-05','days'],
   ['圣诞到1月5日','2026-12-24','2027-01-05','holiday'],['Christmas to Jan 5','2026-12-24','2027-01-05','holiday'],['圣诞节到1月','2026-12-24','2027-01-31','holiday'],
-  ['I may travel in December','2026-12-01','2026-12-31','month'],['in may','2027-05-01','2027-05-31','month'],['二〇二六年十二月','2026-12-01','2026-12-31','month'],
+  ['in may','2027-05-01','2027-05-31','month'],['二〇二六年十二月','2026-12-01','2026-12-31','month'],
  ]){const r=resolveTripDates(phrase,TODAY);assert.deepEqual([r.start,r.end,r.precision],[start,end,precision],phrase);}
  assert.deepEqual(resolveTripDates('二〇二六年十二月',TODAY).assumptions.filter(a=>a.startsWith('year')),[]);
- for(const phrase of ['下下个月','去年12月','last december','Dec 3 nights','12月3晚','Dec 2 weeks','12月20到春节','next week'])assert.equal(resolveTripDates(phrase,TODAY).ok,false,phrase);
+ for(const phrase of ['I may travel in December','下下个月','去年12月','last december','Dec 3 nights','12月3晚','Dec 2 weeks','12月20到春节','next week'])assert.equal(resolveTripDates(phrase,TODAY).ok,false,phrase);
  // A stay already under way is not pushed a year out.
  for(const [phrase,today,start] of [['12月20日到1月5日','2027-01-03','2026-12-20'],['christmas to new year','2026-12-28','2026-12-24'],['12月到1月','2027-01-15','2026-12-01']])assert.equal(resolveTripDates(phrase,today).start,start,phrase);
+});
+test('second review: any word that could change the dates means ask, and stated years govern',()=>{
+ for(const phrase of ['12月30日住五晚','dec 30 for five nights','Dec 30 for a week','12月30日起一周','after Dec 30','12月30日之后','Dec 30 onwards','before Jan 1','12月前','May I use it','Dec 3 guests','后年1月','后年12月','两年后12月','十二月一二号','12月二三号','一二月'])assert.equal(resolveTripDates(phrase,TODAY).ok,false,phrase);
+ for(const [phrase,start,end] of [['十二月二十五','2026-12-25','2026-12-25'],['十二月二十到二十七','2026-12-20','2026-12-27'],['二月十四','2027-02-14','2027-02-14'],['明年圣诞','2027-12-01','2027-12-31'],['Christmas next year',"2027-12-01",'2027-12-31'],["next year's christmas",'2027-12-01','2027-12-31'],['明年圣诞到元旦','2027-12-24','2028-01-01'],['Christmas in Dec 2027','2027-12-01','2027-12-31'],['12月20日到明年1月3日','2026-12-20','2027-01-03'],['Dec 20 - Jan 3, 2027','2026-12-20','2027-01-03'],['late Dec 2026','2026-12-21','2026-12-31'],['12月中','2026-12-11','2026-12-20'],['end of next month','2026-12-21','2026-12-31'],['around Christmas','2026-12-01','2026-12-31'],['圣诞前后','2026-12-01','2026-12-31']]){const r=resolveTripDates(phrase,TODAY);assert.deepEqual([r.start,r.end],[start,end],phrase);}
+ assert.ok(resolveTripDates('5/6',TODAY).assumptions.includes('month-first-assumed'));assert.ok(!resolveTripDates('12/20',TODAY).assumptions.includes('month-first-assumed'));
+ assert.throws(()=>queryCredits({use:'hotel'},{cards,events:[]}),/wallet day/);
+});
+test('second review: marked items survive truncation first, and remembered exact dates stay assumed if they were',async()=>{
+ const many=Array.from({length:8},(_,n)=>cards.map(c=>({...c,id:c.id+'-'+n}))).flat();
+ const mark=creditMark(CSR,EDIT,'2026-01-01','2026-12-31','used');
+ const big=queryCredits({use:'hotel',when:'12月'},{cards:[...cards,...many],events:[mark],day:TODAY});
+ assert.equal(big.truncated,true);assert.equal(big.groups.markedUsed.length,1);
+ const m=script([[call({use:'hotel',when:'12月20-27'})],'按 2026 年 12 月算，这些没有标记，不确定是否用过。'+allItems]);
+ const first=await runAgentTurn({history:[],question:'12月20-27住酒店',context:wallet,request:m.request});
+ assert.equal(first.memory.trip.assumed,true);
+ const reused=runWalletTool(call({reuseRememberedDates:true,use:'dining'}),{...wallet,trip:first.memory.trip});
+ assert.ok(reused.window.assumptions.includes('dates-were-assumed-earlier'));
+ const stated=runWalletTool(call({reuseRememberedDates:true,use:'dining'}),{...wallet,trip:{start:'2026-12-20',end:'2026-12-27',precision:'days'}});
+ assert.ok(!stated.window.assumptions.includes('dates-were-assumed-earlier'));
+ assert.throws(()=>validateMemory({trip:{start:'2026-12-20',end:'2026-12-27',precision:'days',assumed:'yes'}}),/invalid_memory/);
 });
 test('unresolvable dates fail closed instead of being guessed',()=>{
  for(const [phrase,reason] of [['找个时间','unparsed_dates'],['春节','unparsed_dates'],['2月30日','invalid_dates'],['2026-02-30','invalid_dates'],['2026年1月','past_dates'],['2026-12-31 to 2026-12-01','invalid_dates'],['2026-11-05 to 2027-06-01','window_too_long']])assert.deepEqual(resolveTripDates(phrase,TODAY),{ok:false,reason},phrase);
@@ -245,6 +265,33 @@ test('reusing remembered dates keeps them marked as assumed, and broad listings 
  assert.ok(JSON.stringify(broad).length*4<170000,'four broad calls fit one request');
  assert.ok(Object.values(runWalletTool(call({cardName:'Sapphire Reserve',when:'12月'}),wallet).groups).flat().every(i=>i.sources));
 });
+test('second review: universal claims, crossed hedges and more verbs',()=>{
+ const oneOpen=[plan('12月',{events:[creditMark(CSR,EDIT,'2026-01-01','2026-12-31','unused')]})];
+ for(const answer of ['All your hotel credits are unused.','你的酒店抵扣都没用。','Both are unused.','两项都没用。','住宿预订抵扣状态未知，Hilton Resort 抵扣没用。','Hilton Resort 抵扣没用，住宿预订抵扣未确认。','Hilton resort credit is unused, status unknown for Lodging credit.',"You didn't use the Hilton resort credit.",'You never used the Hilton resort credit.','The Hilton resort credit has yet to be used.','Hilton Resort 抵扣还可以使用。','Hilton Resort 抵扣还能使用。'])
+  assert.ok(issues('2026 年 12 月。'+answer+'\n'+allItems,oneOpen).includes('unknown_treated_as_unused'),answer);
+ assert.ok(issues('2026 年 12 月。Uber Cash 没用。\n'+allItems).includes('unknown_treated_as_unused'));
+ assert.ok(issues('Uber Cash 没用。',[]).includes('unused_claim_without_evidence'));
+ // A bare count is false when only some are marked unused.
+ assert.ok(issues('2026 年 12 月，你还有4项未使用。\n'+allItems,oneOpen).includes('unknown_treated_as_unused'));
+ for(const answer of ['You still have to book through Chase for The Edit.','You still have 57 days to use The Edit.','The Edit credit is not used for flights.','The Edit has not been marked used or unused.','Unused status is not tracked for The Edit.','The Edit 还可以用于预付订单。'])
+  assert.ok(!issues('2026 年 12 月。'+answer+'\n'+allItems,[{...noMarks[0],today:'57'}]).includes('unknown_treated_as_unused'),answer);
+ assert.ok(!issues('2026 年 12 月。你有 1 项标记为未用：The Edit 酒店抵扣。其他未标记。\n'+allItems,oneOpen).includes('unknown_treated_as_unused'));
+});
+test('second review: the fallback never hides what it could not answer',()=>{
+ const dec=plan('12月'),jan=plan('1月');
+ const both=renderCreditAnswers([dec,jan],'12月和1月的酒店 credit');assert.ok(both.includes('2026-12-01'));assert.ok(both.includes('2027-01-01'));assert.deepEqual(answerGrounding(both,[dec,jan]).issues,[]);
+ assert.match(renderCreditAnswers([dec],'我的 CSR 年费多少？还有什么 credit',{partial:true}),/其他部分这次没能回答/);
+ assert.ok(!renderCreditAnswers([dec],'还有什么 credit').includes('其他部分'));
+ const unmatched=queryCredits({use:'hotel',when:'12月'},{cards:[{id:'x',name:'Mystery Card',bank:'B',region:'US',currency:'USD'}],day:TODAY});
+ assert.match(renderCreditAnswer(unmatched,'which?'),/Mystery Card/);
+ const reasons=renderCreditAnswer(plan('12月',{use:'airport'}),'还有什么');assert.ok(!/-(?:unknown|unverified)\b/.test(reasons),reasons);
+ assert.equal(answerLanguage('請問12月東京酒店可以嗎'),'zh-TW');assert.equal(answerLanguage('幫我看看信用卡'),'zh-TW');
+});
+test('second review: a turn with other tools says the fallback is partial',async()=>{
+ const bad='2026 年 12 月你没用的 Credit：\n- The Edit 酒店抵扣\n\n'+allItems;
+ const r=await runAgentTurn({history:[],question:'我的 CSR 年费多少？12月还有什么 hotel credit 没用？',context:wallet,request:script([[call({use:'hotel',when:'12月'}),call({kind:'fee',cardName:'Sapphire Reserve'},'f1','get_card_rules')],bad,bad]).request});
+ assert.match(r.answer,/其他部分这次没能回答/);assert.equal(r.trace.at(-1).type,'fallback');
+});
 test('grounding treats marked items by their marks',()=>{
  const marks=[plan('12月',{events:[creditMark(MS,LODGING,'2026-07-01','2026-12-31','unused'),creditMark(CSR,EDIT,'2026-01-01','2026-12-31','used')]})];
  assert.deepEqual(issues('2026 年 12 月，住宿预订抵扣还没用。其他未标记：'+allItems,marks),[]);
@@ -301,7 +348,7 @@ test('the owner question: plan, answer first with assumed dates, no clarifying t
  const m=script([[call({use:'hotel',when:'12月圣诞节'})],goodDecember]);
  const r=await runAgentTurn({history:[],question:'12月圣诞节想出去玩，住酒店，我还有什么酒店 credit 没用？',context:wallet,request:m.request});
  assert.deepEqual(r.tools,['query_credits']);assert.equal(r.answer,goodDecember);assert.equal(r.trace.at(-1).passed,true);
- assert.deepEqual(r.memory.trip,{use:'hotel',start:'2026-12-01',end:'2026-12-31',precision:'holiday'});
+ assert.deepEqual(r.memory.trip,{use:'hotel',start:'2026-12-01',end:'2026-12-31',precision:'holiday',assumed:true});
  const tool=JSON.parse(m.requests[1].messages.at(-1).content);assert.equal(tool.window.start,'2026-12-01');assert.equal(tool.today,TODAY);
  const trace=r.trace.find(t=>t.name==='query_credits');assert.equal(trace.groups.unknownStatus,4);assert.ok(!JSON.stringify(trace).includes('Edit'));
 });
@@ -312,7 +359,7 @@ test('"那 1 月呢" keeps the trip scenario across turns and re-reads evidence'
  const next=await runAgentTurn({history:first.messages,memory:first.memory,question:'那 1 月呢',context:wallet,request:m.request});
  assert.equal(m.requests[0].memory.trip.start,'2026-12-01');
  assert.ok(!m.requests[0].messages.some(x=>x.role==='tool'));
- assert.deepEqual(next.memory.trip,{use:'hotel',start:'2027-01-01',end:'2027-01-31',precision:'month'});
+ assert.deepEqual(next.memory.trip,{use:'hotel',start:'2027-01-01',end:'2027-01-31',precision:'month',assumed:true});
  assert.equal(JSON.parse(m.requests[1].messages.at(-1).content).window.start,'2027-01-01');
  assert.doesNotThrow(()=>validateChat({messages:m.requests[1].messages,memory:next.memory,today:TODAY}));
 });
@@ -341,7 +388,7 @@ test('an unknown-as-unused answer is repaired once, and never shown if the repai
  assert.match(m.requests[2].messages.at(-1).content,/unknown_treated_as_unused/);assert.equal(m.requests[2].final,true);
  // A second failure never shows the model's text; code states the computed facts instead.
  const fallback=await runAgentTurn({history:[],question:'12月住酒店，什么 credit 没用？',context:wallet,request:script([[call({use:'hotel',when:'12月'})],bad,bad]).request});
- assert.ok(!fallback.answer.includes('你没用的'));assert.equal(fallback.trace.at(-1).type,'fallback');assert.deepEqual(fallback.memory.trip.start,'2026-12-01');
+ assert.ok(!fallback.answer.includes('你没用的'));assert.ok(fallback.answer.includes('自动整理'));assert.equal(fallback.trace.at(-1).type,'fallback');assert.deepEqual(fallback.memory.trip.start,'2026-12-01');
 });
 test('the code-written fallback passes every check and states the facts in the question language',()=>{
  const events=[creditMark(MS,LODGING,'2026-07-01','2026-12-31','unused'),creditMark(CSR,EDIT,'2026-01-01','2026-12-31','used')];

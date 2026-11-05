@@ -3,7 +3,7 @@ import {queryKnowledge,knowledgeSources} from './knowledge.js';
 import {benefitPeriod,profileForCard} from './benefitRules.js';
 import {matchCardProduct} from './productCatalog.js';
 import {taskStatus} from './personalBenefits.js';
-import {resolveTripDates,addDays} from './tripDates.js';
+import {resolveTripDates,addDays,isRealDate} from './tripDates.js';
 import {CREDIT_CATEGORIES,creditCategoriesForRule} from './creditCategories.js';
 import translations from './translations.json' with {type:'json'};
 const MAX_ITEMS=30;
@@ -73,12 +73,13 @@ function latestUsage(key,revisionId,events){
 }
 export const CREDIT_USES=CREDIT_CATEGORIES.map(c=>c.id);
 export function queryCredits({use,when,destination,reuseRememberedDates},{cards,events=[],day,trip,brief=false}){
+ if(!isRealDate(day))throw TypeError('queryCredits needs the wallet day');
  // Without dates the question is about today, which is one day inside each current cycle.
  // Remembered dates keep their precision, so dates the user never stated are still reported as assumed.
- const remembered=reuseRememberedDates&&!when?trip?{ok:true,start:trip.start,end:trip.end,precision:trip.precision,assumptions:trip.precision==='days'?['dates-remembered-from-earlier-turn']:['dates-remembered-from-earlier-turn','dates-were-assumed-earlier'],phrase:null}:{ok:false,reason:'no_remembered_dates'}:null;
+ const remembered=reuseRememberedDates&&!when?trip?{ok:true,start:trip.start,end:trip.end,precision:trip.precision,assumptions:trip.precision==='days'&&!trip.assumed?['dates-remembered-from-earlier-turn']:['dates-remembered-from-earlier-turn','dates-were-assumed-earlier'],phrase:null}:{ok:false,reason:'no_remembered_dates'}:null;
  const window=remembered||(when?resolveTripDates(when,day):{ok:true,start:day,end:day,precision:'current-cycle',assumptions:[],phrase:null});
  if(!window.ok)return {tool:'query_credits',today:day,needsDates:true,reason:window.reason,phrase:when,instruction:'The date phrase could not be resolved. Ask the user for the dates; do not guess them.'};
- const groups={markedUnused:[],unknownStatus:[],markedUsed:[],noFixedCycle:[],cycleUnknown:[],outsideDates:[]},unmatchedCards=[],boundaries=new Set();
+ const groups={markedUnused:[],markedUsed:[],unknownStatus:[],noFixedCycle:[],cycleUnknown:[],outsideDates:[]},unmatchedCards=[],boundaries=new Set();
  const lookup=ruleLookup();
  for(const card of cards){
   const match=matchCardProduct(card);

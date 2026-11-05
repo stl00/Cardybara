@@ -2,7 +2,7 @@ import {runWalletTool} from './walletAgent.js';
 import {prepareAgentContext,validateMemory} from './agentContext.js';
 import {answerGrounding} from './answerGrounding.js';
 import {planResults} from './creditClaims.js';
-import {renderCreditAnswer} from './creditAnswer.js';
+import {renderCreditAnswers} from './creditAnswer.js';
 export async function runAgentTurn({history,question,context,request,memory={},onProgress=()=>{},signal}){
  if(!question.trim()||question.length>4000)throw Error('invalid_question');
  const prepared=prepareAgentContext(history,memory),state=prepared.memory;
@@ -25,9 +25,11 @@ export async function runAgentTurn({history,question,context,request,memory={},o
     if(!message||message.role!=='assistant'||message.tool_calls?.length||!message.content?.trim())throw Error('invalid_repair');
     grade=answerGrounding(message.content,evidence,{contextText:groundingContext()});trace.push({type:'repair',passed:grade.passed,codes:grade.issues.map(i=>i.code)});if(!grade.passed){
      // Credit facts are already computed, so code can state them plainly rather than refuse the question.
-     const plan=planResults(evidence).at(-1);
-     if(!plan)throw Object.assign(Error('answer_not_grounded'),{codes:grade.issues.map(i=>i.code)});
-     message={role:'assistant',content:renderCreditAnswer(plan,question)};trace.push({type:'fallback',codes:grade.issues.map(i=>i.code)});
+     const plans=planResults(evidence);
+     if(!plans.length)throw Object.assign(Error('answer_not_grounded'),{codes:grade.issues.map(i=>i.code)});
+     // Say so when the turn asked for more than these lookups can answer.
+     const partial=tools.some(name=>name!=='query_credits')||evidence.some(x=>x?.needsDates);
+     message={role:'assistant',content:renderCreditAnswers(plans,question,{partial})};trace.push({type:'fallback',codes:grade.issues.map(i=>i.code)});
     }
    }
    messages.push(message);
@@ -38,7 +40,7 @@ export async function runAgentTurn({history,question,context,request,memory={},o
    signal?.throwIfAborted();const start=Date.now(),result=runWalletTool(call,{...context,trip:state.trip}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
    if(call.function.name==='compare_cards')state.lastComparison=args;
    // Only dates that code resolved reach memory, so a failed resolution keeps the previous trip.
-   if(call.function.name==='query_credits'&&result.window&&result.window.precision!=='current-cycle')state.trip={...(result.use?{use:result.use}:{}),start:result.window.start,end:result.window.end,precision:result.window.precision,...(result.destination?{destination:result.destination}:{})};
+   if(call.function.name==='query_credits'&&result.window&&result.window.precision!=='current-cycle')state.trip={...(result.use?{use:result.use}:{}),start:result.window.start,end:result.window.end,precision:result.window.precision,...(result.destination?{destination:result.destination}:{}),...(result.window.assumptions.length?{assumed:true}:{})};
    trace.push({type:'tool',name:call.function.name,ms:Date.now()-start,resultChars:JSON.stringify(result).length,...(['find_benefits','get_card_rules'].includes(call.function.name)?{matches:result.totalMatches,returned:result.rules.length,truncated:result.truncated}:{}),...(call.function.name==='query_credits'?{needsDates:!!result.needsDates,...(result.groupCounts?{groups:result.groupCounts,truncated:result.truncated}:{})}:{})});
    onProgress({phase:'tool',name:call.function.name,tools:[...tools]});messages.push({role:'tool',tool_call_id:call.id,content:JSON.stringify(result)});
   }

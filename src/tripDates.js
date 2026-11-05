@@ -11,10 +11,12 @@ const MONTHS=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov',
 const ZH_DIGITS={'〇':0,'零':0,'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9};
 const SEP='(?:到|至|-|–|—|~|～|to|until|through|thru)';
 const DAY_END='(?:日|号|號|st|nd|rd|th)?';
-const PARTS={初:[1,10],月初:[1,10],上旬:[1,10],中旬:[11,20],月中:[11,20],底:[21,null],月底:[21,null],末:[21,null],月末:[21,null],下旬:[21,null]};
-const PART='月初|月中|月底|月末|上旬|中旬|下旬|初|底|末';
+const PARTS={初:[1,10],月初:[1,10],上旬:[1,10],中:[11,20],中旬:[11,20],月中:[11,20],底:[21,null],月底:[21,null],末:[21,null],月末:[21,null],下旬:[21,null]};
+const PART='月初|月中|月底|月末|上旬|中旬|下旬|初|中|底|末';
 const zhNumber=text=>{
- if(!text.includes('十'))return Number([...text].map(c=>ZH_DIGITS[c]).join(''));
+ // Only a well-formed number converts. "一二号" stays as written, so the phrase fails rather than reading as the 12th.
+ if(!/^(?:[一二三四五六七八九]|十[一二三四五六七八九]?|[二三]十[一二三四五六七八九]?)$/.test(text))return text;
+ if(!text.includes('十'))return ZH_DIGITS[text];
  const [tens,ones]=text.split('十');return (tens?ZH_DIGITS[tens]:1)*10+(ones?ZH_DIGITS[ones]:0);
 };
 /** Rewrites every supported spelling into [YYYY年]M月[D日|part], so one grammar reads them all. */
@@ -22,22 +24,20 @@ function canonical(phrase,today){
  const thisYear=Number(today.slice(0,4)),thisMonth=Number(today.slice(5,7));
  let t=phrase.normalize('NFKC').toLowerCase().trim();
  t=t.replace(/[〇零一二三四五六七八九]{4}(?=年)/g,m=>[...m].map(c=>ZH_DIGITS[c]).join(''));
- t=t.replace(/[一二三四五六七八九十]+(?=月)/g,zhNumber).replace(/[一二三四五六七八九十]+(?=[日号號])/g,zhNumber);
+ t=t.replace(/[一二三四五六七八九十]+/g,zhNumber);
  t=t.replace(/\b(20\d{2})-(\d{2})-(\d{2})\b/g,'$1年$2月$3日').replace(/\b(20\d{2})\/(\d{1,2})\/(\d{1,2})\b/g,'$1年$2月$3日');
  t=t.replace(/\b(\d{1,2})\/(\d{1,2})\/(20\d{2})\b/g,'$3年$1月$2日').replace(/\b(\d{1,2})\/(20\d{2})\b/g,'$2年$1月').replace(/\b(20\d{2})\/(\d{1,2})\b/g,'$1年$2月').replace(/\b(\d{1,2})\/(\d{1,2})\b/g,'$1月$2日');
- // "may" is an ordinary English word, so it is a month only where the phrase reads as a date.
- t=t.replace(/\bmay\b(?=\.?\s*(?:\d|$|to\b|-))|(?<=(?:^|\bin |\d\s))may\b/g,'may_month');
- t=t.replace(/\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may_month|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\b\.?/g,m=>(MONTHS.indexOf(m.slice(0,3))+1)+'月 ');
+ t=t.replace(/\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\b\.?/g,m=>(MONTHS.indexOf(m.slice(0,3))+1)+'月 ');
  t=t.replace(/\b(\d{1,2})月\s*(\d{1,2})(?:st|nd|rd|th)?\s*,?\s*(20\d{2})\b/g,'$3年$1月$2日').replace(/\b(\d{1,2})月\s*,?\s*(20\d{2})\b/g,'$2年$1月').replace(/\b(20\d{2})\s+(\d{1,2})月/g,'$1年$2月');
  t=t.replace(new RegExp(`(?<![\\d月])(\\d{1,2})\\s*${SEP}\\s*(\\d{1,2})(?:st|nd|rd|th)?\\s+(\\d{1,2})月`,'g'),'$3月$1日到$2日').replace(/(?<![\d月])(\d{1,2})(?:st|nd|rd|th)?\s+(\d{1,2})月/g,'$2月$1日');
- t=t.replace(/\b(?:early|beginning of)\s+(\d{1,2})月/g,'$1月初').replace(/\b(?:mid|middle of)[\s-]+(\d{1,2})月/g,'$1月中旬').replace(/\b(?:late|end of)\s+(\d{1,2})月/g,'$1月底');
  const next=thisMonth===12?iso(thisYear+1,1,1):iso(thisYear,thisMonth+1,1);
  t=t.replace(/下个月|下個月|下月|next month/g,`${Number(next.slice(0,4))}年${Number(next.slice(5,7))}月`).replace(/这个月|這個月|本月|this month/g,`${thisYear}年${thisMonth}月`);
- t=t.replace(/明年|next year/g,'@NEXT').replace(/今年|this year/g,'@THIS');
+ t=t.replace(/\b(?:early|beginning of)\s+((?:20\d{2}年)?\d{1,2})月/g,'$1月初').replace(/\b(?:mid|middle of)[\s-]+((?:20\d{2}年)?\d{1,2})月/g,'$1月中旬').replace(/\b(?:late|end of)\s+((?:20\d{2}年)?\d{1,2})月/g,'$1月底');
+ t=t.replace(/明年|next year(?:'s)?/g,'@NEXT').replace(/今年|this year(?:'s)?/g,'@THIS');
  for(const [marker,year] of [['@NEXT',thisYear+1],['@THIS',thisYear]])t=t.replace(new RegExp(`${marker}\\s*(?:的|in\\s+)?(\\d{1,2})月`,'g'),`${year}年$1月`).replace(new RegExp(`(\\d{1,2})月\\s*(?:of\\s+)?${marker}`,'g'),`${year}年$1月`);
  t=t.replace(/christmas(?: day| eve)?|xmas|圣诞节?|聖誕節?/g,'<X>').replace(/new year(?:'s)?(?: day| eve)?|元旦|跨年/g,'<N>');
  // "12月圣诞节" and "Christmas in December" name the holiday twice.
- t=t.replace(/(?:20\d{2}年)?12月\s*(?:的\s*)?<X>/g,m=>(m.match(/20\d{2}/)?m.match(/20\d{2}/)[0]+'年':'')+'<X>').replace(/<X>\s*(?:in\s+)?(?:20\d{2}年)?12月/g,'<X>');
+ t=t.replace(/(?:20\d{2}年)?12月\s*(?:的\s*)?<X>/g,m=>(m.match(/20\d{2}/)?m.match(/20\d{2}/)[0]+'年':'')+'<X>').replace(/<X>\s*(?:in\s+)?(20\d{2}年)?12月/g,(_,y)=>(y||'')+'<X>');
  return t;
 }
 const endpointPattern=`(?:(20\\d{2})年)?\\s*(\\d{1,2})月\\s*(?:(${PART})|(\\d{1,2})${DAY_END}(?![\\d月]))?`;
@@ -46,6 +46,7 @@ const toEndpoint=([,y,m,part,d])=>{
  const range=part?PARTS[part]:null;
  return {year:y?Number(y):null,month,from:d?Number(d):range?range[0]:1,to:d?Number(d):range?range[1]:null,kind:d?'day':part?'part':'month'};
 };
+const FILLER=/^(?:(?:的|左右|前后|前後|期间|期間|时候|時候|节|節|假期|那|呢|吧|in|on|at|from|around|the|of|during|for|about|holiday|holidays|season|time|呢)+)$/;
 const failure=reason=>({ok:false,reason});
 function finish(start,end,precision,assumptions,phrase,today){
  if(!isRealDate(start)||!isRealDate(end)||start>end)return failure('invalid_dates');
@@ -58,6 +59,8 @@ function placeYears(first,second,today){
  const thisYear=Number(today.slice(0,4));
  const build=y=>{const endYear=second.year||(second.month<first.month?y+1:y);return {start:iso(y,first.month,first.from),end:iso(endYear,second.month,second.to||lastDay(endYear,second.month)),year:y};};
  if(first.year)return {...build(first.year),assumptions:[]};
+ // "Dec 20 - Jan 3, 2027": the year on the end fixes the start.
+ if(second.year)return {...build(second.month<first.month?second.year-1:second.year),assumptions:[]};
  const placed=[thisYear-1,thisYear,thisYear+1].map(build).find(w=>w.end>=today);
  return {...placed,assumptions:['year-assumed-next-occurrence',...(placed.year>thisYear?['rolled-to-next-year']:[])]};
 }
@@ -66,11 +69,13 @@ export function resolveTripDates(phrase,today){
  if(typeof phrase!=='string'||!phrase.trim()||!isRealDate(today))return failure('unparsed_dates');
  const raw=phrase.trim();
  // Words that shift or measure dates in ways this grammar does not model.
- if(/下下|上个月|上個月|去年|前年|\blast\b|\bprevious\b|\bago\b|\d\s*(?:晚|天|周|週|个星期|個星期|星期|nights?\b|weeks?\b|days?\b)/i.test(raw.normalize('NFKC')))return failure('unparsed_dates');
+ if(/下下|上个月|上個月|去年|前年|后年|後年|年后|年後|\blast\b|\bprevious\b|\bago\b/i.test(raw.normalize('NFKC')))return failure('unparsed_dates');
  const text=canonical(raw,today);
- const yearMatch=text.match(/^\s*(20\d{2})年?\s*<X>/);
- const forcedYear=yearMatch?Number(yearMatch[1]):null;
- const body=forcedYear?text.replace(/^\s*20\d{2}年?\s*/,''):text;
+ const yearMatch=text.match(/^\s*(20\d{2})年?\s*<X>/),thisYear=Number(today.slice(0,4));
+ // A year stated around a holiday governs it: 明年圣诞, Christmas next year, 2027 Christmas.
+ const marker=/<[XN]>/.test(text)&&(/@NEXT/.test(text)?thisYear+1:/@THIS/.test(text)?thisYear:null);
+ const forcedYear=yearMatch?Number(yearMatch[1]):marker||null;
+ const body=(yearMatch?text.replace(/^\s*20\d{2}年?\s*/,''):text).replace(marker?/@NEXT|@THIS/g:/$^/,'');
  const hasX=body.includes('<X>'),hasN=body.includes('<N>');
  let first=null,second=null,rest=body,precision=null,extra=[];
  const take=re=>{const m=rest.match(re);if(m)rest=rest.slice(0,m.index)+' '+rest.slice(m.index+m[0].length);return m;};
@@ -101,10 +106,12 @@ export function resolveTripDates(phrase,today){
   if(precision==='month')extra=[first===second?'whole-month-assumed-no-stay-dates-given':'whole-months-assumed-no-stay-dates-given'];
   if(precision==='part-of-month')extra=['part-of-month-assumed-from-phrase'];
  }
- // Anything date-like left over means part of the phrase was not understood. Asking beats a wrong window.
- const separatorLeft=new RegExp(`(?:^|\\s)${SEP}(?:\\s|$)`).test(rest.trim())||/^\s*(?:到|至|-|–|—|~|～)/.test(rest)||/(?:到|至|-|–|—|~|～)\s*$/.test(rest);
- if(/\d|月|<|春节|春節|国庆|國慶|中秋/.test(rest)||separatorLeft)return failure('unparsed_dates');
+ // Only filler may remain. Any other word could change the dates, such as "after", "for five nights" or "前", so it means ask.
+ if(rest.replace(/[\s,，.。、!！?？]+/g,' ').split(' ').filter(Boolean).some(word=>!FILLER.test(word)))return failure('unparsed_dates');
  const placed=placeYears(first,second,today);
+ // 5/6 reads differently in the US and Hong Kong, so the reading is stated.
+ const slash=raw.match(/(?<!\d)(\d{1,2})\/(\d{1,2})(?!\d)/);
+ if(slash&&slash[1]!==slash[2]&&Number(slash[1])<=12&&Number(slash[2])<=12)extra=[...extra,'month-first-assumed'];
  // A named Christmas that has passed means the next one.
  if(precision==='holiday'&&first===second&&!first.year&&today>iso(Number(today.slice(0,4)),12,25)&&placed.start<=today&&placed.end>=today){
   const y=Number(today.slice(0,4))+1;return finish(iso(y,12,1),iso(y,12,31),precision,[...extra,'year-assumed-next-occurrence','rolled-to-next-year'],raw,today);
