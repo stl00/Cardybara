@@ -163,10 +163,11 @@ test('second review: generic portal words, numbers that are not values, miles, a
  for(const portal of ['Travel','travel portal','The Travel','Business Travel']){const r=chooseCard({...hotel,portal},two);assert.notEqual(row(r,'Sapphire Reserve').earn.via,'Chase Travel',portal);assert.notEqual(row(r,strata.name)?.earn.via,'cititravel.com',portal);}
  assert.equal(row(chooseCard({...hotel,portal:'Citi Travel'},two),strata.name).earn.via,'cititravel.com');
  const {statedPointValues}=await import('../src/agentContext.js');
- for(const [question,values] of [['Dinner for 2 at a US restaurant, 100 USD. Which card?',{MR:2}],['Spend $1,000 on dining',{MR:1}],['2 people, 2 nights',{UR:2}]])assert.equal(statedPointValues(values,question),null,question);
+ for(const [question,values] of [['Dinner for 2 at a US restaurant, 100 USD. Which card?',{MR:2}],['Spend $1,000 on dining',{MR:1}],['2 people, 2 nights',{UR:2}],['Mr Sushi for 2, 100 USD, which card?',{MR:2}],['Our party of 2 at a restaurant, 100 USD',{UR:2}],['Tour for 4 people, 100 USD',{UR:4}],['离地铁站2分钟的餐厅，100美元用哪张',{MR:2}]])assert.equal(statedPointValues(values,question),null,question);
  for(const [question,values] of [['MR 一点值 2 美分',{MR:2}],['I value MR at 1.5',{MR:1.5}],['UR is worth 1.25 cents',{UR:1.25}],['亚洲万里通 10 港分一里',{'Asia Miles':10}]])assert.deepEqual(statedPointValues(values,question),values,question);
  const cathay=pick({category:'other',amount:1200,currency:'HKD',country:'HK',pointValues:{'Asia Miles':10}}).rows.find(r=>/Cathay/.test(r.card));assert.equal(cathay.centsPerPoint,10);
  const noAmount=pick({category:'other',currency:'HKD',country:'HK',pointValues:{'Asia Miles':10}}).rows.find(r=>/Cathay/.test(r.card));assert.equal(noAmount.percentAtYourPointValue,Math.round(10/noAmount.earn.rate*100)/100);
+ const mileAnswer=renderChoiceAnswer(pick({category:'other',currency:'HKD',country:'HK',pointValues:{'Asia Miles':10}}),'Which card?');assert.match(mileAnswer,/1 mile per HKD \d/);assert.ok(!/\dx points/.test(mileAnswer));
  const gold=chooseCard({category:'dining',currency:'USD',pointValues:{MR:2}},{...wallet,cards:cards.filter(c=>['American Express Gold Card','Freedom Unlimited'].includes(c.name))});
  for(const [q,expect] of [['刷哪张',/2 分，4 倍积分约合消费的 8%/],['Which card?',/2 cents a point, 4x points are worth about 8%/]]){const text=renderChoiceAnswer(gold,q);assert.match(text,expect);assert.ok(!/4% (?:返现|cash back)/.test(text));assert.deepEqual(answerGrounding(text,[gold],{contextText:q}).issues,[]);}
 });

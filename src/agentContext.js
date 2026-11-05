@@ -15,7 +15,8 @@ export function statedPointValues(values,question,remembered={}){
  if(!values)return null;
  const text=question.normalize('NFKC').toLowerCase();
  // The number must be said as a value: next to a cents unit, or right after the programme's name. "Dinner for 2" is not a point value.
- const stated=(key,value)=>{const n=String(value).replace('.','\\.'),name=key.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return new RegExp(`(?<![\\d.])${n}\\s*(?:美分|港分|分|cents?|¢)`).test(text)||new RegExp(`${name}[^\\d]{0,12}(?<![\\d.])${n}(?![\\d.])`).test(text);};
+ // A bare 分 must not be 分钟, and a programme name must be a whole word followed by a valuing word ("Mr Sushi for 2" is not MR at 2).
+ const stated=(key,value)=>{const n=String(value).replace('.','\\.'),name=key.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return new RegExp(`(?<![\\d.])${n}\\s*(?:美分|港分|分(?![钟鐘半])|cents?\\b|¢)`).test(text)||new RegExp(`(?<![a-z])${name}(?![a-z])[^\\d]{0,12}?(?:值|是|估|=|:|：|\\bat\\b|\\bworth\\b|\\bvalued?\\b)[^\\d]{0,4}(?<![\\d.])${n}(?![\\d.])`).test(text);};
  const kept=Object.fromEntries(Object.entries(values).filter(([k,v])=>stated(k,v)||remembered?.[k]===v));
  return Object.keys(kept).length?kept:null;
 }
