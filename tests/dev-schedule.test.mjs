@@ -214,8 +214,10 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   for(const sender of [{id:'dev',url:'chrome-extension://dev/index.html'},{id:'dev',url:'http://127.0.0.1:8766/'},{id:'other',url:'chrome-extension://dev/dev-popup.html'}])assert.equal((await say({type:'dev-read-now'},sender))?.ok,false,sender.url);
   const prior=state().run.id;const stoppedNow=await say({type:'dev-read-now'});assert.equal(stoppedNow.outcome,'nothing','a stopped bank is not retried');assert.equal(state().run.id,prior);
   settings().banks.BOA={state:'ok',lastAttemptAt:Date.now()};tabs=[{id:7,url:href,status:'complete',windowId:1,active:true}];
+  const guidesAtStart=calls.files.filter(f=>f==='guide.js').length;assert.equal(guidesAtStart,0,'no scheduled run so far showed the guide');
   const started=await say({type:'dev-read-now'});assert.equal(started.outcome,'started','off, not idle and not due: the click still reads');
-  await finished();assert.notEqual(state().run.id,prior);assert.equal(settings().banks.BOA.state,'ok');assert.ok(!calls.files.includes('guide.js'));
+  const guidesBefore=calls.files.filter(f=>f==='guide.js').length;
+  await finished();assert.notEqual(state().run.id,prior);assert.equal(settings().banks.BOA.state,'ok');assert.equal(state().run.manual,true);assert.ok(calls.files.filter(f=>f==='guide.js').length>guidesBefore,'a run the owner starts shows the guide');
   assert.equal((await say({type:'dev-schedule-state'})).running,false);
   await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60});const manualRun=state().run.id;await tick();assert.equal(state().run.id,manualRun,'the click counts as an attempt, so the schedule waits');assert.equal(settings().skips.BOA,'not_due');
   await alarm('cardybara-dev-reload');assert.equal(calls.reloads,0,'the same build does nothing');
