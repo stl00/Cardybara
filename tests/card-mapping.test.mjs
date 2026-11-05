@@ -8,7 +8,7 @@ import {ACTIVE_BANKS} from '../extension-next/providers.js';
 import {needsSuggestion,suggestionKey} from '../src/productSuggestion.js';
 const json=p=>JSON.parse(readFileSync(new URL(p,import.meta.url),'utf8'));
 const names=json('../src/data/card-product-names.json');
-const card=(bank,name,extra={})=>({id:'x',bank,region:cardProducts.find(p=>p.bank===bank)?.region,name,...extra});
+const card=(bank,name,extra={})=>({id:'x',bank,region:cardProducts.find(p=>p.bank===bank)?.region,name,identitySource:'bank-page',...extra});
 const matched=(bank,name)=>{const m=matchCardProduct(card(bank,name));return m.status==='matched'?m.product.id:null;};
 
 test('page names lose the last digits, currency side and trademark signs, and keep product words',()=>{
@@ -68,4 +68,10 @@ test('a presented card is asked about by its page name, and a matched one never'
  const unknown=presentCard(card('HSBC HK','Mystery Card ••••1234'),'en-US'),pulse=presentCard(card('HSBC HK','滙豐Pulse銀聯雙幣鑽石卡-港幣'),'en-US');
  assert.equal(needsSuggestion(unknown,[]),true);assert.equal(needsSuggestion(pulse,[]),false);
  assert.equal(suggestionKey(unknown),suggestionKey(card('HSBC HK','Mystery Card ••••5678')));
+});
+test('trademark signs are removed, not turned into letters, and typed names are left alone',()=>{
+ for(const [raw,want] of [['Chase Freedom Flex℠','Chase Freedom Flex'],['Chase Sapphire Preferred™','Chase Sapphire Preferred'],['Blue Cash Everyday™ Card','Blue Cash Everyday Card'],['Boxx 1234','Boxx 1234'],['Gold xx1234','Gold']])assert.equal(cleanPageName(raw),want,raw);
+ for(const p of cardProducts)for(const a of [p.name,...p.aliases])for(const mark of ['™','℠','®']){const m=matchCardProduct({bank:p.bank,region:p.region,name:a+mark});assert.ok(m.status!=='matched'||m.product.id===p.id,a+mark);if(matchCardProduct({bank:p.bank,region:p.region,name:a}).status==='matched')assert.equal(m.status,'matched',a+mark);}
+ const typed={id:'m',bank:'Chase',region:'US',name:'My Hilton - 2025',identitySource:'manual'};assert.deepEqual(presentCard(typed,'en-US'),typed);
+ const seed={id:'s',bank:'Chase',region:'US',name:'Sapphire Reserve'};assert.equal(presentCard(seed,'zh-CN').pageName,undefined);
 });
