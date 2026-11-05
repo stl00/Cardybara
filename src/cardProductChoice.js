@@ -32,8 +32,9 @@ export function choicesFromBackup(choices,cards,backup){
  let next=choices;const added=[];
  for(const card of cards){
   if(next.some(c=>c.cardId===card.id)||matchCardProduct({...card,productId:undefined}).status==='matched')continue;
-  const old=backup.cards.filter(b=>b&&b.bank===card.bank&&b.region===card.region&&typeof b.tail==='string'&&b.tail===card.tail);
-  const ids=[...new Set(old.map(b=>matchCardProduct(b)).filter(m=>m.status==='matched').map(m=>m.product.id))];
+  if(!/^\d{4,5}$/.test(card.tail||''))continue;
+  const old=backup.cards.filter(b=>b&&b.bank===card.bank&&b.region===card.region&&b.tail===card.tail);
+  const ids=[...new Set(old.map(b=>matchCardProduct({...b,productId:undefined})).filter(m=>m.status==='matched').map(m=>m.product.id))];
   if(ids.length!==1)continue;
   next=withCardProductChoice(next,card,ids[0]);added.push({cardId:card.id,productId:ids[0]});
  }

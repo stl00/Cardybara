@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {suggestProduct,validateSuggestRequest,suggestionMessages,cleanCardName} from '../scripts/product-suggest.mjs';
-import {needsSuggestion,suggestionFor,withSuggestion,readSuggestions,requestSuggestion,suggestionKey,SUGGESTION_KEY} from '../src/productSuggestion.js';
+import {cleanCardName as clientClean,needsSuggestion,suggestionFor,withSuggestion,readSuggestions,requestSuggestion,suggestionKey,SUGGESTION_KEY} from '../src/productSuggestion.js';
 import {matchCardProduct} from '../src/productCatalog.js';
 import {choicesFromBackup} from '../src/cardProductChoice.js';
 const env={DEEPSEEK_API_KEY:'test-key'};
@@ -70,4 +70,16 @@ test('an old backup carries card types over by bank and last digits only',()=>{
  assert.deepEqual(added,[{cardId:'c1',productId:'hsbc-hk-hk-premier-credit-card'}],'only an unrecognised card with a recognised backup twin on the same bank');
  assert.deepEqual(choicesFromBackup(choices,now,backup).added,[],'an existing choice is kept');
  assert.throws(()=>choicesFromBackup([],now,{nope:1}),/invalid_backup/);
+});
+test('review fixes: invalid names are not retried, keys follow the cleaned name, backups do not trust their own productId',async()=>{
+ assert.equal(await requestSuggestion('',hsbc('Synthetic'),async()=>({ok:false,status:400})),null,'a rejected name is answered none');
+ await assert.rejects(()=>requestSuggestion('',hsbc('Synthetic'),async()=>({ok:false,status:429})),/suggestion_failed/,'busy is retried later');
+ assert.equal(suggestionKey(hsbc('Gold ●●1234')),suggestionKey(hsbc('Gold ●●5678')));assert.equal(cleanCardName('Gold ●●1234'),clientClean('Gold ●●1234'));
+ const now=[hsbc('Synthetic Card')],backup={cards:[{bank:'HSBC HK',region:'HK',tail:'4321',name:'unrecognisable',productId:'hsbc-hk-hk-red-credit-card'}]};
+ assert.deepEqual(choicesFromBackup([],now,backup).added,[]);
+ assert.deepEqual(choicesFromBackup([],[{...hsbc('Synthetic Card'),tail:''}],{cards:[{bank:'HSBC HK',region:'HK',tail:'',name:'Red Credit Card'}]}).added,[]);
+});
+test('nothing is sent automatically unless the user turned it on',()=>{
+ const ui=readFileSync(new URL('../src/CardProductPicker.jsx',import.meta.url),'utf8');
+ assert.match(ui,/if\(!autoSuggestOn\(\)\)return;/);assert.match(ui,/localStorage\.getItem\(AUTO_SUGGEST_KEY\)==='on'/);
 });
