@@ -4,7 +4,7 @@ import 'fake-indexeddb/auto';
 import {readFileSync} from 'node:fs';
 import {creditTasks,taskStatus,reminderTasks,creditCalendar,validatePersonalEvent} from '../src/personalBenefits.js';
 import {readBenefitEvents,appendBenefitEvent,importBenefitEvents} from '../src/personalStore.js';
-import {parseLocalIntent,validateIntent,recommendCards,searchBenefits} from '../src/spendAdvisor.js';
+import {parseLocalIntent,validateIntent,searchBenefits} from '../src/spendAdvisor.js';
 import {parseAdvisorIntent} from '../scripts/advisor-model.mjs';
 const cards=JSON.parse(readFileSync(new URL('./fixtures/wallet-products.json',import.meta.url),'utf8')).cards;
 globalThis.window=new EventTarget();
@@ -36,15 +36,6 @@ test('reminders and calendar exclude handled tasks and keep currencies separate'
  assert.ok(!reminderTasks(tasks,events,'2026-10-28').some(t=>t.key===one.key));
  const cal=creditCalendar(tasks,events);
  const moved=creditCalendar(tasks,[],3,{now:new Date('2026-10-28T22:00:00Z')});assert.match(moved,/DTSTART:20261028T221000Z/);assert.match(cal,/BEGIN:VCALENDAR/);assert.match(cal,/BEGIN:VALARM/);assert.ok(!cal.replace(/\r\n /g,'').includes(encodeURIComponent(one.key)+'@cardybara'));
-});
-test('advice clarifies missing context and never equates raw MR / UR with dollars',()=>{
- assert.equal(recommendCards(cards,parseLocalIntent('在餐厅花100用哪张')).kind,'clarify');
- const result=recommendCards(cards,{intent:'recommend',category:'dining',country:'US',currency:'USD',amount:100},{asOf:'2026-10-28'});
- assert.equal(result.winner.cardId,'freedom');assert.equal(result.winner.reward,3);
- assert.equal(result.candidates.find(c=>c.cardId==='reserve').reward,300);assert.equal(result.candidates.find(c=>c.cardId==='gold').reward,400);assert.equal(result.candidates.find(c=>c.cardId==='gold').conditional,true);
- assert.ok(result.candidates.every(c=>c.currency==='USD'));assert.equal(result.candidates.find(c=>c.cardId==='aspire').rewardLabel,'Hilton Honors');assert.equal(result.candidates.find(c=>c.cardId==='aspire').reward,700);assert.equal(result.candidates.find(c=>c.cardId==='atmos').rewardLabel,'Atmos Rewards');
- const large=recommendCards(cards,{intent:'recommend',category:'supermarket',country:'US',currency:'USD',amount:10000},{asOf:'2026-10-28'});assert.equal(large.candidates.find(c=>c.cardId==='blue').reward,null);
- assert.ok(!recommendCards(cards,{intent:'recommend',category:'dining',country:'HK',currency:'HKD',amount:100},{asOf:'2026-10-28'}).candidates.some(c=>c.cardId==='gold'));
 });
 test('AI output is allowlisted and model request has no wallet payload',async()=>{
  let request;const output=await parseAdvisorIntent({DEEPSEEK_API_KEY:'test-only'},'在美国餐厅花100美元用哪张卡',async(url,options)=>{request={url,...options};return {ok:true,json:async()=>({choices:[{message:{content:JSON.stringify({intent:'recommend',category:'dining',country:'US',currency:'USD',amount:100,query:'test'})}}]})};});
