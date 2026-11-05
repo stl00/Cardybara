@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import {validateChat,chatAgent} from '../scripts/chat-agent.mjs';
 import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
 import {runAgentTurn} from '../src/agentSession.js';
+import {presentCard} from '../src/cardName.js';
 const cards=JSON.parse(readFileSync(new URL('./fixtures/wallet-products.json',import.meta.url))).cards;
 const context={cards,events:[],day:'2026-10-28'};
 const call=(name,args={},id='c1')=>({id,type:'function',function:{name,arguments:JSON.stringify(args)}});
@@ -104,4 +105,14 @@ test('public rule search bounds broad requests and rejects unsupported topics or
  assert.equal(absent.totalMatches,0);assert.deepEqual(absent.matchedCards,[]);
  assert.throws(()=>validateToolCall(call('get_card_rules',{kind:'balances'})),/invalid_arguments/);
  assert.throws(()=>validateToolCall(call('get_card_rules',{kind:'fee',accountNumber:'secret'})),/invalid_arguments/);
+});
+
+test('a card is found by the name its bank page showed as well as its catalogue name',()=>{
+ const raw={id:'p1',name:'滙豐Pulse銀聯雙幣鑽石卡',bank:'HSBC HK',region:'HK',currency:'HKD',identitySource:'bank-page'};
+ for(const language of ['zh-CN','en-US']){
+  const card=presentCard(raw,language),wallet={cards:[card],events:[],day:'2026-10-28'};
+  assert.notEqual(card.name,card.pageName,'the wallet shows the catalogue name');
+  for(const cardName of [card.name,card.pageName])assert.deepEqual(runWalletTool(call('find_benefits',{query:'fee',cardName}),wallet).matchedCards,[card.name],language+' '+cardName);
+ }
+ assert.deepEqual(runWalletTool(call('find_benefits',{query:'fee',cardName:'Platinum Delta'}),{cards:[presentCard(raw,'en-US')],events:[],day:'2026-10-28'}).matchedCards,[]);
 });
