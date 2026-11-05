@@ -1,10 +1,11 @@
 import React,{useEffect,useState} from 'react';
 import {Alert,Button,Card,Checkbox,Flex,Space,Switch,Tag,Typography} from 'antd';
 import {t,useI18n} from './i18n';
+import {autoSuggestOn,setAutoSuggest} from './CardProductPicker.jsx';
 const {Paragraph,Text}=Typography;
 const internal=()=>location.protocol==='chrome-extension:'&&!!globalThis.chrome?.runtime?.id;
 export default function ParserSettings(){
- useI18n();const [state,setState]=useState(null),[busy,setBusy]=useState(false),[error,setError]=useState(''),[consent,setConsent]=useState(false);
+ useI18n();const [state,setState]=useState(null),[busy,setBusy]=useState(false),[error,setError]=useState(''),[consent,setConsent]=useState(false),[auto,setAuto]=useState(autoSuggestOn);
  const call=async(type,extra={})=>{const r=await chrome.runtime.sendMessage({type,...extra});if(!r?.ok)throw Error();setState(r.result);setConsent(!!r.result.settings?.cloudConsent);return r.result;};
  const action=async fn=>{setBusy(true);setError('');try{await fn()}catch{setError(t('未连接到本机解析服务，请确认本机调试服务已启动。'))}finally{setBusy(false)}};
  const localStatus=async()=>{const r=await fetch('/api/parser/status');if(!r.ok)throw Error();setState(await r.json())};
@@ -14,6 +15,8 @@ export default function ParserSettings(){
  <Paragraph>{t('银行规则读取无需本机服务。AI 补全需要另外配置自己的模型服务。')}</Paragraph><Paragraph type="secondary">{t('服务从本机 .env.local 读取 DeepSeek 配置，无需在扩展中填写密钥。')}</Paragraph><Text code>{internal()?'http://127.0.0.1:8766':location.origin}</Text>
  <Paragraph type="secondary" style={{marginTop:16}}>{t('此配置通过 DeepSeek 云端解析；本机服务只负责保管密钥和转发。密钥不会进入扩展或钱包备份。')}</Paragraph>
  {!internal()&&<Paragraph type="secondary">{t('本地钱包可发起银行刷新；AI 解析授权沿用扩展现有设置。')}</Paragraph>}
+ <Flex align="center" gap={12} wrap style={{marginTop:16}}><Switch checked={auto} disabled={!state?.configured} onChange={on=>{try{setAutoSuggest(on);setAuto(on)}catch{}}}/><Text>{t('自动用 AI 推测未识别的卡种')}</Text></Flex>
+ <Paragraph type="secondary" style={{marginTop:8,fontSize:12}}>{t('默认关闭。开启后，钱包会把未识别卡片的银行、地区和卡名（不含尾号和金额）发给你配置的模型，每个卡名只问一次；推测结果需要你在卡片详情里确认。')}</Paragraph>
  {error&&<Alert showIcon type="warning" title={error} style={{marginTop:16}}/>}
  <Space wrap style={{marginTop:16}}><Button loading={busy} onClick={()=>!internal()?action(localStatus):action(async()=>{if(!await chrome.permissions.request({origins:['http://127.0.0.1/*']}))throw Error();await call('parser-state')})}>{state?.configured?t('检查连接'):t('连接本机服务')}</Button>{state?.model&&<Text type="secondary">{state.model}</Text>}</Space>
  </Card>{internal()&&<Card title={t('自动补全银行数据')}>

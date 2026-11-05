@@ -1,4 +1,5 @@
 import {ACTIVE_BANKS,PROVIDERS} from '../extension-next/providers.js';
+import {cleanPageName} from './cardName.js';
 // An archived bank shows only for a wallet already holding its cards, and never joins a refresh-all.
 export const visibleConnections=data=>data.connections.filter(c=>!PROVIDERS[c.bank]?.archived||data.cards.some(card=>card.bank===c.bank));
 export const selectableBanks=(banks,cards)=>banks.filter(b=>!PROVIDERS[b]?.archived||cards.some(c=>c.bank===b));
@@ -11,9 +12,10 @@ export function newWalletCard({bank,name,tail,currency},id=crypto.randomUUID()){
 }
 export function mergeWalletCards(base,extra=[]){
  if(!Array.isArray(extra)||extra.length>40)throw Error('invalid_registry');
- const cards=[...base.cards];
+ const cards=base.cards.map(c=>c.identitySource==='bank-page'&&typeof c.name==='string'?{...c,name:cleanPageName(c.name)||c.name}:c);
  for(const c of extra){
-  const clean=newWalletCard(c,c.id);
+  // A bank page's name keeps no last digits, currency side or trademark signs once it is stored.
+  const clean=newWalletCard(c.identitySource==='bank-page'?{...c,name:cleanPageName(c.name)||c.name}:c,c.id);
   // The bank page is the authority on a card it listed, so a stored currency follows it rather than failing every reading.
   const held=cards.findIndex(old=>old.id===clean.id&&old.identitySource==='bank-page'&&c.identitySource==='bank-page'&&c.currency&&old.currency!==clean.currency);
   if(held>=0){cards[held]={...cards[held],currency:clean.currency};continue;}

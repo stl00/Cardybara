@@ -56,11 +56,15 @@ function scrub(value){
  return Number.isFinite(value)||typeof value==='boolean'||value===null?value:null;
 }
 const word=v=>typeof v==='string'&&/^[a-z_]{1,40}$/.test(v)?v:undefined;
+// Counts only: how many cards have each field, lack each field, or give each coverage reason. No card id, name or value.
 export function jobReport(job,state,page=null){
- const ids=new Set((job.cards||[]).map(c=>c.id)),counts={},note=key=>{if(FIELD_KEYS.includes(key))counts[key]=(counts[key]||0)+1;},fresh=at=>!job.startedAt||Date.parse(at)>=job.startedAt-5000;
- for(const [id,fields]of Object.entries(state.records?.[job.bank]||{}))if(ids.has(id))for(const [key,field]of Object.entries(fields))if(fresh(field?.capturedAt))note(key);
- for(const item of state.agentRecords||[])if(item.bank===job.bank&&ids.has(item.cardId)&&['card','billing'].includes(item.kind)&&fresh(item.capturedAt))note(item.key);
- return {bank:job.bank,status:word(job.status)||'unknown',step:word(job.diagnostic?.stage)||null,code:word(job.diagnostic?.code)||word(job.readError)||null,phase:word(job.phase)||null,cards:ids.size,read:Number.isFinite(job.received)?job.received:0,rejected:Number.isFinite(job.rejected)?job.rejected:0,rejectReasons:Object.keys(job.rejectReasons||{}).map(word).filter(Boolean),sections:Object.fromEntries(Object.entries(job.sections||{}).map(([k,v])=>[word(k)||'other',word(v?.status)||'unknown'])),fields:counts,page};
+ const ids=new Set((job.cards||[]).map(c=>c.id)),have={},fresh=at=>!job.startedAt||Date.parse(at)>=job.startedAt-5000;
+ const note=(key,id)=>{if(FIELD_KEYS.includes(key))(have[key]??=new Set()).add(id);};
+ for(const [id,fields]of Object.entries(state.records?.[job.bank]||{}))if(ids.has(id))for(const [key,field]of Object.entries(fields))if(fresh(field?.capturedAt))note(key,id);
+ for(const item of state.agentRecords||[])if(item.bank===job.bank&&ids.has(item.cardId)&&['card','billing'].includes(item.kind)&&fresh(item.capturedAt))note(item.key,item.cardId);
+ const tally=values=>{const out={};for(const v of values){const k=word(v);if(k)out[k]=(out[k]||0)+1;}return out;};
+ const coverage=Object.fromEntries(Object.entries(job.sections||{}).filter(([,v])=>Array.isArray(v?.coverage)).map(([section,v])=>[word(section)||'other',v.coverage.filter(Boolean)]).map(([section,list])=>[section,{missing:tally(list.flatMap(c=>c.missing||[])),notApplicable:tally(list.flatMap(c=>c.notApplicable||[])),reasons:tally(list.map(c=>c.reason&&/^[a-z_]+$/.test(c.reason)?c.reason:c.reason?'payment_notice':null).filter(Boolean)),notCollected:list.filter(c=>c.notCollected?.length).length,unconfirmedProgrammes:list.filter(c=>c.unconfirmed?.length).length}]));
+ return {bank:job.bank,status:word(job.status)||'unknown',step:word(job.diagnostic?.stage)||null,code:word(job.diagnostic?.code)||word(job.readError)||null,phase:word(job.phase)||null,cards:ids.size,read:Number.isFinite(job.received)?job.received:0,rejected:Number.isFinite(job.rejected)?job.rejected:0,rejectReasons:Object.keys(job.rejectReasons||{}).map(word).filter(Boolean),sections:Object.fromEntries(Object.entries(job.sections||{}).map(([k,v])=>[word(k)||'other',word(v?.status)||'unknown'])),coverage,fields:Object.fromEntries(Object.entries(have).map(([k,v])=>[k,v.size])),page};
 }
 export function buildReport({run,state,pages={},build,now}){return scrub({schema:1,at:now,build,run:word(run.status)||'unknown',banks:run.jobs.map(job=>jobReport(job,state,pages[job.bank]||null))});}
 // The local server applies the same limit, so a report with a digit in any string is refused rather than stored.

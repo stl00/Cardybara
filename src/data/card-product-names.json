@@ -1,0 +1,38 @@
+{
+  "note": "Display names per language, from the issuers' public pages. Fallback order: the requested language, then the other Chinese form, then en-US, then the catalogue name. Products issued only in English (US banks) keep their catalogue name in every language.",
+  "sources": {
+    "amex-hk": "https://www.americanexpress.com/hk/ch/credit-cards/all-cards/ and https://www.americanexpress.com/hk/en/credit-cards/all-cards/ (checked 2026-11-05)",
+    "hsbc-hk": "https://www.hsbc.com.hk/zh-hk/credit-cards/ and https://www.hsbc.com.hk/credit-cards/ (checked 2026-11-05)",
+    "sc-hk": "https://www.sc.com/hk/zh/credit-cards/ and https://www.sc.com/hk/credit-cards/ (checked 2026-11-05)"
+  },
+  "names": {
+    "amex-hk-hk-the-platinum-card": {"zh-TW": "美國運通白金卡", "zh-CN": "美国运通白金卡", "en-US": "The Platinum Card"},
+    "amex-hk-hk-american-express-explorer-credit-card": {"zh-TW": "美國運通Explorer信用卡", "zh-CN": "美国运通Explorer信用卡", "en-US": "American Express Explorer Credit Card"},
+    "amex-hk-hk-american-express-platinum-credit-card": {"zh-TW": "美國運通白金信用卡", "zh-CN": "美国运通白金信用卡", "en-US": "American Express Platinum Credit Card"},
+    "amex-hk-hk-blue-cash-credit-card-from-american-express": {"zh-TW": "美國運通Blue Cash信用卡", "zh-CN": "美国运通Blue Cash信用卡", "en-US": "Blue Cash Credit Card from American Express"},
+    "amex-hk-hk-american-express-essential-credit-card": {"zh-TW": "美國運通Essential信用卡", "zh-CN": "美国运通Essential信用卡", "en-US": "American Express Essential Credit Card"},
+    "amex-hk-hk-american-express-gold-credit-card": {"zh-TW": "美國運通信用金卡", "zh-CN": "美国运通信用金卡", "en-US": "American Express Gold Credit Card"},
+    "amex-hk-hk-american-express-credit-card": {"zh-TW": "美國運通信用卡", "zh-CN": "美国运通信用卡", "en-US": "American Express Credit Card"},
+    "amex-hk-hk-american-express-peninsula-platinum-card": {"zh-TW": "美國運通半島白金卡", "zh-CN": "美国运通半岛白金卡", "en-US": "American Express Peninsula Platinum Card"},
+    "amex-hk-hk-american-express-peninsula-gold-card": {"zh-TW": "美國運通半島金卡", "zh-CN": "美国运通半岛金卡", "en-US": "American Express Peninsula Gold Card"},
+    "amex-hk-hk-american-express-gold-card": {"zh-TW": "美國運通金卡", "zh-CN": "美国运通金卡", "en-US": "American Express Gold Card"},
+    "amex-hk-hk-american-express-card": {"zh-TW": "美國運通卡", "zh-CN": "美国运通卡", "en-US": "American Express Card"},
+    "amex-hk-hk-american-express-corporate-card": {"zh-TW": "美國運通公司卡", "zh-CN": "美国运通公司卡", "en-US": "American Express Corporate Card"},
+    "amex-hk-hk-american-express-gold-corporate-card": {"zh-TW": "美國運通公司金卡", "zh-CN": "美国运通公司金卡", "en-US": "American Express Gold Corporate Card"},
+    "amex-hk-hk-american-express-gold-business-card": {"zh-TW": "美國運通商務金卡", "zh-CN": "美国运通商务金卡", "en-US": "American Express Gold Business Card"},
+    "amex-hk-hk-american-express-business-card": {"zh-TW": "美國運通商務卡", "zh-CN": "美国运通商务卡", "en-US": "American Express Business Card"},
+    "hsbc-hk-hk-red-credit-card": {"zh-TW": "滙豐Red信用卡", "zh-CN": "汇丰Red信用卡", "en-US": "HSBC Red Credit Card"},
+    "hsbc-hk-hk-pulse-dual-currency-diamond": {"zh-TW": "滙豐Pulse銀聯雙幣鑽石信用卡", "zh-CN": "汇丰Pulse银联双币钻石信用卡", "en-US": "HSBC Pulse Dual Currency Card"},
+    "hsbc-hk-hk-premier-credit-card": {"zh-TW": "滙豐卓越理財信用卡", "zh-CN": "汇丰卓越理财信用卡", "en-US": "HSBC Premier Mastercard"},
+    "hsbc-hk-hk-visa-gold-card": {"zh-TW": "滙財金卡", "zh-CN": "汇财金卡", "en-US": "Visa Gold Card"},
+    "hsbc-hk-hk-visa-gold-card-for-students": {"zh-TW": "滙財金卡 - 學生卡", "zh-CN": "汇财金卡 - 学生卡", "en-US": "Visa Gold Card for Students"},
+    "hsbc-hk-hk-easy-credit-card": {"zh-TW": "滙豐easy信用卡", "zh-CN": "汇丰easy信用卡", "en-US": "HSBC easy Credit Card"},
+    "hsbc-hk-hk-hsbc-visa-signature-card": {"zh-TW": "滙豐Visa Signature卡", "zh-CN": "汇丰Visa Signature卡", "en-US": "HSBC Visa Signature Card"},
+    "hsbc-hk-hk-hsbc-everymile-card": {"zh-TW": "滙豐EveryMile信用卡", "zh-CN": "汇丰EveryMile信用卡", "en-US": "HSBC EveryMile Credit Card"},
+    "hsbc-hk-hk-unionpay-dual-currency-card": {"zh-TW": "滙豐銀聯雙幣信用卡", "zh-CN": "汇丰银联双币信用卡", "en-US": "UnionPay Dual Currency Card"},
+    "sc-hk-hk-cathay-mastercard": {"zh-TW": "渣打國泰Mastercard", "zh-CN": "渣打国泰Mastercard", "en-US": "Standard Chartered Cathay Mastercard"},
+    "sc-hk-hk-simply-cash-visa-card": {"zh-TW": "渣打Simply Cash Visa卡", "zh-CN": "渣打Simply Cash Visa卡", "en-US": "Simply Cash Visa Card"},
+    "sc-hk-hk-standard-chartered-smart-credit-card": {"zh-TW": "渣打Smart信用卡", "zh-CN": "渣打Smart信用卡", "en-US": "Standard Chartered Smart Credit Card"},
+    "sc-hk-hk-a-point-card": {"zh-TW": "A. Point Card", "zh-CN": "A. Point Card", "en-US": "A. Point Card"}
+  }
+}
