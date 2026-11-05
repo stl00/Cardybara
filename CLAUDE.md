@@ -54,6 +54,7 @@ npm run test:refresh             # collector / state machine / UI-logic regressi
 npm run check:chase              # per-bank subsets: check:chase, check:hk
 npm run check:agent              # chat agent tests + offline eval
 npm run check:release            # everything CI runs, including build and package audit
+npm run build:dev-extension      # local dev extension with the scheduled refresh; never a release candidate
 ```
 
 ## Definition of done
