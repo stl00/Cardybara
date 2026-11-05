@@ -47,6 +47,7 @@ import {rewardAccounts} from './rewardAccounts';
 import RewardsView from './RewardsView';
 import CardProductPicker,{ProductSuggestionRunner,loadCardProductChoices,saveCardProductChoices,useCardProductChoices} from './CardProductPicker.jsx';
 import {applyCardProductChoices,mergeCardProductChoices,choicesFromBackup} from './cardProductChoice.js';
+import {presentCard} from './cardName.js';
 import PaymentAssistant,{loadPaymentMarks,savePaymentMarks} from './PaymentAssistant.jsx';
 import ReminderSettings,{ReminderRunner} from './ReminderSettings.jsx';
 import {mergePaymentMarks} from './paymentStates.js';
@@ -105,10 +106,10 @@ const importData=async e=>{const f=e.target.files?.[0];if(!f)return;try{if(f.siz
 const importCardTypes=async e=>{const f=e.target.files?.[0];e.target.value='';if(!f)return;try{if(f.size>3e6)throw Error();const {choices,added}=choicesFromBackup(loadCardProductChoices(),displayed.cards,JSON.parse(await f.text()));if(added.length)saveCardProductChoices(choices);message.success(t('从备份带入了 {0} 张卡的卡种；其他数据没有改动。',[added.length]))}catch{message.error(t('这个文件里读不到卡片信息。'))}};
 if(error)return <Result status="error" title={t("数据快照加载失败")} extra={<Button onClick={()=>location.reload()}>{t("重新加载")}</Button>}/>;
 if(!data)return <div className="loading"><Spin size="large"/><Text type="secondary">{t("正在读取钱包快照…")}</Text></div>;
-const recorded=applyAgentRecords(data,collectorState?.agentRecords||[]),displayed={...recorded,cards:applyCardProductChoices(recorded.cards,productChoices)};
+const recorded=applyAgentRecords(data,collectorState?.agentRecords||[]),displayed={...recorded,cards:applyCardProductChoices(recorded.cards,productChoices).map(c=>presentCard(c,language))};
 const detail=selectedDetail?displayed.cards.find(c=>c.id===selectedDetail.id)||null:null;
 const rewardView=rewardAccounts(displayed);
-const filteredCards=displayed.cards.filter(c=>(country==='all'||c.region===country)&&(bank==='all'||c.bank===bank)&&(!favoriteOnly||favorites.has(c.id))&&(!search||[c.name,c.bank,c.tail,bankNames[c.bank],countries[c.region]].join(' ').toLowerCase().includes(search.trim().toLowerCase())));
+const filteredCards=displayed.cards.filter(c=>(country==='all'||c.region===country)&&(bank==='all'||c.bank===bank)&&(!favoriteOnly||favorites.has(c.id))&&(!search||[c.name,c.pageName,c.bank,c.tail,bankNames[c.bank],countries[c.region]].join(' ').toLowerCase().includes(search.trim().toLowerCase())));
 const runTime=data.refreshRun?.completedAt?formatDateTime(data.refreshRun.completedAt,{timeZone:'America/Chicago',hour12:false}):null;
 const renderCard=c=><Col key={c.id} xs={24} sm={12} xl={8} xxl={6}><Card hoverable className="wallet-card" cover={<div className="card-cover"><CardArt card={c}/><Tooltip title={favorites.has(c.id)?t("取消收藏"):t("收藏卡片")}><Button className="favorite-button" shape="circle" size="small" type={favorites.has(c.id)?'primary':'default'} icon={favorites.has(c.id)?<StarFilled/>:<StarOutlined/>} onClick={e=>toggleFavorite(e,c.id)} aria-label={`${favorites.has(c.id)?t("取消收藏"):t("收藏")} ${c.name}`}/></Tooltip></div>} onClick={()=>setDetail(c)}>
 <Flex justify="space-between" align="center" gap={8}><Text type="secondary" className="card-issuer"><BankIdentity bank={c.bank} label={({"Amex US":'American Express',"Amex HK":'American Express',"Amex CA":'American Express',"HSBC HK":'HSBC',"SC HK":'Standard Chartered'})[c.bank]} flag={false} size={20}/></Text><Tag><RegionLabel region={c.region}/></Tag></Flex>
