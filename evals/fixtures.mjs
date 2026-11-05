@@ -34,7 +34,8 @@ export const decisionCases=[
  {id:'choice-points-not-priced-without-a-value',args:usDining,check:r=>r.choice.valuedPoints===false&&r.pointsAlternatives.find(p=>p.card==='American Express Gold Card').breakEvenCentsPerPoint===0.75},
  {id:'choice-points-priced-with-a-stated-value',args:{...usDining,pointValues:{MR:2}},check:r=>r.choice.card==='American Express Gold Card'&&r.choice.value===8&&r.choice.valuedPoints===true},
  {id:'choice-ambiguous-merchant-shows-both',args:{merchant:'Costco',alternateCategory:'supermarket',amount:100,currency:'USD',country:'US'},check:r=>r.assumptions.includes('category-unknown-base-rates-used')&&r.couldChange.some(c=>c.kind==='if-category-is'&&c.wouldChangeChoice)},
- {id:'choice-amount-without-currency-compares-rates',args:{category:'dining',amount:100},check:r=>r.choice.basis==='cash-rate'&&r.choice.value===null&&r.assumptions.includes('amount-has-no-currency-so-rates-compared')},
+ {id:'choice-amount-without-currency-compares-rates',args:{category:'dining',amount:100,country:'US'},check:r=>r.choice.basis==='cash-rate'&&r.choice.value===null&&r.assumptions.includes('amount-has-no-currency-so-rates-compared')},
+ {id:'choice-several-currencies-answers-each',args:{category:'dining',amount:100},check:r=>r.choice.kind==='depends-on-currency'&&r.choice.options.find(o=>o.currency==='USD')?.card==='Freedom Unlimited'},
 ];
 export const planCases=[
  {id:'plan-unknown-is-not-unused',when:'12月圣诞节',check:r=>r.window.start==='2026-12-01'&&r.window.end==='2026-12-31'&&r.groups.markedUnused.length===0&&find(r,'unknownStatus',EDIT_TITLE).length===1},
