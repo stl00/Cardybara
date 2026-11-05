@@ -5,6 +5,7 @@ import {cleanPageName,presentCard,productDisplayName} from '../src/cardName.js';
 import {cardProducts,matchCardProduct} from '../src/productCatalog.js';
 import {mergeWalletCards} from '../src/walletRegistry.js';
 import {ACTIVE_BANKS} from '../extension-next/providers.js';
+import {needsSuggestion,suggestionKey} from '../src/productSuggestion.js';
 const json=p=>JSON.parse(readFileSync(new URL(p,import.meta.url),'utf8'));
 const names=json('../src/data/card-product-names.json');
 const card=(bank,name,extra={})=>({id:'x',bank,region:cardProducts.find(p=>p.bank===bank)?.region,name,...extra});
@@ -62,4 +63,9 @@ test('display names cover every HK product and name real products',()=>{
 test('stored bank-page names are cleaned, including cards already in the wallet',()=>{
  const merged=mergeWalletCards({cards:[{id:'old',bank:'HSBC HK',region:'HK',currency:'HKD',tail:'1111',name:'滙豐Red信用卡••••1111',identitySource:'bank-page'},{id:'mine',bank:'HSBC HK',region:'HK',currency:'HKD',tail:'2222',name:'My card -2222',identitySource:'manual'}],connections:[]},[{id:'new',bank:'Amex HK',region:'HK',currency:'HKD',tail:'12345',name:'American Express Explorer(TM) Credit Card••••12345',identitySource:'bank-page'}]).cards;
  assert.deepEqual(merged.map(c=>c.name),['滙豐Red信用卡','My card -2222','American Express Explorer Credit Card'],'a name the user typed is left alone');
+});
+test('a presented card is asked about by its page name, and a matched one never',()=>{
+ const unknown=presentCard(card('HSBC HK','Mystery Card ••••1234'),'en-US'),pulse=presentCard(card('HSBC HK','滙豐Pulse銀聯雙幣鑽石卡-港幣'),'en-US');
+ assert.equal(needsSuggestion(unknown,[]),true);assert.equal(needsSuggestion(pulse,[]),false);
+ assert.equal(suggestionKey(unknown),suggestionKey(card('HSBC HK','Mystery Card ••••5678')));
 });
