@@ -58,26 +58,27 @@ async function bankTabs(banks){
  return seen;
 }
 // Every check records why each bank will or won't be read. Only a scheduled check may start a run: opening the popup, turning it on or reloading never does.
-const check=({mayRead})=>serial(async()=>{
+const check=({mayRead,manual=false})=>serial(async()=>{
  // An unfinished run settles first, so a new run can't replace it and lose its stop.
  await ready;await settleRun();let settings=await loadSettings();await deliver();
  const state=await engine.load();
  // No check of tabs during a read: the popup just says which banks are being read.
- if(state.run?.status==='running'){const reading=state.run.jobs.map(j=>j.bank);await saveSettings({...settings,skips:{...settings.skips,...Object.fromEntries(reading.map(bank=>[bank,'reading']))},lastCheckAt:Date.now()});return;}
+ if(state.run?.status==='running'){const reading=state.run.jobs.map(j=>j.bank);await saveSettings({...settings,skips:{...settings.skips,...Object.fromEntries(reading.map(bank=>[bank,'reading']))},lastCheckAt:Date.now()});return 'running';}
  const known=(state.discoveredCards||[]).filter(c=>ACTIVE_BANKS.includes(c.bank)),now=Date.now(),idle=await chrome.idle.queryState(IDLE_SECONDS);
- const input={settings,activeBanks:ACTIVE_BANKS,disabled:state.disabled,withCards:[...new Set(known.map(c=>c.bank))],idle,now},settled=['off','disconnected','stopped','not_due'],before=decideBanks(input);
+ const input={settings,activeBanks:ACTIVE_BANKS,disabled:state.disabled,withCards:[...new Set(known.map(c=>c.bank))],idle,now,manual},settled=['off','disconnected','stopped','not_due'],before=decideBanks(input);
  // A bank that can't be read anyway isn't touched, even by the read-only tab check.
  input.tabs=await bankTabs(ACTIVE_BANKS.filter(bank=>!settled.includes(before[bank])));
  const skips=decideBanks(input),signature=skipSignature(skips),changed=signature!==settings.skipSignature;
  settings={...settings,skips,skipSignature:signature,lastCheckAt:now};await saveSettings(settings);
  if(changed)await deliver(skipReport(skips,now));
- const banks=mayRead&&idle==='idle'?planBanks(input):[];if(!banks.length)return;
+ const banks=mayRead&&(manual||idle==='idle')?planBanks(input):[];if(!banks.length)return 'nothing';
  const restoreTab=(await chrome.tabs.query({active:true,lastFocusedWindow:true}))[0]?.id,id=crypto.randomUUID();
  await saveSettings(markAttempted(settings,banks,now));await chrome.storage.local.set({[RUN]:{id,restoreTab:restoreTab??null}});
  await engine.start({type:'refresh',requestId:id,banks,cards:known.filter(c=>banks.includes(c.bank)).map(({id,bank,tail,currency})=>({id,bank,tail,currency}))},-1,{scheduled:true});
- void next();
+ void next();return 'started';
 });
 const tick=()=>check({mayRead:true});
+const popupState=async()=>({settings:await loadSettings(),running:(await engine.load()).run?.status==='running'});
 // An unpacked extension reads this file from disk, so a new build is noticed with no network and no page. It never reads a bank or starts a refresh.
 const reloadIfRebuilt=()=>serial(async()=>{
  const stamp=await fetch(chrome.runtime.getURL('build-stamp.json'),{cache:'no-store'}).then(r=>r.json()).then(j=>j.stamp).catch(()=>null);if(!stamp||stamp===DEV_STAMP)return;
@@ -90,9 +91,13 @@ chrome.idle.setDetectionInterval(IDLE_SECONDS);
 chrome.idle.onStateChanged.addListener(state=>{if(state==='idle')void tick().catch(()=>{});});
 chrome.storage.onChanged.addListener((changes,area)=>{if(area==='local'&&changes[STATE_KEY]?.newValue?.run?.scheduled&&changes[STATE_KEY].newValue.run.status!=='running')void finishRun().catch(()=>{});});
 chrome.runtime.onMessage.addListener((raw,sender,reply)=>{
- if(!['dev-schedule-get','dev-schedule-set'].includes(raw?.type))return false;
+ if(!['dev-schedule-get','dev-schedule-set','dev-schedule-state','dev-read-now'].includes(raw?.type))return false;
  if(sender.id!==chrome.runtime.id||sender.url!==chrome.runtime.getURL('dev-popup.html')){reply({ok:false});return false;}
- void (async()=>{if(raw.type==='dev-schedule-set')await serial(async()=>{const settings=setEnabled(await loadSettings(),raw.enabled,raw.intervalMinutes);await saveSettings(settings);await showState(settings);});await Promise.race([check({mayRead:false}),new Promise(done=>setTimeout(done,3000))]);reply({ok:true,settings:await loadSettings()});})().catch(()=>reply({ok:false}));
+ // The owner's click skips only the schedule switch, the interval and idle; every other rule of a scheduled read holds.
+ // Following a run touches no tab: it only reads what is stored.
+ if(raw.type==='dev-schedule-state'){void popupState().then(state=>reply({ok:true,...state})).catch(()=>reply({ok:false}));return true;}
+ if(raw.type==='dev-read-now'){void check({mayRead:true,manual:true}).then(async outcome=>reply({ok:true,outcome:outcome||'nothing',...await popupState()})).catch(()=>reply({ok:false}));return true;}
+ void (async()=>{if(raw.type==='dev-schedule-set')await serial(async()=>{const settings=setEnabled(await loadSettings(),raw.enabled,raw.intervalMinutes);await saveSettings(settings);await showState(settings);});await Promise.race([check({mayRead:false}),new Promise(done=>setTimeout(done,3000))]);reply({ok:true,...await popupState()});})().catch(()=>reply({ok:false}));
  return true;
 });
 void (async()=>{for(const [name,periodInMinutes]of [[TICK,CHECK_MINUTES],[RELOAD,1]])if(!await chrome.alarms.get(name))await chrome.alarms.create(name,{periodInMinutes});await ready;await finishRun();await check({mayRead:false});})().catch(()=>{});

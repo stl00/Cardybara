@@ -39,6 +39,18 @@ test('every check says why each bank will or will not be read',()=>{
  const report=skipReport({BOA:'no_tab',Chase:'off'},5);assert.equal(validReport(report),true);assert.equal(report.run,'skipped');assert.deepEqual(report.banks[0],{bank:'BOA',status:'skipped',reason:'no_tab'});
  assert.equal(skipSignature({a:'x',b:'y'}),skipSignature({b:'y',a:'x'}));
 });
+test('a read the owner starts skips only the schedule switch, the interval and idle',()=>{
+ const tabs=found(['BOA','Amex US','Amex HK']);
+ assert.equal(why(defaultSettings(),'BOA',{tabs,manual:true}),'ready','works with the schedule off');
+ assert.equal(why(on({BOA:{state:'ok',lastAttemptAt:1e12-1}}),'BOA',{tabs,manual:true}),'ready','ignores the interval');
+ assert.equal(why(on(),'BOA',{tabs,idle:'active',manual:true}),'ready','ignores idle: the owner is at the computer');
+ assert.equal(why(on({BOA:{state:'stopped'}}),'BOA',{tabs,manual:true}),'stopped');
+ assert.equal(why(on(),'BOA',{disabled:['BOA'],tabs,manual:true}),'disconnected');
+ assert.equal(why(on({BOA:{state:'login_expired'}}),'BOA',{manual:true}),'no_tab','an expired login still needs the owner\'s own signed-in tab');
+ assert.equal(why(on(),'Amex HK',{tabs,manual:true}),'amex_turn');
+ for(const [lang,words]of Object.entries(POPUP_WORDS))for(const key of ['readNow','readStarted','nothingToRead','running','result','ok','login_expired'])assert.ok(words[key],lang+' '+key);
+ assert.equal(POPUP_WORDS['zh-CN'].readNow,'现在读取');assert.equal(POPUP_WORDS['zh-TW'].readNow,'現在讀取');assert.equal(POPUP_WORDS.en.readNow,'Read now');
+});
 test('the minimum interval holds, and Amex regions never run together',()=>{
  const recent=on({BOA:{state:'ok',lastAttemptAt:1e12-59*60000}});assert.deepEqual(plan({...recent,intervalMinutes:60},{signedIn:['BOA']}),[]);
  assert.deepEqual(plan({...on({BOA:{state:'ok',lastAttemptAt:1e12-60*60000}}),intervalMinutes:60},{signedIn:['BOA']}),['BOA']);
@@ -53,6 +65,8 @@ test('a failure stops its bank until the owner turns the schedule off and on',()
  for(const readError of ['needs_confirmation','document_changed'])assert.equal(classifyJob({status:'updated',readError}).state,'stopped',readError);
  const stopped=afterRun(on(),{jobs:[{bank:'BOA',status:'load_error'}]},5);assert.equal(setEnabled(stopped,true).banks.BOA.state,'stopped','saving again is not a retry');
  assert.deepEqual(setEnabled(setEnabled(stopped,false),true).banks,{});
+ assert.deepEqual(setEnabled(setEnabled(afterRun(markAttempted(on(),['BOA'],9),{jobs:[{bank:'BOA',status:'load_error'}]},10),false),true).banks,{},'a stopped bank is retried at the next check');
+ assert.deepEqual(setEnabled(setEnabled(afterRun(markAttempted(on(),['BOA'],9),{jobs:[{bank:'BOA',status:'updated'}]},10),false),true).banks,{BOA:{lastAttemptAt:9}},'a bank read fine keeps its interval');
  assert.equal(markAttempted(on(),['BOA'],7).banks.BOA.lastAttemptAt,7);
 });
 test('a report holds labels, shapes and the failed step, with no values, tails or names',()=>{
@@ -84,7 +98,7 @@ test('the dev build has no way in from localhost, and never touches a credential
 });
 test('the release audit refuses any dev scheduling feature in a package',()=>{
  const source=readFileSync(join(root,'scripts/audit-release.py'),'utf8');
- for(const marker of ['cardybara-dev-schedule','/api/dev/diagnostics','build-stamp.json','dev-popup.html','background-dev'])assert.ok(source.includes(marker),marker);
+ for(const marker of ['cardybara-dev-schedule','/api/dev/diagnostics','build-stamp.json','dev-popup.html','dev-read-now','background-dev'])assert.ok(source.includes(marker),marker);
  for(const file of readdirSync(join(root,'extension-next')).filter(f=>f.endsWith('.js')))assert.ok(!/extension-dev|background-dev|schedule-core/.test(readFileSync(join(root,'extension-next',file),'utf8')),file);
  const build=readFileSync(join(root,'scripts/build-release.py'),'utf8');assert.ok(!build.includes('extension-dev'));
 });
@@ -182,14 +196,23 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   assert.equal(runPosts().at(-1).banks[0].page.rows[0].text,'Balance $#,###.##','the failed page\'s shape is reported');
 
   assert.ok(!calls.parser,'a scheduled run sends nothing to the model route');
+  // Read now: only the popup may start it; it works with the schedule off and skips idle and the interval, and nothing else.
+  await say({type:'dev-schedule-set',enabled:false});allow();idle='active';read='updated';captureError=null;
+  for(const sender of [{id:'dev',url:'chrome-extension://dev/index.html'},{id:'dev',url:'http://127.0.0.1:8766/'},{id:'other',url:'chrome-extension://dev/dev-popup.html'}])assert.equal((await say({type:'dev-read-now'},sender))?.ok,false,sender.url);
+  const prior=state().run.id;const stoppedNow=await say({type:'dev-read-now'});assert.equal(stoppedNow.outcome,'nothing','a stopped bank is not retried');assert.equal(state().run.id,prior);
+  settings().banks.BOA={state:'ok',lastAttemptAt:Date.now()};tabs=[{id:7,url:href,status:'complete',windowId:1,active:true}];
+  const started=await say({type:'dev-read-now'});assert.equal(started.outcome,'started','off, not idle and not due: the click still reads');
+  await finished();assert.notEqual(state().run.id,prior);assert.equal(settings().banks.BOA.state,'ok');assert.ok(!calls.files.includes('guide.js'));
+  assert.equal((await say({type:'dev-schedule-state'})).running,false);
+  await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60});const manualRun=state().run.id;await tick();assert.equal(state().run.id,manualRun,'the click counts as an attempt, so the schedule waits');assert.equal(settings().skips.BOA,'not_due');
   await alarm('cardybara-dev-reload');assert.equal(calls.reloads,0,'the same build does nothing');
-  stamp='rebuilt';await alarm('cardybara-dev-reload');assert.equal(calls.reloads,1);await alarm('cardybara-dev-reload');assert.equal(calls.reloads,1,'one try per build');assert.equal(state().run.id,stopped,'a new build never starts a refresh');
+  stamp='rebuilt';await alarm('cardybara-dev-reload');assert.equal(calls.reloads,1);await alarm('cardybara-dev-reload');assert.equal(calls.reloads,1,'one try per build');assert.equal(state().run.id,manualRun,'a new build never starts a refresh');
   assert.equal((await say({type:'dev-schedule-set',enabled:false})).ok,true);assert.equal((await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60})).ok,true);
-  const before=state().run.id;read='updated';captureError='needs_confirmation';await tick();await wait(()=>state().run.id!==before);await finished();
+  allow();idle='idle';const before=state().run.id;read='updated';captureError='needs_confirmation';await tick();await wait(()=>state().run.id!==before);await finished();
   assert.equal(settings().banks.BOA.state,'stopped','a challenge after a partial read stops the bank');
   const challenged=state().run.id;allow();captureError=null;await tick();assert.equal(state().run.id,challenged,'and it is not retried');
   // A worker that died mid-run: the check must settle that run, not replace it.
-  await say({type:'dev-schedule-set',enabled:false});await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60});
+  await say({type:'dev-schedule-set',enabled:false});await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60});assert.equal(settings().banks.BOA,undefined,'off and on clears the stop, with no wait for the interval');
   store['cardybara-state-v2']={...state(),run:{...state().run,id:'interrupted-run',status:'interrupted',jobs:state().run.jobs.map(j=>({...j,status:'interrupted'}))}};store['cardybara-dev-run']={id:'interrupted-run',restoreTab:null};
   const created=calls.created.length;await tick();assert.equal(state().run.id,'interrupted-run','not replaced');assert.equal(settings().banks.BOA.state,'stopped','its stop is kept');assert.equal(store['cardybara-dev-run'].done,true);assert.equal(calls.created.length,created);
  }finally{rmSync(dir,{recursive:true,force:true});}
