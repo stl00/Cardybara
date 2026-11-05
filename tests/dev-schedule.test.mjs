@@ -142,6 +142,7 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
    scripting:{executeScript:async o=>{
     const doc='doc',name=o.func?.name;
     if(o.files){calls.files.push(o.files[0]);return [{documentId:doc,result:o.files[0]==='dev-structure-report.js'?{path:'/accounts-home/',rows:[{text:'Balance $#,###.##'}]}:undefined}];}
+    if(name==='discoverVisibleCards')calls.probes=(calls.probes||0)+1;
     if(name==='discoverVisibleCards')return [{documentId:doc,result:read==='needs_login'?{status:'needs_login',cards:[]}:{status:'found',cards:[{tail:'3141',name:'Quokka'}]}}];
     if(name==='boaCards')return [{documentId:doc,result:o.args[0]==='list'?[]:[]}];
     if(name==='capturePage'){if(captureError)return [{documentId:doc,result:{error:captureError}}];const evidence='[C1] Current Balance $1.00';return [{documentId:doc,result:{pageHref:href,aliases:[{id:'C1',cardId:'discovered-boa-3141',currency:'USD'}],blocks:[{id:'B1',text:evidence}],observations:[],links:[],capturedAt:new Date().toISOString()}}];}
@@ -169,7 +170,7 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   idle='idle';await tick();await finished();
   assert.equal(state().run.scheduled,true,'a frontmost tab is read once Chrome is idle');assert.equal(settings().banks.BOA.state,'ok');assert.deepEqual(calls.removed,[],'the owner\'s own tab stays open');assert.ok(!calls.files.includes('guide.js'),'a scheduled run asks nothing');
   assert.equal(runPosts().length,1);assert.ok(!JSON.stringify(calls.posts.map(({at,...rest})=>rest)).match(/3141|Quokka/),'at is a timestamp, the one number that can hold these digits by chance');assert.equal(calls.posts.every(validReport),true);assert.equal(runPosts()[0].banks[0].bank,'BOA');
-  const runId=state().run.id;await tick();assert.equal(state().run.id,runId,'the minimum interval holds');
+  const runId=state().run.id,probes=calls.probes;await tick();assert.equal(state().run.id,runId,'the minimum interval holds');assert.equal(settings().skips.BOA,'not_due');assert.equal(calls.probes,probes,'a bank not due is not touched');
 
   tabs=[];read='needs_login';allow();await tick();await wait(()=>state().run.id!==runId);await finished();
   assert.equal(calls.created.length,1,'a bank that read fine may open its normal page');assert.equal(settings().banks.BOA.state,'login_expired');assert.equal(calls.removed.length,1,'its own tab closes');assert.ok(!calls.files.includes('guide.js'));

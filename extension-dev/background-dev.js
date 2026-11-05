@@ -40,9 +40,9 @@ async function settleRun(){
 }
 const finishRun=()=>serial(settleRun);
 // What the plugin's own read-only check sees in each bank's tabs. A signed-in tab wins over any other.
-async function bankTabs(){
+async function bankTabs(banks){
  const tabs=await chrome.tabs.query({}),seen={};
- for(const bank of ACTIVE_BANKS){
+ for(const bank of banks){
   for(const tab of tabs.filter(t=>guidedPage(bank,t.url))){
    const found=await chrome.scripting.executeScript({target:{tabId:tab.id},func:discoverVisibleCards,args:[bank,PROVIDERS[bank].locales]}).catch(()=>[]);
    const status=found[0]?.result?.status;
@@ -58,7 +58,9 @@ const check=({mayRead})=>serial(async()=>{
  await ready;await settleRun();let settings=await loadSettings();await deliver();
  const state=await engine.load();if(state.run?.status==='running')return;
  const known=(state.discoveredCards||[]).filter(c=>ACTIVE_BANKS.includes(c.bank)),now=Date.now(),idle=await chrome.idle.queryState(IDLE_SECONDS);
- const input={settings,activeBanks:ACTIVE_BANKS,disabled:state.disabled,withCards:[...new Set(known.map(c=>c.bank))],tabs:settings.enabled?await bankTabs():{},idle,now};
+ const input={settings,activeBanks:ACTIVE_BANKS,disabled:state.disabled,withCards:[...new Set(known.map(c=>c.bank))],idle,now},settled=['off','disconnected','stopped','not_due'],before=decideBanks(input);
+ // A bank that can't be read anyway isn't touched, even by the read-only tab check.
+ input.tabs=await bankTabs(ACTIVE_BANKS.filter(bank=>!settled.includes(before[bank])));
  const skips=decideBanks(input),signature=skipSignature(skips),changed=signature!==settings.skipSignature;
  settings={...settings,skips,skipSignature:signature,lastCheckAt:now};await saveSettings(settings);
  if(changed)await deliver(skipReport(skips,now));
