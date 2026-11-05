@@ -32,9 +32,9 @@ export async function setModelEnabled(enabled){
  await local().set({[KEY_STORE]:{...saved,enabled:!!enabled}});return keyStatus();
 }
 export async function deleteKey(){
- const saved=await readKey();await local()?.remove(KEY_STORE);
- // Giving the host permission back too, so nothing can reach the provider without a new key and a new prompt.
- if(saved)await chrome.permissions.remove(permissionFor(saved.provider)).catch(()=>false);
+ await local()?.remove(KEY_STORE);
+ // Giving every provider's host permission back too, even if the stored record was damaged, so nothing can reach a provider without a new key and a new prompt.
+ for(const provider of Object.keys(PROVIDERS))await chrome.permissions.remove(permissionFor(provider)).catch(()=>false);
  return keyStatus();
 }
 async function send(url,{provider,key,method='POST',body,signal,timeout=45000}){

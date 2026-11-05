@@ -1646,7 +1646,11 @@
     "聊天助手需要先在设置里添加 AI 模型密钥，钱包其他功能不受影响。": "Add an AI model key in Settings to use chat. The rest of the wallet works without it.",
     "请先保存密钥并允许扩展访问服务商。": "Save a key and allow access to the provider first.",
     "这看起来不是有效的密钥，请检查后重新粘贴。": "That doesn’t look like a valid key. Check it and paste again.",
-    "连接成功，密钥可用。": "Connected. The key works."
+    "连接成功，密钥可用。": "Connected. The key works.",
+    "AI 识别卡种": "AI card recognition",
+    "密钥已保存，但暂时没能连上服务商确认，请稍后点测试连接。": "Key saved, but the provider couldn’t be reached to check it. Test the connection shortly.",
+    "服务商拒绝了模型密钥，请在设置里更换。": "The provider rejected the model key. Replace it in Settings.",
+    "服务商暂时限流，请稍后再问。": "The provider is limiting requests. Ask again shortly."
   },
   "zh-TW": {
     "美国": "美國",
@@ -3295,6 +3299,10 @@
     "聊天助手需要先在设置里添加 AI 模型密钥，钱包其他功能不受影响。": "聊天助手需要先在設定中加入 AI 模型金鑰，錢包其他功能不受影響。",
     "请先保存密钥并允许扩展访问服务商。": "請先儲存金鑰並允許擴充功能存取服務商。",
     "这看起来不是有效的密钥，请检查后重新粘贴。": "這看起來不是有效的金鑰，請檢查後重新貼上。",
-    "连接成功，密钥可用。": "連線成功，金鑰可用。"
+    "连接成功，密钥可用。": "連線成功，金鑰可用。",
+    "AI 识别卡种": "AI 辨識卡種",
+    "密钥已保存，但暂时没能连上服务商确认，请稍后点测试连接。": "金鑰已儲存，但暫時未能連上服務商確認，請稍後點測試連線。",
+    "服务商拒绝了模型密钥，请在设置里更换。": "服務商拒絕了模型金鑰，請在設定中更換。",
+    "服务商暂时限流，请稍后再问。": "服務商暫時限流，請稍後再問。"
   }
 }

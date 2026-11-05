@@ -7,6 +7,8 @@ import {parserStatus,modelParse} from '../extension-next/parser-client.js';
 import {extensionChat} from '../src/extensionChat.js';
 import {chatRequest} from '../src/chatProtocol.js';
 import {chatAgent} from '../scripts/chat-agent.mjs';
+import {suggestInExtension} from '../src/productSuggestion.js';
+import {suggestionMessages,validateSuggestRequest} from '../src/productSuggestProtocol.js';
 // A made-up key for tests. The real key is only ever pasted by the owner into the extension.
 const KEY='test-only-0123456789abcdef';
 function fakeChrome({granted=true}={}){
@@ -100,4 +102,28 @@ test('the key appears in no other code, and nothing reaches the old localhost mo
  for(const file of ['extension-next/parser-client.js','extension-next/background.js','src/ChatAdvisor.jsx','src/extensionChat.js'])assert.ok(!/127\.0\.0\.1:8766\/api\/(?:parser|advisor)/.test(readFileSync(file,'utf8')),file);
  for(const file of ['extension-dev/background-dev.js','extension-dev/schedule-core.js'])assert.ok(!readFileSync(file,'utf8').includes('model-client'),file+': diagnostics never touch the key');
  assert.ok(!readFileSync('extension-next/model-client.js','utf8').match(/console\./),'the client never logs');
+});
+test('review: card-type suggestion goes to the provider with the server\'s prompt and scoping',async()=>{
+ fakeChrome();await saveKey({provider:'deepseek',key:KEY});
+ const card={id:'c',name:'Synthetic Red Plus •••• 4321',bank:'HSBC HK',region:'HK',currency:'HKD'};
+ const requests=fakeProvider(()=>({choices:[{message:{content:'{"productId":"hsbc-hk-hk-red-credit-card"}'}}]}));
+ assert.equal(await suggestInExtension(card,{completeJSON}),'hsbc-hk-hk-red-credit-card');
+ assert.equal(requests[0].url,PROVIDERS.deepseek.chat);const sent=JSON.parse(requests[0].options.body);
+ assert.deepEqual(sent.messages,suggestionMessages(validateSuggestRequest({bank:'HSBC HK',region:'HK',name:'Synthetic Red Plus'})).map(m=>({role:m.role,content:m.content})));
+ assert.ok(!requests[0].options.body.includes('4321'),'no tail digits leave the wallet');
+ for(const content of ['{"productId":"chase-us-sapphire-reserve"}','{"productId":null}','nonsense'])fakeProvider(()=>({choices:[{message:{content}}]}))&&assert.equal(await suggestInExtension(card,{completeJSON}),null,content);
+ fakeProvider(()=>({status:401}));await assert.rejects(()=>suggestInExtension(card,{completeJSON}),/model_auth_failed/);
+ assert.equal(await suggestInExtension({...card,bank:'Nowhere'},{completeJSON:()=>assert.fail()}),null);
+});
+test('review: deleting a damaged key record still gives the permission back, and oversized pages are not sent',async()=>{
+ const {local,calls}=fakeChrome();local.set(KEY_STORE,{provider:'deepseek',key:'has a space'});
+ await deleteKey();assert.deepEqual(calls.removed,[['https://api.deepseek.com/*']]);
+ fakeChrome();await saveKey({provider:'deepseek',key:KEY});const requests=fakeProvider();
+ const batch={bank:'Amex HK',page:'/overview',scope:'mvp',aliases:[],links:[],blocks:[{id:'B1',text:'x'.repeat(1501)}]};
+ await assert.rejects(()=>modelParse(batch),/model_request_failed/);await assert.rejects(()=>modelParse({...batch,blocks:Array.from({length:61},(_,i)=>({id:'B'+i,text:'x'}))}),/model_request_failed/);
+ assert.equal(requests.length,0);
+});
+test('review: the settings page keeps the separate consent switch for automatic card recognition',()=>{
+ const page=readFileSync('src/ParserSettings.jsx','utf8');assert.match(page,/checked=\{auto\}/);assert.match(page,/setAutoSuggest\(on\)/);
+ const picker=readFileSync('src/CardProductPicker.jsx','utf8');assert.ok(!picker.includes('127.0.0.1'),'the extension never sends card names to localhost');
 });

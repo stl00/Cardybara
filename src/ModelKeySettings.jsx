@@ -16,9 +16,12 @@ export default function ModelKeySettings(){
   const key=draft.trim();if(!validKey(key))throw Error('invalid_key');
   // The permission prompt must come from this click.
   if(!await requestPermission(provider))throw Error('permission_denied');
-  await saveKey({provider,key});setDraft('');setEditing(false);await refresh();message.success(t('密钥已保存，只存放在本扩展里。'));
+  // A key the provider rejects is not saved. A network or rate-limit problem doesn't prove the key wrong, so it is saved with a warning.
+  let checked=true;try{await testKey({provider,key});}catch(e){if(e.message==='model_auth_failed'||e.message==='invalid_key')throw e;checked=false;}
+  await saveKey({provider,key});setDraft('');setEditing(false);await refresh();
+  if(checked)message.success(t('密钥已保存，只存放在本扩展里。'));else message.warning(t('密钥已保存，但暂时没能连上服务商确认，请稍后点测试连接。'));
  });
- const test=()=>run('test',async()=>{await testKey(editing||!status?.saved?{provider,key:draft.trim()}:undefined);message.success(t('连接成功，密钥可用。'));});
+ const test=()=>run('test',async()=>{const candidate=editing||!status?.saved;if(candidate&&!await requestPermission(provider))throw Error('permission_denied');await testKey(candidate?{provider,key:draft.trim()}:undefined);message.success(t('连接成功，密钥可用。'));});
  const showForm=!status?.saved||editing;
  return <Card title={t('AI 模型密钥')} extra={<Tag color={status?.ready?'success':'default'}>{status?.ready?t('已就绪'):status?.saved?t('已保存，未启用'):t('未添加')}</Tag>}>
   <Paragraph>{t('聊天助手、卡片识别和 AI 补全银行数据都用这里的密钥直接调用服务商。不添加也能正常使用钱包，只是没有 AI。')}</Paragraph>

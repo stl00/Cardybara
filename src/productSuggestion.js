@@ -36,3 +36,11 @@ export async function requestSuggestion(base,card,fetcher=fetch){
  if(!r.ok)throw Error('suggestion_failed');
  const {productId}=await r.json();return typeof productId==='string'&&inScope(card,productId)?productId:null;
 }
+/** In the extension the wallet asks the provider itself, with the same request and the same scoping the server uses. */
+export async function suggestInExtension(card,client){
+ const {validateSuggestRequest,suggestionMessages}=await import('./productSuggestProtocol.js');
+ let request;try{request=validateSuggestRequest({bank:card.bank,region:card.region,name:cleanCardName(card.pageName??card.name)});}catch{return null;}
+ const [system,user]=suggestionMessages(request);
+ let answer;try{answer=await client.completeJSON({system:system.content,user:user.content,maxTokens:100});}catch(e){if(e.message==='invalid_json')return null;throw e;}
+ const id=answer?.productId;return typeof id==='string'&&inScope(card,id)?id:null;
+}
