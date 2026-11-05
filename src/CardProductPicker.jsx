@@ -22,7 +22,7 @@ export default function CardProductPicker({card}){
  const options=[...scoped].sort((a,b)=>Number(first.has(b.id))-Number(first.has(a.id))||a.name.localeCompare(b.name)).map(p=>({value:p.id,label:p.name,search:[p.name,...p.aliases].join(' '),art:!!p.art}));
  const [editing,setEditing]=useState(false);
  const save=productId=>{try{saveCardProductChoices(withCardProductChoice(loadCardProductChoices(),card,productId));setEditing(false);message.success(productId?t('已设定卡种。'):t('已改回自动识别。'))}catch{message.error(t('保存失败，刚才的设置没有生效。'))}};
- const status=chosen?<><Tag color="blue">{t('你选择的卡种')}</Tag><Text>{chosen.name}</Text></>:auto.status==='matched'?<><Tag color="success">{t('已自动识别')}</Tag><Text>{auto.product.name}</Text></>:auto.status==='ambiguous'?<Tag color="warning">{t('有 {0} 个可能的卡种，无法确定',[auto.candidates.length])}</Tag>:<Tag>{t('未能识别卡种')}</Tag>;
+ const status=chosen?<><Tag color="blue">{t('你选择的卡种')}</Tag><Text>{chosen.name}</Text></>:auto.status==='matched'?<><Tag color="success">{t('已自动识别')}</Tag><Text>{auto.product.name}</Text></>:auto.candidates.length>1?<Tag color="warning">{t('有 {0} 个可能的卡种，无法确定',[auto.candidates.length])}</Tag>:<Tag>{t('未能识别卡种')}</Tag>;
  const product=chosen||auto.product,showPicker=editing||(!product&&scoped.length>0);
  return <div className="card-product-picker">
   <Flex align="center" gap={8} wrap><Text type="secondary">{t('卡种')}</Text>{status}{product&&!product.art&&<Text type="secondary">{t('这个卡种暂时没有卡面图片。')}</Text>}</Flex>

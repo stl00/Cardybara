@@ -8,8 +8,8 @@ const id=(bank,region,name)=>{const m=matchCardProduct({bank,region,name});retur
 const us=n=>id('Amex US','US',n),hk=n=>id('HSBC HK','HK',n);
 
 test('page-style Amex US names reach their product despite marks, issuer words and "Card"',()=>{
- for(const n of ['American Express® Gold Card','Gold Card','American Express Gold Card ••••12345','Blue Cash Everyday®','Hilton Honors American Express Aspire Card','The Platinum Card® from American Express'])assert.notEqual(us(n),'unknown',n);
- assert.equal(us('Gold Card'),'amex-us-us-american-express-gold-card');
+ for(const n of ['American Express® Gold Card','American Express Gold Card ••••12345','Blue Cash Everyday®','Blue Cash Everyday® Card','Hilton Honors American Express Aspire Card','The Platinum Card® from American Express'])assert.ok(us(n).startsWith('amex-us-'),n);
+ assert.equal(us('American Express® Gold Card'),'amex-us-us-american-express-gold-card');
  assert.equal(us('Delta SkyMiles® Reserve Card'),'amex-us-us-delta-skymiles-reserve-card');
 });
 test('HSBC HK zh-HK page names match through public Chinese names, in either character form',()=>{
@@ -21,14 +21,15 @@ test('HSBC HK zh-HK page names match through public Chinese names, in either cha
 test('a fallback or generic name stays unknown, and tiers or business cards never cross',()=>{
  for(const n of ['American Express •••• 12345','Card','Synthetic Numbat Card',''])assert.equal(us(n),'unknown',n);
  for(const n of ['滙豐 •••• 1234','HSBC •••• 1234','信用卡','Pulse'])assert.equal(hk(n),'unknown',n);
- assert.equal(us('Business Platinum Card®'),'amex-us-us-business-platinum-card');assert.notEqual(us('Platinum Card®'),'amex-us-us-business-platinum-card');
+ assert.equal(us('Business Platinum Card®'),'amex-us-us-business-platinum-card');
+ for(const n of ['Platinum Card®','Platinum','Gold Card','Gold']){const m=matchCardProduct({bank:'Amex US',region:'US',name:n});assert.equal(m.status,'unknown',n);assert.ok(m.candidates.length>1,n);}
  assert.equal(us('Delta SkyMiles® Gold Business Card'),'amex-us-us-delta-skymiles-gold-business-card');
  assert.equal(id('Amex HK','HK','Gold Card'),id('Amex HK','HK','Gold Card'),'another bank keeps its own scope');
  assert.equal(productCore('Card'),'');
 });
 test('loose matching only applies when nothing matches exactly, and a tie stays unresolved',()=>{
  const products=[{id:'a',bank:'X',region:'US',name:'Alpha Card',aliases:[]},{id:'b',bank:'X',region:'US',name:'The Alpha',aliases:[]},{id:'c',bank:'X',region:'US',name:'Alpha Card Plus',aliases:['Alpha Card']}];
- assert.equal(matchCardProduct({bank:'X',region:'US',name:'Alpha'},products.slice(0,2)).status,'ambiguous');
+ const tie=matchCardProduct({bank:'X',region:'US',name:'Alpha'},products.slice(0,2));assert.equal(tie.status,'unknown','a loose tie is not recognised');assert.deepEqual(tie.candidates,['a','b'],'but its candidates are offered');
  assert.equal(matchCardProduct({bank:'X',region:'US',name:'Alpha Card'},products).status,'ambiguous','two exact matches are not settled by guessing');
  assert.equal(matchCardProduct({bank:'X',region:'US',name:'The Alpha'},products.slice(0,2)).product.id,'b','an exact match wins over a looser one');
 });
