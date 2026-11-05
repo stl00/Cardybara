@@ -31,7 +31,7 @@ export function useModelReady(){const [ready,setReady]=useState(false);useEffect
  * is its own consent. Otherwise a suggestion is asked for only from a card's own button.
  */
 export function ProductSuggestionRunner({cards}){
- const rows=useSuggestions(),key=cards.map(c=>[c.id,c.bank,c.region,c.name,c.productChosen?1:0].join('|')).join('\n')+(autoSuggestOn()?'|on':'');
+ const key=cards.map(c=>[c.id,c.bank,c.region,c.name,c.productChosen?1:0].join('|')).join('\n')+(autoSuggestOn()?'|on':'');
  useEffect(()=>{
   let alive=true;
   (async()=>{
@@ -48,7 +48,7 @@ export function ProductSuggestionRunner({cards}){
    }
   })();
   return()=>{alive=false};
- },[key,rows.length]);
+ },[key]); // Saved answers must not restart the run, or the per-load limit would never apply.
  return null;
 }
 export function useCardProductChoices(){
