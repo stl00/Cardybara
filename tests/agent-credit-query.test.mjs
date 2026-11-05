@@ -261,10 +261,44 @@ test('review cases: plain claims are caught and rule wording is not',()=>{
 test('reusing remembered dates keeps them marked as assumed, and broad listings stay within limits',async()=>{
  const trip={use:'hotel',start:'2026-12-01',end:'2026-12-31',precision:'holiday'};
  const m=script([[call({use:'dining',reuseRememberedDates:true})],'按 2026 年 12 月算，这些餐饮 credit 没有标记，不确定是否用过。'+allItems+'。']);
+ const r=await runAgentTurn({history:[],memory:{trip},question:'那餐饮呢',context:wallet,request:m.request}).catch(e=>e);
+ const tool=JSON.parse(m.requests[1].messages.at(-1).content);
+ assert.deepEqual([tool.window.start,tool.window.precision],['2026-12-01','holiday']);assert.ok(tool.window.assumptions.includes('dates-were-assumed-earlier'));assert.equal(tool.dateSensitivity.exactDatesCouldChangeAnswer,true);
+ assert.ok(r.memory===undefined||r.memory.trip.precision==='holiday');
+ assert.equal(runWalletTool(call({reuseRememberedDates:true}),wallet).needsDates,true);
+ const broad=runWalletTool(call({when:'2026-11-05 to 2027-01-31'}),wallet);assert.equal(broad.brief,true);assert.equal(Object.values(broad.groups).flat()[0].sources,undefined);
+ assert.ok(JSON.stringify(broad).length*4<170000,'four broad calls fit one request');
+ assert.ok(Object.values(runWalletTool(call({cardName:'Sapphire Reserve',when:'12月'}),wallet).groups).flat().every(i=>i.sources));
+});
+test('second review: universal claims, crossed hedges and more verbs',()=>{
+ const oneOpen=[plan('12月',{events:[creditMark(CSR,EDIT,'2026-01-01','2026-12-31','unused')]})];
+ for(const answer of ['All your hotel credits are unused.','你的酒店抵扣都没用。','Both are unused.','两项都没用。','住宿预订抵扣状态未知，Hilton Resort 抵扣没用。','Hilton Resort 抵扣没用，住宿预订抵扣未确认。','Hilton resort credit is unused, status unknown for Lodging credit.',"You didn't use the Hilton resort credit.",'You never used the Hilton resort credit.','The Hilton resort credit has yet to be used.','Hilton Resort 抵扣还可以使用。','Hilton Resort 抵扣还能使用。'])
+  assert.ok(issues('2026 年 12 月。'+answer+'\n'+allItems,oneOpen).includes('unknown_treated_as_unused'),answer);
+ assert.ok(issues('2026 年 12 月。Uber Cash 没用。\n'+allItems).includes('unknown_treated_as_unused'));
+ assert.ok(issues('Uber Cash 没用。',[]).includes('unused_claim_without_evidence'));
+ // A bare count is false when only some are marked unused.
+ assert.ok(issues('2026 年 12 月，你还有4项未使用。\n'+allItems,oneOpen).includes('unknown_treated_as_unused'));
+ for(const answer of ['You still have to book through Chase for The Edit.','You still have 57 days to use The Edit.','The Edit credit is not used for flights.','The Edit has not been marked used or unused.','Unused status is not tracked for The Edit.','The Edit 还可以用于预付订单。'])
+  assert.ok(!issues('2026 年 12 月。'+answer+'\n'+allItems,[{...noMarks[0],today:'57'}]).includes('unknown_treated_as_unused'),answer);
+ assert.ok(!issues('2026 年 12 月。你有 1 项标记为未用：The Edit 酒店抵扣。其他未标记。\n'+allItems,oneOpen).includes('unknown_treated_as_unused'));
+});
+test('re-check: a named credit the lookup did not return, or no lookup at all, is still checked',async()=>{
+ const names=creditNamesForCards(cards,TODAY);assert.ok(names.some(n=>n.title==='Uber Cash'));assert.ok(names.some(n=>n.titles.en==='The Edit hotel credit'));
+ assert.deepEqual(creditNamesForCards([{id:'x',name:'Mystery Card',bank:'B',region:'US',currency:'USD'}],TODAY),[]);
+ const none=(answer,evidence=[])=>answerGrounding(answer,evidence,{creditNames:names}).issues.map(i=>i.code);
+ for(const answer of ['The Edit 没用。','The Edit is unused.','Resy 还没用。'])assert.ok(none(answer).includes('unused_claim_without_evidence'),answer);
+ assert.deepEqual(none('这个方法没用。'),[]);
+ const oneOpen=[plan('12月',{events:[creditMark(CSR,EDIT,'2026-01-01','2026-12-31','unused')]})];
+ assert.ok(none('2026 年 12 月。Uber Cash 没用。\n'+allItems,oneOpen).includes('unknown_treated_as_unused'));
+ assert.deepEqual(none('2026 年 12 月。The Edit 酒店抵扣没用。其他未标记。\n'+allItems,oneOpen),[]);
+ const m=script(['The Edit 没用。','你想查哪段日期的 credit？']);
+ const r=await runAgentTurn({history:[],question:'The Edit 用了吗',context:wallet,request:m.request});assert.equal(r.trace.at(-1).type,'repair');assert.equal(r.answer,'你想查哪段日期的 credit？');
+});
+test('re-check: exact dates reused twice stay exact',async()=>{
+ const trip={start:'2026-12-20',end:'2026-12-27',precision:'days'};
  // Whatever the model writes, the turn ends with the trip it stored.
  const r=await runAgentTurn({history:[],memory:{trip},question:'那餐饮呢',context:wallet,request:script([[call({use:'dining',reuseRememberedDates:true})],'x','x']).request});
- assert.equal(r.memory.trip.start,'2026-12-20');
- assert.equal(r.memory.trip.assumed,undefined);
+ assert.equal(r.memory.trip.start,'2026-12-20');assert.equal(r.memory.trip.assumed,undefined);
 });
 test('second review: the fallback never hides what it could not answer',()=>{
  const dec=plan('12月'),jan=plan('1月');
