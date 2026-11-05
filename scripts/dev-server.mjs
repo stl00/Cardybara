@@ -3,6 +3,7 @@
 import http from 'node:http';
 import {chatAgent,validateChat} from './chat-agent.mjs';
 import {parseAdvisorIntent} from './advisor-model.mjs';
+import {suggestProduct} from './product-suggest.mjs';
 import {mkdir,readFile,stat,writeFile} from 'node:fs/promises';
 import {validReport} from '../extension-dev/schedule-core.js';
 import {resolve,extname,sep} from 'node:path';
@@ -43,6 +44,14 @@ return async(req,res)=>{
     let payload;try{payload=JSON.parse(body);validateChat(payload);}catch{json(400,{error:'invalid_chat'});return;}
     const controller=new AbortController();res.on('close',()=>controller.abort());
     active++;try{let usage;const message=await chatAgent(env,payload,fetch,controller.signal,{onUsage:u=>{usage=u;}});json(200,{message,...(usage?{usage:{promptTokens:usage.prompt_tokens,completionTokens:usage.completion_tokens,cacheHitTokens:usage.prompt_cache_hit_tokens??null}}:{})});}finally{active--;}return;
+   }
+   if(req.url==='/api/catalog/suggest-product'){
+    if(req.method!=='POST'||req.headers['x-cardybara-client']!=='extension'||!req.headers['content-type']?.startsWith('application/json')){json(400,{error:'invalid_request'});return;}
+    if(!env.DEEPSEEK_API_KEY){json(503,{error:'model_not_configured'});return;}
+    if(active>=1){json(429,{error:'model_busy'});return;}
+    let body='';for await(const chunk of req){body+=chunk;if(body.length>2000){json(413,{error:'payload_too_large'});return;}}
+    let payload;try{payload=JSON.parse(body);}catch{json(400,{error:'invalid_request'});return;}
+    active++;try{json(200,{...await suggestProduct(env,payload),provider:'deepseek'});}catch(e){json(['invalid_request','unknown_bank','invalid_name'].includes(e.message)?400:502,{error:e.message});}finally{active--;}return;
    }
    if(req.url==='/api/advisor/intent'){
     if(req.method!=='POST'||req.headers['x-cardybara-client']!=='extension'||!req.headers['content-type']?.startsWith('application/json')){json(400,{error:'invalid_request'});return;}
