@@ -57,6 +57,12 @@ test('a tab discovery accepts as signed in is used, even when its cards are not 
  assert.equal(await chooseBankTab('Amex US',cards,[tab],scripting({status:'found',cards:[{tail:'99999',name:'x'}]})),null,'another person\'s cards are not this wallet\'s');
  assert.equal(await chooseBankTab('Amex US',cards,[tab],scripting({status:'needs_login',cards:[]})),null);
  assert.equal((await chooseBankTab('Amex US',[],[tab],scripting({status:'found',cards:[{tail:'12345',name:'x'}]})))?.verified,true,'a first read with no registered card');
+ // A dashboard the heading check accepts and a details page discovery also accepts: the dashboard is chosen, as before.
+ const two=[{id:1,url:'https://secure.chase.com/web/auth/dashboard#/dashboard/overview'},{id:2,url:'https://secure.chase.com/web/auth/dashboard#/dashboard/details'}],chase=[{id:'c',bank:'Chase',tail:'1234'}];
+ const mixed={executeScript:async o=>[{result:o.func.name==='discoverVisibleCards'?{status:'found',cards:[{tail:'1234',name:'x'}]}:o.target.tabId===1}]};
+ assert.equal((await chooseBankTab('Chase',chase,two,mixed)).id,1,'no new ambiguity');
+ await assert.rejects(()=>chooseBankTab('Chase',chase,two,{executeScript:async o=>[{result:o.func.name==='discoverVisibleCards'?{status:'found',cards:[{tail:'1234',name:'x'}]}:false}]}),/ambiguous_tabs/,'two tabs only discovery accepts are still ambiguous');
+ assert.equal(await chooseBankTab('Amex US',cards,[tab],{executeScript:()=>new Promise(()=>{})}),null,'a tab that never answers is passed over');
 });
 
 test('verified empty categories require explicit observations from every registered card',()=>{
