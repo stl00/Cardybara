@@ -6,13 +6,21 @@ import {hsbcCards,hsbcMoreDetails} from './hsbc-navigation.js';
 import {collectCoverage,offerCoverage} from './coverage.js';
 import {chaseCards,chaseOpenSection} from './chase-navigation.js';
 import {capturePage} from './agent-snapshot.js';
-export const PARSER_ORIGIN='http://127.0.0.1:8766';
+import {modelRequest} from './agent-core.js';
+import {keyStatus,completeBody} from './model-client.js';
 export const PARSER_SETTINGS='cardybara-parser-settings';
 export const SECTION_KEYS=['card','reward','benefit','offer','transaction'];
+// Model-assisted parsing talks to the provider directly with the owner's key; nothing on localhost is involved.
 export async function parserStatus(){
- const permission=await chrome.permissions.contains({origins:['http://127.0.0.1/*']});
- if(!permission)return {configured:false,reason:'connect_local_service'};
- try{const r=await fetch(PARSER_ORIGIN+'/api/parser/status',{credentials:'omit',signal:AbortSignal.timeout(2500),redirect:'error'});if(!r.ok)throw Error();const s=await r.json();return {configured:s.configured===true,provider:s.provider,model:s.model,processing:s.processing};}catch{return {configured:false,reason:'local_service_offline'};}
+ const status=await keyStatus();
+ return {configured:status.ready,provider:status.provider||'deepseek',model:status.model||null,processing:'cloud-direct',...(status.ready?{}:{reason:status.saved?'model_disabled_or_no_permission':'add_model_key'})};
+}
+/** One bounded parse: the same request the local server used to send, now from the extension. */
+export async function modelParse(batch,{signal}={}){
+ const {body}=modelRequest({provider:'deepseek',key:'unused'},batch);
+ const response=await completeBody(body,{signal,timeout:27000}),content=response.choices?.[0]?.message?.content;
+ if(typeof content!=='string'||content.length>150000)throw Error('model_request_failed');
+ try{return JSON.parse(content);}catch{throw Error('model_request_failed');}
 }
 export function sectionSummary(items,reason='not_found',empty=[],cards=[],coverage=[]){
  return Object.fromEntries(SECTION_KEYS.map(kind=>{
@@ -78,8 +86,7 @@ switchTails=(found[0]?.result||[]).filter(t=>ctx.cards.some(c=>c.tail===t&&(['BO
    if(raw.observations?.length){for(let start=0;start<raw.observations.length;start+=80){const grounded=validateModel({items:raw.observations.slice(start,start+80),nextLinkId:null},snapshot);items=mergeRecords(items,grounded.items.map(i=>({...i,method:'rules'})));rejected+=grounded.rejected.length;for(const reason of grounded.rejected)rejectReasons[reason]=(rejectReasons[reason]||0)+1;await io.checkpoint(items,summary('reading'));}}
 
    for(const batch of (!allowModel||raw.rulesComplete||raw.observations?.length&&url.pathname.startsWith('/offers')?[]:snapshotBatches(snapshot))){
-    await check();stage='parse';const r=await fetch(PARSER_ORIGIN+'/api/parser/parse',{method:'POST',headers:{'Content-Type':'application/json','X-Cardybara-Client':'extension'},body:JSON.stringify({snapshot:batch}),credentials:'omit',signal:AbortSignal.timeout(27000),redirect:'error'});
-    if(!r.ok){const code=(await r.json().catch(()=>({}))).error;throw Error(['parser_busy','model_request_failed'].includes(code)?code:'parser_unavailable');}const body=await r.json();await check();
+    await check();stage='parse';let body;try{body={raw:await modelParse(batch)};}catch(e){throw Error(({model_auth_failed:'model_auth_failed',model_rate_limited:'parser_busy',model_not_ready:'setup_required'})[e.message]||'parser_unavailable');}await check();
     const current=await chrome.tabs.get(ctx.tabId);const same=await chrome.scripting.executeScript({target:{tabId:ctx.tabId,documentIds:[read[0].documentId]},func:()=>true});if(current.url!==tab.url||same[0]?.documentId!==read[0].documentId)throw Error('document_changed');
     const result=validateModel(body.raw,batch);items=mergeRecords(items,mvp?result.items.filter(i=>inScope(i,id=>id)):result.items);suggested??=result.nextLinkId;rejected+=result.rejected.length;for(const reason of result.rejected)rejectReasons[reason]=(rejectReasons[reason]||0)+1;
     await io.checkpoint(items,summary('reading'));

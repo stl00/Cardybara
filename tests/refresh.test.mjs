@@ -1,4 +1,5 @@
 import test from 'node:test';
+import './helpers/provider-fake.mjs';
 import assert from 'node:assert/strict';
 import {enrichBank,sectionSummary,PARSER_SETTINGS} from '../extension-next/parser-client.js';
 import {Engine} from '../extension-next/engine.js';

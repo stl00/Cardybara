@@ -9,6 +9,8 @@ import {ArrowUpOutlined,ArrowDownOutlined,PlusOutlined,StopOutlined,CopyOutlined
 import {useI18n,t} from './i18n';
 import {runAgentTurn} from './agentSession';
 import {requestAdvisor} from './advisorTransport';
+import {isModelReady} from '../extension-next/model-client.js';
+import {extensionChat} from './extensionChat.js';
 const {Text}=Typography;
 let session={history:[],turns:[]};
 const strings={
@@ -22,7 +24,7 @@ export default function ChatAdvisor({cards,events,day}){
  const {language}=useI18n(),s=strings[language]||strings['zh-CN'],{message}=App.useApp();
  const ui=language==='en-US'?{copy:'Copy answer',copied:'Copied',copyFailed:'Copy unavailable',down:'Jump to latest',details:'Privacy and model',placeholder:'Message Cardybara',chips:['Choose a card','Hotel benefits','This cycle’s credits'],hint:'Enter to send · Shift + Enter for a new line',check:'Cardybara can make mistakes. Check important details.'}:language==='zh-TW'?{copy:'複製回答',copied:'已複製',copyFailed:'暫時無法複製',down:'回到最新訊息',details:'模型與隱私',placeholder:'傳訊息給卡疲扒拉',chips:['這筆刷哪張','酒店與會籍','本期 Credit'],hint:'Enter 傳送 · Shift + Enter 換行',check:'卡疲扒拉也可能出錯，重要資訊請核實。'}:{copy:'复制回答',copied:'已复制',copyFailed:'暂时无法复制',down:'回到最新消息',details:'模型与隐私',placeholder:'发消息给卡疲扒拉',chips:['这笔刷哪张','酒店与会籍','本期 Credit'],hint:'Enter 发送 · Shift + Enter 换行',check:'卡疲扒拉也可能出错，重要信息请核实。'};
  const [aiReady,setAiReady]=useState(null);
- useEffect(()=>{let alive=true;const probe=async()=>{try{let ready;if(location.protocol==='chrome-extension:'){const r=await chrome.runtime.sendMessage({type:'parser-state'});ready=r?.ok&&r.result?.configured===true;}else{const r=await fetch('/api/parser/status',{signal:AbortSignal.timeout(2500)});ready=r.ok&&(await r.json()).configured===true;}if(alive)setAiReady(!!ready);}catch{if(alive)setAiReady(false)}};void probe();return()=>{alive=false}},[]);
+ useEffect(()=>{let alive=true;const probe=async()=>{try{let ready;if(location.protocol==='chrome-extension:'){ready=await isModelReady();}else{const r=await fetch('/api/parser/status',{signal:AbortSignal.timeout(2500)});ready=r.ok&&(await r.json()).configured===true;}if(alive)setAiReady(!!ready);}catch{if(alive)setAiReady(false)}};void probe();return()=>{alive=false}},[]);
  const [turns,setTurns]=useState(session.turns),[question,setQuestion]=useState(''),[busy,setBusy]=useState(false),[progress,setProgress]=useState(''),[error,setError]=useState(''),[failed,setFailed]=useState('');const controller=useRef(null),bottom=useRef(null),mounted=useRef(true),thread=useRef(null),follow=useRef(true),sender=useRef(null);const [away,setAway]=useState(false),[copied,setCopied]=useState(-1);
  useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;controller.current?.abort()}},[]);
  const toLatest=()=>{follow.current=true;setAway(false);thread.current?.scrollTo({top:thread.current.scrollHeight,behavior:'smooth'})};
@@ -32,7 +34,7 @@ export default function ChatAdvisor({cards,events,day}){
   if(busy||!value.trim()||aiReady!==true)return;
   const q=value.trim();follow.current=true;setAway(false);setBusy(true);setQuestion('');setError('');setFailed('');setProgress(s.connecting);controller.current=new AbortController();
   setTurns([...session.turns,{role:'user',content:q}]);
-  try{const result=await runAgentTurn({history:session.history,memory:session.memory||{},question:q,context:{cards,events,day},signal:controller.current.signal,onProgress:p=>{if(mounted.current)setProgress(s[p.name]||s[p.phase]||s.thinking)},request:async(payload,signal)=>{const base=location.protocol==='chrome-extension:'?'http://127.0.0.1:8766':'';return requestAdvisor(base,payload,AbortSignal.any([signal,AbortSignal.timeout(50000)]));}});
+  try{const result=await runAgentTurn({history:session.history,memory:session.memory||{},question:q,context:{cards,events,day},signal:controller.current.signal,onProgress:p=>{if(mounted.current)setProgress(s[p.name]||s[p.phase]||s.thinking)},request:async(payload,signal)=>{const bounded=AbortSignal.any([signal,AbortSignal.timeout(50000)]);return location.protocol==='chrome-extension:'?extensionChat(payload,bounded):requestAdvisor('',payload,bounded);}});
    if(!mounted.current)return;session={memory:result.memory,history:result.messages,turns:[...session.turns,{role:'user',content:q},{role:'assistant',content:result.answer,tools:result.tools}]};setTurns(session.turns);
   }catch(e){if(mounted.current){setTurns(session.turns);setError(e.name==='AbortError'?s.cancelled:e.message==='answer_not_grounded'?(language==='en-US'?'I could not verify this answer against wallet data. Try a more specific question.':language==='zh-TW'?'這次回答未通過資料核對，請換個更具體的問法。':'这次回答未通过资料核对，请换个更具体的问法。'):s.error);setFailed(q);setQuestion(q)}}finally{if(mounted.current){setBusy(false);setProgress('')}}
  };
@@ -40,7 +42,7 @@ export default function ChatAdvisor({cards,events,day}){
  const promptIcons=[<ShopOutlined/>,<CrownOutlined/>,<GiftOutlined/>];
  return <section className={'wallet-chat chat-x'+(empty?' is-empty':'')}>
  <header className="chat-header"><div className="chat-heading"><Text strong>{s.title}</Text><Tooltip title={s.notice}><Button type="text" size="small" className="chat-model" aria-label={ui.details}>DeepSeek <InfoCircleOutlined/></Button></Tooltip></div><Tooltip title={s.new}><Button type="text" icon={<PlusOutlined/>} disabled={busy} onClick={()=>{session={history:[],turns:[]};setTurns([]);setError('');setQuestion('');setFailed('');follow.current=true;setAway(false);sender.current?.focus()}}>{s.new}</Button></Tooltip></header>
- <div className="chat-body">{aiReady===false&&<Alert style={{margin:16}} type="info" showIcon title={t('聊天助手需要单独配置 AI 服务，银行规则读取不受影响。')} action={<Button onClick={()=>location.hash='settings'}>{t('设置 AI')}</Button>}/>}
+ <div className="chat-body">{aiReady===false&&<Alert style={{margin:16}} type="info" showIcon title={t('聊天助手需要先在设置里添加 AI 模型密钥，钱包其他功能不受影响。')} action={<Button onClick={()=>location.hash='settings'}>{t('添加密钥')}</Button>}/>}
  <div className="chat-thread" ref={thread} onScroll={()=>{const el=thread.current;const far=el.scrollHeight-el.scrollTop-el.clientHeight>100;follow.current=!far;setAway(far)}}>
  <div className="chat-flow" aria-live="polite">
  {empty&&<div className="chat-welcome"><Welcome variant="borderless" icon={<img src="/brand/zen.svg" alt="Cardybara" width="64" height="64"/>} title={s.intro}/></div>}
