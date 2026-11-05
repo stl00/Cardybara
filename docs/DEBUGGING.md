@@ -31,9 +31,10 @@
 `npm run build:dev-extension` 把发布版代码加上 `extension-dev/` 构建到 `~/.cardybara/dev-extension`。这个路径不随 worktree 变化，owner 只需加载一次已解压的扩展。它只用于本地，不是发布候选。
 
 - **谁读页面：** 只有插件自己的代码。没有 Claude 工具，也没有调试端口。localhost 只能接收报告：开发版没有 content script，也没有 `externally_connectable`，worker 不接受任何网络指令，所以本地页面和工具都无法触发刷新。
-- **何时读：** owner 在插件弹窗里打开一次定时刷新。Chrome 空闲 2 分钟时读取，每 15 分钟也检查一次；同一家银行最短间隔 1 小时。owner 正在使用的标签页不碰。Amex 两个地区不会在同一轮里读。
+- **何时读：** owner 在插件弹窗里打开一次定时刷新。Chrome 空闲 2 分钟时读取，每 15 分钟也检查一次；同一家银行最短间隔 1 小时。Chrome 不空闲时不读。空闲时，留在最前面的银行标签页也算没在使用，可以读。Amex 两个地区不会在同一轮里读。
+- **每次检查都说明原因：** 弹窗列出每家银行这次为什么读或不读，用三种语言显示：`off`、`disconnected`、`stopped`、`not_due`、`no_tab`、`signed_out`、`other_region`、`no_cards_found`、`check_failed`、`amex_turn`、`not_idle`、`ready`。原因变化时才发一份 `run: skipped` 的报告，所以不会每 15 分钟一份。打开弹窗或重载只更新原因，不会开始读取。
 - **失败时：** 登录过期显示 `login_expired`，不提问，也不再打开登录页，owner 下次自己登录后才读。其他失败（验证、拒绝、加载错误、没有数据等）一律停止这家银行，要 owner 关掉再打开定时刷新才会重试。插件从不提交凭据。如果银行也拒绝插件，就标记为不支持，不再找别的办法。
-- **诊断：** 每轮结束自动发到 `POST /api/dev/diagnostics`，存为 `.debug/plugin-diagnostics/latest.json`，owner 不用导出。内容只有标签、取值形状和失败的步骤。所有数字串都换成 `#`，服务器也拒收字符串里带数字的报告。本地服务没开时，报告留到下一次检查再发。
+- **诊断：** 每轮结束自动发到 `POST /api/dev/diagnostics`，存为 `.debug/plugin-diagnostics/latest.json`，owner 不用导出。最近一次真正读取的报告另存为 `latest-run.json`，不会被跳过报告覆盖。内容只有标签、取值形状和失败的步骤。所有数字串都换成 `#`，服务器也拒收字符串里带数字的报告。本地服务没开时，报告留到下一次检查再发。
 - **更新：** 重新运行构建命令即可。插件每分钟比对 `build-stamp.json`，发现新版本就在没有读取任务时自动重载，owner 不用打开扩展页。重载不会触发刷新。
 - **发布边界：** 这些功能都在 `extension-dev/`，发布包不打包这个目录。`audit-release.py` 发现相关文件名、标记或 manifest 项就会失败。
 - **和发布包的一致性：** `npm run check:dev-parity` 逐字节比对发布包里的每个文件和开发版，只允许短名单内的差异，已包含在 `check:release` 和 CI 里。开发版读银行的代码因此和发布包完全相同，差别只有：定时、诊断和重载这几个文件，其中 `dev-structure-report.js` 只在读取不完整或失败时注入银行页，用来生成脱敏报告；manifest 多了 `idle` 和本机报告地址，没有 localhost content script，也不带 `dashboard.js`；弹窗换成定时开关；可选的模型辅助解析在开发版里不可用，因为它要把页面内容发到本机服务并使用返回结果，而开发版里 localhost 只能接收报告；空钱包 `data.json` 按内容比对，因为两边的序列化工具不同。定时刷新时不显示引导，也不调用模型，这两处分支在共享代码里，发布包里不会触发。
