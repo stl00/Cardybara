@@ -40,7 +40,7 @@ return async(req,res)=>{
     let body='';for await(const chunk of req){body+=chunk;if(body.length>180000){json(413,{error:'payload_too_large'});return;}}
     let payload;try{payload=JSON.parse(body);validateChat(payload);}catch{json(400,{error:'invalid_chat'});return;}
     const controller=new AbortController();res.on('close',()=>controller.abort());
-    active++;try{json(200,{message:await chatAgent(env,payload,fetch,controller.signal)});}finally{active--;}return;
+    active++;try{let usage;const message=await chatAgent(env,payload,fetch,controller.signal,{onUsage:u=>{usage=u;}});json(200,{message,...(usage?{usage:{promptTokens:usage.prompt_tokens,completionTokens:usage.completion_tokens,cacheHitTokens:usage.prompt_cache_hit_tokens??null}}:{})});}finally{active--;}return;
    }
    if(req.url==='/api/advisor/intent'){
     if(req.method!=='POST'||req.headers['x-cardybara-client']!=='extension'||!req.headers['content-type']?.startsWith('application/json')){json(400,{error:'invalid_request'});return;}
