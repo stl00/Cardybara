@@ -79,6 +79,19 @@ test('a report holds labels, shapes and the failed step, with no values, tails o
  assert.equal(report.banks[0].step,'read_page');assert.deepEqual(report.banks[0].fields,{balance:1});assert.deepEqual(report.banks[0].sections,{card:'partial'});
  assert.equal(validReport({schema:1,banks:[{bank:'BOA',note:'ending 3141'}]}),false,'the server refuses a digit in any string');
 });
+test('a report says why fields are missing, counting each card once and naming none',()=>{
+ const cards=[{id:'discovered-amex-us-31415'},{id:'discovered-amex-us-27182'}];
+ const job={bank:'Amex US',status:'partial',cards,startedAt:0,sections:{
+  card:{status:'partial',coverage:[{cardId:cards[0].id,missing:['due'],notApplicable:[],complete:false},{cardId:cards[1].id,missing:['statement'],notApplicable:['minimum','due'],reason:'Payment not required at this time',complete:false}]},
+  reward:{status:'partial',coverage:[{cardId:cards[0].id,complete:true,missing:[]},{cardId:cards[1].id,complete:false,missing:['reward'],reason:'programme_unconfirmed',unconfirmed:['Quokka Miles']}]}}};
+ const at=new Date(5).toISOString(),state={records:{'Amex US':{[cards[0].id]:{balance:{value:1,capturedAt:at}}}},agentRecords:[{bank:'Amex US',cardId:cards[0].id,kind:'card',key:'balance',capturedAt:at},{bank:'Amex US',cardId:cards[1].id,kind:'card',key:'balance',capturedAt:at}]};
+ const report=buildReport({run:{status:'complete',jobs:[job]},state,build:'dev',now:5}),bank=report.banks[0],text=JSON.stringify({...report,at:0});
+ assert.equal(bank.fields.balance,2,'a card read twice counts once');
+ assert.deepEqual(bank.coverage.card,{missing:{due:1,statement:1},notApplicable:{minimum:1,due:1},reasons:{payment_notice:1},notCollected:0,unconfirmedProgrammes:0});
+ assert.deepEqual(bank.coverage.reward,{missing:{reward:1},notApplicable:{},reasons:{programme_unconfirmed:1},notCollected:0,unconfirmedProgrammes:1});
+ for(const secret of ['31415','27182','Quokka','Payment not required','discovered'])assert.ok(!text.includes(secret),secret);
+ assert.equal(validReport(report),true);
+});
 test('the dev build has no way in from localhost, and never touches a credential',()=>{
  const dir=mkdtempSync(join(tmpdir(),'cardybara-dev-build-'));
  try{
