@@ -36,7 +36,7 @@ export function snapshotBatches(snapshot,maxChars=5000){
 export async function enrichBank(ctx,io){
  const settings=(await chrome.storage.local.get(PARSER_SETTINGS))[PARSER_SETTINGS];
  const mvp=settings?.scope!=='full';
- const ready=await parserStatus(),allowModel=ready.configured&&settings?.enabled&&settings?.cloudConsent,modelReason=ready.reason||'setup_required';
+ const ready=await parserStatus(),allowModel=!ctx.scheduled&&ready.configured&&settings?.enabled&&settings?.cloudConsent,modelReason=ready.reason||'setup_required';
  let items=[],pages=0,rejected=0,error=null,stage='capture';const rejectReasons={};const seen=new Set(),queue=new Map();let chaseReadingDetails=ctx.bank==='Chase',chaseAllTails=[];let startingUrl=null;let currentIds=[],switchTails=[],overviewUrl=null,perCardPages=0,savedOffersRead=false,moreDetailsRead=false,chaseOffersRead=false,chaseBenefitsRead=false;const empty=[];let coverage=[];
  const notCollected={},noteOther=(cardId,programme)=>{if(cardId)(notCollected[cardId]??=new Set()).add(programme);};
  // In MVP scope only required programmes are collected; others are reported, not dropped.

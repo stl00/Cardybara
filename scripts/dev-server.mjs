@@ -3,12 +3,21 @@
 import http from 'node:http';
 import {chatAgent,validateChat} from './chat-agent.mjs';
 import {parseAdvisorIntent} from './advisor-model.mjs';
-import {readFile,stat} from 'node:fs/promises';
+import {mkdir,readFile,stat,writeFile} from 'node:fs/promises';
+import {validReport} from '../extension-dev/schedule-core.js';
 import {resolve,extname,sep} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {modelRequest,validateModel} from '../extension-next/agent-core.js';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url))),dist=resolve(root,'dist');
 const env={};for(const line of (await readFile(process.env.CARDYBARA_MODEL_CONFIG||resolve(root,'.env.local'),'utf8').catch(()=>'')).split('\n')){const m=line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);if(m)env[m[1]]=m[2].replace(/^(['"])(.*)\1$/,'$2');}
+async function receiveDiagnostics(req,json){
+ if(req.method!=='POST'||req.headers['x-cardybara-client']!=='extension-dev'||!req.headers.origin?.startsWith('chrome-extension://')||!req.headers['content-type']?.startsWith('application/json')){json(400,{error:'invalid_request'});return;}
+ let size=0;const chunks=[];for await(const chunk of req){size+=chunk.length;if(size>2000000){json(413,{error:'too_large'});return;}chunks.push(chunk);}
+ let report;try{report=JSON.parse(Buffer.concat(chunks).toString());}catch{json(400,{error:'invalid_json'});return;}
+ if(!validReport(report)){json(400,{error:'not_redacted'});return;}
+ const dir=process.env.CARDYBARA_DEV_DIAGNOSTICS_DIR||resolve(root,'.debug/plugin-diagnostics');await mkdir(dir,{recursive:true,mode:0o700});
+ await writeFile(resolve(dir,'latest.json'),JSON.stringify(report,null,1),{mode:0o600});json(200,{ok:true});
+}
 export function createWalletHandler({port=Number(process.env.CARDYBARA_DEV_PORT||8766),staticFiles=true}={}){
 const allowed=new Set(['http://127.0.0.1:'+port,'http://localhost:'+port,...(env.CARDYBARA_EXTENSION_ORIGINS||'').split(',').map(x=>x.trim()).filter(Boolean)]);
 const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.ico':'image/x-icon','.zip':'application/zip'};
@@ -19,6 +28,8 @@ return async(req,res)=>{
  try{
   if(!['127.0.0.1:'+port,'localhost:'+port].includes(req.headers.host)){json(403,{error:'invalid_host'});return;}
   if(req.url.startsWith('/api/')){
+   // Dev extension only: stores a redacted report and answers nothing else, so it can't start or steer a refresh.
+   if(req.url==='/api/dev/diagnostics'){await receiveDiagnostics(req,json);return;}
    if(origin&&!allowed.has(origin)){json(403,{error:'origin_not_allowed'});return;}
    if(origin)res.setHeader('Access-Control-Allow-Origin',origin);res.setHeader('Vary','Origin');
    if(req.method==='OPTIONS'){res.writeHead(204,{'Access-Control-Allow-Methods':'GET, POST, OPTIONS','Access-Control-Allow-Headers':'Content-Type, X-Cardybara-Client','Access-Control-Max-Age':'600'});res.end();return;}
