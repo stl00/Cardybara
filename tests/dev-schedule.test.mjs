@@ -65,7 +65,8 @@ test('a failure stops its bank until the owner turns the schedule off and on',()
  for(const readError of ['needs_confirmation','document_changed'])assert.equal(classifyJob({status:'updated',readError}).state,'stopped',readError);
  const stopped=afterRun(on(),{jobs:[{bank:'BOA',status:'load_error'}]},5);assert.equal(setEnabled(stopped,true).banks.BOA.state,'stopped','saving again is not a retry');
  assert.deepEqual(setEnabled(setEnabled(stopped,false),true).banks,{});
- assert.deepEqual(setEnabled(setEnabled(afterRun(markAttempted(on(),['BOA'],9),{jobs:[{bank:'BOA',status:'load_error'}]},10),false),true).banks,{BOA:{lastAttemptAt:9}},'the stop clears, the last attempt stays');
+ assert.deepEqual(setEnabled(setEnabled(afterRun(markAttempted(on(),['BOA'],9),{jobs:[{bank:'BOA',status:'load_error'}]},10),false),true).banks,{},'a stopped bank is retried at the next check');
+ assert.deepEqual(setEnabled(setEnabled(afterRun(markAttempted(on(),['BOA'],9),{jobs:[{bank:'BOA',status:'updated'}]},10),false),true).banks,{BOA:{lastAttemptAt:9}},'a bank read fine keeps its interval');
  assert.equal(markAttempted(on(),['BOA'],7).banks.BOA.lastAttemptAt,7);
 });
 test('a report holds labels, shapes and the failed step, with no values, tails or names',()=>{
@@ -211,7 +212,7 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   assert.equal(settings().banks.BOA.state,'stopped','a challenge after a partial read stops the bank');
   const challenged=state().run.id;allow();captureError=null;await tick();assert.equal(state().run.id,challenged,'and it is not retried');
   // A worker that died mid-run: the check must settle that run, not replace it.
-  await say({type:'dev-schedule-set',enabled:false});await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60});
+  await say({type:'dev-schedule-set',enabled:false});await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60});assert.equal(settings().banks.BOA,undefined,'off and on clears the stop, with no wait for the interval');
   store['cardybara-state-v2']={...state(),run:{...state().run,id:'interrupted-run',status:'interrupted',jobs:state().run.jobs.map(j=>({...j,status:'interrupted'}))}};store['cardybara-dev-run']={id:'interrupted-run',restoreTab:null};
   const created=calls.created.length;await tick();assert.equal(state().run.id,'interrupted-run','not replaced');assert.equal(settings().banks.BOA.state,'stopped','its stop is kept');assert.equal(store['cardybara-dev-run'].done,true);assert.equal(calls.created.length,created);
  }finally{rmSync(dir,{recursive:true,force:true});}

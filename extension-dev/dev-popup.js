@@ -11,10 +11,10 @@ $('on-label').textContent=t.on;$('every-label').textContent=t.every;$('note').te
 $('every').append(...INTERVALS.map(m=>{const o=document.createElement('option');o.value=String(m);o.textContent=m/60+t.hours;return o;}));
 const save=async()=>{const r=await ask({type:'dev-schedule-set',enabled:$('on').checked,intervalMinutes:Number($('every').value)});if(r?.ok)render(r);};
 $('on').onchange=save;$('every').onchange=save;
-$('read-now').textContent=t.readNow;
-$('read-now').onclick=async()=>{$('read-now').disabled=true;const r=await ask({type:'dev-read-now'});if(!r?.ok)return;render(r);$('status').textContent=r.outcome==='started'?t.readStarted:r.outcome==='running'?t.running:t.nothingToRead;};
-// While the popup is open it follows the run, so each bank's result shows when it ends.
 let wasRunning=false;
+$('read-now').textContent=t.readNow;
+$('read-now').onclick=async()=>{$('read-now').disabled=true;const r=await ask({type:'dev-read-now'});if(!r?.ok)return;wasRunning=r.outcome==='started'||r.running;render(r);$('status').textContent=r.outcome==='started'?t.readStarted:r.outcome==='running'?t.running:t.nothingToRead;};
+// While the popup is open it follows the run, so each bank's result shows when it ends.
 const full=()=>ask({type:'dev-schedule-get'}).then(r=>{if(r?.ok){wasRunning=r.running;render(r);}});
 // Polling reads stored state only; a full check, which looks at bank tabs, runs on opening and once a run ends.
 const follow=()=>ask({type:'dev-schedule-state'}).then(r=>{if(!r?.ok)return;if(wasRunning&&!r.running){full();return;}wasRunning=r.running;render(r);});

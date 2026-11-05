@@ -5,8 +5,8 @@ export const INTERVALS=[60,180,360,720,1440];
 const OK=['updated','partial'],FIELD_KEYS=['balance','available','statement','statementClosing','minimum','creditLimit','due','duePartial','paymentStatus','autopay'];
 export const defaultSettings=()=>({enabled:false,intervalMinutes:360,banks:{}});
 export const normalizeInterval=value=>INTERVALS.includes(value)?value:Math.max(MIN_INTERVAL_MINUTES,360);
-// Turning the schedule on again is the owner's decision to try stopped banks once more. The last attempt is kept, so a read just made still counts for the interval.
-const lastAttempts=banks=>Object.fromEntries(Object.entries(banks||{}).filter(([,b])=>b?.lastAttemptAt).map(([bank,b])=>[bank,{lastAttemptAt:b.lastAttemptAt}]));
+// Turning the schedule on again is the owner's decision to try stopped banks once more, at the next check. A bank that wasn't stopped keeps its last attempt, so a read just made still counts for the interval.
+const lastAttempts=banks=>Object.fromEntries(Object.entries(banks||{}).filter(([,b])=>b?.lastAttemptAt&&b.state!=='stopped').map(([bank,b])=>[bank,{lastAttemptAt:b.lastAttemptAt}]));
 export function setEnabled(settings,enabled,intervalMinutes=settings.intervalMinutes){return {...settings,enabled:enabled===true,intervalMinutes:normalizeInterval(intervalMinutes),banks:enabled===true&&!settings.enabled?lastAttempts(settings.banks):settings.banks};}
 // A successful read carries on. An expired login waits for the owner's own signed-in tab. Anything else stops the bank.
 export function classifyJob(job){
