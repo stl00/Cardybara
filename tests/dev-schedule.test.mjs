@@ -7,10 +7,12 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import http from 'node:http';
-import {afterRun,buildReport,classifyJob,defaultSettings,markAttempted,planBanks,setEnabled,validReport} from '../extension-dev/schedule-core.js';
+import {afterRun,buildReport,classifyJob,decideBanks,defaultSettings,markAttempted,planBanks,POPUP_WORDS,setEnabled,skipReport,skipSignature,SKIP_REASONS,validReport} from '../extension-dev/schedule-core.js';
 const root=fileURLToPath(new URL('..',import.meta.url));
 const on=(banks={})=>({...setEnabled(defaultSettings(),true),banks});
-const plan=(settings,extra={})=>planBanks({settings,activeBanks:['Chase','BOA','Amex US','Amex HK'],withCards:[],signedIn:[],now:1e12,...extra});
+const found=banks=>Object.fromEntries((banks||[]).map(b=>[b,'found']));
+const plan=(settings,{signedIn,...extra}={})=>planBanks({settings,activeBanks:['Chase','BOA','Amex US','Amex HK'],withCards:[],tabs:found(signedIn),now:1e12,...extra});
+const why=(settings,bank,extra={})=>decideBanks({settings,activeBanks:['Chase','BOA','Amex US','Amex HK'],withCards:[],now:1e12,...extra})[bank];
 
 test('a bank is opened only after a good read; otherwise the owner\'s signed-in tab must exist',()=>{
  assert.deepEqual(plan(defaultSettings(),{signedIn:['BOA']}),[],'off means nothing runs');
@@ -20,7 +22,22 @@ test('a bank is opened only after a good read; otherwise the owner\'s signed-in 
  assert.deepEqual(plan(on({BOA:{state:'login_expired'}}),{withCards:['BOA']}),[],'an expired login is not hit again');
  assert.deepEqual(plan(on({BOA:{state:'login_expired'}}),{signedIn:['BOA']}),['BOA']);
  assert.deepEqual(plan(on({BOA:{state:'stopped'}}),{signedIn:['BOA'],withCards:['BOA']}),[],'a stopped bank waits for the owner');
- assert.deepEqual(plan(on(),{signedIn:['BOA'],inUse:['BOA']}),[],'a tab the owner is using is left alone');
+ assert.deepEqual(plan(on(),{signedIn:['BOA'],idle:'active'}),[],'it waits until Chrome is idle');
+});
+test('every check says why each bank will or will not be read',()=>{
+ assert.equal(why(defaultSettings(),'BOA',{tabs:found(['BOA'])}),'off');
+ assert.equal(why(on(),'BOA',{disabled:['BOA'],tabs:found(['BOA'])}),'disconnected');
+ assert.equal(why(on({BOA:{state:'stopped'}}),'BOA',{tabs:found(['BOA'])}),'stopped');
+ assert.equal(why(on({BOA:{state:'ok',lastAttemptAt:1e12-1}}),'BOA',{tabs:found(['BOA'])}),'not_due');
+ assert.equal(why(on(),'BOA'),'no_tab');
+ for(const [tab,reason]of [['needs_login','signed_out'],['ambiguous','other_region'],['no_data','no_cards_found'],['failed','check_failed']])assert.equal(why(on(),'BOA',{tabs:{BOA:tab}}),reason);
+ assert.equal(why(on(),'Amex HK',{tabs:found(['Amex US','Amex HK'])}),'amex_turn');
+ assert.equal(why(on(),'BOA',{tabs:found(['BOA']),idle:'active'}),'not_idle');assert.equal(why(on(),'BOA',{tabs:found(['BOA']),idle:'locked'}),'not_idle');
+ assert.equal(why(on(),'BOA',{tabs:found(['BOA'])}),'ready');
+ assert.equal(why(on(),'BOA',{idle:'active'}),'no_tab','what the owner can act on comes before waiting for idle');
+ for(const [lang,words]of Object.entries(POPUP_WORDS))for(const reason of SKIP_REASONS)assert.ok(words[reason],lang+' '+reason);
+ const report=skipReport({BOA:'no_tab',Chase:'off'},5);assert.equal(validReport(report),true);assert.equal(report.run,'skipped');assert.deepEqual(report.banks[0],{bank:'BOA',status:'skipped',reason:'no_tab'});
+ assert.equal(skipSignature({a:'x',b:'y'}),skipSignature({b:'y',a:'x'}));
 });
 test('the minimum interval holds, and Amex regions never run together',()=>{
  const recent=on({BOA:{state:'ok',lastAttemptAt:1e12-59*60000}});assert.deepEqual(plan({...recent,intervalMinutes:60},{signedIn:['BOA']}),[]);
@@ -105,6 +122,7 @@ test('the local server stores a redacted report from the dev extension and refus
   assert.equal((await post(report,{'X-Cardybara-Client':'other'})).status,400);assert.equal((await post(report,{Origin:'https://example.test'})).status,400);
   assert.equal((await post({...report,banks:[{bank:'BOA',note:'3141'}]})).status,400);assert.deepEqual(readdirSync(dir),[]);
   assert.equal((await post(report)).status,200);assert.equal(JSON.parse(readFileSync(join(dir,'latest.json'),'utf8')).run,'complete');
+  assert.equal((await post({...report,run:'skipped'})).status,200);assert.equal(JSON.parse(readFileSync(join(dir,'latest.json'),'utf8')).run,'skipped');assert.equal(JSON.parse(readFileSync(join(dir,'latest-run.json'),'utf8')).run,'complete','a skip report does not hide the last run');
   assert.equal((await fetch('http://127.0.0.1:18791/api/dev/refresh',{method:'POST'})).ok,false,'there is no route that starts a refresh');
  }finally{server.close();rmSync(dir,{recursive:true,force:true});delete process.env.CARDYBARA_DEV_DIAGNOSTICS_DIR;}
 });
@@ -117,7 +135,7 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   const href='https://secure.bankofamerica.com/accounts-home/';
   globalThis.chrome={runtime:{id:'dev',getURL:p=>'chrome-extension://dev/'+p,onMessage:listen('message'),sendMessage:async()=>{},reload:()=>{calls.reloads++;}},permissions:{contains:async()=>true},
    storage:{session:{},onChanged:listen('storage'),local:{get:async k=>k?(typeof k==='string'?{[k]:store[k]}:Object.fromEntries(k.map(x=>[x,store[x]]))):store,set:async s=>{const changes={};for(const [k,v]of Object.entries(s)){store[k]=structuredClone(v);changes[k]={newValue:structuredClone(v)};}for(const f of L.storage)f(changes,'local');},remove:async k=>{delete store[k];},setAccessLevel:async()=>{}}},
-   alarms:{onAlarm:listen('alarm'),create:async()=>{},get:async()=>null,clear:async()=>{}},idle:{setDetectionInterval:()=>{},onStateChanged:listen('idle'),queryState:async()=>idle},action:{setBadgeText:async()=>{}},windows:{getLastFocused:async()=>({id:1,focused:false})},
+   alarms:{onAlarm:listen('alarm'),create:async()=>{},get:async()=>null,clear:async()=>{}},idle:{setDetectionInterval:()=>{},onStateChanged:listen('idle'),queryState:async()=>idle},action:{setBadgeText:async()=>{}},windows:{getLastFocused:async()=>({id:1,focused:true})},
    tabs:{onUpdated:listen('updated'),onRemoved:listen('removed'),query:async q=>q?.active?[{id:1}]:tabs,get:async id=>tabs.find(t=>t.id===id)||(()=>{throw Error('no tab');})(),sendMessage:async()=>{},
     create:async o=>{const t={id:nextTab++,url:o.url.includes('bankofamerica')?href:o.url,status:'complete',windowId:1};tabs.push(t);calls.created.push(o);setTimeout(()=>{for(const f of L.updated){f(t.id,{status:'loading'},t);f(t.id,{status:'complete'},t);}},5);return t;},
     update:async(id,o)=>({id,...o}),reload:async id=>{const t=tabs.find(x=>x.id===id);setTimeout(()=>{for(const f of L.updated){f(id,{status:'loading'},t);f(id,{status:'complete'},t);}},5);},remove:async id=>{calls.removed.push(id);tabs=tabs.filter(t=>t.id!==id);}},
@@ -141,14 +159,16 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   const allow=()=>{for(const b of Object.values(settings().banks))delete b.lastAttemptAt;};
   const finished=()=>wait(()=>state()?.run?.status&&state().run.status!=='running'&&store['cardybara-dev-run']?.done);
 
-  await tick();assert.equal(state()?.run,undefined,'off until the owner turns it on');
+  const runPosts=()=>calls.posts.filter(p=>p.run!=='skipped'),skipPosts=()=>calls.posts.filter(p=>p.run==='skipped');
+  await tick();assert.equal(state()?.run,undefined,'off until the owner turns it on');assert.equal(settings().skips.BOA,'off');assert.equal(skipPosts().length,1,'off is reported, once');await tick();assert.equal(skipPosts().length,1,'no report while nothing changes');
   assert.equal((await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60},{id:'dev',url:'http://127.0.0.1:8766/'}))?.ok,false,'only its own popup can turn it on');
   assert.equal((await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60})).ok,true);
-  await tick();assert.equal(state()?.run,undefined);assert.deepEqual(calls.created,[],'no card and no signed-in tab: nothing opens');
-  idle='active';tabs=[{id:5,url:href,status:'complete',windowId:1,active:false}];await tick();assert.equal(state()?.run,undefined,'it waits until Chrome is idle');
+  await tick();assert.equal(state()?.run,undefined);assert.deepEqual(calls.created,[],'no card and no signed-in tab: nothing opens');assert.equal(settings().skips.BOA,'no_tab');assert.equal(skipPosts().at(-1).banks.find(b=>b.bank==='BOA').reason,'no_tab','a change is reported');
+  idle='active';tabs=[{id:5,url:href,status:'complete',windowId:1,active:true}];await tick();assert.equal(state()?.run,undefined,'it waits until Chrome is idle');assert.equal(settings().skips.BOA,'not_idle');
+  idle='idle';const opened=await say({type:'dev-schedule-get'});assert.equal(opened.settings.skips.BOA,'ready','the popup shows the current reason');await new Promise(r=>setTimeout(r,60));assert.equal(state()?.run,undefined,'opening the popup never starts a read');
   idle='idle';await tick();await finished();
-  assert.equal(state().run.scheduled,true);assert.equal(settings().banks.BOA.state,'ok');assert.deepEqual(calls.removed,[],'the owner\'s own tab stays open');assert.ok(!calls.files.includes('guide.js'),'a scheduled run asks nothing');
-  assert.equal(calls.posts.length,1);assert.ok(!JSON.stringify(calls.posts.map(({at,...rest})=>rest)).match(/3141|Quokka/),'at is a timestamp, the one number that can hold these digits by chance');assert.equal(calls.posts.every(validReport),true);assert.equal(calls.posts[0].banks[0].bank,'BOA');
+  assert.equal(state().run.scheduled,true,'a frontmost tab is read once Chrome is idle');assert.equal(settings().banks.BOA.state,'ok');assert.deepEqual(calls.removed,[],'the owner\'s own tab stays open');assert.ok(!calls.files.includes('guide.js'),'a scheduled run asks nothing');
+  assert.equal(runPosts().length,1);assert.ok(!JSON.stringify(calls.posts.map(({at,...rest})=>rest)).match(/3141|Quokka/),'at is a timestamp, the one number that can hold these digits by chance');assert.equal(calls.posts.every(validReport),true);assert.equal(runPosts()[0].banks[0].bank,'BOA');
   const runId=state().run.id;await tick();assert.equal(state().run.id,runId,'the minimum interval holds');
 
   tabs=[];read='needs_login';allow();await tick();await wait(()=>state().run.id!==runId);await finished();
@@ -157,7 +177,7 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
 
   read='load_error';tabs=[{id:6,url:href,status:'complete',windowId:1,active:false}];allow();read='no_data';await tick();await wait(()=>state().run.id!==expired);await finished();
   assert.equal(settings().banks.BOA.state,'stopped');const stopped=state().run.id;allow();await tick();assert.equal(state().run.id,stopped,'a stopped bank is not retried');
-  assert.equal(calls.posts.at(-1).banks[0].page.rows[0].text,'Balance $#,###.##','the failed page\'s shape is reported');
+  assert.equal(runPosts().at(-1).banks[0].page.rows[0].text,'Balance $#,###.##','the failed page\'s shape is reported');
 
   assert.ok(!calls.parser,'a scheduled run sends nothing to the model route');
   await alarm('cardybara-dev-reload');assert.equal(calls.reloads,0,'the same build does nothing');

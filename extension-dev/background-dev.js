@@ -4,7 +4,7 @@ import {ready,engine,next} from './background.js';
 import {ACTIVE_BANKS,PROVIDERS,guidedPage} from './providers.js';
 import {discoverVisibleCards} from './discovery.js';
 import {DEV_STAMP} from './dev-build-info.js';
-import {SETTINGS_KEY,CHECK_MINUTES,IDLE_SECONDS,defaultSettings,setEnabled,afterRun,planBanks,markAttempted,buildReport} from './schedule-core.js';
+import {SETTINGS_KEY,CHECK_MINUTES,IDLE_SECONDS,defaultSettings,setEnabled,afterRun,decideBanks,planBanks,markAttempted,buildReport,skipReport,skipSignature} from './schedule-core.js';
 import {STATE_KEY} from './engine.js';
 
 const TICK='cardybara-dev-schedule',RELOAD='cardybara-dev-reload',REPORT_URL='http://127.0.0.1:8766/api/dev/diagnostics',PENDING='cardybara-dev-pending-report',RUN='cardybara-dev-run';
@@ -14,11 +14,14 @@ const loadSettings=async()=>(await chrome.storage.local.get(SETTINGS_KEY))[SETTI
 const saveSettings=settings=>chrome.storage.local.set({[SETTINGS_KEY]:settings});
 async function showState(settings){const attention=Object.values(settings.banks).some(b=>['stopped','login_expired'].includes(b.state));await chrome.action.setBadgeText({text:settings.enabled&&attention?'!':''});}
 
-// Sends the report once. If the local server is off it waits for the next check; nothing is asked of the owner.
+// Sends reports oldest first. If the local server is off they wait for the next check; nothing is asked of the owner.
 async function deliver(report){
- const body=report||(await chrome.storage.local.get(PENDING))[PENDING];if(!body)return;
- try{const r=await fetch(REPORT_URL,{method:'POST',headers:{'Content-Type':'application/json','X-Cardybara-Client':'extension-dev'},body:JSON.stringify(body),credentials:'omit',redirect:'error',signal:AbortSignal.timeout(5000)});if(!r.ok)throw Error('refused');await chrome.storage.local.remove(PENDING);}
- catch{await chrome.storage.local.set({[PENDING]:body});}
+ const waiting=[...((await chrome.storage.local.get(PENDING))[PENDING]||[]),...(report?[report]:[])].slice(-5);
+ while(waiting.length){
+  try{const r=await fetch(REPORT_URL,{method:'POST',headers:{'Content-Type':'application/json','X-Cardybara-Client':'extension-dev'},body:JSON.stringify(waiting[0]),credentials:'omit',redirect:'error',signal:AbortSignal.timeout(5000)});if(!r.ok)throw Error('refused');waiting.shift();}
+  catch{break;}
+ }
+ if(waiting.length)await chrome.storage.local.set({[PENDING]:waiting});else await chrome.storage.local.remove(PENDING);
 }
 async function pageShape(job){
  try{const tab=await chrome.tabs.get(job.tabId);if(!guidedPage(job.bank,tab.url))return null;const read=chrome.scripting.executeScript({target:{tabId:job.tabId},files:['dev-structure-report.js']});const [{result}]=await Promise.race([read,new Promise((_,no)=>setTimeout(()=>no(Error('timeout')),8000))]);return result||null;}catch{return null;}
@@ -36,30 +39,36 @@ async function settleRun(){
  await chrome.storage.local.set({[RUN]:{...mine,done:true}});
 }
 const finishRun=()=>serial(settleRun);
+// What the plugin's own read-only check sees in each bank's tabs. A signed-in tab wins over any other.
 async function bankTabs(){
- const tabs=await chrome.tabs.query({}),focused=await chrome.windows.getLastFocused().catch(()=>null),signedIn=[],inUse=[];
+ const tabs=await chrome.tabs.query({}),seen={};
  for(const bank of ACTIVE_BANKS){
-  const own=tabs.filter(t=>guidedPage(bank,t.url));
-  if(own.some(tab=>tab.active&&focused?.focused&&tab.windowId===focused.id)){inUse.push(bank);continue;}
-  for(const tab of own){
+  for(const tab of tabs.filter(t=>guidedPage(bank,t.url))){
    const found=await chrome.scripting.executeScript({target:{tabId:tab.id},func:discoverVisibleCards,args:[bank,PROVIDERS[bank].locales]}).catch(()=>[]);
-   if(found[0]?.result?.status==='found'){signedIn.push(bank);break;}
+   const status=found[0]?.result?.status;
+   seen[bank]=status==='found'?'found':['needs_login','ambiguous','no_data'].includes(status)?status:(seen[bank]||'failed');
+   if(status==='found')break;
   }
  }
- return {signedIn,inUse};
+ return seen;
 }
-const tick=()=>serial(async()=>{
+// Every check records why each bank will or won't be read. Only a scheduled check may start a run: opening the popup, turning it on or reloading never does.
+const check=({mayRead})=>serial(async()=>{
  // An unfinished run settles first, so a new run can't replace it and lose its stop.
- await ready;await settleRun();const settings=await loadSettings();if(!settings.enabled)return;await deliver();
- if((await chrome.idle.queryState(IDLE_SECONDS))!=='idle')return;
+ await ready;await settleRun();let settings=await loadSettings();await deliver();
  const state=await engine.load();if(state.run?.status==='running')return;
- const known=(state.discoveredCards||[]).filter(c=>ACTIVE_BANKS.includes(c.bank)),{signedIn,inUse}=await bankTabs(),now=Date.now();
- const banks=planBanks({settings,activeBanks:ACTIVE_BANKS,disabled:state.disabled,withCards:[...new Set(known.map(c=>c.bank))],signedIn,inUse,now});if(!banks.length)return;
+ const known=(state.discoveredCards||[]).filter(c=>ACTIVE_BANKS.includes(c.bank)),now=Date.now(),idle=await chrome.idle.queryState(IDLE_SECONDS);
+ const input={settings,activeBanks:ACTIVE_BANKS,disabled:state.disabled,withCards:[...new Set(known.map(c=>c.bank))],tabs:settings.enabled?await bankTabs():{},idle,now};
+ const skips=decideBanks(input),signature=skipSignature(skips),changed=signature!==settings.skipSignature;
+ settings={...settings,skips,skipSignature:signature,lastCheckAt:now};await saveSettings(settings);
+ if(changed)await deliver(skipReport(skips,now));
+ const banks=mayRead&&idle==='idle'?planBanks(input):[];if(!banks.length)return;
  const restoreTab=(await chrome.tabs.query({active:true,lastFocusedWindow:true}))[0]?.id,id=crypto.randomUUID();
  await saveSettings(markAttempted(settings,banks,now));await chrome.storage.local.set({[RUN]:{id,restoreTab:restoreTab??null}});
  await engine.start({type:'refresh',requestId:id,banks,cards:known.filter(c=>banks.includes(c.bank)).map(({id,bank,tail,currency})=>({id,bank,tail,currency}))},-1,{scheduled:true});
  void next();
 });
+const tick=()=>check({mayRead:true});
 // An unpacked extension reads this file from disk, so a new build is noticed with no network and no page. It never reads a bank or starts a refresh.
 const reloadIfRebuilt=()=>serial(async()=>{
  const stamp=await fetch(chrome.runtime.getURL('build-stamp.json'),{cache:'no-store'}).then(r=>r.json()).then(j=>j.stamp).catch(()=>null);if(!stamp||stamp===DEV_STAMP)return;
@@ -74,7 +83,7 @@ chrome.storage.onChanged.addListener((changes,area)=>{if(area==='local'&&changes
 chrome.runtime.onMessage.addListener((raw,sender,reply)=>{
  if(!['dev-schedule-get','dev-schedule-set'].includes(raw?.type))return false;
  if(sender.id!==chrome.runtime.id||sender.url!==chrome.runtime.getURL('dev-popup.html')){reply({ok:false});return false;}
- void serial(async()=>{let settings=await loadSettings();if(raw.type==='dev-schedule-set'){settings=setEnabled(settings,raw.enabled,raw.intervalMinutes);await saveSettings(settings);await showState(settings);}reply({ok:true,settings});}).catch(()=>reply({ok:false}));
+ void (async()=>{if(raw.type==='dev-schedule-set')await serial(async()=>{const settings=setEnabled(await loadSettings(),raw.enabled,raw.intervalMinutes);await saveSettings(settings);await showState(settings);});await Promise.race([check({mayRead:false}),new Promise(done=>setTimeout(done,3000))]);reply({ok:true,settings:await loadSettings()});})().catch(()=>reply({ok:false}));
  return true;
 });
-void (async()=>{await ready;await finishRun();for(const [name,periodInMinutes]of [[TICK,CHECK_MINUTES],[RELOAD,1]])if(!await chrome.alarms.get(name))await chrome.alarms.create(name,{periodInMinutes});})().catch(()=>{});
+void (async()=>{await ready;await finishRun();await check({mayRead:false});for(const [name,periodInMinutes]of [[TICK,CHECK_MINUTES],[RELOAD,1]])if(!await chrome.alarms.get(name))await chrome.alarms.create(name,{periodInMinutes});})().catch(()=>{});
