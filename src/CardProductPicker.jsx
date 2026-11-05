@@ -4,7 +4,8 @@ import {t,useI18n} from './i18n';
 import {cardProducts,matchCardProduct} from './productCatalog';
 import {productDisplayName} from './cardName';
 import {CARD_PRODUCT_KEY,readCardProductChoices,withCardProductChoice} from './cardProductChoice';
-import {AUTO_SUGGEST_KEY,SUGGESTION_KEY,needsSuggestion,readSuggestions,requestSuggestion,suggestionFor,suggestionKey,withSuggestion} from './productSuggestion';
+import {AUTO_SUGGEST_KEY,SUGGESTION_KEY,needsSuggestion,readSuggestions,requestSuggestion,suggestInExtension,suggestionFor,suggestionKey,withSuggestion} from './productSuggestion';
+import {isModelReady,completeJSON} from '../extension-next/model-client.js';
 const {Text,Paragraph}=Typography;
 const CHANGE='cardybara-card-products-change';
 export function loadCardProductChoices(){try{return readCardProductChoices(localStorage)}catch{return []}}
@@ -18,11 +19,12 @@ export function useSuggestions(){
 }
 const extensionPage=()=>location.protocol==='chrome-extension:'&&!!globalThis.chrome?.runtime?.id;
 async function modelReady(){
- if(extensionPage()){const r=await chrome.runtime.sendMessage({type:'parser-state'});return r?.ok&&r.result?.configured===true;}
+ if(extensionPage())return isModelReady();
  const r=await fetch('/api/parser/status',{signal:AbortSignal.timeout(2500)});return r.ok&&(await r.json()).configured===true;
 }
 /** Asks the user's own model about unrecognised cards, one at a time. Without a configured model it does nothing. */
-const base=()=>extensionPage()?'http://127.0.0.1:8766':'';
+// The extension calls the provider with the owner's key; the source wallet asks the local server.
+const suggest=card=>extensionPage()?suggestInExtension(card,{completeJSON}):requestSuggestion('',card);
 const saveSuggestion=(card,productId)=>{localStorage.setItem(SUGGESTION_KEY,JSON.stringify(withSuggestion(loadSuggestions(),card,productId)));window.dispatchEvent(new Event(SUGGESTED));};
 export function autoSuggestOn(){try{return localStorage.getItem(AUTO_SUGGEST_KEY)==='on'}catch{return false}}
 export function setAutoSuggest(on){localStorage.setItem(AUTO_SUGGEST_KEY,on?'on':'off');window.dispatchEvent(new Event(SUGGESTED));}
@@ -44,7 +46,7 @@ export function ProductSuggestionRunner({cards}){
     if(!alive)return;
     if(!needsSuggestion(card,loadSuggestions()))continue;
     // A finished answer is kept even if the page moved on. A failed request is not cached and ends this run.
-    let productId;try{productId=await requestSuggestion(base(),card);}catch{return;}
+    let productId;try{productId=await suggest(card);}catch{return;}
     try{saveSuggestion(card,productId)}catch{return;}
    }
   })();
@@ -65,7 +67,7 @@ export default function CardProductPicker({card}){
  const scoped=cardProducts.filter(p=>p.bank===card.bank&&p.region===card.region);
  const suggested=chosen||auto.status==='matched'?null:suggestionFor(card,suggestions);
  const ready=useModelReady(),[asking,setAsking]=useState(false),askable=!suggested&&!chosen&&auto.status!=='matched'&&ready&&needsSuggestion(card,suggestions);
- const ask=async()=>{setAsking(true);try{saveSuggestion(card,await requestSuggestion(base(),card));}catch{message.error(t('AI 暂时无法给出建议，请稍后再试。'))}finally{setAsking(false)}};
+ const ask=async()=>{setAsking(true);try{saveSuggestion(card,await suggest(card));}catch{message.error(t('AI 暂时无法给出建议，请稍后再试。'))}finally{setAsking(false)}};
  const answeredNone=!suggested&&!chosen&&auto.status!=='matched'&&suggestions.some(r=>r.key===suggestionKey(card)&&r.productId===null);
  const first=new Set([...(suggested?[suggested.id]:[]),...auto.candidates]);
  const options=[...scoped].sort((a,b)=>Number(b.id===suggested?.id)-Number(a.id===suggested?.id)||Number(first.has(b.id))-Number(first.has(a.id))||label(a).localeCompare(label(b))).map(p=>({value:p.id,label:label(p),search:[label(p),p.name,...p.aliases].join(' '),art:!!p.art}));
