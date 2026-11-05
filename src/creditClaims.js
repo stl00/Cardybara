@@ -92,20 +92,26 @@ export function planCoverageIssues(answer,evidence){
   if(!mentions(text,[...titleAnchors(item),...cardAnchors(item)]))issues.push({code:'plan_item_omitted',value:item.title});
  return issues;
 }
-const GLOBAL_BEST=/全局最优|全局最優|最优的卡|最優的卡|最好的卡|最强的卡|最強的卡|best card overall|the best card|best overall|globally (?:best|optimal)|always the best/i;
+const GLOBAL_BEST=/全局最优|全局最優|最优的卡|最優的卡|最好的卡|最强的卡|最強的卡|所有信用卡(?:里|裡|中)?最|市场上最|市場上最|best card overall|the best card|best overall|globally (?:best|optimal)|always the best|top card on the market|best (?:card )?on the market/i;
+// Best among the user's own cards is what the tool computes.
+const HELD_SCOPE=/你持有|你的卡|你手上|你手頭|你手头|among (?:the )?(?:cards )?you (?:hold|have)|of your cards|among your cards|your cards/i;
 // A point value only ever comes from the user, so an answer can't price points on its own.
-const POINT_PRICE=/(?:每点|每點|每分|积分|積分|点数|點數|里程|miles?|points?)[^。.!?\n]{0,24}(?:价值|價值|相当于|相當於|约值|約值|等于|等於|worth|equals?|≈)\s*[^。.!?\n]{0,8}(?:\d|\$|美元|美分|港币|港幣|cents?)/i;
-const CONDITIONAL_PRICE=/如果|若|假如|要是|\bif\b|\bonce\b|超过|超過|above|盈亏|盈虧|打平|保本|break-?even/i;
+const POINT_PRICE=/(?:每点|每點|每分|积分|積分|点数|點數|里程|里数|里數|\bMR\b|\bUR\b|miles?|points?)[^。.!?\n]{0,24}(?:价值|價值|相当于|相當於|约值|約值|大约|大約|约|約|等于|等於|折合|worth|equals?|roughly|about|around|≈)\s*[^。.!?\n]{0,8}(?:\d|\$|美元|美分|港币|港幣|cents?)/i;
+// Only a condition on the user's own valuation makes a price hypothetical.
+// Repeating the user's own value is not inventing one.
+const USER_VALUE=/按你|你说|你說|你给|你給|你认为|你認為|你觉得|你覺得|your (?:value|valuation)|you (?:said|gave|value)|at your/i;
+const CONDITIONAL_PRICE=/(?:如果|若|假如|要是)你|(?:如果|若)每[点點]|if you(?:'d)? value|once you value|if (?:a|each|one) (?:point|mile)|超过|超過|above|\bover\b|盈亏|盈虧|打平|保本|break-?even/i;
 export function choiceIssues(answer,evidence){
  const decisions=evidence.filter(x=>x?.tool==='choose_card'&&x.choice);if(!decisions.length)return [];
  const issues=[],latest=decisions.at(-1),text=norm(answer);
  // Saying it is not a global best is the honest version, so a negated phrase passes.
- if(answer.split(/\n|(?<=[。！？!?；;])/).some(line=>{const hit=line.match(GLOBAL_BEST);return hit&&!/不是|并非|並非|不代表|不等于|不等於|\bnot\b|\bno\b|isn't|never|非/i.test(line.slice(Math.max(0,hit.index-12),hit.index));}))issues.push({code:'global_best_claim'});
+ if(answer.split(/\n|(?<=[。！？!?；;])/).some(line=>{const hit=line.match(GLOBAL_BEST);return hit&&!HELD_SCOPE.test(line)&&!/不是|并非|並非|不代表|不等于|不等於|\bnot\b|\bno\b|isn't|never|非/i.test(line.slice(Math.max(0,hit.index-12),hit.index));}))issues.push({code:'global_best_claim'});
  if(latest.choice.kind==='use-card'){
   const anchors=cardAnchors({card:latest.choice.card});
   if(anchors.length&&!mentions(text.slice(0,240),anchors))issues.push({code:'choice_not_first',value:latest.choice.card});
  }
- const stated=decisions.some(d=>d.rows?.some(r=>r.centsPerPoint!=null));
- if(!stated)for(const line of answer.split(/\n|(?<=[。！？!?])/))if(POINT_PRICE.test(line)&&!CONDITIONAL_PRICE.test(line))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
+ // Pricing is allowed only on a line about a card the user gave a value for.
+ const valued=decisions.flatMap(d=>(d.rows||[]).filter(r=>r.centsPerPoint!=null)).flatMap(r=>cardAnchors({card:r.card}));
+ for(const line of answer.split(/\n|(?<=[。！？!?])/))if(POINT_PRICE.test(line)&&!CONDITIONAL_PRICE.test(line)&&!(valued.length&&(mentions(norm(line),valued)||USER_VALUE.test(line))))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
  return issues;
 }

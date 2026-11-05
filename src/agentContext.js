@@ -10,6 +10,13 @@ function validateTrip(raw){
 }
 // A merchant name is free text, so it stays in the conversation and out of memory.
 const PURCHASE_KEYS=['category','amount','currency','country','channel','pointValues'];
+/** A point value survives only if the user's own words this turn contain it, or memory already held it. */
+export function statedPointValues(values,question,remembered={}){
+ if(!values)return null;
+ const said=new Set((question.normalize('NFKC').match(/\d+(?:\.\d+)?/g)||[]).map(Number));
+ const kept=Object.fromEntries(Object.entries(values).filter(([k,v])=>said.has(v)||remembered?.[k]===v));
+ return Object.keys(kept).length?kept:null;
+}
 export function purchaseMemory(raw,strict=false){
  if(!raw||typeof raw!=='object'||Array.isArray(raw)||strict&&Object.keys(raw).some(k=>!PURCHASE_KEYS.includes(k)))throw Error('invalid_memory');
  const kept=Object.fromEntries(PURCHASE_KEYS.filter(k=>raw[k]!==undefined).map(k=>[k,raw[k]]));

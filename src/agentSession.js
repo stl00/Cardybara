@@ -1,5 +1,5 @@
 import {runWalletTool} from './walletAgent.js';
-import {prepareAgentContext,validateMemory,purchaseMemory} from './agentContext.js';
+import {prepareAgentContext,validateMemory,purchaseMemory,statedPointValues} from './agentContext.js';
 import {answerGrounding} from './answerGrounding.js';
 import {planResults} from './creditClaims.js';
 import {renderCreditAnswers} from './creditAnswer.js';
@@ -39,9 +39,18 @@ export async function runAgentTurn({history,question,context,request,memory={},o
    messages.push(message);
    return {messages,answer:message.content,tools,memory:validateMemory(state),trace,context:{droppedTurns:prepared.droppedTurns,historyChars:prepared.chars}};
   }
-  if(round===4||message.tool_calls.length>4)throw Error('tool_limit');messages.push(message);
+  if(round===4||message.tool_calls.length>4)throw Error('tool_limit');
+  // The model can't introduce a point value: one the user didn't say is dropped before the tool runs, and before the call enters history.
+  message={...message,tool_calls:message.tool_calls.map(call=>{
+   if(call.function.name!=='choose_card')return call;
+   const raw=JSON.parse(call.function.arguments||'{}');if(!raw.pointValues)return call;
+   const kept=statedPointValues(raw.pointValues,question,state.lastPurchase?.pointValues),{pointValues,...rest}=raw;
+   return {...call,function:{...call.function,arguments:JSON.stringify(kept?{...rest,pointValues:kept}:rest)}};
+  })};
+  messages.push(message);
   for(const call of message.tool_calls){
-   signal?.throwIfAborted();const start=Date.now(),result=runWalletTool(call,{...context,trip:state.trip}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
+   signal?.throwIfAborted();
+   const start=Date.now(),result=runWalletTool(call,{...context,trip:state.trip}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
    if(call.function.name==='choose_card')state.lastPurchase=purchaseMemory(args);
    // Only dates that code resolved reach memory, so a failed resolution keeps the previous trip.
    if(call.function.name==='query_credits'&&result.window&&result.window.precision!=='current-cycle')state.trip={...(result.use?{use:result.use}:{}),start:result.window.start,end:result.window.end,precision:result.window.precision,...(result.destination?{destination:result.destination}:{}),...(result.window.assumptions.some(a=>a!=='dates-remembered-from-earlier-turn')?{assumed:true}:{})};

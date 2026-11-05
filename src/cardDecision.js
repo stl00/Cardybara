@@ -14,7 +14,7 @@ const clausesFor=rule=>data.spendCategories[rule.terms.spendCategory]||null;
 export const earningClauses=clausesFor;
 const expandUses=uses=>(uses||[]).flatMap(u=>u==='any-travel'?data.travelUses:[u]);
 export function merchantGroupsFor(merchant){const m=norm(merchant);return m?Object.entries(data.merchantGroups).filter(([,g])=>g.aliases.some(a=>m.includes(a))).map(([name])=>name):[];}
-const unitCurrency=unit=>unit.match(/-per-([A-Z]{3})$/)?.[1]||null;
+const unitCurrency=unit=>unit==='HKD-per-mile'?'HKD':unit.match(/-per-([A-Z]{3})$/)?.[1]||null;
 // Per unit of spend on one scale, since HKD-per-mile runs the other way.
 const effectiveRate=terms=>terms.unit==='HKD-per-mile'?1/terms.multiplier:terms.multiplier;
 function capOf(terms){
@@ -39,13 +39,15 @@ function matchClause(clause,purchase,card){
  if(clause.merchants&&!clause.merchants.some(m=>groups.includes(m)))return null;
  if(clause.uses&&!expandUses(clause.uses).includes(purchase.category))return null;
  if(clause.channel&&purchase.channel&&clause.channel!==purchase.channel)return null;
- if(clause.channel==='portal'&&!purchase.channel)return {needs:[...needs,'booked-through-portal'],via:clause.via,optional:true};
+ // A portal rate is the issuer's own portal: booking on another bank's portal doesn't earn it.
+ if(clause.channel==='portal'&&!(purchase.channel==='portal'&&samePortal(purchase.portal,clause.via)))return {needs:[...needs,'booked-through-portal'],via:clause.via,optional:true};
  if(clause.channel==='direct'&&!purchase.channel)needs.push('direct-assumed');
  if(clause.condition)return {needs:[...needs,clause.condition],optional:true};
  if(!clause.base&&!clause.minAmount&&!clause.foreign&&!clause.merchants)needs.push('merchant-coding-not-guaranteed');
  return {needs,via:clause.via,optional:false,base:!!clause.base};
 }
 const unitOrCard=card=>card.currency;
+const samePortal=(named,via)=>{const a=norm(named).replace(/[^a-z0-9]/g,''),b=norm(via).replace(/[^a-z0-9]/g,'');return a.length>=4&&b.length>=4&&(a.includes(b)||b.includes(a));};
 const isForeign=(purchase,card)=>!!(purchase.country&&purchase.country!==card.region||purchase.currency&&purchase.currency!==card.currency);
 function earnFor(rule,purchase,card,spend,baseRate){
  const {multiplier,unit}=rule.terms,currency=unitCurrency(unit),amountKnown=Number.isFinite(spend)&&purchase.currency&&(unit==='cashback-percent'?purchase.currency===card.currency:purchase.currency===currency);
@@ -61,16 +63,26 @@ function earnFor(rule,purchase,card,spend,baseRate){
  const rounded=reward==null?null:unit==='cashback-percent'?Math.round(reward*100)/100:Math.floor(reward);
  return {rate:multiplier,unit,reward:rounded,isCash:unit==='cashback-percent',cap,capExceeded,...(cap?{afterCapRate:after}:{})};
 }
+// The user's merchant must appear in a listed name as a whole word, so "a" or "Ub" never matches.
+function merchantListed(merchant,names){
+ const m=merchant.trim().replace(/^the /,'');if(!m||m.length<3&&!/[\u3400-\u9fff]{2}/.test(m))return false;
+ const latin=/^[\x00-\x7f]+$/.test(m),pattern=latin?new RegExp('(?<![a-z0-9])'+m.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![a-z0-9])'):null;
+ // It must also be most of the listed name, so "Factory" doesn't stand for The Cheesecake Factory.
+ // A bracketed alias, as in Grubhub（含Seamless）, is a name of its own.
+ const candidates=names.flatMap(n=>[n.replace(/[（(][^)）]*[)）]/g,''),...[...n.matchAll(/[（(](?:含|incl\.?\s*)?([^)）]+)[)）]/g)].map(x=>x[1])]).map(n=>norm(n).trim().replace(/^the /,'')).filter(Boolean);
+ return candidates.some(name=>(latin?pattern.test(name):name.includes(m))&&m.length>=name.length*0.5);
+}
 function creditsFor(card,purchase,day,events){
  const use=CREDIT_USE[purchase.category];if(!use)return [];
  const result=queryCredits({use,when:purchase.date},{cards:[card],events,day});if(!result.groups)return [];
  const merchant=norm(purchase.merchant);
  return [...result.groups.markedUnused,...result.groups.unknownStatus].filter(i=>!purchase.currency||i.currency===purchase.currency).map(i=>{
-  const listed=merchant&&(i.coupon?.eligibleMerchants||[]).some(m=>{const n=norm(m);return n.includes(merchant)||merchant.includes(n)});
-  const remaining=i.remainingByMark??i.publicLimit,perUse=i.perTransactionCap||i.coupon?.redemption?.perCouponAmount||null;
+  const listed=merchantListed(merchant,i.coupon?.eligibleMerchants||[]);
+  // A partly used credit with no recorded amount has an unknown remainder, so it can't be counted.
+  const remaining=i.status==='partial'?i.remainingByMark??null:i.remainingByMark??i.publicLimit,perUse=i.perTransactionCap||i.coupon?.redemption?.perCouponAmount||null;
   const room=[remaining,perUse].filter(Number.isFinite);
   const value=Number.isFinite(purchase.amount)&&room.length?Math.min(purchase.amount,...room):null;
-  return {title:i.title,titles:i.titles,status:i.status,value,currency:i.currency,merchantListed:!!listed,enrollment:i.enrollment,channels:i.channels,minimumNights:i.minimumNights,condition:i.condition,cycleEnd:i.cycle?.end||null,counted:!!listed&&['unused','partial'].includes(i.status)&&value!=null};
+  return {title:i.title,titles:i.titles,status:i.status,value,currency:i.currency,merchantListed:listed,enrollment:i.enrollment,channels:i.channels,minimumNights:i.minimumNights,condition:i.condition,cycleEnd:i.cycle?.end||null,counted:listed&&['unused','partial'].includes(i.status)&&value!=null};
  });
 }
 const round2=n=>Math.round(n*100)/100;
@@ -114,23 +126,29 @@ function evaluateCard(card,purchase,{day,events}){
   unclassified,_baseRate:base?base.rule.terms:null
  }};
 }
-const programmeAliases={'membership rewards':['mr','membership rewards'],'ultimate rewards':['ur','ultimate rewards']};
-function pointValueFor(programme,card,values){
+const programmeAliases={'membership rewards':['mr','membership rewards'],'ultimate rewards':['ur','ultimate rewards'],'thankyou':['ty','thankyou','thank you']};
+const REGION_TOKEN=/(?:^|\s)(us|hk|ca)$/;
+/** A value is in cents of the card's own currency. A bare MR or UR means the US programme; another region must be named. */
+function pointValueFor(programme,card,region,values){
  if(!values)return null;
  // A co-brand card with no recorded programme can still be valued by the name on the card.
- const name=norm(programme||card);
+ const name=norm(programme||card),nameRegion=name.match(REGION_TOKEN)?.[1]||region.toLowerCase();
  for(const [key,cents] of Object.entries(values)){
-  const k=norm(key).trim();
-  if(name.includes(k)||Object.entries(programmeAliases).some(([full,aliases])=>name.includes(full)&&aliases.includes(k)))return cents;
+  const k=norm(key).trim(),keyRegion=k.match(REGION_TOKEN)?.[1]||'us',base=k.replace(REGION_TOKEN,'').trim();
+  if(keyRegion!==nameRegion)continue;
+  if(base&&(name.includes(base)||Object.entries(programmeAliases).some(([full,aliases])=>name.includes(full)&&aliases.includes(base))))return cents;
  }
  return null;
 }
+export const POINT_VALUE_NAMES=new Set([...Object.values(programmeAliases).flat(),...knowledgeEntities.programmes.map(p=>norm(p.name)),...Object.keys(data.merchantGroups),'membership rewards','ultimate rewards','hilton honors','marriott bonvoy','world of hyatt','ihg one rewards','asia miles','avios','aeroplan','atmos','skymiles','mileageplus','rapid rewards','aadvantage','venture','capital one']);
 /** Cash a row is sure of. Points count only at the user's own value. */
 function valueOf(row,values){
  const credit=row.countedCredit?.value||0,earn=row.earn;
  if(earn.isCash)return {value:earn.reward==null?null:round2(earn.reward+credit),valued:false};
- const cents=pointValueFor(earn.programme,row.card,values);
+ const cents=pointValueFor(earn.programme,row.card,row.cardRegion,values);
  if(cents!=null&&earn.reward!=null)return {value:round2(earn.reward*cents/100+credit),valued:true,centsPerPoint:cents};
+ // No amount: a valued programme still compares as a percent of spend.
+ if(cents!=null)return {value:credit||null,valued:true,centsPerPoint:cents,valuedRate:earn.unit==='HKD-per-mile'?cents/earn.rate:earn.rate*cents};
  return {value:credit||(earn.reward==null?null:0),valued:false};
 }
 function compare(rows,values){
@@ -138,9 +156,9 @@ function compare(rows,values){
  const scored=pool.map(row=>({row,...valueOf(row,values)}));
  const moneyBasis=scored.some(s=>s.value!=null)&&scored.filter(s=>s.row.earn.isCash).every(s=>s.value!=null);
  // Without an amount, or across currencies, only cash rates can be compared.
- const rank=s=>moneyBasis?(s.value??-1):s.row.earn.isCash?s.row.earn.rate:-1;
+ const rank=s=>moneyBasis?(s.value??-1):s.row.earn.isCash?s.row.earn.rate:s.valuedRate??-1;
  const sorted=[...scored].sort((a,b)=>rank(b)-rank(a));
- const lead=sorted.find(s=>moneyBasis?s.value>0:s.row.earn.isCash)||null;
+ const lead=sorted.find(s=>moneyBasis?s.value>0:s.row.earn.isCash||s.valuedRate!=null)||null;
  return {sorted,lead,moneyBasis,pool,outside:rows.filter(r=>!pool.includes(r))};
 }
 function decide(purchase,context,values){
@@ -163,7 +181,8 @@ function resolvePurchase(raw,day){
  if(!raw.country)assumptions.push('country-assumed-domestic-for-each-card');
  if(raw.categorySource==='inferred')assumptions.push('category-inferred-not-stated');
  if(Number.isFinite(raw.amount)&&!raw.currency)assumptions.push('amount-has-no-currency-so-rates-compared');
- return {purchase:{category,date,merchant:raw.merchant||null,amount:Number.isFinite(raw.amount)?raw.amount:null,country:raw.country||null,currency:raw.currency||null,channel:raw.channel||null},assumptions};
+ if(raw.channel==='portal'&&!raw.portal)assumptions.push('portal-not-named');
+ return {purchase:{category,date,merchant:raw.merchant||null,amount:Number.isFinite(raw.amount)?raw.amount:null,country:raw.country||null,currency:raw.currency||null,channel:raw.channel||null,portal:raw.portal||null},assumptions};
 }
 const publicRow=({_baseRate,unclassified,...row})=>row;
 const whoLeads=d=>d.lead?.row||null;
@@ -172,6 +191,12 @@ export function chooseCard(raw,{cards,events=[],day}){
  const resolved=resolvePurchase(raw,day);
  if(resolved.needsDates)return {tool:'choose_card',today:day,needsDates:true,reason:resolved.reason,instruction:'The date phrase could not be resolved. Answer for today or ask for the date; do not guess it.'};
  const {purchase,assumptions}=resolved,values=raw.pointValues||null,context={cards,events,day};
+ // With cards billed in several currencies and no place or currency given, each currency is its own answer.
+ const currencies=[...new Set(cards.filter(c=>matchCardProduct(c).status==='matched').map(c=>c.currency))];
+ if(!purchase.country&&!purchase.currency&&currencies.length>1){
+  const options=currencies.map(currency=>{const d=decide({...purchase,currency,amount:null},{...context,cards:cards.filter(c=>c.currency===currency)},values),lead=whoLeads(d);return {currency,card:lead?.card||null,rate:lead?.earn.rate??null,unit:lead?.earn.unit||null};});
+  return {tool:'choose_card',today:day,purchase,assumptions:[...assumptions,'purchase-currency-not-given'],choice:{kind:'depends-on-currency',options},rows:[],totalRows:0,otherCurrencyCards:[],pointsAlternatives:[],couldChange:[],excluded:[],unclassifiedRules:[],limits:'Cards are billed in different currencies and the purchase currency was not given, so each currency is answered separately. Ask where the purchase is or in which currency.'};
+ }
  const main=decide(purchase,context,values);
  const lead=whoLeads(main),leadValue=main.lead?.value??null,couldChange=[];
  // What a different fact would do, computed rather than left for the model to reason out.
@@ -205,11 +230,11 @@ export function chooseCard(raw,{cards,events=[],day}){
   pointsAlternatives.push({card:s.row.card,cardRegion:s.row.cardRegion,programme:s.row.earn.programme,rate:s.row.earn.rate,unit:s.row.earn.unit,points,...(gap!=null&&points>0?{breakEvenCentsPerPoint:round2(Math.max(gap,0)/points*100)}:{})});
  }
  const choice=lead
-  ?{kind:'use-card',card:lead.card,cardRegion:lead.cardRegion,basis:main.moneyBasis?'money':'cash-rate',value:main.moneyBasis?leadValue:null,currency:purchase.currency,valuedPoints:!!main.lead.valued,certainty:lead.certainty,reasons:lead.reasons}
+  ?{kind:'use-card',card:lead.card,cardRegion:lead.cardRegion,basis:main.moneyBasis?'money':lead.earn.isCash?'cash-rate':'rate-at-your-point-value',value:main.moneyBasis?leadValue:null,currency:purchase.currency,valuedPoints:!!main.lead.valued,certainty:lead.certainty,reasons:lead.reasons}
   :main.rows.length?{kind:'points-depends',reason:'no-cash-card-and-no-stated-point-value'}:{kind:'none',reason:'no-eligible-card'};
  return {
   tool:'choose_card',today:day,purchase,assumptions,choice,
-  rows:main.sorted.slice(0,MAX_ROWS).map(s=>({...publicRow(s.row),...(s.valued?{valueAtYourPointValue:s.value,centsPerPoint:s.centsPerPoint}:{})})),totalRows:main.sorted.length,
+  rows:main.sorted.slice(0,MAX_ROWS).map(s=>({...publicRow(s.row),...(s.valued?{valueAtYourPointValue:s.value,centsPerPoint:s.centsPerPoint,...(s.valuedRate!=null?{percentAtYourPointValue:round2(s.valuedRate)}:{})}:{})})),totalRows:main.sorted.length,
   otherCurrencyCards:main.outside.map(r=>({card:r.card,cardRegion:r.cardRegion,currency:r.currency,rate:r.earn.rate,unit:r.earn.unit,reason:'different-billing-currency-so-not-compared'})),
   pointsAlternatives:pointsAlternatives.slice(0,MAX_ROWS),couldChange:couldChange.slice(0,20),excluded:main.excluded,unclassifiedRules:main.unclassified,
   limits:'Merchant coding, network acceptance, remaining caps and enrollment are not known. Foreign transaction fees are not recorded, so they are unknown and not zero. Offers are not included. Never a global best: this compares held cards on recorded rules.'
