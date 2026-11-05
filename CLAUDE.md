@@ -17,7 +17,7 @@ Every change follows the same path. Do not skip steps or merge them together.
 5. **Commit** — imperative subject ≤ 72 chars (`Fix Chase minimum when no payment is due`), body explains why. Keep commits buildable.
 6. **Pull request** — push and open a PR against `main` using the template; link the issue (`Closes #n`). Start as draft while work is in progress.
 7. **CI** — `Verify and package` must be green. Only a CI artifact can be a release candidate; a local `build:release` is for checks. Never hand-copy files into an installed extension directory.
-8. **Review and merge** — an independent review agent that did not write the change reviews the PR. Claude squash-merges once CI is green and review findings are resolved (owner authorized 2026-11-03). Merging to `main` is integration, not a release or bank acceptance. Never force-push shared branches or bypass branch protection.
+8. **Review and merge** — an independent review agent that did not write the change reviews the PR. Claude squash-merges once CI is green and review findings are resolved (owner authorized 2026-11-03). After review is resolved, turn on GitHub auto-merge (`gh pr merge --squash --auto`) instead of waiting or asking the owner to watch CI (owner authorized 2026-11-04). If a PR falls behind `main`, update it, and re-review only when the update changes behaviour. Merging to `main` is integration, not a release or bank acceptance. Never force-push shared branches or bypass branch protection.
 9. **Release** — bump `release.json`, tag `v<label>`; CI creates a draft prerelease from the verified artifact. Promote only after the exact-artifact acceptance in `docs/RELEASE.md` passes. Tags, releases and store submissions always need the owner's go-ahead.
 
 ## Operating model
