@@ -1,7 +1,11 @@
 // Heuristic checks on what an answer says about credit use. They catch the common shapes of "unknown stated as unused"; they are not a semantic proof.
-const UNUSED_CLAIM=/(?<!用)(?:(?:没用|沒用|未用|没有用|沒有用)(?![足完尽盡])|没使用|沒使用|未使用|尚未使用|闲置|閒置|还能用|還能用|还可以用|還可以用|还可用|還可用|还剩|還剩|剩余|剩餘)|\b(?:unused|not (?:yet )?used|haven'?t (?:yet )?used|have not (?:yet )?used|still (?:have|available|open)|left to use|remaining)\b/i;
-// Sentences that decline to claim, or that only ask, are not claims of non-use.
-const HEDGE=/[?？]\s*$|未确认|未確認|无法|無法|不能确认|不能確認|没有任何|沒有任何|没有.{0,10}标记|沒有.{0,10}標記|不确定|不確定|不知道|不清楚|未知|不代表|不等于|不等於|不能算|不能说|不能說|不能当|不能當|不能视为|不能視為|不算|并非|並非|未标记|未標記|没有标记|沒有標記|没标记|沒標記|未手动|未手動|待确认|待確認|是否|有没有|有沒有|如果|若|假如|要是|unknown|unconfirmed|unmarked|not marked|no mark|none of|\bno\b.{0,40}\bmark|unable to|not confirmed|cannot (?:confirm|tell)|can't (?:confirm|tell)|can not (?:confirm|tell)|not sure|don'?t know|do not know|whether|\bif\b|doesn'?t mean|does not mean|not the same/i;
+const UNUSED_CLAIM=/(?<!用)(?:(?:没用|沒用|未用|没有用|沒有用)(?![足完尽盡])|没使用|沒使用|没有使用|沒有使用|未使用|未被使用|尚未使用|闲置|閒置|还能用|還能用|还可以用|還可以用|还可用|還可用|还可以领|還可以領|还没领|還沒領|还剩|還剩)|\b(?:unused|not (?:yet )?(?:been )?used|haven'?t (?:yet )?(?:been )?used|hasn'?t (?:yet )?(?:been )?used|have not (?:yet )?(?:been )?used|has not (?:yet )?(?:been )?used|can still use|still (?:have|available|open)|left to use)\b/i;
+// Clauses that decline to claim, or that only ask, are not claims of non-use.
+const HEDGE=/[?？]\s*$|未确认|未確認|无法|無法|不能确认|不能確認|没有任何|沒有任何|没有.{0,10}标记|沒有.{0,10}標記|不确定|不確定|核实|核實|核对|核對|不知道|不清楚|未知|不代表|不等于|不等於|不能算|不能说|不能說|不能当|不能當|不能视为|不能視為|不算|并非|並非|未标记|未標記|没有标记|沒有標記|没标记|沒標記|未手动|未手動|待确认|待確認|是否|有没有|有沒有|unknown|unconfirmed|unmarked|not marked|no mark|none of|\bno\b.{0,40}\bmark|unable to|not confirmed|cannot (?:confirm|tell)|can't (?:confirm|tell)|can not (?:confirm|tell)|not sure|don'?t know|do not know|whether|doesn'?t mean|does not mean|not the same/i;
+// A condition must come before the claim: "if you haven't used it" hedges, "it's unused if you book FHR" does not.
+const CONDITION=/如果|若|假如|要是|\bif\b/i;
+// Rule wording about what happens to unused value, not a statement about this user's use.
+const RULE_WORDING=/(?:未使用|未用|unused)[^。.!?]{0,30}(?:不会|不會|不结转|不結轉|结转|結轉|作废|作廢|roll|carry|forfeit|expire|lost)|(?:还剩|還剩)\s*\d+\s*(?:天|日)|still have until/i;
 const CREDIT_WORD=/credit|抵扣|额度|額度|福利|benefit/i;
 const GENERIC_CARD_WORDS=new Set(['the','card','credit','visa','signature','infinite','american','express','amex','chase','bank','america','hsbc','mastercard','rewards','honors','and']);
 const norm=s=>String(s||'').normalize('NFKC').toLowerCase();
@@ -23,6 +27,11 @@ function statusItems(evidence){
  return {open,closed,any:plans.length>0};
 }
 /** Yields each sentence with an unhedged claim of non-use, plus the list items a heading claim introduces. */
+function isClaim(clause){
+ if(RULE_WORDING.test(clause))return false;
+ const hit=clause.match(UNUSED_CLAIM);
+ return !!hit&&!HEDGE.test(clause)&&!CONDITION.test(clause.slice(0,hit.index));
+}
 function claimScopes(answer){
  const scopes=[];let heading=null;
  for(const raw of answer.split('\n')){
@@ -30,21 +39,27 @@ function claimScopes(answer){
   if(heading&&listItem){heading.text+=' '+line;}
   else if(!listItem&&line)heading=null;
   for(const sentence of line.split(/(?<=[。！？!?；;])|(?<=\.)\s+/)){
-   if(!UNUSED_CLAIM.test(sentence)||HEDGE.test(sentence))continue;
-   const scope={text:sentence};scopes.push(scope);
+   // A hedge carries across commas ("not sure whether used, or unused") but not across "but".
+   const clauses=sentence.split(/\b(?:and|but)\b|但是?/i).filter(isClaim);
+   if(!clauses.length)continue;
+   const scope={text:clauses.join(' '),sentence};scopes.push(scope);
    if(!listItem&&/[:：]\s*(?:\*\*)?\s*$|^#{1,6}\s|^\*\*.*\*\*$/.test(line))heading=scope;
   }
  }
- return scopes.map(s=>norm(s.text));
+ return scopes.map(s=>({text:norm(s.text),sentence:norm(s.sentence)}));
 }
 export function creditClaimIssues(answer,evidence){
  const issues=[],{open,closed,any}=statusItems(evidence);
  for(const scope of claimScopes(answer)){
-  const bad=closed.filter(item=>mentions(scope,titleAnchors(item)));
-  if(bad.length){for(const item of bad)issues.push({code:'unknown_treated_as_unused',value:item.title,sentence:scope.slice(0,160)});continue;}
-  if(mentions(scope,open.flatMap(titleAnchors))||!CREDIT_WORD.test(scope))continue;
+  // Prefer the claiming clause; only a clause naming nothing falls back to its sentence.
+  const allAnchors=[...closed,...open].flatMap(titleAnchors),text=mentions(scope.text,allAnchors)?scope.text:scope.sentence;
+  // The same credit can be marked unused in one cycle and unknown in the next, so a name shared with a marked item is not proof.
+  const openTitles=new Set(open.map(i=>i.title));
+  const bad=closed.filter(item=>!openTitles.has(item.title)&&mentions(text,titleAnchors(item)));
+  if(bad.length){for(const item of bad)issues.push({code:'unknown_treated_as_unused',value:item.title,sentence:text.slice(0,160)});continue;}
+  if(mentions(text,open.flatMap(titleAnchors))||!CREDIT_WORD.test(text))continue;
   // Nothing is confirmed unused, so a general claim of non-use cannot be true.
-  if(any&&!open.length)issues.push({code:'unknown_treated_as_unused',sentence:scope.slice(0,160)});
+  if(any&&!open.length)issues.push({code:'unknown_treated_as_unused',sentence:text.slice(0,160)});
   if(!any)issues.push({code:'unused_claim_without_evidence'});
  }
  const counted=/(?:你|还有|還有|剩余|剩餘|有)\s*\d+\s*(?:项|項).{0,8}(?:未用|没用|沒用|未使用)/.test(answer);
@@ -56,7 +71,7 @@ const MAX_REQUIRED_ITEMS=15;
 const MONTH_NAMES=['january','february','march','april','may','june','july','august','september','october','november','december'];
 function statesWindow(answer,start){
  const text=norm(answer),[y,m]=start.split('-'),month=String(Number(m)),name=MONTH_NAMES[Number(m)-1];
- return text.includes(start)||new RegExp(`${y}\\s*[年/.-]\\s*0?${month}(?!\\d)`).test(text)||new RegExp(`(?<!\\d)0?${month}\\s*/\\s*${y}`).test(text)||new RegExp(`\\b(?:${name}|${name.slice(0,3)})\\.?\\s*(?:\\d{1,2}(?:st|nd|rd|th)?\\s*,?\\s*)?${y}`).test(text);
+ return text.includes(start)||new RegExp(`${y}\\s*[年/.-]\\s*0?${month}(?!\\d)`).test(text)||new RegExp(`(?<!\\d)0?${month}\\s*/\\s*${y}`).test(text)||new RegExp(`\\b(?:${name}|${name.slice(0,3)})\\.?\\s*[\\d\\s,–—~-]*(?:(?:st|nd|rd|th|to)[\\d\\s,–—~-]*)*${y}`).test(text)||new RegExp(`(?<!\\d)0?${month}/\\d{1,2}/${y}`).test(text);
 }
 /** The answer must state the dates it assumed and must not drop credits the tool found. */
 export function planCoverageIssues(answer,evidence){

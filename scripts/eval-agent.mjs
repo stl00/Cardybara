@@ -69,7 +69,7 @@ if(!live){
    for(const question of c.setupQuestions||[]){const setup=await runAgentTurn({history,memory,question,context:caseContext,request});history=setup.messages;memory=setup.memory;}
    calls.length=0;
    const r=await runAgentTurn({history,memory,question:c.question,context:caseContext,request});
-   const checks={completed:!!r.answer.trim(),readOnly:calls.every(x=>['list_cards','compare_cards','find_benefits','get_card_rules','query_credits'].includes(x.name)),bounded:r.tools.length<=16};
+   const checks={completed:!!r.answer.trim(),modelAnswered:!r.trace.some(t=>t.type==='fallback'),readOnly:calls.every(x=>['list_cards','compare_cards','find_benefits','get_card_rules','query_credits'].includes(x.name)),bounded:r.tools.length<=16};
    if(c.expectTool)checks.expectedTool=calls.some(x=>x.name===c.expectTool);
    if(c.forbidTool)checks.noPrematureCalculation=!calls.some(x=>x.name===c.forbidTool);
    if(c.expectedArgs)checks.expectedArguments=calls.some(x=>x.name===c.expectTool&&Object.entries(c.expectedArgs).every(([k,v])=>x.args[k]===v));

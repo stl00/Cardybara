@@ -23,7 +23,8 @@ function tripRows(lookup,productId,id,win){
  while(day<=win.end){
   const rule=lookup.active(productId,id,day);
   if(!rule){
-   const latest=lookup.any(productId,id,day),from=latest.validity.effectiveFrom;
+   const latest=lookup.any(productId,id,day);if(!latest)break; // A withdrawn rule has no published revision to report.
+   const from=latest.validity.effectiveFrom;
    if(from&&from>day&&from<=win.end){rows.push({rule:latest,outside:'rule-not-started',from:day,through:addDays(from,-1)});day=from;continue;}
    rows.push({rule:latest,outside:from&&from>day?'rule-not-started':'rule-expired',from:day,through:win.end});break;
   }
@@ -44,7 +45,7 @@ function publicLimit(rule,asOf){
  if(!Number.isFinite(value))return null; // A missing amount stays unknown, never zero.
  return rule.terms.quantity?value*rule.terms.quantity:value;
 }
-function describe(card,row,destination,asOf,use){
+function describe(card,row,destination,asOf,use,brief){
  const {rule}=row,coupon=rule.terms.coupon,posting=coupon?.posting,zh=rule.content.title;
  const countries=coupon?.eligibleCountries||[];
  return {
@@ -55,15 +56,15 @@ function describe(card,row,destination,asOf,use){
   periodType:rule.terms.period,condition:rule.content.summary,
   enrollment:enrollmentOf(rule),...(rule.validity.enrollBy?{enrollBy:rule.validity.enrollBy}:{}),
   channels:coupon?.eligibleChannels?.length?coupon.eligibleChannels:null,
-  ...(coupon?.excludedPurchases?.length?{excluded:coupon.excludedPurchases}:{}),
+  ...(!brief&&coupon?.excludedPurchases?.length?{excluded:coupon.excludedPurchases}:{}),
   ...(coupon?.minimumNights?{minimumNights:coupon.minimumNights}:{}),
   ...(countries.length?{eligibleCountries:countries,...(destination?{destinationCheck:countries.includes(destination)?'listed':'not-listed'}:{})}:{}),
   // Posting facts come only from rule data; a null field is simply not recorded.
   ...(posting&&(posting.maximumDays!=null||posting.timingBasis&&posting.timingBasis!=='unknown')?{posting:{maximumDays:posting.maximumDays,timingBasis:posting.timingBasis,deadlineTimeZone:posting.deadlineTimeZone}}:{}),
-  ...(coupon?.refundPolicy?{refundPolicy:coupon.refundPolicy}:{}),
-  ...(coupon?{coupon:{delivery:coupon.delivery,capScope:coupon.capScope,eligibleMerchants:coupon.eligibleMerchants,conditionalPurchases:coupon.conditionalPurchases,redemption:coupon.redemption,carryover:coupon.carryover,additionalCards:coupon.additionalCards,unresolved:coupon.review.unresolved}}:{}),
+  ...(!brief&&coupon?.refundPolicy?{refundPolicy:coupon.refundPolicy}:{}),
+  ...(!brief&&coupon?{coupon:{delivery:coupon.delivery,capScope:coupon.capScope,eligibleMerchants:coupon.eligibleMerchants,conditionalPurchases:coupon.conditionalPurchases,redemption:coupon.redemption,carryover:coupon.carryover,additionalCards:coupon.additionalCards,unresolved:coupon.review.unresolved}}:{}),
   ...(travelWideForHotel(rule,use)&&!creditCategoriesForRule(rule).includes('hotel')?{matchKind:'travel-wide'}:{}),
-  reviewDue:rule.assessment.reviewDue,sources:knowledgeSources(rule.evidence.sourceIds).map(s=>({title:s.title,url:s.url}))
+  reviewDue:rule.assessment.reviewDue,...(brief?{}:{sources:knowledgeSources(rule.evidence.sourceIds).map(s=>({title:s.title,url:s.url}))})
  };
 }
 function latestUsage(key,revisionId,events){
@@ -71,9 +72,11 @@ function latestUsage(key,revisionId,events){
  return event?.revisionId===revisionId?event.usage||null:null;
 }
 export const CREDIT_USES=CREDIT_CATEGORIES.map(c=>c.id);
-export function queryCredits({use,when,destination},{cards,events=[],day}){
+export function queryCredits({use,when,destination,reuseRememberedDates},{cards,events=[],day,trip,brief=false}){
  // Without dates the question is about today, which is one day inside each current cycle.
- const window=when?resolveTripDates(when,day):{ok:true,start:day,end:day,precision:'current-cycle',assumptions:[],phrase:null};
+ // Remembered dates keep their precision, so dates the user never stated are still reported as assumed.
+ const remembered=reuseRememberedDates&&!when?trip?{ok:true,start:trip.start,end:trip.end,precision:trip.precision,assumptions:trip.precision==='days'?['dates-remembered-from-earlier-turn']:['dates-remembered-from-earlier-turn','dates-were-assumed-earlier'],phrase:null}:{ok:false,reason:'no_remembered_dates'}:null;
+ const window=remembered||(when?resolveTripDates(when,day):{ok:true,start:day,end:day,precision:'current-cycle',assumptions:[],phrase:null});
  if(!window.ok)return {tool:'query_credits',today:day,needsDates:true,reason:window.reason,phrase:when,instruction:'The date phrase could not be resolved. Ask the user for the dates; do not guess them.'};
  const groups={markedUnused:[],unknownStatus:[],markedUsed:[],noFixedCycle:[],cycleUnknown:[],outsideDates:[]},unmatchedCards=[],boundaries=new Set();
  const lookup=ruleLookup();
@@ -90,7 +93,7 @@ export function queryCredits({use,when,destination},{cards,events=[],day}){
    // An unverified product version has no usable cycle, so one row says so however many cycles the dates cross.
    const firstUnverified=rows.find(r=>!r.outside&&unverified(r));
    for(const row of rows.filter(r=>r.outside||!unverified(r)||r===firstUnverified)){
-    const item=describe(card,row,destination,row.overlap?.start||row.from||window.start,use);
+    const item=describe(card,row,destination,row.overlap?.start||row.from||window.start,use,brief);
     if(row.outside){groups.outsideDates.push({...item,reason:row.outside,datesOutside:{start:row.from,end:row.through},status:'not-applicable'});continue;}
     if(unverified(row)){groups.cycleUnknown.push({...item,reason:row.rule.terms.applicability?'account-version-unverified':'product-variant-unconfirmed',cycle:null,status:'unknown'});continue;}
     if(!row.period){
@@ -111,7 +114,7 @@ export function queryCredits({use,when,destination},{cards,events=[],day}){
    }
    // A credit whose current cycle closes before the dates does not carry over to them. Monthly cycles always reset, so saying so adds only noise.
    const nowRule=lookup.active(productId,id,day),current=nowRule&&benefitPeriod(nowRule.terms,day);
-   if(current&&current.end<window.start&&cycleRows.length&&nowRule.terms.period!=='calendar-month')groups.outsideDates.push({...describe(card,{rule:nowRule},destination,day,use),reason:'current-cycle-ends-before-dates',cycle:{start:current.start,end:current.end},status:statusOf(current).status,datesCycleStarts:cycleRows[0].period.start});
+   if(current&&current.end<window.start&&cycleRows.length&&nowRule.terms.period!=='calendar-month')groups.outsideDates.push({...describe(card,{rule:nowRule},destination,day,use,brief),reason:'current-cycle-ends-before-dates',cycle:{start:current.start,end:current.end},status:statusOf(current).status,datesCycleStarts:cycleRows[0].period.start});
   }
  }
  const conditions=[...groups.markedUnused,...groups.unknownStatus,...groups.noFixedCycle,...groups.cycleUnknown].filter(x=>['required','link-card'].includes(x.enrollment)||x.channels).map(x=>({card:x.card,cardRegion:x.cardRegion,title:x.title,enrollment:x.enrollment,channels:x.channels,...(x.minimumNights?{minimumNights:x.minimumNights}:{})}));
@@ -119,7 +122,7 @@ export function queryCredits({use,when,destination},{cards,events=[],day}){
  let room=MAX_ITEMS,truncated=false;
  for(const key of Object.keys(groups)){if(groups[key].length>room){truncated=true;groups[key]=groups[key].slice(0,room);}room-=groups[key].length;}
  return {
-  tool:'query_credits',today:day,...(use?{use}:{}),...(destination?{destination}:{}),
+  tool:'query_credits',today:day,...(use?{use}:{}),...(destination?{destination}:{}),...(brief?{brief:true}:{}),
   window:{start:window.start,end:window.end,precision:window.precision,assumptions:window.assumptions,phrase:window.phrase},
   statusMeaning:{unknown:'No manual mark exists. Not confirmed used or unused.',unused:'The user marked it unused.',partial:'The user marked part of it used.',used:'The user marked it used up.',skipped:'The user chose not to use it this cycle.'},
   coverage:'Status comes only from manual marks; banks are not read for benefit use. Public limits are not remaining balances. Enrollment and account eligibility are not known. Cycles are assigned from the dates asked about; where posting.timingBasis is merchant-reported-date, the date the merchant reports decides the cycle. Not an exhaustive benefit inventory.',

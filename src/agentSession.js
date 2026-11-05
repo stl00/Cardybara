@@ -1,6 +1,8 @@
 import {runWalletTool} from './walletAgent.js';
 import {prepareAgentContext,validateMemory} from './agentContext.js';
 import {answerGrounding} from './answerGrounding.js';
+import {planResults} from './creditClaims.js';
+import {renderCreditAnswer} from './creditAnswer.js';
 export async function runAgentTurn({history,question,context,request,memory={},onProgress=()=>{},signal}){
  if(!question.trim()||question.length>4000)throw Error('invalid_question');
  const prepared=prepareAgentContext(history,memory),state=prepared.memory;
@@ -21,14 +23,19 @@ export async function runAgentTurn({history,question,context,request,memory={},o
     const correction={role:'user',content:'The answer checker found unsupported claims: '+JSON.stringify(grade.issues)+'. Rewrite using only the supplied tool evidence. Remove unsupported numbers, links and action claims. Explain missing facts rather than guessing. An item with unknown status must be described as not confirmed, never as unused. State the assumed dates and cover every credit the tool returned. Answer the original question in its language.'};
     message=await invoke(true,[...messages,message,correction]);
     if(!message||message.role!=='assistant'||message.tool_calls?.length||!message.content?.trim())throw Error('invalid_repair');
-    grade=answerGrounding(message.content,evidence,{contextText:groundingContext()});trace.push({type:'repair',passed:grade.passed,codes:grade.issues.map(i=>i.code)});if(!grade.passed)throw Object.assign(Error('answer_not_grounded'),{codes:grade.issues.map(i=>i.code)});
+    grade=answerGrounding(message.content,evidence,{contextText:groundingContext()});trace.push({type:'repair',passed:grade.passed,codes:grade.issues.map(i=>i.code)});if(!grade.passed){
+     // Credit facts are already computed, so code can state them plainly rather than refuse the question.
+     const plan=planResults(evidence).at(-1);
+     if(!plan)throw Object.assign(Error('answer_not_grounded'),{codes:grade.issues.map(i=>i.code)});
+     message={role:'assistant',content:renderCreditAnswer(plan,question)};trace.push({type:'fallback',codes:grade.issues.map(i=>i.code)});
+    }
    }
    messages.push(message);
    return {messages,answer:message.content,tools,memory:validateMemory(state),trace,context:{droppedTurns:prepared.droppedTurns,historyChars:prepared.chars}};
   }
   if(round===4||message.tool_calls.length>4)throw Error('tool_limit');messages.push(message);
   for(const call of message.tool_calls){
-   signal?.throwIfAborted();const start=Date.now(),result=runWalletTool(call,context),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
+   signal?.throwIfAborted();const start=Date.now(),result=runWalletTool(call,{...context,trip:state.trip}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
    if(call.function.name==='compare_cards')state.lastComparison=args;
    // Only dates that code resolved reach memory, so a failed resolution keeps the previous trip.
    if(call.function.name==='query_credits'&&result.window&&result.window.precision!=='current-cycle')state.trip={...(result.use?{use:result.use}:{}),start:result.window.start,end:result.window.end,precision:result.window.precision,...(result.destination?{destination:result.destination}:{})};
