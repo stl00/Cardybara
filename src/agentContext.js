@@ -10,13 +10,23 @@ function validateTrip(raw){
 }
 // A merchant name is free text, so it stays in the conversation and out of memory.
 const PURCHASE_KEYS=['category','amount','currency','country','channel','pointValues'];
+const VALUE_ALIASES={mr:['membership rewards','美国运通积分','美國運通積分'],ur:['ultimate rewards'],'asia miles':['亚洲万里通','亞洲萬里通','cathay','国泰','國泰'],cathay:['asia miles','亚洲万里通','亞洲萬里通','国泰','國泰'],hilton:['希尔顿','希爾頓','hilton honors'],marriott:['万豪','萬豪','bonvoy'],hyatt:['凯悦','凱悅'],ihg:['洲际','洲際']};
+const aliasesFor=key=>{const k=key.toLowerCase().trim(),base=k.replace(/\s+(?:us|hk|ca)$/,'');return [...new Set([k,base,...(VALUE_ALIASES[base]||[])])];};
 /** A point value survives only if the user's own words this turn contain it, or memory already held it. */
 export function statedPointValues(values,question,remembered={}){
  if(!values)return null;
  const text=question.normalize('NFKC').toLowerCase();
  // The number must be said as a value: next to a cents unit, or right after the programme's name. "Dinner for 2" is not a point value.
- // A bare 分 must not be 分钟, and a programme name must be a whole word followed by a valuing word ("Mr Sushi for 2" is not MR at 2).
- const stated=(key,value)=>{const n=String(value).replace('.','\\.'),name=key.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return new RegExp(`(?<![\\d.])${n}\\s*(?:美分|港分|分(?![钟鐘半])|cents?\\b|¢)`).test(text)||new RegExp(`(?<![a-z])${name}(?![a-z])[^\\d]{0,12}?(?:值|是|估|=|:|：|\\bat\\b|\\bworth\\b|\\bvalued?\\b)[^\\d]{0,4}(?<![\\d.])${n}(?![\\d.])`).test(text);};
+ // The value must be said about that programme: its name or a known alias as a whole word, then within a few
+ // characters a valuing word or a cents unit, then the number. A bare 分 is never 分钟, and a rating or a price
+ // elsewhere in the sentence can't be borrowed.
+ const stated=(key,value)=>{
+  const n=String(value).replace('.','\\.'),names=aliasesFor(key).map(a=>a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  return names.some(name=>{
+   const named=`(?<![a-z])${name}(?![a-z])`,num=`(?<![\\d.])${n}(?![\\d.])`,unit=`\\s*(?:美分|港分|分(?![钟鐘半])|cents?\\b|¢)`;
+   return new RegExp(`${named}[^\\d]{0,12}?(?:值|是|估|=|:|：|\\bat\\b|\\bworth\\b|\\bvalued?\\b)[^\\d]{0,4}${num}`).test(text)||new RegExp(`${named}[^\\d]{0,8}${num}${unit}`).test(text);
+  });
+ };
  const kept=Object.fromEntries(Object.entries(values).filter(([k,v])=>stated(k,v)||remembered?.[k]===v));
  return Object.keys(kept).length?kept:null;
 }
