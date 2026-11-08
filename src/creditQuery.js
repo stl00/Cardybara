@@ -136,7 +136,7 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
   window:{start:window.start,end:window.end,precision:window.precision,assumptions:window.assumptions,phrase:window.phrase},
   statusMeaning:{unknown:'No manual mark exists. Not confirmed used or unused.',unused:'The user marked it unused.',partial:'The user marked part of it used.',used:'The user marked it used up.',skipped:'The user chose not to use it this cycle.'},
   coverage:'Status comes only from manual marks; banks are not read for benefit use. Public limits are not remaining balances. Enrollment and account eligibility are not known. Cycles are assigned from the dates asked about; where posting.timingBasis is merchant-reported-date, the date the merchant reports decides the cycle. Not an exhaustive benefit inventory.',
-  groups,groupCounts:counts,truncated,needsEnrollmentOrChannel:conditions,
+  groups,groupCounts:counts,totalItems:Object.values(counts).reduce((a,b)=>a+b,0),truncated,needsEnrollmentOrChannel:conditions,
   dateSensitivity:{exactDatesCouldChangeAnswer:!['days','current-cycle'].includes(window.precision)&&boundaries.size>0,cycleBoundaries:[...boundaries].sort()},
   unmatchedCards
  };
