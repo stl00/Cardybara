@@ -79,7 +79,7 @@ async function loaded(tabId,url){
 function guideView(s,j){return {bank:j.bank,status:j.status,received:j.received||0,attemptId:j.attemptId,runId:s.run.id,phase:j.phase,sections:j.sections};}
 async function showGuide(ctx){
  // A run nobody started by hand asks nothing of anyone: its state shows in the dev popup, and in the wallet when opened.
- try{if((await engine.load()).run?.scheduled)return;if(['cancelled','interrupted','cleared','disconnected','tab_closed'].includes(ctx.status))return;const tab=await bounded(chrome.tabs.get(ctx.tabId));if(!guidedPage(ctx.bank,tab.url))return;
+ try{const run=(await engine.load()).run;if(run?.scheduled&&!run.manual)return;if(['cancelled','interrupted','cleared','disconnected','tab_closed'].includes(ctx.status))return;const tab=await bounded(chrome.tabs.get(ctx.tabId));if(!guidedPage(ctx.bank,tab.url))return;
   const injected=await bounded(chrome.scripting.executeScript({target:{tabId:ctx.tabId},files:['guide.js']}));const documentId=injected[0]?.documentId;if(!documentId)return;
   await bounded(chrome.scripting.executeScript({target:{tabId:ctx.tabId,documentIds:[documentId]},func:config=>self.CardyGuide.mount(config),args:[{bank:ctx.bank,status:ctx.status,received:ctx.received||0,phase:ctx.phase,sections:ctx.sections,runId:ctx.runId,attemptId:ctx.attemptId,tails:ctx.cards.map(c=>c.tail),expiresAt:ctx.guideExpiresAt||Date.now()+900000}]}));
  }catch{}

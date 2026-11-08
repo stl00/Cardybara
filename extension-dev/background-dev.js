@@ -37,8 +37,9 @@ async function settleRun(){
  if(!run?.scheduled||run.status==='running'||mine?.id!==run.id||mine.done)return;
  const settings=afterRun(await loadSettings(),run,Date.now());await saveSettings(settings);await showState(settings);
  const pages={};for(const job of run.jobs)if((job.status!=='updated'||job.readError)&&Number.isInteger(job.tabId))pages[job.bank]=await pageShape(job);
- for(const job of run.jobs)if(job.owned&&Number.isInteger(job.tabId)){const tab=await chrome.tabs.get(job.tabId).catch(()=>null);if(tab&&guidedPage(job.bank,tab.url))await chrome.tabs.remove(job.tabId).catch(()=>{});}
- if(Number.isInteger(mine.restoreTab)){const current=(await chrome.tabs.query({active:true,lastFocusedWindow:true}))[0];if(current&&run.jobs.some(j=>j.tabId===current.id))await chrome.tabs.update(mine.restoreTab,{active:true}).catch(()=>{});}
+ // With the owner there, the bank tab stays open and in front, so the guide stays where they can see it.
+ if(!mine.manual)for(const job of run.jobs)if(job.owned&&Number.isInteger(job.tabId)){const tab=await chrome.tabs.get(job.tabId).catch(()=>null);if(tab&&guidedPage(job.bank,tab.url))await chrome.tabs.remove(job.tabId).catch(()=>{});}
+ if(!mine.manual&&Number.isInteger(mine.restoreTab)){const current=(await chrome.tabs.query({active:true,lastFocusedWindow:true}))[0];if(current&&run.jobs.some(j=>j.tabId===current.id))await chrome.tabs.update(mine.restoreTab,{active:true}).catch(()=>{});}
  await deliver(buildReport({run,state,pages,build:'dev',now:Date.now()}));
  await chrome.storage.local.set({[RUN]:{...mine,done:true}});
 }
@@ -73,8 +74,8 @@ const check=({mayRead,manual=false})=>serial(async()=>{
  if(changed)await deliver(skipReport(skips,now));
  const banks=mayRead&&(manual||idle==='idle')?planBanks(input):[];if(!banks.length)return 'nothing';
  const restoreTab=(await chrome.tabs.query({active:true,lastFocusedWindow:true}))[0]?.id,id=crypto.randomUUID();
- await saveSettings(markAttempted(settings,banks,now));await chrome.storage.local.set({[RUN]:{id,restoreTab:restoreTab??null}});
- await engine.start({type:'refresh',requestId:id,banks,cards:known.filter(c=>banks.includes(c.bank)).map(({id,bank,tail,currency})=>({id,bank,tail,currency}))},-1,{scheduled:true});
+ await saveSettings(markAttempted(settings,banks,now));await chrome.storage.local.set({[RUN]:{id,restoreTab:restoreTab??null,manual}});
+ await engine.start({type:'refresh',requestId:id,banks,cards:known.filter(c=>banks.includes(c.bank)).map(({id,bank,tail,currency})=>({id,bank,tail,currency}))},-1,{scheduled:true,manual});
  void next();return 'started';
 });
 const tick=()=>check({mayRead:true});
