@@ -754,5 +754,82 @@
     "title": "Chase · Ink Business Premier Credit Card 官方产品页",
     "checkedAt": "2026-11-04",
     "authority": "official"
+  },
+  {
+    "id": "card-chase-us-united-gateway-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/united/united-gateway",
+    "title": "Chase · United Gateway Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select",
+    "title": "Chase · IHG One Rewards Premier Select Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-ihg-one-rewards-business-credit-card",
+    "url": "https://creditcards.chase.com/business-credit-cards/IHG/business",
+    "title": "Chase · IHG One Rewards Business Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-world-of-hyatt-business-credit-card",
+    "url": "https://creditcards.chase.com/business-credit-cards/world-of-hyatt/hyatt-business-card",
+    "title": "Chase · World of Hyatt Business Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+    "url": "https://creditcards.chase.com/business-credit-cards/southwest/premier-business",
+    "title": "Chase · Southwest Rapid Rewards Premier Business Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+    "url": "https://creditcards.chase.com/business-credit-cards/southwest/performance-business",
+    "title": "Chase · Southwest Rapid Rewards Performance Business Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-discover-us-discover-it-cash-back-credit-card",
+    "url": "https://www.discover.com/credit-cards/cash-back/it-card/",
+    "title": "Discover · Discover it Cash Back Credit Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-us-bank-us-cash-plus-visa-signature-card",
+    "url": "https://www.usbank.com/credit-cards/cash-plus-visa-signature-credit-card.html",
+    "title": "U.S. Bank · U.S. Bank Cash+ Visa Signature Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-us-bank-us-altitude-go-visa-signature-card",
+    "url": "https://www.usbank.com/credit-cards/altitude-go-visa-signature-credit-card.html",
+    "title": "U.S. Bank · U.S. Bank Altitude Go Visa Signature Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-wells-fargo-us-autograph-journey-visa-card",
+    "url": "https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/",
+    "title": "Wells Fargo · Wells Fargo Autograph Journey Visa Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-custom-cash-card",
+    "url": "https://www.citi.com/credit-cards/citi-custom-cash-credit-card",
+    "title": "Citi · Citi Custom Cash Card 官方产品页",
+    "checkedAt": "2026-11-04",
+    "authority": "official"
   }
 ]
