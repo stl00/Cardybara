@@ -8,6 +8,7 @@ import {creditView} from '../src/creditView.js';
 import {DEFAULT_SETTINGS,creditReminders,pendingNotifications,buildSchedule} from '../src/reminders.js';
 import {referenceCards,creditMark,planIds,decisionIds} from '../evals/fixtures.mjs';
 import {queryCredits} from '../src/creditQuery.js';
+import {queryKnowledge} from '../src/knowledge.js';
 import {chooseCard} from '../src/cardDecision.js';
 import {renderCreditAnswer} from '../src/creditAnswer.js';
 import {SYSTEM} from '../src/chatProtocol.js';
@@ -105,7 +106,7 @@ test('query_credits puts a dismissed credit in its own group, never used or unus
  const r=plan([used,off]),rows=all(r).filter(i=>i.title===title&&i.card===cardOf(CSR).name);
  assert.deepEqual(rows.map(i=>i.group),['dismissedByUser']);
  assert.equal(rows[0].status,'dismissed-by-user');assert.equal(rows[0].publicLimit,undefined);assert.equal(rows[0].cycle,undefined);
- assert.equal(r.groupCounts.dismissedByUser,1);assert.match(r.statusMeaning['dismissed-by-user'],/neither used nor unused/);
+ assert.equal(r.groupCounts.dismissedByUser,1);assert.equal(rows[0].perTransactionCap,undefined);assert.equal(r.truncated,false);assert.match(r.statusMeaning['dismissed-by-user'],/neither used nor unused/);
  assert.ok(!r.needsEnrollmentOrChannel.some(x=>x.title===title&&x.card===cardOf(CSR).name));
  // Restoring puts it back in the group its own mark decides.
  const back=plan([used,off,dismissal(cardOf(CSR).id,EDIT,'restored','2026-10-22T00:00:00.000Z')]);
@@ -114,6 +115,19 @@ test('query_credits puts a dismissed credit in its own group, never used or unus
  assert.match(renderCreditAnswer(r,'12月酒店 credit 还有吗'),/你标记为不再提醒/);
  assert.match(renderCreditAnswer(r,'hotel credits in December?'),/You chose to stop reminders for these/);
  assert.match(SYSTEM,/dismissedByUser means the user chose to stop reminders/);
+});
+
+test('cutting dismissed credits from a long list does not mark the answer truncated',()=>{
+ // Three cards stay tracked; every credit on the others is dismissed, so only dismissed items overflow the list.
+ const kept=new Set([CSR,GOLD,'amex-us-us-morgan-stanley-platinum-card']),events=[];let n=0;
+ for(const card of referenceCards.filter(c=>!kept.has(c.productId)))
+  for(const rule of queryKnowledge({productId:card.productId,kind:'benefit',asOf:'2026-11-04',includeInactive:true}).rules)
+   events.push(dismissal(card.id,rule.id,'dismissed',new Date(Date.UTC(2026,9,1,0,0,n++)).toISOString()));
+ const r=queryCredits({},{cards:referenceCards,events,day:'2026-11-04'}),tracked=Object.entries(r.groupCounts).filter(([k])=>k!=='dismissedByUser').reduce((a,[,v])=>a+v,0);
+ assert.ok(tracked<=30&&tracked+r.groupCounts.dismissedByUser>30,JSON.stringify(r.groupCounts));
+ assert.equal(r.truncated,false);assert.equal(r.dismissedTruncated,true);
+ // Without dismissals the same wallet overflows with tracked credits and says so.
+ assert.equal(queryCredits({},{cards:referenceCards,events:[],day:'2026-11-04'}).truncated,true);
 });
 
 test('choose_card counts no value for a dismissed credit',()=>{

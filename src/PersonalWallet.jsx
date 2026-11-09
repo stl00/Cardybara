@@ -52,7 +52,7 @@ export function CreditManager({cards,compact=false,hidden=false}){
     <Text type="secondary" className="credit-row-facts">{t('公开上限 {0} · 本期至 {1}',[cash(task.limit,task.currency),task.period.end])}</Text>
     {currentUsage&&<Paragraph type="secondary" style={{fontSize:12,margin:'6px 0 0'}}>{t('累计已用 {0} · 实际价值 {1}',[hidden?'••••':cash(currentUsage.amount,currentUsage.currency),hidden?'••••':currentUsage.value==null?t('尚未估值'):cash(currentUsage.value,currentUsage.currency)])}</Paragraph>}
    </div>
-   <Space wrap size={8}><Button size="small" loading={busy===task.key} disabled={!ready} type={done?'default':'primary'} onClick={()=>currentUsage&&!done?setEditingUsage({...task,fillFull:true}):change(task,done?'unknown':'used')}>{done?t('撤销'):t('已用完')}</Button>
+   <Space wrap size={8}><Button size="small" loading={busy===task.key} disabled={!ready||busy===dismissKey(task.cardId,task.ruleId)} type={done?'default':'primary'} onClick={()=>currentUsage&&!done?setEditingUsage({...task,fillFull:true}):change(task,done?'unknown':'used')}>{done?t('撤销'):t('已用完')}</Button>
     <Dropdown disabled={!ready||!!busy} trigger={['click']} menu={{items:others,onClick:({key})=>key==='amount'?setEditingUsage(task):key==='dismiss'?setDismissed(task,'dismissed'):change(task,key)}}><Button size="small" aria-label={t('更多操作')} icon={<EllipsisOutlined/>}/></Dropdown></Space>
   </Flex>{!compact&&<Collapse ghost size="small" items={[{key:'terms',label:t('使用条件与来源'),children:<><Paragraph>{t(task.condition)}</Paragraph><Sources ids={task.sourceIds}/></>}]}/>}</div>;
  };
@@ -72,7 +72,7 @@ export function CreditManager({cards,compact=false,hidden=false}){
  {!compact&&expanded&&!view.filtered&&view.rows.length>SHORT_LIST&&<Flex justify="center"><Button type="link" onClick={()=>setExpanded(false)}>{t('收起')}</Button></Flex>}
  {!rows.length&&<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={!ready?t('正在读取你的福利标记…'):view.filtered?t('没有匹配的福利，请调整筛选条件'):t('本期已处理，或没有可确定周期的 Credit')}/>}
  {showDismissed&&dismissedList.length>0&&<Collapse ghost size="small" className="credit-dismissed" items={[{key:'dismissed',label:t('不再提醒的 Credit（{0}）',[dismissedList.length]),children:<>
-  <Paragraph type="secondary">{t('这些 Credit 不会出现在提醒、待处理和清单里。恢复后回到原来的状态，之前的标记都还在。')}</Paragraph>
+  <Paragraph type="secondary">{t('这些 Credit 不会出现在钱包提醒、待处理和清单里；已经加进日历的提醒需要在日历里自己删除。恢复后回到原来的状态，之前的标记都还在。')}</Paragraph>
   {dismissedList.map(d=><Flex key={d.key} justify="space-between" align="center" gap={12} wrap className="credit-dismissed-row"><Flex wrap align="center" gap={6}><ItemLogo ruleId={d.ruleId}/><Text>{t(d.title)}</Text>{!singleCard&&<CardIdentity card={cards.find(c=>c.id===d.cardId)}/>}</Flex><Button size="small" loading={busy===d.key} disabled={!ready||!!busy} onClick={()=>setDismissed(d,'restored')}>{t('恢复')}</Button></Flex>)}
  </>}]}/>}
  {!compact&&<Paragraph type="secondary" style={{marginTop:16}}>{t('标记由你记录，可撤销；新周期重新确认。')} {t('这里是公开周期清单，不代表已登记或仍有余额。周年不明和版本未确认的福利在卡片详情中查看。钱包打开时显示临期提示；钱包关闭时，可以在设置里开启提醒，或用导出的本期日历提醒，日历的后续周期需重新添加。')}</Paragraph>}

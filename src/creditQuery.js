@@ -101,7 +101,7 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
    // The user asked to stop hearing about it: one row, no cycle and no status, so it can be neither used nor unused.
    if(dismissed.has(dismissKey(card.id,id))){
     const row=rows.find(r=>!r.outside)||rows[0];
-    if(row){const {publicLimit:_,...item}=describe(card,{rule:row.rule},destination,row.overlap?.start||window.start,use,brief);groups.dismissedByUser.push({...item,status:'dismissed-by-user'});}
+    if(row){const {publicLimit:_,perTransactionCap:_c,spendThreshold:_s,...item}=describe(card,{rule:row.rule},destination,row.overlap?.start||window.start,use,brief);groups.dismissedByUser.push({...item,status:'dismissed-by-user'});}
     continue;
    }
    const statusOf=period=>{const task={key:JSON.stringify([card.id,id,period.start,period.end]),revisionId:base?.revisionId};return {task,status:taskStatus(task,events)};};
@@ -137,13 +137,15 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
  const conditions=[...groups.markedUnused,...groups.unknownStatus,...groups.noFixedCycle,...groups.cycleUnknown].filter(x=>['required','link-card'].includes(x.enrollment)||x.channels).map(x=>({card:x.card,cardRegion:x.cardRegion,title:x.title,enrollment:x.enrollment,channels:x.channels,...(x.minimumNights?{minimumNights:x.minimumNights}:{})}));
  const counts=Object.fromEntries(Object.entries(groups).map(([k,v])=>[k,v.length]));
  let room=MAX_ITEMS,truncated=false;
- for(const key of Object.keys(groups)){if(groups[key].length>room){truncated=true;groups[key]=groups[key].slice(0,room);}room-=groups[key].length;}
+ // Cutting dismissed credits hides nothing the user still tracks, so it doesn't mark the answer truncated.
+ let dismissedTruncated=false;
+ for(const key of Object.keys(groups)){if(groups[key].length>room){if(key==='dismissedByUser')dismissedTruncated=true;else truncated=true;groups[key]=groups[key].slice(0,room);}room-=groups[key].length;}
  return {
   tool:'query_credits',today:day,...(use?{use}:{}),...(destination?{destination}:{}),...(brief?{brief:true}:{}),
   window:{start:window.start,end:window.end,precision:window.precision,assumptions:window.assumptions,phrase:window.phrase},
   statusMeaning:{unknown:'No manual mark exists. Not confirmed used or unused.',unused:'The user marked it unused.',partial:'The user marked part of it used.',used:'The user marked it used up.',skipped:'The user chose not to use it this cycle.','dismissed-by-user':'The user chose to stop reminders for this credit. It is neither used nor unused; its value is not counted.'},
   coverage:'Status comes only from manual marks; banks are not read for benefit use. Public limits are not remaining balances. Enrollment and account eligibility are not known. Cycles are assigned from the dates asked about; where posting.timingBasis is merchant-reported-date, the date the merchant reports decides the cycle. Not an exhaustive benefit inventory.',
-  groups,groupCounts:counts,totalItems:Object.values(counts).reduce((a,b)=>a+b,0),truncated,needsEnrollmentOrChannel:conditions,
+  groups,groupCounts:counts,totalItems:Object.values(counts).reduce((a,b)=>a+b,0),truncated,...(dismissedTruncated?{dismissedTruncated:true}:{}),needsEnrollmentOrChannel:conditions,
   dateSensitivity:{exactDatesCouldChangeAnswer:!['days','current-cycle'].includes(window.precision)&&boundaries.size>0,cycleBoundaries:[...boundaries].sort()},
   unmatchedCards
  };
