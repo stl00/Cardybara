@@ -237,5 +237,5 @@ test('two cards focused in one turn: the later one stays the more recent',()=>{
  const t=nextTopics(undefined,[ran('get_card_rules',{kind:'fee',cardName:'Sapphire Reserve'}),ran('get_card_rules',{kind:'fee',cardName:'The Platinum Card',region:'HK'})]);
  assert.deepEqual(t.cards.map(c=>c.card),['amex-hk-hk-the-platinum-card','chase-us-sapphire-reserve']);
  const listed=topicContext(t,{completed:1,shownFrom:0}).recentCards.map(c=>c.card+'/'+c.region);
- assert.deepEqual(listed,['The Platinum Card/HK','Sapphire Reserve/US'],'same first turn: the more recent first');
+ assert.deepEqual(listed,['Sapphire Reserve/US','The Platinum Card/HK'],'same first turn: in the order discussed');
 });

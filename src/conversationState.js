@@ -97,7 +97,8 @@ export function topicContext(topics,turns){
  const programme=id=>id&&knowledgeEntities.programmes.find(p=>p.id===id)?.name||null;
  return {
   lastResults:topics.items.map((item,i)=>{const rule=item.rule&&knownRule(item.rule),to=programme(rule?.terms?.toProgrammeId);return {n:i+1,...(rule?{title:rule.content.title}:{}),...(item.card?product(item.card):{}),...(to?{programme:to}:{})};}),
-  recentCards:topics.cards.toSorted((a,b)=>a.first-b.first).map(c=>({...product(c.card),firstTurn:c.first+1,lastTurn:c.last+1,...(c.last<shownFrom?{onlyInDroppedTurns:true}:{})}))
+  // Storage is most recent first, so within one turn the reverse of storage order is the order discussed.
+  recentCards:topics.cards.map((c,i)=>({...c,i})).toSorted((a,b)=>a.first-b.first||b.i-a.i).map(c=>({...product(c.card),firstTurn:c.first+1,lastTurn:c.last+1,...(c.last<shownFrom?{onlyInDroppedTurns:true}:{})}))
  };
 }
 
