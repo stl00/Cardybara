@@ -18,7 +18,7 @@ Questions marked `ambiguous` are reported but not scored. `absent` questions hav
 
 ## Held-out set
 
-`holdout.json` has 53 more questions written the same way: 50 scored and 3 absent. They use two portfolios the development set does not have (US business, US hotel and airline co-brands), plus two of its portfolios with new wording. Rule: **never look at held-out failures when changing the vocabulary, tool prompts or knowledge tags.** Tune on `golden.json` only, then report both sets. `npm run eval:benefit-recall` runs both. The held-out report goes to `evals/latest-benefit-recall-holdout.json`.
+`holdout.json` has 115 more questions written the same way: 106 scored and 9 absent. v1 had 53 (50 scored), and v2 added 62 on 2026-11-09 for #147, written before any ranker was run on them. Numbers in the Progress table and the live-run sections use v1; the rubric analysis below uses v2. They use two portfolios the development set does not have (US business, US hotel and airline co-brands), plus two of its portfolios with new wording. Rule: **never look at held-out failures when changing the vocabulary, tool prompts or knowledge tags.** Tune on `golden.json` only, then report both sets. `npm run eval:benefit-recall` runs both. The held-out report goes to `evals/latest-benefit-recall-holdout.json`.
 
 ## Modes
 
@@ -173,6 +173,57 @@ The rule was written after the first live run, so it is a scoring convention, no
 - A 3-call probe: $0.0005.
 
 **Total for all live runs: about $0.31 at assumed peak prices** (cap $1). Timed-out requests report no usage, so their cost is unknown.
+
+## Rubric analysis (#147, 2026-11-09)
+
+`node scripts/benefit-ranking-lab.mjs` is offline and changes nothing in `src/`. It answers whether the hand-set weights in `src/benefitSearch.js` are any good.
+
+**Setup.**
+- `evals/benefit-recall/rankers.mjs` holds a copy of the production rubric with every weight as a parameter. The lab checks that this copy returns exactly what production returns for every question and mode, so the two cannot drift silently.
+- BM25 runs over the same rule text (title and programme names counted twice, plus summary and howToUse), with the same bigram/word tokens after `expandQuery`. Document frequencies come from all active benefit rules.
+- "BM25 + structure" adds production's partner and programme hard filters, soft scenario/category (as shares of the best text score), and whole-card scope.
+- Held-out is v2 here (106 scored).
+
+**Rankers** (recall@12 · precision · forbidden hit · no-answer noise, %):
+
+| | Dev A | Dev C | Held-out A | Held-out C |
+| --- | --- | --- | --- | --- |
+| Rubric (production) | 95.4 · 60.2 · 0.8 · 71.4 | 100.0 · 67.6 · 0 · 14.3 | 88.2 · 54.1 · 0 · 55.6 | 99.1 · 57.2 · 0 · 22.2 |
+| BM25 | 85.6 · 63.1 · 4.2 · 42.9 | 89.9 · 71.5 · 5.8 · 28.6 | 81.7 · 52.8 · 4.7 · 11.1 | 91.0 · 63.3 · 4.7 · 11.1 |
+| BM25 + structure | 86.2 · 67.0 · 2.5 · 42.9 | 100.0 · 68.5 · 1.7 · 14.3 | 81.7 · 59.4 · 0 · 11.1 | 99.5 · 57.1 · 0 · 11.1 |
+
+With every portfolio's cards held at once, so the top 12 binds, recall A / C is:
+- Rubric: dev 89.7 / 98.1, held-out 79.8 / 95.4.
+- BM25 + structure: dev 84.4 / 97.2, held-out 78.4 / 95.0.
+
+A few BM25 settings were tried on dev (title weight 1–3, outside share 0.3–0.7), and none changed the picture.
+
+**What this shows:**
+- **On raw questions (A) the rubric wins on recall by 6–10 points.** Its concept regexes match a rule's scenario even when no word overlaps ("吃饭" → dining rules), and BM25 has nothing like that.
+- **BM25 is quieter.** It has better precision and much less no-answer noise (held-out A: 11% vs 56%), but plain BM25 also lets forbidden rules in (4–6%), because it ignores the partner filter.
+- **Once the model fills filters (C), the structured BM25 and the rubric are close.** The structure does the work, not the text score.
+
+**Sensitivity** on dev: each weight ×0.5 to ×1.5, one at a time. The spans below are points across that range:
+- **Flat (10 of 12):** membership concept, title, programme, body, partner, the credit/membership/lounge boosts, filter bonus and programme-only bonus. Recall and MRR move under 1 point, both in the labelled portfolios and with all cards held. Precision moves under 1 point, and forbidden hits and noise do not change.
+- **Sensitive (2):**
+  - **`concept` (7):** C precision ±5 and C noise ±29. Recall moves under 1 point.
+  - **`outsideMin` (8):** C precision ±12 and C noise ±29. It sets how many neighbouring-scenario rules come in.
+
+**Tuning check.** A coordinate search over the two sensitive weights tried 20 settings on dev. The objective was recall in both wallets plus a smaller MRR term. The constraints were: precision no lower than now (−1 point), and forbidden hits and no-answer noise no higher, in both A and C. Nothing beat the current values, so there is nothing to carry to held-out.
+
+**A score floor** (not in production) is no fix for the noise either:
+- ≥ 7 cuts dev A noise from 71% to 57% but recall falls from 95 to 76.
+- ≥ 8 brings noise to 29% at 70 recall.
+
+The unanswerable questions match real words in nearby rules. The noise is not a tail of weak scores.
+
+**Recommendation.**
+1. **Keep the hand weights.** Most of them don't matter, and the two that do are already at a constrained optimum on dev. Tuning would fit noise.
+2. **Don't switch to BM25 now.** It loses 6–10 points of recall on raw questions. With filters it only ties.
+3. **The weak spot is no-answer noise on unfiltered questions,** not ranking. It shrinks when the model fills filters: mode C noise is 14% / 22%. The live runs show the model sets a filter on about 96% of searches.
+4. **Re-run this lab after the knowledge-source-lang work lands.** Official source text will be longer and differently worded, which changes word statistics and favours BM25's length normalisation over the rubric's flat +1 per body word.
+   - At that point, the candidate to test is the rubric plus a BM25 term in place of the flat title/body counts. The flat weights could then be dropped, since they don't move the result.
+   - Tune only `concept` and `outsideMin`, on dev, under the same constraints, and confirm on held-out.
 
 ## Findings
 
