@@ -81,7 +81,9 @@
       "travel",
       "hotel-stay"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.the-edit"
+    ],
     "content": {
       "title": "The Edit 酒店抵扣",
       "summary": "预付至少两晚；每笔最多250美元；2026年起按自然年累计。",
@@ -1472,7 +1474,8 @@
     },
     "category": "spend-unlock",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [
       "programme.southwest"
@@ -5091,7 +5094,8 @@
     },
     "category": "promo",
     "scenarioIds": [
-      "ground-transport"
+      "ground-transport",
+      "dining"
     ],
     "programmeIds": [
       "programme.uber"
@@ -6103,7 +6107,8 @@
     },
     "category": "credit",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [],
     "content": {
@@ -8260,7 +8265,10 @@
     "scenarioIds": [
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.priority-pass",
+      "programme.plaza-premium"
+    ],
     "content": {
       "title": "2026 休息室准入",
       "summary": "按现行加拿大白金休息室条款；2027起Plaza Premium和Priority Pass改为限次数及消费解锁。",
@@ -8324,7 +8332,10 @@
     "scenarioIds": [
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.priority-pass",
+      "programme.plaza-premium"
+    ],
     "content": {
       "title": "2027 休息室次数及解锁",
       "summary": "主卡Plaza Premium与Priority Pass各6次，附属白金各2次；合资格年消费20000加元可解锁，年份及生效条件适用。",
@@ -9218,7 +9229,8 @@
     },
     "category": "credit",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [
       "programme.united-mileageplus"
@@ -9285,7 +9297,8 @@
     },
     "category": "promo",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [
       "programme.united-mileageplus"
@@ -9353,7 +9366,8 @@
     },
     "category": "promo",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [
       "programme.united-mileageplus"
@@ -10234,7 +10248,8 @@
     },
     "category": "credit",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [],
     "content": {
@@ -10299,7 +10314,8 @@
     },
     "category": "promo",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [
       "programme.united-mileageplus"
@@ -10566,7 +10582,8 @@
     },
     "category": "promo",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [
       "programme.atmos-rewards"
@@ -10769,7 +10786,8 @@
     },
     "category": "promo",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [
       "programme.atmos-rewards"
@@ -11612,7 +11630,8 @@
     },
     "category": "promo",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [],
     "content": {
@@ -12326,6 +12345,7 @@
     },
     "category": "lounge",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
     "programmeIds": [],
@@ -13304,7 +13324,9 @@
     "scenarioIds": [
       "reward-redemption"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.hsbc-rewardcash"
+    ],
     "content": {
       "title": "额外1.2%奖赏钱",
       "summary": "最红自主奖赏计划内各类别额外3倍，即1.2%；与类别分配及上限一并核对。",
@@ -13753,7 +13775,9 @@
     "scenarioIds": [
       "reward-redemption"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.hsbc-rewardcash"
+    ],
     "content": {
       "title": "旅行消费 Pay with RC",
       "summary": "指定旅行商户每1奖赏钱可抵1.25港币，需Reward+及合资格交易；不是所有RC或商户通用。",
@@ -17325,7 +17349,8 @@
     },
     "category": "promo",
     "scenarioIds": [
-      "ground-transport"
+      "ground-transport",
+      "dining"
     ],
     "programmeIds": [
       "programme.uber"
@@ -17406,7 +17431,7 @@
     },
     "category": "credit",
     "scenarioIds": [
-      "dining"
+      "entertainment"
     ],
     "programmeIds": [],
     "content": {
@@ -17475,7 +17500,8 @@
     },
     "category": "credit",
     "scenarioIds": [
-      "dining"
+      "travel",
+      "airport"
     ],
     "programmeIds": [],
     "content": {
@@ -17544,6 +17570,7 @@
     },
     "category": "credit",
     "scenarioIds": [
+      "ground-transport",
       "dining"
     ],
     "programmeIds": [
@@ -18256,7 +18283,8 @@
     },
     "category": "credit",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [],
     "content": {
@@ -18503,7 +18531,9 @@
       "travel",
       "hotel-stay"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.the-edit"
+    ],
     "content": {
       "title": "The Edit 酒店抵扣",
       "summary": "自然年合计500美元，每笔最多250美元；Chase Travel的The Edit预付Pay Now至少两晚，抵扣部分不赚点。",
@@ -19265,7 +19295,8 @@
     },
     "category": "credit",
     "scenarioIds": [
-      "dining"
+      "travel",
+      "airport"
     ],
     "programmeIds": [],
     "content": {
@@ -19396,7 +19427,7 @@
     },
     "category": "credit",
     "scenarioIds": [
-      "dining"
+      "entertainment"
     ],
     "programmeIds": [],
     "content": {
@@ -20058,7 +20089,8 @@
     },
     "category": "promo",
     "scenarioIds": [
-      "ground-transport"
+      "ground-transport",
+      "dining"
     ],
     "programmeIds": [
       "programme.uber"
@@ -20199,6 +20231,7 @@
     },
     "category": "credit",
     "scenarioIds": [
+      "ground-transport",
       "dining"
     ],
     "programmeIds": [
@@ -30849,7 +30882,8 @@
     },
     "category": "credit",
     "scenarioIds": [
-      "ground-transport"
+      "ground-transport",
+      "dining"
     ],
     "programmeIds": [
       "programme.uber"
@@ -30917,7 +30951,8 @@
     },
     "category": "credit",
     "scenarioIds": [
-      "ground-transport"
+      "ground-transport",
+      "dining"
     ],
     "programmeIds": [
       "programme.uber-one"
@@ -30985,6 +31020,7 @@
     },
     "category": "credit",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
     "programmeIds": [],
@@ -31740,6 +31776,7 @@
     },
     "category": "credit",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
     "programmeIds": [],
@@ -34743,6 +34780,7 @@
     },
     "category": "membership",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
     "programmeIds": [],
@@ -35017,7 +35055,9 @@
     "scenarioIds": [
       "travel"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.aadvantage"
+    ],
     "content": {
       "title": "American Airlines Vacations 抵扣",
       "summary": "每半年最多250美元。",
@@ -35214,9 +35254,12 @@
     },
     "category": "credit",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.aadvantage"
+    ],
     "content": {
       "title": "机上和 Admirals Club 消费抵扣",
       "summary": "每自然年最多100美元。",
@@ -35348,7 +35391,9 @@
     "scenarioIds": [
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.aadvantage"
+    ],
     "content": {
       "title": "Admirals Club 会员",
       "summary": "主卡持卡人的会员资格，可带最多2名客人或直系亲属。",
@@ -37782,7 +37827,8 @@
     },
     "category": "spend-unlock",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [
       "programme.delta-skymiles"
@@ -37917,9 +37963,12 @@
     },
     "category": "membership",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
     "content": {
       "title": "机上消费20%返还",
       "summary": "以抵扣形式返还，限 Delta 机上餐饮。",
@@ -38666,9 +38715,12 @@
     },
     "category": "membership",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
     "content": {
       "title": "机上消费20%返还",
       "summary": "以抵扣形式返还，限 Delta 机上餐饮。",
@@ -39144,7 +39196,9 @@
     "scenarioIds": [
       "hotel-stay"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
     "content": {
       "title": "Delta Stays 抵扣",
       "summary": "每年最多200美元，须用本卡通过 Delta Stays 预付酒店或度假屋；周期的起算方式未结构化。",
@@ -41267,7 +41321,9 @@
     "scenarioIds": [
       "hotel-stay"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
     "content": {
       "title": "Delta Stays 抵扣",
       "summary": "每年最多200美元，须通过 Delta Stays 预付酒店或度假屋；周期的起算方式未结构化。",
@@ -41672,7 +41728,8 @@
     },
     "category": "spend-unlock",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [
       "programme.delta-skymiles"
@@ -41742,7 +41799,9 @@
     "scenarioIds": [
       "hotel-stay"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
     "content": {
       "title": "Delta Stays 抵扣",
       "summary": "每年最多150美元，限预付；周期的起算方式未结构化。",
@@ -41873,9 +41932,12 @@
     },
     "category": "membership",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
     "content": {
       "title": "机上消费20%返还",
       "summary": "以抵扣形式返还，限合资格的 Delta 机上消费。",
@@ -42349,6 +42411,7 @@
     },
     "category": "membership",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
     "programmeIds": [
@@ -42417,9 +42480,12 @@
     },
     "category": "membership",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
     "content": {
       "title": "机上消费25%返还",
       "summary": "以抵扣形式返还，限 United 机上餐饮、Wi-Fi 和 Club 高级饮品。",
@@ -42483,7 +42549,8 @@
     },
     "category": "spend-unlock",
     "scenarioIds": [
-      "travel"
+      "travel",
+      "airport"
     ],
     "programmeIds": [
       "programme.united-mileageplus"
@@ -42964,6 +43031,7 @@
     },
     "category": "membership",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
     "programmeIds": [
@@ -43379,9 +43447,12 @@
     },
     "category": "membership",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
     "content": {
       "title": "机上消费25%返还",
       "summary": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
@@ -43788,9 +43859,12 @@
     },
     "category": "membership",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
     "content": {
       "title": "机上消费25%返还",
       "summary": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
@@ -43856,7 +43930,9 @@
     "scenarioIds": [
       "travel"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
     "content": {
       "title": "A-List 进度积分",
       "summary": "每年每消费5,000美元得2,500 TQP；个人进度未核实。",
@@ -44267,9 +44343,12 @@
     },
     "category": "membership",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
     "content": {
       "title": "机上消费25%返还",
       "summary": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
@@ -44335,7 +44414,9 @@
     "scenarioIds": [
       "travel"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
     "content": {
       "title": "A-List 进度积分",
       "summary": "每年每消费5,000美元得1,500 TQP；个人进度未核实。",
@@ -44746,6 +44827,7 @@
     },
     "category": "spend-unlock",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
     "programmeIds": [],
@@ -46117,6 +46199,7 @@
     },
     "category": "credit",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
     "programmeIds": [
@@ -46798,9 +46881,12 @@
     },
     "category": "membership",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
     "content": {
       "title": "机上消费25%返还",
       "summary": "限 United 机上餐饮、Wi-Fi 和 Club 高级饮品。",
@@ -47687,6 +47773,7 @@
     },
     "category": "credit",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
     "programmeIds": [],
@@ -48376,9 +48463,12 @@
     },
     "category": "membership",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
     "content": {
       "title": "机上消费25%返还",
       "summary": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
@@ -48444,7 +48534,9 @@
     "scenarioIds": [
       "travel"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
     "content": {
       "title": "A-List 进度积分",
       "summary": "每消费5,000美元得2,000 TQP，至2026年12月31日；个人进度未核实。",
@@ -49055,9 +49147,12 @@
     },
     "category": "membership",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
     "content": {
       "title": "机上消费25%返还",
       "summary": "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
@@ -49191,7 +49286,9 @@
     "scenarioIds": [
       "travel"
     ],
-    "programmeIds": [],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
     "content": {
       "title": "A-List 进度积分",
       "summary": "每消费5,000美元得2,500 TQP，至2026年12月31日；个人进度未核实。",
@@ -50539,6 +50636,7 @@
     },
     "category": "credit",
     "scenarioIds": [
+      "travel",
       "airport"
     ],
     "programmeIds": [],
