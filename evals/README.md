@@ -16,7 +16,7 @@ Reports: `latest-offline.json`, `latest-live.json`. A failing rubric exits nonze
 
 ## Architecture changes
 
-`openai` is a **server-only transport SDK** configured for `https://api.deepseek.com`, with no automatic retries, a 45s timeout, cancellation and redirects disallowed. It does not automatically supply conversation memory or a database. `src/agentContext.js` handles recent turns and a strictly validated `lastComparison` object; only the page session retains this state. Old tool payloads are discarded before the next user turn, so mutable wallet facts must be read afresh.
+`openai` is a **server-only transport SDK** configured for `https://api.deepseek.com`, with no automatic retries, a 45s timeout, cancellation and redirects disallowed. It does not automatically supply conversation memory or a database. `src/agentContext.js` handles recent turns and strictly validated memory (`lastPurchase`, `trip`, `topics`); only the page session retains this state. Old tool payloads are discarded before the next user turn, so mutable wallet facts must be read afresh.
 
 Retrieval is structured filters + multilingual lexical ranking (no embedding/vector index). `find_benefits` accepts optional card, scenario, category and programme filters, returns relevance metadata, total matches, truncation, active-date assessment and official sources. Unknown terms can return zero matches rather than arbitrary first records.
 
@@ -90,6 +90,27 @@ Reading it: within six turns the referent is almost always somewhere in the chat
 Limits: earlier answers are scripted, written to read like the assistant's (user's language, names paraphrased or translated), so how often names survive is a property of this set. Offline "resolvable" means present, not that a model resolves it.
 
 `npm run eval:multiturn:live` runs the same dialogues against the configured model and checks the tool and key arguments of the last turn (a `cardName` passes if it selects the same held cards; a free-text `query` only has to be present). It makes API calls and has not been run; ask the owner first. `--live --dry-run` exercises that path with a scripted model and no network.
+
+### Conversation state and topic index (#132, part 2)
+
+What code carries between turns is now one typed state object (`src/conversationState.js`) with three channels: `lastPurchase`, `trip` and the new `topics`. Each tool result updates it through a pure reducer per channel (`reduceToolResult(state, event, context)` returns a new state and never modifies its input); `validateState` (still exported as `validateMemory`) checks the whole object every time it is used or sent; every change is recorded in the turn's trace as `{type:'state', tool, changes:[{channel, before, after}]}`, summarised so amounts and point values do not appear.
+
+`topics` holds `items` (up to 12, in the order the last tool turn returned them: a knowledge rule id and/or a catalogue product id) and `cards` (up to 6 product ids the chat focused on: a card named in tool arguments, the chosen card, or the only card a tool returned; most recent first). Only ids that exist in the shipped knowledge and catalogue pass validation; names, regions, titles and transfer programmes are rendered from the catalogue when the prompt is built, so no text from a chat, a model or a bank page reaches the system message through it. It is labelled untrusted context. SYSTEM adds one sentence: resolve each reference to a concrete card with its region, programme or listed item before filling tool arguments, and ask if it still fits more than one. No extra model call.
+
+| | n | before resolvable | after | before tool-ready | after |
+|---|---|---|---|---|---|
+| all | 55 | 45 (82%) | 52 (95%) | 24 (44%) | 52 (95%) |
+| pronoun | 10 | 10 | 10 | 5 | 10 |
+| ordinal | 12 | 12 | 12 | 7 | 12 |
+| ellipsis | 8 | 8 | 8 | 7 | 8 |
+| topic return | 7 | 7 | 7 | 3 | 7 |
+| long range | 10 | 0 | 7 | 0 | 7 |
+| same name | 8 | 8 | 8 | 2 | 8 |
+
+The eval portfolio's cards carry their catalogue names; in a real wallet a card is shown under a localized name, so the tools now also match a held card by its catalogue product's name, which is what the index renders (covered by a unit test, not by these numbers). Ordinal answers here list items in the tool's order; when an answer reorders them, the prompt tells the model to count from the answer, which only the live layer can check.
+
+Still unresolved: "the second one from the very first list" seven turns back (3 cases). The index keeps only the last tool turn's items, by design; the card survives in `cards`, so the model can re-search it or ask. The gate is now `--min=0.9`. These numbers say the referent reaches the model in usable form; whether the model then uses it is the live layer, not yet run.
+
 ## Benefit retrieval recall · 2026-11
 
 `npm run eval:benefit-recall` scores `searchBenefitKnowledge` against a hand-labelled golden set of 129 questions in three languages, in three modes: raw question, rewritten query, and rewritten query plus filters. It is a report, not a gate. Method, baseline and findings are in `evals/benefit-recall/README.md`.

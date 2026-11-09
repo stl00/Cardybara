@@ -22,8 +22,9 @@ export function validateToolCall(call){
  return {name:tool.function.name,args};
 }
 const normalized=s=>s.normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
-// A card is found by its catalogue name or by the name its bank page showed, so either wording, or a chat from before a language switch, reaches it.
-const selectedCards=(cards,args)=>cards.filter(c=>(!args.cardName||[c.name,c.pageName].some(n=>n&&normalized(n).includes(normalized(args.cardName))))&&(!args.region||c.region===args.region));
+// A card is found by its displayed name, the name its bank page showed, or its catalogue product's name, so any of
+// these wordings, or a chat from before a language switch, reaches it.
+const selectedCards=(cards,args)=>cards.filter(c=>(!args.cardName||[c.name,c.pageName,matchCardProduct(c).product?.name].some(n=>n&&normalized(n).includes(normalized(args.cardName))))&&(!args.region||c.region===args.region));
 const programmeName=id=>knowledgeEntities.programmes.find(p=>p.id===id)?.name||null;
 function publicRule(r,cards){
  const {fromProgrammeId,toProgrammeId,...terms}=r.terms;
