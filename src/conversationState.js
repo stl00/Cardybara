@@ -111,7 +111,9 @@ const reducers={
  // results; later tools in that turn append.
  // Cards: a card named in the arguments, the chosen card, or the only card returned goes to the front.
  topics:(previous,event,{cards=[],appendItems=false}={})=>{
-  // name, args and result come from the event; cards are the held cards.
+  // An event without a result is a call replayed from history (prepareAgentContext), not a tool that ran: the
+  // index already reflects it.
+  if(event.result===undefined)return previous;
   const before=previous||{items:[],cards:[]},items=topicItems(event,cards),{name,args,result}=event,focus=[];
   if(args?.cardName){const named=cards.filter(x=>[x.name,x.pageName].some(n=>n&&normalizedName(n).includes(normalizedName(args.cardName)))&&(!args.region||x.region===args.region));if(named.length&&named.length<=2)focus.push(...named.map(productOf));}
   if(name==='choose_card'&&result?.choice?.card)focus.push(heldProduct(cards,result.choice.card,result.rows?.find(r=>r.card===result.choice.card)?.cardRegion));
@@ -119,6 +121,7 @@ const reducers={
   if(name!=='list_cards'&&returned.length===1)focus.push(returned[0]);
   const nextItems=appendItems?(items.length?[...before.items,...items]:before.items):items;
   const nextCards=[...new Set([...focus.filter(Boolean).reverse(),...before.cards])];
+  // Same list object only when appending nothing; then, with the same cards, the channel is unchanged.
   if(nextItems===before.items&&nextCards.length===before.cards.length&&nextCards.every((c,i)=>c===before.cards[i]))return previous;
   return {items:nextItems.slice(0,TOPIC_ITEMS),cards:nextCards.slice(0,TOPIC_CARDS)};
  },

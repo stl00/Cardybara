@@ -91,6 +91,18 @@ test('a held card shown under a translated name is still reached by the catalogu
  assert.deepEqual(again.matchedCards,['蓝宝石尊享卡']);assert.ok(again.totalMatches>0);
 });
 
+test('the next turn still sees the list a choose_card turn returned',async()=>{
+ const args={category:'dining',country:'US',currency:'USD',amount:100};let step=0;
+ const first=await runAgentTurn({history:[],question:'美国餐厅吃饭用哪张卡？',context,request:async()=>({message:step++===0?{role:'assistant',content:'',tool_calls:[call('choose_card',args)]}:{role:'assistant',content:'Freedom Unlimited'}})});
+ const rows=first.memory.topics.items.length;assert.ok(rows>1);
+ assert.ok(first.messages.some(m=>m.tool_calls?.length),'history still carries the call');
+ let seen;
+ const second=await runAgentTurn({history:first.messages,memory:first.memory,question:'第二张呢？',context,request:async payload=>{seen=structuredClone(payload);return {message:{role:'assistant',content:'好的。'}};}});
+ assert.equal(seen.memory.topics.items.length,rows);
+ assert.equal(second.memory.topics.items.length,rows,'a turn without tools keeps the list');
+ assert.deepEqual(seen.memory.lastPurchase,first.memory.lastPurchase);
+});
+
 test('same-name cards keep their region, transfer partners keep their programme',()=>{
  const t=nextTopics(undefined,[ran('get_card_rules',{kind:'transfer-relationship',programme:'Asia Miles'})],cards);
  const view=topicContext(t);
