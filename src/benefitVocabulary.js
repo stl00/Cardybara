@@ -61,3 +61,13 @@ export function expandQuery(text){
  let rest=both;for(const [re,name] of ALIASES){if(re.test(rest)){extra.push(name);rest=rest.replace(re,' ');}re.lastIndex=0;}
  return [both,...new Set(extra)].join(' ');
 }
+
+// Programmes a find_benefits programme filter refers to: by name or alias in either script. Exact matches win;
+// otherwise an English value of at least four letters matches inside a name or alias.
+export function programmesForFilter(value,{exact=false}={}){
+ const v=toSimplified(value).trim().toLowerCase();if(!v)return [];
+ const names=p=>[p.name,...(p.aliases||[])].map(a=>toSimplified(a).toLowerCase());
+ const hit=knowledgeEntities.programmes.filter(p=>names(p).includes(v));
+ if(hit.length||exact||!/^[\x20-\x7e]{4,}$/.test(v))return hit.map(p=>p.id);
+ return knowledgeEntities.programmes.filter(p=>names(p).some(n=>new RegExp(`\\b${v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}`).test(n))).map(p=>p.id);
+}
