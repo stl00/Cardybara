@@ -4,7 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import {discoverVisibleCards} from '../extension-next/discovery.js';
+import {discoverVisibleCards,normalizeDiscoveredCards} from '../extension-next/discovery.js';
 import {redactStructureText} from '../scripts/dev-collector/structure-report.js';
 const read=p=>fs.readFileSync(new URL(p,import.meta.url),'utf8');
 const box={self:{}};vm.createContext(box);vm.runInContext(read('../extension-next/reader.js'),box);
@@ -16,7 +16,7 @@ const COLLECTION=fs.readdirSync(new URL('../extension-next/',import.meta.url)).f
 const ALLOWED={
  'mvp.js':['Membership Rewards','Ultimate Rewards','美國運通積分','美国运通积分','Hilton','Marriott','Bonvoy','SkyMiles','Reward Dollars','Aeroplan','Cash Rewards'], // MVP scope and Amex brand list
  'agent-snapshot.js':['Membership Rewards','美國運通積分','美国运通积分','RewardCash'], // required programme; other programme code, off in MVP scope
- 'reader.js':['Membership Rewards','Ultimate Rewards','美國運通積分','美国运通积分','MileagePlus','IHG','IHG One Rewards'], // same
+ 'reader.js':['Membership Rewards','Ultimate Rewards','美國運通積分','美国运通积分'], // same
  'bank-adapters.js':['美國運通積分','美国运通积分','Ultimate Rewards','IHG','IHG One Rewards','MileagePlus','獎賞錢','奖赏钱','RewardCash','Asia Miles','亞洲萬里通','亚洲万里通','Membership Rewards'] // spelling aliases, never decide what is read
 };
 test('no product or programme name enters collection logic beyond the justified list',()=>{
@@ -109,4 +109,47 @@ test('HSBC billing does not change with product name or tail',()=>{
 });
 test('a CNY amount in an HKD card\'s scope reads nothing',()=>{
  const f=fixtureOf('hsbc-hk-card-details');assert.equal(reader.parseAccount(f.text+'\nCNY 5.00',f.bank,f.card,f.locale,'2030-01-01T00:00:00Z'),null);
+});
+
+// Names a version has never seen, per bank: each case failed before collection read structure alone.
+test('a Chase co-brand programme is named by its label shape, not a list',()=>{
+ for(const label of ['Quokka Stays points','Zephyrine Air Miles','MileagePlus® Miles','IHG One Rewards points'])assert.equal(reader.chasePartnerLabel(['Pay card','Redeem points',label,'Benefits & travel']),label,label);
+ // Actions, generic wording and the required programme name nothing; two candidates are ambiguous.
+ assert.equal(reader.chasePartnerLabel(['MileagePlus® Miles','MileagePlus Miles','mileageplus  miles','Buy miles','Combine points','Gift points']),'MileagePlus® Miles','one programme spelled several ways, beside actions');
+ for(const labels of [['Buy miles'],['Redeem points','Pay with points','Your points','Points'],['Ultimate Rewards® points'],['Quokka Stays points','Zephyrine Air Miles'],[]])assert.equal(reader.chasePartnerLabel(labels),null,labels.join('|'));
+ const page={title:'Quokka Stays Card (...3141)',rewardLabel:reader.chasePartnerLabel(['Quokka Stays points']),fields:{currentBalance:'$10.50','partnerRewards-dataItem':'543'}},card={id:'x',bank:'Chase',tail:'3141',currency:'USD'};
+ assert.deepEqual(copy(reader.chaseDetail(page,card).items).filter(i=>i.kind==='reward').map(i=>[i.key,i.value]),[['Quokka Stays points',543]]);
+});
+test('a Chase Ultimate Rewards row in an unknown form is reported, not dropped or guessed',()=>{
+ const card={id:'x',bank:'Chase',tail:'3141',currency:'USD'},page=text=>({title:'Plain (...3141)',fields:{currentBalance:'$10.50','ultimateRewards-dataItem':text}});
+ for(const text of ['Zephyrine balance\n9,876','Ultimate Rewards® points\n9,876\n1,234']){const r=copy(reader.chaseDetail(page(text),card));assert.ok(!r.items.some(i=>i.kind==='reward'),text);assert.deepEqual(r.rejected,['reward_label'],text);}
+ assert.deepEqual(copy(reader.chaseDetail(page('Ultimate Rewards® points\n9,876'),card)).rejected,[]);
+});
+test('a card name that holds digits does not hide its own billing',()=>{
+ for(const [name,product] of [['boa-card-details','Numbat Voyager'],['citi-card-details','Wallaby Traveler']]){
+  const f=fixtureOf(name),fields=items=>Object.fromEntries(copy(items).map(i=>[i.key,i.key==='due'?i.date:i.key==='duePartial'?i.title:i.value])),base=fields(reader.issuerBilling(f.text,f.bank,f.card));
+  for(const renamed of ['Quokka 2500','Zephyrine 1-2-3 Card','Gecko 8888 Elite']){const text=f.text.replace(product,renamed),head=text.split('\n')[0].replace(/\s*-\s*\d{4,5}$/,'');assert.deepEqual(fields(reader.issuerBilling(text,f.bank,{...f.card,name:head})),base,name+' '+renamed);}
+  // Without the card's own name, an unexplained number still stops the read: a wrong card is worse than a missing field.
+  assert.deepEqual(fields(reader.issuerBilling(f.text.replace(product,'Quokka 2500'),f.bank,f.card)),{},name);
+  // The name excuses only its own heading line.
+  assert.deepEqual(fields(reader.issuerBilling(f.text.replace(product,'Quokka 2500')+'\nQuokka 2500',f.bank,{...f.card,name:'Quokka 2500'})),{},name+' elsewhere');
+  // A shorter name never swallows part of a longer number beside it.
+  assert.deepEqual(fields(reader.issuerBilling(f.text.replace(product,'Quokka 2567'),f.bank,{...f.card,name:'Quokka 25'})),{},name+' partial name');
+ }
+});
+test('HSBC names a listed card from its own row whatever digits its name holds',()=>{
+ const row=text=>({innerText:text,getClientRects:()=>[1]}),previous={document:globalThis.document,getComputedStyle:globalThis.getComputedStyle};globalThis.getComputedStyle=()=>({visibility:'visible'});
+ globalThis.document={documentElement:{lang:'en-US'},getElementById:()=>null,querySelectorAll:s=>s==='[id^="account-container-"],button[id^="dropdown-item-"]'?[row('Axolotl Signature 360\n4000-0000-0000-2718\nHKD\n1,234.56'),row('HK$1,234.56\nGecko 銀聯雙幣\n4000-0000-0000-3141\nCNY\n12.00'),row('Integrated Account\n123-456789-833\nHKD\n5.00')]:[]};
+ try{assert.deepEqual(discoverVisibleCards('HSBC HK',['en-US']),{status:'found',cards:[{tail:'2718',name:'Axolotl Signature 360',currency:'HKD'},{tail:'3141',name:'Gecko 銀聯雙幣',currency:'CNY'}]});}finally{globalThis.document=previous.document;globalThis.getComputedStyle=previous.getComputedStyle;}
+});
+test('Citi discovery takes any card link whatever its product name or tail length',()=>{
+ const a=(text,href='https://online.citi.com/US/ag/accountdetails?x=1')=>({innerText:text,href,getClientRects:()=>[1]}),previous={document:globalThis.document,getComputedStyle:globalThis.getComputedStyle};globalThis.getComputedStyle=()=>({visibility:'visible'});
+ globalThis.document={documentElement:{lang:'en-US'},getElementById:()=>null,querySelectorAll:s=>s==='a[href*="accountdetails"]'?[a('Axolotl Strata Elite-2718'),a('Gecko 1-2-3 Card-31415'),a('Quokka Debit-1111'),a('Gecko Checking-9999','https://online.citi.com/US/ag/accountdetails/bank')]:[]};
+ try{assert.deepEqual(discoverVisibleCards('Citi US',['en-US']).cards,[{tail:'2718',name:'Axolotl Strata Elite'},{tail:'31415',name:'Gecko 1-2-3 Card'}]);}finally{globalThis.document=previous.document;globalThis.getComputedStyle=previous.getComputedStyle;}
+});
+test('a card listed several times on one page counts once toward the discovery bound',()=>{
+ const rows=Array.from({length:30},(_,i)=>({tail:String(31000+i),name:'Axolotl '+i}));
+ assert.equal(normalizeDiscoveredCards('Amex US',[...rows,...rows,...rows]).length,30,'heading, tile and switcher');
+ assert.equal(normalizeDiscoveredCards('Amex US',[{tail:'31415',name:'Axolotl Reserve'},{tail:'31415',name:''}])[0].name,'Axolotl Reserve','a later unnamed row keeps the name');
+ assert.throws(()=>normalizeDiscoveredCards('Amex US',Array.from({length:41},(_,i)=>({tail:String(31000+i),name:'x'}))),/invalid_discovery/,'distinct cards stay bounded');
 });

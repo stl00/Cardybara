@@ -126,7 +126,7 @@ test('generated Chase pages read the same however cards are named, counted or or
     assert.deepEqual(got,{balance:Number(row.balance.replace('$','')),statement:4.25,statementClosing:6,minimum:2},name+' '+row.tail);
     assert.ok(raw.observations.some(i=>i.key==='due'&&i.date==='2031-12-03'),name);
     const reward=raw.observations.find(i=>i.kind==='reward');
-    if(row.partner){assert.equal(reward,undefined,name);assert.deepEqual(raw.notCollected,[{cardId:'C1',programme:'unnamed'}],name);}else assert.equal(reward.value,Number(row.points),name);
+    if(row.partner){assert.deepEqual([reward.key,reward.value],[row.programme,Number(row.points)],name+': an unseen programme is named from its label');assert.deepEqual(raw.notCollected,[],name);}else assert.equal(reward.value,Number(row.points),name);
     await exec(()=>{location.hash='#/dashboard/overview';});await until(()=>exec(()=>!!document.getElementById('CARD_ACCOUNTS')));
    }
   }
