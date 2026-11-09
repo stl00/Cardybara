@@ -90,3 +90,6 @@ Reading it: within six turns the referent is almost always somewhere in the chat
 Limits: earlier answers are scripted, written to read like the assistant's (user's language, names paraphrased or translated), so how often names survive is a property of this set. Offline "resolvable" means present, not that a model resolves it.
 
 `npm run eval:multiturn:live` runs the same dialogues against the configured model and checks the tool and key arguments of the last turn (a `cardName` passes if it selects the same held cards; a free-text `query` only has to be present). It makes API calls and has not been run; ask the owner first. `--live --dry-run` exercises that path with a scripted model and no network.
+## Benefit retrieval recall · 2026-11
+
+`npm run eval:benefit-recall` scores `searchBenefitKnowledge` against a hand-labelled golden set of 129 questions in three languages, in three modes: raw question, rewritten query, and rewritten query plus filters. It is a report, not a gate. Method, baseline and findings are in `evals/benefit-recall/README.md`.
