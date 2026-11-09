@@ -171,9 +171,9 @@ for(const transport of Object.keys(transports)){
   assert.equal(m.requests.length,1);assert.deepEqual(tools,[],'not even the valid call in the same batch runs');
  });
  test(`${transport}: too many or duplicate tool calls are rejected before any tool runs`,async()=>{
-  for(const calls of [[1,2,3,4,5].map(i=>call('list_cards',{},'x'+i)),[call('list_cards',{},'same'),call('list_cards',{},'same')]]){
+  for(const [calls,code] of [[[1,2,3,4,5].map(i=>call('list_cards',{},'x'+i)),'invalid_tools'],[[call('list_cards',{},'same'),call('list_cards',{},'same')],'duplicate_tools']]){
    const m=script(toolsMessage(...calls));const {run,tools}=await turn(transport,{question:'cards?'});
-   await assert.rejects(run);assert.equal(m.requests.length,1);assert.deepEqual(tools,[]);
+   await assert.rejects(run,{message:transport==='extension'?code:'chat_failed'});assert.equal(m.requests.length,1);assert.deepEqual(tools,[]);
   }
  });
 
@@ -209,13 +209,13 @@ for(const transport of Object.keys(transports)){
  test(`${transport}: the repair is final and cannot call tools`,async()=>{
   const m=script(toolsMessage(call('list_cards')),say('You have 31337 bonus points.'),{role:'assistant',content:'Let me check your cards again.',tool_calls:[call('list_cards',{},'again')]});
   const {run,tools}=await turn(transport,{question:'points?'});
-  await assert.rejects(run);assert.equal(m.requests.length,3);assert.equal(m.requests[2].body.tool_choice,'none');assert.deepEqual(tools,['list_cards']);
+  await assert.rejects(run,{message:transport==='extension'?'invalid_tools':'chat_failed'});assert.equal(m.requests.length,3);assert.equal(m.requests[2].body.tool_choice,'none');assert.deepEqual(tools,['list_cards']);
  });
 
  test(`${transport}: the fifth round is final, and a model that keeps calling tools is stopped`,async()=>{
   const m=script(...[1,2,3,4,5].map(i=>toolsMessage(call('list_cards',{},'r'+i))));
   const {run,tools}=await turn(transport,{question:'cards?'});
-  await assert.rejects(run);assert.equal(m.requests.length,5);
+  await assert.rejects(run,{message:transport==='extension'?'invalid_tools':'chat_failed'});assert.equal(m.requests.length,5);
   assert.deepEqual(m.requests.map(r=>r.body.tool_choice),['auto','auto','auto','auto','none']);assert.equal(tools.length,4);
  });
 
@@ -252,4 +252,15 @@ test('both transports send the provider the same request for the same turn',asyn
   await (await turn(transport,{question:'which cards do I hold?'})).run;bodies[transport]=m.requests.map(r=>r.body);
  }
  assert.deepEqual(bodies.extension,bodies['local server']);
+});
+
+test('every link a tool returns is a whole url field, the only place the answer checker accepts a citation from',async()=>{
+ const {runWalletTool}=await import('../src/walletAgent.js');
+ const run=(name,args)=>runWalletTool(call(name,args),context);
+ const results=[run('list_cards'),run('get_card_rules',{kind:'fee'}),run('get_card_rules',{kind:'transfer-relationship'}),run('query_credits'),run('query_credits',{use:'hotel',when:'12月'}),
+  ...['hotel','dining','lounge','Hilton','travel credit'].map(query=>run('find_benefits',{query})),
+  ...['dining','hotel','flight','supermarket'].map(category=>run('choose_card',{category,amount:100,currency:'USD',country:'US'}))];
+ let urls=0;
+ const walk=(value,key)=>{if(Array.isArray(value))value.forEach(v=>walk(v,key));else if(value&&typeof value==='object')Object.entries(value).forEach(([k,v])=>walk(v,k));else if(typeof value==='string'&&/https?:\/\//.test(value)){assert.equal(key,'url','a link under '+key);assert.match(value,/^https:\/\/\S+$/);urls++;}};
+ results.forEach(r=>walk(r));assert.ok(urls>0,'the fixture wallet returns sourced rules');
 });
