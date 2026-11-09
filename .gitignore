@@ -34,7 +34,7 @@ __pycache__/
 /evals/*live*.json
 /evals/latest-offline.json
 /evals/latest-multiturn-*.json
-/evals/latest-benefit-recall.json
+/evals/latest-benefit-recall*.json
 
 # Binary archives remain local; original brand source concepts are versioned.
 *.zip
