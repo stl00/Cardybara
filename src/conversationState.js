@@ -43,7 +43,8 @@ const productById=new Map(cardProducts.map(p=>[p.id,p]));
 const isProduct=id=>typeof id==='string'&&productById.has(id);
 // Any published revision in the shipped knowledge, current or not: a tool may have returned it as of the wallet day.
 const knownRules=new Map();
-const knownRule=id=>{if(!knownRules.has(id))knownRules.set(id,ruleRevisions(id).filter(r=>r.status==='published').at(-1)||null);return knownRules.get(id);};
+// Only hits are cached: a miss can come from client memory, and must not grow the cache.
+const knownRule=id=>{if(knownRules.has(id))return knownRules.get(id);const rule=ruleRevisions(id).filter(r=>r.status==='published').at(-1)||null;if(rule)knownRules.set(id,rule);return rule;};
 const isRule=id=>typeof id==='string'&&/^rule\.[a-z0-9.-]{1,160}$/.test(id)&&!!knownRule(id);
 function validateTopics(raw){
  if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!['items','cards'].includes(k)))throw Error('invalid_memory');
@@ -106,15 +107,17 @@ const reducers={
   if(!w||w.precision==='current-cycle')return previous;
   return {...(result.use?{use:result.use}:{}),start:w.start,end:w.end,precision:w.precision,...(result.destination?{destination:result.destination}:{}),...(w.assumptions.some(a=>a!=='dates-remembered-from-earlier-turn')?{assumed:true}:{})};
  },
- // Items: the first tool of a turn that returns any replaces the list, later ones in that turn append.
+ // Items: the first tool of a turn replaces the list, even with nothing, so an older list never passes for the last
+ // results; later tools in that turn append.
  // Cards: a card named in the arguments, the chosen card, or the only card returned goes to the front.
  topics:(previous,event,{cards=[],appendItems=false}={})=>{
+  // name, args and result come from the event; cards are the held cards.
   const before=previous||{items:[],cards:[]},items=topicItems(event,cards),{name,args,result}=event,focus=[];
   if(args?.cardName){const named=cards.filter(x=>[x.name,x.pageName].some(n=>n&&normalizedName(n).includes(normalizedName(args.cardName)))&&(!args.region||x.region===args.region));if(named.length&&named.length<=2)focus.push(...named.map(productOf));}
   if(name==='choose_card'&&result?.choice?.card)focus.push(heldProduct(cards,result.choice.card,result.rows?.find(r=>r.card===result.choice.card)?.cardRegion));
   const returned=[...new Set(items.map(i=>i.card).filter(Boolean))];
   if(name!=='list_cards'&&returned.length===1)focus.push(returned[0]);
-  const nextItems=!items.length?before.items:appendItems?[...before.items,...items]:items;
+  const nextItems=appendItems?(items.length?[...before.items,...items]:before.items):items;
   const nextCards=[...new Set([...focus.filter(Boolean).reverse(),...before.cards])];
   if(nextItems===before.items&&nextCards.length===before.cards.length&&nextCards.every((c,i)=>c===before.cards[i]))return previous;
   return {items:nextItems.slice(0,TOPIC_ITEMS),cards:nextCards.slice(0,TOPIC_CARDS)};
@@ -125,7 +128,7 @@ const reducers={
  * The state after one tool result. Pure: returns a new validated state and leaves the input unchanged.
  * @param {ConversationState} state
  * @param {ToolEvent} event
- * @param {{cards?:object[],appendItems?:boolean}} context  held cards; appendItems once this turn already wrote items
+ * @param {{cards?:object[],appendItems?:boolean}} context  held cards; appendItems for every tool after the turn's first
  * @returns {ConversationState}
  */
 export function reduceToolResult(state,event,context={}){

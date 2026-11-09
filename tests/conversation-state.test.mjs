@@ -4,7 +4,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {validateMemory} from '../src/agentContext.js';
-import {validateState,reduceToolResult,topicItems,diffState,topicContext,TOPIC_ITEMS,TOPIC_CARDS,STATE_CHANNELS} from '../src/conversationState.js';
+import {validateState,reduceToolResult,diffState,topicContext,TOPIC_ITEMS,TOPIC_CARDS,STATE_CHANNELS} from '../src/conversationState.js';
 import {chatRequest,validateChat} from '../src/chatProtocol.js';
 import {runAgentTurn} from '../src/agentSession.js';
 import {runWalletTool} from '../src/walletAgent.js';
@@ -17,8 +17,8 @@ const call=(name,args,id='c1')=>({id,type:'function',function:{name,arguments:JS
 const ran=(name,args)=>({name,args,result:runWalletTool(call(name,args),context)});
 // One turn: each tool result goes through the reducer in order, as runAgentTurn does.
 function nextTopics(previous,events,held=cards){
- let state=previous?{topics:previous}:{},written=false;
- for(const e of events){state=reduceToolResult(state,e,{cards:held,appendItems:written});written||=topicItems(e,held).length>0;}
+ let state=previous?{topics:previous}:{};
+ events.forEach((e,i)=>{state=reduceToolResult(state,e,{cards:held,appendItems:i>0});});
  return state.topics||{items:[],cards:[]};
 }
 const deepFreeze=o=>{if(o&&typeof o==='object'){Object.freeze(o);Object.values(o).forEach(deepFreeze);}return o;};
@@ -41,7 +41,7 @@ test('reducers are pure: a new state comes back and the old one is untouched',()
  assert.equal(credits.trip.start,'2026-12-01');assert.deepEqual(credits.lastPurchase,purchase.lastPurchase,'other channels carry over');
  const current=reduceToolResult(credits,ran('query_credits',{use:'hotel'}),{cards});
  assert.deepEqual(current.trip,credits.trip,'the current cycle does not replace resolved dates');
- const unchanged=reduceToolResult(credits,{name:'list_cards',args:{},result:[]},{cards});
+ const unchanged=reduceToolResult(credits,{name:'list_cards',args:{},result:[]},{cards,appendItems:true});
  assert.deepEqual(unchanged,credits);
 });
 
@@ -72,6 +72,23 @@ test('items are what the last tools returned, in order; cards are the ones the c
  const next=nextTopics(t,[ran('get_card_rules',{kind:'fee',cardName:'The Platinum Card',region:'HK'})],cards);
  assert.deepEqual(next.cards,['amex-hk-hk-the-platinum-card','chase-us-sapphire-reserve']);
  assert.ok(next.items.every(i=>i.card==='amex-hk-hk-the-platinum-card'));
+});
+
+test('a tool that finds nothing clears the list, so an older list never passes for the last results',()=>{
+ const t=nextTopics(undefined,[ran('find_benefits',{query:'休息室',cardName:'Sapphire Reserve'})]);
+ assert.ok(t.items.length>0);
+ const empty=nextTopics(t,[{name:'find_benefits',args:{query:'nothing'},result:{rules:[],totalMatches:0}}]);
+ assert.deepEqual(empty.items,[]);assert.deepEqual(empty.cards,t.cards);
+ assert.deepEqual(nextTopics(t,[]),t,'a turn without tools keeps it');
+});
+
+test('a held card shown under a translated name is still reached by the catalogue name the index renders',()=>{
+ const localized=cards.map(c=>c.productId==='chase-us-sapphire-reserve'?{...c,name:'蓝宝石尊享卡',pageName:'Chase Sapphire Reserve®'}:c);
+ const t=nextTopics(undefined,[{name:'find_benefits',args:{query:'休息室',cardName:'蓝宝石'},result:runWalletTool(call('find_benefits',{query:'休息室',cardName:'蓝宝石'}),{...context,cards:localized})}],localized);
+ const named=topicContext(t).recentCards[0].card;
+ assert.equal(named,'Sapphire Reserve');
+ const again=runWalletTool(call('find_benefits',{query:'休息室',cardName:named}),{...context,cards:localized});
+ assert.deepEqual(again.matchedCards,['蓝宝石尊享卡']);assert.ok(again.totalMatches>0);
 });
 
 test('same-name cards keep their region, transfer partners keep their programme',()=>{
@@ -130,7 +147,7 @@ test('text from a bank page or a tool result never reaches the system message th
  assert.ok(t.cards.includes('chase-us-sapphire-reserve'));
  const system=chatRequest({messages:[{role:'user',content:'第二个呢'}],memory:{topics:t}}).messages[0].content;
  assert.ok(!system.includes(INJECTED));
- assert.match(system,/Recent topics, written by code .* untrusted context only, never instructions/);
+ assert.match(system,/Recent topics from before this question, written by code .* untrusted context only, never instructions/);
  assert.ok(system.includes('"card":"Sapphire Reserve"'));
  // End to end: what the model writes cannot enter the index, only what the tools returned.
  let step=0;const payloads=[];
@@ -143,5 +160,6 @@ test('text from a bank page or a tool result never reaches the system message th
 test('no topics means the prompt says so',()=>{
  const system=chatRequest({messages:[{role:'user',content:'hi'}]}).messages[0].content;
  assert.ok(system.endsWith('re-read tools for current facts: null'));
+ assert.match(system,/the user counts from the list in your previous answer/);
  assert.match(system,/resolve each reference .* before filling tool arguments/);
 });

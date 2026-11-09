@@ -90,6 +90,7 @@ Reading it: within six turns the referent is almost always somewhere in the chat
 Limits: earlier answers are scripted, written to read like the assistant's (user's language, names paraphrased or translated), so how often names survive is a property of this set. Offline "resolvable" means present, not that a model resolves it.
 
 `npm run eval:multiturn:live` runs the same dialogues against the configured model and checks the tool and key arguments of the last turn (a `cardName` passes if it selects the same held cards; a free-text `query` only has to be present). It makes API calls and has not been run; ask the owner first. `--live --dry-run` exercises that path with a scripted model and no network.
+
 ### Conversation state and topic index (#132, part 2)
 
 What code carries between turns is now one typed state object (`src/conversationState.js`) with three channels: `lastPurchase`, `trip` and the new `topics`. Each tool result updates it through a pure reducer per channel (`reduceToolResult(state, event, context)` returns a new state and never modifies its input); `validateState` (still exported as `validateMemory`) checks the whole object every time it is used or sent; every change is recorded in the turn's trace as `{type:'state', tool, changes:[{channel, before, after}]}`, summarised so amounts and point values do not appear.
@@ -105,6 +106,8 @@ What code carries between turns is now one typed state object (`src/conversation
 | topic return | 7 | 7 | 7 | 3 | 7 |
 | long range | 10 | 0 | 7 | 0 | 7 |
 | same name | 8 | 8 | 8 | 2 | 8 |
+
+The eval portfolio's cards carry their catalogue names; in a real wallet a card is shown under a localized name, so the tools now also match a held card by its catalogue product's name, which is what the index renders (covered by a unit test, not by these numbers). Ordinal answers here list items in the tool's order; when an answer reorders them, the prompt tells the model to count from the answer, which only the live layer can check.
 
 Still unresolved: "the second one from the very first list" seven turns back (3 cases). The index keeps only the last tool turn's items, by design; the card survives in `cards`, so the model can re-search it or ask. The gate is now `--min=0.9`. These numbers say the referent reaches the model in usable form; whether the model then uses it is the live layer, not yet run.
 
