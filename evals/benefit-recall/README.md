@@ -60,6 +60,7 @@ Recall@12 for A / B / C after each retrieval change (#131). Dev = `golden.json`,
 | 1. Programme and scenario tags (`scripts/curate-benefit-tags-2026-11-09.py`) | 69.6 / 82.0 / 99.4 | 64.3 / 76.8 / 96.0 |
 | 2. Vocabulary: Traditional→Simplified, glossary, programme aliases (`src/benefitVocabulary.js`) | 94.8 / 98.8 / 99.4 | 81.6 / 92.1 / 98.0 |
 | 3. Tool contract: always fill scenarioId/category, Chinese keywords, programme aliases in the filter, zero-result suggestions, whole-card questions | 95.4 / 99.4 / 100.0 | 81.6 / 92.1 / 98.0 |
+| 4. Soft scenario/category filters (bonus inside, strong word match needed outside) | 95.4 / 99.4 / 99.4 | 81.6 / 92.1 / 97.8 |
 
 After step 2:
 - **English recall** (dev / held-out): A 88.8 / 78.6, B 98.0 / 83.3.
@@ -121,6 +122,50 @@ What the real model gets wrong:
   - **(b) Routing:** let credit questions that are also benefit questions call `find_benefits` too, or have `query_credits` return matching benefit rules.
 
 Cost: 498 model calls (two runs of 239 and 255, plus a 4-call smoke test). 1.87M prompt tokens, 88% of them cached, and 60k output tokens. **About $0.15 at the assumed peak prices**, well under the $1 cap. Only the `find_benefits` arguments, tool names and token counts are kept in the report. No answers, keys or wallet data.
+
+### Step 4: soft filters and routing (2026-11-09)
+
+**Soft filters.** Scenario and category no longer drop rules.
+- A rule inside the chosen scenario or category gets +7.
+- A rule outside it competes only with a word score of at least 8: a concept or two title words. The threshold was picked on dev; held-out was only reported.
+- A named programme and a named partner stay strict, so a Marriott question never brings Hyatt. That is tested.
+
+On the ideal rewrites (mode C) this costs a little: dev 100 → 99.4 and held-out 98.0 → 97.8. Precision drops 72% → 64% on dev and 53% → 48% on held-out. On the real model's calls, it is what closes the gap:
+
+| Real model, recall@12 | Dev (120) | Held-out (50) |
+| --- | --- | --- |
+| After step 3, hard filters | 74.6 | 69.5 |
+| Same calls, re-scored with step-4 search (offline) | 82.5 | 83.5 |
+| Fresh run on step-4 code, find_benefits only | **84.0** | **70.9** (n=49) |
+| … plus credits that query_credits returned | **93.6** | **82.5** |
+| … plus questions labelled as also answered by another tool | **95.3** | **84.6** |
+
+Precision and forbidden hits hold:
+- **Re-scoring the same calls** (dev / held-out): precision went from 57.5% / 36.2% to 54.5% / 37.2%. Forbidden hits stayed at 1.7% / 0% and are the same two questions, caused by the model's own query.
+- **The fresh run:** precision 59.0% / 40.8%, forbidden 0% / 0%.
+
+**Routing is mostly a scoring question.** Of the questions that never call `find_benefits`, most go to `query_credits` with the right use (hotel, airline, ride-share, dining). Its credit items map back to the expected rules, so for a credit question the user gets the right answer. The eval now scores three levels:
+- `find_benefits` alone;
+- plus credits `query_credits` returned;
+- plus questions the golden sets label `alsoAnsweredBy`:
+  - transfer questions: `get_card_rules` transfer-relationship;
+  - which-card-earns-more questions: `choose_card`.
+
+  The labels come from the question text, not from what the model did.
+
+The model was not pushed toward `find_benefits`. The one real misroute was fee-waiver questions going to `get_card_rules(kind: fee)`, which has no waiver data. The fee tool's description and the system prompt now point waiver questions to `find_benefits` as well. In the fresh run all three dev fee-waiver questions call both tools and score 100.
+
+**Remaining misses in the fresh run:**
+- Some questions stop after `list_cards` without a search, e.g. "人民幣賬單", "6% first-year", "波飛". This is most visible on held-out: it searched for 73.5% of questions, against 86% in the previous run. Noise is part of it.
+- English and Traditional Chinese held-out are lower (65% and 64% find_benefits only).
+- Held-out stays 10 points below dev. Some of that is the two new portfolios, and some is that dev guided the vocabulary.
+
+**Cost of step 4:**
+- Two full runs: $0.074 and $0.079.
+- A run during a provider timeout (150 requests timed out after 20 questions): $0.0095 for the requests that completed.
+- A 3-call probe: $0.0005.
+
+**Total for all live runs: about $0.31 at the assumed peak prices** (cap $1). Timed-out requests report no usage, so their cost is unknown. The script now stops after three failed requests in a row and counts the failures.
 
 ## Findings
 

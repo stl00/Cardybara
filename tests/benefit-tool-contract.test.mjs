@@ -34,12 +34,15 @@ test('no match returns suggested scenarios, not an empty answer', () => {
  assert.equal(find({query:'Delta Stays'}).suggestions,undefined);
 });
 
-test('rules kept only by a wrong filter still come with suggestions', () => {
+test('a wrong scenario returns the rule the words name, and suggestions only when no word matches', () => {
  const premium={cards:['amex-us-us-the-platinum-card','chase-us-sapphire-reserve'].map(card),events:[],day:'2026-11-09'};
- const r=runWalletTool({id:'c2',function:{name:'find_benefits',arguments:JSON.stringify({query:'租车 保障',scenarioId:'fitness'})}},premium);
- assert.ok(r.rules.length>0);
- assert.match(r.suggestions.basis,/without scenarioId/);
- assert.ok(r.suggestions.scenarios.some(s=>s.scenarioId==='ground-transport'));
+ const call=args=>runWalletTool({id:'c2',function:{name:'find_benefits',arguments:JSON.stringify(args)}},premium);
+ const r=call({query:'租车 保障',scenarioId:'fitness'});
+ assert.ok(r.rules.some(x=>x.revision.startsWith('rule.chase-us-sapphire-reserve.rental@')));
+ assert.equal(r.suggestions,undefined);
+ const none=call({query:'高尔夫',scenarioId:'fitness'});
+ assert.ok(none.rules.every(x=>x.title.includes('Peloton')));
+ assert.match(none.suggestions.basis,/without scenarioId|held cards/);
 });
 
 test('suggestion counts are not citable numbers', async () => {
@@ -74,4 +77,21 @@ test('a whole-card question lists that card, and only that card', () => {
  const ids=searchBenefitKnowledge('What Delta perks do I have?',wallet.cards,wallet.day).rules.map(r=>r.id);
  assert.deepEqual([...new Set(ids.map(id=>id.split('.')[1]))],['amex-us-us-delta-skymiles-reserve-card']);
  assert.ok(ids.length>=4);
+});
+
+test('a neighbouring scenario no longer hides the rule the words point to', () => {
+ const premium=['amex-us-us-the-platinum-card','chase-us-sapphire-reserve'].map(card);
+ const ids=searchBenefitKnowledge('Global Entry 申请费 报销',premium,'2026-11-09',{scenarioId:'travel',category:'credit'}).rules.map(r=>r.id);
+ assert.ok(ids.includes('rule.chase-us-sapphire-reserve.global-entry'));
+ const bag=searchBenefitKnowledge('行李延误 baggage delayed',premium,'2026-11-09',{scenarioId:'airport'}).rules.map(r=>r.id);
+ assert.ok(bag.includes('rule.chase-us-sapphire-reserve.baggage-delay'));
+});
+
+test('rules in the chosen scenario still come first, and a named brand stays strict', () => {
+ const premium=['amex-us-us-the-platinum-card','chase-us-sapphire-reserve','amex-us-us-hilton-honors-aspire-card'].map(card);
+ const r=searchBenefitKnowledge('休息室',premium,'2026-11-09',{category:'lounge'}).rules;
+ assert.ok(r.slice(0,3).every(x=>x.category==='lounge'));
+ const marriott=searchBenefitKnowledge('万豪 会籍',[card('amex-hk-hk-the-platinum-card')].map(c=>({...c,region:'HK'})),'2026-11-09',{scenarioId:'hotel-stay'}).rules.map(r=>r.id);
+ assert.ok(marriott.includes('rule.amex-hk-hk-the-platinum-card.marriott'));
+ assert.ok(marriott.every(id=>!/hilton|radisson|accor|hyatt/.test(id)),marriott.join());
 });
