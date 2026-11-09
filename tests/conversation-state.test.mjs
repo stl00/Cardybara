@@ -1,8 +1,10 @@
-// The topic index: code records what the last tools returned as catalogue ids, so "the second one" and "that card"
-// resolve next turn. It must never become a way for text to reach the system message.
+// The conversation state and its reducers. The topic index channel records what the last tools returned as catalogue
+// ids, so "the second one" and "that card" resolve next turn; it must never become a way for text to reach the
+// system message.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {validateMemory,nextTopics,topicContext,TOPIC_ITEMS,TOPIC_CARDS} from '../src/agentContext.js';
+import {validateMemory} from '../src/agentContext.js';
+import {validateState,reduceToolResult,topicItems,diffState,topicContext,TOPIC_ITEMS,TOPIC_CARDS,STATE_CHANNELS} from '../src/conversationState.js';
 import {chatRequest,validateChat} from '../src/chatProtocol.js';
 import {runAgentTurn} from '../src/agentSession.js';
 import {runWalletTool} from '../src/walletAgent.js';
@@ -13,6 +15,50 @@ const cards=ids.map(id=>catalogueCards.find(c=>c.productId===id));
 const context={cards,events:[],day:'2026-10-29'};
 const call=(name,args,id='c1')=>({id,type:'function',function:{name,arguments:JSON.stringify(args)}});
 const ran=(name,args)=>({name,args,result:runWalletTool(call(name,args),context)});
+// One turn: each tool result goes through the reducer in order, as runAgentTurn does.
+function nextTopics(previous,events,held=cards){
+ let state=previous?{topics:previous}:{},written=false;
+ for(const e of events){state=reduceToolResult(state,e,{cards:held,appendItems:written});written||=topicItems(e,held).length>0;}
+ return state.topics||{items:[],cards:[]};
+}
+const deepFreeze=o=>{if(o&&typeof o==='object'){Object.freeze(o);Object.values(o).forEach(deepFreeze);}return o;};
+
+test('the state is one typed object with three channels, validated as a whole',()=>{
+ assert.deepEqual(STATE_CHANNELS,['lastPurchase','trip','topics']);
+ assert.equal(validateMemory,validateState,'memory is the state as it travels');
+ assert.deepEqual(validateState({}),{});
+ assert.throws(()=>validateState({lastPurchase:{category:'dining'},extra:1}),/invalid_memory/);
+ assert.throws(()=>validateState({trip:{start:'2026-12-01',end:'2026-11-01',precision:'days'}}),/invalid_memory/);
+});
+
+test('reducers are pure: a new state comes back and the old one is untouched',()=>{
+ const before=deepFreeze(validateState({lastPurchase:{category:'dining',country:'US'},topics:{items:[{card:'chase-us-sapphire-reserve'}],cards:['chase-us-sapphire-reserve']}}));
+ const copy=structuredClone(before);
+ const purchase=reduceToolResult(before,{name:'choose_card',args:{category:'travel',country:'HK'},result:runWalletTool(call('choose_card',{category:'travel',country:'HK'}),context)},{cards});
+ assert.deepEqual(before,copy);assert.notEqual(purchase,before);
+ assert.deepEqual(purchase.lastPurchase,{category:'travel',country:'HK'});
+ const credits=reduceToolResult(purchase,ran('query_credits',{use:'hotel',when:'12月'}),{cards});
+ assert.equal(credits.trip.start,'2026-12-01');assert.deepEqual(credits.lastPurchase,purchase.lastPurchase,'other channels carry over');
+ const current=reduceToolResult(credits,ran('query_credits',{use:'hotel'}),{cards});
+ assert.deepEqual(current.trip,credits.trip,'the current cycle does not replace resolved dates');
+ const unchanged=reduceToolResult(credits,{name:'list_cards',args:{},result:[]},{cards});
+ assert.deepEqual(unchanged,credits);
+});
+
+test('the trace shows each change channel by channel, without amounts',async()=>{
+ const before={lastPurchase:{category:'dining',amount:123.45,currency:'USD'}};
+ const after=reduceToolResult(before,ran('find_benefits',{query:'休息室',cardName:'Sapphire Reserve'}),{cards});
+ const diff=diffState(before,after);
+ assert.deepEqual(diff.map(d=>d.channel),['topics']);
+ assert.deepEqual(diff[0].after.cards,['chase-us-sapphire-reserve']);
+ const purchase=diffState({},reduceToolResult({},{name:'choose_card',args:{category:'dining',amount:123.45,currency:'USD'},result:{}},{cards}));
+ assert.ok(!JSON.stringify(purchase).includes('123.45'));
+ let step=0;
+ const request=async()=>({message:step++===0?{role:'assistant',content:'',tool_calls:[call('find_benefits',{query:'休息室',cardName:'Sapphire Reserve'})]}:{role:'assistant',content:'Sapphire Reserve 有 Priority Pass 休息室。'}});
+ const r=await runAgentTurn({history:[],question:'Sapphire Reserve 有哪些休息室？',context,request});
+ const states=r.trace.filter(t=>t.type==='state');
+ assert.equal(states.length,1);assert.equal(states[0].tool,'find_benefits');assert.equal(states[0].changes[0].channel,'topics');
+});
 
 test('items are what the last tools returned, in order; cards are the ones the chat focused on',()=>{
  const t=nextTopics(undefined,[ran('find_benefits',{query:'休息室',cardName:'Sapphire Reserve'})],cards);
