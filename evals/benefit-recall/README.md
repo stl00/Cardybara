@@ -59,6 +59,7 @@ Recall@12 for A / B / C after each retrieval change (#131). Dev = `golden.json`,
 | Baseline (#130) | 69.4 / 81.4 / 98.5 | 64.3 / 76.8 / 95.6 |
 | 1. Programme and scenario tags (`scripts/curate-benefit-tags-2026-11-09.py`) | 69.6 / 82.0 / 99.4 | 64.3 / 76.8 / 96.0 |
 | 2. Vocabulary: Traditional→Simplified, glossary, programme aliases (`src/benefitVocabulary.js`) | 94.8 / 98.8 / 99.4 | 81.6 / 92.1 / 98.0 |
+| 3. Tool contract: always fill scenarioId/category, Chinese keywords, programme aliases in the filter, zero-result suggestions, whole-card questions | 95.4 / 99.4 / 100.0 | 81.6 / 92.1 / 98.0 |
 
 After step 2:
 - **English recall** (dev / held-out): A 88.8 / 78.6, B 98.0 / 83.3.
@@ -68,6 +69,12 @@ After step 2:
 - **Precision:** dev A 58% → 60%, held-out A 54% → 53%.
 - **Absent questions:** more of them return something on dev (57% → 71%), because more words now match.
 - **Sample size:** held-out has only 50 scored questions; per-portfolio rows have 7–19 each and are noisy.
+
+Step 3 barely moves the offline numbers. Mode C already assumes a model that fills filters and writes good queries; step 3 is what asks the model to do so, and only a live run can measure that. The offline gain is the whole-card question (`c-delta-en`): words that name a held card are set aside, so "What Delta perks do I have?" lists that card's benefits.
+
+Known gap: whole-card detection reads only English card words, so a Chinese card name (國泰卡有什麼福利) still goes through ordinary scoring.
+
+No new scenario enum was added (such as flight, car-rental or purchase-protection). After steps 1–2, mode C misses no dev question. Flight benefits carry both `travel` and `airport`; rentals sit under `ground-transport` + `protection`; purchase protection sits under `shopping` + `protection`. A new enum would need every rule retagged and a new label set, with nothing to show for it now.
 
 ## Findings
 
