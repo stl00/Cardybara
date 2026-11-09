@@ -1,4 +1,4 @@
-import {taskStatus} from './personalBenefits.js';
+import {activeTasks,taskStatus} from './personalBenefits.js';
 import {CREDIT_CATEGORIES} from './creditCategories.js';
 // What the benefit view shows: a short list of what is ending, with everything else behind a
 // category, a search or one more click. Unknown stays "not confirmed"; it is never counted as unused.
@@ -11,7 +11,8 @@ export function daysLeft(task,asOf){return Math.round((Date.parse(task.period.en
  * live: false when looking back at a past month, whose cycles have ended and so cannot be ending soon
  */
 export function creditView(tasks,events,asOf,{state='todo',category='all',query='',textOf=task=>task.title,live=true}={}){
- const rows=tasks.map(task=>{const status=taskStatus(task,events),days=daysLeft(task,asOf);return {task,status,days,endingSoon:live&&!isDone(status)&&days<=ENDING_SOON_DAYS};});
+ // A dismissed credit is out of every state, done included; it is listed apart, where it can be restored.
+ const rows=activeTasks(tasks,events).map(task=>{const status=taskStatus(task,events),days=daysLeft(task,asOf);return {task,status,days,endingSoon:live&&!isDone(status)&&days<=ENDING_SOON_DAYS};});
  const open=rows.filter(r=>!isDone(r.status)),done=rows.filter(r=>isDone(r.status));
  const pool=state==='done'?done:state==='all'?rows:open;
  const categories=CREDIT_CATEGORIES.map(({id,label})=>({id,label,count:pool.filter(r=>r.task.categories?.includes(id)).length})).filter(c=>c.count);
