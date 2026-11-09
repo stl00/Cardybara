@@ -23,8 +23,9 @@ test('coupon units are not cumulative cash and refund does not restore a redeeme
  assert.equal(c.delivery,'checkout-discount');assert.equal(c.redemption.mode,'multiple-coupons');
  assert.equal(c.redemption.couponsPerPeriod,2);assert.equal(c.redemption.perCouponAmount,10);assert.equal(c.redemption.separateOrders,true);assert.equal(c.redemption.unusedPortionForfeited,true);assert.equal(c.carryover,false);assert.match(c.refundPolicy,/不会返还/);
  const tasks=creditTasks(context.cards,day),task=tasks.find(t=>t.ruleId===r.id);assert.equal(task.limit,20);assert.equal(task.coupon.redemption.perCouponAmount,10);
- const result=runWalletTool({id:'coupons',function:{name:'list_credits',arguments:'{}'}},{...context,day});
- assert.ok(result.some(x=>x.coupon?.redemption.mode==='multiple-coupons'));
+ const result=runWalletTool({id:'coupons',function:{name:'query_credits',arguments:JSON.stringify({cardName:'Sapphire Reserve'})}},{...context,day});
+ const item=Object.values(result.groups).flat().find(x=>x.coupon?.redemption.mode==='multiple-coupons');
+ assert.equal(item.coupon.redemption.separateOrders,true);assert.equal(item.coupon.redemption.unusedPortionForfeited,true);assert.equal(item.coupon.carryover,false);
 });
 
 test('merchant, channel, ambiguous gift-card and timing distinctions survive projection',()=>{

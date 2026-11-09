@@ -15,6 +15,9 @@ if not paths:raise SystemExit('Source must be staged or committed before audit')
 for n in paths:
  if n=='public/data.json' or n.startswith(('dist/','release/','.openai/')) or n.endswith(('.zip','.bundle','.png.log')) or (Path(n).name.startswith('.env') and n!='.env.example'):raise SystemExit('Private/generated path tracked: '+n)
  inspect(n,(r/n).read_bytes())
+# Shared extension code never imports the dev build, or its features could reach the release package.
+for n in paths:
+ if n.startswith('extension-next/') and n.endswith('.js') and re.search(rb'extension-dev|background-dev|schedule-core',(r/n).read_bytes()):raise SystemExit('Release code imports the dev build: '+n)
 # Audit historical filenames too; a clean tip cannot erase leaked history.
 exists=subprocess.run(['git','rev-parse','--verify','HEAD'],cwd=r,capture_output=True).returncode==0
 history=subprocess.check_output(['git','log','--all','--format=','--name-only'],cwd=r).decode().splitlines() if exists else []
@@ -39,8 +42,12 @@ if '--package' in sys.argv:
   # The localhost collector (scripts/dev-collector) is development-only and must never ship.
   for n in names:
    if 'dev-collector' in n or any(marker in z.read(n) for marker in [b'__cardybara/collector',b'__cardybaraDev',b'cardybara-dev-collector']):raise SystemExit('Dev-only collector code in package: '+n)
+   # The scheduled refresh, its diagnostics and self-reload exist only in the local dev build.
+   if any(x in n for x in ['background-dev','dev-popup','schedule-core','dev-build-info','build-stamp','dev-structure-report']) or any(marker in z.read(n) for marker in [b'cardybara-dev-schedule',b'/api/dev/diagnostics',b'build-stamp.json',b'dev-popup.html',b'dev-read-now']):raise SystemExit('Dev-only scheduled refresh in package: '+n)
   assert 'manifest.json' in names and 'index.html' in names
-  m=json.loads(z.read('manifest.json'));assert m['manifest_version']==3 and m['version']==cfg['version'];assert not m.get('content_scripts');assert 'notifications' not in m['permissions'] and 'notifications' in m['optional_permissions'],'Notifications must stay optional';assert not any(x.startswith('http:') for x in m['host_permissions'])
+  m=json.loads(z.read('manifest.json'));
+  if m['background']['service_worker']!='background.js' or m['action'].get('default_popup')=='dev-popup.html' or 'idle' in m['permissions']:raise SystemExit('Dev-only scheduled refresh in package: manifest.json')
+  assert m['manifest_version']==3 and m['version']==cfg['version'];assert not m.get('content_scripts');assert 'notifications' not in m['permissions'] and 'notifications' in m['optional_permissions'],'Notifications must stay optional';assert not any(x.startswith('http:') for x in m['host_permissions'])
   d=json.loads(z.read('data.json'));assert d['cards']==[] and d['rewards']==[];assert d==json.loads((r/'public/data.example.json').read_text()),'Local and packaged empty-wallet seeds differ'
   for n in names:
    assert not n.startswith('/') and '..' not in Path(n).parts and not n.endswith(('.zip','.map','.env'))

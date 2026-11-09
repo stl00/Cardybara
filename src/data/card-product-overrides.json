@@ -783,6 +783,22 @@
     "verification": "issuer-listed"
   },
   {
+    "id": "chase-us-freedom-unlimited",
+    "art": {
+      "file": "chase-freedom-unlimited.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://www.chase.com/content/dam/unified-assets/card-art/chase-freedom/freedom-unlimited/card_freedomUtld_V.png"
+    }
+  },
+  {
+    "id": "chase-us-chase-freedom-rise-credit-card",
+    "art": {
+      "file": "chase-freedom-rise.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://www.chase.com/content/dam/unified-assets/card-art/chase-freedom/freedom-rise/card_freedomRise_V.png"
+    }
+  },
+  {
     "id": "chase-us-united-gateway-card",
     "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-gateway",
     "checkedAt": "2026-11-04",

@@ -1,0 +1,17 @@
+{
+  "note": "Extra names a bank page may show for a product, kept apart from card-products.json so catalogue edits do not conflict. Public product names only.",
+  "sources": {
+    "hsbc-hk-zh": "https://www.hsbc.com.hk/zh-hk/credit-cards/ (checked 2026-11-05)"
+  },
+  "aliases": {
+    "hsbc-hk-hk-red-credit-card": ["滙豐Red信用卡"],
+    "hsbc-hk-hk-pulse-dual-currency-diamond": ["滙豐Pulse銀聯雙幣鑽石信用卡"],
+    "hsbc-hk-hk-premier-credit-card": ["滙豐卓越理財信用卡", "卓越理財信用卡"],
+    "hsbc-hk-hk-visa-gold-card": ["滙財金卡"],
+    "hsbc-hk-hk-visa-gold-card-for-students": ["滙財金卡 - 學生卡"],
+    "hsbc-hk-hk-easy-credit-card": ["滙豐easy信用卡"],
+    "hsbc-hk-hk-hsbc-visa-signature-card": ["滙豐 Visa Signature 卡", "Visa Signature卡"],
+    "hsbc-hk-hk-hsbc-everymile-card": ["滙豐EveryMile信用卡"],
+    "hsbc-hk-hk-unionpay-dual-currency-card": ["滙豐銀聯雙幣信用卡"]
+  }
+}

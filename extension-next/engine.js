@@ -14,13 +14,16 @@ export class Engine{
  async load(){const s=await this.io.load();if(!s)return blank();if(s.schema!==2)throw Error('unsupported_storage_version');return structuredClone(s);}
  async save(s){s.revision++;await this.io.save(s);return s;}
  recover(){return this.serial(async()=>{const s=await this.load();let migrated=false;for(const j of s.run?.jobs||[])if(j.sections?.reward?.status==='updated'&&!Number.isInteger(j.sections.reward.readCards)){j.sections.reward.status='partial';migrated=true;}if(migrated)await this.save(s);if(s.run?.status==='running'){for(const j of s.run.jobs)if(pending(j))j.status='interrupted';s.run.status='interrupted';await this.save(s);}return s;});}
- start(input,owner){return this.serial(async()=>{
+ start(input,owner,{scheduled=false,manual=false}={}){return this.serial(async()=>{
   const m=request(input),s=await this.load();if(s.run?.status==='running')throw Error('busy');
   if(m.banks.some(b=>s.disabled.includes(b)))throw Error('bank_disabled');
   for(const previous of s.run?.jobs||[])if(!pending(previous))(s.lastBankJobs??={})[previous.bank]=structuredClone(previous);
   // A tail shared by two cards of one bank cannot identify either, so it stays out of the job and out of discovery.
   const shared=bank=>[...new Set(m.cards.filter(c=>c.bank===bank&&m.cards.filter(x=>x.bank===bank&&x.tail===c.tail).length>1).map(c=>c.tail))];
   s.run={id:m.requestId,generation:this.io.uuid(),owner,status:'running',startedAt:this.io.now(),jobs:m.banks.map(bank=>({bank,cards:m.cards.filter(c=>c.bank===bank&&!shared(bank).includes(c.tail)),...(shared(bank).length?{excludedTails:shared(bank)}:{}),...(m.cardId?{cardId:m.cardId}:{}),attemptId:this.io.uuid(),status:'queued',tabId:null,owned:false,navigation:0}))};
+  if(scheduled)s.run.scheduled=true;
+  // A run the owner started by hand, though not from the wallet. It shows the guide like any read they start.
+  if(scheduled&&manual)s.run.manual=true;
   await this.save(s);return s;
  });}
  claim(){return this.serial(async()=>{const s=await this.load();if(s.run?.status!=='running'||s.run.jobs.some(j=>pending(j)&&j.status!=='queued'))return null;const j=s.run.jobs.find(j=>j.status==='queued');if(!j)return null;j.status='opening';j.startedAt=this.io.now();j.deadline=j.startedAt+60000;await this.save(s);return {runId:s.run.id,generation:s.run.generation,...j};});}
@@ -60,11 +63,11 @@ export class Engine{
   j.startedAt=this.io.now();j.deadline=j.startedAt+60000;for(const key of ['finishedAt','received','enriching','enrichmentStartedAt','phase','sections','pages','rejected','rejectReasons','diagnostic'])delete j[key];r.status='running';
   return this.save(s);
  });}
- cancel(owner){return this.serial(async()=>{const s=await this.load();if(s.run?.status==='running'){if(s.run.owner!==owner)throw Error('not_run_owner');for(const j of s.run.jobs)if(pending(j))j.status='cancelled';s.run.status='cancelled';await this.save(s);}return s;});}
+ cancel(owner){return this.serial(async()=>{const s=await this.load();if(s.run?.status==='running'){if(s.run.owner!==owner&&!s.run.scheduled)throw Error('not_run_owner');for(const j of s.run.jobs)if(pending(j))j.status='cancelled';s.run.status='cancelled';await this.save(s);}return s;});}
  // Removes one card only: its readings, agent records and discovery record. Other cards of the bank are untouched.
  // The dismissal keeps a false discovery from returning at the next refresh; a card the wallet sends again is unaffected.
  removeCard({bank,cardId,tail},owner){return this.serial(async()=>{
-  const s=await this.load();if(s.run?.status==='running'&&s.run.owner!==owner)throw Error('not_run_owner');
+  const s=await this.load();if(s.run?.status==='running'&&s.run.owner!==owner&&!s.run.scheduled)throw Error('not_run_owner');
   if(s.run?.status==='running'&&s.run.jobs.some(j=>j.bank===bank&&pending(j)))throw Error('busy');
   if(s.records[bank]){delete s.records[bank][cardId];if(!Object.keys(s.records[bank]).length)delete s.records[bank];}
   s.agentRecords=(s.agentRecords||[]).filter(i=>!(i.bank===bank&&i.cardId===cardId));
@@ -73,5 +76,5 @@ export class Engine{
   for(const j of [...(s.run?.jobs||[]),...Object.values(s.lastBankJobs||{})])if(j.bank===bank&&j.cards)j.cards=j.cards.filter(c=>c.id!==cardId);
   return this.save(s);
  });}
- bank(bank,action,owner){return this.serial(async()=>{const s=await this.load();if(s.run?.status==='running'&&s.run.owner!==owner)throw Error('not_run_owner');if(action==='disconnect'){s.disabled=[...new Set([...s.disabled,bank])];for(const j of s.run?.jobs||[])if(j.bank===bank&&pending(j))j.status='cancelled';}if(action==='connect')s.disabled=s.disabled.filter(b=>b!==bank);if(['disconnect','clear'].includes(action)){delete s.records[bank];s.agentRecords=(s.agentRecords||[]).filter(i=>i.bank!==bank);for(const j of s.run?.jobs||[])if(j.bank===bank){j.status=action==='disconnect'?'disconnected':'cleared';j.received=0;}}if(s.run?.status==='running'&&s.run.jobs.every(j=>!pending(j)))s.run.status='complete';return this.save(s);});}
+ bank(bank,action,owner){return this.serial(async()=>{const s=await this.load();if(s.run?.status==='running'&&s.run.owner!==owner&&!s.run.scheduled)throw Error('not_run_owner');if(action==='disconnect'){s.disabled=[...new Set([...s.disabled,bank])];for(const j of s.run?.jobs||[])if(j.bank===bank&&pending(j))j.status='cancelled';}if(action==='connect')s.disabled=s.disabled.filter(b=>b!==bank);if(['disconnect','clear'].includes(action)){delete s.records[bank];s.agentRecords=(s.agentRecords||[]).filter(i=>i.bank!==bank);for(const j of s.run?.jobs||[])if(j.bank===bank){j.status=action==='disconnect'?'disconnected':'cleared';j.received=0;}}if(s.run?.status==='running'&&s.run.jobs.every(j=>!pending(j)))s.run.status='complete';return this.save(s);});}
 }

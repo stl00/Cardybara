@@ -10,7 +10,7 @@
 4. 本地修复与验证后提交代码，由 PR CI 测试、构建并生成扩展候选包。日常开发不手工复制安装目录，不为每次修改要求用户重装或导出。
 5. 对 CI 生成的固定包集中验收 Chrome 权限、后台生命周期、真实银行读取与写回、重启及升级保存，然后才发布。
 
-同一空钱包模板 `public/data.example.json` 供本地初始化和发布包使用，避免默认银行列表等差异。开发 API 与构建预览共用 `scripts/dev-server.mjs` 的处理器。模型密钥留在服务端 `.env.local`，也可通过 `CARDYBARA_MODEL_CONFIG` 指向自己的配置文件，不进入客户端与安装包。
+同一空钱包模板 `public/data.example.json` 供本地初始化和发布包使用，避免默认银行列表等差异。开发 API 与构建预览共用 `scripts/dev-server.mjs` 的处理器。源码钱包的模型密钥留在服务端 `.env.local`，也可通过 `CARDYBARA_MODEL_CONFIG` 指向自己的配置文件。扩展里的模型改为用户自己在设置页粘贴的密钥，只存在扩展的 `chrome.storage.local`，直接发给服务商，不经过本机服务，也不进入安装包。
 
 ## 本地真实采集（不安装扩展）
 
@@ -25,6 +25,24 @@
 - `CARDYBARA_DEV_COLLECTOR=0` 关闭。这是 dev-only 代码：`vite build` 不包含，`scripts/audit-release.py --package` 检查发布包。
 
 合成演练（目录一旦用于合成或真实模式就不能混用）：`CARDYBARA_COLLECTOR_HOME=<临时目录> CARDYBARA_SYNTHETIC_BANK=page npm run dev`。此模式把已接管标签页的 HTTPS 请求答复为 `tests/fixtures/synthetic-bank.html`，并让专用 Chrome 的所有 DNS 解析失败，因此连不到银行；`CARDYBARA_SYNTHETIC_BANK=blocked` 演练被拦截。`npm run test:collector-chrome` 用真实 headless Chrome 跑 adapter，也在 CI 中运行。以上都属于“流程回归”，不是真实终验。
+
+## 插件定时刷新（本地开发版）
+
+`npm run build:dev-extension` 把发布版代码加上 `extension-dev/` 构建到 `~/.cardybara/dev-extension`。这个路径不随 worktree 变化，owner 只需加载一次已解压的扩展。它只用于本地，不是发布候选。
+
+- **谁读页面：** 只有插件自己的代码。没有 Claude 工具，也没有调试端口。localhost 只能接收报告：开发版没有 content script，也没有 `externally_connectable`，worker 不接受任何网络指令，所以本地页面和工具都无法触发刷新。
+- **何时读：** owner 在插件弹窗里打开一次定时刷新。Chrome 空闲 2 分钟时读取，每 15 分钟也检查一次；同一家银行最短间隔 1 小时。Chrome 不空闲时不读。空闲时，留在最前面的银行标签页也算没在使用，可以读。Amex 两个地区不会在同一轮里读。
+- **每次检查都说明原因：** 弹窗列出每家银行这次为什么读或不读，用三种语言显示：`off`、`disconnected`、`stopped`、`not_due`、`no_tab`、`signed_out`、`other_region`、`no_cards_found`、`check_failed`、`amex_turn`、`not_idle`、`ready`。原因变化时才发一份 `run: skipped` 的报告，所以不会每 15 分钟一份。打开弹窗或重载只更新原因，不会开始读取。
+- **会话过期：** 银行会话可能在 Chrome 空闲 2 分钟之前就过期，这时定时读取只会看到登录页。owner 在电脑前时，用“现在读取”更可靠。
+- **用哪个标签页：** 读取前先确认已登录的标签页，判断规则和卡片发现相同，所以卡片列在磁贴、链接或行里的页面也算。确认不了才会打开银行的普通入口，Amex US 的入口是登录页。
+- **现在读取：** 弹窗里的“现在读取”按钮由 owner 点击，不用等 Chrome 空闲。worker 只接受本扩展 `dev-popup.html` 发来的这条消息，和定时开关的检查相同，其他页面、localhost 和网络都无法触发。它只跳过定时开关、间隔和空闲这三项；Amex 一次一个地区、`stopped` 不重试、`login_expired` 仍要 owner 自己已登录的标签页、不登录、读取代码、标签页恢复和脱敏报告都不变。这一次算作一次尝试，定时刷新不会紧接着再读。因为 owner 在场，这次读取照常在银行页面显示读取引导，插件自己打开的银行标签页读完也不关闭、不切走；只有无人值守的定时读取才不显示引导。读取中按钮不可用，弹窗显示每家银行的结果。发布包没有这个按钮。
+- **失败时：** 登录过期显示 `login_expired`，不提问，也不再打开登录页，owner 下次自己登录后才读。其他失败（验证、拒绝、加载错误、没有数据等）一律停止这家银行，要 owner 关掉再打开定时刷新才会重试。插件从不提交凭据。如果银行也拒绝插件，就标记为不支持，不再找别的办法。
+- **诊断：** 每轮结束自动发到 `POST /api/dev/diagnostics`，存为 `.debug/plugin-diagnostics/latest.json`，owner 不用导出。最近一次真正读取的报告另存为 `latest-run.json`，不会被跳过报告覆盖。内容只有标签、取值形状和失败的步骤，以及各部分缺了哪些字段、为什么缺的计数，例如 `reward_not_seen`、`programme_unconfirmed` 或页面写了无需付款。这些计数不带卡号、名称或金额，每张卡只算一次。所有数字串都换成 `#`，服务器也拒收字符串里带数字的报告。本地服务没开时，报告留到下一次检查再发。
+- **更新：** 重新运行构建命令即可。插件每分钟比对 `build-stamp.json`，发现新版本就在没有读取任务时自动重载，owner 不用打开扩展页。重载不会触发刷新。
+- **发布边界：** 这些功能都在 `extension-dev/`，发布包不打包这个目录。`audit-release.py` 发现相关文件名、标记或 manifest 项就会失败。
+- **和发布包的一致性：** `npm run check:dev-parity` 逐字节比对发布包里的每个文件和开发版，只允许短名单内的差异，已包含在 `check:release` 和 CI 里。开发版读银行的代码因此和发布包完全相同，差别只有：定时、诊断和重载这几个文件，其中 `dev-structure-report.js` 只在读取不完整或失败时注入银行页，用来生成脱敏报告；manifest 多了 `idle` 和本机报告地址，没有 localhost content script，也不带 `dashboard.js`；弹窗换成定时开关；模型辅助解析改为由扩展直接调用服务商，不再经过本机服务，所以开发版和发布包一样可用，仍需在设置里添加密钥并勾选同意；localhost 依然只能接收报告，无法触发或影响读取；空钱包 `data.json` 按内容比对，因为两边的序列化工具不同。定时刷新时不显示引导，也不调用模型，这两处分支在共享代码里，发布包里不会触发。
+
+已知限制：读取时会切到银行标签页，结束后再切回；第一次读取一家还没有卡片记录的银行时，可能重新加载它的标签页。
 
 ## 银行拒绝自动化时
 

@@ -17,7 +17,7 @@ Every change follows the same path. Do not skip steps or merge them together.
 5. **Commit** — imperative subject ≤ 72 chars (`Fix Chase minimum when no payment is due`), body explains why. Keep commits buildable.
 6. **Pull request** — push and open a PR against `main` using the template; link the issue (`Closes #n`). Start as draft while work is in progress.
 7. **CI** — `Verify and package` must be green. Only a CI artifact can be a release candidate; a local `build:release` is for checks. Never hand-copy files into an installed extension directory.
-8. **Review and merge** — an independent review agent that did not write the change reviews the PR. Claude squash-merges once CI is green and review findings are resolved (owner authorized 2026-11-03). Merging to `main` is integration, not a release or bank acceptance. Never force-push shared branches or bypass branch protection.
+8. **Review and merge** — an independent review agent that did not write the change reviews the PR. Claude squash-merges once CI is green and review findings are resolved (owner authorized 2026-11-03). After review is resolved, turn on GitHub auto-merge (`gh pr merge --squash --auto`) instead of waiting or asking the owner to watch CI (owner authorized 2026-11-04). If a PR falls behind `main`, update it, and re-review only when the update changes behaviour. Merging to `main` is integration, not a release or bank acceptance. Never force-push shared branches or bypass branch protection.
 9. **Release** — bump `release.json`, tag `v<label>`; CI creates a draft prerelease from the verified artifact. Promote only after the exact-artifact acceptance in `docs/RELEASE.md` passes. Tags, releases and store submissions always need the owner's go-ahead.
 
 ## Operating model
@@ -54,6 +54,7 @@ npm run test:refresh             # collector / state machine / UI-logic regressi
 npm run check:chase              # per-bank subsets: check:chase, check:hk
 npm run check:agent              # chat agent tests + offline eval
 npm run check:release            # everything CI runs, including build and package audit
+npm run build:dev-extension      # local dev extension with the scheduled refresh; never a release candidate
 ```
 
 ## Definition of done
@@ -74,4 +75,4 @@ A passing build, test or replay is not real bank acceptance. Never mark acceptan
 - Bank access is read-only: no payments, transfers, offer enrolment or settings changes. The owner performs logins, passcodes and device confirmations; never read or store passwords, cookies, one-time codes or full card numbers.
 - Never commit or upload: `public/data.json`, `.env*` (except `.env.example`), `.debug/`, `release/`, `dist/`, ZIPs, runtime exports, real bank snapshots or screenshots, or absolute personal paths.
 - The owner's older private source tree and its git history must never be merged, pushed or referenced as an ancestor here. Port changes as reviewed patches only.
-- Model keys stay in the local server's private config; never in client code, the extension package, logs or CI.
+- A model key the owner enters lives only in the extension's `chrome.storage.local` (owner decision 2026-11-05). Never put it in code, the extension package, logs, diagnostics reports, exports, Git or CI, and send it only to the model provider's API.

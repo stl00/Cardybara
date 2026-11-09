@@ -210,6 +210,8 @@ test('Amex US: overview tiles give cards only, and each card reads after its bal
   const found=await exec(discoverVisibleCards,['Amex US',['en-US']]);
   assert.deepEqual(found.cards,[{tail:'12345',name:'Synthetic Numbat Card'},{tail:'67890',name:'Synthetic Bilby Card'}],'no deposit account, no other mention');assert.equal(found.skipped,1);
   const cards=found.cards.map(c=>({id:'c'+c.tail,bank:'Amex US',tail:c.tail,currency:'USD'}));
+  const {chooseBankTab}=await import('../extension-next/bank-tabs.js'),current=await chrome.tabs.get(tab.id);
+  assert.equal((await chooseBankTab('Amex US',cards,[current],chrome.scripting))?.verified,true,'a signed-in overview is used, not replaced by the sign-in page');
   assert.deepEqual(await exec(amexCards,['list',null]),['12345','67890']);
   assert.deepEqual(await exec(amexCards,['select','12345']),['12345']);
   const first=await exec(capturePage,['Amex US',cards,['c12345']]);assert.equal(first.error,undefined);assert.deepEqual(first.aliases.map(a=>a.cardId),['c12345']);
