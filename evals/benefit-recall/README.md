@@ -16,6 +16,10 @@ Each question lists, as `ALIAS:suffix` references to `rule.<productId>.<suffix>`
 
 Questions marked `ambiguous` are reported but not scored. `absent` questions have no relevant rule in their portfolio, so the right answer is no results. The script refuses to run if a reference does not resolve to a benefit rule active on the set's `asOf` date, so knowledge changes that remove or rename a labelled rule show up immediately.
 
+## Held-out set
+
+`holdout.json` has 53 more questions written the same way: 50 scored and 3 absent. They use two portfolios the development set does not have (US business, US hotel and airline co-brands), plus two of its portfolios with new wording. Rule: **never look at held-out failures when changing the vocabulary, tool prompts or knowledge tags.** Tune on `golden.json` only, then report both sets. `npm run eval:benefit-recall` runs both. The held-out report goes to `evals/latest-benefit-recall-holdout.json`.
+
 ## Modes
 
 | Mode | Query | Filters | What it measures |
@@ -43,6 +47,16 @@ Metrics: recall@12 (expected rules found ÷ min(expected, 12)), MRR, zero-result
 | recall, 24-card wallet | 63% | — | 93% |
 
 Recall by language for A / B / C: English 52% / 63% / 98%, Simplified Chinese 84% / 96% / 98%, Traditional Chinese 65% / 78% / 100%. By type: paraphrase 47% / 69% / 100%, typo 47% / 100% / 100%. 30 of 120 questions find none of their expected rules in mode A, and 22 of them get no results at all.
+
+Held-out baseline (50 scored): recall@12 A 64% / B 77% / C 96%, zero results 26% / 20% / 2%, and 58% / — / 90% with all 26 cards. By language: English 57 / 57 / 90, Simplified Chinese 79 / 97 / 99, Traditional Chinese 55 / 82 / 100. The held-out set agrees with the development set, so the findings below are not an artefact of the development questions.
+
+## Progress
+
+Recall@12 for A / B / C after each retrieval change (#131). Dev = `golden.json`, held-out = `holdout.json`.
+
+| Change | Dev A / B / C | Held-out A / B / C |
+| --- | --- | --- |
+| Baseline (#130) | 69 / 81 / 99 | 64 / 77 / 96 |
 
 ## Findings
 
