@@ -1,5 +1,5 @@
 import {validateToolCall} from './walletAgent.js';
-import {validateState,reduceToolResult} from './conversationState.js';
+import {validateState,reduceToolResult,startTurn} from './conversationState.js';
 // The conversation state lives in conversationState.js; memory is that state as it travels between turns.
 export {validateState as validateMemory,purchaseMemory,topicContext} from './conversationState.js';
 const VALUE_ALIASES={mr:['membership rewards','美国运通积分','美國運通積分'],ur:['ultimate rewards'],'asia miles':['亚洲万里通','亞洲萬里通','cathay','国泰','國泰'],cathay:['asia miles','亚洲万里通','亞洲萬里通','国泰','國泰'],hilton:['希尔顿','希爾頓','hilton honors'],marriott:['万豪','萬豪','bonvoy'],hyatt:['凯悦','凱悅'],ihg:['洲际','洲際']};
@@ -40,5 +40,7 @@ export function prepareAgentContext(history,memory={},{maxTurns=6,maxChars=22000
  for(const t of turns.slice(-maxTurns).reverse()){
   const size=JSON.stringify(t).length;if(chars+size>maxChars)break;selected.unshift(...t);chars+=size;
  }
- return {messages:selected,memory:state,droppedTurns:turns.length-selected.filter(m=>m.role==='user').length,chars};
+ const droppedTurns=turns.length-selected.filter(m=>m.role==='user').length;
+ // The state records where the shown chat starts, so the prompt can say earlier turns were trimmed.
+ return {messages:selected,memory:startTurn(state,{shownFrom:droppedTurns}),droppedTurns,chars};
 }
