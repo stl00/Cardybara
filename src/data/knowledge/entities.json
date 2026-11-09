@@ -4,37 +4,54 @@
       "id": "programme.doordash",
       "name": "DoorDash",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "DashPass"
+      ]
     },
     {
       "id": "programme.apple",
       "name": "Apple",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "苹果",
+        "蘋果"
+      ]
     },
     {
       "id": "programme.ihg-one-rewards",
       "name": "IHG One Rewards",
       "kind": "hotel",
-      "aliases": []
+      "aliases": [
+        "IHG",
+        "洲际",
+        "洲際",
+        "InterContinental"
+      ]
     },
     {
       "id": "programme.priority-pass",
       "name": "Priority Pass",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "新贵通",
+        "新貴通"
+      ]
     },
     {
       "id": "programme.chase-sapphire-lounge",
       "name": "Chase Sapphire Lounge",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "Sapphire Lounge"
+      ]
     },
     {
       "id": "programme.air-canada",
       "name": "Air Canada",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "加拿大航空"
+      ]
     },
     {
       "id": "programme.the-edit",
@@ -46,19 +63,30 @@
       "id": "programme.world-of-hyatt",
       "name": "World of Hyatt",
       "kind": "hotel",
-      "aliases": []
+      "aliases": [
+        "Hyatt",
+        "凯悦",
+        "凱悅"
+      ]
     },
     {
       "id": "programme.southwest-rapid-rewards",
       "name": "Southwest Rapid Rewards",
       "kind": "airline",
-      "aliases": []
+      "aliases": [
+        "Southwest",
+        "西南航空",
+        "Rapid Rewards",
+        "A-List"
+      ]
     },
     {
       "id": "programme.southwest",
       "name": "Southwest",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "西南航空"
+      ]
     },
     {
       "id": "programme.the-shops-at-chase",
@@ -100,13 +128,23 @@
       "id": "programme.singapore-airlines-krisflyer",
       "name": "Singapore Airlines KrisFlyer",
       "kind": "airline",
-      "aliases": []
+      "aliases": [
+        "KrisFlyer",
+        "新加坡航空"
+      ]
     },
     {
       "id": "programme.united-mileageplus",
       "name": "United MileagePlus",
       "kind": "airline",
-      "aliases": []
+      "aliases": [
+        "United",
+        "MileagePlus",
+        "美联航",
+        "美聯航",
+        "联合航空",
+        "聯合航空"
+      ]
     },
     {
       "id": "programme.virgin-atlantic-flying-club",
@@ -118,13 +156,20 @@
       "id": "programme.air-canada-aeroplan",
       "name": "Air Canada Aeroplan",
       "kind": "airline",
-      "aliases": []
+      "aliases": [
+        "Aeroplan"
+      ]
     },
     {
       "id": "programme.marriott-bonvoy",
       "name": "Marriott Bonvoy",
       "kind": "hotel",
-      "aliases": []
+      "aliases": [
+        "Marriott",
+        "Bonvoy",
+        "万豪",
+        "萬豪"
+      ]
     },
     {
       "id": "programme.wyndham-rewards",
@@ -136,19 +181,29 @@
       "id": "programme.hsbc-rewardcash",
       "name": "HSBC RewardCash",
       "kind": "reward-currency",
-      "aliases": []
+      "aliases": [
+        "RewardCash",
+        "奖赏钱",
+        "獎賞錢"
+      ]
     },
     {
       "id": "programme.chase-ultimate-rewards",
       "name": "Chase Ultimate Rewards",
       "kind": "reward-currency",
-      "aliases": []
+      "aliases": [
+        "Ultimate Rewards"
+      ]
     },
     {
       "id": "programme.uber",
       "name": "Uber",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "优步",
+        "優步",
+        "Uber Eats"
+      ]
     },
     {
       "id": "programme.resy",
@@ -160,13 +215,19 @@
       "id": "programme.dunkin",
       "name": "Dunkin",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "唐恩都乐",
+        "唐恩都樂"
+      ]
     },
     {
       "id": "programme.lululemon",
       "name": "lululemon",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "露露乐蒙",
+        "露露樂檬"
+      ]
     },
     {
       "id": "programme.oura",
@@ -178,13 +239,19 @@
       "id": "programme.clear",
       "name": "CLEAR+",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "CLEAR"
+      ]
     },
     {
       "id": "programme.walmart",
       "name": "Walmart+",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "Walmart",
+        "沃尔玛",
+        "沃爾瑪"
+      ]
     },
     {
       "id": "programme.morgan-stanley-cashplus",
@@ -196,7 +263,10 @@
       "id": "programme.disney",
       "name": "Disney",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "迪士尼",
+        "Disney+"
+      ]
     },
     {
       "id": "programme.home-chef",
@@ -208,67 +278,105 @@
       "id": "programme.hilton-honors",
       "name": "Hilton Honors",
       "kind": "hotel",
-      "aliases": []
+      "aliases": [
+        "Hilton",
+        "希尔顿",
+        "希爾頓"
+      ]
     },
     {
       "id": "programme.radisson-rewards",
       "name": "Radisson Rewards",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "Radisson",
+        "丽笙",
+        "麗笙"
+      ]
     },
     {
       "id": "programme.all-accor",
       "name": "ALL Accor",
       "kind": "hotel",
-      "aliases": []
+      "aliases": [
+        "Accor",
+        "雅高"
+      ]
     },
     {
       "id": "programme.fine-hotels-resorts",
       "name": "Fine Hotels + Resorts",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "FHR",
+        "Fine Hotels"
+      ]
     },
     {
       "id": "programme.the-hotel-collection",
       "name": "The Hotel Collection",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "THC",
+        "Hotel Collection"
+      ]
     },
     {
       "id": "programme.renowned-hotels-and-resorts",
       "name": "Renowned Hotels and Resorts",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "Renowned Hotels"
+      ]
     },
     {
       "id": "programme.atmos-rewards",
       "name": "Atmos Rewards",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "Atmos",
+        "Alaska Airlines",
+        "阿拉斯加航空"
+      ]
     },
     {
       "id": "programme.alaska-lounge",
       "name": "Alaska Lounge",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "Alaska Lounge"
+      ]
     },
     {
       "id": "programme.moneyback",
       "name": "MoneyBack",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "易赏钱",
+        "易賞錢"
+      ]
     },
     {
       "id": "programme.plaza-premium",
       "name": "Plaza Premium",
       "kind": "partner",
-      "aliases": []
+      "aliases": [
+        "环亚",
+        "環亞"
+      ]
     },
     {
       "id": "programme.cathay-asia-miles",
       "name": "Cathay Asia Miles",
       "kind": "airline",
-      "aliases": []
+      "aliases": [
+        "Asia Miles",
+        "Cathay",
+        "亚洲万里通",
+        "亞洲萬里通",
+        "国泰",
+        "國泰"
+      ]
     },
     {
       "id": "programme.amex-membership-rewards-us",
@@ -334,7 +442,12 @@
       "id": "programme.delta-skymiles",
       "name": "Delta SkyMiles",
       "kind": "airline",
-      "aliases": []
+      "aliases": [
+        "Delta",
+        "SkyMiles",
+        "达美",
+        "達美"
+      ]
     },
     {
       "id": "programme.etihad-guest",
@@ -376,19 +489,29 @@
       "id": "programme.citi-thankyou",
       "name": "Citi ThankYou Points",
       "kind": "reward-currency",
-      "aliases": []
+      "aliases": [
+        "ThankYou"
+      ]
     },
     {
       "id": "programme.aadvantage",
       "name": "American Airlines AAdvantage",
       "kind": "airline",
-      "aliases": []
+      "aliases": [
+        "American Airlines",
+        "AAdvantage",
+        "Admirals Club",
+        "美国航空",
+        "美國航空"
+      ]
     },
     {
       "id": "programme.capital-one-miles",
       "name": "Capital One Miles",
       "kind": "reward-currency",
-      "aliases": []
+      "aliases": [
+        "Capital One"
+      ]
     }
   ]
 }

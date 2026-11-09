@@ -1,5 +1,6 @@
 import {queryKnowledge,knowledgeEntities} from './knowledge.js';
 import {matchCardProduct} from './productCatalog.js';
+import {expandQuery,askedText} from './benefitVocabulary.js';
 const concepts=[
  ['hotel',/酒店|饭店|飯店|住宿|住一晚|订房|訂房|入住|hotel|stay|resort|hilton|marriott|hyatt|ihg|accor|radisson|希尔顿|希爾頓|万豪|萬豪|凯悦|凱悅|洲际|洲際/i,['hotel-stay']],
  ['airport',/机场|機場|候机|候機|贵宾|貴賓|休息室|lounge|airport|priority pass|centurion/i,['airport']],
@@ -12,10 +13,11 @@ const concepts=[
 const partners=[['hilton',/hilton|希尔顿|希爾頓/i],['marriott',/marriott|万豪|萬豪/i],['hyatt',/hyatt|凯悦|凱悅/i],['ihg',/\bihg\b|洲际|洲際/i],['accor',/accor|雅高/i],['radisson',/radisson|丽笙|麗笙/i],['uber',/uber|优步|優步/i],['disney',/disney|迪士尼/i],['resy',/resy/i],['dunkin',/dunkin/i]];
 const norm=s=>String(s||'').normalize('NFKC').toLowerCase();
 const tokens=text=>[...new Set([...norm(text).matchAll(/[a-z][a-z-]{2,}|[\u3400-\u9fff]{2,}/g)].flatMap(([t])=>/^[a-z]/.test(t)?[t]:Array.from({length:t.length-1},(_,i)=>t.slice(i,i+2))))].filter(t=>!['what','which','have','with','your','card','cards','benefits','benefit','我的','哪些','什么','什麼','可以','怎么','怎麼','有没有','福利','权益','權益','帮我','幫我'].includes(t));
-export function searchBenefitKnowledge(text,cards,asOf,filters={}){
- const products=new Set(cards.map(c=>matchCardProduct(c).product?.id).filter(Boolean));
- const signals=concepts.filter(([,re])=>re.test(text)),requestedPartners=partners.filter(([,re])=>re.test(text)).map(([id])=>id);
- const terms=tokens(text),generic=/^(?:我)?(?:有|有哪些|的|全部|所有|持卡|卡片|福利|权益|權益|什么|什麼|\s)*$/.test(text)||/^(?:my |all )?(?:card )?benefits?\??$/i.test(text.trim());
+export function searchBenefitKnowledge(question,cards,asOf,filters={}){
+ // Scoring runs on the expanded query (Simplified characters, glossary and alias words); the strict partner filter and the generic check use the words as asked.
+ const text=expandQuery(question),products=new Set(cards.map(c=>matchCardProduct(c).product?.id).filter(Boolean));
+ const signals=concepts.filter(([,re])=>re.test(text)),requestedPartners=partners.filter(([,re])=>re.test(askedText(question))).map(([id])=>id);
+ const terms=tokens(text),generic=/^(?:我)?(?:有|有哪些|的|全部|所有|持卡|卡片|卡|福利|权益|權益|什么|什麼|\s)*$/.test(question)||/^(?:my |all )?(?:card )?benefits?\??$/i.test(String(question).trim());
  const rows=queryKnowledge({kind:'benefit',asOf,...(filters.scenarioId?{scenarioId:filters.scenarioId}:{}),...(filters.category?{category:filters.category}:{})}).rules.filter(r=>r.productIds.some(id=>products.has(id)));
  const ranked=[];
  for(const r of rows){
