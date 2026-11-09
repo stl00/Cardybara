@@ -40,7 +40,8 @@ export function prepareAgentContext(history,memory={},{maxTurns=6,maxChars=22000
  for(const t of turns.slice(-maxTurns).reverse()){
   const size=JSON.stringify(t).length;if(chars+size>maxChars)break;selected.unshift(...t);chars+=size;
  }
- const droppedTurns=turns.length-selected.filter(m=>m.role==='user').length;
- // The state records where the shown chat starts, so the prompt can say earlier turns were trimmed.
- return {messages:selected,memory:startTurn(state,{shownFrom:droppedTurns}),droppedTurns,chars};
+ const shown=selected.filter(m=>m.role==='user').length,droppedTurns=turns.length-shown;
+ // The history a client sends back was already trimmed last turn, so where the shown chat starts comes from the
+ // turns the state counted, not from the length of this history.
+ return {messages:selected,memory:startTurn(state,{historyTurns:turns.length,shownTurns:shown}),droppedTurns,chars};
 }

@@ -175,7 +175,7 @@ test('text from a bank page or a tool result never reaches the system message th
 
 test('no topics means the prompt says so',()=>{
  const system=chatRequest({messages:[{role:'user',content:'hi'}]}).messages[0].content;
- assert.ok(system.endsWith('re-read tools for current facts: null. Earlier turns not shown in this chat: 0'));
+ assert.ok(system.endsWith('re-read tools for current facts: null'),'without counted turns the prompt claims nothing about trimmed turns');
  assert.match(system,/the user counts from the list in your previous answer/);
  assert.match(system,/resolve each reference .* before filling tool arguments/);
 });
@@ -187,8 +187,9 @@ test('an older memory with bare card ids still reads, as cards from the first tu
 test('turns: counted when answered, trimmed turns recorded as a turn starts, both pure and validated',()=>{
  const s0=deepFreeze(validateState({}));
  const s1=endTurn(s0);assert.deepEqual(s1.turns,{completed:1,shownFrom:0});assert.deepEqual(s0,{});
- const s2=startTurn(endTurn(endTurn(s1)),{shownFrom:2});assert.deepEqual(s2.turns,{completed:3,shownFrom:2});
- assert.equal(startTurn(s1,{shownFrom:9}).turns.shownFrom,1,'never past the turns that exist');
+ const s2=startTurn(endTurn(endTurn(s1)),{historyTurns:3,shownTurns:1});assert.deepEqual(s2.turns,{completed:3,shownFrom:2});
+ assert.deepEqual(startTurn(s1,{historyTurns:9,shownTurns:6}).turns,{completed:9,shownFrom:3},'a longer history than counted raises the count');
+ assert.deepEqual(startTurn(s1,{historyTurns:0,shownTurns:0}).turns,{completed:1,shownFrom:1});
  for(const turns of [{completed:1,shownFrom:2},{completed:-1,shownFrom:0},{completed:1},{completed:1,shownFrom:0,note:'x'},{completed:'1',shownFrom:0}])assert.throws(()=>validateState({turns}),/invalid_memory/,JSON.stringify(turns));
 });
 
@@ -212,4 +213,29 @@ test('a long chat: the state counts turns and marks the card from the trimmed fi
  assert.deepEqual(seen.memory.turns,{completed:7,shownFrom:1});
  const view=topicContext(seen.memory.topics,seen.memory.turns);
  assert.deepEqual(view.recentCards[0],{card:'Sapphire Reserve',region:'US',firstTurn:1,lastTurn:1,onlyInDroppedTurns:true});
+});
+
+test('trimmed turns keep adding up when each turn sends back the already-trimmed history, as the app does',async()=>{
+ let history=[],memory={};const ids=['Sapphire Reserve','The Platinum Card','Gold Card'],regions=['US','HK','US'];
+ for(let i=0;i<10;i++){
+  let step=0;const calls=i<3?[call('get_card_rules',{kind:'fee',cardName:ids[i],region:regions[i]})]:[];
+  const r=await runAgentTurn({history,memory,question:'question '+i,context,request:async()=>({message:step++===0&&calls.length?{role:'assistant',content:'',tool_calls:calls}:{role:'assistant',content:'好的。'}})});
+  history=r.messages;memory=r.memory;
+ }
+ let seen;
+ await runAgentTurn({history,memory,question:'最开始那张卡呢？',context,request:async p=>{seen=structuredClone(p);return {message:{role:'assistant',content:'好的。'}};}});
+ const shownQuestions=seen.messages.filter(m=>m.role==='user').length-1;
+ assert.equal(seen.memory.turns.completed,10);
+ assert.equal(seen.memory.turns.shownFrom,10-shownQuestions);
+ assert.equal(seen.messages.find(m=>m.role==='user').content,'question '+seen.memory.turns.shownFrom,'the first shown question is the turn after the trimmed ones');
+ const view=topicContext(seen.memory.topics,seen.memory.turns);
+ assert.deepEqual(view.recentCards.map(c=>[c.card,c.region,c.firstTurn,!!c.onlyInDroppedTurns]),[['Sapphire Reserve','US',1,true],['The Platinum Card','HK',2,true],['American Express Gold Card','US',3,true]]);
+ assert.ok(chatRequest(seen).messages[0].content.endsWith('Earlier turns not shown in this chat: '+seen.memory.turns.shownFrom));
+});
+
+test('two cards focused in one turn: the later one stays the more recent',()=>{
+ const t=nextTopics(undefined,[ran('get_card_rules',{kind:'fee',cardName:'Sapphire Reserve'}),ran('get_card_rules',{kind:'fee',cardName:'The Platinum Card',region:'HK'})]);
+ assert.deepEqual(t.cards.map(c=>c.card),['amex-hk-hk-the-platinum-card','chase-us-sapphire-reserve']);
+ const listed=topicContext(t,{completed:1,shownFrom:0}).recentCards.map(c=>c.card+'/'+c.region);
+ assert.deepEqual(listed,['The Platinum Card/HK','Sapphire Reserve/US'],'same first turn: the more recent first');
 });

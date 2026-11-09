@@ -97,7 +97,7 @@ export function topicContext(topics,turns){
  const programme=id=>id&&knowledgeEntities.programmes.find(p=>p.id===id)?.name||null;
  return {
   lastResults:topics.items.map((item,i)=>{const rule=item.rule&&knownRule(item.rule),to=programme(rule?.terms?.toProgrammeId);return {n:i+1,...(rule?{title:rule.content.title}:{}),...(item.card?product(item.card):{}),...(to?{programme:to}:{})};}),
-  recentCards:topics.cards.toSorted((a,b)=>a.first-b.first||a.last-b.last).map(c=>({...product(c.card),firstTurn:c.first+1,lastTurn:c.last+1,...(c.last<shownFrom?{onlyInDroppedTurns:true}:{})}))
+  recentCards:topics.cards.toSorted((a,b)=>a.first-b.first).map(c=>({...product(c.card),firstTurn:c.first+1,lastTurn:c.last+1,...(c.last<shownFrom?{onlyInDroppedTurns:true}:{})}))
  };
 }
 
@@ -138,10 +138,12 @@ const reducers={
   const nextItems=appendItems?(items.length?[...before.items,...items]:before.items):items;
   // A focused card keeps the turn it was first discussed in and moves its last turn on; the least recently
   // discussed card leaves first when the list is full.
-  const byCard=new Map(before.cards.map(c=>[c.card,c]));
-  for(const id of focus.filter(Boolean)){const had=byCard.get(id);byCard.set(id,{card:id,first:had?had.first:turn,last:Math.max(turn,had?.last??turn)});}
-  const nextCards=[...byCard.values()].toSorted((a,b)=>b.last-a.last||b.first-a.first).slice(0,TOPIC_CARDS);
-  const sameCards=nextCards.length===before.cards.length&&nextCards.every(c=>{const b=before.cards.find(x=>x.card===c.card);return b&&b.first===c.first&&b.last===c.last;});
+  // Stored most recent first: the cards this event focused (the later one first), then the rest in their order.
+  // A stable sort by last turn keeps that order within a turn, so "that card" can still mean the latest one.
+  const had=new Map(before.cards.map(c=>[c.card,c])),focused=[...new Set(focus.filter(Boolean).reverse())];
+  const touched=focused.map(id=>({card:id,first:had.get(id)?.first??turn,last:Math.max(turn,had.get(id)?.last??turn)}));
+  const nextCards=[...touched,...before.cards.filter(c=>!focused.includes(c.card))].toSorted((a,b)=>b.last-a.last).slice(0,TOPIC_CARDS);
+  const sameCards=nextCards.length===before.cards.length&&nextCards.every((c,i)=>{const b=before.cards[i];return b.card===c.card&&b.first===c.first&&b.last===c.last;});
   // Same list object only when appending nothing; then, with the same cards, the channel is unchanged.
   if(nextItems===before.items&&sameCards)return previous;
   return {items:nextItems.slice(0,TOPIC_ITEMS),cards:nextCards};
@@ -168,10 +170,14 @@ const summary={
  topics:v=>v&&{items:v.items.length,cards:v.cards.map(c=>c.card)},
  turns:v=>v,
 };
-/** The state as a turn starts: how many earlier turns the model will not see. Pure. */
-export function startTurn(state,{shownFrom}){
- const before=validateState(state),completed=before.turns?.completed??0;
- return validateState({...before,turns:{completed,shownFrom:Math.min(shownFrom,completed)}});
+/**
+ * The state as a turn starts: how many earlier turns the model will not see. Pure.
+ * historyTurns: earlier turns in the history received (already trimmed by a previous turn, so a lower bound);
+ * shownTurns: how many of them the model will see.
+ */
+export function startTurn(state,{historyTurns,shownTurns}){
+ const before=validateState(state),completed=Math.min(Math.max(before.turns?.completed??0,historyTurns),MAX_TURNS);
+ return validateState({...before,turns:{completed,shownFrom:Math.max(0,completed-shownTurns)}});
 }
 /** The state once a turn is answered. Pure. */
 export function endTurn(state){
