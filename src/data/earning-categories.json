@@ -107,6 +107,22 @@
   "餐厅（外卖和配送限美国）":[{"uses":["dining"]}],
   "餐饮":[{"uses":["dining"]}],
   "餐饮、外币及指定航司":[{"uses":["dining"]},{"foreign":true},{"merchants":["alaska","hawaiian"]}],
-  "餐饮及酒店":[{"uses":["dining","hotel"]}]
+  "餐饮及酒店":[{"uses":["dining","hotel"]}],
+  "直订航班、租车、餐饮、指定广告和加油站":[{"uses":["flight"],"channel":"direct"},{"uses":["car-rental","dining","gas"]},{"uses":["advertising"],"condition":"selected-merchants"}],
+  "其他旅行和办公用品店":[{"uses":["any-travel","office"]}],
+  "餐饮和其他旅行":[{"uses":["dining","any-travel"]}],
+  "本地交通和通勤":[{"uses":["transit"]}],
+  "每季消费最高的三个类别":[{"condition":"top-three-categories"}],
+  "健身房和健身会员":[{"uses":["fitness"]}],
+  "每个账单周期消费最高的合资格类别":[{"condition":"top-category"}],
+  "餐饮、外卖和餐厅配送":[{"uses":["dining"]}],
+  "超市、加油站和充电站":[{"uses":["supermarket","gas","ev-charging"]}],
+  "流媒体":[{"uses":["streaming"]}],
+  "自选两个类别":[{"condition":"chosen-category"}],
+  "自选一个日常类别":[{"condition":"chosen-category"}],
+  "Travel Center 预付旅行":[{"uses":["flight","hotel","car-rental"],"channel":"portal","via":"U.S. Bank Travel Center"}],
+  "酒店":[{"uses":["hotel"]}],
+  "航空":[{"uses":["flight"]}],
+  "餐厅和其他旅行":[{"uses":["dining","any-travel"]}]
  }
 }
