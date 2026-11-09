@@ -16,7 +16,7 @@
     "knowledge": "node scripts/knowledge.mjs",
     "eval:agent": "node scripts/eval-agent.mjs",
     "eval:agent:live": "node scripts/eval-agent.mjs --live",
-    "check:agent": "node --test tests/model-client.test.mjs tests/chat-agent.test.mjs tests/agent-quality.test.mjs tests/agent-credit-query.test.mjs tests/card-decision.test.mjs && node scripts/eval-agent.mjs",
+    "check:agent": "node --test tests/model-client.test.mjs tests/agent-scripted-model.test.mjs tests/chat-agent.test.mjs tests/agent-quality.test.mjs tests/agent-credit-query.test.mjs tests/card-decision.test.mjs && node scripts/eval-agent.mjs",
     "check:hk": "node --test tests/bank-page-wait.test.mjs tests/hk-connector.test.mjs tests/hk-worker.test.mjs tests/card-navigation.test.mjs tests/refresh.test.mjs",
     "package:local-connector": "python3 scripts/package-local-connector.py",
     "build:connector-lab": "node scripts/build-connector-lab.mjs",
