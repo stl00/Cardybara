@@ -12,7 +12,9 @@ export const agentTools=[
 ];
 export function validateToolCall(call){
  const tool=agentTools.find(t=>t.function.name===call?.function?.name);if(!tool||typeof call.id!=='string'||!call.id.trim()||call.id.length>128||typeof call.function.arguments!=='string'||call.function.arguments.length>4000)throw Error('invalid_tool');
- const args=JSON.parse(call.function.arguments||'{}'),schema=tool.function.parameters;
+ // Unparseable arguments get the same code as invalid ones, so a malformed call fails the same way on every path.
+ let args;try{args=JSON.parse(call.function.arguments||'{}');}catch{throw Error('invalid_arguments');}
+ const schema=tool.function.parameters;
  if(!args||Array.isArray(args)||typeof args!=='object'||Object.keys(args).some(k=>!Object.hasOwn(schema.properties,k))||(schema.required||[]).some(k=>!Object.hasOwn(args,k)))throw Error('invalid_arguments');
  for(const [k,v] of Object.entries(args)){const p=schema.properties[k];if(k==='pointValues'){// Keys are programme names from a fixed list, so free text can't reach the prompt through memory.
  if(!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).length>6||Object.entries(v).some(([name,cents])=>!POINT_VALUE_NAMES.has(name.normalize('NFKC').toLowerCase().trim().replace(/\s+(?:us|hk|ca)$/,''))||!Number.isFinite(cents)||cents<=0||cents>100))throw Error('invalid_arguments');continue;}if(typeof v!==p.type||p.enum&&!p.enum.includes(v)||p.minLength&&v.trim().length<p.minLength||p.maxLength&&v.length>p.maxLength||p.minimum!=null&&(!Number.isFinite(v)||v<p.minimum||v>p.maximum)||p.pattern&&!new RegExp(p.pattern).test(v))throw Error('invalid_arguments');}
