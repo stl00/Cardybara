@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-04.cards-4",
+  "snapshotId": "cardybara-public-knowledge-2026-11-04.cards-5",
   "asOf": "2026-11-04",
   "locale": "zh-CN",
   "files": [
@@ -941,6 +941,169 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "chase-us-united-gateway-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "自然年消费满1万美元解锁的8倍机票、里程折扣和托运行李未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-ihg-one-rewards-premier-select-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "200美元航空抵扣、周年免费房晚、Global Entry、DashPass、Instacart、United TravelBank、Elite Night Credits 和 Diamond 条件未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-ihg-one-rewards-business-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Platinum Elite、周年免费房晚、Expensify、Global Entry、DashPass、Instacart 和2027年起的 Diamond 条件未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-world-of-hyatt-business-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "100美元 Hyatt 抵扣、Discoverist 和 Tier Qualifying Night 未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-southwest-rapid-rewards-premier-business-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "免费托运行李、航班折扣、选座未录入。2027年1月1日起每消费1美元另得1 TQP。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-southwest-rapid-rewards-performance-business-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "免费托运行李、选座未录入。2027年1月1日起每消费1美元另得1 TQP。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "discover-us-discover-it-cash-back-credit-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Discover"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "季度上限：本页没有金额。Discover 的返现日历页写1,500美元，未确认对应当前季度，所以没有采用。首年 Cashback Match 这类新卡优惠不收录。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "us-bank-us-cash-plus-visa-signature-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "U.S. Bank"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "us-bank-us-altitude-go-visa-signature-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "U.S. Bank"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "wells-fargo-us-autograph-journey-visa-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Wells Fargo"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "转点伙伴和比例尚未核对；页面写明可以转到部分旅行计划。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "citi-us-citi-custom-cash-card": {
+      "checkedAt": "2026-11-04",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Citi US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Citi 自2026年5月28日起停止受理新申请，已持卡者不受影响；资料来自页面内嵌数据，可见页面显示 Not Available。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -1015,6 +1178,17 @@
     "chase-us-ihg-one-rewards-credit-card",
     "chase-us-world-of-hyatt-credit-card",
     "chase-us-air-canada-aeroplan-card",
-    "chase-us-ink-business-premier-credit-card"
+    "chase-us-ink-business-premier-credit-card",
+    "chase-us-united-gateway-card",
+    "chase-us-ihg-one-rewards-premier-select-credit-card",
+    "chase-us-ihg-one-rewards-business-credit-card",
+    "chase-us-world-of-hyatt-business-credit-card",
+    "chase-us-southwest-rapid-rewards-premier-business-credit-card",
+    "chase-us-southwest-rapid-rewards-performance-business-credit-card",
+    "discover-us-discover-it-cash-back-credit-card",
+    "us-bank-us-cash-plus-visa-signature-card",
+    "us-bank-us-altitude-go-visa-signature-card",
+    "wells-fargo-us-autograph-journey-visa-card",
+    "citi-us-citi-custom-cash-card"
   ]
 }

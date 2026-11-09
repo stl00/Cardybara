@@ -214,7 +214,23 @@
   "Hyatt 酒店": "hotel",
   "餐厅、机票、通勤等类别": "general",
   "Air Canada 直接消费和旅行": "travel",
-  "单笔5,000美元以上消费": "general"
+  "单笔5,000美元以上消费": "general",
+  "本地交通和通勤": "ground-transport",
+  "餐饮和其他旅行": "general",
+  "直订航班、租车、餐饮、指定广告和加油站": "general",
+  "其他旅行和办公用品店": "general",
+  "每季消费最高的三个类别": "general",
+  "健身房和健身会员": "general",
+  "自选两个类别": "general",
+  "自选一个日常类别": "general",
+  "Travel Center 预付旅行": "travel",
+  "餐饮、外卖和餐厅配送": "dining",
+  "超市、加油站和充电站": "general",
+  "流媒体": "entertainment",
+  "酒店": "hotel",
+  "航空": "airline",
+  "餐厅和其他旅行": "general",
+  "每个账单周期消费最高的合资格类别": "general"
  },
  "brands": [
   {

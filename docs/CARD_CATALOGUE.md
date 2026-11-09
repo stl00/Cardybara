@@ -35,3 +35,7 @@ CSR 原 reserve.jpg 含底部蓝黑背景边；替换为 Chase 官网 card_sapph
 最终验证：136 项测试通过、构建成功。浏览器已验证搜索 CSR 只匹配个人版，搜索 Sapphire Reserve 同时展示个人/商业版且各自卡面正确。验收截图任务 outputs/card-catalogue-csr-2026-10-27.png。原扩展目录仅同步前端 index.html 与 assets，共 89 文件逐项一致；background.js 前后 SHA 未变，不重启正在运行的银行采集，不改 data.json/钱包存储/manifest 权限。旧安装文件完整归档 outputs/archive/cardybara-before-catalogue-ui-20261028T001145Z.zip（UTC；业务日期仍为 Chicago 10/27）。更新记录 outputs/card-catalogue-ui-update-2026-10-27.json。
 
 这次未重新生成完整扩展 ZIP，避免将尚待实测的后台源码一并覆盖正在运行版本；本地安装目录前端已可用。下一次打包前须重新构建/打包，不能将旧下载 ZIP 当成本次资料库版本。
+
+## 2026-11-04 更新
+
+产品增至 117 种，美国常见卡片按批次录入，见 [knowledge/US_CARD_COVERAGE.md](knowledge/US_CARD_COVERAGE.md)。新增 Capital One、Discover、U.S. Bank、Wells Fargo 的产品资料，这些银行暂不支持自动读取，卡片上有标注；上文“七家银行”指首批。新增产品暂无卡面图，因为发卡行图片的使用条款未确认。
