@@ -176,21 +176,24 @@ The rule was written after the first live run, so it is a scoring convention, no
 
 ## Rubric analysis (#147, 2026-11-09)
 
-`node scripts/benefit-ranking-lab.mjs` is offline and changes nothing in `src/`. It answers whether the hand-set weights in `src/benefitSearch.js` are any good.
+`node scripts/benefit-ranking-lab.mjs` (`npm run lab:benefit-ranking`) is offline and changes nothing in `src/`. It answers whether the hand-set weights in `src/benefitSearch.js` are any good.
 
 **Setup.**
-- `evals/benefit-recall/rankers.mjs` holds a copy of the production rubric with every weight as a parameter. The lab checks that this copy returns exactly what production returns for every question and mode, so the two cannot drift silently.
+- `evals/benefit-recall/rankers.mjs` holds a copy of the production rubric with every weight as a parameter. The lab checks every call against production, in each question's own wallet and with all cards held: same rules, order, scores and totals. Only ranking is copied; `wordMatches` and the other result fields are not.
 - BM25 runs over the same rule text (title and programme names counted twice, plus summary and howToUse), with the same bigram/word tokens after `expandQuery`. Document frequencies come from all active benefit rules.
-- "BM25 + structure" adds production's partner and programme hard filters, soft scenario/category (as shares of the best text score), and whole-card scope.
-- Held-out is v2 here (106 scored).
+- Plain BM25 ignores the programme, partner and scenario/category filters, so its B and C results are the same. It keeps production's held-card and whole-card row selection.
+- "BM25 + structure" adds the filters (scenario/category soft, as shares of the best text score).
+- Held-out is v2 here.
+
+**Sample sizes.** Scored questions: dev 120, held-out 106. No-answer noise rests on few questions: 7 absent on dev and 9 on held-out. One question is 14.3 points on dev and 11.1 on held-out. Forbidden labels are also sparse: few questions carry one, and only 2 of the 62 new held-out questions do. So "0% forbidden" on held-out is weak evidence.
 
 **Rankers** (recall@12 · precision · forbidden hit · no-answer noise, %):
 
 | | Dev A | Dev C | Held-out A | Held-out C |
 | --- | --- | --- | --- | --- |
-| Rubric (production) | 95.4 · 60.2 · 0.8 · 71.4 | 100.0 · 67.6 · 0 · 14.3 | 88.2 · 54.1 · 0 · 55.6 | 99.1 · 57.2 · 0 · 22.2 |
+| Rubric (production) | 95.4 · 60.2 · 0.8 · 71.4 | 100.0 · 67.6 · 0 · 14.3 | 88.2 · 54.1 · 0 · 55.6 | 99.1 · 57.3 · 0 · 22.2 |
 | BM25 | 85.6 · 63.1 · 4.2 · 42.9 | 89.9 · 71.5 · 5.8 · 28.6 | 81.7 · 52.8 · 4.7 · 11.1 | 91.0 · 63.3 · 4.7 · 11.1 |
-| BM25 + structure | 86.2 · 67.0 · 2.5 · 42.9 | 100.0 · 68.5 · 1.7 · 14.3 | 81.7 · 59.4 · 0 · 11.1 | 99.5 · 57.1 · 0 · 11.1 |
+| BM25 + structure | 86.2 · 67.0 · 2.5 · 42.9 | 100.0 · 68.5 · 1.7 · 14.3 | 81.7 · 59.6 · 0 · 11.1 | 99.5 · 57.1 · 0 · 11.1 |
 
 With every portfolio's cards held at once, so the top 12 binds, recall A / C is:
 - Rubric: dev 89.7 / 98.1, held-out 79.8 / 95.4.
@@ -199,17 +202,29 @@ With every portfolio's cards held at once, so the top 12 binds, recall A / C is:
 A few BM25 settings were tried on dev (title weight 1–3, outside share 0.3–0.7), and none changed the picture.
 
 **What this shows:**
-- **On raw questions (A) the rubric wins on recall by 6–10 points.** Its concept regexes match a rule's scenario even when no word overlaps ("吃饭" → dining rules), and BM25 has nothing like that.
-- **BM25 is quieter.** It has better precision and much less no-answer noise (held-out A: 11% vs 56%), but plain BM25 also lets forbidden rules in (4–6%), because it ignores the partner filter.
-- **Once the model fills filters (C), the structured BM25 and the rubric are close.** The structure does the work, not the text score.
+- **On raw questions (A) the rubric wins on recall by 6–10 points.** Its concept regexes match a rule's scenario even when no word overlaps ("吃饭" → dining rules). BM25 has nothing like that.
+- **Where BM25 is better:**
+  - **No-answer noise on raw questions** is lower: dev 43% vs 71% (2 questions), held-out 11% vs 56% (4 questions).
+  - **Precision** is higher on dev in every mode and on held-out B. It is not higher on held-out A (plain BM25 52.8 vs 54.1) or held-out C (57.1 vs 57.3).
+- **Where BM25 is worse:**
+  - Plain BM25 lets forbidden rules in (4–6%), because it ignores the partner filter. BM25 + structure still has some on dev (2.5% / 1.7%).
+  - Plain BM25 has more noise on dev C (29% vs 14%), because it ignores the filters.
+- **Once the model fills filters (C), BM25 + structure and the rubric are close.** The structure does the work, not the text score.
 
-**Sensitivity** on dev: each weight ×0.5 to ×1.5, one at a time. The spans below are points across that range:
-- **Flat (10 of 12):** membership concept, title, programme, body, partner, the credit/membership/lounge boosts, filter bonus and programme-only bonus. Recall and MRR move under 1 point, both in the labelled portfolios and with all cards held. Precision moves under 1 point, and forbidden hits and noise do not change.
+**Sensitivity** on dev. Each weight was set to ×0.5, ×0.75, ×1, ×1.25 and ×1.5, one at a time. The figures are the span (max − min) across those settings:
+- **Flat (10 of 12):** membership concept, title, programme, body, partner, the credit/membership/lounge boosts, filter bonus and programme-only bonus.
+  - Recall and MRR move under 1 point, in the labelled portfolios and with all cards held.
+  - Precision moves under 1 point. Forbidden hits and noise do not change.
+  - Two of these are flat by construction. Once the partner filter has run, the partner bonus is the same constant on every surviving rule, and the same goes for the programme-only bonus when only a programme filter is set.
+  - A one-at-a-time sweep cannot show interactions, such as the title-to-body ratio or `concept` against `outsideMin`.
 - **Sensitive (2):**
-  - **`concept` (7):** C precision ±5 and C noise ±29. Recall moves under 1 point.
-  - **`outsideMin` (8):** C precision ±12 and C noise ±29. It sets how many neighbouring-scenario rules come in.
+  - **`concept` (7):** span 5 points of C precision and 29 points of C noise. That noise span is 2 dev questions. Recall moves under 1 point.
+  - **`outsideMin` (8):** span 12 points of C precision and 29 points (2 questions) of C noise. It sets how many neighbouring-scenario rules come in.
 
-**Tuning check.** A coordinate search over the two sensitive weights tried 20 settings on dev. The objective was recall in both wallets plus a smaller MRR term. The constraints were: precision no lower than now (−1 point), and forbidden hits and no-answer noise no higher, in both A and C. Nothing beat the current values, so there is nothing to carry to held-out.
+**Tuning check.** A coordinate search moved one sensitive weight at a time over the same five settings, for 20 evaluations on dev.
+- The objective was recall in both wallets plus a smaller MRR term. Recall is already near the ceiling (dev C 100, A 95.4), so there was little to gain.
+- The constraints were: precision no lower than now (−1 point), and forbidden hits and no-answer noise no higher, in both A and C.
+- No setting beat the current values under those constraints, so nothing was carried to held-out.
 
 **A score floor** (not in production) is no fix for the noise either:
 - ≥ 7 cuts dev A noise from 71% to 57% but recall falls from 95 to 76.
@@ -218,12 +233,13 @@ A few BM25 settings were tried on dev (title weight 1–3, outside share 0.3–0
 The unanswerable questions match real words in nearby rules. The noise is not a tail of weak scores.
 
 **Recommendation.**
-1. **Keep the hand weights.** Most of them don't matter, and the two that do are already at a constrained optimum on dev. Tuning would fit noise.
+1. **Keep the hand weights.** Most of them don't move the result. For the two that do, no setting in this search beat the current values under the constraints.
 2. **Don't switch to BM25 now.** It loses 6–10 points of recall on raw questions. With filters it only ties.
-3. **The weak spot is no-answer noise on unfiltered questions,** not ranking. It shrinks when the model fills filters: mode C noise is 14% / 22%. The live runs show the model sets a filter on about 96% of searches.
+3. **The weak spot is no-answer noise on unfiltered questions,** not ranking. It shrinks when the model fills filters: mode C noise is 14% / 22%. In the live runs, when the model called `find_benefits` (84–86% of questions), it set a scenario or category about 95% of the time.
 4. **Re-run this lab after the knowledge-source-lang work lands.** Official source text will be longer and differently worded, which changes word statistics and favours BM25's length normalisation over the rubric's flat +1 per body word.
-   - At that point, the candidate to test is the rubric plus a BM25 term in place of the flat title/body counts. The flat weights could then be dropped, since they don't move the result.
-   - Tune only `concept` and `outsideMin`, on dev, under the same constraints, and confirm on held-out.
+   - At that point, the candidate to test is the rubric plus a BM25 term in place of the flat title/body counts. The flat weights could then be dropped.
+   - Tune `concept` and `outsideMin` jointly, on dev, under the same constraints, and confirm on held-out.
+   - First add more absent and forbidden-labelled questions, so the noise and forbidden constraints rest on more than a handful of questions.
 
 ## Findings
 

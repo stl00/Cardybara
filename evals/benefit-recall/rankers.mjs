@@ -1,6 +1,7 @@
 // Rankers for the benefit search analysis in #147. Analysis only: production scoring stays in src/benefitSearch.js.
 // rubricSearch(weights) is a copy of the production scoring with every weight as a parameter; the lab checks it returns
-// exactly what production returns at DEFAULT_WEIGHTS, so a drift in either copy fails loudly.
+// the same rules, order, scores and totals as production at DEFAULT_WEIGHTS, so a drift in either copy fails loudly.
+// Only ranking is copied: wordMatches, matched terms and truncation (used by find_benefits suggestions) are not.
 // bm25Search(options) ranks the same rule fields with BM25 over the same tokens, with or without the structural signals.
 import {queryKnowledge,knowledgeEntities} from '../../src/knowledge.js';
 import {matchCardProduct} from '../../src/productCatalog.js';
@@ -108,7 +109,8 @@ export function bm25Search({structure=false,k1=1.2,b=0.75,titleWeight=2,filterSh
   const S=corpusStats(asOf,titleWeight),terms=tokens(text),idf=t=>Math.log(1+(S.N-(S.df.get(t)||0)+0.5)/((S.df.get(t)||0)+0.5));
   const scored=[];
   for(const d of docs){
-   // Plain BM25 ignores filters, partners and whole-card scope; the structured variant applies them as production does.
+   // Plain BM25 ignores the programme, partner and scenario/category filters (so its B and C results are the same), but
+   // keeps the held-card and whole-card row selection shared with production. The structured variant applies them all.
    const matchedPartners=structure?passesHard(d):[];if(!matchedPartners)continue;
    const {toks,tf}=memo(S.tfCache,d.r.revisionId,()=>{const toks=S.docTokens(d.r),tf=new Map();for(const t of toks)tf.set(t,(tf.get(t)||0)+1);return {toks,tf};});
    let s=0;for(const t of terms){const f=tf.get(t)||0;if(f)s+=idf(t)*f*(k1+1)/(f+k1*(1-b+b*toks.length/S.avg));}

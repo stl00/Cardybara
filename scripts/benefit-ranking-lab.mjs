@@ -32,10 +32,15 @@ function evaluate(search,set,{big=false}={}){
 }
 
 // 1. Parity
+// Each call is compared directly: same rules in the same order with the same scores, and the same total, in each
+// question's portfolio and with every card held at once (the wallet the sensitivity sweep also uses).
 const lab=rubricSearch(),mismatches=[];
-for(const [name,set] of Object.entries(sets))for(const q of set.questions)for(const [mode,calls] of Object.entries(MODES)){
- const cards=set.portfolios[q.portfolio].cards,a=set.run(calls(q),cards).ranked.map(([id])=>id).join(),b=set.run(calls(q),cards,lab).ranked.map(([id])=>id).join();
- if(a!==b)mismatches.push(`${name} ${q.id} ${mode}`);
+const sig=r=>r.rules.map(x=>x.id+':'+x.retrieval.score).join()+'|'+r.total;
+for(const [name,set] of Object.entries(sets)){
+ const all=Object.values(set.portfolios).flatMap(p=>p.cards);
+ for(const q of set.questions)for(const [mode,calls] of Object.entries(MODES))for(const [wallet,cards] of [['own',set.portfolios[q.portfolio].cards],['all',all]])for(const {query,...filters} of calls(q)){
+  if(sig(searchBenefitKnowledge(query,cards,set.golden.asOf,filters))!==sig(lab(query,cards,set.golden.asOf,filters)))mismatches.push(`${name} ${q.id} ${mode} ${wallet}`);
+ }
 }
 if(mismatches.length){console.error('The lab rubric no longer matches production:\n  '+mismatches.slice(0,10).join('\n  '));process.exit(1);}
 
@@ -79,7 +84,7 @@ await writeFile(output,JSON.stringify(report,null,1)+'\n');
 
 const p=x=>(100*x).toFixed(1).padStart(5),row=(label,r)=>`${label.padEnd(16)}`+['A','B','C'].map(m=>` │ ${p(r[m].recall)} ${p(r[m].precision)} ${p(r[m].forbidden)} ${p(r[m].noAnswerNoise)}`).join('');
 const head=`${''.padEnd(16)}`+['A','B','C'].map(m=>` │ ${m} rec  prec forb noans`.padEnd(26)).join('');
-console.log('Parity: lab rubric matches production exactly on every question and mode.\n');
+console.log('Parity: lab rubric matches production (rules, order, scores, totals) on every call, own and all-card wallets.\n');
 for(const set of ['dev','heldOut']){console.log(`${set} (${set==='dev'?sets.dev.questions.length:sets.heldOut.questions.length} questions)\n${head}`);for(const [name,r] of Object.entries(comparison))console.log(row(name,r[set]));console.log('');}
 console.log('All cards held at once (recall / MRR), A and C:');for(const [name,r] of Object.entries(bigComparison))console.log(`  ${name.padEnd(14)} dev A ${p(r.dev.A.recall)} ${p(r.dev.A.mrr)} C ${p(r.dev.C.recall)} ${p(r.dev.C.mrr)} · held-out A ${p(r.heldOut.A.recall)} ${p(r.heldOut.A.mrr)} C ${p(r.heldOut.C.recall)} ${p(r.heldOut.C.mrr)}`);console.log('');
 const bestGrid=bm25Grid.toSorted((a,b)=>(b.A.recall+b.C.recall)-(a.A.recall+a.C.recall))[0];
