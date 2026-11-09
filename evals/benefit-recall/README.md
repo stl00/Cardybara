@@ -56,7 +56,8 @@ Recall@12 for A / B / C after each retrieval change (#131). Dev = `golden.json`,
 
 | Change | Dev A / B / C | Held-out A / B / C |
 | --- | --- | --- |
-| Baseline (#130) | 69 / 81 / 99 | 64 / 77 / 96 |
+| Baseline (#130) | 69.4 / 81.4 / 98.5 | 64.3 / 76.8 / 95.6 |
+| 1. Programme and scenario tags (`scripts/curate-benefit-tags-2026-11-09.py`) | 69.6 / 82.0 / 99.4 | 64.3 / 76.8 / 96.0 |
 
 ## Findings
 
