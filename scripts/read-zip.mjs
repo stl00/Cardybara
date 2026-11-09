@@ -18,3 +18,15 @@ export function readZipEntry(bytes,name){
  }
  throw Error('Artifact has no '+name);
 }
+export function zipEntryNames(bytes){
+ let end=bytes.length-22;
+ while(end>=0&&bytes.readUInt32LE(end)!==0x06054b50)end--;
+ if(end<0)throw Error('Not a ZIP archive');
+ const names=[];let at=bytes.readUInt32LE(end+16);
+ for(let i=bytes.readUInt16LE(end+10);i>0;i--){
+  if(bytes.readUInt32LE(at)!==0x02014b50)throw Error('Corrupt ZIP directory');
+  const nameLength=bytes.readUInt16LE(at+28),extra=bytes.readUInt16LE(at+30),comment=bytes.readUInt16LE(at+32);
+  names.push(bytes.toString('utf8',at+46,at+46+nameLength));at+=46+nameLength+extra+comment;
+ }
+ return names;
+}

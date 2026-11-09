@@ -797,5 +797,166 @@
       "verification": "issuer-asset",
       "sourceUrl": "https://www.chase.com/content/dam/unified-assets/card-art/chase-freedom/freedom-rise/card_freedomRise_V.png"
     }
+  },
+  {
+    "id": "chase-us-united-gateway-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-gateway",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "United MileagePlus"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/united/united-gateway",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-ihg-one-rewards-premier-select-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "IHG One Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-ihg-one-rewards-business-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/IHG/business",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "IHG One Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/business-credit-cards/IHG/business",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-world-of-hyatt-business-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/world-of-hyatt/hyatt-business-card",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "World of Hyatt"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/business-credit-cards/world-of-hyatt/hyatt-business-card",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-southwest-rapid-rewards-premier-business-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/premier-business",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "Southwest Rapid Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/business-credit-cards/southwest/premier-business",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "chase-us-southwest-rapid-rewards-performance-business-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/southwest/performance-business",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "Southwest Rapid Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/business-credit-cards/southwest/performance-business",
+      "checkedAt": "2026-11-04"
+    }
+  },
+  {
+    "id": "discover-us-discover-it-cash-back-credit-card",
+    "sourceUrl": "https://www.discover.com/credit-cards/cash-back/it-card/",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Discover it Cash Back Credit Card",
+      "Discover it Cash Back",
+      "Discover it"
+    ],
+    "collection": "not-supported",
+    "bank": "Discover",
+    "region": "US",
+    "name": "Discover it Cash Back Credit Card",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "us-bank-us-cash-plus-visa-signature-card",
+    "sourceUrl": "https://www.usbank.com/credit-cards/cash-plus-visa-signature-credit-card.html",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "aliases": [
+      "U.S. Bank Cash+ Visa Signature Card",
+      "U.S. Bank Cash+",
+      "Cash+ Visa Signature"
+    ],
+    "collection": "not-supported",
+    "bank": "U.S. Bank",
+    "region": "US",
+    "name": "U.S. Bank Cash+ Visa Signature Card",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "us-bank-us-altitude-go-visa-signature-card",
+    "sourceUrl": "https://www.usbank.com/credit-cards/altitude-go-visa-signature-credit-card.html",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "aliases": [
+      "U.S. Bank Altitude Go Visa Signature Card",
+      "U.S. Bank Altitude Go",
+      "Altitude Go"
+    ],
+    "collection": "not-supported",
+    "bank": "U.S. Bank",
+    "region": "US",
+    "name": "U.S. Bank Altitude Go Visa Signature Card",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "wells-fargo-us-autograph-journey-visa-card",
+    "sourceUrl": "https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Wells Fargo Autograph Journey Visa Card",
+      "Autograph Journey",
+      "Wells Fargo Autograph Journey"
+    ],
+    "collection": "not-supported",
+    "bank": "Wells Fargo",
+    "region": "US",
+    "name": "Wells Fargo Autograph Journey Visa Card",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "citi-us-citi-custom-cash-card",
+    "sourceUrl": "https://www.citi.com/credit-cards/citi-custom-cash-credit-card",
+    "checkedAt": "2026-11-04",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Citi Custom Cash Card",
+      "Citi Custom Cash"
+    ],
+    "bank": "Citi US",
+    "region": "US",
+    "name": "Citi Custom Cash Card",
+    "currencies": [],
+    "art": null
   }
 ]
