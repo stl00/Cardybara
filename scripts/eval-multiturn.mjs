@@ -1,7 +1,8 @@
 // Multi-turn reference eval (evals/multiturn). Offline by default: deterministic, no network.
 //   node scripts/eval-multiturn.mjs [--min=0.8] [--out=path]
 //     (a) Is the entity the last question refers to still identifiable in what the model receives?
-//   node scripts/eval-multiturn.mjs --live [--case=id]      real model, API cost; ask the owner first
+//   node scripts/eval-multiturn.mjs --live --budget-usd=0.45 [--limit=n] [--case=id]   real model, API cost; ask the owner first.
+//     Stops before a dialogue that could pass the budget. Dialogues run round-robin by kind, so a stopped run still covers every kind.
 //   node scripts/eval-multiturn.mjs --live --dry-run        same path with a scripted model, no network
 //     (b) Does the model call the expected tool with the expected key arguments?
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
@@ -13,7 +14,9 @@ const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
 const live=process.argv.includes('--live'),dryRun=process.argv.includes('--dry-run');
 const arg=name=>process.argv.find(a=>a.startsWith(`--${name}=`))?.slice(name.length+3);
 const output=resolve(arg('out')||resolve(root,'evals/latest-multiturn-'+(live?(dryRun?'dry-run':'live'):'offline')+'.json'));
-const only=arg('case'),selected=only?dialogues.filter(d=>d.id===only):dialogues;
+// Round-robin by kind, so the first n dialogues cover every kind.
+const interleaved=list=>{const byKind=[...new Set(list.map(d=>d.kind))].map(k=>list.filter(d=>d.kind===k)),out=[];for(let i=0;out.length<list.length;i++)for(const group of byKind)if(group[i])out.push(group[i]);return out;};
+const only=arg('case'),limit=Number(arg('limit')||Infinity),ordered=live?interleaved(dialogues):dialogues,selected=(only?ordered.filter(d=>d.id===only):ordered).slice(0,limit);
 if(!selected.length)throw Error('unknown_eval_case');
 const report={schema:1,dataset:'multiturn-references-v1',mode:live?(dryRun?'live-dry-run':'live'):'offline',asOf:evalContext.day,syntheticWallet:true,createdAt:new Date().toISOString(),cases:[],limitations:[
  'Earlier turns are scripted, not generated: their answers are written to read like the assistant, so how often names survive in them is a modelling choice of this set.',
@@ -33,7 +36,15 @@ function argumentsMatch(expect,call){
  });
 }
 
-let env=null,chatAgent=null;
+// deepseek-flash list prices per million tokens, at the higher (peak) rate so the budget is never under-counted.
+// https://api-docs.deepseek.com/quick_start/pricing, read 2026-11-09.
+const PRICE={hit:0.006,miss:0.3,output:1.2};
+const usage={calls:0,promptTokens:0,cacheHitTokens:0,cacheMissTokens:0,completionTokens:0};
+const costOf=u=>(u.cacheHitTokens*PRICE.hit+u.cacheMissTokens*PRICE.miss+u.completionTokens*PRICE.output)/1e6;
+const addUsage=u=>{usage.calls++;usage.promptTokens+=u.prompt_tokens||0;usage.completionTokens+=u.completion_tokens||0;const hit=u.prompt_cache_hit_tokens??0;usage.cacheHitTokens+=hit;usage.cacheMissTokens+=u.prompt_cache_miss_tokens??Math.max(0,(u.prompt_tokens||0)-hit);};
+const budget=Number(arg('budget-usd'));
+if(live&&!dryRun&&!(budget>0))throw Error('--budget-usd is required for a live run');
+let env=null,chatAgent=null,mostPerDialogue=0.02;
 if(live&&!dryRun){
  const envFile=process.env.CARDYBARA_MODEL_CONFIG;
  env={};for(const line of (await readFile(envFile?resolve(envFile):resolve(root,'.env.local'),'utf8')).split('\n')){const m=line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);if(m)env[m[1]]=m[2].replace(/^(['"])(.*)\1$/,'$2');}
@@ -42,6 +53,9 @@ if(live&&!dryRun){
 }
 
 for(const d of selected){
+ // Stop before a dialogue that could pass the budget, estimated from the most any dialogue has cost so far.
+ if(live&&!dryRun&&costOf(usage)+mostPerDialogue>budget){report.stopped={reason:'budget',before:d.id,remaining:selected.length-selected.indexOf(d)};break;}
+ const spentBefore=costOf(usage);
  const labelIssues=checkLabels(d);
  if(!live){
   let replayed;try{replayed=await replay(d);}catch(error){fixtureErrors.push({id:d.id,issues:[...labelIssues,'replay failed: '+error.message+' '+(error.codes||[]).join(',')]});continue;}
@@ -57,14 +71,15 @@ for(const d of selected){
  const finalRequest=dryRun
   // The dry run answers like a perfect model: the expected call, then a plain answer.
   ?async()=>({message:step++?{role:'assistant',content:'(dry run)'}:{role:'assistant',content:'',tool_calls:[{id:'dry',type:'function',function:{name:d.expect.tool,arguments:JSON.stringify(d.expect.args)}}]}})
-  :async(payload,signal)=>({message:await chatAgent(env,payload,fetch,signal)});
+  :async(payload,signal)=>({message:await chatAgent(env,payload,fetch,signal,{onUsage:addUsage})});
  const start=Date.now();
  try{
   const {finalResult}=await replay(d,{finalRequest:async(p,s)=>{const r=await finalRequest(p,s);calls.push(...toolCallsOf(r.message));return r;}});
   const checks={completed:!!finalResult?.answer?.trim(),expectedTool:calls.some(c=>c.name===d.expect.tool),expectedArguments:calls.some(c=>argumentsMatch(d.expect,c))};
   report.cases.push({id:d.id,lang:d.lang,kind:d.kind,passed:Object.values(checks).every(Boolean),checks,asked:!calls.length,ms:Date.now()-start,calls});
  }catch(error){report.cases.push({id:d.id,lang:d.lang,kind:d.kind,passed:false,checks:{completed:false},error:error.message==='answer_not_grounded'?'answer_not_grounded':'model_or_execution_failed',...(dryRun?{detail:error.message}:{}),ms:Date.now()-start,calls});}
- console.log(d.id+': '+(report.cases.at(-1).passed?'PASS':'FAIL'));
+ const spent=costOf(usage)-spentBefore;mostPerDialogue=Math.max(mostPerDialogue,spent);report.cases.at(-1).usd=+spent.toFixed(5);
+ console.log(d.id+': '+(report.cases.at(-1).passed?'PASS':'FAIL')+(dryRun?'':' $'+costOf(usage).toFixed(4)));
 }
 
 const key=live?'passed':'resolvable';
@@ -76,6 +91,7 @@ if(!live)report.summary.missing=report.cases.flatMap(c=>c.missing).reduce((a,m)=
 if(!live)report.summary.notToolReady=report.cases.filter(c=>c.resolvable&&!c.toolReady).map(c=>`${c.id} (${c.toolReadyMissing.join('+')})`);
 if(!live)report.summary.unresolved=report.cases.filter(c=>!c.resolvable).map(c=>`${c.id} (${c.missing.join('+')}${c.droppedTurns?`, ${c.droppedTurns} turns dropped`:''})`);
 report.fixtureErrors=fixtureErrors;
+if(live&&!dryRun)report.usage={...usage,usd:+costOf(usage).toFixed(4),budgetUsd:budget,prices:PRICE};
 await mkdir(resolve(output,'..'),{recursive:true});await writeFile(output,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({mode:report.mode,...report.summary,fixtureErrors,report:output},null,1));
 const min=arg('min');
