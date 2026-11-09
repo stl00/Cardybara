@@ -2,7 +2,7 @@
 import {queryKnowledge,knowledgeSources} from './knowledge.js';
 import {benefitPeriod,profileForCard} from './benefitRules.js';
 import {matchCardProduct} from './productCatalog.js';
-import {taskStatus} from './personalBenefits.js';
+import {taskStatus,dismissedKeys,dismissKey} from './personalBenefits.js';
 import {resolveTripDates,addDays,isRealDate} from './tripDates.js';
 import {CREDIT_CATEGORIES,creditCategoriesForRule} from './creditCategories.js';
 import translations from './translations.json' with {type:'json'};
@@ -88,8 +88,9 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
  const remembered=reuseRememberedDates&&!when?trip?{ok:true,start:trip.start,end:trip.end,precision:trip.precision,assumptions:trip.precision==='days'&&!trip.assumed?['dates-remembered-from-earlier-turn']:['dates-remembered-from-earlier-turn','dates-were-assumed-earlier'],phrase:null}:{ok:false,reason:'no_remembered_dates'}:null;
  const window=remembered||(when?resolveTripDates(when,day):{ok:true,start:day,end:day,precision:'current-cycle',assumptions:[],phrase:null});
  if(!window.ok)return {tool:'query_credits',today:day,needsDates:true,reason:window.reason,phrase:when,instruction:'The date phrase could not be resolved. Ask the user for the dates; do not guess them.'};
- const groups={markedUnused:[],markedUsed:[],unknownStatus:[],noFixedCycle:[],cycleUnknown:[],outsideDates:[]},unmatchedCards=[],boundaries=new Set();
- const lookup=ruleLookup();
+ // dismissedByUser comes last, so a long list drops it first.
+ const groups={markedUnused:[],markedUsed:[],unknownStatus:[],noFixedCycle:[],cycleUnknown:[],outsideDates:[],dismissedByUser:[]},unmatchedCards=[],boundaries=new Set();
+ const lookup=ruleLookup(),dismissed=dismissedKeys(events);
  for(const card of cards){
   const match=matchCardProduct(card);
   if(match.status!=='matched'||!match.product?.id){unmatchedCards.push(card.name);continue;}
@@ -97,6 +98,12 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
   const ids=new Set([...lookup.list(productId,window.start,true),...lookup.list(productId,window.end,true)].filter(r=>relevant(r,use)).map(r=>r.id));
   for(const id of ids){
    const rows=tripRows(lookup,productId,id,window),base=profile?.benefits.find(b=>b.knowledgeRuleId===id);
+   // The user asked to stop hearing about it: one row, no cycle and no status, so it can be neither used nor unused.
+   if(dismissed.has(dismissKey(card.id,id))){
+    const row=rows.find(r=>!r.outside)||rows[0];
+    if(row){const {publicLimit:_,...item}=describe(card,{rule:row.rule},destination,row.overlap?.start||window.start,use,brief);groups.dismissedByUser.push({...item,status:'dismissed-by-user'});}
+    continue;
+   }
    const statusOf=period=>{const task={key:JSON.stringify([card.id,id,period.start,period.end]),revisionId:base?.revisionId};return {task,status:taskStatus(task,events)};};
    const unverified=row=>row.rule.terms.applicability||profile?.coverage==='variant-unconfirmed';
    const cycleRows=rows.filter(r=>r.period&&!unverified(r));
@@ -134,7 +141,7 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
  return {
   tool:'query_credits',today:day,...(use?{use}:{}),...(destination?{destination}:{}),...(brief?{brief:true}:{}),
   window:{start:window.start,end:window.end,precision:window.precision,assumptions:window.assumptions,phrase:window.phrase},
-  statusMeaning:{unknown:'No manual mark exists. Not confirmed used or unused.',unused:'The user marked it unused.',partial:'The user marked part of it used.',used:'The user marked it used up.',skipped:'The user chose not to use it this cycle.'},
+  statusMeaning:{unknown:'No manual mark exists. Not confirmed used or unused.',unused:'The user marked it unused.',partial:'The user marked part of it used.',used:'The user marked it used up.',skipped:'The user chose not to use it this cycle.','dismissed-by-user':'The user chose to stop reminders for this credit. It is neither used nor unused; its value is not counted.'},
   coverage:'Status comes only from manual marks; banks are not read for benefit use. Public limits are not remaining balances. Enrollment and account eligibility are not known. Cycles are assigned from the dates asked about; where posting.timingBasis is merchant-reported-date, the date the merchant reports decides the cycle. Not an exhaustive benefit inventory.',
   groups,groupCounts:counts,totalItems:Object.values(counts).reduce((a,b)=>a+b,0),truncated,needsEnrollmentOrChannel:conditions,
   dateSensitivity:{exactDatesCouldChangeAnswer:!['days','current-cycle'].includes(window.precision)&&boundaries.size>0,cycleBoundaries:[...boundaries].sort()},

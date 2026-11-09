@@ -26,7 +26,7 @@ function statusItems(evidence){
  // A card decision carries the same marks for the credits it considered.
  const decided=evidence.filter(x=>x?.tool==='choose_card'&&x.rows).flatMap(d=>d.rows.flatMap(r=>(r.credits||[]).map(c=>({...c,card:r.card}))));
  const open=[...plans.flatMap(p=>p.groups.markedUnused),...decided.filter(c=>['unused','partial'].includes(c.status))];
- const closed=[...plans.flatMap(p=>[...p.groups.unknownStatus,...p.groups.cycleUnknown,...p.groups.noFixedCycle,...p.groups.markedUsed]),...decided.filter(c=>!['unused','partial'].includes(c.status))];
+ const closed=[...plans.flatMap(p=>[...p.groups.unknownStatus,...p.groups.cycleUnknown,...p.groups.noFixedCycle,...p.groups.markedUsed,...(p.groups.dismissedByUser||[])]),...decided.filter(c=>!['unused','partial'].includes(c.status))];
  return {open,closed,any:plans.length>0||evidence.some(x=>x?.tool==='choose_card'&&x.rows)};
 }
 /** Yields each sentence with an unhedged claim of non-use, plus the list items a heading claim introduces. */
