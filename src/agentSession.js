@@ -1,5 +1,5 @@
 import {runWalletTool} from './walletAgent.js';
-import {prepareAgentContext,validateMemory,purchaseMemory,statedPointValues} from './agentContext.js';
+import {prepareAgentContext,validateMemory,purchaseMemory,statedPointValues,nextTopics} from './agentContext.js';
 import {answerGrounding} from './answerGrounding.js';
 import {planResults} from './creditClaims.js';
 import {renderCreditAnswers} from './creditAnswer.js';
@@ -8,7 +8,7 @@ import {creditNamesForCards} from './creditQuery.js';
 export async function runAgentTurn({history,question,context,request,memory={},onProgress=()=>{},signal}){
  if(!question.trim()||question.length>4000)throw Error('invalid_question');
  const prepared=prepareAgentContext(history,memory),state=prepared.memory;
- const messages=[...prepared.messages,{role:'user',content:question}],tools=[],evidence=[],trace=[];
+ const messages=[...prepared.messages,{role:'user',content:question}],tools=[],evidence=[],trace=[],ran=[];
  // The model receives the wallet day every turn; it never infers the current date.
  const invoke=async(final=false,override)=>{signal?.throwIfAborted();const start=Date.now();const reply=await request({messages:override||messages,memory:state,final,...(context.day?{today:context.day}:{})},signal);trace.push({type:'model',ms:Date.now()-start,inputChars:JSON.stringify(override||messages).length,final,...(reply.usage?{usage:reply.usage}:{})});return reply.message;};
  const creditNames=creditNamesForCards(context.cards,context.day);
@@ -37,6 +37,8 @@ export async function runAgentTurn({history,question,context,request,memory={},o
     }
    }
    messages.push(message);
+   // Code records what this turn's tools returned, as catalogue ids, so the next turn can resolve "the second one".
+   state.topics=nextTopics(state.topics,ran,context.cards);
    return {messages,answer:message.content,tools,memory:validateMemory(state),trace,context:{droppedTurns:prepared.droppedTurns,historyChars:prepared.chars}};
   }
   if(round===4||message.tool_calls.length>4)throw Error('tool_limit');
@@ -50,7 +52,7 @@ export async function runAgentTurn({history,question,context,request,memory={},o
   messages.push(message);
   for(const call of message.tool_calls){
    signal?.throwIfAborted();
-   const start=Date.now(),result=runWalletTool(call,{...context,trip:state.trip}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
+   const start=Date.now(),result=runWalletTool(call,{...context,trip:state.trip}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);ran.push({name:call.function.name,args,result});
    if(call.function.name==='choose_card')state.lastPurchase=purchaseMemory(args);
    // Only dates that code resolved reach memory, so a failed resolution keeps the previous trip.
    if(call.function.name==='query_credits'&&result.window&&result.window.precision!=='current-cycle')state.trip={...(result.use?{use:result.use}:{}),start:result.window.start,end:result.window.end,precision:result.window.precision,...(result.destination?{destination:result.destination}:{}),...(result.window.assumptions.some(a=>a!=='dates-remembered-from-earlier-turn')?{assumed:true}:{})};

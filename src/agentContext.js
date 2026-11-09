@@ -1,6 +1,8 @@
 import {validateToolCall} from './walletAgent.js';
 import {CREDIT_USES} from './creditQuery.js';
 import {isRealDate,tripDays,MAX_TRIP_DAYS} from './tripDates.js';
+import {queryKnowledge,ruleRevisions,knowledgeEntities} from './knowledge.js';
+import {cardProducts,matchCardProduct} from './productCatalog.js';
 const TRIP_PRECISIONS=['days','part-of-month','month','holiday'];
 // Dates reach memory only after code resolved them; free text never does.
 function validateTrip(raw){
@@ -35,11 +37,78 @@ export function purchaseMemory(raw,strict=false){
  const kept=Object.fromEntries(PURCHASE_KEYS.filter(k=>raw[k]!==undefined).map(k=>[k,raw[k]]));
  try{return validateToolCall({id:'memory',function:{name:'choose_card',arguments:JSON.stringify(kept)}}).args;}catch{throw Error('invalid_memory');}
 }
+// The topic index lets a follow-up say "the second one" or "that card" without replaying old tool results. It holds
+// only public catalogue ids, written by code from tool results; names are rendered from the shipped catalogue when
+// the prompt is built, so no text from a chat, a model or a bank page can reach the system message through it.
+export const TOPIC_ITEMS=12,TOPIC_CARDS=6;
+const productById=new Map(cardProducts.map(p=>[p.id,p]));
+const isProduct=id=>typeof id==='string'&&productById.has(id);
+// Any published revision in the shipped knowledge, current or not: a tool may have returned it as of the wallet day.
+const knownRules=new Map();
+const knownRule=id=>{if(!knownRules.has(id))knownRules.set(id,ruleRevisions(id).filter(r=>r.status==='published').at(-1)||null);return knownRules.get(id);};
+const isRule=id=>typeof id==='string'&&/^rule\.[a-z0-9.-]{1,160}$/.test(id)&&!!knownRule(id);
+function validateTopics(raw){
+ if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!['items','cards'].includes(k)))throw Error('invalid_memory');
+ const items=raw.items??[],cards=raw.cards??[];
+ if(!Array.isArray(items)||items.length>TOPIC_ITEMS||!Array.isArray(cards)||cards.length>TOPIC_CARDS||new Set(cards).size!==cards.length||!cards.every(isProduct))throw Error('invalid_memory');
+ for(const item of items)if(!item||typeof item!=='object'||Array.isArray(item)||!Object.keys(item).length||Object.keys(item).some(k=>!['rule','card'].includes(k))||item.rule!==undefined&&!isRule(item.rule)||item.card!==undefined&&!isProduct(item.card))throw Error('invalid_memory');
+ return {items:items.map(i=>({...(i.rule?{rule:i.rule}:{}),...(i.card?{card:i.card}:{})})),cards:[...cards]};
+}
 export function validateMemory(raw={}){
- if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!['lastPurchase','trip'].includes(k)))throw Error('invalid_memory');
+ if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!['lastPurchase','trip','topics'].includes(k)))throw Error('invalid_memory');
  return {
   ...(raw.lastPurchase?{lastPurchase:purchaseMemory(raw.lastPurchase,true)}:{}),
-  ...(raw.trip?{trip:validateTrip(raw.trip)}:{})
+  ...(raw.trip?{trip:validateTrip(raw.trip)}:{}),
+  ...(raw.topics?{topics:validateTopics(raw.topics)}:{})
+ };
+}
+const productOf=card=>card&&matchCardProduct(card).product?.id||null;
+const heldProduct=(cards,name,region)=>productOf(cards.find(c=>c.name===name&&(!region||c.region===region)));
+const ruleId=revision=>typeof revision==='string'?revision.split('@')[0]:null;
+const normalizedName=s=>String(s).normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
+function itemsFrom(name,result,cards){
+ const items=[];
+ if(name==='find_benefits'||name==='get_card_rules')for(const r of result.rules||[]){
+  const rule=ruleId(r.revision),card=r.cards?.length===1?heldProduct(cards,r.cards[0].name,r.cards[0].region):null;
+  items.push({...(rule?{rule}:{}),...(card?{card}:{})});
+ }
+ if(name==='query_credits')for(const group of ['markedUnused','unknownStatus','markedUsed','noFixedCycle','cycleUnknown','outsideDates'])for(const x of result.groups?.[group]||[]){
+  const card=heldProduct(cards,x.card,x.cardRegion),rule=card?ruleByTitle(card,x.title):null;
+  items.push({...(rule?{rule}:{}),...(card?{card}:{})});
+ }
+ if(name==='choose_card')for(const row of result.rows||[]){const card=heldProduct(cards,row.card,row.cardRegion);if(card)items.push({card});}
+ if(name==='list_cards')for(const c of result)items.push({card:heldProduct(cards,c.name,c.region)});
+ return items.filter(i=>(i.rule&&isRule(i.rule))||i.card).map(i=>({...(i.rule&&isRule(i.rule)?{rule:i.rule}:{}),...(i.card?{card:i.card}:{})}));
+}
+// A credit item carries its card and title, not its rule, so the rule is found by that card's product and title.
+const productRules=new Map();
+const ruleByTitle=(productId,title)=>{if(!productRules.has(productId))productRules.set(productId,queryKnowledge({productId,includeInactive:true}).rules);return productRules.get(productId).find(r=>r.content?.title===title)?.id||null;};
+/**
+ * The next topic index after a turn. calls are [{name,args,result}] in the order they ran. Items are what this turn's
+ * tools returned, in order; a turn without tools keeps the previous items. Cards are those the turn focused on:
+ * a card named in a tool's arguments, the chosen card, or the only card a tool returned, most recent first.
+ */
+export function nextTopics(previous,calls,cards){
+ const before=previous?validateTopics(previous):{items:[],cards:[]};
+ const items=calls.flatMap(c=>itemsFrom(c.name,c.result,cards));
+ const focus=[];
+ for(const c of calls){
+  if(c.args?.cardName){const named=cards.filter(x=>[x.name,x.pageName].some(n=>n&&normalizedName(n).includes(normalizedName(c.args.cardName)))&&(!c.args.region||x.region===c.args.region));if(named.length&&named.length<=2)focus.push(...named.map(productOf));}
+  if(c.name==='choose_card'&&c.result?.choice?.card)focus.push(heldProduct(cards,c.result.choice.card,c.result.rows?.find(r=>r.card===c.result.choice.card)?.cardRegion));
+  const returned=[...new Set(itemsFrom(c.name,c.result,cards).map(i=>i.card).filter(Boolean))];
+  if(c.name!=='list_cards'&&returned.length===1)focus.push(returned[0]);
+ }
+ const recent=[...focus.filter(Boolean).reverse(),...before.cards];
+ return validateTopics({items:(items.length?items:before.items).slice(0,TOPIC_ITEMS),cards:[...new Set(recent)].slice(0,TOPIC_CARDS)});
+}
+/** What the model sees: names, regions, titles and programmes from the shipped catalogue, never memory text. */
+export function topicContext(topics){
+ if(!topics||!topics.items.length&&!topics.cards.length)return null;
+ const product=id=>{const p=productById.get(id);return {card:p.name,region:p.region};};
+ const programme=id=>id&&knowledgeEntities.programmes.find(p=>p.id===id)?.name||null;
+ return {
+  lastResults:topics.items.map((item,i)=>{const rule=item.rule&&knownRule(item.rule),to=programme(rule?.terms?.toProgrammeId);return {n:i+1,...(rule?{title:rule.content.title}:{}),...(item.card?product(item.card):{}),...(to?{programme:to}:{})};}),
+  recentCards:topics.cards.map(product)
  };
 }
 export function prepareAgentContext(history,memory={},{maxTurns=6,maxChars=22000}={}){
