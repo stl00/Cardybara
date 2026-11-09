@@ -10,7 +10,7 @@
  function otherRewardLabels(lines,isRequired){const seen=new Set();for(let i=0;i<lines.length-1;i++)if(rewardLabel(lines[i])&&namesAProgramme(lines[i])&&/^\d[\d,]*$/.test(lines[i+1])&&!isRequired(lines[i]))seen.add(lines[i]);return [...seen];}
  // A Chase co-brand programme is named by its label's shape, "<name> points|miles", never from a list of programmes.
  // structural: exactly one distinct candidate names it; none or several leave it unnamed. Ultimate Rewards has its own row.
- function chasePartnerLabel(labels){const found=new Set();for(const raw of labels||[]){const t=String(raw||'').trim();if(/\b(?:points|miles)$/i.test(t)&&rewardLabel(t)&&namesAProgramme(t)&&!/\bultimate\s*rewards?\b/i.test(t))found.add(t);}return found.size===1?[...found][0]:null;}
+ function chasePartnerLabel(labels){const found=new Map();for(const raw of labels||[]){const t=String(raw||'').replace(/\s+/g,' ').trim(),same=t.replace(/[®™]/g,'').replace(/\s+/g,' ').trim().toLowerCase();if(/\b(?:points|miles)$/i.test(t)&&rewardLabel(t)&&namesAProgramme(t)&&!/\bultimate\s*rewards?\b/i.test(t)&&!/^(?:buy|get|gift|share|combine|donate|convert|move|add)\b/i.test(t)&&!found.has(same))found.set(same,t);}return found.size===1?[...found.values()][0]:null;}
  function labelText(value){return value.normalize('NFKC').replace(/[\u200b-\u200d\ufeff]/g,'').replace(/[:：]\s*$/,'').replace(/\s*[（(](?:HKD|USD|CAD|港元|港幣|港币)[）)]\s*$/i,'').trim();}
  function resolveLocale(lang,locales){
   const normalized=(lang||'').replaceAll('_','-').toLowerCase();
@@ -341,7 +341,7 @@
  const maskedOther=(text,tail)=>[...String(text).matchAll(ISSUER_MASK)].some(m=>m[1]!==tail&&!(YEAR.test(m[1])&&/^ending/i.test(m[0])&&/\b(?:statement|period|cycle)\b[^\n]*$/i.test(String(text).slice(0,m.index))));
  // The card's own name on its own heading line is not another card, though it may hold digits ("Card 2500 - 1234").
  // structural: only the exact name read for this card, and only beside this card's masked number.
- const withoutOwnName=(text,tail,name)=>{const own=String(name||'').trim();if(own.length<3||!/\d/.test(own))return String(text);return String(text).split('\n').map(l=>l.includes(own)&&issuerTails(l).includes(tail)?l.replace(own,''):l).join('\n');};
+ const withoutOwnName=(text,tail,name)=>{const own=String(name||'').trim();if(own.length<3||!/\d/.test(own))return String(text);const whole=new RegExp('(?<![\\p{L}\\p{N}])'+own.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![\\p{L}\\p{N}])','u');return String(text).split('\n').map(l=>whole.test(l)&&issuerTails(l).includes(tail)?l.replace(whole,''):l).join('\n');};
  const holdsOther=(text,tail,otherTails=[])=>maskedOther(text,tail)||[...String(text).matchAll(TAIL_LIKE)].some(m=>m[0]!==tail&&!YEAR.test(m[0]))||otherTails.some(t=>t!==tail&&new RegExp('(?:^|[^0-9])'+t+'(?:[^0-9]|$)').test(text));
  const MONTHS=['jan(?:uary)?','feb(?:ruary)?','mar(?:ch)?','apr(?:il)?','may','jun(?:e)?','jul(?:y)?','aug(?:ust)?','sep(?:tember)?','oct(?:ober)?','nov(?:ember)?','dec(?:ember)?'];
  const monthOf=name=>MONTHS.findIndex(m=>new RegExp('^'+m+'$','i').test(name))+1;

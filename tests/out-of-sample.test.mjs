@@ -115,7 +115,8 @@ test('a CNY amount in an HKD card\'s scope reads nothing',()=>{
 test('a Chase co-brand programme is named by its label shape, not a list',()=>{
  for(const label of ['Quokka Stays points','Zephyrine Air Miles','MileagePlus® Miles','IHG One Rewards points'])assert.equal(reader.chasePartnerLabel(['Pay card','Redeem points',label,'Benefits & travel']),label,label);
  // Actions, generic wording and the required programme name nothing; two candidates are ambiguous.
- for(const labels of [['Redeem points','Pay with points','Your points','Points'],['Ultimate Rewards® points'],['Quokka Stays points','Zephyrine Air Miles'],[]])assert.equal(reader.chasePartnerLabel(labels),null,labels.join('|'));
+ assert.equal(reader.chasePartnerLabel(['MileagePlus® Miles','MileagePlus Miles','mileageplus  miles','Buy miles','Combine points','Gift points']),'MileagePlus® Miles','one programme spelled several ways, beside actions');
+ for(const labels of [['Buy miles'],['Redeem points','Pay with points','Your points','Points'],['Ultimate Rewards® points'],['Quokka Stays points','Zephyrine Air Miles'],[]])assert.equal(reader.chasePartnerLabel(labels),null,labels.join('|'));
  const page={title:'Quokka Stays Card (...3141)',rewardLabel:reader.chasePartnerLabel(['Quokka Stays points']),fields:{currentBalance:'$10.50','partnerRewards-dataItem':'543'}},card={id:'x',bank:'Chase',tail:'3141',currency:'USD'};
  assert.deepEqual(copy(reader.chaseDetail(page,card).items).filter(i=>i.kind==='reward').map(i=>[i.key,i.value]),[['Quokka Stays points',543]]);
 });
@@ -132,11 +133,13 @@ test('a card name that holds digits does not hide its own billing',()=>{
   assert.deepEqual(fields(reader.issuerBilling(f.text.replace(product,'Quokka 2500'),f.bank,f.card)),{},name);
   // The name excuses only its own heading line.
   assert.deepEqual(fields(reader.issuerBilling(f.text.replace(product,'Quokka 2500')+'\nQuokka 2500',f.bank,{...f.card,name:'Quokka 2500'})),{},name+' elsewhere');
+  // A shorter name never swallows part of a longer number beside it.
+  assert.deepEqual(fields(reader.issuerBilling(f.text.replace(product,'Quokka 2567'),f.bank,{...f.card,name:'Quokka 25'})),{},name+' partial name');
  }
 });
 test('HSBC names a listed card from its own row whatever digits its name holds',()=>{
  const row=text=>({innerText:text,getClientRects:()=>[1]}),previous={document:globalThis.document,getComputedStyle:globalThis.getComputedStyle};globalThis.getComputedStyle=()=>({visibility:'visible'});
- globalThis.document={documentElement:{lang:'en-US'},getElementById:()=>null,querySelectorAll:s=>s==='[id^="account-container-"],button[id^="dropdown-item-"]'?[row('Axolotl Signature 360\n4000-0000-0000-2718\nHKD\n1,234.56'),row('Gecko 銀聯雙幣\n4000-0000-0000-3141\nCNY\n12.00'),row('Integrated Account\n123-456789-833\nHKD\n5.00')]:[]};
+ globalThis.document={documentElement:{lang:'en-US'},getElementById:()=>null,querySelectorAll:s=>s==='[id^="account-container-"],button[id^="dropdown-item-"]'?[row('Axolotl Signature 360\n4000-0000-0000-2718\nHKD\n1,234.56'),row('HK$1,234.56\nGecko 銀聯雙幣\n4000-0000-0000-3141\nCNY\n12.00'),row('Integrated Account\n123-456789-833\nHKD\n5.00')]:[]};
  try{assert.deepEqual(discoverVisibleCards('HSBC HK',['en-US']),{status:'found',cards:[{tail:'2718',name:'Axolotl Signature 360',currency:'HKD'},{tail:'3141',name:'Gecko 銀聯雙幣',currency:'CNY'}]});}finally{globalThis.document=previous.document;globalThis.getComputedStyle=previous.getComputedStyle;}
 });
 test('Citi discovery takes any card link whatever its product name or tail length',()=>{
@@ -147,5 +150,6 @@ test('Citi discovery takes any card link whatever its product name or tail lengt
 test('a card listed several times on one page counts once toward the discovery bound',()=>{
  const rows=Array.from({length:30},(_,i)=>({tail:String(31000+i),name:'Axolotl '+i}));
  assert.equal(normalizeDiscoveredCards('Amex US',[...rows,...rows,...rows]).length,30,'heading, tile and switcher');
+ assert.equal(normalizeDiscoveredCards('Amex US',[{tail:'31415',name:'Axolotl Reserve'},{tail:'31415',name:''}])[0].name,'Axolotl Reserve','a later unnamed row keeps the name');
  assert.throws(()=>normalizeDiscoveredCards('Amex US',Array.from({length:41},(_,i)=>({tail:String(31000+i),name:'x'}))),/invalid_discovery/,'distinct cards stay bounded');
 });
