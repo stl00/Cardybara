@@ -1,7 +1,10 @@
 // End-to-end test of the packaged extension: the exact release ZIP, installed in a clean Chrome
 // profile, against a local synthetic bank. No bank is contacted and no secret is used.
 //
-//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>]
+//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart]
+//
+// --restart (nightly set): after the main path, close Chrome and start it again on the same
+// profile; the extension must still be installed and the records it read must still be there.
 //
 // Bank hosts reach the synthetic bank through Chrome launch options only (--host-rules and a
 // certificate pin for a throwaway self-signed key); every other host fails to resolve. The tested
@@ -121,7 +124,7 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs}={}){
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart}={}){
  if(stepMs)STEP_MS=stepMs;log=[];lastState=null;
  const work=await mkdtemp(join(tmpdir(),'cardybara-e2e-'));
  const sessions={};let browser,bank;
@@ -132,21 +135,28 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs}={}){
   if(mutate){await mutate(ext);note('negative control: package deliberately broken after extraction');}
   await checkManifest(ext);
   bank=await syntheticBank(work);
-  browser=await launch(join(work,'profile'),bank);
-  const {cdp}=browser;
-  cdp.on(msg=>{
-   const who=Object.entries(sessions).find(([,id])=>id===msg.sessionId)?.[0]||msg.sessionId||'browser';
-   if(msg.method==='Runtime.consoleAPICalled')log.push(`[${who} console.${msg.params.type}] `+msg.params.args.map(a=>a.value??a.description??a.type).join(' '));
-   if(msg.method==='Runtime.exceptionThrown')log.push(`[${who} exception] `+(msg.params.exceptionDetails.exception?.description||msg.params.exceptionDetails.text));
-  });
-  note('chrome',(await cdp.send('Browser.getVersion')).product);
+  const profile=join(work,'profile');
+  let cdp;
+  const start=async()=>{
+   browser=await launch(profile,bank);cdp=browser.cdp;
+   cdp.on(msg=>{
+    const who=Object.entries(sessions).find(([,id])=>id===msg.sessionId)?.[0]||msg.sessionId||'browser';
+    if(msg.method==='Runtime.consoleAPICalled')log.push(`[${who} console.${msg.params.type}] `+msg.params.args.map(a=>a.value??a.description??a.type).join(' '));
+    if(msg.method==='Runtime.exceptionThrown')log.push(`[${who} exception] `+(msg.params.exceptionDetails.exception?.description||msg.params.exceptionDetails.text));
+   });
+   note('chrome',(await cdp.send('Browser.getVersion')).product);
+  };
+  await start();
 
   // Install the unpacked package into the clean profile.
   const {id}=await cdp.send('Extensions.loadUnpacked',{path:ext}).catch(e=>{throw new StepError('extension did not load: '+e.message);});
   note('extension loaded',id);
-  const worker=await until('the extension service worker',async()=>(await cdp.send('Target.getTargets')).targetInfos.find(t=>t.type==='service_worker'&&t.url.startsWith(`chrome-extension://${id}/`)));
-  sessions.worker=(await cdp.send('Target.attachToTarget',{targetId:worker.targetId,flatten:true})).sessionId;
-  await cdp.send('Runtime.enable',{},sessions.worker);
+  const attachWorker=async()=>{
+   const worker=await until('the extension service worker',async()=>(await cdp.send('Target.getTargets')).targetInfos.find(t=>t.type==='service_worker'&&t.url.startsWith(`chrome-extension://${id}/`)));
+   sessions.worker=(await cdp.send('Target.attachToTarget',{targetId:worker.targetId,flatten:true})).sessionId;
+   await cdp.send('Runtime.enable',{},sessions.worker);
+  };
+  await attachWorker();
 
   const attach=async(name,targetId)=>{sessions[name]=(await cdp.send('Target.attachToTarget',{targetId,flatten:true})).sessionId;await cdp.send('Runtime.enable',{},sessions[name]);await cdp.send('Page.enable',{},sessions[name]);};
   const evaluate=async(name,expression)=>{const r=await cdp.send('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true},sessions[name]);if(r.exceptionDetails)throw Error(r.exceptionDetails.exception?.description||r.exceptionDetails.text);return r.result.value;};
@@ -217,6 +227,43 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs}={}){
   note('fields written back; missing values left unknown');
   if(!bank.requests.length)throw new StepError('the synthetic bank was never contacted');
   note('PASS: packaged extension installs, connects a synthetic bank, signs in and reads back');
+
+  if(restart){
+   // 6. Close Chrome and start it again on the same profile. The extension stays installed and
+   // what it read is still there; nothing is re-read to get it back.
+   const readBefore=JSON.stringify(done.records?.Chase);
+   const served=bank.requests.length;
+   const exited=new Promise(r=>browser.child.once('exit',r));
+   await cdp.send('Browser.close').catch(()=>{});
+   await Promise.race([exited,sleep(STEP_MS)]);
+   if(browser.child.exitCode===null&&browser.child.signalCode===null)throw new StepError('Chrome did not exit on Browser.close');
+   note('chrome closed; starting it again on the same profile');
+   if(beforeRestart){await beforeRestart(profile);note('negative control: profile deliberately changed while Chrome was closed');}
+   for(const k of Object.keys(sessions))delete sessions[k];lastState=null;
+   await start();
+   // An extension installed over the debugging pipe lasts for that browser session only, so the
+   // harness installs the same unpacked directory again. Chrome derives an unpacked extension's id
+   // from its path, so this must be the same extension with the profile's storage, not a new one.
+   const {id:againId}=await cdp.send('Extensions.loadUnpacked',{path:ext}).catch(e=>{throw new StepError('extension did not load after a restart: '+e.message);});
+   if(againId!==id)throw new StepError(`the extension came back as ${againId}, not ${id}`);
+   // The service worker may sleep until something wakes it; the wallet page does.
+   const {targetId:again}=await cdp.send('Target.createTarget',{url:walletUrl});
+   await attach('wallet',again).catch(e=>{throw new StepError('the extension is gone after a restart: '+e.message);});
+   await until('the wallet page after a restart',async()=>(await evaluate('wallet','location.protocol'))==='chrome-extension:'&&!!(await pageText('wallet')).trim()).catch(async e=>{
+    note('targets after restart:',JSON.stringify((await cdp.send('Target.getTargets')).targetInfos.map(t=>[t.type,t.url])));
+    note('wallet page:',await evaluate('wallet','location.href+" | "+document.body?.innerText.slice(0,200)').catch(x=>x.message));
+    throw e;});
+   await attachWorker();
+   const kept=await state();
+   if(JSON.stringify(kept?.records?.Chase)!==readBefore)throw new StepError('records changed across a browser restart: '+JSON.stringify(kept?.records?.Chase));
+   const keptTails=(kept?.discoveredCards||[]).map(c=>c.tail).sort();
+   if(JSON.stringify(keptTails)!==JSON.stringify(['1234','5678']))throw new StepError('discovered cards changed across a browser restart: '+JSON.stringify(keptTails));
+   await evaluate('wallet','location.hash="wallet"');
+   await until('the read balance on the wallet page after a restart',async()=>(await pageText('wallet')).includes('1,234.56'));
+   if(await shows('wallet','欢迎，这是你的新钱包'))throw new StepError('the wallet shows the empty-wallet welcome after a restart');
+   if(bank.requests.length!==served)throw new StepError('the bank was contacted again just to show records after a restart');
+   note('PASS: after a browser restart the same extension comes back with its records kept');
+  }
   return {ok:true};
  }catch(error){
   note('FAIL:',error.message);
@@ -246,12 +293,16 @@ export const BROKEN={
  'no reading guide on the bank page':[/reading guide/,async dir=>{await writeFile(join(dir,'guide.js'),'');}],
  'a page reader that does nothing':[/run ended as|needs-login|reading to finish|read-back mismatch/,async dir=>{await writeFile(join(dir,'reader.js'),'');}],
 };
-export async function negativeControls(input,{out}){
+// With --restart: the profile is changed while Chrome is closed, and the restart check must notice.
+export const BROKEN_RESTART={
+ 'extension storage lost across a restart':[/records changed across a browser restart/,async profile=>{await rm(join(profile,'Default','Local Extension Settings'),{recursive:true,force:true});}],
+};
+export async function negativeControls(input,{out,restart=false}){
  const escaped=[];
- for(const name of Object.keys(BROKEN)){
+ const controls=[...Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}]),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[])];
+ for(const [name,reason,options] of controls){
   console.log(`--- negative control: ${name}`);
-  const [reason,mutate]=BROKEN[name];
-  const error=await run(input,{out:join(out,name.replace(/\W+/g,'-')),mutate,stepMs:12000}).then(()=>null,e=>e);
+  const error=await run(input,{out:join(out,name.replace(/\W+/g,'-')),...options,stepMs:12000}).then(()=>null,e=>e);
   const ok=error&&reason.test(error.message);
   if(!ok)escaped.push(name+(error?` (failed for another reason: ${error.message})`:' (passed)'));
   console.log(ok?`ok: the broken package (${name}) failed as expected`:`ESCAPED: ${name}`);
@@ -261,8 +312,8 @@ export async function negativeControls(input,{out}){
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const args=process.argv.slice(2),take=flag=>{const i=args.indexOf(flag);if(i<0)return undefined;if(flag==='--out'&&!args[i+1]){console.error('--out needs a directory');process.exit(2);}return args.splice(i,flag==='--out'?2:1).at(-1);};
- const outArg=take('--out'),controls=take('--negative-controls');
- if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls]');process.exit(2);}
+ const outArg=take('--out'),controls=take('--negative-controls'),restart=!!take('--restart');
+ if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart]');process.exit(2);}
  const out=resolve(outArg||join(root,'.debug/e2e'));
- (controls?negativeControls(args[0],{out}):run(args[0],{out})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
+ (controls?negativeControls(args[0],{out,restart}):run(args[0],{out,restart})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
 }
