@@ -13,13 +13,21 @@ The standalone build has no ordinary-website bridge content script and no requir
 5. Unpack that exact ZIP in a fresh Chrome profile. Do not import the owner's backup. Run the acceptance matrix below. A failed/pending item blocks promotion.
 6. Chrome Web Store upload/review/publishing is a separate manual process. Store API credentials have not been requested or configured.
 
+## E2E on the packaged extension
+
+The `E2E` CI job runs after `Verify and package` on every pull request and push. It downloads that job's `cardybara-extension` artifact, checks it against `SHA256SUMS`, and runs `scripts/e2e-extension.mjs` on the exact ZIP without rebuilding: install in a clean headless Chrome profile, open the empty wallet, connect Chase, see needs-login, sign in on the synthetic page, let the reading guide read automatically, and check the fields read back while missing ones stay unknown. `secure.chase.com` reaches a local HTTPS server that answers with `tests/fixtures/synthetic-bank.html` through Chrome launch options only (`--host-rules`, a certificate pin for a throwaway key); every other host fails to resolve, and the package is not changed. A second step breaks copies of the same package (no service worker, no bank host permission, a worker that does not start, no reading guide) and fails if any of them passes. On failure the job uploads `e2e-output` with the log and screenshots of the wallet and the synthetic page. No secrets are used, so fork pull requests run it too.
+
+Locally: `npm run build:release && npm run test:e2e` (Chrome and `openssl` required; `--out <dir>` keeps artefacts, default `.debug/e2e`). The synthetic bank answers after 400 ms; `CARDYBARA_E2E_BANK_DELAY_MS=0` reproduces the collector reload race in stl00/Cardybara#123.
+
+Still to come (#47): a nightly and pre-tag set covering browser restart with records retained, upgrade from the previous package, cancellation, expired login and the assistant chat UI with a scripted model. `E2E` becomes a required check on `main` once it has been stable, which is a branch-protection change for the owner.
+
 ## Current public-release blockers
 
 - Real Chrome acceptance of the new empty-wallet onboarding and bank discovery, without an existing owner's backup.
 - A standalone AI experience without the developer's local service, with a clear user-owned credential or hosted-account flow.
 - Per-bank/product testing beyond the owner's narrow HK Amex and Chase observations.
 - Final publisher identity/contact, store listing screenshots, privacy declarations, and reviewer test instructions. Never supply real bank credentials to reviewers.
-- Browser installation and store review have not been performed by CI.
+- Store review has not been performed. CI installs the package in Chrome only against a synthetic bank (below), which is not bank acceptance.
 
 This ZIP is an internal-testing alpha, not a claim that all features, banks, or store requirements are complete. The current cumulative Credit ledger is not a per-voucher redemption ledger. Public eligibility never proves enrollment, usage, reimbursement or a fee waiver.
 
