@@ -20,7 +20,7 @@
     "eval:agent:live": "node scripts/eval-agent.mjs --live",
     "eval:multiturn": "node scripts/eval-multiturn.mjs",
     "eval:multiturn:live": "node scripts/eval-multiturn.mjs --live",
-    "eval:benefit-recall": "node scripts/eval-benefit-recall.mjs",
+    "eval:benefit-recall": "node scripts/eval-benefit-recall.mjs && node scripts/eval-benefit-recall.mjs --golden=evals/benefit-recall/holdout.json --out=evals/latest-benefit-recall-holdout.json",
     "check:agent": "node --test tests/model-client.test.mjs tests/agent-scripted-model.test.mjs tests/chat-agent.test.mjs tests/agent-quality.test.mjs tests/agent-credit-query.test.mjs tests/card-decision.test.mjs tests/credit-dismissal.test.mjs tests/multiturn-eval.test.mjs && node scripts/eval-agent.mjs && node scripts/eval-multiturn.mjs --min=0.8",
     "check:hk": "node --test tests/bank-page-wait.test.mjs tests/hk-connector.test.mjs tests/hk-worker.test.mjs tests/card-navigation.test.mjs tests/refresh.test.mjs",
     "package:local-connector": "python3 scripts/package-local-connector.py",
