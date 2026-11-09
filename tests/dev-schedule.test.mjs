@@ -48,8 +48,8 @@ test('a read the owner starts skips only the schedule switch, the interval and i
  assert.equal(why(on(),'BOA',{disabled:['BOA'],tabs,manual:true}),'disconnected');
  assert.equal(why(on({BOA:{state:'login_expired'}}),'BOA',{manual:true}),'no_tab','an expired login still needs the owner\'s own signed-in tab');
  assert.equal(why(on(),'Amex HK',{tabs,manual:true}),'amex_turn');
- for(const [lang,words]of Object.entries(POPUP_WORDS))for(const key of ['readNow','readStarted','nothingToRead','running','result','ok','login_expired'])assert.ok(words[key],lang+' '+key);
- assert.equal(POPUP_WORDS['zh-CN'].readNow,'现在读取');assert.equal(POPUP_WORDS['zh-TW'].readNow,'現在讀取');assert.equal(POPUP_WORDS.en.readNow,'Read now');
+ for(const [lang,words]of Object.entries(POPUP_WORDS))for(const key of ['readNow','readNowWill','readStarted','nothingToRead','running','retry','open'])assert.ok(words[key],lang+' '+key);
+ assert.equal(POPUP_WORDS['zh-CN'].readNow,'现在读取');assert.equal(POPUP_WORDS['zh-TW'].readNow,'現在讀取');assert.equal(POPUP_WORDS['en-US'].readNow,'Read now');
 });
 test('the minimum interval holds, and Amex regions never run together',()=>{
  const recent=on({BOA:{state:'ok',lastAttemptAt:1e12-59*60000}});assert.deepEqual(plan({...recent,intervalMinutes:60},{signedIn:['BOA']}),[]);
@@ -194,7 +194,7 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   assert.equal((await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60})).ok,true);
   await tick();assert.equal(state()?.run,undefined);assert.deepEqual(calls.created,[],'no card and no signed-in tab: nothing opens');assert.equal(settings().skips.BOA,'no_tab');assert.equal(skipPosts().at(-1).banks.find(b=>b.bank==='BOA').reason,'no_tab','a change is reported');
   idle='active';tabs=[{id:5,url:href,status:'complete',windowId:1,active:true}];await tick();assert.equal(state()?.run,undefined,'it waits until Chrome is idle');assert.equal(settings().skips.BOA,'not_idle');
-  idle='idle';const opened=await say({type:'dev-schedule-get'});assert.equal(opened.settings.skips.BOA,'ready','the popup shows the current reason');await new Promise(r=>setTimeout(r,60));assert.equal(state()?.run,undefined,'opening the popup never starts a read');
+  idle='idle';const opened=await say({type:'dev-schedule-get'});assert.equal(opened.settings.skips.BOA,'ready','the popup shows the current reason');assert.deepEqual(opened.settings.readNow,['BOA'],'the popup says which signed-in banks Read now would take');await new Promise(r=>setTimeout(r,60));assert.equal(state()?.run,undefined,'opening the popup never starts a read');
   idle='idle';await tick();await finished();
   assert.equal(state().run.scheduled,true,'a frontmost tab is read once Chrome is idle');assert.equal(settings().banks.BOA.state,'ok');assert.deepEqual(calls.removed,[],'the owner\'s own tab stays open');assert.ok(!calls.files.includes('guide.js'),'a scheduled run asks nothing');
   assert.equal(runPosts().length,1);assert.ok(!JSON.stringify(calls.posts.map(({at,...rest})=>rest)).match(/3141|Quokka/),'at is a timestamp, the one number that can hold these digits by chance');assert.equal(calls.posts.every(validReport),true);assert.equal(runPosts()[0].banks[0].bank,'BOA');
@@ -226,6 +226,10 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   allow();idle='idle';const before=state().run.id;read='updated';captureError='needs_confirmation';await tick();await wait(()=>state().run.id!==before);await finished();
   assert.equal(settings().banks.BOA.state,'stopped','a challenge after a partial read stops the bank');
   const challenged=state().run.id;allow();captureError=null;await tick();assert.equal(state().run.id,challenged,'and it is not retried');
+  // Retry from the popup: only its own popup, only a known bank, and the hourly minimum still holds.
+  assert.equal((await say({type:'dev-retry-bank',bank:'Nope'}))?.ok,false);assert.equal((await say({type:'dev-retry-bank',bank:'BOA'},{id:'dev',url:'http://127.0.0.1:8766/'}))?.ok,false);assert.equal(settings().banks.BOA.state,'stopped');
+  settings().banks.BOA.lastAttemptAt=Date.now();const retried=await say({type:'dev-retry-bank',bank:'BOA'});assert.equal(retried.ok,true);assert.equal(retried.settings.banks.BOA.state,undefined);assert.equal(retried.settings.skips.BOA,'not_due','a retried bank still waits out its hour');assert.equal(state().run.id,challenged,'retry itself starts nothing');
+  await tick();assert.equal(state().run.id,challenged,'nor does the next check within the hour');settings().banks.BOA={state:'stopped'};
   // A worker that died mid-run: the check must settle that run, not replace it.
   await say({type:'dev-schedule-set',enabled:false});await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60});assert.equal(settings().banks.BOA,undefined,'off and on clears the stop, with no wait for the interval');
   store['cardybara-state-v2']={...state(),run:{...state().run,id:'interrupted-run',status:'interrupted',jobs:state().run.jobs.map(j=>({...j,status:'interrupted'}))}};store['cardybara-dev-run']={id:'interrupted-run',restoreTab:null};
