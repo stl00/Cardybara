@@ -31,6 +31,8 @@ test('every original has quotes from the sources the rule cites, and the zh-CN t
   for(const q of r.original.quotes)assert.ok(r.evidence.sourceIds.includes(q.sourceId),`${r.id}: ${q.sourceId}`);
   // US cards keep English.
   if(r.market.country==='US')assert.equal(r.original.lang,'en-US',r.id);
+  // Hong Kong cards keep the language of the official page they cite.
+  if(r.market.country==='HK')assert.ok(['en-HK','zh-HK'].includes(r.original.lang),r.id);
  }
  assert.equal(validateKnowledge().valid,true,validateKnowledge().errors.slice(0,5).join('\n'));
 });
