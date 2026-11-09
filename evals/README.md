@@ -139,3 +139,18 @@ Tool calls in the last turn fell from 187 to 137, and `list_cards` calls from 45
 What did not move: long range. Asked "最开始问的那张卡", the model picks the earliest card it can see in the chat (the first kept turn), not the card from turns that were dropped; nothing said earlier turns were hidden. Other failures: `find_benefits` where the label expects `get_card_rules` for "转过去能拿会籍吗", and answers that failed grounding after correct calls (2 before, 3 after).
 
 Spend control: `--budget-usd` is required. A dialogue starts only if its worst case still fits: six model calls with every prompt token uncached at 1.5× the largest prompt seen, and the full 1800-token output each. A call that returns no usage, or fails after it may have been billed, is charged that worst case. Prices come from a per-model table; an unknown model stops the run. `--rescore=report.json` recomputes the checks from a saved live report without calling the model or reading configuration.
+
+### Trimmed turns in state · 2026-11-09 (#132)
+
+The first live run showed long-range references failing with the card already in the topic index: asked about "the card I asked about at the start", the model took the earliest card visible in the trimmed chat. State now has a `turns` channel (`completed`, `shownFrom`) and each focused card records the turns it was first and last discussed in. The prompt lists `recentCards` in the order first discussed, with turn numbers counted from the start, marks `onlyInDroppedTurns`, and says how many earlier turns are not shown (only when the state has counted turns). `shownFrom` is computed from the counted turns, because the history a client sends back was already trimmed the turn before. Ids and integers only.
+
+Live, `deepseek-flash`, two runs per side; before = `a9179ff` (main with #144), after = this change. The per-run budget guard stopped both first runs early (37 and 35 of 55 dialogues), so the comparison uses the dialogues both sides ran: 35 + 55 = 90. Spend $0.32.
+
+| | n | strict before → after | referent before → after |
+|---|---|---|---|
+| all | 90 | 69 → 75 | 63/78 → 69/78 |
+| long range | 16 | **1 → 7** (per run 0→2, 1→5) | 1/16 → 7/16 |
+| pronoun / ordinal / ellipsis / topic return / same name | 74 | 68 → 68 | unchanged |
+| zh-Hans / zh-Hant / en | 44 / 19 / 27 | 34 / 12 / 23 → 39 / 12 / 24 | |
+
+Long range moved beyond run-to-run noise (it held at 2/20 over four earlier runs); everything else is within ±1. Remaining long-range failures: "the second one from the very first list" (items keep only the last tool turn, by design), and the Traditional Chinese "一開始問嗰張卡", where the model asks which card instead of calling a tool. The offline eval cannot see this change: its longest dialogue has seven earlier turns, and every dialogue's request is byte-identical before and after the trimmed-turn fix; a unit test chains ten turns the way the app does.

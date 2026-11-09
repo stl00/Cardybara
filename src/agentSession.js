@@ -1,6 +1,6 @@
 import {runWalletTool} from './walletAgent.js';
 import {prepareAgentContext,statedPointValues} from './agentContext.js';
-import {validateState,reduceToolResult,diffState} from './conversationState.js';
+import {validateState,reduceToolResult,diffState,endTurn} from './conversationState.js';
 import {answerGrounding} from './answerGrounding.js';
 import {planResults} from './creditClaims.js';
 import {renderCreditAnswers} from './creditAnswer.js';
@@ -40,7 +40,9 @@ export async function runAgentTurn({history,question,context,request,memory={},o
     }
    }
    messages.push(message);
-   return {messages,answer:message.content,tools,memory:validateState(state),trace,context:{droppedTurns:prepared.droppedTurns,historyChars:prepared.chars}};
+   // Counting the turn is bookkeeping, not a tool result, so it is not a trace entry: the trace ends with the answer's checks.
+   state=endTurn(state);
+   return {messages,answer:message.content,tools,memory:validateState(state),trace,context:{droppedTurns:prepared.droppedTurns,historyChars:prepared.chars,shownFrom:prepared.memory.turns.shownFrom,completedBefore:prepared.memory.turns.completed}};
   }
   if(round===4||message.tool_calls.length>4)throw Error('tool_limit');
   // The model can't introduce a point value: one the user didn't say is dropped before the tool runs, and before the call enters history.

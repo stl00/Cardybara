@@ -14,12 +14,17 @@ import {cardProducts,matchCardProduct} from './productCatalog.js';
  * @typedef {{use?:string,start:string,end:string,precision:'days'|'part-of-month'|'month'|'holiday',destination?:string,assumed?:true}} Trip
  *   Dates code resolved from the user's words; never dates the model wrote.
  * @typedef {{rule?:string,card?:string}} TopicItem  A knowledge rule id and/or a catalogue product id.
- * @typedef {{items:TopicItem[],cards:string[]}} Topics
- *   items: what the last tool turn returned, in order ("the second one"); cards: cards the chat focused on, most recent first ("that card").
- * @typedef {{lastPurchase?:Purchase,trip?:Trip,topics?:Topics}} ConversationState
+ * @typedef {{card:string,first:number,last:number}} TopicCard  A catalogue product id and the turns (0-based) it was first and last focused in.
+ * @typedef {{items:TopicItem[],cards:TopicCard[]}} Topics
+ *   items: what the last tool turn returned, in order ("the second one"); cards: cards the chat focused on ("that card", "the first card").
+ * @typedef {{completed:number,shownFrom:number}} Turns
+ *   completed: turns answered so far; shownFrom: the first turn still shown to the model (earlier ones were trimmed).
+ * @typedef {{lastPurchase?:Purchase,trip?:Trip,topics?:Topics,turns?:Turns}} ConversationState
  * @typedef {{name:string,args:object,result:any}} ToolEvent
  */
-export const STATE_CHANNELS=['lastPurchase','trip','topics'];
+export const STATE_CHANNELS=['lastPurchase','trip','topics','turns'];
+export const MAX_TURNS=10000;
+const isTurn=n=>Number.isInteger(n)&&n>=0&&n<=MAX_TURNS;
 export const TOPIC_ITEMS=12,TOPIC_CARDS=6;
 
 const TRIP_PRECISIONS=['days','part-of-month','month','holiday'];
@@ -49,9 +54,16 @@ const isRule=id=>typeof id==='string'&&/^rule\.[a-z0-9.-]{1,160}$/.test(id)&&!!k
 function validateTopics(raw){
  if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!['items','cards'].includes(k)))throw Error('invalid_memory');
  const items=raw.items??[],cards=raw.cards??[];
- if(!Array.isArray(items)||items.length>TOPIC_ITEMS||!Array.isArray(cards)||cards.length>TOPIC_CARDS||new Set(cards).size!==cards.length||!cards.every(isProduct))throw Error('invalid_memory');
+ if(!Array.isArray(items)||items.length>TOPIC_ITEMS||!Array.isArray(cards)||cards.length>TOPIC_CARDS)throw Error('invalid_memory');
+ // A bare product id is the shape before turns were recorded; it reads as a card from the first turn.
+ const entries=cards.map(c=>typeof c==='string'?{card:c,first:0,last:0}:c);
+ if(entries.some(c=>!c||typeof c!=='object'||Array.isArray(c)||Object.keys(c).some(k=>!['card','first','last'].includes(k))||!isProduct(c.card)||!isTurn(c.first)||!isTurn(c.last)||c.first>c.last)||new Set(entries.map(c=>c.card)).size!==entries.length)throw Error('invalid_memory');
  for(const item of items)if(!item||typeof item!=='object'||Array.isArray(item)||!Object.keys(item).length||Object.keys(item).some(k=>!['rule','card'].includes(k))||item.rule!==undefined&&!isRule(item.rule)||item.card!==undefined&&!isProduct(item.card))throw Error('invalid_memory');
- return {items:items.map(i=>({...(i.rule?{rule:i.rule}:{}),...(i.card?{card:i.card}:{})})),cards:[...cards]};
+ return {items:items.map(i=>({...(i.rule?{rule:i.rule}:{}),...(i.card?{card:i.card}:{})})),cards:entries.map(c=>({card:c.card,first:c.first,last:c.last}))};
+}
+function validateTurns(raw){
+ if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!['completed','shownFrom'].includes(k))||!isTurn(raw.completed)||!isTurn(raw.shownFrom)||raw.shownFrom>raw.completed)throw Error('invalid_memory');
+ return {completed:raw.completed,shownFrom:raw.shownFrom};
 }
 const productOf=card=>card&&matchCardProduct(card).product?.id||null;
 const heldProduct=(cards,name,region)=>productOf(cards.find(c=>c.name===name&&(!region||c.region===region)));
@@ -77,13 +89,16 @@ export function topicItems({name,result},cards){
 const productRules=new Map();
 const ruleByTitle=(productId,title)=>{if(!productRules.has(productId))productRules.set(productId,queryKnowledge({productId,includeInactive:true}).rules);return productRules.get(productId).find(r=>r.content?.title===title)?.id||null;};
 /** What the model sees: names, regions, titles and programmes from the shipped catalogue, never memory text. */
-export function topicContext(topics){
+// Cards are listed in the order they were first discussed, so "the first card" has an answer; turns count from 1.
+export function topicContext(topics,turns){
  if(!topics||!topics.items.length&&!topics.cards.length)return null;
+ const shownFrom=turns?.shownFrom||0;
  const product=id=>{const p=productById.get(id);return {card:p.name,region:p.region};};
  const programme=id=>id&&knowledgeEntities.programmes.find(p=>p.id===id)?.name||null;
  return {
   lastResults:topics.items.map((item,i)=>{const rule=item.rule&&knownRule(item.rule),to=programme(rule?.terms?.toProgrammeId);return {n:i+1,...(rule?{title:rule.content.title}:{}),...(item.card?product(item.card):{}),...(to?{programme:to}:{})};}),
-  recentCards:topics.cards.map(product)
+  // Storage is most recent first, so within one turn the reverse of storage order is the order discussed.
+  recentCards:topics.cards.map((c,i)=>({...c,i})).toSorted((a,b)=>a.first-b.first||b.i-a.i).map(c=>({...product(c.card),firstTurn:c.first+1,lastTurn:c.last+1,...(c.last<shownFrom?{onlyInDroppedTurns:true}:{})}))
  };
 }
 
@@ -93,7 +108,8 @@ export function validateState(raw={}){
  return {
   ...(raw.lastPurchase?{lastPurchase:purchaseMemory(raw.lastPurchase,true)}:{}),
   ...(raw.trip?{trip:validateTrip(raw.trip)}:{}),
-  ...(raw.topics?{topics:validateTopics(raw.topics)}:{})
+  ...(raw.topics?{topics:validateTopics(raw.topics)}:{}),
+  ...(raw.turns?{turns:validateTurns(raw.turns)}:{})
  };
 }
 
@@ -110,7 +126,8 @@ const reducers={
  // Items: the first tool of a turn replaces the list, even with nothing, so an older list never passes for the last
  // results; later tools in that turn append.
  // Cards: a card named in the arguments, the chosen card, or the only card returned goes to the front.
- topics:(previous,event,{cards=[],appendItems=false}={})=>{
+ turns:previous=>previous,
+ topics:(previous,event,{cards=[],appendItems=false,turn=0}={})=>{
   // An event without a result is a call replayed from history (prepareAgentContext), not a tool that ran: the
   // index already reflects it.
   if(event.result===undefined)return previous;
@@ -120,10 +137,17 @@ const reducers={
   const returned=[...new Set(items.map(i=>i.card).filter(Boolean))];
   if(name!=='list_cards'&&returned.length===1)focus.push(returned[0]);
   const nextItems=appendItems?(items.length?[...before.items,...items]:before.items):items;
-  const nextCards=[...new Set([...focus.filter(Boolean).reverse(),...before.cards])];
+  // A focused card keeps the turn it was first discussed in and moves its last turn on; the least recently
+  // discussed card leaves first when the list is full.
+  // Stored most recent first: the cards this event focused (the later one first), then the rest in their order.
+  // A stable sort by last turn keeps that order within a turn, so "that card" can still mean the latest one.
+  const had=new Map(before.cards.map(c=>[c.card,c])),focused=[...new Set(focus.filter(Boolean).reverse())];
+  const touched=focused.map(id=>({card:id,first:had.get(id)?.first??turn,last:Math.max(turn,had.get(id)?.last??turn)}));
+  const nextCards=[...touched,...before.cards.filter(c=>!focused.includes(c.card))].toSorted((a,b)=>b.last-a.last).slice(0,TOPIC_CARDS);
+  const sameCards=nextCards.length===before.cards.length&&nextCards.every((c,i)=>{const b=before.cards[i];return b.card===c.card&&b.first===c.first&&b.last===c.last;});
   // Same list object only when appending nothing; then, with the same cards, the channel is unchanged.
-  if(nextItems===before.items&&nextCards.length===before.cards.length&&nextCards.every((c,i)=>c===before.cards[i]))return previous;
-  return {items:nextItems.slice(0,TOPIC_ITEMS),cards:nextCards.slice(0,TOPIC_CARDS)};
+  if(nextItems===before.items&&sameCards)return previous;
+  return {items:nextItems.slice(0,TOPIC_ITEMS),cards:nextCards};
  },
 };
 
@@ -135,8 +159,8 @@ const reducers={
  * @returns {ConversationState}
  */
 export function reduceToolResult(state,event,context={}){
- const before=validateState(state),next={};
- for(const channel of STATE_CHANNELS){const value=reducers[channel](before[channel],event,context);if(value!==undefined&&value!==null)next[channel]=value;}
+ const before=validateState(state),next={},turn=before.turns?.completed??0;
+ for(const channel of STATE_CHANNELS){const value=reducers[channel](before[channel],event,{...context,turn});if(value!==undefined&&value!==null)next[channel]=value;}
  return validateState(next);
 }
 
@@ -144,8 +168,23 @@ export function reduceToolResult(state,event,context={}){
 const summary={
  lastPurchase:v=>v&&{fields:Object.keys(v).sort(),...(v.category?{category:v.category}:{}),...(v.currency?{currency:v.currency}:{}),...(v.country?{country:v.country}:{})},
  trip:v=>v&&{start:v.start,end:v.end,precision:v.precision},
- topics:v=>v&&{items:v.items.length,cards:v.cards},
+ topics:v=>v&&{items:v.items.length,cards:v.cards.map(c=>c.card)},
+ turns:v=>v,
 };
+/**
+ * The state as a turn starts: how many earlier turns the model will not see. Pure.
+ * historyTurns: earlier turns in the history received (already trimmed by a previous turn, so a lower bound);
+ * shownTurns: how many of them the model will see.
+ */
+export function startTurn(state,{historyTurns,shownTurns}){
+ const before=validateState(state),completed=Math.min(Math.max(before.turns?.completed??0,historyTurns),MAX_TURNS);
+ return validateState({...before,turns:{completed,shownFrom:Math.max(0,completed-shownTurns)}});
+}
+/** The state once a turn is answered. Pure. */
+export function endTurn(state){
+ const before=validateState(state),turns=before.turns??{completed:0,shownFrom:0};
+ return validateState({...before,turns:{...turns,completed:Math.min(turns.completed+1,MAX_TURNS)}});
+}
 /** Channel-by-channel change between two states, for the trace: [{channel,before,after}]. */
 export function diffState(before={},after={}){
  return STATE_CHANNELS.filter(c=>JSON.stringify(before[c]??null)!==JSON.stringify(after[c]??null)).map(c=>({channel:c,before:summary[c](before[c])??null,after:summary[c](after[c])??null}));
