@@ -60,3 +60,7 @@ Live cases can declare `setupQuestions`; the harness runs them through the same 
 ## Card choice · 2026-11
 
 `choose_card` replaced `compare_cards` and its per-card category bindings. `src/data/earning-categories.json` classifies every earning rule's spend category into uses, channel, merchants, country and conditions; a test fails if a rule is unclassified, and no product id appears in `src/cardDecision.js`. Cash is compared only with cash. Points are shown as points with a break-even value per point, and are priced only with a value the user stated. A credit counts toward the choice only when it is marked unused and the merchant is on its list; otherwise it appears under what could change the result. Foreign transaction fees are not recorded, so they are unknown. Grounding adds checks that the chosen card comes first, that nothing is called a global best, and that points are not priced without the user's value; the code-written fallback covers choices too.
+
+## Benefit retrieval recall · 2026-11
+
+`npm run eval:benefit-recall` scores `searchBenefitKnowledge` against a hand-labelled golden set of 129 questions in three languages, in three modes: raw question, rewritten query, and rewritten query plus filters. It is a report, not a gate. Method, baseline and findings are in `evals/benefit-recall/README.md`.
