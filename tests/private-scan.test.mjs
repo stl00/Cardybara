@@ -15,7 +15,7 @@ for(const key of Object.keys(env))if(/^GIT_/.test(key)&&!key.startsWith('GIT_CON
 // message does not repeat a value, so the check only sees what the hook itself wrote.
 function scrub(text,dir){
  let out=text||'';
- for(const p of new Set([dir,realpathSync(dir),tmpdir(),realpathSync(tmpdir())]).values())out=out.split(p).join('<tmp>');
+ for(const p of [...new Set([dir,realpathSync(dir),tmpdir(),realpathSync(tmpdir())])].sort((a,b)=>b.length-a.length))out=out.split(p).join('<tmp>');
  return out;
 }
 function sandbox(t,values=[LONG,TAIL,TEXT],prefix=''){
