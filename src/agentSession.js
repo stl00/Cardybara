@@ -1,5 +1,6 @@
 import {runWalletTool} from './walletAgent.js';
-import {prepareAgentContext,validateMemory,purchaseMemory,statedPointValues} from './agentContext.js';
+import {prepareAgentContext,statedPointValues} from './agentContext.js';
+import {validateState,reduceToolResult,diffState} from './conversationState.js';
 import {answerGrounding} from './answerGrounding.js';
 import {planResults} from './creditClaims.js';
 import {renderCreditAnswers} from './creditAnswer.js';
@@ -7,7 +8,9 @@ import {renderChoiceAnswer} from './decisionAnswer.js';
 import {creditNamesForCards} from './creditQuery.js';
 export async function runAgentTurn({history,question,context,request,memory={},onProgress=()=>{},signal}){
  if(!question.trim()||question.length>4000)throw Error('invalid_question');
- const prepared=prepareAgentContext(history,memory),state=prepared.memory;
+ const prepared=prepareAgentContext(history,memory);
+ // The conversation state. Only reduceToolResult replaces it; nothing modifies it in place.
+ let state=prepared.memory,toolsRun=0;
  const messages=[...prepared.messages,{role:'user',content:question}],tools=[],evidence=[],trace=[];
  // The model receives the wallet day every turn; it never infers the current date.
  const invoke=async(final=false,override)=>{signal?.throwIfAborted();const start=Date.now();const reply=await request({messages:override||messages,memory:state,final,...(context.day?{today:context.day}:{})},signal);trace.push({type:'model',ms:Date.now()-start,inputChars:JSON.stringify(override||messages).length,final,...(reply.usage?{usage:reply.usage}:{})});return reply.message;};
@@ -37,7 +40,7 @@ export async function runAgentTurn({history,question,context,request,memory={},o
     }
    }
    messages.push(message);
-   return {messages,answer:message.content,tools,memory:validateMemory(state),trace,context:{droppedTurns:prepared.droppedTurns,historyChars:prepared.chars}};
+   return {messages,answer:message.content,tools,memory:validateState(state),trace,context:{droppedTurns:prepared.droppedTurns,historyChars:prepared.chars}};
   }
   if(round===4||message.tool_calls.length>4)throw Error('tool_limit');
   // The model can't introduce a point value: one the user didn't say is dropped before the tool runs, and before the call enters history.
@@ -51,9 +54,10 @@ export async function runAgentTurn({history,question,context,request,memory={},o
   for(const call of message.tool_calls){
    signal?.throwIfAborted();
    const start=Date.now(),result=runWalletTool(call,{...context,trip:state.trip}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
-   if(call.function.name==='choose_card')state.lastPurchase=purchaseMemory(args);
-   // Only dates that code resolved reach memory, so a failed resolution keeps the previous trip.
-   if(call.function.name==='query_credits'&&result.window&&result.window.precision!=='current-cycle')state.trip={...(result.use?{use:result.use}:{}),start:result.window.start,end:result.window.end,precision:result.window.precision,...(result.destination?{destination:result.destination}:{}),...(result.window.assumptions.some(a=>a!=='dates-remembered-from-earlier-turn')?{assumed:true}:{})};
+   // Each tool result updates the state through the reducers; the trace records what changed, channel by channel.
+   const event={name:call.function.name,args,result},before=state;
+   state=reduceToolResult(state,event,{cards:context.cards,appendItems:toolsRun++>0});
+   const changes=diffState(before,state);if(changes.length)trace.push({type:'state',tool:call.function.name,changes});
    trace.push({type:'tool',name:call.function.name,ms:Date.now()-start,resultChars:JSON.stringify(result).length,...(['find_benefits','get_card_rules'].includes(call.function.name)?{matches:result.totalMatches,returned:result.rules.length,truncated:result.truncated}:{}),...(call.function.name==='choose_card'?{choice:result.choice?.kind,certainty:result.choice?.certainty||null,rows:result.totalRows,excluded:result.excluded?.length}:{}),...(call.function.name==='query_credits'?{needsDates:!!result.needsDates,...(result.groupCounts?{groups:result.groupCounts,truncated:result.truncated}:{})}:{})});
    onProgress({phase:'tool',name:call.function.name,tools:[...tools]});messages.push({role:'tool',tool_call_id:call.id,content:JSON.stringify(result)});
   }
