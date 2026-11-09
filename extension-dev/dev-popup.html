@@ -1,7 +1,8 @@
-<!doctype html><html><head><meta charset="utf-8"><title>Cardybara dev</title>
-<style>body{font:13px system-ui;width:300px;margin:12px}label{display:block;margin:6px 0}ul{padding:0;list-style:none;margin:8px 0}li{display:flex;justify-content:space-between;gap:12px;padding:2px 0}li span:last-child{text-align:right}small{color:#666;display:block;margin-top:8px}a{display:block;margin-top:8px}</style></head>
-<body><label><input type="checkbox" id="on"> <span id="on-label"></span></label>
-<label><span id="every-label"></span> <select id="every"></select></label>
-<button id="read-now" type="button"></button> <small id="status"></small>
-<ul id="banks"></ul><small id="checked"></small><small id="note"></small><a id="wallet" href="index.html" target="_blank"></a>
-<script type="module" src="dev-popup.js"></script></body></html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>Cardybara Dev</title><link rel="stylesheet" href="popup.css"></head>
+<body><main>
+<header class="head"><div><h1 id="title"></h1><p class="sub" id="note"></p></div><label class="switch"><input type="checkbox" id="on"><span></span><b id="on-label"></b></label></header>
+<section class="panel stack"><div class="row"><label for="every" id="every-label"></label><select id="every"></select></div>
+<button id="read-now" type="button" class="primary block"></button><p class="muted" id="read-now-plan"></p><p class="status" id="status" role="status"></p></section>
+<section class="panel"><h2 id="banks-label"></h2><ul class="banks" id="banks"></ul></section>
+<footer class="foot"><strong id="checked"></strong><a id="wallet" href="index.html" target="_blank" rel="noopener"></a></footer>
+</main><script type="module" src="dev-popup.js"></script></body></html>
