@@ -1,7 +1,7 @@
 import {searchBenefitKnowledge} from './benefitSearch.js';
 import {chooseCard,PURCHASE_CATEGORIES,PURCHASE_CHANNELS,POINT_VALUE_NAMES} from './cardDecision.js';
 import {matchCardProduct} from './productCatalog.js';
-import {knowledgeSources,queryKnowledge,knowledgeEntities} from './knowledge.js';
+import {knowledgeSources,queryKnowledge,knowledgeEntities,ruleText} from './knowledge.js';
 import {queryCredits,CREDIT_USES} from './creditQuery.js';
 export const agentTools=[
  {type:'function',function:{name:'choose_card',description:'Decide which held card to use for a purchase. Code compares every held card using earning rules, usable credits, caps and known costs, and returns the choice. Answer with what the user gave: every field is optional except what you can read from the question. Do not ask first. Never guess MCC: use categorySource inferred if the user did not say the category. Read only.',parameters:{type:'object',properties:{category:{type:'string',enum:PURCHASE_CATEGORIES},categorySource:{type:'string',enum:['stated','inferred']},alternateCategory:{type:'string',enum:PURCHASE_CATEGORIES,description:'Only for a merchant that may code either way, such as a warehouse club or big-box store.'},merchant:{type:'string',minLength:1,maxLength:120},amount:{type:'number',minimum:0.01,maximum:1e8},currency:{type:'string',pattern:'^[A-Z]{3}$',description:'ISO code of a currency the user named: 美元, US dollars or USD is USD, 港币 is HKD, 日元 is JPY. A bare $ or 元 with no country named is not a currency.'},country:{type:'string',pattern:'^[A-Z]{2}$',description:'Where the purchase happens, only if the user stated it.'},channel:{type:'string',enum:PURCHASE_CHANNELS,description:'direct, portal (issuer travel portal) or wallet, only if stated.'},portal:{type:'string',minLength:2,maxLength:60,description:'The portal named by the user, such as Chase Travel or Amex Travel.'},when:{type:'string',minLength:1,maxLength:80,description:'Only the date words as the user said them, if the purchase is not today.'},pointValues:{type:'object',description:'Only values the user stated this conversation, as cents per point by programme, such as {"MR":1.5}. A bare MR or UR is the US programme; write MR HK for Hong Kong. Never supply your own.'}},additionalProperties:false}}},
@@ -26,9 +26,11 @@ const normalized=s=>s.normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,
 // these wordings, or a chat from before a language switch, reaches it.
 const selectedCards=(cards,args)=>cards.filter(c=>(!args.cardName||[c.name,c.pageName,matchCardProduct(c).product?.name].some(n=>n&&normalized(n).includes(normalized(args.cardName))))&&(!args.region||c.region===args.region));
 const programmeName=id=>knowledgeEntities.programmes.find(p=>p.id===id)?.name||null;
-function publicRule(r,cards){
- const {fromProgrammeId,toProgrammeId,...terms}=r.terms;
- return {cards:cards.filter(c=>r.productIds.includes(matchCardProduct(c).product?.id)).map(c=>({name:c.name,region:c.region})),kind:r.kind,title:r.content.title,summary:r.content.summary,howToUse:r.content.howToUse,terms:{...terms,...(fromProgrammeId?{fromProgramme:programmeName(fromProgrammeId)}:{}),...(toProgrammeId?{toProgramme:programmeName(toProgrammeId)}:{})},validity:r.validity,conditions:r.conditions.unparsedText,revision:r.revisionId,sources:knowledgeSources(r.evidence.sourceIds),checkedAt:r.evidence.checkedAt,assessment:r.assessment,...(r.retrieval?{retrieval:r.retrieval}:{})};
+// Text in the reader's language when the rule has it; the official original always rides along, with its quotes,
+// so the model can quote the terms rather than a translation of them.
+function publicRule(r,cards,language){
+ const {fromProgrammeId,toProgrammeId,...terms}=r.terms,text=ruleText(r,language),o=r.original;
+ return {cards:cards.filter(c=>r.productIds.includes(matchCardProduct(c).product?.id)).map(c=>({name:c.name,region:c.region})),kind:r.kind,title:text.title,summary:text.summary,howToUse:text.howToUse,textLanguage:text.lang,...(text.translated?{textIsTranslation:true}:{}),...(o?{original:{lang:o.lang,...(text.lang===o.lang?{}:{title:o.title,summary:o.summary}),quotes:o.quotes.map(q=>q.text)}}:{}),terms:{...terms,...(fromProgrammeId?{fromProgramme:programmeName(fromProgrammeId)}:{}),...(toProgrammeId?{toProgramme:programmeName(toProgrammeId)}:{})},validity:r.validity,conditions:r.conditions.unparsedText,revision:r.revisionId,sources:knowledgeSources(r.evidence.sourceIds),checkedAt:r.evidence.checkedAt,assessment:r.assessment,...(r.retrieval?{retrieval:r.retrieval}:{})};
 }
 // With no match, the scenarios where the same query, or else the held cards, do have benefits. Counts, not rules: the model searches again.
 function suggestScenarios(args,cards,day){
@@ -39,7 +41,7 @@ function suggestScenarios(args,cards,day){
  const counts={};for(const r of pool)for(const s of r.scenarioIds)counts[s]=(counts[s]||0)+1;
  return {basis:loose.length?'same query without '+dropped.join(', '):'held cards, any query',scenarios:Object.entries(counts).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).slice(0,4).map(([scenarioId,matches])=>({scenarioId,matches}))};
 }
-export function runWalletTool(call,{cards,events,day,trip}){
+export function runWalletTool(call,{cards,events,day,trip,language}){
  const {name,args}=validateToolCall(call);const nameOf=id=>cards.find(c=>c.id===id)?.name||'Unidentified card';
  if(name==='list_cards')return cards.map(c=>({name:c.name,region:c.region,currency:c.currency}));
  if(name==='query_credits'){const selected=selectedCards(cards,args);return {...queryCredits(args,{cards:selected,events,day,trip,brief:!args.use&&!args.cardName}),scope:{region:args.region||null,cardName:args.cardName||null},matchedCards:selected.map(c=>c.name)};}
@@ -48,11 +50,11 @@ export function runWalletTool(call,{cards,events,day,trip}){
   if(name==='find_benefits'){
    const found=searchBenefitKnowledge(args.query,selected,day,args);
    // No rule, or rules kept only by the filters with no word of the query in them: suggest where the query does match.
-   return {coverage:'Public eligibility does not confirm enrollment; not an exhaustive benefit inventory.',asOf:day,scope,matchedCards:selected.map(c=>c.name),totalMatches:found.total,truncated:found.truncated,retrievalMethod:found.method,rules:found.rules.map(r=>publicRule(r,selected)),...(found.wordMatches?{}:{suggestions:suggestScenarios(args,selected,day)})};
+   return {coverage:'Public eligibility does not confirm enrollment; not an exhaustive benefit inventory.',asOf:day,scope,matchedCards:selected.map(c=>c.name),totalMatches:found.total,truncated:found.truncated,retrievalMethod:found.method,rules:found.rules.map(r=>publicRule(r,selected,language)),...(found.wordMatches?{}:{suggestions:suggestScenarios(args,selected,day)})};
   }
   const products=new Set(selected.map(c=>matchCardProduct(c).product?.id).filter(Boolean));
   const rows=queryKnowledge({kind:args.kind,asOf:day}).rules.filter(r=>r.productIds.some(id=>products.has(id))&&(!args.programme||String(programmeName(r.terms.toProgrammeId)||'').toLowerCase().includes(args.programme.toLowerCase().trim())));
-  return {coverage:'Public product rules only; actual fees, waivers, transfer ratios and linked accounts require personal evidence. Missing records do not establish no fee or no transfer relationship.',asOf:day,scope,matchedCards:selected.map(c=>c.name),totalMatches:rows.length,truncated:rows.length>24,rules:rows.slice(0,24).map(r=>publicRule(r,selected))};
+  return {coverage:'Public product rules only; actual fees, waivers, transfer ratios and linked accounts require personal evidence. Missing records do not establish no fee or no transfer relationship.',asOf:day,scope,matchedCards:selected.map(c=>c.name),totalMatches:rows.length,truncated:rows.length>24,rules:rows.slice(0,24).map(r=>publicRule(r,selected,language))};
  }
  return chooseCard(args,{cards,events,day});
 }

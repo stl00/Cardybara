@@ -1,5 +1,5 @@
 // The one credit query. Code filters, overlaps cycles with the dates, reads manual marks and joins terms; the model only explains the result.
-import {queryKnowledge,knowledgeSources} from './knowledge.js';
+import {queryKnowledge,knowledgeSources,ruleText} from './knowledge.js';
 import {benefitPeriod,profileForCard} from './benefitRules.js';
 import {matchCardProduct} from './productCatalog.js';
 import {taskStatus,dismissedKeys,dismissKey} from './personalBenefits.js';
@@ -45,11 +45,13 @@ function publicLimit(rule,asOf){
  if(!Number.isFinite(value))return null; // A missing amount stays unknown, never zero.
  return rule.terms.quantity?value*rule.terms.quantity:value;
 }
+// Other-language titles: the rule's own text in that language (its English original, say), then the dictionary.
+const titlesOf=rule=>{const zh=rule.content.title,en=ruleText(rule,'en-US'),tw=ruleText(rule,'zh-TW');return {'zh-TW':tw.lang!=='zh-CN'&&tw.lang!=='en-US'?tw.title:translations['zh-TW']?.[zh]||zh,en:en.lang==='en-US'?en.title:translations['en-US']?.[zh]||null};};
 function describe(card,row,destination,asOf,use,brief){
  const {rule}=row,coupon=rule.terms.coupon,posting=coupon?.posting,zh=rule.content.title;
  const countries=coupon?.eligibleCountries||[];
  return {
-  card:card.name,cardRegion:card.region,title:zh,titles:{'zh-TW':translations['zh-TW']?.[zh]||zh,en:translations['en-US']?.[zh]||null},
+  card:card.name,cardRegion:card.region,title:zh,titles:titlesOf(rule),
   publicLimit:publicLimit(rule,asOf),currency:rule.terms.currency||card.currency,
   ...(rule.terms.perTransactionCap?{perTransactionCap:rule.terms.perTransactionCap}:{}),
   ...(rule.terms.spendThreshold?{spendThreshold:rule.terms.spendThreshold}:{}),
@@ -76,7 +78,7 @@ export function creditNamesForCards(cards,day){
  const names=new Map();
  for(const card of cards){
   const match=matchCardProduct(card);if(match.status!=='matched'||!match.product?.id||!isRealDate(day))continue;
-  for(const rule of queryKnowledge({productId:match.product.id,kind:'benefit',asOf:day,includeInactive:true}).rules)if(relevant(rule)){const zh=rule.content.title;names.set(zh,{title:zh,titles:{'zh-TW':translations['zh-TW']?.[zh]||zh,en:translations['en-US']?.[zh]||null}});}
+  for(const rule of queryKnowledge({productId:match.product.id,kind:'benefit',asOf:day,includeInactive:true}).rules)if(relevant(rule)){const zh=rule.content.title;names.set(zh,{title:zh,titles:titlesOf(rule)});}
  }
  return [...names.values()];
 }
