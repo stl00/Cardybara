@@ -1,1 +1,9 @@
-<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>Cardybara</title><link rel="stylesheet" href="popup.css"><main><h1>Cardybara · 卡疲扒拉</h1><p><a href="index.html#overview" target="_blank" rel="noopener" class="open-wallet">打开我的钱包 ↗</a></p><p>本地预览 · 各银行支持范围见钱包</p><p id="status" role="status">读取本机任务状态…</p><p id="build-status" role="status"></p><button id="apply-update" hidden>应用本地更新</button><button id="cancel">取消当前采集</button> <button id="export">导出扩展记录</button><details><summary>管理采集与清除读数</summary><section id="banks"></section></details><p>停用会停止该银行采集并清除扩展读数；不会退出银行登录或撤销 Chrome 的网站权限。历史网站快照仍单独保留。</p><a href="index.html#overview" target="_blank" rel="noopener">打开 Cardybara 钱包 ↗</a><p><a href="privacy.html" target="_blank">隐私与数据说明</a></p></main><script src="popup.js" type="module"></script></html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>Cardybara</title><link rel="stylesheet" href="popup.css"></head>
+<body><main>
+<header class="head"><div><h1 id="title">Cardybara · 卡疲扒拉</h1><p class="sub" id="subtitle"></p></div><a href="index.html#overview" target="_blank" rel="noopener" class="btn small open-wallet" id="open-wallet"></a></header>
+<section class="panel stack"><div class="row"><h2 id="run-label" class="muted"></h2><span class="tag" id="run-tag" hidden></span></div><p id="status" class="status" role="status"></p><ul class="banks" id="jobs"></ul>
+<div class="row"><button id="cancel" type="button" class="small danger"></button><button id="export" type="button" class="small"></button></div></section>
+<section class="panel stack" id="build-panel"><p id="build-status" class="muted" role="status"></p><button id="apply-update" type="button" class="primary small" hidden></button></section>
+<details><summary id="manage-label"></summary><ul class="banks" id="banks"></ul><p class="note" id="disable-note"></p></details>
+<footer class="foot"><a href="privacy.html" target="_blank" id="privacy"></a><a href="index.html#overview" target="_blank" rel="noopener" id="wallet-link"></a></footer>
+</main><script src="popup.js" type="module"></script></body></html>
