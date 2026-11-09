@@ -34,7 +34,8 @@ export async function next(){
   await notify(s);await showGuide({...s.run.jobs.find(j=>j.attemptId===ctx.attemptId),runId:s.run.id});if(owned){
    // Its load events may have fired before the job held this tab. Count the load as started, and read it if it already finished.
    const job={...ctx,...s.run.jobs.find(j=>j.attemptId===ctx.attemptId)},now=await bounded(chrome.tabs.get(tab.id));
-   if(await engine.loading(job)&&now.status==='complete'&&guidedPage(ctx.bank,now.url))void loaded(tab.id,now.url);
+   // A finished web page is read, or fails at once if it left the bank; a blank tab waits for its load.
+   if(await engine.loading(job)&&now.status==='complete'&&/^https?:/.test(now.url||''))void loaded(tab.id,now.url);
   }else if(existing.verified){if(ctx.bank.startsWith('Amex ')&&!/^\/(dashboard|overview)(?:\/|$)/.test(new URL(tab.url).pathname)){await engine.loading({...ctx,...s.run.jobs.find(j=>j.attemptId===ctx.attemptId)});await bounded(chrome.tabs.update(tab.id,{url:'https://global.americanexpress.com/dashboard',active:true}));}else{await engine.loading({...ctx,...s.run.jobs.find(j=>j.attemptId===ctx.attemptId)});void loaded(tab.id,tab.url);}}else await bounded(chrome.tabs.reload(tab.id));
  }catch{await publish(await engine.fail(ctx,'load_error',{stage:'open_bank',code:'bank_tab_unavailable'}));}
 }
