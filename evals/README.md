@@ -114,3 +114,28 @@ Still unresolved: "the second one from the very first list" seven turns back (3 
 ## Benefit retrieval recall · 2026-11
 
 `npm run eval:benefit-recall` scores `searchBenefitKnowledge` against a hand-labelled golden set of 129 questions in three languages, in three modes: raw question, rewritten query, and rewritten query plus filters. It is a report, not a gate. Method, baseline and findings are in `evals/benefit-recall/README.md`.
+
+### Live run · 2026-11-09 (#132)
+
+`deepseek-flash`, temperature 0.2, two runs per side over all 55 dialogues; earlier turns scripted, only the last turn calls the model. Before = `17ae68b` (main just before #137), after = `3b74028` (#137). Spend $0.27 in total at peak list prices.
+
+- **strict**: the expected tool with the key arguments (a `cardName` passes if it selects the same held cards; a `programme` if it reaches the expected programme).
+- **referent**: some call names the referred card unambiguously, whatever the tool. Only for dialogues whose referent is a card (48 of 55); for ordinals it checks the card, not which item.
+
+| | n (×2 runs) | strict before → after | referent before → after |
+|---|---|---|---|
+| all | 110 | 86 (78%) → 88 (80%) | 77/96 → 78/96 |
+| pronoun | 20 | 20 → 20 | 20/20 → 20/20 |
+| ordinal | 24 | 20 → 22 | 24/24 → 24/24 |
+| ellipsis | 16 | 16 → 15 | 2/2 → 2/2 |
+| topic return | 14 | 14 → 13 | 14/14 → 14/14 |
+| long range | 20 | 2 → 2 | 2/20 → 2/20 |
+| same name | 16 | 14 → 16 | 15/16 → 16/16 |
+
+Run-to-run noise: the two runs of the same code differ by 2 strict cases on each side (42/44 before, 43/45 after), so a difference of one or two cases is not an improvement.
+
+Tool calls in the last turn fell from 187 to 137, and `list_cards` calls from 45 to 10: with catalogue names in the index the model no longer looks cards up before searching.
+
+What did not move: long range. Asked "最开始问的那张卡", the model picks the earliest card it can see in the chat (the first kept turn), not the card from turns that were dropped; nothing said earlier turns were hidden. Other failures: `find_benefits` where the label expects `get_card_rules` for "转过去能拿会籍吗", and answers that failed grounding after correct calls (2 before, 3 after).
+
+Spend control: `--budget-usd` is required. A dialogue starts only if its worst case still fits: six model calls with every prompt token uncached at 1.5× the largest prompt seen, and the full 1800-token output each. A call that returns no usage, or fails after it may have been billed, is charged that worst case. Prices come from a per-model table; an unknown model stops the run. `--rescore=report.json` recomputes the checks from a saved live report without calling the model or reading configuration.

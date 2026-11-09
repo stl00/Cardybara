@@ -77,3 +77,43 @@ test('the replay captures exactly what the model would receive, without the last
  assert.ok(!sent.messages.some(m=>m.role==='tool'),'old tool results are not replayed');
  assert.ok(contextSources(sent).some(s=>s.includes('Priority Pass')));
 });
+
+// ---- live scoring and spend control (evals/multiturn/live.mjs); no network ----
+import {interleaved,argumentsMatch,targetProgramme,resolvesCard,meter,priceFor,PRICES} from '../evals/multiturn/live.mjs';
+
+test('live order covers every kind in the first few dialogues',()=>{
+ const kinds=[...new Set(dialogues.map(d=>d.kind))];
+ assert.deepEqual(interleaved(dialogues).slice(0,kinds.length).map(d=>d.kind),kinds);
+ assert.equal(interleaved(dialogues).length,dialogues.length);
+});
+
+test('a programme argument passes only if it reaches the expected programme',()=>{
+ const expect={tool:'get_card_rules',args:{kind:'transfer-relationship',cardName:'Gold Card',programme:'ANA'}};
+ const call=programme=>({name:'get_card_rules',args:{kind:'transfer-relationship',cardName:'Gold Card',programme}});
+ assert.equal(targetProgramme('ANA'),'ANA Mileage Club');
+ assert.equal(argumentsMatch(expect,call('ANA')),true);
+ assert.equal(argumentsMatch(expect,call('Aeroplan')),false,'Air Canada Aeroplan contains "ana" but is not ANA');
+ assert.equal(argumentsMatch({tool:'get_card_rules',args:{kind:'transfer-relationship',programme:'Asia Miles'}},{name:'get_card_rules',args:{kind:'transfer-relationship',programme:'Cathay'}}),true);
+ assert.equal(argumentsMatch(expect,call('')),false);
+});
+
+test('the referent check is n/a when the referent is not a card',()=>{
+ const noCard=dialogues.find(d=>!d.target.card),card=dialogues.find(d=>d.target.card);
+ assert.equal(resolvesCard(noCard,[]),null);
+ assert.equal(resolvesCard(card,[]),false);
+ assert.equal(resolvesCard(card,[{name:card.expect.tool,args:card.expect.args}]),true);
+});
+
+test('spend: unknown models have no price, and calls without usage are charged their worst case',()=>{
+ assert.throws(()=>priceFor('some-new-model'),/no price/);
+ assert.equal(priceFor('deepseek-v4-flash'),PRICES['deepseek-flash']);
+ const m=meter({price:PRICES['deepseek-flash'],budget:0.1});
+ assert.ok(m.canStartDialogue());
+ // A run whose calls never report usage still stops.
+ let dialoguesRun=0;while(m.canStartDialogue()&&dialoguesRun<1000){for(let i=0;i<3;i++)m.unmetered();dialoguesRun++;}
+ assert.ok(dialoguesRun<1000&&m.spent()<=0.1,'stopped within budget');
+ // Metered calls are charged what they report.
+ const n=meter({price:PRICES['deepseek-flash'],budget:1});
+ n.record({prompt_tokens:10000,prompt_cache_hit_tokens:8000,prompt_cache_miss_tokens:2000,completion_tokens:500});
+ assert.equal(+n.spent().toFixed(6),+((8000*0.006+2000*0.3+500*1.2)/1e6).toFixed(6));
+});
