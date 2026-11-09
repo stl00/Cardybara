@@ -76,7 +76,7 @@ export const dialogues=[
  {id:'pron-ms-credits-hans',lang:'zh-Hans',kind:'pronoun',turns:[msPerksHans],question:'这张卡的抵扣我这期用了哪些？',expect:{tool:'query_credits',args:{cardName:'Morgan Stanley'}},target:{card:MS}},
  {id:'pron-sr-fee-en',lang:'en',kind:'pronoun',turns:[srLoungesEn],question:'What is the annual fee on that card?',expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'Sapphire Reserve'}},target:{card:SR}},
  {id:'pron-cathay-fee-hans',lang:'zh-Hans',kind:'pronoun',turns:[cathayLinkHans],question:'那这张卡年费是多少？',expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'Cathay'}},target:{card:CATHAY}},
- {id:'pron-red-benefits-hant',lang:'zh-Hant',kind:'pronoun',turns:[redFeeHant],question:'佢有咩其他優惠？',expect:{tool:'find_benefits',args:{query:'優惠',cardName:'Red Credit Card'}},target:{card:RED}},
+ {id:'pron-red-benefits-hant',lang:'zh-Hant',kind:'pronoun',turns:[redFeeHant],question:'佢有咩其他優惠？',expect:{tool:'find_benefits',args:{query:'權益',cardName:'Red Credit Card'}},target:{card:RED}},
  {id:'pron-choice-card-fee-en',lang:'en',kind:'pronoun',turns:[diningChoiceEn],question:'Does that card have an annual fee?',expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'Freedom Unlimited'}},target:{card:FU}},
  {id:'pron-caplat-hilton-hans',lang:'zh-Hans',kind:'pronoun',turns:[caPlatTransferHans],question:'它转 Hilton 的规则再详细说说',expect:{tool:'get_card_rules',args:{kind:'transfer-relationship',cardName:'Platinum Card',region:'CA',programme:'Hilton'}},target:{card:PLAT_CA}},
 
@@ -97,7 +97,7 @@ export const dialogues=[
  // ---- ellipsis ----
  {id:'ell-amex-transfer-en',lang:'en',kind:'ellipsis',turns:[srTransferEn],question:'What about the Amex Gold?',expect:{tool:'get_card_rules',args:{kind:'transfer-relationship',cardName:'Gold Card'}},target:{item:['transfer']}},
  {id:'ell-hk-fee-hans',lang:'zh-Hans',kind:'ellipsis',turns:[T('加拿大白金卡公布年费是多少？',[rules('fee',{cardName:'Platinum Card',region:'CA'})],'加拿大美国运通白金卡的公布主卡年费和附属卡年费都有记录。公布年费不代表你实际被收取的金额。')],question:'那香港的呢？',regionInQuestion:true,expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'The Platinum Card',region:'HK'}},target:{card:PLAT_HK,item:['年费','annual fee']}},
- {id:'ell-ms-uber-hans',lang:'zh-Hans',kind:'ellipsis',turns:[goldDiningHans],question:'那摩根士丹利那张呢？',expect:{tool:'find_benefits',args:{query:'餐饮',cardName:'Morgan Stanley'}},target:{item:['餐饮','dining']}},
+ {id:'ell-ms-dining-hans',lang:'zh-Hans',kind:'ellipsis',turns:[goldDiningHans],question:'那摩根士丹利那张呢？',expect:{tool:'find_benefits',args:{query:'餐饮',cardName:'Morgan Stanley'}},target:{item:['餐饮','dining']}},
  {id:'ell-lounge-hk-hant',lang:'zh-Hant',kind:'ellipsis',turns:[srLoungesHant],question:'咁香港白金卡呢？',regionInQuestion:true,expect:{tool:'find_benefits',args:{query:'貴賓室',cardName:'The Platinum Card',region:'HK'}},target:{item:['休息室','貴賓室','lounge']}},
  {id:'ell-choice-hk-hans',lang:'zh-Hans',kind:'ellipsis',turns:[diningChoiceHans],question:'那在香港呢？',expect:{tool:'choose_card',args:{category:'dining',country:'HK'}},target:{item:['餐饮','dining','"category":"dining"']}},
  {id:'ell-credits-dining-en',lang:'en',kind:'ellipsis',turns:[hotelCreditsEn],question:'And dining?',expect:{tool:'query_credits',args:{use:'dining'}},target:{item:['credit']}},

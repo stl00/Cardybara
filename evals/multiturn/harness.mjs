@@ -21,13 +21,13 @@ const SHORT_NAMES=['Sapphire Reserve','Freedom Unlimited','Gold Card','Morgan St
 // common short names. The Platinum names fit three regions, so they identify a card only next to a region.
 const PLATINUM=['amex-us-us-the-platinum-card','amex-hk-hk-the-platinum-card','amex-ca-ca-platinum-card'];
 const NICKNAMES=[
- {re:/Amex Gold|运通金卡|運通金卡|运通 Gold|運通 Gold|Gold ?卡/gi,products:['amex-us-us-american-express-gold-card']},
+ {re:/Amex Gold|运通金卡|運通金卡|运通 Gold|運通 Gold|(?<!(?:Marriott|Hilton|Visa)\s*)Gold ?卡/gi,products:['amex-us-us-american-express-gold-card']},
  {re:/摩根士丹利/g,products:['amex-us-us-morgan-stanley-platinum-card']},
  {re:/国泰 ?Mastercard|國泰 ?Mastercard|国泰卡|國泰卡/gi,products:['sc-hk-hk-cathay-mastercard']},
  {re:/HSBC Red|汇丰 ?Red|滙豐 ?Red|Red ?卡/gi,products:['hsbc-hk-hk-red-credit-card']},
- {re:/(?<!Morgan Stanley |摩根士丹利 ?)(?:白金卡|Amex Platinum|Platinum(?! Vacation| Card)(?: cards?)?)/gi,products:PLATINUM},
+ {re:/(?<!(?:Morgan Stanley|摩根士丹利|大摩|\bMS)\s*)(?:白金卡|Amex Platinum|Platinum(?! Vacation| Card)(?: cards?)?)/gi,products:PLATINUM},
 ];
-const REGION_MARKS={US:/\bUS\b|\bU\.S\.|美国(?!运通)|美國(?!運通)|United States|American(?! Express)/,HK:/\bHK\b|香港|Hong Kong/i,CA:/\bCA\b|加拿大(?!航空)|Canad/i};
+const REGION_MARKS={US:/\bUS\b|\bU\.S\.|美国(?!运通)|美國(?!運通)|United States|American(?! Express)/,HK:/\bHK\b|香港|Hong Kong/i,CA:/\bCA\b|加拿大(?!航空)|(?<!Air )Canad/};
 const WINDOW=40;
 const escape=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 
@@ -38,6 +38,8 @@ function mentions(text,strict=false){
  for(const form of [...new Set([...names,...SHORT_NAMES])]){
   const candidates=selectCards({cardName:form}).map(c=>c.productId),longer=names.filter(n=>n.length>form.length&&n.toLowerCase().includes(form.toLowerCase()));
   for(const m of text.matchAll(new RegExp(escape(form),'gi'))){
+   // "Marriott Gold card" is a hotel status, not the Amex Gold Card.
+   if(form==='Gold Card'&&/(?:Marriott|Hilton|Visa)\s*$/i.test(text.slice(Math.max(0,m.index-12),m.index)))continue;
    const inside=longer.some(n=>{const offset=n.toLowerCase().indexOf(form.toLowerCase());return text.slice(m.index-offset,m.index-offset+n.length).toLowerCase()===n.toLowerCase();});
    if(!inside)found.push({at:m.index,length:m[0].length,candidates});
   }
@@ -50,8 +52,9 @@ function nearestRegion(text,at,length){
  let best=null;
  for(const [region,mark] of Object.entries(REGION_MARKS)){
   for(const m of text.matchAll(new RegExp(mark.source,mark.flags.includes('i')?'gi':'g'))){
-   const distance=m.index<at?at-(m.index+m[0].length):m.index-(at+length);
-   if(distance>=0&&distance<=WINDOW&&(!best||distance<best.distance))best={region,distance};
+   const distance=m.index<at?at-(m.index+m[0].length):m.index-(at+length),between=m.index<at?text.slice(m.index,at):text.slice(at,m.index);
+   // In structured text a region belongs to the object it is in: a mark across a brace is about another record.
+   if(distance>=0&&distance<=WINDOW&&!/[{}]/.test(between)&&(!best||distance<best.distance))best={region,distance};
   }
  }
  return best?.region||null;
@@ -79,7 +82,7 @@ function ordinalIn(text,{index,list}){
 /** What each part of the referent needs, checked against the sources the model receives. Strict ("tool-ready")
  * accepts only forms a tool argument can use as they stand: a name that selects the card, the record's own title. */
 export function resolvable(target,sources,{regionGiven=false,strict=false}={}){
- const missing=[],alts=list=>strict?list.slice(0,1):list;
+ const missing=[],alts=list=>strict&&!target.toolChecked?list.slice(0,1):list;
  if(target.card&&!sources.some(s=>cardIn(s,target.card,regionGiven,strict)))missing.push('card');
  if(target.item&&!sources.some(s=>anyIn(s,alts(target.item))))missing.push('item');
  if(target.programme&&!sources.some(s=>anyIn(s,alts(target.programme))))missing.push('programme');
@@ -120,6 +123,18 @@ export function contextSources(sent){
  return [system.slice(SYSTEM.length),...sent.messages.slice(1,-1).map(m=>m.content||'')];
 }
 
+// A wording is tool-ready if using it as the expected call's query (or transfer programme) returns the record.
+function retrieves(d,wording,title){
+ const tool=d.expect.tool,args=tool==='find_benefits'?{...d.expect.args,query:wording}:tool==='get_card_rules'&&d.expect.args.kind==='transfer-relationship'?{...d.expect.args,programme:wording}:null;
+ if(!args)return false;
+ try{return JSON.stringify(runWalletTool(toolCall(tool,args,'strict'),evalContext)).includes(title);}catch{return false;}
+}
+/** The target for the tool-ready level: the record's own title, plus any other wording the tool also finds it by. */
+export function strictTarget(d){
+ const t=d.target,keep=list=>list.filter((w,i)=>!i||retrieves(d,w,list[0]));
+ return {...t,toolChecked:true,...(t.item?{item:keep(t.item)}:{}),...(t.programme?{programme:keep(t.programme)}:{}),...(t.ordinal?{ordinal:{...t.ordinal,list:t.ordinal.list.map(keep)}}:{})};
+}
+
 /** Checks the labels themselves: the expected call is valid and selects the referent; the question does not already name it. */
 export function checkLabels(d){
  const issues=[],t=d.target;
@@ -132,6 +147,9 @@ export function checkLabels(d){
   else if(d.expect.args.cardName&&selectCards(d.expect.args).length!==1)issues.push('expected cardName/region selects more than the target');
   if(cardIn(d.question,t.card,!!d.regionInQuestion))issues.push('question already names the card');
  }
+ if(d.expect.args.cardName&&selectCards(d.expect.args).length!==1)issues.push('expected cardName/region does not select exactly one card');
+ if(['find_benefits','get_card_rules'].includes(d.expect.tool)&&!result.totalMatches)issues.push('expected call returns nothing');
+ if(d.expect.tool==='query_credits'&&!Object.values(result.groups||{}).some(g=>g.length))issues.push('expected call returns no credits');
  const titleOf=t.ordinal?t.ordinal.list[t.ordinal.index-1][0]:t.item?.[0];
  if(titleOf&&d.expect.tool!=='choose_card'&&!JSON.stringify(result).includes(titleOf))issues.push('expected call does not return '+titleOf);
  if(t.item&&anyIn(d.question,t.item))issues.push('question already names the item');

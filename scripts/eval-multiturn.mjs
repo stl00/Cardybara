@@ -8,7 +8,7 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {dialogues} from '../evals/multiturn/dialogues.mjs';
-import {replay,contextSources,resolvable,checkLabels,selectCards,evalContext} from '../evals/multiturn/harness.mjs';
+import {replay,contextSources,resolvable,strictTarget,checkLabels,selectCards,evalContext} from '../evals/multiturn/harness.mjs';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
 const live=process.argv.includes('--live'),dryRun=process.argv.includes('--dry-run');
 const arg=name=>process.argv.find(a=>a.startsWith(`--${name}=`))?.slice(name.length+3);
@@ -28,7 +28,7 @@ function argumentsMatch(expect,call){
  return Object.entries(expect.args).every(([k,v])=>{
   if(k==='query')return typeof call.args.query==='string'&&call.args.query.trim().length>0;
   if(k==='cardName'||k==='region'){const want=selectCards(expect.args).map(c=>c.id).sort().join(),got=selectCards(call.args).map(c=>c.id).sort().join();return want===got;}
-  if(k==='programme')return typeof call.args.programme==='string'&&(call.args.programme.toLowerCase().includes(v.toLowerCase())||v.toLowerCase().includes(call.args.programme.toLowerCase()));
+  if(k==='programme')return typeof call.args.programme==='string'&&call.args.programme.trim().length>0&&(call.args.programme.toLowerCase().includes(v.toLowerCase())||v.toLowerCase().includes(call.args.programme.toLowerCase()));
   return call.args[k]===v;
  });
 }
@@ -48,10 +48,11 @@ for(const d of selected){
   const {sent,fixtureIssues,memory}=replayed;
   const issues=[...labelIssues,...fixtureIssues];if(issues.length)fixtureErrors.push({id:d.id,issues});
   const users=sent.messages.filter(m=>m.role==='user').length-1;
-  const sources=contextSources(sent),r=resolvable(d.target,sources,{regionGiven:!!d.regionInQuestion}),strict=resolvable(d.target,sources,{regionGiven:!!d.regionInQuestion,strict:true});
+  const sources=contextSources(sent),r=resolvable(d.target,sources,{regionGiven:!!d.regionInQuestion}),strict=resolvable(strictTarget(d),sources,{regionGiven:!!d.regionInQuestion,strict:true});
   report.cases.push({id:d.id,lang:d.lang,kind:d.kind,turns:d.turns.length,keptTurns:users,droppedTurns:d.turns.length-users,memoryKeys:Object.keys(memory),resolvable:r.resolvable,missing:r.missing,toolReady:strict.resolvable,toolReadyMissing:strict.missing,inputChars:JSON.stringify(sent.messages).length});
   continue;
  }
+ if(labelIssues.length)fixtureErrors.push({id:d.id,issues:labelIssues});
  const calls=[];let step=0;
  const finalRequest=dryRun
   // The dry run answers like a perfect model: the expected call, then a plain answer.

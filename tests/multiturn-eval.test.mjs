@@ -1,7 +1,7 @@
 // The multi-turn reference eval is only as good as its matcher: these pin what counts as the referent being present.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {resolvable,cardMentioned,checkLabels,replay,contextSources} from '../evals/multiturn/harness.mjs';
+import {resolvable,strictTarget,cardMentioned,checkLabels,replay,contextSources} from '../evals/multiturn/harness.mjs';
 import {dialogues} from '../evals/multiturn/dialogues.mjs';
 
 const HK='amex-hk-hk-the-platinum-card',US='amex-us-us-the-platinum-card',CA='amex-ca-ca-platinum-card',GOLD='amex-us-us-american-express-gold-card',MS='amex-us-us-morgan-stanley-platinum-card';
@@ -26,6 +26,21 @@ test('美国运通 is the issuer, not the US region; 加拿大航空 is an airli
  assert.equal(cardMentioned('美国运通白金卡',US),false);
  assert.equal(cardMentioned('加拿大航空休息室，白金卡',CA),false);
  assert.equal(cardMentioned('加拿大美国运通白金卡',CA),true);
+});
+
+test('look-alike words are not cards or regions',()=>{
+ assert.equal(cardMentioned('Amex Platinum, plus Air Canada lounges',CA),false,'Air Canada is an airline');
+ assert.equal(cardMentioned('ca. Platinum',CA),false);
+ for(const ms of ['Morgan Stanley白金卡','Morgan Stanley  白金卡','大摩白金卡','MS Platinum'])assert.equal(cardMentioned(ms,HK,true),false,ms);
+ assert.equal(cardMentioned('Marriott Gold card status',GOLD),false);
+ assert.equal(cardMentioned('Hilton Gold 卡级会籍',GOLD),false);
+ assert.equal(cardMentioned('{"card":"Gold Card","region":"US"},{"card":"Platinum Card","region":"CA"}',CA),true,'a region across a brace belongs to another record');
+});
+
+test('tool-ready accepts a wording the tool finds the record by, not one it misses',()=>{
+ const byId=id=>dialogues.find(d=>d.id===id);
+ assert.ok(strictTarget(byId('ord-sr-lounge-1-en')).ordinal.list[0].includes('Air Canada'));
+ assert.ok(!strictTarget(byId('ord-aspire-2-en')).ordinal.list[1].includes('annual free night'));
 });
 
 test('tool-ready needs the form a tool argument can use as it stands',()=>{

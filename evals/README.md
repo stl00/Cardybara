@@ -68,24 +68,24 @@ Live cases can declare `setupQuestions`; the harness runs them through the same 
 Two offline levels, both deterministic:
 
 - **resolvable**: the referent is identifiable from what the model receives — a name or a common short name or translation of the card (with the nearest region mark when the name exists in several regions), the item, and for ordinals the list in the order the person saw it.
-- **tool-ready**: the same, but only in a form a tool argument can use as it stands — a name that selects the card as `cardName`, the record's own title. Without it the model has to call `list_cards` again, guess a substring, or translate a title back before searching.
+- **tool-ready**: the same, but only in a form a tool argument can use as it stands — a name that selects the card as `cardName`, and for an item a wording that, used as the expected call's query (or transfer programme), returns that record. Without it the model has to call `list_cards` again, guess a substring, or reword before searching.
 
 Baseline on `main` (`ac3de19`):
 
 | | n | resolvable | tool-ready |
 |---|---|---|---|
-| all | 55 | 45 (82%) | 23 (42%) |
+| all | 55 | 45 (82%) | 24 (44%) |
 | pronoun | 10 | 10 | 5 |
-| ordinal | 12 | 12 | 6 |
+| ordinal | 12 | 12 | 7 |
 | ellipsis | 8 | 8 | 7 |
 | topic return | 7 | 7 | 3 |
 | long range (> 6 turns) | 10 | 0 | 0 |
 | same name, other region | 8 | 8 | 2 |
-| zh-Hans / zh-Hant / en | 27 / 12 / 16 | 85% / 75% / 81% | 44% / 25% / 50% |
+| zh-Hans / zh-Hant / en | 27 / 12 / 16 | 85% / 75% / 81% | 44% / 25% / 56% |
 
-Reading it: within six turns the referent is almost always somewhere in the chat text, because the person's own words and the answer stay. Past six turns it is gone: tool arguments and results are dropped and memory holds only `lastPurchase` and `trip`. Within six turns the precise form is often gone too: answers say 香港美國運通白金卡, 运通金卡 or "Air Canada lounges", while the tool needs `The Platinum Card` + `HK`, `Gold Card`, or `加拿大航空休息室`.
+Reading it: within six turns the referent is almost always somewhere in the chat text, because the person's own words and the answer stay. Past six turns it is gone: tool arguments and results are dropped and memory holds only `lastPurchase` and `trip`. Within six turns the precise form is often gone too: answers say 香港美國運通白金卡 or 运通金卡 while the tool needs `The Platinum Card` + `HK` or `Gold Card`, and an English "annual free night" finds nothing where `年度免房晚` does. Card names, not item titles, are most of the gap (20 of 21).
 
-`check:agent` runs it with `--min=0.8` on the resolvable rate; a label that does not match the tools, or a scripted answer that fails grounding, fails the run whatever the rate.
+`check:agent` runs it with `--min=0.8` on the resolvable rate — a regression floor, not a quality target; a label that does not match the tools, or a scripted answer that fails grounding, fails the run whatever the rate.
 
 Limits: earlier answers are scripted, written to read like the assistant's (user's language, names paraphrased or translated), so how often names survive is a property of this set. Offline "resolvable" means present, not that a model resolves it.
 
