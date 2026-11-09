@@ -53,19 +53,23 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
   for(const [key,re,scenarios] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||re.test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant){score+=key==='membership'?5:7;matched.push(key);}}
   for(const term of terms){if(title.includes(term)){score+=5;matched.push(term)}else if(programmes.includes(term)){score+=6;matched.push(term)}else if(body.includes(term)){score+=1;matched.push(term)}}
   if(matchedPartners.length){score+=12;matched.push(...matchedPartners)}
-  if(score&&/省|抵扣|优惠|優惠|credit|save|discount/i.test(text)&&['credit','promo','hotel-service'].includes(r.category))score+=8;
-  if(score&&/会籍|會籍|status|membership/i.test(text)&&r.category==='membership')score+=10;
-  if(score&&/休息室|贵宾|貴賓|lounge/i.test(text)&&r.category==='lounge')score+=10;
+  const wordScore=score,inFilter=(!filters.scenarioId||r.scenarioIds.includes(filters.scenarioId))&&(!filters.category||r.category===filters.category),filtered=!!(filters.scenarioId||filters.category);
+  // Outside the scenario or category, a rule needs a real word match (a concept or two title words) to compete,
+  // judged before the category boosts below, and it does not get those boosts.
+  if(filtered&&!inFilter&&wordScore<OUTSIDE_FILTER_MIN)continue;
+  const boosted=!filtered||inFilter;
+  if(boosted&&score&&/省|抵扣|优惠|優惠|credit|save|discount/i.test(text)&&['credit','promo','hotel-service'].includes(r.category))score+=8;
+  if(boosted&&score&&/会籍|會籍|status|membership/i.test(text)&&r.category==='membership')score+=10;
+  if(boosted&&score&&/休息室|贵宾|貴賓|lounge/i.test(text)&&r.category==='lounge')score+=10;
   // A filtered rule stays in even without a word match, but is counted, so the tool can tell a filter-only result apart.
-  const lexical=score>0,inFilter=(!filters.scenarioId||r.scenarioIds.includes(filters.scenarioId))&&(!filters.category||r.category===filters.category);
-  // Outside the scenario or category, a rule needs a real word match (a concept or two title words) to compete.
-  if((filters.scenarioId||filters.category)&&!inFilter&&score<OUTSIDE_FILTER_MIN)continue;
-  if((filters.scenarioId||filters.category)&&inFilter)score+=FILTER_BONUS;
+  const lexical=score>0;
+  if(filtered&&inFilter)score+=FILTER_BONUS;
   else if(filters.programme&&!filters.scenarioId&&!filters.category)score+=4;
   if(!score&&!generic)continue;
-  ranked.push({...r,retrieval:{score,matched:[...new Set(matched)],lexical}});
+  ranked.push({...r,retrieval:{score,matched:[...new Set(matched)],lexical,inFilter:filtered&&inFilter}});
  }
- ranked.sort((a,b)=>b.retrieval.score-a.retrieval.score||a.id.localeCompare(b.id));
+ // On equal scores, a rule inside the chosen scenario or category comes first.
+ ranked.sort((a,b)=>b.retrieval.score-a.retrieval.score||b.retrieval.inFilter-a.retrieval.inFilter||a.id.localeCompare(b.id));
  const limit=Math.max(1,Math.min(24,filters.limit||12));
  return {rules:ranked.slice(0,limit),total:ranked.length,wordMatches:ranked.filter(r=>r.retrieval.lexical||generic).length,truncated:ranked.length>limit,method:'structured-filter+multilingual-lexical-ranking',asOf};
 }

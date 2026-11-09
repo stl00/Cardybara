@@ -95,3 +95,14 @@ test('rules in the chosen scenario still come first, and a named brand stays str
  assert.ok(marriott.includes('rule.amex-hk-hk-the-platinum-card.marriott'));
  assert.ok(marriott.every(id=>!/hilton|radisson|accor|hyatt/.test(id)),marriott.join());
 });
+
+test('a rule outside the chosen scenario competes on its own words only, without category boosts', () => {
+ const cards=['amex-us-us-the-platinum-card','chase-us-sapphire-reserve','amex-us-us-hilton-honors-aspire-card','amex-us-us-delta-skymiles-reserve-card','amex-us-us-marriott-bonvoy-brilliant-card'].map(card);
+ const scoreOf=(filters,id)=>searchBenefitKnowledge('航空 会籍 status',cards,'2026-11-09',filters).rules.find(r=>r.id===id)?.retrieval.score;
+ const diamond='rule.amex-us-us-hilton-honors-aspire-card.diamond';
+ assert.ok(scoreOf({},diamond)>scoreOf({scenarioId:'travel'},diamond),'the membership boost is for rules inside the filter');
+ const r=searchBenefitKnowledge('航空 会籍 status',cards,'2026-11-09',{scenarioId:'travel'}).rules;
+ assert.ok(r[0].scenarioIds.includes('travel'));
+ // A single body word is not enough outside the filter.
+ assert.equal(searchBenefitKnowledge('使用',cards,'2026-11-09',{scenarioId:'fitness'}).rules.filter(x=>!x.scenarioIds.includes('fitness')).length,0);
+});
