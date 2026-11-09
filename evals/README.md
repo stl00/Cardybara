@@ -114,3 +114,26 @@ Still unresolved: "the second one from the very first list" seven turns back (3 
 ## Benefit retrieval recall · 2026-11
 
 `npm run eval:benefit-recall` scores `searchBenefitKnowledge` against a hand-labelled golden set of 129 questions in three languages, in three modes: raw question, rewritten query, and rewritten query plus filters. It is a report, not a gate. Method, baseline and findings are in `evals/benefit-recall/README.md`.
+
+### Live run · 2026-11-09 (#132)
+
+`deepseek-flash`, temperature 0.2, two runs per side over all 55 dialogues; earlier turns scripted, only the last turn calls the model. Before = `17ae68b` (main just before #137), after = `3b74028` (#137). Spend $0.27 in total, priced at peak list rates; `--budget-usd` stops a run before it could pass its cap.
+
+- **strict**: the expected tool with the key arguments (a `cardName` passes if it selects the same held cards; a `programme` if it reaches the same programme).
+- **referent**: some call names the referred card unambiguously, whatever the tool.
+
+| | n (×2 runs) | strict before → after | referent before → after |
+|---|---|---|---|
+| all | 110 | 86 (78%) → 88 (80%) | 90 (82%) → 91 (83%) |
+| pronoun | 20 | 20 → 20 | 20 → 20 |
+| ordinal | 24 | 20 → 22 | 24 → 23 |
+| ellipsis | 16 | 16 → 15 | 16 → 16 |
+| topic return | 14 | 14 → 13 | 14 → 14 |
+| long range | 20 | 2 → 2 | 2 → 2 |
+| same name | 16 | 14 → 16 | 14 → 16 |
+
+Tool calls in the last turn fell from 187 to 137, and `list_cards` calls from 45 to 10: with catalogue names in the index the model no longer looks cards up before searching.
+
+What did not move: long range. Asked "最开始问的那张卡", the model picks the earliest card it can see in the chat (the first kept turn), not the card from turns that were dropped; the index lists that card last in `recentCards` but nothing says earlier turns were hidden. The offline 95% measured presence, and presence was not enough here. Other failures: choosing `find_benefits` where the label expects `get_card_rules` for "转过去能拿会籍吗", and two answers that failed grounding after correct calls. Differences of one or two cases between runs are within run-to-run noise.
+
+`--rescore=report.json` recomputes the checks from a saved live report without calling the model.

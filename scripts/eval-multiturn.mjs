@@ -9,9 +9,10 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {dialogues} from '../evals/multiturn/dialogues.mjs';
+import {knowledgeEntities} from '../src/knowledge.js';
 import {replay,contextSources,resolvable,strictTarget,checkLabels,selectCards,evalContext} from '../evals/multiturn/harness.mjs';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
-const live=process.argv.includes('--live'),dryRun=process.argv.includes('--dry-run');
+const rescoring=process.argv.some(a=>a.startsWith('--rescore=')),live=process.argv.includes('--live')||rescoring,dryRun=process.argv.includes('--dry-run')||rescoring;
 const arg=name=>process.argv.find(a=>a.startsWith(`--${name}=`))?.slice(name.length+3);
 const output=resolve(arg('out')||resolve(root,'evals/latest-multiturn-'+(live?(dryRun?'dry-run':'live'):'offline')+'.json'));
 // Round-robin by kind, so the first n dialogues cover every kind.
@@ -26,12 +27,17 @@ const toolCallsOf=m=>(m.tool_calls||[]).map(c=>({name:c.function.name,args:JSON.
 const fixtureErrors=[];
 
 // An argument matches if it is the expected value; a card name matches if it selects the same held cards.
+const programmesOf=text=>knowledgeEntities.programmes.map(p=>p.name).filter(n=>n.toLowerCase().includes(text.toLowerCase().trim()));
+// The reference itself: some call names the card the question refers to (cardName and region select it and nothing else).
+const resolvesCard=(d,calls)=>!d.target.card||calls.some(c=>c.args.cardName&&(()=>{const got=selectCards(c.args);return got.length===1&&got[0].productId===d.target.card;})());
+const scoreLive=(d,calls,completed)=>({completed,expectedTool:calls.some(c=>c.name===d.expect.tool),expectedArguments:calls.some(c=>argumentsMatch(d.expect,c)),referentResolved:resolvesCard(d,calls)});
 function argumentsMatch(expect,call){
  if(call.name!==expect.tool)return false;
  return Object.entries(expect.args).every(([k,v])=>{
   if(k==='query')return typeof call.args.query==='string'&&call.args.query.trim().length>0;
   if(k==='cardName'||k==='region'){const want=selectCards(expect.args).map(c=>c.id).sort().join(),got=selectCards(call.args).map(c=>c.id).sort().join();return want===got;}
-  if(k==='programme')return typeof call.args.programme==='string'&&call.args.programme.trim().length>0&&(call.args.programme.toLowerCase().includes(v.toLowerCase())||v.toLowerCase().includes(call.args.programme.toLowerCase()));
+  // The tool filters programmes by substring, so "Cathay" and "Asia Miles" both reach Cathay Asia Miles.
+  if(k==='programme')return typeof call.args.programme==='string'&&call.args.programme.trim().length>0&&programmesOf(call.args.programme).some(p=>programmesOf(v).includes(p));
   return call.args[k]===v;
  });
 }
@@ -44,6 +50,12 @@ const costOf=u=>(u.cacheHitTokens*PRICE.hit+u.cacheMissTokens*PRICE.miss+u.compl
 const addUsage=u=>{usage.calls++;usage.promptTokens+=u.prompt_tokens||0;usage.completionTokens+=u.completion_tokens||0;const hit=u.prompt_cache_hit_tokens??0;usage.cacheHitTokens+=hit;usage.cacheMissTokens+=u.prompt_cache_miss_tokens??Math.max(0,(u.prompt_tokens||0)-hit);};
 const budget=Number(arg('budget-usd'));
 if(live&&!dryRun&&!(budget>0))throw Error('--budget-usd is required for a live run');
+const rescore=arg('rescore');
+if(rescore){
+ const saved=JSON.parse(await readFile(resolve(rescore),'utf8')),byId=new Map(dialogues.map(d=>[d.id,d]));
+ for(const c of saved.cases){const d=byId.get(c.id);const checks=scoreLive(d,c.calls||[],c.checks.completed!==false&&!c.error);c.checks=checks;c.passed=checks.completed&&checks.expectedTool&&checks.expectedArguments;}
+ Object.assign(report,{...saved,rescoredAt:new Date().toISOString(),cases:saved.cases});
+}
 let env=null,chatAgent=null,mostPerDialogue=0.02;
 if(live&&!dryRun){
  const envFile=process.env.CARDYBARA_MODEL_CONFIG;
@@ -52,7 +64,7 @@ if(live&&!dryRun){
  report.model=env.DEEPSEEK_MODEL||'deepseek-flash';
 }
 
-for(const d of selected){
+for(const d of rescore?[]:selected){
  // Stop before a dialogue that could pass the budget, estimated from the most any dialogue has cost so far.
  if(live&&!dryRun&&costOf(usage)+mostPerDialogue>budget){report.stopped={reason:'budget',before:d.id,remaining:selected.length-selected.indexOf(d)};break;}
  const spentBefore=costOf(usage);
@@ -75,8 +87,8 @@ for(const d of selected){
  const start=Date.now();
  try{
   const {finalResult}=await replay(d,{finalRequest:async(p,s)=>{const r=await finalRequest(p,s);calls.push(...toolCallsOf(r.message));return r;}});
-  const checks={completed:!!finalResult?.answer?.trim(),expectedTool:calls.some(c=>c.name===d.expect.tool),expectedArguments:calls.some(c=>argumentsMatch(d.expect,c))};
-  report.cases.push({id:d.id,lang:d.lang,kind:d.kind,passed:Object.values(checks).every(Boolean),checks,asked:!calls.length,ms:Date.now()-start,calls});
+  const checks=scoreLive(d,calls,!!finalResult?.answer?.trim());
+  report.cases.push({id:d.id,lang:d.lang,kind:d.kind,passed:checks.completed&&checks.expectedTool&&checks.expectedArguments,checks,asked:!calls.length,ms:Date.now()-start,calls});
  }catch(error){report.cases.push({id:d.id,lang:d.lang,kind:d.kind,passed:false,checks:{completed:false},error:error.message==='answer_not_grounded'?'answer_not_grounded':'model_or_execution_failed',...(dryRun?{detail:error.message}:{}),ms:Date.now()-start,calls});}
  const spent=costOf(usage)-spentBefore;mostPerDialogue=Math.max(mostPerDialogue,spent);report.cases.at(-1).usd=+spent.toFixed(5);
  console.log(d.id+': '+(report.cases.at(-1).passed?'PASS':'FAIL')+(dryRun?'':' $'+costOf(usage).toFixed(4)));
@@ -84,7 +96,7 @@ for(const d of selected){
 
 const key=live?'passed':'resolvable';
 const share=(list,k)=>list.length?+(list.filter(c=>c[k]).length/list.length).toFixed(3):null;
-const rate=list=>({n:list.length,[key]:list.filter(c=>c[key]).length,rate:share(list,key),...(live?{}:{toolReady:list.filter(c=>c.toolReady).length,toolReadyRate:share(list,'toolReady')})});
+const rate=list=>({n:list.length,[key]:list.filter(c=>c[key]).length,rate:share(list,key),...(live?{referentResolved:list.filter(c=>c.checks?.referentResolved).length,completed:list.filter(c=>c.checks?.completed).length}:{toolReady:list.filter(c=>c.toolReady).length,toolReadyRate:share(list,'toolReady')})});
 const by=field=>Object.fromEntries([...new Set(report.cases.map(c=>c[field]))].map(v=>[v,rate(report.cases.filter(c=>c[field]===v))]));
 report.summary={...rate(report.cases),byKind:by('kind'),byLanguage:by('lang')};
 if(!live)report.summary.missing=report.cases.flatMap(c=>c.missing).reduce((a,m)=>({...a,[m]:(a[m]||0)+1}),{});
