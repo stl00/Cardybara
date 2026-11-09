@@ -27,7 +27,7 @@ export function discoverVisibleCards(bank,locales){
  // HSBC lists every account as a row and prints a card's full number, so the number's shape separates cards from deposit accounts. Only its last four digits leave this function.
  if(bank==='HSBC HK'){
   const FULL=/(?<!\d)\d{4}[- ]\d{4}[- ]\d{4}[- ](\d{4})(?!\d)/,rows=[...document.querySelectorAll('[id^="account-container-"],button[id^="dropdown-item-"]')].filter(visible);let left=0;
-  const listed=rows.flatMap(row=>{const text=(row.innerText||'').trim(),tail=text.match(FULL)?.[1];if(!tail)return [];const name=text.split('\n').map(s=>s.trim()).find(s=>s&&!/\d{3}/.test(s))||'',currency=text.match(/\b(HKD|CNY|USD)\b/)?.[1];if(NEVER_A_CARD.test(name)||!['HKD','CNY'].includes(currency)){left++;return [];}return [{tail,name:name.slice(0,100),currency}];});
+  const listed=rows.flatMap(row=>{const text=(row.innerText||'').trim(),tail=text.match(FULL)?.[1];if(!tail)return [];const name=text.split('\n').map(s=>s.trim()).find(s=>s&&!FULL.test(s)&&!/(?:\d[ -]?){9,}/.test(s)&&!/^(?:HKD|CNY|USD)?\s*[-−]?[\d,]+(?:\.\d+)?\s*(?:HKD|CNY|USD)?$/.test(s))||'',currency=text.match(/\b(HKD|CNY|USD)\b/)?.[1];if(NEVER_A_CARD.test(name)||!['HKD','CNY'].includes(currency)){left++;return [];}return [{tail,name:name.slice(0,100),currency}];});
   if(listed.length)return {status:'found',cards:listed,...(left?{skipped:left}:{})};
   // A selected card shows no list; report that card only.
   const title=[...document.querySelectorAll('[id="account-summary-name"]')].find(visible),number=[...document.querySelectorAll('[id="account-number-value"]')].find(visible),tail=(number?.innerText||'').match(FULL)?.[1];
@@ -55,12 +55,14 @@ export function discoverVisibleCards(bank,locales){
 }
 
 export function normalizeDiscoveredCards(bank,rows){
- const p=PROVIDERS[bank];if(!p||!Array.isArray(rows)||rows.length>40)throw Error('invalid_discovery');
+ // One card may be listed several times on a page (heading, tile, switcher): the bound counts distinct cards.
+ const p=PROVIDERS[bank];if(!p||!Array.isArray(rows)||rows.length>400)throw Error('invalid_discovery');
  const result=new Map();
  for(const row of rows){
   if(!row||Object.keys(row).some(k=>!['tail','name','currency'].includes(k))||(row.currency!==undefined&&!(p.cardCurrencies||[p.currency]).includes(row.currency))||typeof row.tail!=='string'||!/^\d{4,5}$/.test(row.tail)||typeof row.name!=='string'||row.name.length>100||/[<>\u0000-\u001f]/.test(row.name)||/(?:\d[ -]?){9,}/.test(row.name))continue;
   const id=`discovered-${bank.toLowerCase().replaceAll(' ','-')}-${row.tail}`;
   result.set(row.tail,{id,bank,region:p.region,currency:row.currency||p.currency,tail:row.tail,name:row.name||`${p.issuer} •••• ${row.tail}`,identitySource:'bank-page'});
  }
+ if(result.size>40)throw Error('invalid_discovery');
  return [...result.values()];
 }

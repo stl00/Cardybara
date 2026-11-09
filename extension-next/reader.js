@@ -8,6 +8,9 @@
  // Another programme must have a name of its own. "Available Points" or 積分結餘 names none, and could be the required one.
  function namesAProgramme(label){return /[\p{L}]{2}/u.test(label.replace(/\b(?:available|total|current|your|my|the|account|balance|points?|miles?|rewards?|cash ?back|program(?:me)?)\b/gi,'').replace(/可用|總|总|現有|现有|我的|賬戶|账户|結餘|结余|餘額|余额|積分|积分|獎賞|奖赏|里數|里数|回贈|回赠|計劃|计划/g,'').trim());}
  function otherRewardLabels(lines,isRequired){const seen=new Set();for(let i=0;i<lines.length-1;i++)if(rewardLabel(lines[i])&&namesAProgramme(lines[i])&&/^\d[\d,]*$/.test(lines[i+1])&&!isRequired(lines[i]))seen.add(lines[i]);return [...seen];}
+ // A Chase co-brand programme is named by its label's shape, "<name> points|miles", never from a list of programmes.
+ // structural: exactly one distinct candidate names it; none or several leave it unnamed. Ultimate Rewards has its own row.
+ function chasePartnerLabel(labels){const found=new Set();for(const raw of labels||[]){const t=String(raw||'').trim();if(/\b(?:points|miles)$/i.test(t)&&rewardLabel(t)&&namesAProgramme(t)&&!/\bultimate\s*rewards?\b/i.test(t))found.add(t);}return found.size===1?[...found][0]:null;}
  function labelText(value){return value.normalize('NFKC').replace(/[\u200b-\u200d\ufeff]/g,'').replace(/[:：]\s*$/,'').replace(/\s*[（(](?:HKD|USD|CAD|港元|港幣|港币)[）)]\s*$/i,'').trim();}
  function resolveLocale(lang,locales){
   const normalized=(lang||'').replaceAll('_','-').toLowerCase();
@@ -169,6 +172,8 @@
    if(name&&numbers.length===1)add('reward',name,name,Number(numbers[0].replaceAll(',','')),'points','','unknown',name+'\n'+text);
    // A rewards row this version cannot name is still evidence of another programme.
    else if(id==='partnerRewards-dataItem'&&numbers.length)otherProgrammes.push('unnamed');
+   // The required row in a form this version does not understand is reported, never guessed.
+   else if(id==='ultimateRewards-dataItem'&&numbers.length)rejected.push('reward_label');
   }
   for(const table of snapshot.tables||[]){if(!table.headers?.some(h=>/^Date\b/.test(h))||!table.headers?.some(h=>/^Amount\b/.test(h)))continue;const tx=chaseTransactions(table.rows.map(c=>({date:c[0],description:c[1],amount:c[3],status:''})),card,alias);items.push(...tx.items);rejected.push(...tx.rejected);}
   return {items,rejected,otherProgrammes};
@@ -207,7 +212,7 @@
     for(const [key,[part,label]]of Object.entries(suffix)){const node=document.getElementById(internal+'-'+part+'-dataItem');if(!node)continue;const raw=text(node),values=[...new Set(raw.split('\n').map(s=>money(s,c.currency,'en-US')).filter(n=>n!==null))];if(values.length===1)add({kind:'card',cardId:alias,key,title:label,value:values[0],currency:c.currency,date:'',status:'unknown',evidence:'['+alias+']\n'+text(bs[0])+'\n'+label+'\n'+raw});}
    }
   }else if(/\/summary\//.test(route)){
-   const dataItems=[...document.querySelectorAll('[id$="-dataItem"]')].map(n=>({key:n.id,text:text(n)})),fields={currentBalance:text(document.getElementById('currentBalance'))},label=q('button,[role="button"],[aria-label]').map(e=>e.getAttribute('aria-label')||text(e)).find(t=>/^(?:MileagePlus[®™]? Miles|IHG One Rewards points)$/.test(t));
+   const dataItems=[...document.querySelectorAll('[id$="-dataItem"]')].map(n=>({key:n.id,text:text(n)})),fields={currentBalance:text(document.getElementById('currentBalance'))},labels=q('button,[role="button"],[aria-label]').map(e=>e.getAttribute('aria-label')||text(e)),label=chasePartnerLabel(labels);
    const tables=[...document.querySelectorAll('main table')].map(t=>({headers:[...t.querySelectorAll('thead th')].map(text),rows:[...t.querySelectorAll('tbody tr')].map(tr=>[...tr.querySelectorAll('th,td')].map(text))}));
    const result=chaseDetail({title:heads.find(t=>new RegExp('\\.\\.\\.'+selected.tail).test(t)),dataItems,fields,rewardLabel:label,paymentNotices:q('[id="title-focus-target"]').filter(e=>visible(e)&&!self.CardyChaseStaleNotices?.has(e)).map(text),tables},selected);result.items.forEach(add);rejected+=result.rejected.length;for(const programme of result.otherProgrammes||[])notCollected.push({cardId:'C1',programme});
    const noActivity=q('p,[role="paragraph"]').some(e=>visible(e)&&text(e)==='You have no activity to display from this time. Try updating your filters.');if(noActivity)empty.push({kind:'transaction',cardId:selected.id});
@@ -334,6 +339,9 @@
  const YEAR=/^(?:19|20)\d\d$/;
  // A year-shaped tail still counts when masked. Only a bare year, or a statement or period end date, is ignored.
  const maskedOther=(text,tail)=>[...String(text).matchAll(ISSUER_MASK)].some(m=>m[1]!==tail&&!(YEAR.test(m[1])&&/^ending/i.test(m[0])&&/\b(?:statement|period|cycle)\b[^\n]*$/i.test(String(text).slice(0,m.index))));
+ // The card's own name on its own heading line is not another card, though it may hold digits ("Card 2500 - 1234").
+ // structural: only the exact name read for this card, and only beside this card's masked number.
+ const withoutOwnName=(text,tail,name)=>{const own=String(name||'').trim();if(own.length<3||!/\d/.test(own))return String(text);return String(text).split('\n').map(l=>l.includes(own)&&issuerTails(l).includes(tail)?l.replace(own,''):l).join('\n');};
  const holdsOther=(text,tail,otherTails=[])=>maskedOther(text,tail)||[...String(text).matchAll(TAIL_LIKE)].some(m=>m[0]!==tail&&!YEAR.test(m[0]))||otherTails.some(t=>t!==tail&&new RegExp('(?:^|[^0-9])'+t+'(?:[^0-9]|$)').test(text));
  const MONTHS=['jan(?:uary)?','feb(?:ruary)?','mar(?:ch)?','apr(?:il)?','may','jun(?:e)?','jul(?:y)?','aug(?:ust)?','sep(?:tember)?','oct(?:ober)?','nov(?:ember)?','dec(?:ember)?'];
  const monthOf=name=>MONTHS.findIndex(m=>new RegExp('^'+m+'$','i').test(name))+1;
@@ -368,7 +376,7 @@
   return items;
  }
  function issuerBilling(text,bank,card,otherTails=[],alias='C1'){
-  if(text.length>100000||!issuerTails(text).includes(card.tail)||holdsOther(text,card.tail,otherTails))return [];
+  if(text.length>100000||!issuerTails(text).includes(card.tail)||holdsOther(withoutOwnName(text,card.tail,card.name),card.tail,otherTails))return [];
   const raw=text.replace(/[\u00a0\u202f]/g,' ').split('\n').map(x=>x.trim()).filter(Boolean);
   // A known help control can sit between a "Label:" and its value. Any other word there leaves the value unpaired.
   const isValue=l=>/^(?:[-−]?\s*(?:HK\$|US\$|\$|HKD|USD)\s*[-−]?[\d,]+\.\d{2})/.test(l||'');
@@ -388,12 +396,12 @@
   return items;
  }
  // The largest visible container holding this card's number and no other card's.
- function issuerScope(tail,otherTails=[],doc=document){
+ function issuerScope(tail,otherTails=[],doc=document,name=''){
   const walker=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT),own=new RegExp('(?:^|[^0-9])'+tail+'(?:[^0-9]|$)');let best='',count=0;
   while(walker.nextNode()&&count++<20000){
    if(!own.test(walker.currentNode.textContent))continue;
    for(let el=walker.currentNode.parentElement;el;el=el.parentElement){
-    if(!shown(el))continue;const t=el.innerText||'';if(t.length>16000||holdsOther(t,tail,otherTails))break;
+    if(!shown(el))continue;const t=el.innerText||'';if(t.length>16000||holdsOther(withoutOwnName(t,tail,name),tail,otherTails))break;
     if(issuerTails(t).includes(tail)&&t.length>best.length)best=t;
    }
   }
@@ -408,5 +416,5 @@
   for(const label of ['Current Balance:','Approved Credit Limit:','Available Credit Limit:','Billed Balance:','Minimum Payment Due:','Payment Due Date:']){const value=cell(label);if(value)lines.push(label,value);}
   return {tail,card,text:lines.join('\n')};
  }
- self.CardyReader={scDetails,issuerDue,issuerBilling,issuerScope,rewardLabel,otherRewardLabels,amexHkMvp,chaseSnapshot,chaseBenefitText,chaseBenefitGauge,chaseDate,chaseTransactions,chaseDetail,chaseOffer,amexHkTransactionRows,hsbcTransactionRows,authState,money,parseAccount,identify,chaseBindings,read,observe,resolveLocale,parseAmexOverview};
+ self.CardyReader={chasePartnerLabel,scDetails,issuerDue,issuerBilling,issuerScope,rewardLabel,otherRewardLabels,amexHkMvp,chaseSnapshot,chaseBenefitText,chaseBenefitGauge,chaseDate,chaseTransactions,chaseDetail,chaseOffer,amexHkTransactionRows,hsbcTransactionRows,authState,money,parseAccount,identify,chaseBindings,read,observe,resolveLocale,parseAmexOverview};
 })();
