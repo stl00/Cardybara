@@ -1,6 +1,6 @@
 import React,{useEffect,useRef,useState} from 'react';
 import {Alert,App,Button,Card,Checkbox,Flex,Select,Switch,Typography} from 'antd';
-import {t,useI18n} from './i18n';
+import {t,ruleField,useI18n} from './i18n';
 import {usePersonalMarks} from './PersonalWallet.jsx';
 import {PAYMENT_MARKS_CHANGE,loadPaymentMarks} from './PaymentAssistant.jsx';
 import {LEAD_DAYS,REMINDER_SENT_KEY,REMINDER_SETTINGS_KEY,SCHEDULE_DAYS,normalizeSettings,pendingNotifications,pruneSent,publishSchedule,readSent,readSettings} from './reminders.js';
@@ -26,7 +26,7 @@ function message(item){
  const p=phrases();
  if(item.type==='bill-summary')return [p.bill,p.billSummary.replace('{0}',item.count)];
  if(item.type==='credit-summary')return [p.credit,p.creditSummary.replace('{0}',item.count)];
- const credit=item.type==='credit',text=reminderText({group:credit?'credits':'bills',label:credit?`${t(item.title)} · ${item.name}`:item.name,days:item.days,stale:item.stale,amount:item.statement!=null&&item.currency?`${item.currency} ${Number(item.statement).toLocaleString()}`:null},p);
+ const credit=item.type==='credit',text=reminderText({group:credit?'credits':'bills',label:credit?`${ruleField(item.title,item,'title')} · ${item.name}`:item.name,days:item.days,stale:item.stale,amount:item.statement!=null&&item.currency?`${item.currency} ${Number(item.statement).toLocaleString()}`:null},p);
  return [text.title,text.message];
 }
 /** A plain web page has no worker, so it can only check while it is open. */
@@ -49,7 +49,7 @@ export function ReminderRunner({cards}){
     if(!extensionPage()){if(ready)pageCheck(latestCards.current,events,day);return;}
     const off=!readSettings(localStorage).enabled;
     if(!ready&&!off)return;
-    publishing.current=publishing.current.then(async()=>publishSchedule({area:chrome.storage.local,storage:localStorage,granted:await chrome.permissions.contains({permissions:['notifications']}),cards:latestCards.current,marks:loadPaymentMarks(),events,asOf:day,phrases:phrases(),translate:t})).catch(()=>{});
+    publishing.current=publishing.current.then(async()=>publishSchedule({area:chrome.storage.local,storage:localStorage,granted:await chrome.permissions.contains({permissions:['notifications']}),cards:latestCards.current,marks:loadPaymentMarks(),events,asOf:day,phrases:phrases(),translate:(key,item)=>item?ruleField(key,item,'title'):t(key)})).catch(()=>{});
    }catch{/* A reminder must never break the wallet. */}
   };
   // Another tab's card changes arrive through the cards prop once this tab has reloaded them, so they are not checked here against the old cards.

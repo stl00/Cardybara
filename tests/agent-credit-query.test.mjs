@@ -283,7 +283,7 @@ test('second review: universal claims, crossed hedges and more verbs',()=>{
  assert.ok(!issues('2026 年 12 月。你有 1 项标记为未用：The Edit 酒店抵扣。其他未标记。\n'+allItems,oneOpen).includes('unknown_treated_as_unused'));
 });
 test('re-check: a named credit the lookup did not return, or no lookup at all, is still checked',async()=>{
- const names=creditNamesForCards(cards,TODAY);assert.ok(names.some(n=>n.title==='Uber Cash'));assert.ok(names.some(n=>n.titles.en==='The Edit hotel credit'));
+ const names=creditNamesForCards(cards,TODAY);assert.ok(names.some(n=>n.title==='Uber Cash'));assert.ok(names.some(n=>n.titles.en==='$500 Credit for stays with The Edit'));
  assert.deepEqual(creditNamesForCards([{id:'x',name:'Mystery Card',bank:'B',region:'US',currency:'USD'}],TODAY),[]);
  const none=(answer,evidence=[])=>answerGrounding(answer,evidence,{creditNames:names}).issues.map(i=>i.code);
  for(const answer of ['The Edit 没用。','The Edit is unused.','Resy 还没用。'])assert.ok(none(answer).includes('unused_claim_without_evidence'),answer);
@@ -420,7 +420,7 @@ test('the code-written fallback passes every check and states the facts in the q
   assert.deepEqual(answerGrounding(answer,[result]).issues,[],question+when);
   assert.ok(answer.includes(mark));assert.ok(!answer.includes(not));assert.ok(answer.includes(result.window.start));
  }
- const en=renderCreditAnswer(plan('12月'),'Which hotel credits?');assert.match(en,/The Edit hotel credit/);assert.match(en,/assumed dates/);assert.match(en,/account anniversary unknown/);
+ const en=renderCreditAnswer(plan('12月'),'Which hotel credits?');assert.match(en,/\$500 Credit for stays with The Edit/);assert.match(en,/assumed dates/);assert.match(en,/account anniversary unknown/);
  assert.ok(!en.includes('null'));assert.ok(!renderCreditAnswer(plan('12月',{use:'airline'}),'which').includes('public limit USD null'));
  const empty=runWalletTool(call({use:'hotel',when:'12月',cardName:'No Such Card'}),wallet);assert.match(renderCreditAnswer(empty,'which?'),/No matching credits/);assert.deepEqual(answerGrounding(renderCreditAnswer(empty,'which?'),[empty]).issues,[]);
  assert.equal(answerLanguage('还有什么'),'zh-CN');assert.equal(answerLanguage('還有什麼'),'zh-TW');assert.equal(answerLanguage('which'),'en');

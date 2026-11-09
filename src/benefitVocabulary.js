@@ -1,5 +1,5 @@
 import {knowledgeEntities} from './knowledge.js';
-// Benefit rule text is written in Simplified Chinese. These tables bridge a question's words to it:
+// Benefit rule text is Simplified Chinese, plus the official original (English for US cards) where it has been added (#148). These tables bridge a question's words to it:
 // a general glossary, not a list of eval questions. Brand names come from entity aliases in the knowledge base.
 
 // Traditional characters common in card and travel questions, mapped to Simplified. One-to-one only:
