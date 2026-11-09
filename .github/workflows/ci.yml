@@ -37,6 +37,38 @@ jobs:
           path: release/
           if-no-files-found: error
           retention-days: 14
+  e2e:
+    name: E2E
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      # The checkout supplies the test script and the synthetic bank page only; the extension under
+      # test is the exact ZIP the verify job uploaded, never rebuilt here.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: cardybara-extension
+          path: package-under-test
+      - name: Main path on the packaged extension
+        run: node scripts/e2e-extension.mjs package-under-test --out e2e-output/main
+      - name: Broken packages must fail
+        run: node scripts/e2e-extension.mjs package-under-test --negative-controls --out e2e-output/negative
+      - name: Upload logs and synthetic-page screenshots
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: e2e-output
+          path: e2e-output/
+          if-no-files-found: ignore
+          retention-days: 7
   draft-release:
     name: Prepare draft release
     needs: verify
