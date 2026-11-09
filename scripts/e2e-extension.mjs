@@ -45,12 +45,9 @@ export async function locateZip(input){
 export async function extractPackage(zipPath,sumsPath,dest){
  const bytes=await readFile(zipPath);
  const sums=await readFile(sumsPath,'utf8').catch(()=>{throw Error('no SHA256SUMS next to '+basename(zipPath));});
- {
-  const want=sums.split('\n').map(l=>l.trim().split(/\s+/)).find(([,name])=>name===basename(zipPath))?.[0];
-  const got=createHash('sha256').update(bytes).digest('hex');
-  if(want!==got)throw Error(`SHA256SUMS does not match ${basename(zipPath)}`);
-  note('package checksum matches SHA256SUMS');
- }
+ const want=sums.split('\n').map(l=>l.trim().split(/\s+/)).find(([,name])=>name===basename(zipPath))?.[0];
+ if(want!==createHash('sha256').update(bytes).digest('hex'))throw Error(`SHA256SUMS does not match ${basename(zipPath)}`);
+ note('package checksum matches SHA256SUMS');
  for(const name of zipEntryNames(bytes)){
   if(name.endsWith('/'))continue;
   const rel=normalize(name);
@@ -159,6 +156,8 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs}={}){
   const walletUrl=`chrome-extension://${id}/index.html`;
   const {targetId:walletTarget}=await cdp.send('Target.createTarget',{url:walletUrl});
   await attach('wallet',walletTarget);
+  // A worker that throws can still show up briefly as a target; it must answer the wallet.
+  await until('the service worker to answer the wallet',()=>evaluate('wallet',`chrome.tabs.getCurrent().then(t=>chrome.runtime.sendMessage({type:'hello',requestId:'e2e-hello',ownerTabId:t.id})).then(r=>!!r?.ok,()=>false)`));
   const translations=JSON.parse(await readFile(join(root,'src/translations.json'),'utf8'));
   const words=zh=>JSON.stringify([zh,translations['en-US']?.[zh],translations['zh-TW']?.[zh]].filter(Boolean));
   const clickText=(name,selector,zh)=>evaluate(name,`(()=>{const want=${words(zh)};const el=[...document.querySelectorAll(${JSON.stringify(selector)})].find(e=>want.includes(e.textContent.trim()));if(!el)return false;el.click();return true;})()`);
@@ -244,7 +243,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs}={}){
 export const BROKEN={
  'no service worker in the manifest':[/missing: background\.service_worker/,async dir=>{const p=join(dir,'manifest.json'),m=JSON.parse(await readFile(p,'utf8'));delete m.background;await writeFile(p,JSON.stringify(m));}],
  'no bank host permission':[/missing: host permission/,async dir=>{const p=join(dir,'manifest.json'),m=JSON.parse(await readFile(p,'utf8'));m.host_permissions=m.host_permissions.filter(h=>!h.includes(BANK_HOST));await writeFile(p,JSON.stringify(m));}],
- 'a service worker that does not start':[/service worker|Runtime\.enable/,async dir=>{const p=join(dir,'manifest.json'),m=JSON.parse(await readFile(p,'utf8'));await writeFile(join(dir,m.background.service_worker),'throw Error("deliberately broken");\n');}],
+ 'a service worker that does not start':[/service worker|Runtime\.enable: (no answer|Chrome exited)/,async dir=>{const p=join(dir,'manifest.json'),m=JSON.parse(await readFile(p,'utf8'));await writeFile(join(dir,m.background.service_worker),'throw Error("deliberately broken");\n');}],
  'no reading guide on the bank page':[/reading guide/,async dir=>{await writeFile(join(dir,'guide.js'),'');}],
  'a page reader that does nothing':[/run ended as|needs-login|reading to finish|read-back mismatch/,async dir=>{await writeFile(join(dir,'reader.js'),'');}],
 };
