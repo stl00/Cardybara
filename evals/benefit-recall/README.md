@@ -76,6 +76,52 @@ Known gap: whole-card detection reads only English card words, so a Chinese card
 
 No new scenario enum was added (such as flight, car-rental or purchase-protection). After steps 1–2, mode C misses no dev question. Flight benefits carry both `travel` and `airport`; rentals sit under `ground-transport` + `protection`; purchase protection sits under `shopping` + `protection`. A new enum would need every rule retagged and a new label set, with nothing to show for it now.
 
+## Live model run (2026-11-09)
+
+`npm run eval:benefit-recall:live` sends each scored question to the configured model (DeepSeek `deepseek-flash`) with the production system prompt and tools, on the same synthetic portfolios. Other tools the model calls first (list_cards, query_credits …) run locally. The first round that calls `find_benefits` ends the question, and the `find_benefits` arguments the model wrote are scored like mode C. It needs the owner's approval because it costs money. It has a spend cap (`--max-usd`), counts tokens, and estimates cost at assumed peak prices: $0.30/M uncached input, $0.006/M cached, $1.20/M output. One run per code version, at the production temperature, so expect a few points of run-to-run noise.
+
+| Recall@12, all scored questions | Dev (120) | Held-out (50) |
+| --- | --- | --- |
+| Hand-written ideal rewrite (mode C) | 99.4 → 100.0 | 98.0 |
+| Real model, before step 3 (#136 code) | 68.6 | 69.0 |
+| Real model, after step 3 (#140 code) | **74.6** | **69.5** |
+| Same model calls with filters made soft (filtered ∪ unfiltered, computed offline) | 83.4 | 83.5 |
+| Same model calls with scenario/category dropped (computed offline) | 82.9 | 79.0 |
+
+
+The two offline rows reuse the after-step-3 calls. A merged search can return up to 21 rules, so it is not strictly recall@12, and neither are multi-call rewrites in mode C. Dropping the model's scenario/category altogether already reaches 82.9 on dev, so on dev its filters add almost nothing.
+
+| After step 3, by language | en | zh-Hans | zh-Hant |
+| --- | --- | --- | --- |
+| Dev | 59.9 (n=38) | 81.5 (n=55) | 81.5 (n=27) |
+| Held-out | 71.4 (n=21) | 70.8 (n=18) | 63.6 (n=11) |
+
+How the model filled the calls, before → after step 3 (dev / held-out):
+- **Called find_benefits at all:** 78% / 78% → 84% / 86%.
+- **Set a scenario or category:** 88% / 92% → 96% / 95%.
+- **Wrote Chinese query words:** 15% / 26% → 100% / 100%.
+- **Recall when it did search:** dev 87.6% → 88.7%, held-out 88.5% → 80.8%.
+
+What the real model gets wrong:
+1. **It doesn't search.** 14–16% of questions never reach `find_benefits`, even after step 3. Most credit questions go to `query_credits`, which the prompt sends "any question about credits" to. Some go to `get_card_rules` or `choose_card`. Some of those answers may still be right, but this eval can't tell, and it counts them as zero.
+2. **A neighbouring scenario becomes a hard filter.** The model picks a scenario next to the rule's own:
+   - Global Entry / TSA under `travel`, while the rules carry `airport`.
+   - Baggage delay under `airport`, while the rule carries `travel`.
+   - Grocery delivery under `dining`, while the rule carries `shopping`.
+   - A-List as `membership`, while the rule is `spend-unlock`.
+
+   Because filters are hard, the rule disappears. A filter hurt 11 of 101 searching questions on dev and 7 of 43 on held-out.
+3. **English questions lost recall on dev after step 3:** 68.4% → 59.9%. With Chinese keywords the model also narrowed its filters more often. The held-out English rose (69.0% → 71.4%), so part of this is noise.
+
+**Conclusion.**
+- The contract change helped where it could: Chinese keywords went from 15% to 100%, and more questions reach `find_benefits`.
+- Mode C's 99% is far from the real 70–75%. The gap is routing and over-trusting the model's filter, not vocabulary.
+- Next fixes, in order:
+  - **(a) Soft filters:** search with and without the model's scenario/category and merge, or treat them as a boost. Offline, on these exact model calls, that takes recall to ~83% on both sets.
+  - **(b) Routing:** let credit questions that are also benefit questions call `find_benefits` too, or have `query_credits` return matching benefit rules.
+
+Cost: 498 model calls (two runs of 239 and 255, plus a 4-call smoke test). 1.87M prompt tokens, 88% of them cached, and 60k output tokens. **About $0.15 at the assumed peak prices**, well under the $1 cap. Only the `find_benefits` arguments, tool names and token counts are kept in the report. No answers, keys or wallet data.
+
 ## Findings
 
 1. **Query rewrite is needed.** Raw questions reach 69% recall, and a fifth of them return nothing. A good rewrite with filters reaches 99%. Most of that gain comes from the structured filters (B→C is +18 points), not from cleaner wording.
