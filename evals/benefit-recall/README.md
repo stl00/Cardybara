@@ -58,6 +58,16 @@ Recall@12 for A / B / C after each retrieval change (#131). Dev = `golden.json`,
 | --- | --- | --- |
 | Baseline (#130) | 69.4 / 81.4 / 98.5 | 64.3 / 76.8 / 95.6 |
 | 1. Programme and scenario tags (`scripts/curate-benefit-tags-2026-11-09.py`) | 69.6 / 82.0 / 99.4 | 64.3 / 76.8 / 96.0 |
+| 2. Vocabulary: Traditional→Simplified, glossary, programme aliases (`src/benefitVocabulary.js`) | 94.8 / 98.8 / 99.4 | 81.6 / 92.1 / 98.0 |
+
+After step 2:
+- **English recall** (dev / held-out): A 88.8 / 78.6, B 98.0 / 83.3.
+- **Where the words came from:** the glossary and the Cantonese characters come from development-set failures. The programme aliases are the general names of every brand in `entities.json`, not picked from failures. Some of them happen to appear only in held-out questions.
+- **Contamination check:** an independent review removed the aliases and characters that only held-out questions use, and held-out A stayed at 82.6%. Dropping the two-character abbreviations (加航, 美航, 新航), which matched inside longer airline names, cost 1 point.
+- **Overfitting:** mode A gained 25.4 points on dev and 17.3 on held-out. Part of the remaining gap was already in the baseline (5 points), because two held-out portfolios are new. Trust the held-out gain.
+- **Precision:** dev A 58% → 60%, held-out A 54% → 53%.
+- **Absent questions:** more of them return something on dev (57% → 71%), because more words now match.
+- **Sample size:** held-out has only 50 scored questions; per-portfolio rows have 7–19 each and are noisy.
 
 ## Findings
 

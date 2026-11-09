@@ -40,7 +40,9 @@ test('look-alike words are not cards or regions',()=>{
 test('tool-ready accepts a wording the tool finds the record by, not one it misses',()=>{
  const byId=id=>dialogues.find(d=>d.id===id);
  assert.ok(strictTarget(byId('ord-sr-lounge-1-en')).ordinal.list[0].includes('Air Canada'));
- assert.ok(!strictTarget(byId('ord-aspire-2-en')).ordinal.list[1].includes('annual free night'));
+ // The benefit search finds 年度免房晚 by "annual free night", but not 消费解锁免房晚 by "unlocked by spending".
+ assert.ok(strictTarget(byId('ord-aspire-2-en')).ordinal.list[1].includes('annual free night'));
+ assert.ok(!strictTarget(byId('ord-aspire-2-en')).ordinal.list[0].includes('unlocked by spending'));
 });
 
 test('tool-ready needs the form a tool argument can use as it stands',()=>{
