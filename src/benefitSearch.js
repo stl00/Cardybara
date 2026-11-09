@@ -27,6 +27,10 @@ function genericScope(question,cards){
  // A naming word that is also a programme (Delta, Hyatt) also brings that programme's rules from the other held cards.
  return {cards:names.filter(n=>named.every(w=>n.w.has(w))).map(n=>n.c),programmes:named.flatMap(w=>programmesForFilter(w,{exact:true}))};
 }
+// About one concept match: enough to lead among equals, not enough to bury a rule the words point to.
+const FILTER_BONUS=7;
+// Chosen on the development set: lower lets weak matches in (unanswerable questions return noise), higher loses recall.
+const OUTSIDE_FILTER_MIN=8;
 export function searchBenefitKnowledge(question,cards,asOf,filters={}){
  // Scoring runs on the expanded query (Simplified characters, glossary and alias words); the strict partner filter and the generic check use the words as asked.
  const scope=genericScope(question,cards),generic=!!scope?.cards.length,scoped=new Set((scope?.cards||[]).map(c=>matchCardProduct(c).product?.id).filter(Boolean));
@@ -35,7 +39,9 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
  // A programme filter in any language or alias: 万豪 and Bonvoy both mean Marriott Bonvoy.
  const programmeIds=filters.programme?programmesForFilter(filters.programme):null;
  const terms=generic?[]:tokens(text);
- const rows=queryKnowledge({kind:'benefit',asOf,...(filters.scenarioId?{scenarioId:filters.scenarioId}:{}),...(filters.category?{category:filters.category}:{})}).rules.filter(r=>r.productIds.some(id=>products.has(id))&&(!generic||r.productIds.some(id=>scoped.has(id))||r.programmeIds.some(id=>scope.programmes.includes(id))));
+ // Scenario and category are soft: a rule outside them still competes on its words, because the model often picks
+ // the neighbouring scenario (Global Entry as travel, not airport). A named programme stays a hard filter.
+ const rows=queryKnowledge({kind:'benefit',asOf}).rules.filter(r=>r.productIds.some(id=>products.has(id))&&(!generic||r.productIds.some(id=>scoped.has(id))||r.programmeIds.some(id=>scope.programmes.includes(id))));
  const ranked=[];
  for(const r of rows){
   const title=norm(r.content.title),body=norm(r.content.summary+' '+r.content.howToUse.join(' ')),programmes=r.programmeIds.map(id=>norm(knowledgeEntities.programmes.find(p=>p.id===id)?.name||id)).join(' ');
@@ -47,16 +53,23 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
   for(const [key,re,scenarios] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||re.test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant){score+=key==='membership'?5:7;matched.push(key);}}
   for(const term of terms){if(title.includes(term)){score+=5;matched.push(term)}else if(programmes.includes(term)){score+=6;matched.push(term)}else if(body.includes(term)){score+=1;matched.push(term)}}
   if(matchedPartners.length){score+=12;matched.push(...matchedPartners)}
-  if(score&&/省|抵扣|优惠|優惠|credit|save|discount/i.test(text)&&['credit','promo','hotel-service'].includes(r.category))score+=8;
-  if(score&&/会籍|會籍|status|membership/i.test(text)&&r.category==='membership')score+=10;
-  if(score&&/休息室|贵宾|貴賓|lounge/i.test(text)&&r.category==='lounge')score+=10;
+  const wordScore=score,inFilter=(!filters.scenarioId||r.scenarioIds.includes(filters.scenarioId))&&(!filters.category||r.category===filters.category),filtered=!!(filters.scenarioId||filters.category);
+  // Outside the scenario or category, a rule needs a real word match (a concept or two title words) to compete,
+  // judged before the category boosts below, and it does not get those boosts.
+  if(filtered&&!inFilter&&wordScore<OUTSIDE_FILTER_MIN)continue;
+  const boosted=!filtered||inFilter;
+  if(boosted&&score&&/省|抵扣|优惠|優惠|credit|save|discount/i.test(text)&&['credit','promo','hotel-service'].includes(r.category))score+=8;
+  if(boosted&&score&&/会籍|會籍|status|membership/i.test(text)&&r.category==='membership')score+=10;
+  if(boosted&&score&&/休息室|贵宾|貴賓|lounge/i.test(text)&&r.category==='lounge')score+=10;
   // A filtered rule stays in even without a word match, but is counted, so the tool can tell a filter-only result apart.
   const lexical=score>0;
-  if(filters.scenarioId||filters.programme||filters.category)score+=4;
+  if(filtered&&inFilter)score+=FILTER_BONUS;
+  else if(filters.programme&&!filters.scenarioId&&!filters.category)score+=4;
   if(!score&&!generic)continue;
-  ranked.push({...r,retrieval:{score,matched:[...new Set(matched)],lexical}});
+  ranked.push({...r,retrieval:{score,matched:[...new Set(matched)],lexical,inFilter:filtered&&inFilter}});
  }
- ranked.sort((a,b)=>b.retrieval.score-a.retrieval.score||a.id.localeCompare(b.id));
+ // On equal scores, a rule inside the chosen scenario or category comes first.
+ ranked.sort((a,b)=>b.retrieval.score-a.retrieval.score||b.retrieval.inFilter-a.retrieval.inFilter||a.id.localeCompare(b.id));
  const limit=Math.max(1,Math.min(24,filters.limit||12));
  return {rules:ranked.slice(0,limit),total:ranked.length,wordMatches:ranked.filter(r=>r.retrieval.lexical||generic).length,truncated:ranked.length>limit,method:'structured-filter+multilingual-lexical-ranking',asOf};
 }
