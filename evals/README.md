@@ -60,3 +60,33 @@ Live cases can declare `setupQuestions`; the harness runs them through the same 
 ## Card choice · 2026-11
 
 `choose_card` replaced `compare_cards` and its per-card category bindings. `src/data/earning-categories.json` classifies every earning rule's spend category into uses, channel, merchants, country and conditions; a test fails if a rule is unclassified, and no product id appears in `src/cardDecision.js`. Cash is compared only with cash. Points are shown as points with a break-even value per point, and are priced only with a value the user stated. A credit counts toward the choice only when it is marked unused and the merchant is on its list; otherwise it appears under what could change the result. Foreign transaction fees are not recorded, so they are unknown. Grounding adds checks that the chosen card comes first, that nothing is called a global best, and that points are not priced without the user's value; the code-written fallback covers choices too.
+
+## Multi-turn references · 2026-11 (#132)
+
+`npm run eval:multiturn` replays 55 dialogues (`evals/multiturn/dialogues.mjs`; 27 Simplified, 12 Traditional, 16 English) through the real `runAgentTurn` with a scripted model: real tools, real memory, real context trimming. For the last question it captures exactly the `chatRequest` the model would receive and asks whether the entity the question refers to is still there. Kinds: pronoun (这张/it), ordinal (第二个, from a list the assistant gave), ellipsis (那 Amex 呢), topic switch and return, a card from more than six turns back, and the same product name in another region. Each dialogue also carries the tool and key arguments the last turn should produce.
+
+Two offline levels, both deterministic:
+
+- **resolvable**: the referent is identifiable from what the model receives — a name or a common short name or translation of the card (with the nearest region mark when the name exists in several regions), the item, and for ordinals the list in the order the person saw it.
+- **tool-ready**: the same, but only in a form a tool argument can use as it stands — a name that selects the card as `cardName`, the record's own title. Without it the model has to call `list_cards` again, guess a substring, or translate a title back before searching.
+
+Baseline on `main` (`ac3de19`):
+
+| | n | resolvable | tool-ready |
+|---|---|---|---|
+| all | 55 | 45 (82%) | 23 (42%) |
+| pronoun | 10 | 10 | 5 |
+| ordinal | 12 | 12 | 6 |
+| ellipsis | 8 | 8 | 7 |
+| topic return | 7 | 7 | 3 |
+| long range (> 6 turns) | 10 | 0 | 0 |
+| same name, other region | 8 | 8 | 2 |
+| zh-Hans / zh-Hant / en | 27 / 12 / 16 | 85% / 75% / 81% | 44% / 25% / 50% |
+
+Reading it: within six turns the referent is almost always somewhere in the chat text, because the person's own words and the answer stay. Past six turns it is gone: tool arguments and results are dropped and memory holds only `lastPurchase` and `trip`. Within six turns the precise form is often gone too: answers say 香港美國運通白金卡, 运通金卡 or "Air Canada lounges", while the tool needs `The Platinum Card` + `HK`, `Gold Card`, or `加拿大航空休息室`.
+
+`check:agent` runs it with `--min=0.8` on the resolvable rate; a label that does not match the tools, or a scripted answer that fails grounding, fails the run whatever the rate.
+
+Limits: earlier answers are scripted, written to read like the assistant's (user's language, names paraphrased or translated), so how often names survive is a property of this set. Offline "resolvable" means present, not that a model resolves it.
+
+`npm run eval:multiturn:live` runs the same dialogues against the configured model and checks the tool and key arguments of the last turn (a `cardName` passes if it selects the same held cards; a free-text `query` only has to be present). It makes API calls and has not been run; ask the owner first. `--live --dry-run` exercises that path with a scripted model and no network.
