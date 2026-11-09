@@ -43,7 +43,7 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
  const signals=concepts.filter(([,re])=>re.test(text)),requestedPartners=generic?[]:partners.filter(([,re])=>re.test(askedText(question))).map(([id])=>id);
  // A programme filter in any language or alias: 万豪 and Bonvoy both mean Marriott Bonvoy.
  const programmeIds=filters.programme?programmesForFilter(filters.programme):null;
- const terms=generic?[]:tokens(text);
+ const terms=generic?[]:tokens(text),matchers=terms.map(term=>[term,hasTerm(term)]);
  // Scenario and category are soft: a rule outside them still competes on its words, because the model often picks
  // the neighbouring scenario (Global Entry as travel, not airport). A named programme stays a hard filter.
  const rows=queryKnowledge({kind:'benefit',asOf}).rules.filter(r=>r.productIds.some(id=>products.has(id))&&(!generic||r.productIds.some(id=>scoped.has(id))||r.programmeIds.some(id=>scope.programmes.includes(id))));
@@ -58,7 +58,7 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
   if(requestedPartners.length&&!matchedPartners.length)continue;
   let score=0;const matched=[];
   for(const [key,re,scenarios] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||re.test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant){score+=key==='membership'?5:7;matched.push(key);}}
-  for(const term of terms){const has=hasTerm(term);if(has(title)){score+=5;matched.push(term)}else if(has(programmes)){score+=6;matched.push(term)}else if(has(body)){score+=1;matched.push(term)}}
+  for(const [term,has] of matchers){if(has(title)){score+=5;matched.push(term)}else if(has(programmes)){score+=6;matched.push(term)}else if(has(body)){score+=1;matched.push(term)}}
   if(matchedPartners.length){score+=12;matched.push(...matchedPartners)}
   const wordScore=score,inFilter=(!filters.scenarioId||r.scenarioIds.includes(filters.scenarioId))&&(!filters.category||r.category===filters.category),filtered=!!(filters.scenarioId||filters.category);
   // Outside the scenario or category, a rule needs a real word match (a concept or two title words) to compete,

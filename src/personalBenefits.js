@@ -21,7 +21,7 @@ export function dismissedCredits(cards,events){
  for(const card of cards)for(const b of profileForCard(card)?.benefits||[]){
   const key=dismissKey(card.id,b.knowledgeRuleId);if(!keys.has(key)||rows.some(r=>r.key===key))continue;
   const at=events.filter(e=>e.key===key).reduce((a,e)=>e.at>a?e.at:a,'');
-  rows.push({key,cardId:card.id,ruleId:b.knowledgeRuleId,title:b.title,at});
+  rows.push({key,cardId:card.id,ruleId:b.knowledgeRuleId,title:b.title,...(b.original?{original:structuredClone(b.original)}:{}),at});
  }
  return rows.sort((a,b)=>b.at.localeCompare(a.at)||a.key.localeCompare(b.key));
 }

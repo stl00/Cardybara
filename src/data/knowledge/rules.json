@@ -20269,6 +20269,26 @@
         "先确认合资格卡角色与预付渠道，不把普通酒店直订或任意Airbnb当作符合。",
         "THC、Airbnb Luxe至少连续两晚；2026年的FHR不提前套用2027年新规。",
         "半年截止以美国中部时间为准，处理须在周期内；报销最长可能90天。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$600 Lodging Credit",
+      "summary": "Up to $300 semi-annually (January to June, July to December) on new prepaid Fine Hotels + Resorts, The Hotel Collection and Airbnb Luxe bookings made through American Express Travel; the two-night minimum for Fine Hotels + Resorts starts January 1, 2027.",
+      "howToUse": [
+        "Prepay through AmexTravel.com, the Amex Travel App or by phone; ordinary hotel or Airbnb bookings do not count.",
+        "Check the minimum-night rule of each program in the terms; Fine Hotels + Resorts requires two nights from January 1, 2027."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Basic Card Members on a U.S. Consumer Platinum Card Account are eligible to receive up to $300 in statement credits semi-annually (January to June, and July to December) for up to a total of $600 per calendar year"
+        },
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Effective January 1, 2027, Fine Hotels + Resorts bookings will require a minimum two-night stay to be eligible for the $600 Lodging Credit."
+        }
       ]
     },
     "terms": {
@@ -29865,7 +29885,7 @@
         },
         {
           "sourceId": "card-chase-us-ink-business-cash-credit-card",
-          "text": "Plus, once activated, Instacart+ members get a $20 Instacart credit each month automatically loaded into their Instacart Business Account."
+          "text": "Plus, once activated, Instacart+ members get a $20 Instacart credit each month automatically loaded into their"
         }
       ]
     },

@@ -43,13 +43,14 @@ const QUOTE_MAX=320;
 const script=lang=>/^en/.test(lang)?'en':/^zh-(?:HK|TW|Hant)/.test(lang)?'zh-Hant':/^zh/.test(lang)?'zh-Hans':lang;
 // Hong Kong and Taiwan text share a script, so a zh-HK original serves a zh-TW reader as the same language.
 export const sameLanguage=(a,b)=>!!a&&!!b&&script(a)===script(b);
-/** The text to show a reader of `language`: the same language first, then the original, then zh-CN. */
+/** The text to show a reader of `language`: the same language first, then zh-CN for any Chinese reader (another
+ * script of the same language), then the original, then zh-CN. */
 export function ruleText(rule,language='zh-CN'){
  const o=rule.original,zh={lang:'zh-CN',title:rule.content.title,summary:rule.content.summary,howToUse:rule.content.howToUse,translated:!!rule.content.translatedFrom};
  const pick=t=>({lang:t.lang,title:t.title,summary:t.summary,howToUse:t.howToUse,translated:!!t.translated});
  if(o&&sameLanguage(o.lang,language))return pick(o);
  const shown=Object.entries(rule.translations||{}).find(([lang])=>sameLanguage(lang,language));if(shown)return pick({...shown[1],lang:shown[0],translated:true});
- if(sameLanguage('zh-CN',language)||!o)return pick(zh);
+ if(/^zh/.test(language)||!o)return pick(zh);
  return pick(o);
 }
 /** Category/scenario/programme are controlled IDs, not guesses extracted from prose. */

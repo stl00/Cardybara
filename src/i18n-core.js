@@ -36,7 +36,7 @@ export function formatReadDate(value){
 }
 const scriptOf = lang => /^en/.test(lang) ? 'en' : /^zh-(?:HK|TW|Hant)/.test(lang) ? 'zh-Hant' : /^zh/.test(lang) ? 'zh-Hans' : lang;
 // Rule text for the reader: the same language first (the original, a stored translation, or the dictionary),
-// then the official original, then the zh-CN text. `field` is 'title' or 'summary'; zh is the zh-CN text.
+// then the zh-CN text for a Chinese reader, then the official original, then zh-CN. `field` is 'title' or 'summary'; zh is the zh-CN text.
 export function ruleField(zh, { original, translations: shown } = {}, field = 'title', language = activeLanguage) {
   if (original && scriptOf(original.lang) === scriptOf(language)) return original[field];
   const stored = Object.entries(shown || {}).find(([lang]) => scriptOf(lang) === scriptOf(language));
@@ -44,5 +44,5 @@ export function ruleField(zh, { original, translations: shown } = {}, field = 't
   if (language === 'zh-CN' || zh == null) return zh ?? '';
   const known = translations[language]?.[String(zh)];
   if (known != null) return known;
-  return original ? original[field] : String(zh);
+  return original && !/^zh/.test(language) ? original[field] : String(zh);
 }
