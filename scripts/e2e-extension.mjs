@@ -21,10 +21,9 @@ const root=fileURLToPath(new URL('..',import.meta.url));
 let STEP_MS=Number(process.env.CARDYBARA_E2E_STEP_MS||30000);
 const BANK_HOST='secure.chase.com';
 const STATE_KEY='cardybara-state-v2';
-// A real bank page takes a while to arrive. With an instant local page the first load can finish
-// before the extension's own reload, which hits a known collector race (stl00/Cardybara#123); set
-// this to 0 to reproduce it.
-const BANK_DELAY_MS=Number(process.env.CARDYBARA_E2E_BANK_DELAY_MS??400);
+// The synthetic bank answers at once by default: an instant first load once raced the extension's
+// own reload (stl00/Cardybara#123). Set a latency in ms to imitate a slower bank.
+const BANK_DELAY_MS=Number(process.env.CARDYBARA_E2E_BANK_DELAY_MS??0);
 let log=[],lastState=null;
 const note=(...a)=>{const line=`[${new Date().toISOString()}] `+a.join(' ');log.push(line);console.log(line);};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
