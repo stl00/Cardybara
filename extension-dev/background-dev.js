@@ -68,7 +68,8 @@ const check=({mayRead,manual=false,preview=false})=>serial(async()=>{
  if(state.run?.status==='running'){const reading=state.run.jobs.map(j=>j.bank);await saveSettings({...settings,skips:{...settings.skips,...Object.fromEntries(reading.map(bank=>[bank,'reading']))},lastCheckAt:Date.now()});return 'running';}
  const known=(state.discoveredCards||[]).filter(c=>ACTIVE_BANKS.includes(c.bank)),now=Date.now(),idle=await chrome.idle.queryState(IDLE_SECONDS);
  const input={settings,activeBanks:ACTIVE_BANKS,disabled:state.disabled,withCards:[...new Set(known.map(c=>c.bank))],idle,now,manual},settled=['off','disconnected','stopped','not_due'],before=decideBanks(input);
- // A bank that can't be read anyway isn't touched, even by the read-only tab check.
+ // A bank that can't be read anyway isn't touched, even by the read-only tab check. A popup check probes what Read now
+ // could take (also with the schedule off or a bank not due), the same read-only discovery Read now runs; ticks never do.
  const probe=preview?decideBanks({...input,manual:true}):before;
  input.tabs=await bankTabs(ACTIVE_BANKS.filter(bank=>!settled.includes(probe[bank])));
  const skips=decideBanks(input),signature=skipSignature(skips),changed=signature!==settings.skipSignature;

@@ -50,6 +50,7 @@ test('Retry clears one stopped bank and keeps every limit',()=>{
  assert.equal(decideBanks(input(after,now+31*60000)).BOA,'ready','after the hour it reads, not after the 24 h interval');
  const both=retryBank(retryBank(base,'Amex US'),'Amex HK');
  assert.deepEqual(planBanks(input(both)).filter(b=>b.startsWith('Amex')),['Amex US'],'Amex still reads one region at a time');
+ assert.deepEqual(setEnabled(setEnabled(after,false),true).banks.BOA,{lastAttemptAt:now-30*60000,retried:true},'off and on keeps a retry at the hourly minimum');
  const read=markAttempted(after,['BOA'],now+31*60000);assert.equal(read.banks.BOA.retried,undefined,'a read ends the retry');
  assert.equal(afterRun(read,{jobs:[{bank:'BOA',status:'load_error'}]},now).banks.BOA.state,'stopped','a new failure stops it again');
 });

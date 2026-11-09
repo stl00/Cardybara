@@ -12,7 +12,7 @@ function row(settings,bank,running){
  const tag=el('span','tag '+r.tone,r.tag),info=el('div','info');info.append(el('b',null,r.detail));if(r.last)info.append(' · '+r.last);
  const act=el('div','act');act.append(tag);
  // Retry clears only this bank's stop; the next check reads it under the usual rules.
- if(r.action==='retry'){const b=el('button','small',t.retry);b.type='button';b.disabled=running;b.onclick=async()=>{b.disabled=true;const res=await ask({type:'dev-retry-bank',bank});if(res?.ok){render(res);$('status').textContent=bankName(bank,lang)+' · '+t.retried;}};act.append(b);}
+ if(r.action==='retry'){const b=el('button','small',t.retry);b.type='button';b.disabled=running;b.onclick=async()=>{b.disabled=true;const res=await ask({type:'dev-retry-bank',bank});if(res?.ok){render(res);$('status').textContent=bankName(bank,lang)+' · '+t.retried;}else{b.disabled=false;$('status').textContent=t.retryFailed;}};act.append(b);}
  // Opens only the bank's own sign-in page from the registry. The owner signs in; the popup never does.
  if(r.action==='open'&&PROVIDERS[bank]?.url){const a=el('a','btn small',t.open);a.href=PROVIDERS[bank].url;a.target='_blank';a.rel='noopener noreferrer';act.append(a);}
  li.append(bankMark(bank),el('span','name',bankName(bank,lang)),act,info);return li;

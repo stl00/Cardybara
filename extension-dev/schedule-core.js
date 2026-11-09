@@ -6,7 +6,7 @@ const OK=['updated','partial'],FIELD_KEYS=['balance','available','statement','st
 export const defaultSettings=()=>({enabled:false,intervalMinutes:360,banks:{}});
 export const normalizeInterval=value=>INTERVALS.includes(value)?value:Math.max(MIN_INTERVAL_MINUTES,360);
 // Turning the schedule on again is the owner's decision to try stopped banks once more, at the next check. A bank that wasn't stopped keeps its last attempt, so a read just made still counts for the interval.
-const lastAttempts=banks=>Object.fromEntries(Object.entries(banks||{}).filter(([,b])=>b?.lastAttemptAt&&b.state!=='stopped').map(([bank,b])=>[bank,{lastAttemptAt:b.lastAttemptAt}]));
+const lastAttempts=banks=>Object.fromEntries(Object.entries(banks||{}).filter(([,b])=>b?.lastAttemptAt&&b.state!=='stopped').map(([bank,b])=>[bank,{lastAttemptAt:b.lastAttemptAt,...(b.retried?{retried:true}:{})}]));
 export function setEnabled(settings,enabled,intervalMinutes=settings.intervalMinutes){return {...settings,enabled:enabled===true,intervalMinutes:normalizeInterval(intervalMinutes),banks:enabled===true&&!settings.enabled?lastAttempts(settings.banks):settings.banks};}
 // A successful read carries on. An expired login waits for the owner's own signed-in tab. Anything else stops the bank.
 export function classifyJob(job){
@@ -46,15 +46,15 @@ export const RESULT_STATES=['ok','login_expired','stopped'];
 // What the owner can do from a row: retry a stopped bank, or open the bank's own sign-in page.
 const ROW_ACTION={stopped:'retry',no_tab:'open',signed_out:'open',other_region:'open'};
 export const POPUP_WORDS={
- 'en-US':{title:'Cardybara Dev',on:'Scheduled reads',every:'At most every',hours:'{0} h',readNow:'Read now',readNowWill:'Will read: {0}',readNowNone:'No signed-in bank is ready to read',readStarted:'Reading started',nothingToRead:'Nothing to read now',running:'A read is in progress',checked:'Last check {0}',note:'Reads after Chrome is idle for 2 min. Never signs in.',wallet:'Open wallet',retry:'Retry',retried:'Will retry at the next check',open:'Open bank',banks:'Banks',
+ 'en-US':{title:'Cardybara Dev',on:'Scheduled reads',every:'At most every',hours:'{0} h',readNow:'Read now',readNowWill:'Will read: {0}',readNowNone:'No signed-in bank is ready to read',readStarted:'Reading started',nothingToRead:'Nothing to read now',running:'A read is in progress',checked:'Last check {0}',note:'Reads after Chrome is idle for 2 min. Never signs in.',wallet:'Open wallet',retry:'Retry',retried:'Will retry at the next check',retryFailed:'Retry did not go through',open:'Open bank',banks:'Banks',
   tone_ok:'Ready',tone_wait:'Waiting',tone_login:'Sign in',tone_error:'Error',tone_off:'Off',
   last_ok:'Last read {0}',last_login_expired:'Sign-in expired {0}',last_stopped:'Failed {0}',
   off:'Scheduled reads are off',disconnected:'Disconnected in the wallet',stopped:'Scheduled reads paused for this bank',not_due:'Next read from {0}',no_tab:'No bank tab open',signed_out:'Signed out; reads after you sign in',other_region:'The open tab is another region',no_cards_found:'No card found on the open tab',check_failed:'Could not check the tab',amex_turn:'Amex reads one region at a time',not_idle:'Reads once Chrome is idle',ready:'Reads at the next check',reading:'Reading now'},
- 'zh-CN':{title:'Cardybara 开发版',on:'定时读取',every:'最短间隔',hours:'{0} 小时',readNow:'现在读取',readNowWill:'将读取：{0}',readNowNone:'没有已登录、可读取的银行',readStarted:'已开始读取',nothingToRead:'现在没有可读的银行',running:'正在读取',checked:'上次检查 {0}',note:'Chrome 空闲 2 分钟后读取，不会替你登录。',wallet:'打开钱包',retry:'重试',retried:'下次检查时重试',open:'打开银行',banks:'银行',
+ 'zh-CN':{title:'Cardybara 开发版',on:'定时读取',every:'最短间隔',hours:'{0} 小时',readNow:'现在读取',readNowWill:'将读取：{0}',readNowNone:'没有已登录、可读取的银行',readStarted:'已开始读取',nothingToRead:'现在没有可读的银行',running:'正在读取',checked:'上次检查 {0}',note:'Chrome 空闲 2 分钟后读取，不会替你登录。',wallet:'打开钱包',retry:'重试',retried:'下次检查时重试',retryFailed:'重试没有成功',open:'打开银行',banks:'银行',
   tone_ok:'正常',tone_wait:'等待',tone_login:'需要登录',tone_error:'出错',tone_off:'未启用',
   last_ok:'{0} 已读取',last_login_expired:'{0} 登录过期',last_stopped:'{0} 读取失败',
   off:'定时读取未打开',disconnected:'已在钱包里断开',stopped:'已暂停这家银行的定时读取',not_due:'{0} 起可再读取',no_tab:'没有打开这家银行',signed_out:'已退出登录，登录后自动读取',other_region:'打开的是其他地区的页面',no_cards_found:'打开的页面上没找到卡片',check_failed:'无法检查页面',amex_turn:'Amex 一次只读一个地区',not_idle:'等 Chrome 空闲后读取',ready:'下次检查时读取',reading:'正在读取'},
- 'zh-TW':{title:'Cardybara 開發版',on:'定時讀取',every:'最短間隔',hours:'{0} 小時',readNow:'現在讀取',readNowWill:'將讀取：{0}',readNowNone:'沒有已登入、可讀取的銀行',readStarted:'已開始讀取',nothingToRead:'現在沒有可讀的銀行',running:'正在讀取',checked:'上次檢查 {0}',note:'Chrome 閒置 2 分鐘後讀取，不會替你登入。',wallet:'開啟錢包',retry:'重試',retried:'下次檢查時重試',open:'開啟銀行',banks:'銀行',
+ 'zh-TW':{title:'Cardybara 開發版',on:'定時讀取',every:'最短間隔',hours:'{0} 小時',readNow:'現在讀取',readNowWill:'將讀取：{0}',readNowNone:'沒有已登入、可讀取的銀行',readStarted:'已開始讀取',nothingToRead:'現在沒有可讀的銀行',running:'正在讀取',checked:'上次檢查 {0}',note:'Chrome 閒置 2 分鐘後讀取，不會替你登入。',wallet:'開啟錢包',retry:'重試',retried:'下次檢查時重試',retryFailed:'重試沒有成功',open:'開啟銀行',banks:'銀行',
   tone_ok:'正常',tone_wait:'等待',tone_login:'需要登入',tone_error:'出錯',tone_off:'未啟用',
   last_ok:'{0} 已讀取',last_login_expired:'{0} 登入過期',last_stopped:'{0} 讀取失敗',
   off:'定時讀取未開啟',disconnected:'已在錢包中中斷連線',stopped:'已暫停這家銀行的定時讀取',not_due:'{0} 起可再讀取',no_tab:'沒有開啟這家銀行',signed_out:'已登出，登入後自動讀取',other_region:'開啟的是其他地區的頁面',no_cards_found:'開啟的頁面上找不到卡片',check_failed:'無法檢查頁面',amex_turn:'Amex 一次只讀一個地區',not_idle:'等 Chrome 閒置後讀取',ready:'下次檢查時讀取',reading:'正在讀取'}
@@ -70,8 +70,9 @@ export function bankRow(settings,bank,words,time){
  const last=RESULT_STATES.includes(seen.state)&&seen.finishedAt?fill(words['last_'+seen.state],time(seen.finishedAt)):'';
  return {bank,reason,tone,tag:words['tone_'+tone],detail,last,action:ROW_ACTION[reason]||null};
 }
-// The owner's Retry on one stopped bank: only that bank's stop is cleared. Its last attempt stays, so the hourly
-// minimum per bank still holds; every other rule of a scheduled read (one Amex region at a time, a signed-in tab) applies.
+// The owner's Retry on one stopped bank: only that bank's stop is cleared. Its last attempt stays, so a scheduled read
+// still waits out the hourly minimum (Read now, as always, skips the interval); every other rule (one Amex region at a
+// time, a signed-in tab) applies.
 export function retryBank(settings,bank){
  const seen=settings.banks?.[bank];if(seen?.state!=='stopped')return settings;
  return {...settings,banks:{...settings.banks,[bank]:{...(seen.lastAttemptAt?{lastAttemptAt:seen.lastAttemptAt}:{}),retried:true}}};

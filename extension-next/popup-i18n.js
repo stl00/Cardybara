@@ -1,5 +1,6 @@
 // Shared by both popups: the wallet's language, bank names and marks, and the release popup's copy.
-// The popup shares the wallet page's origin, so it reads the language the owner picked there.
+// Where the wallet is served from the extension itself, the popup shares its origin and reads the language picked
+// there; otherwise (a wallet on localhost) it follows the browser.
 export const LANGUAGES=['zh-CN','zh-TW','en-US'];
 const LANGUAGE_KEY='cardybara-language';
 export function popupLanguage(stored=readStored(),browser=globalThis.navigator?.language||''){
