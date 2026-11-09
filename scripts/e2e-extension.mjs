@@ -235,7 +235,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    const served=bank.requests.length;
    const exited=new Promise(r=>browser.child.once('exit',r));
    await cdp.send('Browser.close').catch(()=>{});
-   await Promise.race([exited,sleep(STEP_MS)]);
+   let timer;await Promise.race([exited,new Promise(r=>{timer=setTimeout(r,STEP_MS);})]);clearTimeout(timer);
    if(browser.child.exitCode===null&&browser.child.signalCode===null)throw new StepError('Chrome did not exit on Browser.close');
    note('chrome closed; starting it again on the same profile');
    if(beforeRestart){await beforeRestart(profile);note('negative control: profile deliberately changed while Chrome was closed');}
@@ -261,6 +261,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    await evaluate('wallet','location.hash="wallet"');
    await until('the read balance on the wallet page after a restart',async()=>(await pageText('wallet')).includes('1,234.56'));
    if(await shows('wallet','欢迎，这是你的新钱包'))throw new StepError('the wallet shows the empty-wallet welcome after a restart');
+   await sleep(1500); // give a delayed start-up refresh time to show itself
    if(bank.requests.length!==served)throw new StepError('the bank was contacted again just to show records after a restart');
    note('PASS: after a browser restart the same extension comes back with its records kept');
   }
@@ -299,7 +300,8 @@ export const BROKEN_RESTART={
 };
 export async function negativeControls(input,{out,restart=false}){
  const escaped=[];
- const controls=[...Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}]),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[])];
+ // With --restart only the restart controls run; the package controls run in their own step.
+ const controls=[...(restart?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[])];
  for(const [name,reason,options] of controls){
   console.log(`--- negative control: ${name}`);
   const error=await run(input,{out:join(out,name.replace(/\W+/g,'-')),...options,stepMs:12000}).then(()=>null,e=>e);
