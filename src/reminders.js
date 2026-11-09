@@ -1,5 +1,5 @@
 import {paymentView} from './paymentStates.js';
-import {creditTasks,taskStatus} from './personalBenefits.js';
+import {activeTasks,creditTasks,taskStatus} from './personalBenefits.js';
 import {REMINDER_LOG_KEY,REMINDER_SCHEDULE_KEY,SCHEDULE_SCHEMA,SINGLE_LIMIT,pruneSent,readLog,reminderDay} from '../extension-next/reminder-core.js';
 export {pruneSent};
 // Decides which reminders are due. No browser APIs here, so "never fire for handled or autopay bills"
@@ -29,9 +29,9 @@ export function billReminders(cards,marks,settings,asOf){
   id:`${i.state==='overdue'?'overdue':'bill'}:${i.key}`,kind:i.state==='overdue'?'overdue':'bill',name:i.card.name,days:i.days,stale:i.stale,statement:i.card.statement??null,currency:i.card.currency,
  }));
 }
-/** Status never comes from a guess: an unconfirmed credit still reminds, a used or skipped one does not. */
+/** Status never comes from a guess: an unconfirmed credit still reminds, a used, skipped or dismissed one does not. */
 export function creditReminders(cards,events,settings,asOf){
- return creditTasks(cards,asOf).filter(task=>!['used','skipped'].includes(taskStatus(task,events))).map(task=>({task,days:Math.round((Date.parse(task.period.end+'T00:00:00Z')-Date.parse(asOf+'T00:00:00Z'))/DAY_MS)})).filter(r=>r.days<=settings.creditDays).map(({task,days})=>({
+ return activeTasks(creditTasks(cards,asOf),events).filter(task=>!['used','skipped'].includes(taskStatus(task,events))).map(task=>({task,days:Math.round((Date.parse(task.period.end+'T00:00:00Z')-Date.parse(asOf+'T00:00:00Z'))/DAY_MS)})).filter(r=>r.days<=settings.creditDays).map(({task,days})=>({
   id:`credit:${task.key}`,kind:'credit',title:task.title,name:cards.find(c=>c.id===task.cardId)?.name||'',days,
  }));
 }

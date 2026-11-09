@@ -1706,7 +1706,14 @@
     "Citi · Citi Custom Cash Card 官方产品页": "Citi · Citi Custom Cash Card official product page",
     "Citi 自2026年5月28日起停止受理新申请，已持卡者不受影响；资料来自页面内嵌数据，可见页面显示 Not Available。": "Citi stopped accepting applications on May 28, 2026, and existing cardmembers are not affected. Facts come from embedded page data; the visible page shows Not Available.",
     "每个账单周期消费最高的合资格类别": "Top eligible spend category each billing cycle",
-    "每个账单周期前500美元；合资格类别页面没有列出。": "Up to $500 spent each billing cycle; the page does not list the eligible categories."
+    "每个账单周期前500美元；合资格类别页面没有列出。": "Up to $500 spent each billing cycle; the page does not list the eligible categories.",
+    "不再提醒": "Stop reminding",
+    "不再提醒，可在「不再提醒的 Credit」里恢复": "Reminders stopped. Restore it under “Credits you stopped”",
+    "不再提醒，可在 Credit 页面恢复": "Reminders stopped. Restore it on the Credits page",
+    "已恢复提醒": "Reminders restored",
+    "不再提醒的 Credit（{0}）": "Credits you stopped ({0})",
+    "这些 Credit 不会出现在钱包提醒、待处理和清单里；已经加进日历的提醒需要在日历里自己删除。恢复后回到原来的状态，之前的标记都还在。": "These credits stay out of wallet reminders, to-dos and lists; reminders already added to your calendar need to be deleted there. Restoring one brings it back as it was, with your earlier marks.",
+    "恢复": "Restore"
   },
   "zh-TW": {
     "美国": "美國",
@@ -3415,6 +3422,13 @@
     "Citi · Citi Custom Cash Card 官方产品页": "Citi · Citi Custom Cash Card 官方產品頁",
     "Citi 自2026年5月28日起停止受理新申请，已持卡者不受影响；资料来自页面内嵌数据，可见页面显示 Not Available。": "Citi 自2026年5月28日起停止受理新申請，已持卡者不受影響；資料來自頁面內嵌資料，可見頁面顯示 Not Available。",
     "每个账单周期消费最高的合资格类别": "每個賬單週期消費最高的合資格類別",
-    "每个账单周期前500美元；合资格类别页面没有列出。": "每個賬單週期前500美元；合資格類別頁面沒有列出。"
+    "每个账单周期前500美元；合资格类别页面没有列出。": "每個賬單週期前500美元；合資格類別頁面沒有列出。",
+    "不再提醒": "不再提醒",
+    "不再提醒，可在「不再提醒的 Credit」里恢复": "不再提醒，可在「不再提醒的 Credit」裡恢復",
+    "不再提醒，可在 Credit 页面恢复": "不再提醒，可在 Credit 頁面恢復",
+    "已恢复提醒": "已恢復提醒",
+    "不再提醒的 Credit（{0}）": "不再提醒的 Credit（{0}）",
+    "这些 Credit 不会出现在钱包提醒、待处理和清单里；已经加进日历的提醒需要在日历里自己删除。恢复后回到原来的状态，之前的标记都还在。": "這些 Credit 不會出現在錢包提醒、待處理和清單裡；已經加進日曆的提醒需要在日曆裡自己刪除。恢復後回到原來的狀態，之前的標記都還在。",
+    "恢复": "恢復"
   }
 }

@@ -6,7 +6,7 @@ import EllipsisOutlined from '@ant-design/icons/es/icons/EllipsisOutlined';
 import SearchOutlined from '@ant-design/icons/es/icons/SearchOutlined';
 import {t,useI18n} from './i18n';
 import {profileForCard,benefitPeriod,benefitSources} from './benefitRules';
-import {creditTasks,taskStatus,reminderTasks,creditCalendar,walletDay} from './personalBenefits';
+import {creditTasks,taskStatus,reminderTasks,creditCalendar,walletDay,activeTasks,dismissKey,dismissedCredits} from './personalBenefits';
 import {readBenefitEvents,appendBenefitEvent} from './personalStore';
 import {creditView,isDone,ENDING_SOON_DAYS,SHORT_LIST,COMPACT_LIST} from './creditView';
 import {creditCategoryLabel} from './creditCategories';
@@ -23,7 +23,7 @@ export function PersonalProvider({children}){
 }
 const cash=(n,c)=>`${({USD:'US$',HKD:'HK$',CAD:'CA$'})[c]||c} ${n.toLocaleString()}`;
 function Sources({ids=[]}){return <Space wrap>{ids.filter(id=>benefitSources[id]).map(id=><a key={id} href={benefitSources[id].url} target="_blank" rel="noopener noreferrer">{t('查看官方条款')}</a>)}</Space>;}
-export function WalletBenefitHint({card}){useI18n();const {day,events}=useContext(Personal);const p=profileForCard(card),tasks=creditTasks([card],day),pending=tasks.filter(task=>!['used','skipped'].includes(taskStatus(task,events))).length;if(p?.coverage==='variant-unconfirmed')return <Tag>{t('权益待确认')}</Tag>;return <Space wrap size={4} style={{marginTop:12}}>{tasks.length>0&&<Tag color={pending?'blue':'success'}>{pending?t('待处理 {0} 项 Credit',[pending]):t('本期 Credit 已清理')}</Tag>}{p?.benefits.filter(b=>!b.applicability&&(!b.validFrom||b.validFrom<=day)&&(!b.validThrough||b.validThrough>=day)&&(['lounge','hotel-service'].includes(b.category)||b.category==='membership'&&b.partner)).slice(0,1).map(b=><Tag key={b.id}><ItemLogo ruleId={b.knowledgeRuleId} size={12}/>{t(b.title)}</Tag>)}</Space>;}
+export function WalletBenefitHint({card}){useI18n();const {day,events}=useContext(Personal);const p=profileForCard(card),tasks=activeTasks(creditTasks([card],day),events),pending=tasks.filter(task=>!['used','skipped'].includes(taskStatus(task,events))).length;if(p?.coverage==='variant-unconfirmed')return <Tag>{t('权益待确认')}</Tag>;return <Space wrap size={4} style={{marginTop:12}}>{tasks.length>0&&<Tag color={pending?'blue':'success'}>{pending?t('待处理 {0} 项 Credit',[pending]):t('本期 Credit 已清理')}</Tag>}{p?.benefits.filter(b=>!b.applicability&&(!b.validFrom||b.validFrom<=day)&&(!b.validThrough||b.validThrough>=day)&&(['lounge','hotel-service'].includes(b.category)||b.category==='membership'&&b.partner)).slice(0,1).map(b=><Tag key={b.id}><ItemLogo ruleId={b.knowledgeRuleId} size={12}/>{t(b.title)}</Tag>)}</Space>;}
 function endText(days){
  if(days===0)return t('今天截止');
  if(days===1)return t('明天截止');
@@ -39,18 +39,21 @@ export function CreditManager({cards,compact=false,hidden=false}){
  const singleCard=cards.length===1,limit=expanded||view.filtered?Infinity:compact?COMPACT_LIST:SHORT_LIST,rows=view.rows.slice(0,limit),more=view.rows.length-rows.length;
  const latest=task=>events.filter(e=>e.key===task.key).sort((a,b)=>b.at.localeCompare(a.at)||b.id.localeCompare(a.id))[0];
  const change=async(task,status)=>{const previous=taskStatus(task,events),previousEvent=latest(task);setBusy(task.key);try{await mark(task.key,status,task.revisionId);message.open({key:'credit-change',type:'success',duration:6,content:<Space><span><ItemLogo ruleId={task.ruleId}/>{t(task.title)}</span> · {t('已更新')}<Button type="link" size="small" onClick={()=>mark(task.key,previous,task.revisionId,previousEvent?.usage?{usage:previousEvent.usage}:{}).then(()=>message.destroy('credit-change')).catch(()=>message.error(t('保存失败，刚才的标记没有生效。')))}>{t('撤销')}</Button></Space>})}catch{message.error(t('保存失败，刚才的标记没有生效。'))}finally{setBusy('')}};
+ const dismissedList=dismissedCredits(cards,events),showDismissed=!compact||singleCard;
+ // Stop reminding lasts across cycles until restored; restoring leaves the per-cycle marks as they were.
+ const setDismissed=async({cardId,ruleId,title},status)=>{const key=dismissKey(cardId,ruleId),undo=status==='dismissed'?'restored':'dismissed';setBusy(key);try{await mark(key,status,null);message.open({key:'credit-change',type:'success',duration:6,content:<Space><span><ItemLogo ruleId={ruleId}/>{t(title)}</span> · {status==='dismissed'?(showDismissed?t('不再提醒，可在「不再提醒的 Credit」里恢复'):t('不再提醒，可在 Credit 页面恢复')):t('已恢复提醒')}<Button type="link" size="small" onClick={()=>mark(key,undo,null).then(()=>message.destroy('credit-change')).catch(()=>message.error(t('保存失败，刚才的标记没有生效。')))}>{t('撤销')}</Button></Space>})}catch{message.error(t('保存失败，刚才的标记没有生效。'))}finally{setBusy('')}};
  const calendar=()=>{const url=URL.createObjectURL(new Blob([creditCalendar(tasks,events)],{type:'text/calendar;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='cardybara-credit-reminders.ics';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
  const row=({task,status,days,endingSoon})=>{
   const usage=latest(task),currentUsage=usage?.revisionId===task.revisionId?usage.usage:null,card=cards.find(c=>c.id===task.cardId),done=isDone(status),past=chosen!==day;
-  const others=[{key:'amount',label:t(currentUsage?'修改金额':'记金额')},...(status!=='skipped'?[{key:'skipped',label:t('本期不用')}]:[]),...(!['unused','used','partial'].includes(status)?[{key:'unused',label:t('确认未用')}]:[])];
+  const others=[{key:'amount',label:t(currentUsage?'修改金额':'记金额')},...(status!=='skipped'?[{key:'skipped',label:t('本期不用')}]:[]),...(!['unused','used','partial'].includes(status)?[{key:'unused',label:t('确认未用')}]:[]),{type:'divider'},{key:'dismiss',label:t('不再提醒')}];
   return <div key={task.key} className="credit-row"><Flex justify="space-between" align="start" gap={12} wrap>
    <div className="credit-row-main"><Flex wrap align="center" gap={6}><ItemLogo ruleId={task.ruleId}/><Text strong>{t(task.title)}</Text><Tag>{t(({unknown:'待确认',unused:'尚未使用',partial:'已用一部分',used:'已用完',skipped:'本期不适用'})[status])}</Tag>{!done&&!past&&<Tag color={endingSoon?'warning':'default'}>{endText(days)}</Tag>}{task.requiresEnrollment!==false&&<Tag color="warning">{t('需核对登记')}</Tag>}</Flex>
     {!singleCard&&<div className="credit-row-card"><CardIdentity card={card}/></div>}
     <Text type="secondary" className="credit-row-facts">{t('公开上限 {0} · 本期至 {1}',[cash(task.limit,task.currency),task.period.end])}</Text>
     {currentUsage&&<Paragraph type="secondary" style={{fontSize:12,margin:'6px 0 0'}}>{t('累计已用 {0} · 实际价值 {1}',[hidden?'••••':cash(currentUsage.amount,currentUsage.currency),hidden?'••••':currentUsage.value==null?t('尚未估值'):cash(currentUsage.value,currentUsage.currency)])}</Paragraph>}
    </div>
-   <Space wrap size={8}><Button size="small" loading={busy===task.key} disabled={!ready} type={done?'default':'primary'} onClick={()=>currentUsage&&!done?setEditingUsage({...task,fillFull:true}):change(task,done?'unknown':'used')}>{done?t('撤销'):t('已用完')}</Button>
-    <Dropdown disabled={!ready||!!busy} trigger={['click']} menu={{items:others,onClick:({key})=>key==='amount'?setEditingUsage(task):change(task,key)}}><Button size="small" aria-label={t('更多操作')} icon={<EllipsisOutlined/>}/></Dropdown></Space>
+   <Space wrap size={8}><Button size="small" loading={busy===task.key} disabled={!ready||busy===dismissKey(task.cardId,task.ruleId)} type={done?'default':'primary'} onClick={()=>currentUsage&&!done?setEditingUsage({...task,fillFull:true}):change(task,done?'unknown':'used')}>{done?t('撤销'):t('已用完')}</Button>
+    <Dropdown disabled={!ready||!!busy} trigger={['click']} menu={{items:others,onClick:({key})=>key==='amount'?setEditingUsage(task):key==='dismiss'?setDismissed(task,'dismissed'):change(task,key)}}><Button size="small" aria-label={t('更多操作')} icon={<EllipsisOutlined/>}/></Dropdown></Space>
   </Flex>{!compact&&<Collapse ghost size="small" items={[{key:'terms',label:t('使用条件与来源'),children:<><Paragraph>{t(task.condition)}</Paragraph><Sources ids={task.sourceIds}/></>}]}/>}</div>;
  };
  const headline=view.open.length?(view.ending.length?t('{0} 项 {1} 天内截止，共 {2} 项待处理',[view.ending.length,ENDING_SOON_DAYS,view.open.length]):t('{0} 项待处理',[view.open.length])):null;
@@ -68,6 +71,10 @@ export function CreditManager({cards,compact=false,hidden=false}){
  {more>0&&!(compact&&singleCard)&&<Flex justify="center"><Button type="link" onClick={()=>compact&&!singleCard?location.hash='credits':setExpanded(true)}>{t('查看其余 {0} 项',[more])}</Button></Flex>}
  {!compact&&expanded&&!view.filtered&&view.rows.length>SHORT_LIST&&<Flex justify="center"><Button type="link" onClick={()=>setExpanded(false)}>{t('收起')}</Button></Flex>}
  {!rows.length&&<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={!ready?t('正在读取你的福利标记…'):view.filtered?t('没有匹配的福利，请调整筛选条件'):t('本期已处理，或没有可确定周期的 Credit')}/>}
+ {showDismissed&&dismissedList.length>0&&<Collapse ghost size="small" className="credit-dismissed" items={[{key:'dismissed',label:t('不再提醒的 Credit（{0}）',[dismissedList.length]),children:<>
+  <Paragraph type="secondary">{t('这些 Credit 不会出现在钱包提醒、待处理和清单里；已经加进日历的提醒需要在日历里自己删除。恢复后回到原来的状态，之前的标记都还在。')}</Paragraph>
+  {dismissedList.map(d=><Flex key={d.key} justify="space-between" align="center" gap={12} wrap className="credit-dismissed-row"><Flex wrap align="center" gap={6}><ItemLogo ruleId={d.ruleId}/><Text>{t(d.title)}</Text>{!singleCard&&<CardIdentity card={cards.find(c=>c.id===d.cardId)}/>}</Flex><Button size="small" loading={busy===d.key} disabled={!ready||!!busy} onClick={()=>setDismissed(d,'restored')}>{t('恢复')}</Button></Flex>)}
+ </>}]}/>}
  {!compact&&<Paragraph type="secondary" style={{marginTop:16}}>{t('标记由你记录，可撤销；新周期重新确认。')} {t('这里是公开周期清单，不代表已登记或仍有余额。周年不明和版本未确认的福利在卡片详情中查看。钱包打开时显示临期提示；钱包关闭时，可以在设置里开启提醒，或用导出的本期日历提醒，日历的后续周期需重新添加。')}</Paragraph>}
  <CreditAmountModal task={editingUsage} previous={editingUsage?latest(editingUsage):null} onClose={()=>setEditingUsage(null)} onSave={async v=>{const task=editingUsage;await mark(task.key,v.amount>=task.limit?'used':v.amount>0?'partial':'unused',task.revisionId,v.amount>0?{usage:{amount:v.amount,value:v.value??null,date:v.date,currency:task.currency,limit:task.limit,title:task.title}}:{});}}/>
  </Card>;
