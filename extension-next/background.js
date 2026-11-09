@@ -26,11 +26,16 @@ export async function next(){
  try{
   await chrome.alarms.create('cardybara:'+ctx.attemptId,{when:ctx.deadline});
   const tabs=await bounded(chrome.tabs.query({})),existing=await bounded(chooseBankTab(ctx.bank,ctx.cards,tabs,chrome.scripting));
-  const owned=!existing,tab=existing||await bounded(chrome.tabs.create({url:PROVIDERS[ctx.bank].url,active:false}));
-  // Bank SPAs may suspend loading in background tabs. Activate before reload.
-  await bounded(chrome.tabs.update(tab.id,{active:true}));
+  // Bank SPAs may suspend loading in background tabs, so the bank tab is always active.
+  // A tab this run opens is already loading a fresh page: reloading it would race its first load (#123).
+  const owned=!existing,tab=existing||await bounded(chrome.tabs.create({url:PROVIDERS[ctx.bank].url,active:true}));
+  if(existing)await bounded(chrome.tabs.update(tab.id,{active:true}));
   const s=await engine.bind(ctx,tab.id,owned);if(!s)return;
-  await notify(s);await showGuide({...s.run.jobs.find(j=>j.attemptId===ctx.attemptId),runId:s.run.id});if(existing?.verified){if(ctx.bank.startsWith('Amex ')&&!/^\/(dashboard|overview)(?:\/|$)/.test(new URL(tab.url).pathname)){await engine.loading({...ctx,...s.run.jobs.find(j=>j.attemptId===ctx.attemptId)});await bounded(chrome.tabs.update(tab.id,{url:'https://global.americanexpress.com/dashboard',active:true}));}else{await engine.loading({...ctx,...s.run.jobs.find(j=>j.attemptId===ctx.attemptId)});void loaded(tab.id,tab.url);}}else await bounded(chrome.tabs.reload(tab.id));
+  await notify(s);await showGuide({...s.run.jobs.find(j=>j.attemptId===ctx.attemptId),runId:s.run.id});if(owned){
+   // Its load events may have fired before the job held this tab. Count the load as started, and read it if it already finished.
+   const job={...ctx,...s.run.jobs.find(j=>j.attemptId===ctx.attemptId)},now=await bounded(chrome.tabs.get(tab.id));
+   if(await engine.loading(job)&&now.status==='complete'&&guidedPage(ctx.bank,now.url))void loaded(tab.id,now.url);
+  }else if(existing.verified){if(ctx.bank.startsWith('Amex ')&&!/^\/(dashboard|overview)(?:\/|$)/.test(new URL(tab.url).pathname)){await engine.loading({...ctx,...s.run.jobs.find(j=>j.attemptId===ctx.attemptId)});await bounded(chrome.tabs.update(tab.id,{url:'https://global.americanexpress.com/dashboard',active:true}));}else{await engine.loading({...ctx,...s.run.jobs.find(j=>j.attemptId===ctx.attemptId)});void loaded(tab.id,tab.url);}}else await bounded(chrome.tabs.reload(tab.id));
  }catch{await publish(await engine.fail(ctx,'load_error',{stage:'open_bank',code:'bank_tab_unavailable'}));}
 }
 async function active(tabId){const s=await engine.load(),j=s.run?.jobs.find(j=>j.tabId===tabId&&['navigating','capturing'].includes(j.status));return s.run?.status==='running'&&j?{...j,generation:s.run.generation,runId:s.run.id}:null;}
