@@ -46,10 +46,13 @@ const ids=new Set();for(const q of questions){if(ids.has(q.id))problems.push(`du
 if(problems.length){console.error('Golden set is invalid:\n'+problems.map(p=>'  '+p).join('\n'));process.exit(1);}
 
 // Each call returns its own top 12, as find_benefits would; several calls are merged by best rank.
+// cardName and region narrow the cards first, as find_benefits does in src/walletAgent.js.
+const normalized=s=>s.normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
 function run(calls,cards){
  const rank=new Map();let total=0;
- for(const {query,...filters} of calls){
-  const r=searchBenefitKnowledge(query,cards,golden.asOf,filters);total+=r.total;
+ for(const {query,cardName,region,...filters} of calls){
+  const held=cards.filter(c=>(!cardName||normalized(c.name).includes(normalized(cardName)))&&(!region||c.region===region));
+  const r=searchBenefitKnowledge(query,held,golden.asOf,filters);total+=r.total;
   r.rules.slice(0,K).forEach((rule,i)=>{if(!rank.has(rule.id)||rank.get(rule.id)>i+1)rank.set(rule.id,i+1);});
  }
  return {ranked:[...rank].sort((a,b)=>a[1]-b[1]||a[0].localeCompare(b[0])),total};
@@ -117,6 +120,7 @@ out.push('',`Report: ${output}`);
 console.log(out.join('\n'));
 // Opt-in thresholds for a future gate; npm scripts do not pass them yet.
 const gates=[['min-raw',report.overall.raw.recallAt12],['min-rewrite',report.overall.rewrite.recallAt12]].filter(([name])=>arg(name)!==undefined);
+for(const [name] of gates)if(!Number.isFinite(Number(arg(name)))){console.error(`--${name} must be a number`);process.exit(2);}
 const failed=gates.filter(([name,value])=>value<Number(arg(name)));
 for(const [name,value] of failed)console.error(`recall ${pct(value).trim()} is below --${name}=${arg(name)}`);
 if(failed.length)process.exitCode=1;
