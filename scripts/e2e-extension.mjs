@@ -44,8 +44,8 @@ export async function locateZip(input){
 }
 export async function extractPackage(zipPath,sumsPath,dest){
  const bytes=await readFile(zipPath);
- const sums=await readFile(sumsPath,'utf8').catch(()=>null);
- if(sums!==null){
+ const sums=await readFile(sumsPath,'utf8').catch(()=>{throw Error('no SHA256SUMS next to '+basename(zipPath));});
+ {
   const want=sums.split('\n').map(l=>l.trim().split(/\s+/)).find(([,name])=>name===basename(zipPath))?.[0];
   const got=createHash('sha256').update(bytes).digest('hex');
   if(want!==got)throw Error(`SHA256SUMS does not match ${basename(zipPath)}`);
@@ -91,17 +91,22 @@ async function syntheticBank(work){
 
 // --- Chrome over a debugging pipe ----------------------------------------------------------
 function pipeCdp(child){
- let next=0,buffer='';const pending=new Map(),handlers=new Set();
+ // Split on NUL bytes before decoding, so a character split across chunks is never mangled.
+ let next=0,buffer=Buffer.alloc(0),gone=null;const pending=new Map(),handlers=new Set();
+ const fail=reason=>{gone=gone||reason;for(const [id,p] of pending){pending.delete(id);p.reject(Error(`${p.method}: ${gone}`));}};
+ child.stdio[3].on('error',e=>fail('pipe closed ('+e.message+')'));
+ child.stdio[4].on('error',e=>fail('pipe closed ('+e.message+')'));
+ child.on('exit',(code,signal)=>fail(`Chrome exited (${signal||code})`));
  child.stdio[4].on('data',chunk=>{
-  buffer+=chunk.toString('utf8');let i;
-  while((i=buffer.indexOf('\0'))>=0){
-   const msg=JSON.parse(buffer.slice(0,i));buffer=buffer.slice(i+1);
+  buffer=Buffer.concat([buffer,chunk]);let i;
+  while((i=buffer.indexOf(0))>=0){
+   let msg;try{msg=JSON.parse(buffer.subarray(0,i).toString('utf8'));}catch{msg={};}buffer=buffer.subarray(i+1);
    if(msg.id!=null&&pending.has(msg.id)){const {resolve,reject,method}=pending.get(msg.id);pending.delete(msg.id);msg.error?reject(Error(`${method}: ${msg.error.message}`)):resolve(msg.result);}
    else for(const h of handlers)h(msg);
   }
  });
  return {
-  send(method,params={},sessionId){const id=++next;child.stdio[3].write(JSON.stringify({id,method,params,...(sessionId?{sessionId}:{})})+'\0');return new Promise((resolve,reject)=>{pending.set(id,{resolve,reject,method});setTimeout(()=>{if(pending.delete(id))reject(Error(method+': no answer'));},STEP_MS);});},
+  send(method,params={},sessionId){if(gone)return Promise.reject(Error(`${method}: ${gone}`));const id=++next;child.stdio[3].write(JSON.stringify({id,method,params,...(sessionId?{sessionId}:{})})+'\0');return new Promise((resolve,reject)=>{pending.set(id,{resolve,reject,method});setTimeout(()=>{if(pending.delete(id))reject(Error(method+': no answer'));},STEP_MS);});},
   on(h){handlers.add(h);},
  };
 }
@@ -203,9 +208,9 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs}={}){
   expect('1234 minimum',value('1234','minimum'),35);
   expect('5678 balance',value('5678','balance'),67.89);
   expect('5678 statement',value('5678','statement'),0);
-  // The synthetic overview shows no minimum for this card and no due date for either: they stay
-  // unknown, never zero or guessed.
-  for(const [tail,key] of [['5678','minimum'],['5678','due'],['1234','due']])if(record(tail)[key]!==undefined)problems.push(`${tail} ${key} must stay unknown, got ${JSON.stringify(record(tail)[key])}`);
+  // The synthetic page shows no minimum for this card: it stays unknown, never zero. (Due dates are
+  // billing items, not record fields, and the overview read does not cover them.)
+  if(record('5678').minimum!==undefined)problems.push(`5678 minimum must stay unknown, got ${JSON.stringify(record('5678').minimum)}`);
   if(problems.length)throw new StepError('read-back mismatch:\n  '+problems.join('\n  ')+'\nrecords: '+JSON.stringify(done.records?.Chase));
 
   // The wallet page shows what was read.
@@ -234,26 +239,30 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs}={}){
  }
 }
 
-// Negative controls: each deliberately broken copy of the same package must fail the run.
+// Negative controls: each deliberately broken copy of the same package must fail the run, and for
+// the expected reason, so a broken environment cannot pass them.
 export const BROKEN={
- 'no service worker in the manifest':async dir=>{const p=join(dir,'manifest.json'),m=JSON.parse(await readFile(p,'utf8'));delete m.background;await writeFile(p,JSON.stringify(m));},
- 'no bank host permission':async dir=>{const p=join(dir,'manifest.json'),m=JSON.parse(await readFile(p,'utf8'));m.host_permissions=m.host_permissions.filter(h=>!h.includes(BANK_HOST));await writeFile(p,JSON.stringify(m));},
- 'a service worker that does not start':async dir=>{const p=join(dir,'manifest.json'),m=JSON.parse(await readFile(p,'utf8'));await writeFile(join(dir,m.background.service_worker),'throw Error("deliberately broken");\n');},
- 'no reading guide on the bank page':async dir=>{await writeFile(join(dir,'guide.js'),'');},
+ 'no service worker in the manifest':[/missing: background\.service_worker/,async dir=>{const p=join(dir,'manifest.json'),m=JSON.parse(await readFile(p,'utf8'));delete m.background;await writeFile(p,JSON.stringify(m));}],
+ 'no bank host permission':[/missing: host permission/,async dir=>{const p=join(dir,'manifest.json'),m=JSON.parse(await readFile(p,'utf8'));m.host_permissions=m.host_permissions.filter(h=>!h.includes(BANK_HOST));await writeFile(p,JSON.stringify(m));}],
+ 'a service worker that does not start':[/service worker|Runtime\.enable/,async dir=>{const p=join(dir,'manifest.json'),m=JSON.parse(await readFile(p,'utf8'));await writeFile(join(dir,m.background.service_worker),'throw Error("deliberately broken");\n');}],
+ 'no reading guide on the bank page':[/reading guide/,async dir=>{await writeFile(join(dir,'guide.js'),'');}],
+ 'a page reader that does nothing':[/run ended as|needs-login|reading to finish|read-back mismatch/,async dir=>{await writeFile(join(dir,'reader.js'),'');}],
 };
 export async function negativeControls(input,{out}){
  const escaped=[];
- for(const [name,mutate] of Object.entries(BROKEN)){
+ for(const name of Object.keys(BROKEN)){
   console.log(`--- negative control: ${name}`);
-  const failed=await run(input,{out:join(out,name.replace(/\W+/g,'-')),mutate,stepMs:12000}).then(()=>false,()=>true);
-  if(!failed)escaped.push(name);
-  console.log(failed?`ok: the broken package (${name}) failed the run`:`ESCAPED: the broken package (${name}) passed`);
+  const [reason,mutate]=BROKEN[name];
+  const error=await run(input,{out:join(out,name.replace(/\W+/g,'-')),mutate,stepMs:12000}).then(()=>null,e=>e);
+  const ok=error&&reason.test(error.message);
+  if(!ok)escaped.push(name+(error?` (failed for another reason: ${error.message})`:' (passed)'));
+  console.log(ok?`ok: the broken package (${name}) failed as expected`:`ESCAPED: ${name}`);
  }
  if(escaped.length)throw Error('E2E did not catch: '+escaped.join(', '));
 }
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
- const args=process.argv.slice(2),take=flag=>{const i=args.indexOf(flag);return i<0?undefined:args.splice(i,flag==='--out'?2:1).at(-1);};
+ const args=process.argv.slice(2),take=flag=>{const i=args.indexOf(flag);if(i<0)return undefined;if(flag==='--out'&&!args[i+1]){console.error('--out needs a directory');process.exit(2);}return args.splice(i,flag==='--out'?2:1).at(-1);};
  const outArg=take('--out'),controls=take('--negative-controls');
  if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls]');process.exit(2);}
  const out=resolve(outArg||join(root,'.debug/e2e'));
