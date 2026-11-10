@@ -93,7 +93,7 @@ async function syntheticBank(work){
  });
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const spki=createHash('sha256').update(createPublicKey(await readFile(cert)).export({type:'spki',format:'der'})).digest('base64');
- return {port:server.address().port,spki,requests,hold(){held=held||[];},release(){const waiting=held||[];held=null;waiting.forEach(f=>f());return waiting.length;},close:()=>new Promise(r=>{server.close(r);server.closeAllConnections();})};
+ return {port:server.address().port,spki,requests,hold(){held=held||[];},heldCount:()=>held?.length||0,release(){const waiting=held||[];held=null;waiting.forEach(f=>f());return waiting.length;},close:()=>new Promise(r=>{server.close(r);server.closeAllConnections();})};
 }
 
 // --- Chrome over a debugging pipe ----------------------------------------------------------
@@ -277,12 +277,12 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
   // The bank session expires (open bank pages show the sign-in page again) and the user refreshes
   // Chase from the wallet. Returns the state once the new run waits at needs-login with the earlier
   // records unchanged, the wallet shows needs-login and a bank tab shows the sign-in and the guide.
-  const refreshExpired=async readBefore=>{
+  const refreshExpired=async(readBefore,{requireExpired:mustExpire=requireExpired}={})=>{
    const expired=await expire({cdp,targets:async()=>(await cdp.send('Target.getTargets')).targetInfos.filter(t=>t.type==='page'&&new URL(t.url||'about:blank').hostname===BANK_HOST)});
    note('bank session expired on',String(expired),'open bank page(s)');
    // A new bank tab starts signed out anyway, so without an open page to expire this would not test
    // an expired session at all.
-   if(requireExpired&&!expired)throw new StepError('no open bank page to expire; the expired-login check would not test an expired session');
+   if(mustExpire&&!expired)throw new StepError('no open bank page to expire; the expired-login check would not test an expired session');
    const runBefore=(await state())?.run?.id??null;
    await evaluate('wallet','location.hash="connections"');
    await until('the Chase refresh button',()=>evaluate('wallet',`(()=>{const want=${words('刷新银行')};const card=[...document.querySelectorAll('.account-connection')].find(c=>c.querySelector('.ant-card-head')?.textContent.includes('Chase'));const b=card&&[...card.querySelectorAll('button')].find(b=>want.includes(b.textContent.trim()));if(!b)return false;b.click();return true;})()`));
@@ -334,6 +334,9 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    await until('the refresh-all button',()=>clickText('wallet','button','刷新全部银行'));
    note('asked the extension to refresh all banks; the synthetic bank holds its pages');
    const loading=await until('the refresh to be under way',async()=>{const s=await state();if(!s?.run||s.run.id===runBefore)return null;const j=s.run.jobs?.find(j=>j.bank==='Chase');if(j&&!['queued','opening','navigating'].includes(j.status))throw new StepError(`the job reached ${j.status} while the bank page was still loading`);return s.run.status==='running'&&j?s:null;});
+   // Stop only once the bank page is really loading: stopping before the page is requested would test
+   // a different moment, and a page requested only after the stop would go unnoticed.
+   await until('a bank page held while loading',()=>bank.heldCount()>0);
    await stop({clickText:()=>clickText('wallet','button','停止本轮刷新'),until});
    note('asked the extension to stop this refresh');
    const cancelled=async(runId,what)=>until(what,async()=>{const s=await state();if(s?.run?.id!==runId)throw new StepError('a different run replaced the one being stopped: '+JSON.stringify(s?.run?.id));const j=s.run.jobs?.find(j=>j.bank==='Chase');if(j&&!['queued','opening','navigating','capturing','needs_login','cancelled'].includes(j.status))throw new StepError(`the job ended as ${j.status} instead of cancelled: ${JSON.stringify(j.diagnostic||null)}`);return j?.status==='cancelled'&&s.run.status!=='running'?s:null;});
@@ -344,8 +347,8 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    await until('the earlier balance on the wallet page after stopping',async()=>(await pageText('wallet')).includes('1,234.56'));
    const released=bank.release();
    note('run and job cancelled with the records kept; released',String(released),'held bank page(s)');
-   if(!released)throw new StepError('the refresh never asked the bank for a page, so the stop did not interrupt a load');
-   // Give the released page time to load and a reader time to act on it if it wrongly would.
+   // The released page is a new tab and shows the synthetic sign-in, so nothing could be read from it;
+   // what this checks is that the stopped job does not come back to life once its page loads.
    await sleep(Math.min(5000,STEP_MS/2));
    const settled=await state();
    if(settled?.run?.id!==loading.run.id||settled.run.status!=='cancelled'||settled.run.jobs.find(j=>j.bank==='Chase')?.status!=='cancelled')throw new StepError('the stopped refresh did not stay cancelled after the bank page loaded: '+JSON.stringify({id:settled?.run?.id,status:settled?.run?.status,jobs:settled?.run?.jobs?.map(j=>[j.bank,j.status])}));
@@ -353,9 +356,10 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    note('PASS: a refresh stopped from the wallet ends cancelled and keeps the records');
 
    // 8b. A refresh waits at needs-login (the run itself is done; only the bank page's guide can
-   // still read) and the user presses 停止 on the guide. The job must end cancelled with the records
+   // still read). The open bank tab from 8a never signed in, so this needs-login does not depend on
+   // an expired session. and the user presses 停止 on the guide. The job must end cancelled with the records
    // kept, and signing in afterwards must not read anything.
-   const {waiting,signIn}=await refreshExpired(readBefore);
+   const {waiting,signIn}=await refreshExpired(readBefore,{requireExpired:false});
    await stopGuide({cdp,session:sessions.bank,until});
    note('pressed stop on the reading guide');
    const guideStopped=await cancelled(waiting.run.id,'the job to be cancelled from the guide');
@@ -368,7 +372,8 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    const after=await state();
    if(after?.run?.id!==waiting.run.id||after.run.jobs.find(j=>j.bank==='Chase')?.status!=='cancelled')throw new StepError('signing in after the stop started or resumed a reading: '+JSON.stringify({id:after?.run?.id,status:after?.run?.status,jobs:after?.run?.jobs?.map(j=>[j.bank,j.status])}));
    if(JSON.stringify(after.records?.Chase)!==readBefore)throw new StepError('fields were read after the guide was stopped: '+JSON.stringify(after.records?.Chase));
-   if(bank.requests.length>served+1)throw new StepError(`the bank was contacted ${bank.requests.length-served} times after the stop`);
+   // Signing in re-renders the synthetic page in place, so a stopped reading makes no request at all.
+   if(bank.requests.length!==served)throw new StepError(`the bank was contacted ${bank.requests.length-served} times after the stop`);
    note('PASS: a reading stopped on the guide stays cancelled and does not read after a sign-in');
   }
   return {ok:true};
@@ -412,7 +417,7 @@ async function stopFromWallet({clickText,until}){await until('the stop-refresh b
 async function stopFromGuide({cdp,session,until}){
  await until('the stop button on the reading guide',async()=>{
   const {root}=await cdp.send('DOM.getDocument',{depth:-1,pierce:true},session);
-  const find=n=>{if(n.attributes?.includes('data-stop'))return n;for(const c of [...(n.children||[]),...(n.shadowRoots||[])]){const f=find(c);if(f)return f;}return null;};
+  const find=n=>{if((n.attributes||[]).some((a,i)=>i%2===0&&a==='data-stop'))return n;for(const c of [...(n.children||[]),...(n.shadowRoots||[])]){const f=find(c);if(f)return f;}return null;};
   const button=find(root);if(!button)return false;
   const {object}=await cdp.send('DOM.resolveNode',{backendNodeId:button.backendNodeId},session);
   await cdp.send('Runtime.callFunctionOn',{objectId:object.objectId,functionDeclaration:'function(){this.click()}'},session);
