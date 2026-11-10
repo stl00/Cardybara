@@ -13,8 +13,17 @@ export const requiredReward=(bank,programme)=>{const pattern=requiredPattern(ban
 // Telling an Amex card holds another programme needs its brand: page wording alone cannot separate it from a
 // generic label for the required balance. structural: scope data, used only to avoid hiding a missing reward.
 // An unlisted name stays partial with the name shown. A listed name on a card missing its required value still reads as not collected.
-const AMEX_OTHER_PROGRAMMES=/\b(?:Hilton|Marriott|Bonvoy|Delta|SkyMiles|Reward Dollars|Cash Back|Cash Rewards|Aeroplan)\b/i;
-export const confirmedOtherProgramme=(bank,programme)=>!String(bank).startsWith('Amex ')||AMEX_OTHER_PROGRAMMES.test(String(programme));
+// Each brand also names the cards that carry it. When the card's own name is known it must carry the same brand,
+// so a brand a page prints as a promotion (a Marriott offer on a Membership Rewards card) does not hide a missing value.
+const AMEX_OTHER_BRANDS=[
+ {programme:/\bHilton\b|希爾頓|希尔顿/i,card:/\bHilton\b|希爾頓|希尔顿/i},
+ {programme:/\b(?:Marriott|Bonvoy)\b|萬豪|万豪/i,card:/\b(?:Marriott|Bonvoy)\b|萬豪|万豪/i},
+ {programme:/\b(?:Delta|SkyMiles)\b|達美|达美/i,card:/\b(?:Delta|SkyMiles)\b|達美|达美/i},
+ {programme:/\b(?:Reward Dollars|Cash Back|Cash Rewards)\b|現金回贈|现金回赠|現金回饋|现金回馈/i,card:/\b(?:Blue Cash|Cash Magnet|Cash Back|Cash Rewards)\b|現金回贈|现金回赠|現金回饋|现金回馈/i},
+ {programme:/\bAeroplan\b/i,card:/\bAeroplan\b/i},
+];
+const plain=text=>String(text??'').normalize('NFKC').replace(/[®™]/g,'');
+export const confirmedOtherProgramme=(bank,programme,cardName)=>{if(!String(bank).startsWith('Amex '))return true;const brand=AMEX_OTHER_BRANDS.find(b=>b.programme.test(plain(programme)));if(!brand)return false;const name=plain(cardName).trim();return !name||brand.card.test(name);};
 export function mvpSummary(items,cards,initialPatches=[],notCollected={}){
  const coverage=cards.map(c=>{const keys=new Set(Object.keys(initialPatches.find(p=>p.id===c.id)?.fields||{}));for(const i of items.filter(i=>i.cardId===c.id&&['card','billing'].includes(i.kind)))keys.add(i.key);const absent=['balance',...(!keys.has('statement')&&!keys.has('statementClosing')?['statement']:[]),'minimum','due'].filter(k=>!keys.has(k));
   // An explicit bank statement that no payment is due satisfies minimum and due with its recorded reason (docs/RELEASE.md). The values stay unknown, and a printed minimum or due date overrides it.
@@ -23,7 +32,7 @@ export function mvpSummary(items,cards,initialPatches=[],notCollected={}){
  const readCards=new Set(items.filter(i=>i.kind==='reward').map(i=>i.cardId));
  const rewardCoverage=cards.map(c=>{
   if(readCards.has(c.id))return {cardId:c.id,complete:true,missing:[]};
-  const seen=[...(notCollected[c.id]||[])],other=seen.filter(name=>confirmedOtherProgramme(c.bank,name)),unconfirmed=seen.filter(name=>!other.includes(name));
+  const seen=[...(notCollected[c.id]||[])],other=seen.filter(name=>confirmedOtherProgramme(c.bank,name,c.name)),unconfirmed=seen.filter(name=>!other.includes(name));
   // No required programme at this bank, or the page confirms this card has another programme.
   if((c.bank&&!requiredPattern(c.bank))||other.length)return {cardId:c.id,complete:true,missing:[],notCollected:other};
   return {cardId:c.id,complete:false,missing:['reward'],...(unconfirmed.length?{reason:'programme_unconfirmed',unconfirmed}:{reason:'reward_not_seen'})};
