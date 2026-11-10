@@ -1,10 +1,13 @@
 // End-to-end test of the packaged extension: the exact release ZIP, installed in a clean Chrome
 // profile, against a local synthetic bank. No bank is contacted and no secret is used.
 //
-//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart]
+//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart] [--expired-login]
 //
 // --restart (nightly set): after the main path, close Chrome and start it again on the same
 // profile; the extension must still be installed and the records it read must still be there.
+// --expired-login (nightly set): after the main path, the bank session expires and the user
+// refreshes the bank; the run must ask for a sign-in again while keeping the records it read, and
+// read again after the sign-in.
 //
 // Bank hosts reach the synthetic bank through Chrome launch options only (--host-rules and a
 // certificate pin for a throwaway self-signed key); every other host fails to resolve. The tested
@@ -124,7 +127,7 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart}={}){
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession}={}){
  if(stepMs)STEP_MS=stepMs;log=[];lastState=null;
  const work=await mkdtemp(join(tmpdir(),'cardybara-e2e-'));
  const sessions={};let browser,bank;
@@ -265,6 +268,33 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    if(bank.requests.length!==served)throw new StepError('the bank was contacted again just to show records after a restart');
    note('PASS: after a browser restart the same extension comes back with its records kept');
   }
+  if(expiredLogin){
+   // 7. The bank session expires: open bank pages show the sign-in page again. The user refreshes
+   // the bank from the wallet. The run must stop at needs-login, keep what it read before (never
+   // cleared or zeroed while waiting), and read again once the user signs in.
+   const readBefore=JSON.stringify((await state())?.records?.Chase);
+   const expired=await expire({cdp,targets:async()=>(await cdp.send('Target.getTargets')).targetInfos.filter(t=>t.type==='page'&&new URL(t.url||'about:blank').hostname===BANK_HOST)});
+   note('bank session expired on',String(expired),'open bank page(s)');
+   const runBefore=(await state())?.run?.id??null;
+   await evaluate('wallet','location.hash="connections"');
+   await until('the Chase refresh button',()=>evaluate('wallet',`(()=>{const want=${words('刷新银行')};const card=[...document.querySelectorAll('.account-connection')].find(c=>c.querySelector('.ant-card-head')?.textContent.includes('Chase'));const b=card&&[...card.querySelectorAll('button')].find(b=>want.includes(b.textContent.trim()));if(!b)return false;b.click();return true;})()`));
+   note('asked the extension to refresh Chase');
+   const waiting=await until('needs-login again after the session expired',async()=>{const s=await state();if(!s?.run||(runBefore!==null&&s.run.id===runBefore))return null;const j=s.run.jobs?.find(j=>j.bank==='Chase');if(j&&!['queued','opening','navigating','capturing','needs_login'].includes(j.status))throw new StepError(`the run ended as ${j.status} instead of asking for a sign-in again: ${JSON.stringify(j.diagnostic||null)}`);return j?.status==='needs_login'?s:null;});
+   if(JSON.stringify(waiting.records?.Chase)!==readBefore)throw new StepError('records changed while waiting for a sign-in after the session expired: '+JSON.stringify(waiting.records?.Chase));
+   await until('needs-login on the wallet page again',()=>shows('wallet','需要登录银行'));
+   const signIn=await until('the sign-in page on a bank tab',async()=>{for(const t of (await cdp.send('Target.getTargets')).targetInfos.filter(t=>t.type==='page'&&new URL(t.url||'about:blank').hostname===BANK_HOST)){await attach('bank',t.targetId);if(await evaluate('bank','!!document.getElementById("sign-in")'))return t;}return null;});
+   await until('the reading guide on the bank page again',()=>evaluate('bank','!!document.getElementById("cardybara-bank-guide")'));
+   note('needs-login shown again with the earlier records kept; signing in on',signIn.targetId);
+   await evaluate('bank','document.getElementById("sign-in").click()');
+   const again=await until('the second reading to finish',async()=>{const s=await state();return s?.run?.status&&s.run.status!=='running'&&s.run.jobs?.find(j=>j.bank==='Chase')?.status!=='needs_login'?s:null;},STEP_MS*2);
+   const job2=again.run.jobs.find(j=>j.bank==='Chase');
+   if(job2.status!=='updated')throw new StepError(`the read after signing in again ended as ${job2.status}: ${JSON.stringify(job2.diagnostic||null)}`);
+   const values=r=>JSON.stringify(Object.fromEntries(Object.entries(r||{}).map(([id,f])=>[id,Object.fromEntries(Object.entries(f||{}).map(([k,v])=>[k,v?.value]))])));
+   if(values(again.records?.Chase)!==values(JSON.parse(readBefore)))throw new StepError('values differ after signing in again: '+JSON.stringify(again.records?.Chase));
+   await evaluate('wallet','location.hash="wallet"');
+   await until('the read balance on the wallet page after signing in again',async()=>(await pageText('wallet')).includes('1,234.56'));
+   note('PASS: an expired bank session asks for a sign-in again, keeps the records and reads again');
+  }
   return {ok:true};
  }catch(error){
   note('FAIL:',error.message);
@@ -285,6 +315,21 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
  }
 }
 
+// The synthetic bank keeps its sign-in in the tab's sessionStorage. Expiring it signs every open
+// bank page out and reloads it, as a bank shows its sign-in page when a session times out. A new
+// bank tab starts signed out anyway. Returns how many open bank pages were signed out.
+async function expireBankSession({cdp,targets}){
+ let n=0;
+ for(const t of await targets()){
+  const {sessionId}=await cdp.send('Target.attachToTarget',{targetId:t.targetId,flatten:true});
+  await cdp.send('Runtime.evaluate',{expression:'sessionStorage.removeItem("synthetic-signed-in");location.reload();true'},sessionId).catch(()=>{});
+  await cdp.send('Target.detachFromTarget',{sessionId}).catch(()=>{});
+  n++;
+ }
+ await sleep(500);
+ return n;
+}
+
 // Negative controls: each deliberately broken copy of the same package must fail the run, and for
 // the expected reason, so a broken environment cannot pass them.
 export const BROKEN={
@@ -298,10 +343,17 @@ export const BROKEN={
 export const BROKEN_RESTART={
  'extension storage lost across a restart':[/records changed across a browser restart/,async profile=>{await rm(join(profile,'Default','Local Extension Settings'),{recursive:true,force:true});}],
 };
-export async function negativeControls(input,{out,restart=false}){
+// With --expired-login: the session is not really expired, so no sign-in is asked for; the check
+// must notice instead of passing on a run that never met an expired session.
+export const BROKEN_EXPIRED_LOGIN={
+ 'a bank session that did not expire':[/instead of asking for a sign-in again|needs-login again/,async()=>0],
+};
+export async function negativeControls(input,{out,restart=false,expiredLogin=false}){
  const escaped=[];
- // With --restart only the restart controls run; the package controls run in their own step.
- const controls=[...(restart?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[])];
+ // With --restart or --expired-login only that scenario's controls run; the package controls run
+ // in their own step.
+ const extended=restart||expiredLogin;
+ const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire}]):[])];
  for(const [name,reason,options] of controls){
   console.log(`--- negative control: ${name}`);
   const error=await run(input,{out:join(out,name.replace(/\W+/g,'-')),...options,stepMs:12000}).then(()=>null,e=>e);
@@ -314,8 +366,8 @@ export async function negativeControls(input,{out,restart=false}){
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const args=process.argv.slice(2),take=flag=>{const i=args.indexOf(flag);if(i<0)return undefined;if(flag==='--out'&&!args[i+1]){console.error('--out needs a directory');process.exit(2);}return args.splice(i,flag==='--out'?2:1).at(-1);};
- const outArg=take('--out'),controls=take('--negative-controls'),restart=!!take('--restart');
- if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart]');process.exit(2);}
+ const outArg=take('--out'),controls=take('--negative-controls'),restart=!!take('--restart'),expiredLogin=!!take('--expired-login');
+ if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart] [--expired-login]');process.exit(2);}
  const out=resolve(outArg||join(root,'.debug/e2e'));
- (controls?negativeControls(args[0],{out,restart}):run(args[0],{out,restart})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
+ (controls?negativeControls(args[0],{out,restart,expiredLogin}):run(args[0],{out,restart,expiredLogin})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
 }
