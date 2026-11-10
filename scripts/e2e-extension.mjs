@@ -1,13 +1,16 @@
 // End-to-end test of the packaged extension: the exact release ZIP, installed in a clean Chrome
 // profile, against a local synthetic bank. No bank is contacted and no secret is used.
 //
-//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart] [--expired-login]
+//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart] [--expired-login] [--cancel]
 //
 // --restart (nightly set): after the main path, close Chrome and start it again on the same
 // profile; the extension must still be installed and the records it read must still be there.
 // --expired-login (nightly set): after the main path, the bank session expires and the user
 // refreshes the bank; the run must ask for a sign-in again while keeping the records it read, and
 // read again after the sign-in.
+// --cancel (nightly set): after the main path, the user stops a refresh from the wallet while the
+// bank page is still loading, then stops a reading that waits at needs-login from the bank page's
+// guide; each must end cancelled with the records it read kept, and nothing is read afterwards.
 //
 // Bank hosts reach the synthetic bank through Chrome launch options only (--host-rules and a
 // certificate pin for a throwaway self-signed key); every other host fails to resolve. The tested
@@ -80,15 +83,17 @@ async function syntheticBank(work){
  const key=join(work,'bank-key.pem'),cert=join(work,'bank-cert.pem');
  execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',key,'-out',cert,'-days','1','-subj','/CN='+BANK_HOST,'-addext','subjectAltName=DNS:'+BANK_HOST],{stdio:'ignore'});
  const page=await readFile(join(root,'tests/fixtures/synthetic-bank.html'));
- const requests=[];
+ const requests=[];let held=null;
  const server=createServer({key:await readFile(key),cert:await readFile(cert)},(req,res)=>{
   requests.push(req.headers.host+req.url);note('synthetic bank served',req.method,req.url);
   if(req.url==='/favicon.ico'){res.writeHead(404).end();return;}
-  setTimeout(()=>res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}).end(page),BANK_DELAY_MS);
+  const answer=()=>setTimeout(()=>res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}).end(page),BANK_DELAY_MS);
+  // While held, pages wait for release(): a bank page that is still loading.
+  if(held){held.push(answer);note('synthetic bank holding',req.url);}else answer();
  });
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const spki=createHash('sha256').update(createPublicKey(await readFile(cert)).export({type:'spki',format:'der'})).digest('base64');
- return {port:server.address().port,spki,requests,close:()=>new Promise(r=>{server.close(r);server.closeAllConnections();})};
+ return {port:server.address().port,spki,requests,hold(){held=held||[];},heldCount:()=>held?.length||0,release(){const waiting=held||[];held=null;waiting.forEach(f=>f());return waiting.length;},close:()=>new Promise(r=>{server.close(r);server.closeAllConnections();})};
 }
 
 // --- Chrome over a debugging pipe ----------------------------------------------------------
@@ -127,8 +132,8 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true}={}){
- if(restart&&expiredLogin)throw Error('run --restart and --expired-login separately: bank tabs do not come back after a restart');
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide}={}){
+ if([restart,expiredLogin,cancel].filter(Boolean).length>1)throw Error('run --restart, --expired-login and --cancel separately: each starts from the end of the main path');
  if(stepMs)STEP_MS=stepMs;log=[];lastState=null;
  const work=await mkdtemp(join(tmpdir(),'cardybara-e2e-'));
  const sessions={};let browser,bank;
@@ -269,16 +274,15 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    if(bank.requests.length!==served)throw new StepError('the bank was contacted again just to show records after a restart');
    note('PASS: after a browser restart the same extension comes back with its records kept');
   }
-  if(expiredLogin){
-   // 7. The bank session expires: open bank pages show the sign-in page again. The user refreshes
-   // the bank from the wallet. The run must stop at needs-login, keep what it read before (never
-   // cleared or zeroed while waiting), and read again once the user signs in.
-   const readBefore=JSON.stringify((await state())?.records?.Chase);
+  // The bank session expires (open bank pages show the sign-in page again) and the user refreshes
+  // Chase from the wallet. Returns the state once the new run waits at needs-login with the earlier
+  // records unchanged, the wallet shows needs-login and a bank tab shows the sign-in and the guide.
+  const refreshExpired=async(readBefore,{requireExpired:mustExpire=requireExpired}={})=>{
    const expired=await expire({cdp,targets:async()=>(await cdp.send('Target.getTargets')).targetInfos.filter(t=>t.type==='page'&&new URL(t.url||'about:blank').hostname===BANK_HOST)});
    note('bank session expired on',String(expired),'open bank page(s)');
    // A new bank tab starts signed out anyway, so without an open page to expire this would not test
    // an expired session at all.
-   if(requireExpired&&!expired)throw new StepError('no open bank page to expire; the expired-login check would not test an expired session');
+   if(mustExpire&&!expired)throw new StepError('no open bank page to expire; the expired-login check would not test an expired session');
    const runBefore=(await state())?.run?.id??null;
    await evaluate('wallet','location.hash="connections"');
    await until('the Chase refresh button',()=>evaluate('wallet',`(()=>{const want=${words('刷新银行')};const card=[...document.querySelectorAll('.account-connection')].find(c=>c.querySelector('.ant-card-head')?.textContent.includes('Chase'));const b=card&&[...card.querySelectorAll('button')].find(b=>want.includes(b.textContent.trim()));if(!b)return false;b.click();return true;})()`));
@@ -288,6 +292,14 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    await until('needs-login on the wallet page again',()=>shows('wallet','需要登录银行'));
    const signIn=await until('the sign-in page on a bank tab',async()=>{for(const t of (await cdp.send('Target.getTargets')).targetInfos.filter(t=>t.type==='page'&&new URL(t.url||'about:blank').hostname===BANK_HOST)){await attach('bank',t.targetId);if(await evaluate('bank','!!document.getElementById("sign-in")'))return t;}return null;});
    await until('the reading guide on the bank page again',()=>evaluate('bank','!!document.getElementById("cardybara-bank-guide")'));
+   return {waiting,signIn};
+  };
+  if(expiredLogin){
+   // 7. The bank session expires and the user refreshes the bank from the wallet. The run must stop
+   // at needs-login, keep what it read before (never cleared or zeroed while waiting), and read
+   // again once the user signs in.
+   const readBefore=JSON.stringify((await state())?.records?.Chase);
+   const {waiting,signIn}=await refreshExpired(readBefore);
    // Still kept just before the sign-in, and still shown on the wallet.
    if(JSON.stringify((await state())?.records?.Chase)!==readBefore)throw new StepError('records changed while waiting for a sign-in after the session expired: '+JSON.stringify(lastState?.records?.Chase));
    await evaluate('wallet','location.hash="wallet"');
@@ -307,6 +319,62 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    await evaluate('wallet','location.hash="wallet"');
    await until('the read balance on the wallet page after signing in again',async()=>(await pageText('wallet')).includes('1,234.56'));
    note('PASS: an expired bank session asks for a sign-in again, keeps the records and reads again');
+  }
+  if(cancel){
+   // 8a. Stop from the wallet while the bank page is still loading. The run and its job must end
+   // cancelled with the earlier records kept and shown, and the page finishing its load afterwards
+   // must not be read.
+   const readBefore=JSON.stringify((await state())?.records?.Chase);
+   const runBefore=(await state())?.run?.id??null;
+   // Close the signed-in bank tab: an open bank page is read in place, with nothing left to load.
+   for(const t of (await cdp.send('Target.getTargets')).targetInfos.filter(t=>t.type==='page'&&new URL(t.url||'about:blank').hostname===BANK_HOST))await cdp.send('Target.closeTarget',{targetId:t.targetId});
+   delete sessions.bank;
+   bank.hold();
+   await evaluate('wallet','location.hash="wallet"');
+   await until('the refresh-all button',()=>clickText('wallet','button','刷新全部银行'));
+   note('asked the extension to refresh all banks; the synthetic bank holds its pages');
+   const loading=await until('the refresh to be under way',async()=>{const s=await state();if(!s?.run||s.run.id===runBefore)return null;const j=s.run.jobs?.find(j=>j.bank==='Chase');if(j&&!['queued','opening','navigating'].includes(j.status))throw new StepError(`the job reached ${j.status} while the bank page was still loading`);return s.run.status==='running'&&j?s:null;});
+   // Stop only once the bank page is really loading: stopping before the page is requested would test
+   // a different moment, and a page requested only after the stop would go unnoticed.
+   await until('a bank page held while loading',()=>bank.heldCount()>0);
+   await stop({clickText:()=>clickText('wallet','button','停止本轮刷新'),until});
+   note('asked the extension to stop this refresh');
+   const cancelled=async(runId,what)=>until(what,async()=>{const s=await state();if(s?.run?.id!==runId)throw new StepError('a different run replaced the one being stopped: '+JSON.stringify(s?.run?.id));const j=s.run.jobs?.find(j=>j.bank==='Chase');if(j&&!['queued','opening','navigating','capturing','needs_login','cancelled'].includes(j.status))throw new StepError(`the job ended as ${j.status} instead of cancelled: ${JSON.stringify(j.diagnostic||null)}`);return j?.status==='cancelled'&&s.run.status!=='running'?s:null;});
+   const stopped=await cancelled(loading.run.id,'the run to be cancelled');
+   if(stopped.run.status!=='cancelled')throw new StepError(`the stopped run ended as ${stopped.run.status}, not cancelled`);
+   if(JSON.stringify(stopped.records?.Chase)!==readBefore)throw new StepError('records changed when the refresh was stopped: '+JSON.stringify(stopped.records?.Chase));
+   await until('the stop button to turn back into refresh',()=>shows('wallet','刷新全部银行'));
+   await until('the earlier balance on the wallet page after stopping',async()=>(await pageText('wallet')).includes('1,234.56'));
+   const released=bank.release();
+   note('run and job cancelled with the records kept; released',String(released),'held bank page(s)');
+   // The released page is a new tab and shows the synthetic sign-in, so nothing could be read from it;
+   // what this checks is that the stopped job does not come back to life once its page loads.
+   await sleep(Math.min(5000,STEP_MS/2));
+   const settled=await state();
+   if(settled?.run?.id!==loading.run.id||settled.run.status!=='cancelled'||settled.run.jobs.find(j=>j.bank==='Chase')?.status!=='cancelled')throw new StepError('the stopped refresh did not stay cancelled after the bank page loaded: '+JSON.stringify({id:settled?.run?.id,status:settled?.run?.status,jobs:settled?.run?.jobs?.map(j=>[j.bank,j.status])}));
+   if(JSON.stringify(settled.records?.Chase)!==readBefore)throw new StepError('fields were read after the refresh was stopped: '+JSON.stringify(settled.records?.Chase));
+   note('PASS: a refresh stopped from the wallet ends cancelled and keeps the records');
+
+   // 8b. A refresh waits at needs-login (the run itself is done; only the bank page's guide can
+   // still read). The open bank tab from 8a never signed in, so this needs-login does not depend on
+   // an expired session. and the user presses 停止 on the guide. The job must end cancelled with the records
+   // kept, and signing in afterwards must not read anything.
+   const {waiting,signIn}=await refreshExpired(readBefore,{requireExpired:false});
+   await stopGuide({cdp,session:sessions.bank,until});
+   note('pressed stop on the reading guide');
+   const guideStopped=await cancelled(waiting.run.id,'the job to be cancelled from the guide');
+   if(JSON.stringify(guideStopped.records?.Chase)!==readBefore)throw new StepError('records changed when the guide was stopped: '+JSON.stringify(guideStopped.records?.Chase));
+   await until('cancelled on the wallet page',()=>shows('wallet','已取消'));
+   const served=bank.requests.length;
+   note('job cancelled from the guide; signing in on',signIn.targetId,'after the stop');
+   await evaluate('bank','document.getElementById("sign-in").click()');
+   await sleep(Math.min(5000,STEP_MS/2));
+   const after=await state();
+   if(after?.run?.id!==waiting.run.id||after.run.jobs.find(j=>j.bank==='Chase')?.status!=='cancelled')throw new StepError('signing in after the stop started or resumed a reading: '+JSON.stringify({id:after?.run?.id,status:after?.run?.status,jobs:after?.run?.jobs?.map(j=>[j.bank,j.status])}));
+   if(JSON.stringify(after.records?.Chase)!==readBefore)throw new StepError('fields were read after the guide was stopped: '+JSON.stringify(after.records?.Chase));
+   // Signing in re-renders the synthetic page in place, so a stopped reading makes no request at all.
+   if(bank.requests.length!==served)throw new StepError(`the bank was contacted ${bank.requests.length-served} times after the stop`);
+   note('PASS: a reading stopped on the guide stays cancelled and does not read after a sign-in');
   }
   return {ok:true};
  }catch(error){
@@ -343,6 +411,20 @@ async function expireBankSession({cdp,targets}){
  return n;
 }
 
+// The wallet's header button reads 停止本轮刷新 while a refresh is queued or running.
+async function stopFromWallet({clickText,until}){await until('the stop-refresh button',clickText);}
+// The guide lives in a closed shadow root; the debugging protocol can still reach its stop button.
+async function stopFromGuide({cdp,session,until}){
+ await until('the stop button on the reading guide',async()=>{
+  const {root}=await cdp.send('DOM.getDocument',{depth:-1,pierce:true},session);
+  const find=n=>{if((n.attributes||[]).some((a,i)=>i%2===0&&a==='data-stop'))return n;for(const c of [...(n.children||[]),...(n.shadowRoots||[])]){const f=find(c);if(f)return f;}return null;};
+  const button=find(root);if(!button)return false;
+  const {object}=await cdp.send('DOM.resolveNode',{backendNodeId:button.backendNodeId},session);
+  await cdp.send('Runtime.callFunctionOn',{objectId:object.objectId,functionDeclaration:'function(){this.click()}'},session);
+  return true;
+ });
+}
+
 // Negative controls: each deliberately broken copy of the same package must fail the run, and for
 // the expected reason, so a broken environment cannot pass them.
 export const BROKEN={
@@ -361,12 +443,18 @@ export const BROKEN_RESTART={
 export const BROKEN_EXPIRED_LOGIN={
  'a bank session that did not expire':[/the run ended as updated instead of asking for a sign-in again/,async()=>0],
 };
-export async function negativeControls(input,{out,restart=false,expiredLogin=false}){
+// With --cancel: one stop is never sent, so the refresh carries on; the check must notice instead of
+// passing a refresh that was never stopped.
+export const BROKEN_CANCEL={
+ 'a wallet stop that is never sent':[/timed out waiting for the run to be cancelled/,{stop:async()=>{}}],
+ 'a guide stop that is never sent':[/timed out waiting for the job to be cancelled from the guide/,{stopGuide:async()=>{}}],
+};
+export async function negativeControls(input,{out,restart=false,expiredLogin=false,cancel=false}){
  const escaped=[];
- // With --restart or --expired-login only that scenario's controls run; the package controls run
+ // With --restart, --expired-login or --cancel only that scenario's controls run; the package controls run
  // in their own step.
- const extended=restart||expiredLogin;
- const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire,requireExpired:false}]):[])];
+ const extended=restart||expiredLogin||cancel;
+ const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire,requireExpired:false}]):[]),...(cancel?Object.entries(BROKEN_CANCEL).map(([name,[reason,broken]])=>[name,reason,{cancel:true,...broken}]):[])];
  for(const [name,reason,options] of controls){
   console.log(`--- negative control: ${name}`);
   const error=await run(input,{out:join(out,name.replace(/\W+/g,'-')),...options,stepMs:12000}).then(()=>null,e=>e);
@@ -379,8 +467,8 @@ export async function negativeControls(input,{out,restart=false,expiredLogin=fal
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const args=process.argv.slice(2),take=flag=>{const i=args.indexOf(flag);if(i<0)return undefined;if(flag==='--out'&&!args[i+1]){console.error('--out needs a directory');process.exit(2);}return args.splice(i,flag==='--out'?2:1).at(-1);};
- const outArg=take('--out'),controls=take('--negative-controls'),restart=!!take('--restart'),expiredLogin=!!take('--expired-login');
- if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart] [--expired-login]');process.exit(2);}
+ const outArg=take('--out'),controls=take('--negative-controls'),restart=!!take('--restart'),expiredLogin=!!take('--expired-login'),cancel=!!take('--cancel');
+ if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart] [--expired-login] [--cancel]');process.exit(2);}
  const out=resolve(outArg||join(root,'.debug/e2e'));
- (controls?negativeControls(args[0],{out,restart,expiredLogin}):run(args[0],{out,restart,expiredLogin})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
+ (controls?negativeControls(args[0],{out,restart,expiredLogin,cancel}):run(args[0],{out,restart,expiredLogin,cancel})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
 }

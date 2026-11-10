@@ -78,6 +78,12 @@ jobs:
       - name: A session that never expired must fail the expired-login check
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
         run: node scripts/e2e-extension.mjs package-under-test --expired-login --negative-controls --out e2e-output/expired-login-negative
+      - name: A stopped refresh ends cancelled and keeps the records
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
+        run: node scripts/e2e-extension.mjs package-under-test --cancel --out e2e-output/cancel
+      - name: A stop that is never sent must fail the cancel check
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
+        run: node scripts/e2e-extension.mjs package-under-test --cancel --negative-controls --out e2e-output/cancel-negative
       - name: Upload logs and synthetic-page screenshots
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
