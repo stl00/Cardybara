@@ -7,7 +7,9 @@ test('both popups fit Chrome\'s popup window with eight banks, in every language
  const results=await measure();
  assert.equal(results.length,9);
  for(const r of results){
-  assert.ok(r.rows>=8,`${r.name}: ${r.rows} bank rows rendered`);
+  // Dev: eight banks. Release: a run over the seven active banks, and all eight in the manage list.
+  assert.deepEqual(r.rows,r.name.startsWith('dev')?{banks:8}:{jobs:7,banks:8},r.name);
+  assert.deepEqual(r.spill,[],`${r.name}: a section overflows or overlaps the next`);
   assert.ok(r.width<=POPUP_MAX.width,`${r.name}: ${r.width}px wide`);
   // Past 600px Chrome scrolls the whole popup window.
   assert.ok(r.height<=POPUP_MAX.height,`${r.name}: ${r.height}px tall`);
