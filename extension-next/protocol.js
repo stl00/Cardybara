@@ -6,6 +6,11 @@ const keys=(v,allowed)=>object(v)&&Object.keys(v).every(k=>allowed.includes(k));
 export const validCardName=n=>typeof n==='string'&&n.length>0&&n.length<=100&&!/[<>\u0000-\u001f]/.test(n)&&!/(?:\d[ -]?){9,}/.test(n);
 export const refreshCard=({id,bank,tail,currency,name})=>({id,bank,tail,currency,...(validCardName(name)?{name}:{})});
 export function trusted(sender){try{return Number.isInteger(sender?.tab?.id)&&sender.frameId===0&&new URL(sender.url).origin===ORIGIN;}catch{return false;}}
+// A run stays active while a job is still working, and after that while a job waits for the user to sign in
+// or confirm and its bank page's guide can still read (15 minutes from the start, as Engine.guide allows).
+const WAITING=['needs_login','needs_confirmation'];
+export const guideOpen=(run,job,now=Date.now())=>!!run&&!['cancelled','interrupted'].includes(run.status)&&WAITING.includes(job?.status)&&now<=(job.guideExpiresAt||run.startedAt+900000);
+export const runActive=(run,now=Date.now())=>!!run&&(run.status==='running'||(run.status==='complete'&&run.jobs.some(j=>guideOpen(run,j,now))));
 export function request(m){
  if(!object(m)||JSON.stringify(m).length>16000||!token(m.requestId))throw Error('invalid_request');
  if(['hello','cancel','export'].includes(m.type)){if(!keys(m,['type','requestId','channel']))throw Error('invalid_request');return m;}
