@@ -5766,6 +5766,21 @@
         "先核对卡种、地区及当前官方条款。",
         "合资格Platinum CashPlus客户可获895美元；须满足账户条件及续卡时间，不是无条件返年费。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Annual Engagement Bonus",
+      "summary": "Eligible Morgan Stanley Platinum Card Members with a Platinum CashPlus account can receive an $895 Annual Engagement Bonus into that account, subject to the account criteria and timing; it is not an unconditional fee refund.",
+      "howToUse": [
+        "Check the Platinum CashPlus account criteria and when the bonus is paid before counting on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ms-cashplus",
+          "text": "are eligible to receive an Annual Engagement Bonus of $895, which will be deposited into the Basic Card Member’s Platinum CashPlus account after Card Account opening and each year after Card Account renewal."
+        }
       ]
     },
     "terms": {
@@ -6161,6 +6176,21 @@
         "先核对卡种、地区及当前官方条款。",
         "需登记；合资格Disney订阅每月最多7美元，付款渠道及订阅条件适用。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Disney Streaming Credit",
+      "summary": "After enrolment, up to $7 a month in statement credits for qualifying Disney subscriptions, $84 a calendar year per account.",
+      "howToUse": [
+        "Enrol, then pay a qualifying Disney subscription with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "bce-terms",
+          "text": "However, the total amount of statement credits for qualifying purchases will not exceed $7 per month (for a total of $84 in statement credits per calendar year) per enrolled Card Account."
+        }
       ]
     },
     "terms": {
@@ -6236,6 +6266,21 @@
         "先核对卡种、地区及当前官方条款。",
         "指定Home Chef订餐链接，合资格订阅每月最多15美元；账户登记及订单限制须核对。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$180 Home Chef Credit",
+      "summary": "Up to $15 a month in statement credits for a Home Chef meal kit subscription bought at homechef.com/blue-cash-everyday.",
+      "howToUse": [
+        "Subscribe through the dedicated Home Chef link and pay with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "bce-terms",
+          "text": "Basic Blue Cash Everyday Card Members can receive up to $15 in monthly statement credits when a Card on the Card Account is used to purchase a Home Chef meal kit subscription online at homechef.com/blue-cash-everyday (up to $180 per year)."
+        }
       ]
     },
     "terms": {
@@ -6434,6 +6479,21 @@
         "先核对卡种、地区及当前官方条款。",
         "持有合资格卡可享Diamond；需正确关联Hilton账号，房型升级等按品牌及房态。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Hilton Honors Diamond status",
+      "summary": "Complimentary Diamond status with the card; link the right Hilton account, and upgrades depend on the brand and availability.",
+      "howToUse": [
+        "Link your Hilton Honors account and check your tier."
+      ],
+      "quotes": [
+        {
+          "sourceId": "aspire-us",
+          "text": "Enjoy complimentary Diamond status with your Card."
+        }
       ]
     },
     "terms": {
@@ -6636,6 +6696,21 @@
         "先核对卡种、地区及当前官方条款。",
         "每持卡年一张；标准房、排除酒店和券到期日适用，不视为现金余额。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Annual Free Night Reward",
+      "summary": "A Free Night Reward in the first year of membership and every year on renewal; standard-room, excluded-hotel and expiry rules apply.",
+      "howToUse": [
+        "Check the reward and its expiry in your Hilton account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "aspire-us",
+          "text": "Enjoy an Annual Free Night Reward from Hilton Honors in your first year of Card Membership and every year upon Card renewal."
+        }
       ]
     },
     "terms": {
@@ -6704,6 +6779,25 @@
         "先核对卡种、地区及当前官方条款。",
         "自然年消费达30000美元得一张，累计60000美元再得一张；退货及排除消费扣除。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Free Night Reward from spending",
+      "summary": "A Free Night Reward after $30,000 of eligible purchases in a calendar year, and another at $60,000; returns and excluded charges do not count.",
+      "howToUse": [
+        "Track eligible spending in the calendar year."
+      ],
+      "quotes": [
+        {
+          "sourceId": "aspire-terms",
+          "text": "Basic Card Members can receive a Free Night Reward from Hilton Honors after the total eligible purchases on their Hilton Honors American Express Aspire Card Account reach $30,000 or more in a calendar year."
+        },
+        {
+          "sourceId": "aspire-terms",
+          "text": "Basic Card Members can receive an additional Free Night Reward from Hilton Honors after making an additional $30,000 in purchases that year, totaling $60,000 or more in cumulative purchases in that calendar year."
+        }
       ]
     },
     "terms": {
@@ -6781,6 +6875,21 @@
         "先核对卡种、地区及当前官方条款。",
         "指定Aspire优惠价及预订渠道，至少两晚，合资格酒店消费最多100美元；先比较房价。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$100 Property Credit",
+      "summary": "Up to $100 for qualifying charges at Waldorf Astoria and Conrad properties on a 2-night minimum stay booked with the card at HiltonHonorsAspireCard.com with the Aspire rate.",
+      "howToUse": [
+        "Book through HiltonHonorsAspireCard.com, choose the Aspire offer, and compare the rate first."
+      ],
+      "quotes": [
+        {
+          "sourceId": "aspire-us",
+          "text": "Receive up to a $100 credit for qualifying charges at Waldorf Astoria ® Hotels & Resorts and Conrad ® Hotels & Resorts properties when you book a 2 night minimum stay with your Card at HiltonHonorsAspireCard.com"
+        }
       ]
     },
     "terms": {
@@ -9890,6 +9999,21 @@
         "先核对卡种、地区及当前官方条款。",
         "开户及周年200美元存入MileagePlus TravelBank，不是账单返现；航班和到期条件适用。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$200 annual United travel credit",
+      "summary": "$200 in United TravelBank cash after account opening and on each account anniversary, for a future United- or United Express-operated flight; it is not a statement credit.",
+      "howToUse": [
+        "Use the TravelBank cash on a United or United Express flight before it expires."
+      ],
+      "quotes": [
+        {
+          "sourceId": "quest-us",
+          "text": "One $200 annual United TravelBank cash credit will automatically be added to the primary Cardmember's MileagePlus account."
+        }
       ]
     },
     "terms": {
@@ -9958,6 +10082,21 @@
         "先核对卡种、地区及当前官方条款。",
         "首周年起每年一张10000里程折扣；合资格美联航奖励机票及券有效期适用。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Annual 10,000-mile award flight discount",
+      "summary": "From the first anniversary, a 10,000-mile discount each year toward an eligible United award flight.",
+      "howToUse": [
+        "Check the discount and its expiry in your MileagePlus account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "quest-us",
+          "text": "annual 10,000-mile award flight discount"
+        }
       ]
     },
     "terms": {
@@ -10027,6 +10166,21 @@
         "先核对卡种、地区及当前官方条款。",
         "主卡及同预订一位同行，须符合购票用卡、MileagePlus关联和United执飞要求；不是所有航司通用。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Free first and second checked bags",
+      "summary": "The primary cardmember and one companion on the same reservation get first and second standard checked bags free on United-operated flights.",
+      "howToUse": [
+        "Buy the tickets with the card and add your MileagePlus number."
+      ],
+      "quotes": [
+        {
+          "sourceId": "quest-perks",
+          "text": "The primary Cardmember and one companion on the same reservation get their first and second standard checked bags free"
+        }
       ]
     },
     "terms": {
@@ -10092,6 +10246,21 @@
         "先核对卡种、地区及当前官方条款。",
         "每年需登记；1至11月各8美元、12月12美元，合计100美元，不显示成每月100。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Rideshare credits",
+      "summary": "After enrolling, up to $8 a month from January through November and $12 in December on rideshare purchases, up to $100 a calendar year.",
+      "howToUse": [
+        "Enrol each year and pay for rideshare with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "quest-perks",
+          "text": "Enroll to receive up to $100 back as statement credits each calendar year on rideshare purchases when paying with your United Quest℠ Card: up to $8 back as a statement credit each month from January through November"
+        }
       ]
     },
     "terms": {
@@ -10178,6 +10347,21 @@
         "先核对卡种、地区及当前官方条款。",
         "Global Entry、TSA PreCheck或NEXUS每四年最多120美元，核对上次使用。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry, TSA PreCheck or NEXUS fee credit",
+      "summary": "A statement credit of up to $120 every four years for the application fee charged to the card.",
+      "howToUse": [
+        "Check whether the credit was used in the past four years."
+      ],
+      "quotes": [
+        {
+          "sourceId": "quest-perks",
+          "text": "Receive a statement credit of up to $120 every four years as reimbursement for the application fee for Global Entry, TSA PreCheck or NEXUS when charged to your card."
+        }
       ]
     },
     "terms": {
@@ -10244,6 +10428,21 @@
         "先核对卡种、地区及当前官方条款。",
         "账户周年年内指定平台预付住宿最多150美元；不是任意酒店消费。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Renowned Hotels and Resorts credit",
+      "summary": "Up to $150 back each anniversary year on hotel stays prepaid directly through Renowned Hotels and Resorts.",
+      "howToUse": [
+        "Prepay the stay through Renowned Hotels and Resorts with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "quest-perks",
+          "text": "Receive up to $150 back in statement credits each anniversary year on hotel accommodations when you prepay directly through Renowned Hotels and Resorts with your United Quest℠ Card."
+        }
       ]
     },
     "terms": {
@@ -10311,6 +10510,21 @@
         "先核对卡种、地区及当前官方条款。",
         "每20美元合资格消费得1 PQP，年上限18000；PQP不同于可兑换里程，也不直接授予会籍。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Premier qualifying points from spending",
+      "summary": "1 PQP for every $20 spent on the card, up to 18,000 PQP in a calendar year; PQP count toward Premier status, they are not miles.",
+      "howToUse": [
+        "Track PQP in your MileagePlus account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "quest-perks",
+          "text": "You’ll earn 1 PQP for every $20 you spend on purchases with your Quest℠ Card, up to 18,000 PQP in a calendar year."
+        }
       ]
     },
     "terms": {
@@ -10634,6 +10848,26 @@
         "先核对卡种、地区及当前官方条款。",
         "新版券上限50000积分，可加点；老账户切换时间按通知，不将旧40000券自动升级。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Anniversary Free Night",
+      "summary": "Each year after the card anniversary, a free night with a redemption cap of 50,000 points; points can be added for hotels above the cap. Older accounts change on the bank's notice.",
+      "howToUse": [
+        "Redeem and complete the stay within 12 months of issue.",
+        "You can add points from your IHG account for hotels above 50,000 points."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ihg-current",
+          "text": "Each year, after your card anniversary, you'll receive an Anniversary Free Night with a redemption cap of 50,000 points good for a night at one of our IHG"
+        },
+        {
+          "sourceId": "ihg-current",
+          "text": "Anniversary Free Night must be redeemed, and stay must be completed, within 12 months from date of issue."
+        }
       ]
     },
     "terms": {
@@ -10703,6 +10937,21 @@
         "先核对卡种、地区及当前官方条款。",
         "新版公开产品为Gold；旧持卡人会籍变化按通知，不推断个人白金已经失效。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "IHG One Rewards Gold Elite status",
+      "summary": "The current card comes with automatic Gold Elite status; existing cardholders' status changes follow the bank's notice.",
+      "howToUse": [
+        "Check your tier in your IHG account; do not assume an older status has ended."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ihg-current",
+          "text": "You qualify for automatic IHG One Rewards Gold Elite status for as long as you remain a Premier credit cardmember"
+        }
       ]
     },
     "terms": {
@@ -10772,6 +11021,21 @@
         "先核对卡种、地区及当前官方条款。",
         "合资格连续四晚积分预订；现金住宿、房券和非参与预订不自动适用。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Fourth Reward Night Free",
+      "summary": "For each standard room reward stay of 4 or more nights, every 4th night is free; cash stays and non-participating bookings do not count.",
+      "howToUse": [
+        "Book a standard room reward stay of at least 4 nights with points."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ihg-current",
+          "text": "For each standard room Reward Night stay of 4 or more nights, every 4th night is free."
+        }
       ]
     },
     "terms": {
@@ -10975,6 +11239,22 @@
         "先核对卡种、地区及当前官方条款。",
         "登记并关联MileagePlus，全年最高50美元；发放批次和有效期另核对。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "United TravelBank Cash",
+      "summary": "After registering the card with your MileagePlus account, a $25 United TravelBank deposit for each half-year, up to $50 a calendar year.",
+      "howToUse": [
+        "Register the card with your MileagePlus account.",
+        "Check each deposit and its expiry in your United account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ihg-holder",
+          "text": "Receive one $25 United ® TravelBank Cash deposit in your United MileagePlus ® account for January 1 to June 30, and another $25 deposit for July 1 to December 31"
+        }
       ]
     },
     "terms": {
@@ -19336,6 +19616,25 @@
         "确认是定期客运机票以及航空公司或Amex直接购票渠道。",
         "每季50美元按账户合计；不是全年200美元可一次使用，也不等同白金卡航空杂费抵扣。",
         "商户报送日期可能影响归季；到账最长可达12周。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Flight credit",
+      "summary": "Up to $50 each calendar quarter and at most $200 a calendar year per account for flights bought from airlines or Amex Travel; charter, private jet and vacation-package flights are excluded.",
+      "howToUse": [
+        "Buy flights directly from an airline or through Amex Travel with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-aspire-flight-20261029",
+          "text": "However, the total amount of statement credits for eligible purchases will not exceed $200 per Card Account per calendar year."
+        },
+        {
+          "sourceId": "coupon-aspire-flight-20261029",
+          "text": "Eligible purchases do not include purchases of: charter flights, private jet flights, or flights that are part of vacation packages."
+        }
       ]
     },
     "terms": {
@@ -19458,6 +19757,21 @@
         "先核对酒店是否在Aspire Resort Credit参与名单，不能只看Hilton品牌。",
         "核对房价不是Advance Purchase或Non-Refundable；餐饮和水疗须挂房账并用Aspire结算。",
         "按半年200美元账户上限管理；名单和实际到账仍需核对。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$400 Hilton Resort Credit",
+      "summary": "Up to $200 from January through June and $200 from July through December for eligible purchases directly with participating Hilton Resorts.",
+      "howToUse": [
+        "Charge resort purchases to the room and pay directly with the resort; prepaid non-refundable rates are excluded."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-aspire-resort-20261029",
+          "text": "Basic Hilton Honors American Express Aspire Card Members can receive up to a total of $200 in statement credits semi-annually (January through June; and July through December), for up to $400 back annually for eligible purchases made directly with participating Hilton Resorts on their Card Account."
+        }
       ]
     },
     "terms": {
@@ -39800,6 +40114,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "自然年消费满1万美元后得200美元；是否达标未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Delta Flight Credit",
+      "summary": "After $10,000 of purchases on the card in a calendar year, a $200 Delta Flight Credit toward future travel.",
+      "howToUse": [
+        "Track spending on the card in the calendar year."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-card",
+          "text": "After you spend $10,000 in eligible purchases on your Card in a calendar year, you can receive a $200 Delta Flight Credit to use toward future travel."
+        }
       ]
     },
     "terms": {
@@ -39866,6 +40195,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "首次续卡后每月最多10美元，限美国指定服务商，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$120 Rideshare Credit",
+      "summary": "After the first card renewal, up to $10 a month on U.S. rideshare purchases with select providers; enrolment required.",
+      "howToUse": [
+        "Enrol, then pay for U.S. rideshare with a select provider."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-card",
+          "text": "After your first Card renewal, earn up to $10 in statement credits each month when using your Delta SkyMiles ® Gold American Express Card on U.S. rideshare purchases with select providers."
+        }
       ]
     },
     "terms": {
@@ -39936,6 +40280,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "以抵扣形式返还，限 Delta 机上餐饮。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "20% back on in-flight purchases",
+      "summary": "A 20% saving as a statement credit on eligible Delta in-flight food and beverage purchases.",
+      "howToUse": [
+        "Pay for in-flight food and drinks on Delta with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-card",
+          "text": "Receive a 20% savings in the form of a statement credit after you use your Card on eligible Delta in-flight purchases of food and beverages."
+        }
       ]
     },
     "terms": {
@@ -40483,6 +40842,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每月最多10美元，限美国指定服务商，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$120 Rideshare Credit",
+      "summary": "After enrolment, up to $10 a month on U.S. rideshare purchases with select providers.",
+      "howToUse": [
+        "Enrol, then pay for U.S. rideshare with a select provider."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card",
+          "text": "earn up to $10 back in statement credits each month after you use your Delta SkyMiles ® Platinum American Express Card to pay for U.S. rideshare purchases with select providers."
+        }
       ]
     },
     "terms": {
@@ -40552,6 +40926,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每月最多10美元，限美国合资格 Resy 餐厅，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$120 Resy Credit",
+      "summary": "After enrolment, up to $10 a month at qualifying U.S. Resy restaurants.",
+      "howToUse": [
+        "Enrol, then pay at a qualifying U.S. Resy restaurant."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card",
+          "text": "Get up to $10 in statement credits each month at over 10,000 qualifying U.S. Resy restaurants after you pay with your enrolled Delta SkyMiles ® Platinum American Express Card for eligible purchases."
+        }
       ]
     },
     "terms": {
@@ -40619,6 +41008,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry or TSA PreCheck fee credit",
+      "summary": "Every 4 years, a $120 credit for Global Entry or up to $85 for TSA PreCheck, when the fee is charged to the card.",
+      "howToUse": [
+        "Pay the fee with the card, and check whether the credit was used in the past four years."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card",
+          "text": "Receive either a $120 statement credit for a Global Entry application fee or a statement credit up to $85 for a TSA PreCheck ® (through a TSA official enrollment provider) application fee every 4 years, when charged to your Delta SkyMiles ® Platinum American Express Card."
+        }
       ]
     },
     "terms": {
@@ -40688,6 +41092,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "以抵扣形式返还，限 Delta 机上餐饮。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "20% back on in-flight purchases",
+      "summary": "A 20% saving as a statement credit on eligible Delta in-flight food and beverage purchases.",
+      "howToUse": [
+        "Pay for in-flight food and drinks on Delta with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card",
+          "text": "Receive a 20% savings in the form of a statement credit after you use your Delta SkyMiles ® Platinum American Express Card on eligible Delta in-flight purchases of food and beverages."
+        }
       ]
     },
     "terms": {
@@ -41030,6 +41449,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每月最多20美元，须登记，限美国合资格 Resy 餐厅。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$240 Resy Credit",
+      "summary": "After enrolment, up to $20 a month at qualifying U.S. Resy restaurants.",
+      "howToUse": [
+        "Enrol, then pay at a qualifying U.S. Resy restaurant."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card",
+          "text": "you can earn up to $20 per month in statement credits on eligible purchases at over 10,000 qualifying U.S. Resy restaurants."
+        }
       ]
     },
     "terms": {
@@ -41097,6 +41531,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每月最多10美元，限美国指定服务商，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$120 Rideshare Credit",
+      "summary": "After enrolment, up to $10 a month on U.S. rideshare purchases with select providers.",
+      "howToUse": [
+        "Enrol, then pay for U.S. rideshare with a select provider."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card",
+          "text": "Earn up to $10 in statement credits each month after using your Delta SkyMiles ® Reserve American Express Card on U.S. rideshare purchases with select providers."
+        }
       ]
     },
     "terms": {
@@ -41166,6 +41615,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每年最多200美元，须用本卡通过 Delta Stays 预付酒店或度假屋；周期的起算方式未结构化。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Delta Stays Credit",
+      "summary": "An annual statement credit of up to $200 for prepaid hotels or vacation rentals booked with the card through Delta Stays on delta.com.",
+      "howToUse": [
+        "Prepay the booking through Delta Stays on delta.com with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card",
+          "text": "Elevate your travel experience with an annual statement credit of up to $200 after using your Delta SkyMiles ® Reserve American Express Card to book prepaid hotels or vacation rentals through Delta Stays on delta.com."
+        }
       ]
     },
     "terms": {
@@ -41232,6 +41696,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "Global Entry 每四年一次120美元，或 TSA PreCheck 五年期最多85美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry or TSA PreCheck fee credit",
+      "summary": "A credit every 4 years for Global Entry ($120), or for a five-year TSA PreCheck membership (up to $85), when the fee is paid with the card.",
+      "howToUse": [
+        "Pay the fee with the card, and check whether the credit was used before."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card",
+          "text": "Receive either a statement credit every 4 years after you apply for Global Entry ($120) or a statement credit after you apply for a five-year membership for TSA PreCheck ® (up to $85 through a TSA PreCheck official enrollment provider)"
+        }
       ]
     },
     "terms": {
@@ -41641,6 +42120,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每月最多25美元，限全球餐厅。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$300 Brilliant Dining Credit",
+      "summary": "Up to $25 a month, $300 a calendar year, in statement credits for eligible purchases at restaurants worldwide.",
+      "howToUse": [
+        "Pay at restaurants with the card; the monthly amount does not roll over."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card",
+          "text": "Each calendar year, get up to $300 (up to $25 per month) in statement credits for eligible purchases made on the Marriott Bonvoy Brilliant ® Card at restaurants worldwide."
+        }
       ]
     },
     "terms": {
@@ -41709,6 +42203,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "公开规则；个人会籍未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Marriott Bonvoy Platinum Elite status",
+      "summary": "Complimentary Platinum Elite status with the card.",
+      "howToUse": [
+        "Check your tier in your Marriott Bonvoy account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card",
+          "text": "a benefit available with your complimentary Platinum Elite status."
+        }
       ]
     },
     "terms": {
@@ -41775,6 +42284,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "Global Entry 120美元，或 TSA PreCheck 最多85美元；四年内只给一次。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry or TSA PreCheck fee credit",
+      "summary": "A $120 credit for Global Entry or up to $85 for a 5-year TSA PreCheck plan, once every four years.",
+      "howToUse": [
+        "Pay the fee with the card, and check whether the credit was used in the past four years."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card",
+          "text": "Receive either a $120 statement credit for Global Entry or a statement credit for up to $85 for TSA PreCheck ® (through a TSA PreCheck official enrollment provider) for a 5-year plan."
+        }
       ]
     },
     "terms": {
@@ -42190,6 +42714,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "须直接向 Marriott 预订的付费合资格住宿。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "1,000 bonus points per stay",
+      "summary": "1,000 Marriott Bonvoy bonus points per paid eligible stay booked directly with Marriott.",
+      "howToUse": [
+        "Book paid stays directly with Marriott."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-bevy-card",
+          "text": "Earn 1,000 Marriott Bonvoy ® bonus points per paid eligible stay booked directly with Marriott for properties participating in Marriott Bonvoy."
+        }
       ]
     },
     "terms": {
@@ -42258,6 +42797,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "公开规则；个人会籍未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Marriott Bonvoy Gold Elite status",
+      "summary": "Complimentary Gold Elite status with the card.",
+      "howToUse": [
+        "Check your tier in your Marriott Bonvoy account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-bevy-card",
+          "text": "a benefit available with your complimentary Gold Elite status."
+        }
       ]
     },
     "terms": {
@@ -42326,6 +42880,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "自然年消费满1.5万美元得1晚；是否达标未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Free Night Award after $15,000",
+      "summary": "1 Free Night Award after $15,000 of eligible purchases on the card in a calendar year.",
+      "howToUse": [
+        "Track spending on the card in the calendar year."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-bevy-card",
+          "text": "Card Members can earn 1 Free Night Award* after spending $15,000 on eligible purchases with their Marriott Bonvoy Bevy ® American Express® Card in a calendar year."
+        }
       ]
     },
     "terms": {
@@ -42672,6 +43241,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每季最多60美元，须直接向 Hilton 旗下酒店消费。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$240 Hilton Credit",
+      "summary": "Up to $60 a quarter for purchases made directly with a property in the Hilton portfolio.",
+      "howToUse": [
+        "Pay a Hilton property directly with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-business-card",
+          "text": "Get up to $60 in statement credits each quarter for purchases made directly with a property in the Hilton portfolio on your Hilton Honors American Express Business Card."
+        }
       ]
     },
     "terms": {
@@ -42740,6 +43324,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "公开规则；个人会籍未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Hilton Honors Gold status",
+      "summary": "Complimentary Hilton Honors Gold status with the card.",
+      "howToUse": [
+        "Check your tier in your Hilton Honors account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-business-card",
+          "text": "complimentary Hilton Honors™ Gold Status, which provides valuable on-property perks at participating Hilton hotels and resorts."
+        }
       ]
     },
     "terms": {
@@ -42808,6 +43407,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "自然年消费满4万美元可升级；是否达标未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Hilton Honors Diamond upgrade",
+      "summary": "Spend $40,000 on eligible purchases in a calendar year for Diamond status through the end of the next calendar year.",
+      "howToUse": [
+        "Track spending on the card in the calendar year."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-business-card",
+          "text": "Basic Card Members can qualify for an upgrade to Hilton Honors Diamond Status through the end of the next calendar year by spending $40,000 on eligible purchases on the Card in a calendar year."
+        }
       ]
     },
     "terms": {
@@ -43153,6 +43767,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每月最多10美元，限美国指定服务商，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$120 Rideshare Credit",
+      "summary": "After enrolment, up to $10 a month on U.S. rideshare purchases with select providers.",
+      "howToUse": [
+        "Enrol, then pay for U.S. rideshare with a select provider."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-business-card",
+          "text": "Earn up to $10 back in statement credits each month on U.S. rideshare purchases with select providers after you pay with your Delta SkyMiles ® Platinum Business Card."
+        }
       ]
     },
     "terms": {
@@ -43222,6 +43851,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每月最多10美元，限美国合资格 Resy 餐厅，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$120 Resy Credit",
+      "summary": "After enrolment, up to $10 a month at qualifying U.S. Resy restaurants.",
+      "howToUse": [
+        "Enrol, then pay at a qualifying U.S. Resy restaurant."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-business-card",
+          "text": "you can earn up to $10 per month in statement credits on eligible purchases at over 10,000 qualifying U.S. Resy restaurants."
+        }
       ]
     },
     "terms": {
@@ -43291,6 +43935,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每年最多200美元，须通过 Delta Stays 预付酒店或度假屋；周期的起算方式未结构化。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Delta Stays Statement Credit",
+      "summary": "An annual statement credit, up to $200, for eligible prepaid Delta Stays bookings on delta.com.",
+      "howToUse": [
+        "Prepay the booking through Delta Stays on delta.com with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-business-card",
+          "text": "Make the most of your travel with your Card by earning an annual statement credit for eligible prepaid Delta Stays bookings on delta.com."
+        }
       ]
     },
     "terms": {
@@ -43357,6 +44016,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每四年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry or TSA PreCheck fee credit",
+      "summary": "Every 4 years, a $120 credit for Global Entry or up to $85 for TSA PreCheck, when the fee is charged to the card.",
+      "howToUse": [
+        "Pay the fee with the card, and check whether the credit was used in the past four years."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-business-card",
+          "text": "Receive either a $120 statement credit for a Global Entry application fee or a statement credit up to $85 for a TSA PreCheck® (through a TSA official enrollment provider) application fee every 4 years, when charged to your Card."
+        }
       ]
     },
     "terms": {
@@ -43701,6 +44375,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "自然年消费满1万美元后得200美元；是否达标未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Delta Flight Credit",
+      "summary": "After $10,000 of purchases on the card in a calendar year, a $200 Delta Flight Credit toward future travel.",
+      "howToUse": [
+        "Track spending on the card in the calendar year."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-business-card",
+          "text": "$200 Delta Flight Credit to use toward future travel after you spend $10,000 in purchases on your Card in a calendar year."
+        }
       ]
     },
     "terms": {
@@ -43769,6 +44458,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每年最多150美元，限预付；周期的起算方式未结构化。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$150 Delta Stays Credit",
+      "summary": "Up to $150 back each year on prepaid hotels or vacation rentals booked through Delta Stays on delta.com.",
+      "howToUse": [
+        "Prepay the booking through Delta Stays on delta.com with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-business-card",
+          "text": "Earn up to $150 back each year as a statement credit after using your Card to book prepaid hotels or vacation rentals through Delta Stays on delta.com."
+        }
       ]
     },
     "terms": {
@@ -43835,6 +44539,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "首次续卡后每月最多10美元，须登记，限美国指定服务商。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$120 Rideshare Credit",
+      "summary": "After the first card renewal and enrolment, up to $10 a month on U.S. rideshare purchases with select providers.",
+      "howToUse": [
+        "Enrol, then pay for U.S. rideshare with a select provider."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-business-card",
+          "text": "earn up to $10 in statement credits each month when using your Delta SkyMiles ® Gold Business American Express Card on U.S. rideshare purchases with select providers."
+        }
       ]
     },
     "terms": {
@@ -43905,6 +44624,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "以抵扣形式返还，限合资格的 Delta 机上消费。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "20% back on in-flight purchases",
+      "summary": "A 20% saving as a statement credit on eligible Delta in-flight purchases.",
+      "howToUse": [
+        "Pay for in-flight purchases on Delta with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-business-card",
+          "text": "Receive a 20% savings in the form of a statement credit on eligible Delta in-flight purchases after using your Card."
+        }
       ]
     },
     "terms": {
@@ -44315,6 +45049,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每四年最多120美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry, TSA PreCheck or NEXUS fee credit",
+      "summary": "Up to $120 every 4 years for the application fee when charged to the card.",
+      "howToUse": [
+        "Pay the application fee with the card, and check whether the credit was used in the past four years."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-explorer-card",
+          "text": "Up to $120 as a statement credit for Global Entry, TSA Precheck ® or NEXUS every 4 years as reimbursement for the application fee for either program when charged to your card."
+        }
       ]
     },
     "terms": {
@@ -44384,6 +45133,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "主卡持卡人和一名同行人；须在订单中填写 MileagePlus 号码，并用本卡购票（开户后90天内的航班免购票要求）。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Free first checked bag",
+      "summary": "The primary cardmember and one companion each check a first standard bag free.",
+      "howToUse": [
+        "Buy the tickets with the card and add your MileagePlus number to the reservation."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-explorer-card",
+          "text": "the primary Cardmember and one companion can each check a first standard bag for free"
+        }
       ]
     },
     "terms": {
@@ -44453,6 +45217,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "以抵扣形式返还，限 United 机上餐饮、Wi-Fi 和 Club 高级饮品。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "25% back on United inflight purchases",
+      "summary": "25% back as a statement credit on food, beverages and Wi-Fi on United-operated flights and on Club premium drinks.",
+      "howToUse": [
+        "Pay with the Explorer Card on board or for Club premium drinks."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-explorer-card",
+          "text": "25% back as a statement credit on purchases of food, beverages and Wi-Fi on board United-operated flights and on Club premium drinks when you pay with your Explorer Card."
+        }
       ]
     },
     "terms": {
@@ -44522,6 +45301,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "自然年消费满1万美元后得100美元；是否达标未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$100 United travel credit",
+      "summary": "After $10,000 of spending on the card in a calendar year, a $100 United travel credit.",
+      "howToUse": [
+        "Track spending on the card in the calendar year."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-explorer-card",
+          "text": "Earn after you spend $10,000 with your United SM Explorer Card within a calendar year."
+        }
       ]
     },
     "terms": {
@@ -45004,6 +45798,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "主卡持卡人和一名同行人；须在订单中填写 MileagePlus 号码，并用本卡购票（开户后90天内的航班免购票要求）。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Free first and second checked bags",
+      "summary": "The primary cardmember and one companion each check a first and second standard bag free, when the cardmember buys the tickets with the card (waived for the first 90 days) and adds the MileagePlus number.",
+      "howToUse": [
+        "Buy the tickets with the card and add your MileagePlus number to the reservation.",
+        "United- and United Express-operated flights only."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-card",
+          "text": "the primary Cardmember and one companion can each check a first and second standard bags for free"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-card",
+          "text": "(this purchase requirement is waived for flights completed during the 90 days following the account open date) and include their MileagePlus ® number in their reservation."
+        }
       ]
     },
     "terms": {
@@ -45072,6 +45886,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每个账户周年最多200美元，须预付（Pay Now）。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Renowned Hotels and Resorts credits",
+      "summary": "Up to $200 a year in credits on prepaid hotel stays bought directly through Renowned Hotels and Resorts for United Cardmembers.",
+      "howToUse": [
+        "Prepay the stay through Renowned Hotels and Resorts with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-card",
+          "text": "Receive on prepaid hotel stays purchased directly through Renowned Hotels and Resorts for United ® Cardmembers with your United Club SM Card."
+        }
       ]
     },
     "terms": {
@@ -45420,6 +46249,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "25% back on inflight purchases",
+      "summary": "25% back as a statement credit on Southwest inflight purchases of drinks and WiFi made with the card.",
+      "howToUse": [
+        "Pay for drinks or WiFi on Southwest flights with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-plus-credit-card",
+          "text": "You will receive 25% back on Southwest Airlines inflight purchases made with your Southwest Rapid Rewards ® Plus Credit Card for drinks and WiFi in the form of a credit card account statement credit."
+        }
       ]
     },
     "terms": {
@@ -45488,6 +46332,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每年3,000点；个人到账未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "3,000 anniversary points",
+      "summary": "3,000 bonus points each account anniversary year.",
+      "howToUse": [
+        "Check that the points posted after your account anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-plus-credit-card",
+          "text": "You’ll receive 3,000 bonus points each account anniversary year."
+        }
       ]
     },
     "terms": {
@@ -45832,6 +46691,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "25% back on inflight purchases",
+      "summary": "25% back as a statement credit on Southwest inflight purchases of drinks and WiFi made with the card.",
+      "howToUse": [
+        "Pay for drinks or WiFi on Southwest flights with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-priority-credit-card",
+          "text": "You will receive 25% back on Southwest Airlines inflight purchases made with your Southwest Rapid Rewards ® Priority Credit Card for drinks and WiFi in the form of a credit card account statement credit."
+        }
       ]
     },
     "terms": {
@@ -45900,6 +46774,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每年每消费5,000美元得2,500 TQP；个人进度未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Tier qualifying points toward A-List",
+      "summary": "2,500 TQPs for each $5,000 spent in purchases annually.",
+      "howToUse": [
+        "Track progress in your Rapid Rewards account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-priority-credit-card",
+          "text": "You’ll earn 2,500 tier qualifying points (TQPs) for each $5,000 spent in purchases annually."
+        }
       ]
     },
     "terms": {
@@ -45968,6 +46857,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每年7,500点；个人到账未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "7,500 anniversary points",
+      "summary": "7,500 bonus points each account anniversary year.",
+      "howToUse": [
+        "Check that the points posted after your account anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-priority-credit-card",
+          "text": "You’ll receive 7,500 bonus points each account anniversary year."
+        }
       ]
     },
     "terms": {
@@ -46316,6 +47220,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "25% back on inflight purchases",
+      "summary": "25% back as a statement credit on Southwest inflight purchases of drinks and WiFi made with the card.",
+      "howToUse": [
+        "Pay for drinks or WiFi on Southwest flights with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-credit-card",
+          "text": "You will receive 25% back on Southwest Airlines inflight purchases made with your Southwest Rapid Rewards ® Premier Credit Card for drinks and WiFi in the form of a credit card account statement credit."
+        }
       ]
     },
     "terms": {
@@ -46384,6 +47303,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每年每消费5,000美元得1,500 TQP；个人进度未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Tier qualifying points toward A-List",
+      "summary": "1,500 TQPs for each $5,000 spent in purchases annually.",
+      "howToUse": [
+        "Track progress in your Rapid Rewards account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-credit-card",
+          "text": "You’ll earn 1,500 tier qualifying points (TQPs) for each $5,000 spent in purchases annually."
+        }
       ]
     },
     "terms": {
@@ -46452,6 +47386,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每年6,000点；个人到账未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "6,000 anniversary points",
+      "summary": "6,000 bonus points each account anniversary year.",
+      "howToUse": [
+        "Check that the points posted after your account anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-credit-card",
+          "text": "You’ll receive 6,000 bonus points each account anniversary year."
+        }
       ]
     },
     "terms": {
@@ -46798,6 +47747,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "限时优惠，须直接向航空公司每期消费满250美元得50美元。新持卡人：2026年6月4日至12月31日、2027年1月1日至6月30日，自动登记。2026年1月7日前的持卡人：2026年上半年和下半年两期，到12月31日结束，须激活一次。是否达标未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Airline statement credits",
+      "summary": "A limited-time offer: $50 statement credits after spending $250 or more directly with airlines in each offer period, for 2026 and the first half of 2027.",
+      "howToUse": [
+        "Pay airlines directly with the card; $250 in a period earns $50.",
+        "Check which periods apply to your account and whether activation is needed."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "A $50 statement credit will be automatically applied to your account when you spend $250 or more on eligible purchases made directly with airlines from January 1, 2026 through June 30, 2026."
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "Earn another $50 statement credit after spending $250 or more between Jan. 1 and June 30, 2027."
+        }
       ]
     },
     "terms": {
@@ -46866,6 +47835,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "公开规则；个人会籍未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Marriott Bonvoy Silver Elite status",
+      "summary": "Automatic Silver Elite status each calendar year as a cardmember.",
+      "howToUse": [
+        "Check your tier in your Marriott Bonvoy account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "You will automatically receive Silver Elite Status each calendar year as a cardmember."
+        }
       ]
     },
     "terms": {
@@ -47278,6 +48262,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "2026年12月31日后须满足年度消费要求（自然年5,000美元），用积分连住四晚时第四晚免费，资格持续到达标当年余下时间和下一自然年；是否达标未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Fourth Reward Night Free",
+      "summary": "On reward stays of 4 or more nights every 4th night is free; after December 31, 2026 it requires $5,000 of purchases in a calendar year, and then lasts for the rest of that year and the next.",
+      "howToUse": [
+        "Book a standard room reward stay of at least 4 nights.",
+        "From 2027, check whether you spent $5,000 on the card in the calendar year."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-credit-card",
+          "text": "For the Fourth Reward Night Free benefit means that for each standard room Reward Night stay of 4 or more nights, every 4th night is free."
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-credit-card",
+          "text": "Each calendar year in which you make purchases totaling $5,000 or more with your IHG One Rewards Credit Card, you, as the primary cardmember, will qualify for Fourth Reward Night Free benefit"
+        }
       ]
     },
     "terms": {
@@ -47346,6 +48350,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "公开规则；个人会籍未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "IHG One Rewards Silver Elite status",
+      "summary": "Automatic Silver Elite status while you hold the card and your IHG account is in good standing.",
+      "howToUse": [
+        "Check your tier in your IHG One Rewards account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-credit-card",
+          "text": "You qualify for automatic IHG One Rewards Silver Elite status for as long as you remain an IHG One Rewards credit cardmember"
+        }
       ]
     },
     "terms": {
@@ -48172,6 +49191,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每半年最多50美元，须直接向 Air Canada 合资格消费；礼品卡、租车和酒店预订等除外。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$100 Air Canada Annual Credit",
+      "summary": "Up to $50 from January through June and $50 from July through December for qualifying Air Canada purchases made with the card; gift cards, car rentals and hotel bookings are excluded.",
+      "howToUse": [
+        "Buy directly from Air Canada with the card; each half-year allows up to $50."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-air-canada-aeroplan-card",
+          "text": "A statement credit will be automatically applied to your account for qualifying Air Canada purchases made using your Chase Air Canada Aeroplan credit card up to a maximum accumulation of $50 in statement credits from January 1 through June 30 and up to $50 from July 1 through December 31"
+        }
       ]
     },
     "terms": {
@@ -48854,6 +49888,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "限 United 机上餐饮、Wi-Fi 和 Club 高级饮品。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "25% back on United inflight purchases",
+      "summary": "25% back on United inflight and Club premium drink purchases.",
+      "howToUse": [
+        "Pay with the card on board or for Club premium drinks."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-gateway-card",
+          "text": "receive 25% back on United inflight and Club premium drink purchases"
+        }
       ]
     },
     "terms": {
@@ -49197,6 +50246,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每季75美元，限 IHG 酒店使用，须记入主卡持卡人的房账；当季过期，余额作废。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "IHG Food & Beverage Rewards",
+      "summary": "A Food & Beverage Reward voucher of up to $75 each calendar quarter for the primary cardmember, used once at IHG hotels; any unused value is forfeited.",
+      "howToUse": [
+        "Charge eligible food and beverage to your room bill at an IHG hotel and use the voucher within the quarter.",
+        "Each voucher is used once; the rest of its value is lost."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "You, as the primary credit cardmember, will receive one Food & Beverage Reward voucher of up to $75 each calendar quarter"
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "If the full $75 value is not used, the remaining value will be forfeited."
+        }
       ]
     },
     "terms": {
@@ -49265,6 +50334,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "公开规则；个人会籍未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "IHG One Rewards Platinum Elite status",
+      "summary": "Automatic Platinum Elite status while you hold the card and your IHG account is in good standing.",
+      "howToUse": [
+        "Check your tier in your IHG One Rewards account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "You qualify for automatic IHG One Rewards Platinum Elite status for as long as you remain a Premier Select credit cardmember"
+        }
       ]
     },
     "terms": {
@@ -49677,6 +50761,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每季25美元，限 IHG 酒店使用，须记入主卡持卡人的房账；当季过期，余额作废。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "IHG Food & Beverage Rewards",
+      "summary": "A Food & Beverage Reward voucher of up to $25 each calendar quarter for the primary cardmember, used once at IHG hotels; any unused value is forfeited.",
+      "howToUse": [
+        "Charge eligible food and beverage to your room bill at an IHG hotel and use the voucher within the quarter.",
+        "Each voucher is used once; the rest of its value is lost."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "You, as the primary credit cardmember, will receive one Food & Beverage Reward voucher of up to $25 each calendar quarter"
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "If the full $25 value is not used, the remaining value will be forfeited."
+        }
       ]
     },
     "terms": {
@@ -49744,6 +50848,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "自然年直接向航空公司购票满250美元得100美元，至2027年12月31日。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$100 annual airline statement credit",
+      "summary": "A one-time $100 statement credit per calendar year after at least $250 of flight tickets booked directly with the airline on the card, through 12/31/27.",
+      "howToUse": [
+        "Book flights directly with the airline and pay with the card; $250 in a calendar year earns $100."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "A one-time statement credit of $100 per calendar year will automatically be applied to your account when you make a purchase of at least $250 with your IHG One Rewards Business Credit Card on flight tickets booked directly with the airline through 12/31/27."
+        }
       ]
     },
     "terms": {
@@ -50436,6 +51555,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "25% back on inflight purchases",
+      "summary": "25% back as a statement credit on Southwest inflight purchases of drinks and WiFi made with the card.",
+      "howToUse": [
+        "Pay for drinks or WiFi on Southwest flights with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+          "text": "You will receive 25% back on Southwest Airlines inflight purchases made with your Southwest Rapid Rewards ® Premier Business Credit Card for drinks and WiFi in the form of a credit card account statement credit."
+        }
       ]
     },
     "terms": {
@@ -50504,6 +51638,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每消费5,000美元得2,000 TQP，至2026年12月31日；个人进度未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Tier qualifying points toward A-List",
+      "summary": "2,000 TQPs for each $5,000 spent on purchases posted by December 31, 2026.",
+      "howToUse": [
+        "Track progress in your Rapid Rewards account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+          "text": "You will earn 2,000 TQPs for each $5,000 spent on purchases posted to your account by December 31, 2026."
+        }
       ]
     },
     "terms": {
@@ -50572,6 +51721,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每年6,000点；个人到账未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "6,000 anniversary points",
+      "summary": "6,000 bonus points each account anniversary year.",
+      "howToUse": [
+        "Check that the points posted after your account anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+          "text": "You’ll receive 6,000 bonus points each account anniversary year."
+        }
       ]
     },
     "terms": {
@@ -51051,6 +52215,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每四年最多120美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry, TSA PreCheck or NEXUS fee credit",
+      "summary": "One statement credit every four years, up to $120, after the application fee is charged to the card.",
+      "howToUse": [
+        "Pay the application fee with the card, and check whether the credit was used in the past four years."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "You will receive one statement credit every four years (up to $120) after the first program (either Global Entry or TSA PreCheck ® or NEXUS) application fee is charged to your Southwest Rapid Rewards ® Performance Business Credit Card"
+        }
       ]
     },
     "terms": {
@@ -51120,6 +52299,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "以抵扣形式返还，限 Southwest 航班的饮品和 WiFi。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "25% back on inflight purchases",
+      "summary": "25% back as a statement credit on Southwest inflight purchases of drinks and WiFi made with the card.",
+      "howToUse": [
+        "Pay for drinks or WiFi on Southwest flights with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "You will receive 25% back on Southwest Airlines inflight purchases made with your Southwest Rapid Rewards ® Performance Business Credit Card for drinks and WiFi in the form of a credit card account statement credit."
+        }
       ]
     },
     "terms": {
@@ -51188,6 +52382,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每年9,000点；个人到账未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "9,000 anniversary points",
+      "summary": "9,000 bonus points each account anniversary year.",
+      "howToUse": [
+        "Check that the points posted after your account anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "You’ll receive 9,000 bonus points each account anniversary year."
+        }
       ]
     },
     "terms": {
@@ -51256,6 +52465,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每消费5,000美元得2,500 TQP，至2026年12月31日；个人进度未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Tier qualifying points toward A-List",
+      "summary": "2,500 TQPs for each $5,000 spent on purchases posted by December 31, 2026.",
+      "howToUse": [
+        "Track progress in your Rapid Rewards account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "You will earn 2,500 TQPs for each $5,000 spent on purchases posted to your account by December 31, 2026."
+        }
       ]
     },
     "terms": {
