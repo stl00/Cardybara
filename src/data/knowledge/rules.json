@@ -24,6 +24,26 @@
       "howToUse": [
         "先核对账户周年起止；不要按每年1月1日推算剩余额度。",
         "使用这张卡支付符合旅行类别的消费，并在银行账单中核对抵扣。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$300 Annual Travel Credit",
+      "summary": "Statement credits for purchases in the travel category, up to $300 a year. The year runs from the account open date, not the calendar year; the part of a purchase covered by the credit earns no points.",
+      "howToUse": [
+        "Check your account anniversary: the year runs from the account open date through the first statement after its anniversary, not from January 1.",
+        "Pay for travel-category purchases with the card and look for the statement credit, which can take up to 4 weeks."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-terms",
+          "text": "A statement credit will be automatically applied to your account for purchases made in the travel category, up to an annual maximum accumulation of $300."
+        },
+        {
+          "sourceId": "csr-terms",
+          "text": "Any portion of your purchase that qualifies for the $300 Annual Travel Credit will not earn points."
+        }
       ]
     },
     "terms": {
@@ -153,6 +173,21 @@
       "summary": "Chase Travel 指定酒店预付至少两晚；仅2026年。",
       "howToUse": [
         "核对2026年指定酒店名单，并选择至少两晚的合资格预付预订。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$250 Credit for Select Hotels through Chase Travel in 2026",
+      "summary": "Statement credits up to $250 in calendar year 2026 for qualifying Chase Travel purchases for stays at select hotels.",
+      "howToUse": [
+        "Check the current list of select hotels and book a qualifying prepaid stay through Chase Travel during 2026."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-terms",
+          "text": "A statement credit will be automatically applied to your account for qualifying purchases made through Chase Travel from January 1, 2026 through December 31, 2026 for stays at select hotels, up to a total maximum accumulation of $250 in statement credits in calendar year 2026."
+        }
       ]
     },
     "terms": {
@@ -424,6 +459,26 @@
       "summary": "须以合资格卡直接付款；不支持电子钱包付款。",
       "howToUse": [
         "在 Lyft 核对本月优惠及合资格卡付款方式；不要使用电子钱包推断资格。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$10 monthly Lyft credit",
+      "summary": "Whoever on the account adds the card to the Lyft app first gets a $10 Lyft credit each calendar month through 9/30/2027, for rideshare rides booked in the Lyft app.",
+      "howToUse": [
+        "Add the card to the Lyft app and pay for rideshare rides with it directly.",
+        "The credit covers the ride subtotal only; fees, taxes, tips, memberships and gift cards are excluded."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-terms",
+          "text": "will receive a $10 Lyft credit each calendar month through 9/30/2027 to use for qualifying Lyft purchases"
+        },
+        {
+          "sourceId": "csr-terms",
+          "text": "Qualifying Lyft purchases are when the card is used for Lyft rideshare rides booked in the Lyft app and do not include membership purchases."
+        }
       ]
     },
     "terms": {
@@ -489,6 +544,22 @@
       "howToUse": [
         "在银行指定路径核对 DashPass 开通资格及登记期限。",
         "开通后的实际到期日需要从个人会员账户读取。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Complimentary DashPass",
+      "summary": "Complimentary DashPass on DoorDash and Caviar for cardholders who activate it in the U.S.; the membership period depends on the activation date.",
+      "howToUse": [
+        "Activate DashPass through the Chase card in a DoorDash account created in the U.S.",
+        "Check the actual end date in your own DashPass membership."
+      ],
+      "quotes": [
+        {
+          "sourceId": "doordash",
+          "text": "Note: The following Chase benefits are only available for DoorDash customers who activate their DashPass benefit in the US with the DoorDash account created in the US."
+        }
       ]
     },
     "terms": {
@@ -710,6 +781,26 @@
       "howToUse": [
         "由主卡持有人核对登记路径及截止日，再确认 Apple 账号关联。",
         "原有订阅如何处理须查看条款及个人 Apple 账户。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Complimentary Apple TV",
+      "summary": "The primary cardmember gets at least 12 months of complimentary Apple TV after a one-time activation; an existing paid subscription is suspended meanwhile.",
+      "howToUse": [
+        "The primary cardmember activates on chase.com or the Chase Mobile app before the deadline and links an Apple Account.",
+        "An existing paid Apple TV subscription bought from Apple is suspended and resumes afterwards; check your own Apple Account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-terms",
+          "text": "You, as the primary cardmember, will receive at least 12 months of complimentary Apple TV from the activation date."
+        },
+        {
+          "sourceId": "csr-terms",
+          "text": "If you have an active paid Apple TV subscription purchased directly through Apple, your complimentary Apple TV subscription through Chase will automatically suspend your existing subscription."
+        }
       ]
     },
     "terms": {
@@ -782,6 +873,22 @@
       "summary": "主卡需登记；家庭版及Apple One不能视为个人版。",
       "howToUse": [
         "核对个人订阅登记及截止日；家庭订阅和 Apple One 单独判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Complimentary Apple Music",
+      "summary": "The primary cardmember gets at least 12 months of complimentary Apple Music (individual) after a one-time activation.",
+      "howToUse": [
+        "The primary cardmember activates on chase.com or the Chase Mobile app before the deadline.",
+        "The benefit is an individual subscription; check family plans and Apple One separately."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-terms",
+          "text": "You, as the primary cardmember, will receive at least 12 months of complimentary Apple Music from the activation date."
+        }
       ]
     },
     "terms": {
@@ -855,6 +962,26 @@
       "howToUse": [
         "核对主卡身份并关联正确的 IHG One Rewards 账户。",
         "等待会籍生效后在 IHG 账户核对等级和到期日；不标成钻石。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "IHG One Rewards Platinum Elite status",
+      "summary": "Primary cardmembers can activate IHG One Rewards Platinum Elite status, not Diamond, by linking an IHG One Rewards account; activation can take up to 3 weeks.",
+      "howToUse": [
+        "As the primary cardmember, link your IHG One Rewards account on chase.com or the Chase Mobile app.",
+        "Allow up to 3 weeks, then check the tier and its end date in your IHG account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ihg",
+          "text": "You must activate this benefit by linking your IHG One Rewards account on Chase.com or the Chase Mobile"
+        },
+        {
+          "sourceId": "ihg",
+          "text": "Please allow up to 3 weeks after linking your IHG One Rewards account for activation of your Platinum Elite status benefit to be complete."
+        }
       ]
     },
     "terms": {
@@ -929,6 +1056,26 @@
       "howToUse": [
         "核对个人准入凭证、参与休息室和携客条件。",
         "公开自动激活规则不替代个人凭证和现场准入核验。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Priority Pass Select membership",
+      "summary": "Primary cardmembers and authorized users have Priority Pass Select activated automatically; guests are limited and lounge entry needs the physical card or Priority Pass digital card.",
+      "howToUse": [
+        "Check your Priority Pass membership card, the participating lounges and the guest allowance.",
+        "A card in a digital wallet is not accepted for lounge access."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-terms",
+          "text": "Primary cardmembers and any authorized users will have their Priority Pass Select membership automatically activated."
+        },
+        {
+          "sourceId": "csr-terms",
+          "text": "A valid credit card in your digital wallet will not be accepted for access to a lounge."
+        }
       ]
     },
     "terms": {
@@ -996,6 +1143,21 @@
       "howToUse": [
         "按参与地点和准入条款使用；不等同航空精英会籍。",
         "使用前核对官方参与地点、当前条件和个人资格。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Chase Sapphire Lounges",
+      "summary": "Complimentary access to every Chase Sapphire Lounge by The Club with up to two guests, under each location's access terms; this is not airline elite status.",
+      "howToUse": [
+        "Check the participating locations and current access terms before you travel."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "Enjoy complimentary access to every Chase Sapphire Lounge by The Club with up to two guests, plus access to 1,300+ Priority Pass lounges worldwide."
+        }
       ]
     },
     "terms": {
@@ -1062,6 +1224,26 @@
       "howToUse": [
         "核对当日星盟行程、指定地点及携客人数。",
         "排除 YUL 及 Signature Suites；休息室权益不代表航空会籍。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Air Canada lounge access",
+      "summary": "Access with 1 guest to participating Air Canada Maple Leaf Lounges and Cafés when departing on a Star Alliance flight; Signature Suites and Montréal (YUL) lounges are excluded.",
+      "howToUse": [
+        "Check that you depart the same day on a Star Alliance member airline flight and that the location participates.",
+        "Signature Suites and all YUL lounges are excluded; lounge access is not airline status."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-terms",
+          "text": "Eligible cardmembers are granted complimentary access for themselves and 1 guest each to Air Canada’s network of Maple Leaf Lounges and Air Canada Cafés across participating locations in Canada, the U.S. and Europe, when departing on a Star Alliance member airline flight."
+        },
+        {
+          "sourceId": "csr-terms",
+          "text": "Air Canada Signature Suites and all lounges located in Montréal (YUL) are excluded."
+        }
       ]
     },
     "terms": {
@@ -1126,6 +1308,21 @@
       "summary": "每四年一笔合资格申请费；须核对上次使用日期。",
       "howToUse": [
         "先核对过去四年是否已经使用过这项申请费抵扣。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry, TSA PreCheck or NEXUS fee credit",
+      "summary": "One statement credit of up to $120 every four years for the application fee charged to the card.",
+      "howToUse": [
+        "Check whether the credit was already used in the past four years before you apply."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "Receive one statement credit of up to $120 every four years as reimbursement for the application fee charged to your card."
+        }
       ]
     },
     "terms": {
@@ -1191,6 +1388,26 @@
       "howToUse": [
         "选择符合 The Edit 条款的预订路径，并查看酒店当次入住待遇。",
         "早餐及酒店消费额度按酒店条件核对；升级不得保证。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "The Edit program benefits",
+      "summary": "Benefits at The Edit properties when booked through Chase Travel; they are per room, subject to availability at check-in and not redeemable for cash.",
+      "howToUse": [
+        "Book The Edit property through Chase Travel to receive the program benefits.",
+        "Benefits depend on the property and availability; an upgrade is not guaranteed."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-terms",
+          "text": "To receive benefits, reservations must be made for “The Edit” properties through Chase Travel."
+        },
+        {
+          "sourceId": "csr-terms",
+          "text": "Benefits may be subject to availability at check-in and are not redeemable for cash."
+        }
       ]
     },
     "terms": {
@@ -1257,6 +1474,22 @@
       "howToUse": [
         "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
         "在银行核对达标年份、解锁记录及有效期；不要因持卡推断已经达标。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "World of Hyatt Explorist status ($75K spend)",
+      "summary": "Unlocked after $75,000 in purchases in a calendar year, for the rest of that year and the following calendar year; activation requirements apply.",
+      "howToUse": [
+        "Unlocked after $75,000 in purchases in a calendar year; check activation requirements in your chase.com account.",
+        "Check the year it was earned and its end date; holding the card does not mean the threshold was met."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "Spend $75,000 each calendar year and unlock status and credits with leading travel and shopping brands. The benefits will be available for the remainder of the year in which they were earned, through the following calendar year."
+        }
       ]
     },
     "terms": {
@@ -1333,6 +1566,22 @@
       "howToUse": [
         "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
         "在银行核对达标年份、解锁记录及有效期；不要因持卡推断已经达标。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "IHG One Rewards Diamond Elite status ($75K spend)",
+      "summary": "Unlocked after $75,000 in purchases in a calendar year, for the rest of that year and the following calendar year; activation requirements apply.",
+      "howToUse": [
+        "Unlocked after $75,000 in purchases in a calendar year; check activation requirements in your chase.com account.",
+        "Check the year it was earned and its end date; holding the card does not mean the threshold was met."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "Spend $75,000 each calendar year and unlock status and credits with leading travel and shopping brands. The benefits will be available for the remainder of the year in which they were earned, through the following calendar year."
+        }
       ]
     },
     "terms": {
@@ -1409,6 +1658,22 @@
       "howToUse": [
         "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
         "在银行核对达标年份、解锁记录及有效期；不要因持卡推断已经达标。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Southwest Rapid Rewards A-List status ($75K spend)",
+      "summary": "Unlocked after $75,000 in purchases in a calendar year, for the rest of that year and the following calendar year; activation requirements apply.",
+      "howToUse": [
+        "Unlocked after $75,000 in purchases in a calendar year; check activation requirements in your chase.com account.",
+        "Check the year it was earned and its end date; holding the card does not mean the threshold was met."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "Spend $75,000 each calendar year and unlock status and credits with leading travel and shopping brands. The benefits will be available for the remainder of the year in which they were earned, through the following calendar year."
+        }
       ]
     },
     "terms": {
@@ -1486,6 +1751,22 @@
       "howToUse": [
         "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
         "在银行核对达标年份、解锁记录及有效期；不要因持卡推断已经达标。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$500 Southwest Airlines Chase Travel credit ($75K spend)",
+      "summary": "After $75,000 in purchases in a calendar year, up to $500 in statement credits for Southwest Airlines purchases made on Chase Travel.",
+      "howToUse": [
+        "Unlocked after $75,000 in purchases in a calendar year; check activation requirements in your chase.com account.",
+        "Check the year it was earned and its end date; holding the card does not mean the threshold was met."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "Spend $75,000 each calendar year and unlock status and credits with leading travel and shopping brands. The benefits will be available for the remainder of the year in which they were earned, through the following calendar year."
+        }
       ]
     },
     "terms": {
@@ -1562,6 +1843,22 @@
       "howToUse": [
         "自然年合资格消费达75000美元后解锁；仍须核对登记和有效期。",
         "在银行核对达标年份、解锁记录及有效期；不要因持卡推断已经达标。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$250 The Shops at Chase credit ($75K spend)",
+      "summary": "Unlocked after $75,000 in purchases in a calendar year: up to $250 in The Shops at Chase statement credits, for the rest of that year and the following calendar year.",
+      "howToUse": [
+        "Unlocked after $75,000 in purchases in a calendar year; check activation requirements in your chase.com account.",
+        "Check the year it was earned and its end date; holding the card does not mean the threshold was met."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "Spend $75,000 each calendar year and unlock status and credits with leading travel and shopping brands. The benefits will be available for the remainder of the year in which they were earned, through the following calendar year."
+        }
       ]
     },
     "terms": {
@@ -1636,6 +1933,21 @@
       "howToUse": [
         "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
         "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption Insurance",
+      "summary": "Reimbursement for prepaid, non-refundable travel expenses when a trip is canceled or cut short by a covered situation, within per-traveler and per-trip limits.",
+      "howToUse": [
+        "This is a summary of the coverage; check the full Guide to Benefits for eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "If your trip is canceled or cut short by sickness, severe weather or other covered situations, you can be reimbursed up to $10,000 per covered traveler and $20,000 per trip for your pre-paid, non-refundable travel expenses, including passenger fares, tours and hotels."
+        }
       ]
     },
     "terms": {
@@ -1699,6 +2011,21 @@
       "howToUse": [
         "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
         "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay Reimbursement",
+      "summary": "Covers unreimbursed expenses such as meals and lodging when common carrier travel is delayed more than 6 hours or requires an overnight stay.",
+      "howToUse": [
+        "This is a summary of the coverage; check the full Guide to Benefits for eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "If your common carrier travel is delayed more than 6 hours or requires an overnight stay, you are covered for unreimbursed expenses, such as meals and lodging, up to $500 per covered traveler."
+        }
       ]
     },
     "terms": {
@@ -1762,6 +2089,21 @@
       "howToUse": [
         "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
         "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Delay Insurance",
+      "summary": "Reimburses essential purchases when baggage is delayed over 6 hours, per day for a limited number of days.",
+      "howToUse": [
+        "This is a summary of the coverage; check the full Guide to Benefits for eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "Reimburses you up to $100 a day for up to 5 days for essential purchases like toiletries and clothing when baggage is delayed over 6 hours."
+        }
       ]
     },
     "terms": {
@@ -1825,6 +2167,21 @@
       "howToUse": [
         "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
         "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Emergency Evacuation and Transportation",
+      "summary": "Covers medical services and transportation when an injury or sickness on a trip 100 miles or more from home results in an emergency evacuation.",
+      "howToUse": [
+        "This is a summary of the coverage; check the full Guide to Benefits for eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "If you or a covered traveler are injured or become sick during a trip 100 miles or more from home that results in an emergency evacuation, you can be covered for medical services and transportation up to $100,000."
+        }
       ]
     },
     "terms": {
@@ -1888,6 +2245,21 @@
       "howToUse": [
         "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
         "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Auto Rental Coverage",
+      "summary": "Primary coverage for theft and collision damage on most rental vehicles when you decline the rental company's collision insurance and pay the whole rental with the card.",
+      "howToUse": [
+        "This is a summary of the coverage; check the full Guide to Benefits for eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "Decline the rental company’s collision insurance and charge the entire rental cost to your card. Coverage is primary and provides reimbursement up to $75,000 for theft and collision damage for most rental vehicles in the U.S. and abroad."
+        }
       ]
     },
     "terms": {
@@ -1951,6 +2323,21 @@
       "howToUse": [
         "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
         "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Roadside Assistance",
+      "summary": "Towing, battery, tire change, locksmith or gas service in a roadside emergency, within per-incident and yearly limits.",
+      "howToUse": [
+        "This is a summary of the coverage; check the full Guide to Benefits for eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "If you have a roadside emergency, you can call for a tow, battery assistance, tire change, locksmith or gas. You’re covered up to $50 per incident 4 times a year."
+        }
       ]
     },
     "terms": {
@@ -2014,6 +2401,21 @@
       "howToUse": [
         "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
         "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "Covers eligible new purchases against damage or theft for 120 days from purchase, within a per-item limit.",
+      "howToUse": [
+        "This is a summary of the coverage; check the full Guide to Benefits for eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "Covers your eligible new purchases for 120 days from the date of purchase against damage or theft up to $10,000 per item."
+        }
       ]
     },
     "terms": {
@@ -2077,6 +2479,21 @@
       "howToUse": [
         "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
         "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Return Protection",
+      "summary": "Reimbursement for eligible items a store will not take back within 90 days of purchase, within per-item and yearly limits.",
+      "howToUse": [
+        "This is a summary of the coverage; check the full Guide to Benefits for eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "You can be reimbursed for eligible items that the store won’t accept within 90 days of purchase, up to $500 per item and up to $1,000 total per 12-month period."
+        }
       ]
     },
     "terms": {
@@ -2140,6 +2557,21 @@
       "howToUse": [
         "保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
         "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "Extends an eligible manufacturer's U.S. warranty of three years or less by one more year.",
+      "howToUse": [
+        "This is a summary of the coverage; check the full Guide to Benefits for eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "csr-benefits",
+          "text": "Extends the time period of the manufacturer’s U.S. warranty by an additional year, on eligible warranties of three years or less, up to four years from the date of purchase."
+        }
       ]
     },
     "terms": {
@@ -5174,6 +5606,25 @@
         "先核对卡种、地区及当前官方条款。",
         "不同休息室的登记、携客和航班条件各异；Priority Pass需登记。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Lounge Collection",
+      "summary": "Platinum Card Members get access to the American Express Global Lounge Collection; Priority Pass requires enrollment, and each lounge has its own access rules.",
+      "howToUse": [
+        "Check each lounge's access, guest and flight rules; enroll in Priority Pass separately."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ms-us",
+          "text": "With the American Express Global Lounge Collection, Platinum Card Members get access to more airport lounge options than any other credit card company on the market"
+        },
+        {
+          "sourceId": "ms-us",
+          "text": "Priority Pass Enrollment Required"
+        }
       ]
     },
     "terms": {
@@ -9045,6 +9496,26 @@
         "先核对卡种、地区及当前官方条款。",
         "可作为UR返现使用；本卡单独不自动拥有CSR的航空酒店转点资格，组合卡需按账户规则。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Cash Back rewards redemption",
+      "summary": "Freedom Unlimited earns Cash Back rewards tracked as points, redeemable for cash, gift cards and travel; the card alone does not give the airline and hotel transfers of Sapphire Reserve.",
+      "howToUse": [
+        "Redeem points for the reward options in the program; there is no minimum to redeem for cash back.",
+        "Transfers to travel partners depend on the account rules for combining points with another card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "freedom-us",
+          "text": "Cash Back rewards are tracked as points and each $1 in Cash Back rewards earned is equal to 100 points."
+        },
+        {
+          "sourceId": "freedom-us",
+          "text": "You can use your points to redeem for any available reward options, including cash, gift cards, travel, and pay with points for products or services made available through the program or directly from third parties."
+        }
       ]
     },
     "terms": {
@@ -17770,6 +18241,22 @@
         "先由主卡或授权账户管理人登记，再向当前名单中的美国商户直接消费。",
         "每月10美元是账户合计上限，不是每位附属卡各10美元；跨月交易以商户报送日期为准。",
         "保留交易记录；可能需等8周到账，未到账不自动当成不合格。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$120 Dining Credit",
+      "summary": "After enrollment, up to $10 in statement credits each month at participating U.S. partners; the monthly amount is shared by the account.",
+      "howToUse": [
+        "Enroll first, then pay a participating partner directly with the Gold Card.",
+        "$10 a month is an account total, not per additional card; credits can take up to 8 weeks."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-gold-guide-20261029",
+          "text": "earn up to $10 in statement credits monthly when you pay with the American Express Gold Card at Grubhub (including Seamless), Buffalo Wild Wings, Five Guys, The Cheesecake Factory, and Wonder. Enrollment required."
+        }
       ]
     },
     "terms": {
@@ -17903,6 +18390,22 @@
         "先登记并确认生效；查询付款当天的合资格标示，不把所有可订餐厅都视为合资格。",
         "按半年共享50美元上限记录；普通餐厅礼品卡等边界消费不作到账保证。",
         "Tock直接预付渠道有明确2026-09-15生效日，不倒推更早消费。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$100 Resy Credit",
+      "summary": "After enrollment, up to $50 from January through June and $50 from July through December for eligible purchases at qualifying U.S. Resy restaurants.",
+      "howToUse": [
+        "Enroll through your Card account and check that the restaurant qualifies on the day you pay.",
+        "Each half-year allows up to $50; gift cards are not guaranteed to qualify."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-gold-guide-20261029",
+          "text": "That's up to $50 in statement credits from January through June and up to $50 in statement credits from July through December. Enrollment required through your Card Account."
+        }
       ]
     },
     "terms": {
@@ -18036,6 +18539,22 @@
         "先登记，再向美国合资格Dunkin地点直接付款。",
         "不要把网上礼品卡、第三方品牌商品，或社区充值经验记成官方保证。",
         "按月7美元账户共享上限核对，预计到账最长8周。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$84 Dunkin' Credit",
+      "summary": "After enrollment, up to $7 in statement credits each month when you pay with the Gold Card at U.S. Dunkin' locations.",
+      "howToUse": [
+        "Enroll, then pay at a U.S. Dunkin' location with the Gold Card.",
+        "Online gift cards and Dunkin' products sold by other retailers do not count."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-gold-guide-20261029",
+          "text": "Earn up to $7 in monthly statement credits after you pay with the American Express Gold Card at U.S. Dunkin' locations."
+        }
       ]
     },
     "terms": {
@@ -18168,6 +18687,31 @@
         "在Uber账户直接添加合资格Gold卡，不通过电子钱包间接添加。",
         "使用时开启Uber Cash并选择Amex付款；这是Uber余额而不是Amex账单报销。",
         "当月赠额不结转；截止时区为夏威夷时间，账户实际余额仍需核对。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$120 Uber Cash",
+      "summary": "Add the Gold Card to your Uber account to get $10 in Uber Cash each month for U.S. rides and orders when an Amex Card is selected; it expires at the end of each month.",
+      "howToUse": [
+        "Add the Gold Card to your Uber account directly.",
+        "Select an Amex Card for the transaction; this is Uber Cash, not a statement credit.",
+        "Uber Cash expires at 11:59 PM Hawaii Standard Time on the last day of each month and does not carry over."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-uber-amex-20261029",
+          "text": "The Amex Benefit is distributed to your Uber Cash balance in monthly increments of $10."
+        },
+        {
+          "sourceId": "coupon-uber-amex-20261029",
+          "text": "Uber Cash received through the Amex Benefit expires at 11:59 PM Hawaii Standard Time on the last day of each calendar month."
+        },
+        {
+          "sourceId": "coupon-gold-guide-20261029",
+          "text": "Just add your Card to your Uber account to start getting your monthly Uber Cash."
+        }
       ]
     },
     "terms": {
@@ -18541,6 +19085,27 @@
         "在Chase Travel确认The Edit、至少两晚及Pay Now预付。",
         "2026年起按自然年500美元，每笔最多250美元，不套用半年规则。",
         "以东部时间周期末及交易处理为准；取消或修改可能追回报销。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$500 Credit for stays with The Edit",
+      "summary": "Up to $250 per qualifying purchase and $500 per calendar year for prepaid \"Pay Now\" stays of 2 nights or more booked with The Edit by Chase Travel; covered amounts earn no points.",
+      "howToUse": [
+        "Book a property in The Edit through Chase Travel as a prepaid \"Pay Now\" stay of at least 2 nights.",
+        "Count the credit by calendar year: up to $250 per purchase and $500 a year in total.",
+        "Credit periods end at 11:59 PM ET; returns, cancellations or changes can reverse the credit."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-csr-terms-20261029",
+          "text": "Starting 1/1/2026 a statement credit of up to $250 will be automatically applied to your account for qualifying purchases with The Edit by Chase Travel, for a total maximum accumulation of $500 in statement credits each calendar year."
+        },
+        {
+          "sourceId": "coupon-csr-terms-20261029",
+          "text": "Qualifying purchases are when you or an authorized user of the account use the card for pre-paid \"Pay Now\" stays of 2 nights or more."
+        }
       ]
     },
     "terms": {
@@ -18661,6 +19226,26 @@
         "核对当前参与名单和直接收单，不把所有OpenTable餐厅视为合资格。",
         "每半年150美元，东部时间6月30日/12月31日23:59结束。",
         "预订资格与报销交易条件分别核对；最迟可能4周到账。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$300 Annual Dining Credit",
+      "summary": "Up to $150 from January through June and $150 from July through December for dining purchases at select restaurants.",
+      "howToUse": [
+        "Check the current list of select restaurants before you go; not every OpenTable restaurant qualifies.",
+        "Each half-year allows up to $150; credits can take up to 4 weeks to post."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-csr-terms-20261029",
+          "text": "A statement credit will be automatically applied to your account for dining purchases at select restaurants up to a maximum accumulation of $150 in statement credits from January 1 through June 30 and up to $150 from July 1 through December 31"
+        },
+        {
+          "sourceId": "coupon-csr-terms-20261029",
+          "text": "For more information, including the list of select restaurants, go to https://www.opentable.com/sapphire-reserve-exclusive-tables"
+        }
       ]
     },
     "terms": {
@@ -18787,6 +19372,23 @@
         "先确认该CSR的DashPass有效并以同一卡付款；结账手动选择折扣。",
         "15美元券一次使用，订单小计不足15美元的余值会失效。",
         "当月不结转，券兑换后退款不返券；不要用总金额差额推算还剩几张券。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$15 monthly DoorDash promotion",
+      "summary": "With an activated Reserve DashPass membership, a $15 off promotion each calendar month on one qualifying DoorDash order; it applies to the subtotal only.",
+      "howToUse": [
+        "Keep the DashPass membership activated through this card and pay with the same card.",
+        "The $15 promotion is used on one order; it does not cover fees, taxes or gratuity.",
+        "Unused promotions do not roll over; do not work out remaining promotions from totals."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-csr-terms-20261029",
+          "text": "you will receive a $15 off promotion each calendar month at checkout on one qualifying order on DoorDash as long as you remain enrolled in a DashPass membership"
+        }
       ]
     },
     "terms": {
@@ -18918,6 +19520,27 @@
         "先确认该CSR的DashPass有效并以同一卡付款；结账手动选择折扣。",
         "每张券只用一单；两张10美元券不能合成一张20美元券。",
         "当月不结转，券兑换后退款不返券；不要用总金额差额推算还剩几张券。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Two $10 monthly DoorDash non-restaurant promotions",
+      "summary": "With an activated Reserve DashPass membership, two $10 off promotions each calendar month on qualifying non-restaurant DoorDash orders; each must be used on a separate order.",
+      "howToUse": [
+        "Keep the DashPass membership activated through this card and pay with the same card.",
+        "Use each $10 promotion on its own non-restaurant order; the two cannot be combined into $20.",
+        "Unused promotions do not roll over."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-csr-terms-20261029",
+          "text": "you will receive two (2) $10 off promotions each calendar month at checkout on one qualifying non-restaurant order on DoorDash"
+        },
+        {
+          "sourceId": "coupon-csr-terms-20261029",
+          "text": "Each discount must be used on a separate order."
+        }
       ]
     },
     "terms": {
@@ -19048,6 +19671,27 @@
         "先在Chase账户激活，再通过官方支持的网站或App直接购票。",
         "每半年150美元且不要求最低购买额；东部时间周期末截止。",
         "退款、取消及部分关户情形可能追回抵扣；活动到期日不是个人剩余额度。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$300 Annual StubHub Credit",
+      "summary": "After one-time activation, up to $150 from January through June and $150 from July through December for qualifying purchases with StubHub and viagogo, through 12/31/27.",
+      "howToUse": [
+        "Activate the benefit once on chase.com or the Chase Mobile app.",
+        "Buy directly with StubHub or viagogo; each half-year allows up to $150, and periods end at 11:59 PM ET.",
+        "The end date of the offer is not a personal remaining balance; refunds and cancellations can reverse credits."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-csr-terms-20261029",
+          "text": "$300 Annual StubHub Credit through 12/31/27 for Chase Sapphire Reserve and J.P. Morgan Reserve Personal Cards: One-time activation required on chase.com or the Chase Mobile"
+        },
+        {
+          "sourceId": "coupon-csr-terms-20261029",
+          "text": "A statement credit will be automatically applied to your account for qualifying purchases with StubHub and viagogo up to a maximum accumulation of $150 in statement credits from January 1 through June 30 and up to $150 from July 1 through December 31"
+        }
       ]
     },
     "terms": {
@@ -19175,6 +19819,27 @@
         "先在Chase激活，直接向Peloton支付合资格月度会员，不能通过App商店代收。",
         "账户每月共享10美元；器材10倍积分与会员报销分开，不把年付会员自动按月摊抵。",
         "最迟可能8周到账；旧账户个人资格仍需核对。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$120 Annual Peloton Membership Credit",
+      "summary": "After one-time activation, up to $10 a month for qualifying Peloton memberships bought with the card, through 12/31/2027.",
+      "howToUse": [
+        "Activate the benefit once on chase.com or the Chase Mobile app.",
+        "Pay Peloton directly for a qualifying monthly membership; purchases made outside the U.S. are excluded.",
+        "The account shares the $10 monthly maximum."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-csr-terms-20261029",
+          "text": "A statement credit will be automatically applied to your account for qualifying Peloton Membership purchases up to a monthly maximum of $10 for a total maximum accumulation of $120 per calendar year through 12/31/2027."
+        },
+        {
+          "sourceId": "coupon-csr-terms-20261029",
+          "text": "Qualifying monthly Peloton Memberships include only Peloton All-Access Membership, Rental, App+, Guide, App One, or Strength+ memberships"
+        }
       ]
     },
     "terms": {
@@ -19306,6 +19971,21 @@
         "先确认个人已选航司，再区分机票与杂费，不套用Aspire机票抵扣规则。",
         "账户自然年共享200美元；未选航司前的费用不符合。",
         "合资格杂费通常最多等8周，退款或取消可能追回。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Airline Fee Credit",
+      "summary": "After selecting one qualifying airline, up to $200 a calendar year for incidental airline fees charged by that airline.",
+      "howToUse": [
+        "Select your airline in the Benefits section first; tickets are not incidental fees."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "are eligible to receive up to $200 in statement credits per calendar year for incidental airline fees charged by their one selected qualifying airline to the enrolled Card Account."
+        }
       ]
     },
     "terms": {
@@ -19437,6 +20117,21 @@
         "先登记，再核对具体服务与直接收款方；不要只看品牌名。",
         "所有参与伙伴与主副卡合计共享每月25美元。",
         "本项是账单报销；不要把它当作平台内可直接使用的余额。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Digital Entertainment Credit",
+      "summary": "After enrollment, up to $25 each month on eligible purchases made directly with participating partners.",
+      "howToUse": [
+        "Enroll, then pay a participating partner directly with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Enrolled Basic Card Members can receive up to $25 in statement credits each month on eligible purchases charged to the Card Account for a total of up to $300 each calendar year in statement credits."
+        }
       ]
     },
     "terms": {
@@ -19574,6 +20269,26 @@
         "先确认合资格卡角色与预付渠道，不把普通酒店直订或任意Airbnb当作符合。",
         "THC、Airbnb Luxe至少连续两晚；2026年的FHR不提前套用2027年新规。",
         "半年截止以美国中部时间为准，处理须在周期内；报销最长可能90天。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$600 Lodging Credit",
+      "summary": "Up to $300 semi-annually (January to June, July to December) on new prepaid Fine Hotels + Resorts, The Hotel Collection and Airbnb Luxe bookings made through American Express Travel; the two-night minimum for Fine Hotels + Resorts starts January 1, 2027.",
+      "howToUse": [
+        "Prepay through AmexTravel.com, the Amex Travel App or by phone; ordinary hotel or Airbnb bookings do not count.",
+        "Check the minimum-night rule of each program in the terms; Fine Hotels + Resorts requires two nights from January 1, 2027."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Basic Card Members on a U.S. Consumer Platinum Card Account are eligible to receive up to $300 in statement credits semi-annually (January to June, and July to December) for up to a total of $600 per calendar year"
+        },
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Effective January 1, 2027, Fine Hotels + Resorts bookings will require a minimum two-night stay to be eligible for the $600 Lodging Credit."
+        }
       ]
     },
     "terms": {
@@ -19701,6 +20416,22 @@
         "先登记；核对门店、网站地区、寄送地区和商品类型。",
         "每季75美元主副卡共享，不是每卡一份。",
         "礼品卡不能因为是官网出售就当作符合。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "lululemon Credit",
+      "summary": "After enrollment, up to $75 each quarter for purchases directly with lululemon in U.S. stores, lululemon.com or the app; outlets, Like New and some other channels are excluded.",
+      "howToUse": [
+        "Enroll, then buy directly from lululemon in the U.S.",
+        "$75 a quarter is shared by the account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Eligible purchases are purchases made directly with lululemon at lululemon stores in the U.S., online at U.S. website lululemon.com or through the lululemon app (excluding lululemon Studio, Like New, outlet locations"
+        }
       ]
     },
     "terms": {
@@ -19837,6 +20568,26 @@
         "先登记，确认订单为合资格戒指并直接由官方美国网站收款。",
         "会员费、充电器及第三方商店不按此项报销。",
         "按自然年账户共享200美元，退款可能追回。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Oura Ring Credit",
+      "summary": "After enrollment, up to $200 each calendar year for Oura Ring purchases at ouraring.com; memberships and other hardware are excluded.",
+      "howToUse": [
+        "Enroll, then buy an Oura Ring online at ouraring.com in the U.S.",
+        "Memberships, chargers and add-ons do not count."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Enrolled Basic Card Members can receive up to $200 in statement credits each calendar year on eligible purchases charged to the Card Account."
+        },
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Excludes Oura membership purchases, other hardware purchases (e.g., chargers, add-ons)"
+        }
       ]
     },
     "terms": {
@@ -19968,6 +20719,22 @@
         "先登记并确认生效，再核对付款当天的Resy/Tock合资格标示。",
         "每季100美元，不套用Gold的每半年50美元周期。",
         "餐厅礼品卡、外送和第三方活动收单不保证到账。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Resy Credit",
+      "summary": "After enrollment, up to $100 each quarter for eligible Resy purchases, shared by all cards on the account.",
+      "howToUse": [
+        "Enroll, then pay eligible Resy purchases with a card on the account.",
+        "$100 a quarter is the account total."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Enrolled Basic Card Members can earn up to $100 in statement credits each quarter when the Basic Card or Additional Cards on the enrolled Account are used to pay for eligible Resy purchases."
+        }
       ]
     },
     "terms": {
@@ -20102,6 +20869,26 @@
         "直接添加合资格白金主卡，使用时开启Uber Cash并选择Amex付款。",
         "12月有额外20美元；不是全年每月均35美元。",
         "月底不结转，普通白金附属卡不另领此福利；与Uber One报销分开。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Uber Cash",
+      "summary": "$15 in Uber Cash each month plus $20 more in December; it expires at the end of each month and is not a statement credit.",
+      "howToUse": [
+        "Add the Platinum Card to your Uber account and select an Amex Card when you pay.",
+        "Uber Cash expires at 11:59 PM Hawaii Standard Time on the last day of each month."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Basic Card Members on a Consumer Platinum or Centurion account and Additional Centurion Members are eligible for $15 Uber Cash each month plus an additional $20 Uber Cash in December"
+        },
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Uber Cash received through the Amex Benefit expires at 11:59 PM Hawaii Standard Time on the last day of each calendar month."
+        }
       ]
     },
     "terms": {
@@ -20244,6 +21031,26 @@
         "确认是Uber One会员费并关闭Uber Cash，让合资格银行卡实际扣费。",
         "月付或年付均可，主副卡合计自然年120美元。",
         "不要与每月赠送的Uber Cash混为同一种福利。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Uber One Credit",
+      "summary": "Up to $120 a calendar year on monthly or annual Uber One membership fees charged to an eligible card.",
+      "howToUse": [
+        "Turn Uber Cash off for the membership fee so the card is charged directly.",
+        "This is separate from the monthly Uber Cash."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Basic Card Members on U.S. Consumer Platinum Accounts are eligible to receive up to $120 in statement credits per calendar year on Uber One membership fees charged to an eligible Card."
+        },
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Valid on both monthly and annual Uber One membership purchases."
+        }
       ]
     },
     "terms": {
@@ -20369,6 +21176,25 @@
         "核对会员为月付，并使用主卡或附属卡付款。",
         "年付不自动拆成月度报销；升级服务与Business+不适用。",
         "不把12.95美元加税的规则显示成固定12.95美元绝对上限。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Walmart+ Monthly Membership Credit",
+      "summary": "A statement credit for one Walmart+ monthly membership fee each month, up to $12.95 plus applicable taxes; Plus Ups and Walmart Business+ are not eligible.",
+      "howToUse": [
+        "Pay a monthly Walmart+ membership with a card on the account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Basic U.S. Consumer Platinum Card Members can receive a statement credit for one Walmart+ monthly membership fee (up to $12.95 plus applicable taxes)"
+        },
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Purchases of any membership Plus Ups (for example, Walmart InHome) and purchases of Walmart Business+ memberships are not eligible for this benefit."
+        }
       ]
     },
     "terms": {
@@ -20491,6 +21317,21 @@
         "确认实际年会员费及CLEAR批准，不把申请本身当作已获会员。",
         "主副卡合计自然年219美元；本项会自动续费。",
         "退款会影响已获抵扣；预计最长8周到账。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "CLEAR+ Credit",
+      "summary": "Up to $219 a calendar year when a card on the account pays for an annual CLEAR+ membership; CLEAR enrollment is required.",
+      "howToUse": [
+        "Pay for the CLEAR+ membership with a card on the account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Basic Card Members can earn up to $219 in statement credits per calendar year when their Platinum Card or Additional Cards on the Account are used to pay for an annual CLEAR+ Membership."
+        }
       ]
     },
     "terms": {
@@ -20611,6 +21452,26 @@
         "先确认合资格卡角色与预付渠道，不把普通酒店直订或任意Airbnb当作符合。",
         "2027-01-01起FHR、THC及Airbnb Luxe都必须至少连续两晚。",
         "半年截止以美国中部时间为准，处理须在周期内；报销最长可能90天。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$600 Lodging Credit",
+      "summary": "Up to $300 semi-annually (January to June, July to December) on new prepaid Fine Hotels + Resorts, The Hotel Collection and Airbnb Luxe bookings; from January 1, 2027 Fine Hotels + Resorts needs two nights.",
+      "howToUse": [
+        "Prepay through AmexTravel.com, the Amex Travel App or by phone; ordinary hotel or Airbnb bookings do not count.",
+        "From January 1, 2027 Fine Hotels + Resorts requires two nights."
+      ],
+      "quotes": [
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Basic Card Members on a U.S. Consumer Platinum Card Account are eligible to receive up to $300 in statement credits semi-annually (January to June, and July to December) for up to a total of $600 per calendar year"
+        },
+        {
+          "sourceId": "coupon-ms-print-20261029",
+          "text": "Effective January 1, 2027, Fine Hotels + Resorts bookings will require a minimum two-night stay to be eligible for the $600 Lodging Credit."
+        }
       ]
     },
     "terms": {
@@ -28094,6 +28955,22 @@
         "先核对卡种、当前官方条款和适用条件。",
         "通过 Chase Travel 用本卡订酒店自动抵扣；“每年”从开户日起算，不是自然年；被抵扣的前100美元不赚点。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$100 Annual Chase Travel Hotel Credit",
+      "summary": "Statement credits up to $100 a year for hotel stays booked through Chase Travel with the card; the year runs from the account open date, and the first $100 of these purchases earns no points.",
+      "howToUse": [
+        "Book the hotel through Chase Travel and pay with this card.",
+        "Count the year from your account open date, not January 1."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-chase-sapphire-preferred-credit-card",
+          "text": "A statement credit will automatically be applied to your account when your card is used for hotel accommodation purchases made through Chase Travel, up to an annual maximum accumulation of $100."
+        }
       ]
     },
     "terms": {
@@ -28160,6 +29037,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每四年一次，须用本卡支付申请费。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry, TSA PreCheck or NEXUS fee credit",
+      "summary": "One statement credit of up to $120 every four years after the application fee is charged to the card.",
+      "howToUse": [
+        "Pay the application fee with this card, and check whether the credit was used in the past four years."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-chase-sapphire-preferred-credit-card",
+          "text": "Receive one statement credit of up to $120 every four years as reimbursement for the application fee charged to your card."
+        }
       ]
     },
     "terms": {
@@ -28228,6 +29120,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "DashPass 会员每月10美元，可用于杂货和零售等订单；须在2029年12月31日前激活 DashPass。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$10 monthly DoorDash non-restaurant promotion",
+      "summary": "With an activated Sapphire Preferred DashPass membership, a $10 off promotion each calendar month on one qualifying non-restaurant order; DashPass must be activated by December 31, 2029.",
+      "howToUse": [
+        "Activate DashPass with the card by December 31, 2029 and pay with the same card.",
+        "Use the promotion on a non-restaurant order such as grocery or retail."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-chase-sapphire-preferred-credit-card",
+          "text": "you will receive a $10 off promotion each calendar month at checkout on one qualifying non-restaurant order on DoorDash"
+        },
+        {
+          "sourceId": "card-chase-us-chase-sapphire-preferred-credit-card",
+          "text": "can activate complimentary DashPass with an eligible Chase Sapphire Preferred Credit Card by December 31, 2029"
+        }
       ]
     },
     "terms": {
@@ -28297,6 +29209,25 @@
         "先核对卡种、当前官方条款和适用条件。",
         "一年免费 Apple TV，须在2026年12月31日前激活。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Complimentary Apple TV",
+      "summary": "At least 12 months of complimentary Apple TV for the primary cardmember when activated by December 31, 2026.",
+      "howToUse": [
+        "The primary cardmember activates on chase.com or the Chase Mobile app by December 31, 2026."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-chase-sapphire-preferred-credit-card",
+          "text": "You, as the primary cardmember, will receive at least 12 months of complimentary Apple TV from the activation date."
+        },
+        {
+          "sourceId": "card-chase-us-chase-sapphire-preferred-credit-card",
+          "text": "Get a year of complimentary Apple TV when activated by December 31, 2026"
+        }
       ]
     },
     "terms": {
@@ -28572,6 +29503,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "激活 DashPass 后每月最多10美元，用于杂货和零售订单；须在2027年12月31日前激活。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Monthly DoorDash grocery and retail promotion",
+      "summary": "Once DashPass is activated with the card, up to $10 a month on grocery and retail DoorDash orders; DashPass must be activated by 12/31/2027.",
+      "howToUse": [
+        "Activate complimentary DashPass with the card by 12/31/2027.",
+        "Use the monthly promotion on grocery or retail orders."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-preferred-credit-card",
+          "text": "Plus, as soon as you activate your membership, you'll receive up to $10 a month on grocery and retail DoorDash orders."
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-preferred-credit-card",
+          "text": "when the membership is activated with a Chase Ink Business Preferred card by 12/31/2027"
+        }
       ]
     },
     "terms": {
@@ -28916,6 +29867,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "须有有效 Instacart+ 会员并在2025年5月1日至2027年12月31日间激活；免费会员期结束后会自动续费。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Monthly Instacart credit",
+      "summary": "Instacart+ members who activate the benefit get a $20 Instacart credit each month in their Instacart Business Account; activation runs between 5/1/2025 and 12/31/2027.",
+      "howToUse": [
+        "Activate the Instacart+ membership with the card at instacart.com/p/chase-ink between 5/1/2025 and 12/31/2027.",
+        "The complimentary membership renews automatically afterwards; an existing paid membership is paused."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-cash-credit-card",
+          "text": "when the membership is activated on https://www.instacart.com/p/chase-ink"
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-cash-credit-card",
+          "text": "Plus, once activated, Instacart+ members get a $20 Instacart credit each month automatically loaded into their"
+        }
       ]
     },
     "terms": {
@@ -29118,6 +30089,22 @@
         "先核对卡种、当前官方条款和适用条件。",
         "须有有效 Instacart+ 会员并在2025年5月1日至2027年12月31日间激活；免费会员期结束后会自动续费。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Monthly Instacart credit",
+      "summary": "Instacart+ members who activate the benefit get a $20 Instacart credit each month in their Instacart Business Account; activation runs between 5/1/2025 and 12/31/2027.",
+      "howToUse": [
+        "Activate the Instacart+ membership with the card at instacart.com/p/chase-ink between 5/1/2025 and 12/31/2027.",
+        "The complimentary membership renews automatically afterwards; an existing paid membership is paused."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-unlimited-credit-card",
+          "text": "when the membership is activated on https://www.instacart.com/p/chase-ink"
+        }
       ]
     },
     "terms": {
@@ -29594,6 +30581,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "DashPass 会员每季最多10美元，仅限非餐厅订单，至2029年12月31日。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Quarterly DoorDash non-restaurant discount",
+      "summary": "With an activated Freedom DashPass membership, a $10 off discount each calendar quarter on one qualifying non-restaurant order; it does not roll over.",
+      "howToUse": [
+        "Activate DashPass with the card and pay with it at checkout.",
+        "Use the discount within the quarter on a non-restaurant order."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-chase-freedom-flex-credit-card",
+          "text": "you will receive a $10 off discount each calendar quarter at checkout on one qualifying non-restaurant order on DoorDash as long as you remain enrolled in a DashPass membership"
+        },
+        {
+          "sourceId": "card-chase-us-chase-freedom-flex-credit-card",
+          "text": "the quarterly discount will not roll over into a subsequent quarter"
+        }
       ]
     },
     "terms": {
@@ -30010,6 +31017,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每个账户周年最多300美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$300 annual travel credit",
+      "summary": "Up to $300 in statement credits each account anniversary year; purchases covered by the credit earn no points.",
+      "howToUse": [
+        "Count the year from your account anniversary, not January 1."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "Receive up to $300 in statement credits each anniversary year."
+        }
       ]
     },
     "terms": {
@@ -30078,6 +31100,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年最多500美元，单笔最多250美元，限预付且至少住两晚；2027年1月1日起增至1,000美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Credit for stays with The Edit",
+      "summary": "Up to $500 a year for bookings with The Edit, at most $250 per transaction, two-night minimum; from 1/1/2027 up to $1,000 a year.",
+      "howToUse": [
+        "Book The Edit through Chase Travel for at least two nights.",
+        "Up to $250 per transaction; the annual total rises to $1,000 from 1/1/2027."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "Get up to $500 in automatic statement credits annually for bookings made with The Edit, with a maximum of $250 per transaction."
+        },
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "Starting 1/1/2027, get up to $1,000 in statement credits annually with two additional $250 credits"
+        }
       ]
     },
     "terms": {
@@ -30144,6 +31186,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每四年一次，须用本卡支付申请费。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry, TSA PreCheck or NEXUS fee credit",
+      "summary": "One statement credit of up to $120 every four years for the application fee charged to the card.",
+      "howToUse": [
+        "Pay the application fee with this card, and check whether the credit was used in the past four years."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "Receive one statement credit of up to $120 every four years as reimbursement for the application fee charged to your card."
+        }
       ]
     },
     "terms": {
@@ -30210,6 +31267,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年最多200美元，须直接向 Google Workspace 购买，至2027年12月31日。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Google Workspace credit",
+      "summary": "Up to $200 in annual statement credits on purchases made directly on Google Workspace.",
+      "howToUse": [
+        "Buy directly from Google Workspace with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "earn up to $200 in annual statement credits on purchases made directly on Google Workspace."
+        }
       ]
     },
     "terms": {
@@ -30276,6 +31348,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每半年最多200美元，须直接向 ZipRecruiter 购买，至2027年12月31日。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$400 ZipRecruiter credit",
+      "summary": "Up to $200 from January through June and $200 from July through December on purchases made directly with ZipRecruiter.",
+      "howToUse": [
+        "Buy directly from ZipRecruiter with the card; each half-year allows up to $200."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "You'll earn up to $200 in statement credits January through June and up to $200 in statement credits July through December."
+        }
       ]
     },
     "terms": {
@@ -30342,6 +31429,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "Lyft 应用内每月最多10美元，至2027年9月30日。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$10 monthly Lyft credit",
+      "summary": "Whoever adds the card to the Lyft app first gets a $10 Lyft credit each calendar month through 9/30/2027, for rideshare rides booked in the Lyft app.",
+      "howToUse": [
+        "Add the card to the Lyft app and pay for rideshare rides with it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "will receive a $10 Lyft credit each calendar month through 9/30/2027 to use for qualifying Lyft purchases"
+        }
       ]
     },
     "terms": {
@@ -30410,6 +31512,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "DashPass 会员每月最多25美元，须激活，至2027年12月31日；分为5美元餐厅优惠和两张10美元杂货零售等优惠，不能一次用完。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Monthly DoorDash promotions",
+      "summary": "DashPass members get up to $25 a month on DoorDash: a $5 restaurant promotion and two $10 promotions for groceries, retail and more, through 12/31/27.",
+      "howToUse": [
+        "Activate DashPass with the card.",
+        "Use the $5 promotion on a restaurant order and each $10 promotion on its own non-restaurant order."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "DashPass members get up to $25 each month to spend on DoorDash, which includes a $5 monthly promo to spend on restaurant orders"
+        },
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "Each discount must be used on a separate order."
+        }
       ]
     },
     "terms": {
@@ -30827,6 +31949,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "半年一次、每次最多300美元，全年最多600美元，须通过 Amex Travel 预付；半年如何划分页面未写明。THC 须至少住两晚；2027年1月1日起 FHR 也须至少住两晚。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$600 Hotel Credit",
+      "summary": "Up to $300 semi-annually on prepaid Fine Hotels + Resorts or The Hotel Collection bookings through American Express Travel; The Hotel Collection needs two nights, and from January 1, 2027 so does Fine Hotels + Resorts.",
+      "howToUse": [
+        "Prepay the booking through American Express Travel with the Platinum Card.",
+        "The Hotel Collection requires two nights; from January 1, 2027 Fine Hotels + Resorts also requires two nights."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card",
+          "text": "Get up to $300 in statement credits semi-annually on prepaid Fine Hotels + Resorts program or The Hotel Collection bookings"
+        },
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card",
+          "text": "Effective January 1, 2027, Fine Hotels + Resorts bookings will require a minimum two-night stay to be eligible for the $600 Hotel Credit."
+        }
       ]
     },
     "terms": {
@@ -30896,6 +32038,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每月15美元，12月另加20美元，限美国境内乘车或订单，须把卡加入 Uber 账户。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Uber Cash",
+      "summary": "Add the Platinum Card to your Uber account for $15 in Uber Cash each month plus $20 more in December, for U.S. rides and orders when an Amex Card is selected.",
+      "howToUse": [
+        "Add the card to your Uber account and select an Amex Card when you pay."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card",
+          "text": "Add your Platinum Card to your Uber account to start receiving $15 in Uber Cash each month, plus a bonus $20 in December, to use on rides and orders in the U.S. when you select an Amex Card for your transaction."
+        }
       ]
     },
     "terms": {
@@ -30965,6 +32122,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年最多120美元，须用本卡购买自动续费的 Uber One。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$120 Uber One Credit",
+      "summary": "Up to $120 a calendar year after you buy an auto-renewing Uber One membership with the card.",
+      "howToUse": [
+        "Pay for the Uber One membership with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card",
+          "text": "you can get up to $120 in statement credits each calendar year after you purchase an auto-renewing Uber One membership with the Card."
+        }
       ]
     },
     "terms": {
@@ -31032,6 +32204,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年最多200美元，限所选一家航空的杂费。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Airline Fee Credit",
+      "summary": "Up to $200 a calendar year for incidental fees, such as checked bags and in-flight refreshments, charged by your one selected qualifying airline.",
+      "howToUse": [
+        "Select one qualifying airline first; tickets are not incidental fees."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card",
+          "text": "Earn up to $200 per calendar year in statement credits after incidental fees, such as checked bags and in-flight refreshments, are charged by your one selected qualifying airline to your Card."
+        }
       ]
     },
     "terms": {
@@ -31100,6 +32287,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年最多219美元，限自动续费的 CLEAR+ 会员，不含税费。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$219 CLEAR+ Credit",
+      "summary": "Up to $219 a calendar year after you sign up and pay for an auto-renewing CLEAR+ membership with an eligible card.",
+      "howToUse": [
+        "Pay for the CLEAR+ membership with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card",
+          "text": "You can receive up to $219 in statement credits per calendar year after you sign up and pay for a CLEAR+ Membership (subject to auto-renewal) with your eligible American Express Card."
+        }
       ]
     },
     "terms": {
@@ -31168,6 +32370,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每季最多100美元，限美国合资格 Resy 餐厅，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$400 Resy Credit",
+      "summary": "After enrollment, up to $100 each quarter for eligible purchases with Resy, including dining at qualifying U.S. Resy restaurants.",
+      "howToUse": [
+        "Enroll, then pay with the Platinum Card at a qualifying U.S. Resy restaurant."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card",
+          "text": "you can get up to $100 in statement credits each quarter after you use the Platinum Card to make eligible purchases with Resy, including dining purchases at over 10,000 qualifying U.S. Resy restaurants. Enrollment required."
+        }
       ]
     },
     "terms": {
@@ -31235,6 +32452,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每月最多25美元，限参与的合作商户，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$300 Digital Entertainment Credit",
+      "summary": "After enrollment, up to $25 each month for eligible purchases at participating partners.",
+      "howToUse": [
+        "Enroll, then pay a participating partner directly with the Platinum Card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card",
+          "text": "Get up to $25 in statement credits each month after you pay for eligible purchases with the Platinum Card at participating partners. Enrollment required."
+        }
       ]
     },
     "terms": {
@@ -31304,6 +32536,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每季最多75美元，限美国门店（奥特莱斯除外）和 lululemon.com，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$300 lululemon Credit",
+      "summary": "After enrollment, up to $75 each quarter for eligible purchases at U.S. lululemon stores (excluding outlets) and lululemon.com.",
+      "howToUse": [
+        "Enroll, then buy at a U.S. lululemon store or lululemon.com with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card",
+          "text": "You can receive up to $75 in statement credits each quarter when you use the Card for eligible purchases at U.S. lululemon retail stores (excluding outlets) and lululemon.com. Enrollment required."
+        }
       ]
     },
     "terms": {
@@ -31373,6 +32620,25 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每月最多12.95美元加适用税费，限一份自动续费的月付会员。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$155 Walmart+ Credit",
+      "summary": "Up to $12.95 plus applicable taxes back each month after you pay for a monthly Walmart+ membership with the Platinum Card.",
+      "howToUse": [
+        "Pay a monthly Walmart+ membership with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card",
+          "text": "Get up to a $12.95 statement credit back each month after you pay for a monthly Walmart+ membership (subject to auto-renewal) with your Platinum Card."
+        },
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card",
+          "text": "Up to $12.95 plus applicable taxes on one membership fee."
+        }
       ]
     },
     "terms": {
@@ -31721,6 +32987,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "半年一次、每次最多300美元，全年最多600美元，须通过 Amex Travel 预付；半年如何划分页面未写明。THC 须至少住两晚；2027年1月1日起 FHR 也须至少住两晚。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $600 Hotel Credit",
+      "summary": "Up to $300 semi-annually, $600 a calendar year, on prepaid Fine Hotels + Resorts or The Hotel Collection bookings through American Express Travel; The Hotel Collection needs two nights, and from January 1, 2027 so does Fine Hotels + Resorts.",
+      "howToUse": [
+        "Prepay the booking through American Express Travel with the card.",
+        "The Hotel Collection requires two nights; from January 1, 2027 Fine Hotels + Resorts also requires two nights."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card",
+          "text": "Get up to $300 in statement credits semi-annually for up to a total of $600 each calendar year on prepaid Fine Hotels + Resorts or The Hotel Collection bookings"
+        },
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card",
+          "text": "Effective January 1, 2027, Fine Hotels + Resorts bookings will require a minimum two-night stay to be eligible for the $600 Hotel Credit."
+        }
       ]
     },
     "terms": {
@@ -31788,6 +33074,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年最多200美元，限所选一家航空的杂费。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $200 Airline Fee Credit",
+      "summary": "Up to $200 a calendar year for incidental fees charged by your one selected qualifying airline.",
+      "howToUse": [
+        "Select one qualifying airline first; tickets are not incidental fees."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card",
+          "text": "Statement credits up to $200 per calendar year for incidental fees charged by your one selected qualifying airline."
+        }
       ]
     },
     "terms": {
@@ -31856,6 +33157,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年最多219美元，限自动续费会员，不含税费。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $219 CLEAR Plus Credit",
+      "summary": "Up to $219 a calendar year for an auto-renewing CLEAR Plus membership, excluding taxes and fees.",
+      "howToUse": [
+        "Pay the CLEAR Plus membership with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card",
+          "text": "Statement credits up to $219 per calendar year for an auto-renewing CLEAR Plus Membership, excluding taxes and fees."
+        }
       ]
     },
     "terms": {
@@ -31924,6 +33240,22 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每季最多50美元，须登记并直接向 Hilton 购买。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $200 Hilton Credit",
+      "summary": "Hilton for Business members can get up to $50 a quarter on eligible purchases made directly with Hilton; enrollment required.",
+      "howToUse": [
+        "Enroll; a Hilton for Business account is created at enrollment if you have none.",
+        "Pay Hilton directly with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card",
+          "text": "Hilton for Business members can get statement credits of up to $50 quarterly on eligible purchases made directly with Hilton. Enrollment required."
+        }
       ]
     },
     "terms": {
@@ -31991,6 +33323,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年最多150美元；消费满5,000美元后再得1,000美元；须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $1,150 Dell Technologies Credit",
+      "summary": "After enrollment, up to $150 a calendar year on U.S. purchases directly with Dell Technologies, plus $1,000 more after $5,000 of those purchases.",
+      "howToUse": [
+        "Enroll, then buy directly from Dell Technologies in the U.S. with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card",
+          "text": "Statement credits up to $150 on U.S. purchases directly with Dell Technologies, and an additional $1,000 statement credit after you spend $5,000 or more on those purchases, per calendar year. Enrollment required."
+        }
       ]
     },
     "terms": {
@@ -32058,6 +33405,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年250美元，须直接向 Adobe 消费满600美元，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$250 Adobe Credit",
+      "summary": "After enrollment, a $250 statement credit per calendar year once you spend $600 or more on U.S. purchases directly with Adobe that year.",
+      "howToUse": [
+        "Enroll, then buy directly from Adobe in the U.S. with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card",
+          "text": "A $250 statement credit per calendar year after you spend $600 or more on U.S. purchases directly with Adobe in a calendar year. Enrollment required."
+        }
       ]
     },
     "terms": {
@@ -32125,6 +33487,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每季最多90美元，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $360 Indeed Credit",
+      "summary": "After enrollment, up to $90 a quarter for purchases with Indeed on the card.",
+      "howToUse": [
+        "Enroll, then pay Indeed with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card",
+          "text": "Get up to $90 in statement credits quarterly for purchases with Indeed on the Card."
+        }
       ]
     },
     "terms": {
@@ -32192,6 +33569,26 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每月最多10美元，须直接向美国无线通信商购买，须登记；2027年2月17日起只限指定商户。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $120 Wireless Credit",
+      "summary": "After enrollment, up to $10 a month for wireless telephone service bought directly from a U.S. wireless provider; from February 17, 2027, select merchants only.",
+      "howToUse": [
+        "Enroll, then pay your U.S. wireless provider directly with the card.",
+        "From February 17, 2027 only select merchants qualify; check the terms."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card",
+          "text": "Get up to $10 in statement credits per month for wireless telephone service purchases made directly with a wireless provider in the U.S. on the Card."
+        },
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card",
+          "text": "Effective February 17, 2027, select merchants only."
+        }
       ]
     },
     "terms": {
@@ -32538,6 +33935,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每月最多20美元，限 Grubhub、办公用品店和 UPS.com 的美国消费，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$240 Flexible Business Credit",
+      "summary": "After enrollment, up to $20 a month for eligible U.S. purchases at Grubhub, office supply stores and UPS.com shipments.",
+      "howToUse": [
+        "Enroll, then pay eligible U.S. purchases with the Business Gold Card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-gold-card",
+          "text": "Earn up to $20 in statement credits each month after you use the Card for eligible U.S. purchases at Grubhub, Office Supply Stores, and shipments at UPS.com. Enrollment required."
+        }
       ]
     },
     "terms": {
@@ -32605,6 +34017,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年最多300美元，限美国购买，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$300 ChatGPT Business Credit",
+      "summary": "After enrollment, up to $300 a calendar year on U.S. purchases of ChatGPT Business on the Business Gold Card; subscriptions auto-renew.",
+      "howToUse": [
+        "Enroll, then pay for ChatGPT Business in the U.S. with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-gold-card",
+          "text": "Get up to $300 in statement credits per calendar year on U.S. purchases of ChatGPT Business on the Business Gold Card. Enrollment required."
+        }
       ]
     },
     "terms": {
@@ -32672,6 +34099,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年最多150美元，限美国购买，须登记。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$150 Squarespace Credit",
+      "summary": "After enrollment, up to $150 a calendar year for U.S. purchases with Squarespace on the Business Gold Card.",
+      "howToUse": [
+        "Enroll, then pay Squarespace in the U.S. with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-gold-card",
+          "text": "Enroll and get up to $150 in statement credits per calendar year for U.S. purchases with Squarespace on the Business Gold Card."
+        }
       ]
     },
     "terms": {
@@ -32741,6 +34183,25 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每月最多12.95美元加税，限一份月付会员。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$155 Walmart+ Credit",
+      "summary": "A statement credit each month for one monthly Walmart+ membership paid with the card, up to $12.95 plus applicable local sales tax; Plus Ups are not eligible.",
+      "howToUse": [
+        "Pay a monthly Walmart+ membership with the Business Gold Card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-gold-card",
+          "text": "for one monthly Walmart+ membership (subject to auto-renewal) after you pay for Walmart+ each month with the Business Gold Card."
+        },
+        {
+          "sourceId": "card-amex-us-us-business-gold-card",
+          "text": "Up to $12.95 plus applicable local sales tax. Plus Ups not eligible."
+        }
       ]
     },
     "terms": {

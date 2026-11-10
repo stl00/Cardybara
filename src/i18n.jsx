@@ -5,7 +5,7 @@ import zhTW from 'antd/locale/zh_TW';
 import enUS from 'antd/locale/en_US';
 import {activateLanguage, normalizeLanguage} from './i18n-core';
 import {subscribeSystemDark, systemPrefersDark} from './colorScheme';
-export {t, formatNumber, formatDateTime,formatReadDate} from './i18n-core';
+export {t, ruleField, formatNumber, formatDateTime,formatReadDate} from './i18n-core';
 const locales = {'zh-CN':zhCN, 'zh-TW':zhTW, 'en-US':enUS};
 const LanguageContext = createContext(null);
 const STORAGE_KEY = 'cardybara-language';

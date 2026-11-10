@@ -34,3 +34,15 @@ export function formatReadDate(value){
  if(/^\d{4}-\d{2}-\d{2}$/.test(value))return value;
  const date=new Date(value);return Number.isFinite(date.getTime())?new Intl.DateTimeFormat('en-CA',{timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit'}).format(date):t('未采集');
 }
+const scriptOf = lang => /^en/.test(lang) ? 'en' : /^zh-(?:HK|TW|Hant)/.test(lang) ? 'zh-Hant' : /^zh/.test(lang) ? 'zh-Hans' : lang;
+// Rule text for the reader: the same language first (the original, a stored translation, or the dictionary),
+// then the zh-CN text for a Chinese reader, then the official original, then zh-CN. `field` is 'title' or 'summary'; zh is the zh-CN text.
+export function ruleField(zh, { original, translations: shown } = {}, field = 'title', language = activeLanguage) {
+  if (original && scriptOf(original.lang) === scriptOf(language)) return original[field];
+  const stored = Object.entries(shown || {}).find(([lang]) => scriptOf(lang) === scriptOf(language));
+  if (stored) return stored[1][field];
+  if (language === 'zh-CN' || zh == null) return zh ?? '';
+  const known = translations[language]?.[String(zh)];
+  if (known != null) return known;
+  return original && !/^zh/.test(language) ? original[field] : String(zh);
+}
