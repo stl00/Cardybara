@@ -49384,6 +49384,96 @@
     "personalState": "not-in-public-knowledge"
   },
   {
+    "id": "rule.chase-us-world-of-hyatt-credit-card.doordash-promo",
+    "revision": 2,
+    "revisionId": "rule.chase-us-world-of-hyatt-credit-card.doordash-promo@2026-11-09.2",
+    "supersedes": "rule.chase-us-world-of-hyatt-credit-card.doordash-promo@2026-11-04.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-world-of-hyatt-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "promo",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [
+      "programme.doordash"
+    ],
+    "content": {
+      "title": "DoorDash 非餐厅订单优惠",
+      "summary": "激活 DashPass 后，每期一笔非餐厅订单减10美元，周期看激活时间：2026年9月1日至2027年12月31日首次激活的按自然月，2025年2月1日至2026年8月31日激活的按自然季；须用激活时的卡付款，未用完的部分作废。",
+      "sourceText": "you will receive a $10 off discount each calendar month at checkout on one qualifying non-restaurant order on DoorDash",
+      "howToUse": [
+        "在 DoorDash 的 Manage DashPass 页面核对首次激活日期，判断适用每月还是每季。",
+        "结账时选择折扣，并用激活 DashPass 时的卡付款。",
+        "未用完的10美元作废；个人资格和已用情况未核实。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$10 off DoorDash non-restaurant orders",
+      "summary": "With DashPass activated, $10 off one qualifying non-restaurant order per period. The period depends on the activation date: each calendar month for activations from 09/01/2026 to 12/31/2027, each calendar quarter for activations from 02/01/2025 to 08/31/2026. Pay with the card used to enrol; unused value is forfeited.",
+      "howToUse": [
+        "Check your first activation date on the Manage DashPass page to see whether the monthly or quarterly discount applies.",
+        "Select the discount at checkout and pay with the card used to enrol in DashPass.",
+        "Any unused part of the $10 is forfeited; personal eligibility and use are not verified."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "Once you have activated your DashPass membership for the first time between 09/01/2026 and 12/31/2027, you will receive a $10 off discount each calendar month at checkout on one qualifying non-restaurant order on DoorDash as long as you remain enrolled in a DashPass membership."
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "If you activated your DashPass membership between 02/01/2025 and 08/31/2026, you will receive a $10 off discount each calendar quarter at checkout on one qualifying non-restaurant order on DoorDash as long as you remain enrolled in a DashPass membership."
+        }
+      ]
+    },
+    "terms": {
+      "category": "promo",
+      "period": "activation-based",
+      "amount": 10,
+      "currency": "USD",
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "激活 DashPass 后，每期一笔非餐厅订单减10美元，周期看激活时间：2026年9月1日至2027年12月31日首次激活的按自然月，2025年2月1日至2026年8月31日激活的按自然季；须用激活时的卡付款，未用完的部分作废。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-world-of-hyatt-credit-card"
+      ],
+      "checkedAt": "2026-11-09",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-09",
+      "reviewAfter": "2027-02-07",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
     "id": "rule.chase-us-air-canada-aeroplan-card.fee-primary",
     "revision": 1,
     "revisionId": "rule.chase-us-air-canada-aeroplan-card.fee-primary@2026-11-04.1",
