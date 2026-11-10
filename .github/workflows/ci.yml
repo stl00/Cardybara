@@ -72,6 +72,12 @@ jobs:
       - name: Lost records across a restart must fail
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
         run: node scripts/e2e-extension.mjs package-under-test --restart --negative-controls --out e2e-output/restart-negative
+      - name: An expired bank session asks for a sign-in again and keeps the records
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
+        run: node scripts/e2e-extension.mjs package-under-test --expired-login --out e2e-output/expired-login
+      - name: A session that never expired must fail the expired-login check
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
+        run: node scripts/e2e-extension.mjs package-under-test --expired-login --negative-controls --out e2e-output/expired-login-negative
       - name: Upload logs and synthetic-page screenshots
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
