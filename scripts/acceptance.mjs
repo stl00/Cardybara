@@ -34,7 +34,7 @@ export function validateAcceptance(report,{sha256,runtimeBuild,now=Date.now()}){
   for(const [index,card] of (Array.isArray(b?.cards)?b.cards:[]).entries())for(const field of ['reward',...BILLING_FIELDS]){
    const f=card?.fields?.[field],explained=typeof f?.reason==='string'&&f.reason.trim().length>5,named=typeof f?.programme==='string'&&/\p{L}{2}/u.test(f.programme)&&!/^\s*(?:points?|miles?|rewards?|cash ?back|n\/?a|none|unknown|積分|积分|獎賞|奖赏)\s*$/i.test(f.programme);
    // Rewards are required for Membership Rewards and Ultimate Rewards only. Any other programme must be named as not collected; a required one never can be.
-   const notCollected=field==='reward'&&f?.status==='not_collected'&&explained&&named&&!requiredReward(bank,f.programme)&&confirmedOtherProgramme(bank,f.programme);
+   const notCollected=field==='reward'&&f?.status==='not_collected'&&explained&&named&&!requiredReward(bank,f.programme)&&confirmedOtherProgramme(bank,f.programme,card?.name);
    // Only a payment field may be satisfied by the bank's statement that no payment is due.
    need(f?.status==='observed'||notCollected||['minimum','due'].includes(field)&&f?.status==='explicit_not_applicable'&&explained,`${bank} card ${index+1}: ${field} not verified`);
    if(field==='due'&&f?.status==='observed')need(dueYearEvidenced(f),`${bank} card ${index+1}: due date has no year evidence`);

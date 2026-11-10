@@ -2,6 +2,9 @@ import {ORIGIN,PROVIDERS,FIELDS,VERSION} from './providers.js';
 const token=v=>typeof v==='string'&&/^[a-zA-Z0-9-]{1,64}$/.test(v);
 const object=v=>v&&typeof v==='object'&&!Array.isArray(v);
 const keys=(v,allowed)=>object(v)&&Object.keys(v).every(k=>allowed.includes(k));
+// A card's product name lets reward coverage tell a co-brand from a promoted brand. Never a long number.
+export const validCardName=n=>typeof n==='string'&&n.length>0&&n.length<=100&&!/[<>\u0000-\u001f]/.test(n)&&!/(?:\d[ -]?){9,}/.test(n);
+export const refreshCard=({id,bank,tail,currency,name})=>({id,bank,tail,currency,...(validCardName(name)?{name}:{})});
 export function trusted(sender){try{return Number.isInteger(sender?.tab?.id)&&sender.frameId===0&&new URL(sender.url).origin===ORIGIN;}catch{return false;}}
 export function request(m){
  if(!object(m)||JSON.stringify(m).length>16000||!token(m.requestId))throw Error('invalid_request');
@@ -15,7 +18,7 @@ export function request(m){
  if(m.type!=='refresh'||!keys(m,['type','requestId','banks','cards','cardId','channel'])||!Array.isArray(m.banks)||!m.banks.length||m.banks.length>7||new Set(m.banks).size!==m.banks.length||m.banks.some(b=>!Object.hasOwn(PROVIDERS,b))||!Array.isArray(m.cards)||m.cards.length>40)throw Error('invalid_scope');
  const ids=new Set();
  for(const c of m.cards){
-  if(!keys(c,['id','bank','tail','currency'])||!token(c.id)||ids.has(c.id)||!Object.hasOwn(PROVIDERS,c.bank)||!/^\d{4,5}$/.test(c.tail)||!(PROVIDERS[c.bank].cardCurrencies||[PROVIDERS[c.bank].currency]).includes(c.currency))throw Error('invalid_card');ids.add(c.id);
+  if(!keys(c,['id','bank','tail','currency','name'])||(c.name!==undefined&&!validCardName(c.name))||!token(c.id)||ids.has(c.id)||!Object.hasOwn(PROVIDERS,c.bank)||!/^\d{4,5}$/.test(c.tail)||!(PROVIDERS[c.bank].cardCurrencies||[PROVIDERS[c.bank].currency]).includes(c.currency))throw Error('invalid_card');ids.add(c.id);
  }
  if(m.cardId!==undefined&&(!token(m.cardId)||m.banks.length!==1||!m.cards.some(c=>c.id===m.cardId&&c.bank===m.banks[0])))throw Error('invalid_card_scope');
  return m;

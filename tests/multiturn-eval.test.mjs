@@ -40,9 +40,13 @@ test('look-alike words are not cards or regions',()=>{
 test('tool-ready accepts a wording the tool finds the record by, not one it misses',()=>{
  const byId=id=>dialogues.find(d=>d.id===id);
  assert.ok(strictTarget(byId('ord-sr-lounge-1-en')).ordinal.list[0].includes('Air Canada'));
- // The benefit search finds 年度免房晚 by "annual free night", but not 消费解锁免房晚 by "unlocked by spending".
+ // The benefit search finds 年度免房晚 by "annual free night", and, since the rule has its English original
+ // ("Free Night Reward from spending", #148), 消费解锁免房晚 by "unlocked by spending" too.
  assert.ok(strictTarget(byId('ord-aspire-2-en')).ordinal.list[1].includes('annual free night'));
- assert.ok(!strictTarget(byId('ord-aspire-2-en')).ordinal.list[0].includes('unlocked by spending'));
+ assert.ok(strictTarget(byId('ord-aspire-2-en')).ordinal.list[0].includes('unlocked by spending'));
+ // A wording the search can never find is dropped.
+ const d=structuredClone(byId('ord-aspire-2-en'));d.target.ordinal.list[0]=['消费解锁免房晚','zqxv blorf wug'];
+ assert.deepEqual(strictTarget(d).ordinal.list[0],['消费解锁免房晚']);
 });
 
 test('tool-ready needs the form a tool argument can use as it stands',()=>{
