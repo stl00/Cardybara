@@ -46,3 +46,36 @@ export function convertPoints(points,terms){
 export function readingsFor(transferProgramme,accounts,cards=[]){
  return (accounts?.current||[]).filter(r=>r.bank===transferProgramme.bank&&r.region===transferProgramme.region&&r.unit!=='USD'&&canonicalProgramme(r.label||'')===transferProgramme.reading&&Number.isFinite(r.amount)).map(r=>{const card=cards.find(c=>c.id===r.card)||null,match=card?matchCardProduct(card):null;return {...r,key:[r.id,r.card||'',r.label,r.historical?'historical':'current'].join('|'),usable:Number.isSafeInteger(r.amount),cardRecord:card,productId:match?.status==='matched'?match.product.id:null};});
 }
+const nameKey=s=>String(s??'').normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
+const partnerMatches=(partnerId,named)=>{if(!named)return true;const p=programme(partnerId),n=nameKey(named);return !!n&&[p?.name,...(p?.aliases||[])].some(x=>x&&nameKey(x).includes(n));};
+const ROW_LIMIT=40;
+/** The assistant's answer to "where can my points go and how many is that?" for held cards (#72).
+ * A card belongs to a programme only when a transfer rule lists its product; rates come only from transferRate
+ * rules that list that card, and a stated points amount is converted by convertPoints. Cards are never pooled. */
+export function transferOptions(cards,{partner=null,points=null}={},{asOf=knowledgeManifest.asOf}={}){
+ const programmes=new Map(),withoutRecord=[],routesOf=new Map(transferProgrammes.map(p=>[p.id,transferRoutes(p.id,{asOf})]));
+ for(const card of cards){
+  const productId=matchCardProduct(card).product?.id||null;
+  const tp=productId&&transferProgrammes.find(p=>routesOf.get(p.id).some(r=>r.productIds.includes(productId)));
+  if(!tp){withoutRecord.push({name:card.name,region:card.region});continue;}
+  const group=programmes.get(tp.id)||{programme:tp.label,region:tp.region,cards:[],rows:new Map()};programmes.set(tp.id,group);
+  group.cards.push({name:card.name,region:card.region});
+  for(const r of routesForCard(routesOf.get(tp.id),{hasCard:true,productId}).filter(r=>partnerMatches(r.partnerId,partner))){
+   const key=r.coverage==='listed'?r.ruleId:r.partnerId+'|not-listed';
+   // A programme-wide phrase ("1:1 to most partners") is left out: it is not a rate for this partner.
+   const row=group.rows.get(key)||(r.coverage==='listed'?{
+    partner:r.partner,partnerKind:r.kind,cards:[],rate:r.terms.ratio?'published':'not-published',ratio:r.terms.ratio,
+    ...(r.terms.ratioCondition?{ratioCondition:r.terms.ratioCondition}:{}),    minimumPoints:r.terms.minimumPoints??null,incrementPoints:r.terms.incrementPoints??null,maximumPoints:r.terms.maximumPoints??null,
+    estimatedTime:r.terms.estimatedTime??null,fees:r.terms.fees||[],
+    ...(points!=null?{conversion:convertPoints(points,r.terms)}:{}),
+    effectiveFrom:r.effectiveFrom??null,sourceIds:r.sourceIds,checkedAt:r.checkedAt,reviewDue:!!r.reviewDue
+   // The partner is in the programme but no rule lists this card: no rate, minimum or conversion reaches it.
+   }:{partner:r.partner,partnerKind:r.kind,cards:[],rate:'card-not-listed',ratio:null,sourceIds:r.sourceIds,checkedAt:r.checkedAt});
+   row.cards.push({name:card.name,region:card.region});group.rows.set(key,row);
+  }
+ }
+ const all=[...programmes.values()].map(g=>({programme:g.programme,region:g.region,cards:g.cards,partners:[...g.rows.values()]}));
+ const total=all.reduce((n,g)=>n+g.partners.length,0);let left=ROW_LIMIT;
+ const shown=all.map(g=>{const partners=g.partners.slice(0,Math.max(left,0));left-=partners.length;return {...g,partners};});
+ return {programmes:shown,cardsWithoutTransferRecord:withoutRecord,totalPartners:total,truncated:total>ROW_LIMIT,partnerFound:!partner||total>0};
+}

@@ -97,7 +97,7 @@ for(const transport of Object.keys(transports)){
    assert.equal(url,PROVIDER);
    assert.deepEqual(Object.keys(body).sort(),['max_tokens','messages','model','temperature','thinking','tool_choice','tools']);
    assert.equal(body.model,'deepseek-flash');assert.deepEqual(body.thinking,{type:'disabled'});
-   assert.deepEqual(body.tools.map(t=>t.function.name).sort(),['choose_card','find_benefits','get_card_rules','list_cards','query_credits']);
+   assert.deepEqual(body.tools.map(t=>t.function.name).sort(),['choose_card','convert_points','find_benefits','get_card_rules','list_cards','query_credits']);
    assert.equal(body.messages.filter(x=>x.role==='system').length,1);assert.equal(body.messages[0].role,'system');assert.ok(body.messages[0].content.startsWith(SYSTEM));
    assert.ok(body.messages.slice(1).every(x=>['user','assistant','tool'].includes(x.role)));
    assert.equal(authorization,'Bearer '+(transport==='extension'?EXTENSION_KEY:SERVER_KEY));
