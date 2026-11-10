@@ -9,11 +9,15 @@ const card=id=>{const p=cardProducts.find(x=>x.id===id);return {id:'t-'+id,produ
 const wallet={cards:['amex-us-us-delta-skymiles-reserve-card','chase-us-united-quest','amex-us-us-marriott-bonvoy-brilliant-card'].map(card),events:[],day:'2026-11-09'};
 const find=args=>runWalletTool({id:'c1',function:{name:'find_benefits',arguments:JSON.stringify(args)}},wallet);
 
-test('the tool and the prompt ask for a scenario or category and Chinese keywords, but not for a whole card', () => {
+test('the tool and the prompt ask for a scenario or category and source-language or Chinese keywords, but not for a whole card', () => {
  const tool=agentTools.find(t=>t.function.name==='find_benefits').function;
- assert.match(tool.description,/set the closest scenarioId or category whenever the question points to a use/);
+ assert.match(tool.description,/set the closest scenarioId or category whenever the question points to a use/i);
  assert.match(tool.description,/For a whole card or all benefits, leave scenarioId and category empty/);
- assert.match(tool.description,/Simplified Chinese/);
+ assert.match(tool.description,/official text in its source language/);
+ assert.match(tool.description,/Simplified Chinese or English keywords/);
+ assert.doesNotMatch(tool.description,/records are written in Simplified Chinese/);
+ assert.match(SYSTEM,/the user's own words plus Simplified Chinese or English keywords/);
+ assert.doesNotMatch(SYSTEM,/short Simplified Chinese keywords/);
  assert.match(SYSTEM,/When calling find_benefits, set the closest scenarioId or category whenever/);
  assert.match(SYSTEM,/still answering in the user's language/);
 });
