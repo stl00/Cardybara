@@ -1,5 +1,6 @@
 // Public, deterministic knowledge API. No model, network, credentials or account storage.
 import manifest from './data/knowledge/manifest.json' with {type:'json'};
+import {validateDecisionFields} from './creditApplicability.js';
 import taxonomy from './data/knowledge/taxonomy.json' with {type:'json'};
 import entities from './data/knowledge/entities.json' with {type:'json'};
 import sources from './data/knowledge/sources.json' with {type:'json'};
@@ -120,6 +121,7 @@ export function validateKnowledge(records=rules){
    if(r.content.translatedFrom!==o.lang)fail('original: zh-CN content must be marked as translated from the original');
   }else if(r.content.translatedFrom)fail('translated content without an original');
   for(const [lang,t] of Object.entries(r.translations||{}))if(!ORIGINAL_LANGUAGES.includes(lang)||sameLanguage(lang,r.original?.lang)||sameLanguage(lang,'zh-CN')||!t.title||!t.summary||!t.howToUse?.length)fail('invalid display translation');
+  for(const error of validateDecisionFields(r))fail(error);
   if(r.conditions.coverage!=='partial'||!r.conditions.unparsedText)fail('conditions must preserve unresolved text');
   for(const c of r.conditions.all)if(!taxonomy.conditionOps.includes(c.op)||!taxonomy.conditionFields.includes(c.field))fail('unsupported condition');
   if(r.personalState!=='not-in-public-knowledge')fail('personal state in public knowledge');
