@@ -241,12 +241,14 @@ The unanswerable questions match real words in nearby rules. The noise is not a 
    - Tune `concept` and `outsideMin` jointly, on dev, under the same constraints, and confirm on held-out.
    - First add more absent and forbidden-labelled questions, so the noise and forbidden constraints rest on more than a handful of questions.
 
-## IDF word weights (#161, 2026-11-10)
+## IDF word weights (#161, 2026-11-09)
 
 After the source-text migration (#148) put English originals into every rule, a word such as "credit" (in 138 of 239 rules) or 抵扣 (107) matched most rules. Precision fell, and in mode B the Citi Lyft rule was pushed out of a rideshare search. Following #150's recommendation, `src/benefitSearch.js` now:
 - **IDF-weights words.** A word's title, programme or body points are scaled by its IDF over all active benefit rules; a word found in 10 rules keeps the old flat points.
 - **Gates common words.** A word in more than a quarter of rules adds its small weight, but on its own cannot make a rule match or earn a category boost. The quarter was fixed in advance, not tuned.
-- **Fixes typos.** An English word of 5+ letters that no rule contains also matches rule words one edit away (rideshre → rideshare).
+- **Fixes typos.** An English word of 6+ letters that no rule contains also matches rule words one insertion, deletion or neighbour swap away (rideshre → rideshare, resturant → restaurant).
+  - Substitutions are excluded, because they turn real words into others (diving → dining).
+  - Fixed words add search terms only: they do not fire concepts or make a question topical.
 - **Adds vocabulary for rules that only a brand name reaches:**
   - hiring → Indeed / ZipRecruiter
   - website → Squarespace
@@ -259,6 +261,8 @@ After the source-text migration (#148) put English originals into every rule, a 
   - grocery → Instacart
   - rideshare → Lyft
 
+  #160's "unknown subject" answer now also treats common words like 年度 or perks, and also applies when nothing matched at all. So "scuba diving perks" says no benefit mentions it, rather than offering suggestions.
+
   There is also an airline concept: an airline question matches rules that name an airline or say airline or flight (Air Canada), but not brand-named hotel credits.
 - **Tunes `concept` 6 and `outsideMin` 10 together on dev only.** The constraints, all against main after #160:
   - recall in A, B and C no lower;
@@ -270,21 +274,28 @@ After the source-text migration (#148) put English originals into every rule, a 
 **Where the vocabulary came from, and what that means for held-out.** The first held-out read of an IDF-only version lost about 2 points of recall. Every lost rule had matched only through "credit" or 抵扣.
 - **New dev questions:** after that read I wrote 18, on a new `dev-business` portfolio, in my own wording, covering those topics (hiring, website, phone bill, airline spending).
 - **Rule scan:** I scanned every benefit rule for the same gap: a title that is only a brand name, with no generic word a user would say. Every gap found got vocabulary, not only the ones held-out exposed.
-- **Held-out is no longer fully independent for those topics,** because they were picked after seeing its losses. Held-out was read once more at the end. Adding a few new held-out questions later is recommended.
+- **Held-out is no longer fully independent for those topics,** because they were picked after seeing its losses. The affected held-out questions are hb-hiring-en, hb-software-hans, hb-phone-bill, hm-website-en, ht-airline-spend-en and hb-grocery-en.
+  - Some new dev questions sit close to them: db-grocery-en, db-software-en, db-phone-hans.
+  - So the held-out A gain (93.1 → 94.3) is not independent evidence; read it as "no recall lost", nothing more.
+- **Held-out reads:** after the vocabulary work, once at the end. Then once more after the independent review's fixes (tighter typo rule, four narrower glossary patterns), with no tuning in between.
+- **Follow-up:** new held-out questions should be added before this set is used as evidence again.
 
 | Recall · precision · no-answer noise (%) | A | B | C |
 | --- | --- | --- | --- |
 | Dev (147), main after #160 | 87.9 · 49.5 · 75.0 | 92.5 · 58.4 · 50.0 | 99.3 · 61.6 · 12.5 |
-| Dev, this change | **98.5 · 55.5 · 62.5** | **99.8 · 64.6 · 50.0** | **100 · 62.7 · 12.5** |
+| Dev, this change | **98.2 · 55.6 · 62.5** | **99.8 · 64.6 · 50.0** | **100 · 62.7 · 12.5** |
 | Held-out (106), main after #160 | 93.1 · 46.2 · 44.4 | 98.1 · 54.3 · 44.4 | 99.5 · 56.7 · 22.2 |
-| Held-out, this change (final read) | **94.3 · 56.3 · 44.4** | **98.8 · 60.4 · 44.4** | **100 · 57.2 · 0** |
+| Held-out, this change (after review fixes) | **94.3 · 56.4 · 44.4** | **98.8 · 60.4 · 44.4** | **100 · 57.2 · 0** |
 
 - **Forbidden hits** are unchanged: dev A 0.7%, all others 0.
 - **Stored live dev calls:** recall 84.5 → 84.5 (98.5 among searched questions), precision 58.4 → 59.2.
 - **c-rideshare-typo** is back in mode B, with all three rideshare rules in the top 3.
 - **Dev baseline:** it is low because the 18 new questions fail on main.
 
-**Sensitivity after the change.** `outsideMin` is still the only sensitive weight, and `concept` is now flat (#147's sweep, re-run with `npm run lab:benefit-ranking`).
+**Sensitivity after the change** (#147's sweep, re-run with `npm run lab:benefit-ranking`):
+- **`outsideMin` is the main sensitive weight:** span 10 points of C precision and 38 points (3 questions) of C noise.
+- **`concept` and `title` now cross the "sensitive" line, but only just:** span about 1.2 points of all-card recall and 1.7–2.2 points of C precision.
+- **Nothing to tune:** the lab's constrained one-at-a-time tuner finds no setting that beats the current values.
 
 ## Findings
 

@@ -77,11 +77,12 @@ const isCommon=(term,asOf,share)=>dfOf(term,asOf)>share*activeRules(asOf).length
 // edit away (rideshre → rideshare, resturant → restaurant).
 const vocabCache=new Map();
 const vocabulary=asOf=>memo(vocabCache,asOf,()=>{const v=new Set();for(const r of activeRules(asOf)){const d=docOf(r);for(const w of (d.title+' '+d.programmes+' '+d.body).match(/[a-z][a-z-]{4,}/g)||[])v.add(w);}return [...v];});
-function oneEdit(a,b){if(Math.abs(a.length-b.length)>1||a===b)return false;let i=0;while(i<a.length&&a[i]===b[i])i++;
- if(a.length===b.length)return a.slice(i+1)===b.slice(i+1)||(a[i]===b[i+1]&&a[i+1]===b[i]&&a.slice(i+2)===b.slice(i+2));
+// One insertion, deletion or swap of neighbouring letters; no substitution, which turns real words into others (diving → dining).
+function oneEdit(a,b){if(Math.abs(a.length-b.length)!==1&&a.length!==b.length||a===b)return false;let i=0;while(i<a.length&&a[i]===b[i])i++;
+ if(a.length===b.length)return a[i]===b[i+1]&&a[i+1]===b[i]&&a.slice(i+2)===b.slice(i+2);
  return a.length<b.length?a.slice(i)===b.slice(i+1):a.slice(i+1)===b.slice(i);}
 const typoCache=new Map();
-const corrections=(term,asOf)=>memo(typoCache,asOf+'|'+term,()=>!/^[a-z]{5,}$/.test(term)||dfOf(term,asOf)?[]:vocabulary(asOf).filter(w=>oneEdit(term,w)));
+const corrections=(term,asOf)=>memo(typoCache,asOf+'|'+term,()=>!/^[a-z]{6,}$/.test(term)||dfOf(term,asOf)?[]:vocabulary(asOf).filter(w=>oneEdit(term,w)));
 // What every ranker shares: held products, whole-card scope, partner and programme filters, and the scenario/category test.
 function prepare(question,cards,asOf,filters){
  const scope=genericScope(question,cards),generic=!!scope?.cards.length,scoped=new Set((scope?.cards||[]).map(productOf).filter(Boolean));
@@ -111,8 +112,10 @@ export function rubricSearch(weights=DEFAULT_WEIGHTS){
   // #160: a product the wallet doesn't hold has no benefits here.
   if(unheldProduct(question,cards,asOf))return {rules:[],total:0,asOf};
   const {generic,text,docs,passesHard,filtered,inFilter,requestedPartners}=prepare(question,cards,asOf,filters);
+  const commonSeen=new Set();
   const fixed=W.typos?[...new Set(tokens(text).flatMap(t=>corrections(t,asOf)))]:[],full=fixed.length?text+' '+fixed.join(' '):text;
-  const signals=concepts.filter(([,re])=>re.test(full)),terms=generic?[]:tokens(full),matchers=terms.map(t=>[t,matcherOf(t)]),ranked=[];
+  const signals=concepts.filter(([,re])=>re.test(text)),terms=generic?[]:tokens(full),matchers=terms.map(t=>[t,matcherOf(t)]),ranked=[];
+  if(W.idf)for(const t of terms)if(isCommon(t,asOf,W.commonShare))commonSeen.add(t);
   for(const d of docs){
    const matchedPartners=passesHard(d);if(!matchedPartners)continue;
    const {r,title,body,programmes}=d;let score=0;const matched=[];
@@ -135,8 +138,8 @@ export function rubricSearch(weights=DEFAULT_WEIGHTS){
    if(!generic&&!(filtered&&inside)&&score<W.minScore)continue;
    ranked.push({...r,retrieval:{score,inFilter:filtered&&inside,matched}});
   }
-  const topical=signals.some(([key])=>key!=='membership')||requestedPartners.length||filters.scenarioId||filters.category||filters.programme||full!==askedText(question);
-  if(!generic&&!topical&&ranked.length&&ranked.every(x=>x.retrieval.matched.every(m=>WEAK.has(m)))&&askedThing(question))return {rules:[],total:0,asOf};
+  const topical=signals.some(([key])=>key!=='membership')||requestedPartners.length||filters.scenarioId||filters.category||filters.programme||text!==askedText(question);
+  if(!generic&&!topical&&ranked.every(x=>x.retrieval.matched.every(m=>WEAK.has(m)||(W.idf&&commonSeen.has(m))))&&askedThing(question))return {rules:[],total:0,asOf};
   return finish(ranked,filters,asOf);
  };
 }
