@@ -1,0 +1,22 @@
+{
+ "id": "sc-hk-zh-holdout",
+ "provenance": "Synthetic text with invented hold-out names and values. Names appear nowhere in collection code or other fixtures; no live bank acceptance.",
+ "billingRules": true,
+ "bank": "SC HK",
+ "locale": "zh-HK",
+ "card": {
+  "id": "holdout-sc-zh",
+  "bank": "SC HK",
+  "tail": "1414",
+  "currency": "HKD",
+  "name": "Kinkajou 商務卡"
+ },
+ "text": "Kinkajou 商務卡 尾號 1414\n現時結欠\nHK$2,468.10\n可用信貸額\nHK$7,531.90\n月結單結欠\nHK$1,357.90\n最低還款額\nHK$41.00\n還款到期日\n2031年3月7日",
+ "expected": {
+  "balance": 2468.1,
+  "available": 7531.9,
+  "statement": 1357.9,
+  "minimum": 41,
+  "due": "2031-03-07"
+ }
+}

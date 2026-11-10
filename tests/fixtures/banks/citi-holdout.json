@@ -1,0 +1,23 @@
+{
+ "id": "citi-holdout",
+ "provenance": "Synthetic text with invented hold-out names and values. Names appear nowhere in collection code or other fixtures; no live bank acceptance.",
+ "billingRules": true,
+ "bank": "Citi US",
+ "locale": "en-US",
+ "card": {
+  "id": "holdout-citi",
+  "bank": "Citi US",
+  "tail": "27182",
+  "currency": "USD",
+  "name": "Okapi Authorized User Card"
+ },
+ "text": "Okapi Authorized User Card - 27182\nCurrent Balance\n$2,468.10\nStatement closing Feb 9, 2031\nAvailable Credit\n$7,531.90\nCredit Limit:\n$10,000.00\nPayment due on Mar 7, 2031\nLast Statement Balance\n$1,357.90\nMinimum Payment Due\n$41.00",
+ "expected": {
+  "balance": 2468.1,
+  "available": 7531.9,
+  "creditLimit": 10000,
+  "statement": 1357.9,
+  "minimum": 41,
+  "due": "2031-03-07"
+ }
+}

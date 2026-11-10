@@ -15,7 +15,7 @@ test('local parser preflight supports mixed bank fixture formats without claimin
  assert.equal(result.status,0,result.stdout+result.stderr);
  const path=result.stdout.match(/Report: (.+)/)?.[1];assert.ok(path);
  const report=JSON.parse(readFileSync(path,'utf8'));
- assert.equal(report.parsing.pass,true);assert.equal(report.parsing.cases.length,17);assert.equal(report.parsing.cases.filter(c=>c.bank==='BOA').length,2);assert.equal(report.parsing.cases.filter(c=>c.bank==='SC HK').length,2);
+ assert.equal(report.parsing.pass,true);assert.equal(report.parsing.cases.length,21);assert.equal(report.parsing.cases.filter(c=>c.bank==='BOA').length,3);assert.equal(report.parsing.cases.filter(c=>c.bank==='SC HK').length,4);assert.equal(report.parsing.cases.filter(c=>c.bank==='Citi US').length,3);
  assert.equal(report.parsing.cases.filter(c=>c.bank==='Chase').length,6);
  assert.equal(report.workflow.status,'not_run');assert.equal(report.workflow.pass,null);
  assert.equal(report.liveAcceptance.status,'not_run');

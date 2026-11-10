@@ -153,3 +153,54 @@ test('a card listed several times on one page counts once toward the discovery b
  assert.equal(normalizeDiscoveredCards('Amex US',[{tail:'31415',name:'Axolotl Reserve'},{tail:'31415',name:''}])[0].name,'Axolotl Reserve','a later unnamed row keeps the name');
  assert.throws(()=>normalizeDiscoveredCards('Amex US',Array.from({length:41},(_,i)=>({tail:String(31000+i),name:'x'}))),/invalid_discovery/,'distinct cards stay bounded');
 });
+
+// BOA, Citi US and SC HK: the issuer billing reader, held to the same structure-first rule.
+const ISSUER_HOLDOUTS=['boa-holdout','citi-holdout','sc-hk-en-holdout','sc-hk-zh-holdout'],ISSUER_NAMES=['Pangolin','Okapi','Tarsier','Kinkajou'];
+const ISSUER_FIXTURES=[...ISSUER_HOLDOUTS,'boa-card-details','boa-no-payment','citi-card-details','citi-no-payment','sc-hk-en-card-details','sc-hk-zh-card-details'];
+const billingOf=items=>Object.fromEntries(copy(items).map(i=>[i.key,i.key==='due'?i.date:['paymentStatus','duePartial'].includes(i.key)?i.title:i.value]));
+const issuerRead=(f,text=f.text,card=f.card)=>billingOf(reader.issuerBilling(text,f.bank,card));
+// The product name is whatever sits before the masked number on the heading line, or the line above "Card ending in".
+const productOf=f=>{const [first,second]=f.text.split('\n');return /^Card ending in/.test(first)?null:/^Card ending in/.test(second||'')?first:first.replace(/\s*(?:-\s*\d{4,5}|ending in \d{4,5}|信用卡 尾號 \d{4,5}|尾號 \d{4,5})$/,'');};
+const renamed=(f,name)=>{const product=productOf(f);return product?f.text.replace(product,name):name+'\n'+f.text;};
+test('hold-out names for BOA, Citi and SC HK appear nowhere in collection code or other fixtures',()=>{
+ const code=COLLECTION.map(f=>read('../extension-next/'+f)).join('\n');
+ const others=fs.readdirSync(new URL('./fixtures/banks/',import.meta.url)).filter(f=>!ISSUER_HOLDOUTS.includes(f.replace(/\.json$/,''))).map(f=>read('./fixtures/banks/'+f)).join('\n');
+ for(const name of ISSUER_NAMES){assert.ok(!code.includes(name),name);assert.ok(!others.includes(name),name);}
+});
+test('BOA, Citi and SC HK hold-out cards read every billing field from structure alone',()=>{
+ for(const name of ISSUER_HOLDOUTS){const f=fixtureOf(name);assert.ok(ISSUER_NAMES.some(n=>f.text.includes(n)),name);assert.deepEqual(issuerRead(f),f.expected,name);}
+});
+test('BOA, Citi and SC HK billing does not change with product name or card type',()=>{
+ for(const name of ISSUER_FIXTURES){const f=fixtureOf(name);
+  for(const product of ['Pangolin Secured','Okapi Business Rewards','Tarsier Authorized User','Kinkajou 白金卡','No Keyword Here'])assert.deepEqual(issuerRead(f,renamed(f,product)),f.expected,name+' '+product);
+  // A page that prints no product name at all reads the same.
+  const product=productOf(f);if(product)assert.deepEqual(issuerRead(f,f.text.replace(product+'\n','').replace(product,'Card')),f.expected,name+' no name');
+ }
+});
+test('BOA, Citi and SC HK billing does not change with a four- or five-digit tail',()=>{
+ for(const name of ISSUER_FIXTURES){const f=fixtureOf(name);
+  for(const tail of ['9876','31415','2025']){if(tail===f.card.tail)continue;assert.deepEqual(issuerRead(f,f.text.replaceAll(f.card.tail,tail),{...f.card,tail}),f.expected,name+' tail '+tail);}
+  // A tail shorter than any of these banks prints is not this card.
+  assert.deepEqual(issuerRead(f,f.text.replaceAll(f.card.tail,'314'),{...f.card,tail:'314'}),{},name+' three digits');
+ }
+});
+test('BOA, Citi and SC HK read only their own card, whatever order other cards are listed in',()=>{
+ for(const name of ISSUER_FIXTURES){const f=fixtureOf(name),other=f.bank==='SC HK'?'Card ending in 2468\nCurrent Balance:\nHKD 5.00':'Pangolin Cash ending in 2468\nCurrent Balance\n$5.00';
+  // Another card's number in the same scope means the scope is not this card's: nothing is read, nothing guessed.
+  assert.deepEqual(issuerRead(f,f.text+'\n'+other),{},name+' other card after');
+  assert.deepEqual(issuerRead(f,other+'\n'+f.text),{},name+' other card before');
+  assert.deepEqual(billingOf(reader.issuerBilling(f.text,f.bank,f.card,['2468'])),f.expected,name+' a listed card not on this page');
+  assert.deepEqual(billingOf(reader.issuerBilling(f.text,f.bank,{...f.card,tail:'2468'})),{},name+' the page of another card');
+ }
+});
+test('SC HK billing does not change with page language or currency notation',()=>{
+ const card={id:'x',bank:'SC HK',tail:'1618',currency:'HKD'},want={balance:2468.1,available:7531.9,statement:1357.9,minimum:41,due:'2031-03-07'};
+ const en=(cur,date)=>`Card ending in 1618\nCurrent Balance:\n${cur}2,468.10 DR\nAvailable Credit Limit:\n${cur}7,531.90\nBilled Balance:\n${cur}1,357.90\nMinimum Payment Due:\n${cur}41.00\nPayment Due Date:\n${date}`;
+ const zhHant='Tarsier 信用卡 尾號 1618\n現時結欠\nHK$2,468.10\n可用信貸額\nHK$7,531.90\n月結單結欠\nHK$1,357.90\n最低還款額\nHK$41.00\n還款到期日\n2031年3月7日';
+ const zhHans='Tarsier 信用卡 尾号 1618\n现时结欠\nHK$2,468.10\n可用信贷额\nHK$7,531.90\n月结单结欠\nHK$1,357.90\n最低还款额\nHK$41.00\n还款到期日\n2031年3月7日';
+ for(const [label,text] of [['en HKD',en('HKD ','07/03/2031')],['en HK$',en('HK$','07/03/2031')],['en ISO date',en('HKD ','2031-03-07')],['zh-Hant',zhHant],['zh-Hans',zhHans]])assert.deepEqual(billingOf(reader.issuerBilling(text,'SC HK',card)),want,label);
+ // SC HK prints day first: the same digits never become 3 July.
+ assert.equal(billingOf(reader.issuerBilling(en('HKD ','07/03/2031'),'SC HK',card)).due,'2031-03-07');
+ // A card in another currency takes no HKD amount from this page.
+ const usd=billingOf(reader.issuerBilling(en('HKD ','07/03/2031'),'SC HK',{...card,currency:'USD'}));for(const key of ['balance','available','statement','minimum'])assert.equal(usd[key],undefined,key);
+});

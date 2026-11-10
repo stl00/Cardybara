@@ -1,0 +1,23 @@
+{
+ "id": "boa-holdout",
+ "provenance": "Synthetic text with invented hold-out names and values. Names appear nowhere in collection code or other fixtures; no live bank acceptance.",
+ "billingRules": true,
+ "bank": "BOA",
+ "locale": "en-US",
+ "card": {
+  "id": "holdout-boa",
+  "bank": "BOA",
+  "tail": "3141",
+  "currency": "USD",
+  "name": "Pangolin Business Advantage"
+ },
+ "text": "Pangolin Business Advantage - 3141\nCurrent balance:\nlayer\n$2,468.10\nTotal credit available:\n$7,531.90\nTotal credit line:\n$10,000.00\nTotal Min Payment Due:\nlayer\n$41.00 due Mar 7\nStatement Balance:\nlayer\n$1,357.90",
+ "expected": {
+  "balance": 2468.1,
+  "available": 7531.9,
+  "creditLimit": 10000,
+  "minimum": 41,
+  "duePartial": "Mar 7",
+  "statement": 1357.9
+ }
+}
