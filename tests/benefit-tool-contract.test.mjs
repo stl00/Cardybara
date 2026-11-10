@@ -16,6 +16,8 @@ test('the tool and the prompt ask for a scenario or category and source-language
  assert.match(tool.description,/official text in its source language/);
  assert.match(tool.description,/Simplified Chinese or English keywords/);
  assert.doesNotMatch(tool.description,/records are written in Simplified Chinese/);
+ assert.match(SYSTEM,/the user's own words plus Simplified Chinese or English keywords/);
+ assert.doesNotMatch(SYSTEM,/short Simplified Chinese keywords/);
  assert.match(SYSTEM,/When calling find_benefits, set the closest scenarioId or category whenever/);
  assert.match(SYSTEM,/still answering in the user's language/);
 });
