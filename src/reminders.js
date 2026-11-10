@@ -32,7 +32,7 @@ export function billReminders(cards,marks,settings,asOf){
 /** Status never comes from a guess: an unconfirmed credit still reminds, a used, skipped or dismissed one does not. */
 export function creditReminders(cards,events,settings,asOf){
  return activeTasks(creditTasks(cards,asOf),events).filter(task=>!['used','skipped'].includes(taskStatus(task,events))).map(task=>({task,days:Math.round((Date.parse(task.period.end+'T00:00:00Z')-Date.parse(asOf+'T00:00:00Z'))/DAY_MS)})).filter(r=>r.days<=settings.creditDays).map(({task,days})=>({
-  id:`credit:${task.key}`,kind:'credit',title:task.title,name:cards.find(c=>c.id===task.cardId)?.name||'',days,
+  id:`credit:${task.key}`,kind:'credit',title:task.title,...(task.original?{original:task.original}:{}),name:cards.find(c=>c.id===task.cardId)?.name||'',days,
  }));
 }
 const ofKind=(list,...kinds)=>list.filter(r=>kinds.includes(r.kind));
@@ -77,7 +77,7 @@ export function buildSchedule({cards,marks,events,settings,sent,asOf,phrases,tra
    let entry=entries.get(r.id);
    if(!entry){
     const credit=r.kind==='credit',amount=!credit&&settings.showAmounts&&r.statement!=null&&r.currency?`${r.currency} ${Number(r.statement).toLocaleString()}`:null;
-    entry={id:r.id,group:credit?'credits':'bills',label:credit?`${translate(r.title)} · ${r.name}`:r.name,firstDay:day,lastDay:day,targetDay:addDays(day,r.days),fireAt:fireTime(day),...(amount?{amount}:{})};
+    entry={id:r.id,group:credit?'credits':'bills',label:credit?`${translate(r.title,r)} · ${r.name}`:r.name,firstDay:day,lastDay:day,targetDay:addDays(day,r.days),fireAt:fireTime(day),...(amount?{amount}:{})};
     entries.set(r.id,entry);
    }
    entry.lastDay=day;

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdirSync,mkdtempSync,rmSync,statSync,writeFileSync} from 'node:fs';
+import {mkdirSync,mkdtempSync,realpathSync,rmSync,statSync,writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {execFileSync,spawnSync} from 'node:child_process';
@@ -10,14 +10,22 @@ const LONG='7700123456',TAIL='4242',TEXT='Zebra Quokka',env={...process.env,GIT_
 delete env.CARDYBARA_PRIVATE_NEEDLES;
 // A test run from inside a git hook inherits these, and they would point every git call below at the real repository.
 for(const key of Object.keys(env))if(/^GIT_/.test(key)&&!key.startsWith('GIT_CONFIG_'))delete env[key];
-function sandbox(t,values=[LONG,TAIL,TEXT]){
- const dir=mkdtempSync(path.join(tmpdir(),'cardybara-scan-'));t.after(()=>rmSync(dir,{recursive:true,force:true}));
+// Git prints the temp paths (for example "failed to push some refs to '/tmp/…/remote.git'"), and a random mkdtemp
+// suffix or the system temp directory can contain a synthetic value. Replace those paths before checking that the
+// message does not repeat a value, so the check only sees what the hook itself wrote.
+function scrub(text,dir){
+ let out=text||'';
+ for(const p of [...new Set([dir,realpathSync(dir),tmpdir(),realpathSync(tmpdir())])].sort((a,b)=>b.length-a.length))out=out.split(p).join('<tmp>');
+ return out;
+}
+function sandbox(t,values=[LONG,TAIL,TEXT],prefix=''){
+ const dir=mkdtempSync(path.join(tmpdir(),'cardybara-scan-'+prefix));t.after(()=>rmSync(dir,{recursive:true,force:true}));
  const repo=path.join(dir,'repo'),remote=path.join(dir,'remote.git'),needles=path.join(dir,'needles.txt');
  const git=(...a)=>execFileSync('git',['-c','user.name=Test','-c','user.email=test@example.invalid',...a],{cwd:repo,env,encoding:'utf8',stdio:'pipe'});
  mkdirSync(repo);execFileSync('git',['init','-q','--bare',remote],{env});git('init','-q','-b','main');git('remote','add','origin',remote);
  if(values)writeFileSync(needles,values.join('\n')+'\n');
  const commit=(name,text,message='Add file')=>{mkdirSync(path.dirname(path.join(repo,name)),{recursive:true});writeFileSync(path.join(repo,name),text);git('add','-A','-f');git('commit','-q','-m',message);};
- const push=(extra={},...args)=>spawnSync('git',['-c','core.hooksPath='+hook,'-c','user.name=Test','-c','user.email=test@example.invalid','push',...(args.length&&!args[0].startsWith('-')?args:['origin','HEAD:main',...args])],{cwd:repo,env:{...env,CARDYBARA_PRIVATE_NEEDLES:needles,...extra},encoding:'utf8'});
+ const push=(extra={},...args)=>{const r=spawnSync('git',['-c','core.hooksPath='+hook,'-c','user.name=Test','-c','user.email=test@example.invalid','push',...(args.length&&!args[0].startsWith('-')?args:['origin','HEAD:main',...args])],{cwd:repo,env:{...env,CARDYBARA_PRIVATE_NEEDLES:needles,...extra},encoding:'utf8'});return {...r,stdout:scrub(r.stdout,dir),stderr:scrub(r.stderr,dir)};};
  commit('README.md','clean\n');
  return {dir,repo,needles,git,commit,push};
 }
@@ -65,11 +73,15 @@ test('a built package ZIP is scanned too',t=>{
  zip(package_,{'a.js':`fee ${TAIL}`,'logo.png':LONG});assert.equal(s.push().status,0,'short number and binary member pass');
  zip(package_,{'assets/a.js':`x=${LONG}`});refused(s.push(),'c\\.zip:assets/a\\.js');
 });
+test('a temp path that happens to contain a value does not count as the message repeating it',t=>{
+ // Regression for #139: the mkdtemp suffix is random and can contain the synthetic tail.
+ for(const value of [TAIL,LONG]){const s=sandbox(t,undefined,`${value}-`);assert.ok(s.dir.includes(value));s.commit('a.txt',`id ${LONG}\n`);const r=s.push();refused(r,'a\\.txt');}
+});
 test('the release audit reports a tracked value by file name only',t=>{
  const s=sandbox(t);mkdirSync(path.join(s.repo,'scripts'));
  for(const f of ['audit-release.py','private_scan.py'])execFileSync('cp',[path.join(root,'scripts',f),path.join(s.repo,'scripts',f)]);
  s.commit('a.txt',`id ${LONG}\n`);
- const r=spawnSync('python3',['scripts/audit-release.py'],{cwd:s.repo,env:{...env,CARDYBARA_PRIVATE_NEEDLES:s.needles},encoding:'utf8'});refused(r,'a\\.txt');
+ const raw=spawnSync('python3',['scripts/audit-release.py'],{cwd:s.repo,env:{...env,CARDYBARA_PRIVATE_NEEDLES:s.needles},encoding:'utf8'});refused({...raw,stderr:scrub(raw.stderr,s.dir)},'a\\.txt');
  assert.equal(spawnSync('python3',['scripts/audit-release.py'],{cwd:s.repo,env,encoding:'utf8'}).status,0,'without values the audit is unchanged');
 });
 test('a value next to a comma or inside a CSV is still found',t=>{

@@ -16,7 +16,7 @@ Reports: `latest-offline.json`, `latest-live.json`. A failing rubric exits nonze
 
 ## Architecture changes
 
-`openai` is a **server-only transport SDK** configured for `https://api.deepseek.com`, with no automatic retries, a 45s timeout, cancellation and redirects disallowed. It does not automatically supply conversation memory or a database. `src/agentContext.js` handles recent turns and a strictly validated `lastComparison` object; only the page session retains this state. Old tool payloads are discarded before the next user turn, so mutable wallet facts must be read afresh.
+`openai` is a **server-only transport SDK** configured for `https://api.deepseek.com`, with no automatic retries, a 45s timeout, cancellation and redirects disallowed. It does not automatically supply conversation memory or a database. `src/agentContext.js` handles recent turns and strictly validated memory (`lastPurchase`, `trip`, `topics`); only the page session retains this state. Old tool payloads are discarded before the next user turn, so mutable wallet facts must be read afresh.
 
 Retrieval is structured filters + multilingual lexical ranking (no embedding/vector index). `find_benefits` accepts optional card, scenario, category and programme filters, returns relevance metadata, total matches, truncation, active-date assessment and official sources. Unknown terms can return zero matches rather than arbitrary first records.
 
@@ -90,6 +90,67 @@ Reading it: within six turns the referent is almost always somewhere in the chat
 Limits: earlier answers are scripted, written to read like the assistant's (user's language, names paraphrased or translated), so how often names survive is a property of this set. Offline "resolvable" means present, not that a model resolves it.
 
 `npm run eval:multiturn:live` runs the same dialogues against the configured model and checks the tool and key arguments of the last turn (a `cardName` passes if it selects the same held cards; a free-text `query` only has to be present). It makes API calls and has not been run; ask the owner first. `--live --dry-run` exercises that path with a scripted model and no network.
+
+### Conversation state and topic index (#132, part 2)
+
+What code carries between turns is now one typed state object (`src/conversationState.js`) with three channels: `lastPurchase`, `trip` and the new `topics`. Each tool result updates it through a pure reducer per channel (`reduceToolResult(state, event, context)` returns a new state and never modifies its input); `validateState` (still exported as `validateMemory`) checks the whole object every time it is used or sent; every change is recorded in the turn's trace as `{type:'state', tool, changes:[{channel, before, after}]}`, summarised so amounts and point values do not appear.
+
+`topics` holds `items` (up to 12, in the order the last tool turn returned them: a knowledge rule id and/or a catalogue product id) and `cards` (up to 6 product ids the chat focused on: a card named in tool arguments, the chosen card, or the only card a tool returned; most recent first). Only ids that exist in the shipped knowledge and catalogue pass validation; names, regions, titles and transfer programmes are rendered from the catalogue when the prompt is built, so no text from a chat, a model or a bank page reaches the system message through it. It is labelled untrusted context. SYSTEM adds one sentence: resolve each reference to a concrete card with its region, programme or listed item before filling tool arguments, and ask if it still fits more than one. No extra model call.
+
+| | n | before resolvable | after | before tool-ready | after |
+|---|---|---|---|---|---|
+| all | 55 | 45 (82%) | 52 (95%) | 24 (44%) | 52 (95%) |
+| pronoun | 10 | 10 | 10 | 5 | 10 |
+| ordinal | 12 | 12 | 12 | 7 | 12 |
+| ellipsis | 8 | 8 | 8 | 7 | 8 |
+| topic return | 7 | 7 | 7 | 3 | 7 |
+| long range | 10 | 0 | 7 | 0 | 7 |
+| same name | 8 | 8 | 8 | 2 | 8 |
+
+The eval portfolio's cards carry their catalogue names; in a real wallet a card is shown under a localized name, so the tools now also match a held card by its catalogue product's name, which is what the index renders (covered by a unit test, not by these numbers). Ordinal answers here list items in the tool's order; when an answer reorders them, the prompt tells the model to count from the answer, which only the live layer can check.
+
+Still unresolved: "the second one from the very first list" seven turns back (3 cases). The index keeps only the last tool turn's items, by design; the card survives in `cards`, so the model can re-search it or ask. The gate is now `--min=0.9`. These numbers say the referent reaches the model in usable form; whether the model then uses it is the live layer, not yet run.
+
 ## Benefit retrieval recall · 2026-11
 
 `npm run eval:benefit-recall` scores `searchBenefitKnowledge` against a hand-labelled golden set of 129 questions in three languages, in three modes: raw question, rewritten query, and rewritten query plus filters. It is a report, not a gate. Method, baseline and findings are in `evals/benefit-recall/README.md`.
+
+### Live run · 2026-11-09 (#132)
+
+`deepseek-flash`, temperature 0.2, two runs per side over all 55 dialogues; earlier turns scripted, only the last turn calls the model. Before = `17ae68b` (main just before #137), after = `3b74028` (#137). Spend $0.27 in total at peak list prices.
+
+- **strict**: the expected tool with the key arguments (a `cardName` passes if it selects the same held cards; a `programme` if it reaches the expected programme).
+- **referent**: some call names the referred card unambiguously, whatever the tool. Only for dialogues whose referent is a card (48 of 55); for ordinals it checks the card, not which item.
+
+| | n (×2 runs) | strict before → after | referent before → after |
+|---|---|---|---|
+| all | 110 | 86 (78%) → 88 (80%) | 77/96 → 78/96 |
+| pronoun | 20 | 20 → 20 | 20/20 → 20/20 |
+| ordinal | 24 | 20 → 22 | 24/24 → 24/24 |
+| ellipsis | 16 | 16 → 15 | 2/2 → 2/2 |
+| topic return | 14 | 14 → 13 | 14/14 → 14/14 |
+| long range | 20 | 2 → 2 | 2/20 → 2/20 |
+| same name | 16 | 14 → 16 | 15/16 → 16/16 |
+
+Run-to-run noise: the two runs of the same code differ by 2 strict cases on each side (42/44 before, 43/45 after), so a difference of one or two cases is not an improvement.
+
+Tool calls in the last turn fell from 187 to 137, and `list_cards` calls from 45 to 10: with catalogue names in the index the model no longer looks cards up before searching.
+
+What did not move: long range. Asked "最开始问的那张卡", the model picks the earliest card it can see in the chat (the first kept turn), not the card from turns that were dropped; nothing said earlier turns were hidden. Other failures: `find_benefits` where the label expects `get_card_rules` for "转过去能拿会籍吗", and answers that failed grounding after correct calls (2 before, 3 after).
+
+Spend control: `--budget-usd` is required. A dialogue starts only if its worst case still fits: six model calls with every prompt token uncached at 1.5× the largest prompt seen, and the full 1800-token output each. A call that returns no usage, or fails after it may have been billed, is charged that worst case. Prices come from a per-model table; an unknown model stops the run. `--rescore=report.json` recomputes the checks from a saved live report without calling the model or reading configuration.
+
+### Trimmed turns in state · 2026-11-09 (#132)
+
+The first live run showed long-range references failing with the card already in the topic index: asked about "the card I asked about at the start", the model took the earliest card visible in the trimmed chat. State now has a `turns` channel (`completed`, `shownFrom`) and each focused card records the turns it was first and last discussed in. The prompt lists `recentCards` in the order first discussed, with turn numbers counted from the start, marks `onlyInDroppedTurns`, and says how many earlier turns are not shown (only when the state has counted turns). `shownFrom` is computed from the counted turns, because the history a client sends back was already trimmed the turn before. Ids and integers only.
+
+Live, `deepseek-flash`, two runs per side; before = `a9179ff` (main with #144), after = this change. The per-run budget guard stopped both first runs early (37 and 35 of 55 dialogues), so the comparison uses the dialogues both sides ran: 35 + 55 = 90. Spend $0.32.
+
+| | n | strict before → after | referent before → after |
+|---|---|---|---|
+| all | 90 | 69 → 75 | 63/78 → 69/78 |
+| long range | 16 | **1 → 7** (per run 0→2, 1→5) | 1/16 → 7/16 |
+| pronoun / ordinal / ellipsis / topic return / same name | 74 | 68 → 68 | unchanged |
+| zh-Hans / zh-Hant / en | 44 / 19 / 27 | 34 / 12 / 23 → 39 / 12 / 24 | |
+
+Long range moved beyond run-to-run noise (it held at 2/20 over four earlier runs); everything else is within ±1. Remaining long-range failures: "the second one from the very first list" (items keep only the last tool turn, by design), and the Traditional Chinese "一開始問嗰張卡", where the model asks which card instead of calling a tool. The offline eval cannot see this change: its longest dialogue has seven earlier turns, and every dialogue's request is byte-identical before and after the trimmed-turn fix; a unit test chains ten turns the way the app does.

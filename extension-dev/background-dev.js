@@ -4,7 +4,7 @@ import {ready,engine,next} from './background.js';
 import {ACTIVE_BANKS,PROVIDERS,guidedPage} from './providers.js';
 import {discoverVisibleCards} from './discovery.js';
 import {DEV_STAMP} from './dev-build-info.js';
-import {SETTINGS_KEY,CHECK_MINUTES,IDLE_SECONDS,defaultSettings,setEnabled,afterRun,decideBanks,planBanks,markAttempted,buildReport,skipReport,skipSignature} from './schedule-core.js';
+import {SETTINGS_KEY,CHECK_MINUTES,IDLE_SECONDS,defaultSettings,setEnabled,retryBank,afterRun,decideBanks,planBanks,markAttempted,buildReport,skipReport,skipSignature} from './schedule-core.js';
 import {STATE_KEY} from './engine.js';
 
 const TICK='cardybara-dev-schedule',RELOAD='cardybara-dev-reload',REPORT_URL='http://127.0.0.1:8766/api/dev/diagnostics',PENDING='cardybara-dev-pending-report',RUN='cardybara-dev-run';
@@ -59,7 +59,8 @@ async function bankTabs(banks){
  return seen;
 }
 // Every check records why each bank will or won't be read. Only a scheduled check may start a run: opening the popup, turning it on or reloading never does.
-const check=({mayRead,manual=false})=>serial(async()=>{
+// A check for the popup (preview) also says which banks Read now would take, so it looks at the tabs Read now would.
+const check=({mayRead,manual=false,preview=false})=>serial(async()=>{
  // An unfinished run settles first, so a new run can't replace it and lose its stop.
  await ready;await settleRun();let settings=await loadSettings();await deliver();
  const state=await engine.load();
@@ -67,10 +68,12 @@ const check=({mayRead,manual=false})=>serial(async()=>{
  if(state.run?.status==='running'){const reading=state.run.jobs.map(j=>j.bank);await saveSettings({...settings,skips:{...settings.skips,...Object.fromEntries(reading.map(bank=>[bank,'reading']))},lastCheckAt:Date.now()});return 'running';}
  const known=(state.discoveredCards||[]).filter(c=>ACTIVE_BANKS.includes(c.bank)),now=Date.now(),idle=await chrome.idle.queryState(IDLE_SECONDS);
  const input={settings,activeBanks:ACTIVE_BANKS,disabled:state.disabled,withCards:[...new Set(known.map(c=>c.bank))],idle,now,manual},settled=['off','disconnected','stopped','not_due'],before=decideBanks(input);
- // A bank that can't be read anyway isn't touched, even by the read-only tab check.
- input.tabs=await bankTabs(ACTIVE_BANKS.filter(bank=>!settled.includes(before[bank])));
+ // A bank that can't be read anyway isn't touched, even by the read-only tab check. A popup check probes what Read now
+ // could take (also with the schedule off or a bank not due), the same read-only discovery Read now runs; ticks never do.
+ const probe=preview?decideBanks({...input,manual:true}):before;
+ input.tabs=await bankTabs(ACTIVE_BANKS.filter(bank=>!settled.includes(probe[bank])));
  const skips=decideBanks(input),signature=skipSignature(skips),changed=signature!==settings.skipSignature;
- settings={...settings,skips,skipSignature:signature,lastCheckAt:now};await saveSettings(settings);
+ settings={...settings,skips,skipSignature:signature,lastCheckAt:now,...(preview?{readNow:planBanks({...input,manual:true})}:{})};await saveSettings(settings);
  if(changed)await deliver(skipReport(skips,now));
  const banks=mayRead&&(manual||idle==='idle')?planBanks(input):[];if(!banks.length)return 'nothing';
  const restoreTab=(await chrome.tabs.query({active:true,lastFocusedWindow:true}))[0]?.id,id=crypto.randomUUID();
@@ -92,13 +95,15 @@ chrome.idle.setDetectionInterval(IDLE_SECONDS);
 chrome.idle.onStateChanged.addListener(state=>{if(state==='idle')void tick().catch(()=>{});});
 chrome.storage.onChanged.addListener((changes,area)=>{if(area==='local'&&changes[STATE_KEY]?.newValue?.run?.scheduled&&changes[STATE_KEY].newValue.run.status!=='running')void finishRun().catch(()=>{});});
 chrome.runtime.onMessage.addListener((raw,sender,reply)=>{
- if(!['dev-schedule-get','dev-schedule-set','dev-schedule-state','dev-read-now'].includes(raw?.type))return false;
+ if(!['dev-schedule-get','dev-schedule-set','dev-schedule-state','dev-read-now','dev-retry-bank'].includes(raw?.type))return false;
  if(sender.id!==chrome.runtime.id||sender.url!==chrome.runtime.getURL('dev-popup.html')){reply({ok:false});return false;}
  // The owner's click skips only the schedule switch, the interval and idle; every other rule of a scheduled read holds.
  // Following a run touches no tab: it only reads what is stored.
  if(raw.type==='dev-schedule-state'){void popupState().then(state=>reply({ok:true,...state})).catch(()=>reply({ok:false}));return true;}
  if(raw.type==='dev-read-now'){void check({mayRead:true,manual:true}).then(async outcome=>reply({ok:true,outcome:outcome||'nothing',...await popupState()})).catch(()=>reply({ok:false}));return true;}
- void (async()=>{if(raw.type==='dev-schedule-set')await serial(async()=>{const settings=setEnabled(await loadSettings(),raw.enabled,raw.intervalMinutes);await saveSettings(settings);await showState(settings);});await Promise.race([check({mayRead:false}),new Promise(done=>setTimeout(done,3000))]);reply({ok:true,...await popupState()});})().catch(()=>reply({ok:false}));
+ if(raw.type==='dev-retry-bank'&&!ACTIVE_BANKS.includes(raw.bank)){reply({ok:false});return false;}
+ // Retry clears one bank's stop and starts nothing: the next check reads it under the usual rules.
+ void (async()=>{if(raw.type==='dev-schedule-set')await serial(async()=>{const settings=setEnabled(await loadSettings(),raw.enabled,raw.intervalMinutes);await saveSettings(settings);await showState(settings);});if(raw.type==='dev-retry-bank')await serial(async()=>{const settings=retryBank(await loadSettings(),raw.bank);await saveSettings(settings);await showState(settings);});await Promise.race([check({mayRead:false,preview:true}),new Promise(done=>setTimeout(done,3000))]);reply({ok:true,...await popupState()});})().catch(()=>reply({ok:false}));
  return true;
 });
 void (async()=>{for(const [name,periodInMinutes]of [[TICK,CHECK_MINUTES],[RELOAD,1]])if(!await chrome.alarms.get(name))await chrome.alarms.create(name,{periodInMinutes});await ready;await finishRun();await check({mayRead:false});})().catch(()=>{});

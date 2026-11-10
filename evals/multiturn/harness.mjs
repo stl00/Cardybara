@@ -13,7 +13,7 @@ export const evalContext={cards:PORTFOLIO.map(id=>catalogueCards.find(c=>c.produ
 const heldByProduct=id=>evalContext.cards.find(c=>c.productId===id);
 
 const normalized=s=>s.normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
-// The same filter the tools apply to cardName and region.
+// The same filter the tools apply to cardName and region (displayed name or catalogue name; eval cards carry the catalogue name).
 export const selectCards=(args,cards=evalContext.cards)=>cards.filter(c=>(!args.cardName||normalized(c.name).includes(normalized(args.cardName)))&&(!args.region||c.region===args.region));
 // Shorter names a person or a model uses for a card. A form counts only if it would select that card as cardName.
 const SHORT_NAMES=['Sapphire Reserve','Freedom Unlimited','Gold Card','Morgan Stanley','Aspire','The Platinum Card','Platinum Card','Red Credit Card','Cathay Mastercard'];

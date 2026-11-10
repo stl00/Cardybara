@@ -58,6 +58,121 @@ Recall@12 for A / B / C after each retrieval change (#131). Dev = `golden.json`,
 | --- | --- | --- |
 | Baseline (#130) | 69.4 / 81.4 / 98.5 | 64.3 / 76.8 / 95.6 |
 | 1. Programme and scenario tags (`scripts/curate-benefit-tags-2026-11-09.py`) | 69.6 / 82.0 / 99.4 | 64.3 / 76.8 / 96.0 |
+| 2. Vocabulary: Traditional→Simplified, glossary, programme aliases (`src/benefitVocabulary.js`) | 94.8 / 98.8 / 99.4 | 81.6 / 92.1 / 98.0 |
+| 3. Tool contract: always fill scenarioId/category, Chinese keywords, programme aliases in the filter, zero-result suggestions, whole-card questions | 95.4 / 99.4 / 100.0 | 81.6 / 92.1 / 98.0 |
+| 4. Soft scenario/category filters (bonus inside, strong word match needed outside) | 95.4 / 99.4 / 100.0 | 81.6 / 92.1 / 98.0 |
+
+After step 2:
+- **English recall** (dev / held-out): A 88.8 / 78.6, B 98.0 / 83.3.
+- **Where the words came from:** the glossary and the Cantonese characters come from development-set failures. The programme aliases are the general names of every brand in `entities.json`, not picked from failures. Some of them happen to appear only in held-out questions.
+- **Contamination check:** an independent review removed the aliases and characters that only held-out questions use, and held-out A stayed at 82.6%. Dropping the two-character abbreviations (加航, 美航, 新航), which matched inside longer airline names, cost 1 point.
+- **Overfitting:** mode A gained 25.4 points on dev and 17.3 on held-out. Part of the remaining gap was already in the baseline (5 points), because two held-out portfolios are new. Trust the held-out gain.
+- **Precision:** dev A 58% → 60%, held-out A 54% → 53%.
+- **Absent questions:** more of them return something on dev (57% → 71%), because more words now match.
+- **Sample size:** held-out has only 50 scored questions; per-portfolio rows have 7–19 each and are noisy.
+
+Step 3 barely moves the offline numbers. Mode C already assumes a model that fills filters and writes good queries; step 3 is what asks the model to do so, and only a live run can measure that. The offline gain is the whole-card question (`c-delta-en`): words that name a held card are set aside, so "What Delta perks do I have?" lists that card's benefits.
+
+Known gap: whole-card detection reads only English card words, so a Chinese card name (國泰卡有什麼福利) still goes through ordinary scoring.
+
+No new scenario enum was added (such as flight, car-rental or purchase-protection). After steps 1–2, mode C misses no dev question. Flight benefits carry both `travel` and `airport`; rentals sit under `ground-transport` + `protection`; purchase protection sits under `shopping` + `protection`. A new enum would need every rule retagged and a new label set, with nothing to show for it now.
+
+## Live model run (2026-11-09)
+
+`npm run eval:benefit-recall:live` sends each scored question to the configured model (DeepSeek `deepseek-flash`) with the production system prompt and tools, on the same synthetic portfolios. Other tools the model calls first (list_cards, query_credits …) run locally. The first round that calls `find_benefits` ends the question, and the `find_benefits` arguments the model wrote are scored like mode C. It needs the owner's approval because it costs money. It has a spend cap (`--max-usd`), counts tokens, and estimates cost at assumed peak prices: $0.30/M uncached input, $0.006/M cached, $1.20/M output. One run per code version, at the production temperature, so expect a few points of run-to-run noise.
+
+| Recall@12, all scored questions | Dev (120) | Held-out (50) |
+| --- | --- | --- |
+| Hand-written ideal rewrite (mode C) | 99.4 → 100.0 | 98.0 |
+| Real model, before step 3 (#136 code) | 68.6 | 69.0 |
+| Real model, after step 3 (#140 code) | **74.6** | **69.5** |
+| Same model calls with filters made soft (filtered ∪ unfiltered, computed offline) | 83.4 | 83.5 |
+| Same model calls with scenario/category dropped (computed offline) | 82.9 | 79.0 |
+
+
+The two offline rows reuse the after-step-3 calls. A merged search can return up to 21 rules, so it is not strictly recall@12, and neither are multi-call rewrites in mode C. Dropping the model's scenario/category altogether already reaches 82.9 on dev, so on dev its filters add almost nothing.
+
+| After step 3, by language | en | zh-Hans | zh-Hant |
+| --- | --- | --- | --- |
+| Dev | 59.9 (n=38) | 81.5 (n=55) | 81.5 (n=27) |
+| Held-out | 71.4 (n=21) | 70.8 (n=18) | 63.6 (n=11) |
+
+How the model filled the calls, before → after step 3 (dev / held-out):
+- **Called find_benefits at all:** 78% / 78% → 84% / 86%.
+- **Set a scenario or category:** 88% / 92% → 96% / 95%.
+- **Wrote Chinese query words:** 15% / 26% → 100% / 100%.
+- **Recall when it did search:** dev 87.6% → 88.7%, held-out 88.5% → 80.8%.
+
+What the real model gets wrong:
+1. **It doesn't search.** 14–16% of questions never reach `find_benefits`, even after step 3. Most credit questions go to `query_credits`, which the prompt sends "any question about credits" to. Some go to `get_card_rules` or `choose_card`. Some of those answers may still be right, but this eval can't tell, and it counts them as zero.
+2. **A neighbouring scenario becomes a hard filter.** The model picks a scenario next to the rule's own:
+   - Global Entry / TSA under `travel`, while the rules carry `airport`.
+   - Baggage delay under `airport`, while the rule carries `travel`.
+   - Grocery delivery under `dining`, while the rule carries `shopping`.
+   - A-List as `membership`, while the rule is `spend-unlock`.
+
+   Because filters are hard, the rule disappears. A filter hurt 11 of 101 searching questions on dev and 7 of 43 on held-out.
+3. **English questions lost recall on dev after step 3:** 68.4% → 59.9%. With Chinese keywords the model also narrowed its filters more often. The held-out English rose (69.0% → 71.4%), so part of this is noise.
+
+**Conclusion.**
+- The contract change helped where it could: Chinese keywords went from 15% to 100%, and more questions reach `find_benefits`.
+- Mode C's 99% is far from the real 70–75%. The gap is routing and over-trusting the model's filter, not vocabulary.
+- Next fixes, in order:
+  - **(a) Soft filters:** search with and without the model's scenario/category and merge, or treat them as a boost. Offline, on these exact model calls, that takes recall to ~83% on both sets.
+  - **(b) Routing:** let credit questions that are also benefit questions call `find_benefits` too, or have `query_credits` return matching benefit rules.
+
+Cost: 498 model calls (two runs of 239 and 255, plus a 4-call smoke test). 1.87M prompt tokens, 88% of them cached, and 60k output tokens. **About $0.15 at the assumed peak prices**, well under the $1 cap. Only the `find_benefits` arguments, tool names and token counts are kept in the report. No answers, keys or wallet data.
+
+### Step 4: soft filters and routing (2026-11-09)
+
+**Soft filters.** Scenario and category no longer drop rules.
+- A rule inside the chosen scenario or category gets +7, and on equal scores it ranks first.
+- A rule outside it competes only if its own words score at least 8 (a concept or two title words). This is judged before the credit, membership and lounge boosts, and an outside rule gets none of those boosts.
+- The threshold was picked on dev: 6 lets unanswerable questions return noise (absent 43%), and 10 and up only loses recall.
+- A named programme and a named partner stay strict, so a Marriott question never brings Hyatt. That is tested.
+
+On the ideal rewrites (mode C), recall is unchanged (dev 100, held-out 98.0). Precision falls on dev from 72% to 68% and on held-out from 53% to 51%. On held-out, one unanswerable question now returns a weakly related rule ("餐厅 抵扣" finds United's in-flight dining rebate), so absent noise there is 33%, up from 0%.
+
+On the real model's calls, soft filters are what close the gap:
+
+| Real model, recall@12 | Dev (120) | Held-out (50) |
+| --- | --- | --- |
+| After step 3, hard filters | 74.6 | 69.5 |
+| Same calls, re-scored with the step-4 search (offline) | 82.5 | 83.5 |
+| Run A on step-4 code, find_benefits only | 82.5 | 78.5 |
+| Run B on step-4 code + fee-waiver clause, find_benefits only | **84.0** | **69.5** |
+| Run B, plus credits that query_credits returned (capped at 12) | **93.6** | **80.9** |
+| Run B, plus dev questions labelled `alsoAnsweredBy` (reference only) | 94.5 | — |
+
+Held-out moved 9 points between two runs of nearly the same code (78.5 vs 69.5). Run B searched only 72% of held-out questions, against 80% in run A; read held-out live numbers as ±5–10.
+
+**Precision and forbidden hits.**
+- **Same calls, hard → soft:** dev 57.5% → 56.5%, held-out 36.2% → 38.4%. Forbidden hits are unchanged: the same two questions, caused by the model's own query.
+- **Run B:** precision 61.8% / 40.8%, and 62.9% / 40.2% with credits. No forbidden hits.
+
+**Routing is mostly a scoring question.** Of the questions that never call `find_benefits`, most go to `query_credits` with the right use (hotel, airline, ride-share, dining). Their credit items map back, by card and title, to the rules the golden set expects. For a credit question that is the right answer for the user, so the eval counts those items: at most 12, with precision reported.
+
+The model was not pushed toward `find_benefits`. The one real misroute was fee-waiver questions going to `get_card_rules(kind: fee)`, which has no waiver data. The fee tool's description and the system prompt now point waiver questions to `find_benefits` as well. In run B all three dev fee-waiver questions call both and score 100.
+
+**Other tools.** `alsoAnsweredBy` (dev only) marks questions another tool answers as asked, by a written rule:
+- points-transfer or miles-earning → `get_card_rules` transfer-relationship;
+- a rebate or more points on a kind of spend → `choose_card`.
+
+The rule was written after the first live run, so it is a scoring convention, not a blind label, and held-out carries none. A labelled question counts only when that tool returned something to answer with: transfer rules, or a card choice that is not "points-depends". The level is a reference number.
+
+**Errors.** A model error (an invalid tool call) scores 0. Only failed requests (HTTP, timeout, connection) are left out: one in run B. The script stops after three failed requests in a row.
+
+**Remaining misses:**
+- Some questions stop after `list_cards` without a search ("人民幣賬單", "6% first-year", "波飛").
+- English and Traditional Chinese held-out are low.
+- Held-out stays below dev: some of that is the two new portfolios, and some is that dev guided the vocabulary.
+
+**Cost of step 4:**
+- Run A: $0.074. Run B: $0.079.
+- A run during a provider timeout: $0.0095 for the calls that completed; 150 requests timed out.
+- A 3-call probe: $0.0005.
+
+**Total for all live runs: about $0.31 at assumed peak prices** (cap $1). Timed-out requests report no usage, so their cost is unknown.
 
 ## Findings
 

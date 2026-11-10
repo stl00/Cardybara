@@ -1,16 +1,36 @@
 import {BUILD_ID} from './build-info.js';
 import {PROVIDERS} from './providers.js';
 import {exportCollectorState} from './export-state.js';
-const status=document.querySelector('#status');
-async function command(type,bank){const r=await chrome.runtime.sendMessage({type,requestId:crypto.randomUUID(),...(bank?{bank}:{})});if(!r?.ok)throw Error(r?.error||'操作未完成');return r.state;}
-const phases={queued:'等待刷新',opening:'准备银行页面',navigating:'等待银行加载',capturing:'读取可见字段',updated:'已读取',partial:'部分读取',needs_login:'需要登录',needs_confirmation:'等待手机确认',load_error:'页面加载失败',no_data:'未读取新字段',ambiguous:'账户不明确',cancelled:'已取消',interrupted:'已中断',timeout:'超时',navigation_changed:'页面已切换',tab_closed:'页面关闭'};
-function render(s){const current=s.runtimeBuild===BUILD_ID;document.querySelector('#build-status').textContent=current?'后台版本：'+s.runtimeBuild+' · 已生效':'检测到本地修复尚未应用。请点击“应用本地更新”，再重新打开钱包。';const update=document.querySelector('#apply-update');update.hidden=current;update.disabled=s.run?.status==='running';if(update.disabled)document.querySelector('#build-status').textContent+=' 当前采集结束后可更新。';status.textContent=s.run?`任务：${s.run.status} · ${s.run.jobs.filter(j=>!['queued','opening','navigating','capturing'].includes(j.status)).length}/${s.run.jobs.length} · ${s.run.jobs.map(j=>j.bank+'：'+(phases[j.status]||j.status)).join('；')}`:'暂无采集任务';document.querySelector('#cancel').disabled=s.run?.status!=='running';const root=document.querySelector('#banks');root.replaceChildren();for(const bank of Object.keys(PROVIDERS)){const row=document.createElement('div');row.className='bank';const title=document.createElement('strong');title.textContent=bank;row.append(title);for(const [type,label]of [[s.disabled.includes(bank)?'connect':'disconnect',s.disabled.includes(bank)?'启用':'停用并清除'],['clear','清除读数']]){const b=document.createElement('button');b.textContent=label;b.onclick=()=>command(type,bank).then(render).catch(error);row.append(b);}root.append(row);}}
+import {RELEASE_WORDS,popupLanguage,bankName,bankMark,fill} from './popup-i18n.js';
+const lang=popupLanguage(),t=RELEASE_WORDS[lang],$=s=>document.querySelector(s),status=$('#status');
+document.documentElement.lang=lang;
+const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;};
+async function command(type,bank){const r=await chrome.runtime.sendMessage({type,requestId:crypto.randomUUID(),...(bank?{bank}:{})});if(!r?.ok)throw Error(r?.error||t.failed);return r.state;}
+const active=['queued','opening','navigating','capturing'],good=['updated'],warn=['partial','needs_login','needs_confirmation','no_data','ambiguous'];
+const tone=s=>active.includes(s)?'wait':good.includes(s)?'ok':warn.includes(s)?'login':['cancelled'].includes(s)?'':'error';
+function render(s){
+ const current=s.runtimeBuild===BUILD_ID,running=s.run?.status==='running',update=$('#apply-update');
+ $('#build-status').textContent=current?fill(t.buildCurrent,s.runtimeBuild):t.buildStale+(running?' '+t.buildWait:'');
+ update.hidden=current;update.disabled=running;
+ const run=s.run,tag=$('#run-tag');
+ tag.hidden=!run;if(run){tag.textContent=(t.runStatus[run.status]||run.status)+' · '+fill(t.progress,run.jobs.filter(j=>!active.includes(j.status)).length,run.jobs.length);tag.className='tag '+(running?'wait':run.status==='complete'?'ok':'');}
+ status.textContent=run?'':t.noRun;
+ $('#jobs').replaceChildren(...(run?.jobs||[]).map(j=>{const li=el('li','bank'),act=el('div','act');act.append(el('span','tag '+tone(j.status),t.phases[j.status]||j.status));li.append(bankMark(j.bank),el('span','name',bankName(j.bank,lang)),act);return li;}));
+ $('#cancel').disabled=!running;
+ $('#banks').replaceChildren(...Object.keys(PROVIDERS).map(bank=>{
+  const off=s.disabled.includes(bank),li=el('li','bank'),act=el('div','act');
+  for(const [type,label,cls]of [[off?'connect':'disconnect',off?t.connect:t.disconnect,off?'small':'small danger'],['clear',t.clear,'small']]){const b=el('button',cls,label);b.type='button';b.onclick=()=>command(type,bank).then(render).catch(error);act.append(b);}
+  li.append(bankMark(bank),el('span','name',bankName(bank,lang)),act);if(off)li.append(el('div','info',t.disabled));return li;
+ }));
+}
 function error(e){status.textContent=e.message;}
-document.querySelector('#cancel').onclick=()=>command('cancel').then(render).catch(error);
-document.querySelector('#export').onclick=()=>command('export').then(s=>{const url=URL.createObjectURL(new Blob([JSON.stringify(exportCollectorState(s),null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='cardybara-extension-records.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}).catch(error);
-document.querySelector('#apply-update').onclick=()=>{document.querySelector('#build-status').textContent='正在重新加载扩展，请重新打开钱包。';chrome.runtime.reload();};
+$('#subtitle').textContent=t.subtitle;$('#open-wallet').textContent=t.openWallet+' ↗';$('#wallet-link').textContent=t.openWallet+' ↗';$('#run-label').textContent=t.run;status.textContent=t.loading;
+$('#cancel').textContent=t.cancel;$('#export').textContent=t.export;$('#apply-update').textContent=t.applyUpdate;$('#manage-label').textContent=t.manage;$('#disable-note').textContent=t.disableNote;$('#privacy').textContent=t.privacy;$('#title').textContent=t.title;
+$('#cancel').onclick=()=>command('cancel').then(render).catch(error);
+$('#export').onclick=()=>command('export').then(s=>{const url=URL.createObjectURL(new Blob([JSON.stringify(exportCollectorState(s),null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='cardybara-extension-records.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}).catch(error);
+$('#apply-update').onclick=()=>{$('#build-status').textContent=t.reloading;chrome.runtime.reload();};
 command('hello').then(render).catch(error);
-
-chrome.storage.local.get('cardybara:last-capture-error').then(s=>{const d=s['cardybara:last-capture-error'];if(!d)return;const p=document.createElement('p');p.id='capture-diagnostic';p.textContent=`上次读取诊断：${d.bank} · ${d.stage} · ${d.code} · ${d.name}`;const box=document.createElement('details');const summary=document.createElement('summary');summary.textContent='诊断信息';box.append(summary,p);status.after(box);});
-
-chrome.storage.local.get('cardybara:last-read-diagnostic').then(s=>{const d=s['cardybara:last-read-diagnostic'];if(!d)return;const p=document.createElement('p');p.textContent='页面识别诊断：'+JSON.stringify(d);const box=document.createElement('details');const summary=document.createElement('summary');summary.textContent='诊断信息';box.append(summary,p);status.after(box);});
+// Diagnostics stay folded below the build panel.
+function diagnostic(label,text){const box=el('details'),summary=el('summary',null,t.diagnostics+' · '+label);box.append(summary,el('p','diag',text));$('#build-panel').after(box);}
+chrome.storage.local.get('cardybara:last-capture-error').then(s=>{const d=s['cardybara:last-capture-error'];if(d)diagnostic(t.captureDiag,`${d.bank} · ${d.stage} · ${d.code} · ${d.name}`);});
+chrome.storage.local.get('cardybara:last-read-diagnostic').then(s=>{const d=s['cardybara:last-read-diagnostic'];if(d)diagnostic(t.readDiag,JSON.stringify(d));});
