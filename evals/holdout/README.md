@@ -15,3 +15,13 @@ Recorded once when the set was frozen, against `main` at `adb6711`: 24 of 27 pas
 - `ho-nonsense-empty`: a query about a product that does not exist still returns benefit records.
 - `ho-claims-transfer`: a claim that points were already transferred, worded differently from the development cases, is not caught by grounding.
 - `ho-claims-enrollment-en`: "You are now enrolled" is not caught as an unverified enrollment.
+
+## Rotation · 2026-11-09 (#157)
+
+The three baseline failures were fixed as classes with new development cases, then moved to `evals/fixtures.mjs` with their ids and listed under `retired`. Three replacement cases of the same kinds were written before the code they test was run against them:
+
+- `ho-unheld-cobrand-en`: a card product that does not exist, named with a real issuer. Passed.
+- `ho-claims-transfer-zht`: a Traditional Chinese claim that points were already converted. **Failed**: not caught.
+- `ho-claims-enrollment-en-v2`: an English claim that a status upgrade "is active now". **Failed**: not caught.
+
+One offline run on the branch: 25 of 27 passed (93%, gate at 80%). The two failures are open gaps; fixing them retires them in turn.

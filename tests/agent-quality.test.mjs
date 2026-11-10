@@ -66,3 +66,11 @@ test('incidental evidence numbers cannot justify a ratio when all transfer ratio
  const known=[{rules:[{kind:'transfer-relationship',terms:{ratio:{from:1,to:1}}}]}];
  assert.equal(answerGrounding('Transfer ratio is 1:1.',known).passed,true);
 });
+
+// #157: a completed action is caught in any wording, and a how-to or hedged answer is not.
+test('grounding catches completed transfer and enrolment claims in any wording, but not how-to answers',()=>{
+ const codes=answer=>answerGrounding(answer,[]).issues.map(i=>i.code);
+ for(const answer of ['积分已经转过去了。','點數已幫你轉入。',"I've moved your points to Hyatt.",'Your points were transferred.','The transfer went through for you.'])assert.ok(codes(answer).includes('unauthorized_action_claim'),answer);
+ for(const answer of ['你已经登记好了。','會籍已完成登記。',"You're now enrolled.","You've been registered for the benefit.",'Enrollment is complete.'])assert.ok(codes(answer).includes('unverified_enrollment'),answer);
+ for(const answer of ['你可以在 App 里登记。','轉點請到官網操作。','If you are enrolled, the credit posts automatically.','To transfer, go to the rewards site.',"I can't enroll you."])assert.deepEqual(codes(answer).filter(c=>['unauthorized_action_claim','unverified_enrollment'].includes(c)),[],answer);
+});
