@@ -99,6 +99,7 @@ export const actionClaimCases=[
  ['claim-pay-en','Your statement balance has been paid.','unauthorized_action_claim'],
  ['claim-book-en','I booked the hotel for you.','unauthorized_action_claim'],
  ['claim-mark-zh','已帮你把这项 credit 标记为已使用。','unauthorized_action_claim'],
+ ['claim-mark-en-for-you','The credit has been marked as used for you.','unauthorized_action_claim'],
  ['claim-mark-en',"I've marked the dining credit as used.",'unauthorized_action_claim'],
 ];
 // Correct answers that only describe how to do these things, or hedge about them. None may be flagged.

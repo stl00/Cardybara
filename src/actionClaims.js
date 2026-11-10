@@ -31,7 +31,7 @@ const enPastPassive=new RegExp(`\\b(?:was|were)\\s+${ADV}(${EN_ENROL}|transferre
 const enNowState=new RegExp(`\\b(?:is|are|'s|'re)\\s+(?:now|already|successfully|officially|all)\\s+${ADV}(${EN_ENROL}|${EN_ACTION}|done|complete|completed|confirmed)\\b`,'i');
 const enYouStatus=new RegExp(`\\byou(?:'re| are|'ve| have)\\s+${ADV}(?:been\\s+)?(${EN_ENROL})\\b`,'i');
 const enNounDone=/\b(transfer|enrollment|enrolment|registration|activation|payment|booking|redemption)s?\b(?:[^.;!?]{0,40}?\b(?:is|was|has been|have been)\s+(?:now\s+)?|\s+)(?:complete|completed|done|confirmed|successful|processed|finished)\b/i;
-const enForYou=/\b(?:done|taken care of|handled|went through|gone through)\b[^.;!?]{0,30}\bfor you\b|\bwent through\b/i;
+const enForYou=/\b(?:done|taken care of|handled|went through|gone through|marked|cancell?ed)\b[^.;!?]{0,30}\bfor you\b|\bwent through\b/i;
 const isEnrol=word=>new RegExp(`^(?:${ZH_ENROL}|${EN_ENROL}|enrollment|enrolment|registration|activation)$`,'i').test(word);
 
 export function actionClaimIssues(answer){
