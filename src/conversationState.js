@@ -81,6 +81,7 @@ export function topicItems({name,result},cards){
   const card=heldProduct(cards,x.card,x.cardRegion),rule=card?ruleByTitle(card,x.title):null;
   items.push({...(rule?{rule}:{}),...(card?{card}:{})});
  }
+ if(name==='convert_points')for(const g of result.programmes||[])for(const c of g.cards||[]){const card=heldProduct(cards,c.name,c.region);if(card)items.push({card});}
  if(name==='choose_card')for(const row of result.rows||[]){const card=heldProduct(cards,row.card,row.cardRegion);if(card)items.push({card});}
  if(name==='list_cards'&&Array.isArray(result))for(const c of result)items.push({card:heldProduct(cards,c.name,c.region)});
  return items.filter(i=>(i.rule&&isRule(i.rule))||i.card).map(i=>({...(i.rule&&isRule(i.rule)?{rule:i.rule}:{}),...(i.card?{card:i.card}:{})}));

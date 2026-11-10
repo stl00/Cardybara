@@ -30,7 +30,7 @@ test('multi-tool loop retains context, returns synthesized answer, enforces fini
 });
 test('model boundary uses actual tool schemas, fixed destination and strips model metadata',async()=>{
  let sent;const reply=await chatAgent({DEEPSEEK_API_KEY:'fake'},{messages:[{role:'user',content:'Hi'}]},async(url,opts)=>{sent={url,body:JSON.parse(opts.body)};return {ok:true,json:async()=>({choices:[{message:{role:'assistant',content:'Hello',reasoning_content:'hidden'}}]})}});
- assert.equal(reply.content,'Hello');assert.ok(!reply.reasoning_content);assert.equal(sent.body.tools.length,5);assert.match(sent.url,/^https:\/\/api.deepseek.com\//);
+ assert.equal(reply.content,'Hello');assert.ok(!reply.reasoning_content);assert.equal(sent.body.tools.length,6);assert.match(sent.url,/^https:\/\/api.deepseek.com\//);
  await assert.rejects(()=>chatAgent({DEEPSEEK_API_KEY:'fake',DEEPSEEK_BASE_URL:'https://evil.test'},{messages:[{role:'user',content:'Hi'}]}),/unexpected/);
  await assert.rejects(()=>chatAgent({DEEPSEEK_API_KEY:'fake'},{messages:[{role:'user',content:'Hi'}]},async()=>({ok:true,json:async()=>({choices:[{message:{content:'',tool_calls:[call('transfer')]}}]})})),/invalid_tool/);
 });
@@ -115,4 +115,20 @@ test('a card is found by the name its bank page showed as well as its catalogue 
   for(const cardName of [card.name,card.pageName])assert.deepEqual(runWalletTool(call('find_benefits',{query:'fee',cardName}),wallet).matchedCards,[card.name],language+' '+cardName);
  }
  assert.deepEqual(runWalletTool(call('find_benefits',{query:'fee',cardName:'Platinum Delta'}),{cards:[presentCard(raw,'en-US')],events:[],day:'2026-10-28'}).matchedCards,[]);
+});
+test('convert_points answers transfer questions from verified rates, per card, and the answer check holds it to them (#72)',async()=>{
+ const {answerGrounding}=await import('../src/answerGrounding.js');
+ const held=[...cards,{id:'syn-csp',name:'Sapphire Preferred',bank:'Chase',region:'US',currency:'USD'}],ctx={cards:held,events:[],day:'2026-11-10'};
+ const result=runWalletTool(call('convert_points',{partner:'Hyatt',points:1500}),ctx);
+ assert.equal(result.kind,'transfer-options');assert.equal(result.scope.points,1500);
+ const rows=result.programmes.flatMap(g=>g.partners);
+ const csp=rows.find(r=>r.cards.some(c=>c.name==='Sapphire Preferred')),csr=rows.find(r=>r.cards.some(c=>c.name==='Sapphire Reserve'));
+ assert.equal(csp.conversion.receive,750);assert.ok(csp.sources.some(s=>s.url?.startsWith('https://')));assert.equal(csr.ratio,null);
+ assert.ok(!JSON.stringify(result).includes('"accountLinked":true'),'no claim that an account is linked');
+ assert.ok(answerGrounding('Sapphire Preferred: 1,000 points become 750 World of Hyatt points (4:3); 500 points are left over.',[result]).passed);
+ assert.ok(answerGrounding('Sapphire Preferred moves to Hyatt at 1:1.',[result]).issues.some(i=>i.code==='unsupported_transfer_ratio'),'a ratio the tool did not return');
+ assert.ok(answerGrounding('You would get 1,200 Hyatt points.',[result]).issues.some(i=>i.code==='unsupported_number'));
+ for(const bad of [{points:1.5},{points:0},{points:'1000'},{partner:''},{balance:1}])assert.throws(()=>validateToolCall(call('convert_points',bad)),/invalid_arguments/);
+ const none=runWalletTool(call('convert_points',{partner:'Mars Miles'}),ctx);assert.equal(none.partnerFound,false);assert.ok(none.partnerNote);
+ const cashBack=runWalletTool(call('convert_points',{cardName:'Blue Cash Everyday'}),ctx);assert.deepEqual(cashBack.programmes,[]);assert.ok(cashBack.withoutRecordNote);
 });
