@@ -77,7 +77,7 @@ function merchantListed(merchant,names){
 }
 function creditsFor(card,purchase,day,events){
  const use=CREDIT_USE[purchase.category];if(!use)return [];
- const result=queryCredits({use,when:purchase.date},{cards:[card],events,day});if(!result.groups)return [];
+ const result=queryCredits({use,when:purchase.date},{cards:[card],events,day,purchase});if(!result.groups)return [];
  const merchant=norm(purchase.merchant);
  return [...result.groups.markedUnused,...result.groups.unknownStatus].filter(i=>!purchase.currency||i.currency===purchase.currency).map(i=>{
   const listed=merchantListed(merchant,i.coupon?.eligibleMerchants||[]);
@@ -85,7 +85,9 @@ function creditsFor(card,purchase,day,events){
   const remaining=i.status==='partial'?i.remainingByMark??null:i.remainingByMark??i.publicLimit,perUse=i.perTransactionCap||i.coupon?.redemption?.perCouponAmount||null;
   const room=[remaining,perUse].filter(Number.isFinite);
   const value=Number.isFinite(purchase.amount)&&room.length?Math.min(purchase.amount,...room):null;
-  return {title:i.title,titles:i.titles,status:i.status,value,currency:i.currency,merchantListed:listed,enrollment:i.enrollment,channels:i.channels,minimumNights:i.minimumNights,condition:i.condition,cycleEnd:i.cycle?.end||null,counted:listed&&['unused','partial'].includes(i.status)&&value!=null};
+  // A credit its own sourced fields rule out is never counted, whatever the merchant list says.
+  const applies=i.decision?.status||'conditional';
+  return {title:i.title,titles:i.titles,status:i.status,applies,...(i.decision?.unmet?{notApplicableBecause:i.decision.unmet}:{}),...(i.decision?.needs?{needs:i.decision.needs}:{}),value,currency:i.currency,merchantListed:listed,enrollment:i.enrollment,channels:i.channels,minimumNights:i.minimumNights,condition:i.condition,cycleEnd:i.cycle?.end||null,counted:listed&&applies!=='not-applicable'&&['unused','partial'].includes(i.status)&&value!=null};
  });
 }
 const round2=n=>Math.round(n*100)/100;
@@ -187,7 +189,7 @@ function resolvePurchase(raw,day){
  if(raw.categorySource==='inferred')assumptions.push('category-inferred-not-stated');
  if(Number.isFinite(raw.amount)&&!raw.currency)assumptions.push('amount-has-no-currency-so-rates-compared');
  if(raw.channel==='portal'&&!raw.portal)assumptions.push('portal-not-named');
- return {purchase:{category,date,merchant:raw.merchant||null,amount:Number.isFinite(raw.amount)?raw.amount:null,country:raw.country||null,currency:raw.currency||null,channel:raw.channel||null,portal:raw.portal||null},assumptions};
+ return {purchase:{category,date,merchant:raw.merchant||null,amount:Number.isFinite(raw.amount)?raw.amount:null,country:raw.country||null,currency:raw.currency||null,channel:raw.channel||null,portal:raw.portal||null,nights:Number.isInteger(raw.nights)?raw.nights:null},assumptions};
 }
 const publicRow=({_baseRate,unclassified,...row})=>row;
 const whoLeads=d=>d.lead?.row||null;
@@ -207,7 +209,7 @@ export function chooseCard(raw,{cards,events=[],day}){
  // What a different fact would do, computed rather than left for the model to reason out.
  const creditChanges=[];
  for(const s of main.sorted){
-  for(const credit of s.row.credits.filter(c=>!c.counted&&Number.isFinite(c.value)&&c.value>0)){
+  for(const credit of s.row.credits.filter(c=>!c.counted&&c.applies!=='not-applicable'&&Number.isFinite(c.value)&&c.value>0)){
    const wouldLead=main.moneyBasis&&(s.value||0)+credit.value>(leadValue||0)&&s.row!==lead;
    creditChanges.push({kind:'credit-if-it-applies',card:s.row.card,title:credit.title,status:credit.status,value:credit.value,currency:credit.currency,merchantListed:credit.merchantListed,wouldChangeChoice:wouldLead});
   }

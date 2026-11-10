@@ -5,6 +5,7 @@ import {matchCardProduct} from './productCatalog.js';
 import {taskStatus,dismissedKeys,dismissKey} from './personalBenefits.js';
 import {resolveTripDates,addDays,isRealDate} from './tripDates.js';
 import {CREDIT_CATEGORIES,creditCategoriesForRule} from './creditCategories.js';
+import {creditApplicability} from './creditApplicability.js';
 import translations from './translations.json' with {type:'json'};
 const MAX_ITEMS=30;
 const NO_FIXED_CYCLE=new Set(['ongoing','per-stay','per-trip','event-based']);
@@ -47,7 +48,7 @@ function publicLimit(rule,asOf){
 }
 // Other-language titles: the rule's own text in that language (its English original, say), then the dictionary.
 const titlesOf=rule=>{const zh=rule.content.title,en=ruleText(rule,'en-US'),tw=ruleText(rule,'zh-TW');return {'zh-TW':tw.lang!=='zh-CN'&&tw.lang!=='en-US'?tw.title:translations['zh-TW']?.[zh]||zh,en:en.lang==='en-US'?en.title:translations['en-US']?.[zh]||null};};
-function describe(card,row,destination,asOf,use,brief){
+function describe(card,row,destination,asOf,use,brief,purchase){
  const {rule}=row,coupon=rule.terms.coupon,posting=coupon?.posting,zh=rule.content.title;
  const countries=coupon?.eligibleCountries||[];
  return {
@@ -66,6 +67,8 @@ function describe(card,row,destination,asOf,use,brief){
   ...(!brief&&coupon?.refundPolicy?{refundPolicy:coupon.refundPolicy}:{}),
   ...(!brief&&coupon?{coupon:{delivery:coupon.delivery,capScope:coupon.capScope,eligibleMerchants:coupon.eligibleMerchants,conditionalPurchases:coupon.conditionalPurchases,redemption:coupon.redemption,carryover:coupon.carryover,additionalCards:coupon.additionalCards,unresolved:coupon.review.unresolved}}:{}),
   ...(travelWideForHotel(rule,use)&&!creditCategoriesForRule(rule).includes('hotel')?{matchKind:'travel-wide'}:{}),
+  // Decided from sourced fields only; without a purchase, channel and nights stay as needs.
+  decision:creditApplicability(rule,purchase||{}),
   reviewDue:rule.assessment.reviewDue,...(brief?{}:{sources:knowledgeSources(rule.evidence.sourceIds).map(s=>({title:s.title,url:s.url}))})
  };
 }
@@ -83,7 +86,7 @@ export function creditNamesForCards(cards,day){
  return [...names.values()];
 }
 export const CREDIT_USES=CREDIT_CATEGORIES.map(c=>c.id);
-export function queryCredits({use,when,destination,reuseRememberedDates},{cards,events=[],day,trip,brief=false}){
+export function queryCredits({use,when,destination,reuseRememberedDates},{cards,events=[],day,trip,brief=false,purchase=null}){
  if(!isRealDate(day))throw TypeError('queryCredits needs the wallet day');
  // Without dates the question is about today, which is one day inside each current cycle.
  // Remembered dates keep their precision, so dates the user never stated are still reported as assumed.
@@ -103,7 +106,7 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
    // The user asked to stop hearing about it: one row, no cycle and no status, so it can be neither used nor unused.
    if(dismissed.has(dismissKey(card.id,id))){
     const row=rows.find(r=>!r.outside)||rows[0];
-    if(row){const {publicLimit:_,perTransactionCap:_c,spendThreshold:_s,...item}=describe(card,{rule:row.rule},destination,row.overlap?.start||window.start,use,brief);groups.dismissedByUser.push({...item,status:'dismissed-by-user'});}
+    if(row){const {publicLimit:_,perTransactionCap:_c,spendThreshold:_s,...item}=describe(card,{rule:row.rule},destination,row.overlap?.start||window.start,use,brief,purchase);groups.dismissedByUser.push({...item,status:'dismissed-by-user'});}
     continue;
    }
    const statusOf=period=>{const task={key:JSON.stringify([card.id,id,period.start,period.end]),revisionId:base?.revisionId};return {task,status:taskStatus(task,events)};};
@@ -112,7 +115,7 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
    // An unverified product version has no usable cycle, so one row says so however many cycles the dates cross.
    const firstUnverified=rows.find(r=>!r.outside&&unverified(r));
    for(const row of rows.filter(r=>r.outside||!unverified(r)||r===firstUnverified)){
-    const item=describe(card,row,destination,row.overlap?.start||row.from||window.start,use,brief);
+    const item=describe(card,row,destination,row.overlap?.start||row.from||window.start,use,brief,purchase);
     if(row.outside){groups.outsideDates.push({...item,reason:row.outside,datesOutside:{start:row.from,end:row.through},status:'not-applicable'});continue;}
     if(unverified(row)){groups.cycleUnknown.push({...item,reason:row.rule.terms.applicability?'account-version-unverified':'product-variant-unconfirmed',cycle:null,status:'unknown'});continue;}
     if(!row.period){
@@ -133,10 +136,10 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
    }
    // A credit whose current cycle closes before the dates does not carry over to them. Monthly cycles always reset, so saying so adds only noise.
    const nowRule=lookup.active(productId,id,day),current=nowRule&&benefitPeriod(nowRule.terms,day);
-   if(current&&current.end<window.start&&cycleRows.length&&nowRule.terms.period!=='calendar-month')groups.outsideDates.push({...describe(card,{rule:nowRule},destination,day,use,brief),reason:'current-cycle-ends-before-dates',cycle:{start:current.start,end:current.end},status:statusOf(current).status,datesCycleStarts:cycleRows[0].period.start});
+   if(current&&current.end<window.start&&cycleRows.length&&nowRule.terms.period!=='calendar-month')groups.outsideDates.push({...describe(card,{rule:nowRule},destination,day,use,brief,purchase),reason:'current-cycle-ends-before-dates',cycle:{start:current.start,end:current.end},status:statusOf(current).status,datesCycleStarts:cycleRows[0].period.start});
   }
  }
- const conditions=[...groups.markedUnused,...groups.unknownStatus,...groups.noFixedCycle,...groups.cycleUnknown].filter(x=>['required','link-card'].includes(x.enrollment)||x.channels).map(x=>({card:x.card,cardRegion:x.cardRegion,title:x.title,enrollment:x.enrollment,channels:x.channels,...(x.minimumNights?{minimumNights:x.minimumNights}:{})}));
+ const conditions=[...groups.markedUnused,...groups.unknownStatus,...groups.noFixedCycle,...groups.cycleUnknown].filter(x=>['required','link-card'].includes(x.enrollment)||x.channels||x.decision?.needs).map(x=>({card:x.card,cardRegion:x.cardRegion,title:x.title,enrollment:x.enrollment,channels:x.channels,...(x.minimumNights?{minimumNights:x.minimumNights}:{}),...(x.decision?.needs?{needs:x.decision.needs}:{})}));
  const counts=Object.fromEntries(Object.entries(groups).map(([k,v])=>[k,v.length]));
  let room=MAX_ITEMS,truncated=false;
  // Cutting dismissed credits hides nothing the user still tracks, so it doesn't mark the answer truncated.

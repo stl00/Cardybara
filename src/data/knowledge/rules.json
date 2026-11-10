@@ -19450,7 +19450,14 @@
       "reviewAfter": "2026-11-28",
       "state": "reviewed-summary"
     },
-    "personalState": "not-in-public-knowledge"
+    "personalState": "not-in-public-knowledge",
+    "decisionFields": {
+      "enrollment": {
+        "value": "required",
+        "sourceId": "coupon-gold-guide-20261029",
+        "quote": "Enrollment required."
+      }
+    }
   },
   {
     "id": "rule.amex-us-us-american-express-gold-card.resy",
@@ -19599,7 +19606,14 @@
       "reviewAfter": "2026-11-28",
       "state": "reviewed-summary"
     },
-    "personalState": "not-in-public-knowledge"
+    "personalState": "not-in-public-knowledge",
+    "decisionFields": {
+      "enrollment": {
+        "value": "required",
+        "sourceId": "coupon-gold-guide-20261029",
+        "quote": "Enrollment required through your Card Account."
+      }
+    }
   },
   {
     "id": "rule.amex-us-us-american-express-gold-card.dunkin",
@@ -19899,7 +19913,14 @@
       "reviewAfter": "2026-11-28",
       "state": "reviewed-summary"
     },
-    "personalState": "not-in-public-knowledge"
+    "personalState": "not-in-public-knowledge",
+    "decisionFields": {
+      "enrollment": {
+        "value": "link-card",
+        "sourceId": "coupon-gold-guide-20261029",
+        "quote": "Just add your Card to your Uber account"
+      }
+    }
   },
   {
     "id": "rule.amex-us-us-hilton-honors-aspire-card.flight",
@@ -20039,7 +20060,18 @@
       "reviewAfter": "2026-11-28",
       "state": "reviewed-summary"
     },
-    "personalState": "not-in-public-knowledge"
+    "personalState": "not-in-public-knowledge",
+    "decisionFields": {
+      "excludedPurchases": {
+        "value": [
+          "charter-flight",
+          "private-jet-flight",
+          "vacation-package-flight"
+        ],
+        "sourceId": "coupon-aspire-flight-20261029",
+        "quote": "Eligible purchases do not include purchases of: charter flights, private jet flights, or flights that are part of vacation packages."
+      }
+    }
   },
   {
     "id": "rule.amex-us-us-hilton-honors-aspire-card.resort",
@@ -20178,7 +20210,16 @@
       "reviewAfter": "2026-11-28",
       "state": "reviewed-summary"
     },
-    "personalState": "not-in-public-knowledge"
+    "personalState": "not-in-public-knowledge",
+    "decisionFields": {
+      "channels": {
+        "value": [
+          "direct"
+        ],
+        "sourceId": "coupon-aspire-resort-20261029",
+        "quote": "eligible purchases made directly with participating Hilton Resorts"
+      }
+    }
   },
   {
     "id": "rule.chase-us-sapphire-reserve.edit",
@@ -20322,7 +20363,27 @@
       "reviewAfter": "2026-11-28",
       "state": "reviewed-summary"
     },
-    "personalState": "not-in-public-knowledge"
+    "personalState": "not-in-public-knowledge",
+    "decisionFields": {
+      "channels": {
+        "value": [
+          "portal"
+        ],
+        "sourceId": "coupon-csr-terms-20261029",
+        "quote": "qualifying purchases with The Edit by Chase Travel",
+        "via": "The Edit by Chase Travel"
+      },
+      "minimumNights": {
+        "value": 2,
+        "sourceId": "coupon-csr-terms-20261029",
+        "quote": "stays of 2 nights or more"
+      },
+      "prepaidOnly": {
+        "value": true,
+        "sourceId": "coupon-csr-terms-20261029",
+        "quote": "pre-paid \"Pay Now\" stays"
+      }
+    }
   },
   {
     "id": "rule.chase-us-sapphire-reserve.dining",
@@ -20915,7 +20976,14 @@
       "reviewAfter": "2026-11-28",
       "state": "reviewed-summary"
     },
-    "personalState": "not-in-public-knowledge"
+    "personalState": "not-in-public-knowledge",
+    "decisionFields": {
+      "enrollment": {
+        "value": "required",
+        "sourceId": "coupon-csr-terms-20261029",
+        "quote": "One-time activation required"
+      }
+    }
   },
   {
     "id": "rule.chase-us-sapphire-reserve.peloton",
@@ -21213,7 +21281,14 @@
       "reviewAfter": "2026-11-28",
       "state": "reviewed-summary"
     },
-    "personalState": "not-in-public-knowledge"
+    "personalState": "not-in-public-knowledge",
+    "decisionFields": {
+      "enrollment": {
+        "value": "required",
+        "sourceId": "coupon-ms-print-20261029",
+        "quote": "charged by their one selected qualifying airline to the enrolled Card Account"
+      }
+    }
   },
   {
     "id": "rule.amex-us-us-morgan-stanley-platinum-card.digital",
@@ -21365,7 +21440,14 @@
       "reviewAfter": "2026-11-28",
       "state": "reviewed-summary"
     },
-    "personalState": "not-in-public-knowledge"
+    "personalState": "not-in-public-knowledge",
+    "decisionFields": {
+      "enrollment": {
+        "value": "required",
+        "sourceId": "coupon-ms-print-20261029",
+        "quote": "Enrolled Basic Card Members"
+      }
+    }
   },
   {
     "id": "rule.amex-us-us-morgan-stanley-platinum-card.lodging",
@@ -21662,7 +21744,16 @@
       "reviewAfter": "2026-11-28",
       "state": "reviewed-summary"
     },
-    "personalState": "not-in-public-knowledge"
+    "personalState": "not-in-public-knowledge",
+    "decisionFields": {
+      "channels": {
+        "value": [
+          "direct"
+        ],
+        "sourceId": "coupon-ms-print-20261029",
+        "quote": "purchases made directly with lululemon"
+      }
+    }
   },
   {
     "id": "rule.amex-us-us-morgan-stanley-platinum-card.oura",
@@ -21813,7 +21904,14 @@
       "reviewAfter": "2026-11-28",
       "state": "reviewed-summary"
     },
-    "personalState": "not-in-public-knowledge"
+    "personalState": "not-in-public-knowledge",
+    "decisionFields": {
+      "enrollment": {
+        "value": "required",
+        "sourceId": "coupon-ms-print-20261029",
+        "quote": "Enrolled Basic Card Members"
+      }
+    }
   },
   {
     "id": "rule.amex-us-us-morgan-stanley-platinum-card.resy",
@@ -21962,7 +22060,14 @@
       "reviewAfter": "2026-11-28",
       "state": "reviewed-summary"
     },
-    "personalState": "not-in-public-knowledge"
+    "personalState": "not-in-public-knowledge",
+    "decisionFields": {
+      "enrollment": {
+        "value": "required",
+        "sourceId": "coupon-ms-print-20261029",
+        "quote": "Enrolled Basic Card Members"
+      }
+    }
   },
   {
     "id": "rule.amex-us-us-morgan-stanley-platinum-card.uber",
