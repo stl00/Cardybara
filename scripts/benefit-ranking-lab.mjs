@@ -8,7 +8,7 @@ import {writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {loadGolden} from '../evals/benefit-recall/lib.mjs';
-import {rubricSearch,bm25Search,DEFAULT_WEIGHTS} from '../evals/benefit-recall/rankers.mjs';
+import {rubricSearch,bm25Search,DEFAULT_WEIGHTS,FLAT_WEIGHTS} from '../evals/benefit-recall/rankers.mjs';
 import {searchBenefitKnowledge} from '../src/benefitSearch.js';
 
 const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
@@ -45,7 +45,7 @@ for(const [name,set] of Object.entries(sets)){
 if(mismatches.length){console.error('The lab rubric no longer matches production:\n  '+mismatches.slice(0,10).join('\n  '));process.exit(1);}
 
 // 2. Rankers
-const rankers={rubric:searchBenefitKnowledge,bm25:bm25Search(),bm25Structure:bm25Search({structure:true})};
+const rankers={flatBefore161:rubricSearch(FLAT_WEIGHTS),rubric:searchBenefitKnowledge,bm25:bm25Search(),bm25Structure:bm25Search({structure:true})};
 const comparison=Object.fromEntries(Object.entries(rankers).map(([name,search])=>[name,{dev:evaluate(search,sets.dev),heldOut:evaluate(search,sets.heldOut)}]));
 // A few BM25 settings, read on dev only, so the comparison is not against one arbitrary configuration.
 const bm25Grid=[];
@@ -54,7 +54,7 @@ for(const titleWeight of [1,2,3])for(const k1 of [1.2])for(const outsideShare of
 // 3. Sensitivity on dev
 const FACTORS=[0.5,0.75,1,1.25,1.5],base=evaluate(lab,sets.dev),baseBig=evaluate(lab,sets.dev,{big:true});
 const sensitivity={};
-for(const key of Object.keys(DEFAULT_WEIGHTS).filter(k=>k!=='minScore')){
+for(const key of Object.keys(DEFAULT_WEIGHTS).filter(k=>typeof DEFAULT_WEIGHTS[k]==='number'&&k!=='minScore'&&k!=='commonShare')){
  const curve=FACTORS.map(f=>{const s=rubricSearch({[key]:DEFAULT_WEIGHTS[key]*f}),r=evaluate(s,sets.dev),g=evaluate(s,sets.dev,{big:true});return {factor:f,value:DEFAULT_WEIGHTS[key]*f,A:r.A,C:r.C,bigA:g.A,bigC:g.C};});
  const span=(m,k)=>Math.max(...curve.map(c=>c[m][k]))-Math.min(...curve.map(c=>c[m][k]));
  const spans={mrrA:span('A','mrr'),mrrC:span('C','mrr'),bigRecallA:span('bigA','recall'),bigRecallC:span('bigC','recall'),recallA:span('A','recall'),recallC:span('C','recall'),precisionA:span('A','precision'),precisionC:span('C','precision'),noiseA:span('A','noAnswerNoise'),noiseC:span('C','noAnswerNoise'),forbiddenA:span('A','forbidden')};

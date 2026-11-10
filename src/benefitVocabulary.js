@@ -36,7 +36,7 @@ const GLOSSARY=[
  [/\bstream|追剧|剧集/i,'流媒体 订阅'],
  [/\bworking out\b|\bworkouts?\b|\bexercis|健身房|做运动/i,'健身'],
  [/chauffeur|car service|专车|接送机|接机|送机/i,'专车 Blacklane'],
- [/\brides?\b|叫车|打的|的士|taxi|\bcab\b/i,'打车 rideshare'],
+ [/\brides?\b|rideshare|ride-share|叫车|打的|的士|taxi|\bcab\b/i,'打车 rideshare Lyft'],
  [/\bfood\b|\beat(?:ing)?\b|吃饭|食饭|餐厅|餐馆|餐饮|用餐|restaurant/i,'餐饮'],
  [/breakfast|早餐/i,'早餐'],
  [/first[- ]year|首年|第一年/i,'首年'],

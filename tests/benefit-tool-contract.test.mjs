@@ -106,3 +106,12 @@ test('a rule outside the chosen scenario competes on its own words only, without
  // A single body word is not enough outside the filter.
  assert.equal(searchBenefitKnowledge('使用',cards,'2026-11-09',{scenarioId:'fitness'}).rules.filter(x=>!x.scenarioIds.includes('fitness')).length,0);
 });
+
+test('common words weigh little and cannot make a match alone; rare words and typos still find the rule (#161)', () => {
+ const cobrand=['chase-us-united-quest','amex-us-us-delta-skymiles-reserve-card','amex-us-us-marriott-bonvoy-brilliant-card','chase-us-ihg-premier','citi-us-citi-aadvantage-executive-card','chase-us-southwest-rapid-rewards-priority-credit-card'].map(card);
+ const top=q=>searchBenefitKnowledge(q,cobrand,'2026-11-09').rules.map(r=>r.id);
+ // "credit" is in most English originals; it must not push the Citi Lyft rule out of a rideshare search.
+ assert.ok(top('rideshare credit').includes('rule.citi-us-citi-aadvantage-executive-card.lyft'));
+ assert.ok(top('rideshre credit').includes('rule.chase-us-united-quest.rideshare'),'one-letter typo');
+ assert.equal(searchBenefitKnowledge('credit',cobrand,'2026-11-09').total,0,'a common word alone matches nothing');
+});

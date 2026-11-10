@@ -21,7 +21,11 @@ const partners=[['hilton',/hilton|希尔顿|希爾頓/i],['marriott',/marriott|�
 const norm=s=>String(s||'').normalize('NFKC').toLowerCase();
 const STOP_TERMS=['what','which','have','with','your','card','cards','benefits','benefit','我的','哪些','什么','什麼','可以','怎么','怎麼','有没有','福利','权益','權益','帮我','幫我'];
 const allTokens=text=>[...norm(text).matchAll(/[a-z][a-z-]{2,}|[㐀-鿿]{2,}/g)].flatMap(([t])=>/^[a-z]/.test(t)?[t]:Array.from({length:t.length-1},(_,i)=>t.slice(i,i+2)));
-const tokens=text=>[...new Set(allTokens(text))].filter(t=>!STOP_TERMS.includes(t));
+const EN_STOP=new Set('the and for are you can not will this that from any all per may must get use how does did was has its into our their they there when what who why where about also more than then them these those each both after before been would could should one out off own just now been is to of in on at by or an be as it if no do'.split(' '));
+const tokens=text=>[...new Set(allTokens(text))].filter(t=>!STOP_TERMS.includes(t)&&!EN_STOP.has(t));
+const hasTerm=term=>{if(!/^[a-z]/.test(term))return text=>text.includes(term);const re=new RegExp(term.length>=5?`\\b${term}`:`\\b${term}(?:s|es)?\\b`);return text=>re.test(text);};
+const issuerFree=s=>norm(s).replace(/\bamerican express\b/g,' ');
+const ruleTexts=r=>[r.content,...(r.original?[r.original]:[]),...Object.values(r.translations||{})];
 const GENERIC_ZH=/^(?:我)?(?:有|有哪些|的|全部|所有|持卡|卡片|卡|福利|权益|權益|什么|什麼|\s)*$/,GENERIC_EN=/^(?:what |which )?(?:are |do i have |do i get )?(?:my |all |the )?(?:credit )?(?:cards? ?)?(?:benefits?|perks?)(?: do i (?:have|get)| i have)?\??$/i;
 const STOP=new Set(['the','card','cards','credit','debit','my','what','which','are','have','get','and','for','with','your','all','benefits','benefit','perks','perk','american','express']);
 const words=s=>(norm(s).match(/[a-z][a-z-]{2,}/g)||[]).filter(w=>!STOP.has(w));
@@ -34,7 +38,10 @@ function genericScope(question,cards){
 }
 // ---- end of copy ----
 
-export const DEFAULT_WEIGHTS=Object.freeze({concept:7,membershipConcept:5,title:5,programme:6,body:1,partner:12,creditBoost:8,membershipBoost:10,loungeBoost:10,filterBonus:7,outsideMin:8,programmeOnly:4,minScore:0});
+// Production since #161: IDF-weighted words with common words gated, typo fixes, concept 6, outsideMin 10.
+export const DEFAULT_WEIGHTS=Object.freeze({concept:6,membershipConcept:5,title:5,programme:6,body:1,partner:12,creditBoost:8,membershipBoost:10,loungeBoost:10,filterBonus:7,outsideMin:10,programmeOnly:4,minScore:0,idf:true,commonShare:0.25,typos:true});
+// The flat-count rubric before #161, for comparison.
+export const FLAT_WEIGHTS=Object.freeze({...DEFAULT_WEIGHTS,concept:7,outsideMin:8,idf:false,typos:false});
 const programmeName=id=>norm(knowledgeEntities.programmes.find(p=>p.id===id)?.name||id);
 
 // Caches: the lab runs thousands of searches over the same rules, cards and questions. Results are the same as uncached.
@@ -42,7 +49,25 @@ const memo=(map,key,make)=>map.has(key)?map.get(key):(map.set(key,make()),map.ge
 const rulesCache=new Map(),productCache=new WeakMap(),docCache=new Map(),expandCache=new Map();
 const activeRules=asOf=>memo(rulesCache,asOf,()=>queryKnowledge({kind:'benefit',asOf}).rules);
 const productOf=c=>{if(!productCache.has(c))productCache.set(c,matchCardProduct(c).product?.id);return productCache.get(c);};
-const docOf=r=>memo(docCache,r.revisionId,()=>({r,title:norm(r.content.title),body:norm(r.content.summary+' '+r.content.howToUse.join(' ')),programmes:r.programmeIds.map(programmeName).join(' ')}));
+const docOf=r=>memo(docCache,r.revisionId,()=>{const texts=ruleTexts(r);return {r,title:issuerFree(texts.map(t=>t.title).join(' ')),body:issuerFree([...texts.flatMap(t=>[t.summary,...t.howToUse]),...(r.original?.quotes||[]).map(q=>q.text)].join(' ')),programmes:r.programmeIds.map(programmeName).join(' ')};});
+const matcherCache=new Map(),dfCache=new Map();
+const matcherOf=t=>memo(matcherCache,t,()=>hasTerm(t));
+// IDF over every active benefit rule, counting a rule once if the word is anywhere in it. A word's points are scaled
+// so that a word in 10 rules keeps the rubric's flat points; rarer words weigh more, common ones ("credit") less.
+const idfOf=(df,N)=>Math.log(1+(N-df+0.5)/(df+0.5));
+const dfOf=(term,asOf)=>{const all=activeRules(asOf),has=matcherOf(term);return memo(dfCache,asOf+'|'+term,()=>all.filter(r=>{const d=docOf(r);return has(d.title)||has(d.programmes)||has(d.body);}).length);};
+function idfWeight(term,asOf){const N=activeRules(asOf).length;return idfOf(dfOf(term,asOf),N)/idfOf(10,N);}
+// A word in more than commonShare of all rules ("credit", "card", 登记) tells rules apart too little to count as a match on its own.
+const isCommon=(term,asOf,share)=>dfOf(term,asOf)>share*activeRules(asOf).length;
+// Typo tolerance: an English query word of five letters or more that no rule contains also matches the rule words one
+// edit away (rideshre → rideshare, resturant → restaurant).
+const vocabCache=new Map();
+const vocabulary=asOf=>memo(vocabCache,asOf,()=>{const v=new Set();for(const r of activeRules(asOf)){const d=docOf(r);for(const w of (d.title+' '+d.programmes+' '+d.body).match(/[a-z][a-z-]{4,}/g)||[])v.add(w);}return [...v];});
+function oneEdit(a,b){if(Math.abs(a.length-b.length)>1||a===b)return false;let i=0;while(i<a.length&&a[i]===b[i])i++;
+ if(a.length===b.length)return a.slice(i+1)===b.slice(i+1)||(a[i]===b[i+1]&&a[i+1]===b[i]&&a.slice(i+2)===b.slice(i+2));
+ return a.length<b.length?a.slice(i)===b.slice(i+1):a.slice(i+1)===b.slice(i);}
+const typoCache=new Map();
+const corrections=(term,asOf)=>memo(typoCache,asOf+'|'+term,()=>!/^[a-z]{5,}$/.test(term)||dfOf(term,asOf)?[]:vocabulary(asOf).filter(w=>oneEdit(term,w)));
 // What every ranker shares: held products, whole-card scope, partner and programme filters, and the scenario/category test.
 function prepare(question,cards,asOf,filters){
  const scope=genericScope(question,cards),generic=!!scope?.cards.length,scoped=new Set((scope?.cards||[]).map(productOf).filter(Boolean));
@@ -70,13 +95,18 @@ export function rubricSearch(weights=DEFAULT_WEIGHTS){
  const W={...DEFAULT_WEIGHTS,...weights};
  return (question,cards,asOf,filters={})=>{
   const {generic,text,docs,passesHard,filtered,inFilter}=prepare(question,cards,asOf,filters);
-  const signals=concepts.filter(([,re])=>re.test(text)),terms=generic?[]:tokens(text),ranked=[];
+  const fixed=W.typos?[...new Set(tokens(text).flatMap(t=>corrections(t,asOf)))]:[],full=fixed.length?text+' '+fixed.join(' '):text;
+  const signals=concepts.filter(([,re])=>re.test(full)),terms=generic?[]:tokens(full),matchers=terms.map(t=>[t,matcherOf(t)]),ranked=[];
   for(const d of docs){
    const matchedPartners=passesHard(d);if(!matchedPartners)continue;
    const {r,title,body,programmes}=d;let score=0;
-   for(const [key,re,scenarios] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||re.test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant)score+=key==='membership'?W.membershipConcept:W.concept;}
-   for(const term of terms){if(title.includes(term))score+=W.title;else if(programmes.includes(term))score+=W.programme;else if(body.includes(term))score+=W.body;}
-   if(matchedPartners.length)score+=W.partner;
+   // specific: the rule matched on something other than common words (a concept, a partner, or a rarer word).
+   let specific=false;
+   for(const [key,re,scenarios] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||re.test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant){score+=key==='membership'?W.membershipConcept:W.concept;specific=true;}}
+   for(const [term,has] of matchers){const k=W.idf?idfWeight(term,asOf):1,hit=has(title)?W.title:has(programmes)?W.programme:has(body)?W.body:0;if(!hit)continue;score+=hit*k;if(!W.idf||!isCommon(term,asOf,W.commonShare))specific=true;}
+   if(matchedPartners.length){score+=W.partner;specific=true;}
+   // With IDF, common words still add their small weight, but alone they neither qualify a rule nor earn a boost.
+   if(W.idf&&!specific)score=0;
    const inside=inFilter(r);
    if(filtered&&!inside&&score<W.outsideMin)continue;
    const boosted=!filtered||inside;
@@ -98,7 +128,7 @@ export function rubricSearch(weights=DEFAULT_WEIGHTS){
 const statsCache=new Map();
 function corpusStats(asOf,titleWeight){
  const key=asOf+'|'+titleWeight;if(statsCache.has(key))return statsCache.get(key);
- const docTokens=r=>{const t=allTokens(r.content.title),p=allTokens(r.programmeIds.map(programmeName).join(' ')),b=allTokens(r.content.summary+' '+r.content.howToUse.join(' '));return [...Array(titleWeight).fill([...t,...p]).flat(),...b];};
+ const docTokens=r=>{const d=docOf(r),t=allTokens(d.title),p=allTokens(d.programmes),b=allTokens(d.body);return [...Array(titleWeight).fill([...t,...p]).flat(),...b];};
  const all=activeRules(asOf),df=new Map(),len=new Map();let total=0;
  for(const r of all){const toks=docTokens(r);len.set(r.id,toks.length);total+=toks.length;for(const t of new Set(toks))df.set(t,(df.get(t)||0)+1);}
  const stats={N:all.length,avg:total/all.length,df,len,docTokens,tfCache:new Map()};statsCache.set(key,stats);return stats;
