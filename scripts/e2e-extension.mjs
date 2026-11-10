@@ -127,7 +127,8 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession}={}){
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true}={}){
+ if(restart&&expiredLogin)throw Error('run --restart and --expired-login separately: bank tabs do not come back after a restart');
  if(stepMs)STEP_MS=stepMs;log=[];lastState=null;
  const work=await mkdtemp(join(tmpdir(),'cardybara-e2e-'));
  const sessions={};let browser,bank;
@@ -275,6 +276,9 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    const readBefore=JSON.stringify((await state())?.records?.Chase);
    const expired=await expire({cdp,targets:async()=>(await cdp.send('Target.getTargets')).targetInfos.filter(t=>t.type==='page'&&new URL(t.url||'about:blank').hostname===BANK_HOST)});
    note('bank session expired on',String(expired),'open bank page(s)');
+   // A new bank tab starts signed out anyway, so without an open page to expire this would not test
+   // an expired session at all.
+   if(requireExpired&&!expired)throw new StepError('no open bank page to expire; the expired-login check would not test an expired session');
    const runBefore=(await state())?.run?.id??null;
    await evaluate('wallet','location.hash="connections"');
    await until('the Chase refresh button',()=>evaluate('wallet',`(()=>{const want=${words('刷新银行')};const card=[...document.querySelectorAll('.account-connection')].find(c=>c.querySelector('.ant-card-head')?.textContent.includes('Chase'));const b=card&&[...card.querySelectorAll('button')].find(b=>want.includes(b.textContent.trim()));if(!b)return false;b.click();return true;})()`));
@@ -284,9 +288,18 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    await until('needs-login on the wallet page again',()=>shows('wallet','需要登录银行'));
    const signIn=await until('the sign-in page on a bank tab',async()=>{for(const t of (await cdp.send('Target.getTargets')).targetInfos.filter(t=>t.type==='page'&&new URL(t.url||'about:blank').hostname===BANK_HOST)){await attach('bank',t.targetId);if(await evaluate('bank','!!document.getElementById("sign-in")'))return t;}return null;});
    await until('the reading guide on the bank page again',()=>evaluate('bank','!!document.getElementById("cardybara-bank-guide")'));
+   // Still kept just before the sign-in, and still shown on the wallet.
+   if(JSON.stringify((await state())?.records?.Chase)!==readBefore)throw new StepError('records changed while waiting for a sign-in after the session expired: '+JSON.stringify(lastState?.records?.Chase));
+   await evaluate('wallet','location.hash="wallet"');
+   await until('the earlier balance on the wallet page while waiting for a sign-in',async()=>(await pageText('wallet')).includes('1,234.56'));
    note('needs-login shown again with the earlier records kept; signing in on',signIn.targetId);
    await evaluate('bank','document.getElementById("sign-in").click()');
    const again=await until('the second reading to finish',async()=>{const s=await state();return s?.run?.status&&s.run.status!=='running'&&s.run.jobs?.find(j=>j.bank==='Chase')?.status!=='needs_login'?s:null;},STEP_MS*2);
+   if(again.run.id!==waiting.run.id)throw new StepError('a different run finished after signing in again');
+   // The synthetic page gives the same values again, so a fresh capture time is what shows the
+   // fields were read again rather than left over.
+   const capturedAt=r=>Math.max(...Object.values(r||{}).flatMap(f=>Object.values(f||{}).map(v=>Date.parse(v?.capturedAt)||0)));
+   if(!(capturedAt(again.records?.Chase)>capturedAt(JSON.parse(readBefore))))throw new StepError('the fields were not read again after signing in');
    const job2=again.run.jobs.find(j=>j.bank==='Chase');
    if(job2.status!=='updated')throw new StepError(`the read after signing in again ended as ${job2.status}: ${JSON.stringify(job2.diagnostic||null)}`);
    const values=r=>JSON.stringify(Object.fromEntries(Object.entries(r||{}).map(([id,f])=>[id,Object.fromEntries(Object.entries(f||{}).map(([k,v])=>[k,v?.value]))])));
@@ -346,14 +359,14 @@ export const BROKEN_RESTART={
 // With --expired-login: the session is not really expired, so no sign-in is asked for; the check
 // must notice instead of passing on a run that never met an expired session.
 export const BROKEN_EXPIRED_LOGIN={
- 'a bank session that did not expire':[/instead of asking for a sign-in again|needs-login again/,async()=>0],
+ 'a bank session that did not expire':[/the run ended as updated instead of asking for a sign-in again/,async()=>0],
 };
 export async function negativeControls(input,{out,restart=false,expiredLogin=false}){
  const escaped=[];
  // With --restart or --expired-login only that scenario's controls run; the package controls run
  // in their own step.
  const extended=restart||expiredLogin;
- const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire}]):[])];
+ const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire,requireExpired:false}]):[])];
  for(const [name,reason,options] of controls){
   console.log(`--- negative control: ${name}`);
   const error=await run(input,{out:join(out,name.replace(/\W+/g,'-')),...options,stepMs:12000}).then(()=>null,e=>e);
