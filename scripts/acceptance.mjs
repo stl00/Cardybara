@@ -1,8 +1,10 @@
 import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
 import {confirmedOtherProgramme,requiredReward} from '../extension-next/mvp.js';
 import {readZipEntry} from './read-zip.mjs';
+const HOLDOUT=JSON.parse(readFileSync(new URL('../evals/holdout/manifest.json',import.meta.url),'utf8'));
 export const REQUIRED_CASES=['install','coldStart','manualAdd','bankDiscovery','bankReadback','restartPersistence','exportRecovery','cancel','expiredSession','upgradePersistence'];
 export const REQUIRED_BANKS=['Amex US','Amex HK','Chase','BOA','HSBC HK','SC HK','Citi US'];
 const BILLING_FIELDS=['balance','statement','minimum','due'];
@@ -18,7 +20,13 @@ export function artifactBuildId(zipBytes){
  if(!match)throw Error('Artifact does not declare a build');
  return match[1];
 }
-export function validateAcceptance(report,{sha256,runtimeBuild,now=Date.now()}){
+// The candidate's source is the commit its release tag points at: CI builds the draft from that tag.
+export function candidateSourceCommit(cwd=process.cwd()){
+ const label=JSON.parse(readFileSync(new URL('../release.json',import.meta.url),'utf8')).label;
+ try{return execFileSync('git',['rev-parse','--verify','--quiet',`v${label}^{commit}`],{cwd,encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim();}
+ catch{throw Error(`Release tag v${label} not found in this checkout`);}
+}
+export function validateAcceptance(report,{sha256,runtimeBuild,sourceCommit,now=Date.now()}){
  const errors=[];const need=(ok,why)=>{if(!ok)errors.push(why);};
  need(report?.schema===1,'invalid schema');need(report?.artifactSha256===sha256,'artifact changed or not tested');
  need(typeof runtimeBuild==='string'&&runtimeBuild!==''&&report?.runtimeBuild===runtimeBuild,'executing worker build not verified');
@@ -26,6 +34,13 @@ export function validateAcceptance(report,{sha256,runtimeBuild,now=Date.now()}){
  need(env.oldBackupImported===false,'old wallet backup was used');need(env.developerServicesRequired===false,'depends on developer services');
  need(/^[a-p]{32}$/.test(env.extensionId||''),'installed extension ID missing');
  const date=Date.parse(report?.verifiedAt);need(Number.isFinite(date)&&date<=now+60000&&now-date<7*86400000,'acceptance date missing or stale');
+ // The frozen held-out assistant eval must have run on this candidate, on the frozen dataset, and met its pass rate.
+ const h=report?.heldOutEval;
+ need(h?.dataset===HOLDOUT.dataset&&h?.datasetSha256===HOLDOUT.sha256,'held-out assistant eval: not run on the frozen dataset');
+ need(h?.artifactSha256===sha256&&h?.runtimeBuild===runtimeBuild,'held-out assistant eval: not run on this candidate');
+ need(typeof sourceCommit==='string'&&/^[0-9a-f]{40}$/.test(sourceCommit)&&h?.sourceCommit===sourceCommit,'held-out assistant eval: not run on the candidate source');
+ const ran=Date.parse(h?.ranAt);need(Number.isFinite(ran)&&ran<=now+60000&&now-ran<7*86400000,'held-out assistant eval: run date missing or stale');
+ need(h?.mode==='offline'&&Number.isInteger(h?.passed)&&h?.total===HOLDOUT.caseCount&&h.passed>=0&&h.passed<=h.total&&Array.isArray(h.failed)&&h.failed.length===h.total-h.passed&&h.passed/h.total>=HOLDOUT.minPassRate,'held-out assistant eval: below the pass rate');
  for(const name of REQUIRED_CASES){const c=report?.cases?.[name];need(c?.status==='passed'&&c?.mode==='real-chrome'&&typeof c?.evidence==='string'&&c.evidence.trim().length>5,`${name}: real Chrome evidence required`);}
  for(const bank of REQUIRED_BANKS){
   const b=report?.banks?.[bank];need(b?.status==='passed'&&Number.isInteger(b?.cardCount)&&b.cardCount>0&&b.runtimeBuild===runtimeBuild,`${bank}: real bank acceptance missing`);
@@ -45,7 +60,7 @@ export function validateAcceptance(report,{sha256,runtimeBuild,now=Date.now()}){
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  const [zip,evidence,build]=process.argv.slice(2);if(!zip||!evidence||!build){console.error('Usage: node scripts/acceptance.mjs CANDIDATE.zip PRIVATE-ACCEPTANCE.json RUNTIME-BUILD');process.exit(1);}
- const bytes=readFileSync(zip),result=validateAcceptance(JSON.parse(readFileSync(evidence,'utf8')),{sha256:createHash('sha256').update(bytes).digest('hex'),runtimeBuild:build});
+ const bytes=readFileSync(zip),result=validateAcceptance(JSON.parse(readFileSync(evidence,'utf8')),{sha256:createHash('sha256').update(bytes).digest('hex'),runtimeBuild:build,sourceCommit:candidateSourceCommit()});
  if(artifactBuildId(bytes)!==build){result.passed=false;result.errors.push('runtime build is not the build in this artifact');}
  console.log(JSON.stringify(result,null,2));if(!result.passed)process.exitCode=1;
 }
