@@ -28,7 +28,7 @@ test('the held-out run needs a clean checkout of the release tag and the frozen 
  // A copy of the code the eval reads, in its own repository, so the tag and working tree can be changed safely.
  const repo=path.join(dir,'repo');for(const p of ['src','evals','extension-next','scripts','release.json','package.json'])cpSync(p,path.join(repo,p),{recursive:true});
  symlinkSync(path.resolve('node_modules'),path.join(repo,'node_modules'));writeFileSync(path.join(repo,'.gitignore'),'node_modules\n');
- const git=(...a)=>execFileSync('git',['-c','user.name=test','-c','user.email=test@example.invalid',...a],{cwd:repo,encoding:'utf8'}).trim(),tag='v'+JSON.parse(readFileSync('release.json','utf8')).label;
+ const git=(...a)=>execFileSync('git',['-c','user.name=test','-c','user.email=test@example.invalid','-c','commit.gpgsign=false','-c','tag.gpgsign=false',...a],{cwd:repo,encoding:'utf8'}).trim(),tag='v'+JSON.parse(readFileSync('release.json','utf8')).label;
  git('init','-q');git('add','-A');git('commit','-q','-m','candidate');git('tag',tag);
  const zip=path.join(dir,'c.zip'),blank=path.join(dir,'blank.zip'),report=path.join(dir,'r.json'),run=()=>spawnSync(process.execPath,['scripts/eval-holdout.mjs',zip,report],{cwd:repo,encoding:'utf8'});
  const recorded=()=>JSON.parse(readFileSync(report,'utf8')).heldOutEval;

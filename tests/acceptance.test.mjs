@@ -14,7 +14,7 @@ const options={sha256:'a'.repeat(64),runtimeBuild:'fixture-build',sourceCommit:'
 // A throwaway repository whose release tag stands in for the candidate's source commit.
 function taggedRepo(dir){
  const label=JSON.parse(readFileSync('release.json','utf8')).label,git=(...a)=>execFileSync('git',a,{cwd:dir,encoding:'utf8'}).trim();
- git('init','-q');git('-c','user.name=test','-c','user.email=test@example.invalid','commit','-q','--allow-empty','-m','candidate');git('tag','v'+label);
+ git('init','-q');git('-c','user.name=test','-c','user.email=test@example.invalid','-c','commit.gpgsign=false','commit','-q','--allow-empty','-m','candidate');git('-c','tag.gpgsign=false','tag','v'+label);
  return git('rev-parse','HEAD');
 }
 test('release gate fails closed without actual installation and every bank field',()=>{
@@ -84,12 +84,14 @@ test('promotion checks the build inside the ZIP, not the checkout',t=>{
  const sha256=createHash('sha256').update(readFileSync(zip)).digest('hex');
  // A stand-in gh: never reaches GitHub, reports a matching draft and records whether publishing was attempted.
  const draft=JSON.stringify({isDraft:true,tagName:'v'+label,assets:[{name:'candidate.zip',digest:'sha256:'+sha256}]});
- writeFileSync(path.join(dir,'gh'),`#!/bin/sh\nif [ "$2" = "edit" ]; then touch '${published}'; else echo '${draft}'; fi\n`);chmodSync(path.join(dir,'gh'),0o755);
+ writeFileSync(path.join(dir,'gh'),`#!/bin/sh\nif [ "$1" = "api" ]; then cat '${path.join(dir,'remote-commit')}'; elif [ "$2" = "edit" ]; then touch '${published}'; else echo '${draft}'; fi\n`);chmodSync(path.join(dir,'gh'),0o755);
  const source=taggedRepo(dir);
  const promote=(build,change={})=>{rmSync(published,{force:true});const r=fixture();r.artifactSha256=sha256;r.runtimeBuild=build;Object.assign(r.heldOutEval,{artifactSha256:sha256,runtimeBuild:build,sourceCommit:source},change);for(const bank of REQUIRED_BANKS)r.banks[bank].runtimeBuild=build;writeFileSync(evidence,JSON.stringify(r));return spawnSync(process.execPath,[path.resolve('scripts/promote-release.mjs'),zip,evidence,'--publish'],{cwd:dir,env:{...process.env,PATH:dir+path.delimiter+process.env.PATH},encoding:'utf8'});};
  assert.notEqual(BUILD_ID,'zip-build');
  const stale=promote(BUILD_ID);assert.notEqual(stale.status,0);assert.equal(existsSync(published),false,'a report matching only the checkout must not publish');
  const other=promote('zip-build',{sourceCommit:'d'.repeat(40)});assert.notEqual(other.status,0);assert.equal(existsSync(published),false,'a held-out run on another commit must not publish');
+ writeFileSync(path.join(dir,'remote-commit'),'e'.repeat(40)+'\n');const moved=promote('zip-build');assert.notEqual(moved.status,0);assert.match(moved.stderr,/GitHub tag/);assert.equal(existsSync(published),false,'a local tag that differs from GitHub must not publish');
+ writeFileSync(path.join(dir,'remote-commit'),source+'\n');
  const tested=promote('zip-build');assert.equal(tested.status,0,tested.stderr);assert.equal(existsSync(published),true);
 });
 test('the acceptance command refuses a build that is not the one in the ZIP',t=>{

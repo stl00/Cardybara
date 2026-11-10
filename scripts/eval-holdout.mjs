@@ -12,7 +12,8 @@ const [zip,reportPath]=process.argv.slice(2);
 if(!zip||!reportPath)fail('Usage: node scripts/eval-holdout.mjs CANDIDATE.zip PRIVATE-REPORT.json');
 const root=fileURLToPath(new URL('..',import.meta.url)),git=(...args)=>execFileSync('git',args,{cwd:root,encoding:'utf8'}).trim();
 // The eval runs this checkout's source, so it must be exactly the source the candidate was built from.
-if(git('status','--porcelain'))fail('The checkout has uncommitted changes. Run on a clean checkout of the release tag.');
+// Untracked files are ignored, so a report or ZIP kept in the checkout does not block the run; a change to tracked code does.
+if(git('status','--porcelain','--untracked-files=no'))fail('The checkout has uncommitted changes. Run on a clean checkout of the release tag.');
 const head=git('rev-parse','HEAD');let tagged;
 try{tagged=candidateSourceCommit(root);}catch(error){fail(error.message);}
 if(head!==tagged)fail('This checkout is not the commit the release tag points at. Check out the release tag.');
