@@ -1,6 +1,7 @@
 import {queryKnowledge,knowledgeEntities} from './knowledge.js';
 import {matchCardProduct} from './productCatalog.js';
-import {expandQuery,askedText,programmesForFilter} from './benefitVocabulary.js';
+import {expandQuery,askedText,programmesForFilter,toSimplified} from './benefitVocabulary.js';
+import {unheldProduct} from './namedProduct.js';
 const concepts=[
  ['hotel',/酒店|饭店|飯店|住宿|住一晚|订房|訂房|入住|hotel|stay|resort|hilton|marriott|hyatt|ihg|accor|radisson|希尔顿|希爾頓|万豪|萬豪|凯悦|凱悅|洲际|洲際/i,['hotel-stay']],
  ['airport',/机场|機場|候机|候機|贵宾|貴賓|休息室|lounge|airport|priority pass|centurion/i,['airport']],
@@ -69,7 +70,20 @@ function typoFixes(text,asOf){
  const c=corpus(asOf);
  return [...new Set(tokens(text).filter(t=>/^[a-z]{5,}$/.test(t)).flatMap(t=>{if(!c.typos.has(t))c.typos.set(t,wordStats(t,hasTerm(t),asOf).df?[]:c.vocab.filter(w=>oneEdit(t,w)));return c.typos.get(t);}))];
 }
+// Words that say what kind of benefit is wanted (yearly, perks, membership, 优惠) but not what it is about.
+const WEAK=new Set(['membership','年度','每年','annual','yearly','perks','perk','privileges','会员','优惠','福利','待遇','礼遇','好处']);
+// What is left of a question without those words and question fillers: the thing it asks about.
+const ZH_FILLER=/我的|我|你|您|有没有|有沒有|有冇|有哪些|有什么|有什麼|有啥|有咩|什么|什麼|哪些|哪张|哪張|怎么|怎麼|如何|多少|可以|能够|能夠|告诉|告訴|看看|列出|所有|全部|今年|每月|[有啥咩乜吗嗎呢的了吧啊呀能会會是都还還和与與跟在用张張卡哪些么麼几幾个個一这這那请請帮幫下查]/g;
+const askedThing=question=>{
+ const text=toSimplified(norm(question)).replace(/[^\p{L}\p{N}\s]/gu,' ');
+ const han=(text.match(/[\u3400-\u9fff]+/g)||[]).map(run=>[...WEAK].reduce((t,w)=>t.replaceAll(w,' '),run).replace(ZH_FILLER,' ')).join(' ').replace(/\s+/g,'');
+ const latin=(text.match(/[a-z][a-z-]{2,}/g)||[]).filter(w=>!WEAK.has(w)&&!EN_STOP.has(w)&&!STOP.has(w)&&!['do','does','give','offer','offers','get','what','which','any'].includes(w));
+ return han.length>=2||latin.length?[han,...latin].filter(Boolean).join(' '):null;
+};
 export function searchBenefitKnowledge(question,cards,asOf,filters={}){
+ // A product the wallet doesn't hold has no benefits here; the rest of the words must not pull in other cards' rules.
+ const unheld=unheldProduct(question,cards,asOf);
+ if(unheld)return {rules:[],total:0,wordMatches:0,truncated:false,unheldProduct:unheld,method:'structured-filter+multilingual-lexical-ranking',asOf};
  // Scoring runs on the expanded query (Simplified characters, glossary and alias words); the strict partner filter and the generic check use the words as asked.
  const scope=genericScope(question,cards),generic=!!scope?.cards.length,scoped=new Set((scope?.cards||[]).map(c=>matchCardProduct(c).product?.id).filter(Boolean));
  const asked=expandQuery(question),fixes=typoFixes(asked,asOf),text=fixes.length?asked+' '+fixes.join(' '):asked,products=new Set(cards.map(c=>matchCardProduct(c).product?.id).filter(Boolean));
@@ -109,6 +123,13 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
   if(!score&&!generic)continue;
   ranked.push({...r,retrieval:{score,matched:[...new Set(matched)],lexical,inFilter:filtered&&inFilter}});
  }
+ // Only words like 年度 or perks matched, with no scenario, partner or filter: the thing asked about (量子传送舱) is in no
+ // rule, and rules that merely mention a year are not an answer.
+ // A brand alias or glossary word the vocabulary expanded (沃尔玛 → Walmart+) also makes the question topical.
+ const topical=signals.some(([key])=>key!=='membership')||requestedPartners.length||filters.scenarioId||filters.category||filters.programme||text!==askedText(question);
+ // Judged on every candidate, so a real match crowded out of the top of a large wallet still counts.
+ const thing=!generic&&!topical&&ranked.length&&ranked.every(r=>r.retrieval.matched.every(m=>WEAK.has(m)))&&askedThing(question);
+ if(thing)return {rules:[],total:0,wordMatches:0,truncated:false,unknownSubject:{named:thing},method:'structured-filter+multilingual-lexical-ranking',asOf};
  // On equal scores, a rule inside the chosen scenario or category comes first.
  ranked.sort((a,b)=>b.retrieval.score-a.retrieval.score||b.retrieval.inFilter-a.retrieval.inFilter||a.id.localeCompare(b.id));
  const limit=Math.max(1,Math.min(24,filters.limit||12));

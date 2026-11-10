@@ -5,7 +5,8 @@
 // bm25Search(options) ranks the same rule fields with BM25 over the same tokens, with or without the structural signals.
 import {queryKnowledge,knowledgeEntities} from '../../src/knowledge.js';
 import {matchCardProduct} from '../../src/productCatalog.js';
-import {expandQuery,askedText,programmesForFilter} from '../../src/benefitVocabulary.js';
+import {expandQuery,askedText,programmesForFilter,toSimplified} from '../../src/benefitVocabulary.js';
+import {unheldProduct} from '../../src/namedProduct.js';
 
 // ---- Copied from src/benefitSearch.js (parity-checked) ----
 const concepts=[
@@ -38,6 +39,17 @@ function genericScope(question,cards){
  if(!named.length||!(GENERIC_ZH.test(rest)||GENERIC_EN.test(rest)||/^(?:card )?(?:benefits?|perks?)\??$/i.test(rest)))return null;
  return {cards:names.filter(n=>named.every(w=>n.w.has(w))).map(n=>n.c),programmes:named.flatMap(w=>programmesForFilter(w,{exact:true}))};
 }
+// #160: weak words and the asked-about thing.
+// Words that say what kind of benefit is wanted (yearly, perks, membership, 优惠) but not what it is about.
+const WEAK=new Set(['membership','年度','每年','annual','yearly','perks','perk','privileges','会员','优惠','福利','待遇','礼遇','好处']);
+// What is left of a question without those words and question fillers: the thing it asks about.
+const ZH_FILLER=/我的|我|你|您|有没有|有沒有|有冇|有哪些|有什么|有什麼|有啥|有咩|什么|什麼|哪些|哪张|哪張|怎么|怎麼|如何|多少|可以|能够|能夠|告诉|告訴|看看|列出|所有|全部|今年|每月|[有啥咩乜吗嗎呢的了吧啊呀能会會是都还還和与與跟在用张張卡哪些么麼几幾个個一这這那请請帮幫下查]/g;
+const askedThing=question=>{
+ const text=toSimplified(norm(question)).replace(/[^\p{L}\p{N}\s]/gu,' ');
+ const han=(text.match(/[\u3400-\u9fff]+/g)||[]).map(run=>[...WEAK].reduce((t,w)=>t.replaceAll(w,' '),run).replace(ZH_FILLER,' ')).join(' ').replace(/\s+/g,'');
+ const latin=(text.match(/[a-z][a-z-]{2,}/g)||[]).filter(w=>!WEAK.has(w)&&!EN_STOP.has(w)&&!STOP.has(w)&&!['do','does','give','offer','offers','get','what','which','any'].includes(w));
+ return han.length>=2||latin.length?[han,...latin].filter(Boolean).join(' '):null;
+};
 // ---- end of copy ----
 
 // Production since #161: IDF-weighted words with common words gated, typo fixes, concept 6, outsideMin 10.
@@ -85,7 +97,7 @@ function prepare(question,cards,asOf,filters){
   return matchedPartners;
  };
  const filtered=!!(filters.scenarioId||filters.category),inFilter=r=>(!filters.scenarioId||r.scenarioIds.includes(filters.scenarioId))&&(!filters.category||r.category===filters.category);
- return {generic,text,docs,passesHard,filtered,inFilter};
+ return {generic,text,docs,passesHard,filtered,inFilter,requestedPartners};
 }
 const finish=(ranked,filters,asOf)=>{
  ranked.sort((a,b)=>b.retrieval.score-a.retrieval.score||b.retrieval.inFilter-a.retrieval.inFilter||a.id.localeCompare(b.id));
@@ -96,17 +108,19 @@ const finish=(ranked,filters,asOf)=>{
 export function rubricSearch(weights=DEFAULT_WEIGHTS){
  const W={...DEFAULT_WEIGHTS,...weights};
  return (question,cards,asOf,filters={})=>{
-  const {generic,text,docs,passesHard,filtered,inFilter}=prepare(question,cards,asOf,filters);
+  // #160: a product the wallet doesn't hold has no benefits here.
+  if(unheldProduct(question,cards,asOf))return {rules:[],total:0,asOf};
+  const {generic,text,docs,passesHard,filtered,inFilter,requestedPartners}=prepare(question,cards,asOf,filters);
   const fixed=W.typos?[...new Set(tokens(text).flatMap(t=>corrections(t,asOf)))]:[],full=fixed.length?text+' '+fixed.join(' '):text;
   const signals=concepts.filter(([,re])=>re.test(full)),terms=generic?[]:tokens(full),matchers=terms.map(t=>[t,matcherOf(t)]),ranked=[];
   for(const d of docs){
    const matchedPartners=passesHard(d);if(!matchedPartners)continue;
-   const {r,title,body,programmes}=d;let score=0;
+   const {r,title,body,programmes}=d;let score=0;const matched=[];
    // specific: the rule matched on something other than common words (a concept, a partner, or a rarer word).
    let specific=false;
-   for(const [key,re,scenarios,ruleRe] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||(ruleRe||re).test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant){score+=key==='membership'?W.membershipConcept:W.concept;specific=true;}}
-   for(const [term,has] of matchers){const k=W.idf?idfWeight(term,asOf):1,hit=has(title)?W.title:has(programmes)?W.programme:has(body)?W.body:0;if(!hit)continue;score+=hit*k;if(!W.idf||!isCommon(term,asOf,W.commonShare))specific=true;}
-   if(matchedPartners.length){score+=W.partner;specific=true;}
+   for(const [key,re,scenarios,ruleRe] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||(ruleRe||re).test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant){score+=key==='membership'?W.membershipConcept:W.concept;specific=true;matched.push(key);}}
+   for(const [term,has] of matchers){const k=W.idf?idfWeight(term,asOf):1,hit=has(title)?W.title:has(programmes)?W.programme:has(body)?W.body:0;if(!hit)continue;score+=hit*k;matched.push(term);if(!W.idf||!isCommon(term,asOf,W.commonShare))specific=true;}
+   if(matchedPartners.length){score+=W.partner;specific=true;matched.push(...matchedPartners);}
    // With IDF, common words still add their small weight, but alone they neither qualify a rule nor earn a boost.
    if(W.idf&&!specific)score=0;
    const inside=inFilter(r);
@@ -119,8 +133,10 @@ export function rubricSearch(weights=DEFAULT_WEIGHTS){
    if(!score&&!generic)continue;
    // Not in production: a floor for unfiltered results, to see how much no-answer noise a threshold removes.
    if(!generic&&!(filtered&&inside)&&score<W.minScore)continue;
-   ranked.push({...r,retrieval:{score,inFilter:filtered&&inside}});
+   ranked.push({...r,retrieval:{score,inFilter:filtered&&inside,matched}});
   }
+  const topical=signals.some(([key])=>key!=='membership')||requestedPartners.length||filters.scenarioId||filters.category||filters.programme||full!==askedText(question);
+  if(!generic&&!topical&&ranked.length&&ranked.every(x=>x.retrieval.matched.every(m=>WEAK.has(m)))&&askedThing(question))return {rules:[],total:0,asOf};
   return finish(ranked,filters,asOf);
  };
 }

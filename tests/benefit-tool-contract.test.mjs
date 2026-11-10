@@ -115,3 +115,26 @@ test('common words weigh little and cannot make a match alone; rare words and ty
  assert.ok(top('rideshre credit').includes('rule.chase-us-united-quest.rideshare'),'one-letter typo');
  assert.equal(searchBenefitKnowledge('credit',cobrand,'2026-11-09').total,0,'a common word alone matches nothing');
 });
+
+// #157: a product the wallet doesn't hold returns no rules, says so, and suggests no other searches.
+test('a named product the wallet does not hold returns no benefits and says so', () => {
+ for(const query of ['Sapphire Titanium card lounge access','Marriott Bonvoy Bold card free night','钛晶卡的贵宾室','Amex Aurora hotel credit']){
+  const r=find({query});
+  assert.equal(r.rules.length,0,query);assert.equal(r.suggestions,undefined,query);
+  assert.match(r.unheldProduct.note,/not among their cards/,query);
+ }
+ const byName=find({query:'lounge',cardName:'No Such Card'});
+ assert.equal(byName.rules.length,0);assert.equal(byName.unheldProduct.named,'No Such Card');
+});
+test('a held product, a programme card or a kind of card named the same way still searches', () => {
+ for(const query of ['Delta Reserve card lounge','Marriott Bonvoy Brilliant card free night','United card checked bag','Priority Pass card','海外签账卡手续费','碌卡有冇回赠','续卡送什么'])
+  assert.equal(find({query}).unheldProduct,undefined,query);
+});
+test('a question about something no benefit record mentions returns nothing, with no suggested searches', () => {
+ for(const query of ['反重力滑板的年度礼遇','quantum hoverboard annual perks']){
+  const r=find({query});
+  assert.equal(r.rules.length,0,query);assert.equal(r.suggestions,undefined,query);assert.match(r.unknownSubject.note,/do not offer unrelated benefits/,query);
+ }
+ // Kind-of-benefit words alone ask about everything, not about an unknown thing.
+ assert.equal(find({query:'我有哪些会员优惠'}).unknownSubject,undefined);
+});
