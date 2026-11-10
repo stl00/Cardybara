@@ -6,6 +6,8 @@ Run `npm run eval:agent` for deterministic retrieval, calculation, context and g
 
 Reports: `latest-offline.json`, `latest-live.json`. A failing rubric exits nonzero. These are development fixtures, not a held-out test set, and a small live run is not an overall accuracy estimate.
 
+The held-out level lives in `evals/holdout/`: frozen cases that are never used for development and run only for a release candidate, as a release gate. See `evals/holdout/README.md`.
+
 ## Metrics and coverage
 
 - Retrieval: expected-record hit@12 and reciprocal rank, active date and held-product checks. Shared natural-language cases compare the old regex+ID-order baseline with the new multilingual lexical ranker. This is **not** exhaustive benefit recall.

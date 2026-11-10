@@ -3,6 +3,7 @@ import {readFileSync} from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {confirmedOtherProgramme,requiredReward} from '../extension-next/mvp.js';
 import {readZipEntry} from './read-zip.mjs';
+const HOLDOUT=JSON.parse(readFileSync(new URL('../evals/holdout/manifest.json',import.meta.url),'utf8'));
 export const REQUIRED_CASES=['install','coldStart','manualAdd','bankDiscovery','bankReadback','restartPersistence','exportRecovery','cancel','expiredSession','upgradePersistence'];
 export const REQUIRED_BANKS=['Amex US','Amex HK','Chase','BOA','HSBC HK','SC HK','Citi US'];
 const BILLING_FIELDS=['balance','statement','minimum','due'];
@@ -26,6 +27,12 @@ export function validateAcceptance(report,{sha256,runtimeBuild,now=Date.now()}){
  need(env.oldBackupImported===false,'old wallet backup was used');need(env.developerServicesRequired===false,'depends on developer services');
  need(/^[a-p]{32}$/.test(env.extensionId||''),'installed extension ID missing');
  const date=Date.parse(report?.verifiedAt);need(Number.isFinite(date)&&date<=now+60000&&now-date<7*86400000,'acceptance date missing or stale');
+ // The frozen held-out assistant eval must have run on this candidate, on the frozen dataset, and met its pass rate.
+ const h=report?.heldOutEval;
+ need(h?.dataset===HOLDOUT.dataset&&h?.datasetSha256===HOLDOUT.sha256,'held-out assistant eval: not run on the frozen dataset');
+ need(h?.artifactSha256===sha256&&h?.runtimeBuild===runtimeBuild,'held-out assistant eval: not run on this candidate');
+ const ran=Date.parse(h?.ranAt);need(Number.isFinite(ran)&&ran<=now+60000&&now-ran<7*86400000,'held-out assistant eval: run date missing or stale');
+ need(Number.isInteger(h?.passed)&&h?.total===HOLDOUT.caseCount&&h.passed>=0&&h.passed<=h.total&&h.passed/h.total>=HOLDOUT.minPassRate,'held-out assistant eval: below the pass rate');
  for(const name of REQUIRED_CASES){const c=report?.cases?.[name];need(c?.status==='passed'&&c?.mode==='real-chrome'&&typeof c?.evidence==='string'&&c.evidence.trim().length>5,`${name}: real Chrome evidence required`);}
  for(const bank of REQUIRED_BANKS){
   const b=report?.banks?.[bank];need(b?.status==='passed'&&Number.isInteger(b?.cardCount)&&b.cardCount>0&&b.runtimeBuild===runtimeBuild,`${bank}: real bank acceptance missing`);

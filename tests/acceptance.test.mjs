@@ -8,7 +8,8 @@ import {execFileSync,spawnSync} from 'node:child_process';
 import {validateAcceptance,artifactBuildId,dueYearEvidenced,REQUIRED_CASES,REQUIRED_BANKS} from '../scripts/acceptance.mjs';
 import {readZipEntry} from '../scripts/read-zip.mjs';
 import {BUILD_ID} from '../extension-next/build-info.js';
-function fixture(){return {schema:1,artifactSha256:'a'.repeat(64),runtimeBuild:'fixture-build',verifiedAt:new Date().toISOString(),environment:{freshChromeProfile:true,oldBackupImported:false,developerServicesRequired:false,extensionId:'a'.repeat(32)},cases:Object.fromEntries(REQUIRED_CASES.map(c=>[c,{status:'passed',mode:'real-chrome',evidence:'Synthetic validator test; not real acceptance.'}])),banks:Object.fromEntries(REQUIRED_BANKS.map(bank=>[bank,{status:'passed',cardCount:1,visibleCardCount:1,runtimeBuild:'fixture-build',capturedAt:new Date().toISOString(),cards:[{fields:Object.fromEntries(['reward','balance','statement','minimum','due'].map(f=>[f,{status:'observed',capturedAt:new Date().toISOString(),...(f==='due'?{date:'2030-01-15',yearEvidence:'Payment due January 15, 2030 (synthetic)'}:{})}]))}]}]))};}
+const HOLDOUT=JSON.parse(readFileSync(new URL('../evals/holdout/manifest.json',import.meta.url),'utf8'));
+function fixture(){return {schema:1,artifactSha256:'a'.repeat(64),runtimeBuild:'fixture-build',verifiedAt:new Date().toISOString(),environment:{freshChromeProfile:true,oldBackupImported:false,developerServicesRequired:false,extensionId:'a'.repeat(32)},heldOutEval:{dataset:HOLDOUT.dataset,datasetSha256:HOLDOUT.sha256,mode:'offline',artifactSha256:'a'.repeat(64),runtimeBuild:'fixture-build',ranAt:new Date().toISOString(),passed:HOLDOUT.caseCount,total:HOLDOUT.caseCount,failed:[]},cases:Object.fromEntries(REQUIRED_CASES.map(c=>[c,{status:'passed',mode:'real-chrome',evidence:'Synthetic validator test; not real acceptance.'}])),banks:Object.fromEntries(REQUIRED_BANKS.map(bank=>[bank,{status:'passed',cardCount:1,visibleCardCount:1,runtimeBuild:'fixture-build',capturedAt:new Date().toISOString(),cards:[{fields:Object.fromEntries(['reward','balance','statement','minimum','due'].map(f=>[f,{status:'observed',capturedAt:new Date().toISOString(),...(f==='due'?{date:'2030-01-15',yearEvidence:'Payment due January 15, 2030 (synthetic)'}:{})}]))}]}]))};}
 const options={sha256:'a'.repeat(64),runtimeBuild:'fixture-build'};
 test('release gate fails closed without actual installation and every bank field',()=>{
  assert.equal(validateAcceptance({},options).passed,false);const r=fixture();assert.equal(validateAcceptance(r,options).passed,true);
@@ -78,7 +79,7 @@ test('promotion checks the build inside the ZIP, not the checkout',t=>{
  // A stand-in gh: never reaches GitHub, reports a matching draft and records whether publishing was attempted.
  const draft=JSON.stringify({isDraft:true,tagName:'v'+label,assets:[{name:'candidate.zip',digest:'sha256:'+sha256}]});
  writeFileSync(path.join(dir,'gh'),`#!/bin/sh\nif [ "$2" = "edit" ]; then touch '${published}'; else echo '${draft}'; fi\n`);chmodSync(path.join(dir,'gh'),0o755);
- const promote=build=>{rmSync(published,{force:true});const r=fixture();r.artifactSha256=sha256;r.runtimeBuild=build;for(const bank of REQUIRED_BANKS)r.banks[bank].runtimeBuild=build;writeFileSync(evidence,JSON.stringify(r));return spawnSync(process.execPath,['scripts/promote-release.mjs',zip,evidence,'--publish'],{env:{...process.env,PATH:dir+path.delimiter+process.env.PATH},encoding:'utf8'});};
+ const promote=build=>{rmSync(published,{force:true});const r=fixture();r.artifactSha256=sha256;r.runtimeBuild=build;Object.assign(r.heldOutEval,{artifactSha256:sha256,runtimeBuild:build});for(const bank of REQUIRED_BANKS)r.banks[bank].runtimeBuild=build;writeFileSync(evidence,JSON.stringify(r));return spawnSync(process.execPath,['scripts/promote-release.mjs',zip,evidence,'--publish'],{env:{...process.env,PATH:dir+path.delimiter+process.env.PATH},encoding:'utf8'});};
  assert.notEqual(BUILD_ID,'zip-build');
  const stale=promote(BUILD_ID);assert.notEqual(stale.status,0);assert.equal(existsSync(published),false,'a report matching only the checkout must not publish');
  const tested=promote('zip-build');assert.equal(tested.status,0,tested.stderr);assert.equal(existsSync(published),true);
@@ -86,7 +87,13 @@ test('promotion checks the build inside the ZIP, not the checkout',t=>{
 test('the acceptance command refuses a build that is not the one in the ZIP',t=>{
  const dir=mkdtempSync(path.join(tmpdir(),'cardybara-acceptance-'));t.after(()=>rmSync(dir,{recursive:true,force:true}));
  const zip=path.join(dir,'c.zip'),evidence=path.join(dir,'r.json');makeZip(zip,{'build-info.js':"export const BUILD_ID='zip-build';\n"});
- const check=build=>{const r=fixture();r.artifactSha256=createHash('sha256').update(readFileSync(zip)).digest('hex');r.runtimeBuild=build;for(const bank of REQUIRED_BANKS)r.banks[bank].runtimeBuild=build;writeFileSync(evidence,JSON.stringify(r));return spawnSync(process.execPath,['scripts/acceptance.mjs',zip,evidence,build],{encoding:'utf8'});};
+ const check=build=>{const r=fixture();r.artifactSha256=createHash('sha256').update(readFileSync(zip)).digest('hex');r.runtimeBuild=build;Object.assign(r.heldOutEval,{artifactSha256:r.artifactSha256,runtimeBuild:build});for(const bank of REQUIRED_BANKS)r.banks[bank].runtimeBuild=build;writeFileSync(evidence,JSON.stringify(r));return spawnSync(process.execPath,['scripts/acceptance.mjs',zip,evidence,build],{encoding:'utf8'});};
  const old=check('old-build');assert.equal(old.status,1);assert.match(old.stdout,/not the build in this artifact/);
  assert.equal(check('zip-build').status,0);
+});
+test('the gate fails closed unless the frozen held-out assistant eval ran on this candidate',()=>{
+ assert.equal(validateAcceptance(fixture(),options).passed,true);
+ const refused=[r=>delete r.heldOutEval,r=>r.heldOutEval=null,r=>r.heldOutEval.artifactSha256='b'.repeat(64),r=>r.heldOutEval.runtimeBuild='old',r=>r.heldOutEval.datasetSha256='0'.repeat(64),r=>r.heldOutEval.dataset='wallet-agent-development-v1',r=>r.heldOutEval.ranAt='2020-01-01',r=>delete r.heldOutEval.ranAt,r=>r.heldOutEval.total=HOLDOUT.caseCount-1,r=>r.heldOutEval.passed=Math.ceil(HOLDOUT.caseCount*HOLDOUT.minPassRate)-1,r=>r.heldOutEval.passed=HOLDOUT.caseCount+1,r=>r.heldOutEval.passed='27'];
+ for(const [i,mutate] of refused.entries()){const r=fixture();mutate(r);const result=validateAcceptance(r,options);assert.equal(result.passed,false,String(i));assert.ok(result.errors.some(e=>e.startsWith('held-out assistant eval')),String(i));}
+ const atRate=fixture();atRate.heldOutEval.passed=Math.ceil(HOLDOUT.caseCount*HOLDOUT.minPassRate);assert.equal(validateAcceptance(atRate,options).passed,true);
 });
