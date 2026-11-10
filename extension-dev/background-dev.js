@@ -6,6 +6,7 @@ import {discoverVisibleCards} from './discovery.js';
 import {DEV_STAMP} from './dev-build-info.js';
 import {SETTINGS_KEY,CHECK_MINUTES,IDLE_SECONDS,defaultSettings,setEnabled,retryBank,afterRun,decideBanks,planBanks,markAttempted,buildReport,skipReport,skipSignature} from './schedule-core.js';
 import {STATE_KEY} from './engine.js';
+import {refreshCard} from './protocol.js';
 
 const TICK='cardybara-dev-schedule',RELOAD='cardybara-dev-reload',REPORT_URL='http://127.0.0.1:8766/api/dev/diagnostics',PENDING='cardybara-dev-pending-report',RUN='cardybara-dev-run';
 let queue=Promise.resolve();
@@ -78,7 +79,7 @@ const check=({mayRead,manual=false,preview=false})=>serial(async()=>{
  const banks=mayRead&&(manual||idle==='idle')?planBanks(input):[];if(!banks.length)return 'nothing';
  const restoreTab=(await chrome.tabs.query({active:true,lastFocusedWindow:true}))[0]?.id,id=crypto.randomUUID();
  await saveSettings(markAttempted(settings,banks,now));await chrome.storage.local.set({[RUN]:{id,restoreTab:restoreTab??null,manual}});
- await engine.start({type:'refresh',requestId:id,banks,cards:known.filter(c=>banks.includes(c.bank)).map(({id,bank,tail,currency})=>({id,bank,tail,currency}))},-1,{scheduled:true,manual});
+ await engine.start({type:'refresh',requestId:id,banks,cards:known.filter(c=>banks.includes(c.bank)).map(refreshCard)},-1,{scheduled:true,manual});
  void next();return 'started';
 });
 const tick=()=>check({mayRead:true});

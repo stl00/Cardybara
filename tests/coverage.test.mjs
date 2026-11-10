@@ -39,7 +39,7 @@ test('reward reading completion is separate from unconfirmed shared pool ownersh
  assert.equal(sectionSummary([a],'not_found',[],cs).reward.status,'partial');assert.equal(sectionSummary([a,a],'not_found',[],cs).reward.status,'partial');const complete=sectionSummary([a,b],'not_found',[],cs).reward;assert.equal(complete.status,'updated');assert.equal(complete.readCards,2);assert.equal(complete.expectedCards,2);
 });
 
-import {mvpSummary,mvpLink,requiredReward,AMEX_REQUIRED_SOURCE} from '../extension-next/mvp.js';
+import {mvpSummary,mvpLink,requiredReward,confirmedOtherProgramme,AMEX_REQUIRED_SOURCE} from '../extension-next/mvp.js';
 test('MVP requires statement, minimum and full due date per card, not just balances',()=>{
  const cards=[{id:'a'},{id:'b'}],fields={balance:0,statement:0,minimum:0},patches=cards.map(c=>({id:c.id,fields}));const items=[{kind:'reward',cardId:'a'},{kind:'reward',cardId:'b'},{kind:'billing',key:'due',cardId:'a'}];let r=mvpSummary(items,cards,patches);assert.equal(r.card.status,'partial');assert.deepEqual(r.card.coverage[1].missing,['due']);assert.equal(r.reward.status,'updated');r=mvpSummary([...items,{kind:'billing',key:'due',cardId:'b'}],cards,patches);assert.equal(r.card.status,'updated');assert.deepEqual(Object.keys(r).sort(),['card','reward']);
 });
@@ -83,6 +83,21 @@ test('rewards are required only for Membership Rewards and Ultimate Rewards',()=
  // Amex wording alone cannot prove another programme: an unlisted name stays partial, shown with its reason.
  for(const name of ['可兌換積分','您的積分','Redeemable Points','Amex Points','Points available to redeem','Some New Hotel Points']){const r=mvpSummary([],[{id:'a',bank:'Amex US'}],[],{a:new Set([name])}).reward.coverage[0];assert.equal(r.complete,false,name);assert.equal(r.reason,'programme_unconfirmed');assert.deepEqual(r.unconfirmed,[name]);}
  for(const name of ['Hilton Honors Points','Marriott Bonvoy Points','Delta SkyMiles','Reward Dollars']){const r=mvpSummary([],[{id:'a',bank:'Amex US'}],[],{a:new Set([name])}).reward.coverage[0];assert.equal(r.complete,true,name);assert.deepEqual(r.notCollected,[name]);}
+ // Amex HK prints these brands in Chinese.
+ for(const name of ['萬豪旅享家積分','万豪旅享家积分','希爾頓榮譽客會積分','現金回贈']){const r=mvpSummary([],[{id:'a',bank:'Amex HK'}],[],{a:new Set([name])}).reward.coverage[0];assert.equal(r.complete,true,name);assert.deepEqual(r.notCollected,[name]);}
+ // A brand matching the card's own name confirms a co-brand (synthetic names).
+ for(const [card,name] of [['Hilton Honors Surpass Card','Hilton Honors Points'],['Marriott Bonvoy Brilliant®','Marriott Bonvoy Points'],['Delta SkyMiles® Gold Card','Delta SkyMiles'],['Blue Cash Everyday® Card','Reward Dollars'],['萬豪旅享家信用卡','萬豪旅享家積分'],['Blue Cash 信用卡','現金回贈']]){const r=mvpSummary([],[{id:'a',bank:card.includes('信用卡')?'Amex HK':'Amex US',name:card}],[],{a:new Set([name])}).reward.coverage[0];assert.equal(r.complete,true,card);assert.deepEqual(r.notCollected,[name]);}
+ // A brand printed as a promotion on a card that does not carry it leaves the missing required value partial.
+ for(const [bank,card,name] of [['Amex US','American Express Gold Card','Marriott Bonvoy Points'],['Amex US','The Platinum Card®','Hilton Honors Points'],['Amex US','Delta SkyMiles® Gold Card','Hilton Honors Points'],['Amex HK','American Express Explorer(TM) Credit Card','萬豪旅享家積分'],['Amex HK','美國運通白金卡','現金回贈']]){const r=mvpSummary([],[{id:'a',bank,name:card}],[],{a:new Set([name])}).reward.coverage[0];assert.equal(r.complete,false,card+name);assert.equal(r.reason,'programme_unconfirmed');assert.deepEqual(r.unconfirmed,[name]);}
+ // A promoted brand never hides a missing value next to a real co-brand balance either: only the matching brand counts.
+ const both=mvpSummary([],[{id:'a',bank:'Amex US',name:'Hilton Honors Card'}],[],{a:new Set(['Hilton Honors Points','Marriott Bonvoy Points'])}).reward.coverage[0];assert.equal(both.complete,true);assert.deepEqual(both.notCollected,['Hilton Honors Points']);
+ // A masked tail or the issuer fallback written when no name was read is no product name: the brand alone decides, as before.
+ for(const card of ['Amex •••• 12345','••••12345','American Express ***1234','Amex ...12345']){assert.equal(confirmedOtherProgramme('Amex US','Hilton Honors Points',card),true,card);}
+ assert.equal(confirmedOtherProgramme('Amex US','Hilton Honors Points','Platinum Card ••••12345'),false);
+ // ™ and ® marks do not glue a brand to the next word (NFKC would turn ™ into TM).
+ for(const card of ['Cash Magnet™ Card','Marriott Bonvoy™ Card','Delta SkyMiles®Gold Card','Blue Cash Preferred(R) Card'])assert.equal(confirmedOtherProgramme('Amex US',card.includes('Marriott')?'Bonvoy™ Points':card.includes('Delta')?'SkyMiles®':'Reward Dollars',card),true,card);
+ // Acceptance applies the same rule to a named card.
+ assert.equal(confirmedOtherProgramme('Amex US','Marriott Bonvoy Points','American Express Gold Card'),false);assert.equal(confirmedOtherProgramme('Amex US','Marriott Bonvoy Points','Marriott Bonvoy Brilliant'),true);assert.equal(confirmedOtherProgramme('Amex US','Marriott Bonvoy Points'),true);assert.equal(confirmedOtherProgramme('Chase','Some Miles','Anything'),true);
  // No sign of any programme on such a card stays partial, with a reason.
  const missing=mvpSummary([],[{id:'a',bank:'Amex HK'}]);assert.deepEqual(missing.reward.coverage[0],{cardId:'a',complete:false,missing:['reward'],reason:'reward_not_seen'});assert.equal(missing.reward.status,'not_found');
  // Mixed: a required reading, a co-brand and a missing value.
