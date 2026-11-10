@@ -129,6 +129,12 @@ export const actionClaimControls=[
  ['control-required-en','Enrollment is required before you can use the benefit.'],
  ['control-need-en',"You'll need to be enrolled to get the credit."],
  ['control-havent-en',"I haven't enrolled you in anything."],
+ // A user's own manual mark is evidence from query_credits, so restating it is not an action claim; nor is a lapsed benefit.
+ ['control-user-mark-zh','Uber credit 已标记为已使用。'],
+ ['control-user-mark-zht','你已標記 Uber credit 為已使用。'],
+ ['control-user-mark-en','The Uber credit has been marked as used.'],
+ ['control-user-mark-past-en','The Uber credit was marked as used on Oct 3.'],
+ ['control-benefit-cancelled-zh','这项福利已于 2025 年取消。'],
  ['control-found-en',"I've found three hotel benefits on your cards."],
 ];
 export const retrievalCases=[
@@ -166,6 +172,9 @@ export const retrievalCases=[
  {id:'known-subject-en',query:'Peloton perks',expected:['rule.chase-us-sapphire-reserve.peloton']},
  {id:'held-card-phrase-en',query:'Sapphire Reserve card lounge',expected:['rule.chase-us-sapphire-reserve.priority-pass','rule.chase-us-sapphire-reserve.sapphire-lounges']},
  {id:'held-card-phrase-zh',query:'美国运通白金卡的贵宾室',expected:['rule.amex-hk-hk-the-platinum-card.lounge']},
+ // Common short names of held cards: a prefix (Plat) or initials (SR, CSR).
+ {id:'held-short-prefix',query:'Amex Plat card lounge',expected:['rule.amex-hk-hk-the-platinum-card.lounge','rule.amex-us-us-morgan-stanley-platinum-card.lounge']},
+ {id:'held-short-initials',query:'Chase SR lounge',expected:['rule.chase-us-sapphire-reserve.priority-pass','rule.chase-us-sapphire-reserve.sapphire-lounges']},
  {id:'held-programme-card',query:'Priority Pass card',expected:['rule.chase-us-sapphire-reserve.priority-pass']},
  {id:'held-gift-card',query:'Dunkin 礼品卡能报销吗',expected:['rule.amex-us-us-american-express-gold-card.dunkin']},
  {id:'held-bank-led',query:'Amex Gold dining credit',expected:['rule.amex-us-us-american-express-gold-card.dining']},

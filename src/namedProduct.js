@@ -39,7 +39,11 @@ const ZH_BOUNDARY=/[喺嘅啲咗唔冇係俾畀佢乜點邊嚟去碌的用刷拿
 
 const productNames=p=>[p.name,...(p.aliases||[]),p.bank];
 const cardNames=c=>{const p=matchCardProduct(c).product;return [c.name,c.pageName,c.bank,...(p?productNames(p):[])].filter(Boolean);};
-const profile=names=>({words:new Set(names.flatMap(nameWords)),han:toSimplified(names.join(' '))});
+// Initials of each name (Sapphire Reserve → sr, Chase Sapphire Reserve → csr) are short names people use for the card.
+const initials=name=>{const w=latin(name).filter(x=>!STOP.has(x)&&!['card','credit'].includes(x));return w.length>=2?[w.map(x=>x[0]).join('')]:[];};
+const profile=names=>({words:new Set(names.flatMap(nameWords)),short:new Set(names.flatMap(initials)),han:toSimplified(names.join(' '))});
+// A name word fits a card word when it is the word, the start of it (plat → platinum) or the card's initials (sr).
+const fits=(p,w)=>p.words.has(w)||p.short.has(w)||w.length>=3&&[...p.words].some(x=>x.startsWith(w));
 const catalogue=cardProducts.map(p=>({id:p.id,...profile(productNames(p))}));
 const PRODUCT_WORDS=new Set(catalogue.flatMap(p=>[...p.words]));
 const PROGRAMME_WORDS=new Set(knowledgeEntities.programmes.flatMap(p=>[p.name,...(p.aliases||[])].flatMap(latin)));
@@ -95,8 +99,8 @@ function chineseMentions(question){
  }
  return out;
 }
-const covers=(p,{words,han,original})=>words.every(w=>p.words.has(w))&&[...han].every(ch=>p.han.includes(ch))
- ||!!original&&[...original].every(ch=>p.han.includes(ch))&&words.every(w=>p.words.has(w)||ZH_TERMS.some(([,en])=>en===w)||ZH_PROGRAMMES.some(([,en])=>en.includes(w)));
+const covers=(p,{words,han,original})=>words.every(w=>fits(p,w))&&[...han].every(ch=>p.han.includes(ch))
+ ||!!original&&[...original].every(ch=>p.han.includes(ch))&&words.every(w=>fits(p,w)||ZH_TERMS.some(([,en])=>en===w)||ZH_PROGRAMMES.some(([,en])=>en.includes(w)));
 
 // The first card product the question names that no held card is. Null when every named product is held, or none is named.
 export function unheldProduct(question,cards,asOf){
