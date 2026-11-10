@@ -44,6 +44,9 @@ test('tool-ready accepts a wording the tool finds the record by, not one it miss
  // ("Free Night Reward from spending", #148), 消费解锁免房晚 by "unlocked by spending" too.
  assert.ok(strictTarget(byId('ord-aspire-2-en')).ordinal.list[1].includes('annual free night'));
  assert.ok(strictTarget(byId('ord-aspire-2-en')).ordinal.list[0].includes('unlocked by spending'));
+ // A wording the search can never find is dropped.
+ const d=structuredClone(byId('ord-aspire-2-en'));d.target.ordinal.list[0]=['消费解锁免房晚','zqxv blorf wug'];
+ assert.deepEqual(strictTarget(d).ordinal.list[0],['消费解锁免房晚']);
 });
 
 test('tool-ready needs the form a tool argument can use as it stands',()=>{

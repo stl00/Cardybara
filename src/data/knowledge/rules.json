@@ -7337,6 +7337,29 @@
         "先核对卡种、地区及当前官方条款。",
         "需先确认等级及雇主方案；MR登记、费用和可保留积分由方案决定，不能承诺个人白金福利。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Corporate Card tier and Membership Rewards",
+      "summary": "Eligibility is set by the employer. Corporate Green members must call to enrol in Membership Rewards and a $55 annual fee applies, which the company may cover; eligible Gold and Platinum members are enrolled automatically. Personal Platinum benefits are not implied.",
+      "howToUse": [
+        "Check your Corporate Card tier and your employer's programme first."
+      ],
+      "quotes": [
+        {
+          "sourceId": "corporate-us",
+          "text": "A $55 annual fee applies, which may be covered by your company."
+        },
+        {
+          "sourceId": "corporate-us",
+          "text": "Eligible Corporate Gold and Platinum Card members are automatically enrolled in the Membership Rewards program."
+        },
+        {
+          "sourceId": "corporate-us",
+          "text": "Eligibility determined by your employer."
+        }
       ]
     },
     "terms": {
@@ -11104,6 +11127,21 @@
         "先核对卡种、地区及当前官方条款。",
         "新版全年最高100美元，实际发放和酒店兑换方式以新版细则及账户过渡为准。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Food & Beverage Rewards",
+      "summary": "The updated card adds up to $100 a year in Food & Beverage Rewards to redeem at IHG properties; how they are issued and redeemed follows the new terms and the account transition.",
+      "howToUse": [
+        "Check the new terms and whether your account has moved to the updated benefits."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ihg-2026-change",
+          "text": "NEW: Up to $100 in annual Food & Beverage Rewards to redeem at IHG properties"
+        }
       ]
     },
     "terms": {
@@ -11171,6 +11209,21 @@
         "先核对卡种、地区及当前官方条款。",
         "新版合资格机票年上限100美元；老账户生效日未确认。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$100 annual airline statement credit",
+      "summary": "The updated card adds a $100 annual airline statement credit on qualifying flight purchases; when it starts for existing accounts is not confirmed.",
+      "howToUse": [
+        "Check whether your account has moved to the updated benefits before counting on the credit."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ihg-2026-change",
+          "text": "NEW: A $100 annual airline statement credit on qualifying flight purchases"
+        }
       ]
     },
     "terms": {
@@ -42128,7 +42181,7 @@
       "title": "$300 Brilliant Dining Credit",
       "summary": "Up to $25 a month, $300 a calendar year, in statement credits for eligible purchases at restaurants worldwide.",
       "howToUse": [
-        "Pay at restaurants with the card; the monthly amount does not roll over."
+        "Pay at restaurants with the card."
       ],
       "quotes": [
         {
@@ -45314,7 +45367,7 @@
       "quotes": [
         {
           "sourceId": "card-chase-us-united-explorer-card",
-          "text": "Earn after you spend $10,000 with your United SM Explorer Card within a calendar year."
+          "text": "$100 United ® travel credit - Earn after you spend $10,000 with your United SM Explorer Card within a calendar year."
         }
       ]
     },
@@ -45897,6 +45950,10 @@
         "Prepay the stay through Renowned Hotels and Resorts with the card."
       ],
       "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-card",
+          "text": "Up to $200 in credits annually"
+        },
         {
           "sourceId": "card-chase-us-united-club-card",
           "text": "Receive on prepaid hotel stays purchased directly through Renowned Hotels and Resorts for United ® Cardmembers with your United Club SM Card."
