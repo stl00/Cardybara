@@ -40,11 +40,12 @@ export async function loadGolden(goldenPath){
  // Each call returns its own top 12, as find_benefits would; several calls are merged by best rank.
  // cardName and region narrow the cards first, as find_benefits does in src/walletAgent.js.
  const normalized=s=>s.normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
- function run(calls,cards){
+ // search defaults to production; the ranking lab passes its own rankers.
+ function run(calls,cards,search=searchBenefitKnowledge){
   const rank=new Map();let total=0;
   for(const {query,cardName,region,...filters} of calls){
    const held=cards.filter(c=>(!cardName||normalized(c.name).includes(normalized(cardName)))&&(!region||c.region===region));
-   const r=searchBenefitKnowledge(query,held,golden.asOf,filters);total+=r.total;
+   const r=search(query,held,golden.asOf,filters);total+=r.total;
    r.rules.slice(0,K).forEach((rule,i)=>{if(!rank.has(rule.id)||rank.get(rule.id)>i+1)rank.set(rule.id,i+1);});
   }
   return {ranked:[...rank].sort((a,b)=>a[1]-b[1]||a[0].localeCompare(b[0])),total};
