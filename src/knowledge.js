@@ -38,7 +38,7 @@ export function resolveRuleRevisions(records,{asOf=manifest.asOf,knownAt=asOf,in
 }
 // Rule text has a language. `original` is written in the official source's language, with short verbatim quotes
 // from the cited pages; `content` is the zh-CN text, a translation once `content.translatedFrom` is set.
-export const ORIGINAL_LANGUAGES=['en-US','zh-HK','zh-TW','zh-CN'];
+export const ORIGINAL_LANGUAGES=['en-US','en-HK','en-CA','zh-HK','zh-TW','zh-CN'];
 const QUOTE_MAX=320;
 const script=lang=>/^en/.test(lang)?'en':/^zh-(?:HK|TW|Hant)/.test(lang)?'zh-Hant':/^zh/.test(lang)?'zh-Hans':lang;
 // Hong Kong and Taiwan text share a script, so a zh-HK original serves a zh-TW reader as the same language.
