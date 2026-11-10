@@ -1,0 +1,23 @@
+{
+ "id": "sc-hk-en-holdout",
+ "provenance": "Synthetic text with invented hold-out names and values. Names appear nowhere in collection code or other fixtures; no live bank acceptance.",
+ "billingRules": true,
+ "bank": "SC HK",
+ "locale": "en-HK",
+ "card": {
+  "id": "holdout-sc-en",
+  "bank": "SC HK",
+  "tail": "1618",
+  "currency": "HKD",
+  "name": "Tarsier Business Platinum"
+ },
+ "text": "Tarsier Business Platinum\nCard ending in 1618\nCurrent Balance:\nHKD 2,468.10 DR\nApproved Credit Limit:\nHKD 10,000.00\nAvailable Credit Limit:\nHKD 7,531.90\nBilled Balance:\nHKD 1,357.90\nMinimum Payment Due:\nHKD 41.00\nPayment Due Date:\n07/03/2031",
+ "expected": {
+  "balance": 2468.1,
+  "creditLimit": 10000,
+  "available": 7531.9,
+  "statement": 1357.9,
+  "minimum": 41,
+  "due": "2031-03-07"
+ }
+}
