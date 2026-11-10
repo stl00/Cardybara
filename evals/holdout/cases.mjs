@@ -1,8 +1,8 @@
 // Frozen held-out assistant cases. Written 2026-11-09 from public card terms, before any run against this code.
 // Never tune against these. A case that fails and is then fixed moves to evals/fixtures.mjs and is replaced here;
-// any edit to this file must update evals/holdout/manifest.json, which a test checks.
+// any edit to this file, run.mjs or context.mjs must update evals/holdout/manifest.json, which a test checks.
 // Synthetic public products only: no account snapshot, balance, tail digits or personal ledger.
-import {creditMark} from '../fixtures.mjs';
+import {creditMark} from './context.mjs';
 const GOLD='amex-us-us-american-express-gold-card',GOLD_DINING='rule.amex-us-us-american-express-gold-card.dining';
 const inGroup=(r,group,card)=>(r.groups?.[group]||[]).filter(i=>i.card===card);
 const row=(r,card)=>r.rows?.find(x=>x.card===card);
