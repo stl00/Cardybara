@@ -27,8 +27,14 @@ test('a credit that claims a field without a source fails validation',()=>{
  assert.ok(validateDecisionFields(madeUp).some(e=>/minimumNights: quote must be copied/.test(e)));
  const unknown=structuredClone(base);unknown.decisionFields.loungeAccess={value:true,sourceId:base.evidence.sourceIds[0],quote:'Pay Now'};
  assert.ok(validateDecisionFields(unknown).some(e=>/unknown field loungeAccess/.test(e)));
- const disagrees=structuredClone(base);disagrees.decisionFields.enrollment.value='required';
- assert.ok(validateDecisionFields(disagrees).some(e=>/disagrees with coupon.enrollment/.test(e)));
+ const disagrees=structuredClone(rule(gold+'dining'));disagrees.decisionFields.enrollment.value='not-required';
+ assert.ok(validateDecisionFields(disagrees).some(e=>/enrollment disagrees/.test(e)));
+ const noCoupon=structuredClone(disagrees);delete noCoupon.terms.coupon;noCoupon.terms.requiresEnrollment=true;
+ assert.ok(validateDecisionFields(noCoupon).some(e=>/enrollment disagrees/.test(e)),'terms.requiresEnrollment is checked too');
+ const loneWord=structuredClone(rule(gold+'dining'));loneWord.decisionFields.enrollment.quote='Enrollment';
+ assert.ok(validateDecisionFields(loneWord).some(e=>/enrollment: quote/.test(e)));
+ const badVia=structuredClone(base);badVia.decisionFields.channels.via='Amex Travel';
+ assert.ok(validateDecisionFields(badVia).some(e=>/via must appear in the quote/.test(e)));
  assert.deepEqual(validateDecisionFields(base),[]);
 });
 
@@ -41,6 +47,16 @@ test('fields decide applicable, not applicable or conditional',()=>{
  assert.equal(ok.status,'conditional');assert.deepEqual(ok.needs,['prepaid'],'prepaid Pay Now is a stated requirement code cannot see');
  const open=creditApplicability(edit,{});
  assert.equal(open.status,'conditional');assert.deepEqual(open.needs,['booked-through-portal','minimum-nights','prepaid']);
+ // "Automatically applied" says how it posts, not that no enrollment exists, so enrollment stays unrecorded.
+ assert.deepEqual(open.unrecorded,['enrollment']);
+ // A portal name code can't place is a need, never an exclusion.
+ for(const portal of ['The Edit','大通旅行','UR','UR portal','my travel site']){
+  const r=creditApplicability(edit,{channel:'portal',portal,nights:3});
+  assert.equal(r.status,'conditional',portal);assert.equal(r.unmet,undefined,portal);
+ }
+ for(const portal of ['Amex Travel','美国运通旅行','Citi Travel'])assert.deepEqual(creditApplicability(edit,{channel:'portal',portal,nights:3}).unmet,['booked-through-portal'],portal);
+ // Nights only count against a stay.
+ assert.equal(creditApplicability(edit,{channel:'portal',portal:'Chase Travel',nights:1,category:'car-rental'}).unmet,undefined);
  // No channel recorded: never applicable, and the gap is named.
  const dining=creditApplicability(rule(gold+'dining'),{channel:'direct'});
  assert.equal(dining.status,'conditional');assert.deepEqual(dining.unrecorded,['channels']);assert.deepEqual(dining.needs,['enrolled']);

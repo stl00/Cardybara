@@ -9,6 +9,8 @@ export const DECISION_FIELDS={
 };
 // Fields every credit needs before code can call it applicable without asking anything.
 const REQUIRED_FOR_APPLICABLE=['enrollment','channels'];
+// Long enough to be a statement rather than a lone word such as "Enrolled".
+const MIN_QUOTE=12;
 
 /** Errors for a rule's decisionFields: each field needs a known value and a quote copied from the rule's own original source text. */
 export function validateDecisionFields(rule){
@@ -19,17 +21,27 @@ export function validateDecisionFields(rule){
   if(!DECISION_FIELDS[key]){errors.push(`decisionFields: unknown field ${key}`);continue;}
   if(!field||!DECISION_FIELDS[key](field.value))errors.push(`decisionFields.${key}: invalid value`);
   if(!field?.sourceId||!rule.evidence.sourceIds.includes(field.sourceId))errors.push(`decisionFields.${key}: needs a source the rule cites`);
-  if(typeof field?.quote!=='string'||!field.quote.trim()||!quotes.some(q=>q.sourceId===field.sourceId&&q.text.includes(field.quote)))errors.push(`decisionFields.${key}: quote must be copied from the rule's original quotes for that source`);
+  if(field&&Object.keys(field).some(k=>!['value','sourceId','quote',...(key==='channels'?['via']:[])].includes(k)))errors.push(`decisionFields.${key}: unknown key`);
+  if(key==='channels'&&field?.via!==undefined&&(typeof field.via!=='string'||!field.via.trim()||!String(field.quote||'').includes(field.via)))errors.push('decisionFields.channels: via must appear in the quote');
+  if(typeof field?.quote!=='string'||field.quote.trim().length<MIN_QUOTE||!quotes.some(q=>q.sourceId===field.sourceId&&q.text.includes(field.quote)))errors.push(`decisionFields.${key}: quote must be copied from the rule's original quotes for that source`);
  }
- const coupon=rule.terms.coupon;
- if(fields.enrollment&&coupon&&coupon.enrollment!=='unknown'&&coupon.enrollment!==fields.enrollment.value)errors.push('decisionFields.enrollment disagrees with coupon.enrollment');
+ const coupon=rule.terms.coupon,stated=coupon&&coupon.enrollment!=='unknown'?coupon.enrollment:rule.terms.requiresEnrollment===true?'required':rule.terms.requiresEnrollment===false?'not-required':null;
+ const recorded=fields.enrollment?.value,sameMeaning=recorded===stated||stated==='required'&&recorded==='link-card';
+ if(recorded&&stated&&!sameMeaning)errors.push('decisionFields.enrollment disagrees with the rule\'s enrollment terms');
  if(fields.minimumNights&&coupon?.minimumNights!=null&&coupon.minimumNights!==fields.minimumNights.value)errors.push('decisionFields.minimumNights disagrees with coupon.minimumNights');
  return errors;
 }
 
 const norm=s=>String(s||'').normalize('NFKC').toLowerCase();
-const portalWords=s=>norm(s).split(/[^a-z0-9]+/).filter(w=>w.length>=3&&!['travel','the','and','com','portal'].includes(w));
-const samePortal=(named,via)=>{const b=new Set(portalWords(via));return portalWords(named).some(w=>b.has(w));};
+// Another issuer's portal rules a portal-only credit out only when the name clearly says so.
+// A name we can't place (The Edit, 大通旅行, UR) stays a need, never an exclusion.
+const ISSUER_PORTALS={chase:/chase|大通|ultimate rewards|\bur\b|the edit/,amex:/amex|american express|运通|運通|\bmr\b|fine hotels|\bfhr\b/,citi:/citi|花旗/,capitalone:/capital one/,bilt:/bilt/};
+const issuersIn=s=>Object.entries(ISSUER_PORTALS).filter(([,re])=>re.test(norm(s))).map(([id])=>id);
+function portalVerdict(named,via){
+ const own=issuersIn(via),said=issuersIn(named);
+ if(said.some(id=>own.includes(id)))return 'same';
+ return said.length&&own.length?'other':'unknown';
+}
 
 /**
  * applicable: every recorded field is satisfied and enrollment and channel are known to need nothing more.
@@ -45,12 +57,14 @@ export function creditApplicability(rule,purchase={}){
   const allowed=f.channels.value,channel=purchase.channel;
   if(channel==='direct'||channel==='portal'){
    if(!allowed.includes(channel))unmet.push(allowed.includes('portal')?'booked-through-portal':'paid-directly');
-   else if(channel==='portal'&&f.channels.via&&purchase.portal&&!samePortal(purchase.portal,f.channels.via))unmet.push('booked-through-portal');
-   else if(channel==='portal'&&f.channels.via&&!purchase.portal)needs.push('booked-through-portal');
+   else if(channel==='portal'&&f.channels.via){
+    const verdict=purchase.portal?portalVerdict(purchase.portal,f.channels.via):'unknown';
+    if(verdict==='other')unmet.push('booked-through-portal');else if(verdict==='unknown')needs.push('booked-through-portal');
+   }
   }else needs.push(allowed.includes('portal')?'booked-through-portal':'paid-directly');
  }
  if(f.minimumNights){
-  if(Number.isInteger(purchase.nights)){if(purchase.nights<f.minimumNights.value)unmet.push('minimum-nights');}
+  if(Number.isInteger(purchase.nights)&&(!purchase.category||['hotel','vacation-rental','travel'].includes(purchase.category))){if(purchase.nights<f.minimumNights.value)unmet.push('minimum-nights');}
   else needs.push('minimum-nights');
  }
  if(f.prepaidOnly)needs.push('prepaid');

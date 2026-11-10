@@ -139,7 +139,7 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
    if(current&&current.end<window.start&&cycleRows.length&&nowRule.terms.period!=='calendar-month')groups.outsideDates.push({...describe(card,{rule:nowRule},destination,day,use,brief,purchase),reason:'current-cycle-ends-before-dates',cycle:{start:current.start,end:current.end},status:statusOf(current).status,datesCycleStarts:cycleRows[0].period.start});
   }
  }
- const conditions=[...groups.markedUnused,...groups.unknownStatus,...groups.noFixedCycle,...groups.cycleUnknown].filter(x=>['required','link-card'].includes(x.enrollment)||x.channels).map(x=>({card:x.card,cardRegion:x.cardRegion,title:x.title,enrollment:x.enrollment,channels:x.channels,...(x.minimumNights?{minimumNights:x.minimumNights}:{}),...(x.decision?.needs?{needs:x.decision.needs}:{})}));
+ const conditions=[...groups.markedUnused,...groups.unknownStatus,...groups.noFixedCycle,...groups.cycleUnknown].filter(x=>['required','link-card'].includes(x.enrollment)||x.channels||x.decision?.needs).map(x=>({card:x.card,cardRegion:x.cardRegion,title:x.title,enrollment:x.enrollment,channels:x.channels,...(x.minimumNights?{minimumNights:x.minimumNights}:{}),...(x.decision?.needs?{needs:x.decision.needs}:{})}));
  const counts=Object.fromEntries(Object.entries(groups).map(([k,v])=>[k,v.length]));
  let room=MAX_ITEMS,truncated=false;
  // Cutting dismissed credits hides nothing the user still tracks, so it doesn't mark the answer truncated.

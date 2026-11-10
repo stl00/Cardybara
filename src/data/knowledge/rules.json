@@ -20365,18 +20365,13 @@
     },
     "personalState": "not-in-public-knowledge",
     "decisionFields": {
-      "enrollment": {
-        "value": "not-required",
-        "sourceId": "coupon-csr-terms-20261029",
-        "quote": "will be automatically applied to your account"
-      },
       "channels": {
         "value": [
           "portal"
         ],
         "sourceId": "coupon-csr-terms-20261029",
         "quote": "qualifying purchases with The Edit by Chase Travel",
-        "via": "Chase Travel"
+        "via": "The Edit by Chase Travel"
       },
       "minimumNights": {
         "value": 2,
@@ -20531,14 +20526,7 @@
       "reviewAfter": "2026-11-28",
       "state": "reviewed-summary"
     },
-    "personalState": "not-in-public-knowledge",
-    "decisionFields": {
-      "enrollment": {
-        "value": "not-required",
-        "sourceId": "coupon-csr-terms-20261029",
-        "quote": "A statement credit will be automatically applied to your account"
-      }
-    }
+    "personalState": "not-in-public-knowledge"
   },
   {
     "id": "rule.chase-us-sapphire-reserve.doordash-general",
@@ -21298,7 +21286,7 @@
       "enrollment": {
         "value": "required",
         "sourceId": "coupon-ms-print-20261029",
-        "quote": "to the enrolled Card Account"
+        "quote": "charged by their one selected qualifying airline to the enrolled Card Account"
       }
     }
   },
