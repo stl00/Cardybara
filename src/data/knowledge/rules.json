@@ -8774,10 +8774,10 @@
     "original": {
       "lang": "en-CA",
       "title": "$200 Annual Dining Credit",
-      "summary": "A $200 CAD Annual Dining Credit for basic Platinum Cardmembers at eligible restaurants in Canada; a one-time enrolment through Amex Offers is required.",
+      "summary": "A $200 CAD statement credit after a single transaction of $200 CAD or more (including taxes and gratuity) at an eligible restaurant, once per redemption period; a one-time enrolment through Amex Offers is required.",
       "howToUse": [
         "Enrol once through Amex Offers; later periods enrol automatically.",
-        "Check which restaurants are eligible before you dine."
+        "Spend at least $200 CAD in one transaction at a restaurant on the eligible list."
       ],
       "quotes": [
         {
@@ -8787,6 +8787,10 @@
         {
           "sourceId": "platinum-ca-benefits",
           "text": "A one-time enrolment is required for the $200 Annual Dining Credit through Amex Offers and Cardmembers will automatically be enrolled for future redemption periods and do not need to re-enroll."
+        },
+        {
+          "sourceId": "platinum-ca-benefits",
+          "text": "Enrolled Cardmembers will be eligible to receive a statement credit of $200 CAD following a single transaction of $200 CAD or more (including taxes and gratuity) at one of the eligible restaurants listed on our website at the time of the transaction."
         }
       ]
     },
@@ -11714,6 +11718,21 @@
         "先核对卡种、地区及当前官方条款。",
         "周年25000积分同行奖励需同一行程及积分预订；不是现金机票，税费仍须付。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Companion Award",
+      "summary": "Each account anniversary, a 25,000-point Global Companion Award for a companion on the same itinerary when booking with Atmos Rewards points; it is not a cash fare, and taxes and fees still apply.",
+      "howToUse": [
+        "Book the companion on the same itinerary using points."
+      ],
+      "quotes": [
+        {
+          "sourceId": "atmos-fee",
+          "text": "Each account anniversary, receive a 25,000-point Global Companion Award for a travel companion on the same itinerary, when booking travel using your Atmos Rewards points, plus receive 10,000 status points."
+        }
       ]
     },
     "terms": {
@@ -11782,6 +11801,21 @@
         "先核对卡种、地区及当前官方条款。",
         "每年8张；发放批次、有效期、航班和携客要求以计划细则为准。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Alaska Lounge passes",
+      "summary": "Eight passes each year to any Alaska Lounge; issue timing, validity, flight and guest rules follow the program terms.",
+      "howToUse": [
+        "Check when passes are issued and when they expire."
+      ],
+      "quotes": [
+        {
+          "sourceId": "atmos-us",
+          "text": "Enjoy a relaxing start to your trip with eight passes each year to any of the Alaska Lounges"
+        }
       ]
     },
     "terms": {
@@ -11850,6 +11884,21 @@
         "先核对卡种、地区及当前官方条款。",
         "每2美元合资格消费得1会籍积分；周年另10000，不能当作可兑换积分余额。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Atmos status points",
+      "summary": "1 status point per $2 of purchases, plus 10,000 bonus status points annually; status points are not redeemable points.",
+      "howToUse": [
+        "Track status points in your Atmos Rewards account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "atmos-us",
+          "text": "spent on purchases earns 1 status point, plus receive 10,000 bonus status points annually"
+        }
       ]
     },
     "terms": {
@@ -11918,6 +11967,25 @@
         "先核对卡种、地区及当前官方条款。",
         "合资格伙伴奖励机票的预订费豁免；航司附加费和政府税费仍适用。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Waived partner award booking fees",
+      "summary": "Partner award booking fees are waived when booking partner flights with points; partner surcharges and government taxes and fees still apply.",
+      "howToUse": [
+        "Expect partner surcharges and taxes on partner awards."
+      ],
+      "quotes": [
+        {
+          "sourceId": "atmos-us",
+          "text": "Waived partner award booking fees: When using points to book with our partners, save up to"
+        },
+        {
+          "sourceId": "atmos-us",
+          "text": "Partner-imposed surcharges and government taxes and fees apply."
+        }
       ]
     },
     "terms": {
@@ -15642,6 +15710,21 @@
         "先核对卡种、地区及当前官方条款。",
         "2026年7月2日至12月31日需登记；本地合资格交易最高每港币1元6积分，其他排除项适用。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-HK"
+    },
+    "original": {
+      "lang": "en-HK",
+      "title": "6X points on local spending",
+      "summary": "From July 2 to December 31, 2026, enrol in the Local Spend Bonus Program to earn up to 6 Membership Rewards points per HK$1 on eligible Hong Kong dollar transactions; other exclusions apply.",
+      "howToUse": [
+        "Enrol in the Local Spend Bonus Program before you rely on the rate."
+      ],
+      "quotes": [
+        {
+          "sourceId": "explorer-bonus",
+          "text": "From July 2 to December 31, 2026, enroll in the Local Spend Bonus Program to earn up to 6 Membership Rewards points for every HK$1 spent on eligible Hong Kong dollar transactions."
+        }
       ]
     },
     "terms": {
@@ -38433,7 +38516,7 @@
       "title": "Lifestyle Collection experience credit",
       "summary": "A $50 experience credit for every Lifestyle Collection stay, applied at hotel checkout.",
       "howToUse": [
-        "Book a Lifestyle Collection hotel through Capital One Travel."
+        "Use the credit during a Lifestyle Collection stay; it is applied at the hotel."
       ],
       "quotes": [
         {
@@ -39006,11 +39089,11 @@
     "programmeIds": [],
     "content": {
       "title": "Capital One Travel 年度额度",
-      "summary": "每年300美元；周期的起算方式未在该卡页面写明。",
+      "summary": "每年300美元，须通过 Capital One Travel 消费；每笔年度额度在下一个开户周年日失效。",
       "sourceText": "Receive a $300 annual Capital One Travel credit",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "每年300美元；周期的起算方式未在该卡页面写明。",
+        "每年300美元，须通过 Capital One Travel 消费；每笔年度额度在下一个开户周年日失效。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ],
       "translatedFrom": "en-US"
@@ -39018,7 +39101,7 @@
     "original": {
       "lang": "en-US",
       "title": "$300 Capital One Travel credit",
-      "summary": "Each year, a $300 credit for purchases made through Capital One Travel; the card page does not say when the year starts.",
+      "summary": "Each year, a $300 credit for purchases made through Capital One Travel; each credit expires on the next account open date anniversary.",
       "howToUse": [
         "Book through Capital One Travel with the card."
       ],
@@ -39026,6 +39109,10 @@
         {
           "sourceId": "card-capital-one-us-venture-x-rewards-credit-card",
           "text": "Annually, eligible Venture X primary account holders will receive a $300 Capital One Travel credit (“Credit”) to use toward purchases made through Capital One Travel."
+        },
+        {
+          "sourceId": "card-capital-one-us-venture-x-rewards-credit-card",
+          "text": "Each annual Credit will expire on the next account open date anniversary."
         }
       ]
     },
@@ -39043,7 +39130,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "每年300美元；周期的起算方式未在该卡页面写明。"
+      "unparsedText": "每年300美元，须通过 Capital One Travel 消费；每笔年度额度在下一个开户周年日失效。"
     },
     "evidence": {
       "sourceIds": [
