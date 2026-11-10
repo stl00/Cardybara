@@ -1,7 +1,7 @@
 // End-to-end test of the packaged extension: the exact release ZIP, installed in a clean Chrome
 // profile, against a local synthetic bank. No bank is contacted and no secret is used.
 //
-//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart] [--expired-login] [--cancel] [--chat]
+//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart] [--expired-login] [--cancel] [--chat] [--upgrade-from <previous-release-dir-or-zip>]
 //
 // --restart (nightly set): after the main path, close Chrome and start it again on the same
 // profile; the extension must still be installed and the records it read must still be there.
@@ -12,6 +12,9 @@
 // asks for the provider's host permission, then asks the assistant a question. A scripted model
 // answers through a synthetic provider; the answer must show in the chat, and no balance read from
 // the bank may ever reach the model.
+// --upgrade-from (nightly set): the main path runs on the previous package instead; then Chrome is
+// closed, the tested package replaces the previous one in the same directory, and Chrome starts again
+// on the same profile. The same extension must now run the tested package with the records kept.
 // --cancel (nightly set): after the main path, the user stops a refresh from the wallet while the
 // bank page is still loading, then stops a reading that waits at needs-login from the bank page's
 // guide, then stops another such reading from the wallet header; each must end cancelled with the
@@ -23,7 +26,7 @@
 // a log are written to --out (default .debug/e2e) for CI to upload.
 import {spawn,execFileSync} from 'node:child_process';
 import {createHash,createPublicKey} from 'node:crypto';
-import {mkdtemp,mkdir,readFile,readdir,rm,writeFile,stat} from 'node:fs/promises';
+import {cp,mkdtemp,mkdir,readFile,readdir,rm,writeFile,stat} from 'node:fs/promises';
 import {createServer} from 'node:https';
 import {tmpdir} from 'node:os';
 import {basename,dirname,join,normalize,isAbsolute,resolve,sep} from 'node:path';
@@ -168,17 +171,32 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=scriptedChat}={}){
- if([restart,expiredLogin,cancel,chat].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel and --chat separately: each starts from the end of the main path');
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=scriptedChat,upgradeFrom=null,mutatePrevious,swap=true}={}){
+ if([restart,expiredLogin,cancel,chat,!!upgradeFrom].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel, --chat and --upgrade-from separately: each starts from the end of the main path');
  if(stepMs)STEP_MS=stepMs;log=[];lastState=null;
  const work=await mkdtemp(join(tmpdir(),'cardybara-e2e-'));
  const sessions={};let browser,bank;
  try{
   const {zip,sums}=await locateZip(resolve(input));
   note('testing',basename(zip));
-  const ext=await extractPackage(zip,sums,join(work,'extension'));
-  if(mutate){await mutate(ext);note('negative control: package deliberately broken after extraction');}
-  await checkManifest(ext);
+  // With --upgrade-from the previous package is installed first, in the directory the tested package
+  // later replaces; the tested package waits next to it.
+  let ext,next=null;
+  if(upgradeFrom){
+   const previous=await locateZip(resolve(upgradeFrom));
+   note('upgrading from',basename(previous.zip));
+   ext=await extractPackage(previous.zip,previous.sums,join(work,'extension'));
+   if(mutatePrevious){await mutatePrevious(ext);note('negative control: previous package changed after extraction');}
+   await checkManifest(ext);
+   next=await extractPackage(zip,sums,join(work,'next'));
+   if(mutate){await mutate(next);note('negative control: package deliberately broken after extraction');}
+   await checkManifest(next);
+   if(await sameFiles(ext,next))note('the previous package is identical to the tested one: the upgrade check only proves the records survive reinstalling it');
+  }else{
+   ext=await extractPackage(zip,sums,join(work,'extension'));
+   if(mutate){await mutate(ext);note('negative control: package deliberately broken after extraction');}
+   await checkManifest(ext);
+  }
   bank=await syntheticBank(work);
   const profile=join(work,'profile');
   let cdp;
@@ -283,9 +301,10 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
   await until('the read balance on the wallet page',async()=>(await pageText('wallet')).includes('1,234.56'));
   note('fields written back; missing values left unknown');
   if(!bank.requests.length)throw new StepError('the synthetic bank was never contacted');
-  note('PASS: packaged extension installs, connects a synthetic bank, signs in and reads back');
+  note('PASS: packaged extension installs, connects a synthetic bank, signs in and reads back'+(upgradeFrom?' (previous package)':''));
 
-  if(restart){
+  if(restart||upgradeFrom){
+   const across=upgradeFrom?'an upgrade':'a browser restart';
    // 6. Close Chrome and start it again on the same profile. The extension stays installed and
    // what it read is still there; nothing is re-read to get it back.
    const readBefore=JSON.stringify(done.records?.Chase);
@@ -296,6 +315,8 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    if(browser.child.exitCode===null&&browser.child.signalCode===null)throw new StepError('Chrome did not exit on Browser.close');
    note('chrome closed; starting it again on the same profile');
    if(beforeRestart){await beforeRestart(profile);note('negative control: profile deliberately changed while Chrome was closed');}
+   // Upgrade: the tested package replaces the previous one in place, as an update of the same extension.
+   if(upgradeFrom&&swap){await rm(ext,{recursive:true,force:true});await cp(next,ext,{recursive:true});note('tested package copied over the previous one');}
    for(const k of Object.keys(sessions))delete sessions[k];lastState=null;
    await start();
    // An extension installed over the debugging pipe lasts for that browser session only, so the
@@ -311,16 +332,26 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
     note('wallet page:',await evaluate('wallet','location.href+" | "+document.body?.innerText.slice(0,200)').catch(x=>x.message));
     throw e;});
    await attachWorker();
+   if(upgradeFrom){
+    // The extension must now serve the tested package's files, not the previous ones.
+    const m=JSON.parse(await readFile(join(next,'manifest.json'),'utf8'));
+    for(const file of ['manifest.json','index.html',m.background.service_worker]){
+     const want=createHash('sha256').update(await readFile(join(next,file))).digest('hex');
+     const got=await evaluate('wallet',`fetch(${JSON.stringify(file)}).then(r=>r.arrayBuffer()).then(b=>crypto.subtle.digest('SHA-256',b)).then(d=>[...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,'0')).join(''))`);
+     if(got!==want)throw new StepError(`after the upgrade the extension still runs the previous package (${file} differs from the tested one)`);
+    }
+    note('the extension now serves the tested package',m.version_name||m.version);
+   }
    const kept=await state();
-   if(JSON.stringify(kept?.records?.Chase)!==readBefore)throw new StepError('records changed across a browser restart: '+JSON.stringify(kept?.records?.Chase));
+   if(JSON.stringify(kept?.records?.Chase)!==readBefore)throw new StepError(`records changed across ${across}: `+JSON.stringify(kept?.records?.Chase));
    const keptTails=(kept?.discoveredCards||[]).map(c=>c.tail).sort();
-   if(JSON.stringify(keptTails)!==JSON.stringify(['1234','5678']))throw new StepError('discovered cards changed across a browser restart: '+JSON.stringify(keptTails));
+   if(JSON.stringify(keptTails)!==JSON.stringify(['1234','5678']))throw new StepError(`discovered cards changed across ${across}: `+JSON.stringify(keptTails));
    await evaluate('wallet','location.hash="wallet"');
-   await until('the read balance on the wallet page after a restart',async()=>(await pageText('wallet')).includes('1,234.56'));
-   if(await shows('wallet','欢迎，这是你的新钱包'))throw new StepError('the wallet shows the empty-wallet welcome after a restart');
+   await until(`the read balance on the wallet page after ${across}`,async()=>(await pageText('wallet')).includes('1,234.56'));
+   if(await shows('wallet','欢迎，这是你的新钱包'))throw new StepError(`the wallet shows the empty-wallet welcome after ${across}`);
    await sleep(1500); // give a delayed start-up refresh time to show itself
-   if(bank.requests.length!==served)throw new StepError('the bank was contacted again just to show records after a restart');
-   note('PASS: after a browser restart the same extension comes back with its records kept');
+   if(bank.requests.length!==served)throw new StepError(`the bank was contacted again just to show records after ${across}`);
+   note(upgradeFrom?'PASS: after an upgrade the same extension runs the tested package with its records kept':'PASS: after a browser restart the same extension comes back with its records kept');
   }
   // The bank session expires (open bank pages show the sign-in page again) and the user refreshes
   // Chase from the wallet. Returns the state once the new run waits at needs-login with the earlier
@@ -626,12 +657,25 @@ export const BROKEN_CHAT={
  'a key the provider rejects':[/the key was not saved/,{chatKey:'e2e-rejected-'+'1'.repeat(24)}],
  'a model that never gives the answer':[/the chat failed instead of answering|timed out waiting for the scripted answer/,{chatScript:[()=>({content:'',tool_calls:[toolCall('e2e-1','list_cards')]})]}],
 };
-export async function negativeControls(input,{out,restart=false,expiredLogin=false,cancel=false,chat=false}){
+// With --upgrade-from: the records are lost during the upgrade, or the tested package never replaces the
+// previous one (made to differ from it so the check can tell); the upgrade check must notice either.
+export const BROKEN_UPGRADE={
+ 'extension storage lost across an upgrade':[/records changed across an upgrade/,{beforeRestart:async profile=>{await rm(join(profile,'Default','Local Extension Settings'),{recursive:true,force:true});}}],
+ 'a tested package that never replaces the previous one':[/still runs the previous package/,{swap:false,mutatePrevious:async dir=>{const m=JSON.parse(await readFile(join(dir,'manifest.json'),'utf8')),f=join(dir,m.background.service_worker);await writeFile(f,await readFile(f,'utf8')+'\n// previous package\n');}}],
+};
+async function sameFiles(a,b){
+ const list=async(dir,base=dir)=>(await Promise.all((await readdir(dir,{withFileTypes:true})).map(e=>e.isDirectory()?list(join(dir,e.name),base):[join(dir,e.name).slice(base.length+1)]))).flat().sort();
+ const [x,y]=[await list(a),await list(b)];
+ if(JSON.stringify(x)!==JSON.stringify(y))return false;
+ for(const f of x)if(!(await readFile(join(a,f))).equals(await readFile(join(b,f))))return false;
+ return true;
+}
+export async function negativeControls(input,{out,restart=false,expiredLogin=false,cancel=false,chat=false,upgradeFrom=null}){
  const escaped=[];
  // With --restart, --expired-login or --cancel only that scenario's controls run; the package controls run
  // in their own step.
- const extended=restart||expiredLogin||cancel||chat;
- const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire,requireExpired:false}]):[]),...(cancel?Object.entries(BROKEN_CANCEL).map(([name,[reason,broken]])=>[name,reason,{cancel:true,...broken}]):[]),...(chat?Object.entries(BROKEN_CHAT).map(([name,[reason,broken]])=>[name,reason,{chat:true,...broken}]):[])];
+ const extended=restart||expiredLogin||cancel||chat||!!upgradeFrom;
+ const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire,requireExpired:false}]):[]),...(cancel?Object.entries(BROKEN_CANCEL).map(([name,[reason,broken]])=>[name,reason,{cancel:true,...broken}]):[]),...(chat?Object.entries(BROKEN_CHAT).map(([name,[reason,broken]])=>[name,reason,{chat:true,...broken}]):[]),...(upgradeFrom?Object.entries(BROKEN_UPGRADE).map(([name,[reason,broken]])=>[name,reason,{upgradeFrom,...broken}]):[])];
  for(const [name,reason,options] of controls){
   console.log(`--- negative control: ${name}`);
   const error=await run(input,{out:join(out,name.replace(/\W+/g,'-')),...options,stepMs:12000}).then(()=>null,e=>e);
@@ -643,9 +687,10 @@ export async function negativeControls(input,{out,restart=false,expiredLogin=fal
 }
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
- const args=process.argv.slice(2),take=flag=>{const i=args.indexOf(flag);if(i<0)return undefined;if(flag==='--out'&&!args[i+1]){console.error('--out needs a directory');process.exit(2);}return args.splice(i,flag==='--out'?2:1).at(-1);};
- const outArg=take('--out'),controls=take('--negative-controls'),restart=!!take('--restart'),expiredLogin=!!take('--expired-login'),cancel=!!take('--cancel'),chat=!!take('--chat');
- if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart] [--expired-login] [--cancel] [--chat]');process.exit(2);}
+ const valued=['--out','--upgrade-from'];
+ const args=process.argv.slice(2),take=flag=>{const i=args.indexOf(flag);if(i<0)return undefined;if(valued.includes(flag)&&!args[i+1]){console.error(flag+' needs a path');process.exit(2);}return args.splice(i,valued.includes(flag)?2:1).at(-1);};
+ const outArg=take('--out'),upgradeFrom=take('--upgrade-from')||null,controls=take('--negative-controls'),restart=!!take('--restart'),expiredLogin=!!take('--expired-login'),cancel=!!take('--cancel'),chat=!!take('--chat');
+ if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart] [--expired-login] [--cancel] [--chat] [--upgrade-from <previous-release-dir-or-zip>]');process.exit(2);}
  const out=resolve(outArg||join(root,'.debug/e2e'));
- (controls?negativeControls(args[0],{out,restart,expiredLogin,cancel,chat}):run(args[0],{out,restart,expiredLogin,cancel,chat})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
+ (controls?negativeControls(args[0],{out,restart,expiredLogin,cancel,chat,upgradeFrom}):run(args[0],{out,restart,expiredLogin,cancel,chat,upgradeFrom})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
 }
