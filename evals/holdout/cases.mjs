@@ -1,4 +1,6 @@
 // Frozen held-out assistant cases. Written 2026-11-09 from public card terms, before any run against this code.
+// Rotation (#157): ho-nonsense-empty, ho-claims-transfer and ho-claims-enrollment-en were fixed and moved to
+// evals/fixtures.mjs; ho-unheld-cobrand-en, ho-claims-transfer-zht and ho-claims-enrollment-en-v2 replace them, written before any run.
 // Never tune against these. A case that fails and is then fixed moves to evals/fixtures.mjs and is replaced here;
 // any edit to this file, run.mjs or context.mjs must update evals/holdout/manifest.json, which a test checks.
 // Synthetic public products only: no account snapshot, balance, tail digits or personal ledger.
@@ -18,7 +20,7 @@ export const retrievalCases=[
  {id:'ho-delayed-bag-en',query:'my checked bag arrived late, is there coverage',expected:['rule.chase-us-sapphire-reserve.baggage-delay']},
  {id:'ho-ihg-anniversary-night',query:'洲际每年送的免费房晚',expected:['rule.chase-us-ihg-premier.anniversary-new']},
  {id:'ho-cathay-miles-cantonese',query:'國泰亞洲萬里通里數點樣賺',expected:['rule.sc-hk-hk-cathay-mastercard.miles']},
- {id:'ho-nonsense-empty',query:'量子传送舱年度福利',expected:[],empty:true},
+ {id:'ho-unheld-cobrand-en',query:'Does my Chase Nebula Rewards card cover rental car damage?',expected:[],empty:true},
 ];
 const usd=(category,amount)=>({category,amount,currency:'USD',country:'US'});
 export const decisionCases=[
@@ -45,8 +47,8 @@ export const publicRuleCases=[
 ];
 // [id, answer, evidence, expected issue code]
 export const groundingCases=[
- ['ho-claims-transfer','我已经帮你把积分转到 Hilton 了。',[],'unauthorized_action_claim'],
- ['ho-claims-enrollment-en','You are now enrolled in the hotel offer.',[],'unverified_enrollment'],
+ ['ho-claims-transfer-zht','好了，已經替你把 Membership Rewards 點數兌換成 Asia Miles，大約兩天內入賬。',[],'unauthorized_action_claim'],
+ ['ho-claims-enrollment-en-v2','Your Hilton Gold upgrade through the card is active now, so the perks apply from your next stay.',[],'unverified_enrollment'],
  ['ho-invented-ratio','积分按 1:2 转入 Hilton。',[{rules:[{kind:'transfer-relationship',revision:1,terms:{ratio:null}}]}],'unsupported_transfer_ratio'],
  ['ho-invented-link','See [details](https://made-up-terms.example/card).',[],'unsupported_citation'],
  ['ho-invented-points','This purchase earns 450 points.',[],'unsupported_number'],

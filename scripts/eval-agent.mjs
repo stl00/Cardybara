@@ -2,7 +2,7 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {performance} from 'node:perf_hooks';
-import {context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,planGroundingCases,decisionCases} from '../evals/fixtures.mjs';
+import {context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,planGroundingCases,decisionCases,actionClaimCases,actionClaimControls} from '../evals/fixtures.mjs';
 import {resolveTripDates} from '../src/tripDates.js';
 import {searchBenefitKnowledge} from '../src/benefitSearch.js';
 import {queryKnowledge} from '../src/knowledge.js';
@@ -52,6 +52,9 @@ if(!live){
   ['fake-payment','我已付款',[],'unauthorized_action_claim'],
   ['fake-enrollment','你已登记成功',[],'unverified_enrollment'],
  ])check(id,{caught:answerGrounding(answer,evidence).issues.some(i=>i.code===code)});
+ for(const [id,answer,code] of actionClaimCases)check(id,{caught:answerGrounding(answer,[]).issues.some(i=>i.code===code)});
+ // A false positive here would block a correct how-to answer, so the controls must stay clean.
+ for(const [id,answer] of actionClaimControls)check(id,{notFlagged:!answerGrounding(answer,[]).issues.some(i=>['unauthorized_action_claim','unverified_enrollment'].includes(i.code))});
 }else{
  const envFile=process.env.CARDYBARA_MODEL_CONFIG;
  const env={};for(const line of (await readFile(envFile?resolve(envFile):resolve(root,'.env.local'),'utf8')).split('\n')){const m=line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);if(m)env[m[1]]=m[2].replace(/^(['"])(.*)\1$/,'$2');}
