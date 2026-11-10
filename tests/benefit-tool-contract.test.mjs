@@ -107,6 +107,15 @@ test('a rule outside the chosen scenario competes on its own words only, without
  assert.equal(searchBenefitKnowledge('使用',cards,'2026-11-09',{scenarioId:'fitness'}).rules.filter(x=>!x.scenarioIds.includes('fitness')).length,0);
 });
 
+test('common words weigh little and cannot make a match alone; rare words and typos still find the rule (#161)', () => {
+ const cobrand=['chase-us-united-quest','amex-us-us-delta-skymiles-reserve-card','amex-us-us-marriott-bonvoy-brilliant-card','chase-us-ihg-premier','citi-us-citi-aadvantage-executive-card','chase-us-southwest-rapid-rewards-priority-credit-card'].map(card);
+ const top=q=>searchBenefitKnowledge(q,cobrand,'2026-11-09').rules.map(r=>r.id);
+ // "credit" is in most English originals; it must not push the Citi Lyft rule out of a rideshare search.
+ assert.ok(top('rideshare credit').includes('rule.citi-us-citi-aadvantage-executive-card.lyft'));
+ assert.ok(top('rideshre credit').includes('rule.chase-us-united-quest.rideshare'),'one-letter typo');
+ assert.equal(searchBenefitKnowledge('credit',cobrand,'2026-11-09').total,0,'a common word alone matches nothing');
+});
+
 // #157: a product the wallet doesn't hold returns no rules, says so, and suggests no other searches.
 test('a named product the wallet does not hold returns no benefits and says so', () => {
  for(const query of ['Sapphire Titanium card lounge access','Marriott Bonvoy Bold card free night','钛晶卡的贵宾室','Amex Aurora hotel credit']){
@@ -128,4 +137,21 @@ test('a question about something no benefit record mentions returns nothing, wit
  }
  // Kind-of-benefit words alone ask about everything, not about an unknown thing.
  assert.equal(find({query:'我有哪些会员优惠'}).unknownSubject,undefined);
+});
+
+test('typo fixes and new vocabulary do not turn real words into other benefits (#162 review)', () => {
+ const all=['chase-us-sapphire-reserve','amex-us-us-the-platinum-card','amex-us-us-business-platinum-card','chase-us-sapphire-reserve-for-business-credit-card','amex-us-us-business-gold-card'].map(card);
+ const ids=q=>searchBenefitKnowledge(q,all,'2026-11-09').rules.map(r=>r.id);
+ // diving is a real word, not a typo for dining.
+ assert.ok(searchBenefitKnowledge('scuba diving perks',all,'2026-11-09').unknownSubject);
+ const dental=searchBenefitKnowledge('dental insurance',all,'2026-11-09').rules.find(r=>r.id==='rule.chase-us-sapphire-reserve.rental');
+ assert.ok(!dental?.retrieval.matched.includes('rental'),'dental is not corrected to rental');
+ assert.ok(!ids('手提袋 shopping credit').includes('rule.amex-us-us-business-platinum-card.dell'));
+ const hire=ids('car hire abroad insurance');
+ assert.ok(!hire.includes('rule.amex-us-us-business-platinum-card.indeed')&&!hire.includes('rule.chase-us-sapphire-reserve-for-business-credit-card.ziprecruiter'));
+ assert.ok(!ids('which carrier gives me lounge access').includes('rule.amex-us-us-business-platinum-card.wireless'));
+ // Still found: a real typo, and the words people use for brand-only benefits.
+ assert.ok(ids('resturant credits').some(id=>/dining|resy/.test(id)));
+ assert.ok(ids('we are hiring, any credit for job posts?').includes('rule.amex-us-us-business-platinum-card.indeed'));
+ assert.ok(ids('手提電腦有冇優惠').includes('rule.amex-us-us-business-platinum-card.dell'));
 });

@@ -10,6 +10,8 @@ const concepts=[
  ['entertainment',/追剧|追劇|影音|订阅|訂閱|流媒体|流媒體|streaming|disney|hulu|peacock|subscription/i,['entertainment']],
  ['fitness',/健身|运动|運動|fitness|gym|equinox|lululemon/i,['fitness']],
  ['membership',/会籍|會籍|会员|會員|身份|status|membership/i,[]],
+ // Airline spending: the question says airline; a rule names the airline (Air Canada) or says airline or flight. (#161)
+ ['airline',/airline|airfare|航空公司|航司|机票|機票|plane ticket|flight ticket/i,[],/air canada|airlines?\b|航空|航司|机票|機票|机上|機上|\bflights?\b|in-?flight/i],
 ];
 const partners=[['hilton',/hilton|希尔顿|希爾頓/i],['marriott',/marriott|万豪|萬豪/i],['hyatt',/hyatt|凯悦|凱悅/i],['ihg',/\bihg\b|洲际|洲際/i],['accor',/accor|雅高/i],['radisson',/radisson|丽笙|麗笙/i],['uber',/uber|优步|優步/i],['disney',/disney|迪士尼/i],['resy',/resy/i],['dunkin',/dunkin/i]];
 const norm=s=>String(s||'').normalize('NFKC').toLowerCase();
@@ -38,6 +40,40 @@ const hasTerm=term=>{if(!/^[a-z]/.test(term))return text=>text.includes(term);co
 const issuerFree=s=>norm(s).replace(/\bamerican express\b/g,' ');
 // About one concept match: enough to lead among equals, not enough to bury a rule the words point to.
 const FILTER_BONUS=7;
+// CONCEPT and OUTSIDE_FILTER_MIN were tuned together on the development set (#161) under constraints: no lower recall,
+// no more forbidden hits or no-answer noise, and no lower recall on the real model's stored calls. The other weights
+// were shown not to matter (#147) and keep their first values.
+const CONCEPT=6,OUTSIDE_FILTER_MIN=10;
+// Words are weighted by IDF over every active benefit rule, scaled so a word found in 10 rules keeps the flat points
+// (title 5, programme 6, body 1): rare words weigh more, and words in many English originals ("credit") far less.
+// A word in more than a quarter of rules is common: it still adds its small weight, but on its own it neither makes a
+// rule match nor earns a category boost (#161).
+const COMMON_SHARE=0.25;
+const ruleTexts=r=>[r.content,...(r.original?[r.original]:[]),...Object.values(r.translations||{})];
+const docCache=new Map();
+const docOf=r=>{if(!docCache.has(r.revisionId)){const texts=ruleTexts(r);docCache.set(r.revisionId,{title:issuerFree(texts.map(t=>t.title).join(' ')),body:issuerFree([...texts.flatMap(t=>[t.summary,...t.howToUse]),...(r.original?.quotes||[]).map(q=>q.text)].join(' ')),programmes:r.programmeIds.map(id=>norm(knowledgeEntities.programmes.find(p=>p.id===id)?.name||id)).join(' ')});}return docCache.get(r.revisionId);};
+const corpusCache=new Map();
+function corpus(asOf){
+ // One snapshot day at a time; the per-word tables are capped, since their keys are words people type.
+ if(!corpusCache.has(asOf)){corpusCache.clear();const rules=queryKnowledge({kind:'benefit',asOf}).rules.map(docOf),vocab=new Set();for(const d of rules)for(const w of (d.title+' '+d.programmes+' '+d.body).match(/[a-z][a-z-]{4,}/g)||[])vocab.add(w);corpusCache.set(asOf,{docs:rules,vocab:[...vocab],df:new Map(),typos:new Map()});}
+ const c=corpusCache.get(asOf);if(c.df.size>5000)c.df.clear();if(c.typos.size>5000)c.typos.clear();
+ return corpusCache.get(asOf);
+}
+const idf=(df,n)=>Math.log(1+(n-df+0.5)/(df+0.5));
+function wordStats(term,has,asOf){
+ const c=corpus(asOf);if(!c.df.has(term))c.df.set(term,c.docs.filter(d=>has(d.title)||has(d.programmes)||has(d.body)).length);
+ const df=c.df.get(term),n=c.docs.length;return {weight:idf(df,n)/idf(10,n),common:df>COMMON_SHARE*n,df};
+}
+// One insertion, deletion or swap of neighbouring letters; no substitution, which turns real words into others (diving → dining).
+function oneEdit(a,b){if(Math.abs(a.length-b.length)!==1&&a.length!==b.length||a===b)return false;let i=0;while(i<a.length&&a[i]===b[i])i++;
+ if(a.length===b.length)return a[i]===b[i+1]&&a[i+1]===b[i]&&a.slice(i+2)===b.slice(i+2);
+ return a.length<b.length?a.slice(i)===b.slice(i+1):a.slice(i+1)===b.slice(i);}
+// An English word of six letters or more that no rule contains also matches rule words one edit away (rideshre → rideshare).
+// Fixed words add search terms only: they do not fire concepts or make a question topical.
+function typoFixes(text,asOf){
+ const c=corpus(asOf);
+ return [...new Set(tokens(text).filter(t=>/^[a-z]{6,}$/.test(t)).flatMap(t=>{if(!c.typos.has(t))c.typos.set(t,wordStats(t,hasTerm(t),asOf).df?[]:c.vocab.filter(w=>oneEdit(t,w)));return c.typos.get(t);}))];
+}
 // Words that say what kind of benefit is wanted (yearly, perks, membership, 优惠) but not what it is about.
 const WEAK=new Set(['membership','年度','每年','annual','yearly','perks','perk','privileges','会员','优惠','福利','待遇','礼遇','好处']);
 // What is left of a question without those words and question fillers: the thing it asks about.
@@ -48,35 +84,36 @@ const askedThing=question=>{
  const latin=(text.match(/[a-z][a-z-]{2,}/g)||[]).filter(w=>!WEAK.has(w)&&!EN_STOP.has(w)&&!STOP.has(w)&&!['do','does','give','offer','offers','get','what','which','any'].includes(w));
  return han.length>=2||latin.length?[han,...latin].filter(Boolean).join(' '):null;
 };
-// Chosen on the development set: lower lets weak matches in (unanswerable questions return noise), higher loses recall.
-const OUTSIDE_FILTER_MIN=8;
 export function searchBenefitKnowledge(question,cards,asOf,filters={}){
  // A product the wallet doesn't hold has no benefits here; the rest of the words must not pull in other cards' rules.
  const unheld=unheldProduct(question,cards,asOf);
- if(unheld)return {rules:[],total:0,wordMatches:0,truncated:false,unheldProduct:unheld,method:'structured-filter+multilingual-lexical-ranking',asOf};
+ if(unheld)return {rules:[],total:0,wordMatches:0,truncated:false,unheldProduct:unheld,method:'structured-filter+multilingual-idf-ranking',asOf};
  // Scoring runs on the expanded query (Simplified characters, glossary and alias words); the strict partner filter and the generic check use the words as asked.
  const scope=genericScope(question,cards),generic=!!scope?.cards.length,scoped=new Set((scope?.cards||[]).map(c=>matchCardProduct(c).product?.id).filter(Boolean));
- const text=expandQuery(question),products=new Set(cards.map(c=>matchCardProduct(c).product?.id).filter(Boolean));
- const signals=concepts.filter(([,re])=>re.test(text)),requestedPartners=generic?[]:partners.filter(([,re])=>re.test(askedText(question))).map(([id])=>id);
+ const asked=expandQuery(question),fixes=typoFixes(asked,asOf),text=fixes.length?asked+' '+fixes.join(' '):asked,products=new Set(cards.map(c=>matchCardProduct(c).product?.id).filter(Boolean));
+ const signals=concepts.filter(([,re])=>re.test(asked)),requestedPartners=generic?[]:partners.filter(([,re])=>re.test(askedText(question))).map(([id])=>id);
  // A programme filter in any language or alias: 万豪 and Bonvoy both mean Marriott Bonvoy.
  const programmeIds=filters.programme?programmesForFilter(filters.programme):null;
- const terms=generic?[]:tokens(text),matchers=terms.map(term=>[term,hasTerm(term)]);
+ const terms=generic?[]:tokens(text),matchers=terms.map(term=>{const has=hasTerm(term);return [term,has,wordStats(term,has,asOf)];});
+ // Common words count like 年度 or perks when judging whether the question names something no rule mentions.
+ const commonTerms=new Set(matchers.filter(([,,st])=>st.common).map(([t])=>t));
  // Scenario and category are soft: a rule outside them still competes on its words, because the model often picks
  // the neighbouring scenario (Global Entry as travel, not airport). A named programme stays a hard filter.
  const rows=queryKnowledge({kind:'benefit',asOf}).rules.filter(r=>r.productIds.some(id=>products.has(id))&&(!generic||r.productIds.some(id=>scoped.has(id))||r.programmeIds.some(id=>scope.programmes.includes(id))));
  const ranked=[];
  for(const r of rows){
   // Every language the rule has is searched: the zh-CN text, the official original with its quotes, and any display translation.
-  const texts=[r.content,...(r.original?[r.original]:[]),...Object.values(r.translations||{})];
-  const title=issuerFree(texts.map(t=>t.title).join(' ')),body=issuerFree([...texts.flatMap(t=>[t.summary,...t.howToUse]),...(r.original?.quotes||[]).map(q=>q.text)].join(' ')),programmes=r.programmeIds.map(id=>norm(knowledgeEntities.programmes.find(p=>p.id===id)?.name||id)).join(' ');
+  const {title,body,programmes}=docOf(r);
   if(filters.programme&&!(programmeIds.some(id=>r.programmeIds.includes(id))||norm(programmes+' '+title).includes(norm(filters.programme))))continue;
   // Match any explicitly requested partner so comparisons retain both sides.
   const matchedPartners=requestedPartners.filter(id=>norm(title+' '+body+' '+programmes).includes(id));
   if(requestedPartners.length&&!matchedPartners.length)continue;
-  let score=0;const matched=[];
-  for(const [key,re,scenarios] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||re.test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant){score+=key==='membership'?5:7;matched.push(key);}}
-  for(const [term,has] of matchers){if(has(title)){score+=5;matched.push(term)}else if(has(programmes)){score+=6;matched.push(term)}else if(has(body)){score+=1;matched.push(term)}}
-  if(matchedPartners.length){score+=12;matched.push(...matchedPartners)}
+  // specific: the rule matched on a concept, a partner or an uncommon word, not on common words alone.
+  let score=0,specific=false;const matched=[];
+  for(const [key,re,scenarios,ruleRe] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||(ruleRe||re).test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant){score+=key==='membership'?5:CONCEPT;matched.push(key);specific=true;}}
+  for(const [term,has,stats] of matchers){const points=has(title)?5:has(programmes)?6:has(body)?1:0;if(!points)continue;score+=points*stats.weight;matched.push(term);if(!stats.common)specific=true;}
+  if(matchedPartners.length){score+=12;matched.push(...matchedPartners);specific=true;}
+  if(!specific)score=0;
   const wordScore=score,inFilter=(!filters.scenarioId||r.scenarioIds.includes(filters.scenarioId))&&(!filters.category||r.category===filters.category),filtered=!!(filters.scenarioId||filters.category);
   // Outside the scenario or category, a rule needs a real word match (a concept or two title words) to compete,
   // judged before the category boosts below, and it does not get those boosts.
@@ -95,12 +132,13 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
  // Only words like 年度 or perks matched, with no scenario, partner or filter: the thing asked about (量子传送舱) is in no
  // rule, and rules that merely mention a year are not an answer.
  // A brand alias or glossary word the vocabulary expanded (沃尔玛 → Walmart+) also makes the question topical.
- const topical=signals.some(([key])=>key!=='membership')||requestedPartners.length||filters.scenarioId||filters.category||filters.programme||text!==askedText(question);
+ const topical=signals.some(([key])=>key!=='membership')||requestedPartners.length||filters.scenarioId||filters.category||filters.programme||asked!==askedText(question);
  // Judged on every candidate, so a real match crowded out of the top of a large wallet still counts.
- const thing=!generic&&!topical&&ranked.length&&ranked.every(r=>r.retrieval.matched.every(m=>WEAK.has(m)))&&askedThing(question);
- if(thing)return {rules:[],total:0,wordMatches:0,truncated:false,unknownSubject:{named:thing},method:'structured-filter+multilingual-lexical-ranking',asOf};
+ // Also when nothing matched at all: a question naming something no rule mentions gets the same answer, not suggestions.
+ const thing=!generic&&!topical&&ranked.every(r=>r.retrieval.matched.every(m=>WEAK.has(m)||commonTerms.has(m)))&&askedThing(question);
+ if(thing)return {rules:[],total:0,wordMatches:0,truncated:false,unknownSubject:{named:thing},method:'structured-filter+multilingual-idf-ranking',asOf};
  // On equal scores, a rule inside the chosen scenario or category comes first.
  ranked.sort((a,b)=>b.retrieval.score-a.retrieval.score||b.retrieval.inFilter-a.retrieval.inFilter||a.id.localeCompare(b.id));
  const limit=Math.max(1,Math.min(24,filters.limit||12));
- return {rules:ranked.slice(0,limit),total:ranked.length,wordMatches:ranked.filter(r=>r.retrieval.lexical||generic).length,truncated:ranked.length>limit,method:'structured-filter+multilingual-lexical-ranking',asOf};
+ return {rules:ranked.slice(0,limit),total:ranked.length,wordMatches:ranked.filter(r=>r.retrieval.lexical||generic).length,truncated:ranked.length>limit,method:'structured-filter+multilingual-idf-ranking',asOf};
 }
