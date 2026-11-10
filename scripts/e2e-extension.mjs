@@ -10,7 +10,8 @@
 // read again after the sign-in.
 // --cancel (nightly set): after the main path, the user stops a refresh from the wallet while the
 // bank page is still loading, then stops a reading that waits at needs-login from the bank page's
-// guide; each must end cancelled with the records it read kept, and nothing is read afterwards.
+// guide, then stops another such reading from the wallet header; each must end cancelled with the
+// records it read kept, and nothing is read afterwards.
 //
 // Bank hosts reach the synthetic bank through Chrome launch options only (--host-rules and a
 // certificate pin for a throwaway self-signed key); every other host fails to resolve. The tested
@@ -132,7 +133,7 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide}={}){
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet}={}){
  if([restart,expiredLogin,cancel].filter(Boolean).length>1)throw Error('run --restart, --expired-login and --cancel separately: each starts from the end of the main path');
  if(stepMs)STEP_MS=stepMs;log=[];lastState=null;
  const work=await mkdtemp(join(tmpdir(),'cardybara-e2e-'));
@@ -375,6 +376,26 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    // Signing in re-renders the synthetic page in place, so a stopped reading makes no request at all.
    if(bank.requests.length!==served)throw new StepError(`the bank was contacted ${bank.requests.length-served} times after the stop`);
    note('PASS: a reading stopped on the guide stays cancelled and does not read after a sign-in');
+
+   // 8c. Another refresh waits at needs-login, and this time the user stops it from the wallet header
+   // instead of the guide (stl00/Cardybara#166). The header must offer 停止本轮刷新 while the run waits,
+   // and the job must end cancelled as the guide's stop leaves it, with nothing read after a sign-in.
+   const {waiting:waiting2,signIn:signIn2}=await refreshExpired(readBefore);
+   await stopWaiting({clickText:()=>clickText('wallet','button','停止本轮刷新'),until});
+   note('asked the extension to stop the refresh waiting at needs-login from the wallet');
+   const walletStopped=await cancelled(waiting2.run.id,'the job to be cancelled from the wallet');
+   if(walletStopped.run.status!=='cancelled')throw new StepError(`the run stopped from the wallet ended as ${walletStopped.run.status}, not cancelled`);
+   if(JSON.stringify(walletStopped.records?.Chase)!==readBefore)throw new StepError('records changed when the waiting refresh was stopped: '+JSON.stringify(walletStopped.records?.Chase));
+   await until('the stop button to turn back into refresh after a waiting stop',()=>shows('wallet','刷新全部银行'));
+   const served2=bank.requests.length;
+   await evaluate('bank','document.getElementById("sign-in").click()');
+   note('signed in on',signIn2.targetId,'after the wallet stop');
+   await sleep(Math.min(5000,STEP_MS/2));
+   const after2=await state();
+   if(after2?.run?.id!==waiting2.run.id||after2.run.status!=='cancelled'||after2.run.jobs.find(j=>j.bank==='Chase')?.status!=='cancelled')throw new StepError('signing in after the wallet stop started or resumed a reading: '+JSON.stringify({id:after2?.run?.id,status:after2?.run?.status,jobs:after2?.run?.jobs?.map(j=>[j.bank,j.status])}));
+   if(JSON.stringify(after2.records?.Chase)!==readBefore)throw new StepError('fields were read after the wallet stop: '+JSON.stringify(after2.records?.Chase));
+   if(bank.requests.length!==served2)throw new StepError(`the bank was contacted ${bank.requests.length-served2} times after the wallet stop`);
+   note('PASS: a refresh waiting at needs-login stops from the wallet header and does not read after a sign-in');
   }
   return {ok:true};
  }catch(error){
@@ -448,6 +469,7 @@ export const BROKEN_EXPIRED_LOGIN={
 export const BROKEN_CANCEL={
  'a wallet stop that is never sent':[/timed out waiting for the run to be cancelled/,{stop:async()=>{}}],
  'a guide stop that is never sent':[/timed out waiting for the job to be cancelled from the guide/,{stopGuide:async()=>{}}],
+ 'a wallet stop at needs-login that is never sent':[/timed out waiting for the job to be cancelled from the wallet/,{stopWaiting:async()=>{}}],
 };
 export async function negativeControls(input,{out,restart=false,expiredLogin=false,cancel=false}){
  const escaped=[];
