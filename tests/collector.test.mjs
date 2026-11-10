@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';import fs from 'node:fs';
 import {Engine} from '../extension-next/engine.js';
 import {allowed,guidedPage} from '../extension-next/providers.js';
-import {request,trusted,validateRead} from '../extension-next/protocol.js';
+import {request,trusted,validateRead,refreshCard} from '../extension-next/protocol.js';
 import {collectorSnapshot} from '../src/collector.js';
 const bankCards=[{id:'chase-one',bank:'Chase',tail:'1234',currency:'USD'},{id:'chase-two',bank:'Chase',tail:'5678',currency:'USD'}];
 const input=(id='run-1',cards=bankCards,banks=['Chase'])=>({type:'refresh',requestId:id,banks,cards});
@@ -123,4 +123,14 @@ test('later bank runs preserve the previous partial read diagnostic in complete 
 
 test('export distinguishes the executing worker build from the popup build',()=>{
  const old=exportCollectorState({records:{},agentRecords:[]});assert.equal(old.runtimeBuild,null);assert.equal(old.exporterBuild,BUILD_ID);const current=exportCollectorState({runtimeBuild:BUILD_ID});assert.equal(current.runtimeBuild,current.exporterBuild);
+});
+
+test('a refresh carries a checked card name to the job, so reward coverage can match a co-brand',async()=>{
+ const named=[{...bankCards[0],name:'Sapphire Preferred® Card'},bankCards[1]];
+ assert.deepEqual(request(input('named',named)).cards[0].name,'Sapphire Preferred® Card');
+ for(const name of ['','x'.repeat(101),'<b>Card</b>','Card 1234 5678 9012 3456',42])assert.throws(()=>request(input('bad-name',[{...bankCards[0],name}])),/invalid_card/,String(name));
+ // The wallet sends a name only when it passes the same check; anything else is left out rather than failing the refresh.
+ assert.deepEqual(refreshCard({...bankCards[0],name:'Card 1234 5678 9012 3456',art:'x.png'}),bankCards[0]);
+ assert.deepEqual(refreshCard({...bankCards[0],name:'Freedom Card'}),{...bankCards[0],name:'Freedom Card'});
+ const f=fixture();const s=await f.engine.start(input('named',named),10);assert.equal(s.run.jobs[0].cards[0].name,'Sapphire Preferred® Card');
 });

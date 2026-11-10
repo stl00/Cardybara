@@ -22,8 +22,11 @@ const AMEX_OTHER_BRANDS=[
  {programme:/\b(?:Reward Dollars|Cash Back|Cash Rewards)\b|現金回贈|现金回赠|現金回饋|现金回馈/i,card:/\b(?:Blue Cash|Cash Magnet|Cash Back|Cash Rewards)\b|現金回贈|现金回赠|現金回饋|现金回馈/i},
  {programme:/\bAeroplan\b/i,card:/\bAeroplan\b/i},
 ];
-const plain=text=>String(text??'').normalize('NFKC').replace(/[®™]/g,'');
-export const confirmedOtherProgramme=(bank,programme,cardName)=>{if(!String(bank).startsWith('Amex '))return true;const brand=AMEX_OTHER_BRANDS.find(b=>b.programme.test(plain(programme)));if(!brand)return false;const name=plain(cardName).trim();return !name||brand.card.test(name);};
+// Marks become spaces before NFKC, which would turn ™ into "TM" and glue words together.
+const plain=text=>String(text??'').replace(/[®™℠]|\((?:TM|R|SM)\)/gi,' ').normalize('NFKC');
+// A masked tail or the issuer-plus-tail fallback a discovery writes when no name was read is not a product name.
+const productName=name=>plain(name).replace(/(?:[•●*xX]{2,}|\.{3})\s*\d{4,5}/g,' ').replace(/^\s*(?:American Express|Amex)\s*$/i,'').trim();
+export const confirmedOtherProgramme=(bank,programme,cardName)=>{if(!String(bank).startsWith('Amex '))return true;const brand=AMEX_OTHER_BRANDS.find(b=>b.programme.test(plain(programme)));if(!brand)return false;const name=productName(cardName);return !name||brand.card.test(name);};
 export function mvpSummary(items,cards,initialPatches=[],notCollected={}){
  const coverage=cards.map(c=>{const keys=new Set(Object.keys(initialPatches.find(p=>p.id===c.id)?.fields||{}));for(const i of items.filter(i=>i.cardId===c.id&&['card','billing'].includes(i.kind)))keys.add(i.key);const absent=['balance',...(!keys.has('statement')&&!keys.has('statementClosing')?['statement']:[]),'minimum','due'].filter(k=>!keys.has(k));
   // An explicit bank statement that no payment is due satisfies minimum and due with its recorded reason (docs/RELEASE.md). The values stay unknown, and a printed minimum or due date overrides it.

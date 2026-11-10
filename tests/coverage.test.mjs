@@ -91,6 +91,11 @@ test('rewards are required only for Membership Rewards and Ultimate Rewards',()=
  for(const [bank,card,name] of [['Amex US','American Express Gold Card','Marriott Bonvoy Points'],['Amex US','The Platinum Card®','Hilton Honors Points'],['Amex US','Delta SkyMiles® Gold Card','Hilton Honors Points'],['Amex HK','American Express Explorer(TM) Credit Card','萬豪旅享家積分'],['Amex HK','美國運通白金卡','現金回贈']]){const r=mvpSummary([],[{id:'a',bank,name:card}],[],{a:new Set([name])}).reward.coverage[0];assert.equal(r.complete,false,card+name);assert.equal(r.reason,'programme_unconfirmed');assert.deepEqual(r.unconfirmed,[name]);}
  // A promoted brand never hides a missing value next to a real co-brand balance either: only the matching brand counts.
  const both=mvpSummary([],[{id:'a',bank:'Amex US',name:'Hilton Honors Card'}],[],{a:new Set(['Hilton Honors Points','Marriott Bonvoy Points'])}).reward.coverage[0];assert.equal(both.complete,true);assert.deepEqual(both.notCollected,['Hilton Honors Points']);
+ // A masked tail or the issuer fallback written when no name was read is no product name: the brand alone decides, as before.
+ for(const card of ['Amex •••• 12345','••••12345','American Express ***1234','Amex ...12345']){assert.equal(confirmedOtherProgramme('Amex US','Hilton Honors Points',card),true,card);}
+ assert.equal(confirmedOtherProgramme('Amex US','Hilton Honors Points','Platinum Card ••••12345'),false);
+ // ™ and ® marks do not glue a brand to the next word (NFKC would turn ™ into TM).
+ for(const card of ['Cash Magnet™ Card','Marriott Bonvoy™ Card','Delta SkyMiles®Gold Card','Blue Cash Preferred(R) Card'])assert.equal(confirmedOtherProgramme('Amex US',card.includes('Marriott')?'Bonvoy™ Points':card.includes('Delta')?'SkyMiles®':'Reward Dollars',card),true,card);
  // Acceptance applies the same rule to a named card.
  assert.equal(confirmedOtherProgramme('Amex US','Marriott Bonvoy Points','American Express Gold Card'),false);assert.equal(confirmedOtherProgramme('Amex US','Marriott Bonvoy Points','Marriott Bonvoy Brilliant'),true);assert.equal(confirmedOtherProgramme('Amex US','Marriott Bonvoy Points'),true);assert.equal(confirmedOtherProgramme('Chase','Some Miles','Anything'),true);
  // No sign of any programme on such a card stays partial, with a reason.
