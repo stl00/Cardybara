@@ -9,6 +9,8 @@ const concepts=[
  ['entertainment',/追剧|追劇|影音|订阅|訂閱|流媒体|流媒體|streaming|disney|hulu|peacock|subscription/i,['entertainment']],
  ['fitness',/健身|运动|運動|fitness|gym|equinox|lululemon/i,['fitness']],
  ['membership',/会籍|會籍|会员|會員|身份|status|membership/i,[]],
+ // Airline spending: the question says airline; a rule names the airline (Air Canada) or says airline or flight. (#161)
+ ['airline',/airline|airfare|航空公司|航司|机票|機票|plane ticket|flight ticket/i,[],/air canada|airlines?\b|航空|航司|机票|機票|机上|機上|\bflights?\b|in-?flight/i],
 ];
 const partners=[['hilton',/hilton|希尔顿|希爾頓/i],['marriott',/marriott|万豪|萬豪/i],['hyatt',/hyatt|凯悦|凱悅/i],['ihg',/\bihg\b|洲际|洲際/i],['accor',/accor|雅高/i],['radisson',/radisson|丽笙|麗笙/i],['uber',/uber|优步|優步/i],['disney',/disney|迪士尼/i],['resy',/resy/i],['dunkin',/dunkin/i]];
 const norm=s=>String(s||'').normalize('NFKC').toLowerCase();
@@ -88,7 +90,7 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
   if(requestedPartners.length&&!matchedPartners.length)continue;
   // specific: the rule matched on a concept, a partner or an uncommon word, not on common words alone.
   let score=0,specific=false;const matched=[];
-  for(const [key,re,scenarios] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||re.test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant){score+=key==='membership'?5:CONCEPT;matched.push(key);specific=true;}}
+  for(const [key,re,scenarios,ruleRe] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||(ruleRe||re).test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant){score+=key==='membership'?5:CONCEPT;matched.push(key);specific=true;}}
   for(const [term,has,stats] of matchers){const points=has(title)?5:has(programmes)?6:has(body)?1:0;if(!points)continue;score+=points*stats.weight;matched.push(term);if(!stats.common)specific=true;}
   if(matchedPartners.length){score+=12;matched.push(...matchedPartners);specific=true;}
   if(!specific)score=0;
