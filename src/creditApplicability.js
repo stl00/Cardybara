@@ -35,7 +35,7 @@ export function validateDecisionFields(rule){
 const norm=s=>String(s||'').normalize('NFKC').toLowerCase();
 // Another issuer's portal rules a portal-only credit out only when the name clearly says so.
 // A name we can't place (The Edit, 大通旅行, UR) stays a need, never an exclusion.
-const ISSUER_PORTALS={chase:/chase|大通|ultimate rewards|\bur\b|the edit/,amex:/amex|american express|运通|運通|\bmr\b|fine hotels|\bfhr\b/,citi:/citi|花旗/,capitalone:/capital one/,bilt:/bilt/};
+const ISSUER_PORTALS={chase:/\bchase\b|大通|\bultimate rewards\b|\bur\b|\bthe edit\b/,amex:/\bamex\b|\bamerican express\b|运通|運通|\bmr\b|\bfine hotels\b|\bfhr\b/,citi:/\bciti\b|花旗/,capitalone:/\bcapital one\b/,bilt:/\bbilt\b/};
 const issuersIn=s=>Object.entries(ISSUER_PORTALS).filter(([,re])=>re.test(norm(s))).map(([id])=>id);
 function portalVerdict(named,via){
  const own=issuersIn(via),said=issuersIn(named);

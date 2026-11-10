@@ -50,13 +50,14 @@ test('fields decide applicable, not applicable or conditional',()=>{
  // "Automatically applied" says how it posts, not that no enrollment exists, so enrollment stays unrecorded.
  assert.deepEqual(open.unrecorded,['enrollment']);
  // A portal name code can't place is a need, never an exclusion.
- for(const portal of ['The Edit','大通旅行','UR','UR portal','my travel site']){
+ for(const portal of ['The Edit','大通旅行','UR','UR portal','my travel site','Citizens travel','built travel']){
   const r=creditApplicability(edit,{channel:'portal',portal,nights:3});
   assert.equal(r.status,'conditional',portal);assert.equal(r.unmet,undefined,portal);
  }
  for(const portal of ['Amex Travel','美国运通旅行','Citi Travel'])assert.deepEqual(creditApplicability(edit,{channel:'portal',portal,nights:3}).unmet,['booked-through-portal'],portal);
  // Nights only count against a stay.
  assert.equal(creditApplicability(edit,{channel:'portal',portal:'Chase Travel',nights:1,category:'car-rental'}).unmet,undefined);
+ assert.ok(creditApplicability(edit,{channel:'portal',portal:'purchase portal',nights:3}).needs.includes('booked-through-portal'),'chase inside another word is not Chase');
  // No channel recorded: never applicable, and the gap is named.
  const dining=creditApplicability(rule(gold+'dining'),{channel:'direct'});
  assert.equal(dining.status,'conditional');assert.deepEqual(dining.unrecorded,['channels']);assert.deepEqual(dining.needs,['enrolled']);
