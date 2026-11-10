@@ -8684,6 +8684,26 @@
         "先核对卡种、地区及当前官方条款。",
         "每账户周年200加元；指定Amex渠道单笔至少200加元，取消后不能当然重用，不结转。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-CA"
+    },
+    "original": {
+      "lang": "en-CA",
+      "title": "$200 Annual Travel Credit",
+      "summary": "A $200 CAD Annual Travel Credit redeemed at booking through American Express Travel Online or Platinum Card Travel Service; after a cancellation it cannot be redeemed again that year.",
+      "howToUse": [
+        "Redeem it at the time of booking through the Amex travel channels.",
+        "A cancelled booking does not return the credit for the same year."
+      ],
+      "quotes": [
+        {
+          "sourceId": "platinum-ca-travel",
+          "text": "The $200 CAD Annual Travel Credit can only be redeemed at time of booking through American Express Travel Online at americanexpress.ca/travel or by calling Platinum Card Travel Service."
+        },
+        {
+          "sourceId": "platinum-ca-travel",
+          "text": "If you cancel your travel booking after redeeming the Annual Travel Credit, you will not be able to redeem it again in the same year."
+        }
       ]
     },
     "terms": {
@@ -8748,6 +8768,30 @@
         "先核对卡种、地区及当前官方条款。",
         "精选加拿大餐厅单笔至少200加元；登记及当年使用规则须核对，不适用于全球所有餐厅。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-CA"
+    },
+    "original": {
+      "lang": "en-CA",
+      "title": "$200 Annual Dining Credit",
+      "summary": "A $200 CAD statement credit after a single transaction of $200 CAD or more (including taxes and gratuity) at an eligible restaurant, once per redemption period; a one-time enrolment through Amex Offers is required.",
+      "howToUse": [
+        "Enrol once through Amex Offers; later periods enrol automatically.",
+        "Spend at least $200 CAD in one transaction at a restaurant on the eligible list."
+      ],
+      "quotes": [
+        {
+          "sourceId": "platinum-ca-benefits",
+          "text": "Basic Platinum Cardmembers have access to the $200 CAD Annual Dining Credit."
+        },
+        {
+          "sourceId": "platinum-ca-benefits",
+          "text": "A one-time enrolment is required for the $200 Annual Dining Credit through Amex Offers and Cardmembers will automatically be enrolled for future redemption periods and do not need to re-enroll."
+        },
+        {
+          "sourceId": "platinum-ca-benefits",
+          "text": "Enrolled Cardmembers will be eligible to receive a statement credit of $200 CAD following a single transaction of $200 CAD or more (including taxes and gratuity) at one of the eligible restaurants listed on our website at the time of the transaction."
+        }
       ]
     },
     "terms": {
@@ -8819,6 +8863,21 @@
         "先核对卡种、地区及当前官方条款。",
         "每四年最多100加元；须核对上次已用日期，非每年发放。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-CA"
+    },
+    "original": {
+      "lang": "en-CA",
+      "title": "NEXUS fee credit",
+      "summary": "Up to $100 CAD in statement credits every four years when a NEXUS application or renewal fee is charged to the card.",
+      "howToUse": [
+        "Check when you last used the credit; it is not yearly."
+      ],
+      "quotes": [
+        {
+          "sourceId": "platinum-ca-travel",
+          "text": "Receive up to $100 CAD in statement credits every four years when a NEXUS application or renewal fee is charged to your Platinum Card."
+        }
       ]
     },
     "terms": {
@@ -8885,6 +8944,21 @@
         "先核对卡种、地区及当前官方条款。",
         "需登记并关联对应会员账户；第三方订房可能不适用酒店会员待遇。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-CA"
+    },
+    "original": {
+      "lang": "en-CA",
+      "title": "Hilton Honors Gold status",
+      "summary": "Platinum Cardmembers can enrol in complimentary Hilton Honors Gold status; third-party bookings may not get member benefits.",
+      "howToUse": [
+        "Enrol and link your Hilton Honors account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "platinum-ca-travel",
+          "text": "As a Platinum Cardmember you are eligible to enrol in complimentary Hilton Honors Gold status."
+        }
       ]
     },
     "terms": {
@@ -8960,6 +9034,21 @@
         "先核对卡种、地区及当前官方条款。",
         "需登记并关联对应会员账户；第三方订房可能不适用酒店会员待遇。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-CA"
+    },
+    "original": {
+      "lang": "en-CA",
+      "title": "Marriott Bonvoy Gold Elite status",
+      "summary": "Enrolment in Marriott Bonvoy is required to receive Gold Elite benefits; third-party bookings may not get member benefits.",
+      "howToUse": [
+        "Enrol and link your Marriott Bonvoy account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "platinum-ca-travel",
+          "text": "Enrolment into the Marriott Bonvoy program is required to receive benefits of Gold Elite status, and may be terminated by Marriott without prior notice."
+        }
       ]
     },
     "terms": {
@@ -9036,6 +9125,21 @@
         "先核对卡种、地区及当前官方条款。",
         "按现行加拿大白金休息室条款；2027起Plaza Premium和Priority Pass改为限次数及消费解锁。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-CA"
+    },
+    "original": {
+      "lang": "en-CA",
+      "title": "Lounge access in 2026",
+      "summary": "Through 2026 the current Canadian Platinum lounge terms apply; from January 1, 2027, Plaza Premium and Priority Pass access moves to a limited number of visits with a spend-based unlock.",
+      "howToUse": [
+        "Check the current lounge terms before you travel; plan for the 2027 change."
+      ],
+      "quotes": [
+        {
+          "sourceId": "platinum-ca-travel",
+          "text": "Effective, January 1, 2027, Platinum Cardmembers will receive a limited number of complimentary visits to Plaza Premium and Priority Pass lounges each year."
+        }
       ]
     },
     "terms": {
@@ -9103,6 +9207,29 @@
         "先核对卡种、地区及当前官方条款。",
         "主卡Plaza Premium与Priority Pass各6次，附属白金各2次；合资格年消费20000加元可解锁，年份及生效条件适用。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-CA"
+    },
+    "original": {
+      "lang": "en-CA",
+      "title": "Lounge visits and unlock from 2027",
+      "summary": "From 2027, 6 visits each per calendar year to Plaza Premium and to Priority Pass for the basic cardmember, 2 each for supplementary cardmembers; $20,000 of eligible annual spend unlocks unlimited access. Unused visits do not carry over.",
+      "howToUse": [
+        "Count visits per calendar year; spending $20,000 in a year unlocks unlimited access."
+      ],
+      "quotes": [
+        {
+          "sourceId": "platinum-ca-travel",
+          "text": "If you spend less than $20,000, you’ll receive 6 visits each per calendar year to Plaza Premium"
+        },
+        {
+          "sourceId": "platinum-ca-travel",
+          "text": "Supplementary cardmembers will receive 2 visits each to Plaza Premium"
+        },
+        {
+          "sourceId": "platinum-ca-travel",
+          "text": "Unused lounge visits will not be carried over to the next year."
+        }
       ]
     },
     "terms": {
@@ -9169,6 +9296,21 @@
         "先核对卡种、地区及当前官方条款。",
         "指定渠道及参与酒店的早餐和延迟退房等待遇；实际订单条件另核对。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-CA"
+    },
+    "original": {
+      "lang": "en-CA",
+      "title": "Fine Hotels + Resorts",
+      "summary": "Benefits such as guaranteed late check-out and complimentary breakfast for two at Fine Hotels + Resorts worldwide; booking conditions apply.",
+      "howToUse": [
+        "Book Fine Hotels + Resorts through the Amex channel to receive the benefits."
+      ],
+      "quotes": [
+        {
+          "sourceId": "platinum-ca-benefits",
+          "text": "Make where you stay a destination itself with benefits at Fine Hotels + Resorts worldwide like guaranteed late check-out and complimentary breakfast for two, with your Platinum Card."
+        }
       ]
     },
     "terms": {
@@ -11576,6 +11718,21 @@
         "先核对卡种、地区及当前官方条款。",
         "周年25000积分同行奖励需同一行程及积分预订；不是现金机票，税费仍须付。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Companion Award",
+      "summary": "Each account anniversary, a 25,000-point Global Companion Award for a companion on the same itinerary when booking with Atmos Rewards points; it is not a cash fare, and taxes and fees still apply.",
+      "howToUse": [
+        "Book the companion on the same itinerary using points."
+      ],
+      "quotes": [
+        {
+          "sourceId": "atmos-fee",
+          "text": "Each account anniversary, receive a 25,000-point Global Companion Award for a travel companion on the same itinerary, when booking travel using your Atmos Rewards points, plus receive 10,000 status points."
+        }
       ]
     },
     "terms": {
@@ -11644,6 +11801,21 @@
         "先核对卡种、地区及当前官方条款。",
         "每年8张；发放批次、有效期、航班和携客要求以计划细则为准。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Alaska Lounge passes",
+      "summary": "Eight passes each year to any Alaska Lounge; issue timing, validity, flight and guest rules follow the program terms.",
+      "howToUse": [
+        "Check when passes are issued and when they expire."
+      ],
+      "quotes": [
+        {
+          "sourceId": "atmos-us",
+          "text": "Enjoy a relaxing start to your trip with eight passes each year to any of the Alaska Lounges"
+        }
       ]
     },
     "terms": {
@@ -11712,6 +11884,21 @@
         "先核对卡种、地区及当前官方条款。",
         "每2美元合资格消费得1会籍积分；周年另10000，不能当作可兑换积分余额。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Atmos status points",
+      "summary": "1 status point per $2 of purchases, plus 10,000 bonus status points annually; status points are not redeemable points.",
+      "howToUse": [
+        "Track status points in your Atmos Rewards account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "atmos-us",
+          "text": "spent on purchases earns 1 status point, plus receive 10,000 bonus status points annually"
+        }
       ]
     },
     "terms": {
@@ -11780,6 +11967,25 @@
         "先核对卡种、地区及当前官方条款。",
         "合资格伙伴奖励机票的预订费豁免；航司附加费和政府税费仍适用。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Waived partner award booking fees",
+      "summary": "Partner award booking fees are waived when booking partner flights with points; partner surcharges and government taxes and fees still apply.",
+      "howToUse": [
+        "Expect partner surcharges and taxes on partner awards."
+      ],
+      "quotes": [
+        {
+          "sourceId": "atmos-us",
+          "text": "Waived partner award booking fees: When using points to book with our partners, save up to"
+        },
+        {
+          "sourceId": "atmos-us",
+          "text": "Partner-imposed surcharges and government taxes and fees apply."
+        }
       ]
     },
     "terms": {
@@ -12233,6 +12439,25 @@
         "先核对卡种、地区及当前官方条款。",
         "可每自然月更换一次类别；本工具不修改你的选择。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Monthly choice category",
+      "summary": "You can change the choice category once each calendar month, in Online Banking or the Mobile Banking app; this tool never changes it.",
+      "howToUse": [
+        "Change the category yourself in Online Banking or the app."
+      ],
+      "quotes": [
+        {
+          "sourceId": "boa-cash-us",
+          "text": "You can change it once each calendar month, or make no change and it stays the same."
+        },
+        {
+          "sourceId": "boa-cash-us",
+          "text": "To change your choice category for future purchases, you must go to Online Banking, or use the Mobile Banking app."
+        }
       ]
     },
     "terms": {
@@ -12297,6 +12522,25 @@
         "先核对卡种、地区及当前官方条款。",
         "官网6%只属特定新开户首年优惠，需个人offer证据；旧卡和转产品不得自动套用。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "First-year choice category boost",
+      "summary": "The 6% rate is a first-year offer for new accounts; after the first year the choice category earns 3%. Existing or converted cards need their own offer evidence.",
+      "howToUse": [
+        "Do not assume 6% unless your own offer shows it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "boa-cash-us",
+          "text": "6% cash back in the category of your choice – for the first year."
+        },
+        {
+          "sourceId": "boa-cash-us",
+          "text": "After the first year from account opening, you'll earn 3% cash back on purchases in your choice category."
+        }
       ]
     },
     "terms": {
@@ -15466,6 +15710,21 @@
         "先核对卡种、地区及当前官方条款。",
         "2026年7月2日至12月31日需登记；本地合资格交易最高每港币1元6积分，其他排除项适用。",
         "再核对个人资格、登记和剩余额度；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-HK"
+    },
+    "original": {
+      "lang": "en-HK",
+      "title": "6X points on local spending",
+      "summary": "From July 2 to December 31, 2026, enrol in the Local Spend Bonus Program to earn up to 6 Membership Rewards points per HK$1 on eligible Hong Kong dollar transactions; other exclusions apply.",
+      "howToUse": [
+        "Enrol in the Local Spend Bonus Program before you rely on the rate."
+      ],
+      "quotes": [
+        {
+          "sourceId": "explorer-bonus",
+          "text": "From July 2 to December 31, 2026, enroll in the Local Spend Bonus Program to earn up to 6 Membership Rewards points for every HK$1 spent on eligible Hong Kong dollar transactions."
+        }
       ]
     },
     "terms": {
@@ -35756,6 +36015,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年一次，通过 cititravel.com 或指定电话预订、单次住宿满500美元（不含税费）减100美元，预订时直接抵扣。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Annual hotel benefit",
+      "summary": "Once per calendar year, $100 off a single hotel stay of $500 or more (excluding taxes and fees) booked through cititravel.com or by phone, taken at booking.",
+      "howToUse": [
+        "Book a stay of $500 or more through cititravel.com or the listed phone number."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-premier-card",
+          "text": "Once per calendar year, enjoy $100 off a single hotel stay of $500 or more (excluding taxes and fees) when booked through cititravel.com or 1-833-737-1288"
+        }
       ]
     },
     "terms": {
@@ -36303,6 +36577,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年最多减300美元，须通过 cititravel.com 预订至少两晚。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Annual hotel benefit",
+      "summary": "Once per calendar year, $300 off a single hotel stay of 2 nights or more booked through cititravel.com.",
+      "howToUse": [
+        "Book a stay of at least 2 nights through cititravel.com."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-elite-card",
+          "text": "Once per calendar year, you can enjoy $300 off a single hotel stay of 2 nights or more (excluding taxes and fees) booked through cititravel.com."
+        }
       ]
     },
     "terms": {
@@ -36369,6 +36658,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年最多200美元，从指定品牌中最多选两个，部分有排除。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Splurge Credit",
+      "summary": "Up to $200 each calendar year on your choice of up to 2 listed brands; some exclusions apply.",
+      "howToUse": [
+        "Choose up to 2 brands and pay them with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-elite-card",
+          "text": "Every calendar year, earn up to $200 in statement credits on your choice of up to 2 of the following brands"
+        }
       ]
     },
     "terms": {
@@ -36435,6 +36739,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每半年最多100美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Blacklane credit",
+      "summary": "Up to $100 on Blacklane purchases from January through June and $100 from July through December.",
+      "howToUse": [
+        "Book Blacklane with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-elite-card",
+          "text": "Earn up to $100 on Blacklane purchases January through June and up to $100 July through December."
+        }
       ]
     },
     "terms": {
@@ -36501,6 +36820,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每四年最多120美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry or TSA PreCheck fee credit",
+      "summary": "A statement credit of up to $120 every four years for the application fee.",
+      "howToUse": [
+        "Check whether the credit was used in the past four years."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-elite-card",
+          "text": "Receive a statement credit, up to $120 every four years, as reimbursement for your application fee for Global Entry or TSA PreCheck."
+        }
       ]
     },
     "terms": {
@@ -37118,6 +37452,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "你和同一订单最多4名同行人。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "First checked bag free",
+      "summary": "First checked bag free on domestic American Airlines itineraries for you and up to 4 companions on the same reservation.",
+      "howToUse": [
+        "Travel on a domestic American Airlines itinerary on the same reservation."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-platinum-select-card",
+          "text": "Your first checked bag is free on domestic American Airlines itineraries for you and up to 4 companions traveling with you on the same reservation."
+        }
       ]
     },
     "terms": {
@@ -37392,6 +37741,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每半年最多250美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "American Airlines Vacations credit",
+      "summary": "Up to $250 on purchases from January through June and $250 from July through December.",
+      "howToUse": [
+        "Book American Airlines Vacations with the card; each half-year allows up to $250."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-executive-card",
+          "text": "Earn up to $250 on purchases January through June and up to $250 July through December."
+        }
       ]
     },
     "terms": {
@@ -37458,6 +37822,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每半年100美元，须把卡加入 inKind 应用；不能结转。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "inKind Dining Credits",
+      "summary": "$100 to use from January to June and $100 from July to December at inKind restaurants, after adding the card to the inKind app.",
+      "howToUse": [
+        "Add the card to the inKind app and pay there; unused credit does not carry over."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-executive-card",
+          "text": "$100 to use from January-June and $100 to use from July-December."
+        }
       ]
     },
     "terms": {
@@ -37525,6 +37904,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "自然月内乘车满3次后得15美元，全年最多180美元；只算主卡持卡人的合资格行程，额度30天后过期；2027年2月1日起 Wait & Save 不算。是否达标未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lyft credits",
+      "summary": "After 3 eligible rides in a calendar month, a $15 Lyft credit, up to $180 a year.",
+      "howToUse": [
+        "Take 3 eligible rides in the month as the primary cardmember."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-executive-card",
+          "text": "After taking 3 eligible rides in a calendar month, earn a $15 Lyft credit, for a total of up to $180 Lyft credits annually."
+        }
       ]
     },
     "terms": {
@@ -37594,6 +37988,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每自然年最多100美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Inflight and Admirals Club purchase credit",
+      "summary": "Up to $100 a calendar year in statement credits on inflight and eligible Admirals Club purchases.",
+      "howToUse": [
+        "Pay with the card on board or at the club."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-executive-card",
+          "text": "Every calendar year, earn up to $100 in statement credits on inflight and eligible Admirals Club ® purchases when you use your card."
+        }
       ]
     },
     "terms": {
@@ -37660,6 +38069,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每四年最多120美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry or TSA PreCheck fee credit",
+      "summary": "An application fee credit of up to $120 every 4 years.",
+      "howToUse": [
+        "Check whether the credit was used in the past four years."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-executive-card",
+          "text": "you’ll receive a Global Entry or TSA PreCheck ® application fee credit of up to $120 every 4 years."
+        }
       ]
     },
     "terms": {
@@ -37728,6 +38152,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "主卡持卡人的会员资格，可带最多2名客人或直系亲属。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Admirals Club membership",
+      "summary": "Admirals Club access for the primary cardmember and up to 2 guests or immediate family members.",
+      "howToUse": [
+        "Check the guest rules at the club."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-executive-card",
+          "text": "gives access for the primary cardmember and up to 2 guests or immediate family members."
+        }
       ]
     },
     "terms": {
@@ -38069,6 +38508,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每次预订50美元，酒店结账时抵扣。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lifestyle Collection experience credit",
+      "summary": "A $50 experience credit for every Lifestyle Collection stay, applied at hotel checkout.",
+      "howToUse": [
+        "Use the credit during a Lifestyle Collection stay; it is applied at the hotel."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-rewards-credit-card",
+          "text": "Receive a $50 experience credit to use during every Lifestyle Collection stay."
+        }
       ]
     },
     "terms": {
@@ -38135,6 +38589,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "最多120美元；周期未结构化。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry or TSA PreCheck credit",
+      "summary": "Up to a $120 credit for Global Entry or TSA PreCheck.",
+      "howToUse": [
+        "Pay the application fee with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-rewards-credit-card",
+          "text": "Receive up to a $120 credit for Global Entry or TSA PreCheck"
+        }
       ]
     },
     "terms": {
@@ -38545,6 +39014,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "最多100美元，酒店结账时用于合资格消费。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Premier Collection experience credit",
+      "summary": "Up to $100 applied at hotel checkout to qualifying charges on a Premier Collection stay.",
+      "howToUse": [
+        "Book a Premier Collection hotel through Capital One Travel."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-x-rewards-credit-card",
+          "text": "Premier Collection hotel experience credit will be applied at checkout by hotel to qualifying charges up to $100 USD or the local currency equivalent."
+        }
       ]
     },
     "terms": {
@@ -38605,12 +39089,31 @@
     "programmeIds": [],
     "content": {
       "title": "Capital One Travel 年度额度",
-      "summary": "每年300美元；周期的起算方式未在该卡页面写明。",
+      "summary": "每年300美元，须通过 Capital One Travel 消费；每笔年度额度在下一个开户周年日失效。",
       "sourceText": "Receive a $300 annual Capital One Travel credit",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "每年300美元；周期的起算方式未在该卡页面写明。",
+        "每年300美元，须通过 Capital One Travel 消费；每笔年度额度在下一个开户周年日失效。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$300 Capital One Travel credit",
+      "summary": "Each year, a $300 credit for purchases made through Capital One Travel; each credit expires on the next account open date anniversary.",
+      "howToUse": [
+        "Book through Capital One Travel with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-x-rewards-credit-card",
+          "text": "Annually, eligible Venture X primary account holders will receive a $300 Capital One Travel credit (“Credit”) to use toward purchases made through Capital One Travel."
+        },
+        {
+          "sourceId": "card-capital-one-us-venture-x-rewards-credit-card",
+          "text": "Each annual Credit will expire on the next account open date anniversary."
+        }
       ]
     },
     "terms": {
@@ -38627,7 +39130,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "每年300美元；周期的起算方式未在该卡页面写明。"
+      "unparsedText": "每年300美元，须通过 Capital One Travel 消费；每笔年度额度在下一个开户周年日失效。"
     },
     "evidence": {
       "sourceIds": [
@@ -38677,6 +39180,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每个账户周年10,000里程；个人到账未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "10,000 anniversary bonus miles",
+      "summary": "10,000 bonus miles after each account anniversary, starting with the first.",
+      "howToUse": [
+        "Check that the miles posted after your anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-x-rewards-credit-card",
+          "text": "You will earn 10,000 bonus miles after your anniversary each year, starting with your first anniversary."
+        }
       ]
     },
     "terms": {
@@ -39354,6 +39872,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每个账户周年300美元，须通过 Capital One Business Travel 预订；到下一周年前一天失效。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$300 Capital One Business Travel credit",
+      "summary": "Each year, a $300 credit for purchases made through Capital One Business Travel.",
+      "howToUse": [
+        "Book through Capital One Business Travel; use it before your next anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-x-business-card",
+          "text": "Annually, eligible Venture X Business primary account holders will also receive a $300 Capital One Business Travel credit to use toward purchases made through Capital One Business Travel."
+        }
       ]
     },
     "terms": {
@@ -39420,6 +39953,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每个账户周年10,000里程；页面标的100美元价值是发卡行说法，这里不当作每点价值。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "10,000 anniversary bonus miles",
+      "summary": "10,000 bonus miles on each account anniversary; the issuer's stated dollar value is not a per-mile value.",
+      "howToUse": [
+        "Check that the miles posted after your anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-x-business-card",
+          "text": "10,000 bonus miles ($100 value) on your anniversary"
+        }
       ]
     },
     "terms": {
@@ -39486,6 +40034,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每个账户每四年一次，最多120美元。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry or TSA PreCheck credit",
+      "summary": "Up to a $120 statement credit for Global Entry or TSA PreCheck, once every four years per account.",
+      "howToUse": [
+        "Pay the application fee with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-x-business-card",
+          "text": "Receive up to a $120 statement credit on Global Entry or TSA PreCheck"
+        }
       ]
     },
     "terms": {
@@ -39754,6 +40317,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "在会员周年日前净消费满15万美元，以抵扣方式退还150美元年费；是否达标未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Annual fee refund",
+      "summary": "The $150 annual fee is refunded every year you spend at least $150,000.",
+      "howToUse": [
+        "Track net spending against $150,000 before the membership anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-cash-plus-card",
+          "text": "Get your $150 annual fee refunded every year you spend at least $150,000."
+        }
       ]
     },
     "terms": {
@@ -53485,6 +54063,25 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每12个月15美元，须连续11个自然月有合资格流媒体消费后自动抵扣；12个月从何时起算页面未写明。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Streaming credit",
+      "summary": "A $15 credit for annual streaming purchases, applied after 11 consecutive months of streaming purchases.",
+      "howToUse": [
+        "Keep paying a streaming service with the card for 11 consecutive months."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-altitude-go-visa-signature-card",
+          "text": "Get a $15 credit for annual streaming service purchases like Netflix, Apple TV, Spotify"
+        },
+        {
+          "sourceId": "card-us-bank-us-altitude-go-visa-signature-card",
+          "text": "Applied after 11 consecutive months of streaming purchases."
+        }
       ]
     },
     "terms": {
@@ -53888,6 +54485,21 @@
         "先核对卡种、当前官方条款和适用条件。",
         "每年50美元，须有至少50美元航空消费；首年从开户起，之后的12个月从年费入账次月1日起算。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$50 airline statement credit",
+      "summary": "Each year, a one-time $50 statement credit for the first airline purchase of at least $50 on the card.",
+      "howToUse": [
+        "Make an airline purchase of at least $50 with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-autograph-journey-visa-card",
+          "text": "Each year, you will receive a one-time $50 statement credit applied to your account when your card is used for your first airline purchase of at least $50."
+        }
       ]
     },
     "terms": {
