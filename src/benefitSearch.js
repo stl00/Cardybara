@@ -32,6 +32,9 @@ function genericScope(question,cards){
 // English words match from a word start: with English originals in the text, car must not match card, so a short
 // word must be whole (plural allowed), while five letters or more may be a prefix (loung finds lounge). Chinese pairs keep substring matching.
 const hasTerm=term=>{if(!/^[a-z]/.test(term))return text=>text.includes(term);const re=new RegExp(term.length>=5?`\\b${term}`:`\\b${term}(?:s|es)?\\b`);return text=>re.test(text);};
+// The issuer's name is in many originals (American Express Travel) and says nothing about the benefit; left in,
+// it ties HK Express or any "express" question to unrelated Amex rules.
+const issuerFree=s=>norm(s).replace(/\bamerican express\b/g,' ');
 // About one concept match: enough to lead among equals, not enough to bury a rule the words point to.
 const FILTER_BONUS=7;
 // Chosen on the development set: lower lets weak matches in (unanswerable questions return noise), higher loses recall.
@@ -51,7 +54,7 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
  for(const r of rows){
   // Every language the rule has is searched: the zh-CN text, the official original with its quotes, and any display translation.
   const texts=[r.content,...(r.original?[r.original]:[]),...Object.values(r.translations||{})];
-  const title=norm(texts.map(t=>t.title).join(' ')),body=norm([...texts.flatMap(t=>[t.summary,...t.howToUse]),...(r.original?.quotes||[]).map(q=>q.text)].join(' ')),programmes=r.programmeIds.map(id=>norm(knowledgeEntities.programmes.find(p=>p.id===id)?.name||id)).join(' ');
+  const title=issuerFree(texts.map(t=>t.title).join(' ')),body=issuerFree([...texts.flatMap(t=>[t.summary,...t.howToUse]),...(r.original?.quotes||[]).map(q=>q.text)].join(' ')),programmes=r.programmeIds.map(id=>norm(knowledgeEntities.programmes.find(p=>p.id===id)?.name||id)).join(' ');
   if(filters.programme&&!(programmeIds.some(id=>r.programmeIds.includes(id))||norm(programmes+' '+title).includes(norm(filters.programme))))continue;
   // Match any explicitly requested partner so comparisons retain both sides.
   const matchedPartners=requestedPartners.filter(id=>norm(title+' '+body+' '+programmes).includes(id));
