@@ -12,9 +12,7 @@ import {cardProducts} from '../src/productCatalog.js';
 const latest=[...rules.filter(r=>r.kind==='benefit'&&r.status==='published').reduce((m,r)=>(m.get(r.id)?.revision||0)<r.revision?m.set(r.id,r):m,new Map()).values()];
 const waiting=new Set(backlog.ruleIds);
 // The revision in effect today, which can be older than the newest when the newest starts later.
-// As of the newest check in the knowledge base, so a revision recorded after the manifest date counts.
-const knownAt=rules.reduce((d,r)=>r.evidence.checkedAt>d?r.evidence.checkedAt:d,'2026-01-01');
-const current=queryKnowledge({kind:'benefit',includeInactive:true,asOf:knownAt}).rules;
+const current=queryKnowledge({kind:'benefit',includeInactive:true}).rules;
 
 test('a benefit rule has its official-language text, unless it is in the shrinking backlog', () => {
  const missing=[...latest,...current].filter(r=>!r.original&&!waiting.has(r.id)).map(r=>r.revisionId);

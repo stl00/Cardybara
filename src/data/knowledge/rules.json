@@ -49418,11 +49418,11 @@
     "original": {
       "lang": "en-US",
       "title": "$10 off DoorDash non-restaurant orders",
-      "summary": "With DashPass activated, $10 off one qualifying non-restaurant order per period. The period depends on the first activation: each calendar month for activations from 09/01/2026 to 12/31/2027, each calendar quarter for activations from 02/01/2025 to 08/31/2026. Pay with the card used to enrol; unused value is forfeited.",
+      "summary": "With DashPass activated, $10 off one qualifying non-restaurant order per period. The period depends on the activation date: each calendar month for activations from 09/01/2026 to 12/31/2027, each calendar quarter for activations from 02/01/2025 to 08/31/2026. Pay with the card used to enrol; unused value is forfeited.",
       "howToUse": [
         "Check your first activation date on the Manage DashPass page to see whether the monthly or quarterly discount applies.",
         "Select the discount at checkout and pay with the card used to enrol in DashPass.",
-        "Any unused part of the $10 is forfeited."
+        "Any unused part of the $10 is forfeited; personal eligibility and use are not verified."
       ],
       "quotes": [
         {
