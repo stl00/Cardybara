@@ -1,13 +1,17 @@
 // End-to-end test of the packaged extension: the exact release ZIP, installed in a clean Chrome
 // profile, against a local synthetic bank. No bank is contacted and no secret is used.
 //
-//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart] [--expired-login] [--cancel]
+//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart] [--expired-login] [--cancel] [--chat]
 //
 // --restart (nightly set): after the main path, close Chrome and start it again on the same
 // profile; the extension must still be installed and the records it read must still be there.
 // --expired-login (nightly set): after the main path, the bank session expires and the user
 // refreshes the bank; the run must ask for a sign-in again while keeping the records it read, and
 // read again after the sign-in.
+// --chat (nightly set): after the main path, the user saves a test-only model key in settings, which
+// asks for the provider's host permission, then asks the assistant a question. A scripted model
+// answers through a synthetic provider; the answer must show in the chat, and no balance read from
+// the bank may ever reach the model.
 // --cancel (nightly set): after the main path, the user stops a refresh from the wallet while the
 // bank page is still loading, then stops a reading that waits at needs-login from the bank page's
 // guide, then stops another such reading from the wallet header; each must end cancelled with the
@@ -30,6 +34,13 @@ import {readZipEntry,zipEntryNames} from './read-zip.mjs';
 const root=fileURLToPath(new URL('..',import.meta.url));
 let STEP_MS=Number(process.env.CARDYBARA_E2E_STEP_MS||30000);
 const BANK_HOST='secure.chase.com';
+// The model provider the packaged client calls. Under --chat it resolves to a scripted synthetic provider.
+const MODEL_HOST='api.deepseek.com';
+// A made-up key in the provider's key shape. It is never a real key and only ever reaches the synthetic provider.
+const TEST_KEY='e2e-test-only-'+'0'.repeat(24);
+// Values the synthetic bank shows. They are read into the wallet and must never travel to the model.
+const READ_VALUES=['1234.56','1,234.56','67.89'];
+const READ_TAILS=['1234','5678'];
 const STATE_KEY='cardybara-state-v2';
 // The synthetic bank answers at once by default: an instant first load once raced the extension's
 // own reload (stl00/Cardybara#123). Set a latency in ms to imitate a slower bank.
@@ -82,10 +93,12 @@ export async function checkManifest(dir){
 // --- synthetic bank ------------------------------------------------------------------------
 async function syntheticBank(work){
  const key=join(work,'bank-key.pem'),cert=join(work,'bank-cert.pem');
- execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',key,'-out',cert,'-days','1','-subj','/CN='+BANK_HOST,'-addext','subjectAltName=DNS:'+BANK_HOST],{stdio:'ignore'});
+ execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',key,'-out',cert,'-days','1','-subj','/CN='+BANK_HOST,'-addext',`subjectAltName=DNS:${BANK_HOST},DNS:${MODEL_HOST}`],{stdio:'ignore'});
  const page=await readFile(join(root,'tests/fixtures/synthetic-bank.html'));
  const requests=[];let held=null;
+ const model={script:null,requests:[]};
  const server=createServer({key:await readFile(key),cert:await readFile(cert)},(req,res)=>{
+  if((req.headers.host||'').split(':')[0]===MODEL_HOST){syntheticProvider(model,req,res);return;}
   requests.push(req.headers.host+req.url);note('synthetic bank served',req.method,req.url);
   if(req.url==='/favicon.ico'){res.writeHead(404).end();return;}
   const answer=()=>setTimeout(()=>res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}).end(page),BANK_DELAY_MS);
@@ -94,7 +107,28 @@ async function syntheticBank(work){
  });
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const spki=createHash('sha256').update(createPublicKey(await readFile(cert)).export({type:'spki',format:'der'})).digest('base64');
- return {port:server.address().port,spki,requests,hold(){held=held||[];},heldCount:()=>held?.length||0,release(){const waiting=held||[];held=null;waiting.forEach(f=>f());return waiting.length;},close:()=>new Promise(r=>{server.close(r);server.closeAllConnections();})};
+ return {port:server.address().port,spki,requests,model,hold(){held=held||[];},heldCount:()=>held?.length||0,release(){const waiting=held||[];held=null;waiting.forEach(f=>f());return waiting.length;},close:()=>new Promise(r=>{server.close(r);server.closeAllConnections();})};
+}
+
+// A scripted stand-in for the provider's API: GET /models answers a key check, and each chat request takes
+// the next scripted step. Every request is kept, with its Authorization header and body, for the checks.
+function syntheticProvider(model,req,res){
+ const chunks=[];
+ req.on('data',c=>chunks.push(c));
+ req.on('end',async()=>{
+  const raw=Buffer.concat(chunks).toString('utf8');let body=null;try{body=raw?JSON.parse(raw):null;}catch{}
+  model.requests.push({method:req.method,path:req.url,authorization:req.headers.authorization||null,raw,body});
+  note('synthetic provider served',req.method,req.url);
+  const json=(status,value)=>res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'}).end(JSON.stringify(value));
+  if(req.headers.authorization!=='Bearer '+TEST_KEY)return json(401,{error:{message:'synthetic: unknown key'}});
+  if(req.method==='GET'&&req.url==='/models')return json(200,{object:'list',data:[{id:'deepseek-flash',object:'model'}]});
+  if(req.method!=='POST'||req.url!=='/chat/completions'||!body)return json(404,{error:{message:'synthetic: not found'}});
+  const chats=model.requests.filter(r=>r.method==='POST');
+  const step=model.script?.[chats.length-1];
+  if(!step)return json(500,{error:{message:'synthetic: the script has no step '+chats.length}});
+  const message=await step(body);
+  json(200,{id:'synthetic-'+chats.length,object:'chat.completion',choices:[{index:0,message:{role:'assistant',...message},finish_reason:message.tool_calls?'tool_calls':'stop'}],usage:{prompt_tokens:1,completion_tokens:1}});
+ });
 }
 
 // --- Chrome over a debugging pipe ----------------------------------------------------------
@@ -122,8 +156,9 @@ async function launch(profile,bank){
  const args=[
   '--user-data-dir='+profile,'--remote-debugging-pipe','--enable-unsafe-extension-debugging',
   '--headless=new','--no-first-run','--no-default-browser-check','--disable-sync','--disable-component-update','--window-size=1280,900',
-  // The bank host goes to the synthetic bank; nothing else resolves.
-  `--host-rules=MAP ${BANK_HOST} 127.0.0.1:${bank.port}, MAP * ~NOTFOUND`,
+  // The bank host goes to the synthetic bank and the model host to the synthetic provider (one local
+  // server, routed by Host); nothing else resolves.
+  `--host-rules=MAP ${BANK_HOST} 127.0.0.1:${bank.port}, MAP ${MODEL_HOST} 127.0.0.1:${bank.port}, MAP * ~NOTFOUND`,
   '--ignore-certificate-errors-spki-list='+bank.spki,
   ...(process.platform==='linux'?['--no-sandbox']:[]),'about:blank'];
  const child=spawn(await findChrome(),args,{stdio:['ignore','ignore','pipe','pipe','pipe']});
@@ -133,8 +168,8 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet}={}){
- if([restart,expiredLogin,cancel].filter(Boolean).length>1)throw Error('run --restart, --expired-login and --cancel separately: each starts from the end of the main path');
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=scriptedChat}={}){
+ if([restart,expiredLogin,cancel,chat].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel and --chat separately: each starts from the end of the main path');
  if(stepMs)STEP_MS=stepMs;log=[];lastState=null;
  const work=await mkdtemp(join(tmpdir(),'cardybara-e2e-'));
  const sessions={};let browser,bank;
@@ -181,6 +216,18 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
   const words=zh=>JSON.stringify([zh,translations['en-US']?.[zh],translations['zh-TW']?.[zh]].filter(Boolean));
   const clickText=(name,selector,zh)=>evaluate(name,`(()=>{const want=${words(zh)};const el=[...document.querySelectorAll(${JSON.stringify(selector)})].find(e=>want.includes(e.textContent.trim()));if(!el)return false;el.click();return true;})()`);
   const pageText=name=>evaluate(name,'document.body?.innerText||""');
+  // Click with real mouse events at the element's centre, for steps that need a user gesture.
+  const realClick=async(name,selector,wantJson)=>{
+   const at=await evaluate(name,`(()=>{const want=${wantJson};const el=[...document.querySelectorAll(${JSON.stringify(selector)})].find(e=>want.includes(e.textContent.trim())&&!e.disabled);if(!el)return null;el.scrollIntoView({block:'center'});const r=el.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2};})()`);
+   if(!at)return false;
+   await cdp.send('Page.bringToFront',{},sessions[name]);await sleep(300);
+   const again=await evaluate(name,`(()=>{const want=${wantJson};const el=[...document.querySelectorAll(${JSON.stringify(selector)})].find(e=>want.includes(e.textContent.trim())&&!e.disabled);if(!el)return null;el.scrollIntoView({block:'center'});const r=el.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight&&r.left>=0&&r.right<=innerWidth?{x:r.x+r.width/2,y:r.y+r.height/2}:null;})()`);
+   if(!again)return false; // not in view yet; the caller tries again
+   Object.assign(at,again);
+   await cdp.send('Input.dispatchMouseEvent',{type:'mouseMoved',x:at.x,y:at.y},sessions[name]);
+   for(const type of ['mousePressed','mouseReleased'])await cdp.send('Input.dispatchMouseEvent',{type,x:at.x,y:at.y,button:'left',clickCount:1},sessions[name]);
+   return true;
+  };
   // Read through the service worker: a background wallet tab may be throttled.
   const state=async()=>(lastState=(await evaluate('worker',`chrome.storage.local.get(${JSON.stringify(STATE_KEY)})`))?.[STATE_KEY]);
 
@@ -397,6 +444,74 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    if(bank.requests.length!==served2)throw new StepError(`the bank was contacted ${bank.requests.length-served2} times after the wallet stop`);
    note('PASS: a refresh waiting at needs-login stops from the wallet header and does not read after a sign-in');
   }
+  if(chat){
+   // 9. The assistant chat UI on the packaged extension with a scripted model. The user pastes a key
+   // in settings and saves it with a real click, which asks for the provider's host permission; then
+   // asks a question. The answer comes from the scripted provider through the packaged client.
+   bank.model.script=chatScript;
+   const access={cdp,id,attach,evaluate,sessions};
+   await allowModelHost(access);
+   await evaluate('wallet','location.hash="settings"');
+   const keyBox=await until('the model key field',()=>evaluate('wallet',`(()=>{const el=document.querySelector('input[type=password]');if(!el)return false;el.focus();return true;})()`));
+   if(!keyBox)throw new StepError('no model key field on the settings page');
+   await cdp.send('Input.insertText',{text:chatKey},sessions.wallet);
+   await cdp.send('Target.activateTarget',{targetId:walletTarget}).catch(()=>{});
+   // A real mouse click: Chrome only asks for the host permission from a user gesture.
+   // A click that lands is seen as the button going busy or as the key check reaching the provider; a
+   // click that missed (the page still settling) is sent again.
+   await until('the save-key click to take effect',async()=>{
+    const checks=bank.model.requests.length;
+    if(!await realClick('wallet','button',words('保存密钥')))return false;
+    const end=Date.now()+2000;
+    while(Date.now()<end){if(bank.model.requests.length>checks||await evaluate('wallet',`!!document.querySelector('.ant-btn-loading')||!document.querySelector('input[type=password]')`))return true;await sleep(100);}
+    note('the save click did not take effect; clicking again');return false;
+   });
+   note('pasted a test-only key and pressed save');
+   await until('the key to be saved and ready',async()=>{
+    const t=await pageText('wallet');
+    for(const zh of ['没有获得访问服务商的权限，密钥未保存。','服务商拒绝了这个密钥，请检查是否复制完整或已过期。'])if(JSON.parse(words(zh)).some(w=>t.includes(w)))throw new StepError('the key was not saved: '+zh);
+    return JSON.parse(words('已就绪')).some(w=>t.includes(w));
+   });
+   const stored=await evaluate('worker',`chrome.storage.local.get('cardybara-model-key').then(r=>r['cardybara-model-key']||null)`);
+   if(stored?.key!==chatKey||stored?.provider!=='deepseek')throw new StepError('the saved key is not the one pasted');
+   if(!await evaluate('worker',`chrome.permissions.contains({origins:['https://${MODEL_HOST}/*']})`))throw new StepError('the provider host permission was not granted');
+   await restoreSiteAccess(access);
+   // The permission the save button obtained is the extension's own and stays; the bank hosts are back.
+   for(const host of [MODEL_HOST,BANK_HOST])if(!await evaluate('worker',`chrome.permissions.contains({origins:['https://${host}/*']})`))throw new StepError(`no host permission for ${host} after site access went back to all sites`);
+   const checks=bank.model.requests.filter(r=>r.method==='GET'&&r.path==='/models');
+   if(!checks.length)throw new StepError('the key was saved without a key check against the provider');
+   note('key saved with the provider permission after one key check');
+   // The page must not show the key in full once saved.
+   if((await pageText('wallet')).includes(chatKey))throw new StepError('the settings page shows the saved key in full');
+
+   await evaluate('wallet','location.hash="advisor"');
+   const box=await until('the chat composer to accept text',()=>evaluate('wallet',`(()=>{const el=document.querySelector('.chat-compose textarea');if(!el||el.disabled)return false;el.focus();return true;})()`));
+   if(!box)throw new StepError('no chat composer');
+   await cdp.send('Input.insertText',{text:QUESTION},sessions.wallet);
+   await cdp.send('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,text:'\r'},sessions.wallet);
+   await cdp.send('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13},sessions.wallet);
+   note('asked the assistant a question');
+   await until('the scripted answer in the chat',async()=>{
+    const t=await pageText('wallet');
+    const failed=['这次没有完成，AI 服务可能暂时不可用。可以重试；你的钱包没有被修改。','聊天助手需要先在设置里添加 AI 模型密钥，钱包其他功能不受影响。'].find(zh=>JSON.parse(words(zh)).some(w=>t.includes(w)));
+    if(failed)throw new StepError('the chat failed instead of answering: '+failed);
+    return t.includes(ANSWER_MARK);
+   },STEP_MS*2);
+   const chats=bank.model.requests.filter(r=>r.method==='POST');
+   if(chats.length!==chatScript.length)throw new StepError(`the chat asked the model ${chats.length} times, the script has ${chatScript.length} steps`);
+   for(const r of bank.model.requests){
+    if(r.authorization!=='Bearer '+chatKey)throw new StepError('a provider request did not carry the saved key');
+    for(const v of READ_VALUES)if(r.raw.includes(v))throw new StepError(`a value read from the bank (${v}) reached the model`);
+   }
+   if(!chats[0].body.messages?.some(m=>m.role==='user'&&m.content.includes(QUESTION)))throw new StepError('the question did not reach the model');
+   const listed=chats[1].body.messages.filter(m=>m.role==='tool').map(m=>JSON.parse(m.content)).find(Array.isArray);
+   if(!listed?.length)throw new StepError('the list_cards tool result did not reach the model');
+   // Card tails are read from the bank too; the projected inventory the model sees must not carry them.
+   const inventory=JSON.stringify(listed);
+   for(const tail of READ_TAILS)if(inventory.includes(tail))throw new StepError(`a card tail read from the bank (${tail}) reached the model`);
+   note('scripted answer shown;',String(chats.length),'model requests, the saved key only, no read value sent');
+   note('PASS: the assistant chat on the packaged extension answers through a scripted model');
+  }
   return {ok:true};
  }catch(error){
   note('FAIL:',error.message);
@@ -416,6 +531,40 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
   await rm(work,{recursive:true,force:true,maxRetries:5,retryDelay:200}).catch(()=>{});
  }
 }
+
+// Headless Chrome has no way to answer the extension's permission prompt. So the provider host is first
+// allowed the way a user can on the extension's details page (Site access: on specific sites, add a site);
+// with the host already allowed, the save button's permission request resolves without a prompt. Afterwards
+// site access goes back to all sites. The package is unchanged.
+async function siteAccess({cdp,id,attach,evaluate,sessions},change){
+ const {targetId}=await cdp.send('Target.createTarget',{url:'chrome://extensions/?id='+id});
+ try{
+  await attach('extensions',targetId);
+  await until('the extensions page API',()=>evaluate('extensions','!!globalThis.chrome?.developerPrivate?.addHostPermission'));
+  await evaluate('extensions',`(async()=>{const id=${JSON.stringify(id)};${change}})().then(()=>true)`);
+  return await evaluate('extensions',`chrome.developerPrivate.getExtensionInfo(${JSON.stringify(id)}).then(i=>i.permissions.runtimeHostPermissions)`);
+ }finally{await cdp.send('Target.closeTarget',{targetId}).catch(()=>{});delete sessions.extensions;}
+}
+async function allowModelHost(ctx){
+ const access=await siteAccess(ctx,`await chrome.developerPrivate.updateExtensionConfiguration({extensionId:id,hostAccess:'ON_SPECIFIC_SITES'});await chrome.developerPrivate.addHostPermission(id,'https://${MODEL_HOST}/*');`);
+ if(!access?.hosts?.some(h=>h.granted&&h.host===`https://${MODEL_HOST}/*`))throw new StepError('could not allow the provider host on the extension details page: '+JSON.stringify(access));
+ note('site access: on specific sites, with',MODEL_HOST,'added');
+}
+async function restoreSiteAccess(ctx){
+ const access=await siteAccess(ctx,`await chrome.developerPrivate.updateExtensionConfiguration({extensionId:id,hostAccess:'ON_ALL_SITES'});`);
+ if(access?.hostAccess!=='ON_ALL_SITES')throw new StepError('site access did not go back to all sites: '+JSON.stringify(access));
+ note('site access back to all sites');
+}
+
+// The scripted model for --chat: it looks up the held cards, then answers naming them. Each step gets the
+// request body the packaged client sent.
+const QUESTION='E2E: which cards do I hold?';
+const ANSWER_MARK='Synthetic scripted answer';
+const toolCall=(id,name,args={})=>({id,type:'function',function:{name,arguments:JSON.stringify(args)}});
+export const scriptedChat=[
+ ()=>({content:'',tool_calls:[toolCall('e2e-1','list_cards')]}),
+ body=>{const cards=body.messages.filter(m=>m.role==='tool').map(m=>JSON.parse(m.content)).find(Array.isArray)||[];return {content:`${ANSWER_MARK}: you hold ${cards.map(c=>c.name).join(' and ')||'no cards'}.`};},
+];
 
 // The synthetic bank keeps its sign-in in the tab's sessionStorage. Expiring it signs every open
 // bank page out and reloads it, as a bank shows its sign-in page when a session times out. A new
@@ -471,12 +620,18 @@ export const BROKEN_CANCEL={
  'a guide stop that is never sent':[/timed out waiting for the job to be cancelled from the guide/,{stopGuide:async()=>{}}],
  'a wallet stop at needs-login that is never sent':[/timed out waiting for the job to be cancelled from the wallet/,{stopWaiting:async()=>{}}],
 };
-export async function negativeControls(input,{out,restart=false,expiredLogin=false,cancel=false}){
+// With --chat: a key the provider rejects is never saved, and a model that never answers leaves no answer;
+// the check must notice either.
+export const BROKEN_CHAT={
+ 'a key the provider rejects':[/the key was not saved/,{chatKey:'e2e-rejected-'+'1'.repeat(24)}],
+ 'a model that never gives the answer':[/the chat failed instead of answering|timed out waiting for the scripted answer/,{chatScript:[()=>({content:'',tool_calls:[toolCall('e2e-1','list_cards')]})]}],
+};
+export async function negativeControls(input,{out,restart=false,expiredLogin=false,cancel=false,chat=false}){
  const escaped=[];
  // With --restart, --expired-login or --cancel only that scenario's controls run; the package controls run
  // in their own step.
- const extended=restart||expiredLogin||cancel;
- const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire,requireExpired:false}]):[]),...(cancel?Object.entries(BROKEN_CANCEL).map(([name,[reason,broken]])=>[name,reason,{cancel:true,...broken}]):[])];
+ const extended=restart||expiredLogin||cancel||chat;
+ const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire,requireExpired:false}]):[]),...(cancel?Object.entries(BROKEN_CANCEL).map(([name,[reason,broken]])=>[name,reason,{cancel:true,...broken}]):[]),...(chat?Object.entries(BROKEN_CHAT).map(([name,[reason,broken]])=>[name,reason,{chat:true,...broken}]):[])];
  for(const [name,reason,options] of controls){
   console.log(`--- negative control: ${name}`);
   const error=await run(input,{out:join(out,name.replace(/\W+/g,'-')),...options,stepMs:12000}).then(()=>null,e=>e);
@@ -489,8 +644,8 @@ export async function negativeControls(input,{out,restart=false,expiredLogin=fal
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const args=process.argv.slice(2),take=flag=>{const i=args.indexOf(flag);if(i<0)return undefined;if(flag==='--out'&&!args[i+1]){console.error('--out needs a directory');process.exit(2);}return args.splice(i,flag==='--out'?2:1).at(-1);};
- const outArg=take('--out'),controls=take('--negative-controls'),restart=!!take('--restart'),expiredLogin=!!take('--expired-login'),cancel=!!take('--cancel');
- if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart] [--expired-login] [--cancel]');process.exit(2);}
+ const outArg=take('--out'),controls=take('--negative-controls'),restart=!!take('--restart'),expiredLogin=!!take('--expired-login'),cancel=!!take('--cancel'),chat=!!take('--chat');
+ if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart] [--expired-login] [--cancel] [--chat]');process.exit(2);}
  const out=resolve(outArg||join(root,'.debug/e2e'));
- (controls?negativeControls(args[0],{out,restart,expiredLogin,cancel}):run(args[0],{out,restart,expiredLogin,cancel})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
+ (controls?negativeControls(args[0],{out,restart,expiredLogin,cancel,chat}):run(args[0],{out,restart,expiredLogin,cancel,chat})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
 }

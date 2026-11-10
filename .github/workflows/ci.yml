@@ -84,6 +84,12 @@ jobs:
       - name: A stop that is never sent must fail the cancel check
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
         run: node scripts/e2e-extension.mjs package-under-test --cancel --negative-controls --out e2e-output/cancel-negative
+      - name: The assistant chat answers through a scripted model
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
+        run: node scripts/e2e-extension.mjs package-under-test --chat --out e2e-output/chat
+      - name: A rejected key or a missing answer must fail the chat check
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
+        run: node scripts/e2e-extension.mjs package-under-test --chat --negative-controls --out e2e-output/chat-negative
       - name: Upload logs and synthetic-page screenshots
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
