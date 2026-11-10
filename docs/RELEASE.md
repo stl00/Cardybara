@@ -21,7 +21,7 @@ An extended set runs nightly on `main` (schedule), on manual runs and on every `
 
 Locally: `npm run build:release && npm run test:e2e` (Chrome and `openssl` required; `--out <dir>` keeps artefacts, default `.debug/e2e`). The synthetic bank answers at once, which covers the first-load race fixed in stl00/Cardybara#123; `CARDYBARA_E2E_BANK_DELAY_MS=<ms>` adds latency.
 
-`E2E` becomes a required check on `main` once it has been stable, which is a branch-protection change for the owner.
+`E2E` becomes a required check on `main` once it has been stable, which is a branch-protection change for the owner; #47 stays open until the owner makes it.
 
 ## Current public-release blockers
 
