@@ -1,7 +1,6 @@
 {
  "about": "Benefit rules still without official-language text (#148). Remove an ID when its rule gets an original; never add one.",
  "ruleIds": [
-  "rule.chase-us-world-of-hyatt-credit-card.doordash-promo",
   "rule.hsbc-hk-hk-easy-credit-card.fee-waiver",
   "rule.hsbc-hk-hk-hsbc-everymile-card.fee-waiver",
   "rule.hsbc-hk-hk-hsbc-visa-signature-card.fee-waiver",
