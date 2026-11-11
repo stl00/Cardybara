@@ -1871,7 +1871,6 @@
     "邀请码已保存，只存放在本扩展里。": "Invite code saved. It is kept only in this extension.",
     "邀请码已保存，但暂时没能连上托管服务确认，请稍后点测试连接。": "Invite code saved, but the hosted service could not be reached to confirm it. Try Test connection later.",
     "连接成功，邀请码可用。": "Connected. The invite code works.",
-    "聊天内容会经过 Cardybara 网关转发给模型服务商，网关不保存聊天内容，只记录邀请码编号、时间、用量和状态。": "Chat content passes through the Cardybara gateway to the model provider. The gateway does not store chat content; it records only the invite code number, time, usage and status.",
     "邀请码只保存在本扩展的本地存储里，不同步、不写入备份、日志或诊断报告，只发送给 Cardybara 托管服务。保存后只显示首尾几位。": "The invite code is kept only in this extension's local storage. It is not synced or written to backups, logs or diagnostic reports, and is sent only to the Cardybara hosted service. After saving, only its first and last characters are shown.",
     "聊天助手、卡片识别和 AI 补全银行数据都通过这里的设置调用模型。不设置也能正常使用钱包，只是没有 AI。": "The chat assistant, card recognition and AI-assisted bank reading all reach the model through this setting. The wallet works without it, just without AI.",
     "扩展还没有访问托管服务的权限，请更换邀请码并在弹窗里允许。": "The extension cannot reach the hosted service yet. Change the invite code and allow access in the prompt.",
@@ -1886,7 +1885,9 @@
     "Cardybara 托管服务": "Cardybara hosted service",
     "邀请码无效，请在设置里检查是否复制完整。": "The invite code is not valid. Check in Settings that it was copied in full.",
     "这个邀请码已停用，请联系发码人，或在设置里改用自己的 key。": "This invite code has been turned off. Contact the person who gave it to you, or switch to your own key in Settings.",
-    "已达到托管服务的用量上限，请稍后再试，或在设置里改用自己的 key。": "The hosted service has reached its usage limit. Try again later, or switch to your own key in Settings."
+    "已达到托管服务的用量上限，请稍后再试，或在设置里改用自己的 key。": "The hosted service has reached its usage limit. Try again later, or switch to your own key in Settings.",
+    "聊天内容和卡片识别会经过 Cardybara 网关转发给模型服务商，网关不保存这些内容，只记录邀请码编号、时间、用量和状态。用托管服务时，AI 补全银行数据不可用，银行数据不经过网关。": "Chat content and card recognition pass through the Cardybara gateway to the model provider. The gateway does not store them; it records only the invite code number, time, usage and status. With the hosted service, AI-assisted bank reading is off and bank data never goes through the gateway.",
+    "这是 Cardybara 邀请码，请选择“使用 Cardybara 托管服务（输入邀请码）”后再粘贴。": "This is a Cardybara invite code. Choose \"Use the Cardybara hosted service (enter an invite code)\" and paste it there."
   },
   "zh-TW": {
     "美国": "美國",
@@ -3760,7 +3761,6 @@
     "邀请码已保存，只存放在本扩展里。": "邀請碼已儲存，只存放在本擴充功能裡。",
     "邀请码已保存，但暂时没能连上托管服务确认，请稍后点测试连接。": "邀請碼已儲存，但暫時沒能連上託管服務確認，請稍後點測試連線。",
     "连接成功，邀请码可用。": "連線成功，邀請碼可用。",
-    "聊天内容会经过 Cardybara 网关转发给模型服务商，网关不保存聊天内容，只记录邀请码编号、时间、用量和状态。": "聊天內容會經過 Cardybara 閘道轉發給模型服務商，閘道不儲存聊天內容，只記錄邀請碼編號、時間、用量和狀態。",
     "邀请码只保存在本扩展的本地存储里，不同步、不写入备份、日志或诊断报告，只发送给 Cardybara 托管服务。保存后只显示首尾几位。": "邀請碼只儲存在本擴充功能的本機儲存空間裡，不同步、不寫入備份、記錄或診斷報告，只傳送給 Cardybara 託管服務。儲存後只顯示首尾幾位。",
     "聊天助手、卡片识别和 AI 补全银行数据都通过这里的设置调用模型。不设置也能正常使用钱包，只是没有 AI。": "聊天助理、卡片識別和 AI 補全銀行資料都透過這裡的設定呼叫模型。不設定也能正常使用錢包，只是沒有 AI。",
     "扩展还没有访问托管服务的权限，请更换邀请码并在弹窗里允许。": "擴充功能還沒有存取託管服務的權限，請更換邀請碼並在彈窗裡允許。",
@@ -3775,6 +3775,8 @@
     "Cardybara 托管服务": "Cardybara 託管服務",
     "邀请码无效，请在设置里检查是否复制完整。": "邀請碼無效，請在設定裡檢查是否複製完整。",
     "这个邀请码已停用，请联系发码人，或在设置里改用自己的 key。": "這個邀請碼已停用，請聯絡發碼人，或在設定裡改用自己的 key。",
-    "已达到托管服务的用量上限，请稍后再试，或在设置里改用自己的 key。": "已達到託管服務的用量上限，請稍後再試，或在設定裡改用自己的 key。"
+    "已达到托管服务的用量上限，请稍后再试，或在设置里改用自己的 key。": "已達到託管服務的用量上限，請稍後再試，或在設定裡改用自己的 key。",
+    "聊天内容和卡片识别会经过 Cardybara 网关转发给模型服务商，网关不保存这些内容，只记录邀请码编号、时间、用量和状态。用托管服务时，AI 补全银行数据不可用，银行数据不经过网关。": "聊天內容和卡片識別會經過 Cardybara 閘道轉發給模型服務商，閘道不儲存這些內容，只記錄邀請碼編號、時間、用量和狀態。使用託管服務時，AI 補全銀行資料不可用，銀行資料不經過閘道。",
+    "这是 Cardybara 邀请码，请选择“使用 Cardybara 托管服务（输入邀请码）”后再粘贴。": "這是 Cardybara 邀請碼，請選擇「使用 Cardybara 託管服務（輸入邀請碼）」後再貼上。"
   }
 }

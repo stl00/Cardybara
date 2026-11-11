@@ -63,7 +63,7 @@
   ],
   "optional_host_permissions": [
     "https://api.deepseek.com/*",
-    "https://cardybara-gateway.invalid/*",
+    "https://cardybara-gateway.cardybara.workers.dev/*",
     "https://generativelanguage.googleapis.com/*",
     "http://127.0.0.1/*"
   ]

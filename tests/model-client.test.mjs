@@ -32,7 +32,7 @@ test('the key is saved locally only, masked after saving, and removed with its p
  assert.equal(local.get(KEY_STORE).key,KEY);assert.equal(calls.sync,0);
  assert.equal(await requestPermission('deepseek'),true);assert.deepEqual(calls.permissionRequests,[['https://api.deepseek.com/*']]);await assert.rejects(()=>requestPermission('evil'),/invalid_provider/);
  await setModelEnabled(false);assert.equal(await isModelReady(),false);await setModelEnabled(true);
- assert.equal((await deleteKey()).saved,false);assert.equal(local.has(KEY_STORE),false);assert.deepEqual(calls.removed,[['https://api.deepseek.com/*'],['https://cardybara-gateway.invalid/*']]);
+ assert.equal((await deleteKey()).saved,false);assert.equal(local.has(KEY_STORE),false);assert.deepEqual(calls.removed,[['https://api.deepseek.com/*'],[GATEWAY_ORIGIN+'/*']]);
  for(const bad of ['','short','has space inside key here','x'.repeat(201),'中文密钥中文密钥中文密钥'])await assert.rejects(()=>saveKey({provider:'deepseek',key:bad}),/invalid_key/,bad);
  await assert.rejects(()=>saveKey({provider:'evil',key:KEY}),/invalid_provider/);
  assert.equal(validKey(KEY),true);assert.equal(maskKey(KEY).length<KEY.length,true);
@@ -117,7 +117,7 @@ test('review: card-type suggestion goes to the provider with the server\'s promp
 });
 test('review: deleting a damaged key record still gives the permission back, and oversized pages are not sent',async()=>{
  const {local,calls}=fakeChrome();local.set(KEY_STORE,{provider:'deepseek',key:'has a space'});
- await deleteKey();assert.deepEqual(calls.removed,[['https://api.deepseek.com/*'],['https://cardybara-gateway.invalid/*']]);
+ await deleteKey();assert.deepEqual(calls.removed,[['https://api.deepseek.com/*'],[GATEWAY_ORIGIN+'/*']]);
  fakeChrome();await saveKey({provider:'deepseek',key:KEY});const requests=fakeProvider();
  const batch={bank:'Amex HK',page:'/overview',scope:'mvp',aliases:[],links:[],blocks:[{id:'B1',text:'x'.repeat(1501)}]};
  await assert.rejects(()=>modelParse(batch),/model_request_failed/);await assert.rejects(()=>modelParse({...batch,blocks:Array.from({length:61},(_,i)=>({id:'B'+i,text:'x'}))}),/model_request_failed/);
@@ -166,4 +166,16 @@ test('the manifest asks for the gateway host only as an optional permission',()=
  assert.ok(m.optional_host_permissions.includes(GATEWAY_ORIGIN+'/*'));assert.ok(!m.host_permissions.includes(GATEWAY_ORIGIN+'/*'));
  for(const p of Object.values(PROVIDERS))assert.ok(m.optional_host_permissions.includes(p.origin+'/*'),p.origin);
  assert.match(GATEWAY_ORIGIN,/^https:\/\/[a-z0-9.-]+$/);
+});
+
+test('hosted mode: bank parsing never goes through the gateway, and an invite code is never an own key',async()=>{
+ fakeChrome();await saveKey({provider:HOSTED,key:INVITE});const requests=fakeGateway(()=>[200,{choices:[{message:{content:'{}'}}]}]);
+ const status=await parserStatus();assert.equal(status.configured,false);assert.equal(status.reason,'hosted_no_parsing');
+ const batch={bank:'Amex HK',page:'/overview',scope:'mvp',aliases:[{id:'C1',cardId:'card-one',currency:'HKD'}],blocks:[{id:'B1',text:'[C1] balance 1'}],links:[]};
+ await assert.rejects(()=>modelParse(batch),/model_request_failed|model_not_ready/);
+ await assert.rejects(()=>completeBody({messages:[]},{hosted:false}),/model_not_ready/);
+ assert.equal(requests.length,0,'nothing was sent');
+ // Card-type recognition and chat do use the gateway.
+ await completeJSON({system:'s',user:'u'});assert.equal(requests.length,1);
+ assert.equal(validKey(INVITE),false);await assert.rejects(()=>saveKey({provider:'deepseek',key:INVITE}),/invalid_key/);await assert.rejects(()=>testKey({provider:'deepseek',key:INVITE}),/invalid_key/);
 });

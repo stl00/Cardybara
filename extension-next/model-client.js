@@ -3,9 +3,9 @@
 // Either credential lives only in chrome.storage.local, goes only to its own host, and is never logged,
 // exported, synced or shown in full after saving.
 export const KEY_STORE='cardybara-model-key';
-// The hosted gateway (gateway/ in this repo). The owner deploys it and sets this origin, together with the
-// manifest's optional host permission; until then it is a reserved name that never resolves (docs/GATEWAY.md).
-export const GATEWAY_ORIGIN='https://cardybara-gateway.invalid';
+// The hosted gateway (gateway/ in this repo, docs/GATEWAY.md). It must equal the manifest's optional host
+// permission. A name under .invalid marks the hosted service as not open (the setting then defaults to an own key).
+export const GATEWAY_ORIGIN='https://cardybara-gateway.cardybara.workers.dev';
 export const gatewayConfigured=!new URL(GATEWAY_ORIGIN).hostname.endsWith('.invalid');
 export const HOSTED='cardybara';
 export const PROVIDERS={
@@ -15,8 +15,9 @@ export const PROVIDERS={
 export const INVITE_PATTERN=/^cdy_[A-Za-z0-9_-]{43}$/;
 const local=()=>globalThis.chrome?.storage?.local||null;
 const permissionFor=provider=>({origins:[PROVIDERS[provider].origin+'/*']});
-export const validKey=key=>typeof key==='string'&&/^[\x21-\x7e]{16,200}$/.test(key);
 export const validInvite=code=>typeof code==='string'&&INVITE_PATTERN.test(code);
+// An invite code pasted as an own key would go to the provider, so it is never a valid key.
+export const validKey=key=>typeof key==='string'&&/^[\x21-\x7e]{16,200}$/.test(key)&&!validInvite(key);
 const validCredential=(provider,key)=>PROVIDERS[provider]?.hosted?validInvite(key):validKey(key);
 export const maskKey=key=>key.slice(0,3)+'…'+key.slice(-4);
 async function readKey(){
@@ -82,8 +83,10 @@ export async function testKey(candidate){
  return true;
 }
 /** A provider request body as built by agent-core or the chat protocol. */
-export async function completeBody(body,{signal,timeout}={}){
+export async function completeBody(body,{signal,timeout,hosted=true}={}){
  const saved=await ready(),target=PROVIDERS[saved.provider];
+ // Bank-page parsing passes hosted:false: bank figures never go through the Cardybara gateway.
+ if(target.hosted&&!hosted)throw Error('model_not_ready');
  return send(target.chat,{provider:saved.provider,key:saved.key,body:{...body,model:target.model},signal,timeout});
 }
 export async function completeChat({messages,tools,toolChoice='auto',maxTokens=1800,temperature=0.2,signal}){

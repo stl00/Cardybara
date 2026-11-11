@@ -1,10 +1,10 @@
 // In-memory stand-ins for the Worker's KV namespace and Durable Object binding, so the unit tests and the
 // packaged-extension E2E run the gateway's own code in Node. Never imported by the Worker itself.
-import {handle,UsageLedger,inviteKey} from './worker.js';
+import {handle,UsageLedger,inviteKey} from './gateway.js';
 
 export function memoryKV(){
  const data=new Map();
- return {data,async get(key,options){const v=data.get(key);if(v==null)return null;return options?.type==='json'||options==='json'?JSON.parse(v):v;},async put(key,value){data.set(key,String(value));},async delete(key){data.delete(key);}};
+ return {data,async get(key,options){const v=data.get(key);if(v==null)return null;return options?.type==='json'||options==='json'?JSON.parse(v):v;},async put(key,value){data.set(key,String(value));},async delete(key){data.delete(key);},async list(prefix=''){return [...data.keys()].filter(k=>k.startsWith(prefix));}};
 }
 // Storage that yields between every call, the way real storage I/O does, so a ledger without its queue
 // would interleave under parallel requests.
@@ -13,7 +13,8 @@ export function memoryStorage(){
  return {data,
   async get(key){await tick();return data.has(key)?structuredClone(data.get(key)):undefined;},
   async put(key,value){await tick();if(typeof key==='object')for(const [k,v] of Object.entries(key))data.set(k,structuredClone(v));else data.set(key,structuredClone(value));},
-  async delete(key){await tick();return data.delete(key);},
+  async delete(key){await tick();if(Array.isArray(key))return key.filter(k=>data.delete(k)).length;return data.delete(key);},
+  async list({prefix=''}={}){await tick();return new Map([...data.entries()].filter(([k])=>k.startsWith(prefix)).map(([k,v])=>[k,structuredClone(v)]));},
  };
 }
 export function memoryDurableObject(Class=UsageLedger){

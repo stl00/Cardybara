@@ -11,8 +11,10 @@ import {keyStatus,completeBody} from './model-client.js';
 export const PARSER_SETTINGS='cardybara-parser-settings';
 export const SECTION_KEYS=['card','reward','benefit','offer','transaction'];
 // Model-assisted parsing talks to the provider directly with the owner's key; nothing on localhost is involved.
+// With the hosted service it is off: bank figures never go through the Cardybara gateway.
 export async function parserStatus(){
  const status=await keyStatus();
+ if(status.hosted)return {configured:false,provider:status.provider,model:status.model||null,processing:'cloud-direct',reason:'hosted_no_parsing'};
  return {configured:status.ready,provider:status.provider||'deepseek',model:status.model||null,processing:'cloud-direct',...(status.ready?{}:{reason:status.saved?'model_disabled_or_no_permission':'add_model_key'})};
 }
 /** One bounded parse: the same request the local server used to send, now from the extension. */
@@ -20,7 +22,7 @@ export async function modelParse(batch,{signal}={}){
  // The bounds the local server used to enforce, kept so a page can't push an oversized request to the provider.
  if(!batch||!Array.isArray(batch.blocks)||batch.blocks.length>60||!Array.isArray(batch.aliases)||batch.aliases.length>40||!Array.isArray(batch.links)||batch.links.length>12||batch.blocks.some(b=>typeof b.text!=='string'||b.text.length>1500)||JSON.stringify(batch).length>100000)throw Error('model_request_failed');
  const {body}=modelRequest({provider:'deepseek',key:'unused'},batch);
- const response=await completeBody(body,{signal,timeout:27000}),content=response.choices?.[0]?.message?.content;
+ const response=await completeBody(body,{signal,timeout:27000,hosted:false}),content=response.choices?.[0]?.message?.content;
  if(typeof content!=='string'||content.length>150000)throw Error('model_request_failed');
  try{return JSON.parse(content);}catch{throw Error('model_request_failed');}
 }

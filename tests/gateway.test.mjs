@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {localGateway} from '../gateway/src/local.mjs';
-import {ROUTES,INVITE_PATTERN,originAllowed,sameBytes,sanitizeBody,readConfig} from '../gateway/src/worker.js';
+import {ROUTES,ROUTE_TABLE,INVITE_PATTERN,SETTINGS_KEY,originAllowed,sameBytes,sanitizeBody,readConfig,handle} from '../gateway/src/gateway.js';
 
 // Synthetic values only. None of them is a real key or invite code.
 const ORIGIN='chrome-extension://'+'a'.repeat(32);
@@ -78,10 +78,10 @@ test('routes, methods, media type and body size are enforced before anything is 
 test('only allow-listed models and fields are forwarded, with the owner key and thinking off',async()=>{
  const g=setup();await g.addInvite(CODE,{id:'t01'});
  assert.equal(await errorOf(await g.handle(post(ROUTES.chat,{body:chatBody({model:'deepseek-reasoner'})}))),'model_not_allowed');
- for(const bad of [{max_tokens:9000},{max_tokens:0},{max_tokens:1.5},{temperature:5},{messages:[]},{messages:[{role:'admin',content:'x'}]},{messages:[{role:'user',content:[{type:'image_url'}]}]},{tools:[{type:'web_search'}]},{response_format:{type:'json_schema'}},{tool_choice:'everything'}])
+ for(const bad of [{max_tokens:9000},{max_tokens:0},{max_tokens:1.5},{temperature:5},{messages:[]},{messages:[{role:'admin',content:'x'}]},{messages:[{role:'user',content:[{type:'image_url'}]}]},{tools:[{type:'web_search'}]},{response_format:{type:'json_schema'}},{tool_choice:'everything'},{stream:'yes'}])
   assert.equal(await errorOf(await g.handle(post(ROUTES.chat,{body:chatBody(bad)}))),'bad_request',JSON.stringify(bad));
  assert.equal(g.upstream.length,0);
- const r=await g.handle(post(ROUTES.chat,{body:chatBody({stream:true,n:8,logprobs:true,user:'x',thinking:{type:'enabled'},messages:[{role:'user',content:'q',extra:'drop'}],tools:[{type:'function',function:{name:'list_cards',parameters:{}}}],tool_choice:'auto',response_format:{type:'json_object',schema:'drop'}})}));
+ const r=await g.handle(post(ROUTES.chat,{body:chatBody({n:8,logprobs:true,user:'x',thinking:{type:'enabled'},messages:[{role:'user',content:'q',extra:'drop'}],tools:[{type:'function',function:{name:'list_cards',parameters:{}}}],tool_choice:'auto',response_format:{type:'json_object',schema:'drop'}})}));
  assert.equal(r.status,200);
  const sent=g.upstream[0];
  assert.equal(sent.url,'https://api.deepseek.com/chat/completions');
@@ -139,14 +139,20 @@ test('provider failures pass through as codes only, release the reservation, and
   const g=setup({provider:()=>new Response(JSON.stringify({error:{message:'echo Bearer '+PROVIDER_KEY+' '+SECRET_TEXT}}),{status})});await g.addInvite(CODE,{id:'t01'});
   const r=await g.handle(post(ROUTES.chat));assert.equal(r.status,expect,String(status));
   const text=await r.text();assert.deepEqual(JSON.parse(text),{error:{code}});assert.ok(!text.includes(PROVIDER_KEY)&&!text.includes(SECRET_TEXT));
-  const month=[...g.ledger().entries()].find(([k])=>k.startsWith('m:'))[1];assert.equal(month.micros,0,'a failed completion is not charged');
+  const month=[...g.ledger().entries()].find(([k])=>k.startsWith('m:'))[1];
+  // A refusal (4xx, 429) is released; a 3xx or 5xx may follow billed work, so its worst case stays.
+  if(status>=400&&status<500)assert.equal(month.micros,0,'a refused completion is not charged');else assert.ok(month.micros>0,'a '+status+' keeps the worst case');
+  assert.equal([...g.ledger().keys()].filter(k=>k.startsWith('r:')).length,0,'the reservation is closed');
  }
  const down=setup({provider:()=>{throw TypeError('fetch failed');}});await down.addInvite(CODE,{id:'t01'});
  assert.equal(await errorOf(await down.handle(post(ROUTES.chat))),'provider_unreachable');
  const timeout=setup({provider:()=>{const e=Error('t');e.name='TimeoutError';throw e;}});await timeout.addInvite(CODE,{id:'t01'});
  const tr=await timeout.handle(post(ROUTES.chat));assert.equal(tr.status,504);assert.equal(await errorOf(tr),'provider_timeout');
+ // A timeout or a dropped connection may follow work the provider bills: the worst case stays charged.
+ for(const g of [down,timeout])assert.ok([...g.ledger().entries()].find(([k])=>k.startsWith('m:'))[1].micros>0);
  const garbled=setup({provider:()=>new Response('not json')});await garbled.addInvite(CODE,{id:'t01'});
  assert.equal(await errorOf(await garbled.handle(post(ROUTES.chat))),'provider_error');
+ assert.equal([...garbled.ledger().keys()].filter(k=>k.startsWith('r:')).length,0,'a garbled answer closes its reservation');
  // A completion without usage numbers keeps its worst case charged.
  const blind=setup({provider:()=>Response.json(reply(null))});await blind.addInvite(CODE,{id:'t01'});
  assert.equal((await blind.handle(post(ROUTES.chat))).status,200);
@@ -177,6 +183,79 @@ test('logs carry the code id, time, tokens and status — never bodies, codes or
  assert.equal(first.code,'t01');assert.equal(first.status,200);assert.equal(first.prompt_tokens,10);assert.equal(first.completion_tokens,5);
  assert.equal(JSON.parse(g.logs[1]).code,null);assert.equal(JSON.parse(g.logs.at(-1)).error,'daily_requests');
  // The Worker source has no other logging call.
- const source=readFileSync(new URL('../gateway/src/worker.js',import.meta.url),'utf8');
+ const source=readFileSync(new URL('../gateway/src/gateway.js',import.meta.url),'utf8');
  assert.equal((source.match(/console\.\w+/g)||[]).length,1);
+});
+
+const sse=events=>new Response(new ReadableStream({start(c){for(const e of events)c.enqueue(new TextEncoder().encode(e));c.close();}}),{headers:{'Content-Type':'text/event-stream'}});
+const chunk=(content,usage)=>'data: '+JSON.stringify({id:'s',object:'chat.completion.chunk',choices:content==null?[]:[{index:0,delta:{content}}],...(usage?{usage}:{})})+'\n\n';
+test('streaming: server-sent events pass through, and the stream settles to its final usage',async()=>{
+ const waits=[];
+ const g=setup({provider:()=>sse([chunk('Hel'),chunk('lo'),chunk(null,{prompt_tokens:7,completion_tokens:2}),'data: [DONE]\n\n'])});await g.addInvite(CODE,{id:'t01'});
+ const r=await handle(post(ROUTES.chat,{body:chatBody({stream:true})}),g.env,{fetch:async(url,init)=>{g.upstream.push({url,init,body:JSON.parse(init.body)});return sse([chunk('Hel'),chunk('lo'),chunk(null,{prompt_tokens:7,completion_tokens:2}),'data: [DONE]\n\n']);},log:l=>g.logs.push(l),waitUntil:p=>waits.push(p)});
+ assert.equal(r.status,200);assert.match(r.headers.get('Content-Type'),/text\/event-stream/);assert.equal(r.headers.get('Access-Control-Allow-Origin'),ORIGIN);
+ assert.equal(g.upstream[0].body.stream,true);assert.deepEqual(g.upstream[0].body.stream_options,{include_usage:true});
+ const text=await r.text();assert.match(text,/Hel/);assert.match(text,/\[DONE\]/);
+ await Promise.all(waits);
+ const line=JSON.parse(g.logs.at(-1));assert.equal(line.status,200);assert.equal(line.prompt_tokens,7);assert.equal(line.completion_tokens,2);assert.ok(!g.logs.join().includes('Hel'));
+ const day=[...g.ledger().entries()].find(([k])=>k.startsWith('d:'))[1];assert.equal(day.tokens,9);
+ assert.equal([...g.ledger().keys()].filter(k=>k.startsWith('r:')).length,0);
+});
+test('streaming: a stream without usage keeps its worst case, and an oversized stream is cut off',async()=>{
+ const run=async(events,vars={})=>{const g=setup({vars});await g.addInvite(CODE,{id:'t01'});const waits=[];
+  const r=await handle(post(ROUTES.chat,{body:chatBody({stream:true})}),g.env,{fetch:async()=>sse(events),log:l=>g.logs.push(l),waitUntil:p=>waits.push(p)});
+  const body=await r.text().catch(e=>e);await Promise.all(waits);return {g,body,month:[...g.ledger().entries()].find(([k])=>k.startsWith('m:'))[1]};};
+ const blind=await run([chunk('a'),'data: [DONE]\n\n']);assert.ok(blind.month.micros>0,'no usage keeps the worst case');
+ const big=await run(Array.from({length:80},()=>chunk('x'.repeat(1000))),{MAX_BODY_BYTES:'1024'});
+ assert.ok(big.body instanceof Error,'the client sees the stream fail');assert.equal(JSON.parse(big.g.logs.at(-1)).error,'stream_aborted');assert.ok(big.month.micros>0);
+});
+test('global caps can be changed in KV without a deploy; bad values are ignored',async()=>{
+ const g=setup({vars:{DAILY_REQUESTS_PER_CODE:'5'}});await g.addInvite(CODE,{id:'t01'});
+ await g.env.INVITES.put(SETTINGS_KEY,JSON.stringify({dailyRequests:1}));
+ assert.equal((await g.handle(post(ROUTES.chat))).status,200);assert.equal((await g.handle(post(ROUTES.chat))).status,429);
+ await g.env.INVITES.put(SETTINGS_KEY,JSON.stringify({monthlyBudgetUsd:0}));
+ const r=await g.handle(post(ROUTES.chat,{code:CODE}));assert.equal(r.status,429);
+ const h=setup({vars:{DAILY_REQUESTS_PER_CODE:'1'}});await h.addInvite(CODE,{id:'t01'});await h.env.INVITES.put(SETTINGS_KEY,JSON.stringify({dailyRequests:-5,monthlyBudgetUsd:'lots'}));
+ assert.equal((await h.handle(post(ROUTES.chat))).status,200);assert.equal((await h.handle(post(ROUTES.chat))).status,429);
+});
+test('the router lists each route once with its method; the agent route can be added beside the proxy',()=>{
+ assert.deepEqual(ROUTE_TABLE.map(r=>[r.path,r.method,r.auth]),[[ROUTES.invite,'POST',true],[ROUTES.chat,'POST',true]]);
+});
+
+test('a rate limiter, when bound, refuses before any invite lookup',async()=>{
+ const g=setup();await g.addInvite(CODE,{id:'t01'});let reads=0;const get=g.env.INVITES.get;g.env.INVITES.get=(...a)=>{reads++;return get(...a);};
+ const seen=[];g.env.RATE_LIMITER={limit:async({key})=>{seen.push(key);return {success:seen.length<=2};}};
+ const req=()=>new Request('https://gateway.test'+ROUTES.invite,{method:'POST',headers:{Origin:ORIGIN,Authorization:'Bearer '+UNKNOWN,'CF-Connecting-IP':'203.0.113.9'}});
+ assert.equal((await g.handle(req())).status,401);assert.equal((await g.handle(req())).status,401);
+ const before=reads;const r=await g.handle(req());assert.equal(r.status,429);assert.equal(await errorOf(r),'rate_limited');assert.equal(reads,before,'no KV read once limited');
+ assert.deepEqual(seen,['203.0.113.9','203.0.113.9','203.0.113.9']);
+ // A refused origin reads nothing from KV either.
+ const r0=reads;await g.handle(post(ROUTES.chat,{origin:'https://evil.example'}));assert.equal(reads,r0);
+});
+test('use above the worst case is charged in full and flagged; reservations never stay open',async()=>{
+ const g=setup({provider:()=>Response.json(reply({prompt_tokens:5000000,completion_tokens:1}))});await g.addInvite(CODE,{id:'t01'});
+ assert.equal((await g.handle(post(ROUTES.chat))).status,200);
+ assert.equal(JSON.parse(g.logs.at(-1)).overrun,true);
+ assert.equal([...g.ledger().entries()].find(([k])=>k.startsWith('d:'))[1].tokens,5000001);
+ const blind=setup({provider:()=>Response.json(reply(null))});await blind.addInvite(CODE,{id:'t01'});await blind.handle(post(ROUTES.chat));
+ assert.equal([...blind.ledger().keys()].filter(k=>k.startsWith('r:')).length,0);
+});
+test('the first request of a day prunes counters and open reservations older than yesterday',async()=>{
+ let at=Date.parse('2026-11-01T12:00:00Z');const g=setup({now:()=>at,provider:()=>new Response('nope',{status:200})});await g.addInvite(CODE,{id:'t01'});
+ await g.handle(post(ROUTES.chat));
+ const store=g.ledger();store.set('r:stale',{dk:'d:2026-11-01:t01',mk:'m:2026-11',tokens:1,micros:1,day:'2026-11-01'});
+ at=Date.parse('2026-11-05T12:00:00Z');await g.handle(post(ROUTES.chat));
+ assert.ok(!store.has('d:2026-11-01:t01'));assert.ok(!store.has('r:stale'));assert.ok(store.has('d:2026-11-05:t01'));assert.ok(store.has('m:2026-11'));
+});
+
+test('the Worker main module exports only what Workers accepts: the fetch handler and the Durable Object class',async()=>{
+ const main=await import('../gateway/src/worker.js');
+ assert.deepEqual(Object.keys(main).sort(),['UsageLedger','default']);assert.equal(typeof main.default.fetch,'function');assert.equal(typeof main.UsageLedger,'function');
+});
+
+test('without an injected fetch the gateway calls the global fetch unbound, as Workers requires',async()=>{
+ const g=setup();await g.addInvite(CODE,{id:'t01'});const saved=globalThis.fetch;let self='unset';
+ globalThis.fetch=function(){self=this;return Promise.resolve(Response.json(reply()));};
+ try{const r=await handle(post(ROUTES.chat),g.env,{log:()=>{}});assert.equal(r.status,200);}finally{globalThis.fetch=saved;}
+ assert.ok(self===undefined||self===globalThis,'fetch was called as a method of another object');
 });
