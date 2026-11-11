@@ -52,6 +52,15 @@
     "rewardSource": {
       "url": "https://www.americanexpress.com/en-ca/credit-cards/compare-credit-cards/?cardList=cobalt-card",
       "checkedAt": "2026-10-27"
+    },
+    "art": {
+      "file": "catalog-ad1699b31c81347f.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_ca/images/pdp-uplift/consumer/cobalt-card/Cobalt-card.webp",
+      "pageUrl": "https://www.americanexpress.com/en-ca/credit-cards/cobalt-card/",
+      "foundIn": "preloaded hero image (served as PNG despite .webp); og:image is a 200x126 version cards/American_Express_Cobalt_Card.png",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
     }
   },
   {
@@ -65,6 +74,15 @@
     "rewardSource": {
       "url": "https://www.americanexpress.com/en-ca/credit-cards/compare-credit-cards/?cardList=cobalt-card",
       "checkedAt": "2026-10-27"
+    },
+    "art": {
+      "file": "catalog-d37b82a264d5a56c.jpg",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_ca/images/cards/Gold_Rewards_Card.png",
+      "pageUrl": "https://www.americanexpress.com/en-ca/credit-cards/gold-rewards-card/",
+      "foundIn": "img alt='American Express Gold Rewards Card' (served as JPEG; hero gold-card-art-ca.webp is the same art; og:image is a two-card gold/rose-gold composite)",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
     }
   },
   {
@@ -1572,6 +1590,151 @@
     "rewardSource": {
       "url": "https://creditcards.chase.com/travel-credit-cards/avios/aer-lingus",
       "checkedAt": "2026-11-11"
+    }
+  },
+  {
+    "id": "hsbc-hk-hk-visa-gold-card-for-students",
+    "art": {
+      "file": "catalog-0fedec0b612e119c.jpg",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://www.hsbc.com.hk/content/dam/hsbc/hk/images/mass/credit-cards/tile-16-9/9358-hsbc-visa-gold-card-grey-1600x900.jpg",
+      "pageUrl": "https://www.hsbc.com.hk/credit-cards/products/student-visa-gold/",
+      "foundIn": "main product picture (pp_main_image)",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission",
+      "crop": {
+        "canvasWidth": 1600,
+        "canvasHeight": 900,
+        "x": 440,
+        "y": 224,
+        "width": 720,
+        "height": 453
+      }
+    }
+  },
+  {
+    "id": "hsbc-hk-hk-unionpay-dual-currency-card",
+    "art": {
+      "file": "catalog-3dcdee845d63c12a.jpg",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://www.hsbc.com.hk/content/dam/hsbc/hk/images/mass/credit-cards/tile-16-9/9358-hsbc-unionpay-credit-card-grey-1600x900.jpg",
+      "pageUrl": "https://www.hsbc.com.hk/credit-cards/products/unionpay-dual-currency-classic/",
+      "foundIn": "product picture (pp_tools_image)",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission",
+      "crop": {
+        "canvasWidth": 1600,
+        "canvasHeight": 900,
+        "x": 440,
+        "y": 224,
+        "width": 720,
+        "height": 453
+      }
+    }
+  },
+  {
+    "id": "sc-hk-hk-simply-cash-visa-card",
+    "art": {
+      "file": "catalog-8c6ab7fb20a6ad88.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://www.sc.com/content/dam/sc/hk/shared/hk-sccc-180x110-1.png",
+      "pageUrl": "https://www.sc.com/hk/credit-cards/",
+      "foundIn": "top navigation img alt='Simple Cash Visa Card' linking to /hk/credit-cards/simplycash/",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
+  },
+  {
+    "id": "sc-hk-hk-standard-chartered-smart-credit-card",
+    "art": {
+      "file": "catalog-3a83e97c113acbb9.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://www.sc.com/content/dam/sc/hk/shared/hk-sc-cf2-180-110.png",
+      "pageUrl": "https://www.sc.com/hk/credit-cards/",
+      "foundIn": "top navigation img alt='Smart Card' linking to /hk/credit-cards/smart/",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
+  },
+  {
+    "id": "sc-hk-hk-a-point-card",
+    "art": {
+      "file": "catalog-390f5321a0ac9a82.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://www.sc.com/content/dam/sc/hk/shared/hk-cc-apoint-card.png",
+      "pageUrl": "https://www.sc.com/hk/credit-cards/",
+      "foundIn": "top navigation img alt='A.Point Card' linking to /hk/credit-cards/apointcard/",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission",
+      "crop": {
+        "canvasWidth": 180,
+        "canvasHeight": 110,
+        "x": 55,
+        "y": 0,
+        "width": 70,
+        "height": 110
+      }
+    }
+  },
+  {
+    "id": "amex-hk-hk-american-express-platinum-credit-card",
+    "art": {
+      "file": "catalog-4e8c39f996151fa6.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/Platinum_Credit_Card.png",
+      "pageUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+      "foundIn": "img alt='American Express Platinum Credit Card' (productCode platinum-credit-card)",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission",
+      "resizedFrom": "1920x1216"
+    }
+  },
+  {
+    "id": "boa-us-atmos-rewards-ascent-visa-signature",
+    "art": {
+      "file": "catalog-31f66fbd931ad272.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://www.bankofamerica.com/content/images/ContextualSiteGraphics/CreditCardArt/en_US/Approved_PCM/1bbt_sigcm_v_atmos_ascent_250.png",
+      "pageUrl": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
+      "foundIn": "og:image (alt='Atmos Rewards Ascent Visa Signature Alaska Airlines Credit Card') + schema.org image",
+      "checkedAt": "2026-11-11",
+      "terms": "unverified"
+    }
+  },
+  {
+    "id": "boa-us-allways-rewards-visa",
+    "art": {
+      "file": "catalog-0fb1e79e89c661cb.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://www.bankofamerica.com/content/images/ContextualSiteGraphics/CreditCardArt/en_US/Approved_PCM/ragp_sigcm_v_250.png",
+      "pageUrl": "https://www.bankofamerica.com/credit-cards/products/allegiant-credit-card/",
+      "foundIn": "og:image (alt='Benefits and Rewards of an Allways Rewards Visa Credit Card') + schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "unverified"
+    }
+  },
+  {
+    "id": "amex-ca-ca-simplycash-card-from-american-express",
+    "art": {
+      "file": "catalog-d8dc74fe63f9f51a.jpg",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_ca/images/cards/SimplyCash_Card.png",
+      "pageUrl": "https://www.americanexpress.com/en-ca/credit-cards/simply-cash/",
+      "foundIn": "og:image (served as JPEG)",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
+  },
+  {
+    "id": "amex-ca-ca-simplycash-preferred-card-from-american-express",
+    "art": {
+      "file": "catalog-f69ea6066048e6e7.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_ca/images/cards/SimplyCash_Preferred_Card.png",
+      "pageUrl": "https://www.americanexpress.com/en-ca/credit-cards/simply-cash-preferred/",
+      "foundIn": "og:image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
     }
   }
 ]

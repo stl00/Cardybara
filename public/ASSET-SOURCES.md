@@ -141,7 +141,7 @@ Read without login from the issuer's own public pages with curl (no browser), ch
 
 ## Issuer card art, Wells Fargo (checked 2026-11-11, #230)
 
-Read without login from the issuer's own public pages with curl (no browser), checked 2026-11-11. The owner asked for this art in #230; where the terms say `requires-permission`, showing it is the owner's decision, not permission from the issuer. To withdraw one, set the product's `art` to `null` in `src/data/card-products.json` and `card-product-overrides.json`. The page serves WebP/AVIF only; the WebP was converted to PNG without other change. Terms: the [Wells Fargo terms](https://www.wellsfargo.com/privacy-security/terms/) say site content, including images, may not be copied, displayed or reproduced except as they allow; marks need prior written consent: `requires-permission`.
+Read without login from the issuer's own public pages with curl (no browser), checked 2026-11-11. The owner asked for this art in #230; where the terms say `requires-permission`, showing it is the owner's decision, not permission from the issuer. To withdraw one, set the product's `art` to `null` in `src/data/card-products.json` and `card-product-overrides.json`. The page is A/B tested: on 2 of 3 reads it showed this image (an older variant shows a different image with an offer). It serves WebP/AVIF only; the WebP was converted to PNG without other change. Terms: the [Wells Fargo terms](https://www.wellsfargo.com/privacy-security/terms/) say site content, including images, may not be copied, displayed or reproduced except as they allow; marks need prior written consent: `requires-permission`.
 
 | Product | File | Product page | Image | Found in | Stored | Checked | Terms |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -171,7 +171,7 @@ Read without login from the issuer's own public pages with curl (no browser), ch
 
 | Product | File | Product page | Image | Found in | Stored | Checked | Terms |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| A. Point Card | assets/catalog-390f5321a0ac9a82.png | https://www.sc.com/hk/credit-cards/ | https://www.sc.com/content/dam/sc/hk/shared/hk-cc-apoint-card.png | top navigation img alt='A.Point Card' linking to /hk/credit-cards/apointcard/ | unmodified | 2026-11-11 | requires-permission |
+| A. Point Card | assets/catalog-390f5321a0ac9a82.png | https://www.sc.com/hk/credit-cards/ | https://www.sc.com/content/dam/sc/hk/shared/hk-cc-apoint-card.png | top navigation img alt='A.Point Card' linking to /hk/credit-cards/apointcard/ | shown cropped to x55,y0,w70,h110 | 2026-11-11 | requires-permission |
 | Simply Cash Visa Card | assets/catalog-8c6ab7fb20a6ad88.png | https://www.sc.com/hk/credit-cards/ | https://www.sc.com/content/dam/sc/hk/shared/hk-sccc-180x110-1.png | top navigation img alt='Simple Cash Visa Card' linking to /hk/credit-cards/simplycash/ | unmodified | 2026-11-11 | requires-permission |
 | Standard Chartered Smart Credit Card | assets/catalog-3a83e97c113acbb9.png | https://www.sc.com/hk/credit-cards/ | https://www.sc.com/content/dam/sc/hk/shared/hk-sc-cf2-180-110.png | top navigation img alt='Smart Card' linking to /hk/credit-cards/smart/ | unmodified | 2026-11-11 | requires-permission |
 

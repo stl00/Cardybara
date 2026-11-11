@@ -1419,7 +1419,15 @@
         "pageUrl": "https://www.sc.com/hk/credit-cards/",
         "foundIn": "top navigation img alt='A.Point Card' linking to /hk/credit-cards/apointcard/",
         "checkedAt": "2026-11-11",
-        "terms": "requires-permission"
+        "terms": "requires-permission",
+        "crop": {
+          "canvasWidth": 180,
+          "canvasHeight": 110,
+          "x": 55,
+          "y": 0,
+          "width": 70,
+          "height": 110
+        }
       },
       "sourceUrl": "https://www.sc.com/hk/credit-cards/",
       "checkedAt": "2026-10-27",
