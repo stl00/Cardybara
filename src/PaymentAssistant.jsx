@@ -24,6 +24,10 @@ function dueText(item){
  if(state==='nothing_billed')return t('读到的账单没有应付金额');
  if(cycle?.kind==='yearless')return t('还款日 {0}（银行未提供年份）',[cycle.label]);
  if(!cycle)return t('还款日未读取');
+ if(cycle.inferred)return `${dueDayText(cycle,days)}${t('（年份按读取日期推断）')}`;
+ return dueDayText(cycle,days);
+}
+function dueDayText(cycle,days){
  if(days===-1)return t('还款日 {0} · 昨天',[cycle.date]);
  if(days<0)return t('还款日 {0} · 已过 {1} 天',[cycle.date,-days]);
  if(days===0)return t('还款日 {0} · 今天到期',[cycle.date]);

@@ -68,7 +68,7 @@ npm run build:dev-extension      # local dev extension with the scheduled refres
 
 ## Honesty about evidence
 
-A passing build, test or replay is not real bank acceptance. Never mark acceptance records `passed` without a real observation, never fill missing amounts with zero, never guess a year for a yearless date, never assign one rewards total to several cards without pool evidence. Report failures and gaps plainly.
+A passing build, test or replay is not real bank acceptance. Never mark acceptance records `passed` without a real observation, never fill missing amounts with zero, never guess a year for a yearless date (the wallet's one rule is the year nearest the day it was read, shown as inferred; collection and acceptance never add one), never assign one rewards total to several cards without pool evidence. Report failures and gaps plainly.
 
 ## Data and security boundaries
 

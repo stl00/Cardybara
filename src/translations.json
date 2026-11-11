@@ -1789,7 +1789,9 @@
     "选择一家银行并登录，读取页面上可确认的卡片；没有识别到时，可以手动添加卡种与尾号。不需要旧备份。": "Choose a bank and sign in to read the cards its pages confirm. If a card isn't found, add it yourself by card type and last digits. No old backup is needed.",
     "年费日（你设置了年费日的卡）": "Annual fee date (cards where you set one)",
     "年费日提前天数": "Days before the annual fee date",
-    "卡片信息已保存；换了地区，请重新选择卡种。": "Card details saved. The region changed, so choose the card type again."
+    "卡片信息已保存；换了地区，请重新选择卡种。": "Card details saved. The region changed, so choose the card type again.",
+    "（年份按读取日期推断）": " (year inferred from the read date)",
+    "年份按读取日期推断": "Year inferred from the read date"
   },
   "zh-TW": {
     "美国": "美國",
@@ -3581,6 +3583,8 @@
     "选择一家银行并登录，读取页面上可确认的卡片；没有识别到时，可以手动添加卡种与尾号。不需要旧备份。": "選擇一家銀行並登入，讀取頁面上可確認的卡片；沒有識別到時，可以手動新增卡種與尾號。不需要舊備份。",
     "年费日（你设置了年费日的卡）": "年費日（你設定了年費日的卡）",
     "年费日提前天数": "年費日提前天數",
-    "卡片信息已保存；换了地区，请重新选择卡种。": "卡片資料已儲存；換了地區，請重新選擇卡種。"
+    "卡片信息已保存；换了地区，请重新选择卡种。": "卡片資料已儲存；換了地區，請重新選擇卡種。",
+    "（年份按读取日期推断）": "（年份按讀取日期推斷）",
+    "年份按读取日期推断": "年份按讀取日期推斷"
   }
 }

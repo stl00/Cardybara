@@ -22,7 +22,8 @@ export function readSettings(storage){try{return normalizeSettings(JSON.parse(st
 export function readSent(storage){try{const rows=JSON.parse(storage.getItem(REMINDER_SENT_KEY));return Array.isArray(rows)?rows.filter(r=>typeof r?.id==='string'&&typeof r?.day==='string'):[];}catch{return []}}
 
 /**
- * Yearless bills are left out: without a year there is no way to know when the lead time starts.
+ * A bank date printed without a year counts from the year its read day implies; one whose month and
+ * day cannot be read is left out, since there is no way to know when the lead time starts.
  * Handled, no-payment, nothing-billed, unread and old passed-date bills never fire. Autopay covers a
  * bill only while its own reading is recent; an old "on" no longer shows that the bill will be paid.
  */
