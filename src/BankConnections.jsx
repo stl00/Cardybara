@@ -10,7 +10,7 @@ import {visibleConnections} from './walletRegistry.js';
 import {t,useI18n,formatDateTime,formatReadDate} from './i18n';
 const {Text,Paragraph}=Typography;
 // The packaged extension; the localhost dev page is the only place a local debugging service applies.
-const internal=()=>location.protocol==='chrome-extension:'&&!!globalThis.chrome?.runtime?.id;
+const internal=()=>globalThis.location?.protocol==='chrome-extension:'&&!!globalThis.chrome?.runtime?.id;
 const sectionNames={card:'余额与账单',reward:'积分'};
 const phases={reading_all_data:'正在读取银行数据',understanding_page:'正在整理页面数据',reading_next_page:'正在读取下一页',complete:'本轮读取结束'};
 const statuses={load_error:'银行概览尚未显示完整卡片信息',navigation_changed:'银行页面已切换，读取已停止',cancelled:'本轮已停止',incomplete:'仅部分记录已读取',navigation_timeout:'银行页面加载超时',parser_timeout:'解析超时，请重试',parser_busy:'解析服务忙，请重试',model_auth_failed:'AI 服务拒绝了请求，请在设置里检查 AI 服务',model_request_failed:'模型服务暂时不可用',page_read_failed:'页面暂时无法读取',checked_empty:'已检查，当前无记录',not_collected:'此版本不采集',partial:'积分池待核对',updated:'已更新',reading:'读取中',not_found:'本次未读到',setup_required:'AI 补全未启用，本次只用规则读取',connect_local_service:'解析服务未连接',local_service_offline:'本机服务离线',parser_unavailable:'解析暂时失败',needs_login:'需要登录',card_not_identified:'页面未显示卡片',document_changed:'页面已改变',no_financial_text:'本次未读到'};
