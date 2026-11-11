@@ -1125,5 +1125,40 @@
     "title": "Bilt 帮助中心 · Bilt Card 2.0 计划概览",
     "checkedAt": "2026-11-11",
     "authority": "official"
+  },
+  {
+    "id": "card-chase-us-iberia-visa-signature-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
+    "title": "Chase · Iberia Visa Signature Credit Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-disney-visa-card",
+    "url": "https://creditcards.chase.com/rewards-credit-cards/disney/rewards",
+    "title": "Chase · Disney Visa Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-disney-premier-visa-card",
+    "url": "https://creditcards.chase.com/rewards-credit-cards/disney/premier",
+    "title": "Chase · Disney Premier Visa Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-disney-inspire-visa-card",
+    "url": "https://creditcards.chase.com/rewards-credit-cards/disney/inspire",
+    "title": "Chase · Disney Inspire Visa Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-chase-freedom-rise-credit-card",
+    "url": "https://creditcards.chase.com/cash-back-credit-cards/freedom/rise",
+    "title": "Chase · Chase Freedom Rise Credit Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
   }
 ]

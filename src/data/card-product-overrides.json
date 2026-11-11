@@ -1593,6 +1593,43 @@
     }
   },
   {
+    "id": "chase-us-iberia-visa-signature-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "Iberia Club"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
+      "checkedAt": "2026-11-11"
+    }
+  },
+  {
+    "id": "chase-us-disney-visa-card",
+    "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/rewards",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "chase-us-disney-premier-visa-card",
+    "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/premier",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "chase-us-disney-inspire-visa-card",
+    "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/inspire",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "chase-us-chase-freedom-rise-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/freedom/rise",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed"
+  },
+  {
     "id": "bilt-us-bilt-blue-card",
     "sourceUrl": "https://www.bilt.com/card",
     "checkedAt": "2026-11-11",
@@ -1687,6 +1724,43 @@
       "checkedAt": "2026-11-11",
       "terms": "unverified"
     }
+  },
+  {
+    "id": "chase-us-iberia-visa-signature-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "Iberia Club"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
+      "checkedAt": "2026-11-11"
+    }
+  },
+  {
+    "id": "chase-us-disney-visa-card",
+    "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/rewards",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "chase-us-disney-premier-visa-card",
+    "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/premier",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "chase-us-disney-inspire-visa-card",
+    "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/inspire",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "chase-us-chase-freedom-rise-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/freedom/rise",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed"
   },
   {
     "id": "hsbc-hk-hk-visa-gold-card-for-students",

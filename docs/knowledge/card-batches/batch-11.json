@@ -1,0 +1,440 @@
+{
+ "batch": 11,
+ "checkedAt": "2026-11-11",
+ "reviewAfter": "2027-02-09",
+ "cards": [
+  {
+   "id": "chase-us-iberia-visa-signature-credit-card",
+   "page": "chase-us-iberia-visa-signature-credit-card",
+   "issuer": "Chase",
+   "url": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
+   "transfer": {
+    "name": "Iberia Club",
+    "programmeId": "programme.iberia-club",
+    "linkOnly": true,
+    "quote": "Earn 3 Avios for every $1 spent on Iberia, British Airways, and Aer Lingus flight purchases."
+   },
+   "fee": {
+    "amount": 95,
+    "currency": "USD",
+    "quote": "ANNUAL FEE $95"
+   },
+   "earning": [
+    {
+     "zh": "Iberia、British Airways、Aer Lingus 和 LEVEL 直订机票",
+     "en": "Flights bought directly with Iberia, British Airways, Aer Lingus and LEVEL",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "airline",
+     "quote": "Earn 3 Avios for every $1 spent on Iberia, British Airways, and Aer Lingus flight purchases.",
+     "noteZh": "条款写明须直接向 Iberia、British Airways、LEVEL 或 Aer Lingus 购买。",
+     "noteEn": "The terms say flights bought directly with Iberia, British Airways, LEVEL and Aer Lingus."
+    },
+    {
+     "zh": "直订酒店",
+     "en": "Hotels booked directly",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "quote": "Earn 2 Avios for every $1 spent on hotel accommodations booked directly with the hotel."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1 Avios for every $1 spent on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "anniversary-avios",
+     "zh": "每个账户年2,500 Avios",
+     "en": "2,500 anniversary Avios",
+     "noteZh": "每个账户周年年度得2,500 Avios。",
+     "noteEn": "2,500 bonus Avios each account anniversary year.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "earn 2,500 anniversary bonus Avios each account anniversary year",
+     "original": {
+      "title": "2,500 anniversary Avios",
+      "summary": "2,500 bonus Avios each account anniversary year.",
+      "howToUse": [
+       "Look for the Avios in your Iberia Club account after the anniversary."
+      ]
+     },
+     "programmeIds": [
+      "programme.iberia-club"
+     ]
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "行李延误、购物保障等保障类福利未录入。附属卡年费未确认。",
+     "en": "Baggage delay, purchase protection and the other coverage benefits are not recorded. The additional card fee is not confirmed."
+    },
+    {
+     "zh": "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+     "en": "Partner offers on the page, such as DoorDash DashPass, are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "chase-us-disney-visa-card",
+   "page": "chase-us-disney-visa-card",
+   "issuer": "Chase",
+   "url": "https://creditcards.chase.com/rewards-credit-cards/disney/rewards",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "ANNUAL FEE $0"
+   },
+   "earning": [
+    {
+     "zh": "所有消费",
+     "en": "All purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn 1% in Disney Rewards Dollars on all card purchases with no limits to the amount you can earn.",
+     "noteZh": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+     "noteEn": "Earned as Disney Rewards Dollars, mainly for Disney purchases in the U.S. (and airline purchases through Pay Yourself Back); not cash."
+    }
+   ],
+   "credits": [
+    {
+     "key": "disney-shopping",
+     "zh": "Disney 购物9折",
+     "en": "10% off Disney shopping",
+     "noteZh": "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。",
+     "noteEn": "10% off select purchases at DisneyStore.com and select merchandise at select Disneyland Resort and Walt Disney World Resort locations, paid with the card.",
+     "scenario": "shopping",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Save 10% on select purchases at DisneyStore.com when you use your Disney Visa Card.",
+     "original": {
+      "title": "10% savings on Disney shopping",
+      "summary": "10% off select purchases at DisneyStore.com and select merchandise at select locations at the Disneyland Resort and Walt Disney World Resort.",
+      "howToUse": [
+       "Pay with the card at DisneyStore.com or the resort shops."
+      ],
+      "quotes": [
+       "Receive 10% off select merchandise purchases at select locations at the Disneyland Resort and Walt Disney World Resort"
+      ]
+     },
+     "programmeIds": [
+      "programme.disney"
+     ]
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "Disney 度假套餐的0%促销分期和保障类福利未录入。",
+     "en": "The 0% promotional financing on Disney vacation packages and the coverage benefits are not recorded."
+    },
+    {
+     "zh": "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+     "en": "Partner offers on the page, such as DoorDash DashPass, are not recorded."
+    },
+    {
+     "zh": "Disney Cruise Line 船上优惠和导览优惠未录入；购物9折也适用于美国 Disney Store 和 Disney Outlet 门店，只录入了网店和度假区。",
+     "en": "Disney Cruise Line onboard and guided tour savings are not recorded; the 10% shopping discount also covers U.S. Disney Store and Disney Outlet stores, and only the online store and resorts are recorded."
+    }
+   ]
+  },
+  {
+   "id": "chase-us-disney-premier-visa-card",
+   "page": "chase-us-disney-premier-visa-card",
+   "issuer": "Chase",
+   "url": "https://creditcards.chase.com/rewards-credit-cards/disney/premier",
+   "fee": {
+    "amount": 49,
+    "currency": "USD",
+    "quote": "ANNUAL FEE $49"
+   },
+   "earning": [
+    {
+     "zh": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+     "en": "Purchases made directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "entertainment",
+     "quote": "Earn 5% on card purchases made directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com.",
+     "noteZh": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+     "noteEn": "Earned as Disney Rewards Dollars, mainly for Disney purchases in the U.S. (and airline purchases through Pay Yourself Back); not cash."
+    },
+    {
+     "zh": "加油站和美国大部分 Disney 场所",
+     "en": "Gas stations and most Disney U.S. locations",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn 2% on card purchases at gas stations and most Disney U.S. locations.",
+     "noteZh": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+     "noteEn": "Earned as Disney Rewards Dollars, mainly for Disney purchases in the U.S. (and airline purchases through Pay Yourself Back); not cash."
+    },
+    {
+     "zh": "超市和餐厅",
+     "en": "Grocery stores and restaurants",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn 2% on card purchases at grocery stores and restaurants.",
+     "noteZh": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+     "noteEn": "Earned as Disney Rewards Dollars, mainly for Disney purchases in the U.S. (and airline purchases through Pay Yourself Back); not cash."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn 1% on all other card purchases.",
+     "noteZh": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+     "noteEn": "Earned as Disney Rewards Dollars, mainly for Disney purchases in the U.S. (and airline purchases through Pay Yourself Back); not cash."
+    }
+   ],
+   "credits": [
+    {
+     "key": "disney-shopping",
+     "zh": "Disney 购物9折",
+     "en": "10% off Disney shopping",
+     "noteZh": "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。",
+     "noteEn": "10% off select purchases at DisneyStore.com and select merchandise at select Disneyland Resort and Walt Disney World Resort locations, paid with the card.",
+     "scenario": "shopping",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Save 10% on select purchases at DisneyStore.com when you use your Disney Premier Visa Card.",
+     "original": {
+      "title": "10% savings on Disney shopping",
+      "summary": "10% off select purchases at DisneyStore.com and select merchandise at select locations at the Disneyland Resort and Walt Disney World Resort.",
+      "howToUse": [
+       "Pay with the card at DisneyStore.com or the resort shops."
+      ],
+      "quotes": [
+       "Receive 10% off select merchandise purchases at select locations at the Disneyland Resort and Walt Disney World Resort"
+      ]
+     },
+     "programmeIds": [
+      "programme.disney"
+     ]
+    },
+    {
+     "key": "disney-dining",
+     "zh": "Disney 度假区指定餐厅9折",
+     "en": "10% off select Disney resort dining",
+     "noteZh": "在 Disneyland 和 Walt Disney World 度假区指定餐厅用本卡消费享9折。",
+     "noteEn": "10% off at select dining locations at the Disneyland Resort and Walt Disney World Resort, paid with the card.",
+     "scenario": "dining",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Receive 10% off select dining locations at the Disneyland Resort and Walt Disney World Resort",
+     "original": {
+      "title": "10% off select Disney resort dining",
+      "summary": "10% off at select dining locations at the Disneyland Resort and Walt Disney World Resort.",
+      "howToUse": [
+       "Pay with the card at the participating restaurants."
+      ]
+     },
+     "programmeIds": [
+      "programme.disney"
+     ]
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "Disney 度假套餐的0%促销分期、Pay Yourself Back 和保障类福利未录入。",
+     "en": "The 0% promotional financing on Disney vacation packages, Pay Yourself Back and the coverage benefits are not recorded."
+    },
+    {
+     "zh": "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+     "en": "Partner offers on the page, such as DoorDash DashPass, are not recorded."
+    },
+    {
+     "zh": "Disney Cruise Line 船上优惠和导览优惠未录入；购物9折也适用于美国 Disney Store 和 Disney Outlet 门店，只录入了网店和度假区。",
+     "en": "Disney Cruise Line onboard and guided tour savings are not recorded; the 10% shopping discount also covers U.S. Disney Store and Disney Outlet stores, and only the online store and resorts are recorded."
+    }
+   ]
+  },
+  {
+   "id": "chase-us-disney-inspire-visa-card",
+   "page": "chase-us-disney-inspire-visa-card",
+   "issuer": "Chase",
+   "url": "https://creditcards.chase.com/rewards-credit-cards/disney/inspire",
+   "fee": {
+    "amount": 149,
+    "currency": "USD",
+    "quote": "ANNUAL FEE $149"
+   },
+   "earning": [
+    {
+     "zh": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+     "en": "Purchases made directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com",
+     "multiplier": 10,
+     "unit": "cashback-percent",
+     "category": "entertainment",
+     "quote": "Earn 10% on card purchases made directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com.",
+     "noteZh": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+     "noteEn": "Earned as Disney Rewards Dollars, mainly for Disney purchases in the U.S. (and airline purchases through Pay Yourself Back); not cash."
+    },
+    {
+     "zh": "加油站和美国大部分 Disney 场所",
+     "en": "Gas stations and most Disney U.S. locations",
+     "multiplier": 3,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn 3% on card purchases at gas stations and most other U.S. Disney locations.",
+     "noteZh": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+     "noteEn": "Earned as Disney Rewards Dollars, mainly for Disney purchases in the U.S. (and airline purchases through Pay Yourself Back); not cash."
+    },
+    {
+     "zh": "超市和餐厅",
+     "en": "Grocery stores and restaurants",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn 2% on card purchases at grocery stores and restaurants.",
+     "noteZh": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+     "noteEn": "Earned as Disney Rewards Dollars, mainly for Disney purchases in the U.S. (and airline purchases through Pay Yourself Back); not cash."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn 1% on all other card purchases.",
+     "noteZh": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+     "noteEn": "Earned as Disney Rewards Dollars, mainly for Disney purchases in the U.S. (and airline purchases through Pay Yourself Back); not cash."
+    }
+   ],
+   "credits": [
+    {
+     "key": "disney-streaming",
+     "zh": "Disney Streaming 抵扣",
+     "en": "Disney streaming credit",
+     "noteZh": "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。年费订阅只在购买当月得一次10美元；须每个自然年在 Chase 激活一次。",
+     "noteEn": "Yearly activation required. A $10 statement credit each month after spending $10 or more on qualifying subscriptions directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com. An annual subscription earns a one-time $10 credit in the month of purchase; activate each calendar year with Chase.",
+     "scenario": "entertainment",
+     "category": "credit",
+     "period": "calendar-month",
+     "quote": "Earn a $10 statement credit each month after spending $10 or more on qualifying subscriptions directly at DisneyPlus.com",
+     "original": {
+      "title": "Disney streaming credit",
+      "summary": "A $10 statement credit each month after spending $10 or more on qualifying subscriptions directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com; yearly activation required.",
+      "howToUse": [
+       "Activate each year, then pay the subscription directly with the card."
+      ],
+      "quotes": [
+       "Yearly activation required.",
+       "An annual subscription would only be eligible for a one-time $10.00 statement credit in the month of the purchase."
+      ]
+     },
+     "amount": 10,
+     "programmeIds": [
+      "programme.disney"
+     ],
+     "enrollment": true,
+     "terms": {
+      "partner": "Disney"
+     }
+    },
+    {
+     "key": "resort-stays",
+     "zh": "Disney 度假酒店和邮轮消费满2,000美元得200 Rewards Dollars",
+     "en": "$200 Disney Rewards Dollars after $2,000 on Disney stays",
+     "noteZh": "每个账户年在美国 Disney 度假酒店和 Disney Cruise Line 消费满2,000美元，得200美元 Disney Rewards Dollars；Adventures by Disney、National Geographic Expeditions、海外 Disney 度假区和乐园，以及单独购买的乐园门票不计。是否达标未核实。",
+     "noteEn": "$200 in Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings; Adventures by Disney, National Geographic Expeditions, international Disney resorts and parks, and park tickets bought on their own do not count. Whether you reach it is unverified.",
+     "scenario": "hotel-stay",
+     "category": "spend-unlock",
+     "period": "account-anniversary",
+     "quote": "Earn $200 Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings.",
+     "original": {
+      "title": "$200 Disney Rewards Dollars on resort stays",
+      "summary": "$200 Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings.",
+      "howToUse": [
+       "Book U.S. Disney Resort stays or Disney Cruise Line directly with Disney and pay with the card."
+      ],
+      "quotes": [
+       "Purchases made for Adventures by Disney, National Geographic Expeditions or international Disney Resorts or Parks will not qualify.",
+       "made directly with Disney (including through Disney operated websites, apps or call centers)"
+      ]
+     },
+     "amount": 200,
+     "programmeIds": [
+      "programme.disney"
+     ]
+    },
+    {
+     "key": "park-tickets",
+     "zh": "Disney 门票消费满200美元得100美元抵扣",
+     "en": "$100 credit after $200 on Disney park tickets",
+     "noteZh": "每个账户年直接向 Disney 购买美国 Disney 主题乐园门票满200美元，得100美元账单抵扣；度假套餐内的门票不计。是否达标未核实。",
+     "noteEn": "A $100 statement credit after spending $200 per anniversary year on U.S. Disney Theme Park Tickets bought directly with Disney; tickets in vacation packages do not count. Whether you reach it is unverified.",
+     "scenario": "entertainment",
+     "category": "spend-unlock",
+     "period": "account-anniversary",
+     "quote": "Earn a $100 Statement Credit after spending $200 per anniversary year on U.S. Disney Theme Park Tickets.",
+     "original": {
+      "title": "$100 statement credit on park tickets",
+      "summary": "A $100 statement credit after spending $200 per anniversary year on U.S. Disney Theme Park Tickets.",
+      "howToUse": [
+       "Buy U.S. Disney Theme Park Tickets with the card."
+      ],
+      "quotes": [
+       "Disney Theme Park tickets purchased as part of Disney Vacation Packages will not qualify."
+      ]
+     },
+     "amount": 100,
+     "programmeIds": [
+      "programme.disney"
+     ]
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "Disney 度假套餐的0%促销分期、Pay Yourself Back、园区购物和餐饮折扣及保障类福利未录入。",
+     "en": "The 0% promotional financing on Disney vacation packages, Pay Yourself Back, park shopping and dining discounts and the coverage benefits are not recorded."
+    },
+    {
+     "zh": "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+     "en": "Partner offers on the page, such as DoorDash DashPass, are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "chase-us-chase-freedom-rise-credit-card",
+   "page": "chase-us-chase-freedom-rise-credit-card",
+   "issuer": "Chase",
+   "url": "https://creditcards.chase.com/cash-back-credit-cards/freedom/rise",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "ANNUAL FEE $0"
+   },
+   "earning": [
+    {
+     "zh": "所有消费",
+     "en": "All purchases",
+     "multiplier": 1.5,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "earn 1.5% cash back on all purchases."
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "开户三个月内登记自动还款得25美元属于新开户优惠，未录入。每年升级 Freedom Unlimited 的评估和保障类福利未录入。",
+     "en": "The $25 for enrolling in automatic payments within three months of opening is a new-account offer and is not recorded. The yearly Freedom Unlimited upgrade review and the coverage benefits are not recorded."
+    },
+    {
+     "zh": "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+     "en": "Partner offers on the page, such as DoorDash DashPass, are not recorded."
+    }
+   ]
+  }
+ ]
+}
