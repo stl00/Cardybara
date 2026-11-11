@@ -43,31 +43,41 @@ export function pickerEntries(products,label=p=>p.name){
    ...brandTerms(product).map(text=>({text,kind:'brand'})),
    ...bankTerms(product.bank).map(text=>({text,kind:'bank'})),
    ...regionTerms(product.region).map(text=>({text,kind:'region'})),
-  ].map(f=>({...f,key:normalizeSearch(f.text)})).filter(f=>f.key),
+  ].map(f=>({...f,key:normalizeSearch(f.text),words:String(f.text).replace(/[®™℠]/g,'').normalize('NFKC').split(/[^\p{L}\p{N}]+/u).map(normalizeSearch).filter(Boolean)})).filter(f=>f.key),
  }));
 }
 
 const WEIGHT={name:30,alias:20,brand:10,bank:4,region:4};
-// A region matches only as a whole word, so "united" never means "United States".
-const fieldScore=(key,q,kind)=>key===q?3:kind==='region'?0:key.startsWith(q)?2:key.includes(q)?1:0;
+// Typing a bank or a region by its exact name ("SC", "美国") ranks its cards above names that merely contain it.
+const EXACT_PLACE=90;
+// A region matches only as a whole word, so "united" never means "United States". A short Latin query matches the
+// start of a name or a word only, so "sc" never matches across "Reward[s C]ard" or "aa" inside "Air Canada Aeroplan".
+const short=q=>q.length<=3&&/^[a-z0-9]+$/.test(q);
+function fieldScore(f,q){
+ if(f.key===q)return f.kind==='bank'||f.kind==='region'?EXACT_PLACE:3*WEIGHT[f.kind];
+ if(f.kind==='region')return 0;
+ if(f.key.startsWith(q))return 2*WEIGHT[f.kind];
+ if(f.words.some(w=>w.startsWith(q)))return 1.5*WEIGHT[f.kind];
+ return !short(q)&&f.key.includes(q)?WEIGHT[f.kind]:0;
+}
 /**
  * How well an entry matches, or 0. The whole query without spaces is tried first ("sapphirereserve" and
  * "Sapphire  Reserve" both find Sapphire Reserve); otherwise every word must appear in some field.
  */
 export function scoreEntry(entry,query){
  const q=normalizeSearch(query);if(!q)return 1;
- let best=0;for(const f of entry.fields)best=Math.max(best,fieldScore(f.key,q,f.kind)*WEIGHT[f.kind]);
+ let best=0;for(const f of entry.fields)best=Math.max(best,fieldScore(f,q));
  if(best)return best;
  const words=String(query).split(/\s+/).map(normalizeSearch).filter(Boolean);
  if(words.length<2)return 0;
  let total=0;
- for(const w of words){let s=0;for(const f of entry.fields)s=Math.max(s,fieldScore(f.key,w,f.kind)*WEIGHT[f.kind]);if(!s)return 0;total+=s;}
+ for(const w of words){let s=0;for(const f of entry.fields)s=Math.max(s,fieldScore(f,w));if(!s)return 0;total+=s;}
  return total/words.length/2;
 }
-/** The alias or brand that matched when the shown name does not, so the tile can say why it is there. */
+/** The catalogue name, alias or brand that matched when the shown name does not, so the tile can say why it is there. */
 export function matchedVia(entry,query){
  const q=normalizeSearch(query);if(!q||normalizeSearch(entry.label).includes(q))return null;
- return entry.fields.find(f=>(f.kind==='alias'||f.kind==='brand')&&f.key.includes(q))?.text||null;
+ return entry.fields.find(f=>['name','alias','brand'].includes(f.kind)&&f.text!==entry.label&&fieldScore(f,q)>0)?.text||null;
 }
 
 const byName=(a,b)=>Number(a.business)-Number(b.business)||a.label.localeCompare(b.label);

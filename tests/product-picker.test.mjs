@@ -37,6 +37,10 @@ test('search matches aliases, ignoring case and spacing',()=>{
  // Words in any order, each found somewhere.
  assert.equal(first('cash ink'),'chase-us-ink-business-cash-credit-card');
  assert.deepEqual(ids('no such card zzz'),[]);
+ // A short query never matches across words, and an exact bank or region name leads.
+ assert.ok(first('sc').startsWith('sc-hk-'),first('sc'));
+ assert.ok(!ids('aa').includes('chase-us-air-canada-aeroplan-card'));
+ assert.ok(['Chase','Amex US','BOA','Citi US'].includes(groupEntries(entries,{query:'美国'})[0].bank));
 });
 
 test('co-brands are found by brand, in English and Chinese, across banks',()=>{
@@ -91,6 +95,8 @@ test('highlights follow the same matching as the search',()=>{
  const marriott=entries.find(e=>e.id==='chase-us-marriott-bonvoy-bold-credit-card');
  assert.equal(matchedVia(marriott,'万豪'),'万豪');
  assert.equal(matchedVia(marriott,'marriott'),null,'the shown name already matches');
+ const zh=pickerEntries(products.filter(p=>p.id==='amex-hk-hk-the-platinum-card'),p=>productDisplayName(p.id,'zh-CN'))[0];
+ assert.equal(matchedVia(zh,'the platinum'),'The Platinum Card','an English name shows why a Chinese tile matched');
 });
 
 test('the panel shows only a product\'s own art, and its strings exist in three languages',()=>{

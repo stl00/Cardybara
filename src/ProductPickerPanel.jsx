@@ -41,7 +41,6 @@ export default function ProductPickerPanel({open,onClose,afterClose,onChoose,onO
  const groups=useMemo(()=>groupEntries(entries,{query,bank,type,pinned}),[entries,query,bank,type,pinned.join()]);
  const flat=groups.flatMap(g=>g.items);
  useEffect(()=>{setActive(0);if(list.current)list.current.scrollTop=0;},[query,bank,type]);
- useEffect(()=>{if(!open){setQuery('');setBank(null);setType('all');setActive(0);}},[open]);
  useEffect(()=>{if(fromKeys.current)document.getElementById(`product-tile-${flat[active]?.id}`)?.scrollIntoView({block:'nearest'});fromKeys.current=false;},[active]);
  const choose=entry=>entry&&onChoose(entry.id,entry.product);
  // Up and down follow the grid as drawn, so they work across group headers and any column count.
@@ -60,11 +59,12 @@ export default function ProductPickerPanel({open,onClose,afterClose,onChoose,onO
   else if(e.key==='ArrowRight'&&!inInput)move(active+1);
   else if(e.key==='ArrowLeft'&&!inInput)move(active-1);
   // A focused tile is the active one, so Enter chooses the same tile from the search box or the grid.
-  else if(e.key==='Enter'&&(inInput||e.target.closest?.('.product-tile'))){e.preventDefault();choose(flat[active]);}
+  else if(e.key==='Enter'&&(inInput||e.target.closest?.('.product-tile'))){e.preventDefault();choose(inInput?flat[active]:flat.find(x=>x.id===e.target.closest('.product-tile').dataset.productId));}
+  else if(e.key===' '&&e.target.closest?.('.product-tile')){e.preventDefault();choose(flat.find(x=>x.id===e.target.closest('.product-tile').dataset.productId));}
   else if(!inInput&&e.key.length===1&&!e.metaKey&&!e.ctrlKey&&!e.altKey)input.current?.focus();
  };
  const other=onOther&&<Button className="product-picker-other" type="dashed" block onClick={()=>onOther(bank)}>{t('找不到我的卡')}<Text type="secondary" style={{marginInlineStart:6}}>{t('（自己填写卡名）')}</Text></Button>;
- return <Modal className={`product-picker-modal${narrow?' narrow':''}`} title={title||t('选择卡种')} open={open} onCancel={onClose} footer={null} width={narrow?'100%':920} destroyOnHidden centered={!narrow} afterOpenChange={o=>o?input.current?.focus():afterClose?.()}>
+ return <Modal className={`product-picker-modal${narrow?' narrow':''}`} title={title||t('选择卡种')} open={open} onCancel={onClose} footer={null} width={narrow?'100%':920} destroyOnHidden centered={!narrow} afterOpenChange={o=>{if(o)input.current?.focus();else{setQuery('');setBank(null);setType('all');setActive(0);afterClose?.();}}}>
   <div className="product-picker" onKeyDown={onKeyDown}>
    <Input ref={input} className="product-picker-search" size="large" autoFocus allowClear prefix={<SearchOutlined/>} value={query} onChange={e=>setQuery(e.target.value)}
     placeholder={t('搜索卡名、品牌或银行，例如 Sapphire、Marriott、万豪')} aria-label={t('搜索卡种')} role="combobox" aria-expanded aria-controls="product-picker-list" aria-activedescendant={flat[active]?`product-tile-${flat[active].id}`:undefined}/>
@@ -76,20 +76,20 @@ export default function ProductPickerPanel({open,onClose,afterClose,onChoose,onO
     {hasBusiness&&<Segmented size="small" value={type} onChange={setType} options={[{value:'all',label:t('全部')},{value:'personal',label:t('个人卡')},{value:'business',label:t('商务卡')}]}/>}
    </Flex>}
    <div className="product-picker-list" id="product-picker-list" role="listbox" aria-label={t('卡种')} ref={list}>
-    {groups.map(g=><section key={g.bank} className="product-picker-group" aria-label={g.bank}>
+    {groups.map(g=><section key={g.bank} className="product-picker-group" role="group" data-bank={g.bank} aria-label={bankName(g.bank)}>
      <div className="product-picker-group-head"><BankIdentity bank={g.bank} size={18}/><Text type="secondary">{t('{0} 种',[g.items.length])}</Text></div>
      <div className="product-picker-grid">{g.items.map(entry=>{const i=flat.indexOf(entry),via=matchedVia(entry,query);
       return <button type="button" key={entry.id} id={`product-tile-${entry.id}`} data-product-id={entry.id} role="option" aria-selected={i===active} tabIndex={i===active?0:-1}
-       className={`product-tile${i===active?' active':''}${entry.id===selectedId?' selected':''}`} onClick={()=>choose(entry)} onMouseMove={()=>i!==active&&setActive(i)}>
+       className={`product-tile${i===active?' active':''}${entry.id===selectedId?' selected':''}`} onClick={()=>choose(entry)} onFocus={()=>i!==active&&setActive(i)} onMouseMove={()=>i!==active&&setActive(i)}>
        <ProductArt product={entry.product} label={entry.label}/>
        <span className="product-tile-name"><Highlight text={entry.label} query={query}/></span>
        {via&&<span className="product-tile-via"><Highlight text={via} query={query}/></span>}
        <span className="product-tile-meta"><RegionFlag region={entry.region}/><span className="product-tile-bank">{bankName(entry.bank)}</span>{entry.business&&<Tag color="geekblue">{t('商务')}</Tag>}{badges[entry.id]}</span>
       </button>;})}</div>
     </section>)}
-    {!flat.length&&<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t('没有匹配的卡种')}/>}
-    {other&&<div className="product-picker-end">{other}</div>}
    </div>
+   {!flat.length&&<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t('没有匹配的卡种')}/>}
+   {other&&<div className="product-picker-end">{other}</div>}
   </div>
  </Modal>;
 }

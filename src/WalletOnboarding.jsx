@@ -28,7 +28,7 @@ export function AddWalletCard({onAdd}){
  const submit=async()=>{try{const value=await form.validateFields();onAdd({...value,bank:product?product.bank:value.bank,productId:product?product.id:null});form.resetFields();setError('');close();}catch(e){if(!e.errorFields)setError(t(e.message==='duplicate_card'?'这家银行的同一尾号卡片已经在钱包里。':'卡片未保存，请检查信息或浏览器存储空间。'));}};
  return <><Button onClick={start}>{t('添加卡片')}</Button>
  <ProductPickerPanel open={open&&picking} onClose={closePicker} afterClose={focusTail} products={products} title={t('添加卡片：选择卡种')} selectedId={product?.id}
-  onChoose={id=>{setChoice(id);setPicking(false);}} onOther={bank=>{setChoice(OTHER_PRODUCT);setOtherBank(bank||undefined);setPicking(false);}}/>
+  onChoose={id=>{setChoice(id);setPicking(false);}} onOther={bank=>{setChoice(OTHER_PRODUCT);setOtherBank(bank||undefined);if(bank&&form.getFieldInstance?.('bank'))form.setFieldsValue({bank});setPicking(false);}}/>
  <Modal className="add-card-modal" title={t('添加自己的卡片')} open={open&&choice!==undefined} afterOpenChange={o=>o&&focusTail()} onCancel={close} onOk={submit} okText={t('保存卡片')} cancelText={t('取消')} destroyOnHidden>
   <Alert type="info" showIcon title={t('只填写卡种和尾号，不要填写完整卡号、密码或验证码。')} style={{marginBottom:20}}/>
   <Form form={form} layout="vertical" className="add-card-form" preserve={false}>

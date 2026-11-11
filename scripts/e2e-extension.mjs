@@ -683,7 +683,7 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate,q
  await evaluate('wallet','location.hash="wallet"');
  await until('the add-card button',()=>press('button','添加卡片'));
  // The panel opens on the bank groups, Chase first.
- await until('the product panel grouped by bank, Chase first',()=>evaluate('wallet',`document.querySelector('.product-picker-modal .product-picker-group')?.getAttribute('aria-label')==='Chase'`));
+ await until('the product panel grouped by bank, Chase first',()=>evaluate('wallet',`document.querySelector('.product-picker-modal .product-picker-group')?.dataset.bank==='Chase'`));
  await pick(query??product.name,product.id);
  await until('the chosen product with its art',()=>evaluate('wallet',`(()=>{const c=document.querySelector('.add-card-form .chosen-product');return !!c?.querySelector('img')&&c.innerText.includes(${JSON.stringify(product.name)});})()`));
  await type('.add-card-tail',TAIL);
@@ -729,7 +729,7 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate,q
  await openCard('1234');
  const before=new Set(((await local('cardybara-card-products-v1'))||[]).map(c=>c.cardId));
  await until('the change-card-type button',()=>evaluate('wallet',`(()=>{const b=document.querySelector('.ant-drawer-open .card-product-choose');if(!b)return false;b.click();return true;})()`));
- if(!await until('a product panel holding only the card\'s bank',()=>evaluate('wallet',`(()=>{const g=[...document.querySelectorAll('.product-picker-modal .product-picker-group')];return g.length===1&&g[0].getAttribute('aria-label')==='Chase';})()`)))throw new StepError('no scoped product panel');
+ if(!await until('a product panel holding only the card\'s bank',()=>evaluate('wallet',`(()=>{const g=[...document.querySelectorAll('.product-picker-modal .product-picker-group')];return g.length===1&&g[0].dataset.bank==='Chase';})()`)))throw new StepError('no scoped product panel');
  await pick(product.name,product.id);
  const corrected=await until('the corrected card type to be stored',async()=>((await local('cardybara-card-products-v1'))||[]).find(c=>!before.has(c.cardId)));
  if(corrected.productId!==product.id)throw new StepError('the corrected card type was stored wrongly: '+JSON.stringify(corrected));
