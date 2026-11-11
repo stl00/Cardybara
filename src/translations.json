@@ -1805,7 +1805,6 @@
     "同一积分池的读数；合计只计一次。": "Reading of a shared pool; the total counts it once.",
     "每张卡独立账户，按卡相加（{0} 张卡）": "One account per card, added up ({0} cards)",
     "这张卡自己的积分账户，已计入合计；不能用于其他卡。": "This card's own points account, included in the total; not usable on other cards.",
-    "每张卡独立账户，按卡相加（{0} 张卡）；可在同一持卡人的卡之间合并": "One account per card, added up ({0} cards); points can be combined between the same cardholder's cards",
     "这张卡自己的积分账户，已计入合计；可合并到同一持卡人的其他卡。": "This card's own points account, included in the total; it can be combined into the same cardholder's other cards.",
     "合计": "Total",
     "同一积分池的卡读数不同：新开的卡可能还没有关联到积分池，合计按最新读数。": "Cards of one pool show different balances: a newly opened card may not be linked to the pool yet. The total uses the newest reading.",
@@ -1821,7 +1820,11 @@
     "Chase · 合并信用卡积分": "Chase · Combining credit card points",
     "One Mile at a Time · 合并 Ultimate Rewards 积分": "One Mile at a Time · Combining Ultimate Rewards points",
     "各卡读数时间不同，采集日期按最早的读数。": "Card readings were taken at different times; the date shown is the oldest.",
-    "{0} 条没有对应卡片的历史记录未计入合计，避免重复计算。": "{0} stored records with no card are left out of the total, so nothing is counted twice."
+    "{0} 条没有对应卡片的历史记录未计入合计，避免重复计算。": "{0} stored records with no card are left out of the total, so nothing is counted twice.",
+    "{0} 张卡合计；同一持卡人的卡之间可以合并": "Total of {0} cards; points can be combined between the same cardholder's cards",
+    "按卡查看": "By card",
+    "积分池": "Points pool",
+    "合计（可合并）": "Total (combinable)"
   },
   "zh-TW": {
     "美国": "美國",
@@ -3629,7 +3632,6 @@
     "同一积分池的读数；合计只计一次。": "同一積分池的讀數；合計只計一次。",
     "每张卡独立账户，按卡相加（{0} 张卡）": "每張卡獨立帳戶，按卡相加（{0} 張卡）",
     "这张卡自己的积分账户，已计入合计；不能用于其他卡。": "這張卡自己的積分帳戶，已計入合計；不能用於其他卡。",
-    "每张卡独立账户，按卡相加（{0} 张卡）；可在同一持卡人的卡之间合并": "每張卡獨立帳戶，按卡相加（{0} 張卡）；可在同一持卡人的卡之間合併",
     "这张卡自己的积分账户，已计入合计；可合并到同一持卡人的其他卡。": "這張卡自己的積分帳戶，已計入合計；可合併到同一持卡人的其他卡。",
     "合计": "合計",
     "同一积分池的卡读数不同：新开的卡可能还没有关联到积分池，合计按最新读数。": "同一積分池的卡讀數不同：新開的卡可能還沒有關聯到積分池，合計按最新讀數。",
@@ -3645,6 +3647,10 @@
     "Chase · 合并信用卡积分": "Chase · 合併信用卡積分",
     "One Mile at a Time · 合并 Ultimate Rewards 积分": "One Mile at a Time · 合併 Ultimate Rewards 積分",
     "各卡读数时间不同，采集日期按最早的读数。": "各卡讀數時間不同，採集日期按最早的讀數。",
-    "{0} 条没有对应卡片的历史记录未计入合计，避免重复计算。": "{0} 條沒有對應卡片的歷史記錄未計入合計，避免重複計算。"
+    "{0} 条没有对应卡片的历史记录未计入合计，避免重复计算。": "{0} 條沒有對應卡片的歷史記錄未計入合計，避免重複計算。",
+    "{0} 张卡合计；同一持卡人的卡之间可以合并": "{0} 張卡合計；同一持卡人的卡之間可以合併",
+    "按卡查看": "按卡查看",
+    "积分池": "積分池",
+    "合计（可合并）": "合計（可合併）"
   }
 }

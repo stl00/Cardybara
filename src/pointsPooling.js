@@ -65,13 +65,18 @@ const time=r=>Date.parse(r.capturedAt||r.date||'')||0;
  * (combinable or not): the newest reading of each card, added up once. A stored record with no card is used only when
  * the programme has no card reading, since adding it to card readings could count the same points twice.
  */
+/** How a programme's balances are shown (#204): a shared pool is one entry with no per-card rows; a combinable
+ * programme is one combined entry with the per-card split folded away; a per-card programme keeps a row per card. */
+export const POOLING_DISPLAY={shared:'pooled-only','per-card-combinable':'combined-with-detail','per-card':'per-card-rows'};
+/** True when a balance row is shown only inside its programme's pooled or combined entry, not as a card of its own. */
+export const shownInPooledEntry=row=>{const rule=poolingRuleForRow(row);return !!rule&&rule.pooling!=='per-card'&&Number.isFinite(row.amount);};
 export function programmeTotals(rows=[]){
  const groups=new Map(),covered=new Set();
  for(const row of rows){const rule=poolingRuleForRow(row);if(!rule||!Number.isFinite(row.amount))continue;(groups.get(rule)||groups.set(rule,[]).get(rule)).push(row);covered.add(row);}
  const totals=[...groups.entries()].map(([rule,list])=>{
   const latest=new Map();for(const r of list.filter(r=>r.card))if(!latest.has(r.card)||time(latest.get(r.card))<time(r))latest.set(r.card,r);
   const perCard=[...latest.values()],records=list.filter(r=>!r.card).sort((a,b)=>time(b)-time(a));
-  const base={ruleId:rule.id,programmeId:rule.programmeId,bank:rule.bank,region:rule.region,label:rule.label,unit:'points',pooling:rule.pooling,ownerOverride:rule.ownerOverride,cardCount:perCard.length};
+  const base={display:POOLING_DISPLAY[rule.pooling],ruleId:rule.id,programmeId:rule.programmeId,bank:rule.bank,region:rule.region,label:rule.label,unit:'points',pooling:rule.pooling,ownerOverride:rule.ownerOverride,cardCount:perCard.length};
   if(rule.pooling==='shared'){
    const newest=[...perCard,...records].sort((a,b)=>time(b)-time(a))[0];
    // Cards of one pool show one balance; different amounts mean a card may not be linked yet (the caveat).
@@ -80,7 +85,7 @@ export function programmeTotals(rows=[]){
   if(!perCard.length)return {...base,amount:records[0].amount,date:records[0].date,capturedAt:records[0].capturedAt||null,basis:'record',notCounted:records.slice(1).length};
   // A sum is only as fresh as its oldest card reading, so that date is the one shown.
   const ordered=perCard.toSorted((a,b)=>time(a)-time(b)),oldest=ordered[0];
-  return {...base,amount:perCard.reduce((n,r)=>n+r.amount,0),date:oldest.date,capturedAt:oldest.capturedAt||null,basis:'sum-of-cards',notCounted:records.length,readingsSpanDays:Math.round((time(ordered.at(-1))-time(oldest))/86400000)};
+  return {...base,breakdown:perCard.map(r=>({card:r.card,amount:r.amount,date:r.date})),amount:perCard.reduce((n,r)=>n+r.amount,0),date:oldest.date,capturedAt:oldest.capturedAt||null,basis:'sum-of-cards',notCounted:records.length,readingsSpanDays:Math.round((time(ordered.at(-1))-time(oldest))/86400000)};
  });
  return {totals,covered};
 }
@@ -90,6 +95,8 @@ export function poolingExplanation(rule){
  return {programme:rule.label,region:rule.region,bank:rule.bank,pooling:rule.pooling,
   ownerOverride:rule.ownerOverride,...(rule.ownerOverride?{ownerOverrideNote:'Stated by the cardholder and used as the default; public sources below are support and caveats, not overrides.'}:{}),
   balances:rule.pooling==='shared'?'one pool: count the balance once, never per card':'one account per card: add the card balances up once',
+  // How to present balances for this programme (#204), matching the wallet's rewards page and overview.
+  present:{shared:'One pooled entry only: never list per-card balances for this programme, even if each card shows the pool.','per-card-combinable':'One combined total as the main answer; give the per-card split only if the user asks for it.','per-card':'One row per card, then their total; the cards stay separate accounts.'}[rule.pooling],
   usableOnAnotherCard:rule.pooling==='per-card'?false:true,
   transferReach:rule.pooling==='per-card'?'own card only: a card without its own transfer partners cannot use another card\'s partners':rule.pooling==='shared'?'the pool reaches the partners of every card in it':'union of the holder\'s cards, after combining points into the card that transfers',
   summary:rule.summaryEn,caveats:rule.caveats.map(c=>({id:c.id,summary:c.summaryEn,...(c.since?{since:c.since}:{}),sources:sourceView(c.sourceIds)})),
@@ -104,5 +111,5 @@ export function rewardSummary(current=[]){
 export const POOLING_TEXT={
  shared:{total:'共用积分池，只计一次（{0} 张卡）',reading:'同一积分池的读数；合计只计一次。'},
  'per-card':{total:'每张卡独立账户，按卡相加（{0} 张卡）',reading:'这张卡自己的积分账户，已计入合计；不能用于其他卡。'},
- 'per-card-combinable':{total:'每张卡独立账户，按卡相加（{0} 张卡）；可在同一持卡人的卡之间合并',reading:'这张卡自己的积分账户，已计入合计；可合并到同一持卡人的其他卡。'},
+ 'per-card-combinable':{total:'{0} 张卡合计；同一持卡人的卡之间可以合并',reading:'这张卡自己的积分账户，已计入合计；可合并到同一持卡人的其他卡。'},
 };
