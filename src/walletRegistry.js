@@ -45,7 +45,17 @@ export function editManualCard(registry,card,patch,others=[]){
 // A removal outlives the seed, an imported snapshot and a discovery record that has not been cleared yet.
 export const WALLET_REMOVED_KEY='cardybara-wallet-removed-v1';
 const removedRow=(card,removed)=>removed.some(r=>r.id===card.id||(card.identitySource==='bank-page'&&r.bank===card.bank&&r.tail===card.tail));
-export const withoutRemoved=(base,removed=[])=>({...base,cards:base.cards.filter(c=>!removedRow(c,removed))});
+// Snapshot rows that name a card go with it. They are hidden, not deleted: the stored snapshot keeps them, so adding the
+// card back by import brings them back. Rows without a card id are the legacy 'gold' card's, as the pages show them.
+// Reward accounts are pools, not cards, and stay; user-entered ledgers live outside the snapshot and are never touched.
+const CARD_ROWS={transactions:'gold',benefits:'gold',offers:null,spendingGoals:null,rewardObservations:null,benefitProgress:null};
+export function withoutRemoved(base,removed=[]){
+ const cards=base.cards.filter(c=>!removedRow(c,removed));
+ const gone=new Set(base.cards.filter(c=>removedRow(c,removed)).map(c=>c.id));
+ if(!gone.size)return {...base,cards};
+ const rows=Object.fromEntries(Object.entries(CARD_ROWS).filter(([k])=>Array.isArray(base[k])).map(([k,legacy])=>[k,base[k].filter(r=>!gone.has(r?.card??legacy))]));
+ return {...base,...rows,cards};
+}
 export const withoutRemovedCards=(cards,removed=[])=>cards.filter(c=>!removedRow(c,removed));
 export function removeWalletCard(registry,removed,card){
  // A registry row with this tail is this card, or was hidden by it when the wallet merged duplicates.
