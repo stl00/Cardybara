@@ -12,7 +12,7 @@ Install guide for testers: [docs/BETA-INSTALL.md](../BETA-INSTALL.md).
 
 ### 支持的银行
 - **Chase**（美国）和 **American Express 美国**。
-- 这个版本不提供连接 American Express 香港、Bank of America、香港汇丰、香港渣打和 Citi。这些银行的卡片可以手动添加到钱包（看福利、问用卡助手），但余额和账单不会自动读取。
+- 这个版本不提供连接 American Express 香港、Bank of America、香港汇丰、香港渣打和 Citi。这些银行的卡片可以手动添加到钱包，但余额和账单不会自动读取，很多卡种也还没有福利规则。
 - **Bilt** 卡（Blue、Obsidian、Palladium）只能手动添加：不连接银行，余额、账单和 Bilt Rewards 积分都不读取。
 
 ### 从银行读取什么
@@ -36,12 +36,12 @@ Install guide for testers: [docs/BETA-INSTALL.md](../BETA-INSTALL.md).
 ### 这个版本还有什么
 - 总览里的“这笔消费，用哪张卡？”：选消费类别，直接给出建议用的卡和其他选择，按你的持卡规则和积分估值计算，不含限时优惠。
 - 卡片详情和“添加卡片”里，从带卡面的列表里选卡种。
-- American Express 美国和 Chase 的卡种显示发卡机构公开的卡面图片。
+- Chase 和大部分 American Express 美国卡种显示发卡机构公开的卡面图片。
 
 ### 隐私
 - 钱包数据保存在这台电脑的 Chrome 里，不上传，也不同步。
-- 用卡助手在 Cardybara 服务上运行：服务收到你的问题、持有的卡种和助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单。服务不保存这些内容，只记录邀请码编号、时间、用量和状态。
-- AI 识别卡种默认关闭；开启后会把未识别卡片的银行、地区和卡名（不含尾号和金额）经 Cardybara 服务发给 AI。
+- 用卡助手在 Cardybara 服务上运行：服务收到你的问题、这次对话的前文、持有的卡种、积分估值、每张卡是否填了年费日，以及助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单。服务不保存这些内容，只记录邀请码编号、时间、用量和状态。
+- AI 识别卡种默认关闭；开启后，或你在卡片详情里点“用 AI 推测卡种”时，会把未识别卡片的银行、地区和卡名（不含尾号和金额）经 Cardybara 服务发给 AI。
 - 没有广告，也没有使用统计。
 - 卸载扩展会删除扩展里的数据；需要保留的话，先在“数据管理 → 导出备份”。
 
@@ -50,7 +50,7 @@ Install guide for testers: [docs/BETA-INSTALL.md](../BETA-INSTALL.md).
 - 银行页面没有印年份的日期，按读取当天推断最近的年份，并标明“年份按读取日期推断”。
 - 没读到的金额保持未知，不按零计算；银行页面改版可能让读取暂时失败。
 - 只在你点击刷新时读取，不会在后台自动刷新；需要手机验证时要你本人在银行完成。
-- 少数卡种只有名称和卡面，没有福利和返现规则：American Express Green，以及 Chase Slate、Slate Edge、DoorDash、Instacart。
+- Chase 和 American Express 美国里，少数卡种只有名称和卡面，没有福利和返现规则：American Express Green，以及 Chase Slate、Slate Edge、DoorDash、Instacart。其他银行的很多卡种暂时只有名称，没有福利规则。
 - 部分卡种还没有卡面图片，显示占位图。
 - 只在 Chrome 桌面版测试过。
 
@@ -67,7 +67,7 @@ This is a beta for friends, not a Chrome Web Store release.
 
 ### Supported banks
 - **Chase** (US) and **American Express US**.
-- American Express Hong Kong, Bank of America, HSBC Hong Kong, Standard Chartered Hong Kong and Citi cannot be connected in this version. You can add their cards by hand (for benefits and the assistant), but their balances and statements are not read.
+- American Express Hong Kong, Bank of America, HSBC Hong Kong, Standard Chartered Hong Kong and Citi cannot be connected in this version. You can add their cards by hand, but their balances and statements are not read, and many of their cards have no benefit rules yet.
 - **Bilt** cards (Blue, Obsidian, Palladium) can only be added by hand: the bank is not connected, and balances, statements and Bilt Rewards points are not read.
 
 ### What is read from the bank
@@ -91,12 +91,12 @@ This is a beta for friends, not a Chrome Web Store release.
 ### Also in this version
 - "Which card for this purchase?" on the overview: pick a category and it shows the card to use and the other choices, from your cards' rules and your point valuations, without limited-time offers.
 - In card details and **Add card**, pick the product from a list with card images.
-- American Express US and Chase cards show the issuer's published card image.
+- Chase cards and most American Express US cards show the issuer's published card image.
 
 ### Privacy
 - Your wallet stays in Chrome on this computer; it is not uploaded or synced.
-- The assistant runs on the Cardybara service: it receives your question, the card products you hold and the wallet lookups the assistant asks for, and passes them to an AI model; it does not receive card numbers, balances or statements. The service does not store any of it; it records only the invite code's id, time, usage and status.
-- AI card recognition is off by default; when on, it sends an unrecognised card's bank, region and name (no tail or amounts) through the Cardybara service to the AI.
+- The assistant runs on the Cardybara service: it receives your question, the earlier turns of the conversation, the card products you hold, your point valuations, whether each card has an annual fee date, and the wallet lookups the assistant asks for, and passes them to an AI model; it does not receive card numbers, balances or statements. The service does not store any of it; it records only the invite code's id, time, usage and status.
+- AI card recognition is off by default; when you turn it on, or click “Ask AI for the card type” in card details, the unrecognised card's bank, region and name (no tail or amounts) go through the Cardybara service to the AI.
 - No ads and no usage analytics.
 - Uninstalling the extension deletes its data; export a backup first (Data → Export backup) if you want to keep it.
 
@@ -105,7 +105,7 @@ This is a beta for friends, not a Chrome Web Store release.
 - A date printed without a year gets the year nearest the day it was read, marked as inferred.
 - Amounts that weren't read stay unknown, never zero; a bank page redesign can break reading for a while.
 - It reads only when you click refresh, never in the background; phone confirmations must be done by you at the bank.
-- A few cards have only a name and image, with no benefit or earning rules: American Express Green, and Chase Slate, Slate Edge, DoorDash and Instacart.
+- Among Chase and American Express US cards, a few have only a name and image, with no benefit or earning rules: American Express Green, and Chase Slate, Slate Edge, DoorDash and Instacart. Many cards of other banks have only a name for now, with no benefit rules.
 - Some cards have no card image yet and show a placeholder.
 - Tested on desktop Chrome only.
 

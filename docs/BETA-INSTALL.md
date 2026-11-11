@@ -29,11 +29,11 @@ For the build described in [release-notes/beta-1.md](release-notes/beta-1.md). T
 不输入邀请码也能正常使用钱包，只是没有聊天助手。邀请码只给你自己用，不要转发。
 
 ### 5. 连接 Chase 和 Amex US
-1. 点“连接第一家银行”，或在左侧打开“银行连接”，在 Chase 或 American Express 美国 卡片上点“连接银行”（读过一次以后这个按钮叫“刷新银行”）。
+1. 点“连接第一家银行”或左侧的“银行连接”，进入银行连接页，在 Chase 或 American Express 美国 下面点“连接银行”（钱包里已经有这家银行的卡时，按钮叫“刷新银行”）。
 2. 扩展会打开银行官网。**你自己**登录、输入密码、完成手机验证——这些只交给银行。
 3. 登录后页面上会出现 Cardybara 的引导条，钱包自动读取；如果没有自动开始，在引导条点“读取本页”。
 4. 回到钱包查看结果。没读到的项目保持未知，不会填零。
-其他银行在这个版本里不提供连接；它们的卡（包括 Bilt）可以用“添加卡片”手动记下：先从带卡面的列表里选卡种，再填尾号，不要填完整卡号。余额不会自动更新。
+其他银行在这个版本里不提供连接；它们的卡（包括 Bilt）可以用“添加卡片”手动记下：先从卡种列表里选（有些卡种还没有卡面，显示占位图），再填尾号，不要填完整卡号。余额不会自动更新。
 
 ### 6. 钱包会读取什么、不会读取什么
 - 会读取：每张卡的余额、账单金额、最低还款、还款日；Amex Membership Rewards 和 Chase Ultimate Rewards 积分。
@@ -80,11 +80,11 @@ The first time, the wallet is empty: the top of the page says **Welcome to your 
 The wallet works without a code, just without the chat assistant. The code is for you only; don't pass it on.
 
 ### 5. Connect Chase and Amex US
-1. Click **Connect your first bank**, or open **Bank connections** on the left, and click **Connect bank** on Chase or American Express US (after the first read the button is called **Refresh bank**).
+1. Click **Connect your first bank** or **Bank connections** on the left to open the bank connections page, then click **Connect bank** under Chase or American Express US (once the wallet holds a card of that bank, the button is called **Refresh bank**).
 2. The extension opens the bank's site. **You** sign in, enter your password and confirm on your phone — these go only to the bank.
 3. After sign-in, the Cardybara guide bar appears and the wallet reads automatically; if it doesn't start, click **读取本页** ("read this page") on the guide bar.
 4. Go back to the wallet to see the results. Anything not read stays unknown; it is never filled with zero.
-Other banks can't be connected in this version; you can still note their cards (Bilt included) with **Add card**: pick the product from the list with card images, then enter the last digits, never the full card number. Their balances won't update.
+Other banks can't be connected in this version; you can still note their cards (Bilt included) with **Add card**: pick the product from the list (some show a placeholder instead of a card image), then enter the last digits, never the full card number. Their balances won't update.
 
 ### 6. What the wallet reads and doesn't
 - Reads: each card's balance, statement amount, minimum payment and due date; Amex Membership Rewards and Chase Ultimate Rewards points.
