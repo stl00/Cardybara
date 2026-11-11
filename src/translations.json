@@ -1816,7 +1816,9 @@
     "Amex HK · 关于 Membership Rewards（合并账户）": "Amex HK · About Membership Rewards (linking accounts)",
     "Amex HK · Membership Rewards 条款": "Amex HK · Membership Rewards terms",
     "Chase · 合并信用卡积分": "Chase · Combining credit card points",
-    "One Mile at a Time · 合并 Ultimate Rewards 积分": "One Mile at a Time · Combining Ultimate Rewards points"
+    "One Mile at a Time · 合并 Ultimate Rewards 积分": "One Mile at a Time · Combining Ultimate Rewards points",
+    "各卡读数时间不同，采集日期按最早的读数。": "Card readings were taken at different times; the date shown is the oldest.",
+    "{0} 条没有对应卡片的历史记录未计入合计，避免重复计算。": "{0} stored records with no card are left out of the total, so nothing is counted twice."
   },
   "zh-TW": {
     "美国": "美國",
@@ -3635,6 +3637,8 @@
     "Amex HK · 关于 Membership Rewards（合并账户）": "Amex HK · 關於 Membership Rewards（合併帳戶）",
     "Amex HK · Membership Rewards 条款": "Amex HK · Membership Rewards 條款",
     "Chase · 合并信用卡积分": "Chase · 合併信用卡積分",
-    "One Mile at a Time · 合并 Ultimate Rewards 积分": "One Mile at a Time · 合併 Ultimate Rewards 積分"
+    "One Mile at a Time · 合并 Ultimate Rewards 积分": "One Mile at a Time · 合併 Ultimate Rewards 積分",
+    "各卡读数时间不同，采集日期按最早的读数。": "各卡讀數時間不同，採集日期按最早的讀數。",
+    "{0} 条没有对应卡片的历史记录未计入合计，避免重复计算。": "{0} 條沒有對應卡片的歷史記錄未計入合計，避免重複計算。"
   }
 }

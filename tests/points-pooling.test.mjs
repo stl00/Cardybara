@@ -106,3 +106,17 @@ test('the assistant tool explains each rule with its caveats and sources, and re
  assert.deepEqual(tool([united],{}).cardsOutside,[{name:'United Quest',region:'US'}]);
  assert.throws(()=>validateToolCall(call('points_accounts',{region:'CA'})),/invalid_arguments/);
 });
+
+test('a card named alone still reaches the held card it combines into (review of #194)',()=>{
+ const one=runWalletTool(call('convert_points',{cardName:'Freedom Unlimited',partner:'Hyatt',points:2000}),{cards:[cfu,csp],events:[],day:'2026-11-11'});
+ assert.equal(one.partnerFound,true);assert.deepEqual(one.matchedCards,['Freedom Unlimited']);
+ const hyatt=one.programmes[0].partners.find(p=>p.ratio);assert.deepEqual(hyatt.ratio,{from:4,to:3});
+ assert.deepEqual(hyatt.cards,[{name:'Freedom Unlimited',region:'US',through:['Chase Sapphire Preferred']}],'only the named card is listed');
+ assert.deepEqual(tool([cfu,csp],{cardName:'Freedom Unlimited'}).programmes[0].cards[0].transfersThrough,['Chase Sapphire Preferred']);
+ const alone=runWalletTool(call('convert_points',{cardName:'Freedom'}),{cards:[cfu],events:[],day:'2026-11-11'});
+ assert.ok(alone.withoutTransferCardNote,'a card with no transfer card held is explained, not called non-transferable');
+});
+test('a sum of card readings shows its oldest date',()=>{
+ const hk=totalOf([reading(hkPlat,1,'2026-10-20T10:00:00Z',MR),reading(hkExplorer,2,T2,MR)],'programme.amex-membership-rewards-hk');
+ assert.equal(hk.date,'2026-10-20');assert.equal(hk.readingsSpanDays,13);
+});

@@ -78,8 +78,9 @@ export function programmeTotals(rows=[]){
    return {...base,amount:newest.amount,date:newest.date,capturedAt:newest.capturedAt||null,basis:newest.card?'pool-reading':'record',readingsDiffer:new Set(perCard.map(r=>r.amount)).size>1};
   }
   if(!perCard.length)return {...base,amount:records[0].amount,date:records[0].date,capturedAt:records[0].capturedAt||null,basis:'record',notCounted:records.slice(1).length};
-  const newest=perCard.toSorted((a,b)=>time(b)-time(a))[0];
-  return {...base,amount:perCard.reduce((n,r)=>n+r.amount,0),date:newest.date,capturedAt:newest.capturedAt||null,basis:'sum-of-cards',notCounted:records.length};
+  // A sum is only as fresh as its oldest card reading, so that date is the one shown.
+  const ordered=perCard.toSorted((a,b)=>time(a)-time(b)),oldest=ordered[0];
+  return {...base,amount:perCard.reduce((n,r)=>n+r.amount,0),date:oldest.date,capturedAt:oldest.capturedAt||null,basis:'sum-of-cards',notCounted:records.length,readingsSpanDays:Math.round((time(ordered.at(-1))-time(oldest))/86400000)};
  });
  return {totals,covered};
 }

@@ -26,7 +26,7 @@ export function routesForCard(routes,{hasCard=false,productId=null,productIds=nu
  const reach=productIds||(productId?[productId]:[]),partners=[...new Set(routes.map(r=>r.partnerId))];
  return partners.flatMap(id=>{
   const rows=routes.filter(r=>r.partnerId===id),listed=rows.filter(r=>r.productIds.some(p=>reach.includes(p)));
-  if(listed.length)return listed.map(r=>({...r,coverage:'listed',cardSpecific:listed.length>1}));
+  if(listed.length)return listed.map(r=>({...r,coverage:'listed',cardSpecific:listed.length>1||!!productId&&!r.productIds.includes(productId)}));
   return [{...rows[0],coverage:'card-not-listed',cardSpecific:false,terms:{...rows[0].terms,ratio:null,ratioCondition:null,ratioStatement:null}}];
  });
 }
@@ -72,9 +72,10 @@ const ROW_LIMIT=40;
  * a shared pool or a combinable programme reaches the partners of every held transfer card of that programme, and a
  * per-card programme only its own. Rates come only from transferRate rules that list a reached card, and a stated
  * points amount is converted by convertPoints. Balances are never added here. */
-export function transferOptions(cards,{partner=null,points=null}={},{asOf=knowledgeManifest.asOf}={}){
+// held is the whole wallet: a selected Freedom still reaches the Sapphire it can combine into, though only selected cards are listed.
+export function transferOptions(cards,{partner=null,points=null}={},{asOf=knowledgeManifest.asOf,held=cards}={}){
  const programmes=new Map(),withoutRecord=[],noTransferCard=[],routesOf=new Map(transferProgrammes.map(p=>[p.id,transferRoutes(p.id,{asOf})]));
- const reachOf=new Map(pointsReach(cards).map(r=>[r.card,r]));
+ const reachOf=new Map(pointsReach([...new Set([...cards,...held])]).map(r=>[r.card,r]));
  for(const card of cards){
   const productId=matchCardProduct(card).product?.id||null,pooled=reachOf.get(card);
   const tp=pooled?transferProgrammes.find(p=>p.id===pooled.rule.programmeId):productId&&transferProgrammes.find(p=>routesOf.get(p.id).some(r=>r.productIds.includes(productId)));
@@ -97,7 +98,7 @@ export function transferOptions(cards,{partner=null,points=null}={},{asOf=knowle
    }:{partner:r.partner,partnerKind:r.kind,cards:[],rate:'card-not-listed',ratio:null,sourceIds:r.sourceIds,checkedAt:r.checkedAt});
    // A rate another held card's rule lists reaches this card only through that card (pooled or combined first), so
    // it is named: a Sapphire-only rate is never read as the Freedom's own.
-   const through=r.coverage==='listed'&&!r.productIds.includes(productId)?{through:cards.filter(c=>c!==card&&r.productIds.includes(matchCardProduct(c).product?.id)).map(c=>c.name)}:{};
+   const through=r.coverage==='listed'&&!r.productIds.includes(productId)?{through:[...new Set([...cards,...held])].filter(c=>c!==card&&reach.includes(matchCardProduct(c).product?.id)&&r.productIds.includes(matchCardProduct(c).product?.id)).map(c=>c.name)}:{};
    row.cards.push({name:card.name,region:card.region,...through});group.rows.set(key,row);
   }
  }

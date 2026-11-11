@@ -76,7 +76,7 @@ export function runWalletTool(call,{cards,events,day,trip,language}){
  if(name==='list_cards')return cards.map(c=>({name:c.name,region:c.region,currency:c.currency}));
  if(name==='points_accounts'){
   // Rules of the held cards' programmes; a named programme or region with no held card still gets its public rule.
-  const selected=selectedCards(cards,args),reach=pointsReach(selected);
+  const selected=selectedCards(cards,args),reach=pointsReach(cards).filter(m=>selected.includes(m.card));
   const wanted=r=>(!args.programme||r.label===args.programme)&&(!args.region||r.region===args.region);
   const held=poolingRules.filter(r=>wanted(r)&&reach.some(m=>m.rule.id===r.id));
   const named=args.cardName?[]:poolingRules.filter(r=>wanted(r)&&!held.includes(r)&&(args.programme||args.region));
@@ -87,16 +87,16 @@ export function runWalletTool(call,{cards,events,day,trip,language}){
    ...(selected.some(c=>!cardProgramme(c))?{cardsOutside:selected.filter(c=>!cardProgramme(c)).map(c=>({name:c.name,region:c.region})),outsideNote:'No pooling rule covers these cards: say whether their points pool is not recorded, rather than guessing.'}:{})};
  }
  if(name==='convert_points'){
-  const selected=selectedCards(cards,args),found=transferOptions(selected,args,{asOf:day});
+  const selected=selectedCards(cards,args),found=transferOptions(selected,args,{asOf:day,held:cards});
   const programmes=found.programmes.map(g=>({...g,partners:g.partners.map(({sourceIds,...row})=>({...row,sources:knowledgeSources(sourceIds)}))}));
   return {kind:'transfer-options',coverage:'Published transfer rules only. Rates and minimums are public terms, not proof that an account is linked or that a transfer will succeed. No award availability or point valuation.',asOf:day,scope:{region:args.region||null,cardName:args.cardName||null,partner:args.partner||null,points:args.points??null},matchedCards:selected.map(c=>c.name),...found,programmes,
-   ...(found.cardsWithoutTransferRecord.length?{withoutRecordNote:'No transfer rule lists these cards. That is not proof they cannot transfer: say no transfer record is held for them and give no rate.'}:{}),
+   ...(found.cardsWithoutTransferCard?{withoutTransferCardNote:'These cards earn the programme\'s points but no held card of the programme transfers them to partners, so no rate reaches them now. That is not proof the card can never transfer; points_accounts explains how the programme pools.'}:{}),...(found.cardsWithoutTransferRecord.length?{withoutRecordNote:'No transfer rule lists these cards. That is not proof they cannot transfer: say no transfer record is held for them and give no rate.'}:{}),
    ...(found.partnerFound?{}:{partnerNote:'No transfer rule of the held cards reaches this partner. Say so; do not offer other partners as if they were it.'})};
  }
  if(name==='plan_flight'){
   // Every step from code (#82): the transfer path and its maths from verified rules, credits from query_credits,
   // and award data marked not checked rather than guessed. Stated points are never pooled across programmes.
-  const selected=selectedCards(cards,args),found=transferOptions(selected,{partner:args.airline},{asOf:day});
+  const selected=selectedCards(cards,args),found=transferOptions(selected,{partner:args.airline},{asOf:day,held:cards});
   // A programme with no route to this airline adds nothing to the plan.
   const reaching=found.programmes.filter(g=>g.partners.length),shared=reaching.length>1&&args.points!=null;
   const programmes=reaching.map(g=>({...g,partners:g.partners.map(({sourceIds,...row})=>{
@@ -112,7 +112,7 @@ export function runWalletTool(call,{cards,events,day,trip,language}){
    award:{status:'not-checked',reason:'No award search is connected, so award seats, award prices and how fresh they are cannot be checked. Say so, and use only an award price the user stated.'},
    transfers:{kind:'transfer-options',airline:args.airline,matchedCards:selected.map(c=>c.name),...found,programmes,
     ...(found.partnerFound?{}:{partnerNote:'No transfer rule of the held cards reaches this airline. Say so; do not offer other airlines as if they were it.'}),
-    ...(found.cardsWithoutTransferRecord.length?{withoutRecordNote:'No transfer rule lists these cards. That is not proof they cannot transfer: say no transfer record is held for them and give no rate.'}:{}),
+    ...(found.cardsWithoutTransferCard?{withoutTransferCardNote:'These cards earn the programme\'s points but no held card of the programme transfers them to partners, so no rate reaches them now. That is not proof the card can never transfer; points_accounts explains how the programme pools.'}:{}),...(found.cardsWithoutTransferRecord.length?{withoutRecordNote:'No transfer rule lists these cards. That is not proof they cannot transfer: say no transfer record is held for them and give no rate.'}:{}),
     ...(args.milesNeeded==null?{milesNote:'No award price was stated, so no points needed or shortfall can be worked out. Ask for the award price if the user wants it.'}:{}),
     ...(shared?{pointsNote:'The stated points were compared with each programme separately; ask which programme holds them. Never add programmes together.'}:{})},
    credits,
