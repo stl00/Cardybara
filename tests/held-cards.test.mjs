@@ -157,3 +157,35 @@ test('the wallet routes every held-card consumer through the held wallet',()=>{
  assert.match(main,/collapsed|hidden-cards/);
  assert.match(main,/toggleHiddenCard\(detail\)/);
 });
+
+test('a card hidden between two turns is not carried to the model by conversation memory',async()=>{
+ const bodies=[];let step=0;
+ const script=[
+  {role:'assistant',content:'',tool_calls:[{id:'t1',type:'function',function:{name:'list_cards',arguments:'{}'}}]},
+  {role:'assistant',content:'You hold two cards.'},
+  {role:'assistant',content:'The first card is Kept Synthetic Reserve.'},
+ ];
+ const request=async body=>{bodies.push(JSON.stringify(body));return {message:script[step++]};};
+ const context={events:[],day:asOf,language:'en-US'};
+ const first=await runAgentTurn({history:[],question:'Which cards do I hold?',context:{...context,cards:bankCards},request});
+ assert.ok(JSON.stringify(first.memory.topics).includes(HIDDEN.productId),'the first turn remembers the card while it is held');
+ // The user hides the card, then refers back to the earlier list in a new question with the same memory.
+ await runAgentTurn({history:[],memory:first.memory,question:'Tell me about the first card.',context:{...context,cards:shown},request});
+ leaks(bodies.at(-1),'the request after hiding');
+ // A product another held card shares stays remembered.
+ const twin={...bankCards[1],id:'k-twin',name:'Kept Twin',productId:HIDDEN.productId,bank:'Amex US'};
+ step=2;await runAgentTurn({history:[],memory:first.memory,question:'Tell me about the first card.',context:{...context,cards:[...shown,twin]},request});
+ assert.ok(bodies.at(-1).includes(HIDDEN.productId),'a product a held card still has stays in memory');
+});
+
+test('a legacy reward row named only by its programme id goes when its bank has no held card',()=>{
+ const wallet={...snapshot,cards:shown,rewards:[{id:'us-mr',label:'Membership Rewards',amount:50000,date:'2026-10-01'},{id:'ur',label:'Ultimate Rewards',amount:20000,date:'2026-10-01'}]};
+ assert.deepEqual(heldWallet(wallet).rewards.map(r=>r.id),['ur']);
+});
+
+test('the chat stops sending earlier turns to the model once the held cards change',()=>{
+ const chat=readFileSync(new URL('../src/ChatAdvisor.jsx',import.meta.url),'utf8');
+ assert.match(chat,/fresh=session\.held!==undefined&&session\.held!==held/);
+ assert.match(chat,/history:fresh\?\[\]:session\.history,memory:fresh\?\{\}:/);
+ assert.match(chat,/session=\{held,memory:result\.memory/);
+});

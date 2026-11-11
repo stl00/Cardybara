@@ -1831,7 +1831,8 @@
     "银行刷新照常读取这些卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它们。": "Bank refreshes still read these cards, but the overview, points, benefits, reminders and card assistant treat them as cards you don't hold.",
     "这张卡已隐藏": "This card is hidden",
     "银行刷新照常读取这张卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它。": "Bank refreshes still read this card, but the overview, points, benefits, reminders and card assistant treat it as a card you don't hold.",
-    "显示已隐藏的卡（{0}）": "Show hidden cards ({0})"
+    "显示已隐藏的卡（{0}）": "Show hidden cards ({0})",
+    "匹配的卡都已隐藏，可以在下方查看。": "Every matching card is hidden. You can see them below."
   },
   "zh-TW": {
     "美国": "美國",
@@ -3665,6 +3666,7 @@
     "银行刷新照常读取这些卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它们。": "銀行刷新照常讀取這些卡，但總覽、積分、福利、提醒和用卡助手都當作你沒有持有它們。",
     "这张卡已隐藏": "這張卡已隱藏",
     "银行刷新照常读取这张卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它。": "銀行刷新照常讀取這張卡，但總覽、積分、福利、提醒和用卡助手都當作你沒有持有它。",
-    "显示已隐藏的卡（{0}）": "顯示已隱藏的卡（{0}）"
+    "显示已隐藏的卡（{0}）": "顯示已隱藏的卡（{0}）",
+    "匹配的卡都已隐藏，可以在下方查看。": "符合的卡都已隱藏，可以在下方查看。"
   }
 }
