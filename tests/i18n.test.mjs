@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,mkdtempSync,writeFileSync,copyFileSync,rmSync} from 'node:fs';
+import {readFileSync,readdirSync,mkdtempSync,writeFileSync,copyFileSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {translations as i18nCatalog} from '../src/i18n/index.js';
+import {translations as i18nCatalog,catalogFiles} from '../src/i18n/index.js';
 import {catalogProblems} from '../scripts/i18n-catalog.mjs';
 import {activateLanguage, normalizeLanguage, t, formatNumber, formatDateTime} from '../src/i18n-core.js';
 const catalog=i18nCatalog;
@@ -47,4 +47,8 @@ test('the split catalog fails the build on a key in two files or a file index.js
   assert.ok(problems.some(p=>p.includes('stray.json is not imported')),problems.join('\n'));
  }finally{rmSync(dir,{recursive:true,force:true});}
  assert.deepEqual(catalogProblems(),[]);
+});
+test('every catalog file on disk is merged at runtime, not only imported',()=>{
+ const names=readdirSync(new URL('../src/i18n/',import.meta.url)).filter(n=>n.endsWith('.json')).map(n=>n.replace(/\.json$/,'')).sort();
+ assert.deepEqual(Object.keys(catalogFiles).sort(),names);
 });

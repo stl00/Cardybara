@@ -4,6 +4,7 @@ import {readFileSync, readdirSync} from 'node:fs';
 import {join, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
+const LANGUAGES = ['en-US', 'zh-TW'];
 const defaultDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'src', 'i18n');
 
 export function catalogProblems(dir = defaultDir) {
@@ -16,6 +17,9 @@ export function catalogProblems(dir = defaultDir) {
   const owner = {};
   for (const name of names) {
     const file = JSON.parse(readFileSync(join(dir, name), 'utf8'));
+    const languages = Object.keys(file).sort().join();
+    if (languages !== LANGUAGES.join()) problems.push(`src/i18n/${name} must have exactly ${LANGUAGES.join(' and ')}, has ${languages || 'none'}`);
+    else if (Object.keys(file[LANGUAGES[0]]).sort().join('\n') !== Object.keys(file[LANGUAGES[1]]).sort().join('\n')) problems.push(`src/i18n/${name} has different keys in ${LANGUAGES.join(' and ')}`);
     for (const [language, entries] of Object.entries(file)) for (const key of Object.keys(entries)) {
       const seen = (owner[language] ??= {})[key];
       if (seen) problems.push(`${language} key ${JSON.stringify(key)} is in both ${seen} and ${name}`);
