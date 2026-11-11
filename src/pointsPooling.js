@@ -69,7 +69,8 @@ const time=r=>Date.parse(r.capturedAt||r.date||'')||0;
  * programme is one combined entry with the per-card split folded away; a per-card programme keeps a row per card. */
 export const POOLING_DISPLAY={shared:'pooled-only','per-card-combinable':'combined-with-detail','per-card':'per-card-rows'};
 /** True when a balance row is shown only inside its programme's pooled or combined entry, not as a card of its own. */
-export const shownInPooledEntry=row=>{const rule=poolingRuleForRow(row);return !!rule&&rule.pooling!=='per-card'&&Number.isFinite(row.amount);};
+// A combinable total adds card readings only, so a stored record with no card keeps its own row and is never lost.
+export const shownInPooledEntry=row=>{const rule=poolingRuleForRow(row);return !!rule&&rule.pooling!=='per-card'&&Number.isFinite(row.amount)&&(rule.pooling==='shared'||!!row.card);};
 export function programmeTotals(rows=[]){
  const groups=new Map(),covered=new Set();
  for(const row of rows){const rule=poolingRuleForRow(row);if(!rule||!Number.isFinite(row.amount))continue;(groups.get(rule)||groups.set(rule,[]).get(rule)).push(row);covered.add(row);}

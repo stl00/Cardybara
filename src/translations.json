@@ -1824,7 +1824,8 @@
     "{0} 张卡合计；同一持卡人的卡之间可以合并": "Total of {0} cards; points can be combined between the same cardholder's cards",
     "按卡查看": "By card",
     "积分池": "Points pool",
-    "合计（可合并）": "Total (combinable)"
+    "合计（可合并）": "Total (combinable)",
+    "未识别的卡片": "Unrecognised card"
   },
   "zh-TW": {
     "美国": "美國",
@@ -3651,6 +3652,7 @@
     "{0} 张卡合计；同一持卡人的卡之间可以合并": "{0} 張卡合計；同一持卡人的卡之間可以合併",
     "按卡查看": "按卡查看",
     "积分池": "積分池",
-    "合计（可合并）": "合計（可合併）"
+    "合计（可合并）": "合計（可合併）",
+    "未识别的卡片": "未識別的卡片"
   }
 }
