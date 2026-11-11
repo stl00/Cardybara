@@ -1,0 +1,2 @@
+# Copy to gateway/.dev.vars for `wrangler dev --env local`. A synthetic value the mock provider accepts; never a real key.
+PROVIDER_KEY=synthetic-provider-key-not-real

@@ -1,0 +1,58 @@
+// Cardybara model gateway: plain ES modules (src/worker.js), no build step, no account id.
+// Upload with `npx wrangler@4.150.0 deploy --config gateway/wrangler.jsonc` or the Workers scripts API
+// (main module src/worker.js, the bindings below). Steps and owner-only parts: docs/GATEWAY.md.
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "cardybara-gateway",
+  "main": "src/worker.js",
+  "compatibility_date": "2025-09-01",
+  "workers_dev": true,
+  "vars": {
+    "PROVIDER_URL": "https://api.deepseek.com/chat/completions",
+    "ALLOWED_MODELS": "deepseek-flash",
+    // Extension origins allowed to call the gateway, comma-separated chrome-extension://<id>. The alpha is
+    // loaded unpacked, so each tester's id differs: "chrome-extension://*" admits any extension but no web
+    // page; the invite code is the real gate. Empty admits nobody.
+    "ALLOWED_ORIGINS": "chrome-extension://*",
+    // Defaults; `node scripts/gateway-codes.mjs set-caps` overrides them in KV without a deploy.
+    "DAILY_REQUESTS_PER_CODE": "200",
+    "DAILY_TOKENS_PER_CODE": "300000",
+    "MONTHLY_BUDGET_USD": "10",
+    // Charged per token from the provider's usage numbers; set at or above the provider's list price.
+    "PRICE_INPUT_USD_PER_MTOK": "0.6",
+    "PRICE_OUTPUT_USD_PER_MTOK": "2.4",
+    "MAX_OUTPUT_TOKENS": "8192",
+    "MAX_BODY_BYTES": "262144"
+    // PROVIDER_KEY is a secret, set once by the owner with scripts/gateway-set-key.sh. Never a var.
+  },
+  // Invite codes (by SHA-256 digest only) and the `settings` caps. The namespace id is created at deploy
+  // time and filled in here (it is not a secret and not an account id).
+  "kv_namespaces": [{"binding": "INVITES", "id": "SET_AT_DEPLOY"}],
+  "durable_objects": {"bindings": [{"name": "USAGE", "class_name": "UsageLedger"}]},
+  "migrations": [{"tag": "v1", "new_sqlite_classes": ["UsageLedger"]}],
+  // Per client address, checked before any invite lookup, so guessing codes can't exhaust KV or the quota.
+  "ratelimits": [{"name": "RATE_LIMITER", "namespace_id": "2081", "simple": {"limit": 60, "period": 60}}],
+  // Workers Logs keep the one metadata line per request (code id, time, tokens, status) for reading usage.
+  // Invocation logs (request metadata recorded by the platform) are off so no request header is ever kept.
+  "observability": {"enabled": true, "logs": {"enabled": true, "invocation_logs": false}},
+  "env": {
+    // `wrangler dev --env local` against scripts/mock-provider.mjs.
+    "local": {
+      "vars": {
+        "PROVIDER_URL": "http://127.0.0.1:8799/chat/completions",
+        "ALLOW_HTTP_PROVIDER": "1",
+        "ALLOWED_MODELS": "deepseek-flash",
+        "ALLOWED_ORIGINS": "chrome-extension://*",
+        "DAILY_REQUESTS_PER_CODE": "20",
+        "DAILY_TOKENS_PER_CODE": "200000",
+        "MONTHLY_BUDGET_USD": "1",
+        "PRICE_INPUT_USD_PER_MTOK": "0.6",
+        "PRICE_OUTPUT_USD_PER_MTOK": "2.4",
+        "MAX_OUTPUT_TOKENS": "8192",
+        "MAX_BODY_BYTES": "262144"
+      },
+      "kv_namespaces": [{"binding": "INVITES", "id": "local-invites"}],
+      "durable_objects": {"bindings": [{"name": "USAGE", "class_name": "UsageLedger"}]}
+    }
+  }
+}
