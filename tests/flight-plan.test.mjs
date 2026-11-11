@@ -42,7 +42,11 @@ test('plan_flight gives route, dates, transfer path, points needed and shortfall
  assert.ok(delta.sources.some(s=>s.url?.startsWith('https://')));
  assert.ok(rows(r).every(x=>x.partner==='Delta SkyMiles'),'only the named airline');
  assert.equal(r.credits.tool,'query_credits');assert.equal(r.credits.use,'airline');assert.ok(r.credits.totalItems>0);
- assert.match(r.valuation,/No value per point/);
+ // #193: each programme on the path carries its value per point and whose value it is.
+ assert.ok(r.valuation.programmes.some(v=>v.programme==='Amex Membership Rewards US'&&v.cents===1.3&&v.basis==='default'&&v.source.url.startsWith('https://')));
+ assert.match(runWalletTool(call({airline:'Delta'}),{...ctx,marketDefaults:false}).valuation.note,/No value per point/);
+ const own=runWalletTool(call({airline:'Delta'}),{...ctx,pointValues:[{id:'amex-mr-us',cents:2,at:'2026-11-01T00:00:00Z'}]}).valuation.programmes.find(v=>v.programmeId==='amex-mr-us');
+ assert.deepEqual([own.cents,own.basis,own.defaultCents],[2,'user',1.3]);
  assert.ok(!JSON.stringify(r).includes('"balance"'),'no balances');
 });
 
@@ -66,7 +70,7 @@ test('plan_flight validates its arguments',()=>{
 });
 
 test('answers from a flight plan are checked like transfer and credit answers, and price no point',()=>{
- const r=runWalletTool(call({airline:'Delta',route:'JFK to LAX',when:'Dec 20-27',milesNeeded:25500,points:20000}),ctx);
+ const r=runWalletTool(call({airline:'Delta',route:'JFK to LAX',when:'Dec 20-27',milesNeeded:25500,points:20000}),{...ctx,marketDefaults:false});
  const evidence=[r,r.credits,r.transfers];
  assert.equal(planResults(evidence).length,1,'its credits count as a credit plan');
  assert.ok(answerGrounding('Membership Rewards to Delta SkyMiles moves at 1:1; you need 26,000 points and are 6,000 short.',evidence).issues.every(i=>!['unsupported_number','unsupported_transfer_ratio'].includes(i.code)));
@@ -83,4 +87,14 @@ test('a flight plan remembers its dates and topics for the follow-up',()=>{
  const state=reduceToolResult({},{name:'plan_flight',args:{airline:'Delta'},result:r},{cards});
  assert.equal(state.trip.start,'2026-12-20');assert.equal(state.trip.use,'airline');
  assert.ok(topicItems({name:'plan_flight',result:r},cards).some(i=>i.card));
+});
+
+test('#193: a flight plan priced at the default market valuation says so, and never calls it the user\'s',()=>{
+ const r=runWalletTool(call({airline:'Delta',route:'JFK to LAX',milesNeeded:25500,points:20000}),ctx);
+ const evidence=[r,r.credits,r.transfers],codes=a=>answerGrounding(a,evidence).issues.map(i=>i.code);
+ assert.ok(!codes('按默认市场估值每点 1.3 美分，26,000 点约值 338 美元，可在设置里改。').includes('unstated_point_value'));
+ assert.ok(codes('按你的估值每点 1.3 美分，26,000 点约值 338 美元。').includes('default_as_user_value'));
+ assert.ok(codes('At your 1.3 cents a point, 26,000 points are worth about 338 dollars.').includes('default_as_user_value'));
+ const set=runWalletTool(call({airline:'Delta',milesNeeded:25500}),{...ctx,pointValues:[{id:'amex-mr-us',cents:2,at:'2026-11-01T00:00:00Z'}]});
+ assert.ok(!answerGrounding('按你设定的每点 2 美分。',[set,set.credits,set.transfers]).issues.some(i=>i.code==='default_as_user_value'));
 });

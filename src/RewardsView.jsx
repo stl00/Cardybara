@@ -4,6 +4,9 @@ import {t,useI18n} from './i18n';
 import {BankIdentity,CardIdentity,RegionLabel,RegionFlag} from './Identity';
 import ItemLogo from './ItemLogo';
 import {knowledgeSources} from './knowledge';
+import {readingValue} from './pointValues.js';
+import {cardEarnings} from './cardDecision.js';
+import {usePointValues} from './PointValueSettings.jsx';
 import {cardProducts} from './productCatalog';
 import {convertPoints,readingsFor,routesForCard,transferProgrammes,transferRoutes} from './transferRoutes';
 const {Paragraph,Text,Link}=Typography;
@@ -15,6 +18,13 @@ const feeLabel=fee=>fee.kind==='excise-tax-offset'?t('消费税抵销费'):t('�
 const cardNames=ids=>ids.map(id=>cardProducts.find(p=>p.id===id)?.name||id).join(' / ');
 const feeDetail=fee=>fee.perPoint?t('每点 ${0}，上限 ${1}',[fee.perPoint,fee.maximum]):`${money(fee.amount,fee.currency)}${fee.exempt?.length?` ${t('（{0} 除外）',[fee.exempt.join(' / ')])}`:''}`;
 const money=(value,currency)=>`${currency==='HKD'?'HK$':'$'}${Number(value).toLocaleString('en-US',{minimumFractionDigits:value%1?2:0,maximumFractionDigits:2})}`;
+// #193: one reading at the value resolved for its programme, with whose value it is. Hidden balances stay hidden.
+function ReadingValue({reading,card,hidden}){
+ const values=usePointValues(),v=readingValue(reading,card,values,c=>cardEarnings(c,reading.capturedAt?.slice(0,10)||undefined));
+ if(!v)return null;
+ const unit=v.currency==='HKD'?t('港仙'):t('美分'),basis=v.pointValue.basis==='user'?t('按你设定的每点 {0} {1}',[v.pointValue.cents,unit]):t('按默认市场估值每点 {0} {1}，可在设置里改',[v.pointValue.cents,unit]);
+ return <Paragraph type="secondary" style={{marginTop:4,marginBottom:0}}>{hidden?'••••':t('约值 {0}',[money(v.value,v.currency)])} · {basis}</Paragraph>;
+}
 // Hidden balances must not reappear through a computed result, so nothing is prefilled or derived.
 function Result({row,points,hidden}){
  if(row.coverage==='card-not-listed')return <Text type="secondary">{t('未知：这个读数的卡不在已核对范围内')}</Text>;
@@ -59,7 +69,7 @@ function ProgrammePanel({programme,accounts,cards,count,hidden}){
  <Paragraph type="secondary" style={{marginTop:12,marginBottom:0}}>{t('来源（核对 {0}）：',[all[0]?.checkedAt||'—'])}<Space wrap size={[12,4]}>{sources.map(s=><Link key={s.id} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></Paragraph></>;
 }
 export default function RewardsView({accounts,cards,count,hidden=false}){
- useI18n();const render=r=><Col xs={24} md={12} xl={8} key={r.id}><Card className="reward-card" title={<BankIdentity bank={r.bank} label={r.label} flag={false}/>} extra={<RegionLabel region={r.region}/>}><Statistic value={r.amount} formatter={()=>count(r.amount)} suffix={r.unit==='USD'?t('美元现金奖励'):r.unit}/>{r.cardReading?<><div style={{marginTop:16}}><CardIdentity card={cards.find(c=>c.id===r.card)}/></div><Paragraph type="secondary" style={{marginTop:8,marginBottom:8}}>{t('卡片页面读数；共用积分池关系未确认，不合计。')}</Paragraph><Tag color="success">{t('已读取积分')}</Tag></>:<Paragraph type="secondary" style={{marginTop:16}}>{t('历史记录；本次尚未取得更新读数。')}</Paragraph>}<Text type="secondary">{t('采集于 ')}{r.date}</Text></Card></Col>;
+ useI18n();const render=r=><Col xs={24} md={12} xl={8} key={r.id}><Card className="reward-card" title={<BankIdentity bank={r.bank} label={r.label} flag={false}/>} extra={<RegionLabel region={r.region}/>}><Statistic value={r.amount} formatter={()=>count(r.amount)} suffix={r.unit==='USD'?t('美元现金奖励'):r.unit}/><ReadingValue reading={r} card={cards.find(c=>c.id===r.card)} hidden={hidden}/>{r.cardReading?<><div style={{marginTop:16}}><CardIdentity card={cards.find(c=>c.id===r.card)}/></div><Paragraph type="secondary" style={{marginTop:8,marginBottom:8}}>{t('卡片页面读数；共用积分池关系未确认，不合计。')}</Paragraph><Tag color="success">{t('已读取积分')}</Tag></>:<Paragraph type="secondary" style={{marginTop:16}}>{t('历史记录；本次尚未取得更新读数。')}</Paragraph>}<Text type="secondary">{t('采集于 ')}{r.date}</Text></Card></Col>;
  const tabs=transferProgrammes.map(programme=>({key:programme.id,label:<Space size={6}><RegionFlag region={programme.region} decorative/><ItemLogo programme={programme.id} size={14}/>{t(programme.label)} · {t(programme.region==='US'?'美国':'香港')}</Space>,children:<ProgrammePanel programme={programme} accounts={accounts} cards={cards} count={count} hidden={hidden}/>}));
  return <><Paragraph type="secondary">{t('最新卡片读数优先展示。不同国家、不同计划分别列出；不推测或重复汇总积分池。')}</Paragraph><Row gutter={[20,20]}>{accounts.current.map(render)}</Row>{!accounts.current.length&&<Empty description={t('尚未读取积分，请刷新对应银行。')}/>} {!!accounts.historical.length&&<Collapse style={{marginTop:24}} items={[{key:'history',label:t('查看之前的积分记录'),children:<Row gutter={[16,16]}>{accounts.historical.map(r=>render({...r,historical:true}))}</Row>}]} />}
  <Typography.Title level={4} style={{marginTop:32}}>{t('积分能转到哪里')}</Typography.Title>

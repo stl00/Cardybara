@@ -6,7 +6,8 @@ import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
 import {runAgentTurn} from '../src/agentSession.js';
 import {presentCard} from '../src/cardName.js';
 const cards=JSON.parse(readFileSync(new URL('./fixtures/wallet-products.json',import.meta.url))).cards;
-const context={cards,events:[],day:'2026-10-28'};
+// Mechanics apart from the valuation table (#193).
+const context={cards,events:[],day:'2026-10-28',marketDefaults:false};
 const call=(name,args={},id='c1')=>({id,type:'function',function:{name,arguments:JSON.stringify(args)}});
 test('agent tools are read-only, validate every argument and expose no bank identifiers',()=>{
  assert.throws(()=>validateToolCall(call('pay_bill')));assert.throws(()=>validateToolCall(call('list_cards',{cookies:true})));assert.throws(()=>validateToolCall(call('choose_card',{category:'dining',country:'US',currency:'USD',amount:-1})));

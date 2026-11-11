@@ -25,17 +25,18 @@ const markedUnused=[creditMark(GOLD,GOLD_DINING,'2026-10-01','2026-10-31','unuse
 export const decisionIds={GOLD,GOLD_DINING};
 const usDining={category:'dining',amount:100,currency:'USD',country:'US'};
 export const decisionCases=[
- {id:'choice-category-beats-flat-cash',args:usDining,check:r=>r.choice.card==='Freedom Unlimited'&&r.choice.value===3&&r.choice.certainty==='conditional'},
+ // #193: points count at the default market valuation, so Gold's 4x MR (1.3 cents) beats 3% cash on dining.
+ {id:'choice-category-beats-flat-cash',args:usDining,check:r=>r.choice.card==='American Express Gold Card'&&r.choice.value===5.2&&r.choice.pointValue?.basis==='default'&&r.choice.certainty==='conditional'},
  {id:'choice-flat-cash-without-a-category',args:{category:'other',amount:100,currency:'USD',country:'US'},check:r=>r.choice.card==='Freedom Unlimited'&&r.choice.value===1.5&&r.choice.certainty==='confirmed'},
- {id:'choice-usable-credit-changes-winner',args:{category:'dining',merchant:'Grubhub',amount:30,currency:'USD',country:'US'},events:markedUnused,check:r=>r.choice.card==='American Express Gold Card'&&r.choice.value===10},
- {id:'choice-unknown-credit-does-not-count',args:{category:'dining',merchant:'Grubhub',amount:30,currency:'USD',country:'US'},check:r=>r.choice.card==='Freedom Unlimited'&&r.couldChange.some(c=>c.kind==='credit-if-it-applies'&&c.status==='unknown')},
+ {id:'choice-usable-credit-changes-winner',args:{category:'dining',merchant:'Grubhub',amount:30,currency:'USD',country:'US'},events:markedUnused,check:r=>r.choice.card==='American Express Gold Card'&&r.choice.value===11.56&&r.rows.find(x=>x.card==='American Express Gold Card').countedCredit?.value===10},
+ {id:'choice-unknown-credit-does-not-count',args:{category:'dining',merchant:'Grubhub',amount:30,currency:'USD',country:'US'},check:r=>r.choice.value===1.56&&r.rows.every(x=>x.countedCredit===null)&&r.couldChange.some(c=>c.kind==='credit-if-it-applies'&&c.status==='unknown')},
  {id:'choice-cap-exceeded-splits-the-earn',args:{category:'supermarket',amount:8000,currency:'USD',country:'US'},check:r=>r.rows.find(x=>x.card==='Blue Cash Everyday').earn.reward===200&&r.rows.find(x=>x.card==='Blue Cash Everyday').earn.capExceeded===true},
- {id:'choice-foreign-fee-stays-unknown',args:{category:'dining',amount:10000,currency:'JPY',country:'JP'},check:r=>r.choice.basis==='cash-rate'&&r.choice.value===null&&r.choice.reasons.includes('foreign-fee-unknown')&&r.couldChange.some(c=>c.kind==='foreign-fee-unknown')},
- {id:'choice-points-not-priced-without-a-value',args:usDining,check:r=>r.choice.valuedPoints===false&&r.pointsAlternatives.find(p=>p.card==='American Express Gold Card').breakEvenCentsPerPoint===0.75},
+ {id:'choice-foreign-fee-stays-unknown',args:{category:'dining',amount:10000,currency:'JPY',country:'JP'},check:r=>r.choice.basis!=='money'&&r.choice.value===null&&r.choice.reasons.includes('foreign-fee-unknown')&&r.couldChange.some(c=>c.kind==='foreign-fee-unknown')},
+ {id:'choice-points-priced-at-the-default-market-value',args:usDining,check:r=>r.choice.valuedPoints===true&&r.choice.pointValue.cents===1.3&&r.choice.pointValue.basis==='default'&&r.pointValues.every(v=>v.basis==='default')&&r.pointsAlternatives.find(p=>p.card==='Sapphire Reserve').pointValue.cents===1.5},
  {id:'choice-points-priced-with-a-stated-value',args:{...usDining,pointValues:{MR:2}},check:r=>r.choice.card==='American Express Gold Card'&&r.choice.value===8&&r.choice.valuedPoints===true},
  {id:'choice-ambiguous-merchant-shows-both',args:{merchant:'Costco',alternateCategory:'supermarket',amount:100,currency:'USD',country:'US'},check:r=>r.assumptions.includes('category-unknown-base-rates-used')&&r.couldChange.some(c=>c.kind==='if-category-is'&&c.wouldChangeChoice)},
- {id:'choice-amount-without-currency-compares-rates',args:{category:'dining',amount:100,country:'US'},check:r=>r.choice.basis==='cash-rate'&&r.choice.value===null&&r.assumptions.includes('amount-has-no-currency-so-rates-compared')},
- {id:'choice-several-currencies-answers-each',args:{category:'dining',amount:100},check:r=>r.choice.kind==='depends-on-currency'&&r.choice.options.find(o=>o.currency==='USD')?.card==='Freedom Unlimited'},
+ {id:'choice-amount-without-currency-compares-rates',args:{category:'dining',amount:100,country:'US'},check:r=>r.choice.basis!=='money'&&r.choice.value===null&&r.assumptions.includes('amount-has-no-currency-so-rates-compared')},
+ {id:'choice-several-currencies-answers-each',args:{category:'dining',amount:100},check:r=>r.choice.kind==='depends-on-currency'&&r.choice.options.find(o=>o.currency==='USD')?.card==='American Express Gold Card'&&r.choice.options.find(o=>o.currency==='USD').pointValue?.basis==='default'},
 ];
 export const planCases=[
  {id:'plan-unknown-is-not-unused',when:'12月圣诞节',check:r=>r.window.start==='2026-12-01'&&r.window.end==='2026-12-31'&&r.groups.markedUnused.length===0&&find(r,'unknownStatus',EDIT_TITLE).length===1},
