@@ -23,7 +23,7 @@ const money=(value,currency)=>`${currency==='HKD'?'HK$':'$'}${Number(value).toLo
 function ReadingValue({reading,card,hidden}){
  const values=usePointValues(),v=readingValue(reading,card,values,c=>cardEarnings(c,reading.capturedAt?.slice(0,10)||undefined));
  if(!v)return null;
- const unit=v.currency==='HKD'?t('港仙'):t('美分'),basis=v.pointValue.basis==='user'?t('按你设定的每点 {0} {1}',[v.pointValue.cents,unit]):t('按默认市场估值每点 {0} {1}，可在设置里改',[v.pointValue.cents,unit]);
+ const unit=v.currency==='HKD'?t('港仙'):t('美分'),mile=v.pointValue.unit==='mile',basis=v.pointValue.basis==='user'?(mile?t('按你设定的每里 {0} {1}',[v.pointValue.cents,unit]):t('按你设定的每点 {0} {1}',[v.pointValue.cents,unit])):(mile?t('按默认市场估值每里 {0} {1}，可在设置里改',[v.pointValue.cents,unit]):t('按默认市场估值每点 {0} {1}，可在设置里改',[v.pointValue.cents,unit]));
  return <Paragraph type="secondary" style={{marginTop:4,marginBottom:0}}>{hidden?'••••':t('约值 {0}',[money(v.value,v.currency)])} · {basis}</Paragraph>;
 }
 // Hidden balances must not reappear through a computed result, so nothing is prefilled or derived.

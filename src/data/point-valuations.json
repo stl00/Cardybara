@@ -589,20 +589,14 @@
     "cathay"
    ],
    "source": {
-    "name": "MrMiles.hk",
-    "url": "https://www.mrmiles.hk/buy-asia-miles/",
+    "name": "FlyAsia (HK$0.10 per mile benchmark)",
+    "url": "https://www.flyasia.co/2026/what-is-cpm/",
     "value": 10,
-    "pageDate": "2026-07-23"
+    "pageDate": "2026-10-22"
    },
    "otherSources": [
     {
-     "name": "FlyAsia",
-     "url": "https://www.flyasia.co/2026/what-is-cpm/",
-     "value": 10,
-     "pageDate": "2026-10-22"
-    },
-    {
-     "name": "Frequent Miler RRV (US cents)",
+     "name": "Frequent Miler RRV (US cents; about HK$0.086 at 7.8 HKD per USD)",
      "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
      "value": 1.1
     },
@@ -614,7 +608,7 @@
     }
    ],
    "mileCards": true,
-   "note": "HK$0.10 per mile, the common local benchmark."
+   "note": "HK programmes are valued in HKD from local sources. HK$0.10 per mile is the common local benchmark; FlyAsia notes banks' implied value is nearer HK$0.05. FM's US-cent figure converts to about HK$0.086, which is not used because conversion needs a rate. Owner to confirm."
   }
  ]
 }

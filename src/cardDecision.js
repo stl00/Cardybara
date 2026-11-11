@@ -138,7 +138,7 @@ const programmeAliases={'membership rewards':['mr','membership rewards'],'ultima
 const REGIONAL=['membership rewards','ultimate rewards','thankyou'];
 const REGION_TOKEN=/(?:^|\s)(us|hk|ca)$/;
 /** A value is in cents of the card's own currency. A bare MR or UR means the US programme; another region must be named. */
-function pointValueFor(programme,card,region,values){
+export function pointValueFor(programme,card,region,values){
  if(!values)return null;
  // A co-brand card with no recorded programme can still be valued by the name on the card.
  const name=norm(programme||card),nameRegion=name.match(REGION_TOKEN)?.[1]||region.toLowerCase();
@@ -208,6 +208,8 @@ function resolvePurchase(raw,day){
  if(raw.channel==='portal'&&!raw.portal)assumptions.push('portal-not-named');
  return {purchase:{category,date,merchant:raw.merchant||null,amount:Number.isFinite(raw.amount)?raw.amount:null,country:raw.country||null,currency:raw.currency||null,channel:raw.channel||null,portal:raw.portal||null,nights:Number.isInteger(raw.nights)?raw.nights:null},assumptions};
 }
+// Rounded up, so at the shown value the lead still holds.
+const ceil2=n=>Math.ceil(Math.round(n*1e6)/1e4)/100;
 const publicRow=({_baseRate,unclassified,...row})=>row;
 const POINT_VALUE_NOTE='Points were compared at pointValue.cents per point, in cents of pointValue.currency. Say which value was used for each programme: basis stated is the value the user said in this chat; user is the value the user set in settings; default is a published market valuation, not the user\'s view, so say it is the default market valuation and that the user can change it in settings. Never present a default as the user\'s value, and never use any other value.';
 const whoLeads=d=>d.lead?.row||null;
@@ -260,9 +262,11 @@ export function chooseCard(raw,{cards,events=[],day,pointValues=[],marketDefault
  }
  // A points lead holds down to the value per point at which the next card would catch it.
  const leadPoints=main.lead?.valued&&main.moneyBasis&&lead.earn.reward>0?lead.earn.reward:null;
- const runnerUp=leadPoints?Math.max(0,...main.sorted.filter(s=>s!==main.lead&&s.value!=null).map(s=>s.value)):null;
+ // A runner-up valued in the same programme moves with the same value, so it can't set the threshold.
+ const sameProgramme=s=>s.valued&&s.pointValue.programme===main.lead.pointValue.programme&&s.pointValue.currency===main.lead.pointValue.currency;
+ const runnerUp=leadPoints?Math.max(0,...main.sorted.filter(s=>s!==main.lead&&s.value!=null&&!sameProgramme(s)).map(s=>s.value)):null;
  const choice=lead
-  ?{kind:'use-card',card:lead.card,cardRegion:lead.cardRegion,basis:main.moneyBasis?'money':lead.earn.isCash?'cash-rate':'rate-at-point-value',value:main.moneyBasis?leadValue:null,currency:purchase.currency,valuedPoints:!!main.lead.valued,...(main.lead.valued?{pointValue:main.lead.pointValue,...(leadPoints?{holdsAboveCentsPerPoint:round2(Math.max(runnerUp-(lead.countedCredit?.value||0),0)/leadPoints*100)}:{})}:{}),certainty:lead.certainty,reasons:lead.reasons}
+  ?{kind:'use-card',card:lead.card,cardRegion:lead.cardRegion,basis:main.moneyBasis?'money':lead.earn.isCash?'cash-rate':'rate-at-point-value',value:main.moneyBasis?leadValue:null,currency:purchase.currency,valuedPoints:!!main.lead.valued,...(main.lead.valued?{pointValue:main.lead.pointValue,...(leadPoints?{holdsAboveCentsPerPoint:ceil2(Math.max(runnerUp-(lead.countedCredit?.value||0),0)/leadPoints*100)}:{})}:{}),certainty:lead.certainty,reasons:lead.reasons}
   :main.rows.length?{kind:'points-depends',reason:'no-cash-card-and-no-point-value'}:{kind:'none',reason:'no-eligible-card'};
  // Every value used, once, with whose number it is: the answer must say so and never call a default the user's.
  const used=new Map();for(const s of main.sorted)if(s.valued)used.set(s.pointValue.programme+'|'+s.pointValue.basis,s.pointValue);

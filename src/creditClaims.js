@@ -105,21 +105,39 @@ const OWN_VALUE=/按你|你说的|你說的|你给的|你給的|你设定|你設
 const DEFAULT_WORDS=/默认|默認|預設|default|market valuation/i;
 const CONDITIONAL_PRICE=/(?:如果|若|假如|要是)你|(?:如果|若)每[点點]|if you(?:'d)? value|once you value|if (?:a|each|one) (?:point|mile)|超过|超過|above|\bover\b|盈亏|盈虧|打平|保本|break-?even/i;
 const lines=answer=>answer.split(/\n|(?<=[。！？!?])/);
-/** #193: a default market valuation is never the user's own. When every value used was a default, crediting one to the user is wrong. */
+// A value per point as written: "1.5 美分", "1.5 分", "1.5¢", "1.5 cents". Not 分钟.
+const centsIn=line=>[...line.matchAll(/(\d+(?:\.\d+)?)\s*(?:美分|港仙|分(?![钟鐘])|¢|cents?\b)/gi)].map(m=>Number(m[1]));
+const near=(set,n)=>[...set].some(v=>Math.abs(v-n)<0.006);
+/**
+ * #193: a default market valuation is never the user's own. A line crediting a value to the user ("按你…", "at
+ * your…") is wrong when the number it gives is a default and not one the user said or set, or, with no number, when
+ * it prices points and every value used was a default.
+ */
 function defaultAsUserIssues(answer,values){
- const bases=new Set(values.map(v=>v?.basis));
- if(!bases.size||bases.has('stated')||bases.has('user'))return [];
- return lines(answer).filter(line=>OWN_VALUE.test(line)&&!DEFAULT_WORDS.test(line)).map(line=>({code:'default_as_user_value',sentence:line.slice(0,160)}));
+ const own=new Set(values.filter(v=>v&&v.basis!=='default').map(v=>v.cents)),byDefault=new Set(values.filter(v=>v?.basis==='default').map(v=>v.cents));
+ if(!byDefault.size)return [];
+ return lines(answer).filter(line=>{
+  if(!OWN_VALUE.test(line)||DEFAULT_WORDS.test(line))return false;
+  const quoted=centsIn(line);
+  return quoted.length?quoted.some(n=>near(byDefault,n)&&!near(own,n)):!own.size&&POINT_PRICE.test(line);
+ }).map(line=>({code:'default_as_user_value',sentence:line.slice(0,160)}));
 }
+// Values per point a line may quote: the ones a tool returned and the thresholds it computed.
+const returnedCents=evidence=>new Set(evidence.flatMap(x=>[
+ ...(x?.pointValues||[]),...(x?.valuation?.programmes||[])].map(v=>v.cents).concat(
+ (x?.pointsAlternatives||[]).map(p=>p.breakEvenCentsPerPoint),(x?.rows||[]).map(r=>r.centsPerPoint),[x?.choice?.holdsAboveCentsPerPoint])).filter(n=>Number.isFinite(n)));
+const unreturned=(line,allowed)=>centsIn(line).some(n=>!near(allowed,n));
 /**
  * A flight plan (#82) prices points only at the values it returned (#193): with none, a price must be the user's own
- * or conditional.
+ * or conditional; with some, every value per point it quotes must be one of them.
  */
 export function flightPlanIssues(answer,evidence){
  const plans=evidence.filter(x=>x?.kind==='flight-plan');if(!plans.length)return [];
- const values=plans.flatMap(p=>p.valuation?.programmes||[]),issues=defaultAsUserIssues(answer,values);
- if(values.length)return issues;
- for(const line of lines(answer))if(POINT_PRICE.test(line)&&!CONDITIONAL_PRICE.test(line)&&!USER_VALUE.test(line))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
+ const values=plans.flatMap(p=>p.valuation?.programmes||[]),issues=defaultAsUserIssues(answer,values),allowed=returnedCents(plans);
+ for(const line of lines(answer)){
+  if(CONDITIONAL_PRICE.test(line)||!(POINT_PRICE.test(line)||centsIn(line).length))continue;
+  if(values.length?unreturned(line,allowed):!USER_VALUE.test(line))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
+ }
  return issues;
 }
 export function choiceIssues(answer,evidence){
@@ -131,11 +149,11 @@ export function choiceIssues(answer,evidence){
   const anchors=cardAnchors({card:latest.choice.card});
   if(anchors.length&&!mentions(text.slice(0,240),anchors))issues.push({code:'choice_not_first',value:latest.choice.card});
  }
- // #193: a default market valuation is never the user's own. When every value used was a default, crediting it to the user is wrong.
+ // #193: a default market valuation is never the user's own.
  issues.push(...defaultAsUserIssues(answer,decisions.flatMap(d=>d.pointValues||[])));
- const defaults=decisions.some(d=>(d.pointValues||[]).some(v=>v.basis==='default'));
+ const defaults=decisions.some(d=>(d.pointValues||[]).some(v=>v.basis==='default')),allowed=returnedCents(decisions);
  // Pricing is allowed only on a line about a card that has a value: the user's, or the default market valuation.
  const valued=decisions.flatMap(d=>(d.rows||[]).filter(r=>r.centsPerPoint!=null)).flatMap(r=>cardAnchors({card:r.card}));
- for(const line of answer.split(/\n|(?<=[。！？!?])/))if(POINT_PRICE.test(line)&&!CONDITIONAL_PRICE.test(line)&&!(valued.length&&(mentions(norm(line),valued)||USER_VALUE.test(line)||defaults&&DEFAULT_WORDS.test(line))))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
+ for(const line of answer.split(/\n|(?<=[。！？!?])/))if(POINT_PRICE.test(line)&&!CONDITIONAL_PRICE.test(line)&&!(valued.length&&(mentions(norm(line),valued)||USER_VALUE.test(line)||defaults&&DEFAULT_WORDS.test(line)))||defaults&&!CONDITIONAL_PRICE.test(line)&&unreturned(line,allowed))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
  return issues;
 }

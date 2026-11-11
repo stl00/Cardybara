@@ -28,7 +28,9 @@ export function valuationFor({programme,card,region,currency,unit}={}){
   ||null;
 }
 const validCents=c=>typeof c==='number'&&Number.isFinite(c)&&c>0&&c<=MAX_CENTS;
-const cleanRow=r=>r&&typeof r==='object'&&byId.has(r.id)&&validCents(r.cents)&&typeof r.at==='string'&&Number.isFinite(Date.parse(r.at))?{id:r.id,cents:Math.round(r.cents*10000)/10000,at:r.at}:null;
+// A setting dated in the future would win every later merge, so it is not accepted.
+const validAt=at=>typeof at==='string'&&Number.isFinite(Date.parse(at))&&Date.parse(at)<=Date.now()+86400000;
+const cleanRow=r=>r&&typeof r==='object'&&byId.has(r.id)&&validCents(r.cents)&&validAt(r.at)?{id:r.id,cents:Math.round(r.cents*10000)/10000,at:r.at}:null;
 const clean=rows=>{const out=new Map();for(const r of Array.isArray(rows)?rows:[]){const c=cleanRow(r);if(c)out.set(c.id,c);}return [...out.values()];};
 /** A missing or damaged store reads as no overrides; a damaged row or an unknown programme is dropped on its own. */
 export function readPointValueOverrides(storage){try{const raw=JSON.parse(storage.getItem(POINT_VALUES_KEY));return clean(raw?.schema===1?raw.values:[]);}catch{return []}}
@@ -75,7 +77,9 @@ export function walletValuations(cards,overrides=[],earnings=()=>[]){
  */
 export function readingValue(reading,card,overrides=[],earnings=()=>[]){
  if(!reading||!card||!Number.isFinite(reading.amount)||reading.unit==='USD'||reading.unit==='HKD')return null;
- const named=[{programme:reading.label,unit:null},...earnings(card)];
+ // By the reading's own programme name; the card's earning programme only when the reading names none, so a
+ // RewardCash reading on a miles card is never valued as miles.
+ const named=reading.label?[{programme:reading.label,unit:null}]:earnings(card);
  for(const e of named){
   const v=resolvePointValue(valuationFor({programme:e.programme,card:card.name,region:card.region,currency:card.currency,unit:e.unit}),overrides);
   if(v)return {value:Math.round(reading.amount*v.cents)/100,currency:v.currency,pointValue:v};

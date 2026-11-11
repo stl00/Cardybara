@@ -132,3 +132,33 @@ test('every programme with a knowledge entry points at a real one, so ItemLogo c
  const {knowledgeEntities}=await import('../src/knowledge.js');const ids=new Set(knowledgeEntities.programmes.map(p=>p.id));
  for(const p of valuationTable.programmes)if(p.knowledgeProgrammeId)assert.ok(ids.has(p.knowledgeProgrammeId),p.id);
 });
+
+test('review: grounding has no false alarms on "按你…" without a price, and catches invented or mixed-up values',()=>{
+ const byDefault=chooseCard(usDining,{...wallet,cards:two}),codes=(a,ev=[byDefault])=>answerGrounding(a,ev).issues.map(i=>i.code);
+ for(const fine of ['用 American Express Gold Card。按你的消费习惯，餐饮用它最好。','Use the American Express Gold Card. At your favourite restaurant it earns 4x.'])assert.ok(!codes(fine).includes('default_as_user_value'),fine);
+ // A default line can't carry a value no tool returned.
+ assert.ok(codes('用 American Express Gold Card。默认估值下 Gold 每点 1.5 分；Aeroplan 每点 2 分。').includes('unstated_point_value'));
+ // Mixed bases: the user's own UR value and the default MR value; calling the MR default "yours" is caught.
+ const sr=cards.filter(c=>['American Express Gold Card','Sapphire Reserve','Freedom Unlimited'].includes(c.name));
+ const mixed=chooseCard(usDining,{...wallet,cards:sr,pointValues:[{id:'chase-ur',cents:2,at:AT}]});
+ assert.ok(codes('用 '+mixed.choice.card+'。按你的估值，MR 每点 1.5 美分。',[mixed]).includes('default_as_user_value'));
+ assert.ok(!codes('用 '+mixed.choice.card+'。按你设定的 UR 每点 2 美分。',[mixed]).includes('default_as_user_value'));
+});
+
+test('review: a backup setting dated in the future is not accepted; a reading is valued by its own programme only',async()=>{
+ const future=new Date(Date.now()+30*86400000).toISOString();
+ assert.throws(()=>mergePointValues([],{schema:1,values:[{id:'chase-ur',cents:2,at:future}]}),/invalid_point_value_backup/);
+ const {readingValue}=await import('../src/pointValues.js');
+ const gold=cards.find(c=>c.name==='American Express Gold Card');
+ const v=readingValue({label:'Membership Rewards',amount:10000,unit:'points'},gold,[]);
+ assert.deepEqual([v.value,v.currency,v.pointValue.basis],[150,'USD','default']);
+ assert.equal(readingValue({label:'RewardCash',amount:100,unit:'points'},{name:'HSBC EveryMile Card',region:'HK',currency:'HKD'},[],()=>[{programme:null,unit:'HKD-per-mile'}]),null,'never valued as miles');
+ assert.equal(readingValue({label:'Membership Rewards',amount:5,unit:'USD'},gold,[]),null,'cash is not points');
+});
+
+test('review: the lead threshold rounds up and ignores a runner-up in the same programme',()=>{
+ const held=cards.filter(c=>['American Express Gold Card','Sapphire Reserve','Freedom Unlimited'].includes(c.name));
+ const r=chooseCard(usDining,{...wallet,cards:held});
+ // Sapphire Reserve 3x UR at 1.5 = 4.50 against Gold's 400 MR: 4.5/400 = 1.125 cents, shown as 1.13 so Gold still leads there.
+ assert.equal(r.choice.card,'American Express Gold Card');assert.equal(r.choice.holdsAboveCentsPerPoint,1.13);
+});

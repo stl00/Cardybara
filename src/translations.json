@@ -1845,7 +1845,9 @@
     "这笔没有现金返现卡可比；积分卡之间要看你给每点的估值，可在设置的积分估值里填写。": "No cash-back card applies here, and these programmes have no value per point: set one under Point values in settings to compare them.",
     "钱包里的卡没有积分或里程计划。": "No card in the wallet earns points or miles.",
     "默认": "Default",
-    "默认市场估值": "Default market valuation"
+    "默认市场估值": "Default market valuation",
+    "按你设定的每里 {0} {1}": "at the {0} {1} a mile you set",
+    "按默认市场估值每里 {0} {1}，可在设置里改": "at the default market valuation of {0} {1} a mile; change it in settings"
   },
   "zh-TW": {
     "美国": "美國",
@@ -3693,6 +3695,8 @@
     "这笔没有现金返现卡可比；积分卡之间要看你给每点的估值，可在设置的积分估值里填写。": "這筆沒有現金回饋卡可比；積分卡之間要看你給每點的估值，可在設定的積分估值裡填寫。",
     "钱包里的卡没有积分或里程计划。": "錢包裡的卡沒有積分或里程計劃。",
     "默认": "預設",
-    "默认市场估值": "預設市場估值"
+    "默认市场估值": "預設市場估值",
+    "按你设定的每里 {0} {1}": "按你設定的每里 {0} {1}",
+    "按默认市场估值每里 {0} {1}，可在设置里改": "按預設市場估值每里 {0} {1}，可在設定裡改"
   }
 }

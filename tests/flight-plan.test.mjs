@@ -98,3 +98,12 @@ test('#193: a flight plan priced at the default market valuation says so, and ne
  const set=runWalletTool(call({airline:'Delta',milesNeeded:25500}),{...ctx,pointValues:[{id:'amex-mr-us',cents:2,at:'2026-11-01T00:00:00Z'}]});
  assert.ok(!answerGrounding('按你设定的每点 2 美分。',[set,set.credits,set.transfers]).issues.some(i=>i.code==='default_as_user_value'));
 });
+
+test('review #193: a value the user said in the chat reaches plan_flight first, and repeating it is not called a default',()=>{
+ const r=runWalletTool(call({airline:'Delta',milesNeeded:25500,pointValues:{MR:2}}),ctx);
+ const mr=r.valuation.programmes.find(v=>v.programmeId==='amex-mr-us');assert.deepEqual([mr.cents,mr.basis],[2,'stated']);
+ assert.ok(!answerGrounding('按你说的每点 2 美分，26,000 点约值 520 美元。',[r,r.credits,r.transfers]).issues.some(i=>['default_as_user_value','unstated_point_value'].includes(i.code)));
+ // A value the plan did not return can't be quoted.
+ const plain=runWalletTool(call({airline:'Delta',milesNeeded:25500}),ctx);
+ assert.ok(answerGrounding('按默认市场估值每点 1.7 美分，可在设置里改。',[plain,plain.credits,plain.transfers]).issues.some(i=>i.code==='unstated_point_value'));
+});
