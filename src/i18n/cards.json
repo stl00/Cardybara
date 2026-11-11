@@ -109,7 +109,21 @@
     "当前持卡年度：{0} — {1}；周年福利、年费提醒和持卡成本都按它计算。": "Current card year: {0} — {1}. Card-year credits, the annual fee reminder and cost tracking all follow it.",
     "年费日取自你以前记录的持卡年度（最新一条）；那些记录用过不同的日期：{0}。请核对。": "The annual fee date was taken from the card years you recorded before (the latest one); those records used different dates: {0}. Please check it.",
     "每张卡只填这一个日期：周年福利、年费提醒和持卡成本都按它计算。银行页面不显示年费日，按你的账单或年费扣款记录填写；不知道可以留空。": "This one date per card drives card-year credits, the annual fee reminder and cost tracking. Bank pages don't show it, so use your statement or the fee charge; leave it blank if you don't know.",
-    "在卡片详情的“年费日”一行点“去设置”。": "Open the card and choose “Set” next to Annual fee date."
+    "在卡片详情的“年费日”一行点“去设置”。": "Open the card and choose “Set” next to Annual fee date.",
+    "暂无卡面": "No card art",
+    "找不到我的卡": "I can't find my card",
+    "（自己填写卡名）": "(enter its name yourself)",
+    "选择卡种": "Choose a card type",
+    "搜索卡名、品牌或银行，例如 Sapphire、Marriott、万豪": "Search card, brand or bank, e.g. Sapphire, Marriott, 万豪",
+    "搜索卡种": "Search card types",
+    "个人卡": "Personal",
+    "商务卡": "Business",
+    "{0} 种": "{0} cards",
+    "商务": "Business",
+    "没有匹配的卡种": "No matching card type",
+    "添加卡片：选择卡种": "Add a card: choose its type",
+    "更换": "Change",
+    "从列表选择": "Choose from the list"
   },
   "zh-TW": {
     "{0} 产品卡面": "{0} 產品卡面",
@@ -221,6 +235,20 @@
     "当前持卡年度：{0} — {1}；周年福利、年费提醒和持卡成本都按它计算。": "目前持卡年度：{0} — {1}；週年福利、年費提醒和持卡成本都按它計算。",
     "年费日取自你以前记录的持卡年度（最新一条）；那些记录用过不同的日期：{0}。请核对。": "年費日取自你以前記錄的持卡年度（最新一筆）；那些記錄用過不同的日期：{0}。請核對。",
     "每张卡只填这一个日期：周年福利、年费提醒和持卡成本都按它计算。银行页面不显示年费日，按你的账单或年费扣款记录填写；不知道可以留空。": "每張卡只填這一個日期：週年福利、年費提醒和持卡成本都按它計算。銀行頁面不顯示年費日，按你的帳單或年費扣款記錄填寫；不知道可以留空。",
-    "在卡片详情的“年费日”一行点“去设置”。": "在卡片詳情的「年費日」一行點「設定」。"
+    "在卡片详情的“年费日”一行点“去设置”。": "在卡片詳情的「年費日」一行點「設定」。",
+    "暂无卡面": "暫無卡面",
+    "找不到我的卡": "找不到我的卡",
+    "（自己填写卡名）": "（自己填寫卡名）",
+    "选择卡种": "選擇卡種",
+    "搜索卡名、品牌或银行，例如 Sapphire、Marriott、万豪": "搜尋卡名、品牌或銀行，例如 Sapphire、Marriott、萬豪",
+    "搜索卡种": "搜尋卡種",
+    "个人卡": "個人卡",
+    "商务卡": "商務卡",
+    "{0} 种": "{0} 種",
+    "商务": "商務",
+    "没有匹配的卡种": "沒有相符的卡種",
+    "添加卡片：选择卡种": "新增卡片：選擇卡種",
+    "更换": "更換",
+    "从列表选择": "從列表選擇"
   }
 }
