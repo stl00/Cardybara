@@ -98,3 +98,33 @@
 | Virgin Red | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
 | World of Hyatt | hotel | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
 | Wyndham Rewards | hotel | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+
+## Citi ThankYou Points（2026-11-11，#181）
+
+来源：Citi Strata Premier 和 Citi Strata Elite 的公开产品页（未登录），https://www.citi.com/credit-cards/citi-strata-premier-credit-card 和 https://www.citi.com/credit-cards/citi-strata-elite-credit-card 。两页写法相同：“Points transfer to American Airlines, JetBlue, Virgin Atlantic, Cathay, Eva Air, Choice Hotels, The Leading Hotels of the World® and others”，以及“The minimum transfer is only 1,000 points.”
+
+**已核对**
+
+- 7 个点名的伙伴，适用 Strata Premier 和 Strata Elite。
+- 最低转点 1,000 点。
+
+**仍未知（留空，不计算里程）**
+
+- 每个伙伴的比例：两页都没有写，所以 `convert_points` 只列出伙伴，不换算。常见的 1:1 说法不是官方页面上的内容，不采用。
+- 增量、单笔上限、到账时间、费用、是否可撤销：页面没有写。
+- “and others” 指哪些伙伴：页面没有列，不收录。
+- Strata Premier 和 Strata Elite 之间比例是否不同：页面没有区分。
+- Citi Double Cash：产品页没有提到转点，不关联伙伴。Custom Cash 未核对，同样不关联。
+- thankyou.com 的伙伴列表页未登录时没有返回内容，没有绕过；旧的转点条款页（含已停运的计划）不当作当前来源。
+
+页面写的是航空公司和酒店集团的名字，不是会员计划名；这里按各公司自己的会员计划记录，属于据此判断。钱包不读取 ThankYou 余额（Citi 的积分不在 MVP 范围），所以奖励页不加 ThankYou 标签，只供 assistant 回答。
+
+| 伙伴 | 类型 | 比例（点→单位） | 最低 | 增量 | 单笔上限 | 预计时间 | 费用 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| American Airlines AAdvantage | airline | 未写 | 1,000 | — | — | — | — |
+| JetBlue TrueBlue | airline | 未写 | 1,000 | — | — | — | — |
+| Virgin Atlantic Flying Club | airline | 未写 | 1,000 | — | — | — | — |
+| Cathay Asia Miles | airline | 未写 | 1,000 | — | — | — | — |
+| EVA Infinity MileageLands | airline | 未写 | 1,000 | — | — | — | — |
+| Choice Privileges | hotel | 未写 | 1,000 | — | — | — | — |
+| The Leading Hotels of the World Leaders Club | hotel | 未写 | 1,000 | — | — | — | — |

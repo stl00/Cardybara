@@ -71213,5 +71213,579 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.citi-thankyou.transfer-aadvantage",
+    "revision": 1,
+    "revisionId": "rule.programme.citi-thankyou.transfer-aadvantage@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "citi-us-citi-strata-premier-card",
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou",
+      "programme.aadvantage"
+    ],
+    "content": {
+      "title": "American Airlines AAdvantage",
+      "summary": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.citi-thankyou",
+      "toProgrammeId": "programme.aadvantage",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": null,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card",
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.citi-thankyou.transfer-jetblue-trueblue",
+    "revision": 1,
+    "revisionId": "rule.programme.citi-thankyou.transfer-jetblue-trueblue@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "citi-us-citi-strata-premier-card",
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou",
+      "programme.jetblue-trueblue"
+    ],
+    "content": {
+      "title": "JetBlue TrueBlue",
+      "summary": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.citi-thankyou",
+      "toProgrammeId": "programme.jetblue-trueblue",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": null,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card",
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.citi-thankyou.transfer-virgin-atlantic-flying-club",
+    "revision": 1,
+    "revisionId": "rule.programme.citi-thankyou.transfer-virgin-atlantic-flying-club@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "citi-us-citi-strata-premier-card",
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou",
+      "programme.virgin-atlantic-flying-club"
+    ],
+    "content": {
+      "title": "Virgin Atlantic Flying Club",
+      "summary": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.citi-thankyou",
+      "toProgrammeId": "programme.virgin-atlantic-flying-club",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": null,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card",
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.citi-thankyou.transfer-cathay-asia-miles",
+    "revision": 1,
+    "revisionId": "rule.programme.citi-thankyou.transfer-cathay-asia-miles@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "citi-us-citi-strata-premier-card",
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou",
+      "programme.cathay-asia-miles"
+    ],
+    "content": {
+      "title": "Cathay Asia Miles",
+      "summary": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.citi-thankyou",
+      "toProgrammeId": "programme.cathay-asia-miles",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": null,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card",
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.citi-thankyou.transfer-eva-infinity-mileagelands",
+    "revision": 1,
+    "revisionId": "rule.programme.citi-thankyou.transfer-eva-infinity-mileagelands@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "citi-us-citi-strata-premier-card",
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou",
+      "programme.eva-infinity-mileagelands"
+    ],
+    "content": {
+      "title": "EVA Infinity MileageLands",
+      "summary": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.citi-thankyou",
+      "toProgrammeId": "programme.eva-infinity-mileagelands",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": null,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card",
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.citi-thankyou.transfer-choice-privileges",
+    "revision": 1,
+    "revisionId": "rule.programme.citi-thankyou.transfer-choice-privileges@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "citi-us-citi-strata-premier-card",
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou",
+      "programme.choice-privileges"
+    ],
+    "content": {
+      "title": "Choice Privileges",
+      "summary": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.citi-thankyou",
+      "toProgrammeId": "programme.choice-privileges",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": null,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card",
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.citi-thankyou.transfer-leaders-club",
+    "revision": 1,
+    "revisionId": "rule.programme.citi-thankyou.transfer-leaders-club@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "citi-us-citi-strata-premier-card",
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.citi-thankyou",
+      "programme.leaders-club"
+    ],
+    "content": {
+      "title": "The Leading Hotels of the World Leaders Club",
+      "summary": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.citi-thankyou",
+      "toProgrammeId": "programme.leaders-club",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": null,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": null,
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card",
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]

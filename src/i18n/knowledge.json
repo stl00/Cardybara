@@ -120,7 +120,6 @@
     "American Express · Blue Business Plus Credit Card 官方产品页": "American Express · Blue Business Plus Credit Card official product page",
     "所有合资格消费": "Eligible purchases",
     "Citi · Citi Strata Premier Card 官方产品页": "Citi · Citi Strata Premier Card official product page",
-    "ThankYou 转点伙伴和比例尚未核对。": "ThankYou transfer partners and rates are not yet checked.",
     "cititravel.com 酒店、租车和景点": "Hotels, car rentals and attractions on cititravel.com",
     "机票和其他酒店": "Air travel and other hotel purchases",
     "加油站和充电站": "Gas and EV charging stations",
@@ -490,7 +489,9 @@
     "Amtrak Guest Rewards": "Amtrak Guest Rewards",
     "Bilt Rewards：每人只能有一个 Bilt Rewards 账户，卡、房租和合作商户赚的积分都进这个账户，余额只计一次。": "Bilt Rewards: each person may hold only one Bilt Rewards account. Points from the card, housing payments and partner merchants all go into it, so the balance is counted once.",
     "每位会员同一时间只能持有一张 Bilt 卡；换卡后积分仍在同一个账户。": "Each member can hold only one Bilt Card at a time; points stay in the same account after changing cards.",
-    "航空、酒店、邮轮和租车直接消费": "Airlines, hotels, cruise lines and car rental, bought directly"
+    "航空、酒店、邮轮和租车直接消费": "Airlines, hotels, cruise lines and car rental, bought directly",
+    "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。": "Citi's product page names this partner but states no rate, so no miles are computed. The minimum transfer is 1,000 points. The page does not state the increment, timing or fees. Grants no elite status.",
+    "ThankYou 转点比例、增量和到账时间官方产品页没有写；只列出部分伙伴和最低1,000点。": "The product page does not state ThankYou transfer rates, increments or timing; it names some partners and a 1,000-point minimum."
   },
   "zh-TW": {
     "直订航班": "直訂航班",
@@ -613,7 +614,6 @@
     "American Express · Blue Business Plus Credit Card 官方产品页": "American Express · Blue Business Plus Credit Card 官方產品頁",
     "所有合资格消费": "所有合資格消費",
     "Citi · Citi Strata Premier Card 官方产品页": "Citi · Citi Strata Premier Card 官方產品頁",
-    "ThankYou 转点伙伴和比例尚未核对。": "ThankYou 轉點夥伴和比例尚未核對。",
     "cititravel.com 酒店、租车和景点": "cititravel.com 酒店、租車和景點",
     "机票和其他酒店": "機票和其他酒店",
     "加油站和充电站": "加油站和充電站",
@@ -983,6 +983,8 @@
     "Amtrak Guest Rewards": "Amtrak Guest Rewards",
     "Bilt Rewards：每人只能有一个 Bilt Rewards 账户，卡、房租和合作商户赚的积分都进这个账户，余额只计一次。": "Bilt Rewards：每人只能有一個 Bilt Rewards 賬戶，卡、房租和合作商戶賺的積分都進這個賬戶，餘額只計一次。",
     "每位会员同一时间只能持有一张 Bilt 卡；换卡后积分仍在同一个账户。": "每位會員同一時間只能持有一張 Bilt 卡；換卡後積分仍在同一個賬戶。",
-    "航空、酒店、邮轮和租车直接消费": "航空、酒店、郵輪和租車直接消費"
+    "航空、酒店、邮轮和租车直接消费": "航空、酒店、郵輪和租車直接消費",
+    "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。": "Citi 產品頁列出本夥伴，但沒有寫比例，因此不計算里程；最低轉1,000點。增量、到帳時間和費用頁面沒有寫。不授予精英會籍。",
+    "ThankYou 转点比例、增量和到账时间官方产品页没有写；只列出部分伙伴和最低1,000点。": "ThankYou 轉點比例、增量和到帳時間官方產品頁沒有寫；只列出部分夥伴和最低1,000點。"
   }
 }

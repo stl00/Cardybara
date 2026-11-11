@@ -269,7 +269,8 @@
     "region": "US",
     "name": "Citi Strata Premier Card",
     "currencies": [],
-    "art": null
+    "art": null,
+    "transferProgrammeId": "programme.citi-thankyou"
   },
   {
     "id": "citi-us-citi-strata-elite-card",
@@ -292,7 +293,8 @@
     "region": "US",
     "name": "Citi Strata Elite Card",
     "currencies": [],
-    "art": null
+    "art": null,
+    "transferProgrammeId": "programme.citi-thankyou"
   },
   {
     "id": "citi-us-citi-double-cash-card",
