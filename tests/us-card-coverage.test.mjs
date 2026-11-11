@@ -30,7 +30,8 @@ test('each recorded fact has an official source, a date and the issuer wording',
 test('the assistant answers a listed card with its official source',()=>{
  for(const card of cards){
 assert.ok(card.fee,`${card.id} has no annual fee`);
-  const p=product(card.id);const result=runWalletTool(call('get_card_rules',{kind:'fee'}),{cards:[{id:'x',bank:p.bank,region:p.region,name:p.name}],events:[],day:checkedOn(card)});assert.ok(result.rules.length,card.id);const cited=JSON.stringify(result);assert.ok([card.url,...Object.values(card.extraSources||{}).map(x=>x.url)].some(u=>cited.includes(u)),card.id);}
+  const p=product(card.id);const result=runWalletTool(call('get_card_rules',{kind:'fee'}),{cards:[{id:'x',bank:p.bank,region:p.region,name:p.name}],events:[],day:checkedOn(card)});assert.ok(result.rules.length,card.id);// The fee cites the page its batch names: the product page, or the extra source the fee points to.
+  assert.ok(JSON.stringify(result).includes(card.fee.source?card.extraSources[card.fee.source].url:card.url),card.id);}
 });
 test('a held listed card gets a profile that marks personal state unverified',()=>{
  for(const card of cards){const p=product(card.id),profile=profileForCard({bank:p.bank,region:p.region,name:p.name});assert.ok(profile,card.id);assert.ok(profile.knowledgeGaps.length,card.id);for(const b of profile.benefits)assert.equal(b.accountState,'unverified');}

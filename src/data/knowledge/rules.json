@@ -60121,11 +60121,11 @@
     ],
     "content": {
       "title": "每年15晚 Elite Night Credits",
-      "summary": "每个自然年计入会籍升级；每个 Marriott Bonvoy 账户有限制，此福利并非 American Express 卡独有。",
+      "summary": "每个自然年计入会籍升级；可与一张合资格的 Marriott Bonvoy American Express 个人卡的 ENC 合并，每个 Marriott Bonvoy 账户有限制。",
       "sourceText": "Each calendar year, you can receive 15 Elite Night Credits towards the next level of Marriott Bonvoy Elite status",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "每个自然年计入会籍升级；每个 Marriott Bonvoy 账户有限制，此福利并非 American Express 卡独有。",
+        "每个自然年计入会籍升级；可与一张合资格的 Marriott Bonvoy American Express 个人卡的 ENC 合并，每个 Marriott Bonvoy 账户有限制。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ],
       "translatedFrom": "en-US"
@@ -60144,7 +60144,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "每个自然年计入会籍升级；每个 Marriott Bonvoy 账户有限制，此福利并非 American Express 卡独有。"
+      "unparsedText": "每个自然年计入会籍升级；可与一张合资格的 Marriott Bonvoy American Express 个人卡的 ENC 合并，每个 Marriott Bonvoy 账户有限制。"
     },
     "evidence": {
       "sourceIds": [
@@ -60171,7 +60171,7 @@
       "title": "15 Elite Night Credits each year",
       "summary": "15 Elite Night Credits each calendar year toward the next level of Marriott Bonvoy Elite status; limitations apply per member account.",
       "howToUse": [
-        "Check the credits in your Marriott Bonvoy account; credits from other Marriott cards may not stack."
+        "Check the credits in your Marriott Bonvoy account; they combine with one eligible consumer Amex Marriott card."
       ],
       "quotes": [
         {
@@ -60181,6 +60181,10 @@
         {
           "sourceId": "card-amex-us-us-marriott-bonvoy-business-card",
           "text": "Limitations apply per Marriott Bonvoy member account."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-business-card",
+          "text": "can be combined with the Elite Night Credits from one eligible Marriott Bonvoy Consumer American Express Card"
         }
       ]
     }
@@ -60464,7 +60468,7 @@
     "content": {
       "title": "主卡年费",
       "summary": "公布标准年费，不代表个人已收取或已获豁免。",
-      "sourceText": "$650 Annual Fee",
+      "sourceText": "The Delta SkyMiles Reserve Business Card has a $650 annual fee.",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
         "公布标准年费，不代表个人已收取或已获豁免。",
@@ -60491,7 +60495,7 @@
     },
     "evidence": {
       "sourceIds": [
-        "card-amex-us-us-delta-skymiles-reserve-business-card-compare"
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
       ],
       "checkedAt": "2026-11-11",
       "verification": "official-summary",
@@ -60791,7 +60795,7 @@
       "title": "Delta Sky Club access",
       "summary": "15 visits each Medallion Year to the Delta Sky Club when flying Delta, four one-time guest passes, and unlimited access after $75,000 in purchases in a calendar year.",
       "howToUse": [
-        "Show the card and a same-day Delta boarding pass at the Sky Club."
+        "Use a visit when flying Delta; check the remaining visits in your SkyMiles account."
       ],
       "quotes": [
         {
@@ -61233,7 +61237,7 @@
       "title": "Check two bags free",
       "summary": "The first checked bag flies free on international and domestic Delta flights, and the second bag on domestic Delta flights.",
       "howToUse": [
-        "Add your SkyMiles number to the booking."
+        "Fly Delta with the card on your SkyMiles account."
       ],
       "quotes": [
         {
@@ -61923,9 +61927,9 @@
       "programme.amex-membership-rewards-us"
     ],
     "content": {
-      "title": "AmexTravel.com 机票和预付酒店",
+      "title": "AmexTravel.com 预付酒店、租车、邮轮和机票",
       "summary": "须在 AmexTravel.com 或 Amex Travel App 预订。",
-      "sourceText": "2X POINTS On Flights & Prepaid Hotels Booked on AmexTravel.com or the Amex Travel App",
+      "sourceText": "you can earn 2X Membership Rewards points on prepaid hotels and other eligible travel, such as prepaid car rentals, cruises and flights",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
         "须在 AmexTravel.com 或 Amex Travel App 预订。",
@@ -61935,7 +61939,7 @@
     "terms": {
       "multiplier": 2,
       "unit": "points-per-USD",
-      "spendCategory": "AmexTravel.com 机票和预付酒店",
+      "spendCategory": "AmexTravel.com 预付酒店、租车、邮轮和机票",
       "spendCap": null,
       "creditedSpendMayNotEarn": null
     },
@@ -62061,7 +62065,7 @@
     "content": {
       "title": "主卡年费",
       "summary": "公布标准年费，不代表个人已收取或已获豁免。",
-      "sourceText": "$295 Annual Fee",
+      "sourceText": "The Graphite Business Cash Unlimited Card has an annual fee of $295.",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
         "公布标准年费，不代表个人已收取或已获豁免。",
@@ -62088,7 +62092,75 @@
     },
     "evidence": {
       "sourceIds": [
-        "card-amex-us-us-graphite-business-cash-unlimited-card-compare"
+        "card-amex-us-us-graphite-business-cash-unlimited-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-graphite-business-cash-unlimited-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-graphite-business-cash-unlimited-card.fee-additional@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-graphite-business-cash-unlimited-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Employee Graphite Business Cash Unlimited Cards have an annual fee of $95 for the first five Cards",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-graphite-business-cash-unlimited-card"
       ],
       "checkedAt": "2026-11-11",
       "verification": "official-summary",
@@ -62128,11 +62200,11 @@
     "programmeIds": [],
     "content": {
       "title": "AmexTravel.com 机票和预付酒店",
-      "summary": "机票限 AmexTravel.com 或 Amex Travel App 在线预订；预付酒店也可通过 American Express Travel 电话预订。度假套餐、租车和邮轮不计。",
+      "summary": "常见问题写须通过 American Express Travel 在线预订；提示框另写预付酒店也可通过旅行顾问电话预订，两处说法不一，按在线预订记录。度假套餐、租车和邮轮不计。",
       "sourceText": "5% CASH BACK On Flights and Prepaid Hotels Booked through American Express Travel Online",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "机票限 AmexTravel.com 或 Amex Travel App 在线预订；预付酒店也可通过 American Express Travel 电话预订。度假套餐、租车和邮轮不计。",
+        "常见问题写须通过 American Express Travel 在线预订；提示框另写预付酒店也可通过旅行顾问电话预订，两处说法不一，按在线预订记录。度假套餐、租车和邮轮不计。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -62151,7 +62223,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "机票限 AmexTravel.com 或 Amex Travel App 在线预订；预付酒店也可通过 American Express Travel 电话预订。度假套餐、租车和邮轮不计。"
+      "unparsedText": "常见问题写须通过 American Express Travel 在线预订；提示框另写预付酒店也可通过旅行顾问电话预订，两处说法不一，按在线预订记录。度假套餐、租车和邮轮不计。"
     },
     "evidence": {
       "sourceIds": [
@@ -62262,11 +62334,11 @@
     "programmeIds": [],
     "content": {
       "title": "American Express One AP 月费抵扣",
-      "summary": "一个自然年内用本卡消费满250,000美元后，下一个自然年可获最多2,400美元抵扣，用于 American Express One AP 月费。是否达标未核实。",
+      "summary": "一个自然年内用本卡消费满250,000美元后，下一个自然年可获最多2,400美元抵扣，用于 American Express One AP 月费；One AP 须另行登记。是否达标未核实。",
       "sourceText": "Unlock up to $2,400 in statement credits for use in the next calendar year on American Express One AP monthly fees",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "一个自然年内用本卡消费满250,000美元后，下一个自然年可获最多2,400美元抵扣，用于 American Express One AP 月费。是否达标未核实。",
+        "一个自然年内用本卡消费满250,000美元后，下一个自然年可获最多2,400美元抵扣，用于 American Express One AP 月费；One AP 须另行登记。是否达标未核实。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ],
       "translatedFrom": "en-US"
@@ -62285,7 +62357,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "一个自然年内用本卡消费满250,000美元后，下一个自然年可获最多2,400美元抵扣，用于 American Express One AP 月费。是否达标未核实。"
+      "unparsedText": "一个自然年内用本卡消费满250,000美元后，下一个自然年可获最多2,400美元抵扣，用于 American Express One AP 月费；One AP 须另行登记。是否达标未核实。"
     },
     "evidence": {
       "sourceIds": [
