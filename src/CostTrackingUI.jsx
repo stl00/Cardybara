@@ -6,6 +6,7 @@ import {readCostEvents,appendCostEvent} from './costStore';
 import {portfolioMetrics,feeCycles,annualEnd,actualCost,creditValueForCycle,latestCosts} from './costTracking';
 import {profileForCard} from './benefitRules';
 import {walletDay} from './personalBenefits';
+import {anniversaryPeriod} from './feeDate.js';
 const {Text,Paragraph}=Typography,Context=createContext(null);
 const useWords=()=>{const {language}=useI18n();return (cn,en,tw=cn)=>language==='en-US'?en:language==='zh-TW'?tw:cn};
 const money=(n,c)=>n==null?'—':new Intl.NumberFormat('en-US',{style:'currency',currency:c,maximumFractionDigits:2}).format(n);
@@ -31,7 +32,7 @@ export function PortfolioMetrics({cards,benefitEvents,hidden=false}){
 }
 export function FeeTracker({card,benefitEvents,hidden=false}){
  const w=useWords(),{events,ready,error,save}=useCostLedger(),{message}=App.useApp(),[editing,setEditing]=useState(null),[form]=Form.useForm(),[accountForm]=Form.useForm(),[accountOpen,setAccountOpen]=useState(false),[busy,setBusy]=useState(false);const archived=latestCosts(events).filter(e=>e.kind==='fee'&&e.cardId===card.id&&e.value.deleted);const rows=feeCycles(events,card.id),active=rows.find(e=>e.value.start<=walletDay()&&e.value.end>=walletDay()),net=actualCost(active),credits=creditValueForCycle(active,benefitEvents),config=latestCosts(events).find(e=>e.kind==='account'&&e.cardId===card.id)?.value;
- const open=event=>{const fee=profileForCard(card)?.fees;form.setFieldsValue(event?event.value:{start:'',end:'',currency:card.currency,listedFee:fee?.currency===card.currency?fee.primaryAnnual:null,charged:null,refund:0,waiver:'unknown',note:''});setEditing(event||'new')};
+ const open=event=>{const fee=profileForCard(card)?.fees;const cycle=anniversaryPeriod(card.feeDate,walletDay());form.setFieldsValue(event?event.value:{start:cycle?.start||'',end:cycle?.end||'',currency:card.currency,listedFee:fee?.currency===card.currency?fee.primaryAnnual:null,charged:null,refund:0,waiver:'unknown',note:''});setEditing(event||'new')};
  const submit=async()=>{let v;try{v=await form.validateFields()}catch{return;}setBusy(true);try{await save('fee',card.id,{...v,listedFee:v.listedFee??null,charged:v.charged??null,refund:v.refund??null});setEditing(null);message.success(w('年费周期已保存','Fee cycle saved','年費週期已儲存'))}catch{message.error(w('保存失败：请检查金额与日期，周期不能重叠。','Could not save. Check dates, amounts and overlapping cycles.','儲存失敗：請檢查金額與日期，週期不能重疊。'))}finally{setBusy(false)}};
  const showMoney=(n,c)=>hidden?'••••':money(n,c);
  const waiverLabel=v=>({unknown:w('未确认','Unknown','未確認'),none:w('无豁免','Not waived','無豁免'),partial:w('部分豁免','Partially waived'),full:w('全部豁免','Fully waived')})[v];

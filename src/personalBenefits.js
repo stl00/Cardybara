@@ -30,7 +30,7 @@ export function creditTasks(cards,asOf=walletDay()){
  const rows=[];
  for(const card of cards)for(const b of profileForCard(card)?.benefits||[]){
   if(!['credit','promo'].includes(b.category)||b.validFrom&&b.validFrom>asOf||b.validThrough&&b.validThrough<asOf||b.applicability)continue;
-  const period=benefitPeriod(b,asOf),limit=b.monthlyAmounts?.[Number(asOf.slice(5,7))-1]??b.amount;
+  const period=benefitPeriod(b,asOf,{feeDate:card.feeDate}),limit=b.monthlyAmounts?.[Number(asOf.slice(5,7))-1]??b.amount;
   if(!period||!Number.isFinite(limit)||limit<=0)continue;
   rows.push({key:JSON.stringify([card.id,b.knowledgeRuleId,period.start,period.end]),cardId:card.id,ruleId:b.knowledgeRuleId,revisionId:b.revisionId,title:b.title,condition:b.condition,sourceIds:b.sourceIds,limit:b.quantity?limit*b.quantity:limit,currency:b.currency||card.currency,period,requiresEnrollment:b.requiresEnrollment??null,categories:creditCategoriesForRuleId(b.knowledgeRuleId),...(b.original?{original:structuredClone(b.original)}:{}),...(b.translations?{translations:structuredClone(b.translations)}:{}),...(b.coupon?{coupon:structuredClone(b.coupon)}:{})});
  }

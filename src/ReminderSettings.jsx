@@ -26,7 +26,7 @@ function message(item){
  const p=phrases();
  if(item.type==='bill-summary')return [p.bill,p.billSummary.replace('{0}',item.count)];
  if(item.type==='credit-summary')return [p.credit,p.creditSummary.replace('{0}',item.count)];
- const credit=item.type==='credit',text=reminderText({group:credit?'credits':'bills',label:credit?`${ruleField(item.title,item,'title')} · ${item.name}`:item.name,days:item.days,stale:item.stale,amount:item.statement!=null&&item.currency?`${item.currency} ${Number(item.statement).toLocaleString()}`:null},p);
+ const credit=item.type==='credit',text=reminderText({group:credit?'credits':'bills',label:credit?`${ruleField(item.title,item,'title')} · ${item.name}`:item.type==='fee'?`${t('年费日')} · ${item.name}`:item.name,days:item.days,stale:item.stale,amount:item.statement!=null&&item.currency?`${item.currency} ${Number(item.statement).toLocaleString()}`:null},p);
  return [text.title,text.message];
 }
 /** A plain web page has no worker, so it can only check while it is open. */
@@ -81,6 +81,7 @@ export default function ReminderSettings(){
   {settings.enabled&&<Flex vertical gap={12}>
    <Flex align="center" gap={12} wrap><Checkbox checked={settings.bills} onChange={e=>update({bills:e.target.checked})}>{t('账单到期')}</Checkbox><Select aria-label={t('账单提前天数')} size="small" value={settings.billDays} disabled={!settings.bills} onChange={billDays=>update({billDays})} options={lead()}/></Flex>
    <Flex align="center" gap={12} wrap><Checkbox checked={settings.credits} onChange={e=>update({credits:e.target.checked})}>{t('福利快到期')}</Checkbox><Select aria-label={t('福利提前天数')} size="small" value={settings.creditDays} disabled={!settings.credits} onChange={creditDays=>update({creditDays})} options={lead()}/></Flex>
+   <Flex align="center" gap={12} wrap><Checkbox checked={settings.fees} onChange={e=>update({fees:e.target.checked})}>{t('年费日（你设置了年费日的卡）')}</Checkbox><Select aria-label={t('年费日提前天数')} size="small" value={settings.feeDays} disabled={!settings.fees} onChange={feeDays=>update({feeDays})} options={lead()}/></Flex>
    <Checkbox checked={settings.showAmounts} onChange={e=>update({showAmounts:e.target.checked})}>{t('在通知里显示账单金额（锁屏上可能被看到）')}</Checkbox>
    <div><Button size="small" disabled={!allowed()} onClick={()=>extensionPage()?chrome.notifications.create('cardybara-test',{type:'basic',iconUrl:chrome.runtime.getURL('icons/128.png'),title:t('账单提醒'),message:t('这是一条测试通知，提醒已开启。')}).catch(()=>{}):show(t('账单提醒'),t('这是一条测试通知，提醒已开启。'),'cardybara-test')}>{t('发送测试通知')}</Button></div>
   </Flex>}

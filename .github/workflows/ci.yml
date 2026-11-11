@@ -67,6 +67,10 @@ jobs:
         run: node scripts/e2e-extension.mjs package-under-test --out e2e-output/main
       - name: Broken packages must fail
         run: node scripts/e2e-extension.mjs package-under-test --negative-controls --out e2e-output/negative
+      - name: Manual cards and corrections on the packaged extension
+        run: node scripts/e2e-extension.mjs package-under-test --cards --out e2e-output/cards
+      - name: A card that is never saved must fail the cards check
+        run: node scripts/e2e-extension.mjs package-under-test --cards --negative-controls --out e2e-output/cards-negative
       # Extended set: nightly, on manual runs and on every release tag (the draft release waits for it).
       - name: Browser restart keeps the records
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')

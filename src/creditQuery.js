@@ -19,7 +19,7 @@ function ruleLookup(){
  return {list,active:(productId,id,day)=>list(productId,day,false).find(r=>r.id===id)||null,any:(productId,id,day)=>list(productId,day,true).find(r=>r.id===id)||null};
 }
 /** One row per cycle overlapping the dates, using the rule revision in force on the first overlapping day. */
-function tripRows(lookup,productId,id,win){
+function tripRows(lookup,productId,id,win,card){
  const rows=[];let day=win.start;
  while(day<=win.end){
   const rule=lookup.active(productId,id,day);
@@ -29,7 +29,7 @@ function tripRows(lookup,productId,id,win){
    if(from&&from>day&&from<=win.end){rows.push({rule:latest,outside:'rule-not-started',from:day,through:addDays(from,-1)});day=from;continue;}
    rows.push({rule:latest,outside:from&&from>day?'rule-not-started':'rule-expired',from:day,through:win.end});break;
   }
-  const period=benefitPeriod(rule.terms,day);
+  const period=benefitPeriod(rule.terms,day,{feeDate:card.feeDate});
   if(!period){rows.push({rule});break;}
   rows.push({rule,period,overlap:{start:day,end:period.end<win.end?period.end:win.end}});
   day=addDays(period.end,1);
@@ -102,7 +102,7 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
   const productId=match.product.id,profile=profileForCard(card);
   const ids=new Set([...lookup.list(productId,window.start,true),...lookup.list(productId,window.end,true)].filter(r=>relevant(r,use)).map(r=>r.id));
   for(const id of ids){
-   const rows=tripRows(lookup,productId,id,window),base=profile?.benefits.find(b=>b.knowledgeRuleId===id);
+   const rows=tripRows(lookup,productId,id,window,card),base=profile?.benefits.find(b=>b.knowledgeRuleId===id);
    // The user asked to stop hearing about it: one row, no cycle and no status, so it can be neither used nor unused.
    if(dismissed.has(dismissKey(card.id,id))){
     const row=rows.find(r=>!r.outside)||rows[0];
@@ -135,7 +135,7 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
     }
    }
    // A credit whose current cycle closes before the dates does not carry over to them. Monthly cycles always reset, so saying so adds only noise.
-   const nowRule=lookup.active(productId,id,day),current=nowRule&&benefitPeriod(nowRule.terms,day);
+   const nowRule=lookup.active(productId,id,day),current=nowRule&&benefitPeriod(nowRule.terms,day,{feeDate:card.feeDate});
    if(current&&current.end<window.start&&cycleRows.length&&nowRule.terms.period!=='calendar-month')groups.outsideDates.push({...describe(card,{rule:nowRule},destination,day,use,brief,purchase),reason:'current-cycle-ends-before-dates',cycle:{start:current.start,end:current.end},status:statusOf(current).status,datesCycleStarts:cycleRows[0].period.start});
   }
  }

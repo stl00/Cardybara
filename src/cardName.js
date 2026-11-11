@@ -31,5 +31,7 @@ export function presentCard(card,language){
  if(card.identitySource!=='bank-page')return card;
  const pageName=cleanPageName(card.pageName??card.name)||String(card.pageName??card.name??'');
  const m=matchCardProduct({...card,name:pageName});
- return m.status==='matched'?{...card,pageName,productId:m.product.id,name:productDisplayName(m.product.id,language)}:{...card,pageName,name:pageName};
+ // A name the user set on a bank-page card wins over both; the bank's words stay in pageName.
+ const own=card.userSet?.includes('name')?card.name:null;
+ return m.status==='matched'?{...card,pageName,productId:m.product.id,name:own??productDisplayName(m.product.id,language)}:{...card,pageName,name:own??pageName};
 }
