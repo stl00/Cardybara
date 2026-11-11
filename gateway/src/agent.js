@@ -75,8 +75,9 @@ async function modelCall(ctx,turn,payload,signal,{repair},emit){
  const response=await callProvider(ctx,forwarded,settle,signal);
  let message,finishReason=null,usage=null;
  try{
+  // Every model call clears the draft, a repair too, so an answer that failed its check does not stay on screen.
+  await emit({type:'model'});
   if(forwarded.stream){
-   await emit({type:'model'});
    ({message,finishReason,usage}=await readStream(response,forwarded,text=>emit({type:'delta',text})));
   }else{
    const json=JSON.parse(await readLimited(response,4*ctx.config.maxBodyBytes+65536));
@@ -110,8 +111,9 @@ export async function readStream(response,forwarded,onText){
   for(const part of Array.isArray(delta.tool_calls)?delta.tool_calls:[]){
    const i=part?.index;if(!Number.isInteger(i)||i<0||i>7)throw Error('bad_tool_delta');
    const call=calls[i]||={id:'',type:'function',function:{name:'',arguments:''}};
-   if(typeof part.id==='string')call.id+=part.id;
-   if(typeof part.function?.name==='string')call.function.name+=part.function.name;
+   // id and name come once (DeepSeek, OpenAI); a provider that repeats them in every chunk must not double them.
+   if(typeof part.id==='string'&&part.id&&part.id!==call.id)call.id+=call.id?'':part.id;
+   if(typeof part.function?.name==='string'&&part.function.name&&part.function.name!==call.function.name)call.function.name+=call.function.name?'':part.function.name;
    if(typeof part.function?.arguments==='string')call.function.arguments+=part.function.arguments;
    if(call.id.length>128||call.function.name.length>64||call.function.arguments.length>4000)throw Error('too_large');
   }

@@ -23,14 +23,15 @@ const productIds=new Set(cardProducts.map(p=>p.id));
 const MAX_CARDS=150,MAX_VALUES=20;
 
 /**
- * The name the assistant uses for a card. A wallet name with any digit in it could carry a tail or an amount,
- * so it is replaced by the catalogue product's name, else by the bank's. Catalogue names have no digits.
+ * The name the assistant uses for a card: its catalogue product's name when recognised, else the wallet name if it
+ * has no digit (a digit could be a tail or an amount), else the bank's. Catalogue names have no digits.
  */
 export function assistantCardName(card){
- const name=typeof card?.name==='string'?card.name.normalize('NFKC').replace(/\s+/g,' ').trim():'';
- if(safeName(name))return name;
+ // A recognised card goes by its catalogue name: the wallet name is bank or user text and could carry a nickname.
  const product=matchCardProduct(card).product?.name;
  if(product&&safeName(product))return product;
+ const name=typeof card?.name==='string'?card.name.normalize('NFKC').replace(/\s+/g,' ').trim():'';
+ if(safeName(name))return name;
  return BANKS.has(card?.bank)?card.bank+' card':'Card';
 }
 const safeName=n=>typeof n==='string'&&n.length>=1&&n.length<=120&&!/[\p{Nd}<>`{}\[\]\\]/u.test(n)&&!/[\u0000-\u001f]/.test(n);

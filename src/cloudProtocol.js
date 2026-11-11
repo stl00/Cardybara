@@ -15,6 +15,8 @@ import {validateToolCall} from './walletAgent.js';
 export const AGENT_PATH='/v1/chat';
 export const MAX_ROUNDS=4;
 export const MAX_RESULT_CHARS=60000;
+// The gateway's MAX_BODY_BYTES (gateway/wrangler.jsonc), less room for headers of the JSON itself.
+export const MAX_REQUEST_BYTES=260000;
 const MAX_HISTORY=64;
 
 /** Earlier turns as they may travel to the agent: no tool result, and of the tool calls only choose_card's arguments. */

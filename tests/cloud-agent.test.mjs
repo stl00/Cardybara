@@ -152,3 +152,10 @@ test('the agent route takes the same origin and size limits as the model proxy',
  assert.equal(old.status,400,'a wallet day far from the Worker\'s clock');
  assert.equal(g.calls(),0);
 });
+
+test('a turn too big for the gateway ends as a too-long conversation before it is sent',async()=>{
+ const g=await gateway([]);
+ const history=Array.from({length:30},(_,i)=>[{role:'user',content:'q'+i},{role:'assistant',content:'a'.repeat(19000)}]).flat();
+ await assert.rejects(()=>runCloudTurn({question:'hi',history,context,post:g.post}),/tool_limit/);
+ assert.equal(g.agentRequests.length,0);
+});

@@ -209,10 +209,12 @@ export async function reserve(ctx,worst){
 }
 /** Sends a sanitized body to the provider with the owner's key. Provider failures become codes only. */
 export async function callProvider(ctx,forwarded,settle,signal){
- const c=ctx.config;let response;
- try{response=await ctx.upstream(c.providerUrl,{method:'POST',headers:{Authorization:'Bearer '+c.providerKey,'Content-Type':'application/json'},body:JSON.stringify(forwarded),redirect:'manual',signal:signal?AbortSignal.any([AbortSignal.timeout(c.timeoutMs),signal]):AbortSignal.timeout(c.timeoutMs)});}
+ const c=ctx.config;let response,sent=false;
+ if(signal?.aborted){await settle({tokens:0,micros:0});throw signal.reason;}
+ try{sent=true;response=await ctx.upstream(c.providerUrl,{method:'POST',headers:{Authorization:'Bearer '+c.providerKey,'Content-Type':'application/json'},body:JSON.stringify(forwarded),redirect:'manual',signal:signal?AbortSignal.any([AbortSignal.timeout(c.timeoutMs),signal]):AbortSignal.timeout(c.timeoutMs)});}
  catch(e){
-  if(signal?.aborted){await settle(null);throw signal.reason;}
+  // Cancelled before the request left: nothing reached the provider, so nothing is charged. Later, the worst case stays.
+  if(signal?.aborted){await settle(sent?null:{tokens:0,micros:0});throw signal.reason;}
   // The provider may have received the request and billed it (a timeout often means it is still generating),
   // so the worst case stays charged.
   await settle(null);

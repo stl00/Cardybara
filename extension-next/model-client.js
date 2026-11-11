@@ -73,7 +73,7 @@ async function send(url,{provider,key,method='POST',body,signal,timeout=45000}){
 }
 const GATEWAY_ERRORS={invite_invalid:'invite_invalid',invite_revoked:'invite_revoked',daily_requests:'hosted_over_cap',daily_tokens:'hosted_over_cap',monthly_budget:'hosted_over_cap',provider_rate_limited:'model_rate_limited',rate_limited:'model_rate_limited'};
 /** The code the wallet shows for a gateway error code, from a response or a streamed error event. */
-export const hostedError=code=>['answer_not_grounded','tool_limit'].includes(code)?code:Object.hasOwn(GATEWAY_ERRORS,code)?GATEWAY_ERRORS[code]:'model_failed';
+export const hostedError=code=>code==='too_large'?'tool_limit':['answer_not_grounded','tool_limit'].includes(code)?code:Object.hasOwn(GATEWAY_ERRORS,code)?GATEWAY_ERRORS[code]:'model_failed';
 async function gatewayError(response){
  let code=null;try{code=(await response.json())?.error?.code;}catch{}
  return Object.hasOwn(GATEWAY_ERRORS,code)?GATEWAY_ERRORS[code]:response.status===401?'invite_invalid':'model_failed';
@@ -112,16 +112,21 @@ export async function completeJSON({system,user,maxTokens=600,signal}){
  * response body, a stream of server-sent events (src/cloudProtocol.js). Only the hosted service has this route.
  * Gateway errors become the same codes as for completions; a connection that fails becomes model_failed.
  */
-export async function postAgent(body,{signal,timeout=120000}={}){
+export async function postAgent(body,{signal,timeout=30000,idle=200000}={}){
  const saved=await ready(),target=PROVIDERS[saved.provider];
  if(!target.hosted)throw Error('model_not_ready');
  if(!await hasPermission(saved.provider))throw Error('model_not_ready');
+ // A turn may hold several model calls, so the whole stream has no limit: it fails when the response does not start
+ // within timeout, or when nothing arrives for idle (longer than a provider call takes to start streaming).
+ const stall=new AbortController();let timer=setTimeout(()=>stall.abort(),timeout);
  let response;
- try{response=await fetch(target.agent,{method:'POST',headers:{Authorization:'Bearer '+saved.key,'Content-Type':'application/json'},body:JSON.stringify(body),credentials:'omit',redirect:'error',cache:'no-store',signal:AbortSignal.any([AbortSignal.timeout(timeout),signal].filter(Boolean))});}
- catch(error){if(signal?.aborted)throw error;throw Error('model_failed');}
+ try{response=await fetch(target.agent,{method:'POST',headers:{Authorization:'Bearer '+saved.key,'Content-Type':'application/json'},body:JSON.stringify(body),credentials:'omit',redirect:'error',cache:'no-store',signal:AbortSignal.any([stall.signal,signal].filter(Boolean))});}
+ catch(error){clearTimeout(timer);if(signal?.aborted)throw error;throw Error('model_failed');}
+ clearTimeout(timer);
  if(!response.ok)throw Error(await gatewayError(response));
  if(!/^text\/event-stream/i.test(response.headers.get('Content-Type')||'')||!response.body)throw Error('model_failed');
- return response.body;
+ const watch=()=>{clearTimeout(timer);timer=setTimeout(()=>stall.abort(),idle);};watch();
+ return response.body.pipeThrough(new TransformStream({transform(chunk,c){watch();c.enqueue(chunk);},flush(){clearTimeout(timer);}}));
 }
 /** Whether the saved credential is the hosted service's invite code (the assistant then runs in the cloud). */
 export async function hostedReady(){const saved=await readKey();return !!saved&&saved.enabled!==false&&!!PROVIDERS[saved.provider]?.hosted;}

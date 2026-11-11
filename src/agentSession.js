@@ -68,7 +68,7 @@ export async function runAgentTurn({history,question,context,request,memory={},o
   const remote=remoteTools?message.tool_calls.filter(call=>remoteTools.has(call.function.name)):[];
   // The extension runs these and posts back only their results; the state it needs for them is the remembered trip.
   turnRounds.push(message);
-  if(remote.length&&!replayed){remote.forEach(validateToolCall);return {pending:{rounds:turnRounds,calls:remote,trip:state.trip||null}};}
+  if(remote.length&&!replayed){message.tool_calls.forEach(validateToolCall);return {pending:{rounds:turnRounds,calls:remote,trip:state.trip||null}};}
   if(replayed){const ids=new Set(remote.map(c=>c.id)),given=Object.keys(replayed.results||{});if(given.length!==ids.size||given.some(id=>!ids.has(id)))throw Error('invalid_tool_results');}
   messages.push(message);
   for(const call of message.tool_calls){

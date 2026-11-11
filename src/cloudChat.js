@@ -6,7 +6,7 @@ import {runWalletTool} from './walletAgent.js';
 import {heldCards} from './heldCards.js';
 import {validateState} from './conversationState.js';
 import {buildWalletSummary,assistantCardName,WALLET_TOOLS} from './walletSummary.js';
-import {trimHistory,sseEvents,MAX_ROUNDS} from './cloudProtocol.js';
+import {trimHistory,sseEvents,MAX_ROUNDS,MAX_REQUEST_BYTES} from './cloudProtocol.js';
 
 /**
  * One turn through the hosted agent. Returns what runAgentTurn returns for the chat UI: {answer, memory, messages, tools}.
@@ -21,7 +21,10 @@ export async function runCloudTurn({history=[],memory={},question,context,signal
  let rounds=null,turn=null;
  for(let request=0;request<=MAX_ROUNDS;request++){
   signal?.throwIfAborted();
-  const body=await post(rounds?{...base,rounds,turn}:base,{signal});
+  const request=rounds?{...base,rounds,turn}:base;
+  // The gateway takes up to 256 KB; a turn whose rounds outgrow it ends as a too-long conversation, not a failure.
+  if(new TextEncoder().encode(JSON.stringify(request)).byteLength>MAX_REQUEST_BYTES)throw Error('tool_limit');
+  const body=await post(request,{signal});
   let end=null;
   try{
    for await(const event of sseEvents(body,{signal})){
