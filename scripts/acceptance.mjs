@@ -7,6 +7,15 @@ import {readZipEntry} from './read-zip.mjs';
 const HOLDOUT=JSON.parse(readFileSync(new URL('../evals/holdout/manifest.json',import.meta.url),'utf8'));
 export const REQUIRED_CASES=['install','coldStart','manualAdd','bankDiscovery','bankReadback','restartPersistence','exportRecovery','cancel','expiredSession','upgradePersistence'];
 export const REQUIRED_BANKS=['Amex US','Amex HK','Chase','BOA','HSBC HK','SC HK','Citi US'];
+// The banks a candidate is accepted on are the banks its package can connect, read from the ZIP like its build:
+// a scoped package (the friends beta) offers only its own banks, an unscoped one every MVP bank.
+export function artifactBanks(zipBytes){
+ const match=/\bBUILD_BANKS=(null|\[[^\]]*\]);/.exec(readZipEntry(zipBytes,'build-scope.js').toString('utf8'));
+ if(!match)throw Error('Artifact does not declare its banks');
+ const banks=JSON.parse(match[1]);if(banks===null)return REQUIRED_BANKS;
+ if(!banks.length||new Set(banks).size!==banks.length||banks.some(b=>!REQUIRED_BANKS.includes(b)))throw Error('Artifact bank scope is not valid');
+ return banks;
+}
 const BILLING_FIELDS=['balance','statement','minimum','due'];
 // An observed due date needs a real calendar date and the printed text its year came from; a yearless date is display-only.
 export function dueYearEvidenced(f){
@@ -26,7 +35,7 @@ export function candidateSourceCommit(cwd=process.cwd()){
  try{return execFileSync('git',['rev-parse','--verify','--quiet',`v${label}^{commit}`],{cwd,encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim();}
  catch{throw Error(`Release tag v${label} not found in this checkout`);}
 }
-export function validateAcceptance(report,{sha256,runtimeBuild,sourceCommit,now=Date.now()}){
+export function validateAcceptance(report,{sha256,runtimeBuild,sourceCommit,banks=REQUIRED_BANKS,now=Date.now()}){
  const errors=[];const need=(ok,why)=>{if(!ok)errors.push(why);};
  need(report?.schema===1,'invalid schema');need(report?.artifactSha256===sha256,'artifact changed or not tested');
  need(typeof runtimeBuild==='string'&&runtimeBuild!==''&&report?.runtimeBuild===runtimeBuild,'executing worker build not verified');
@@ -42,7 +51,7 @@ export function validateAcceptance(report,{sha256,runtimeBuild,sourceCommit,now=
  const ran=Date.parse(h?.ranAt);need(Number.isFinite(ran)&&ran<=now+60000&&now-ran<7*86400000,'held-out assistant eval: run date missing or stale');
  need(h?.mode==='offline'&&Number.isInteger(h?.passed)&&h?.total===HOLDOUT.caseCount&&h.passed>=0&&h.passed<=h.total&&Array.isArray(h.failed)&&h.failed.length===h.total-h.passed&&h.passed/h.total>=HOLDOUT.minPassRate,'held-out assistant eval: below the pass rate');
  for(const name of REQUIRED_CASES){const c=report?.cases?.[name];need(c?.status==='passed'&&c?.mode==='real-chrome'&&typeof c?.evidence==='string'&&c.evidence.trim().length>5,`${name}: real Chrome evidence required`);}
- for(const bank of REQUIRED_BANKS){
+ for(const bank of banks){
   const b=report?.banks?.[bank];need(b?.status==='passed'&&Number.isInteger(b?.cardCount)&&b.cardCount>0&&b.runtimeBuild===runtimeBuild,`${bank}: real bank acceptance missing`);
   const captured=Date.parse(b?.capturedAt);need(Number.isFinite(captured)&&captured<=now+60000&&now-captured<7*86400000,`${bank}: current readback date missing`);
   need(Array.isArray(b?.cards)&&b.cards.length===b.cardCount&&b.visibleCardCount===b.cardCount,`${bank}: per-card coverage missing`);
@@ -60,7 +69,7 @@ export function validateAcceptance(report,{sha256,runtimeBuild,sourceCommit,now=
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  const [zip,evidence,build]=process.argv.slice(2);if(!zip||!evidence||!build){console.error('Usage: node scripts/acceptance.mjs CANDIDATE.zip PRIVATE-ACCEPTANCE.json RUNTIME-BUILD');process.exit(1);}
- const bytes=readFileSync(zip),result=validateAcceptance(JSON.parse(readFileSync(evidence,'utf8')),{sha256:createHash('sha256').update(bytes).digest('hex'),runtimeBuild:build,sourceCommit:candidateSourceCommit()});
+ const bytes=readFileSync(zip),result=validateAcceptance(JSON.parse(readFileSync(evidence,'utf8')),{sha256:createHash('sha256').update(bytes).digest('hex'),runtimeBuild:build,sourceCommit:candidateSourceCommit(),banks:artifactBanks(bytes)});
  if(artifactBuildId(bytes)!==build){result.passed=false;result.errors.push('runtime build is not the build in this artifact');}
  console.log(JSON.stringify(result,null,2));if(!result.passed)process.exitCode=1;
 }

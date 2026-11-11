@@ -1,7 +1,8 @@
 // Dev build only: the plugin's own schedule, redacted diagnostics and self-reload. Nothing here listens to
 // the network, so no local page or tool can start a refresh. localhost only receives the redacted report.
 import {ready,engine,next} from './background.js';
-import {ACTIVE_BANKS,PROVIDERS,guidedPage} from './providers.js';
+// The schedule reads only the banks this build connects (all active banks unless release.json scopes the build).
+import {CONNECTABLE_BANKS,PROVIDERS,guidedPage} from './providers.js';
 import {discoverVisibleCards} from './discovery.js';
 import {DEV_STAMP} from './dev-build-info.js';
 import {SETTINGS_KEY,CHECK_MINUTES,IDLE_SECONDS,defaultSettings,setEnabled,retryBank,afterRun,decideBanks,planBanks,markAttempted,buildReport,skipReport,skipSignature} from './schedule-core.js';
@@ -67,12 +68,12 @@ const check=({mayRead,manual=false,preview=false})=>serial(async()=>{
  const state=await engine.load();
  // No check of tabs during a read: the popup just says which banks are being read.
  if(state.run?.status==='running'){const reading=state.run.jobs.map(j=>j.bank);await saveSettings({...settings,skips:{...settings.skips,...Object.fromEntries(reading.map(bank=>[bank,'reading']))},lastCheckAt:Date.now()});return 'running';}
- const known=(state.discoveredCards||[]).filter(c=>ACTIVE_BANKS.includes(c.bank)),now=Date.now(),idle=await chrome.idle.queryState(IDLE_SECONDS);
- const input={settings,activeBanks:ACTIVE_BANKS,disabled:state.disabled,withCards:[...new Set(known.map(c=>c.bank))],idle,now,manual},settled=['off','disconnected','stopped','not_due'],before=decideBanks(input);
+ const known=(state.discoveredCards||[]).filter(c=>CONNECTABLE_BANKS.includes(c.bank)),now=Date.now(),idle=await chrome.idle.queryState(IDLE_SECONDS);
+ const input={settings,activeBanks:CONNECTABLE_BANKS,disabled:state.disabled,withCards:[...new Set(known.map(c=>c.bank))],idle,now,manual},settled=['off','disconnected','stopped','not_due'],before=decideBanks(input);
  // A bank that can't be read anyway isn't touched, even by the read-only tab check. A popup check probes what Read now
  // could take (also with the schedule off or a bank not due), the same read-only discovery Read now runs; ticks never do.
  const probe=preview?decideBanks({...input,manual:true}):before;
- input.tabs=await bankTabs(ACTIVE_BANKS.filter(bank=>!settled.includes(probe[bank])));
+ input.tabs=await bankTabs(CONNECTABLE_BANKS.filter(bank=>!settled.includes(probe[bank])));
  const skips=decideBanks(input),signature=skipSignature(skips),changed=signature!==settings.skipSignature;
  settings={...settings,skips,skipSignature:signature,lastCheckAt:now,...(preview?{readNow:planBanks({...input,manual:true})}:{})};await saveSettings(settings);
  if(changed)await deliver(skipReport(skips,now));
@@ -102,7 +103,7 @@ chrome.runtime.onMessage.addListener((raw,sender,reply)=>{
  // Following a run touches no tab: it only reads what is stored.
  if(raw.type==='dev-schedule-state'){void popupState().then(state=>reply({ok:true,...state})).catch(()=>reply({ok:false}));return true;}
  if(raw.type==='dev-read-now'){void check({mayRead:true,manual:true}).then(async outcome=>reply({ok:true,outcome:outcome||'nothing',...await popupState()})).catch(()=>reply({ok:false}));return true;}
- if(raw.type==='dev-retry-bank'&&!ACTIVE_BANKS.includes(raw.bank)){reply({ok:false});return false;}
+ if(raw.type==='dev-retry-bank'&&!CONNECTABLE_BANKS.includes(raw.bank)){reply({ok:false});return false;}
  // Retry clears one bank's stop and starts nothing: the next check reads it under the usual rules.
  void (async()=>{if(raw.type==='dev-schedule-set')await serial(async()=>{const settings=setEnabled(await loadSettings(),raw.enabled,raw.intervalMinutes);await saveSettings(settings);await showState(settings);});if(raw.type==='dev-retry-bank')await serial(async()=>{const settings=retryBank(await loadSettings(),raw.bank);await saveSettings(settings);await showState(settings);});await Promise.race([check({mayRead:false,preview:true}),new Promise(done=>setTimeout(done,3000))]);reply({ok:true,...await popupState()});})().catch(()=>reply({ok:false}));
  return true;

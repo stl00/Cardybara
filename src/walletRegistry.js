@@ -1,9 +1,13 @@
-import {ACTIVE_BANKS,PROVIDERS} from '../extension-next/providers.js';
+import {ACTIVE_BANKS,PROVIDERS,bankOrder,scopedBanks} from '../extension-next/providers.js';
 import {cleanPageName} from './cardName.js';
-// An archived bank shows only for a wallet already holding its cards, and never joins a refresh-all.
-export const visibleConnections=data=>data.connections.filter(c=>!PROVIDERS[c.bank]?.archived||data.cards.some(card=>card.bank===c.bank));
-export const selectableBanks=(banks,cards)=>banks.filter(b=>!PROVIDERS[b]?.archived||cards.some(c=>c.bank===b));
-export const defaultRefreshBanks=cards=>[...new Set(cards.map(c=>c.bank))].filter(b=>ACTIVE_BANKS.includes(b));
+// An archived bank shows only for a wallet already holding its cards, and never joins a refresh-all. A scoped build
+// (the beta) shows only its own banks: a manual card of another bank stays in the wallet, but its bank can't be connected.
+// Chase and Amex US come first. `scope` defaults to this build's (extension-next/build-scope.js).
+export const visibleConnections=(data,scope)=>{const banks=scopedBanks(scope);return bankOrder(data.connections.map(c=>c.bank)).map(b=>data.connections.find(c=>c.bank===b)).filter(c=>banks?banks.includes(c.bank):!PROVIDERS[c.bank]?.archived||data.cards.some(card=>card.bank===c.bank));};
+export const selectableBanks=(banks,cards,scope)=>{const offered=scopedBanks(scope);return banks.filter(b=>(offered?offered.includes(b):!PROVIDERS[b]?.archived)||cards.some(c=>c.bank===b));};
+// Regions for the wallet filter: a region with a bank this build offers, or one the wallet holds a card in.
+export const selectableRegions=(regions,cards,scope)=>{const offered=scopedBanks(scope)||ACTIVE_BANKS;return regions.filter(r=>offered.some(b=>PROVIDERS[b].region===r)||cards.some(c=>c.region===r));};
+export const defaultRefreshBanks=(cards,scope)=>{const offered=scopedBanks(scope)||ACTIVE_BANKS;return [...new Set(cards.map(c=>c.bank))].filter(b=>offered.includes(b));};
 export const WALLET_CARDS_KEY='cardybara-wallet-cards-v1';
 export function newWalletCard({bank,name,tail,currency},id=crypto.randomUUID()){
  const p=PROVIDERS[bank];const label=String(name||'').trim();
