@@ -28,11 +28,14 @@ t=performance.now();
 const r=await worker.default.fetch(new Request('https://gateway.test'+${JSON.stringify(path)},{method:'POST',headers:{Origin:'chrome-extension://'+'a'.repeat(32),Authorization:'Bearer '+code,'Content-Type':'application/json'},body:JSON.stringify(body)}),env,{waitUntil(){}});
 await r.text();
 console.log(JSON.stringify({importMs,requestMs:performance.now()-t,status:r.status}));`;
-const run=(bundle,path)=>JSON.parse(execFileSync(process.execPath,['--input-type=module','-e',probe(bundle,path)],{encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim().split('\n').at(-1));
+const run=(bundle,path)=>JSON.parse(execFileSync(process.execPath,['--input-type=module','-e',probe(bundle,path)],{encoding:'utf8',stdio:['ignore','pipe','pipe'],timeout:60000}).trim().split('\n').at(-1));
 
 test('the built Worker starts without loading the agent, and the proxy never loads it',async t=>{
  const dir=mkdtempSync(join(tmpdir(),'cardybara-gateway-'));t.after(()=>rmSync(dir,{recursive:true,force:true}));
- const {out}=await buildGateway(join(dir,'worker.mjs'));
+ const {out,metafile}=await buildGateway(join(dir,'worker.mjs'));
+ // Without timing: the agent reaches the Worker only through a dynamic import, the one thing a bundler keeps lazy.
+ const toAgent=Object.entries(metafile.inputs).flatMap(([from,i])=>i.imports.filter(x=>x.path==='gateway/src/agent.js').map(x=>[from,x.kind]));
+ assert.deepEqual(toAgent,[['gateway/src/gateway.js','dynamic-import']],'agent.js must only be imported dynamically, by gateway.js');
  // The best of three, so a busy machine cannot fail the check; the agent figure is the cheapest load seen.
  const best=(path,key)=>Math.min(...[0,1,2].map(()=>run(out,path)[key]));
  const proxy=run(out,'/v1/chat/completions');assert.equal(proxy.status,200);

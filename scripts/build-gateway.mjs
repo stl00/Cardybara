@@ -20,7 +20,7 @@ export async function buildGateway(out=root+'gateway/dist/worker.js'){
  const bytes=statSync(out).size,gz=gzipSync(readFileSync(out)).length;
  // Workers limits a script to 3 MB gzipped on the free plan and 10 MB on paid plans.
  if(gz>3*1024*1024)throw Error(`the Worker bundle is ${gz} bytes gzipped, over the 3 MB free-plan limit`);
- return {out,bytes,gz,inputs:inputs.length};
+ return {out,bytes,gz,inputs:inputs.length,metafile:result.metafile};
 }
 if(process.argv[1]===fileURLToPath(import.meta.url)){
  buildGateway().then(r=>console.log(`gateway/dist/worker.js: ${(r.bytes/1024).toFixed(0)} KiB, ${(r.gz/1024).toFixed(0)} KiB gzipped, ${r.inputs} inputs`),e=>{console.error(e.message);process.exit(1);});
