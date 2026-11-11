@@ -175,6 +175,16 @@ Read without login from the issuer's own public pages with curl (no browser), ch
 | Simply Cash Visa Card | assets/catalog-8c6ab7fb20a6ad88.png | https://www.sc.com/hk/credit-cards/ | https://www.sc.com/content/dam/sc/hk/shared/hk-sccc-180x110-1.png | top navigation img alt='Simple Cash Visa Card' linking to /hk/credit-cards/simplycash/ | unmodified | 2026-11-11 | requires-permission |
 | Standard Chartered Smart Credit Card | assets/catalog-3a83e97c113acbb9.png | https://www.sc.com/hk/credit-cards/ | https://www.sc.com/content/dam/sc/hk/shared/hk-sc-cf2-180-110.png | top navigation img alt='Smart Card' linking to /hk/credit-cards/smart/ | unmodified | 2026-11-11 | requires-permission |
 
+## Issuer card art, Bilt (checked 2026-11-11, #230)
+
+Read without login from Bilt's public card page with curl (no browser), checked 2026-11-11. The page says the cards are issued by Column N.A.; bilt.com is the product's official page. Each image is the `<img>` whose alt names the card; the page requests it at `?w=140`, and the base URL used here serves a 500x317 PNG, stored unmodified. Terms: Bilt's [terms](https://www.bilt.com/terms/) are a PDF whose text could not be extracted with the tools used; the page footer shows only "© 2026 Bilt Technologies", so no grant or restriction was read: `unverified`. The owner asked for this art in #230; showing it is the owner's decision, not permission from Bilt. To withdraw one, set the product's `art` to `null` in `src/data/card-products.json` and `card-product-overrides.json`.
+
+| Product | File | Product page | Image | Found in | Stored | Checked | Terms |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Bilt Blue Card | assets/catalog-91289b6e70a29618.png | https://www.bilt.com/card | https://img.bilt.com/43819/1790799681-bilt-tahoe.webp | img alt='Bilt Blue Card' (the page requests ?w=140; the base URL serves a 500x317 PNG) | unmodified | 2026-11-11 | unverified |
+| Bilt Obsidian Card | assets/catalog-aac578d63fd001d2.png | https://www.bilt.com/card | https://img.bilt.com/43819/1790799681-bilt-vail.webp | img alt='Bilt Obsidian Card' (the page requests ?w=140; the base URL serves a 500x317 PNG) | unmodified | 2026-11-11 | unverified |
+| Bilt Palladium Card | assets/catalog-d27c23c4c32ea349.png | https://www.bilt.com/card | https://img.bilt.com/43819/1790799681-bilt-aspen.webp | img alt='Bilt Palladium Card' (the page requests ?w=140; the base URL serves a 500x317 PNG) | unmodified | 2026-11-11 | unverified |
+
 # Merchant and programme marks
 
 Marks identify the service and belong to their owners; no endorsement is implied. An open-source icon package does not grant trademark rights: Simple Icons releases its project under CC0 but [asks users to seek the correct permissions](https://github.com/simple-icons/simple-icons/blob/develop/DISCLAIMER.md) for each brand.

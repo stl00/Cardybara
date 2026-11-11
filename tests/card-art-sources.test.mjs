@@ -20,6 +20,7 @@ const issuerHosts={
  'BOA':{page:['www.bankofamerica.com'],image:['www.bankofamerica.com']},
  'HSBC HK':{page:['www.hsbc.com.hk'],image:['www.hsbc.com.hk']},
  'SC HK':{page:['www.sc.com'],image:['www.sc.com']},
+ 'Bilt':{page:['www.bilt.com'],image:['img.bilt.com']},
 };
 const magic={png:[0x89,0x50,0x4e,0x47],jpg:[0xff,0xd8,0xff]};
 const host=u=>new URL(u).host;

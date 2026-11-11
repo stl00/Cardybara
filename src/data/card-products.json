@@ -3211,7 +3211,15 @@
       "rewardPrograms": [
         "Bilt Rewards"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-91289b6e70a29618.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://img.bilt.com/43819/1790799681-bilt-tahoe.webp",
+        "pageUrl": "https://www.bilt.com/card",
+        "foundIn": "img alt='Bilt Blue Card' (the page requests ?w=140; the base URL serves a 500x317 PNG)",
+        "checkedAt": "2026-11-11",
+        "terms": "unverified"
+      },
       "sourceUrl": "https://www.bilt.com/card",
       "checkedAt": "2026-11-11",
       "verification": "issuer-listed",
@@ -3235,7 +3243,15 @@
       "rewardPrograms": [
         "Bilt Rewards"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-aac578d63fd001d2.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://img.bilt.com/43819/1790799681-bilt-vail.webp",
+        "pageUrl": "https://www.bilt.com/card",
+        "foundIn": "img alt='Bilt Obsidian Card' (the page requests ?w=140; the base URL serves a 500x317 PNG)",
+        "checkedAt": "2026-11-11",
+        "terms": "unverified"
+      },
       "sourceUrl": "https://www.bilt.com/card",
       "checkedAt": "2026-11-11",
       "verification": "issuer-listed",
@@ -3259,7 +3275,15 @@
       "rewardPrograms": [
         "Bilt Rewards"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-d27c23c4c32ea349.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://img.bilt.com/43819/1790799681-bilt-aspen.webp",
+        "pageUrl": "https://www.bilt.com/card",
+        "foundIn": "img alt='Bilt Palladium Card' (the page requests ?w=140; the base URL serves a 500x317 PNG)",
+        "checkedAt": "2026-11-11",
+        "terms": "unverified"
+      },
       "sourceUrl": "https://www.bilt.com/card",
       "checkedAt": "2026-11-11",
       "verification": "issuer-listed",
