@@ -12,11 +12,12 @@ import {BankMark} from './Identity.jsx';
 import ItemLogo from './ItemLogo.jsx';
 import {cardPresentation} from './productCatalog.js';
 const {Text}=Typography;
-const CATEGORY_LABELS={dining:'餐厅',supermarket:'超市',gas:'加油',['online-retail']:'网购',flight:'机票',hotel:'酒店',travel:'旅行',transit:'公共交通',streaming:'流媒体',drugstore:'药妆店',entertainment:'娱乐',other:'其他消费'};
+const CATEGORY_LABELS={dining:'餐厅',supermarket:'超市',gas:'加油',['online-retail']:'网购',flight:'机票',hotel:'酒店',travel:'其他旅行',transit:'公共交通',streaming:'流媒体',drugstore:'药妆店',entertainment:'娱乐',other:'其他消费'};
 // The icon each chip shows, from the logo registry's categories, so a chip looks like the same thing elsewhere.
 const CATEGORY_ICONS={dining:'dining',supermarket:'grocery',gas:'fuel',['online-retail']:'shopping',flight:'airline',hotel:'hotel',travel:'travel',transit:'ground-transport',streaming:'streaming',drugstore:'pharmacy',entertainment:'entertainment',other:'general'};
 // Most-used first; the rest open under "more". Only categories the engine offers are drawn.
-const PRIMARY=['dining','supermarket','online-retail','gas','travel','other'].filter(c=>QUICK_CATEGORIES.includes(c));
+// Flights and hotels earn apart from other travel, so each has its own chip up front (#222 review).
+const PRIMARY=['dining','supermarket','online-retail','gas','flight','hotel','travel','other'].filter(c=>QUICK_CATEGORIES.includes(c));
 const MORE=QUICK_CATEGORIES.filter(c=>!PRIMARY.includes(c));
 const MAX_RUNNERS_UP=2;
 const SYMBOLS={USD:'US$',HKD:'HK$',CAD:'CA$'};
@@ -57,15 +58,22 @@ function ChoiceArt({card,height,size}){
 }
 /** What a runner-up gives up against the choice: money when both came to money, else percentage points. */
 function gapText(lead,o,currency,hidden){
- if(lead.value!=null&&o.value!=null){const d=Math.round((lead.value-o.value)*100)/100;return d<=0?t('持平'):t('少 {0}',[money(d,currency,hidden)]);}
- if(lead.percent!=null&&o.percent!=null){const d=Math.round((lead.percent-o.percent)*100)/100;return d<=0?t('持平'):t('少 {0} 个百分点',[formatNumber(d,{maximumFractionDigits:2})]);}
+ if(lead.value!=null&&o.value!=null){const d=Math.round((lead.value-o.value)*100)/100;return d===0?t('持平'):d>0?t('少 {0}',[money(d,currency,hidden)]):null;}
+ if(lead.percent!=null&&o.percent!=null){const d=Math.round((lead.percent-o.percent)*100)/100;return d===0?t('持平'):d<0?null:t('少 {0} 个百分点',[formatNumber(d,{maximumFractionDigits:2})]);}
  return null;
+}
+// #193: a default valuation is named as one beside the figure, and a counted credit is said to be in the money.
+function caption(r,big,cash,hidden){
+ const fromDefault=r.pointValue?.basis==='default';
+ if(r.basis==='money'&&r.value!=null){const amount=money(r.value,r.currency,hidden);return r.credit?t('这笔约得 {0}（含抵扣）',[amount]):fromDefault?t('这笔约得 {0}（默认估值）',[amount]):t('这笔约得 {0}',[amount]);}
+ if(!big)return t('积分未估值');
+ return cash?t('现金返现'):fromDefault?t('按默认估值折算'):t('按积分估值折算');
 }
 function Hero({r,card,hidden,onDetail}){
  const cash=!!r.earn?.isCash,big=r.percent!=null?`${cash?'':APPROX}${percentText(r.percent)}`:null;
  const name=onDetail&&card?<button type="button" className="pc-card-name" onClick={()=>onDetail(card)} aria-label={t('查看 {0} 的详情',[r.card])}>{r.card}</button>:<span className="pc-card-name">{r.card}</span>;
  return <div className="pc-hero">
-  <ChoiceArt card={card} height={56} size="hero"/>
+  <ChoiceArt key={card?.id||r.card} card={card} height={56} size="hero"/>
   <div className="pc-hero-main">
    <Text type="secondary" className="pc-eyebrow">{t('建议用')}</Text>
    {name}
@@ -77,7 +85,7 @@ function Hero({r,card,hidden,onDetail}){
   </div>
   <div className="pc-hero-return">
    {big?<span className="pc-big">{big}</span>:<span className="pc-big pc-big-rate">{rateText(r.earn)}</span>}
-   <Text type="secondary" className="pc-big-caption">{r.basis==='money'&&r.value!=null?t('这笔约得 {0}',[money(r.value,r.currency,hidden)]):big?(cash?t('现金返现'):t('按积分估值折算')):t('积分未估值')}</Text>
+   <Text type="secondary" className="pc-big-caption">{caption(r,big,cash,hidden)}</Text>
   </div>
  </div>;
 }
@@ -85,10 +93,10 @@ function RunnerUps({r,cards,hidden,breakEven}){
  const list=r.others.slice(0,MAX_RUNNERS_UP);if(!list.length)return null;
  return <div className="pc-others">
   <Text type="secondary" className="pc-section-label">{r.kind==='use-card'?t('其他选择'):t('可比较的卡')}</Text>
-  <ul>{list.map(o=>{
+  <ul>{list.map((o,i)=>{
    const gap=r.kind==='use-card'?gapText(r,o,r.currency,hidden):null,even=breakEven.get(o.card);
-   return <li key={o.card+(o.cardRegion||'')} className="pc-other">
-    <ChoiceArt card={cardFor(cards,o.card,o.cardRegion)} height={28} size="row"/>
+   return <li key={i} className="pc-other">
+    <ChoiceArt key={o.card} card={cardFor(cards,o.card,o.cardRegion)} height={28} size="row"/>
     <span className="pc-other-main"><span className="pc-other-name">{o.card}</span><Text type="secondary" className="pc-other-rule" title={ruleText(o)}>{ruleText(o)}</Text></span>
     <span className="pc-other-return">{o.percent!=null?<span className="pc-other-percent">{`${o.isCash?'':APPROX}${percentText(o.percent)}`}</span>:null}{gap?<Text type="secondary" className="pc-other-gap">{gap}</Text>:even!=null&&r.kind==='use-card'?<Text type="secondary" className="pc-other-gap">{t('每点估值超过 {0} 分时更划算',[even])}</Text>:null}</span>
    </li>;
@@ -147,7 +155,7 @@ export default function PurchaseChooser({cards,hidden=false,onAsk,onDetail,onSet
  const result=useMemo(()=>day?quickChoice({category,amount,merchant,currency},{cards,events,day,pointValues}):null,[category,amount,merchant,currency,cards,events,day,pointValues]);
  const single=currencies.length===1?currencies[0]:null;
  const amountField=<InputNumber aria-label={t('金额（选填）')} placeholder={t('金额（选填）')} min={0} inputMode="decimal" value={amount} onChange={v=>setAmount(v??null)} prefix={single?<Text type="secondary">{symbolOf(single)}</Text>:undefined} className="pc-amount"/>;
- const summary=result?.kind==='use-card'?t('建议用 {0}',[result.card])+(result.percent!=null?' · '+percentText(result.percent):''):'';
+ const summary=result?.kind==='use-card'?t('建议用 {0}',[result.card])+(result.percent!=null?' · '+percentText(result.percent):''):result?.kind==='none'?t('你持有的卡里，没有这类消费的规则。'):result?.kind==='points-depends'?t('这笔没有现金返现卡可比；积分卡之间要看你给每点的估值，可在设置的积分估值里填写。'):'';
  return <Card className="purchase-chooser" title={t('这笔消费，用哪张卡？')} extra={onAsk&&<Button type="link" icon={<MessageOutlined/>} onClick={onAsk}>{t('问卡疲扒拉')}</Button>}>
   <CategoryChips value={category} onChange={setCategory}/>
   <div className="pc-fields">

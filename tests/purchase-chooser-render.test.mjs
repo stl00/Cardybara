@@ -69,7 +69,7 @@ test('the input is a labelled radio group of category chips with the currency on
  const {whole}=await load(),html=whole({cards,hidden:false});
  assert.match(html,/role="radiogroup" aria-label="消费类别"/);
  const radios=[...html.matchAll(/role="radio" aria-checked="(true|false)" tabindex="(-?\d)"/g)];
- assert.equal(radios.length,6,'six most-used categories before "more"');
+ assert.equal(radios.length,8,'the most-used categories before "more"');
  assert.equal(radios.filter(m=>m[1]==='true').length,1,'one chosen');
  assert.ok(radios.every(m=>(m[1]==='true')===(m[2]==='0')),'only the chosen chip is in the tab order');
  assert.match(html,/aria-expanded="false"/);assert.ok(text(html).includes('US$'));
@@ -82,4 +82,23 @@ test('effective return: cash at its rate, points at their value, unvalued points
  assert.equal(effectivePercent({earn:{isCash:false,rate:4,unit:'points-per-USD'}}),null);
  // Past a cap, the blended rate on this amount.
  assert.equal(effectivePercent({earn:{isCash:true,rate:3,unit:'cashback-percent',capExceeded:true,reward:200}},8000),2.5);
+});
+
+test('flights and hotels have their own chips up front; the travel chip says it is other travel (#222 review)',async()=>{
+ const {whole}=await load(),html=whole({cards,hidden:false});
+ for(const c of ['flight','hotel','travel'])assert.match(html,new RegExp(`role="radio" aria-checked="(true|false)" tabindex="-?\\d" data-category="${c}"`),c);
+ assert.ok(text(html).includes('其他旅行'));assert.ok(!/>旅行</.test(html),'never a bare "travel" that reads as flights too');
+ // The reason: on the engine, a flight is not "travel".
+ assert.notEqual(quickChoice({category:'flight',currency:'USD'},wallet).card,quickChoice({category:'travel',currency:'USD'},wallet).card);
+});
+
+test('a figure from a default valuation, or with a credit in it, says so beside it',async()=>{
+ const {result}=await load();
+ const r=quickChoice({category:'dining',amount:120,currency:'USD'},wallet);assert.equal(r.pointValue.basis,'default');
+ assert.ok(text(result({r,cards,hidden:false})).includes('（默认估值）'));
+ const bare=quickChoice({category:'dining',currency:'USD'},wallet);
+ assert.ok(text(result({r:bare,cards,hidden:false})).includes('按默认估值折算'));
+ const {creditMark,decisionIds:{GOLD,GOLD_DINING}}=await import('../evals/fixtures.mjs');
+ const withCredit=quickChoice({category:'dining',amount:30,merchant:'Grubhub',currency:'USD'},{...wallet,events:[creditMark(GOLD,GOLD_DINING,'2026-11-01','2026-11-30','unused')]});
+ assert.ok(withCredit.credit);assert.ok(text(result({r:withCredit,cards,hidden:false})).includes('（含抵扣）'));
 });

@@ -44,7 +44,7 @@ const shown=(row,amount,money)=>({card:row.card,cardRegion:row.cardRegion||null,
 export function quickChoice(input,{cards=[],events=[],day,pointValues=[],marketDefaults=true}){
  const result=chooseCard(purchaseArgs(input),{cards,events,day,pointValues,marketDefaults});
  if(result.needsDates)return {kind:'none',assumptions:[],others:[],points:[],changes:[],excluded:0,otherCurrency:0};
- const {choice}=result,lead=choice.kind==='use-card'?result.rows.find(r=>r.card===choice.card):null;
+ const {choice}=result,lead=choice.kind==='use-card'?result.rows.find(r=>r.card===choice.card&&(!choice.cardRegion||r.cardRegion===choice.cardRegion))||result.rows.find(r=>r.card===choice.card):null;
  return {
   kind:choice.kind,
   card:choice.card||null,

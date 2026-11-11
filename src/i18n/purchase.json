@@ -50,7 +50,10 @@
     "你持有的卡里，没有这类消费的规则。": "None of your cards has a rule for this kind of purchase.",
     "换个类别试试，或在卡片详情里确认卡种。": "Try another category, or confirm the card type in card details.",
     "更多类别": "More",
-    "建议用 {0}": "Use {0}"
+    "建议用 {0}": "Use {0}",
+    "这笔约得 {0}（含抵扣）": "About {0} on this purchase, credit included",
+    "这笔约得 {0}（默认估值）": "About {0} on this purchase (default point value)",
+    "按默认估值折算": "At the default point value"
   },
   "zh-TW": {
     "这笔消费，用哪张卡？": "這筆消費，用哪張卡？",
@@ -103,6 +106,9 @@
     "你持有的卡里，没有这类消费的规则。": "你持有的卡裡，沒有這類消費的規則。",
     "换个类别试试，或在卡片详情里确认卡种。": "換個類別試試，或在卡片詳情裡確認卡種。",
     "更多类别": "更多類別",
-    "建议用 {0}": "建議用 {0}"
+    "建议用 {0}": "建議用 {0}",
+    "这笔约得 {0}（含抵扣）": "這筆約得 {0}（含抵扣）",
+    "这笔约得 {0}（默认估值）": "這筆約得 {0}（預設估值）",
+    "按默认估值折算": "按預設估值折算"
   }
 }
