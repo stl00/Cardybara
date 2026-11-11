@@ -60,15 +60,18 @@ test('every partner lands in the airline or hotel list so none disappears from t
  for(const programme of transferProgrammes)for(const r of transferRoutes(programme.id))assert.ok(['airline','hotel'].includes(r.kind),r.partner);
  assert.equal(transferRoutes(mrUs.id).length,20);assert.equal(transferRoutes(mrHk.id).length,10);assert.equal(transferRoutes(ur.id).length,15);
 });
-test('transfer options give each held card only the rates its rules list, and never pool cards (#72)',()=>{
+test('transfer options give each card the rates its rules list, and a rate reached through another card names it (#72, #192)',()=>{
  const csr={id:'s1',name:'Sapphire Reserve',bank:'Chase',region:'US'},csp={id:'s2',name:'Sapphire Preferred',bank:'Chase',region:'US'},cfu={id:'s3',name:'Freedom Unlimited',bank:'Chase',region:'US'};
  const r=transferOptions([csr,csp,cfu],{partner:'凯悦',points:1500},{asOf:'2026-11-10'});
- assert.equal(r.programmes.length,1);assert.equal(r.programmes[0].programme,'Ultimate Rewards');
- const hyatt=r.programmes[0].partners,of=name=>hyatt.find(p=>p.cards.some(c=>c.name===name));
- assert.deepEqual(of('Sapphire Preferred').ratio,{from:4,to:3});assert.equal(of('Sapphire Preferred').conversion.receive,750);assert.equal(of('Sapphire Preferred').conversion.unusedPoints,500);
- assert.equal(of('Sapphire Reserve').ratio,null,'the Reserve has no stated Hyatt rate');assert.equal(of('Sapphire Reserve').conversion.status,'ratio-unknown');
- assert.ok(hyatt.every(p=>p.cards.length===1),'rates stay per card');
- assert.deepEqual(r.cardsWithoutTransferRecord.map(c=>c.name),['Freedom Unlimited'],'no transfer rule lists it, so it gets no partner');
+ assert.equal(r.programmes.length,1);assert.equal(r.programmes[0].programme,'Ultimate Rewards');assert.equal(r.programmes[0].pooling.kind,'per-card-combinable');
+ const hyatt=r.programmes[0].partners,own=name=>hyatt.find(p=>p.cards.some(c=>c.name===name&&!c.through));
+ assert.deepEqual(own('Sapphire Preferred').ratio,{from:4,to:3});assert.equal(own('Sapphire Preferred').conversion.receive,750);assert.equal(own('Sapphire Preferred').conversion.unusedPoints,500);
+ assert.equal(own('Sapphire Reserve').ratio,null,'the Reserve has no stated Hyatt rate of its own');assert.equal(own('Sapphire Reserve').conversion.status,'ratio-unknown');
+ const published=hyatt.find(p=>p.ratio);
+ assert.deepEqual(published.cards.find(c=>c.name==='Sapphire Reserve').through,['Sapphire Preferred'],'reached by combining into the Preferred');
+ assert.deepEqual(published.cards.find(c=>c.name==='Freedom Unlimited').through,['Sapphire Preferred']);
+ assert.deepEqual(r.programmes[0].cards.find(c=>c.name==='Freedom Unlimited').transfersThrough,['Sapphire Reserve','Sapphire Preferred']);
+ assert.deepEqual(r.cardsWithoutTransferRecord,[],'a Freedom card is an Ultimate Rewards card');
 });
 test('transfer options hide every number from a card the evidence does not reach',()=>{
  const gold={id:'g',name:'American Express Gold Card',bank:'Amex US',region:'US'};
