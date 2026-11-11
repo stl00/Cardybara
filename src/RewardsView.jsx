@@ -8,6 +8,7 @@ import {readingValue} from './pointValues.js';
 import {cardEarnings} from './cardDecision.js';
 import {usePointValues} from './PointValueSettings.jsx';
 import {cardProducts} from './productCatalog';
+import {manualOnly} from './manualBanks.js';
 import {convertPoints,readingsFor,routesForCard,transferProgrammes,transferRoutes} from './transferRoutes';
 import {POOLING_TEXT,poolingRule,poolingRuleForRow,pointsReach,programmeTotals,shownInPooledEntry} from './pointsPooling';
 const {Paragraph,Text,Link}=Typography;
@@ -71,7 +72,7 @@ function ProgrammePanel({programme,accounts,cards,count,hidden}){
   {readings.length?<div><Text type="secondary">{t('卡片读数')}</Text><br/><Select aria-label={t('卡片读数')} value={reading?.key??NO_CARD} onChange={v=>{setSelected(v);setManual(null);}} style={{minWidth:260}} options={readings.map(r=>({value:r.key,label:`${r.pooled?t('积分池'):r.combined?t('合计（可合并）'):r.cardRecord?.name||r.label} · ${count(r.amount)}`})).concat({value:NO_CARD,label:t('不选卡，看全部比例')})}/></div>:null}
   <div><Text type="secondary">{t('试算积分')}</Text><br/><InputNumber aria-label={t('试算积分')} min={0} precision={0} max={1000000000} step={1000} value={manual} placeholder={hidden||!reading?.usable?t('输入积分数'):whole(reading.amount)} onChange={v=>setManual(v??null)} style={{width:180}}/></div>
  </Flex>
- {!readings.length?<Alert showIcon type="info" title={t('尚未读取这个计划的积分')} description={t('刷新对应银行后会显示读数；也可以先输入积分数试算。')} style={{marginBottom:16}}/>:null}
+ {!readings.length&&!manualOnly(programme.bank)?<Alert showIcon type="info" title={t('尚未读取这个计划的积分')} description={t('刷新对应银行后会显示读数；也可以先输入积分数试算。')} style={{marginBottom:16}}/>:null}
  {rule?<Alert showIcon type="info" title={t(rule.summary)} description={<ul style={{margin:0,paddingInlineStart:18}}>{rule.caveats.map(c=><li key={c.id}>{t(c.summary)}</li>)}</ul>} style={{marginBottom:16}}/>:readings.length>1?<Paragraph type="secondary">{t('多张卡的读数分别列出；共用积分池未确认，不合计。')}</Paragraph>:null}
  {reach&&!reach.ownTransfer&&reach.via.length?<Paragraph type="secondary">{t('这张卡本身没有转点伙伴；按积分池规则，经 {0} 转出。',[reach.via.map(c=>c.name).join(' / ')])}</Paragraph>:null}
  {reading&&!reading.usable&&manual==null?<Paragraph type="secondary">{t('这个读数不是整数，不用于计算；可以输入积分数，或不选卡后试算。')}</Paragraph>:null}
