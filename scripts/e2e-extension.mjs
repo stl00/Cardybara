@@ -533,8 +533,18 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    const reached=()=>hosted?bank.gateway.requests.length:bank.model.requests.length;
    const access={cdp,id,attach,evaluate,sessions};
    await allowModelHost(access,host);
+   // The beta build offers the hosted service only. An own key is a developer-only mode behind a storage flag
+   // no wallet UI sets; the harness sets it the way a developer would, from DevTools.
+   if(!hosted)await evaluate('worker',`chrome.storage.local.set({'cardybara-dev-own-key':true}).then(()=>true)`);
+   // Leave and re-enter settings so the page reads the flag afresh.
+   await evaluate('wallet','location.hash="wallet"');await sleep(200);
    await evaluate('wallet','location.hash="settings"');
-   await until('the AI mode choice',()=>clickText('wallet','label.ant-radio-wrapper',hosted?'使用 Cardybara 托管服务（输入邀请码）':'使用自己的 key'));
+   if(hosted){
+    await until('the invite code field',()=>evaluate('wallet',`!!document.querySelector('input[type=password]')`));
+    const t=await pageText('wallet');
+    for(const zh of ['使用自己的 key','粘贴你的 API 密钥','保存密钥','自动补全银行数据'])if(JSON.parse(words(zh)).some(w=>t.includes(w)))throw new StepError('the beta settings page offers an own model key: '+zh);
+    note('settings offer the hosted service only');
+   }else await until('the AI mode choice',()=>clickText('wallet','label.ant-radio-wrapper','使用自己的 key'));
    const keyBox=await until('the '+what+' field',()=>evaluate('wallet',`(()=>{const el=document.querySelector('input[type=password]');if(!el||!${JSON.stringify(words(hosted?'粘贴邀请码':'粘贴你的 API 密钥'))}.includes(el.placeholder))return false;el.focus();return true;})()`));
    if(!keyBox)throw new StepError('no '+what+' field on the settings page');
    await cdp.send('Input.insertText',{text:credential},sessions.wallet);
@@ -576,7 +586,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    note('asked the assistant a question');
    await until('the scripted answer in the chat',async()=>{
     const t=await pageText('wallet');
-    const failed=['这次没有完成，AI 服务可能暂时不可用。可以重试；你的钱包没有被修改。','聊天助手需要先在设置里添加 AI 模型密钥，钱包其他功能不受影响。','已达到托管服务的用量上限，请稍后再试，或在设置里改用自己的 key。','这个邀请码已停用，请联系发码人，或在设置里改用自己的 key。','邀请码无效，请在设置里检查是否复制完整。'].find(zh=>JSON.parse(words(zh)).some(w=>t.includes(w)));
+    const failed=['这次没有完成，AI 服务可能暂时不可用。可以重试；你的钱包没有被修改。','聊天助手需要先在设置里输入邀请码，钱包其他功能不受影响。','已达到托管服务的用量上限，请稍后再试，或在设置里改用自己的 key。','这个邀请码已停用，请联系发码人，或在设置里改用自己的 key。','邀请码无效，请在设置里检查是否复制完整。'].find(zh=>JSON.parse(words(zh)).some(w=>t.includes(w)));
     if(failed)throw new StepError('the chat failed instead of answering: '+failed);
     return t.includes(ANSWER_MARK);
    },STEP_MS*2);

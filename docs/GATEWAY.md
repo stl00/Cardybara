@@ -2,6 +2,8 @@
 
 Step 1 of the half-local, half-cloud assistant (stl00/Cardybara#208). Beta testers can chat without their own model key: the extension sends each chat completion to a small Cloudflare Worker that holds the owner's provider key and forwards the request to the provider. The agent loop, tools, knowledge and wallet data stay in the extension exactly as with an own key; the gateway only relays one completion at a time. Step 2 (the agent itself on Cloudflare, streaming) is added beside this as another route.
 
+**Beta UI:** the hosted service is the only mode testers see: one invite code in Settings, no model key field, no provider choice, and no model-assisted bank parsing. An own provider key is a developer-only mode (local development and the owner's live evals), switched on by setting `chrome.storage.local` `cardybara-dev-own-key: true` from the extension's DevTools; no wallet UI sets it, and `saveKey` refuses an own key without it.
+
 Production URL: `https://cardybara-gateway.cardybara.workers.dev` (`GATEWAY_ORIGIN` in `extension-next/model-client.js`; a test keeps the manifest's optional host permission equal to it).
 
 Code: `gateway/src/gateway.js` (router, middleware, model proxy and the `UsageLedger` Durable Object), `gateway/src/worker.js` (the main module: only the fetch handler and `UsageLedger`, as Workers requires), `gateway/wrangler.jsonc`, `gateway/scripts/mock-provider.mjs`, `scripts/gateway-set-key.sh`, `scripts/gateway-codes.mjs`. Tests: `tests/gateway.test.mjs`, `tests/gateway-codes.test.mjs`, and the packaged-extension E2E `--chat --hosted`, which runs the same Worker code locally.

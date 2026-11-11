@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,statSync} from 'node:fs';
 import {join} from 'node:path';
-import {KEY_STORE,PROVIDERS,GATEWAY_ORIGIN,HOSTED,validInvite,keyStatus,saveKey,deleteKey,setModelEnabled,isModelReady,testKey,completeChat,completeJSON,completeBody,maskKey,validKey,requestPermission} from '../extension-next/model-client.js';
+import {KEY_STORE,DEV_OWN_KEY,PROVIDERS,GATEWAY_ORIGIN,HOSTED,validInvite,keyStatus,saveKey,deleteKey,setModelEnabled,isModelReady,testKey,completeChat,completeJSON,completeBody,maskKey,validKey,requestPermission} from '../extension-next/model-client.js';
 import {parserStatus,modelParse} from '../extension-next/parser-client.js';
 import {extensionChat} from '../src/extensionChat.js';
 import {chatRequest} from '../src/chatProtocol.js';
@@ -11,8 +11,8 @@ import {suggestInExtension} from '../src/productSuggestion.js';
 import {suggestionMessages,validateSuggestRequest} from '../src/productSuggestProtocol.js';
 // A made-up key for tests. The real key is only ever pasted by the owner into the extension.
 const KEY='test-only-0123456789abcdef';
-function fakeChrome({granted=true}={}){
- const local=new Map(),calls={sync:0,permissionRequests:[],removed:[]};
+function fakeChrome({granted=true,ownKey=true}={}){
+ const local=new Map(ownKey?[[DEV_OWN_KEY,true]]:[]),calls={sync:0,permissionRequests:[],removed:[]};
  globalThis.chrome={
   storage:{local:{get:async k=>local.has(k)?{[k]:structuredClone(local.get(k))}:{},set:async o=>{for(const [k,v] of Object.entries(o))local.set(k,structuredClone(v));},remove:async k=>{local.delete(k);}},sync:new Proxy({},{get:()=>{calls.sync++;throw Error('sync must not be used');}})},
   permissions:{contains:async o=>granted&&['https://api.deepseek.com/*',GATEWAY_ORIGIN+'/*'].includes(o.origins[0]),request:async o=>{calls.permissionRequests.push(o.origins);return granted;},remove:async o=>{calls.removed.push(o.origins);granted=false;return true;}}
@@ -178,4 +178,12 @@ test('hosted mode: bank parsing never goes through the gateway, and an invite co
  // Card-type recognition and chat do use the gateway.
  await completeJSON({system:'s',user:'u'});assert.equal(requests.length,1);
  assert.equal(validKey(INVITE),false);await assert.rejects(()=>saveKey({provider:'deepseek',key:INVITE}),/invalid_key/);await assert.rejects(()=>testKey({provider:'deepseek',key:INVITE}),/invalid_key/);
+});
+
+test('beta: without the developer flag an own key cannot be saved; the hosted service can',async()=>{
+ const {local}=fakeChrome({ownKey:false});
+ await assert.rejects(()=>saveKey({provider:'deepseek',key:KEY}),/own_key_disabled/);assert.equal(local.has(KEY_STORE),false);
+ assert.equal((await saveKey({provider:HOSTED,key:INVITE})).ready,true);
+ const ui=readFileSync('src/ModelKeySettings.jsx','utf8');assert.match(ui,/ownKeyAllowed/,'the settings page asks for the flag before showing own-key controls');
+ assert.ok(!/DEV_OWN_KEY|cardybara-dev-own-key/.test(ui+readFileSync('src/ParserSettings.jsx','utf8')),'no wallet UI sets the developer flag');
 });

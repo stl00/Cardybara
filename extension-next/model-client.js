@@ -12,8 +12,12 @@ export const PROVIDERS={
  deepseek:{label:'DeepSeek',origin:'https://api.deepseek.com',chat:'https://api.deepseek.com/chat/completions',models:'https://api.deepseek.com/models',model:'deepseek-flash'},
  [HOSTED]:{label:'Cardybara 托管服务',origin:GATEWAY_ORIGIN,chat:GATEWAY_ORIGIN+'/v1/chat/completions',check:GATEWAY_ORIGIN+'/v1/invite',model:'deepseek-flash',hosted:true},
 };
+// The beta offers the hosted service only. An own provider key is a developer-only mode (local development and
+// the owner's live evals), switched on by this storage flag from DevTools or a test harness; no wallet UI sets it.
+export const DEV_OWN_KEY='cardybara-dev-own-key';
+export async function ownKeyAllowed(){try{return (await local()?.get(DEV_OWN_KEY))?.[DEV_OWN_KEY]===true;}catch{return false;}}
 export const INVITE_PATTERN=/^cdy_[A-Za-z0-9_-]{43}$/;
-const local=()=>globalThis.chrome?.storage?.local||null;
+function local(){return globalThis.chrome?.storage?.local||null;}
 const permissionFor=provider=>({origins:[PROVIDERS[provider].origin+'/*']});
 export const validInvite=code=>typeof code==='string'&&INVITE_PATTERN.test(code);
 // An invite code pasted as an own key would go to the provider, so it is never a valid key.
@@ -37,6 +41,7 @@ export async function isModelReady(){return (await keyStatus()).ready;}
 export async function saveKey({provider,key}){
  if(!PROVIDERS[provider])throw Error('invalid_provider');if(!validCredential(provider,key))throw Error(PROVIDERS[provider].hosted?'invalid_invite':'invalid_key');
  const store=local();if(!store)throw Error('storage_unavailable');
+ if(!PROVIDERS[provider].hosted&&!await ownKeyAllowed())throw Error('own_key_disabled');
  await store.set({[KEY_STORE]:{provider,key,savedAt:new Date().toISOString(),enabled:true}});
  return keyStatus();
 }
