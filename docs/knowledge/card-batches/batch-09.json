@@ -64,7 +64,11 @@
      "zh": "须持有合资格 Schwab 账户才能持卡；个人账户情况未核实。",
      "en": "The card needs an eligible Schwab account; personal accounts are unverified."
     }
-   ]
+   ],
+   "sourceTitle": {
+    "zh": "持卡人协议",
+    "en": "Cardmember Agreement"
+   }
   },
   {
    "id": "chase-us-united-business-card",
@@ -143,17 +147,20 @@
      "key": "club-passes",
      "zh": "每年2张 United Club 单次通行证",
      "en": "2 United Club one-time passes a year",
-     "noteZh": "页面写“每年”，没有说明按自然年还是账户年。",
-     "noteEn": "The page says per year without saying whether that is a calendar or account year.",
+     "noteZh": "开户后及之后每12个月存入2张，须账户保持开立。",
+     "noteEn": "Two passes after account opening and every 12 months thereafter while the account stays open.",
      "scenario": "airport",
      "category": "lounge",
-     "period": null,
+     "period": "account-anniversary",
      "quote": "2 United Club one-time passes per year",
      "original": {
       "title": "2 United Club one-time passes per year",
       "summary": "Two United Club one-time passes per year.",
       "howToUse": [
-       "Use a pass at a United Club when flying United."
+       "Look for the passes in your MileagePlus account."
+      ],
+      "quotes": [
+       "after account opening and every 12 months thereafter as long as the credit card account remains open."
       ]
      },
      "programmeIds": [
@@ -197,8 +204,8 @@
      "key": "united-hotels",
      "zh": "United Hotels 预付酒店抵扣",
      "en": "United Hotels credit",
-     "noteZh": "每个账户年第1、2次通过 United Hotels 直接预付的酒店各返50美元，最多100美元。",
-     "noteEn": "$50 back on each of the 1st and 2nd prepaid stays booked directly through United Hotels, up to $100 each anniversary year.",
+     "noteZh": "每个账户年第1、2次通过 United Hotels 直接预付、金额50美元以上的酒店各返50美元，最多100美元。",
+     "noteEn": "$50 back on each of the 1st and 2nd prepaid stays of $50 or more booked directly through United Hotels, up to $100 each anniversary year.",
      "scenario": "hotel-stay",
      "category": "credit",
      "period": "account-anniversary",
@@ -210,7 +217,8 @@
        "Prepay the stay through United Hotels with the card."
       ],
       "quotes": [
-       "up to $100 each anniversary year."
+       "up to $100 each anniversary year.",
+       "for your first and second hotel stays of $50 or more"
       ]
      },
      "amount": 100,
@@ -268,8 +276,8 @@
      "key": "instacart",
      "zh": "Instacart 抵扣",
      "en": "Instacart credit",
-     "noteZh": "每月10美元，每个自然年最多120美元，须直接在 Instacart 用本卡消费；2027年12月31日结束。",
-     "noteEn": "$10 a month, up to $120 each calendar year, on purchases made directly through Instacart with the card; ends 12/31/27.",
+     "noteZh": "每月10美元，每个自然年最多120美元，须直接在 Instacart 用本卡消费；2027年12月31日结束。须先在 instacart.com/p/chase-united 激活免费的 Chase Instacart+ 会员，且会员有效期间才发放。",
+     "noteEn": "$10 a month, up to $120 each calendar year, on purchases made directly through Instacart with the card; ends 12/31/27. You must first activate the complimentary Chase Instacart+ membership at instacart.com/p/chase-united, and credits come only while it is active.",
      "scenario": "shopping",
      "category": "credit",
      "period": "calendar-month",
@@ -278,10 +286,11 @@
       "title": "Up to $120 in Instacart credits",
       "summary": "A $10 Instacart credit monthly, up to $120 each calendar year, for purchases made directly through Instacart; the benefit ends 12/31/27.",
       "howToUse": [
-       "Pay for Instacart orders with the card."
+       "Activate the complimentary Chase Instacart+ membership at instacart.com/p/chase-united, then pay Instacart orders with the card."
       ],
       "quotes": [
-       "Benefits end 12/31/27."
+       "Benefits end 12/31/27.",
+       "after you activate your complimentary Chase Instacart+ membership"
       ]
      },
      "amount": 10,
@@ -346,8 +355,8 @@
      "key": "first-bag",
      "zh": "免费第一件托运行李",
      "en": "Free first checked bag",
-     "noteZh": "主卡持卡人和一位同行旅客各可免费托运第一件标准行李。",
-     "noteEn": "The primary cardmember and one traveling companion can each check a first standard bag free.",
+     "noteZh": "主卡持卡人和一位同行旅客各可免费托运第一件标准行李。主卡持卡人须用本卡购票（开户后90天内免此要求）并在订票时填 MileagePlus 号。",
+     "noteEn": "The primary cardmember and one traveling companion can each check a first standard bag free. The primary cardmember must buy the ticket with the card (waived for flights in the first 90 days) and add their MileagePlus number.",
      "scenario": "airport",
      "category": "membership",
      "period": "per-trip",
@@ -356,7 +365,10 @@
       "title": "Free first checked bag",
       "summary": "The primary cardmember and one traveling companion can each check a first standard bag for free.",
       "howToUse": [
-       "Add your MileagePlus number to the booking."
+       "Buy the ticket with the card and add your MileagePlus number to the reservation."
+      ],
+      "quotes": [
+       "the primary Cardmember must use their United SM Business Card to purchase their ticket(s)"
       ]
      },
      "programmeIds": [
@@ -441,8 +453,8 @@
    ],
    "unknown": [
     {
-     "zh": "Group 2 优先登机、里程兑换折扣和保障类福利未录入。员工卡年费未确认。",
-     "en": "Group 2 boarding, the award discount and the coverage benefits are not recorded. The employee card fee is not confirmed."
+     "zh": "每消费20美元得1 PQP（每个自然年最多4,000）、Group 2 优先登机、里程兑换折扣和保障类福利未录入。员工卡年费未确认。",
+     "en": "1 PQP per $20 spent (up to 4,000 a calendar year), Group 2 boarding, the award discount and the coverage benefits are not recorded. The employee card fee is not confirmed."
     }
    ]
   },
@@ -538,7 +550,7 @@
       "title": "Free first and second checked bags",
       "summary": "The primary cardmember and one companion can each check a first and second standard bag for free.",
       "howToUse": [
-       "Add your MileagePlus number to the booking."
+       "Add your MileagePlus number to the reservation; check the card terms for the ticket purchase requirement."
       ]
      },
      "programmeIds": [
@@ -621,8 +633,8 @@
      "key": "instacart",
      "zh": "Instacart 抵扣",
      "en": "Instacart credit",
-     "noteZh": "每月两笔10美元，每个自然年最多240美元，须直接在 Instacart 用本卡消费；2027年12月31日结束。",
-     "noteEn": "Two $10 credits a month, up to $240 each calendar year, on purchases made directly through Instacart with the card; ends 12/31/27.",
+     "noteZh": "每月两笔10美元，每个自然年最多240美元，须直接在 Instacart 用本卡消费；2027年12月31日结束。须先在 instacart.com/p/chase-united 激活免费的 Chase Instacart+ 会员，且会员有效期间才发放。",
+     "noteEn": "Two $10 credits a month, up to $240 each calendar year, on purchases made directly through Instacart with the card; ends 12/31/27. You must first activate the complimentary Chase Instacart+ membership at instacart.com/p/chase-united, and credits come only while it is active.",
      "scenario": "shopping",
      "category": "credit",
      "period": "calendar-month",
@@ -631,10 +643,11 @@
       "title": "Up to $240 in Instacart credits",
       "summary": "Two $10 Instacart credits monthly, up to $240 each calendar year, for purchases made directly through Instacart; the benefit ends 12/31/27.",
       "howToUse": [
-       "Pay for Instacart orders with the card."
+       "Activate the complimentary Chase Instacart+ membership at instacart.com/p/chase-united, then pay Instacart orders with the card."
       ],
       "quotes": [
-       "Benefits end 12/31/27."
+       "Benefits end 12/31/27.",
+       "after you activate your complimentary Chase Instacart+ membership"
       ]
      },
      "amount": 20,
@@ -752,20 +765,20 @@
      "key": "pqp",
      "zh": "消费赚 Premier qualifying points",
      "en": "Premier qualifying points from spend",
-     "noteZh": "每消费15美元得1 PQP，每年最多28,000 PQP；页面没有说明“每年”的起算方式。",
-     "noteEn": "1 PQP for every $15 spent, up to 28,000 PQP a year; the page does not say how the year is counted.",
+     "noteZh": "每消费15美元得1 PQP，每个自然年最多28,000 PQP。",
+     "noteEn": "1 PQP for every $15 spent, up to 28,000 PQP in a calendar year.",
      "scenario": "travel",
      "category": "spend-unlock",
-     "period": null,
+     "period": "calendar-year",
      "quote": "Earn 1 Premier Qualifying Point (PQP) for every $15 spent on purchases",
      "original": {
       "title": "Premier qualifying points from spend",
-      "summary": "1 Premier Qualifying Point for every $15 spent on purchases, up to 28,000 PQP per year.",
+      "summary": "1 Premier Qualifying Point for every $15 spent on purchases, up to 28,000 PQP in a calendar year.",
       "howToUse": [
        "Spend on the card; PQP count toward Premier status."
       ],
       "quotes": [
-       "up to 28,000 PQP per year."
+       "up to a maximum of 28,000 PQP within the calendar year."
       ]
      },
      "programmeIds": [
@@ -800,8 +813,8 @@
    ],
    "unknown": [
     {
-     "zh": "有员工卡时每年4张 United Club 单次通行证、里程兑换折扣和保障类福利未录入。",
-     "en": "The 4 yearly United Club passes with an employee card, the award discount and the coverage benefits are not recorded."
+     "zh": "机上餐饮和 Wi-Fi 25%返还、有员工卡时每年4张 United Club 单次通行证、里程兑换折扣和保障类福利未录入。",
+     "en": "25% back on inflight food, drinks and Wi-Fi, the 4 yearly United Club passes with an employee card, the award discount and the coverage benefits are not recorded."
     }
    ]
   },
@@ -875,21 +888,23 @@
      "key": "reward-flight-credit",
      "zh": "British Airways 奖励机票税费抵扣",
      "en": "Reward Flight statement credits",
-     "noteZh": "用本卡支付 British Airways 奖励机票的税费：经济舱和高端经济舱每次100美元，商务舱和头等舱200美元，每年3次，最多600美元。页面没有说明“每年”的起算方式。",
-     "noteEn": "When you pay a British Airways Reward Flight's taxes, fees and carrier charges with the card: $100 for Economy and Premium Economy, $200 for Business and First, three times a year, up to $600. The page does not say how the year is counted.",
+     "noteZh": "用本卡支付 British Airways 奖励机票的税费：经济舱和高端经济舱每次100美元，商务舱和头等舱200美元，每个自然年3次，最多600美元。限从美国出发、由 British Airways 执飞的跨大西洋行程。",
+     "noteEn": "When you pay a British Airways Reward Flight's taxes, fees and carrier charges with the card: $100 for Economy and Premium Economy, $200 for Business and First, three times each calendar year, up to $600. Only transatlantic itineraries originating in the U.S. on flights operated by British Airways.",
      "scenario": "travel",
      "category": "credit",
-     "period": null,
+     "period": "calendar-year",
      "quote": "three times per year, up to $600, when you book a Reward Flight travelling on British Airways",
      "original": {
       "title": "Up to $600 Reward Flight statement credits",
-      "summary": "Statement credits of $100 for Economy and Premium Economy or $200 for Business and First Class, three times per year, up to $600, on British Airways Reward Flights.",
+      "summary": "Statement credits of $100 for Economy and Premium Economy or $200 for Business and First Class, three times per calendar year, up to $600, on transatlantic British Airways Reward Flights originating in the United States.",
       "howToUse": [
        "Pay the taxes, fees and carrier charges of the Reward Flight with the card."
       ],
       "quotes": [
        "Receive statement credits of $100 for Economy and Premium Economy",
-       "or $200 for Business and First Class seats"
+       "or $200 for Business and First Class seats",
+       "totalling no more than US $600 in Statement Credits per calendar year.",
+       "the Reward Flight booking must be for a transatlantic international travel itinerary"
       ]
      },
      "programmeIds": [
@@ -957,12 +972,14 @@
    },
    "earning": [
     {
-     "zh": "Aer Lingus、British Airways 和 Iberia 机票",
-     "en": "Aer Lingus, British Airways and Iberia flights",
+     "zh": "Aer Lingus、British Airways、Iberia 和 LEVEL 直订机票",
+     "en": "Flights bought directly with Aer Lingus, British Airways, Iberia and LEVEL",
      "multiplier": 3,
      "unit": "points-per-USD",
      "category": "airline",
-     "quote": "Earn 3 Avios for every $1 spent with Aer Lingus, British Airways, and Iberia flight purchases."
+     "quote": "Earn 3 Avios for every $1 spent with Aer Lingus, British Airways, and Iberia flight purchases.",
+     "noteZh": "条款写明须直接向 Aer Lingus、British Airways、Iberia 或 LEVEL 购买。",
+     "noteEn": "The terms say flights bought directly with Aer Lingus, British Airways, Iberia and LEVEL."
     },
     {
      "zh": "直订酒店",
@@ -1007,8 +1024,8 @@
      "key": "companion-ticket",
      "zh": "消费满3万美元得经济舱同行票",
      "en": "Economy companion ticket after $30,000",
-     "noteZh": "每个自然年消费满30,000美元，得一张经济舱同行票，12个月内有效。是否达标未核实。",
-     "noteEn": "An economy companion ticket, good for 12 months, each calendar year with $30,000 in purchases. Whether you reach it is unverified.",
+     "noteZh": "每个自然年消费满30,000美元，得一张经济舱同行票，须搭配一张付费 Aer Lingus 经济舱机票，12个月内有效。是否达标未核实。",
+     "noteEn": "An economy companion ticket, used with a paid economy flight and good for 12 months, each calendar year with $30,000 in purchases. Whether you reach it is unverified.",
      "scenario": "travel",
      "category": "spend-unlock",
      "period": "calendar-year",
@@ -1020,7 +1037,8 @@
        "Track your calendar-year spend on the card."
       ],
       "quotes": [
-       "Every calendar year you make purchases of $30,000"
+       "Every calendar year you make purchases of $30,000",
+       "redeemed by a Cardmember for an economy companion ticket with a paid economy flight."
       ]
      },
      "programmeIds": [

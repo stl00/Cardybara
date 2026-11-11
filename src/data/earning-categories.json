@@ -138,7 +138,7 @@
   "交通、美国运输和美国办公用品店":[{"uses":["transit"]},{"uses":["shipping","office"],"country":"US"}],
   "全球餐厅、美国加油站、美国无线电话服务和美国运输":[{"uses":["dining"]},{"uses":["gas","telecom","shipping"],"country":"US"}],
   "AmexTravel.com 预付酒店、租车、邮轮和机票":[{"uses":["hotel","car-rental","flight","travel"],"channel":"portal","via":"AmexTravel.com"}],
-  "Aer Lingus、British Airways 和 Iberia 机票":[{"merchants":["british airways","aer lingus","iberia"]}],
+  "Aer Lingus、British Airways、Iberia 和 LEVEL 直订机票":[{"merchants":["british airways","aer lingus","iberia"],"channel":"direct"}],
   "British Airways、Aer Lingus、Iberia 和 LEVEL 直订机票":[{"merchants":["british airways","aer lingus","iberia"],"channel":"direct"}],
   "办公用品店":[{"uses":["office"]}]
  }

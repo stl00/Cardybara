@@ -27,7 +27,7 @@ cc = OpenCC('s2twp')
 def traditional(zh):
     # OpenCC's mistakes on words this catalogue uses often.
     text = cc.convert(zh)
-    for wrong, right in (('托執行李', '托運行李'), ('髮卡', '發卡'), ('后', '後'), ('記憶體', '內存'), ('瀏覽器里', '瀏覽器裡'), ('合作伙伴', '合作夥伴')):
+    for wrong, right in (('托執行李', '托運行李'), ('髮卡', '發卡'), ('后', '後'), ('記憶體', '內存'), ('瀏覽器里', '瀏覽器裡'), ('合作伙伴', '合作夥伴'), ('8周', '8週'), ('託運', '托運')):
         text = text.replace(wrong, right)
     return text
 
@@ -184,7 +184,7 @@ def main():
             rule(row['key'], 'benefit', row.get('category', 'credit'), row.get('scenarios') or [row['scenario']], row.get('programmeIds', []), title, summary, row['quote'], terms, row.get('validity'), row.get('embedded', False), row.get('original'), row.get('source'))
 
     for key, value in tr['zh-TW'].items():
-        tr['zh-TW'][key] = value.replace('托執行李', '托運行李').replace('髮卡', '發卡').replace('美元后', '美元後')
+        tr['zh-TW'][key] = value.replace('托執行李', '托運行李').replace('髮卡', '發卡').replace('美元后', '美元後').replace('8周', '8週')
     if missing:
         raise SystemExit('Quotes not found on the saved issuer pages:\n' + '\n'.join(missing))
     manifest['snapshotId'] = f"cardybara-public-knowledge-{checked}.cards-{batch['batch']}"
