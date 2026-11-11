@@ -958,5 +958,60 @@
     "name": "Citi Custom Cash Card",
     "currencies": [],
     "art": null
+  },
+  {
+    "id": "chase-us-prime-visa",
+    "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/amazon-prime-rewards",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "chase-us-amazon-visa",
+    "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/amazon-rewards",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "chase-us-marriott-bonvoy-bold-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "Marriott Bonvoy"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold",
+      "checkedAt": "2026-11-11"
+    }
+  },
+  {
+    "id": "chase-us-marriott-bonvoy-bountiful-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bountiful",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "Marriott Bonvoy"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bountiful",
+      "checkedAt": "2026-11-11"
+    }
+  },
+  {
+    "id": "amex-us-us-blue-cash-preferred-card",
+    "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/blue-cash-preferred/",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Blue Cash Preferred Card",
+      "Blue Cash Preferred",
+      "American Express Blue Cash Preferred Card",
+      "Blue Cash Preferred Card from American Express"
+    ],
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Blue Cash Preferred Card",
+    "currencies": [],
+    "art": null
   }
 ]

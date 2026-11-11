@@ -880,5 +880,40 @@
     "url": "https://onemileatatime.com/combine-ultimate-rewards-points/",
     "checkedAt": "2026-11-11",
     "authority": "community"
+  },
+  {
+    "id": "card-chase-us-prime-visa",
+    "url": "https://creditcards.chase.com/cash-back-credit-cards/amazon-prime-rewards",
+    "title": "Chase · Prime Visa 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-amazon-visa",
+    "url": "https://creditcards.chase.com/cash-back-credit-cards/amazon-rewards",
+    "title": "Chase · Amazon Visa 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-marriott-bonvoy-bold-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold",
+    "title": "Chase · Marriott Bonvoy Bold Credit Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bountiful",
+    "title": "Chase · Marriott Bonvoy Bountiful Credit Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-blue-cash-preferred-card",
+    "url": "https://www.americanexpress.com/us/credit-cards/card/blue-cash-preferred/",
+    "title": "American Express · Blue Cash Preferred Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
   }
 ]
