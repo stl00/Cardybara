@@ -1,0 +1,731 @@
+{
+ "batch": 8,
+ "checkedAt": "2026-11-11",
+ "reviewAfter": "2027-02-09",
+ "cards": [
+  {
+   "id": "amex-us-us-marriott-bonvoy-business-card",
+   "page": "amex-us-us-marriott-bonvoy-business",
+   "issuer": "American Express",
+   "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/amex-marriott-bonvoy-business-credit-card/",
+   "extraSources": {
+    "compare": {
+     "page": "amex-us-compare-cash-back-business",
+     "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/compare-credit-cards/compare-cash-back-business-credit-cards/",
+     "zh": "American Express · 商务卡对比页（含各卡年费数据）",
+     "en": "American Express · business card comparison page (with each card's fee data)"
+    }
+   },
+   "new": {
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Marriott Bonvoy Business American Express Card"
+   },
+   "aliases": [
+    "Marriott Bonvoy Business Card",
+    "Marriott Bonvoy Business"
+   ],
+   "transfer": {
+    "name": "Marriott Bonvoy",
+    "programmeId": "programme.marriott-bonvoy",
+    "linkOnly": true,
+    "quote": "6X points for each dollar of eligible purchases at hotels participating in Marriott Bonvoy"
+   },
+   "fee": {
+    "amount": 125,
+    "currency": "USD",
+    "embedded": true,
+    "source": "compare",
+    "quote": "$125 Annual Fee"
+   },
+   "earning": [
+    {
+     "zh": "Marriott Bonvoy 酒店",
+     "en": "Hotels participating in Marriott Bonvoy",
+     "multiplier": 6,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "noteZh": "本卡的比例；页面的18.5倍合计还包含会员和会籍部分。",
+     "noteEn": "The card's own rate; the 18.5X total on the page also counts member and status earnings.",
+     "quote": "6X points for each dollar of eligible purchases at hotels participating in Marriott Bonvoy"
+    },
+    {
+     "zh": "全球餐厅、美国加油站、美国无线电话服务和美国运输",
+     "en": "Restaurants worldwide, U.S. gas stations, U.S. wireless telephone services and U.S. shipping",
+     "multiplier": 4,
+     "unit": "points-per-USD",
+     "category": "general",
+     "noteZh": "无线电话服务须直接向美国服务商购买。",
+     "noteEn": "Wireless telephone services must be bought directly from U.S. service providers.",
+     "quote": "4X MARRIOTT BONVOY POINTS On Purchases at restaurants worldwide, at U.S. gas stations, on wireless telephone services"
+    },
+    {
+     "zh": "其他合资格消费",
+     "en": "Other eligible purchases",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "2X points on all other eligible purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "gold-elite",
+     "zh": "Marriott Bonvoy Gold Elite 会籍",
+     "en": "Marriott Bonvoy Gold Elite status",
+     "noteZh": "持卡即享；个人会籍未核实。",
+     "noteEn": "Comes with the card; personal status is unverified.",
+     "scenario": "hotel-stay",
+     "category": "membership",
+     "period": "ongoing",
+     "programmeIds": [
+      "programme.marriott-bonvoy"
+     ],
+     "quote": "With complimentary Marriott Bonvoy Gold Elite status",
+     "original": {
+      "title": "Marriott Bonvoy Gold Elite status",
+      "summary": "Complimentary Marriott Bonvoy Gold Elite status, with 25% bonus points on stays.",
+      "howToUse": [
+       "Check your tier in your Marriott Bonvoy account."
+      ]
+     }
+    },
+    {
+     "key": "elite-night-credits",
+     "zh": "每年15晚 Elite Night Credits",
+     "en": "15 Elite Night Credits each year",
+     "noteZh": "每个自然年计入会籍升级；可与一张合资格的 Marriott Bonvoy American Express 个人卡的 ENC 合并，每个 Marriott Bonvoy 账户有限制。",
+     "noteEn": "Each calendar year, toward elite status. They can be combined with the Elite Night Credits from one eligible Marriott Bonvoy consumer American Express card; limits apply per member account.",
+     "scenario": "hotel-stay",
+     "category": "membership",
+     "period": "calendar-year",
+     "programmeIds": [
+      "programme.marriott-bonvoy"
+     ],
+     "quote": "Each calendar year, you can receive 15 Elite Night Credits towards the next level of Marriott Bonvoy Elite status",
+     "original": {
+      "title": "15 Elite Night Credits each year",
+      "summary": "15 Elite Night Credits each calendar year toward the next level of Marriott Bonvoy Elite status; limitations apply per member account.",
+      "howToUse": [
+       "Check the credits in your Marriott Bonvoy account; they combine with one eligible consumer Amex Marriott card."
+      ],
+      "quotes": [
+       "Limitations apply per Marriott Bonvoy member account.",
+       "can be combined with the Elite Night Credits from one eligible Marriott Bonvoy Consumer American Express Card"
+      ]
+     }
+    },
+    {
+     "key": "free-night",
+     "zh": "续卡后年度免费房晚",
+     "en": "Free Night Award after renewal",
+     "noteZh": "每年续卡月份后获得一晚，可用于兑换门槛不超过35,000点的酒店；部分酒店另收度假村费。",
+     "noteEn": "One night every year after the card renewal month, at a hotel with a redemption level at or under 35,000 points; some hotels charge resort fees.",
+     "scenario": "hotel-stay",
+     "category": "hotel-service",
+     "period": "account-anniversary",
+     "programmeIds": [
+      "programme.marriott-bonvoy"
+     ],
+     "quote": "Receive 1 Free Night Award every year after your Card renewal month.",
+     "original": {
+      "title": "Free Night Award after renewal",
+      "summary": "One Free Night Award every year after the card renewal month, for a night at a redemption level at or under 35,000 points.",
+      "howToUse": [
+       "Look for the award in your Marriott Bonvoy account after the renewal month."
+      ],
+      "quotes": [
+       "Awards can be used for one night (redemption level at or under 35,000 Marriott Bonvoy points)"
+      ]
+     }
+    },
+    {
+     "key": "free-night-spend",
+     "zh": "消费满6万美元得额外免费房晚",
+     "en": "Additional Free Night Award after $60,000 in spend",
+     "noteZh": "一个自然年内用本卡消费满60,000美元后再得一晚，兑换门槛同样不超过35,000点。是否达标未核实。",
+     "noteEn": "Another night after $60,000 in purchases on the card in a calendar year, also at or under 35,000 points. Whether you reach it is unverified.",
+     "scenario": "hotel-stay",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "programmeIds": [
+      "programme.marriott-bonvoy"
+     ],
+     "quote": "earn an additional Free Night Award after you spend $60K in purchases on your Card in a calendar year.",
+     "original": {
+      "title": "Additional Free Night Award after $60,000 in spend",
+      "summary": "An additional Free Night Award after $60,000 in purchases on the card in a calendar year.",
+      "howToUse": [
+       "Track your calendar-year spend on the card."
+      ]
+     }
+    },
+    {
+     "key": "room-discount",
+     "zh": "Marriott 房价7%折扣",
+     "en": "7% Marriott room rate discount",
+     "noteZh": "须通过合资格 Marriott 渠道以 Amex Business Card Rate 直接预订。",
+     "noteEn": "Book directly through an eligible Marriott channel under the Amex Business Card Rate.",
+     "scenario": "hotel-stay",
+     "category": "hotel-service",
+     "period": "ongoing",
+     "programmeIds": [
+      "programme.marriott-bonvoy"
+     ],
+     "quote": "Receive a 7% discount on eligible bookings at hotels which participate in the Marriott Bonvoy program",
+     "original": {
+      "title": "Marriott Bonvoy room rate discount",
+      "summary": "A 7% discount on eligible bookings at participating hotels when booking directly through an eligible Marriott channel under the Amex Business Card Rate.",
+      "howToUse": [
+       "Book directly with Marriott and choose the Amex Business Card Rate."
+      ],
+      "quotes": [
+       "when you book directly through an eligible Marriott channel under the Amex Business Card Rate."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "年费来自发卡行商务卡对比页里本卡的数据块；产品页的年费在浏览器中加载。员工卡年费未确认。",
+     "en": "The fee comes from this card's block on the issuer's business card comparison page; the product page loads its fee in the browser. The employee card fee is not confirmed."
+    },
+    {
+     "zh": "免费高级网络和保障类福利未录入。",
+     "en": "Premium in-room internet and the coverage benefits are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "amex-us-us-delta-skymiles-reserve-business-card",
+   "page": "amex-us-us-delta-reserve-business",
+   "issuer": "American Express",
+   "url": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-reserve/",
+   "new": {
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Delta SkyMiles Reserve Business Card"
+   },
+   "aliases": [
+    "Delta SkyMiles Reserve Business American Express Card",
+    "Delta SkyMiles Reserve Business",
+    "Delta Reserve Business"
+   ],
+   "transfer": {
+    "name": "Delta SkyMiles",
+    "programmeId": "programme.delta-skymiles",
+    "linkOnly": true,
+    "quote": "Per every eligible dollar spent on purchases made directly with Delta."
+   },
+   "fee": {
+    "amount": 650,
+    "currency": "USD",
+    "quote": "The Delta SkyMiles Reserve Business Card has a $650 annual fee."
+   },
+   "earning": [
+    {
+     "zh": "Delta 直接消费",
+     "en": "Purchases made directly with Delta",
+     "multiplier": 3,
+     "unit": "miles-per-USD",
+     "category": "airline",
+     "quote": "3X MILES At Delta Per every eligible dollar spent on purchases made directly with Delta."
+    },
+    {
+     "zh": "交通、美国运输和美国办公用品店",
+     "en": "Transit, U.S. shipping and U.S. office supply stores",
+     "multiplier": 1.5,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "1.5X MILES Per Dollar On eligible transit, U.S. shipping & U.S. office supply store purchases."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "noteZh": "一年内消费满150,000美元后，当年余下时间所有合资格消费按1.5倍；页面没有写“一年”从何时起算。",
+     "noteEn": "After $150,000 in purchases in a year, all eligible purchases earn 1.5 miles for the rest of that year; the page does not say when the year starts.",
+     "quote": "1X MILES On Other Purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "sky-club",
+     "zh": "Delta Sky Club 每年15次",
+     "en": "Delta Sky Club: 15 visits a year",
+     "noteZh": "乘坐 Delta 航班时，每个 Medallion 年15次，另有4张一次性同行券；一个自然年内消费满75,000美元可解锁无限次。",
+     "noteEn": "15 visits each Medallion Year when flying Delta, plus four one-time guest passes; $75,000 in calendar-year purchases unlocks unlimited access.",
+     "scenarios": [
+      "travel",
+      "airport"
+     ],
+     "scenario": "airport",
+     "category": "lounge",
+     "period": null,
+     "programmeIds": [
+      "programme.delta-skymiles"
+     ],
+     "quote": "receive 15 Visits each Medallion Year to the Delta Sky Club when flying Delta",
+     "original": {
+      "title": "Delta Sky Club access",
+      "summary": "15 visits each Medallion Year to the Delta Sky Club when flying Delta, four one-time guest passes, and unlimited access after $75,000 in purchases in a calendar year.",
+      "howToUse": [
+       "Use a visit when flying Delta; check the remaining visits in your SkyMiles account."
+      ],
+      "quotes": [
+       "Plus, you receive four One-Time Guest Passes each Medallion Year",
+       "can unlock Unlimited Delta Sky Club Access after spending $75,000 in purchases on your Card during a calendar year."
+      ]
+     }
+    },
+    {
+     "key": "centurion-lounge",
+     "zh": "Centurion Lounge 和 Escape Lounge",
+     "en": "The Centurion Lounge and Escape Lounges",
+     "noteZh": "须乘坐用本卡购买的 Delta 航班；Sidecar 须在起飞前90分钟内到达，Centurion Lounge 须在3小时内。",
+     "noteEn": "When flying on a Delta flight booked with the card; arrive within 90 minutes of departure for Sidecar and within 3 hours for The Centurion Lounge.",
+     "scenarios": [
+      "travel",
+      "airport"
+     ],
+     "scenario": "airport",
+     "category": "lounge",
+     "period": "ongoing",
+     "quote": "when flying on a Delta flight booked with the Delta SkyMiles Reserve Business Card.",
+     "original": {
+      "title": "Complimentary access to The Centurion Lounge and Escape Lounges",
+      "summary": "Complimentary access to The Centurion Lounge, Sidecar and Escape Lounges when flying on a Delta flight booked with the card.",
+      "howToUse": [
+       "Book the Delta flight with the card and arrive within the lounge's time window before departure."
+      ],
+      "quotes": [
+       "Card Members must arrive within 90 minutes of their departing flight to access Sidecar by The Centurion Lounge",
+       "within 3 hours of their departing flight to access The Centurion Lounge."
+      ]
+     }
+    },
+    {
+     "key": "companion-certificate",
+     "zh": "年度同行凭证",
+     "en": "Annual Companion Certificate",
+     "noteZh": "每年续卡后获得，适用 Delta First、Delta Comfort 或 Delta Main 的美国本土、加勒比或中美洲往返航班；须另付22至250美元税费，Delta Basic 不适用。",
+     "noteEn": "Each year after renewal, for a Delta First, Delta Comfort or Delta Main domestic, Caribbean or Central American round trip; taxes and fees of $22 to $250 apply, and Delta Basic is not eligible.",
+     "scenarios": [
+      "travel",
+      "airport"
+     ],
+     "scenario": "travel",
+     "category": "hotel-service",
+     "period": "account-anniversary",
+     "programmeIds": [
+      "programme.delta-skymiles"
+     ],
+     "quote": "Central American round-trip flight each year after renewal of your Card.",
+     "original": {
+      "title": "Annual Companion Certificate",
+      "summary": "A Companion Certificate each year after renewal for a Delta First, Delta Comfort or Delta Main domestic, Caribbean or Central American round-trip flight; taxes and fees apply.",
+      "howToUse": [
+       "Find the certificate in your SkyMiles profile under Certificates, eCredits & Vouchers."
+      ],
+      "quotes": [
+       "The Companion Certificate requires payment of government-imposed taxes and fees of between $22 and $250",
+       "Enjoy a Companion Certificate on a Delta First, Delta Comfort, or Delta Main domestic, Caribbean"
+      ]
+     }
+    },
+    {
+     "key": "mqd-headstart",
+     "zh": "MQD Headstart：每年2,500 MQD",
+     "en": "MQD Headstart: $2,500 MQDs a year",
+     "noteZh": "每个 Medallion 资格年获得2,500美元 Medallion Qualification Dollars。",
+     "noteEn": "$2,500 Medallion Qualification Dollars each Medallion Qualification Year.",
+     "scenarios": [
+      "travel",
+      "airport"
+     ],
+     "scenario": "travel",
+     "category": "membership",
+     "period": null,
+     "programmeIds": [
+      "programme.delta-skymiles"
+     ],
+     "quote": "you can receive $2,500 Medallion Qualification Dollars each Medallion Qualification Year.",
+     "original": {
+      "title": "MQD Headstart",
+      "summary": "$2,500 Medallion Qualification Dollars each Medallion Qualification Year.",
+      "howToUse": [
+       "Check your MQD balance in your SkyMiles account."
+      ]
+     }
+    },
+    {
+     "key": "mqd-boost",
+     "zh": "MQD Boost：每消费10美元得1 MQD",
+     "en": "MQD Boost: 1 MQD per $10 spent",
+     "noteZh": "一个自然年内本卡每消费10美元，得1美元 Medallion Qualification Dollar。",
+     "noteEn": "$1 Medallion Qualification Dollar for each $10 of purchases on the card in a calendar year.",
+     "scenarios": [
+      "travel",
+      "airport"
+     ],
+     "scenario": "travel",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "programmeIds": [
+      "programme.delta-skymiles"
+     ],
+     "quote": "Earn $1 Medallion Qualification Dollar for each $10 of purchases made on your Card in a calendar year",
+     "original": {
+      "title": "MQD Boost",
+      "summary": "$1 Medallion Qualification Dollar for each $10 of purchases on the card in a calendar year.",
+      "howToUse": [
+       "Check your MQD balance in your SkyMiles account."
+      ]
+     }
+    },
+    {
+     "key": "checked-bags",
+     "zh": "免费托运行李",
+     "en": "Free checked bags",
+     "noteZh": "Delta 国际和国内航班第一件托运行李免费；国内航班第二件也免费。",
+     "noteEn": "The first checked bag is free on international and domestic Delta flights, and the second on domestic Delta flights.",
+     "scenarios": [
+      "travel",
+      "airport"
+     ],
+     "scenario": "airport",
+     "category": "membership",
+     "period": "ongoing",
+     "programmeIds": [
+      "programme.delta-skymiles"
+     ],
+     "quote": "Your first checked bag flies free on international and domestic Delta flights.",
+     "original": {
+      "title": "Check two bags free",
+      "summary": "The first checked bag flies free on international and domestic Delta flights, and the second bag on domestic Delta flights.",
+      "howToUse": [
+       "Fly Delta with the card on your SkyMiles account."
+      ],
+      "quotes": [
+       "And now, your second bag flies free on domestic Delta flights too."
+      ]
+     }
+    },
+    {
+     "key": "award-discount",
+     "zh": "Delta 奖励机票15%折扣",
+     "en": "15% off Delta award travel",
+     "noteZh": "在 delta.com 或 Fly Delta app 用里程订 Delta 航班时适用；合作伙伴航班和税费不适用。",
+     "noteEn": "On Delta flights booked with miles on delta.com or the Fly Delta app; not on partner-operated flights or taxes and fees.",
+     "scenarios": [
+      "travel",
+      "airport"
+     ],
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "programmeIds": [
+      "programme.delta-skymiles"
+     ],
+     "quote": "Save 15% anytime you book Award Travel with miles on Delta flights when using delta.com and the Fly Delta app.",
+     "original": {
+      "title": "15% off award travel",
+      "summary": "15% off Award Travel with miles on Delta flights booked on delta.com or the Fly Delta app; not on partner-operated flights or taxes and fees.",
+      "howToUse": [
+       "Choose Shop with Miles on delta.com or the Fly Delta app."
+      ],
+      "quotes": [
+       "Discount not applicable to partner-operated flights or to taxes and fees."
+      ]
+     }
+    },
+    {
+     "key": "resy",
+     "zh": "Resy 餐厅抵扣",
+     "en": "Resy credit",
+     "noteZh": "须登记；在美国合资格 Resy 餐厅用本卡消费，每月最多20美元，全年最多240美元。",
+     "noteEn": "Enrollment required. Up to $20 a month, $240 a year, on eligible purchases at qualifying U.S. Resy restaurants.",
+     "scenario": "dining",
+     "category": "credit",
+     "period": "calendar-month",
+     "amount": 20,
+     "enrollment": true,
+     "terms": {
+      "annualMaximum": 240,
+      "partner": "Resy"
+     },
+     "quote": "you can earn up to $20 each month in statement credits after enrolling through your Card account.",
+     "original": {
+      "title": "$240 Resy Credit",
+      "summary": "Up to $20 each month in statement credits on eligible purchases at qualifying U.S. Resy restaurants after enrolling.",
+      "howToUse": [
+       "Enroll through your card account, then pay at a qualifying U.S. Resy restaurant with the card."
+      ]
+     }
+    },
+    {
+     "key": "rideshare",
+     "zh": "网约车抵扣",
+     "en": "Rideshare credit",
+     "noteZh": "须登记；美国指定网约车服务每月最多10美元，全年最多120美元。",
+     "noteEn": "Enrollment required. Up to $10 a month, $120 a year, on U.S. rideshare purchases with select providers.",
+     "scenario": "ground-transport",
+     "category": "credit",
+     "period": "calendar-month",
+     "amount": 10,
+     "enrollment": true,
+     "terms": {
+      "annualMaximum": 120
+     },
+     "quote": "Earn up to $10 back in statement credits each month on U.S. rideshare purchases with select providers",
+     "original": {
+      "title": "$120 Rideshare Credit",
+      "summary": "Up to $10 back in statement credits each month on U.S. rideshare purchases with select providers; enrollment required.",
+      "howToUse": [
+       "Enroll, then pay U.S. rideshare trips with the card."
+      ],
+      "quotes": [
+       "That's up to $120 back annually. Enrollment Required."
+      ]
+     }
+    },
+    {
+     "key": "delta-stays",
+     "zh": "Delta Stays 抵扣",
+     "en": "Delta Stays credit",
+     "noteZh": "每年最多250美元，须用本卡在 delta.com 的 Delta Stays 预付酒店或度假屋。页面没有写“每年”是自然年还是账户年。",
+     "noteEn": "Up to $250 a year on prepaid hotels or vacation rentals booked through Delta Stays on delta.com with the card. The page does not say whether the year is a calendar or account year.",
+     "scenario": "hotel-stay",
+     "category": "credit",
+     "period": null,
+     "amount": 250,
+     "programmeIds": [
+      "programme.delta-skymiles"
+     ],
+     "quote": "to book prepaid hotels or vacation rentals through Delta Stays on delta.com.",
+     "original": {
+      "title": "Up to $250 Delta Stays Credit",
+      "summary": "An annual statement credit of up to $250 after booking prepaid hotels or vacation rentals through Delta Stays on delta.com with the card.",
+      "howToUse": [
+       "Book a prepaid stay through Delta Stays on delta.com and pay with the card."
+      ],
+      "quotes": [
+       "an annual statement credit of up to $250 after using your Delta SkyMiles Reserve Business Card"
+      ]
+     }
+    },
+    {
+     "key": "hertz",
+     "zh": "Hertz President's Circle 会籍",
+     "en": "Hertz President's Circle status",
+     "noteZh": "须加入 Hertz Gold Plus Rewards，把会员号加到绑定本卡的 SkyMiles 账户，并在 delta.com/hertz 登记。",
+     "noteEn": "Join Hertz Gold Plus Rewards, add its number to the SkyMiles account linked to the card, and enroll at delta.com/hertz.",
+     "scenario": "ground-transport",
+     "category": "membership",
+     "period": "ongoing",
+     "enrollment": true,
+     "quote": "Enjoy complimentary Hertz President's Circle Status with the Delta SkyMiles Reserve Business Card.",
+     "original": {
+      "title": "Hertz President's Circle status",
+      "summary": "Complimentary Hertz President's Circle status; enrollment in Hertz Gold Plus Rewards and in the promotion at delta.com/hertz is required.",
+      "howToUse": [
+       "Add your Hertz Gold Plus Rewards number to your SkyMiles account and enroll at delta.com/hertz."
+      ],
+      "quotes": [
+       "Enrollment in the Hertz Gold Plus Rewards program is required."
+      ]
+     }
+    },
+    {
+     "key": "global-entry",
+     "zh": "Global Entry 或 TSA PreCheck 费用抵扣",
+     "en": "Global Entry or TSA PreCheck fee credit",
+     "noteZh": "主卡持卡人每4年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元，须用本卡付申请费。",
+     "noteEn": "For the basic cardmember once every 4 years: $120 for Global Entry or up to $85 for TSA PreCheck, paid with the card.",
+     "scenarios": [
+      "travel",
+      "airport"
+     ],
+     "scenario": "airport",
+     "category": "credit",
+     "period": "rolling-four-years",
+     "amount": 120,
+     "quote": "Basic Card Members can receive a statement credit for a five-year membership every 4 years after applying for Global Entry ($120)",
+     "original": {
+      "title": "Fee credit for Global Entry or TSA PreCheck",
+      "summary": "A statement credit every 4 years for Global Entry ($120) or TSA PreCheck (up to $85 through an official enrollment provider), paid with the card.",
+      "howToUse": [
+       "Pay the application fee with the card."
+      ],
+      "quotes": [
+       "or after applying for TSA PreCheck (up to $85 through a TSA PreCheck official enrollment provider)"
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "员工卡年费未确认。",
+     "en": "The employee card fee is not confirmed."
+    },
+    {
+     "zh": "消费满15万美元后的1.5倍加速只写在“其他消费”的说明里，没有单列。升舱优先权、Pay with Miles 和保障类福利未录入。",
+     "en": "The 1.5X boost after $150,000 is only in the note on other purchases, not a separate rule. Upgrade priority, Pay with Miles and the coverage benefits are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "amex-us-us-business-green-rewards-card",
+   "page": "amex-us-us-business-green",
+   "issuer": "American Express",
+   "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-green-card-amex/",
+   "extraSources": {
+    "compare": {
+     "page": "amex-us-compare-cash-back-business",
+     "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/compare-credit-cards/compare-cash-back-business-credit-cards/",
+     "zh": "American Express · 商务卡对比页（含各卡年费数据）",
+     "en": "American Express · business card comparison page (with each card's fee data)"
+    }
+   },
+   "new": {
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Business Green Rewards Card"
+   },
+   "aliases": [
+    "Business Green Rewards",
+    "American Express Business Green Rewards Card",
+    "Business Green Card",
+    "Amex Business Green"
+   ],
+   "transfer": {
+    "name": "Membership Rewards",
+    "programmeId": "programme.amex-membership-rewards-us",
+    "quote": "Membership Rewards points earned on employee purchases are credited to the Basic Card Member's account."
+   },
+   "fee": {
+    "amount": 95,
+    "currency": "USD",
+    "embedded": true,
+    "source": "compare",
+    "quote": "$95 Annual Fee"
+   },
+   "additionalFee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "There is $0 Annual Fee for each additional Employee Business Expense Card you add to your account."
+   },
+   "earning": [
+    {
+     "zh": "AmexTravel.com 预付酒店、租车、邮轮和机票",
+     "en": "Prepaid hotels, car rentals, cruises and flights on AmexTravel.com",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "noteZh": "须在 AmexTravel.com 或 Amex Travel App 预订。",
+     "noteEn": "Booked on AmexTravel.com or the Amex Travel App.",
+     "quote": "you can earn 2X Membership Rewards points on prepaid hotels and other eligible travel, such as prepaid car rentals, cruises and flights"
+    },
+    {
+     "zh": "其他合资格消费",
+     "en": "Other eligible purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "1X POINTS On Other Eligible Purchases made using your Business Green Rewards Card."
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "年费来自发卡行商务卡对比页里本卡的数据块；产品页的年费在浏览器中加载。",
+     "en": "The fee comes from this card's block on the issuer's business card comparison page; the product page loads its fee in the browser."
+    },
+    {
+     "zh": "购物保障和延长保修未录入。",
+     "en": "Purchase protection and extended warranty are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "amex-us-us-graphite-business-cash-unlimited-card",
+   "page": "amex-us-us-graphite",
+   "issuer": "American Express",
+   "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/graphite-business-cash-unlimited-card/",
+   "new": {
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Graphite Business Cash Unlimited Card"
+   },
+   "aliases": [
+    "Graphite Business Cash Unlimited",
+    "The Graphite Business Cash Unlimited Card from American Express",
+    "Amex Graphite"
+   ],
+   "fee": {
+    "amount": 295,
+    "currency": "USD",
+    "quote": "The Graphite Business Cash Unlimited Card has an annual fee of $295."
+   },
+   "earning": [
+    {
+     "zh": "AmexTravel.com 机票和预付酒店",
+     "en": "Flights and prepaid hotels on AmexTravel.com",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "travel",
+     "noteZh": "常见问题写须通过 American Express Travel 在线预订；提示框另写预付酒店也可通过旅行顾问电话预订，两处说法不一，按在线预订记录。度假套餐、租车和邮轮不计。",
+     "noteEn": "The FAQ says bookings must be made through American Express Travel Online; a tooltip also allows prepaid hotels booked by phone with Travel Consultants. The two differ, so this records online bookings. Vacation packages, car rentals and cruises do not count.",
+     "quote": "5% CASH BACK On Flights and Prepaid Hotels Booked through American Express Travel Online"
+    },
+    {
+     "zh": "所有合资格消费",
+     "en": "All eligible purchases",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "noteZh": "不设上限。返现以 Reward Dollars 形式发放。",
+     "noteEn": "No cap. Cash back comes as Reward Dollars.",
+     "quote": "Unlimited 2% cash back 1 on your eligible purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "one-ap",
+     "zh": "American Express One AP 月费抵扣",
+     "en": "American Express One AP statement credits",
+     "noteZh": "一个自然年内用本卡消费满250,000美元后，下一个自然年可获最多2,400美元抵扣，用于 American Express One AP 月费；One AP 须另行登记。是否达标未核实。",
+     "noteEn": "After $250,000 in eligible purchases on the card in a calendar year, up to $2,400 in credits for the next calendar year on American Express One AP monthly fees; One AP needs its own enrollment. Whether you reach it is unverified.",
+     "scenario": "card-ownership",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "amount": 2400,
+     "quote": "Unlock up to $2,400 in statement credits for use in the next calendar year on American Express One AP monthly fees",
+     "original": {
+      "title": "$2,400 American Express One AP Statement Credit",
+      "summary": "Up to $2,400 in statement credits for the next calendar year on American Express One AP monthly fees after spending $250,000 on eligible purchases on the card.",
+      "howToUse": [
+       "Track your calendar-year spend on the card; the credits apply to One AP fees in the following year."
+      ],
+      "quotes": [
+       "after you spend $250,000 on eligible purchases on the Graphite Business Cash Unlimited Card"
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "员工卡每张95美元，另有免年费的 Employee Business Expense Card。页面其余福利和保障类福利未录入。",
+     "en": "Employee cards are $95 each; Employee Business Expense Cards with no annual fee are also available. The page's other benefits and the coverage benefits are not recorded."
+    }
+   ],
+   "additionalFee": {
+    "amount": 95,
+    "currency": "USD",
+    "quote": "Employee Graphite Business Cash Unlimited Cards have an annual fee of $95 for the first five Cards"
+   }
+  }
+ ]
+}
