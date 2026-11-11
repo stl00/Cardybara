@@ -710,8 +710,9 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate})
  await editCard(async()=>{await type('.card-edit-modal #name',renamed);await type('.card-edit-modal .fee-month input',String(next.month));await type('.card-edit-modal .fee-day input',String(next.day));});
  const after=anniversaryPeriod(next,day);
  await until('the edited name and card year',async()=>{const text=await drawerText();return text.includes(renamed)&&text.includes(after.start)&&text.includes(after.end);});
- const edited=(await edits()).find(e=>e.cardId===added.id);
- if(edited?.name!==renamed||JSON.stringify(edited?.feeDate)!==JSON.stringify(next))throw new StepError('the edit was not stored: '+JSON.stringify(edited));
+ // A manual card's name is edited in the registry the collector reads; its fee date is the user's overlay.
+ const edited=(await edits()).find(e=>e.cardId===added.id),row=(await local('cardybara-wallet-cards-v1'))?.find(c=>c.id===added.id);
+ if(row?.name!==renamed||edited?.name||JSON.stringify(edited?.feeDate)!==JSON.stringify(next))throw new StepError('the edit was not stored: '+JSON.stringify({row,edited}));
  note('edited the manual card: name and fee date');
  await closeDrawer();
 

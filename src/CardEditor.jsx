@@ -35,7 +35,7 @@ export function FeeDateInput({value,onChange,id}){
 export const feeDateRule={validator:(_,value)=>!value||cleanFeeDate(value)?Promise.resolve():Promise.reject(Error(t('请填写有效的月份和日期；年份可以不填。')))};
 const UserTag=()=><Tag color="blue" style={{marginInlineStart:6}}>{t('你设置的')}</Tag>;
 /** In card details: the card's own facts the user can correct, its annual fee date, and the edit form. */
-export function CardEditSection({card,cards,onSave}){
+export function CardEditSection({card,cards,onSave,onManualEdit}){
  useI18n();const {message}=App.useApp(),[open,setOpen]=useState(false),[form]=Form.useForm(),[busy,setBusy]=useState(false);
  const manual=card.identitySource!=='bank-page',set=f=>card.userSet?.includes(f),day=walletDay(),credits=anniversaryCredits(card,day);
  const period=anniversaryPeriod(card.feeDate,day),banks=manual?regionBanks(card.detected?.bank??card.bank):[];
@@ -46,15 +46,21 @@ export function CardEditSection({card,cards,onSave}){
   let v;try{v=await form.validateFields()}catch{return;}
   const patch={};
   if(v.name.trim()!==card.name)patch.name=v.name.trim();
-  if(v.tail!==card.tail)patch.tail=v.tail;
+  if((v.tail||'')!==(card.tail||''))patch.tail=v.tail||null;
   if(manual&&v.bank!==card.bank)patch.bank=v.bank;
   const fee=cleanFeeDate(v.feeDate);if(JSON.stringify(fee)!==JSON.stringify(card.feeDate||null))patch.feeDate=fee;
   // A field set back to what the bank showed is no longer a correction.
   for(const f of ['name','tail','bank'])if(f in patch&&card.detected?.[f]===patch[f])patch[f]=null;
+  // A manual card's own facts are edited where the wallet keeps the card; only its fee date is an overlay.
+  const own=manual?Object.fromEntries(['name','tail','bank'].filter(f=>f in patch).map(f=>[f,patch[f]??card.detected?.[f]??card[f]])):{};
+  const overlay=manual?('feeDate' in patch?{feeDate:patch.feeDate}:{}):patch;
   setBusy(true);
-  try{if(!Object.keys(patch).length||save(patch)){setOpen(false);if(Object.keys(patch).length)message.success(t('卡片信息已保存。'));}}finally{setBusy(false)}
+  try{
+   if(Object.keys(own).length)onManualEdit(card,own);
+   if(!Object.keys(overlay).length||save(overlay)){setOpen(false);if(Object.keys(patch).length)message.success(t(card.bank!==(own.bank??card.bank)?'卡片信息已保存；换了地区，请重新选择卡种。':'卡片信息已保存。'));}
+  }catch(e){message.error(t(e.message==='duplicate_card'?'这家银行的同一尾号卡片已经在钱包里。':'保存失败，刚才的设置没有生效。'));}finally{setBusy(false)}
  };
- const tailTaken=(bank,tail)=>cards.some(c=>c.id!==card.id&&c.bank===bank&&c.tail===tail);
+ const tailTaken=(bank,tail)=>cards.some(c=>c.id!==card.id&&c.bank===bank&&(c.tail===tail||c.detected?.tail===tail));
  const resetLink=field=>!manual&&set(field)&&<Button size="small" type="link" onClick={()=>reset(field)}>{t('恢复银行显示的值')}</Button>;
  return <div className="card-edit-section" style={{margin:'12px 0'}}>
   <Descriptions size="small" column={1} title={t('卡片信息')} extra={<Button size="small" onClick={edit}>{t('编辑卡片信息')}</Button>} items={[
@@ -69,7 +75,7 @@ export function CardEditSection({card,cards,onSave}){
    {!manual&&<Alert type="info" showIcon style={{marginBottom:16}} title={t('你的修改会保留，之后刷新银行也不会被覆盖；随时可以恢复银行显示的值。')}/>}
    <Form form={form} layout="vertical">
     <Form.Item name="name" label={t('显示名称')} rules={[{required:true,whitespace:true},{validator:(_,v)=>!v||validCardName(v)?Promise.resolve():Promise.reject(Error(t('名称不能超过 100 个字，也不能包含卡号。')))}]}><Input maxLength={100}/></Form.Item>
-    <Form.Item name="tail" label={t('卡片尾号（4 或 5 位）')} dependencies={['bank']} rules={[{required:true,pattern:/^\d{4,5}$/,message:t('请填写 4 或 5 位数字，不要填写完整卡号。')},({getFieldValue})=>({validator:(_,v)=>v&&tailTaken(getFieldValue('bank')||card.bank,v)?Promise.reject(Error(t('这家银行的同一尾号卡片已经在钱包里。'))):Promise.resolve()})]}><Input inputMode="numeric" maxLength={5} autoComplete="off"/></Form.Item>
+    <Form.Item name="tail" label={t('卡片尾号（4 或 5 位）')} dependencies={['bank']} rules={[{required:!!(card.detected?.tail??card.tail),pattern:/^\d{4,5}$/,message:t('请填写 4 或 5 位数字，不要填写完整卡号。')},({getFieldValue})=>({validator:(_,v)=>v&&tailTaken(getFieldValue('bank')||card.bank,v)?Promise.reject(Error(t('这家银行的同一尾号卡片已经在钱包里。'))):Promise.resolve()})]}><Input inputMode="numeric" maxLength={5} autoComplete="off"/></Form.Item>
     {manual&&banks.length>1&&<Form.Item name="bank" label={t('地区')}><Select options={banks.map(b=>({value:b,label:<BankIdentity bank={b}/>}))}/></Form.Item>}
     <Form.Item name="feeDate" label={t('年费日（持卡周年日）')} rules={[feeDateRule]} extra={t('银行页面不显示年费日。按你的账单或年费扣款记录填写；不知道可以留空。')}><FeeDateInput/></Form.Item>
    </Form>

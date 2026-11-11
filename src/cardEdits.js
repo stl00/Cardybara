@@ -57,7 +57,8 @@ export function applyCardEdits(cards,edits){
   if(row.bank&&card.identitySource!=='bank-page'&&regionBanks(card.bank).includes(row.bank)&&row.bank!==card.bank){
    const p=PROVIDERS[row.bank];detected.bank=card.bank;Object.assign(next,{bank:row.bank,region:p.region,currency:p.cardCurrencies?.includes(card.currency)?card.currency:p.currency});userSet.push('bank');
   }
-  if(row.name&&row.name!==card.name){detected.name=card.name;if(card.identitySource==='bank-page')next.pageName=card.pageName??card.name;next.name=row.name;userSet.push('name');}
+  // On a bank-page card the shown name is the product's, so a name equal to the bank's words is still the user's choice.
+  if(row.name&&(row.name!==card.name||card.identitySource==='bank-page')){detected.name=card.name;if(card.identitySource==='bank-page')next.pageName=card.pageName??card.name;next.name=row.name;userSet.push('name');}
   if(row.tail&&row.tail!==card.tail){detected.tail=card.tail;next.tail=row.tail;userSet.push('tail');}
   if(row.feeDate){next.feeDate=row.feeDate;userSet.push('feeDate');}
   return userSet.length?{...next,userSet,detected}:card;

@@ -8,7 +8,7 @@ import {benefitPeriod,benefitProfiles} from '../src/benefitRules.js';
 import {creditTasks} from '../src/personalBenefits.js';
 import {queryCredits} from '../src/creditQuery.js';
 import {feeReminders,buildSchedule,normalizeSettings,pendingNotifications} from '../src/reminders.js';
-import {mergeWalletCards,newWalletCard} from '../src/walletRegistry.js';
+import {mergeWalletCards,newWalletCard,editManualCard} from '../src/walletRegistry.js';
 import {presentCard} from '../src/cardName.js';
 import {applyCardProductChoices,withCardProductChoice} from '../src/cardProductChoice.js';
 import {cardProducts} from '../src/productCatalog.js';
@@ -111,8 +111,8 @@ test('a user correction wins over later bank refreshes and resets to the bank va
  }
  const [reset]=applyCardEdits(read('SYNTHETIC REWARDS CARD'),withCardEdit(edits,{id:'bank-1',bank:'Chase',identitySource:'bank-page'},{name:null,tail:null}));
  assert.equal(reset.name,'SYNTHETIC REWARDS CARD');assert.equal(reset.tail,'1111');assert.equal(reset.userSet,undefined);
- // An edit that equals the bank's value is not shown as a correction.
- assert.equal(applyCardEdits(read('Same'),[{cardId:'bank-1',name:'Same'}])[0].userSet,undefined);
+ // The shown name of a recognised bank-page card is the product's, so the bank's own words can still be the user's choice.
+ assert.deepEqual(applyCardEdits(read('Same'),[{cardId:'bank-1',name:'Same'}])[0].userSet,['name']);
 });
 
 test('a user name survives product recognition on a bank-page card',()=>{
@@ -179,4 +179,28 @@ test('every new string has zh-TW and English text',()=>{
  for(const file of ['CardEditor.jsx','WalletOnboarding.jsx','ReminderSettings.jsx'])for(const [,zh] of readFileSync(new URL('../src/'+file,import.meta.url),'utf8').matchAll(/\bt\('([^']*[一-鿿][^']*)'/g)){
   assert.ok(catalog['en-US'][zh],`${file}: no English for ${zh}`);assert.ok(catalog['zh-TW'][zh],`${file}: no zh-TW for ${zh}`);
  }
+});
+
+test('a manual card is edited in the registry, so discovery, refresh and older snapshots see the new tail and region',()=>{
+ const manual=newWalletCard({bank:'Chase',name:'Synthetic',tail:'1243'},'m-typo');
+ const registry=editManualCard([manual],manual,{tail:'1234'});
+ assert.equal(registry[0].tail,'1234');assert.equal(registry[0].id,'m-typo');
+ // The bank page later shows the same card: it is not added a second time.
+ const merged=mergeWalletCards({cards:[],connections:[]},[...registry,{id:'discovered-chase-1234',bank:'Chase',name:'SYNTHETIC',tail:'1234',identitySource:'bank-page'}]).cards;
+ assert.deepEqual(merged.map(c=>[c.id,c.tail]),[['m-typo','1234']]);
+ // An imported snapshot still holding the old row takes the registry's edit.
+ const fromSnapshot=mergeWalletCards({cards:[{...manual}],connections:[]},registry).cards;
+ assert.deepEqual(fromSnapshot.map(c=>[c.id,c.tail]),[['m-typo','1234']]);
+ // A region move is a real bank change, so a refresh of that bank includes it.
+ const amex=newWalletCard({bank:'Amex US',name:'Synthetic',tail:'5555'},'m-amex');
+ const [moved]=editManualCard([amex],amex,{bank:'Amex HK'});
+ assert.deepEqual([moved.bank,moved.region,moved.currency],['Amex HK','HK','HKD']);
+ // Duplicates, bank-page cards and invalid values are refused.
+ assert.throws(()=>editManualCard([manual],manual,{tail:'7777'},[{id:'other',bank:'Chase',tail:'7777'}]),/duplicate_card/);
+ assert.throws(()=>editManualCard([manual],manual,{tail:'8888'},[{id:'other',bank:'Chase',tail:'9999',detected:{tail:'8888'}}]),/duplicate_card/);
+ assert.throws(()=>editManualCard([],{...manual,identitySource:'bank-page'},{tail:'1111'}),/invalid_card/);
+ assert.throws(()=>editManualCard([manual],manual,{tail:'12'}),/invalid_card/);
+ // A bank-page card's row is never rewritten by a manual row with its id.
+ const bankRow={id:'b',bank:'Chase',name:'BANK',tail:'2222',identitySource:'bank-page',region:'US',currency:'USD'};
+ assert.equal(mergeWalletCards({cards:[bankRow],connections:[]},[{id:'b',bank:'Chase',name:'Other',tail:'2222'}]).cards[0].name,'BANK');
 });
