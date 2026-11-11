@@ -67,17 +67,18 @@ export function CardEditSection({card,cards,onSave,onManualEdit}){
    {key:'name',label:t('显示名称'),children:<Flex align="center" wrap gap={4}><Text>{card.name}</Text>{!manual&&set('name')&&<UserTag/>}{resetLink('name')}</Flex>},
    {key:'tail',label:t('尾号'),children:<Flex align="center" wrap gap={4}><Text>{card.tail?`•••• ${card.tail}`:t('待识别')}</Text>{!manual&&set('tail')&&<><UserTag/><Text type="secondary">{t('银行显示：{0}',[card.detected.tail?`•••• ${card.detected.tail}`:t('待识别')])}</Text></>}{resetLink('tail')}</Flex>},
    {key:'region',label:t('地区'),children:<RegionLabel region={card.region}/>},
-   {key:'fee',label:t('年费日'),children:<Flex align="center" wrap gap={4}>{card.feeDate?<><Text>{feeDateText(card.feeDate)}</Text><UserTag/></>:<Text type="secondary">{t('未设置')}</Text>}</Flex>},
+   {key:'fee',label:t('年费日'),children:<Flex align="center" wrap gap={4}>{card.feeDate?<><Text>{feeDateText(card.feeDate)}</Text><UserTag/></>:<><Text type="secondary">{t('未设置')}</Text><Button className="fee-date-set" size="small" type="link" onClick={edit}>{t('去设置')}</Button></>}</Flex>},
   ]}/>
-  {card.feeDate&&period&&<Paragraph type="secondary" style={{fontSize:12,margin:'4px 0 0'}}>{t('当前持卡年度：{0} — {1}；按周年计算的福利用这个周期。',[period.start,period.end])}</Paragraph>}
-  {!card.feeDate&&credits.length>0&&<Alert className="fee-date-prompt" type="warning" showIcon style={{marginTop:8}} title={t('请设置年费日')} description={<Space orientation="vertical"><span>{t('这张卡有 {0} 项按持卡周年计算的福利。银行页面不显示年费日，设置后才能算出它们的周期；没有设置时，这些福利显示为周期未知。',[credits.length])}</span><Button size="small" type="primary" onClick={edit}>{t('设置年费日')}</Button></Space>}/>}
+  {card.feeDate&&period&&<Paragraph type="secondary" style={{fontSize:12,margin:'4px 0 0'}}>{t('当前持卡年度：{0} — {1}；周年福利、年费提醒和持卡成本都按它计算。',[period.start,period.end])}</Paragraph>}
+  {card.feeDate&&card.feeDateConflict&&<Paragraph type="secondary" className="fee-date-conflict" style={{fontSize:12,margin:'4px 0 0'}}>{t('年费日取自你以前记录的持卡年度（最新一条）；那些记录用过不同的日期：{0}。请核对。',[card.feeDateConflict.join(' / ')])}</Paragraph>}
+  {!card.feeDate&&credits.length>0&&<Alert className="fee-date-prompt" type="info" showIcon style={{marginTop:8}} title={t('填年费日，周年福利才能算周期')} action={<Button size="small" type="link" onClick={edit}>{t('设置年费日')}</Button>}/>}
   <Modal className="card-edit-modal" title={t('编辑卡片信息')} open={open} onCancel={()=>setOpen(false)} onOk={submit} confirmLoading={busy} okText={t('保存')} cancelText={t('取消')} destroyOnHidden>
    {!manual&&<Alert type="info" showIcon style={{marginBottom:16}} title={t('你的修改会保留，之后刷新银行也不会被覆盖；随时可以恢复银行显示的值。')}/>}
    <Form form={form} layout="vertical">
     <Form.Item name="name" label={t('显示名称')} rules={[{required:true,whitespace:true},{validator:(_,v)=>!v||validCardName(v)?Promise.resolve():Promise.reject(Error(t('名称不能超过 100 个字，也不能包含卡号。')))}]}><Input maxLength={100}/></Form.Item>
     <Form.Item name="tail" label={t('卡片尾号（4 或 5 位）')} dependencies={['bank']} rules={[{required:!!(card.detected?.tail??card.tail),pattern:/^\d{4,5}$/,message:t('请填写 4 或 5 位数字，不要填写完整卡号。')},({getFieldValue})=>({validator:(_,v)=>v&&tailTaken(getFieldValue('bank')||card.bank,v)?Promise.reject(Error(t('这家银行的同一尾号卡片已经在钱包里。'))):Promise.resolve()})]}><Input inputMode="numeric" maxLength={5} autoComplete="off"/></Form.Item>
     {manual&&banks.length>1&&<Form.Item name="bank" label={t('地区')}><Select options={banks.map(b=>({value:b,label:<BankIdentity bank={b}/>}))}/></Form.Item>}
-    <Form.Item name="feeDate" label={t('年费日（持卡周年日）')} rules={[feeDateRule]} extra={t('银行页面不显示年费日。按你的账单或年费扣款记录填写；不知道可以留空。')}><FeeDateInput/></Form.Item>
+    <Form.Item name="feeDate" label={t('年费日（持卡周年日）')} rules={[feeDateRule]} extra={t('每张卡只填这一个日期：周年福利、年费提醒和持卡成本都按它计算。银行页面不显示年费日，按你的账单或年费扣款记录填写；不知道可以留空。')}><FeeDateInput/></Form.Item>
    </Form>
   </Modal>
  </div>;
@@ -86,5 +87,5 @@ export function CardEditSection({card,cards,onSave,onManualEdit}){
 export function FeeDateHint({cards}){
  useI18n();const missing=cards.filter(c=>!c.feeDate&&anniversaryCredits(c).length);
  if(!missing.length)return null;
- return <Alert className="fee-date-hint" type="info" showIcon style={{marginBottom:16}} title={t('{0} 张卡需要设置年费日，才能显示按持卡周年计算的福利：{1}',[missing.length,missing.map(c=>c.name).join('、')])} description={t('在卡片详情里点“编辑卡片信息”设置。')}/>;
+ return <Alert className="fee-date-hint" type="info" showIcon style={{marginBottom:16}} title={t('{0} 张卡需要设置年费日，才能显示按持卡周年计算的福利：{1}',[missing.length,missing.map(c=>c.name).join('、')])} description={t('在卡片详情的“年费日”一行点“设置”。')}/>;
 }

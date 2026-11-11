@@ -1,5 +1,5 @@
 import {PROVIDERS} from '../extension-next/providers.js';
-import {cleanFeeDate} from './feeDate.js';
+import {cleanFeeDate,feeDateFromCycles} from './feeDate.js';
 // What the user set on a card by hand: a display name, last digits, region (a manual card only) and the
 // annual fee date. Kept apart from the bank's readings and applied on top of them, so a later bank refresh
 // never overwrites a correction, and resetting a field brings back what the bank showed.
@@ -19,6 +19,8 @@ function cleanRow(row){
  if(validTail(row.tail))out.tail=row.tail;
  if(validBank(row.bank))out.bank=row.bank;
  const fee=cleanFeeDate(row.feeDate);if(fee)out.feeDate=fee;
+ // Month-days that older card-year records disagreed on when the fee date was taken from them.
+ if(fee&&Array.isArray(row.feeDateConflict)&&row.feeDateConflict.length>1&&row.feeDateConflict.length<=20&&row.feeDateConflict.every(d=>typeof d==='string'&&/^\d{2}-\d{2}$/.test(d)))out.feeDateConflict=[...row.feeDateConflict];
  return Object.keys(out).length>1?out:null;
 }
 const clean=rows=>Array.isArray(rows)?rows.map(cleanRow).filter(Boolean).slice(-MAX):[];
@@ -33,6 +35,8 @@ export function withCardEdit(edits,card,patch){
  const row={...(edits.find(e=>e.cardId===card.id)||{cardId:card.id})};
  for(const [field,value] of Object.entries(patch||{})){
   if(!CARD_EDIT_FIELDS.includes(field))throw Error('invalid_card_edit');
+  // The user setting or clearing the fee date settles any conflict a migration noted.
+  if(field==='feeDate')delete row.feeDateConflict;
   if(value==null||value===''){delete row[field];continue;}
   if(field==='name'&&!validCardName(value))throw Error('invalid_card_name');
   if(field==='tail'&&!validTail(value))throw Error('invalid_card_tail');
@@ -42,6 +46,23 @@ export function withCardEdit(edits,card,patch){
  }
  const rest=edits.filter(e=>e.cardId!==card.id);
  return Object.keys(row).length>1?[...rest,row].slice(-MAX):rest;
+}
+/**
+ * Before one fee date drove everything, a card year was recorded with its own start and end in cost tracking.
+ * Each card without a fee date takes one from those records (the latest start wins), noting the dates when
+ * they disagreed. A card that already has a fee date keeps it.
+ */
+export function withMigratedFeeDates(edits,cycles){
+ const starts=new Map();
+ for(const c of cycles||[])if(typeof c?.cardId==='string'&&c.cardId&&c.cardId.length<=100)starts.set(c.cardId,[...(starts.get(c.cardId)||[]),c.start]);
+ let next=edits;
+ for(const [cardId,list] of starts){
+  if(edits.find(e=>e.cardId===cardId)?.feeDate)continue;
+  const found=feeDateFromCycles(list);if(!found)continue;
+  next=withCardEdit(next,{id:cardId},{feeDate:found.feeDate});
+  if(found.conflict)next=next.map(e=>e.cardId===cardId?{...e,feeDateConflict:found.conflict}:e);
+ }
+ return next;
 }
 export const withoutCardEdits=(edits,cardId)=>edits.filter(e=>e.cardId!==cardId);
 /**
@@ -60,7 +81,7 @@ export function applyCardEdits(cards,edits){
   // On a bank-page card the shown name is the product's, so a name equal to the bank's words is still the user's choice.
   if(row.name&&(row.name!==card.name||card.identitySource==='bank-page')){detected.name=card.name;if(card.identitySource==='bank-page')next.pageName=card.pageName??card.name;next.name=row.name;userSet.push('name');}
   if(row.tail&&row.tail!==card.tail){detected.tail=card.tail;next.tail=row.tail;userSet.push('tail');}
-  if(row.feeDate){next.feeDate=row.feeDate;userSet.push('feeDate');}
+  if(row.feeDate){next.feeDate=row.feeDate;userSet.push('feeDate');if(row.feeDateConflict)next.feeDateConflict=row.feeDateConflict;}
   return userSet.length?{...next,userSet,detected}:card;
  });
 }

@@ -39,3 +39,20 @@ export function nextFeeDay(feeDate,asOf){
 }
 /** Month-day text for display: 03-15, or 2024-03-15 when the year is known. */
 export const feeDateText=feeDate=>{const d=cleanFeeDate(feeDate);return d?`${d.year!=null?d.year+'-':''}${pad(d.month)}-${pad(d.day)}`:'';};
+/** The card years from the fee date, newest first: the one containing asOf and the `count-1` before it. */
+export function cardYears(feeDate,asOf,count=3){
+ const now=anniversaryPeriod(feeDate,asOf);if(!now)return [];
+ const out=[now];
+ while(out.length<count){const p=anniversaryPeriod(feeDate,shift(out.at(-1).start,-1));if(!p)break;out.push(p);}
+ return out;
+}
+/**
+ * A fee date from card years recorded before the fee date drove them: the latest start wins. `conflict` lists
+ * every month-day the records used when they disagree, so the wallet can say which dates it chose between.
+ */
+export function feeDateFromCycles(starts){
+ const days=(starts||[]).filter(isDay).sort().reverse();if(!days.length)return null;
+ const feeDate=cleanFeeDate({month:Number(days[0].slice(5,7)),day:Number(days[0].slice(8,10))});if(!feeDate)return null;
+ const seen=[...new Set(days.map(d=>d.slice(5)))];
+ return seen.length>1?{feeDate,conflict:seen}:{feeDate};
+}
