@@ -179,7 +179,7 @@
       "verification": "issuer-asset",
       "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000237_480x304_straight_withname.png",
       "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
-      "foundIn": "schema.org FinancialProduct image",
+      "foundIn": "schema.org CreditCard image",
       "checkedAt": "2026-11-11",
       "terms": "requires-permission"
     }
@@ -533,7 +533,7 @@
       "verification": "issuer-asset",
       "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000268_480x304_straight_withname.png",
       "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/",
-      "foundIn": "schema.org FinancialProduct image",
+      "foundIn": "schema.org CreditCard image",
       "checkedAt": "2026-11-11",
       "terms": "requires-permission"
     }
@@ -564,7 +564,7 @@
       "verification": "issuer-asset",
       "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000269_480x304_straight_withname.png",
       "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-platinum-american-express-card/",
-      "foundIn": "schema.org FinancialProduct image",
+      "foundIn": "schema.org CreditCard image",
       "checkedAt": "2026-11-11",
       "terms": "requires-permission"
     }
@@ -595,7 +595,7 @@
       "verification": "issuer-asset",
       "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/delta-reserve.png",
       "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-reserve-american-express-card/",
-      "foundIn": "schema.org FinancialProduct image",
+      "foundIn": "schema.org CreditCard image",
       "checkedAt": "2026-11-11",
       "terms": "requires-permission"
     }
@@ -626,7 +626,7 @@
       "verification": "issuer-asset",
       "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000313_480x304_straight_withname.png",
       "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/",
-      "foundIn": "schema.org FinancialProduct image",
+      "foundIn": "schema.org CreditCard image",
       "checkedAt": "2026-11-11",
       "terms": "requires-permission"
     }
@@ -657,7 +657,7 @@
       "verification": "issuer-asset",
       "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000311_480x304_straight_withname.png",
       "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-bevy/",
-      "foundIn": "schema.org FinancialProduct image",
+      "foundIn": "schema.org CreditCard image",
       "checkedAt": "2026-11-11",
       "terms": "requires-permission"
     }
@@ -1113,7 +1113,7 @@
       "verification": "issuer-asset",
       "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000264_480x304_straight_withname.png",
       "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/blue-cash-preferred/",
-      "foundIn": "schema.org FinancialProduct image",
+      "foundIn": "schema.org CreditCard image",
       "checkedAt": "2026-11-11",
       "terms": "requires-permission"
     }
@@ -1171,7 +1171,7 @@
       "verification": "issuer-asset",
       "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000327_480x304_straight_withname.png",
       "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/hilton-honors/",
-      "foundIn": "schema.org FinancialProduct image",
+      "foundIn": "schema.org CreditCard image",
       "checkedAt": "2026-11-11",
       "terms": "requires-permission"
     }
@@ -1203,7 +1203,7 @@
       "verification": "issuer-asset",
       "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000328_480x304_straight_withname.png",
       "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/hilton-honors-surpass/",
-      "foundIn": "schema.org FinancialProduct image",
+      "foundIn": "schema.org CreditCard image",
       "checkedAt": "2026-11-11",
       "terms": "requires-permission"
     }
@@ -1234,7 +1234,7 @@
       "verification": "issuer-asset",
       "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000267_480x304_straight_withname.png",
       "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-blue-american-express-card/",
-      "foundIn": "schema.org FinancialProduct image",
+      "foundIn": "schema.org CreditCard image",
       "checkedAt": "2026-11-11",
       "terms": "requires-permission"
     }

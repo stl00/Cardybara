@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import {cardProducts} from '../src/productCatalog.js';
 const read=p=>readFileSync(new URL(`../${p}`,import.meta.url));
 const sources=JSON.parse(read('public/card-art-sources.json')),notes=read('public/ASSET-SOURCES.md').toString();
@@ -21,7 +22,8 @@ test('art with a recorded page comes from that issuer, with a date, terms and a 
   assert.ok(['requires-permission','unverified'].includes(a.terms),p.id);
   assert.ok(a.foundIn,p.id);
   assert.equal(sources[a.file],a.sourceUrl,`${p.id}: card-art-sources.json`);
-  assert.ok(notes.includes(a.file)&&notes.includes(a.pageUrl),`${p.id}: ASSET-SOURCES.md`);
+  assert.ok(notes.split('\n').some(l=>l.includes(`assets/${a.file} `)&&l.includes(a.pageUrl)&&l.includes(a.sourceUrl)),`${p.id}: ASSET-SOURCES.md row`);
+  assert.equal(a.file,`catalog-${createHash('sha256').update(a.sourceUrl).digest('hex').slice(0,16)}.png`,`${p.id}: file name`);
   const file=new URL(`../public/assets/${a.file}`,import.meta.url);assert.ok(existsSync(file),p.id);
   assert.deepEqual([...readFileSync(file).subarray(0,4)],[0x89,0x50,0x4e,0x47],`${p.id}: PNG`);
  }
