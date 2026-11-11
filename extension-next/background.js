@@ -66,6 +66,8 @@ async function loaded(tabId,url){
   if(results.length!==1||results[0].documentId!==doc)throw Error('document_changed');
   const current=await bounded(chrome.tabs.get(tabId));if(!guidedPage(ctx.bank,current.url))throw Error('navigation_changed');
   const diag=await bounded(chrome.scripting.executeScript({target:{tabId,documentIds:[doc]},func:()=>self.CardyReader?.lastDiagnostic||null}));if(diag[0]?.result)await chrome.storage.local.set({'cardybara:last-read-diagnostic':{bank:ctx.bank,...diag[0].result}});
+  // Redacted page structure for a problem report the tester may save later (#196). Never blocks the read.
+  try{const shape=await bounded(chrome.scripting.executeScript({target:{tabId,documentIds:[doc]},files:['problem-structure.js']}),5000);const report=shape[0]?.result;if(report&&Array.isArray(report.rows)){const old=(await chrome.storage.local.get('cardybara:problem-structure'))['cardybara:problem-structure']||{};await chrome.storage.local.set({'cardybara:problem-structure':{...old,[ctx.bank]:{capturedAt:new Date().toISOString(),report}}});}}catch{}
   stage='validate_result';const checkpoint=await engine.checkpointRead(ctx,results[0].result);if(!checkpoint)return;await notify(checkpoint);let enrichment=null;
   if(!['needs_login','needs_confirmation','ambiguous'].includes(results[0].result.status)){
    const arrive=href=>waitBankPage(ctx.bank,href,{now:()=>Date.now(),current:()=>engine.current(ctx),getTab:()=>bounded(chrome.tabs.get(tabId)),rendered:async()=>{const ready=await bounded(chrome.scripting.executeScript({target:{tabId},func:renderedBankPage}),2000).catch(()=>[]);return ready[0]?.result||null;},pause:ms=>new Promise(resolve=>setTimeout(resolve,ms))});
@@ -118,7 +120,7 @@ chrome.runtime.onMessage.addListener((raw,sender,reply)=>{
   if(m.type==='refresh'){s=await engine.start(m,owner);void notify(s);void next();}
   else if(m.type==='focus-bank'){s=await engine.load();const job=s.run?.jobs.find(j=>j.bank===m.bank);if(!Number.isInteger(job?.tabId))throw Error('bank_tab_missing');const tab=await chrome.tabs.get(job.tabId);if(!guidedPage(m.bank,tab.url))throw Error('bank_tab_changed');await chrome.tabs.update(tab.id,{active:true});}
   else if(m.type==='cancel'){s=await engine.cancel(owner);await notify(s);}
-  else if(['disconnect','clear','connect'].includes(m.type)){s=await engine.bank(m.bank,m.type,owner);if(['clear','disconnect'].includes(m.type))await agent.invalidate(m.bank);await publish(s);}
+  else if(['disconnect','clear','connect'].includes(m.type)){s=await engine.bank(m.bank,m.type,owner);if(['clear','disconnect'].includes(m.type)){await agent.invalidate(m.bank);const k='cardybara:problem-structure',kept=(await chrome.storage.local.get(k))[k]||{};if(kept[m.bank]){delete kept[m.bank];await chrome.storage.local.set({[k]:kept});}}await publish(s);}
   else if(m.type==='remove-card'){s=await engine.removeCard(m,owner);await agent.invalidate(m.bank);await publish(s);}
   else s=await engine.load();
   reply({ok:true,requestId:m.requestId,version:VERSION,state:await exposedState(s)});
