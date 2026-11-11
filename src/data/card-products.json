@@ -1965,7 +1965,15 @@
       "rewardPrograms": [
         "Membership Rewards"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-925907b3857bfb57.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000237_480x304_straight_withname.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
+        "foundIn": "schema.org FinancialProduct image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -1989,7 +1997,15 @@
       "rewardPrograms": [
         "Membership Rewards"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-b83200a169fc795d.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/business-platinum.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-platinum-credit-card-amex/",
+        "foundIn": "og:image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-platinum-credit-card-amex/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2012,7 +2028,15 @@
       "rewardPrograms": [
         "Membership Rewards"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-a66ecab22883b6ce.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/business-gold.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-gold-card-amex/",
+        "foundIn": "og:image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-gold-card-amex/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2037,7 +2061,15 @@
       "rewardPrograms": [
         "Membership Rewards"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-0e6425cb14be23bc.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/blue-business-plus.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-blue-business-plus-credit-card-amex/",
+        "foundIn": "og:image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-blue-business-plus-credit-card-amex/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2290,7 +2322,15 @@
       "rewardPrograms": [
         "Delta SkyMiles"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-069d3a8d8a32c25b.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000268_480x304_straight_withname.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/",
+        "foundIn": "schema.org FinancialProduct image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2313,7 +2353,15 @@
       "rewardPrograms": [
         "Delta SkyMiles"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-9feb5918e055cec3.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000269_480x304_straight_withname.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-platinum-american-express-card/",
+        "foundIn": "schema.org FinancialProduct image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-platinum-american-express-card/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2336,7 +2384,15 @@
       "rewardPrograms": [
         "Delta SkyMiles"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-57d69282dbbe7e01.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/delta-reserve.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-reserve-american-express-card/",
+        "foundIn": "schema.org FinancialProduct image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-reserve-american-express-card/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2359,7 +2415,15 @@
       "rewardPrograms": [
         "Marriott Bonvoy"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-73848fc7f063fa28.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000313_480x304_straight_withname.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/",
+        "foundIn": "schema.org FinancialProduct image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2382,7 +2446,15 @@
       "rewardPrograms": [
         "Marriott Bonvoy"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-d064eb07004496ae.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000311_480x304_straight_withname.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-bevy/",
+        "foundIn": "schema.org FinancialProduct image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-bevy/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2405,7 +2477,15 @@
       "rewardPrograms": [
         "Hilton Honors"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-840796e917265353.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/hilton-honors.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/hilton-honors/",
+        "foundIn": "og:image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/hilton-honors/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2428,7 +2508,15 @@
       "rewardPrograms": [
         "Delta SkyMiles"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-01d7f07cac5a91eb.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/platinum-delta-skymiles-business.png",
+        "pageUrl": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-platinum/",
+        "foundIn": "og:image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-platinum/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2451,7 +2539,15 @@
       "rewardPrograms": [
         "Delta SkyMiles"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-d38f1a19dcaa28ba.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/gold-delta-skymiles-business.png",
+        "pageUrl": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-gold/",
+        "foundIn": "og:image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-gold/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2561,7 +2657,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-d74106c987556a79.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000264_480x304_straight_withname.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/blue-cash-preferred/",
+        "foundIn": "schema.org FinancialProduct image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/blue-cash-preferred/",
       "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
@@ -2580,7 +2684,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-65536a9ee84b6885.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000274_480x304_straight_withname.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/",
+        "foundIn": "schema.org WebPage primaryImageOfPage for /us/credit-cards/card/green/",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/",
       "checkedAt": "2026-11-11",
       "verification": "needs-review"
@@ -2599,7 +2711,15 @@
       "rewardPrograms": [
         "Hilton Honors"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-e21cb7d4d6a70637.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000327_480x304_straight_withname.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/hilton-honors/",
+        "foundIn": "schema.org FinancialProduct image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/hilton-honors/",
       "checkedAt": "2026-11-11",
       "verification": "issuer-listed",
@@ -2623,7 +2743,15 @@
       "rewardPrograms": [
         "Hilton Honors"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-1bf150d8b22e4230.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000328_480x304_straight_withname.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/hilton-honors-surpass/",
+        "foundIn": "schema.org FinancialProduct image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/hilton-honors-surpass/",
       "checkedAt": "2026-11-11",
       "verification": "issuer-listed",
@@ -2646,7 +2774,15 @@
       "rewardPrograms": [
         "Delta SkyMiles"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-13470a44dffb21a6.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000267_480x304_straight_withname.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-blue-american-express-card/",
+        "foundIn": "schema.org FinancialProduct image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-blue-american-express-card/",
       "checkedAt": "2026-11-11",
       "verification": "issuer-listed",
@@ -2667,7 +2803,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-c1b225ff00b76970.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/blue-business-cash.png",
+        "pageUrl": "https://www.americanexpress.com/en-us/business/credit-cards/blue-business-cash/",
+        "foundIn": "og:image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/compare-credit-cards/compare-cash-back-business-credit-cards/",
       "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
@@ -2686,7 +2830,15 @@
       "rewardPrograms": [
         "Marriott Bonvoy"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-560b09d9bbb37339.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/amex-marriott-bonvoy-business.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/amex-marriott-bonvoy-business-credit-card/",
+        "foundIn": "og:image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/amex-marriott-bonvoy-business-credit-card/",
       "checkedAt": "2026-11-11",
       "verification": "issuer-listed",
@@ -2710,7 +2862,15 @@
       "rewardPrograms": [
         "Delta SkyMiles"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-454ad869ac06a591.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/delta-reserve-business.png",
+        "pageUrl": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-reserve/",
+        "foundIn": "og:image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-reserve/",
       "checkedAt": "2026-11-11",
       "verification": "issuer-listed",
@@ -2735,7 +2895,15 @@
       "rewardPrograms": [
         "Membership Rewards"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-5bba3af538f4ab02.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/business-green-rewards.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-green-card-amex/",
+        "foundIn": "og:image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-green-card-amex/",
       "checkedAt": "2026-11-11",
       "verification": "issuer-listed",
@@ -2758,7 +2926,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-53b0eda1c4f886ed.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/graphite.png",
+        "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/graphite-business-cash-unlimited-card/",
+        "foundIn": "og:image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/graphite-business-cash-unlimited-card/",
       "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
