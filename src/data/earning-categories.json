@@ -13,7 +13,13 @@
   "hyatt":{"aliases":["hyatt","凯悦","凱悅"],"category":"hotel"},
   "ihg":{"aliases":["ihg","洲际","洲際"],"category":"hotel"},
   "amazon":{"aliases":["amazon","audible","亚马逊","亞馬遜"],"category":"online-retail"},
-  "whole foods":{"aliases":["whole foods","全食"],"category":"supermarket"}
+  "whole foods":{"aliases":["whole foods","全食"],"category":"supermarket"},
+  "aer lingus":{"aliases":["aer lingus","爱尔兰航空","愛爾蘭航空"],"category":"flight"},
+  "british airways":{"aliases":["british airways","ba.com","英国航空","英國航空","英航"],"category":"flight"},
+  "iberia":{"aliases":["iberia","西班牙国家航空","西班牙國家航空","伊比利亚航空","伊比利亞航空"],"category":"flight"},
+  "disney":{"aliases":["disney","迪士尼"],"category":"entertainment"},
+  "disney streaming":{"aliases":["disneyplus","disney+","hulu","espn+","stream.espn"],"category":"streaming"},
+  "lyft":{"aliases":["lyft"],"category":"transit"}
  },
  "spendCategories":{
   "AAdvantage Hotels 和 AAdvantage Cars":[{"uses":["hotel","car-rental"],"channel":"portal","via":"AAdvantage Hotels / Cars"}],
@@ -134,6 +140,18 @@
   "交通（出租车、网约车、停车、过路费、火车、巴士等）":[{"uses":["transit"]}],
   "交通、美国运输和美国办公用品店":[{"uses":["transit"]},{"uses":["shipping","office"],"country":"US"}],
   "全球餐厅、美国加油站、美国无线电话服务和美国运输":[{"uses":["dining"]},{"uses":["gas","telecom","shipping"],"country":"US"}],
-  "AmexTravel.com 预付酒店、租车、邮轮和机票":[{"uses":["hotel","car-rental","flight","travel"],"channel":"portal","via":"AmexTravel.com"}]
+  "AmexTravel.com 预付酒店、租车、邮轮和机票":[{"uses":["hotel","car-rental","flight","travel"],"channel":"portal","via":"AmexTravel.com"}],
+  "Aer Lingus、British Airways、Iberia 和 LEVEL 直订机票":[{"merchants":["british airways","aer lingus","iberia"],"channel":"direct"}],
+  "British Airways、Aer Lingus、Iberia 和 LEVEL 直订机票":[{"merchants":["british airways","aer lingus","iberia"],"channel":"direct"}],
+  "办公用品店":[{"uses":["office"]}],
+  "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费":[{"merchants":["disney streaming"],"channel":"direct"}],
+  "Iberia、British Airways、Aer Lingus 和 LEVEL 直订机票":[{"merchants":["british airways","aer lingus","iberia"],"channel":"direct"}],
+  "加油站和美国大部分 Disney 场所":[{"uses":["gas"]},{"merchants":["disney"],"country":"US"}],
+  "Bilt Travel 酒店":[{"uses":["hotel"],"channel":"portal","via":"Bilt Travel"}],
+  "Bilt Travel 机票":[{"uses":["flight"],"channel":"portal","via":"Bilt Travel"}],
+  "Lyft（关联 Bilt 账户）":[{"merchants":["lyft"],"condition":"linked-account"}],
+  "餐饮（自选类别，默认）":[{"uses":["dining"],"condition":"chosen-category"}],
+  "超市（自选类别）":[{"uses":["supermarket"],"condition":"chosen-category"}],
+  "航空、酒店、邮轮和租车直接消费":[{"uses":["flight","hotel","car-rental","travel"],"channel":"direct"}]
  }
 }

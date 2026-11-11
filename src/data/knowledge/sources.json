@@ -985,5 +985,180 @@
     "title": "American Express · Graphite Business Cash Unlimited Card 官方产品页",
     "checkedAt": "2026-11-11",
     "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-schwab-platinum-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q1-pdf-cmas/cps-charge/schwab-platinum-03-31-2026.pdf",
+    "title": "American Express · Platinum Card from American Express Exclusively for Charles Schwab 持卡人协议",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-united-business-card",
+    "url": "https://creditcards.chase.com/business-credit-cards/united/united-business-card",
+    "title": "Chase · United Business Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-united-club-business-card",
+    "url": "https://creditcards.chase.com/business-credit-cards/united/united-club-business",
+    "title": "Chase · United Club Business Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-british-airways-visa-signature-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/avios/british-airways",
+    "title": "Chase · British Airways Visa Signature Credit Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-aer-lingus-visa-signature-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/avios/aer-lingus",
+    "title": "Chase · Aer Lingus Visa Signature Credit Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-blue-card",
+    "url": "https://www.bilt.com/card",
+    "title": "Bilt · Bilt Blue Card 官方卡片页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-blue-card-terms",
+    "url": "https://www.bilt.com/terms/bilt-card-offer-terms",
+    "title": "Bilt · Bilt Card 优惠条款（Bilt Card Offer Terms）",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-blue-card-fees",
+    "url": "https://legal.cardless.com/rates_and_fees/bilt/rates_and_fees.pdf",
+    "title": "Cardless · Bilt 卡利率和费用表",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-blue-card-overview",
+    "url": "https://support.biltrewards.com/hc/en-us/articles/42897766682381-Bilt-Card-2-0-Program-Overview",
+    "title": "Bilt 帮助中心 · Bilt Card 2.0 计划概览",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-obsidian-card",
+    "url": "https://www.bilt.com/card",
+    "title": "Bilt · Bilt Obsidian Card 官方卡片页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-obsidian-card-terms",
+    "url": "https://www.bilt.com/terms/bilt-card-offer-terms",
+    "title": "Bilt · Bilt Card 优惠条款（Bilt Card Offer Terms）",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-obsidian-card-fees",
+    "url": "https://legal.cardless.com/rates_and_fees/bilt/rates_and_fees.pdf",
+    "title": "Cardless · Bilt 卡利率和费用表",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-obsidian-card-overview",
+    "url": "https://support.biltrewards.com/hc/en-us/articles/42897766682381-Bilt-Card-2-0-Program-Overview",
+    "title": "Bilt 帮助中心 · Bilt Card 2.0 计划概览",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-palladium-card",
+    "url": "https://www.bilt.com/card",
+    "title": "Bilt · Bilt Palladium Card 官方卡片页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-palladium-card-terms",
+    "url": "https://www.bilt.com/terms/bilt-card-offer-terms",
+    "title": "Bilt · Bilt Card 优惠条款（Bilt Card Offer Terms）",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-palladium-card-fees",
+    "url": "https://legal.cardless.com/rates_and_fees/bilt/rates_and_fees.pdf",
+    "title": "Cardless · Bilt 卡利率和费用表",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-palladium-card-overview",
+    "url": "https://support.biltrewards.com/hc/en-us/articles/42897766682381-Bilt-Card-2-0-Program-Overview",
+    "title": "Bilt 帮助中心 · Bilt Card 2.0 计划概览",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "bilt-transfer-partners",
+    "url": "https://support.biltrewards.com/hc/en-us/articles/19086448638989-Bilt-s-Transfer-Partners",
+    "title": "Bilt 帮助中心 · 转点伙伴",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "bilt-rewards-terms",
+    "url": "https://www.bilt.com/terms",
+    "title": "Bilt · Bilt Rewards 条款",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "bilt-card-2-overview",
+    "url": "https://support.biltrewards.com/hc/en-us/articles/42897766682381-Bilt-Card-2-0-Program-Overview",
+    "title": "Bilt 帮助中心 · Bilt Card 2.0 计划概览",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-iberia-visa-signature-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
+    "title": "Chase · Iberia Visa Signature Credit Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-disney-visa-card",
+    "url": "https://creditcards.chase.com/rewards-credit-cards/disney/rewards",
+    "title": "Chase · Disney Visa Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-disney-premier-visa-card",
+    "url": "https://creditcards.chase.com/rewards-credit-cards/disney/premier",
+    "title": "Chase · Disney Premier Visa Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-disney-inspire-visa-card",
+    "url": "https://creditcards.chase.com/rewards-credit-cards/disney/inspire",
+    "title": "Chase · Disney Inspire Visa Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-chase-freedom-rise-credit-card",
+    "url": "https://creditcards.chase.com/cash-back-credit-cards/freedom/rise",
+    "title": "Chase · Chase Freedom Rise Credit Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
   }
 ]

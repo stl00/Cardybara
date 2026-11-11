@@ -332,7 +332,7 @@
     {
       "id": "programme.atmos-rewards",
       "name": "Atmos Rewards",
-      "kind": "partner",
+      "kind": "airline",
       "aliases": [
         "Atmos",
         "Alaska Airlines",
@@ -512,6 +512,48 @@
       "aliases": [
         "Capital One"
       ]
+    },
+    {
+      "id": "programme.bilt-rewards",
+      "name": "Bilt Rewards",
+      "kind": "reward-currency",
+      "aliases": []
+    },
+    {
+      "id": "programme.virgin-red",
+      "name": "Virgin Red",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.turkish-miles-smiles",
+      "name": "Turkish Airlines Miles&Smiles",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.tap-miles-go",
+      "name": "TAP Miles&Go",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.jal-mileage-bank",
+      "name": "Japan Airlines Mileage Bank",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.i-prefer",
+      "name": "I Prefer Hotel Rewards",
+      "kind": "hotel",
+      "aliases": []
+    },
+    {
+      "id": "programme.amtrak-guest-rewards",
+      "name": "Amtrak Guest Rewards",
+      "kind": "rail",
+      "aliases": []
     }
   ]
 }

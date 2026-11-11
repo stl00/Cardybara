@@ -10,6 +10,19 @@ const context={self:{}};vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(root,'extension-next/reader.js'),'utf8'),context);
 const reader=context.self.CardyReader,runId=new Date().toISOString().replace(/[:.]/g,'-');
 const cases=[];
+// --report <file>: turn a tester's problem report (#196) into a failing fixture, then replay as usual.
+const reportArg=process.argv.indexOf('--report');
+if(reportArg>0){
+ const {replayText}=await import('../extension-next/problem-report.js');
+ const file=process.argv[reportArg+1],report=JSON.parse(fs.readFileSync(file,'utf8'));
+ if(report.kind!=='cardybara-problem-report'||!report.bank)throw Error('not a Cardybara problem report: '+file);
+ const missing=[...new Set((report.cards||[]).flatMap(c=>Object.entries(c.fields||{}).filter(([,v])=>v==='missing').map(([k])=>k)))];
+ const locale=report.structure?.lang||({US:'en-US',HK:'en-HK'})[report.region]||'en-US',slug=(report.bank+'-'+(report.createdAt||runId)).toLowerCase().replace(/[^a-z0-9]+/g,'-');
+ const fixture={id:'report-'+slug,provenance:'Replayed from a sanitized beta problem report: structure and label words only, every value synthetic. Set expected to what the page shows, then fix the reader.',bank:report.bank,locale,heading:'',
+  card:{id:'report-card-1',bank:report.bank,tail:'0000',currency:report.region==='HK'?'HKD':'USD'},text:replayText(report),expected:Object.fromEntries((missing.length?missing:['balance']).map(k=>[k,'__fill__']))};
+ const out=path.join(root,'tests/fixtures/banks',fixture.id+'.json');fs.writeFileSync(out,JSON.stringify(fixture,null,1)+'\n');
+ console.log(`Wrote failing fixture ${path.relative(root,out)} (expected: ${Object.keys(fixture.expected).join(', ')} = __fill__)`);
+}
 for(const file of fs.readdirSync(path.join(root,'tests/fixtures/banks')).filter(f=>f.endsWith('.json'))){
  const f=JSON.parse(fs.readFileSync(path.join(root,'tests/fixtures/banks',file),'utf8'));
  const capturedAt=new Date().toISOString();

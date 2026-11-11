@@ -3,12 +3,22 @@
     "部分字段已读取": "Some fields read",
     "暂无": "None",
     "密码、验证码只交给银行": "Only share passwords and codes with your bank",
-    "卡片概览": "Card overview"
+    "卡片概览": "Card overview",
+    "生成问题报告": "Create problem report",
+    "问题报告预览 · {0}": "Problem report preview · {0}",
+    "报告只有页面结构和字段是否读到；金额、卡号、姓名、日期都已换成占位符。请先看一遍，确认后自己保存，再发给开发者。不会自动发送。": "The report holds only page structure and which fields were read; amounts, card numbers, names and dates are replaced by placeholders. Look it over, save it yourself, then send it to the developer. Nothing is sent automatically.",
+    "这次没有记录到页面结构，报告只含任务状态。": "No page structure was recorded this time; the report holds the run status only.",
+    "保存报告": "Save report"
   },
   "zh-TW": {
     "部分字段已读取": "部分字段已讀取",
     "暂无": "暫無",
     "密码、验证码只交给银行": "密碼、驗證碼只交給銀行",
-    "卡片概览": "卡片概覽"
+    "卡片概览": "卡片概覽",
+    "生成问题报告": "產生問題報告",
+    "问题报告预览 · {0}": "問題報告預覽 · {0}",
+    "报告只有页面结构和字段是否读到；金额、卡号、姓名、日期都已换成占位符。请先看一遍，确认后自己保存，再发给开发者。不会自动发送。": "報告只有頁面結構和欄位是否讀到；金額、卡號、姓名、日期都已換成占位符。請先看一遍，確認後自行儲存，再傳給開發者。不會自動傳送。",
+    "这次没有记录到页面结构，报告只含任务状态。": "這次沒有記錄到頁面結構，報告只含任務狀態。",
+    "保存报告": "儲存報告"
   }
 }

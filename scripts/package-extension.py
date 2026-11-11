@@ -6,7 +6,7 @@ root=Path(__file__).resolve().parents[1]
 source=root/'extension-next'
 version=json.loads((source/'manifest.json').read_text())['version']
 assert version==json.loads((source/'package.json').read_text())['version']=='1.1.0'
-allow=['manifest.json','package.json','background.js','engine.js','agent-core.js','bank-adapters.js','bank-tabs.js','parser-client.js','agent-runtime.js','agent-snapshot.js','protocol.js','providers.js','reader.js','guide.js','dashboard.js','popup.html','popup.js','popup.css','popup-i18n.js','privacy.html','README.md','THIRD_PARTY_NOTICES.md','licenses/nextcard-MIT.txt','icons/mark.svg']+[f'icons/{n}.png' for n in [16,32,48,128]]
+allow=['manifest.json','package.json','background.js','engine.js','agent-core.js','bank-adapters.js','bank-tabs.js','parser-client.js','agent-runtime.js','agent-snapshot.js','protocol.js','providers.js','reader.js','guide.js','dashboard.js','popup.html','popup.js','popup.css','popup-i18n.js','problem-report.js','problem-structure.js','structure-report.js','privacy.html','README.md','THIRD_PARTY_NOTICES.md','licenses/nextcard-MIT.txt','icons/mark.svg']+[f'icons/{n}.png' for n in [16,32,48,128]]
 node=sys.argv[1] if len(sys.argv)>1 else 'node'
 for name in allow:
  assert (source/name).is_file(),f'Missing {name}'

@@ -1,0 +1,1061 @@
+{
+ "batch": 9,
+ "checkedAt": "2026-11-11",
+ "reviewAfter": "2027-02-09",
+ "cards": [
+  {
+   "id": "amex-us-us-schwab-platinum-card",
+   "page": "amex-us-us-schwab-cma",
+   "issuer": "American Express",
+   "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q1-pdf-cmas/cps-charge/schwab-platinum-03-31-2026.pdf",
+   "new": {
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Platinum Card from American Express Exclusively for Charles Schwab"
+   },
+   "aliases": [
+    "Platinum Card for Schwab",
+    "Schwab Platinum Card",
+    "Schwab Platinum",
+    "The Platinum Card from American Express Exclusively for Charles Schwab"
+   ],
+   "fee": {
+    "amount": 895,
+    "currency": "USD",
+    "quote": "Annual Fee $895"
+   },
+   "additionalFee": {
+    "amount": 195,
+    "currency": "USD",
+    "quote": "Each Additional Platinum Card is $195 annually"
+   },
+   "earning": [],
+   "credits": [
+    {
+     "key": "appreciation-bonus",
+     "zh": "Schwab Appreciation Bonus",
+     "en": "Schwab Appreciation Bonus",
+     "noteZh": "限主卡持卡人，每个持卡年一次；按开户批准时和每年续卡月首日的 Schwab 合资格资产计：25万至100万美元得100美元，100万至1000万美元得200美元，1000万美元以上或 Schwab Private Wealth Services、Advisor Services Ultra-High Net Worth 会员得1,000美元。个人资产和会员身份未核实。",
+     "noteEn": "For the basic cardmember only, once each year of card membership, measured at approval and in each renewal month: $100 for qualifying Schwab holdings of $250,000 to under $1,000,000, $200 for $1,000,000 to under $10,000,000, and $1,000 for $10,000,000 or more or for Schwab Private Wealth Services or Advisor Services Ultra-High Net Worth members. Personal holdings and membership are unverified.",
+     "scenario": "card-ownership",
+     "category": "credit",
+     "period": "account-anniversary",
+     "quote": "equal to or greater than $250,000 and less than $1,000,000, you will receive a $100 Card statement credit",
+     "original": {
+      "title": "Schwab Appreciation Bonus",
+      "summary": "A Card statement credit of $100, $200 or $1,000 based on qualifying Schwab holdings or Schwab program membership, measured at approval and in each renewal month; once each year of Card membership.",
+      "howToUse": [
+       "Keep an eligible Schwab account; the bonus is measured after approval and in each renewal month."
+      ],
+      "quotes": [
+       "equal to or greater than $1,000,000 and less than $10,000,000, you will receive a $200 Card statement credit",
+       "equal to or greater than $10,000,000, you will receive a $1,000 Card statement credit.",
+       "Basic Card Members may only receive one Schwab Appreciation Bonus each year of Card Membership."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "来源是发卡行公开的持卡人协议（2026年3月31日版）。American Express 的产品和福利页面在浏览器中加载，未登录状态保存的页面没有内容，所以赚取比例和白金卡其他福利未录入；Schwab 的页面是合作方页面，不作为发卡行来源。",
+     "en": "The source is the issuer's public Cardmember Agreement (as of 03/31/2026). American Express's product and benefit pages load in the browser and the saved signed-out pages are empty, so earning rates and the other Platinum benefits are not recorded; Schwab's page is a partner page, not an issuer source."
+    },
+    {
+     "zh": "须持有合资格 Schwab 账户才能持卡；个人账户情况未核实。",
+     "en": "The card needs an eligible Schwab account; personal accounts are unverified."
+    }
+   ],
+   "sourceTitle": {
+    "zh": "持卡人协议",
+    "en": "Cardmember Agreement"
+   }
+  },
+  {
+   "id": "chase-us-united-business-card",
+   "page": "chase-us-united-business-card",
+   "issuer": "Chase",
+   "url": "https://creditcards.chase.com/business-credit-cards/united/united-business-card",
+   "transfer": {
+    "name": "United MileagePlus",
+    "programmeId": "programme.united-mileageplus",
+    "linkOnly": true,
+    "quote": "2x miles on all other eligible United purchases"
+   },
+   "fee": {
+    "amount": 150,
+    "currency": "USD",
+    "quote": "ANNUAL FEE $150"
+   },
+   "earning": [
+    {
+     "zh": "United 消费",
+     "en": "United purchases",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "airline",
+     "quote": "2x miles on all other eligible United purchases",
+     "noteZh": "本卡的比例；页面的8倍合计还包含主卡持卡人机票作为 MileagePlus 会员的6倍，Basic Economy 不同。",
+     "noteEn": "The card's own rate. The 8x total on the page also counts 6x on the primary cardmember's fare as a MileagePlus member; Basic Economy differs."
+    },
+    {
+     "zh": "加油站",
+     "en": "Gas stations",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "ground-transport",
+     "quote": "2x miles at gas stations"
+    },
+    {
+     "zh": "餐饮",
+     "en": "Dining",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "dining",
+     "quote": "2x miles on dining including eligible delivery services",
+     "noteZh": "含合资格外卖配送。",
+     "noteEn": "Includes eligible delivery services."
+    },
+    {
+     "zh": "办公用品店",
+     "en": "Office supply stores",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "shopping",
+     "quote": "2x miles at office supply stores"
+    },
+    {
+     "zh": "本地交通和通勤",
+     "en": "Local transit and commuting",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "ground-transport",
+     "quote": "2x miles on local transit including ride share services, taxicabs, train tickets, tolls and mass transit",
+     "noteZh": "含网约车、出租车、火车票、过路费和公共交通。",
+     "noteEn": "Includes rideshare, taxicabs, train tickets, tolls and mass transit."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "1x mile on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "club-passes",
+     "zh": "每年2张 United Club 单次通行证",
+     "en": "2 United Club one-time passes a year",
+     "noteZh": "开户后及之后每12个月存入2张，须账户保持开立。",
+     "noteEn": "Two passes after account opening and every 12 months thereafter while the account stays open.",
+     "scenario": "airport",
+     "category": "lounge",
+     "period": "account-anniversary",
+     "quote": "2 United Club one-time passes per year",
+     "original": {
+      "title": "2 United Club one-time passes per year",
+      "summary": "Two United Club one-time passes per year.",
+      "howToUse": [
+       "Look for the passes in your MileagePlus account."
+      ],
+      "quotes": [
+       "after account opening and every 12 months thereafter as long as the credit card account remains open."
+      ]
+     },
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "travel-credit",
+     "zh": "United 旅行额度",
+     "en": "$125 United travel credit",
+     "noteZh": "每个自然年用本卡买满5笔各100美元以上的 United 机票后，得125美元 TravelBank 余额。是否达标未核实。",
+     "noteEn": "$125 in United TravelBank cash after 5 United flight purchases of $100 or more with the card each calendar year. Whether you reach it is unverified.",
+     "scenario": "travel",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "quote": "after making 5 United flight purchases of $100 or more each calendar year",
+     "original": {
+      "title": "$125 United travel credit",
+      "summary": "$125 in United TravelBank cash after 5 United flight purchases of $100 or more each calendar year.",
+      "howToUse": [
+       "Buy United flights with the card; the cash lands in your TravelBank."
+      ],
+      "quotes": [
+       "Receive $125 in United TravelBank cash"
+      ]
+     },
+     "amount": 125,
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "united-hotels",
+     "zh": "United Hotels 预付酒店抵扣",
+     "en": "United Hotels credit",
+     "noteZh": "每个账户年第1、2次通过 United Hotels 直接预付、金额50美元以上的酒店各返50美元，最多100美元。",
+     "noteEn": "$50 back on each of the 1st and 2nd prepaid stays of $50 or more booked directly through United Hotels, up to $100 each anniversary year.",
+     "scenario": "hotel-stay",
+     "category": "credit",
+     "period": "account-anniversary",
+     "quote": "Receive $50 back as a statement credit on both your 1st and 2nd prepaid hotel stays purchased directly through United Hotels",
+     "original": {
+      "title": "Up to $100 in United Hotels credits",
+      "summary": "$50 back on both the 1st and 2nd prepaid hotel stays purchased directly through United Hotels, up to $100 each anniversary year.",
+      "howToUse": [
+       "Prepay the stay through United Hotels with the card."
+      ],
+      "quotes": [
+       "up to $100 each anniversary year.",
+       "for your first and second hotel stays of $50 or more"
+      ]
+     },
+     "amount": 100,
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ]
+    },
+    {
+     "key": "rideshare",
+     "zh": "网约车抵扣",
+     "en": "Rideshare credit",
+     "noteZh": "须每年登记；每个自然年最多100美元：1至11月每月最多8美元，12月最多12美元。",
+     "noteEn": "Yearly opt-in required. Up to $100 each calendar year: up to $8 a month January to November and $12 in December.",
+     "scenario": "ground-transport",
+     "category": "credit",
+     "period": "calendar-year",
+     "quote": "Enroll to receive up to $100 back as statement credits each calendar year on rideshare purchases",
+     "original": {
+      "title": "Up to $100 in rideshare credits",
+      "summary": "Up to $100 back each calendar year on rideshare purchases: up to $8 a month from January through November and $12 in December; yearly opt-in required.",
+      "howToUse": [
+       "Opt in each year, then pay rideshare trips with the card."
+      ],
+      "quotes": [
+       "up to $8 back as a statement credit each month from January through November",
+       "and up to $12 back for the month of December"
+      ]
+     },
+     "amount": 100,
+     "enrollment": true
+    },
+    {
+     "key": "avis-budget",
+     "zh": "Avis 或 Budget 租车额度",
+     "en": "Avis or Budget travel credit",
+     "noteZh": "每个账户年第1、2次通过 mileageplustravel.united.com 直接预订并用本卡支付的 Avis 或 Budget 租车，各得25美元 TravelBank 余额，最多50美元。",
+     "noteEn": "$25 in United TravelBank cash for each of the 1st and 2nd Avis or Budget rentals booked through mileageplustravel.united.com and paid with the card, up to $50 each anniversary year.",
+     "scenario": "ground-transport",
+     "category": "credit",
+     "period": "account-anniversary",
+     "quote": "Receive $25 in United TravelBank cash, up to $50 each anniversary year, for your 1st and 2nd Avis or Budget car rental",
+     "original": {
+      "title": "Up to $50 in United travel credits on Avis or Budget",
+      "summary": "$25 in United TravelBank cash for each of the 1st and 2nd Avis or Budget rentals booked directly through mileageplustravel.united.com, up to $50 each anniversary year.",
+      "howToUse": [
+       "Book the rental through mileageplustravel.united.com and pay with the card."
+      ]
+     },
+     "amount": 50,
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ]
+    },
+    {
+     "key": "instacart",
+     "zh": "Instacart 抵扣",
+     "en": "Instacart credit",
+     "noteZh": "每月10美元，每个自然年最多120美元，须直接在 Instacart 用本卡消费；2027年12月31日结束。须先在 instacart.com/p/chase-united 激活免费的 Chase Instacart+ 会员，且会员有效期间才发放。",
+     "noteEn": "$10 a month, up to $120 each calendar year, on purchases made directly through Instacart with the card; ends 12/31/27. You must first activate the complimentary Chase Instacart+ membership at instacart.com/p/chase-united, and credits come only while it is active.",
+     "scenario": "shopping",
+     "category": "credit",
+     "period": "calendar-month",
+     "quote": "Receive a $10 Instacart credit monthly, up to $120 total each calendar year",
+     "original": {
+      "title": "Up to $120 in Instacart credits",
+      "summary": "A $10 Instacart credit monthly, up to $120 each calendar year, for purchases made directly through Instacart; the benefit ends 12/31/27.",
+      "howToUse": [
+       "Activate the complimentary Chase Instacart+ membership at instacart.com/p/chase-united, then pay Instacart orders with the card."
+      ],
+      "quotes": [
+       "Benefits end 12/31/27.",
+       "after you activate your complimentary Chase Instacart+ membership"
+      ]
+     },
+     "amount": 10,
+     "terms": {
+      "annualMaximum": 120,
+      "partner": "Instacart"
+     },
+     "validity": {
+      "effectiveThrough": "2027-12-31"
+     }
+    },
+    {
+     "key": "jsx",
+     "zh": "JSX 机票抵扣",
+     "en": "JSX credit",
+     "noteZh": "每个账户年最多100美元，须用本卡直接向 JSX 订票。",
+     "noteEn": "Up to $100 each anniversary year on flights booked directly with JSX using the card.",
+     "scenario": "travel",
+     "category": "credit",
+     "period": "account-anniversary",
+     "quote": "Get up to $100 back as a statement credit each anniversary year when you book flights directly with JSX",
+     "original": {
+      "title": "Up to $100 in JSX credits",
+      "summary": "Up to $100 back each anniversary year when booking flights directly with JSX.",
+      "howToUse": [
+       "Book JSX flights directly and pay with the card."
+      ]
+     },
+     "amount": 100,
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "farelock",
+     "zh": "FareLock 抵扣",
+     "en": "FareLock credit",
+     "noteZh": "每个账户年最多25美元，限 United 或 United Express 运营航班的 FareLock。",
+     "noteEn": "Up to $25 each anniversary year on FareLock for United- or United Express-operated flights.",
+     "scenario": "travel",
+     "category": "credit",
+     "period": "account-anniversary",
+     "quote": "Earn up to $25 back as a statement credit each anniversary year after you buy FareLock",
+     "original": {
+      "title": "Up to $25 in FareLock credits",
+      "summary": "Up to $25 back each anniversary year after buying FareLock on a United- or United Express-operated flight.",
+      "howToUse": [
+       "Buy FareLock with the card."
+      ]
+     },
+     "amount": 25,
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "first-bag",
+     "zh": "免费第一件托运行李",
+     "en": "Free first checked bag",
+     "noteZh": "主卡持卡人和一位同行旅客各可免费托运第一件标准行李。主卡持卡人须用本卡购票（开户后90天内免此要求）并在订票时填 MileagePlus 号。",
+     "noteEn": "The primary cardmember and one traveling companion can each check a first standard bag free. The primary cardmember must buy the ticket with the card (waived for flights in the first 90 days) and add their MileagePlus number.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "per-trip",
+     "quote": "Free first checked bag - the primary Cardmember and one traveling companion can each check a first standard bag for free",
+     "original": {
+      "title": "Free first checked bag",
+      "summary": "The primary cardmember and one traveling companion can each check a first standard bag for free.",
+      "howToUse": [
+       "Buy the ticket with the card and add your MileagePlus number to the reservation."
+      ],
+      "quotes": [
+       "the primary Cardmember must use their United SM Business Card to purchase their ticket(s)"
+      ]
+     },
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "inflight",
+     "zh": "机上消费25%返还",
+     "en": "25% back on inflight purchases",
+     "noteZh": "限 United 机上餐饮、Wi-Fi 和 Club 高级饮品。",
+     "noteEn": "On United inflight purchases and Club premium drinks.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "25% back on United inflight and Club premium drink purchases",
+     "original": {
+      "title": "25% back on United inflight purchases",
+      "summary": "25% back on United inflight and Club premium drink purchases.",
+      "howToUse": [
+       "Pay on board or for Club premium drinks with the card."
+      ]
+     },
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "economy-plus",
+     "zh": "消费满2.5万美元得 Economy Plus 升舱",
+     "en": "Economy Plus upgrades after $25,000",
+     "noteZh": "每个自然年消费满25,000美元，得2次美国本土 Economy Plus 升舱。是否达标未核实。",
+     "noteEn": "2 continental U.S. Economy Plus seat upgrades after $25,000 in spend each calendar year. Whether you reach it is unverified.",
+     "scenario": "travel",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "quote": "Earn 2 continental U.S. Economy Plus seat upgrades after spending $25,000 each calendar year.",
+     "original": {
+      "title": "2 Economy Plus seat upgrades after $25,000",
+      "summary": "2 continental U.S. Economy Plus seat upgrades after spending $25,000 each calendar year.",
+      "howToUse": [
+       "Track your calendar-year spend on the card."
+      ]
+     },
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "better-together",
+     "zh": "同时持有个人 United 卡的周年5,000里程",
+     "en": "5,000-mile better-together anniversary bonus",
+     "noteZh": "同时持有本卡和一张个人 United 信用卡时，每个周年得5,000里程。",
+     "noteEn": "5,000 miles each anniversary when you hold this card and a personal United credit card.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "you'll receive a 5,000-mile better-together anniversary bonus when you have the United Business card and a personal United credit card",
+     "original": {
+      "title": "5,000-mile better-together anniversary bonus",
+      "summary": "A 5,000-mile anniversary bonus when you have the United Business card and a personal United credit card.",
+      "howToUse": [
+       "Hold a personal United card as well; the miles post after the anniversary."
+      ]
+     },
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ]
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "每消费20美元得1 PQP（每个自然年最多4,000）、Group 2 优先登机、里程兑换折扣和保障类福利未录入。员工卡年费未确认。",
+     "en": "1 PQP per $20 spent (up to 4,000 a calendar year), Group 2 boarding, the award discount and the coverage benefits are not recorded. The employee card fee is not confirmed."
+    }
+   ]
+  },
+  {
+   "id": "chase-us-united-club-business-card",
+   "page": "chase-us-united-club-business-card",
+   "issuer": "Chase",
+   "url": "https://creditcards.chase.com/business-credit-cards/united/united-club-business",
+   "transfer": {
+    "name": "United MileagePlus",
+    "programmeId": "programme.united-mileageplus",
+    "linkOnly": true,
+    "quote": "2x miles on all other eligible United purchases"
+   },
+   "fee": {
+    "amount": 695,
+    "currency": "USD",
+    "quote": "ANNUAL FEE $695"
+   },
+   "additionalFee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Employee cards at no additional cost"
+   },
+   "earning": [
+    {
+     "zh": "United 消费",
+     "en": "United purchases",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "airline",
+     "quote": "2x miles on all other eligible United purchases",
+     "noteZh": "本卡的比例；页面的8倍合计还包含主卡持卡人机票作为 MileagePlus 会员的6倍，Basic Economy 不同。",
+     "noteEn": "The card's own rate. The 8x total on the page also counts 6x on the primary cardmember's fare as a MileagePlus member; Basic Economy differs."
+    },
+    {
+     "zh": "Renowned Hotels and Resorts 预付",
+     "en": "Hotels prepaid through Renowned Hotels and Resorts",
+     "multiplier": 5,
+     "unit": "miles-per-USD",
+     "category": "hotel",
+     "quote": "5x miles on hotel stays when you prepay directly through Renowned Hotels and Resorts"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1.5,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "1.5x miles on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "united-club",
+     "zh": "United Club 会员资格",
+     "en": "United Club membership",
+     "noteZh": "本人和一位同行者无限次进入 United Club；达到 Premier Gold 或每年消费满50,000美元可升级 All Access。",
+     "noteEn": "Unlimited United Club access for you and a guest; All Access membership with Premier Gold status or $50,000 in annual spend.",
+     "scenario": "airport",
+     "category": "lounge",
+     "period": "ongoing",
+     "quote": "Unlimited United Club SM access for you and a guest",
+     "original": {
+      "title": "United Club membership",
+      "summary": "Unlimited United Club access for you and a guest, and All Access membership with Premier Gold status or $50,000 in annual spend.",
+      "howToUse": [
+       "Show your boarding pass and the card or your MileagePlus membership at the club."
+      ],
+      "quotes": [
+       "unlock All Access membership when you reach Premier Gold status or spend $50,000 annually"
+      ]
+     },
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "bags",
+     "zh": "免费第一、二件托运行李",
+     "en": "Free first and second checked bags",
+     "noteZh": "主卡持卡人和一位同行旅客各可免费托运第一、二件标准行李。",
+     "noteEn": "The primary cardmember and one companion can each check a first and second standard bag free.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "per-trip",
+     "quote": "The primary Cardmember and one companion can each check a first and second standard bags for free",
+     "original": {
+      "title": "Free first and second checked bags",
+      "summary": "The primary cardmember and one companion can each check a first and second standard bag for free.",
+      "howToUse": [
+       "Add your MileagePlus number to the reservation; check the card terms for the ticket purchase requirement."
+      ]
+     },
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "renowned-hotels",
+     "zh": "Renowned Hotels and Resorts 抵扣",
+     "en": "Renowned Hotels and Resorts credit",
+     "noteZh": "每个账户年最多200美元，须用本卡通过 Renowned Hotels and Resorts 直接预付。",
+     "noteEn": "Up to $200 each anniversary year on hotel stays prepaid directly through Renowned Hotels and Resorts with the card.",
+     "scenario": "hotel-stay",
+     "category": "credit",
+     "period": "account-anniversary",
+     "quote": "Receive up to $200 back in statement credits each anniversary year on hotel accommodations",
+     "original": {
+      "title": "Up to $200 in Renowned Hotels and Resorts credits",
+      "summary": "Up to $200 back each anniversary year on hotel stays prepaid directly through Renowned Hotels and Resorts.",
+      "howToUse": [
+       "Prepay the stay through Renowned Hotels and Resorts with the card."
+      ]
+     },
+     "amount": 200,
+     "programmeIds": [
+      "programme.renowned-hotels-and-resorts"
+     ]
+    },
+    {
+     "key": "rideshare",
+     "zh": "网约车抵扣",
+     "en": "Rideshare credit",
+     "noteZh": "须每年登记；每个自然年最多150美元：1至11月每月最多12美元，12月最多18美元。",
+     "noteEn": "Yearly opt-in required. Up to $150 each calendar year: up to $12 a month January to November and $18 in December.",
+     "scenario": "ground-transport",
+     "category": "credit",
+     "period": "calendar-year",
+     "quote": "Enroll to receive up to $150 back as statement credits each calendar year on rideshare purchases",
+     "original": {
+      "title": "Up to $150 in rideshare credits",
+      "summary": "Up to $150 back each calendar year on rideshare purchases: up to $12 a month from January through November and $18 in December; yearly opt-in required.",
+      "howToUse": [
+       "Opt in each year, then pay rideshare trips with the card."
+      ],
+      "quotes": [
+       "up to $12 back as a statement credit each month from January through November",
+       "and up to $18 back for the month of December"
+      ]
+     },
+     "amount": 150,
+     "enrollment": true
+    },
+    {
+     "key": "avis-budget",
+     "zh": "Avis 或 Budget 租车额度",
+     "en": "Avis or Budget travel credit",
+     "noteZh": "每个账户年第1、2次通过 mileageplustravel.united.com 直接预订并用本卡支付的 Avis 或 Budget 租车，各得50美元 TravelBank 余额，最多100美元。",
+     "noteEn": "$50 in United TravelBank cash for each of the 1st and 2nd Avis or Budget rentals booked through mileageplustravel.united.com and paid with the card, up to $100 each anniversary year.",
+     "scenario": "ground-transport",
+     "category": "credit",
+     "period": "account-anniversary",
+     "quote": "Receive $50 in United TravelBank cash, up to $100 each anniversary year, for your 1st and 2nd Avis or Budget car rentals",
+     "original": {
+      "title": "Up to $100 in United travel credits on Avis or Budget",
+      "summary": "$50 in United TravelBank cash for each of the 1st and 2nd Avis or Budget rentals booked directly through mileageplustravel.united.com, up to $100 each anniversary year.",
+      "howToUse": [
+       "Book the rental through mileageplustravel.united.com and pay with the card."
+      ]
+     },
+     "amount": 100,
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ]
+    },
+    {
+     "key": "instacart",
+     "zh": "Instacart 抵扣",
+     "en": "Instacart credit",
+     "noteZh": "每月两笔10美元，每个自然年最多240美元，须直接在 Instacart 用本卡消费；2027年12月31日结束。须先在 instacart.com/p/chase-united 激活免费的 Chase Instacart+ 会员，且会员有效期间才发放。",
+     "noteEn": "Two $10 credits a month, up to $240 each calendar year, on purchases made directly through Instacart with the card; ends 12/31/27. You must first activate the complimentary Chase Instacart+ membership at instacart.com/p/chase-united, and credits come only while it is active.",
+     "scenario": "shopping",
+     "category": "credit",
+     "period": "calendar-month",
+     "quote": "Receive two $10 Instacart credits monthly, up to $240 total each calendar year",
+     "original": {
+      "title": "Up to $240 in Instacart credits",
+      "summary": "Two $10 Instacart credits monthly, up to $240 each calendar year, for purchases made directly through Instacart; the benefit ends 12/31/27.",
+      "howToUse": [
+       "Activate the complimentary Chase Instacart+ membership at instacart.com/p/chase-united, then pay Instacart orders with the card."
+      ],
+      "quotes": [
+       "Benefits end 12/31/27.",
+       "after you activate your complimentary Chase Instacart+ membership"
+      ]
+     },
+     "amount": 20,
+     "terms": {
+      "annualMaximum": 240,
+      "partner": "Instacart"
+     },
+     "validity": {
+      "effectiveThrough": "2027-12-31"
+     }
+    },
+    {
+     "key": "jsx",
+     "zh": "JSX 机票抵扣",
+     "en": "JSX credit",
+     "noteZh": "每个账户年最多200美元，须用本卡直接向 JSX 订票。",
+     "noteEn": "Up to $200 each anniversary year on flights booked directly with JSX using the card.",
+     "scenario": "travel",
+     "category": "credit",
+     "period": "account-anniversary",
+     "quote": "Get up to $200 back as a statement credit each anniversary year when you book flights directly with JSX",
+     "original": {
+      "title": "Up to $200 in JSX credits",
+      "summary": "Up to $200 back each anniversary year when booking flights directly with JSX.",
+      "howToUse": [
+       "Book JSX flights directly and pay with the card."
+      ]
+     },
+     "amount": 200,
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "farelock",
+     "zh": "FareLock 抵扣",
+     "en": "FareLock credit",
+     "noteZh": "每个账户年最多50美元，限 United 或 United Express 运营航班的 FareLock。",
+     "noteEn": "Up to $50 each anniversary year on FareLock for United- or United Express-operated flights.",
+     "scenario": "travel",
+     "category": "credit",
+     "period": "account-anniversary",
+     "quote": "Earn up to $50 back as a statement credit each anniversary year after you buy FareLock",
+     "original": {
+      "title": "Up to $50 in FareLock credits",
+      "summary": "Up to $50 back each anniversary year after buying FareLock on a United- or United Express-operated flight.",
+      "howToUse": [
+       "Buy FareLock with the card."
+      ]
+     },
+     "amount": 50,
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "premier-access",
+     "zh": "Premier Access 优先服务",
+     "en": "Premier Access travel services",
+     "noteZh": "优先值机、安检、登机和行李处理（视机场而定）。",
+     "noteEn": "Priority check-in, security screening, boarding and baggage handling where available.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Premier Access travel services - receive preferential treatment to ease your way through the airport",
+     "original": {
+      "title": "Premier Access travel services",
+      "summary": "Priority check-in, security screening, boarding and baggage handling privileges where available.",
+      "howToUse": [
+       "Fly United with your MileagePlus number on the booking."
+      ],
+      "quotes": [
+       "with priority check-in, security screening, boarding, and baggage handling privileges (where available)"
+      ]
+     },
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "economy-plus",
+     "zh": "消费满4万美元得 Economy Plus 升舱",
+     "en": "Economy Plus upgrades after $40,000",
+     "noteZh": "每个自然年消费满40,000美元，得2次全球 Economy Plus 升舱。是否达标未核实。",
+     "noteEn": "2 global Economy Plus seat upgrades after $40,000 in spend each calendar year. Whether you reach it is unverified.",
+     "scenario": "travel",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "quote": "Earn 2 global Economy Plus seat upgrades after spending $40,000 each calendar year.",
+     "original": {
+      "title": "2 global Economy Plus seat upgrades after $40,000",
+      "summary": "2 global Economy Plus seat upgrades after spending $40,000 each calendar year.",
+      "howToUse": [
+       "Track your calendar-year spend on the card."
+      ]
+     },
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "pqp",
+     "zh": "消费赚 Premier qualifying points",
+     "en": "Premier qualifying points from spend",
+     "noteZh": "每消费15美元得1 PQP，每个自然年最多28,000 PQP。",
+     "noteEn": "1 PQP for every $15 spent, up to 28,000 PQP in a calendar year.",
+     "scenario": "travel",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "quote": "Earn 1 Premier Qualifying Point (PQP) for every $15 spent on purchases",
+     "original": {
+      "title": "Premier qualifying points from spend",
+      "summary": "1 Premier Qualifying Point for every $15 spent on purchases, up to 28,000 PQP in a calendar year.",
+      "howToUse": [
+       "Spend on the card; PQP count toward Premier status."
+      ],
+      "quotes": [
+       "up to a maximum of 28,000 PQP within the calendar year."
+      ]
+     },
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "better-together",
+     "zh": "同时持有个人 United 卡的5,000里程",
+     "en": "5,000-mile better-together bonus",
+     "noteZh": "同时持有本卡和一张个人 United 信用卡时，每年得5,000里程。",
+     "noteEn": "5,000 miles each year when you hold this card and a personal United credit card.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": null,
+     "quote": "you'll receive a 5,000-mile better-together bonus each year when you have the United Club Business card and a personal United credit card",
+     "original": {
+      "title": "5,000-mile better-together bonus",
+      "summary": "A 5,000-mile bonus each year when you have the United Club Business card and a personal United credit card.",
+      "howToUse": [
+       "Hold a personal United card as well."
+      ]
+     },
+     "programmeIds": [
+      "programme.united-mileageplus"
+     ]
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "机上餐饮和 Wi-Fi 25%返还、有员工卡时每年4张 United Club 单次通行证、里程兑换折扣和保障类福利未录入。",
+     "en": "25% back on inflight food, drinks and Wi-Fi, the 4 yearly United Club passes with an employee card, the award discount and the coverage benefits are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "chase-us-british-airways-visa-signature-credit-card",
+   "page": "chase-us-british-airways-visa-signature-credit-card",
+   "issuer": "Chase",
+   "url": "https://creditcards.chase.com/travel-credit-cards/avios/british-airways",
+   "transfer": {
+    "name": "The British Airways Club",
+    "programmeId": "programme.the-british-airways-club",
+    "linkOnly": true,
+    "quote": "Earn 3 Avios for every $1 spent on British Airways, Aer Lingus, and Iberia flight purchases."
+   },
+   "fee": {
+    "amount": 95,
+    "currency": "USD",
+    "quote": "ANNUAL FEE $95"
+   },
+   "earning": [
+    {
+     "zh": "British Airways、Aer Lingus、Iberia 和 LEVEL 直订机票",
+     "en": "Flights bought directly with British Airways, Aer Lingus, Iberia and LEVEL",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "airline",
+     "quote": "Earn 3 Avios for every $1 spent on British Airways, Aer Lingus, and Iberia flight purchases.",
+     "noteZh": "条款写明须直接向 British Airways、Aer Lingus、Iberia 或 LEVEL 购买。",
+     "noteEn": "The terms say flights bought directly with British Airways, Aer Lingus, Iberia and LEVEL."
+    },
+    {
+     "zh": "直订酒店",
+     "en": "Hotels booked directly",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "quote": "In addition earn 2 Avios for every $1 spent on hotel accommodations booked directly with the hotel."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1 Avios for every $1 spent on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "anniversary-avios",
+     "zh": "每个账户年2,500 Avios",
+     "en": "2,500 anniversary Avios",
+     "noteZh": "每个账户周年年度得2,500 Avios，周年后6至8周到账。",
+     "noteEn": "2,500 bonus Avios each account anniversary year; allow 6 to 8 weeks after the anniversary.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "earn 2,500 anniversary bonus Avios each account anniversary year",
+     "original": {
+      "title": "2,500 anniversary Avios",
+      "summary": "2,500 bonus Avios each account anniversary year.",
+      "howToUse": [
+       "Look for the Avios in your British Airways Club account after the anniversary."
+      ]
+     },
+     "programmeIds": [
+      "programme.the-british-airways-club"
+     ]
+    },
+    {
+     "key": "reward-flight-credit",
+     "zh": "British Airways 奖励机票税费抵扣",
+     "en": "Reward Flight statement credits",
+     "noteZh": "用本卡支付 British Airways 奖励机票的税费：经济舱和高端经济舱每次100美元，商务舱和头等舱200美元，每个自然年3次，最多600美元。限从美国出发、由 British Airways 执飞的跨大西洋行程。",
+     "noteEn": "When you pay a British Airways Reward Flight's taxes, fees and carrier charges with the card: $100 for Economy and Premium Economy, $200 for Business and First, three times each calendar year, up to $600. Only transatlantic itineraries originating in the U.S. on flights operated by British Airways.",
+     "scenario": "travel",
+     "category": "credit",
+     "period": "calendar-year",
+     "quote": "three times per year, up to $600, when you book a Reward Flight travelling on British Airways",
+     "original": {
+      "title": "Up to $600 Reward Flight statement credits",
+      "summary": "Statement credits of $100 for Economy and Premium Economy or $200 for Business and First Class, three times per calendar year, up to $600, on transatlantic British Airways Reward Flights originating in the United States.",
+      "howToUse": [
+       "Pay the taxes, fees and carrier charges of the Reward Flight with the card."
+      ],
+      "quotes": [
+       "Receive statement credits of $100 for Economy and Premium Economy",
+       "or $200 for Business and First Class seats",
+       "totalling no more than US $600 in Statement Credits per calendar year.",
+       "the Reward Flight booking must be for a transatlantic international travel itinerary"
+      ]
+     },
+     "programmeIds": [
+      "programme.the-british-airways-club"
+     ],
+     "terms": {
+      "annualMaximum": 600
+     },
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    },
+    {
+     "key": "travel-together",
+     "zh": "消费满3万美元得 Travel Together Ticket",
+     "en": "Travel Together Ticket after $30,000",
+     "noteZh": "每个自然年消费满30,000美元获得，两年内有效：同行者同航班兑换，或单人奖励机票 Avios 五折。是否达标未核实。",
+     "noteEn": "Earned each calendar year with $30,000 in purchases, valid two years: for a companion on the same reward flight, or 50% off the Avios on a solo reward flight. Whether you reach it is unverified.",
+     "scenario": "travel",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "quote": "Earn a Travel Together Ticket every calendar year you make $30,000 in purchases on your British Airways credit card.",
+     "original": {
+      "title": "Travel Together Ticket",
+      "summary": "A Travel Together Ticket every calendar year with $30,000 in purchases, valid for two years.",
+      "howToUse": [
+       "Track your calendar-year spend; redeem through ba.com."
+      ],
+      "quotes": [
+       "or use it for a 50% discount on the Avios price you pay when booking a solo reward flight"
+      ]
+     },
+     "programmeIds": [
+      "programme.the-british-airways-club"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "保障类福利未录入。附属卡年费未确认。",
+     "en": "The coverage benefits are not recorded. The additional card fee is not confirmed."
+    }
+   ]
+  },
+  {
+   "id": "chase-us-aer-lingus-visa-signature-credit-card",
+   "page": "chase-us-aer-lingus-visa-signature-credit-card",
+   "issuer": "Chase",
+   "url": "https://creditcards.chase.com/travel-credit-cards/avios/aer-lingus",
+   "transfer": {
+    "name": "Aer Lingus AerClub",
+    "programmeId": "programme.aer-lingus-aerclub",
+    "linkOnly": true,
+    "quote": "Earn 3 Avios for every $1 spent with Aer Lingus, British Airways, and Iberia flight purchases."
+   },
+   "fee": {
+    "amount": 95,
+    "currency": "USD",
+    "quote": "ANNUAL FEE $95"
+   },
+   "earning": [
+    {
+     "zh": "Aer Lingus、British Airways、Iberia 和 LEVEL 直订机票",
+     "en": "Flights bought directly with Aer Lingus, British Airways, Iberia and LEVEL",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "airline",
+     "quote": "Earn 3 Avios for every $1 spent with Aer Lingus, British Airways, and Iberia flight purchases.",
+     "noteZh": "条款写明须直接向 Aer Lingus、British Airways、Iberia 或 LEVEL 购买。",
+     "noteEn": "The terms say flights bought directly with Aer Lingus, British Airways, Iberia and LEVEL."
+    },
+    {
+     "zh": "直订酒店",
+     "en": "Hotels booked directly",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "quote": "Earn 2 Avios for every $1 spent on hotel accommodations booked directly with the hotel."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1 Avios for every $1 spent on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "anniversary-avios",
+     "zh": "每个账户年2,500 Avios",
+     "en": "2,500 anniversary Avios",
+     "noteZh": "每个账户周年年度得2,500 Avios。",
+     "noteEn": "2,500 bonus Avios each account anniversary year.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "earn 2,500 anniversary bonus Avios each account anniversary year",
+     "original": {
+      "title": "2,500 anniversary Avios",
+      "summary": "2,500 bonus Avios each account anniversary year.",
+      "howToUse": [
+       "Look for the Avios in your AerClub account after the anniversary."
+      ]
+     },
+     "programmeIds": [
+      "programme.aer-lingus-aerclub"
+     ]
+    },
+    {
+     "key": "companion-ticket",
+     "zh": "消费满3万美元得经济舱同行票",
+     "en": "Economy companion ticket after $30,000",
+     "noteZh": "每个自然年消费满30,000美元，得一张经济舱同行票，须搭配一张付费 Aer Lingus 经济舱机票，12个月内有效。是否达标未核实。",
+     "noteEn": "An economy companion ticket, used with a paid economy flight and good for 12 months, each calendar year with $30,000 in purchases. Whether you reach it is unverified.",
+     "scenario": "travel",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "quote": "you'll receive an economy companion ticket good for 12 months",
+     "original": {
+      "title": "Economy companion ticket each year",
+      "summary": "An economy companion ticket good for 12 months every calendar year you make $30,000 in purchases.",
+      "howToUse": [
+       "Track your calendar-year spend on the card."
+      ],
+      "quotes": [
+       "Every calendar year you make purchases of $30,000",
+       "redeemed by a Cardmember for an economy companion ticket with a paid economy flight."
+      ]
+     },
+     "programmeIds": [
+      "programme.aer-lingus-aerclub"
+     ],
+     "scenarios": [
+      "travel",
+      "airport"
+     ]
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "行李延误、购物保障等保障类福利未录入。附属卡年费未确认。",
+     "en": "Baggage delay, purchase protection and the other coverage benefits are not recorded. The additional card fee is not confirmed."
+    }
+   ]
+  }
+ ]
+}

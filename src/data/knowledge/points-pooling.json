@@ -22,10 +22,18 @@
           "since": "2026-10",
           "summary": "2026年10月起，新开的美国卡默认有自己的积分账户，需要自己关联才会并入积分池；Amex 官方 FAQ 也写明积分可能分属一个或多个账户，可来电关联或解除。",
           "summaryEn": "Since October 2026 a newly opened US card gets its own Rewards Account by default and joins the pool only once linked. Amex's FAQ says points may sit in one or several Rewards Accounts, and products can be linked or delinked by phone.",
-          "sourceIds": ["mr-us-multiple-cards", "omaat-mr-us-pooling-2026", "upgradedpoints-mr-us-pooling-2026"]
+          "sourceIds": [
+            "mr-us-multiple-cards",
+            "omaat-mr-us-pooling-2026",
+            "upgradedpoints-mr-us-pooling-2026"
+          ]
         }
       ],
-      "sourceIds": ["mr-us-multiple-cards", "omaat-mr-us-pooling-2026", "upgradedpoints-mr-us-pooling-2026"]
+      "sourceIds": [
+        "mr-us-multiple-cards",
+        "omaat-mr-us-pooling-2026",
+        "upgradedpoints-mr-us-pooling-2026"
+      ]
     },
     {
       "id": "pooling.amex-mr-hk",
@@ -45,16 +53,25 @@
           "id": "linking-possible",
           "summary": "Amex HK 官方页面和条款写明，同币种的合资格卡可以申请合并积分账户；本钱包按持卡人说明默认不合并，除非你已办理合并。",
           "summaryEn": "Amex HK's page and terms say eligible accounts billed in the same currency can be linked into one programme account on request. The wallet keeps them separate, as the cardholder stated, unless you have linked them.",
-          "sourceIds": ["mr-hk-about-linking", "mr-hk-terms"]
+          "sourceIds": [
+            "mr-hk-about-linking",
+            "mr-hk-terms"
+          ]
         },
         {
           "id": "explorer-corporate-separate",
           "summary": "Explorer 信用卡和公司卡的积分账户在任何情况下都保持独立，不能合并。",
           "summaryEn": "Explorer Credit Card and Corporate Card points accounts always stay separate and cannot be linked.",
-          "sourceIds": ["mr-hk-about-linking", "mr-hk-terms"]
+          "sourceIds": [
+            "mr-hk-about-linking",
+            "mr-hk-terms"
+          ]
         }
       ],
-      "sourceIds": ["mr-hk-about-linking", "mr-hk-terms"]
+      "sourceIds": [
+        "mr-hk-about-linking",
+        "mr-hk-terms"
+      ]
     },
     {
       "id": "pooling.chase-ur-us",
@@ -80,16 +97,53 @@
           "id": "combine-first",
           "summary": "要先在 Chase 账户里把积分合并到能转点的卡，再从那张卡转出；合并不收费、无最低额、即时到账，但不可撤销。",
           "summaryEn": "Points must first be combined into the transfer card in the Chase account, then transferred from it. Combining is free, has no minimum and is instant, but cannot be undone.",
-          "sourceIds": ["chase-combine-points", "omaat-combine-ur"]
+          "sourceIds": [
+            "chase-combine-points",
+            "omaat-combine-ur"
+          ]
         },
         {
           "id": "co-brand-excluded",
           "summary": "联名卡（航空、酒店等）的积分不是 UR，不能合并。",
           "summaryEn": "Co-brand cards (airline, hotel and others) earn their partner's currency, not UR, and cannot be combined.",
-          "sourceIds": ["chase-combine-points", "omaat-combine-ur"]
+          "sourceIds": [
+            "chase-combine-points",
+            "omaat-combine-ur"
+          ]
         }
       ],
-      "sourceIds": ["chase-combine-points", "omaat-combine-ur"]
+      "sourceIds": [
+        "chase-combine-points",
+        "omaat-combine-ur"
+      ]
+    },
+    {
+      "id": "pooling.bilt-rewards-us",
+      "programmeId": "programme.bilt-rewards",
+      "bank": "Bilt",
+      "region": "US",
+      "reading": "bilt rewards",
+      "label": "Bilt Rewards",
+      "pooling": "shared",
+      "ownerOverride": false,
+      "checkedAt": "2026-11-11",
+      "earningProductIds": [],
+      "summary": "Bilt Rewards：每人只能有一个 Bilt Rewards 账户，卡、房租和合作商户赚的积分都进这个账户，余额只计一次。",
+      "summaryEn": "Bilt Rewards: each person may hold only one Bilt Rewards account. Points from the card, housing payments and partner merchants all go into it, so the balance is counted once.",
+      "caveats": [
+        {
+          "id": "one-card-per-member",
+          "summary": "每位会员同一时间只能持有一张 Bilt 卡；换卡后积分仍在同一个账户。",
+          "summaryEn": "Each member can hold only one Bilt Card at a time; points stay in the same account after changing cards.",
+          "sourceIds": [
+            "bilt-card-2-overview"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "bilt-rewards-terms",
+        "bilt-card-2-overview"
+      ]
     }
   ]
 }
