@@ -97,7 +97,7 @@ for(const transport of Object.keys(transports)){
    assert.equal(url,PROVIDER);
    assert.deepEqual(Object.keys(body).sort(),['max_tokens','messages','model','temperature','thinking','tool_choice','tools']);
    assert.equal(body.model,'deepseek-flash');assert.deepEqual(body.thinking,{type:'disabled'});
-   assert.deepEqual(body.tools.map(t=>t.function.name).sort(),['choose_card','convert_points','find_benefits','find_protections','get_card_rules','list_cards','plan_flight','query_credits']);
+   assert.deepEqual(body.tools.map(t=>t.function.name).sort(),['choose_card','convert_points','find_benefits','find_protections','get_card_rules','list_cards','plan_flight','points_accounts','query_credits']);
    assert.equal(body.messages.filter(x=>x.role==='system').length,1);assert.equal(body.messages[0].role,'system');assert.ok(body.messages[0].content.startsWith(SYSTEM));
    assert.ok(body.messages.slice(1).every(x=>['user','assistant','tool'].includes(x.role)));
    assert.equal(authorization,'Bearer '+(transport==='extension'?EXTENSION_KEY:SERVER_KEY));
@@ -113,12 +113,39 @@ for(const transport of Object.keys(transports)){
   assert.match(result.answer,/^Use /);
  });
 
+ test(`${transport}: a pooling question is answered from the owner rule, its caveat and an official source (#192)`,async()=>{
+  const m=script(
+   toolsMessage(call('points_accounts',{programme:'Membership Rewards',region:'HK'})),
+   body=>{const hk=toolResults(body).at(-1).programmes[0],caveat=hk.caveats.find(c=>c.id==='linking-possible');
+    return say(`不能。香港 Membership Rewards 每张卡有自己的账户（${hk.cards.map(c=>c.name).join('、')}），余额可以加起来看总数，但一张卡的积分不能用在另一张卡上。注意：Amex HK 允许申请合并同币种的合资格卡，Explorer 和公司卡永远独立。来源：${caveat.sources.find(s=>s.authority==='official').url}`);}
+  );
+  const {run,tools}=await turn(transport,{question:'我的 HK MR 能合起来用吗'});const result=await run;
+  assert.deepEqual(tools,['points_accounts']);
+  const hk=toolResults(m.requests[1].body)[0].programmes[0];
+  assert.equal(hk.pooling,'per-card');assert.equal(hk.usableOnAnotherCard,false);assert.equal(hk.ownerOverride,true);assert.equal(hk.held,true);
+  assert.deepEqual(hk.cards.map(c=>c.name).sort(),['American Express Explorer Credit Card','The Platinum Card']);
+  assert.equal(m.requests.length,2,'grounded on the first answer, no repair');
+  assert.match(result.answer,/每张卡有自己的账户/);assert.match(result.answer,/americanexpress\.com\/en-hk/);
+  for(const s of SENTINELS)assert.ok(!JSON.stringify(m.requests.map(r=>r.body)).includes(s),s+' reached the model');
+ });
+
+ test(`${transport}: #193 a default point value reaches the model with its basis, and calling it the user's is repaired`,async()=>{
+  const m=script(toolsMessage(call('choose_card',{category:'dining',amount:100,currency:'USD',country:'US'})),
+   body=>{const r=toolResults(body).at(-1);assert.equal(r.choice.pointValue.basis,'default');assert.equal(r.choice.pointValue.cents,1.5);assert.match(r.pointValueNote,/default market valuation/);return say('用 '+r.choice.card+'。按你的估值每点 1.5 美分，约值 6 美元。');},
+   body=>say('用 '+toolResults(body).at(-1).choice.card+'。按默认市场估值每点 1.5 美分，约值 6 美元，可在设置里改。'));
+  const {run}=await turn(transport,{question:'在美国餐厅花100美元用哪张卡？'});const result=await run;
+  assert.equal(m.requests.length,3);assert.match(lastUser(m.requests[2].body),/default_as_user_value/);
+  assert.match(result.answer,/按默认市场估值每点 1\.5 美分/);
+  assert.ok(m.requests[0].body.messages[0].content.includes('按默认市场估值'),'the policy tells the model how to say it');
+ });
+
  test(`${transport}: a made-up reward amount is sent back once for repair`,async()=>{
   const m=script(toolsMessage(call('choose_card',{category:'dining',amount:100,currency:'USD',country:'US'})),say('You will earn 987654 points on this purchase.'),body=>say('Use '+toolResults(body).at(-1).choice.card+'; check the official terms.'));
   const {run}=await turn(transport,{question:'US dining 100 USD, which card?'});const result=await run;
   assert.equal(m.requests.length,3);
   const repair=m.requests[2].body;assert.equal(repair.tool_choice,'none');assert.match(lastUser(repair),/unsupported_number/);
-  assert.equal(result.answer,'Use Freedom Unlimited; check the official terms.');
+  // #193: Gold's 4x MR at the default 1.5 cents (6.00) now beats 3% cash.
+  assert.equal(result.answer,'Use American Express Gold Card; check the official terms.');
   assert.ok(!JSON.stringify(result.messages).includes('987654'),'the fabricated amount is not kept in history');
   assert.deepEqual(result.trace.filter(t=>['grounding','repair'].includes(t.type)).map(t=>t.passed),[false,true]);
  });

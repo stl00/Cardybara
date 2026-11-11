@@ -1,6 +1,7 @@
 import {runWalletTool} from './walletAgent.js';
+import {heldCards} from './heldCards.js';
 import {prepareAgentContext,statedPointValues} from './agentContext.js';
-import {validateState,reduceToolResult,diffState,endTurn} from './conversationState.js';
+import {validateState,reduceToolResult,diffState,endTurn,keepHeldTopics} from './conversationState.js';
 import {answerGrounding} from './answerGrounding.js';
 import {planResults} from './creditClaims.js';
 import {renderCreditAnswers} from './creditAnswer.js';
@@ -8,7 +9,8 @@ import {renderChoiceAnswer} from './decisionAnswer.js';
 import {creditNamesForCards} from './creditQuery.js';
 export async function runAgentTurn({history,question,context,request,memory={},onProgress=()=>{},signal}){
  if(!question.trim()||question.length>4000)throw Error('invalid_question');
- const prepared=prepareAgentContext(history,memory);
+ context={...context,cards:heldCards(context.cards)}; // the assistant never sees a hidden card
+ const prepared=prepareAgentContext(history,keepHeldTopics(memory,context.cards));
  // The conversation state. Only reduceToolResult replaces it; nothing modifies it in place.
  let state=prepared.memory,toolsRun=0;
  const messages=[...prepared.messages,{role:'user',content:question}],tools=[],evidence=[],trace=[];
@@ -47,7 +49,7 @@ export async function runAgentTurn({history,question,context,request,memory={},o
   if(round===4||message.tool_calls.length>4)throw Error('tool_limit');
   // The model can't introduce a point value: one the user didn't say is dropped before the tool runs, and before the call enters history.
   message={...message,tool_calls:message.tool_calls.map(call=>{
-   if(call.function.name!=='choose_card')return call;
+   if(!['choose_card','plan_flight'].includes(call.function.name))return call;
    const raw=JSON.parse(call.function.arguments||'{}');if(!raw.pointValues)return call;
    const kept=statedPointValues(raw.pointValues,question,state.lastPurchase?.pointValues),{pointValues,...rest}=raw;
    return {...call,function:{...call.function,arguments:JSON.stringify(kept?{...rest,pointValues:kept}:rest)}};

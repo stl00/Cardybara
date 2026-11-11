@@ -68,6 +68,18 @@ function validateTurns(raw){
 const productOf=card=>card&&matchCardProduct(card).product?.id||null;
 const heldProduct=(cards,name,region)=>productOf(cards.find(c=>c.name===name&&(!region||c.region===region)));
 const ruleId=revision=>typeof revision==='string'?revision.split('@')[0]:null;
+/**
+ * Memory without the topics of products no held card has, so a card hidden since the last turn (#198) is not
+ * offered back to the model as "result 1" or "that card". A product another held card shares stays.
+ */
+export function keepHeldTopics(memory,cards){
+ const topics=memory?.topics;if(!topics||typeof topics!=='object')return memory;
+ const held=new Set((cards||[]).map(productOf).filter(Boolean));
+ const heldRule=rule=>{const products=knownRule(rule)?.productIds||[];return !products.length||products.some(id=>held.has(id));};
+ const items=Array.isArray(topics.items)?topics.items.filter(i=>(!i?.card||held.has(i.card))&&(!i?.rule||heldRule(i.rule))):topics.items;
+ const focus=Array.isArray(topics.cards)?topics.cards.filter(c=>held.has(typeof c==='string'?c:c?.card)):topics.cards;
+ return {...memory,topics:{...topics,items,cards:focus}};
+}
 const normalizedName=s=>String(s).normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
 /** The items a tool result adds to the topic index, in the order returned. */
 export function topicItems({name,result},cards){

@@ -6,7 +6,8 @@ import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
 import {runAgentTurn} from '../src/agentSession.js';
 import {presentCard} from '../src/cardName.js';
 const cards=JSON.parse(readFileSync(new URL('./fixtures/wallet-products.json',import.meta.url))).cards;
-const context={cards,events:[],day:'2026-10-28'};
+// Mechanics apart from the valuation table (#193).
+const context={cards,events:[],day:'2026-10-28',marketDefaults:false};
 const call=(name,args={},id='c1')=>({id,type:'function',function:{name,arguments:JSON.stringify(args)}});
 test('agent tools are read-only, validate every argument and expose no bank identifiers',()=>{
  assert.throws(()=>validateToolCall(call('pay_bill')));assert.throws(()=>validateToolCall(call('list_cards',{cookies:true})));assert.throws(()=>validateToolCall(call('choose_card',{category:'dining',country:'US',currency:'USD',amount:-1})));
@@ -30,7 +31,7 @@ test('multi-tool loop retains context, returns synthesized answer, enforces fini
 });
 test('model boundary uses actual tool schemas, fixed destination and strips model metadata',async()=>{
  let sent;const reply=await chatAgent({DEEPSEEK_API_KEY:'fake'},{messages:[{role:'user',content:'Hi'}]},async(url,opts)=>{sent={url,body:JSON.parse(opts.body)};return {ok:true,json:async()=>({choices:[{message:{role:'assistant',content:'Hello',reasoning_content:'hidden'}}]})}});
- assert.equal(reply.content,'Hello');assert.ok(!reply.reasoning_content);assert.equal(sent.body.tools.length,8);assert.match(sent.url,/^https:\/\/api.deepseek.com\//);
+ assert.equal(reply.content,'Hello');assert.ok(!reply.reasoning_content);assert.equal(sent.body.tools.length,9);assert.match(sent.url,/^https:\/\/api.deepseek.com\//);
  await assert.rejects(()=>chatAgent({DEEPSEEK_API_KEY:'fake',DEEPSEEK_BASE_URL:'https://evil.test'},{messages:[{role:'user',content:'Hi'}]}),/unexpected/);
  await assert.rejects(()=>chatAgent({DEEPSEEK_API_KEY:'fake'},{messages:[{role:'user',content:'Hi'}]},async()=>({ok:true,json:async()=>({choices:[{message:{content:'',tool_calls:[call('transfer')]}}]})})),/invalid_tool/);
 });
@@ -122,8 +123,8 @@ test('convert_points answers transfer questions from verified rates, per card, a
  const result=runWalletTool(call('convert_points',{partner:'Hyatt',points:1500}),ctx);
  assert.equal(result.kind,'transfer-options');assert.equal(result.scope.points,1500);
  const rows=result.programmes.flatMap(g=>g.partners);
- const csp=rows.find(r=>r.cards.some(c=>c.name==='Sapphire Preferred')),csr=rows.find(r=>r.cards.some(c=>c.name==='Sapphire Reserve'));
- assert.equal(csp.conversion.receive,750);assert.ok(csp.sources.some(s=>s.url?.startsWith('https://')));assert.equal(csr.ratio,null);
+ const csp=rows.find(r=>r.cards.some(c=>c.name==='Sapphire Preferred')),csr=rows.find(r=>r.cards.some(c=>c.name==='Sapphire Reserve'&&!c.through));
+ assert.equal(csp.conversion.receive,750);assert.ok(csp.sources.some(s=>s.url?.startsWith('https://')));assert.equal(csr.ratio,null,'the Reserve\'s own rule states no Hyatt rate');assert.deepEqual(csp.cards.find(c=>c.name==='Sapphire Reserve').through,['Sapphire Preferred'],'combined UR reaches the Preferred rate, named (#192)');
  assert.ok(!JSON.stringify(result).includes('"accountLinked":true'),'no claim that an account is linked');
  assert.ok(answerGrounding('Sapphire Preferred: 1,000 points become 750 World of Hyatt points (4:3); 500 points are left over.',[result]).passed);
  assert.ok(answerGrounding('Sapphire Preferred moves to Hyatt at 1:1.',[result]).issues.some(i=>i.code==='unsupported_transfer_ratio'),'a ratio the tool did not return');
