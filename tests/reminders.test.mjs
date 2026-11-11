@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import {DEFAULT_SETTINGS,billReminders,creditReminders,normalizeSettings,pendingNotifications,pruneSent,readSent,readSettings,REMINDER_SETTINGS_KEY} from '../src/reminders.js';
 import {paymentItem,withPaymentMark} from '../src/paymentStates.js';
 import {creditTasks} from '../src/personalBenefits.js';
+import {translations as i18nCatalog} from '../src/i18n/index.js';
 const asOf='2026-11-04',read='2026-11-03T15:00:00Z';
 const card=(id,fields={})=>({id,bank:'Chase',name:'Synthetic '+id,currency:'USD',updated:'2026-11-03',fieldDates:Object.fromEntries(Object.keys(fields).map(k=>[k,read])),...fields});
 const on={...DEFAULT_SETTINGS,enabled:true};
@@ -70,7 +71,7 @@ test('the sent log tolerates damage and stays bounded',()=>{
 test('notifications stay optional in the package and every string has translations',()=>{
  const build=readFileSync(new URL('../scripts/build-release.py',import.meta.url),'utf8'),manifest=JSON.parse(readFileSync(new URL('../extension-next/manifest.json',import.meta.url),'utf8'));
  assert.ok(!manifest.permissions.includes('notifications'));assert.deepEqual(manifest.optional_permissions,['notifications']);assert.doesNotMatch(build,/optional_permissions/,'the package inherits the manifest and must not list it twice');
- const ui=readFileSync(new URL('../src/ReminderSettings.jsx',import.meta.url),'utf8'),catalog=JSON.parse(readFileSync(new URL('../src/translations.json',import.meta.url),'utf8'));
+ const ui=readFileSync(new URL('../src/ReminderSettings.jsx',import.meta.url),'utf8'),catalog=i18nCatalog;
  for(const [,key] of ui.matchAll(/t\('([^']+)'/g))for(const language of ['en-US','zh-TW'])assert.ok(catalog[language][key],`${language}: ${key}`);
 });
 test('a yearless bank date reminds on the date its read day implies',()=>{

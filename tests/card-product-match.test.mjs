@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import {matchCardProduct,productCore,cardProducts} from '../src/productCatalog.js';
 import {mergeWalletCards} from '../src/walletRegistry.js';
 import {applyCardProductChoices,withCardProductChoice,readCardProductChoices,mergeCardProductChoices,CARD_PRODUCT_KEY} from '../src/cardProductChoice.js';
+import {translations as i18nCatalog} from '../src/i18n/index.js';
 const json=p=>JSON.parse(readFileSync(new URL(p,import.meta.url),'utf8'));
 const id=(bank,region,name)=>{const m=matchCardProduct({bank,region,name});return m.status==='matched'?m.product.id:m.status;};
 const us=n=>id('Amex US','US',n),hk=n=>id('HSBC HK','HK',n);
@@ -59,7 +60,7 @@ test('stored choices tolerate damage, and a malformed backup is rejected whole',
  assert.deepEqual(mergeCardProductChoices([{cardId:'a',productId:'old'}],{schema:1,choices:[{cardId:'a',productId:'new'}]}),[{cardId:'a',productId:'new'}]);
 });
 test('picker strings exist in three languages',()=>{
- const catalog=json('../src/translations.json');
+ const catalog=i18nCatalog;
  for(const file of ['../src/CardProductPicker.jsx','../src/CardArt.jsx'])for(const [,key] of readFileSync(new URL(file,import.meta.url),'utf8').matchAll(/t\('([^']+)'/g))for(const l of ['en-US','zh-TW'])assert.ok(catalog[l][key],`${l}: ${key}`);
  for(const key of ['卡面待补全','未识别卡种，打开卡片可选择'])assert.ok(catalog['en-US'][key],key);
 });

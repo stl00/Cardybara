@@ -13,6 +13,7 @@ import {presentCard} from '../src/cardName.js';
 import {applyCardProductChoices,withCardProductChoice} from '../src/cardProductChoice.js';
 import {cardProducts} from '../src/productCatalog.js';
 import {ACTIVE_BANKS} from '../extension-next/providers.js';
+import {translations as i18nCatalog} from '../src/i18n/index.js';
 
 const storage=value=>({getItem:k=>k===CARD_EDITS_KEY?value:null});
 // A catalogue product with an anniversary credit at an active bank, found from the data so no product is named here.
@@ -175,7 +176,7 @@ test('annual fee reminders use only a date the user set',()=>{
 });
 
 test('every new string has zh-TW and English text',()=>{
- const catalog=JSON.parse(readFileSync(new URL('../src/translations.json',import.meta.url),'utf8'));
+ const catalog=i18nCatalog;
  for(const file of ['CardEditor.jsx','WalletOnboarding.jsx','ReminderSettings.jsx'])for(const [,zh] of readFileSync(new URL('../src/'+file,import.meta.url),'utf8').matchAll(/\bt\('([^']*[一-鿿][^']*)'/g)){
   assert.ok(catalog['en-US'][zh],`${file}: no English for ${zh}`);assert.ok(catalog['zh-TW'][zh],`${file}: no zh-TW for ${zh}`);
  }

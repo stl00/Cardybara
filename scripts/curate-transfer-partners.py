@@ -1,7 +1,8 @@
 import sys,json,re
 from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parent));import i18n_catalog
 sys.path.insert(0,'/tmp/cardybara-text-tools');from opencc import OpenCC
-cc=OpenCC('s2twp');root=Path(__file__).resolve().parents[1];base=root/'src/data/knowledge';load=lambda f:json.loads((base/f).read_text());rules=load('rules.json');entities=load('entities.json');sources=load('sources.json');tr=json.loads((root/'src/translations.json').read_text())
+cc=OpenCC('s2twp');root=Path(__file__).resolve().parents[1];base=root/'src/data/knowledge';load=lambda f:json.loads((base/f).read_text());rules=load('rules.json');entities=load('entities.json');sources=load('sources.json');tr=i18n_catalog.load(root)
 def entity(name,kind):
  id='programme.'+re.sub(r'[^a-z0-9]+','-',name.lower()).strip('-')
  if not any(e['id']==id for e in entities['programmes']):entities['programmes'].append({'id':id,'name':name,'kind':kind,'aliases':[]})
@@ -30,5 +31,5 @@ for country,products,sid,names in markets:
    if country=='HK':summary=txt('香港MR转点计划须核对个人计划；页面比例注明Turbo，Qantas可能另收费，不能套用美国或加拿大比例。','Verify the individual HK MR programme; displayed ratios reference Turbo and Qantas may carry a fee; US/Canadian ratios do not apply.')
    template['content']={'title':name,'summary':summary,'howToUse':[summary]};template['terms']={'relationship':'transfer-only','fromProgrammeId':fromId,'toProgrammeId':toId,'ratio':None,'grantsEliteStatus':False,'accountLinked':None};template['conditions']['unparsedText']=summary;template['evidence']['sourceIds']=[sid];rules.append(template)
 for f,d in [('rules.json',rules),('sources.json',sources),('entities.json',entities)]: (base/f).write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
-(root/'src/translations.json').write_text(json.dumps(tr,ensure_ascii=False,indent=2)+'\n')
+i18n_catalog.save(root,tr,'knowledge')
 print('Rules',len(rules),'Sources',len(sources),'Entities',len(entities['programmes']))
