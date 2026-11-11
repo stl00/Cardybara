@@ -64,6 +64,18 @@ export function withMigratedFeeDates(edits,cycles){
  }
  return next;
 }
+/**
+ * The migration runs on every cost-ledger load but takes each card once: `done` lists the cards already
+ * handled, so a date the user later clears stays cleared, while records restored from an older backup on
+ * another day still get their card a date.
+ */
+export function migrateFeeDatesOnce(edits,cycles,done){
+ const handled=new Set(Array.isArray(done)?done.filter(id=>typeof id==='string'):[]);
+ const fresh=(cycles||[]).filter(c=>!handled.has(c?.cardId));
+ const next=withMigratedFeeDates(edits,fresh);
+ for(const c of fresh)if(typeof c?.cardId==='string'&&c.cardId&&c.cardId.length<=100)handled.add(c.cardId);
+ return {edits:next,done:[...handled].slice(-1000),changed:fresh.length>0};
+}
 export const withoutCardEdits=(edits,cardId)=>edits.filter(e=>e.cardId!==cardId);
 /**
  * The cards as the user sees them. `userSet` lists the fields the user changed and `detected` keeps what

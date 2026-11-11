@@ -48,7 +48,8 @@ export function CardEditSection({card,cards,onSave,onManualEdit}){
   if(v.name.trim()!==card.name)patch.name=v.name.trim();
   if((v.tail||'')!==(card.tail||''))patch.tail=v.tail||null;
   if(manual&&v.bank!==card.bank)patch.bank=v.bank;
-  const fee=cleanFeeDate(v.feeDate);if(JSON.stringify(fee)!==JSON.stringify(card.feeDate||null))patch.feeDate=fee;
+  // Saving the date again, even unchanged, confirms it and settles a migration's conflict note.
+  const fee=cleanFeeDate(v.feeDate);if(JSON.stringify(fee)!==JSON.stringify(card.feeDate||null)||fee&&card.feeDateConflict)patch.feeDate=fee;
   // A field set back to what the bank showed is no longer a correction.
   for(const f of ['name','tail','bank'])if(f in patch&&card.detected?.[f]===patch[f])patch[f]=null;
   // A manual card's own facts are edited where the wallet keeps the card; only its fee date is an overlay.
@@ -87,5 +88,5 @@ export function CardEditSection({card,cards,onSave,onManualEdit}){
 export function FeeDateHint({cards}){
  useI18n();const missing=cards.filter(c=>!c.feeDate&&anniversaryCredits(c).length);
  if(!missing.length)return null;
- return <Alert className="fee-date-hint" type="info" showIcon style={{marginBottom:16}} title={t('{0} 张卡需要设置年费日，才能显示按持卡周年计算的福利：{1}',[missing.length,missing.map(c=>c.name).join('、')])} description={t('在卡片详情的“年费日”一行点“设置”。')}/>;
+ return <Alert className="fee-date-hint" type="info" showIcon style={{marginBottom:16}} title={t('{0} 张卡需要设置年费日，才能显示按持卡周年计算的福利：{1}',[missing.length,missing.map(c=>c.name).join('、')])} description={t('在卡片详情的“年费日”一行点“去设置”。')}/>;
 }

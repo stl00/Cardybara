@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {cardYears,feeDateFromCycles,anniversaryPeriod} from '../src/feeDate.js';
-import {readCardEdits,withCardEdit,withMigratedFeeDates,applyCardEdits,mergeCardEdits,CARD_EDITS_KEY} from '../src/cardEdits.js';
+import {readCardEdits,withCardEdit,withMigratedFeeDates,migrateFeeDatesOnce,applyCardEdits,mergeCardEdits,CARD_EDITS_KEY} from '../src/cardEdits.js';
 const src=file=>readFileSync(new URL('../src/'+file,import.meta.url),'utf8');
 const card=(id,extra={})=>({id,name:'Synthetic '+id,bank:'Chase',region:'US',currency:'USD',identitySource:'manual',...extra});
 
@@ -48,12 +48,31 @@ test('migration fills only cards without a fee date and keeps a note when record
  assert.deepEqual(readCardEdits(damaged),[{cardId:'x',feeDate:{month:1,day:2}}]);
 });
 
+test('each card migrates once: a cleared date stays cleared, records restored later still migrate',()=>{
+ const first=migrateFeeDatesOnce([],[{cardId:'a',start:'2025-03-15'}],null);
+ assert.deepEqual(first.edits,[{cardId:'a',feeDate:{month:3,day:15}}]);assert.deepEqual(first.done,['a']);assert.equal(first.changed,true);
+ // The user clears the date; the same records on the next load do not bring it back.
+ const cleared=withCardEdit(first.edits,card('a'),{feeDate:null});
+ const again=migrateFeeDatesOnce(cleared,[{cardId:'a',start:'2025-03-15'}],first.done);
+ assert.deepEqual(again.edits,[]);assert.equal(again.changed,false);
+ // A new browser with an empty ledger, then an older backup's records arrive: the card still gets its date.
+ const empty=migrateFeeDatesOnce([],[],null);assert.equal(empty.changed,false);assert.deepEqual(empty.done,[]);
+ const restored=migrateFeeDatesOnce(empty.edits,[{cardId:'b',start:'2024-07-04'},{cardId:'b',start:'2025-07-04'}],empty.done);
+ assert.deepEqual(restored.edits,[{cardId:'b',feeDate:{month:7,day:4}}]);assert.deepEqual(restored.done,['b']);
+ // A damaged done list reads as nothing handled.
+ assert.deepEqual(migrateFeeDatesOnce([],[{cardId:'c',start:'2025-01-31'}],'oops').edits,[{cardId:'c',feeDate:{month:1,day:31}}]);
+});
+
 test('no per-cycle date inputs remain: cost tracking derives its card year from the card fee date',()=>{
  const ui=src('CostTrackingUI.jsx');
  assert.doesNotMatch(ui,/<Input type="date"[^>]*name="(start|end)"|name="start"[^>]*>\s*<Input type="date"/);
  assert.doesNotMatch(ui,/annualEnd/);
  assert.match(ui,/cardYears\(card\.feeDate/);
- assert.match(ui,/withMigratedFeeDates/);
+ assert.match(ui,/migrateFeeDatesOnce/);
+ // A card year that overlaps any record is not offered, since the ledger would refuse it.
+ assert.match(ui,/r\.value\.start<=y\.end&&r\.value\.end>=y\.start/);
+ // Saving the editor with the same date confirms it and clears a migration conflict note.
+ assert.match(src('CardEditor.jsx'),/fee&&card\.feeDateConflict\)patch\.feeDate=fee/);
 });
 
 test('every card shows the same fee date row; card-year credits get one compact prompt',()=>{

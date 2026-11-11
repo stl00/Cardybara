@@ -8,15 +8,16 @@ import {profileForCard} from './benefitRules';
 import {walletDay} from './personalBenefits';
 import {anniversaryPeriod,cardYears,feeDateText} from './feeDate.js';
 import {loadCardEdits,saveCardEdits} from './CardEditor.jsx';
-import {withMigratedFeeDates} from './cardEdits.js';
-// Set once the card years recorded before the single fee date have been turned into fee dates.
+import {migrateFeeDatesOnce} from './cardEdits.js';
+// Cards whose card years recorded before the single fee date have been turned into a fee date.
 const FEE_DATE_MIGRATION_KEY='cardybara-fee-date-migration-v1';
 function migrateFeeDates(events){
  try{
-  if(localStorage.getItem(FEE_DATE_MIGRATION_KEY))return;
-  const edits=loadCardEdits(),next=withMigratedFeeDates(edits,feeCycles(events).map(e=>({cardId:e.cardId,start:e.value.start})));
-  if(next!==edits)saveCardEdits(next);
-  localStorage.setItem(FEE_DATE_MIGRATION_KEY,new Date().toISOString());
+  let done=[];try{done=JSON.parse(localStorage.getItem(FEE_DATE_MIGRATION_KEY))||[]}catch{}
+  const edits=loadCardEdits(),out=migrateFeeDatesOnce(edits,feeCycles(events).map(e=>({cardId:e.cardId,start:e.value.start})),done);
+  if(!out.changed)return;
+  if(out.edits!==edits)saveCardEdits(out.edits);
+  localStorage.setItem(FEE_DATE_MIGRATION_KEY,JSON.stringify(out.done));
  }catch{}
 }
 const {Text,Paragraph}=Typography,Context=createContext(null);
@@ -45,13 +46,14 @@ export function PortfolioMetrics({cards,benefitEvents,hidden=false}){
 export function FeeTracker({card,benefitEvents,hidden=false}){
  const w=useWords(),{events,ready,error,save}=useCostLedger(),{message}=App.useApp(),[editing,setEditing]=useState(null),[form]=Form.useForm(),[accountForm]=Form.useForm(),[accountOpen,setAccountOpen]=useState(false),[busy,setBusy]=useState(false);const archived=latestCosts(events).filter(e=>e.kind==='fee'&&e.cardId===card.id&&e.value.deleted);const rows=feeCycles(events,card.id),active=rows.find(e=>e.value.start<=walletDay()&&e.value.end>=walletDay()),net=actualCost(active),credits=creditValueForCycle(active,benefitEvents),config=latestCosts(events).find(e=>e.kind==='account'&&e.cardId===card.id)?.value;
  // The card year comes from the card's one fee date; a record keeps the year it was made for.
- const today=walletDay(),years=cardYears(card.feeDate,today).filter(y=>!rows.some(r=>r.value.start===y.start)),current=anniversaryPeriod(card.feeDate,today);
+ const today=walletDay(),years=cardYears(card.feeDate,today).filter(y=>!rows.some(r=>r.value.start<=y.end&&r.value.end>=y.start)),current=anniversaryPeriod(card.feeDate,today);
  const open=event=>{const fee=profileForCard(card)?.fees,year=years[0];form.setFieldsValue(event?event.value:{start:year?.start,end:year?.end,currency:card.currency,listedFee:fee?.currency===card.currency?fee.primaryAnnual:null,charged:null,refund:0,waiver:'unknown',note:''});setEditing(event||'new')};
  const submit=async()=>{let v;try{v=await form.validateFields()}catch{return;}setBusy(true);try{await save('fee',card.id,{...v,listedFee:v.listedFee??null,charged:v.charged??null,refund:v.refund??null});setEditing(null);message.success(w('年费周期已保存','Fee cycle saved','年費週期已儲存'))}catch{message.error(w('保存失败：请检查金额与日期，周期不能重叠。','Could not save. Check dates, amounts and overlapping cycles.','儲存失敗：請檢查金額與日期，週期不能重疊。'))}finally{setBusy(false)}};
  const showMoney=(n,c)=>hidden?'••••':money(n,c);
  const waiverLabel=v=>({unknown:w('未确认','Unknown','未確認'),none:w('无豁免','Not waived','無豁免'),partial:w('部分豁免','Partially waived'),full:w('全部豁免','Fully waived')})[v];
  return <Card size="small" className="fee-tracker" style={{marginBottom:24}} title={w('年费与持卡年度','Annual fee & card year','年費與持卡年度')} extra={card.feeDate&&<Button type="link" size="small" disabled={!ready||!years.length} onClick={()=>open(null)}>{w('记录一个年度','Add a card year','記錄一個年度')}</Button>}>
  {error&&<Alert type="error" title={w('费用记录暂时无法读取','Cost records unavailable','費用記錄暫時無法讀取')}/>}
+ {ready&&card.feeDate&&!years.length&&<Paragraph type="secondary" className="fee-tracker-no-years" style={{fontSize:12}}>{w('按年费日算出的最近三个持卡年度都已有记录（或与已有记录重叠），可以在记录里编辑。','The last three card years from the fee date are already recorded or overlap a record; edit them in the history.','按年費日算出的最近三個持卡年度都已有記錄（或與已有記錄重疊），可以在記錄裡編輯。')}</Paragraph>}
  {active?<><Text>{active.value.start} — {active.value.end}</Text> <Tag>{waiverLabel(active.value.waiver)}</Tag><Descriptions size="small" column={1} style={{marginTop:12}} items={[{key:'net',label:w('实际净年费','Actual net fee','實際淨年費'),children:showMoney(net,active.value.currency)},{key:'value',label:w('已记录 Credit 价值','Recorded Credit value','已記錄 Credit 價值'),children:credits.count?showMoney(credits.value,active.value.currency):w('尚未估值','Not valued yet','尚未估值')},{key:'difference',label:w('Credit 价值减净年费','Credit value less fee','Credit 價值減淨年費'),children:net!=null&&credits.count?showMoney(credits.value-net,active.value.currency):'—'}]}/><Paragraph type="secondary" style={{fontSize:12}}>{w('只展示已确认部分，尚未包括积分、消费回报或其他权益。','Confirmed records only; points, spending rewards and other benefits are not included.','僅展示已確認部分，尚未包括積分、消費回報或其他權益。')}{credits.unvalued?` ${credits.unvalued} `+w('项已用 Credit 未估值。','used credits have no valuation.','項已用 Credit 未估值。'):''}</Paragraph></>:current?<Paragraph type="secondary"><Text>{current.start} — {current.end}</Text><br/>{w('按年费日 {0} 计算。记录这一年的真实扣费，开始跟踪持卡成本。','From the annual fee date {0}. Record this year’s actual fee to track ownership costs.','按年費日 {0} 計算。記錄這一年的真實扣費，開始追蹤持卡成本。').replace('{0}',feeDateText(card.feeDate))}</Paragraph>:<Paragraph type="secondary" className="fee-tracker-needs-date">{w('在上方卡片信息里填年费日，持卡年度就按它计算，然后可以记录真实扣费。','Set the annual fee date in the card details above; card years follow from it, then you can record actual fees.','在上方卡片資料裡填年費日，持卡年度就按它計算，然後可以記錄真實扣費。')}</Paragraph>}
  {!!rows.length&&<Collapse ghost size="small" items={[{key:'history',label:w('年费周期记录','Fee cycle history','年費週期記錄'),children:<Space orientation="vertical" style={{width:'100%'}}>{rows.map(e=><Flex key={e.key} align="center" justify="space-between" gap={8}><div><Text>{e.value.start} — {e.value.end}</Text><br/><Text type="secondary">{waiverLabel(e.value.waiver)} · {showMoney(actualCost(e),e.value.currency)}</Text>{e.value.note&&<Paragraph type="secondary" style={{fontSize:12,margin:0}}>{e.value.note}</Paragraph>}</div><Space><Button size="small" onClick={()=>open(e)}>{w('编辑','Edit','編輯')}</Button><Button type="text" size="small" onClick={()=>save('fee',card.id,{...e.value,deleted:true}).catch(()=>message.error(w('保存失败','Save failed','儲存失敗')))}>{w('撤销记录','Archive record','撤銷記錄')}</Button></Space></Flex>)}</Space>} ]}/>}
  {!!archived.length&&<Collapse ghost size="small" items={[{key:'archived',label:w('已撤销记录','Archived records','已撤銷記錄'),children:archived.map(e=><Flex key={e.key} justify="space-between" align="center" style={{marginBottom:8}}><Text>{e.value.start} — {e.value.end}</Text><Button size="small" onClick={()=>save('fee',card.id,{...e.value,deleted:false}).catch(()=>message.error(w('恢复失败，请检查是否与其他周期重叠。','Cannot restore an overlapping cycle.','復原失敗，請檢查週期是否重疊。')))}>{w('恢复','Restore','復原')}</Button></Flex>)}]}/>}
