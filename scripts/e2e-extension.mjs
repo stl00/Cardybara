@@ -15,7 +15,7 @@
 // --upgrade-from (nightly set): the main path runs on the previous package instead; then Chrome is
 // closed, the tested package replaces the previous one in the same directory, and Chrome starts again
 // on the same profile. The same extension must now run the tested package with the records kept.
-// --cards: after the main path, the user adds a card by hand by picking its product from the catalogue
+// --cards: after the main path, the user adds a card by hand by picking its product from the catalogue panel
 // and setting its annual fee date, sees its anniversary credit get a real cycle, edits it, corrects the
 // name of a card the bank page showed and resets that correction, then removes the manual card
 // (stl00/Cardybara#176). The product is chosen from the catalogue data, and every tail and date is synthetic.
@@ -175,7 +175,7 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=scriptedChat,cards=false,cardFeeDate={month:2,day:29},upgradeFrom=null,mutatePrevious,swap=true}={}){
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=scriptedChat,cards=false,cardFeeDate={month:2,day:29},cardQuery=null,upgradeFrom=null,mutatePrevious,swap=true}={}){
  if([restart,expiredLogin,cancel,chat,cards,!!upgradeFrom].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel, --chat, --cards and --upgrade-from separately: each starts from the end of the main path');
  if(stepMs)STEP_MS=stepMs;log=[];lastState=null;
  const work=await mkdtemp(join(tmpdir(),'cardybara-e2e-'));
@@ -547,7 +547,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    note('scripted answer shown;',String(chats.length),'model requests, the saved key only, no read value sent');
    note('PASS: the assistant chat on the packaged extension answers through a scripted model');
   }
-  if(cards)await manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate:cardFeeDate});
+  if(cards)await manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate:cardFeeDate,query:cardQuery});
   return {ok:true};
  }catch(error){
   note('FAIL:',error.message);
@@ -633,7 +633,7 @@ async function stopFromGuide({cdp,session,until}){
 
 // --- --cards -------------------------------------------------------------------------------
 // A catalogue product at the synthetic bank with a credit that resets on the account anniversary, whose
-// English name no other product there contains, so typing it in the search picks exactly that product.
+// English name no other product there contains, so typing it in the panel's search puts that product first.
 async function anniversaryProduct(){
  const [{benefitProfiles},{cardProducts}]=await Promise.all([import('../src/benefitRules.js'),import('../src/productCatalog.js')]);
  const scoped=cardProducts.filter(p=>p.bank==='Chase'&&p.region==='US'),search=p=>[p.name,...p.aliases].join(' ').toLowerCase();
@@ -645,7 +645,7 @@ async function anniversaryProduct(){
  }
  throw new StepError('the catalogue has no Chase product with an anniversary credit to test with');
 }
-async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate}){
+async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate,query}){
  const [{anniversaryPeriod},{walletDay}]=await Promise.all([import('../src/feeDate.js'),import('../src/personalBenefits.js')]);
  const product=await anniversaryProduct(),TAIL='9081';
  const local=key=>evaluate('wallet',`JSON.parse(localStorage.getItem(${JSON.stringify(key)})||'null')`);
@@ -656,7 +656,6 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate})
   if(!await until('the field '+selector,()=>evaluate('wallet',`(()=>{const el=[...document.querySelectorAll(${JSON.stringify(selector)})].at(-1);if(!el||el.disabled)return false;el.focus();el.select?.();return document.activeElement===el;})()`)))throw new StepError('no field '+selector);
   await cdp.send('Input.insertText',{text},sessions.wallet);
  };
- const choose=async(selector,text)=>{await type(selector,text);await sleep(300);await key('Enter','Enter',13);await sleep(300);};
  const drawerText=()=>evaluate('wallet',`[...document.querySelectorAll('.ant-drawer-open .ant-drawer-body')].map(e=>e.innerText).join(' | ')`);
  const openCard=async tail=>{
   await evaluate('wallet','location.hash="wallet"');
@@ -667,17 +666,26 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate})
  // Ant Design spaces out a two-character Chinese button label, so labels are compared without spaces.
  const press=(selector,zh)=>evaluate('wallet',`(()=>{const flat=v=>v.replace(/\\s+/g,'');const want=${words(zh)}.map(flat);const b=[...document.querySelectorAll(${JSON.stringify(selector)})].reverse().find(b=>want.includes(flat(b.textContent))&&!b.disabled&&b.offsetParent);if(!b)return false;b.click();return true;})()`);
  const modalOk=async zh=>{if(!await until('the '+zh+' button',()=>press('.ant-modal-footer button',zh)))throw new StepError('no '+zh+' button');};
+ // The product panel: type in its search box, wait until the wanted tile is the highlighted first match, press Enter.
+ const SEARCH='.product-picker-modal .product-picker-search input, .product-picker-modal input.product-picker-search';
+ const pick=async(text,id)=>{
+  await type(SEARCH,text);
+  await until('the product tile for '+id,()=>evaluate('wallet',`(()=>{const tiles=[...document.querySelectorAll('.product-picker-modal .product-tile')];return tiles[0]?.dataset.productId===${JSON.stringify(id)}&&tiles[0].classList.contains('active');})()`));
+  await key('Enter','Enter',13);
+  await until('the product panel to close',async()=>!(await evaluate('wallet',`[...document.querySelectorAll('.product-picker-modal')].some(m=>m.offsetParent&&!m.closest('.ant-zoom-leave'))`)));
+ };
 
  const day=walletDay();
  // The wallet tab in front, as the user would have it, so dialogs finish opening and closing.
  await cdp.send('Page.bringToFront',{},sessions.wallet);
 
- // 10a. Add a card by hand: bank, product from the catalogue (with its art), last digits and fee date.
+ // 10a. Add a card by hand: the product from the catalogue panel (with its art), last digits and fee date.
  await evaluate('wallet','location.hash="wallet"');
  await until('the add-card button',()=>press('button','添加卡片'));
- await choose('.add-card-bank input','Chase');
- await choose('.add-card-product input',product.name);
- await until('the product art preview',()=>evaluate('wallet',`!!document.querySelector('.add-card-form .card-art img')`));
+ // The panel opens on the bank groups, Chase first.
+ await until('the product panel grouped by bank, Chase first',()=>evaluate('wallet',`document.querySelector('.product-picker-modal .product-picker-group')?.getAttribute('aria-label')==='Chase'`));
+ await pick(query??product.name,product.id);
+ await until('the chosen product with its art',()=>evaluate('wallet',`(()=>{const c=document.querySelector('.add-card-form .chosen-product');return !!c?.querySelector('img')&&c.innerText.includes(${JSON.stringify(product.name)});})()`));
  await type('.add-card-tail',TAIL);
  await type('.add-card-form .fee-month input',String(feeDate.month));
  await type('.add-card-form .fee-day input',String(feeDate.day));
@@ -716,8 +724,18 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate})
  note('edited the manual card: name and fee date');
  await closeDrawer();
 
- // 10d. Correct the name of a card the bank page showed, then reset it to what the bank showed.
+ // 10d. Correct the name of a card the bank page showed, then reset it to what the bank showed. Its card type is
+ // corrected from the same panel, scoped to its bank, and set back to automatic recognition.
  await openCard('1234');
+ const before=new Set(((await local('cardybara-card-products-v1'))||[]).map(c=>c.cardId));
+ await until('the change-card-type button',()=>evaluate('wallet',`(()=>{const b=document.querySelector('.ant-drawer-open .card-product-choose');if(!b)return false;b.click();return true;})()`));
+ if(!await until('a product panel holding only the card\'s bank',()=>evaluate('wallet',`(()=>{const g=[...document.querySelectorAll('.product-picker-modal .product-picker-group')];return g.length===1&&g[0].getAttribute('aria-label')==='Chase';})()`)))throw new StepError('no scoped product panel');
+ await pick(product.name,product.id);
+ const corrected=await until('the corrected card type to be stored',async()=>((await local('cardybara-card-products-v1'))||[]).find(c=>!before.has(c.cardId)));
+ if(corrected.productId!==product.id)throw new StepError('the corrected card type was stored wrongly: '+JSON.stringify(corrected));
+ await until('the back-to-automatic link',()=>press('.ant-drawer-open button','改回自动识别'));
+ await until('the card type choice to be cleared',async()=>!((await local('cardybara-card-products-v1'))||[]).some(c=>c.cardId===corrected.cardId));
+ note('corrected a detected card\'s type from the panel and set it back to automatic');
  const bankName=(await evaluate('wallet',`document.querySelector('.ant-drawer-open .card-edit-section .ant-descriptions-item-content')?.innerText||''`)).trim();
  if(!bankName)throw new StepError('the detected card shows no name');
  await editCard(async()=>{await type('.card-edit-modal #name','E2E Corrected Name');});
@@ -739,7 +757,7 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate})
  if((await local('cardybara-card-products-v1'))?.some(c=>c.cardId===added.id))throw new StepError('the removed card left its product choice behind');
  const removed=await local('cardybara-wallet-removed-v1');
  if(!removed?.some(r=>r.id===added.id))throw new StepError('the removed card was not recorded as removed');
- note('PASS: a manual card is added from the catalogue with a fee date, gets an anniversary cycle, is edited and removed; a detected card is corrected and reset');
+ note('PASS: a manual card is added from the catalogue panel with a fee date, gets an anniversary cycle, is edited and removed; a detected card is corrected and reset, its type from the panel');
 }
 // Negative controls: each deliberately broken copy of the same package must fail the run, and for
 // the expected reason, so a broken environment cannot pass them.
@@ -772,9 +790,11 @@ export const BROKEN_CHAT={
  'a key the provider rejects':[/the key was not saved/,{chatKey:'e2e-rejected-'+'1'.repeat(24)}],
  'a model that never gives the answer':[/the chat failed instead of answering|timed out waiting for the scripted answer/,{chatScript:[()=>({content:'',tool_calls:[toolCall('e2e-1','list_cards')]})]}],
 };
-// With --cards: a card with a fee date that does not exist is never saved; the check must notice.
+// With --cards: a card with a fee date that does not exist is never saved, and a search that finds nothing
+// leaves no tile to choose; the check must notice either.
 export const BROKEN_CARDS={
  'a fee date that does not exist':[/timed out waiting for the manual card to be stored/,{cardFeeDate:{month:2,day:30}}],
+ 'a product search that matches nothing':[/timed out waiting for the product tile for /,{cardQuery:'zz no such card zz'}],
 };
 // With --upgrade-from: the records are lost during the upgrade, or the tested package never replaces the
 // previous one (made to differ from it so the check can tell); the upgrade check must notice either.

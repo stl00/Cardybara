@@ -1792,7 +1792,21 @@
     "卡片信息已保存；换了地区，请重新选择卡种。": "Card details saved. The region changed, so choose the card type again.",
     "（年份按读取日期推断）": " (year inferred from the read date)",
     "年份按读取日期推断": "Year inferred from the read date",
-    " · 推断年份": " · year inferred"
+    " · 推断年份": " · year inferred",
+    "暂无卡面": "No card art",
+    "找不到我的卡": "I can't find my card",
+    "（自己填写卡名）": "(enter its name yourself)",
+    "选择卡种": "Choose a card type",
+    "搜索卡名、品牌或银行，例如 Sapphire、Marriott、万豪": "Search card, brand or bank, e.g. Sapphire, Marriott, 万豪",
+    "搜索卡种": "Search card types",
+    "个人卡": "Personal",
+    "商务卡": "Business",
+    "{0} 种": "{0} cards",
+    "商务": "Business",
+    "没有匹配的卡种": "No matching card type",
+    "添加卡片：选择卡种": "Add a card: choose its type",
+    "更换": "Change",
+    "从列表选择": "Choose from the list"
   },
   "zh-TW": {
     "美国": "美國",
@@ -3587,6 +3601,20 @@
     "卡片信息已保存；换了地区，请重新选择卡种。": "卡片資料已儲存；換了地區，請重新選擇卡種。",
     "（年份按读取日期推断）": "（年份按讀取日期推斷）",
     "年份按读取日期推断": "年份按讀取日期推斷",
-    " · 推断年份": " · 推斷年份"
+    " · 推断年份": " · 推斷年份",
+    "暂无卡面": "暫無卡面",
+    "找不到我的卡": "找不到我的卡",
+    "（自己填写卡名）": "（自己填寫卡名）",
+    "选择卡种": "選擇卡種",
+    "搜索卡名、品牌或银行，例如 Sapphire、Marriott、万豪": "搜尋卡名、品牌或銀行，例如 Sapphire、Marriott、萬豪",
+    "搜索卡种": "搜尋卡種",
+    "个人卡": "個人卡",
+    "商务卡": "商務卡",
+    "{0} 种": "{0} 種",
+    "商务": "商務",
+    "没有匹配的卡种": "沒有相符的卡種",
+    "添加卡片：选择卡种": "新增卡片：選擇卡種",
+    "更换": "更換",
+    "从列表选择": "從列表選擇"
   }
 }
