@@ -255,7 +255,10 @@
   "交通（出租车、网约车、停车、过路费、火车、巴士等）": "ground-transport",
   "全球餐厅、美国加油站、美国无线电话服务和美国运输": "general",
   "交通、美国运输和美国办公用品店": "general",
-  "AmexTravel.com 预付酒店、租车、邮轮和机票": "travel"
+  "AmexTravel.com 预付酒店、租车、邮轮和机票": "travel",
+  "办公用品店": "shopping",
+  "British Airways、Aer Lingus、Iberia 和 LEVEL 直订机票": "airline",
+  "Aer Lingus、British Airways、Iberia 和 LEVEL 直订机票": "airline"
  },
  "brands": [
   {

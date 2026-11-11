@@ -253,6 +253,26 @@
     {
       "id": "amex-us-us-graphite-business-cash-unlimited-card",
       "name": "Amex Graphite Business Cash Unlimited"
+    },
+    {
+      "id": "amex-us-us-schwab-platinum-card",
+      "name": "Amex Platinum Card for Schwab"
+    },
+    {
+      "id": "chase-us-united-business-card",
+      "name": "Chase United Business"
+    },
+    {
+      "id": "chase-us-united-club-business-card",
+      "name": "Chase United Club Business"
+    },
+    {
+      "id": "chase-us-british-airways-visa-signature-credit-card",
+      "name": "Chase British Airways"
+    },
+    {
+      "id": "chase-us-aer-lingus-visa-signature-credit-card",
+      "name": "Chase Aer Lingus"
     }
   ]
 }

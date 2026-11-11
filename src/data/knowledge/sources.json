@@ -985,5 +985,40 @@
     "title": "American Express · Graphite Business Cash Unlimited Card 官方产品页",
     "checkedAt": "2026-11-11",
     "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-schwab-platinum-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q1-pdf-cmas/cps-charge/schwab-platinum-03-31-2026.pdf",
+    "title": "American Express · Platinum Card from American Express Exclusively for Charles Schwab 持卡人协议",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-united-business-card",
+    "url": "https://creditcards.chase.com/business-credit-cards/united/united-business-card",
+    "title": "Chase · United Business Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-united-club-business-card",
+    "url": "https://creditcards.chase.com/business-credit-cards/united/united-club-business",
+    "title": "Chase · United Club Business Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-british-airways-visa-signature-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/avios/british-airways",
+    "title": "Chase · British Airways Visa Signature Credit Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-chase-us-aer-lingus-visa-signature-credit-card",
+    "url": "https://creditcards.chase.com/travel-credit-cards/avios/aer-lingus",
+    "title": "Chase · Aer Lingus Visa Signature Credit Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
   }
 ]

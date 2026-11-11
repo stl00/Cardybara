@@ -1208,5 +1208,75 @@
     "name": "Graphite Business Cash Unlimited Card",
     "currencies": [],
     "art": null
+  },
+  {
+    "id": "amex-us-us-schwab-platinum-card",
+    "sourceUrl": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q1-pdf-cmas/cps-charge/schwab-platinum-03-31-2026.pdf",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Platinum Card from American Express Exclusively for Charles Schwab",
+      "Platinum Card for Schwab",
+      "Schwab Platinum Card",
+      "Schwab Platinum",
+      "The Platinum Card from American Express Exclusively for Charles Schwab"
+    ],
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Platinum Card from American Express Exclusively for Charles Schwab",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "chase-us-united-business-card",
+    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/united/united-business-card",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "United MileagePlus"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/business-credit-cards/united/united-business-card",
+      "checkedAt": "2026-11-11"
+    }
+  },
+  {
+    "id": "chase-us-united-club-business-card",
+    "sourceUrl": "https://creditcards.chase.com/business-credit-cards/united/united-club-business",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "United MileagePlus"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/business-credit-cards/united/united-club-business",
+      "checkedAt": "2026-11-11"
+    }
+  },
+  {
+    "id": "chase-us-british-airways-visa-signature-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/avios/british-airways",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "The British Airways Club"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/avios/british-airways",
+      "checkedAt": "2026-11-11"
+    }
+  },
+  {
+    "id": "chase-us-aer-lingus-visa-signature-credit-card",
+    "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/avios/aer-lingus",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "rewardPrograms": [
+      "Aer Lingus AerClub"
+    ],
+    "rewardSource": {
+      "url": "https://creditcards.chase.com/travel-credit-cards/avios/aer-lingus",
+      "checkedAt": "2026-11-11"
+    }
   }
 ]
