@@ -1,6 +1,6 @@
 import {capturePage} from './agent-snapshot.js';
 import {MODELS,modelRequest,validateModel,mergeRecords,readLink} from './agent-core.js';
-import {PROVIDERS,guidedPage} from './providers.js';
+import {PROVIDERS,connectable,guidedPage} from './providers.js';
 const KEY='cardybara-agent-v1',CONFIG='cardybara-agent-session';
 export function createAgent({apply,changed}){
  let chain=Promise.resolve(),inFlight=null;
@@ -10,7 +10,7 @@ export function createAgent({apply,changed}){
  const config=async()=>(await chrome.storage.session.get(CONFIG))[CONFIG];
  const view=async()=>{const s=await load(),c=await config();return {...s,configured:!!c?.key,provider:c?.provider||'deepseek',model:c?.model||MODELS.deepseek.model};};
  async function capture(bank,cards,tabId,previous=null){
-  if(!PROVIDERS[bank]||!Array.isArray(cards)||!cards.length||cards.some(c=>!c.id||c.bank!==bank||!/^\d{4,5}$/.test(c.tail)||c.currency!==PROVIDERS[bank].currency))throw Error('invalid_scope');
+  if(!PROVIDERS[bank]||!connectable(bank)||!Array.isArray(cards)||!cards.length||cards.some(c=>!c.id||c.bank!==bank||!/^\d{4,5}$/.test(c.tail)||c.currency!==PROVIDERS[bank].currency))throw Error('invalid_scope');
   const tab=await chrome.tabs.get(tabId);if(!guidedPage(bank,tab.url))throw Error('wrong_bank_page');
   const result=await chrome.scripting.executeScript({target:{tabId},func:capturePage,args:[bank,cards]});
   if(result.length!==1||!result[0].documentId)throw Error('document_changed');const raw=result[0].result;

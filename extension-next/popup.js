@@ -1,5 +1,5 @@
 import {BUILD_ID} from './build-info.js';
-import {PROVIDERS} from './providers.js';
+import {CONNECTABLE_BANKS,PROVIDERS,SCOPED} from './providers.js';
 import {exportCollectorState} from './export-state.js';
 import {RELEASE_WORDS,popupLanguage,bankName,bankMark,fill} from './popup-i18n.js';
 import {collectReport,needsReport,reportFileName} from './problem-report.js';
@@ -18,7 +18,7 @@ function render(s){
  status.textContent=run?'':t.noRun;
  $('#jobs').replaceChildren(...(run?.jobs||[]).map(j=>{const li=el('li','bank'),act=el('div','act');act.append(el('span','tag '+tone(j.status),t.phases[j.status]||j.status));if(needsReport(j,s.records?.[j.bank])){const b=el('button','small',t.reportButton);b.type='button';b.onclick=()=>showReport(j,s).catch(error);act.append(b);}li.append(bankMark(j.bank),el('span','name',bankName(j.bank,lang)),act);return li;}));
  $('#cancel').disabled=!running;
- $('#banks').replaceChildren(...Object.keys(PROVIDERS).map(bank=>{
+ $('#banks').replaceChildren(...(SCOPED?CONNECTABLE_BANKS:Object.keys(PROVIDERS)).map(bank=>{
   const off=s.disabled.includes(bank),li=el('li','bank'),act=el('div','act');
   for(const [type,label,cls]of [[off?'connect':'disconnect',off?t.connect:t.disconnect,off?'small':'small danger'],['clear',t.clear,'small']]){const b=el('button',cls,label);b.type='button';b.onclick=()=>command(type,bank).then(render).catch(error);act.append(b);}
   li.append(bankMark(bank),el('span','name',bankName(bank,lang)),act);if(off)li.append(el('div','info',t.disabled));return li;

@@ -29,6 +29,8 @@ __pycache__/
 !/docs/DEBUGGING.md
 !/docs/EXTENSION_RELEASE.md
 !/docs/BENEFITS_PILOT.md
+!/docs/BETA-INSTALL.md
+!/docs/release-notes/
 !/docs/knowledge/
 /docs/knowledge/HELD_CARD_COVERAGE.md
 /evals/*live*.json

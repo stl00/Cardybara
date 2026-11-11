@@ -4,6 +4,25 @@ Version metadata lives in release.json. The numeric manifest version is separate
 
 The standalone build has no ordinary-website bridge content script and no required loopback host access. Bank hosts remain declared; model/loopback hosts are optional. Optional local model requests require the user to configure/consent to that connection. No developer model credentials are provided. The hosted service (`GATEWAY_ORIGIN`, docs/GATEWAY.md) is the default for new users; a package is only useful to beta testers once that gateway is deployed with its provider key set.
 
+## Friends beta (scoped build)
+
+`release.json` sets the beta: `channel: "beta"`, a `-beta.N` label, `banks: ["Chase","Amex US"]` and `notes` (the file packaged as `RELEASE-NOTES.txt`). The release builder writes `banks` into `build-scope.js` in the package and Vite bakes the same list into the wallet bundle (`scripts/build-scope.mjs`), so the package offers only those banks: the wallet, popup and collector panel list no other bank, and the worker's protocol refuses to start or turn on one (`bank_not_offered`). The other adapters stay in the code; source, tests and an unscoped `release.json` keep every bank. Manual add still offers every catalogue card and says that live reading covers only the beta banks. The dev extension follows `release.json` too, so it matches the package byte for byte; `CARDYBARA_ALL_BANKS=1 npm run build:dev-extension` (or `npm run dev`) keeps every bank for bank work, and `build-release.py` refuses to package with that variable set. The package audit checks the packaged scope against `release.json` and the wallet bundle. Testers follow `docs/BETA-INSTALL.md`; the user-facing notes are `docs/release-notes/<label>.md` and the in-extension page 关于这个版本 (`src/ReleaseNotes.jsx`).
+
+### Beta checklist
+
+Required checks — Claude runs these and reports them on the release PR:
+- [ ] `npm run check:release` passes locally on the commit to be tagged, and CI `Verify and package` and `E2E` are green on it (E2E covers install, Chase connect and read, manual card, hosted invite-code chat).
+- [ ] The package from that CI run has `build-scope.js` = `["Chase","Amex US"]` (the package audit fails otherwise) and its manifest says Beta.
+- [ ] Hosted gateway deployed with its provider key set, caps configured and invite codes issued (`docs/GATEWAY.md`; #208, #210).
+- [ ] Release notes and the About page re-checked against `main`: the "Before tagging" list in the notes is cleared (#210 cloud agent, #195 common cards, #196 problem report — update the notes for each that merged, or keep it listed as not in this beta).
+- [ ] `docs/BETA-INSTALL.md` matches the build (button names, the problem-report route once #196 lands).
+
+Owner-only steps — never done by Claude:
+- [ ] Bump `release.json` if the label changes, then **tag** `v<label>`; CI builds the draft prerelease from that tag.
+- [ ] **Installed-package acceptance on Chase and Amex US** with the exact draft ZIP in a fresh Chrome profile (`scripts/new-acceptance.mjs` creates a report with only those two banks, read from the ZIP's scope; `scripts/acceptance.mjs` holds the candidate to them): install, empty first launch, manual add, discovery, every card's billing fields and MR/UR read back, restart, export, cancel, expired login, upgrade; plus a real hosted chat with an invite code.
+- [ ] Bank logins and device confirmations during acceptance.
+- [ ] Publishing the prerelease and sending invite codes to testers. A beta is not a Chrome Web Store submission.
+
 ## Release flow
 
 1. Pull request → source/history audit → tests/evals → build → package audit → downloadable Actions artifact.

@@ -9,6 +9,7 @@ import {dirname,join,relative} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {spawnSync} from 'node:child_process';
 import {structureReport,redactStructureText} from './dev-collector/structure-report.js';
+import {releaseConfig,scopeSource,SCOPE_FILE} from './build-scope.mjs';
 const root=join(dirname(fileURLToPath(import.meta.url)),'..'),target=process.env.CARDYBARA_DEV_EXTENSION_DIR||join(homedir(),'.cardybara','dev-extension'),work=target+'.building';
 if(!process.argv.includes('--no-wallet')&&!process.argv.includes('--reuse-wallet')){const r=spawnSync('npx',['vite','build'],{cwd:root,stdio:'inherit'});if(r.status)process.exit(r.status);}
 // Never replace a folder this script didn't build, such as a mistyped path.
@@ -18,6 +19,8 @@ await rm(work,{recursive:true,force:true});await mkdir(work,{recursive:true});
 const sourceFile=/\.(?:js|json|html|css|svg|png|txt|md)$/,walletFile=/\.(?:js|css|svg|png|jpg|jpeg|webp|ico|json)$/,isDir=p=>statSync(p).isDirectory();
 await cp(join(root,'extension-next'),work,{recursive:true,filter:p=>{const rel=relative(join(root,'extension-next'),p);return !rel.split('/').some(x=>x.startsWith('.'))&&rel!=='CHECKSUMS.json'&&(isDir(p)||sourceFile.test(p));}});
 await cp(join(root,'extension-dev'),work,{recursive:true});
+// The release package's bank scope (release.json), unless CARDYBARA_ALL_BANKS=1 keeps every bank for a bank workstream.
+await writeFile(join(work,SCOPE_FILE),scopeSource(process.env.CARDYBARA_ALL_BANKS==='1'?null:releaseConfig(new URL('../',import.meta.url))));
 if(!process.argv.includes('--no-wallet'))for(const name of ['index.html','cardybara.svg','assets','brand'])await cp(join(root,'dist',name),join(work,name),{recursive:true,filter:p=>{const rel=relative(join(root,'dist'),p);return !rel.split('/').includes('archive')&&(isDir(p)||rel===name||walletFile.test(p));}});
 await cp(join(root,'public/data.example.json'),join(work,'data.json'));
 await rm(join(work,'dashboard.js'),{force:true});
