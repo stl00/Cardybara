@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-11.cards-8",
+  "snapshotId": "cardybara-public-knowledge-2026-11-11.cards-9",
   "asOf": "2026-11-11",
   "locale": "zh-CN",
   "files": [
@@ -1305,6 +1305,82 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "amex-us-us-schwab-platinum-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "来源是发卡行公开的持卡人协议（2026年3月31日版）。American Express 的产品和福利页面在浏览器中加载，未登录状态保存的页面没有内容，所以赚取比例和白金卡其他福利未录入；Schwab 的页面是合作方页面，不作为发卡行来源。",
+        "须持有合资格 Schwab 账户才能持卡；个人账户情况未核实。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-united-business-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Group 2 优先登机、里程兑换折扣和保障类福利未录入。员工卡年费未确认。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-united-club-business-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "有员工卡时每年4张 United Club 单次通行证、里程兑换折扣和保障类福利未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-british-airways-visa-signature-credit-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "保障类福利未录入。附属卡年费未确认。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-aer-lingus-visa-signature-credit-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "行李延误、购物保障等保障类福利未录入。附属卡年费未确认。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -1403,6 +1479,11 @@
     "amex-us-us-marriott-bonvoy-business-card",
     "amex-us-us-delta-skymiles-reserve-business-card",
     "amex-us-us-business-green-rewards-card",
-    "amex-us-us-graphite-business-cash-unlimited-card"
+    "amex-us-us-graphite-business-cash-unlimited-card",
+    "amex-us-us-schwab-platinum-card",
+    "chase-us-united-business-card",
+    "chase-us-united-club-business-card",
+    "chase-us-british-airways-visa-signature-credit-card",
+    "chase-us-aer-lingus-visa-signature-credit-card"
   ]
 }

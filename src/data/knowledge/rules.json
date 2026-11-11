@@ -62397,5 +62397,4088 @@
         }
       ]
     }
+  },
+  {
+    "id": "rule.amex-us-us-schwab-platinum-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-schwab-platinum-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-schwab-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Annual Fee $895",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 895,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-schwab-platinum-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-schwab-platinum-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-schwab-platinum-card.fee-additional@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-schwab-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Each Additional Platinum Card is $195 annually",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 195,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-schwab-platinum-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-schwab-platinum-card.appreciation-bonus",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-schwab-platinum-card.appreciation-bonus@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-schwab-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Schwab Appreciation Bonus",
+      "summary": "限主卡持卡人，每个持卡年一次；按开户批准时和每年续卡月首日的 Schwab 合资格资产计：25万至100万美元得100美元，100万至1000万美元得200美元，1000万美元以上或 Schwab Private Wealth Services、Advisor Services Ultra-High Net Worth 会员得1,000美元。个人资产和会员身份未核实。",
+      "sourceText": "equal to or greater than $250,000 and less than $1,000,000, you will receive a $100 Card statement credit",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "限主卡持卡人，每个持卡年一次；按开户批准时和每年续卡月首日的 Schwab 合资格资产计：25万至100万美元得100美元，100万至1000万美元得200美元，1000万美元以上或 Schwab Private Wealth Services、Advisor Services Ultra-High Net Worth 会员得1,000美元。个人资产和会员身份未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "限主卡持卡人，每个持卡年一次；按开户批准时和每年续卡月首日的 Schwab 合资格资产计：25万至100万美元得100美元，100万至1000万美元得200美元，1000万美元以上或 Schwab Private Wealth Services、Advisor Services Ultra-High Net Worth 会员得1,000美元。个人资产和会员身份未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-schwab-platinum-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Schwab Appreciation Bonus",
+      "summary": "A Card statement credit of $100, $200 or $1,000 based on qualifying Schwab holdings or Schwab program membership, measured at approval and in each renewal month; once each year of Card membership.",
+      "howToUse": [
+        "Keep an eligible Schwab account; the bonus is measured after approval and in each renewal month."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-schwab-platinum-card",
+          "text": "equal to or greater than $250,000 and less than $1,000,000, you will receive a $100 Card statement credit"
+        },
+        {
+          "sourceId": "card-amex-us-us-schwab-platinum-card",
+          "text": "equal to or greater than $1,000,000 and less than $10,000,000, you will receive a $200 Card statement credit"
+        },
+        {
+          "sourceId": "card-amex-us-us-schwab-platinum-card",
+          "text": "equal to or greater than $10,000,000, you will receive a $1,000 Card statement credit."
+        },
+        {
+          "sourceId": "card-amex-us-us-schwab-platinum-card",
+          "text": "Basic Card Members may only receive one Schwab Appreciation Bonus each year of Card Membership."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-business-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $150",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 150,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "United 消费",
+      "summary": "本卡的比例；页面的8倍合计还包含主卡持卡人机票作为 MileagePlus 会员的6倍，Basic Economy 不同。",
+      "sourceText": "2x miles on all other eligible United purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "本卡的比例；页面的8倍合计还包含主卡持卡人机票作为 MileagePlus 会员的6倍，Basic Economy 不同。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "United 消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "本卡的比例；页面的8倍合计还包含主卡持卡人机票作为 MileagePlus 会员的6倍，Basic Economy 不同。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "加油站",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2x miles at gas stations",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "加油站",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "餐饮",
+      "summary": "含合资格外卖配送。",
+      "sourceText": "2x miles on dining including eligible delivery services",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "含合资格外卖配送。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "餐饮",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "含合资格外卖配送。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "办公用品店",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2x miles at office supply stores",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "办公用品店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.earning-4@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "本地交通和通勤",
+      "summary": "含网约车、出租车、火车票、过路费和公共交通。",
+      "sourceText": "2x miles on local transit including ride share services, taxicabs, train tickets, tolls and mass transit",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "含网约车、出租车、火车票、过路费和公共交通。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "本地交通和通勤",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "含网约车、出租车、火车票、过路费和公共交通。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.earning-5",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.earning-5@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1x mile on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "miles-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.club-passes",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.club-passes@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "lounge",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "每年2张 United Club 单次通行证",
+      "summary": "页面写“每年”，没有说明按自然年还是账户年。",
+      "sourceText": "2 United Club one-time passes per year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写“每年”，没有说明按自然年还是账户年。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "lounge",
+      "period": null,
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写“每年”，没有说明按自然年还是账户年。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "2 United Club one-time passes per year",
+      "summary": "Two United Club one-time passes per year.",
+      "howToUse": [
+        "Use a pass at a United Club when flying United."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "2 United Club one-time passes per year"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-business-card.travel-credit",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.travel-credit@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "United 旅行额度",
+      "summary": "每个自然年用本卡买满5笔各100美元以上的 United 机票后，得125美元 TravelBank 余额。是否达标未核实。",
+      "sourceText": "after making 5 United flight purchases of $100 or more each calendar year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年用本卡买满5笔各100美元以上的 United 机票后，得125美元 TravelBank 余额。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": 125,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个自然年用本卡买满5笔各100美元以上的 United 机票后，得125美元 TravelBank 余额。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$125 United travel credit",
+      "summary": "$125 in United TravelBank cash after 5 United flight purchases of $100 or more each calendar year.",
+      "howToUse": [
+        "Buy United flights with the card; the cash lands in your TravelBank."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "after making 5 United flight purchases of $100 or more each calendar year"
+        },
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Receive $125 in United TravelBank cash"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-business-card.united-hotels",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.united-hotels@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "United Hotels 预付酒店抵扣",
+      "summary": "每个账户年第1、2次通过 United Hotels 直接预付的酒店各返50美元，最多100美元。",
+      "sourceText": "Receive $50 back as a statement credit on both your 1st and 2nd prepaid hotel stays purchased directly through United Hotels",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年第1、2次通过 United Hotels 直接预付的酒店各返50美元，最多100美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年第1、2次通过 United Hotels 直接预付的酒店各返50美元，最多100美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $100 in United Hotels credits",
+      "summary": "$50 back on both the 1st and 2nd prepaid hotel stays purchased directly through United Hotels, up to $100 each anniversary year.",
+      "howToUse": [
+        "Prepay the stay through United Hotels with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Receive $50 back as a statement credit on both your 1st and 2nd prepaid hotel stays purchased directly through United Hotels"
+        },
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "up to $100 each anniversary year."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-business-card.rideshare",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.rideshare@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "网约车抵扣",
+      "summary": "须每年登记；每个自然年最多100美元：1至11月每月最多8美元，12月最多12美元。",
+      "sourceText": "Enroll to receive up to $100 back as statement credits each calendar year on rideshare purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须每年登记；每个自然年最多100美元：1至11月每月最多8美元，12月最多12美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-year",
+      "amount": 100,
+      "currency": "USD",
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须每年登记；每个自然年最多100美元：1至11月每月最多8美元，12月最多12美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $100 in rideshare credits",
+      "summary": "Up to $100 back each calendar year on rideshare purchases: up to $8 a month from January through November and $12 in December; yearly opt-in required.",
+      "howToUse": [
+        "Opt in each year, then pay rideshare trips with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Enroll to receive up to $100 back as statement credits each calendar year on rideshare purchases"
+        },
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "up to $8 back as a statement credit each month from January through November"
+        },
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "and up to $12 back for the month of December"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-business-card.avis-budget",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.avis-budget@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "Avis 或 Budget 租车额度",
+      "summary": "每个账户年第1、2次通过 mileageplustravel.united.com 直接预订并用本卡支付的 Avis 或 Budget 租车，各得25美元 TravelBank 余额，最多50美元。",
+      "sourceText": "Receive $25 in United TravelBank cash, up to $50 each anniversary year, for your 1st and 2nd Avis or Budget car rental",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年第1、2次通过 mileageplustravel.united.com 直接预订并用本卡支付的 Avis 或 Budget 租车，各得25美元 TravelBank 余额，最多50美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 50,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年第1、2次通过 mileageplustravel.united.com 直接预订并用本卡支付的 Avis 或 Budget 租车，各得25美元 TravelBank 余额，最多50美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $50 in United travel credits on Avis or Budget",
+      "summary": "$25 in United TravelBank cash for each of the 1st and 2nd Avis or Budget rentals booked directly through mileageplustravel.united.com, up to $50 each anniversary year.",
+      "howToUse": [
+        "Book the rental through mileageplustravel.united.com and pay with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Receive $25 in United TravelBank cash, up to $50 each anniversary year, for your 1st and 2nd Avis or Budget car rental"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-business-card.instacart",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.instacart@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Instacart 抵扣",
+      "summary": "每月10美元，每个自然年最多120美元，须直接在 Instacart 用本卡消费；2027年12月31日结束。",
+      "sourceText": "Receive a $10 Instacart credit monthly, up to $120 total each calendar year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每月10美元，每个自然年最多120美元，须直接在 Instacart 用本卡消费；2027年12月31日结束。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-month",
+      "amount": 10,
+      "currency": "USD",
+      "annualMaximum": 120,
+      "partner": "Instacart"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": "2027-12-31",
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每月10美元，每个自然年最多120美元，须直接在 Instacart 用本卡消费；2027年12月31日结束。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $120 in Instacart credits",
+      "summary": "A $10 Instacart credit monthly, up to $120 each calendar year, for purchases made directly through Instacart; the benefit ends 12/31/27.",
+      "howToUse": [
+        "Pay for Instacart orders with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Receive a $10 Instacart credit monthly, up to $120 total each calendar year"
+        },
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Benefits end 12/31/27."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-business-card.jsx",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.jsx@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "JSX 机票抵扣",
+      "summary": "每个账户年最多100美元，须用本卡直接向 JSX 订票。",
+      "sourceText": "Get up to $100 back as a statement credit each anniversary year when you book flights directly with JSX",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年最多100美元，须用本卡直接向 JSX 订票。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年最多100美元，须用本卡直接向 JSX 订票。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $100 in JSX credits",
+      "summary": "Up to $100 back each anniversary year when booking flights directly with JSX.",
+      "howToUse": [
+        "Book JSX flights directly and pay with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Get up to $100 back as a statement credit each anniversary year when you book flights directly with JSX"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-business-card.farelock",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.farelock@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "FareLock 抵扣",
+      "summary": "每个账户年最多25美元，限 United 或 United Express 运营航班的 FareLock。",
+      "sourceText": "Earn up to $25 back as a statement credit each anniversary year after you buy FareLock",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年最多25美元，限 United 或 United Express 运营航班的 FareLock。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 25,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年最多25美元，限 United 或 United Express 运营航班的 FareLock。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $25 in FareLock credits",
+      "summary": "Up to $25 back each anniversary year after buying FareLock on a United- or United Express-operated flight.",
+      "howToUse": [
+        "Buy FareLock with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Earn up to $25 back as a statement credit each anniversary year after you buy FareLock"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-business-card.first-bag",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.first-bag@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "免费第一件托运行李",
+      "summary": "主卡持卡人和一位同行旅客各可免费托运第一件标准行李。",
+      "sourceText": "Free first checked bag - the primary Cardmember and one traveling companion can each check a first standard bag for free",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "主卡持卡人和一位同行旅客各可免费托运第一件标准行李。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "主卡持卡人和一位同行旅客各可免费托运第一件标准行李。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free first checked bag",
+      "summary": "The primary cardmember and one traveling companion can each check a first standard bag for free.",
+      "howToUse": [
+        "Add your MileagePlus number to the booking."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Free first checked bag - the primary Cardmember and one traveling companion can each check a first standard bag for free"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-business-card.inflight",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.inflight@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "机上消费25%返还",
+      "summary": "限 United 机上餐饮、Wi-Fi 和 Club 高级饮品。",
+      "sourceText": "25% back on United inflight and Club premium drink purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "限 United 机上餐饮、Wi-Fi 和 Club 高级饮品。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "限 United 机上餐饮、Wi-Fi 和 Club 高级饮品。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "25% back on United inflight purchases",
+      "summary": "25% back on United inflight and Club premium drink purchases.",
+      "howToUse": [
+        "Pay on board or for Club premium drinks with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "25% back on United inflight and Club premium drink purchases"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-business-card.economy-plus",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.economy-plus@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "消费满2.5万美元得 Economy Plus 升舱",
+      "summary": "每个自然年消费满25,000美元，得2次美国本土 Economy Plus 升舱。是否达标未核实。",
+      "sourceText": "Earn 2 continental U.S. Economy Plus seat upgrades after spending $25,000 each calendar year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年消费满25,000美元，得2次美国本土 Economy Plus 升舱。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个自然年消费满25,000美元，得2次美国本土 Economy Plus 升舱。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "2 Economy Plus seat upgrades after $25,000",
+      "summary": "2 continental U.S. Economy Plus seat upgrades after spending $25,000 each calendar year.",
+      "howToUse": [
+        "Track your calendar-year spend on the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Earn 2 continental U.S. Economy Plus seat upgrades after spending $25,000 each calendar year."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-business-card.better-together",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.better-together@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "同时持有个人 United 卡的周年5,000里程",
+      "summary": "同时持有本卡和一张个人 United 信用卡时，每个周年得5,000里程。",
+      "sourceText": "you'll receive a 5,000-mile better-together anniversary bonus when you have the United Business card and a personal United credit card",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "同时持有本卡和一张个人 United 信用卡时，每个周年得5,000里程。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "同时持有本卡和一张个人 United 信用卡时，每个周年得5,000里程。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "5,000-mile better-together anniversary bonus",
+      "summary": "A 5,000-mile anniversary bonus when you have the United Business card and a personal United credit card.",
+      "howToUse": [
+        "Hold a personal United card as well; the miles post after the anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "you'll receive a 5,000-mile better-together anniversary bonus when you have the United Business card and a personal United credit card"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $695",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 695,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.fee-additional@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Employee cards at no additional cost",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "United 消费",
+      "summary": "本卡的比例；页面的8倍合计还包含主卡持卡人机票作为 MileagePlus 会员的6倍，Basic Economy 不同。",
+      "sourceText": "2x miles on all other eligible United purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "本卡的比例；页面的8倍合计还包含主卡持卡人机票作为 MileagePlus 会员的6倍，Basic Economy 不同。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "United 消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "本卡的比例；页面的8倍合计还包含主卡持卡人机票作为 MileagePlus 会员的6倍，Basic Economy 不同。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "Renowned Hotels and Resorts 预付",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "5x miles on hotel stays when you prepay directly through Renowned Hotels and Resorts",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "miles-per-USD",
+      "spendCategory": "Renowned Hotels and Resorts 预付",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1.5x miles on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1.5,
+      "unit": "miles-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.united-club",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.united-club@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "lounge",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "United Club 会员资格",
+      "summary": "本人和一位同行者无限次进入 United Club；达到 Premier Gold 或每年消费满50,000美元可升级 All Access。",
+      "sourceText": "Unlimited United Club SM access for you and a guest",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "本人和一位同行者无限次进入 United Club；达到 Premier Gold 或每年消费满50,000美元可升级 All Access。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "lounge",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "本人和一位同行者无限次进入 United Club；达到 Premier Gold 或每年消费满50,000美元可升级 All Access。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "United Club membership",
+      "summary": "Unlimited United Club access for you and a guest, and All Access membership with Premier Gold status or $50,000 in annual spend.",
+      "howToUse": [
+        "Show your boarding pass and the card or your MileagePlus membership at the club."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Unlimited United Club SM access for you and a guest"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "unlock All Access membership when you reach Premier Gold status or spend $50,000 annually"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.bags",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.bags@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "免费第一、二件托运行李",
+      "summary": "主卡持卡人和一位同行旅客各可免费托运第一、二件标准行李。",
+      "sourceText": "The primary Cardmember and one companion can each check a first and second standard bags for free",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "主卡持卡人和一位同行旅客各可免费托运第一、二件标准行李。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "主卡持卡人和一位同行旅客各可免费托运第一、二件标准行李。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free first and second checked bags",
+      "summary": "The primary cardmember and one companion can each check a first and second standard bag for free.",
+      "howToUse": [
+        "Add your MileagePlus number to the booking."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "The primary Cardmember and one companion can each check a first and second standard bags for free"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.renowned-hotels",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.renowned-hotels@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.renowned-hotels-and-resorts"
+    ],
+    "content": {
+      "title": "Renowned Hotels and Resorts 抵扣",
+      "summary": "每个账户年最多200美元，须用本卡通过 Renowned Hotels and Resorts 直接预付。",
+      "sourceText": "Receive up to $200 back in statement credits each anniversary year on hotel accommodations",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年最多200美元，须用本卡通过 Renowned Hotels and Resorts 直接预付。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 200,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年最多200美元，须用本卡通过 Renowned Hotels and Resorts 直接预付。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $200 in Renowned Hotels and Resorts credits",
+      "summary": "Up to $200 back each anniversary year on hotel stays prepaid directly through Renowned Hotels and Resorts.",
+      "howToUse": [
+        "Prepay the stay through Renowned Hotels and Resorts with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Receive up to $200 back in statement credits each anniversary year on hotel accommodations"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.rideshare",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.rideshare@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "网约车抵扣",
+      "summary": "须每年登记；每个自然年最多150美元：1至11月每月最多12美元，12月最多18美元。",
+      "sourceText": "Enroll to receive up to $150 back as statement credits each calendar year on rideshare purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须每年登记；每个自然年最多150美元：1至11月每月最多12美元，12月最多18美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-year",
+      "amount": 150,
+      "currency": "USD",
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须每年登记；每个自然年最多150美元：1至11月每月最多12美元，12月最多18美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $150 in rideshare credits",
+      "summary": "Up to $150 back each calendar year on rideshare purchases: up to $12 a month from January through November and $18 in December; yearly opt-in required.",
+      "howToUse": [
+        "Opt in each year, then pay rideshare trips with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Enroll to receive up to $150 back as statement credits each calendar year on rideshare purchases"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "up to $12 back as a statement credit each month from January through November"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "and up to $18 back for the month of December"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.avis-budget",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.avis-budget@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "Avis 或 Budget 租车额度",
+      "summary": "每个账户年第1、2次通过 mileageplustravel.united.com 直接预订并用本卡支付的 Avis 或 Budget 租车，各得50美元 TravelBank 余额，最多100美元。",
+      "sourceText": "Receive $50 in United TravelBank cash, up to $100 each anniversary year, for your 1st and 2nd Avis or Budget car rentals",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年第1、2次通过 mileageplustravel.united.com 直接预订并用本卡支付的 Avis 或 Budget 租车，各得50美元 TravelBank 余额，最多100美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年第1、2次通过 mileageplustravel.united.com 直接预订并用本卡支付的 Avis 或 Budget 租车，各得50美元 TravelBank 余额，最多100美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $100 in United travel credits on Avis or Budget",
+      "summary": "$50 in United TravelBank cash for each of the 1st and 2nd Avis or Budget rentals booked directly through mileageplustravel.united.com, up to $100 each anniversary year.",
+      "howToUse": [
+        "Book the rental through mileageplustravel.united.com and pay with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Receive $50 in United TravelBank cash, up to $100 each anniversary year, for your 1st and 2nd Avis or Budget car rentals"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.instacart",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.instacart@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Instacart 抵扣",
+      "summary": "每月两笔10美元，每个自然年最多240美元，须直接在 Instacart 用本卡消费；2027年12月31日结束。",
+      "sourceText": "Receive two $10 Instacart credits monthly, up to $240 total each calendar year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每月两笔10美元，每个自然年最多240美元，须直接在 Instacart 用本卡消费；2027年12月31日结束。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-month",
+      "amount": 20,
+      "currency": "USD",
+      "annualMaximum": 240,
+      "partner": "Instacart"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": "2027-12-31",
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每月两笔10美元，每个自然年最多240美元，须直接在 Instacart 用本卡消费；2027年12月31日结束。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $240 in Instacart credits",
+      "summary": "Two $10 Instacart credits monthly, up to $240 each calendar year, for purchases made directly through Instacart; the benefit ends 12/31/27.",
+      "howToUse": [
+        "Pay for Instacart orders with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Receive two $10 Instacart credits monthly, up to $240 total each calendar year"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Benefits end 12/31/27."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.jsx",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.jsx@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "JSX 机票抵扣",
+      "summary": "每个账户年最多200美元，须用本卡直接向 JSX 订票。",
+      "sourceText": "Get up to $200 back as a statement credit each anniversary year when you book flights directly with JSX",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年最多200美元，须用本卡直接向 JSX 订票。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 200,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年最多200美元，须用本卡直接向 JSX 订票。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $200 in JSX credits",
+      "summary": "Up to $200 back each anniversary year when booking flights directly with JSX.",
+      "howToUse": [
+        "Book JSX flights directly and pay with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Get up to $200 back as a statement credit each anniversary year when you book flights directly with JSX"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.farelock",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.farelock@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "FareLock 抵扣",
+      "summary": "每个账户年最多50美元，限 United 或 United Express 运营航班的 FareLock。",
+      "sourceText": "Earn up to $50 back as a statement credit each anniversary year after you buy FareLock",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年最多50美元，限 United 或 United Express 运营航班的 FareLock。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 50,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年最多50美元，限 United 或 United Express 运营航班的 FareLock。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $50 in FareLock credits",
+      "summary": "Up to $50 back each anniversary year after buying FareLock on a United- or United Express-operated flight.",
+      "howToUse": [
+        "Buy FareLock with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Earn up to $50 back as a statement credit each anniversary year after you buy FareLock"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.premier-access",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.premier-access@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "Premier Access 优先服务",
+      "summary": "优先值机、安检、登机和行李处理（视机场而定）。",
+      "sourceText": "Premier Access travel services - receive preferential treatment to ease your way through the airport",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "优先值机、安检、登机和行李处理（视机场而定）。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "优先值机、安检、登机和行李处理（视机场而定）。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Premier Access travel services",
+      "summary": "Priority check-in, security screening, boarding and baggage handling privileges where available.",
+      "howToUse": [
+        "Fly United with your MileagePlus number on the booking."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Premier Access travel services - receive preferential treatment to ease your way through the airport"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "with priority check-in, security screening, boarding, and baggage handling privileges (where available)"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.economy-plus",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.economy-plus@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "消费满4万美元得 Economy Plus 升舱",
+      "summary": "每个自然年消费满40,000美元，得2次全球 Economy Plus 升舱。是否达标未核实。",
+      "sourceText": "Earn 2 global Economy Plus seat upgrades after spending $40,000 each calendar year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年消费满40,000美元，得2次全球 Economy Plus 升舱。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个自然年消费满40,000美元，得2次全球 Economy Plus 升舱。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "2 global Economy Plus seat upgrades after $40,000",
+      "summary": "2 global Economy Plus seat upgrades after spending $40,000 each calendar year.",
+      "howToUse": [
+        "Track your calendar-year spend on the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Earn 2 global Economy Plus seat upgrades after spending $40,000 each calendar year."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.pqp",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.pqp@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "消费赚 Premier qualifying points",
+      "summary": "每消费15美元得1 PQP，每年最多28,000 PQP；页面没有说明“每年”的起算方式。",
+      "sourceText": "Earn 1 Premier Qualifying Point (PQP) for every $15 spent on purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每消费15美元得1 PQP，每年最多28,000 PQP；页面没有说明“每年”的起算方式。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": null,
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每消费15美元得1 PQP，每年最多28,000 PQP；页面没有说明“每年”的起算方式。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Premier qualifying points from spend",
+      "summary": "1 Premier Qualifying Point for every $15 spent on purchases, up to 28,000 PQP per year.",
+      "howToUse": [
+        "Spend on the card; PQP count toward Premier status."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Earn 1 Premier Qualifying Point (PQP) for every $15 spent on purchases"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "up to 28,000 PQP per year."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.better-together",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.better-together@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "同时持有个人 United 卡的5,000里程",
+      "summary": "同时持有本卡和一张个人 United 信用卡时，每年得5,000里程。",
+      "sourceText": "you'll receive a 5,000-mile better-together bonus each year when you have the United Club Business card and a personal United credit card",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "同时持有本卡和一张个人 United 信用卡时，每年得5,000里程。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": null,
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "同时持有本卡和一张个人 United 信用卡时，每年得5,000里程。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "5,000-mile better-together bonus",
+      "summary": "A 5,000-mile bonus each year when you have the United Club Business card and a personal United credit card.",
+      "howToUse": [
+        "Hold a personal United card as well."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "you'll receive a 5,000-mile better-together bonus each year when you have the United Club Business card and a personal United credit card"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-british-airways-visa-signature-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-british-airways-visa-signature-credit-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-british-airways-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $95",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-british-airways-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-british-airways-visa-signature-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-british-airways-visa-signature-credit-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-british-airways-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "British Airways、Aer Lingus、Iberia 和 LEVEL 直订机票",
+      "summary": "条款写明须直接向 British Airways、Aer Lingus、Iberia 或 LEVEL 购买。",
+      "sourceText": "Earn 3 Avios for every $1 spent on British Airways, Aer Lingus, and Iberia flight purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "条款写明须直接向 British Airways、Aer Lingus、Iberia 或 LEVEL 购买。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "British Airways、Aer Lingus、Iberia 和 LEVEL 直订机票",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款写明须直接向 British Airways、Aer Lingus、Iberia 或 LEVEL 购买。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-british-airways-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-british-airways-visa-signature-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-british-airways-visa-signature-credit-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-british-airways-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "直订酒店",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "In addition earn 2 Avios for every $1 spent on hotel accommodations booked directly with the hotel.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "直订酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-british-airways-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-british-airways-visa-signature-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-british-airways-visa-signature-credit-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-british-airways-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 1 Avios for every $1 spent on all other purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-british-airways-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-british-airways-visa-signature-credit-card.anniversary-avios",
+    "revision": 1,
+    "revisionId": "rule.chase-us-british-airways-visa-signature-credit-card.anniversary-avios@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-british-airways-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "每个账户年2,500 Avios",
+      "summary": "每个账户周年年度得2,500 Avios，周年后6至8周到账。",
+      "sourceText": "earn 2,500 anniversary bonus Avios each account anniversary year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户周年年度得2,500 Avios，周年后6至8周到账。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户周年年度得2,500 Avios，周年后6至8周到账。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-british-airways-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "2,500 anniversary Avios",
+      "summary": "2,500 bonus Avios each account anniversary year.",
+      "howToUse": [
+        "Look for the Avios in your British Airways Club account after the anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-british-airways-visa-signature-credit-card",
+          "text": "earn 2,500 anniversary bonus Avios each account anniversary year"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-british-airways-visa-signature-credit-card.reward-flight-credit",
+    "revision": 1,
+    "revisionId": "rule.chase-us-british-airways-visa-signature-credit-card.reward-flight-credit@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-british-airways-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "British Airways 奖励机票税费抵扣",
+      "summary": "用本卡支付 British Airways 奖励机票的税费：经济舱和高端经济舱每次100美元，商务舱和头等舱200美元，每年3次，最多600美元。页面没有说明“每年”的起算方式。",
+      "sourceText": "three times per year, up to $600, when you book a Reward Flight travelling on British Airways",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "用本卡支付 British Airways 奖励机票的税费：经济舱和高端经济舱每次100美元，商务舱和头等舱200美元，每年3次，最多600美元。页面没有说明“每年”的起算方式。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": null,
+      "currency": null,
+      "annualMaximum": 600
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用本卡支付 British Airways 奖励机票的税费：经济舱和高端经济舱每次100美元，商务舱和头等舱200美元，每年3次，最多600美元。页面没有说明“每年”的起算方式。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-british-airways-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $600 Reward Flight statement credits",
+      "summary": "Statement credits of $100 for Economy and Premium Economy or $200 for Business and First Class, three times per year, up to $600, on British Airways Reward Flights.",
+      "howToUse": [
+        "Pay the taxes, fees and carrier charges of the Reward Flight with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-british-airways-visa-signature-credit-card",
+          "text": "three times per year, up to $600, when you book a Reward Flight travelling on British Airways"
+        },
+        {
+          "sourceId": "card-chase-us-british-airways-visa-signature-credit-card",
+          "text": "Receive statement credits of $100 for Economy and Premium Economy"
+        },
+        {
+          "sourceId": "card-chase-us-british-airways-visa-signature-credit-card",
+          "text": "or $200 for Business and First Class seats"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-british-airways-visa-signature-credit-card.travel-together",
+    "revision": 1,
+    "revisionId": "rule.chase-us-british-airways-visa-signature-credit-card.travel-together@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-british-airways-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "消费满3万美元得 Travel Together Ticket",
+      "summary": "每个自然年消费满30,000美元获得，两年内有效：同行者同航班兑换，或单人奖励机票 Avios 五折。是否达标未核实。",
+      "sourceText": "Earn a Travel Together Ticket every calendar year you make $30,000 in purchases on your British Airways credit card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年消费满30,000美元获得，两年内有效：同行者同航班兑换，或单人奖励机票 Avios 五折。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个自然年消费满30,000美元获得，两年内有效：同行者同航班兑换，或单人奖励机票 Avios 五折。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-british-airways-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Travel Together Ticket",
+      "summary": "A Travel Together Ticket every calendar year with $30,000 in purchases, valid for two years.",
+      "howToUse": [
+        "Track your calendar-year spend; redeem through ba.com."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-british-airways-visa-signature-credit-card",
+          "text": "Earn a Travel Together Ticket every calendar year you make $30,000 in purchases on your British Airways credit card."
+        },
+        {
+          "sourceId": "card-chase-us-british-airways-visa-signature-credit-card",
+          "text": "or use it for a 50% discount on the Avios price you pay when booking a solo reward flight"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-aer-lingus-visa-signature-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-aer-lingus-visa-signature-credit-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-aer-lingus-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $95",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-aer-lingus-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-aer-lingus-visa-signature-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-aer-lingus-visa-signature-credit-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-aer-lingus-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.aer-lingus-aerclub"
+    ],
+    "content": {
+      "title": "Aer Lingus、British Airways 和 Iberia 机票",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 3 Avios for every $1 spent with Aer Lingus, British Airways, and Iberia flight purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "Aer Lingus、British Airways 和 Iberia 机票",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-aer-lingus-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-aer-lingus-visa-signature-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-aer-lingus-visa-signature-credit-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-aer-lingus-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.aer-lingus-aerclub"
+    ],
+    "content": {
+      "title": "直订酒店",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 Avios for every $1 spent on hotel accommodations booked directly with the hotel.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "直订酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-aer-lingus-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-aer-lingus-visa-signature-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-aer-lingus-visa-signature-credit-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-aer-lingus-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.aer-lingus-aerclub"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 1 Avios for every $1 spent on all other purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-aer-lingus-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-aer-lingus-visa-signature-credit-card.anniversary-avios",
+    "revision": 1,
+    "revisionId": "rule.chase-us-aer-lingus-visa-signature-credit-card.anniversary-avios@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-aer-lingus-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [
+      "programme.aer-lingus-aerclub"
+    ],
+    "content": {
+      "title": "每个账户年2,500 Avios",
+      "summary": "每个账户周年年度得2,500 Avios。",
+      "sourceText": "earn 2,500 anniversary bonus Avios each account anniversary year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户周年年度得2,500 Avios。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户周年年度得2,500 Avios。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-aer-lingus-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "2,500 anniversary Avios",
+      "summary": "2,500 bonus Avios each account anniversary year.",
+      "howToUse": [
+        "Look for the Avios in your AerClub account after the anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-aer-lingus-visa-signature-credit-card",
+          "text": "earn 2,500 anniversary bonus Avios each account anniversary year"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-aer-lingus-visa-signature-credit-card.companion-ticket",
+    "revision": 1,
+    "revisionId": "rule.chase-us-aer-lingus-visa-signature-credit-card.companion-ticket@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-aer-lingus-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.aer-lingus-aerclub"
+    ],
+    "content": {
+      "title": "消费满3万美元得经济舱同行票",
+      "summary": "每个自然年消费满30,000美元，得一张经济舱同行票，12个月内有效。是否达标未核实。",
+      "sourceText": "you'll receive an economy companion ticket good for 12 months",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年消费满30,000美元，得一张经济舱同行票，12个月内有效。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个自然年消费满30,000美元，得一张经济舱同行票，12个月内有效。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-aer-lingus-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Economy companion ticket each year",
+      "summary": "An economy companion ticket good for 12 months every calendar year you make $30,000 in purchases.",
+      "howToUse": [
+        "Track your calendar-year spend on the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-aer-lingus-visa-signature-credit-card",
+          "text": "you'll receive an economy companion ticket good for 12 months"
+        },
+        {
+          "sourceId": "card-chase-us-aer-lingus-visa-signature-credit-card",
+          "text": "Every calendar year you make purchases of $30,000"
+        }
+      ]
+    }
   }
 ]
