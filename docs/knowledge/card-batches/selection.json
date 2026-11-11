@@ -237,6 +237,22 @@
     {
       "id": "amex-us-us-blue-business-cash-card",
       "name": "Amex Blue Business Cash"
+    },
+    {
+      "id": "amex-us-us-marriott-bonvoy-business-card",
+      "name": "Amex Marriott Bonvoy Business"
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-reserve-business-card",
+      "name": "Amex Delta SkyMiles Reserve Business"
+    },
+    {
+      "id": "amex-us-us-business-green-rewards-card",
+      "name": "Amex Business Green Rewards"
+    },
+    {
+      "id": "amex-us-us-graphite-business-cash-unlimited-card",
+      "name": "Amex Graphite Business Cash Unlimited"
     }
   ]
 }

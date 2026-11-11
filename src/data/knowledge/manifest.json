@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-11.cards-7",
+  "snapshotId": "cardybara-public-knowledge-2026-11-11.cards-8",
   "asOf": "2026-11-11",
   "locale": "zh-CN",
   "files": [
@@ -1242,6 +1242,69 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "amex-us-us-marriott-bonvoy-business-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "年费来自发卡行商务卡对比页里本卡的数据块；产品页的年费在浏览器中加载。员工卡年费未确认。",
+        "免费高级网络和保障类福利未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-delta-skymiles-reserve-business-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "员工卡年费未确认。",
+        "消费满15万美元后的1.5倍加速只写在“其他消费”的说明里，没有单列。升舱优先权、Pay with Miles 和保障类福利未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-business-green-rewards-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "年费来自发卡行商务卡对比页里本卡的数据块；产品页的年费在浏览器中加载。",
+        "购物保障和延长保修未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-graphite-business-cash-unlimited-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "员工卡每张95美元，另有免年费的 Employee Business Expense Card。页面其余福利和保障类福利未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -1336,6 +1399,10 @@
     "amex-us-us-hilton-honors-card",
     "amex-us-us-hilton-honors-surpass-card",
     "amex-us-us-delta-skymiles-blue-card",
-    "amex-us-us-blue-business-cash-card"
+    "amex-us-us-blue-business-cash-card",
+    "amex-us-us-marriott-bonvoy-business-card",
+    "amex-us-us-delta-skymiles-reserve-business-card",
+    "amex-us-us-business-green-rewards-card",
+    "amex-us-us-graphite-business-cash-unlimited-card"
   ]
 }

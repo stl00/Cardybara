@@ -252,7 +252,10 @@
   "网约车和指定外卖平台": "general",
   "指定流媒体、网络、有线电视和电话": "entertainment",
   "指定美国流媒体订阅": "entertainment",
-  "交通（出租车、网约车、停车、过路费、火车、巴士等）": "ground-transport"
+  "交通（出租车、网约车、停车、过路费、火车、巴士等）": "ground-transport",
+  "全球餐厅、美国加油站、美国无线电话服务和美国运输": "general",
+  "交通、美国运输和美国办公用品店": "general",
+  "AmexTravel.com 预付酒店、租车、邮轮和机票": "travel"
  },
  "brands": [
   {
