@@ -4,6 +4,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import {fileURLToPath} from 'node:url';
 import {spawnSync} from 'node:child_process';
+import {refreshTests} from './run-tests.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const context={self:{}};vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(root,'extension-next/reader.js'),'utf8'),context);
@@ -29,7 +30,7 @@ for(const file of fs.readdirSync(path.join(root,'tests/fixtures/banks')).filter(
  }catch(error){cases.push({id:f.id||file,bank:f.bank||'unknown',stage:'fixture_error',fields:[],pass:false,error:error.message});}
 }
 const parseOnly=process.argv.includes('--parse-only');
-const flow=parseOnly?{status:0,stdout:'',stderr:''}:spawnSync(process.execPath,['--test',...JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8')).scripts['test:refresh'].replace(/^node --test /,'').split(' ')],{cwd:root,encoding:'utf8',timeout:60000});
+const flow=parseOnly?{status:0,stdout:'',stderr:''}:spawnSync(process.execPath,['--test',...refreshTests(root)],{cwd:root,encoding:'utf8',timeout:60000});
 const report={schema:1,runId,mode:'offline',parsing:{pass:cases.length>0&&cases.every(c=>c.pass),cases},workflow:{pass:parseOnly?null:flow.status===0,status:parseOnly?'not_run':flow.status===0?'passed':'failed',scope:'mock Chrome, model and bank pages; actual background worker',exitCode:flow.status,output:flow.stdout+flow.stderr,error:flow.error?.message},liveAcceptance:{status:'not_run',reason:'Requires bank login and user-exported wallet evidence. Offline passing is not live acceptance.'}};
 const dir=path.join(root,'.debug',runId);fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'report.json'),JSON.stringify(report,null,2)+'\n');
 fs.writeFileSync(path.join(root,'.debug','latest.json'),JSON.stringify(report,null,2)+'\n');

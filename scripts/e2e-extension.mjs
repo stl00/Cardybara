@@ -235,7 +235,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
   await attach('wallet',walletTarget);
   // A worker that throws can still show up briefly as a target; it must answer the wallet.
   await until('the service worker to answer the wallet',()=>evaluate('wallet',`chrome.tabs.getCurrent().then(t=>chrome.runtime.sendMessage({type:'hello',requestId:'e2e-hello',ownerTabId:t.id})).then(r=>!!r?.ok,()=>false)`));
-  const translations=JSON.parse(await readFile(join(root,'src/translations.json'),'utf8'));
+  const {translations}=await import('../src/i18n/index.js');
   const words=zh=>JSON.stringify([zh,translations['en-US']?.[zh],translations['zh-TW']?.[zh]].filter(Boolean));
   const clickText=(name,selector,zh)=>evaluate(name,`(()=>{const want=${words(zh)};const el=[...document.querySelectorAll(${JSON.stringify(selector)})].find(e=>want.includes(e.textContent.trim()));if(!el)return false;el.click();return true;})()`);
   const pageText=name=>evaluate(name,'document.body?.innerText||""');

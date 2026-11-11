@@ -100,7 +100,7 @@ export function rewardSummary(current=[]){
  const {totals,covered}=programmeTotals(current);
  return [...totals.map(t=>({...t,id:t.ruleId,total:true})),...current.filter(r=>!covered.has(r))];
 }
-/** Short, translatable wallet text for a pooling kind (keys in translations.json). */
+/** Short, translatable wallet text for a pooling kind (keys in src/i18n/). */
 export const POOLING_TEXT={
  shared:{total:'共用积分池，只计一次（{0} 张卡）',reading:'同一积分池的读数；合计只计一次。'},
  'per-card':{total:'每张卡独立账户，按卡相加（{0} 张卡）',reading:'这张卡自己的积分账户，已计入合计；不能用于其他卡。'},

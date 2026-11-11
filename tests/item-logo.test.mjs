@@ -4,9 +4,10 @@ import {readFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 import {build} from 'esbuild';
 import {logoRegistry as registry,logoPresentation,resolveItem} from '../src/logoRegistry.js';
+import {translations as i18nCatalog} from '../src/i18n/index.js';
 const root=new URL('..',import.meta.url).pathname;
 const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
-const catalog=JSON.parse(read('src/translations.json')),component=read('src/ItemLogo.jsx'),css=read('src/style.css');
+const catalog=i18nCatalog,component=read('src/ItemLogo.jsx'),css=read('src/style.css');
 test('logo, then category icon, then nothing',()=>{
  const view={brandId:'x',name:'X',logo:'brand/logos/x.svg',category:'dining'};
  assert.deepEqual(logoPresentation(view),{kind:'logo',src:'brand/logos/x.svg',label:'{0} 标志',labelParams:['X']});

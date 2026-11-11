@@ -1,8 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readFileSync,mkdtempSync,writeFileSync,copyFileSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {translations as i18nCatalog} from '../src/i18n/index.js';
+import {catalogProblems} from '../scripts/i18n-catalog.mjs';
 import {activateLanguage, normalizeLanguage, t, formatNumber, formatDateTime} from '../src/i18n-core.js';
-const catalog=JSON.parse(readFileSync(new URL('../src/translations.json',import.meta.url),'utf8'));
+const catalog=i18nCatalog;
 test('all translations preserve interpolation slots and have matching catalogs',()=>{
  assert.deepEqual(Object.keys(catalog['en-US']).sort(),Object.keys(catalog['zh-TW']).sort());
  for(const language of ['en-US','zh-TW'])for(const [source,translated] of Object.entries(catalog[language])){
@@ -29,3 +33,18 @@ test('unsupported saved locale safely falls back and dates use Chicago',()=>{
 
 import {formatReadDate} from '../src/i18n-core.js';
 test('reading dates use the client Chicago day without shifting date-only statements',()=>{assert.equal(formatReadDate('2026-10-24T02:58:00Z'),'2026-10-23');assert.equal(formatReadDate('2026-10-24'),'2026-10-24');});
+test('the split catalog fails the build on a key in two files or a file index.js does not import',()=>{
+ const src=new URL('../src/i18n/',import.meta.url),dir=mkdtempSync(join(tmpdir(),'i18n-'));
+ try{
+  for(const name of ['index.js','app.json','common.json'])copyFileSync(new URL(name,src),join(dir,name));
+  writeFileSync(join(dir,'index.js'),"import app from './app.json' with {type:'json'};\nimport common from './common.json' with {type:'json'};\n");
+  assert.deepEqual(catalogProblems(dir),[]);
+  const app=JSON.parse(readFileSync(join(dir,'app.json'),'utf8')),key=Object.keys(app['en-US'])[0];
+  writeFileSync(join(dir,'common.json'),JSON.stringify({'en-US':{[key]:'Again'},'zh-TW':{}}));
+  writeFileSync(join(dir,'stray.json'),'{}');
+  const problems=catalogProblems(dir);
+  assert.ok(problems.some(p=>p.includes(JSON.stringify(key))&&p.includes('app.json')&&p.includes('common.json')),problems.join('\n'));
+  assert.ok(problems.some(p=>p.includes('stray.json is not imported')),problems.join('\n'));
+ }finally{rmSync(dir,{recursive:true,force:true});}
+ assert.deepEqual(catalogProblems(),[]);
+});

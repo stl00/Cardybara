@@ -40,6 +40,11 @@ npm run build:release
 npm run check:release-package
 ```
 
+Where new tests and strings go, so parallel changes do not edit the same lines:
+
+- **Tests:** add `tests/<feature>.test.mjs`. `npm run test:refresh` (`scripts/run-tests.mjs`) runs every `tests/**/*.test.mjs` except the few listed in that script's `SEPARATE`, each of which names the npm script that runs it instead; no `package.json` edit is needed. A narrower script such as `check:chase` still lists its own files.
+- **UI strings:** keys are the zh-CN text; add the `en-US` and `zh-TW` entries to the `src/i18n/<area>.json` file for the feature (`app`, `cards`, `banks`, `assistant`, `benefits`, `rewards`, `payments`, `purchase`, `onboarding`, `extension`, `knowledge`, `knowledge-rules`, or `common` for text shared across areas). A new area file also needs an import line in `src/i18n/index.js`. The build fails if a key is in two files or a file is not imported. Curate scripts read and write the catalog through `scripts/i18n_catalog.py`.
+
 Unzip the generated `release/cardybara-*.zip`. In a **new Chrome profile**, open `chrome://extensions`, enable **Developer mode**, select **Load unpacked**, and select the extracted folder containing `manifest.json`. Click the Cardybara toolbar icon, then **Open Cardybara**. ZIP files are testing artifacts, not one-click installers. Do not import an owner's backup during fresh-user acceptance. Do not uninstall or replace an existing personal wallet for this test.
 
 ## CI/CD
