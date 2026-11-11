@@ -1,7 +1,7 @@
 {
  "schema": 1,
  "checkedAt": "2026-11-11",
- "unitNote": "cents is the value of one point or mile in cents of currency (US cents for USD, HK cents for HKD). Conservative published figures checked 2026-11-11; the two owner defaults (MR US 1.3, UR 1.5) are set by the owner. A programme with no credible public value has cents null and stays unvalued unless the user sets one.",
+ "unitNote": "cents is the value of one point or mile in cents of currency (US cents for USD, HK cents for HKD). Rule, checked 2026-11-11: the lower of the two directly fetched published valuations (Frequent Miler RRV, The Points Guy monthly); NerdWallet figures could only be read from search extracts and are listed as unverified context. Where neither publishes a value, the issuer's own fixed cash value or a local HK benchmark is used, as noted. cents null means no credible public value: the programme stays unvalued unless the user sets one.",
  "programmes": [
   {
    "id": "amex-mr-us",
@@ -10,32 +10,43 @@
    "region": "US",
    "currency": "USD",
    "unit": "point",
-   "cents": 1.3,
+   "cents": 1.5,
    "programmeNames": [
     "membership rewards us",
     "membership rewards"
    ],
    "cardNames": [],
    "source": {
-    "name": "NerdWallet",
-    "url": "https://www.nerdwallet.com/travel/learn/amex-points-value",
-    "value": 1.3,
-    "pageDate": "2026-10"
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.5
    },
    "otherSources": [
-    {
-     "name": "Frequent Miler RRV",
-     "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
-     "value": 1.5
-    },
     {
      "name": "The Points Guy",
      "url": "https://thepointsguy.com/guide/monthly-valuations/",
      "value": 2.0,
      "pageDate": "2026-11-02"
+    },
+    {
+     "name": "Upgraded Points",
+     "url": "https://upgradedpoints.com/points-and-miles-valuations/",
+     "value": 2.2,
+     "pageDate": "2026-11"
+    },
+    {
+     "name": "Bankrate",
+     "url": "https://www.bankrate.com/credit-cards/travel/points-and-miles-valuations/",
+     "value": 2.0
+    },
+    {
+     "name": "NerdWallet (search extracts disagree: 1.3 and 1.6; page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/amex-points-value",
+     "value": 1.3,
+     "pageDate": "2026-10"
     }
    ],
-   "note": "Owner's default; equals NerdWallet, the lowest of the three."
+   "note": "Lower of the two directly fetched sources (FM RRV, TPG). The owner's recollection of 1.3 is below every directly fetched source."
   },
   {
    "id": "chase-ur",
@@ -56,25 +67,25 @@
    },
    "otherSources": [
     {
-     "name": "NerdWallet (Sapphire Preferred / Ink Preferred)",
-     "url": "https://www.nerdwallet.com/travel/learn/chase-ultimate-rewards-points-value",
-     "value": 1.4,
-     "pageDate": "2026-10"
-    },
-    {
-     "name": "NerdWallet (Sapphire Reserve)",
-     "url": "https://www.nerdwallet.com/travel/learn/chase-ultimate-rewards-points-value",
-     "value": 1.8,
-     "pageDate": "2026-10"
-    },
-    {
      "name": "The Points Guy",
      "url": "https://thepointsguy.com/guide/monthly-valuations/",
      "value": 2.05,
      "pageDate": "2026-11-02"
+    },
+    {
+     "name": "Upgraded Points",
+     "url": "https://upgradedpoints.com/points-and-miles-valuations/",
+     "value": 2.0,
+     "pageDate": "2026-11"
+    },
+    {
+     "name": "NerdWallet, Sapphire Preferred / Ink Preferred (search extract; 1.8 for Sapphire Reserve)",
+     "url": "https://www.nerdwallet.com/travel/learn/chase-ultimate-rewards-points-value",
+     "value": 1.4,
+     "pageDate": "2026-10"
     }
    ],
-   "note": "Owner's default; equals Frequent Miler RRV, slightly above NerdWallet's 1.4 for the Preferred cards."
+   "note": "Lower of the two directly fetched sources (FM RRV, TPG); equals the owner's recollection of 1.5."
   },
   {
    "id": "citi-thankyou",
@@ -83,34 +94,28 @@
    "region": "US",
    "currency": "USD",
    "unit": "point",
-   "cents": 1.2,
+   "cents": 1.5,
    "programmeNames": [
     "thankyou"
    ],
    "cardNames": [],
    "source": {
-    "name": "NerdWallet",
-    "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
-    "value": 1.2,
-    "pageDate": "2026-10"
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.5
    },
    "otherSources": [
-    {
-     "name": "NerdWallet (Strata Premier / Elite)",
-     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
-     "value": 1.7,
-     "pageDate": "2026-10"
-    },
-    {
-     "name": "Frequent Miler RRV",
-     "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
-     "value": 1.5
-    },
     {
      "name": "The Points Guy",
      "url": "https://thepointsguy.com/guide/monthly-valuations/",
      "value": 1.95,
      "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.2,
+     "pageDate": "2026-10"
     }
    ]
   },
@@ -121,28 +126,28 @@
    "region": "US",
    "currency": "USD",
    "unit": "mile",
-   "cents": 1.3,
+   "cents": 1.45,
    "programmeNames": [
     "capital one"
    ],
    "cardNames": [],
    "source": {
-    "name": "NerdWallet",
-    "url": "https://www.nerdwallet.com/travel/learn/capital-one-miles-value",
-    "value": 1.3,
-    "pageDate": "2026-10"
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.45
    },
    "otherSources": [
-    {
-     "name": "Frequent Miler RRV",
-     "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
-     "value": 1.45
-    },
     {
      "name": "The Points Guy",
      "url": "https://thepointsguy.com/guide/monthly-valuations/",
      "value": 1.85,
      "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.3,
+     "pageDate": "2026-10"
     }
    ]
   },
@@ -153,7 +158,7 @@
    "region": "US",
    "currency": "USD",
    "unit": "point",
-   "cents": 1.1,
+   "cents": 1.4,
    "programmeNames": [
     "aeroplan"
    ],
@@ -161,22 +166,22 @@
     "aeroplan"
    ],
    "source": {
-    "name": "NerdWallet",
-    "url": "https://www.nerdwallet.com/travel/learn/value-aeroplan-miles-points",
-    "value": 1.1,
-    "pageDate": "2026-10"
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.4
    },
    "otherSources": [
-    {
-     "name": "Frequent Miler RRV",
-     "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
-     "value": 1.4
-    },
     {
      "name": "The Points Guy",
      "url": "https://thepointsguy.com/guide/monthly-valuations/",
      "value": 1.45,
      "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.1,
+     "pageDate": "2026-10"
     }
    ]
   },
@@ -201,16 +206,16 @@
    },
    "otherSources": [
     {
-     "name": "NerdWallet",
-     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
-     "value": 1.7,
-     "pageDate": "2026-10"
-    },
-    {
      "name": "The Points Guy",
      "url": "https://thepointsguy.com/guide/monthly-valuations/",
      "value": 1.45,
      "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.7,
+     "pageDate": "2026-10"
     }
    ]
   },
@@ -235,16 +240,16 @@
    },
    "otherSources": [
     {
-     "name": "NerdWallet",
-     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
-     "value": 1.2,
-     "pageDate": "2026-10"
-    },
-    {
      "name": "The Points Guy",
      "url": "https://thepointsguy.com/guide/monthly-valuations/",
      "value": 1.2,
      "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.2,
+     "pageDate": "2026-10"
     }
    ]
   },
@@ -263,10 +268,10 @@
     "united"
    ],
    "source": {
-    "name": "NerdWallet",
-    "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+    "name": "The Points Guy",
+    "url": "https://thepointsguy.com/guide/monthly-valuations/",
     "value": 1.2,
-    "pageDate": "2026-10"
+    "pageDate": "2026-11-02"
    },
    "otherSources": [
     {
@@ -275,10 +280,10 @@
      "value": 1.3
     },
     {
-     "name": "The Points Guy",
-     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
      "value": 1.2,
-     "pageDate": "2026-11-02"
+     "pageDate": "2026-10"
     }
    ]
   },
@@ -309,7 +314,7 @@
      "value": 1.3
     },
     {
-     "name": "NerdWallet",
+     "name": "NerdWallet (search extract, page body not fetched)",
      "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
      "value": 1.4,
      "pageDate": "2026-10"
@@ -323,7 +328,7 @@
    "region": "US",
    "currency": "USD",
    "unit": "point",
-   "cents": 1.4,
+   "cents": 1.5,
    "programmeNames": [
     "atmos"
    ],
@@ -331,22 +336,22 @@
     "atmos"
    ],
    "source": {
-    "name": "NerdWallet",
-    "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
-    "value": 1.4,
-    "pageDate": "2026-10"
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.5
    },
    "otherSources": [
-    {
-     "name": "Frequent Miler RRV",
-     "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
-     "value": 1.5
-    },
     {
      "name": "The Points Guy",
      "url": "https://thepointsguy.com/guide/monthly-valuations/",
      "value": 1.6,
      "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.4,
+     "pageDate": "2026-10"
     }
    ]
   },
@@ -372,16 +377,16 @@
    },
    "otherSources": [
     {
-     "name": "NerdWallet",
-     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
-     "value": 0.4,
-     "pageDate": "2026-10"
-    },
-    {
      "name": "The Points Guy",
      "url": "https://thepointsguy.com/guide/monthly-valuations/",
      "value": 0.4,
      "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 0.4,
+     "pageDate": "2026-10"
     }
    ]
   },
@@ -407,16 +412,16 @@
    },
    "otherSources": [
     {
-     "name": "NerdWallet",
-     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
-     "value": 0.6,
-     "pageDate": "2026-10"
-    },
-    {
      "name": "The Points Guy",
      "url": "https://thepointsguy.com/guide/monthly-valuations/",
      "value": 0.6,
      "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 0.6,
+     "pageDate": "2026-10"
     }
    ]
   },
@@ -427,7 +432,7 @@
    "region": "US",
    "currency": "USD",
    "unit": "point",
-   "cents": 0.7,
+   "cents": 0.73,
    "programmeNames": [
     "marriott bonvoy"
    ],
@@ -435,23 +440,23 @@
     "marriott"
    ],
    "source": {
-    "name": "NerdWallet",
-    "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
-    "value": 0.7,
-    "pageDate": "2026-10"
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 0.73,
+    "pageDate": "2026-07-23"
    },
    "otherSources": [
-    {
-     "name": "Frequent Miler RRV",
-     "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
-     "value": 0.73,
-     "pageDate": "2026-07-23"
-    },
     {
      "name": "The Points Guy",
      "url": "https://thepointsguy.com/guide/monthly-valuations/",
      "value": 0.75,
      "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 0.7,
+     "pageDate": "2026-10"
     }
    ]
   },
@@ -477,16 +482,16 @@
    },
    "otherSources": [
     {
-     "name": "NerdWallet",
-     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
-     "value": 1.8,
-     "pageDate": "2026-10"
-    },
-    {
      "name": "The Points Guy",
      "url": "https://thepointsguy.com/guide/monthly-valuations/",
      "value": 1.65,
      "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.8,
+     "pageDate": "2026-10"
     }
    ]
   },

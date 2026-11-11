@@ -14,8 +14,8 @@ const two=cards.filter(c=>['American Express Gold Card','Freedom Unlimited'].inc
 const memory=(init={})=>{const m=new Map(Object.entries(init));return {getItem:k=>m.has(k)?m.get(k):null,setItem:(k,v)=>m.set(k,String(v))};};
 const entry=id=>valuationTable.programmes.find(p=>p.id===id);
 
-test('the table: owner defaults, cited sources, own currency, and no guess where none is published',()=>{
- assert.equal(entry('amex-mr-us').cents,1.3);assert.equal(entry('chase-ur').cents,1.5);
+test('the table: cited defaults, cited sources, own currency, and no guess where none is published',()=>{
+ assert.equal(entry('amex-mr-us').cents,1.5);assert.equal(entry('chase-ur').cents,1.5);
  assert.equal(valuationTable.checkedAt,'2026-11-11');
  for(const p of valuationTable.programmes){
   assert.ok(['USD','HKD'].includes(p.currency),p.id);assert.equal(p.currency,{US:'USD',HK:'HKD'}[p.region],p.id);
@@ -29,8 +29,8 @@ test('the table: owner defaults, cited sources, own currency, and no guess where
 test('resolution: the user\'s setting beats the default, which beats none; values never cross currency or region',()=>{
  const mr=valuationFor({programme:'Amex Membership Rewards US',card:'American Express Gold Card',region:'US',currency:'USD',unit:'points-per-USD'});
  assert.equal(mr.id,'amex-mr-us');
- assert.deepEqual(resolvePointValue(mr,[]),{programmeId:'amex-mr-us',programme:mr.name,cents:1.3,currency:'USD',unit:'point',basis:'default',source:{name:mr.source.name,url:mr.source.url,checkedAt:'2026-11-11'}});
- const own=resolvePointValue(mr,[{id:'amex-mr-us',cents:2,at:AT}]);assert.equal(own.cents,2);assert.equal(own.basis,'user');assert.equal(own.defaultCents,1.3);assert.equal(own.source,undefined);
+ assert.deepEqual(resolvePointValue(mr,[]),{programmeId:'amex-mr-us',programme:mr.name,cents:1.5,currency:'USD',unit:'point',basis:'default',source:{name:mr.source.name,url:mr.source.url,checkedAt:'2026-11-11'}});
+ const own=resolvePointValue(mr,[{id:'amex-mr-us',cents:2,at:AT}]);assert.equal(own.cents,2);assert.equal(own.basis,'user');assert.equal(own.defaultCents,1.5);assert.equal(own.source,undefined);
  assert.equal(resolvePointValue(mr,[],{marketDefaults:false}),null);
  assert.equal(resolvePointValue(null,[]),null);
  // A HK card is never valued from a US programme, and the reverse.
@@ -67,8 +67,8 @@ test('backup: overrides restore, the later setting wins, and a malformed backup 
 test('decision maths at the default and at the user\'s own value, with the basis on every value',()=>{
  // Gold earns 4x MR on US dining; Freedom Unlimited 3% cash.
  const byDefault=chooseCard(usDining,{...wallet,cards:two});
- assert.equal(byDefault.choice.card,'American Express Gold Card');assert.equal(byDefault.choice.value,5.2);
- assert.equal(byDefault.choice.pointValue.basis,'default');assert.equal(byDefault.choice.pointValue.cents,1.3);
+ assert.equal(byDefault.choice.card,'American Express Gold Card');assert.equal(byDefault.choice.value,6);
+ assert.equal(byDefault.choice.pointValue.basis,'default');assert.equal(byDefault.choice.pointValue.cents,1.5);
  assert.equal(byDefault.choice.holdsAboveCentsPerPoint,0.75,'the lead holds down to where the cash card catches it');
  assert.deepEqual(byDefault.pointValues.map(v=>[v.programme,v.basis]),[['Amex Membership Rewards US','default']]);
  assert.match(byDefault.pointValueNote,/never present a default as the user's value/i);
@@ -81,7 +81,7 @@ test('decision maths at the default and at the user\'s own value, with the basis
  assert.equal(said.choice.value,8);assert.equal(said.choice.pointValue.basis,'stated');
  // No amount: rates are compared at the default value per point.
  const rate=chooseCard({category:'dining',currency:'USD'},{...wallet,cards:two});
- assert.equal(rate.choice.basis,'rate-at-point-value');assert.equal(rate.rows.find(r=>r.card==='American Express Gold Card').percentAtPointValue,5.2);
+ assert.equal(rate.choice.basis,'rate-at-point-value');assert.equal(rate.rows.find(r=>r.card==='American Express Gold Card').percentAtPointValue,6);
  // Defaults off, the comparison is what it was before #193.
  const before=chooseCard(usDining,{...wallet,cards:two,marketDefaults:false});
  assert.equal(before.choice.card,'Freedom Unlimited');assert.equal(before.pointValues,undefined);
@@ -99,9 +99,9 @@ test('currency: a HK miles card is valued in HK cents and only against HKD cards
 
 test('the wallet and the fallback answer say whose value it is, in three languages',()=>{
  const byDefault=chooseCard(usDining,{...wallet,cards:two});
- assert.match(renderChoiceAnswer(byDefault,'在餐厅刷哪张？'),/按默认市场估值每点 1\.3 分（NerdWallet，可在设置里改）/);
- assert.match(renderChoiceAnswer(byDefault,'這筆在餐廳刷哪張卡？'),/按預設市場估值每點 1\.3 分/);
- assert.match(renderChoiceAnswer(byDefault,'Which card for dining?'),/default market valuation of 1\.3 cents a point/);
+ assert.match(renderChoiceAnswer(byDefault,'在餐厅刷哪张？'),/按默认市场估值每点 1\.5 分（Frequent Miler RRV，可在设置里改）/);
+ assert.match(renderChoiceAnswer(byDefault,'這筆在餐廳刷哪張卡？'),/按預設市場估值每點 1\.5 分/);
+ assert.match(renderChoiceAnswer(byDefault,'Which card for dining?'),/default market valuation of 1\.5 cents a point/);
  const own=chooseCard(usDining,{...wallet,cards:two,pointValues:[{id:'amex-mr-us',cents:2,at:AT}]});
  assert.match(renderChoiceAnswer(own,'在餐厅刷哪张？'),/按你设定的每点 2 分/);
  assert.doesNotMatch(renderChoiceAnswer(byDefault,'在餐厅刷哪张？'),/按你/);
@@ -113,9 +113,9 @@ test('the wallet and the fallback answer say whose value it is, in three languag
 
 test('grounding: a default is never presented as the user\'s value',()=>{
  const byDefault=chooseCard(usDining,{...wallet,cards:two}),codes=a=>answerGrounding(a,[byDefault]).issues.map(i=>i.code);
- assert.ok(codes('用 American Express Gold Card。按你的估值每点 1.3 美分，400 MR 约值 5.2 美元。').includes('default_as_user_value'));
- assert.ok(!codes('用 American Express Gold Card。按默认市场估值每点 1.3 美分，400 MR 约值 5.2 美元，可在设置里改。').includes('default_as_user_value'));
- assert.ok(!codes('用 American Express Gold Card。按默认市场估值每点 1.3 美分，400 MR 约值 5.2 美元，可在设置里改。').includes('unstated_point_value'));
+ assert.ok(codes('用 American Express Gold Card。按你的估值每点 1.5 美分，400 MR 约值 6 美元。').includes('default_as_user_value'));
+ assert.ok(!codes('用 American Express Gold Card。按默认市场估值每点 1.5 美分，400 MR 约值 6 美元，可在设置里改。').includes('default_as_user_value'));
+ assert.ok(!codes('用 American Express Gold Card。按默认市场估值每点 1.5 美分，400 MR 约值 6 美元，可在设置里改。').includes('unstated_point_value'));
  const own=chooseCard(usDining,{...wallet,cards:two,pointValues:[{id:'amex-mr-us',cents:2,at:AT}]});
  assert.ok(!answerGrounding('用 American Express Gold Card。按你设定的每点 2 美分，约值 8 美元。',[own]).issues.some(i=>i.code==='default_as_user_value'));
 });

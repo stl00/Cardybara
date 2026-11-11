@@ -131,11 +131,11 @@ for(const transport of Object.keys(transports)){
 
  test(`${transport}: #193 a default point value reaches the model with its basis, and calling it the user's is repaired`,async()=>{
   const m=script(toolsMessage(call('choose_card',{category:'dining',amount:100,currency:'USD',country:'US'})),
-   body=>{const r=toolResults(body).at(-1);assert.equal(r.choice.pointValue.basis,'default');assert.equal(r.choice.pointValue.cents,1.3);assert.match(r.pointValueNote,/default market valuation/);return say('用 '+r.choice.card+'。按你的估值每点 1.3 美分，约值 5.2 美元。');},
-   body=>say('用 '+toolResults(body).at(-1).choice.card+'。按默认市场估值每点 1.3 美分，约值 5.2 美元，可在设置里改。'));
+   body=>{const r=toolResults(body).at(-1);assert.equal(r.choice.pointValue.basis,'default');assert.equal(r.choice.pointValue.cents,1.5);assert.match(r.pointValueNote,/default market valuation/);return say('用 '+r.choice.card+'。按你的估值每点 1.5 美分，约值 6 美元。');},
+   body=>say('用 '+toolResults(body).at(-1).choice.card+'。按默认市场估值每点 1.5 美分，约值 6 美元，可在设置里改。'));
   const {run}=await turn(transport,{question:'在美国餐厅花100美元用哪张卡？'});const result=await run;
   assert.equal(m.requests.length,3);assert.match(lastUser(m.requests[2].body),/default_as_user_value/);
-  assert.match(result.answer,/按默认市场估值每点 1\.3 美分/);
+  assert.match(result.answer,/按默认市场估值每点 1\.5 美分/);
   assert.ok(m.requests[0].body.messages[0].content.includes('按默认市场估值'),'the policy tells the model how to say it');
  });
 
@@ -144,7 +144,7 @@ for(const transport of Object.keys(transports)){
   const {run}=await turn(transport,{question:'US dining 100 USD, which card?'});const result=await run;
   assert.equal(m.requests.length,3);
   const repair=m.requests[2].body;assert.equal(repair.tool_choice,'none');assert.match(lastUser(repair),/unsupported_number/);
-  // #193: Gold's 4x MR at the default 1.3 cents (5.20) now beats 3% cash.
+  // #193: Gold's 4x MR at the default 1.5 cents (6.00) now beats 3% cash.
   assert.equal(result.answer,'Use American Express Gold Card; check the official terms.');
   assert.ok(!JSON.stringify(result.messages).includes('987654'),'the fabricated amount is not kept in history');
   assert.deepEqual(result.trace.filter(t=>['grounding','repair'].includes(t.type)).map(t=>t.passed),[false,true]);
