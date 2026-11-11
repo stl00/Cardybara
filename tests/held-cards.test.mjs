@@ -118,6 +118,7 @@ const CALLS={
  query_credits:[{},{use:'dining'},{cardName:HIDDEN.name}],
  find_protections:[{},{type:'rental-car'},{cardName:HIDDEN.name}],
  plan_flight:[{airline:'Delta'},{airline:'United',milesNeeded:30000,points:20000}],
+ points_accounts:[{},{programme:'Membership Rewards'},{cardName:HIDDEN.name}],
  list_cards:[{}],
 };
 test('assistant contract: no tool result ever carries a hidden card',()=>{
