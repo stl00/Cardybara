@@ -37,6 +37,29 @@ function publicRule(r,cards,language){
  const {fromProgrammeId,toProgrammeId,...terms}=r.terms,text=ruleText(r,language),o=r.original;
  return {cards:cards.filter(c=>r.productIds.includes(matchCardProduct(c).product?.id)).map(c=>({name:c.name,region:c.region})),kind:r.kind,title:text.title,summary:text.summary,howToUse:text.howToUse,textLanguage:text.lang,...(text.translated?{textIsTranslation:true}:{}),...(o?{original:{lang:o.lang,...(text.lang===o.lang?{}:{title:o.title,summary:o.summary}),quotes:o.quotes.map(q=>q.text)}}:{}),terms:{...terms,...(fromProgrammeId?{fromProgramme:programmeName(fromProgrammeId)}:{}),...(toProgrammeId?{toProgramme:programmeName(toProgrammeId)}:{})},validity:r.validity,conditions:r.conditions.unparsedText,revision:r.revisionId,sources:knowledgeSources(r.evidence.sourceIds),checkedAt:r.evidence.checkedAt,assessment:r.assessment,...(r.retrieval?{retrieval:r.retrieval}:{})};
 }
+// Per held card: its sourced protection records, or not_found. Unknown basis or payment stays not-stated, never "no".
+function protectionRecords(selected,{type,types,day,language}){
+ const products=new Set(selected.map(c=>matchCardProduct(c).product?.id).filter(Boolean)),wanted=t=>type?t===type:types?types.includes(t):true;
+ const rows=queryKnowledge({kind:'benefit',category:'protection',asOf:day}).rules.filter(r=>r.productIds.some(id=>products.has(id))&&wanted(r.terms.coverage?.type));
+ const view=r=>{const c=r.terms.coverage||{},rule=publicRule(r,selected,language);return {...rule,coverageType:c.type||null,basis:c.basis||'not-stated',...(c.basisScope?{basisScope:c.basisScope}:{}),requiresCardPayment:c.requiresCardPayment===true?true:'not-stated',exclusions:c.exclusions?.length?c.exclusions:'none-stated'};};
+ const rules=rows.map(view);
+ const cards=selected.map(c=>{const id=matchCardProduct(c).product?.id,own=rules.filter((r,i)=>rows[i].productIds.includes(id));return {name:c.name,region:c.region,status:own.length?'found':'not_found',coverageTypes:[...new Set(own.map(r=>r.coverageType))],own};});
+ return {rules,cards:cards.map(({own,...c})=>c),byCard:cards};
+}
+// #184: a travel booking also shows which compared card lists trip protections. Facts beside the choice, never scored:
+// insurance has no cash value here, so the ranking is computed first and left as it is.
+const BOOKING_PROTECTIONS={flight:['trip-cancellation','trip-delay','baggage-delay','travel-insurance','emergency-evacuation'],hotel:['trip-cancellation','trip-delay','travel-insurance'],'vacation-rental':['trip-cancellation','trip-delay','travel-insurance'],travel:['trip-cancellation','trip-delay','baggage-delay','travel-insurance','emergency-evacuation'],'car-rental':['rental-car']};
+export function withBookingProtections(result,{cards,day,language}){
+ const types=BOOKING_PROTECTIONS[result?.purchase?.category];
+ if(!types||!result.rows?.length)return result;
+ const seen=new Set(),compared=[];
+ for(const row of [...result.rows,...(result.pointsAlternatives||[])]){const key=row.card+'|'+(row.cardRegion||'');if(seen.has(key))continue;seen.add(key);const held=cards.find(c=>c.name===row.card&&(!row.cardRegion||c.region===row.cardRegion));if(held)compared.push(held);}
+ if(!compared.length)return result;
+ const found=protectionRecords(compared,{types,day,language});
+ return {...result,bookingProtections:{scored:false,coverageTypes:types,
+  note:'Separate facts, not part of the ranking: no cash value is given to insurance. Name them after the choice, say the card\'s guide to benefits controls and this is not insurance advice. Coverage usually requires paying with the card where requiresCardPayment is true. A card marked not_found has no record held, which is not proof it has no coverage; never call it uncovered.',
+  cards:found.byCard.map(c=>({name:c.name,region:c.region,status:c.status,coverage:c.own.map(r=>({type:r.coverageType,title:r.title,basis:r.basis,requiresCardPayment:r.requiresCardPayment,sources:r.sources}))}))}};
+}
 // With no match, the scenarios where the same query, or else the held cards, do have benefits. Counts, not rules: the model searches again.
 function suggestScenarios(args,cards,day){
  if(!cards.length)return null;
@@ -82,15 +105,11 @@ export function runWalletTool(call,{cards,events,day,trip,language}){
    valuation:'No value per point is given. Compare points with cash only with a value the user states, and say paying cash keeps the points.'};
  }
  if(name==='find_protections'){
-  // Per held card: its sourced protection records, or not_found. Unknown basis or payment stays not-stated, never "no".
-  const selected=selectedCards(cards,args),products=new Set(selected.map(c=>matchCardProduct(c).product?.id).filter(Boolean));
-  const rows=queryKnowledge({kind:'benefit',category:'protection',asOf:day}).rules.filter(r=>r.productIds.some(id=>products.has(id))&&(!args.type||r.terms.coverage?.type===args.type));
-  const view=r=>{const c=r.terms.coverage||{},rule=publicRule(r,selected,language);return {...rule,coverageType:c.type||null,basis:c.basis||'not-stated',...(c.basisScope?{basisScope:c.basisScope}:{}),requiresCardPayment:c.requiresCardPayment===true?true:'not-stated',exclusions:c.exclusions?.length?c.exclusions:'none-stated'};};
-  const rules=rows.map(view);
+  const selected=selectedCards(cards,args),found=protectionRecords(selected,{type:args.type,day,language}),rules=found.rules;
   return {kind:'protections',coverage:'Public summaries of protection benefits. The card\'s guide to benefits controls; this is not insurance advice. A missing record means no record is held, not that the card has no coverage.',asOf:day,scope:{type:args.type||null,region:args.region||null,cardName:args.cardName||null},matchedCards:selected.map(c=>c.name),
-   cards:selected.map(c=>{const id=matchCardProduct(c).product?.id,own=rules.filter((r,i)=>rows[i].productIds.includes(id));return {name:c.name,region:c.region,status:own.length?'found':'not_found',coverageTypes:[...new Set(own.map(r=>r.coverageType))]};}),
+   cards:found.cards,
    totalMatches:rules.length,truncated:rules.length>24,rules:rules.slice(0,24),
-   ...(selected.some(c=>!rules.some((r,i)=>rows[i].productIds.includes(matchCardProduct(c).product?.id)))?{notFoundNote:'For cards marked not_found, say no protection record is held for them and that their guide to benefits may still list coverage. Never say they have no coverage.'}:{})};
+   ...(found.cards.some(c=>c.status==='not_found')?{notFoundNote:'For cards marked not_found, say no protection record is held for them and that their guide to benefits may still list coverage. Never say they have no coverage.'}:{})};
  }
  if(name==='query_credits'){
   const selected=selectedCards(cards,args),result=queryCredits(args,{cards:selected,events,day,trip,brief:!args.use&&!args.cardName});
@@ -116,5 +135,5 @@ export function runWalletTool(call,{cards,events,day,trip,language}){
   const rows=queryKnowledge({kind:args.kind,asOf:day}).rules.filter(r=>r.productIds.some(id=>products.has(id))&&(!args.programme||String(programmeName(r.terms.toProgrammeId)||'').toLowerCase().includes(args.programme.toLowerCase().trim())));
   return {coverage:'Public product rules only; actual fees, waivers, transfer ratios and linked accounts require personal evidence. Missing records do not establish no fee or no transfer relationship.',asOf:day,scope,matchedCards:selected.map(c=>c.name),totalMatches:rows.length,truncated:rows.length>24,rules:rows.slice(0,24).map(r=>publicRule(r,selected,language))};
  }
- return chooseCard(args,{cards,events,day});
+ return withBookingProtections(chooseCard(args,{cards,events,day}),{cards,day,language});
 }
