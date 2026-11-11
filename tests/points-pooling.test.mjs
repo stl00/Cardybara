@@ -150,6 +150,7 @@ test('the rewards page renders one pooled entry, a folded UR split and Amex HK c
  assert.ok(html.includes('按卡查看'),'the UR split is folded behind 按卡查看');
  assert.ok(!html.includes('American Express Gold Card')&&!html.includes('Freedom Unlimited'),'pooled and combined cards are not listed open');
  assert.ok(html.includes('American Express Explorer Credit Card'),'an Amex HK card keeps its row');
+ assert.ok(html.includes('约值 $915')&&html.includes('约值 $97.50'),'each pooled or combined total carries its point value (#202)');
  const differ=module.exports.render({accounts:rewardAccounts({...wallet,rewardObservations:[observed(usGold,61000,T2,MR),observed(usPlat,300,T1,MR)]}),cards:wallet.cards,count:n=>Number(n).toLocaleString('en-US'),hidden:false});
  assert.ok(differ.includes('同一积分池的卡读数不同'),'the warning renders in the pooled entry');
  assert.ok(html.includes('积分池 · 61,000'),'the transfer trial starts from the pool, counted once');

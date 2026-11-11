@@ -77,7 +77,7 @@ export function programmeTotals(rows=[]){
  const totals=[...groups.entries()].map(([rule,list])=>{
   const latest=new Map();for(const r of list.filter(r=>r.card))if(!latest.has(r.card)||time(latest.get(r.card))<time(r))latest.set(r.card,r);
   const perCard=[...latest.values()],records=list.filter(r=>!r.card).sort((a,b)=>time(b)-time(a));
-  const base={display:POOLING_DISPLAY[rule.pooling],ruleId:rule.id,programmeId:rule.programmeId,bank:rule.bank,region:rule.region,label:rule.label,unit:'points',pooling:rule.pooling,ownerOverride:rule.ownerOverride,cardCount:perCard.length};
+  const base={display:POOLING_DISPLAY[rule.pooling],cardIds:perCard.map(r=>r.card),ruleId:rule.id,programmeId:rule.programmeId,bank:rule.bank,region:rule.region,label:rule.label,unit:'points',pooling:rule.pooling,ownerOverride:rule.ownerOverride,cardCount:perCard.length};
   if(rule.pooling==='shared'){
    const newest=[...perCard,...records].sort((a,b)=>time(b)-time(a))[0];
    // Cards of one pool show one balance; different amounts mean a card may not be linked yet (the caveat).
