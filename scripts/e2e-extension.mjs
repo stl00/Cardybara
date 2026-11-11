@@ -41,12 +41,15 @@ import {tmpdir} from 'node:os';
 import {basename,dirname,join,normalize,isAbsolute,resolve,sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {findChrome} from './dev-collector/chrome-launcher.mjs';
+import {pipeCdp,startChrome} from './e2e-chrome.mjs';
 import {readZipEntry,zipEntryNames} from './read-zip.mjs';
 import {GATEWAY_ORIGIN} from '../extension-next/model-client.js';
 import {localGateway} from '../gateway/src/local.mjs';
 
 const root=fileURLToPath(new URL('..',import.meta.url));
 let STEP_MS=Number(process.env.CARDYBARA_E2E_STEP_MS||30000);
+// How long one Chrome launch may take to answer over DevTools before it is killed and launched once more.
+const CHROME_START_MS=Number(process.env.CARDYBARA_E2E_CHROME_START_MS||30000);
 const BANK_HOST='secure.chase.com';
 // The model provider the packaged client calls. Under --chat it resolves to a scripted synthetic provider.
 const MODEL_HOST='api.deepseek.com';
@@ -180,27 +183,7 @@ function serveGateway(gateway,req,res){
  });
 }
 
-// --- Chrome over a debugging pipe ----------------------------------------------------------
-function pipeCdp(child){
- // Split on NUL bytes before decoding, so a character split across chunks is never mangled.
- let next=0,buffer=Buffer.alloc(0),gone=null;const pending=new Map(),handlers=new Set();
- const fail=reason=>{gone=gone||reason;for(const [id,p] of pending){pending.delete(id);p.reject(Error(`${p.method}: ${gone}`));}};
- child.stdio[3].on('error',e=>fail('pipe closed ('+e.message+')'));
- child.stdio[4].on('error',e=>fail('pipe closed ('+e.message+')'));
- child.on('exit',(code,signal)=>fail(`Chrome exited (${signal||code})`));
- child.stdio[4].on('data',chunk=>{
-  buffer=Buffer.concat([buffer,chunk]);let i;
-  while((i=buffer.indexOf(0))>=0){
-   let msg;try{msg=JSON.parse(buffer.subarray(0,i).toString('utf8'));}catch{msg={};}buffer=buffer.subarray(i+1);
-   if(msg.id!=null&&pending.has(msg.id)){const {resolve,reject,method}=pending.get(msg.id);pending.delete(msg.id);msg.error?reject(Error(`${method}: ${msg.error.message}`)):resolve(msg.result);}
-   else for(const h of handlers)h(msg);
-  }
- });
- return {
-  send(method,params={},sessionId){if(gone)return Promise.reject(Error(`${method}: ${gone}`));const id=++next;child.stdio[3].write(JSON.stringify({id,method,params,...(sessionId?{sessionId}:{})})+'\0');return new Promise((resolve,reject)=>{pending.set(id,{resolve,reject,method});setTimeout(()=>{if(pending.delete(id))reject(Error(method+': no answer'));},STEP_MS);});},
-  on(h){handlers.add(h);},
- };
-}
+// --- Chrome over a debugging pipe (scripts/e2e-chrome.mjs) ---------------------------------
 async function launch(profile,bank){
  const args=[
   '--user-data-dir='+profile,'--remote-debugging-pipe','--enable-unsafe-extension-debugging',
@@ -213,7 +196,7 @@ async function launch(profile,bank){
  const child=spawn(await findChrome(),args,{stdio:['ignore','ignore','pipe','pipe','pipe']});
  child.stdio[2].on('data',d=>{for(const l of d.toString().split('\n'))if(l.trim())log.push('[chrome] '+l);});
  child.on('error',e=>note('chrome spawn error',e.message));
- return {child,cdp:pipeCdp(child)};
+ return {child,cdp:pipeCdp(child,{timeoutMs:()=>STEP_MS})};
 }
 
 // --- the main path -------------------------------------------------------------------------
@@ -245,16 +228,23 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    await checkManifest(ext);
   }
   bank=await syntheticBank(work);
-  const profile=join(work,'profile');
-  let cdp;
-  const start=async()=>{
-   browser=await launch(profile,bank);cdp=browser.cdp;
+  let profile=join(work,'profile'),cdp;
+  // Chrome sometimes starts slowly or hangs on a cold runner (stl00/Cardybara#211), so the start waits for
+  // it within a bound and launches it once more if it never answers. A first start relaunches on a fresh
+  // profile, a restart on the same one. This is before the extension is installed in that browser.
+  const start=async({again=false}={})=>{
+   let version;
+   ({browser,version}=await startChrome(async n=>{
+    if(n>1&&!again)profile=join(work,'profile-'+n);
+    return launch(profile,bank);
+   },{budgetMs:CHROME_START_MS,note}));
+   cdp=browser.cdp;
    cdp.on(msg=>{
     const who=Object.entries(sessions).find(([,id])=>id===msg.sessionId)?.[0]||msg.sessionId||'browser';
     if(msg.method==='Runtime.consoleAPICalled')log.push(`[${who} console.${msg.params.type}] `+msg.params.args.map(a=>a.value??a.description??a.type).join(' '));
     if(msg.method==='Runtime.exceptionThrown')log.push(`[${who} exception] `+(msg.params.exceptionDetails.exception?.description||msg.params.exceptionDetails.text));
    });
-   note('chrome',(await cdp.send('Browser.getVersion')).product);
+   note('chrome',version.product);
   };
   await start();
 
@@ -365,7 +355,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    // Upgrade: the tested package replaces the previous one in place, as an update of the same extension.
    if(upgradeFrom&&swap){await rm(ext,{recursive:true,force:true});await cp(next,ext,{recursive:true});note('tested package copied over the previous one');}
    for(const k of Object.keys(sessions))delete sessions[k];lastState=null;
-   await start();
+   await start({again:true});
    // An extension installed over the debugging pipe lasts for that browser session only, so the
    // harness installs the same unpacked directory again. Chrome derives an unpacked extension's id
    // from its path, so this must be the same extension with the profile's storage, not a new one.
