@@ -44,9 +44,10 @@ test('release gate refuses changed bytes, stale/old workers, imported backups an
 });
 test('new reports leave the backup answer and runtime build for the tester',t=>{
  const dir=mkdtempSync(path.join(tmpdir(),'cardybara-acceptance-'));t.after(()=>rmSync(dir,{recursive:true,force:true}));
- const zip=path.join(dir,'c.zip'),out=path.join(dir,'r.json');writeFileSync(zip,'synthetic');
+ const zip=path.join(dir,'c.zip'),out=path.join(dir,'r.json');makeZip(zip,{'build-scope.js':'export const BUILD_BANKS=["Chase","Amex US"];\n'});
  execFileSync(process.execPath,['scripts/new-acceptance.mjs',zip,out]);
  const report=JSON.parse(readFileSync(out,'utf8'));
+ assert.deepEqual(Object.keys(report.banks),['Chase','Amex US'],'a beta report lists the banks its package can connect');
  assert.equal(report.runtimeBuild,null);
  for(const [key,value] of Object.entries(report.environment))assert.equal(value,null,key);
  const result=validateAcceptance(report,{sha256:report.artifactSha256,runtimeBuild:BUILD_ID});
@@ -80,7 +81,7 @@ test('the artifact build is read from the packaged file',t=>{
 test('promotion checks the build inside the ZIP, not the checkout',t=>{
  const dir=mkdtempSync(path.join(tmpdir(),'cardybara-acceptance-'));t.after(()=>rmSync(dir,{recursive:true,force:true}));
  const label=JSON.parse(readFileSync('release.json','utf8')).label,zip=path.join(dir,'candidate.zip'),evidence=path.join(dir,'report.json'),published=path.join(dir,'published');
- makeZip(zip,{'build-info.js':"export const BUILD_ID='zip-build';\n"});
+ makeZip(zip,{'build-info.js':"export const BUILD_ID='zip-build';\n",'build-scope.js':'export const BUILD_BANKS=null;\n'});
  const sha256=createHash('sha256').update(readFileSync(zip)).digest('hex');
  // A stand-in gh: never reaches GitHub, reports a matching draft and records whether publishing was attempted.
  const draft=JSON.stringify({isDraft:true,tagName:'v'+label,assets:[{name:'candidate.zip',digest:'sha256:'+sha256}]});
@@ -96,7 +97,7 @@ test('promotion checks the build inside the ZIP, not the checkout',t=>{
 });
 test('the acceptance command refuses a build that is not the one in the ZIP',t=>{
  const dir=mkdtempSync(path.join(tmpdir(),'cardybara-acceptance-'));t.after(()=>rmSync(dir,{recursive:true,force:true}));
- const zip=path.join(dir,'c.zip'),evidence=path.join(dir,'r.json');makeZip(zip,{'build-info.js':"export const BUILD_ID='zip-build';\n"});
+ const zip=path.join(dir,'c.zip'),evidence=path.join(dir,'r.json');makeZip(zip,{'build-info.js':"export const BUILD_ID='zip-build';\n",'build-scope.js':'export const BUILD_BANKS=null;\n'});
  const source=taggedRepo(dir);
  const check=build=>{const r=fixture();r.artifactSha256=createHash('sha256').update(readFileSync(zip)).digest('hex');r.runtimeBuild=build;Object.assign(r.heldOutEval,{artifactSha256:r.artifactSha256,runtimeBuild:build,sourceCommit:source});for(const bank of REQUIRED_BANKS)r.banks[bank].runtimeBuild=build;writeFileSync(evidence,JSON.stringify(r));return spawnSync(process.execPath,[path.resolve('scripts/acceptance.mjs'),zip,evidence,build],{cwd:dir,encoding:'utf8'});};
  const old=check('old-build');assert.equal(old.status,1);assert.match(old.stdout,/not the build in this artifact/);

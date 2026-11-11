@@ -82,7 +82,7 @@ export default function CardProductPicker({card}){
   <Flex align="center" gap={8} wrap><Text type="secondary">{t('卡种')}</Text>{status}{product&&!product.art&&<Text type="secondary">{t('这个卡种暂时没有卡面图片。')}</Text>}</Flex>
   {suggested&&!editing&&<div className="card-product-suggestion">
    <Flex align="center" gap={8} wrap><Tag color="purple">{t('AI 建议')}</Tag><Text>{label(suggested)}</Text>{!suggested.art&&<Text type="secondary">· {t('无卡面')}</Text>}</Flex>
-   <Paragraph type="secondary" style={{margin:'4px 0',fontSize:12}}>{t('由你自己的模型根据卡名推测，确认前不当作已识别。')}</Paragraph>
+   <Paragraph type="secondary" style={{margin:'4px 0',fontSize:12}}>{t('由 AI 服务根据卡名推测，确认前不当作已识别。')}</Paragraph>
    <Flex gap={8} wrap><Button size="small" type="primary" onClick={()=>save(suggested.id)}>{t('确认是这个卡种')}</Button><Button size="small" onClick={()=>setEditing(true)}>{t('改选卡种')}</Button></Flex>
   </div>}
   <Flex gap={8} wrap align="center" style={{marginTop:showPicker?8:4}}>
@@ -90,7 +90,7 @@ export default function CardProductPicker({card}){
    {chosen&&<Button size="small" type="link" onClick={()=>save(null)}>{t('改回自动识别')}</Button>}
   </Flex>
   <ProductPickerPanel open={editing} onClose={()=>setEditing(false)} onChoose={save} products={scoped} title={t('选择这张卡的卡种')} selectedId={chosen?.id} badges={badges}/>
-  {askable&&<Flex gap={8} wrap align="center" style={{marginTop:8}}><Button size="small" loading={asking} onClick={ask}>{t('用 AI 推测卡种')}</Button><Text type="secondary" style={{fontSize:12}}>{t('会把银行、地区和卡名（不含尾号）发给你配置的模型。')}</Text></Flex>}
+  {askable&&<Flex gap={8} wrap align="center" style={{marginTop:8}}><Button size="small" loading={asking} onClick={ask}>{t('用 AI 推测卡种')}</Button><Text type="secondary" style={{fontSize:12}}>{t('会把银行、地区和卡名（不含尾号）发给 AI 服务。')}</Text></Flex>}
   {answeredNone&&<Paragraph type="secondary" style={{margin:'6px 0 0',fontSize:12}}>{t('AI 也无法确定这张卡的卡种。')}</Paragraph>}
   {!product&&!scoped.length&&<Paragraph type="secondary" style={{margin:'6px 0 0'}}>{t('资料库里还没有这家银行的卡种。')}</Paragraph>}
   {showPicker&&<Paragraph type="secondary" style={{margin:'6px 0 0',fontSize:12}}>{t('只用来显示卡面和公开福利，不改变银行读到的卡名和金额。')}</Paragraph>}

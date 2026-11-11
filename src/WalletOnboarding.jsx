@@ -1,7 +1,7 @@
 import React,{useMemo,useState} from 'react';
 import {Alert,Button,Flex,Form,Input,Modal,Select,Space,Typography} from 'antd';
-import {ACTIVE_BANKS,PROVIDERS} from '../extension-next/providers.js';
-import {BankIdentity} from './Identity';
+import {ACTIVE_BANKS,CONNECTABLE_BANKS,PROVIDERS,SCOPED,bankOrder,connectable} from '../extension-next/providers.js';
+import {BankIdentity,bankName} from './Identity';
 import {t,useI18n} from './i18n';
 import {cardProducts} from './productCatalog';
 import {productDisplayName} from './cardName';
@@ -20,6 +20,8 @@ export function AddWalletCard({onAdd}){
  const [choice,setChoice]=useState(),[otherBank,setOtherBank]=useState();
  const products=useMemo(()=>cardProducts.filter(p=>ACTIVE_BANKS.includes(p.bank)&&p.region===PROVIDERS[p.bank]?.region),[]);
  const product=choice&&choice!==OTHER_PRODUCT?products.find(p=>p.id===choice):null;
+ // A scoped build (the beta) can still hold a card of another bank, but says it won't be read.
+ const typedBank=Form.useWatch('bank',form),chosenBank=product?product.bank:typedBank;
  const start=()=>{setError('');setChoice(undefined);setOtherBank(undefined);setOpen(true);setPicking(true);};
  const close=()=>{setOpen(false);setPicking(false);};
  const focusTail=()=>document.querySelector('.add-card-modal .add-card-tail')?.focus();
@@ -34,13 +36,16 @@ export function AddWalletCard({onAdd}){
   <Form form={form} layout="vertical" className="add-card-form" preserve={false}>
    {product?<ChosenProduct product={product} extra={<Button className="add-card-change" onClick={()=>setPicking(true)}>{t('更换')}</Button>}/>:<>
     <Flex className="add-card-unlisted" align="center" justify="space-between" gap={8} wrap style={{marginBottom:16}}><Text type="secondary">{t('不在列表里（自己填写卡名）')}</Text><Button size="small" className="add-card-change" onClick={()=>setPicking(true)}>{t('从列表选择')}</Button></Flex>
-    <Form.Item name="bank" label={t('银行与地区')} initialValue={otherBank} rules={[{required:true}]}><Select className="add-card-bank" aria-label={t('银行与地区')} showSearch optionFilterProp="search" options={ACTIVE_BANKS.map(b=>({value:b,search:`${b} ${t(PROVIDERS[b].issuer)}`,label:<BankIdentity bank={b}/>}))}/></Form.Item>
+    <Form.Item name="bank" label={t('银行与地区')} initialValue={otherBank} rules={[{required:true}]}><Select className="add-card-bank" aria-label={t('银行与地区')} showSearch optionFilterProp="search" options={bankOrder(ACTIVE_BANKS).map(b=>({value:b,search:`${b} ${t(PROVIDERS[b].issuer)}`,label:<BankIdentity bank={b}/>}))}/></Form.Item>
    </>}
+   {SCOPED&&chosenBank&&!connectable(chosenBank)&&<Alert className="add-card-not-read" type="warning" showIcon style={{marginBottom:16}} title={t('这个测试版只从 {0} 的官网读取余额和账单。',[liveBanks()])} description={t('这张卡可以记在钱包里，用来看福利和问用卡助手；它的余额、账单和还款日不会自动更新。')}/>}
    <Form.Item name="name" label={product?t('显示名称（可不填，默认用卡种名称）'):t('卡片名称')} rules={[{required:!product,whitespace:true,max:100}]}><Input className="add-card-name" maxLength={100} placeholder={product?productDisplayName(product.id,language)||product.name:undefined}/></Form.Item>
    <Form.Item name="tail" label={t('卡片尾号（4 或 5 位）')} rules={[{required:true,pattern:/^\d{4,5}$/,message:t('请填写 4 或 5 位数字，不要填写完整卡号。')}]}><Input className="add-card-tail" inputMode="numeric" maxLength={5} autoComplete="off"/></Form.Item>
    <Form.Item name="feeDate" label={t('年费日（持卡周年日，可不填）')} rules={[feeDateRule]} extra={t('银行页面不显示年费日。按你的账单或年费扣款记录填写；不知道可以留空，之后在卡片详情里设置。')}><FeeDateInput/></Form.Item>
   </Form>{error&&<Alert type="error" title={error}/>}</Modal></>;
 }
+// The banks a scoped build reads, as one phrase ("Chase、American Express 美国").
+export const liveBanks=()=>CONNECTABLE_BANKS.map(bankName).join(t('、'));
 export function EmptyWalletWelcome({onConnect}){
- useI18n();return <Alert style={{marginBottom:20}} type="info" showIcon title={t('欢迎，这是你的新钱包')} description={<Space orientation="vertical"><span>{t('选择一家银行并登录，读取页面上可确认的卡片；没有识别到时，可以手动添加卡种与尾号。不需要旧备份。')}</span><Button type="primary" onClick={onConnect}>{t('连接第一家银行')}</Button></Space>}/>;
+ useI18n();return <Alert style={{marginBottom:20}} type="info" showIcon title={t('欢迎，这是你的新钱包')} description={<Space orientation="vertical"><span>{t('选择一家银行并登录，读取页面上可确认的卡片；没有识别到时，可以手动添加卡种与尾号。不需要旧备份。')}</span>{SCOPED&&<span className="beta-scope-note">{t('这个测试版可以连接 {0}。',[liveBanks()])}</span>}<Button type="primary" onClick={onConnect}>{t('连接第一家银行')}</Button></Space>}/>;
 }

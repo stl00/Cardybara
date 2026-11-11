@@ -1,4 +1,6 @@
 // Cardybara registry. Design reference: nextcard-sync, see THIRD_PARTY_NOTICES.md.
+import {BUILD_BANKS,BUILD_SCOPE} from './build-scope.js';
+export {BUILD_SCOPE};
 export const VERSION='1.1.0';
 export const ORIGIN='http://127.0.0.1:8766';
 const amex=['www.americanexpress.com','global.americanexpress.com'];
@@ -15,6 +17,15 @@ export const PROVIDERS={
  'SC HK':{readPage:{from:/^\/hk\/nfs\/ibank\/(?:landing|account_overview|card_summary)\.htm$/,url:'https://retail.sc.com/hk/nfs/ibank/card_details.htm'},issuer:'Standard Chartered',region:'HK',locales:['zh-HK','zh-CN','en-HK'],currency:'HKD',hosts:['retail.sc.com','www.sc.com'],url:'https://retail.sc.com/hk/nfs/login.htm',evidence:'unverified'}
 };
 export const ACTIVE_BANKS=Object.keys(PROVIDERS).filter(bank=>!PROVIDERS[bank].archived);
+// A scoped build (the friends beta) connects only its listed banks; the rest stay in the code but are never offered
+// or started, and records already stored for them are kept. scope=null is every bank, archived ones only for a holder.
+export const scopedBanks=(scope=BUILD_BANKS)=>Array.isArray(scope)?scope.filter(bank=>Object.hasOwn(PROVIDERS,bank)):null;
+export const SCOPED=!!scopedBanks();
+export const CONNECTABLE_BANKS=scopedBanks()||ACTIVE_BANKS;
+export const connectable=(bank,scope=BUILD_BANKS)=>{const banks=scopedBanks(scope);return banks?banks.includes(bank):Object.hasOwn(PROVIDERS,bank);};
+// New users see these first: the banks with the most real-page evidence.
+export const FIRST_BANKS=['Chase','Amex US'];
+export const bankOrder=banks=>[...banks].sort((a,b)=>(FIRST_BANKS.includes(a)?FIRST_BANKS.indexOf(a):FIRST_BANKS.length)-(FIRST_BANKS.includes(b)?FIRST_BANKS.indexOf(b):FIRST_BANKS.length));
 export function allowed(bank,href){
  try{const p=PROVIDERS[bank],u=new URL(href);return !!p&&u.protocol==='https:'&&!u.username&&!u.password&&(!u.port||u.port==='443')&&p.hosts.includes(u.hostname)&&!/(?:log.?out|log.?off|signout|signoff)/i.test(u.pathname)&&(!p.regionPath||p.regionPath.test(u.pathname));}catch{return false;}
 }

@@ -5,7 +5,7 @@ import {PROVIDERS,HOSTED,gatewayConfigured,ownKeyAllowed,keyStatus,saveKey,delet
 const {Paragraph,Text}=Typography;
 const internal=()=>location.protocol==='chrome-extension:'&&!!globalThis.chrome?.runtime?.id;
 const failures={invalid_key:'这看起来不是有效的密钥，请检查后重新粘贴。',model_auth_failed:'服务商拒绝了这个密钥，请检查是否复制完整或已过期。',model_rate_limited:'服务商暂时限流，请稍后再测试。',model_failed:'暂时连不上服务商，请稍后再试。',model_not_ready:'请先保存密钥并允许扩展访问服务商。',permission_denied:'没有获得访问服务商的权限，密钥未保存。',looks_like_invite:'这是 Cardybara 邀请码，请选择“使用 Cardybara 托管服务（输入邀请码）”后再粘贴。'};
-const hostedFailures={invalid_invite:'这看起来不是有效的邀请码，请检查后重新粘贴。',invite_invalid:'托管服务不认识这个邀请码，请检查是否复制完整。',invite_revoked:'这个邀请码已停用，请联系发码人。',hosted_over_cap:'已达到托管服务的用量上限，请稍后再试。',model_rate_limited:'服务商暂时限流，请稍后再测试。',model_failed:'暂时连不上托管服务，请稍后再试。',model_not_ready:'请先保存邀请码并允许扩展访问托管服务。',permission_denied:'没有获得访问托管服务的权限，邀请码未保存。'};
+const hostedFailures={invalid_invite:'这看起来不是有效的邀请码，请检查后重新粘贴。',invite_invalid:'托管服务不认识这个邀请码，请检查是否复制完整。',invite_revoked:'这个邀请码已停用，请联系发码人。',hosted_over_cap:'已达到托管服务的用量上限，请稍后再试。',model_rate_limited:'托管服务暂时繁忙，请稍后再试。',model_failed:'暂时连不上托管服务，请稍后再试。',model_not_ready:'请先保存邀请码并允许扩展访问托管服务。',permission_denied:'没有获得访问托管服务的权限，邀请码未保存。'};
 const ownProviders=Object.entries(PROVIDERS).filter(([,p])=>!p.hosted);
 const host=provider=>PROVIDERS[provider].origin.replace('https://','');
 export default function ModelKeySettings(){
@@ -33,7 +33,7 @@ export default function ModelKeySettings(){
  const test=()=>run('test',async()=>{const candidate=editing||!status?.saved;if(candidate&&!await requestPermission(provider))throw Error('permission_denied');await testKey(candidate?{provider,key:draft.trim()}:undefined);message.success(t(hosted?'连接成功，邀请码可用。':'连接成功，密钥可用。'));});
  const showForm=!status?.saved||editing;
  const privacy=hosted
-  ?<><Paragraph>{t('聊天助手在 Cardybara 云端运行：网关收到你的问题、持有的卡种和助手请求的钱包查询结果，转给模型服务商；不收到卡号、余额或账单，钱包只保存在本机。网关不保存这些内容，只记录邀请码编号、时间、用量和状态。卡片识别也经过网关。用托管服务时，AI 补全银行数据不可用，银行数据不经过网关。')}</Paragraph>
+  ?<><Paragraph>{t('聊天助手在 Cardybara 服务上运行：服务收到你的问题、持有的卡种和助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单，钱包只保存在本机。服务不保存这些内容，只记录邀请码编号、时间、用量和状态。卡片识别也经过 Cardybara 服务。')}</Paragraph>
    <Paragraph type="secondary">{t('邀请码只保存在本扩展的本地存储里，不同步、不写入备份、日志或诊断报告，只发送给 Cardybara 托管服务。保存后只显示首尾几位。')}</Paragraph></>
   :<Paragraph type="secondary">{t('密钥只保存在本扩展的本地存储里，不同步、不写入备份、日志或诊断报告，只发送给你选择的服务商。保存后只显示首尾几位。')}</Paragraph>;
  return <Card title={t('AI 服务')} extra={<Tag color={status?.ready?'success':'default'}>{status?.ready?t('已就绪'):status?.saved?t('已保存，未启用'):t('未添加')}</Tag>}>
@@ -48,7 +48,7 @@ export default function ModelKeySettings(){
   {showForm&&<Flex vertical gap={12}>
    {devOwn&&<Radio.Group className="model-mode" value={mode} onChange={e=>{setMode(e.target.value);setDraft('');setError('');}} options={[{value:'hosted',label:t('使用 Cardybara 托管服务（输入邀请码）')},{value:'own',label:t('使用自己的 key')}]}/>}
    {privacy}
-   {hosted&&!gatewayConfigured&&<Alert showIcon type="info" title={t('托管服务还没有开通，暂时请使用自己的 key。')}/>}
+   {hosted&&!gatewayConfigured&&<Alert showIcon type="info" title={t(devOwn?'托管服务还没有开通，暂时请使用自己的 key。':'托管服务还没有开通，请稍后再试。')}/>}
    {!hosted&&<Select value={ownProvider} onChange={setOwnProvider} style={{maxWidth:240}} options={ownProviders.map(([value,p])=>({value,label:p.label}))}/>}
    <Input.Password value={draft} onChange={e=>setDraft(e.target.value)} placeholder={t(hosted?'粘贴邀请码':'粘贴你的 API 密钥')} autoComplete="off" spellCheck={false} maxLength={200}/>
    <Paragraph type="secondary" style={{margin:0}}>{t('保存时浏览器会询问是否允许扩展访问 {0}。',[host(provider)])}</Paragraph>

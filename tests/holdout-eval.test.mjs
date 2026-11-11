@@ -32,7 +32,8 @@ test('the held-out run needs a clean checkout of the release tag and the frozen 
  git('init','-q');git('add','-A');git('commit','-q','-m','candidate');git('tag',tag);
  const zip=path.join(dir,'c.zip'),blank=path.join(dir,'blank.zip'),report=path.join(dir,'r.json'),run=()=>spawnSync(process.execPath,['scripts/eval-holdout.mjs',zip,report],{cwd:repo,encoding:'utf8'});
  const recorded=()=>JSON.parse(readFileSync(report,'utf8')).heldOutEval;
- writeFileSync(blank,'synthetic');execFileSync(process.execPath,['scripts/new-acceptance.mjs',blank,report]);
+ // new-acceptance reads the candidate's bank scope from its build-scope.js.
+ execFileSync('python3',['-c',"import sys,zipfile\nwith zipfile.ZipFile(sys.argv[1],'w') as z:z.writestr('build-scope.js','export const BUILD_BANKS=null;\\n')",blank]);execFileSync(process.execPath,['scripts/new-acceptance.mjs',blank,report]);
  assert.notEqual(spawnSync(process.execPath,['scripts/eval-holdout.mjs'],{cwd:repo,encoding:'utf8'}).status,0,'no candidate, no run');
  makeZip(zip,'another-build');let r=run();assert.equal(r.status,1);assert.match(r.stderr,/not the build in the candidate/);
  makeZip(zip,BUILD_ID);

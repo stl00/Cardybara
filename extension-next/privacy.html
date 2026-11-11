@@ -1,6 +1,6 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><title>Cardybara privacy</title><main style="font:15px/1.7 system-ui;max-width:760px;margin:40px auto;padding:24px;white-space:pre-wrap"># Cardybara alpha privacy notice
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Cardybara privacy</title><main style="font:15px/1.7 system-ui;max-width:760px;margin:40px auto;padding:24px;white-space:pre-wrap"># Cardybara beta privacy notice
 
-Effective 2026-10-29. Maintainer contact: https://github.com/stl00/Cardybara/issues (general questions only; never post account data or keys). This notice describes the alpha implementation; a final publisher/store declaration is still required before store submission.
+Effective 2026-11-11. Maintainer contact: https://github.com/stl00/Cardybara/issues (general questions only; never post account data or keys). This notice describes the beta implementation; a final publisher/store declaration is still required before store submission.
 
 ## Local data
 
@@ -8,11 +8,9 @@ The wallet can store card product names, masked tails, balances, billing fields,
 
 Collection runs on supported bank pages in an existing user session. The reader does not read password values, cookies or authentication codes. Login and bank-required approval happen on the bank&#x27;s own site. The connector does not pay, transfer money, redeem rewards, activate offers or change bank settings. Page structure, account association and partial dates can make collection incomplete.
 
-## Optional model processing
+## Assistant and AI card recognition
 
-Cloud parsing is optional and requires configured permissions and consent. When enabled, selected redacted financial excerpts may be sent to a chosen model service, including DeepSeek or Gemini through the configured route. Redaction is best effort and the excerpts remain sensitive. Review the consent UI and do not enable cloud parsing unless you accept that transfer.
-
-The conversational assistant uses the configured local proxy to send chat text and necessary public card/benefit information and explicit manual benefit marks to DeepSeek. Its read-only tools do not expose bank balances or card numbers. It has no included shared API key. The local proxy key is stored in the user&#x27;s private .env.local; direct-parser keys, when configured through the extension, are session-scoped. The optional loopback proxy is HTTP restricted to the user&#x27;s own machine; provider requests use HTTPS.
+The assistant is optional. In this build it works through the Cardybara hosted service with an invite code the user enters; nothing is sent until a code is saved and Chrome's permission prompt for the service is allowed. Chat text, the public card and benefit information the assistant needs, and the answers of its read-only wallet tools go through the Cardybara service to the AI model it uses. The service does not store chat content; it records only the invite code's id, time, usage and status. Bank balances and statements are not sent to the Cardybara service, and AI completion of bank pages is off in the beta. Card recognition, when turned on, sends an unrecognised card's bank, region and name (no last digits or amounts). The invite code is stored in the extension's local storage only and is never written to backups, logs or diagnostics.
 
 ## Reminders
 
@@ -22,5 +20,5 @@ Bill and benefit reminders are optional and off by default. Turning them on asks
 
 Local readings/ledgers remain until the user clears them or removes the relevant browser origin/extension. Task and evidence state is bounded and may be replaced during later runs. Exporting creates a sensitive local file under the user&#x27;s control. Clearing the extension does not necessarily clear a separate website-origin wallet or exported files. Uninstalling may delete extension data; back up first.
 
-No advertising, analytics telemetry or sale of data is implemented. GitHub CI uses synthetic/public fixtures only and receives no bank login or model credential. Providers process opted-in requests under their own policies; Cardybara does not claim that optional cloud processing is entirely local.
+No advertising, analytics telemetry or sale of data is implemented. GitHub CI uses synthetic/public fixtures only and receives no bank login or model credential. The assistant is not entirely local: its chat is processed by an AI model through the Cardybara service, as described above.
 </main></html>
