@@ -57743,5 +57743,1933 @@
         }
       ]
     }
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-hilton-honors-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "There is no annual fee for the Hilton Honors American Express Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-hilton-honors-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "Hilton 旗下酒店直接消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 7X Hilton Honors Bonus Points for each dollar of eligible purchases charged on your Card directly with a hotel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 7,
+      "unit": "points-per-USD",
+      "spendCategory": "Hilton 旗下酒店直接消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-hilton-honors-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "美国餐厅",
+      "summary": "页面写明包括外卖和配送。",
+      "sourceText": "Earn 5X Hilton Honors Bonus Points for each dollar of eligible purchases on your Card at U.S. restaurants.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明包括外卖和配送。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "points-per-USD",
+      "spendCategory": "美国餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明包括外卖和配送。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-hilton-honors-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "美国超市",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 5X Hilton Honors Bonus Points for each dollar of eligible purchases on your Card at U.S. supermarkets.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "points-per-USD",
+      "spendCategory": "美国超市",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-card.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-hilton-honors-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "美国加油站",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 5X Hilton Honors Bonus Points for each dollar of eligible purchases on your Card at U.S. gas stations.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "points-per-USD",
+      "spendCategory": "美国加油站",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-card.earning-4@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-hilton-honors-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "其他合资格消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 3X Hilton Honors Bonus Points for all other eligible purchases on your Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "其他合资格消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-card.silver-status",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-card.silver-status@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "Hilton Honors Silver 会籍",
+      "summary": "持卡即享；个人会籍未核实。",
+      "sourceText": "Enjoy complimentary Hilton Honors Silver status with your Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "持卡即享；个人会籍未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "持卡即享；个人会籍未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Hilton Honors Silver status",
+      "summary": "Complimentary Hilton Honors Silver status with the card.",
+      "howToUse": [
+        "Check your tier in your Hilton Honors account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-card",
+          "text": "Enjoy complimentary Hilton Honors Silver status with your Card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-card.gold-upgrade",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-card.gold-upgrade@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "消费满2万美元升级 Gold 会籍",
+      "summary": "一个自然年内用本卡消费满20,000美元，可升级 Hilton Honors Gold，有效到下一个自然年年底。是否达标未核实。",
+      "sourceText": "spend $20,000 on eligible purchases on your Card in a calendar year and you can earn an upgrade",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "一个自然年内用本卡消费满20,000美元，可升级 Hilton Honors Gold，有效到下一个自然年年底。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "一个自然年内用本卡消费满20,000美元，可升级 Hilton Honors Gold，有效到下一个自然年年底。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Gold status upgrade after $20,000 in spend",
+      "summary": "Spend $20,000 on eligible purchases in a calendar year to earn an upgrade to Hilton Honors Gold status through the end of the next calendar year.",
+      "howToUse": [
+        "Track your calendar-year spend on the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-card",
+          "text": "spend $20,000 on eligible purchases on your Card in a calendar year and you can earn an upgrade"
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-card",
+          "text": "you can earn an upgrade to Hilton Honors Gold Status through the end of the next calendar year"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "Hilton 旗下酒店直接消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 12X Hilton Honors Bonus Points for each dollar of eligible purchases charged on your Card directly with a hotel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 12,
+      "unit": "points-per-USD",
+      "spendCategory": "Hilton 旗下酒店直接消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "美国餐厅",
+      "summary": "页面写明包括外卖和配送。",
+      "sourceText": "Earn 6X Hilton Honors Bonus Points for each dollar of eligible purchases on your Card at U.S. restaurants.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明包括外卖和配送。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 6,
+      "unit": "points-per-USD",
+      "spendCategory": "美国餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明包括外卖和配送。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "美国超市",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 6X Hilton Honors Bonus Points for each dollar of eligible purchases on your Card at U.S. supermarkets.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 6,
+      "unit": "points-per-USD",
+      "spendCategory": "美国超市",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "美国加油站",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 6X Hilton Honors Bonus Points for each dollar of eligible purchases on your Card at U.S. Gas Stations.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 6,
+      "unit": "points-per-USD",
+      "spendCategory": "美国加油站",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.earning-4@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "美国网上零售",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 4X Hilton Honors Bonus Points for each dollar of U.S. Online Retail purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "points-per-USD",
+      "spendCategory": "美国网上零售",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.earning-5",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.earning-5@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "其他合资格消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 3X Hilton Honors Bonus Points for each dollar of all other eligible purchases on your Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "其他合资格消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.gold-status",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.gold-status@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "Hilton Honors Gold 会籍",
+      "summary": "持卡即享；个人会籍未核实。",
+      "sourceText": "Enjoy complimentary Hilton Honors Gold Status with your Hilton Honors Surpass Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "持卡即享；个人会籍未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "持卡即享；个人会籍未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Hilton Honors Gold status",
+      "summary": "Complimentary Hilton Honors Gold status with the card.",
+      "howToUse": [
+        "Check your tier in your Hilton Honors account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card",
+          "text": "Enjoy complimentary Hilton Honors Gold Status with your Hilton Honors Surpass Card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.hilton-credit",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.hilton-credit@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "Hilton 抵扣",
+      "summary": "每季最多50美元，全年最多200美元，须用本卡直接向 Hilton 旗下酒店消费。",
+      "sourceText": "Get up to $50 in statement credits each quarter for purchases made directly with a property",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每季最多50美元，全年最多200美元，须用本卡直接向 Hilton 旗下酒店消费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-quarter",
+      "amount": 50,
+      "currency": "USD",
+      "annualMaximum": 200,
+      "partner": "Hilton"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每季最多50美元，全年最多200美元，须用本卡直接向 Hilton 旗下酒店消费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Hilton Credit",
+      "summary": "Up to $50 in statement credits each quarter for purchases made directly with a property in the Hilton portfolio, up to $200 a year.",
+      "howToUse": [
+        "Pay a Hilton property directly with the card; the credit resets each quarter."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card",
+          "text": "Get up to $50 in statement credits each quarter for purchases made directly with a property"
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card",
+          "text": "That’s up to $200 in statement credits annually."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.free-night",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.free-night@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "消费满15,000美元得免费房晚",
+      "summary": "一个自然年内用本卡消费满15,000美元后获得。是否达标未核实。",
+      "sourceText": "Earn a Free Night Reward from Hilton Honors after you spend $15,000 on eligible purchases on your card in a calendar year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "一个自然年内用本卡消费满15,000美元后获得。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "一个自然年内用本卡消费满15,000美元后获得。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free Night Reward after $15,000 in spend",
+      "summary": "A Free Night Reward from Hilton Honors after $15,000 in eligible purchases on the card in a calendar year.",
+      "howToUse": [
+        "Track your calendar-year spend on the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card",
+          "text": "Earn a Free Night Reward from Hilton Honors after you spend $15,000 on eligible purchases on your card in a calendar year."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.diamond-upgrade",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.diamond-upgrade@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "消费满4万美元升级 Diamond 会籍",
+      "summary": "一个自然年内用本卡消费满40,000美元，可升级 Hilton Honors Diamond，有效到下一个自然年年底。是否达标未核实。",
+      "sourceText": "Spend $40,000 on eligible purchases on your Card in a calendar year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "一个自然年内用本卡消费满40,000美元，可升级 Hilton Honors Diamond，有效到下一个自然年年底。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "一个自然年内用本卡消费满40,000美元，可升级 Hilton Honors Diamond，有效到下一个自然年年底。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Diamond status upgrade after $40,000 in spend",
+      "summary": "Spend $40,000 on eligible purchases in a calendar year to earn an upgrade to Hilton Honors Diamond status through the end of the next calendar year.",
+      "howToUse": [
+        "Track your calendar-year spend on the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card",
+          "text": "Spend $40,000 on eligible purchases on your Card in a calendar year"
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card",
+          "text": "you can earn an upgrade to Hilton Honors Diamond status through the end of the next calendar year"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.national-emerald",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.national-emerald@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "National Car Rental Emerald Club Executive 会籍",
+      "summary": "须通过 American Express 网上账户用本卡登记。",
+      "sourceText": "Enjoy complimentary Emerald Club Executive status from National Car Rental when you enroll",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须通过 American Express 网上账户用本卡登记。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null,
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须通过 American Express 网上账户用本卡登记。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Complimentary National Car Rental Emerald Club Executive status",
+      "summary": "Complimentary Emerald Club Executive status from National Car Rental when you enroll through your American Express online account using the card.",
+      "howToUse": [
+        "Enroll through your American Express online account using the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card",
+          "text": "Enjoy complimentary Emerald Club Executive status from National Car Rental when you enroll"
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card",
+          "text": "Card Members must enroll in the National Car Rental Emerald Club Executive status through their American Express online account using their Card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-blue-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-blue-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-delta-skymiles-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "There is no annual fee for the Delta SkyMiles Blue American Express Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-blue-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-blue-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-blue-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-delta-skymiles-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "餐厅（外卖和配送限美国）",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "including takeout and delivery in the U.S.- earn 2X Miles at restaurants",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "餐厅（外卖和配送限美国）",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-blue-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-blue-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-blue-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-delta-skymiles-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "Delta 直接消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 miles for every dollar spent on eligible purchases made directly with Delta",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "Delta 直接消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-blue-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-blue-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-blue-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-delta-skymiles-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "其他合资格消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 1 mile per dollar for purchases you make with your Card",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "miles-per-USD",
+      "spendCategory": "其他合资格消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-blue-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-blue-card.inflight",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-blue-card.inflight@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "机上消费20%返还",
+      "summary": "以抵扣形式返还，限 Delta 机上餐饮。",
+      "sourceText": "Receive a 20% savings in the form of a statement credit",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以抵扣形式返还，限 Delta 机上餐饮。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以抵扣形式返还，限 Delta 机上餐饮。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-blue-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "20% back on in-flight purchases",
+      "summary": "A 20% savings as a statement credit on eligible Delta in-flight purchases of food and beverages.",
+      "howToUse": [
+        "Pay for food and drinks on Delta flights with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-blue-card",
+          "text": "Receive a 20% savings in the form of a statement credit"
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-blue-card",
+          "text": "on eligible Delta in-flight purchases of food and beverages"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-blue-business-cash-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-business-cash-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-blue-business-cash-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$0 Annual Fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-blue-business-cash-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-blue-business-cash-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-business-cash-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-blue-business-cash-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有合资格消费",
+      "summary": "每自然年前50,000美元返2%，之后1%。返现自动记入账单。",
+      "sourceText": "Earn 2% cash back on the first $50,000 of eligible purchases each calendar year, 1% thereafter.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每自然年前50,000美元返2%，之后1%。返现自动记入账单。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "所有合资格消费",
+      "spendCap": {
+        "amount": 50000,
+        "currency": "USD",
+        "period": "calendar-year"
+      },
+      "creditedSpendMayNotEarn": null,
+      "afterCapPercent": 1
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每自然年前50,000美元返2%，之后1%。返现自动记入账单。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-blue-business-cash-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]

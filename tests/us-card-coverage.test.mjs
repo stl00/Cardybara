@@ -23,12 +23,15 @@ test('each card is matched by the wallet from its name and every alias, without 
 });
 test('each recorded fact has an official source, a date and the issuer wording',()=>{
  for(const card of cards){const rows=queryKnowledge({productId:card.id,asOf:checkedOn(card)}).rules.filter(r=>r.id.startsWith(`rule.${card.id}.`));assert.ok(rows.length,card.id);
-  for(const r of rows){assert.ok(knowledgeSources(r.evidence.sourceIds).every(s=>s.authority==='official'&&s.url===card.url),r.id);assert.equal(r.evidence.checkedAt,checkedOn(card));assert.ok(r.content.sourceText,r.id);assert.equal(r.personalState,'not-in-public-knowledge');}
+  for(const r of rows){assert.ok(knowledgeSources(r.evidence.sourceIds).every(s=>s.authority==='official'&&[card.url,...Object.values(card.extraSources||{}).map(x=>x.url)].includes(s.url)),r.id);assert.equal(r.evidence.checkedAt,checkedOn(card));assert.ok(r.content.sourceText,r.id);assert.equal(r.personalState,'not-in-public-knowledge');}
   if(card.fee){const fee=rows.find(r=>r.kind==='fee'&&r.terms.cardholderRole==='primary');assert.equal(fee.terms.amount,card.fee.amount);assert.equal(fee.terms.actualCharge,null);}
  }
 });
 test('the assistant answers a listed card with its official source',()=>{
- for(const card of cards){assert.ok(card.fee,`${card.id} has no annual fee`);const p=product(card.id);const result=runWalletTool(call('get_card_rules',{kind:'fee'}),{cards:[{id:'x',bank:p.bank,region:p.region,name:p.name}],events:[],day:checkedOn(card)});assert.ok(result.rules.length,card.id);assert.ok(JSON.stringify(result).includes(card.url),card.id);}
+ for(const card of cards){
+  // A fee the issuer page does not show stays unknown, and the card says so.
+  if(!card.fee){assert.ok(card.unknown.some(u=>u.zh.includes('年费')),`${card.id} has no annual fee and no reason`);continue;}
+  const p=product(card.id);const result=runWalletTool(call('get_card_rules',{kind:'fee'}),{cards:[{id:'x',bank:p.bank,region:p.region,name:p.name}],events:[],day:checkedOn(card)});assert.ok(result.rules.length,card.id);assert.ok(JSON.stringify(result).includes(card.url),card.id);}
 });
 test('a held listed card gets a profile that marks personal state unverified',()=>{
  for(const card of cards){const p=product(card.id),profile=profileForCard({bank:p.bank,region:p.region,name:p.name});assert.ok(profile,card.id);assert.ok(profile.knowledgeGaps.length,card.id);for(const b of profile.benefits)assert.equal(b.accountState,'unverified');}
