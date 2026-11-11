@@ -30,7 +30,7 @@ Each workstream runs in its own session and git worktree, with one writer per ar
 | --- | --- | --- |
 | Collector infrastructure | Local dev collector, `extension-next/background.js`, `engine.js`, `protocol.js` | Real bank refresh works on localhost from source |
 | Banks | Bank adapters, navigation and parsing in `extension-next/`, fixtures | Every card reads back correctly, per bank |
-| Wallet product | `src/`, `src/translations.json` | UI and new-user flow |
+| Wallet product | `src/`, `src/i18n/*.json` | UI and new-user flow |
 | Release | `.github/`, `scripts/*release*`, acceptance scripts, `release.json` | An accepted installable package |
 
 - Writers do not accept their own work; review is done by a separate read-only agent.
@@ -60,7 +60,7 @@ npm run build:dev-extension      # local dev extension with the scheduled refres
 ## Definition of done
 
 - Tests and `npm run check:release` pass locally; CI is green on the PR.
-- UI strings exist in all three languages (`src/translations.json`).
+- UI strings exist in all three languages (`src/i18n/<area>.json`; a key in two files fails the build).
 - UI that names a merchant, category or programme uses `src/ItemLogo.jsx`, resolved from knowledge data rather than per-page lists; issuers and reward accounts use `BankMark`. Raw bank descriptions such as transaction merchants stay as read, because matching them risks false matches. `tests/logo-coverage.test.mjs` fails on a new credit or benefit with no icon.
 - A logo ships only as an `approved` entry in `src/data/logos.json` with a local file and its source and terms in `public/ASSET-SOURCES.md`. Otherwise the item uses its category icon. Approving a mark whose terms forbid or do not clearly allow this use is the owner's decision; the owner made that decision for the current registry on 2026-11-03 (#50), and each new brand still needs its own.
 - The PR states what was verified and at which level — fixture replay, simulated flow, or real bank — and lists what is still `not_run`.
