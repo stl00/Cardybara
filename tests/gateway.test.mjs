@@ -272,3 +272,8 @@ test('a long stream may exceed the JSON reply cap, within what max_tokens allows
  const r=await handle(post(ROUTES.chat,{body:chatBody({stream:true,max_tokens:200})}),g.env,{fetch:async()=>sse(events),log:l=>g.logs.push(l),waitUntil:p=>waits.push(p)});
  assert.ok((await r.text()).includes('[DONE]'));await Promise.all(waits);assert.equal(JSON.parse(g.logs.at(-1)).completion_tokens,150);
 });
+test('an agent that fails to load answers agent_unavailable, not a crash',async()=>{
+ const src=readFileSync(new URL('../gateway/src/gateway.js',import.meta.url),'utf8');
+ assert.match(src,/import\('\.\/agent\.js'\)\)\.then\(m=>m\.agentRoute\(ctx\),\(\)=>\{throw new Refusal\('agent_unavailable'\);\}\)/);
+ assert.equal((await import('../gateway/src/gateway.js')).ERRORS.agent_unavailable,503);
+});

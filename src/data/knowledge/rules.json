@@ -66512,5 +66512,6534 @@
         }
       ]
     }
+  },
+  {
+    "id": "rule.bilt-us-bilt-blue-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-blue-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "bilt-us-bilt-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Annual Fee $0; each authorized user: $0 per year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-blue-card-fees"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-blue-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-blue-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "Bilt Travel 酒店",
+      "summary": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+      "sourceText": "3X on hotels through Bilt Travel, 3X on Lyft, 2X on flights through Bilt Travel, and 1X on everything else.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "Bilt Travel 酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-blue-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-blue-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-blue-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "Bilt Travel 机票",
+      "summary": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+      "sourceText": "3X on hotels through Bilt Travel, 3X on Lyft, 2X on flights through Bilt Travel, and 1X on everything else.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "Bilt Travel 机票",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-blue-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-blue-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-blue-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "Lyft（关联 Bilt 账户）",
+      "summary": "含 Bilt Rewards 的 Lyft 奖励，须在 Lyft 关联 Bilt 账户并设为当前积分伙伴。",
+      "sourceText": "Blue and Obsidian cardholders earn 3X total on Lyft, and Palladium cardholders earn 4X total.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "含 Bilt Rewards 的 Lyft 奖励，须在 Lyft 关联 Bilt 账户并设为当前积分伙伴。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "Lyft（关联 Bilt 账户）",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "含 Bilt Rewards 的 Lyft 奖励，须在 Lyft 关联 Bilt 账户并设为当前积分伙伴。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-blue-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-blue-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-blue-card.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Other Eligible Purchases: You’ll earn 1 Bilt Point (\"1X Points\") on other Eligible Purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-blue-card-terms"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-blue-card.housing-points",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-blue-card.housing-points@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "房租和房贷积分（经 Bilt 支付）",
+      "summary": "经 Bilt 支付房租、房贷不收交易费。默认“仅住房”方式按当期日常消费占住房付款的比例给0.5倍到1.25倍积分，不足25%时每期给250点；没有年度或每月上限。旧卡的每月5笔交易要求不适用于 Bilt Card 2.0。另有“Flexible Bilt Cash”方式，2027年1月1日起新开账户不能选。",
+      "sourceText": "Earn up to 1.25X points on rent and mortgage payments",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "经 Bilt 支付房租、房贷不收交易费。默认“仅住房”方式按当期日常消费占住房付款的比例给0.5倍到1.25倍积分，不足25%时每期给250点；没有年度或每月上限。旧卡的每月5笔交易要求不适用于 Bilt Card 2.0。另有“Flexible Bilt Cash”方式，2027年1月1日起新开账户不能选。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "经 Bilt 支付房租、房贷不收交易费。默认“仅住房”方式按当期日常消费占住房付款的比例给0.5倍到1.25倍积分，不足25%时每期给250点；没有年度或每月上限。旧卡的每月5笔交易要求不适用于 Bilt Card 2.0。另有“Flexible Bilt Cash”方式，2027年1月1日起新开账户不能选。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-blue-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Points on rent and mortgage payments",
+      "summary": "Earn up to 1.25X points on rent and mortgage payments with no transaction fee. With housing-only rewards, everyday spend in each billing cycle sets the multiplier; below 25% of the housing payment you earn 250 points.",
+      "howToUse": [
+        "Pay rent or mortgage through the Bilt app or website with the card.",
+        "Your everyday spend in the billing cycle decides the housing multiplier."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-blue-card",
+          "text": "Earn up to 1.25X points on rent and mortgage payments"
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-blue-card",
+          "text": "If you do not meet the minimum 25% of your housing payment, you’ll earn 250 points."
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-blue-card",
+          "text": "The 5-transaction monthly minimum was a requirement of the original Bilt Card and does not apply to any Bilt Card 2.0"
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-blue-card",
+          "text": "All three cards have no transaction fee on rent, mortgage and HOA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Annual Fee $95; each authorized user: $50 per year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card-fees"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.fee-additional@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Annual Fee $95; each authorized user: $50 per year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 50,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card-fees"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "Bilt Travel 酒店",
+      "summary": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+      "sourceText": "earns 4X on hotels through Bilt Travel, 3X dining or grocery (up to 6X at Bilt dining partners; grocery up to $25k/year),",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "points-per-USD",
+      "spendCategory": "Bilt Travel 酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "Bilt Travel 机票",
+      "summary": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+      "sourceText": "3X on flights through Bilt Travel, 2X on other travel, and includes a $100 annual Bilt Travel Hotel credit.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "Bilt Travel 机票",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "餐饮（自选类别，默认）",
+      "summary": "餐饮和超市二选一，默认餐饮；开户30天内可改一次，之后当年锁定。未选的类别按1倍。",
+      "sourceText": "if you select Dining as the bonus category (default)",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "餐饮和超市二选一，默认餐饮；开户30天内可改一次，之后当年锁定。未选的类别按1倍。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "餐饮（自选类别，默认）",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "餐饮和超市二选一，默认餐饮；开户30天内可改一次，之后当年锁定。未选的类别按1倍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card-terms"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "超市（自选类别）",
+      "summary": "选了超市时，每个自然年合计25,000美元内3倍，之后1倍；与餐饮二选一。",
+      "sourceText": "up to $25,000 in combined grocery purchases by you and any Authorized Users on the Card Account",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "选了超市时，每个自然年合计25,000美元内3倍，之后1倍；与餐饮二选一。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "超市（自选类别）",
+      "spendCap": {
+        "amount": 25000,
+        "currency": "USD",
+        "period": "calendar-year"
+      },
+      "creditedSpendMayNotEarn": null,
+      "afterCapPercent": 1
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "选了超市时，每个自然年合计25,000美元内3倍，之后1倍；与餐饮二选一。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card-terms"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.earning-4@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "航空、酒店、邮轮和租车直接消费",
+      "summary": "直接向航空公司、酒店、邮轮和租车商户消费（按 Mastercard 商户类别）。",
+      "sourceText": "You’ll earn 2 Bilt Points (1 base Bilt Point plus 1 bonus Bilt Point) per $1 spent on Eligible Purchases made directly",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "直接向航空公司、酒店、邮轮和租车商户消费（按 Mastercard 商户类别）。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "航空、酒店、邮轮和租车直接消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "直接向航空公司、酒店、邮轮和租车商户消费（按 Mastercard 商户类别）。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card-terms"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.earning-5",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.earning-5@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "Lyft（关联 Bilt 账户）",
+      "summary": "含 Bilt Rewards 的 Lyft 奖励，须在 Lyft 关联 Bilt 账户并设为当前积分伙伴。",
+      "sourceText": "Blue and Obsidian cardholders earn 3X total on Lyft, and Palladium cardholders earn 4X total.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "含 Bilt Rewards 的 Lyft 奖励，须在 Lyft 关联 Bilt 账户并设为当前积分伙伴。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "Lyft（关联 Bilt 账户）",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "含 Bilt Rewards 的 Lyft 奖励，须在 Lyft 关联 Bilt 账户并设为当前积分伙伴。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.earning-6",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.earning-6@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Other purchases: You’ll earn 1 reward point per $1 spent on other Eligible Purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card-terms"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.housing-points",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.housing-points@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "房租和房贷积分（经 Bilt 支付）",
+      "summary": "经 Bilt 支付房租、房贷不收交易费。默认“仅住房”方式按当期日常消费占住房付款的比例给0.5倍到1.25倍积分，不足25%时每期给250点；没有年度或每月上限。旧卡的每月5笔交易要求不适用于 Bilt Card 2.0。另有“Flexible Bilt Cash”方式，2027年1月1日起新开账户不能选。",
+      "sourceText": "Earn up to 1.25X points on rent and mortgage payments",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "经 Bilt 支付房租、房贷不收交易费。默认“仅住房”方式按当期日常消费占住房付款的比例给0.5倍到1.25倍积分，不足25%时每期给250点；没有年度或每月上限。旧卡的每月5笔交易要求不适用于 Bilt Card 2.0。另有“Flexible Bilt Cash”方式，2027年1月1日起新开账户不能选。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "经 Bilt 支付房租、房贷不收交易费。默认“仅住房”方式按当期日常消费占住房付款的比例给0.5倍到1.25倍积分，不足25%时每期给250点；没有年度或每月上限。旧卡的每月5笔交易要求不适用于 Bilt Card 2.0。另有“Flexible Bilt Cash”方式，2027年1月1日起新开账户不能选。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Points on rent and mortgage payments",
+      "summary": "Earn up to 1.25X points on rent and mortgage payments with no transaction fee. With housing-only rewards, everyday spend in each billing cycle sets the multiplier; below 25% of the housing payment you earn 250 points.",
+      "howToUse": [
+        "Pay rent or mortgage through the Bilt app or website with the card.",
+        "Your everyday spend in the billing cycle decides the housing multiplier."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card",
+          "text": "Earn up to 1.25X points on rent and mortgage payments"
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card",
+          "text": "If you do not meet the minimum 25% of your housing payment, you’ll earn 250 points."
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card",
+          "text": "The 5-transaction monthly minimum was a requirement of the original Bilt Card and does not apply to any Bilt Card 2.0"
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card",
+          "text": "All three cards have no transaction fee on rent, mortgage and HOA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.hotel-credit",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.hotel-credit@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay",
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Bilt Travel 酒店额度（每半年50美元）",
+      "summary": "1–6月、7–12月各最多50美元，用于本卡经 Bilt Travel 预订的2晚及以上酒店，结账时须选择使用额度。适用于2027年1月1日前开户的账户；这些账户在2027年1月1日或之后的第一个开卡周年日改为每年发放 Bilt Cash，除非持卡人作了 Legacy Election。",
+      "sourceText": "Credits of up to $50 may be applied to qualifying hotel bookings made through the Bilt Travel Portal from January",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "1–6月、7–12月各最多50美元，用于本卡经 Bilt Travel 预订的2晚及以上酒店，结账时须选择使用额度。适用于2027年1月1日前开户的账户；这些账户在2027年1月1日或之后的第一个开卡周年日改为每年发放 Bilt Cash，除非持卡人作了 Legacy Election。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-half-year",
+      "amount": 50,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "1–6月、7–12月各最多50美元，用于本卡经 Bilt Travel 预订的2晚及以上酒店，结账时须选择使用额度。适用于2027年1月1日前开户的账户；这些账户在2027年1月1日或之后的第一个开卡周年日改为每年发放 Bilt Cash，除非持卡人作了 Legacy Election。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card-terms"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$100 Bilt Travel Hotel Credit",
+      "summary": "Up to $50 from January 1 through June 30 and up to $50 from July 1 through December 31 on qualifying hotel bookings of 2 nights or more through the Bilt Travel Portal, for a total of $100 each calendar year.",
+      "howToUse": [
+        "Book a stay of 2 nights or more through the Bilt Travel Portal or the Bilt app with the card.",
+        "Turn on the credit at checkout."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card-terms",
+          "text": "Credits of up to $50 may be applied to qualifying hotel bookings made through the Bilt Travel Portal from January"
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card-terms",
+          "text": "for a total maximum of $100 each calendar year."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.bilt-cash-2027",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.bilt-cash-2027@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "card-ownership",
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "每年100美元 Bilt Cash（2027年起）",
+      "summary": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放100美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+      "sourceText": "You, as the Primary Cardholder, will receive $100 in Bilt Cash.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放100美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": "2027-01-01",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放100美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card-terms"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$100 Bilt Cash Benefit",
+      "summary": "$100 in Bilt Cash is credited to the primary cardholder's Bilt Rewards Account at account opening and on each card anniversary while the account stays open and in good standing.",
+      "howToUse": [
+        "Bilt Cash is credited automatically; use it in the Bilt app or website before it expires."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card-terms",
+          "text": "You, as the Primary Cardholder, will receive $100 in Bilt Cash."
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card-terms",
+          "text": "This $100 annual Bilt Cash benefit is separate from and in addition to"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Annual Fee $495; each authorized user: $95 per year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 495,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card-fees"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.fee-additional@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Annual Fee $495; each authorized user: $95 per year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card-fees"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "Bilt Travel 酒店",
+      "summary": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+      "sourceText": "4X on hotels and 3X on flights through Bilt Travel, 4X on Lyft, 2X points on all everyday purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "points-per-USD",
+      "spendCategory": "Bilt Travel 酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "Bilt Travel 机票",
+      "summary": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+      "sourceText": "4X on hotels and 3X on flights through Bilt Travel, 4X on Lyft, 2X points on all everyday purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "Bilt Travel 机票",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "Lyft（关联 Bilt 账户）",
+      "summary": "含 Bilt Rewards 的 Lyft 奖励，须在 Lyft 关联 Bilt 账户并设为当前积分伙伴。",
+      "sourceText": "Blue and Obsidian cardholders earn 3X total on Lyft, and Palladium cardholders earn 4X total.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "含 Bilt Rewards 的 Lyft 奖励，须在 Lyft 关联 Bilt 账户并设为当前积分伙伴。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "points-per-USD",
+      "spendCategory": "Lyft（关联 Bilt 账户）",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "含 Bilt Rewards 的 Lyft 奖励，须在 Lyft 关联 Bilt 账户并设为当前积分伙伴。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "住房付款除外。",
+      "sourceText": "You'll earn 2 Bilt Points for each $1 spent on all Eligible Purchases except Bilt Housing Payments.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "住房付款除外。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "住房付款除外。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card-terms"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.housing-points",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.housing-points@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "房租和房贷积分（经 Bilt 支付）",
+      "summary": "经 Bilt 支付房租、房贷不收交易费。默认“仅住房”方式按当期日常消费占住房付款的比例给0.5倍到1.25倍积分，不足25%时每期给250点；没有年度或每月上限。旧卡的每月5笔交易要求不适用于 Bilt Card 2.0。另有“Flexible Bilt Cash”方式，2027年1月1日起新开账户不能选。",
+      "sourceText": "Earn up to 1.25X points on rent and mortgage payments",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "经 Bilt 支付房租、房贷不收交易费。默认“仅住房”方式按当期日常消费占住房付款的比例给0.5倍到1.25倍积分，不足25%时每期给250点；没有年度或每月上限。旧卡的每月5笔交易要求不适用于 Bilt Card 2.0。另有“Flexible Bilt Cash”方式，2027年1月1日起新开账户不能选。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "经 Bilt 支付房租、房贷不收交易费。默认“仅住房”方式按当期日常消费占住房付款的比例给0.5倍到1.25倍积分，不足25%时每期给250点；没有年度或每月上限。旧卡的每月5笔交易要求不适用于 Bilt Card 2.0。另有“Flexible Bilt Cash”方式，2027年1月1日起新开账户不能选。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Points on rent and mortgage payments",
+      "summary": "Earn up to 1.25X points on rent and mortgage payments with no transaction fee. With housing-only rewards, everyday spend in each billing cycle sets the multiplier; below 25% of the housing payment you earn 250 points.",
+      "howToUse": [
+        "Pay rent or mortgage through the Bilt app or website with the card.",
+        "Your everyday spend in the billing cycle decides the housing multiplier."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card",
+          "text": "Earn up to 1.25X points on rent and mortgage payments"
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card",
+          "text": "If you do not meet the minimum 25% of your housing payment, you’ll earn 250 points."
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card",
+          "text": "The 5-transaction monthly minimum was a requirement of the original Bilt Card and does not apply to any Bilt Card 2.0"
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card",
+          "text": "All three cards have no transaction fee on rent, mortgage and HOA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.hotel-credit",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.hotel-credit@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay",
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Bilt Travel 酒店额度（每半年200美元）",
+      "summary": "1–6月、7–12月各最多200美元，用于本卡经 Bilt Travel 预订的2晚及以上酒店，结账时须选择使用额度。适用于2027年1月1日前开户的账户；这些账户在2027年1月1日或之后的第一个开卡周年日改为每年发放 Bilt Cash，除非持卡人作了 Legacy Election。",
+      "sourceText": "Credits of up to $200 may be applied to qualifying hotel bookings made through the Bilt Travel Portal from January",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "1–6月、7–12月各最多200美元，用于本卡经 Bilt Travel 预订的2晚及以上酒店，结账时须选择使用额度。适用于2027年1月1日前开户的账户；这些账户在2027年1月1日或之后的第一个开卡周年日改为每年发放 Bilt Cash，除非持卡人作了 Legacy Election。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-half-year",
+      "amount": 200,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "1–6月、7–12月各最多200美元，用于本卡经 Bilt Travel 预订的2晚及以上酒店，结账时须选择使用额度。适用于2027年1月1日前开户的账户；这些账户在2027年1月1日或之后的第一个开卡周年日改为每年发放 Bilt Cash，除非持卡人作了 Legacy Election。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card-terms"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$400 Bilt Travel Hotel Credit",
+      "summary": "Up to $200 from January 1 through June 30 and up to $200 from July 1 through December 31 on qualifying hotel bookings of 2 nights or more through the Bilt Travel Portal, for a total of $400 each calendar year.",
+      "howToUse": [
+        "Book a stay of 2 nights or more through the Bilt Travel Portal or the Bilt app with the card.",
+        "Turn on the credit at checkout."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "Credits of up to $200 may be applied to qualifying hotel bookings made through the Bilt Travel Portal from January"
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "for a total maximum of $400 each calendar year."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.bilt-cash",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.bilt-cash@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "card-ownership",
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "每年200美元 Bilt Cash",
+      "summary": "2027年1月1日前开户的账户，开户时和每个开卡周年日向主卡持卡人发放200美元 Bilt Cash；在2027年1月1日或之后的第一个开卡周年日改为新的每年 Bilt Cash，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+      "sourceText": "You, as the Primary Cardholder, will receive $200 in Bilt Cash.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "2027年1月1日前开户的账户，开户时和每个开卡周年日向主卡持卡人发放200美元 Bilt Cash；在2027年1月1日或之后的第一个开卡周年日改为新的每年 Bilt Cash，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": 200,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "2027年1月1日前开户的账户，开户时和每个开卡周年日向主卡持卡人发放200美元 Bilt Cash；在2027年1月1日或之后的第一个开卡周年日改为新的每年 Bilt Cash，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card-terms"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Bilt Cash Benefit",
+      "summary": "$200 in Bilt Cash is credited to the primary cardholder's Bilt Rewards Account at account opening and on each card anniversary while the account stays open and in good standing.",
+      "howToUse": [
+        "Bilt Cash is credited automatically; use it in the Bilt app or website before it expires."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "You, as the Primary Cardholder, will receive $200 in Bilt Cash."
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "This $200 annual Bilt Cash benefit is separate from and in addition to"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.bilt-cash-2027",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.bilt-cash-2027@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "card-ownership",
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "每年600美元 Bilt Cash（2027年起）",
+      "summary": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放600美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+      "sourceText": "You, as the Primary Cardholder, will receive $600 in Bilt Cash.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放600美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": 600,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": "2027-01-01",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放600美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card-terms"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$600 Bilt Cash Benefit",
+      "summary": "$600 in Bilt Cash is credited to the primary cardholder's Bilt Rewards Account at account opening and on each card anniversary while the account stays open and in good standing.",
+      "howToUse": [
+        "Bilt Cash is credited automatically; use it in the Bilt app or website before it expires."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "You, as the Primary Cardholder, will receive $600 in Bilt Cash."
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "This $600 annual Bilt Cash benefit is separate from and in addition to"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.priority-pass",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.priority-pass@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "lounge",
+    "scenarioIds": [
+      "airport",
+      "travel"
+    ],
+    "programmeIds": [
+      "programme.priority-pass"
+    ],
+    "content": {
+      "title": "Priority Pass 贵宾室",
+      "summary": "Priority Pass 会籍，可用1,300多个机场的贵宾室；同行人规则和登记方式未核实。",
+      "sourceText": "and Priority Pass lounge access at 1,300+ airports",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "Priority Pass 会籍，可用1,300多个机场的贵宾室；同行人规则和登记方式未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "lounge",
+      "period": null,
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Priority Pass 会籍，可用1,300多个机场的贵宾室；同行人规则和登记方式未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Priority Pass lounge access",
+      "summary": "Priority Pass lounge access at 1,300+ airports.",
+      "howToUse": [
+        "Activate Priority Pass as the card offers it, then show the membership at the lounge."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card",
+          "text": "and Priority Pass lounge access at 1,300+ airports"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-atmos-rewards",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-atmos-rewards@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.atmos-rewards"
+    ],
+    "content": {
+      "title": "Atmos Rewards",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.atmos-rewards",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-avianca-lifemiles",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-avianca-lifemiles@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.avianca-lifemiles"
+    ],
+    "content": {
+      "title": "avianca lifemiles",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.avianca-lifemiles",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-united-mileageplus",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-united-mileageplus@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "United MileagePlus",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.united-mileageplus",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-jetblue-trueblue",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-jetblue-trueblue@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.jetblue-trueblue"
+    ],
+    "content": {
+      "title": "JetBlue TrueBlue",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.jetblue-trueblue",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-air-france-klm-flying-blue",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-air-france-klm-flying-blue@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.air-france-klm-flying-blue"
+    ],
+    "content": {
+      "title": "Air France KLM Flying Blue",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.air-france-klm-flying-blue",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-virgin-red",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-virgin-red@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.virgin-red"
+    ],
+    "content": {
+      "title": "Virgin Red",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.virgin-red",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-virgin-atlantic-flying-club",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-virgin-atlantic-flying-club@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.virgin-atlantic-flying-club"
+    ],
+    "content": {
+      "title": "Virgin Atlantic Flying Club",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.virgin-atlantic-flying-club",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-emirates-skywards",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-emirates-skywards@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.emirates-skywards"
+    ],
+    "content": {
+      "title": "Emirates Skywards",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.emirates-skywards",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-the-british-airways-club",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-the-british-airways-club@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "The British Airways Club",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.the-british-airways-club",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-cathay-asia-miles",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-cathay-asia-miles@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.cathay-asia-miles"
+    ],
+    "content": {
+      "title": "Cathay Asia Miles",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.cathay-asia-miles",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-turkish-miles-smiles",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-turkish-miles-smiles@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.turkish-miles-smiles"
+    ],
+    "content": {
+      "title": "Turkish Airlines Miles&Smiles",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.turkish-miles-smiles",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-aer-lingus-aerclub",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-aer-lingus-aerclub@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.aer-lingus-aerclub"
+    ],
+    "content": {
+      "title": "Aer Lingus AerClub",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.aer-lingus-aerclub",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-iberia-club",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-iberia-club@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.iberia-club"
+    ],
+    "content": {
+      "title": "Iberia Club",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.iberia-club",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-air-canada-aeroplan",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-air-canada-aeroplan@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "Air Canada Aeroplan",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.air-canada-aeroplan",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-tap-miles-go",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-tap-miles-go@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.tap-miles-go"
+    ],
+    "content": {
+      "title": "TAP Miles&Go",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.tap-miles-go",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-southwest-rapid-rewards",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-southwest-rapid-rewards@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "Southwest Rapid Rewards",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；Southwest 最长72小时到账。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.southwest-rapid-rewards",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 72,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；Southwest 最长72小时到账。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-jal-mileage-bank",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-jal-mileage-bank@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.jal-mileage-bank"
+    ],
+    "content": {
+      "title": "Japan Airlines Mileage Bank",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.jal-mileage-bank",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-qatar-privilege-club",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-qatar-privilege-club@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.qatar-privilege-club"
+    ],
+    "content": {
+      "title": "Qatar Airways Privilege Club",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.qatar-privilege-club",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-etihad-guest",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-etihad-guest@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.etihad-guest"
+    ],
+    "content": {
+      "title": "Etihad Guest",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.etihad-guest",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-hilton-honors",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-hilton-honors@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.hilton-honors"
+    ],
+    "content": {
+      "title": "Hilton Honors",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.hilton-honors",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-marriott-bonvoy",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-marriott-bonvoy@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.marriott-bonvoy",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-world-of-hyatt",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-world-of-hyatt@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.world-of-hyatt"
+    ],
+    "content": {
+      "title": "World of Hyatt",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.world-of-hyatt",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-ihg-one-rewards",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-ihg-one-rewards@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "IHG One Rewards",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.ihg-one-rewards",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-all-accor",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-all-accor@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.all-accor"
+    ],
+    "content": {
+      "title": "ALL Accor",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.all-accor",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 3,
+        "to": 2
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-wyndham-rewards",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-wyndham-rewards@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.wyndham-rewards"
+    ],
+    "content": {
+      "title": "Wyndham Rewards",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.wyndham-rewards",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-i-prefer",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-i-prefer@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.i-prefer"
+    ],
+    "content": {
+      "title": "I Prefer Hotel Rewards",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.i-prefer",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 2
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.bilt-rewards.transfer-amtrak-guest-rewards",
+    "revision": 1,
+    "revisionId": "rule.programme.bilt-rewards.transfer-amtrak-guest-rewards@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "bilt-us-bilt-blue-card",
+      "bilt-us-bilt-obsidian-card",
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards",
+      "programme.amtrak-guest-rewards"
+    ],
+    "content": {
+      "title": "Amtrak Guest Rewards",
+      "summary": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。",
+      "howToUse": [
+        "转点前在 Bilt App 或网站核对当前比例、最低数量和你的会员等级。",
+        "转点不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.bilt-rewards",
+      "toProgrammeId": "programme.amtrak-guest-rewards",
+      "ratio": null,
+      "minimumPoints": null,
+      "minimumByStatus": {
+        "blue": 2000,
+        "silver-and-above": 1000
+      },
+      "incrementPoints": 1000,
+      "maximumPoints": null,
+      "estimatedTime": {
+        "value": 48,
+        "unit": "hours",
+        "qualifier": "up-to"
+      },
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 2,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Bilt 帮助中心公布的比例；Blue 等级会员最低转2,000点，Silver 及以上最低1,000点，每次按1,000点递增；多数即时到账，最长48小时。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "bilt-transfer-partners"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-iberia-visa-signature-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-iberia-visa-signature-credit-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-iberia-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $95",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-iberia-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-iberia-visa-signature-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-iberia-visa-signature-credit-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-iberia-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.iberia-club"
+    ],
+    "content": {
+      "title": "Iberia、British Airways、Aer Lingus 和 LEVEL 直订机票",
+      "summary": "条款写明须直接向 Iberia、British Airways、LEVEL 或 Aer Lingus 购买。",
+      "sourceText": "Earn 3 Avios for every $1 spent on Iberia, British Airways, and Aer Lingus flight purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "条款写明须直接向 Iberia、British Airways、LEVEL 或 Aer Lingus 购买。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "Iberia、British Airways、Aer Lingus 和 LEVEL 直订机票",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款写明须直接向 Iberia、British Airways、LEVEL 或 Aer Lingus 购买。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-iberia-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-iberia-visa-signature-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-iberia-visa-signature-credit-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-iberia-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.iberia-club"
+    ],
+    "content": {
+      "title": "直订酒店",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 Avios for every $1 spent on hotel accommodations booked directly with the hotel.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "直订酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-iberia-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-iberia-visa-signature-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-iberia-visa-signature-credit-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-iberia-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.iberia-club"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 1 Avios for every $1 spent on all other purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-iberia-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-iberia-visa-signature-credit-card.anniversary-avios",
+    "revision": 1,
+    "revisionId": "rule.chase-us-iberia-visa-signature-credit-card.anniversary-avios@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-iberia-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [
+      "programme.iberia-club"
+    ],
+    "content": {
+      "title": "每个账户年2,500 Avios",
+      "summary": "每个账户周年年度得2,500 Avios。",
+      "sourceText": "earn 2,500 anniversary bonus Avios each account anniversary year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户周年年度得2,500 Avios。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户周年年度得2,500 Avios。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-iberia-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "2,500 anniversary Avios",
+      "summary": "2,500 bonus Avios each account anniversary year.",
+      "howToUse": [
+        "Look for the Avios in your Iberia Club account after the anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-iberia-visa-signature-credit-card",
+          "text": "earn 2,500 anniversary bonus Avios each account anniversary year"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-disney-visa-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-visa-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-disney-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $0",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-visa-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-visa-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 1% in Disney Rewards Dollars on all card purchases with no limits to the amount you can earn.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-visa-card.disney-shopping",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-visa-card.disney-shopping@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney 购物9折",
+      "summary": "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。",
+      "sourceText": "Save 10% on select purchases at DisneyStore.com when you use your Disney Visa Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "10% savings on Disney shopping",
+      "summary": "10% off select purchases at DisneyStore.com and select merchandise at select locations at the Disneyland Resort and Walt Disney World Resort.",
+      "howToUse": [
+        "Pay with the card at DisneyStore.com or the resort shops."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-visa-card",
+          "text": "Save 10% on select purchases at DisneyStore.com when you use your Disney Visa Card."
+        },
+        {
+          "sourceId": "card-chase-us-disney-visa-card",
+          "text": "Receive 10% off select merchandise purchases at select locations at the Disneyland Resort and Walt Disney World Resort"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $49",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 49,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 5% on card purchases made directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "加油站和美国大部分 Disney 场所",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 2% on card purchases at gas stations and most Disney U.S. locations.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "加油站和美国大部分 Disney 场所",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "超市和餐厅",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 2% on card purchases at grocery stores and restaurants.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "超市和餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 1% on all other card purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.disney-shopping",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.disney-shopping@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney 购物9折",
+      "summary": "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。",
+      "sourceText": "Save 10% on select purchases at DisneyStore.com when you use your Disney Premier Visa Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "10% savings on Disney shopping",
+      "summary": "10% off select purchases at DisneyStore.com and select merchandise at select locations at the Disneyland Resort and Walt Disney World Resort.",
+      "howToUse": [
+        "Pay with the card at DisneyStore.com or the resort shops."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-premier-visa-card",
+          "text": "Save 10% on select purchases at DisneyStore.com when you use your Disney Premier Visa Card."
+        },
+        {
+          "sourceId": "card-chase-us-disney-premier-visa-card",
+          "text": "Receive 10% off select merchandise purchases at select locations at the Disneyland Resort and Walt Disney World Resort"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.disney-dining",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.disney-dining@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "dining"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney 度假区指定餐厅9折",
+      "summary": "在 Disneyland 和 Walt Disney World 度假区指定餐厅用本卡消费享9折。",
+      "sourceText": "Receive 10% off select dining locations at the Disneyland Resort and Walt Disney World Resort",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "在 Disneyland 和 Walt Disney World 度假区指定餐厅用本卡消费享9折。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在 Disneyland 和 Walt Disney World 度假区指定餐厅用本卡消费享9折。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "10% off select Disney resort dining",
+      "summary": "10% off at select dining locations at the Disneyland Resort and Walt Disney World Resort.",
+      "howToUse": [
+        "Pay with the card at the participating restaurants."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-premier-visa-card",
+          "text": "Receive 10% off select dining locations at the Disneyland Resort and Walt Disney World Resort"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $149",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 149,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 10% on card purchases made directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 10,
+      "unit": "cashback-percent",
+      "spendCategory": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "加油站和美国大部分 Disney 场所",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 3% on card purchases at gas stations and most other U.S. Disney locations.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "cashback-percent",
+      "spendCategory": "加油站和美国大部分 Disney 场所",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "超市和餐厅",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 2% on card purchases at grocery stores and restaurants.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "超市和餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 1% on all other card purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.disney-streaming",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.disney-streaming@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "entertainment"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney Streaming 抵扣",
+      "summary": "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。年费订阅只在购买当月得一次10美元；须每个自然年在 Chase 激活一次。",
+      "sourceText": "Earn a $10 statement credit each month after spending $10 or more on qualifying subscriptions directly at DisneyPlus.com",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。年费订阅只在购买当月得一次10美元；须每个自然年在 Chase 激活一次。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-month",
+      "amount": 10,
+      "currency": "USD",
+      "requiresEnrollment": true,
+      "partner": "Disney"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。年费订阅只在购买当月得一次10美元；须每个自然年在 Chase 激活一次。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Disney streaming credit",
+      "summary": "A $10 statement credit each month after spending $10 or more on qualifying subscriptions directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com; yearly activation required.",
+      "howToUse": [
+        "Activate each year, then pay the subscription directly with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Earn a $10 statement credit each month after spending $10 or more on qualifying subscriptions directly at DisneyPlus.com"
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Yearly activation required."
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "An annual subscription would only be eligible for a one-time $10.00 statement credit in the month of the purchase."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.resort-stays",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.resort-stays@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney 度假酒店和邮轮消费满2,000美元得200 Rewards Dollars",
+      "summary": "每个账户年在美国 Disney 度假酒店和 Disney Cruise Line 消费满2,000美元，得200美元 Disney Rewards Dollars；Adventures by Disney、National Geographic Expeditions、海外 Disney 度假区和乐园，以及单独购买的乐园门票不计。是否达标未核实。",
+      "sourceText": "Earn $200 Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年在美国 Disney 度假酒店和 Disney Cruise Line 消费满2,000美元，得200美元 Disney Rewards Dollars；Adventures by Disney、National Geographic Expeditions、海外 Disney 度假区和乐园，以及单独购买的乐园门票不计。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "account-anniversary",
+      "amount": 200,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年在美国 Disney 度假酒店和 Disney Cruise Line 消费满2,000美元，得200美元 Disney Rewards Dollars；Adventures by Disney、National Geographic Expeditions、海外 Disney 度假区和乐园，以及单独购买的乐园门票不计。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Disney Rewards Dollars on resort stays",
+      "summary": "$200 Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings.",
+      "howToUse": [
+        "Book U.S. Disney Resort stays or Disney Cruise Line directly with Disney and pay with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Earn $200 Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings."
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Purchases made for Adventures by Disney, National Geographic Expeditions or international Disney Resorts or Parks will not qualify."
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "made directly with Disney (including through Disney operated websites, apps or call centers)"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.park-tickets",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.park-tickets@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "entertainment"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney 门票消费满200美元得100美元抵扣",
+      "summary": "每个账户年直接向 Disney 购买美国 Disney 主题乐园门票满200美元，得100美元账单抵扣；度假套餐内的门票不计。是否达标未核实。",
+      "sourceText": "Earn a $100 Statement Credit after spending $200 per anniversary year on U.S. Disney Theme Park Tickets.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年直接向 Disney 购买美国 Disney 主题乐园门票满200美元，得100美元账单抵扣；度假套餐内的门票不计。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "account-anniversary",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年直接向 Disney 购买美国 Disney 主题乐园门票满200美元，得100美元账单抵扣；度假套餐内的门票不计。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$100 statement credit on park tickets",
+      "summary": "A $100 statement credit after spending $200 per anniversary year on U.S. Disney Theme Park Tickets.",
+      "howToUse": [
+        "Buy U.S. Disney Theme Park Tickets with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Earn a $100 Statement Credit after spending $200 per anniversary year on U.S. Disney Theme Park Tickets."
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Disney Theme Park tickets purchased as part of Disney Vacation Packages will not qualify."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-chase-freedom-rise-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-chase-freedom-rise-credit-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-chase-freedom-rise-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $0",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-chase-freedom-rise-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-chase-freedom-rise-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-chase-freedom-rise-credit-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-chase-freedom-rise-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "earn 1.5% cash back on all purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1.5,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-chase-freedom-rise-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]

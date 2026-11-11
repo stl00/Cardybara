@@ -1,9 +1,10 @@
 import React,{useMemo,useState} from 'react';
 import {Alert,Button,Flex,Form,Input,Modal,Select,Space,Typography} from 'antd';
-import {ACTIVE_BANKS,CONNECTABLE_BANKS,PROVIDERS,SCOPED,bankOrder,connectable} from '../extension-next/providers.js';
+import {ACTIVE_BANKS,CONNECTABLE_BANKS,SCOPED,bankOrder,connectable} from '../extension-next/providers.js';
 import {BankIdentity,bankName} from './Identity';
 import {t,useI18n} from './i18n';
 import {cardProducts} from './productCatalog';
+import {MANUAL_BANK_NAMES,bankProfile} from './manualBanks.js';
 import {productDisplayName} from './cardName';
 import ProductPickerPanel,{ChosenProduct} from './ProductPickerPanel.jsx';
 import {FeeDateInput,feeDateRule} from './CardEditor.jsx';
@@ -18,7 +19,7 @@ export function AddWalletCard({onAdd}){
  const {language}=useI18n();const [open,setOpen]=useState(false),[picking,setPicking]=useState(false),[form]=Form.useForm(),[error,setError]=useState('');
  // undefined until the user picks a tile or "not listed"; the product decides the bank, so only "not listed" asks for one.
  const [choice,setChoice]=useState(),[otherBank,setOtherBank]=useState();
- const products=useMemo(()=>cardProducts.filter(p=>ACTIVE_BANKS.includes(p.bank)&&p.region===PROVIDERS[p.bank]?.region),[]);
+ const products=useMemo(()=>cardProducts.filter(p=>[...ACTIVE_BANKS,...MANUAL_BANK_NAMES].includes(p.bank)&&p.region===bankProfile(p.bank)?.region),[]);
  const product=choice&&choice!==OTHER_PRODUCT?products.find(p=>p.id===choice):null;
  // A scoped build (the beta) can still hold a card of another bank, but says it won't be read.
  const typedBank=Form.useWatch('bank',form),chosenBank=product?product.bank:typedBank;
@@ -36,7 +37,7 @@ export function AddWalletCard({onAdd}){
   <Form form={form} layout="vertical" className="add-card-form" preserve={false}>
    {product?<ChosenProduct product={product} extra={<Button className="add-card-change" onClick={()=>setPicking(true)}>{t('更换')}</Button>}/>:<>
     <Flex className="add-card-unlisted" align="center" justify="space-between" gap={8} wrap style={{marginBottom:16}}><Text type="secondary">{t('不在列表里（自己填写卡名）')}</Text><Button size="small" className="add-card-change" onClick={()=>setPicking(true)}>{t('从列表选择')}</Button></Flex>
-    <Form.Item name="bank" label={t('银行与地区')} initialValue={otherBank} rules={[{required:true}]}><Select className="add-card-bank" aria-label={t('银行与地区')} showSearch optionFilterProp="search" options={bankOrder(ACTIVE_BANKS).map(b=>({value:b,search:`${b} ${t(PROVIDERS[b].issuer)}`,label:<BankIdentity bank={b}/>}))}/></Form.Item>
+    <Form.Item name="bank" label={t('银行与地区')} initialValue={otherBank} rules={[{required:true}]}><Select className="add-card-bank" aria-label={t('银行与地区')} showSearch optionFilterProp="search" options={[...bankOrder(ACTIVE_BANKS),...MANUAL_BANK_NAMES].map(b=>({value:b,search:`${b} ${t(bankProfile(b).issuer)}`,label:<BankIdentity bank={b}/>}))}/></Form.Item>
    </>}
    {SCOPED&&chosenBank&&!connectable(chosenBank)&&<Alert className="add-card-not-read" type="warning" showIcon style={{marginBottom:16}} title={t('这个测试版只从 {0} 的官网读取余额和账单。',[liveBanks()])} description={t('这张卡可以记在钱包里，用来看福利和问用卡助手；它的余额、账单和还款日不会自动更新。')}/>}
    <Form.Item name="name" label={product?t('显示名称（可不填，默认用卡种名称）'):t('卡片名称')} rules={[{required:!product,whitespace:true,max:100}]}><Input className="add-card-name" maxLength={100} placeholder={product?productDisplayName(product.id,language)||product.name:undefined}/></Form.Item>

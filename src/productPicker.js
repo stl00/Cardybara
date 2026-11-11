@@ -1,18 +1,20 @@
 // Search and grouping for the card-product picker. Pure, so the order and matching are tested without a browser.
 import entities from './data/knowledge/entities.json' with {type:'json'};
-import {ACTIVE_BANKS,PROVIDERS} from '../extension-next/providers.js';
+import {ACTIVE_BANKS} from '../extension-next/providers.js';
 import {toSimplified} from './benefitVocabulary.js';
+import {MANUAL_BANK_NAMES,bankProfile} from './manualBanks.js';
 
 // The friends beta starts with Chase and Amex US; the other MVP banks follow, US before Hong Kong.
 const FIRST=['Chase','Amex US'];
-export const PICKER_BANKS=[...FIRST,...ACTIVE_BANKS.filter(b=>!FIRST.includes(b)).sort((a,b)=>Number(PROVIDERS[a].region!=='US')-Number(PROVIDERS[b].region!=='US'))].filter(b=>ACTIVE_BANKS.includes(b));
+// Manual-only issuers (Bilt) sit with the US banks; they are added by hand and never read.
+export const PICKER_BANKS=[...FIRST,...[...ACTIVE_BANKS,...MANUAL_BANK_NAMES].filter(b=>!FIRST.includes(b)).sort((a,b)=>Number(bankProfile(a).region!=='US')-Number(bankProfile(b).region!=='US'))].filter(b=>ACTIVE_BANKS.includes(b)||MANUAL_BANK_NAMES.includes(b));
 const bankRank=bank=>{const i=PICKER_BANKS.indexOf(bank);return i<0?PICKER_BANKS.length:i;};
 
 // Names a user may type for an issuer or a region, in the three wallet languages.
-const ISSUER_NAMES={Amex:['American Express','Amex','美国运通','美國運通','运通','運通'],Chase:['Chase','大通'],'Bank of America':['Bank of America','BofA','美国银行','美國銀行','美银','美銀'],HSBC:['HSBC','汇丰','滙豐','匯豐'],Citi:['Citi','Citibank','花旗'],'Standard Chartered':['Standard Chartered','SC','渣打']};
+const ISSUER_NAMES={Amex:['American Express','Amex','美国运通','美國運通','运通','運通'],Chase:['Chase','大通'],'Bank of America':['Bank of America','BofA','美国银行','美國銀行','美银','美銀'],HSBC:['HSBC','汇丰','滙豐','匯豐'],Citi:['Citi','Citibank','花旗'],'Standard Chartered':['Standard Chartered','SC','渣打'],Bilt:['Bilt']};
 const REGION_NAMES={US:['US','USA','United States','美国','美國'],HK:['HK','Hong Kong','香港'],CA:['CA','Canada','加拿大']};
 export function bankTerms(bank){
- const p=PROVIDERS[bank];
+ const p=bankProfile(bank);
  return [...new Set([bank,...(ISSUER_NAMES[p?.issuer]||[p?.issuer].filter(Boolean))])];
 }
 export const regionTerms=region=>REGION_NAMES[region]||[region];

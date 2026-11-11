@@ -69,7 +69,12 @@
     "{0} 张卡合计；同一持卡人的卡之间可以合并": "Total of {0} cards; points can be combined between the same cardholder's cards",
     "按卡查看": "By card",
     "合计（可合并）": "Total (combinable)",
-    "未识别的卡片": "Unrecognised card"
+    "未识别的卡片": "Unrecognised card",
+    "{0}（Blue 等级）或 {1}（Silver 及以上）": "{0} (Blue Status) or {1} (Silver and above)",
+    "其他伙伴": "Other partners",
+    "Bilt 的最低转点数看会员等级": "Bilt's transfer minimum depends on status",
+    "Blue 等级会员每次最少转2,000点，Silver 及以上最少1,000点，都按1,000点递增。会员等级未核实，试算只按1,000点递增计算。Bilt 卡只能手动添加，不读取积分余额，可以输入积分数试算。": "Blue Status members transfer at least 2,000 points and Silver or above at least 1,000, in 1,000-point increments. Your status is unverified, so the estimate uses the 1,000-point increment only. Bilt cards are added by hand and their points balance is not read; type a number of points to estimate.",
+    "Bilt Rewards 每人只有一个账户，卡、房租和合作商户的积分都进这个账户。": "Bilt Rewards has one account per person: points from the card, rent and partner merchants all go into it."
   },
   "zh-TW": {
     "美元现金奖励": "美元現金獎勵",
@@ -141,6 +146,11 @@
     "{0} 张卡合计；同一持卡人的卡之间可以合并": "{0} 張卡合計；同一持卡人的卡之間可以合併",
     "按卡查看": "按卡查看",
     "合计（可合并）": "合計（可合併）",
-    "未识别的卡片": "未識別的卡片"
+    "未识别的卡片": "未識別的卡片",
+    "{0}（Blue 等级）或 {1}（Silver 及以上）": "{0}（Blue 等級）或 {1}（Silver 及以上）",
+    "其他伙伴": "其他夥伴",
+    "Bilt 的最低转点数看会员等级": "Bilt 的最低轉點數看會員等級",
+    "Blue 等级会员每次最少转2,000点，Silver 及以上最少1,000点，都按1,000点递增。会员等级未核实，试算只按1,000点递增计算。Bilt 卡只能手动添加，不读取积分余额，可以输入积分数试算。": "Blue 等級會員每次最少轉2,000點，Silver 及以上最少1,000點，都按1,000點遞增。會員等級未核實，試算只按1,000點遞增計算。Bilt 卡只能手動新增，不讀取積分餘額，可以輸入積分數試算。",
+    "Bilt Rewards 每人只有一个账户，卡、房租和合作商户的积分都进这个账户。": "Bilt Rewards 每人只有一個帳戶，卡、房租和合作商戶的積分都進這個帳戶。"
   }
 }

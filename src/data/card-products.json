@@ -408,7 +408,7 @@
         "sourceUrl": "https://www.chase.com/content/dam/unified-assets/card-art/chase-freedom/freedom-rise/card_freedomRise_V.png"
       },
       "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/freedom/rise",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
     },
     {
@@ -808,7 +808,7 @@
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/disney-inspire.png"
       },
       "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/inspire",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
     },
     {
@@ -828,7 +828,7 @@
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/disney_sleeping_beauty_premier_vs_Jan_2026.png"
       },
       "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/premier",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
     },
     {
@@ -848,7 +848,7 @@
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/disney_vintage_mickey_Jan_2026.png"
       },
       "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/rewards",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
     },
     {
@@ -977,15 +977,21 @@
         "Iberia Visa Signature"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Iberia Club"
+      ],
       "art": {
         "file": "catalog-c3f19c1b741999c4.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/iberia_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-11",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
+        "checkedAt": "2026-11-11"
+      }
     },
     {
       "id": "chase-us-doordash-rewards-mastercard",
@@ -2957,6 +2963,78 @@
       "sourceUrl": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q1-pdf-cmas/cps-charge/schwab-platinum-03-31-2026.pdf",
       "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
+    },
+    {
+      "id": "bilt-us-bilt-blue-card",
+      "bank": "Bilt",
+      "region": "US",
+      "name": "Bilt Blue Card",
+      "aliases": [
+        "Bilt Blue Card",
+        "Bilt Blue"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Bilt Rewards"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.bilt.com/card",
+      "checkedAt": "2026-11-11",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://www.bilt.com/card",
+        "checkedAt": "2026-11-11"
+      },
+      "transferProgrammeId": "programme.bilt-rewards"
+    },
+    {
+      "id": "bilt-us-bilt-obsidian-card",
+      "bank": "Bilt",
+      "region": "US",
+      "name": "Bilt Obsidian Card",
+      "aliases": [
+        "Bilt Obsidian Card",
+        "Bilt Obsidian"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Bilt Rewards"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.bilt.com/card",
+      "checkedAt": "2026-11-11",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://www.bilt.com/card",
+        "checkedAt": "2026-11-11"
+      },
+      "transferProgrammeId": "programme.bilt-rewards"
+    },
+    {
+      "id": "bilt-us-bilt-palladium-card",
+      "bank": "Bilt",
+      "region": "US",
+      "name": "Bilt Palladium Card",
+      "aliases": [
+        "Bilt Palladium Card",
+        "Bilt Palladium"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Bilt Rewards"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.bilt.com/card",
+      "checkedAt": "2026-11-11",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://www.bilt.com/card",
+        "checkedAt": "2026-11-11"
+      },
+      "transferProgrammeId": "programme.bilt-rewards"
     }
   ]
 }

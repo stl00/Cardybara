@@ -258,7 +258,16 @@
   "AmexTravel.com 预付酒店、租车、邮轮和机票": "travel",
   "办公用品店": "shopping",
   "British Airways、Aer Lingus、Iberia 和 LEVEL 直订机票": "airline",
-  "Aer Lingus、British Airways、Iberia 和 LEVEL 直订机票": "airline"
+  "Aer Lingus、British Airways、Iberia 和 LEVEL 直订机票": "airline",
+  "Iberia、British Airways、Aer Lingus 和 LEVEL 直订机票": "airline",
+  "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费": "entertainment",
+  "加油站和美国大部分 Disney 场所": "general",
+  "Bilt Travel 酒店": "hotel",
+  "Bilt Travel 机票": "airline",
+  "Lyft（关联 Bilt 账户）": "ground-transport",
+  "餐饮（自选类别，默认）": "dining",
+  "超市（自选类别）": "shopping",
+  "航空、酒店、邮轮和租车直接消费": "travel"
  },
  "brands": [
   {
@@ -1541,6 +1550,132 @@
    "termsUrl": null,
    "finding": "Not checked; no mark is shipped.",
    "checkedAt": "2026-11-04",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "bilt-rewards",
+   "name": "Bilt Rewards",
+   "category": "reward",
+   "programmeIds": [
+    "programme.bilt-rewards"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-11",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "virgin-red",
+   "name": "Virgin Red",
+   "category": "airline",
+   "programmeIds": [
+    "programme.virgin-red"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-11",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "turkish-miles-smiles",
+   "name": "Turkish Airlines Miles&Smiles",
+   "category": "airline",
+   "programmeIds": [
+    "programme.turkish-miles-smiles"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-11",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "tap-miles-go",
+   "name": "TAP Miles&Go",
+   "category": "airline",
+   "programmeIds": [
+    "programme.tap-miles-go"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-11",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "jal-mileage-bank",
+   "name": "Japan Airlines Mileage Bank",
+   "category": "airline",
+   "programmeIds": [
+    "programme.jal-mileage-bank"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-11",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "i-prefer",
+   "name": "I Prefer Hotel Rewards",
+   "category": "hotel",
+   "programmeIds": [
+    "programme.i-prefer"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-11",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "amtrak-guest-rewards",
+   "name": "Amtrak Guest Rewards",
+   "category": "reward",
+   "programmeIds": [
+    "programme.amtrak-guest-rewards"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-11",
    "status": "unapproved",
    "approval": null,
    "terms": "unverified",

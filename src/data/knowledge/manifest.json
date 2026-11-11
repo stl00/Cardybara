@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-11.cards-9",
+  "snapshotId": "cardybara-public-knowledge-2026-11-11.cards-11",
   "asOf": "2026-11-11",
   "locale": "zh-CN",
   "files": [
@@ -1381,6 +1381,141 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "bilt-us-bilt-blue-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Bilt"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。",
+        "保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。",
+        "开卡奖励按个人报价变化，未记录。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "bilt-us-bilt-obsidian-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Bilt"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。",
+        "保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。",
+        "开卡奖励按个人报价变化，未记录。",
+        "2027年1月1日前开户的账户在2027年后第一个开卡周年日改用每年100美元 Bilt Cash（不作 Legacy Election 时），个人适用哪一套未核实。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "bilt-us-bilt-palladium-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Bilt"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。",
+        "保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。",
+        "开卡奖励按个人报价变化，未记录。",
+        "2027年1月1日前开户的账户在2027年后第一个开卡周年日改用每年600美元 Bilt Cash（不作 Legacy Election 时），个人适用哪一套未核实。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-iberia-visa-signature-credit-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "行李延误、购物保障等保障类福利未录入。附属卡年费未确认。",
+        "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-disney-visa-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Disney 度假套餐的0%促销分期和保障类福利未录入。",
+        "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+        "Disney Cruise Line 船上优惠和导览优惠未录入；购物9折也适用于美国 Disney Store 和 Disney Outlet 门店，只录入了网店和度假区。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-disney-premier-visa-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Disney 度假套餐的0%促销分期、Pay Yourself Back 和保障类福利未录入。",
+        "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+        "Disney Cruise Line 船上优惠和导览优惠未录入；购物9折也适用于美国 Disney Store 和 Disney Outlet 门店，只录入了网店和度假区。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-disney-inspire-visa-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Disney 度假套餐的0%促销分期、Pay Yourself Back、园区购物和餐饮折扣及保障类福利未录入。",
+        "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-chase-freedom-rise-credit-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户三个月内登记自动还款得25美元属于新开户优惠，未录入。每年升级 Freedom Unlimited 的评估和保障类福利未录入。",
+        "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -1484,6 +1619,14 @@
     "chase-us-united-business-card",
     "chase-us-united-club-business-card",
     "chase-us-british-airways-visa-signature-credit-card",
-    "chase-us-aer-lingus-visa-signature-credit-card"
+    "chase-us-aer-lingus-visa-signature-credit-card",
+    "bilt-us-bilt-blue-card",
+    "bilt-us-bilt-obsidian-card",
+    "bilt-us-bilt-palladium-card",
+    "chase-us-iberia-visa-signature-credit-card",
+    "chase-us-disney-visa-card",
+    "chase-us-disney-premier-visa-card",
+    "chase-us-disney-inspire-visa-card",
+    "chase-us-chase-freedom-rise-credit-card"
   ]
 }
