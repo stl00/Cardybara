@@ -131,6 +131,9 @@
   "网约车和指定外卖平台":[{"uses":["transit"],"condition":"taxi-and-limousine"},{"uses":["dining"],"condition":"selected-merchants"}],
   "指定流媒体、网络、有线电视和电话":[{"uses":["telecom"]},{"uses":["streaming"],"condition":"selected-merchants"}],
   "指定美国流媒体订阅":[{"uses":["streaming"],"country":"US","condition":"selected-merchants"}],
-  "交通（出租车、网约车、停车、过路费、火车、巴士等）":[{"uses":["transit"]}]
+  "交通（出租车、网约车、停车、过路费、火车、巴士等）":[{"uses":["transit"]}],
+  "交通、美国运输和美国办公用品店":[{"uses":["transit"]},{"uses":["shipping","office"],"country":"US"}],
+  "全球餐厅、美国加油站、美国无线电话服务和美国运输":[{"uses":["dining"]},{"uses":["gas","telecom","shipping"],"country":"US"}],
+  "AmexTravel.com 预付酒店、租车、邮轮和机票":[{"uses":["hotel","car-rental","flight","travel"],"channel":"portal","via":"AmexTravel.com"}]
  }
 }

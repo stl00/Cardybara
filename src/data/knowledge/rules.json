@@ -59739,5 +59739,2663 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-business-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-business-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$125 Annual Fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 125,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-business-card-compare"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-business-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-business-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy 酒店",
+      "summary": "本卡的比例；页面的18.5倍合计还包含会员和会籍部分。",
+      "sourceText": "6X points for each dollar of eligible purchases at hotels participating in Marriott Bonvoy",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "本卡的比例；页面的18.5倍合计还包含会员和会籍部分。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 6,
+      "unit": "points-per-USD",
+      "spendCategory": "Marriott Bonvoy 酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "本卡的比例；页面的18.5倍合计还包含会员和会籍部分。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-business-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-business-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "全球餐厅、美国加油站、美国无线电话服务和美国运输",
+      "summary": "无线电话服务须直接向美国服务商购买。",
+      "sourceText": "4X MARRIOTT BONVOY POINTS On Purchases at restaurants worldwide, at U.S. gas stations, on wireless telephone services",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "无线电话服务须直接向美国服务商购买。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "points-per-USD",
+      "spendCategory": "全球餐厅、美国加油站、美国无线电话服务和美国运输",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "无线电话服务须直接向美国服务商购买。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-business-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-business-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "其他合资格消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2X points on all other eligible purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "其他合资格消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-business-card.gold-elite",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-business-card.gold-elite@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy Gold Elite 会籍",
+      "summary": "持卡即享；个人会籍未核实。",
+      "sourceText": "With complimentary Marriott Bonvoy Gold Elite status",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "持卡即享；个人会籍未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "持卡即享；个人会籍未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Marriott Bonvoy Gold Elite status",
+      "summary": "Complimentary Marriott Bonvoy Gold Elite status, with 25% bonus points on stays.",
+      "howToUse": [
+        "Check your tier in your Marriott Bonvoy account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-business-card",
+          "text": "With complimentary Marriott Bonvoy Gold Elite status"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-business-card.elite-night-credits",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-business-card.elite-night-credits@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "每年15晚 Elite Night Credits",
+      "summary": "每个自然年计入会籍升级；可与一张合资格的 Marriott Bonvoy American Express 个人卡的 ENC 合并，每个 Marriott Bonvoy 账户有限制。",
+      "sourceText": "Each calendar year, you can receive 15 Elite Night Credits towards the next level of Marriott Bonvoy Elite status",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年计入会籍升级；可与一张合资格的 Marriott Bonvoy American Express 个人卡的 ENC 合并，每个 Marriott Bonvoy 账户有限制。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个自然年计入会籍升级；可与一张合资格的 Marriott Bonvoy American Express 个人卡的 ENC 合并，每个 Marriott Bonvoy 账户有限制。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "15 Elite Night Credits each year",
+      "summary": "15 Elite Night Credits each calendar year toward the next level of Marriott Bonvoy Elite status; limitations apply per member account.",
+      "howToUse": [
+        "Check the credits in your Marriott Bonvoy account; they combine with one eligible consumer Amex Marriott card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-business-card",
+          "text": "Each calendar year, you can receive 15 Elite Night Credits towards the next level of Marriott Bonvoy Elite status"
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-business-card",
+          "text": "Limitations apply per Marriott Bonvoy member account."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-business-card",
+          "text": "can be combined with the Elite Night Credits from one eligible Marriott Bonvoy Consumer American Express Card"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-business-card.free-night",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-business-card.free-night@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "hotel-service",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "续卡后年度免费房晚",
+      "summary": "每年续卡月份后获得一晚，可用于兑换门槛不超过35,000点的酒店；部分酒店另收度假村费。",
+      "sourceText": "Receive 1 Free Night Award every year after your Card renewal month.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年续卡月份后获得一晚，可用于兑换门槛不超过35,000点的酒店；部分酒店另收度假村费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "hotel-service",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年续卡月份后获得一晚，可用于兑换门槛不超过35,000点的酒店；部分酒店另收度假村费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free Night Award after renewal",
+      "summary": "One Free Night Award every year after the card renewal month, for a night at a redemption level at or under 35,000 points.",
+      "howToUse": [
+        "Look for the award in your Marriott Bonvoy account after the renewal month."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-business-card",
+          "text": "Receive 1 Free Night Award every year after your Card renewal month."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-business-card",
+          "text": "Awards can be used for one night (redemption level at or under 35,000 Marriott Bonvoy points)"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-business-card.free-night-spend",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-business-card.free-night-spend@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "消费满6万美元得额外免费房晚",
+      "summary": "一个自然年内用本卡消费满60,000美元后再得一晚，兑换门槛同样不超过35,000点。是否达标未核实。",
+      "sourceText": "earn an additional Free Night Award after you spend $60K in purchases on your Card in a calendar year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "一个自然年内用本卡消费满60,000美元后再得一晚，兑换门槛同样不超过35,000点。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "一个自然年内用本卡消费满60,000美元后再得一晚，兑换门槛同样不超过35,000点。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Additional Free Night Award after $60,000 in spend",
+      "summary": "An additional Free Night Award after $60,000 in purchases on the card in a calendar year.",
+      "howToUse": [
+        "Track your calendar-year spend on the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-business-card",
+          "text": "earn an additional Free Night Award after you spend $60K in purchases on your Card in a calendar year."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-business-card.room-discount",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-business-card.room-discount@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "hotel-service",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott 房价7%折扣",
+      "summary": "须通过合资格 Marriott 渠道以 Amex Business Card Rate 直接预订。",
+      "sourceText": "Receive a 7% discount on eligible bookings at hotels which participate in the Marriott Bonvoy program",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须通过合资格 Marriott 渠道以 Amex Business Card Rate 直接预订。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "hotel-service",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须通过合资格 Marriott 渠道以 Amex Business Card Rate 直接预订。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Marriott Bonvoy room rate discount",
+      "summary": "A 7% discount on eligible bookings at participating hotels when booking directly through an eligible Marriott channel under the Amex Business Card Rate.",
+      "howToUse": [
+        "Book directly with Marriott and choose the Amex Business Card Rate."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-business-card",
+          "text": "Receive a 7% discount on eligible bookings at hotels which participate in the Marriott Bonvoy program"
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-business-card",
+          "text": "when you book directly through an eligible Marriott channel under the Amex Business Card Rate."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "The Delta SkyMiles Reserve Business Card has a $650 annual fee.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 650,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "Delta 直接消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3X MILES At Delta Per every eligible dollar spent on purchases made directly with Delta.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "miles-per-USD",
+      "spendCategory": "Delta 直接消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "交通、美国运输和美国办公用品店",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1.5X MILES Per Dollar On eligible transit, U.S. shipping & U.S. office supply store purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1.5,
+      "unit": "miles-per-USD",
+      "spendCategory": "交通、美国运输和美国办公用品店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "一年内消费满150,000美元后，当年余下时间所有合资格消费按1.5倍；页面没有写“一年”从何时起算。",
+      "sourceText": "1X MILES On Other Purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "一年内消费满150,000美元后，当年余下时间所有合资格消费按1.5倍；页面没有写“一年”从何时起算。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "miles-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "一年内消费满150,000美元后，当年余下时间所有合资格消费按1.5倍；页面没有写“一年”从何时起算。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.sky-club",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.sky-club@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "lounge",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "Delta Sky Club 每年15次",
+      "summary": "乘坐 Delta 航班时，每个 Medallion 年15次，另有4张一次性同行券；一个自然年内消费满75,000美元可解锁无限次。",
+      "sourceText": "receive 15 Visits each Medallion Year to the Delta Sky Club when flying Delta",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "乘坐 Delta 航班时，每个 Medallion 年15次，另有4张一次性同行券；一个自然年内消费满75,000美元可解锁无限次。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "lounge",
+      "period": null,
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "乘坐 Delta 航班时，每个 Medallion 年15次，另有4张一次性同行券；一个自然年内消费满75,000美元可解锁无限次。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Delta Sky Club access",
+      "summary": "15 visits each Medallion Year to the Delta Sky Club when flying Delta, four one-time guest passes, and unlimited access after $75,000 in purchases in a calendar year.",
+      "howToUse": [
+        "Use a visit when flying Delta; check the remaining visits in your SkyMiles account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "receive 15 Visits each Medallion Year to the Delta Sky Club when flying Delta"
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "Plus, you receive four One-Time Guest Passes each Medallion Year"
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "can unlock Unlimited Delta Sky Club Access after spending $75,000 in purchases on your Card during a calendar year."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.centurion-lounge",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.centurion-lounge@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "lounge",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Centurion Lounge 和 Escape Lounge",
+      "summary": "须乘坐用本卡购买的 Delta 航班；Sidecar 须在起飞前90分钟内到达，Centurion Lounge 须在3小时内。",
+      "sourceText": "when flying on a Delta flight booked with the Delta SkyMiles Reserve Business Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须乘坐用本卡购买的 Delta 航班；Sidecar 须在起飞前90分钟内到达，Centurion Lounge 须在3小时内。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "lounge",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须乘坐用本卡购买的 Delta 航班；Sidecar 须在起飞前90分钟内到达，Centurion Lounge 须在3小时内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Complimentary access to The Centurion Lounge and Escape Lounges",
+      "summary": "Complimentary access to The Centurion Lounge, Sidecar and Escape Lounges when flying on a Delta flight booked with the card.",
+      "howToUse": [
+        "Book the Delta flight with the card and arrive within the lounge's time window before departure."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "when flying on a Delta flight booked with the Delta SkyMiles Reserve Business Card."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "Card Members must arrive within 90 minutes of their departing flight to access Sidecar by The Centurion Lounge"
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "within 3 hours of their departing flight to access The Centurion Lounge."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.companion-certificate",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.companion-certificate@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "hotel-service",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "年度同行凭证",
+      "summary": "每年续卡后获得，适用 Delta First、Delta Comfort 或 Delta Main 的美国本土、加勒比或中美洲往返航班；须另付22至250美元税费，Delta Basic 不适用。",
+      "sourceText": "Central American round-trip flight each year after renewal of your Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年续卡后获得，适用 Delta First、Delta Comfort 或 Delta Main 的美国本土、加勒比或中美洲往返航班；须另付22至250美元税费，Delta Basic 不适用。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "hotel-service",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年续卡后获得，适用 Delta First、Delta Comfort 或 Delta Main 的美国本土、加勒比或中美洲往返航班；须另付22至250美元税费，Delta Basic 不适用。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Annual Companion Certificate",
+      "summary": "A Companion Certificate each year after renewal for a Delta First, Delta Comfort or Delta Main domestic, Caribbean or Central American round-trip flight; taxes and fees apply.",
+      "howToUse": [
+        "Find the certificate in your SkyMiles profile under Certificates, eCredits & Vouchers."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "Central American round-trip flight each year after renewal of your Card."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "The Companion Certificate requires payment of government-imposed taxes and fees of between $22 and $250"
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "Enjoy a Companion Certificate on a Delta First, Delta Comfort, or Delta Main domestic, Caribbean"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.mqd-headstart",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.mqd-headstart@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "MQD Headstart：每年2,500 MQD",
+      "summary": "每个 Medallion 资格年获得2,500美元 Medallion Qualification Dollars。",
+      "sourceText": "you can receive $2,500 Medallion Qualification Dollars each Medallion Qualification Year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个 Medallion 资格年获得2,500美元 Medallion Qualification Dollars。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": null,
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个 Medallion 资格年获得2,500美元 Medallion Qualification Dollars。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "MQD Headstart",
+      "summary": "$2,500 Medallion Qualification Dollars each Medallion Qualification Year.",
+      "howToUse": [
+        "Check your MQD balance in your SkyMiles account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "you can receive $2,500 Medallion Qualification Dollars each Medallion Qualification Year."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.mqd-boost",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.mqd-boost@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "MQD Boost：每消费10美元得1 MQD",
+      "summary": "一个自然年内本卡每消费10美元，得1美元 Medallion Qualification Dollar。",
+      "sourceText": "Earn $1 Medallion Qualification Dollar for each $10 of purchases made on your Card in a calendar year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "一个自然年内本卡每消费10美元，得1美元 Medallion Qualification Dollar。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "一个自然年内本卡每消费10美元，得1美元 Medallion Qualification Dollar。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "MQD Boost",
+      "summary": "$1 Medallion Qualification Dollar for each $10 of purchases on the card in a calendar year.",
+      "howToUse": [
+        "Check your MQD balance in your SkyMiles account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "Earn $1 Medallion Qualification Dollar for each $10 of purchases made on your Card in a calendar year"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.checked-bags",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.checked-bags@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "免费托运行李",
+      "summary": "Delta 国际和国内航班第一件托运行李免费；国内航班第二件也免费。",
+      "sourceText": "Your first checked bag flies free on international and domestic Delta flights.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "Delta 国际和国内航班第一件托运行李免费；国内航班第二件也免费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Delta 国际和国内航班第一件托运行李免费；国内航班第二件也免费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Check two bags free",
+      "summary": "The first checked bag flies free on international and domestic Delta flights, and the second bag on domestic Delta flights.",
+      "howToUse": [
+        "Fly Delta with the card on your SkyMiles account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "Your first checked bag flies free on international and domestic Delta flights."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "And now, your second bag flies free on domestic Delta flights too."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.award-discount",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.award-discount@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "Delta 奖励机票15%折扣",
+      "summary": "在 delta.com 或 Fly Delta app 用里程订 Delta 航班时适用；合作伙伴航班和税费不适用。",
+      "sourceText": "Save 15% anytime you book Award Travel with miles on Delta flights when using delta.com and the Fly Delta app.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "在 delta.com 或 Fly Delta app 用里程订 Delta 航班时适用；合作伙伴航班和税费不适用。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在 delta.com 或 Fly Delta app 用里程订 Delta 航班时适用；合作伙伴航班和税费不适用。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "15% off award travel",
+      "summary": "15% off Award Travel with miles on Delta flights booked on delta.com or the Fly Delta app; not on partner-operated flights or taxes and fees.",
+      "howToUse": [
+        "Choose Shop with Miles on delta.com or the Fly Delta app."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "Save 15% anytime you book Award Travel with miles on Delta flights when using delta.com and the Fly Delta app."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "Discount not applicable to partner-operated flights or to taxes and fees."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.resy",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.resy@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "dining"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Resy 餐厅抵扣",
+      "summary": "须登记；在美国合资格 Resy 餐厅用本卡消费，每月最多20美元，全年最多240美元。",
+      "sourceText": "you can earn up to $20 each month in statement credits after enrolling through your Card account.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须登记；在美国合资格 Resy 餐厅用本卡消费，每月最多20美元，全年最多240美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-month",
+      "amount": 20,
+      "currency": "USD",
+      "requiresEnrollment": true,
+      "annualMaximum": 240,
+      "partner": "Resy"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须登记；在美国合资格 Resy 餐厅用本卡消费，每月最多20美元，全年最多240美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$240 Resy Credit",
+      "summary": "Up to $20 each month in statement credits on eligible purchases at qualifying U.S. Resy restaurants after enrolling.",
+      "howToUse": [
+        "Enroll through your card account, then pay at a qualifying U.S. Resy restaurant with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "you can earn up to $20 each month in statement credits after enrolling through your Card account."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.rideshare",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.rideshare@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "网约车抵扣",
+      "summary": "须登记；美国指定网约车服务每月最多10美元，全年最多120美元。",
+      "sourceText": "Earn up to $10 back in statement credits each month on U.S. rideshare purchases with select providers",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须登记；美国指定网约车服务每月最多10美元，全年最多120美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-month",
+      "amount": 10,
+      "currency": "USD",
+      "requiresEnrollment": true,
+      "annualMaximum": 120
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须登记；美国指定网约车服务每月最多10美元，全年最多120美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$120 Rideshare Credit",
+      "summary": "Up to $10 back in statement credits each month on U.S. rideshare purchases with select providers; enrollment required.",
+      "howToUse": [
+        "Enroll, then pay U.S. rideshare trips with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "Earn up to $10 back in statement credits each month on U.S. rideshare purchases with select providers"
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "That's up to $120 back annually. Enrollment Required."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.delta-stays",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.delta-stays@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.delta-skymiles"
+    ],
+    "content": {
+      "title": "Delta Stays 抵扣",
+      "summary": "每年最多250美元，须用本卡在 delta.com 的 Delta Stays 预付酒店或度假屋。页面没有写“每年”是自然年还是账户年。",
+      "sourceText": "to book prepaid hotels or vacation rentals through Delta Stays on delta.com.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年最多250美元，须用本卡在 delta.com 的 Delta Stays 预付酒店或度假屋。页面没有写“每年”是自然年还是账户年。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": 250,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年最多250美元，须用本卡在 delta.com 的 Delta Stays 预付酒店或度假屋。页面没有写“每年”是自然年还是账户年。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Up to $250 Delta Stays Credit",
+      "summary": "An annual statement credit of up to $250 after booking prepaid hotels or vacation rentals through Delta Stays on delta.com with the card.",
+      "howToUse": [
+        "Book a prepaid stay through Delta Stays on delta.com and pay with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "to book prepaid hotels or vacation rentals through Delta Stays on delta.com."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "an annual statement credit of up to $250 after using your Delta SkyMiles Reserve Business Card"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.hertz",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.hertz@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Hertz President's Circle 会籍",
+      "summary": "须加入 Hertz Gold Plus Rewards，把会员号加到绑定本卡的 SkyMiles 账户，并在 delta.com/hertz 登记。",
+      "sourceText": "Enjoy complimentary Hertz President's Circle Status with the Delta SkyMiles Reserve Business Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须加入 Hertz Gold Plus Rewards，把会员号加到绑定本卡的 SkyMiles 账户，并在 delta.com/hertz 登记。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null,
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须加入 Hertz Gold Plus Rewards，把会员号加到绑定本卡的 SkyMiles 账户，并在 delta.com/hertz 登记。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Hertz President's Circle status",
+      "summary": "Complimentary Hertz President's Circle status; enrollment in Hertz Gold Plus Rewards and in the promotion at delta.com/hertz is required.",
+      "howToUse": [
+        "Add your Hertz Gold Plus Rewards number to your SkyMiles account and enroll at delta.com/hertz."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "Enjoy complimentary Hertz President's Circle Status with the Delta SkyMiles Reserve Business Card."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "Enrollment in the Hertz Gold Plus Rewards program is required."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.global-entry",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.global-entry@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Global Entry 或 TSA PreCheck 费用抵扣",
+      "summary": "主卡持卡人每4年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元，须用本卡付申请费。",
+      "sourceText": "Basic Card Members can receive a statement credit for a five-year membership every 4 years after applying for Global Entry ($120)",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "主卡持卡人每4年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元，须用本卡付申请费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "rolling-four-years",
+      "amount": 120,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "主卡持卡人每4年一次：Global Entry 120美元，或 TSA PreCheck 最多85美元，须用本卡付申请费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Fee credit for Global Entry or TSA PreCheck",
+      "summary": "A statement credit every 4 years for Global Entry ($120) or TSA PreCheck (up to $85 through an official enrollment provider), paid with the card.",
+      "howToUse": [
+        "Pay the application fee with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "Basic Card Members can receive a statement credit for a five-year membership every 4 years after applying for Global Entry ($120)"
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "or after applying for TSA PreCheck (up to $85 through a TSA PreCheck official enrollment provider)"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-business-green-rewards-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-business-green-rewards-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-business-green-rewards-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$95 Annual Fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-business-green-rewards-card-compare"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-business-green-rewards-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-business-green-rewards-card.fee-additional@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-business-green-rewards-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "There is $0 Annual Fee for each additional Employee Business Expense Card you add to your account.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-business-green-rewards-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-business-green-rewards-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-business-green-rewards-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-business-green-rewards-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us"
+    ],
+    "content": {
+      "title": "AmexTravel.com 预付酒店、租车、邮轮和机票",
+      "summary": "须在 AmexTravel.com 或 Amex Travel App 预订。",
+      "sourceText": "you can earn 2X Membership Rewards points on prepaid hotels and other eligible travel, such as prepaid car rentals, cruises and flights",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须在 AmexTravel.com 或 Amex Travel App 预订。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "AmexTravel.com 预付酒店、租车、邮轮和机票",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须在 AmexTravel.com 或 Amex Travel App 预订。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-business-green-rewards-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-business-green-rewards-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-business-green-rewards-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-business-green-rewards-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.amex-membership-rewards-us"
+    ],
+    "content": {
+      "title": "其他合资格消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1X POINTS On Other Eligible Purchases made using your Business Green Rewards Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他合资格消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-business-green-rewards-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-graphite-business-cash-unlimited-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-graphite-business-cash-unlimited-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-graphite-business-cash-unlimited-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "The Graphite Business Cash Unlimited Card has an annual fee of $295.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 295,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-graphite-business-cash-unlimited-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-graphite-business-cash-unlimited-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-graphite-business-cash-unlimited-card.fee-additional@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-graphite-business-cash-unlimited-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Employee Graphite Business Cash Unlimited Cards have an annual fee of $95 for the first five Cards",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-graphite-business-cash-unlimited-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-graphite-business-cash-unlimited-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-graphite-business-cash-unlimited-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-graphite-business-cash-unlimited-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "AmexTravel.com 机票和预付酒店",
+      "summary": "常见问题写须通过 American Express Travel 在线预订；提示框另写预付酒店也可通过旅行顾问电话预订，两处说法不一，按在线预订记录。度假套餐、租车和邮轮不计。",
+      "sourceText": "5% CASH BACK On Flights and Prepaid Hotels Booked through American Express Travel Online",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "常见问题写须通过 American Express Travel 在线预订；提示框另写预付酒店也可通过旅行顾问电话预订，两处说法不一，按在线预订记录。度假套餐、租车和邮轮不计。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "AmexTravel.com 机票和预付酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "常见问题写须通过 American Express Travel 在线预订；提示框另写预付酒店也可通过旅行顾问电话预订，两处说法不一，按在线预订记录。度假套餐、租车和邮轮不计。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-graphite-business-cash-unlimited-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-graphite-business-cash-unlimited-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-graphite-business-cash-unlimited-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-graphite-business-cash-unlimited-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有合资格消费",
+      "summary": "不设上限。返现以 Reward Dollars 形式发放。",
+      "sourceText": "Unlimited 2% cash back 1 on your eligible purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "不设上限。返现以 Reward Dollars 形式发放。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "所有合资格消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "不设上限。返现以 Reward Dollars 形式发放。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-graphite-business-cash-unlimited-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-graphite-business-cash-unlimited-card.one-ap",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-graphite-business-cash-unlimited-card.one-ap@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-graphite-business-cash-unlimited-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "American Express One AP 月费抵扣",
+      "summary": "一个自然年内用本卡消费满250,000美元后，下一个自然年可获最多2,400美元抵扣，用于 American Express One AP 月费；One AP 须另行登记。是否达标未核实。",
+      "sourceText": "Unlock up to $2,400 in statement credits for use in the next calendar year on American Express One AP monthly fees",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "一个自然年内用本卡消费满250,000美元后，下一个自然年可获最多2,400美元抵扣，用于 American Express One AP 月费；One AP 须另行登记。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": 2400,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "一个自然年内用本卡消费满250,000美元后，下一个自然年可获最多2,400美元抵扣，用于 American Express One AP 月费；One AP 须另行登记。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-graphite-business-cash-unlimited-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$2,400 American Express One AP Statement Credit",
+      "summary": "Up to $2,400 in statement credits for the next calendar year on American Express One AP monthly fees after spending $250,000 on eligible purchases on the card.",
+      "howToUse": [
+        "Track your calendar-year spend on the card; the credits apply to One AP fees in the following year."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-graphite-business-cash-unlimited-card",
+          "text": "Unlock up to $2,400 in statement credits for use in the next calendar year on American Express One AP monthly fees"
+        },
+        {
+          "sourceId": "card-amex-us-us-graphite-business-cash-unlimited-card",
+          "text": "after you spend $250,000 on eligible purchases on the Graphite Business Cash Unlimited Card"
+        }
+      ]
+    }
   }
 ]

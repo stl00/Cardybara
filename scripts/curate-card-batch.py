@@ -27,7 +27,7 @@ cc = OpenCC('s2twp')
 def traditional(zh):
     # OpenCC's mistakes on words this catalogue uses often.
     text = cc.convert(zh)
-    for wrong, right in (('托執行李', '托運行李'), ('髮卡', '發卡'), ('后', '後'), ('記憶體', '內存'), ('瀏覽器里', '瀏覽器裡')):
+    for wrong, right in (('托執行李', '托運行李'), ('髮卡', '發卡'), ('后', '後'), ('記憶體', '內存'), ('瀏覽器里', '瀏覽器裡'), ('合作伙伴', '合作夥伴')):
         text = text.replace(wrong, right)
     return text
 

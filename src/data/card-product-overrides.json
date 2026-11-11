@@ -1118,5 +1118,95 @@
     "name": "Blue Business Cash Card",
     "currencies": [],
     "art": null
+  },
+  {
+    "id": "amex-us-us-marriott-bonvoy-business-card",
+    "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/amex-marriott-bonvoy-business-credit-card/",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Marriott Bonvoy Business American Express Card",
+      "Marriott Bonvoy Business Card",
+      "Marriott Bonvoy Business"
+    ],
+    "rewardPrograms": [
+      "Marriott Bonvoy"
+    ],
+    "rewardSource": {
+      "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/amex-marriott-bonvoy-business-credit-card/",
+      "checkedAt": "2026-11-11"
+    },
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Marriott Bonvoy Business American Express Card",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "amex-us-us-delta-skymiles-reserve-business-card",
+    "sourceUrl": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-reserve/",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Delta SkyMiles Reserve Business Card",
+      "Delta SkyMiles Reserve Business American Express Card",
+      "Delta SkyMiles Reserve Business",
+      "Delta Reserve Business"
+    ],
+    "rewardPrograms": [
+      "Delta SkyMiles"
+    ],
+    "rewardSource": {
+      "url": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-reserve/",
+      "checkedAt": "2026-11-11"
+    },
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Delta SkyMiles Reserve Business Card",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "amex-us-us-business-green-rewards-card",
+    "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-green-card-amex/",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Business Green Rewards Card",
+      "Business Green Rewards",
+      "American Express Business Green Rewards Card",
+      "Business Green Card",
+      "Amex Business Green"
+    ],
+    "rewardPrograms": [
+      "Membership Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-green-card-amex/",
+      "checkedAt": "2026-11-11"
+    },
+    "transferProgrammeId": "programme.amex-membership-rewards-us",
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Business Green Rewards Card",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "amex-us-us-graphite-business-cash-unlimited-card",
+    "sourceUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/graphite-business-cash-unlimited-card/",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Graphite Business Cash Unlimited Card",
+      "Graphite Business Cash Unlimited",
+      "The Graphite Business Cash Unlimited Card from American Express",
+      "Amex Graphite"
+    ],
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Graphite Business Cash Unlimited Card",
+    "currencies": [],
+    "art": null
   }
 ]
