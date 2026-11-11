@@ -59,6 +59,7 @@
 - `tests/out-of-sample.test.mjs` 在新的产品名或积分计划名进入 `extension-next/` 时失败；允许的名字逐个文件列出并说明理由。`npm run test:collector-chrome` 在真实 Chrome 里用生成的页面变化卡名、数量和顺序。
 - 发现卡片看账户名称行和掩码行：非卡账户和只是提到账号的文字会被跳过，并计入 `skipped`（钱包里暂未显示）。这是排除法，既可能把名单外的非卡账户当成卡，也可能漏掉名称里带这些词的真卡。没读到的卡可以手动添加。
 - 遇到没见过的页面：在专用 Chrome 打开该页，运行 `npm run diagnose:bank`。报告写到被忽略的 `.debug/structure/`，只保留元素结构、词表内的通用词和数值形状，其他词一律替换。与通用词相同的名字（例如 Cash Rewards）会留下，发出前请自己再看一遍。
+- 内测朋友的读取失败：发布包每次读取后把脱敏的页面结构存在本机（同一套 `extension-next/structure-report.js`，注入文件 `problem-structure.js` 由 `node scripts/build-problem-structure.mjs` 生成）。读取部分失败、失败或某张卡缺账单字段时，弹窗在这家银行旁边显示“生成问题报告”；测试者先看完整 JSON，再自己保存、自己发出，插件不发送任何东西。报告只有字段读到与否、任务状态和页面结构，数字一律换成 `#`。收到后运行 `npm run debug:bank -- --report <文件>`，它会在 `tests/fixtures/banks/` 写一个预期值为 `__fill__` 的失败 fixture，按页面实际应读到的值填好再修 reader。断开或清除这家银行时，存下的结构一起删掉。
 
 证据要分开报告：合成测试只覆盖想得到的布局。真实证据目前只来自一个开发账户，要说“其他账户可用”，每家银行至少要有一位持不同卡的测试者；测试者的真实数据不进仓库。
 

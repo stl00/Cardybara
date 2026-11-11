@@ -2,6 +2,7 @@ import {BUILD_ID} from './build-info.js';
 import {PROVIDERS} from './providers.js';
 import {exportCollectorState} from './export-state.js';
 import {RELEASE_WORDS,popupLanguage,bankName,bankMark,fill} from './popup-i18n.js';
+import {buildReport,needsReport,STRUCTURE_KEY} from './problem-report.js';
 const lang=popupLanguage(),t=RELEASE_WORDS[lang],$=s=>document.querySelector(s),status=$('#status');
 document.documentElement.lang=lang;
 const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;};
@@ -15,7 +16,7 @@ function render(s){
  const run=s.run,tag=$('#run-tag');
  tag.hidden=!run;if(run){tag.textContent=(t.runStatus[run.status]||run.status)+' · '+fill(t.progress,run.jobs.filter(j=>!active.includes(j.status)).length,run.jobs.length);tag.className='tag '+(running?'wait':run.status==='complete'?'ok':'');}
  status.textContent=run?'':t.noRun;
- $('#jobs').replaceChildren(...(run?.jobs||[]).map(j=>{const li=el('li','bank'),act=el('div','act');act.append(el('span','tag '+tone(j.status),t.phases[j.status]||j.status));li.append(bankMark(j.bank),el('span','name',bankName(j.bank,lang)),act);return li;}));
+ $('#jobs').replaceChildren(...(run?.jobs||[]).map(j=>{const li=el('li','bank'),act=el('div','act');act.append(el('span','tag '+tone(j.status),t.phases[j.status]||j.status));if(needsReport(j,s.records?.[j.bank])){const b=el('button','small',t.reportButton);b.type='button';b.onclick=()=>showReport(j,s).catch(error);act.append(b);}li.append(bankMark(j.bank),el('span','name',bankName(j.bank,lang)),act);return li;}));
  $('#cancel').disabled=!running;
  $('#banks').replaceChildren(...Object.keys(PROVIDERS).map(bank=>{
   const off=s.disabled.includes(bank),li=el('li','bank'),act=el('div','act');
@@ -24,6 +25,17 @@ function render(s){
  }));
 }
 function error(e){status.textContent=e.message;}
+// The tester reads the whole report before saving it, and sends the file themselves (#196).
+async function showReport(job,s){
+ const got=await chrome.storage.local.get([STRUCTURE_KEY,'cardybara:last-read-diagnostic']),diag=got['cardybara:last-read-diagnostic'];
+ const report=buildReport({build:s.runtimeBuild,version:chrome.runtime.getManifest().version,bank:job.bank,job,records:s.records?.[job.bank],structure:got[STRUCTURE_KEY]?.[job.bank]||null,diagnostic:diag?.bank===job.bank?diag:null});
+ const text=JSON.stringify(report,null,2),box=$('#report');box.hidden=false;
+ const save=el('button','primary small',t.reportSave),close=el('button','small',t.reportClose);save.type=close.type='button';
+ save.onclick=()=>{const url=URL.createObjectURL(new Blob([text+'\n'],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='cardybara-problem-report-'+job.bank.replace(/\W+/g,'-').toLowerCase()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+ close.onclick=()=>{box.hidden=true;box.replaceChildren();};
+ const actions=el('div','row');actions.append(save,close);
+ box.replaceChildren(el('h2',null,fill(t.reportTitle,bankName(job.bank,lang))),el('p','note',t.reportNote),...(report.structure?[]:[el('p','note',t.reportNoPage)]),el('pre','report-json',text),actions);
+}
 $('#subtitle').textContent=t.subtitle;$('#open-wallet').textContent=t.openWallet+' ↗';$('#wallet-link').textContent=t.openWallet+' ↗';$('#run-label').textContent=t.run;status.textContent=t.loading;
 $('#cancel').textContent=t.cancel;$('#export').textContent=t.export;$('#apply-update').textContent=t.applyUpdate;$('#manage-label').textContent=t.manage;$('#disable-note').textContent=t.disableNote;$('#privacy').textContent=t.privacy;$('#title').textContent=t.title;
 $('#cancel').onclick=()=>command('cancel').then(render).catch(error);
