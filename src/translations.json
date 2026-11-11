@@ -1847,7 +1847,18 @@
     "默认": "Default",
     "默认市场估值": "Default market valuation",
     "按你设定的每里 {0} {1}": "at the {0} {1} a mile you set",
-    "按默认市场估值每里 {0} {1}，可在设置里改": "at the default market valuation of {0} {1} a mile; change it in settings"
+    "按默认市场估值每里 {0} {1}，可在设置里改": "at the default market valuation of {0} {1} a mile; change it in settings",
+    "已隐藏这张卡，钱包和助手会当作你没有持有它。": "Card hidden. The wallet and assistant now treat it as a card you don't hold.",
+    "已取消隐藏，这张卡重新计入钱包。": "Card unhidden. It counts in the wallet again.",
+    "取消隐藏": "Unhide",
+    "隐藏这张卡": "Hide this card",
+    "已隐藏": "Hidden",
+    "已隐藏的卡": "Hidden cards",
+    "银行刷新照常读取这些卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它们。": "Bank refreshes still read these cards, but the overview, points, benefits, reminders and card assistant treat them as cards you don't hold.",
+    "这张卡已隐藏": "This card is hidden",
+    "银行刷新照常读取这张卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它。": "Bank refreshes still read this card, but the overview, points, benefits, reminders and card assistant treat it as a card you don't hold.",
+    "显示已隐藏的卡（{0}）": "Show hidden cards ({0})",
+    "匹配的卡都已隐藏，可以在下方查看。": "Every matching card is hidden. You can see them below."
   },
   "zh-TW": {
     "美国": "美國",
@@ -3697,6 +3708,17 @@
     "默认": "預設",
     "默认市场估值": "預設市場估值",
     "按你设定的每里 {0} {1}": "按你設定的每里 {0} {1}",
-    "按默认市场估值每里 {0} {1}，可在设置里改": "按預設市場估值每里 {0} {1}，可在設定裡改"
+    "按默认市场估值每里 {0} {1}，可在设置里改": "按預設市場估值每里 {0} {1}，可在設定裡改",
+    "已隐藏这张卡，钱包和助手会当作你没有持有它。": "已隱藏這張卡，錢包和助手會當作你沒有持有它。",
+    "已取消隐藏，这张卡重新计入钱包。": "已取消隱藏，這張卡重新計入錢包。",
+    "取消隐藏": "取消隱藏",
+    "隐藏这张卡": "隱藏這張卡",
+    "已隐藏": "已隱藏",
+    "已隐藏的卡": "已隱藏的卡",
+    "银行刷新照常读取这些卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它们。": "銀行刷新照常讀取這些卡，但總覽、積分、福利、提醒和用卡助手都當作你沒有持有它們。",
+    "这张卡已隐藏": "這張卡已隱藏",
+    "银行刷新照常读取这张卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它。": "銀行刷新照常讀取這張卡，但總覽、積分、福利、提醒和用卡助手都當作你沒有持有它。",
+    "显示已隐藏的卡（{0}）": "顯示已隱藏的卡（{0}）",
+    "匹配的卡都已隐藏，可以在下方查看。": "符合的卡都已隱藏，可以在下方查看。"
   }
 }
