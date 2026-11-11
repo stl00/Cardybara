@@ -1,0 +1,14 @@
+{
+  "en-US": {
+    "部分字段已读取": "Some fields read",
+    "暂无": "None",
+    "密码、验证码只交给银行": "Only share passwords and codes with your bank",
+    "卡片概览": "Card overview"
+  },
+  "zh-TW": {
+    "部分字段已读取": "部分字段已讀取",
+    "暂无": "暫無",
+    "密码、验证码只交给银行": "密碼、驗證碼只交給銀行",
+    "卡片概览": "卡片概覽"
+  }
+}

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {translations as i18nCatalog} from '../src/i18n/index.js';
 import {cardProducts} from '../src/productCatalog.js';
 import {productDisplayName} from '../src/cardName.js';
 import {PICKER_BANKS,brandTerms,groupEntries,highlightRanges,isBusinessProduct,matchedVia,normalizeSearch,pickerEntries} from '../src/productPicker.js';
@@ -102,6 +103,6 @@ test('highlights follow the same matching as the search',()=>{
 test('the panel shows only a product\'s own art, and its strings exist in three languages',()=>{
  const panel=readFileSync(new URL('../src/ProductPickerPanel.jsx',import.meta.url),'utf8');
  assert.match(panel,/product\.art\?\.file&&!broken\?<ArtImage art=\{product\.art\}/);
- const catalog=JSON.parse(readFileSync(new URL('../src/translations.json',import.meta.url),'utf8'));
+ const catalog=i18nCatalog;
  for(const file of ['ProductPickerPanel.jsx','WalletOnboarding.jsx','CardProductPicker.jsx'])for(const [,key] of readFileSync(new URL('../src/'+file,import.meta.url),'utf8').matchAll(/\bt\('([^']+)'/g))for(const l of ['en-US','zh-TW'])assert.ok(catalog[l][key],`${file} ${l}: ${key}`);
 });

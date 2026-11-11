@@ -10,6 +10,8 @@ then terms.ratio stays null and its answer check keeps rejecting any stated rati
 """
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parent));import i18n_catalog
 from opencc import OpenCC
 
 CHECKED = '2026-11-04'
@@ -18,7 +20,7 @@ root = Path(__file__).resolve().parents[1]
 base = root / 'src/data/knowledge'
 load = lambda f: json.loads((base / f).read_text())
 rules, entities, sources, manifest = load('rules.json'), load('entities.json'), load('sources.json'), load('manifest.json')
-tr = json.loads((root / 'src/translations.json').read_text())
+tr = i18n_catalog.load(root)
 products = json.loads((root / 'src/data/card-products.json').read_text())
 overrides = json.loads((root / 'src/data/card-product-overrides.json').read_text())
 logos = json.loads((root / 'src/data/logos.json').read_text())
@@ -209,7 +211,8 @@ manifest['asOf'] = CHECKED
 manifest['snapshotId'] = f'cardybara-public-knowledge-{CHECKED}.transfers-1'
 for f, d in [('rules.json', rules), ('entities.json', entities), ('sources.json', sources), ('manifest.json', manifest)]:
     (base / f).write_text(json.dumps(d, ensure_ascii=False, indent=2) + '\n')
-for path, d in [('src/translations.json', tr), ('src/data/card-products.json', products), ('src/data/card-product-overrides.json', overrides)]:
+i18n_catalog.save(root, tr, 'knowledge')
+for path, d in [('src/data/card-products.json', products), ('src/data/card-product-overrides.json', overrides)]:
     (root / path).write_text(json.dumps(d, ensure_ascii=False, indent=2) + '\n')
 (root / 'src/data/logos.json').write_text(json.dumps(logos, ensure_ascii=False, indent=1) + '\n')
 names = {e['id']: e['name'] for e in entities['programmes']}

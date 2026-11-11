@@ -50,8 +50,11 @@ const removedRow=(card,removed)=>removed.some(r=>r.id===card.id||(card.identityS
 // Reward accounts are pools, not cards, and stay; user-entered ledgers live outside the snapshot and are never touched.
 const CARD_ROWS={transactions:'gold',benefits:'gold',offers:null,spendingGoals:null,rewardObservations:null,benefitProgress:null};
 export function withoutRemoved(base,removed=[]){
- const cards=base.cards.filter(c=>!removedRow(c,removed));
- const gone=new Set(base.cards.filter(c=>removedRow(c,removed)).map(c=>c.id));
+ return withoutCardRows(base,new Set(base.cards.filter(c=>removedRow(c,removed)).map(c=>c.id)));
+}
+/** The snapshot without these card ids and the rows that name them. Shared by removal and hiding (heldCards.js). */
+export function withoutCardRows(base,gone){
+ const cards=base.cards.filter(c=>!gone.has(c.id));
  if(!gone.size)return {...base,cards};
  const rows=Object.fromEntries(Object.entries(CARD_ROWS).filter(([k])=>Array.isArray(base[k])).map(([k,legacy])=>[k,base[k].filter(r=>!gone.has(r?.card??legacy))]));
  return {...base,...rows,cards};

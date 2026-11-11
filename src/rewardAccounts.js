@@ -1,5 +1,7 @@
 import {canonicalProgramme} from '../extension-next/bank-adapters.js';
-const banks={'us-mr':'Amex US','hk-mr':'Amex HK','ca-mr':'Amex CA',ur:'Chase',hilton:'Hilton',ihg:'Chase','boa-cash-rewards':'BOA'};
+// The bank of a legacy reward row that names only its programme id.
+export const REWARD_ROW_BANKS={'us-mr':'Amex US','hk-mr':'Amex HK','ca-mr':'Amex CA',ur:'Chase',hilton:'Hilton',ihg:'Chase','boa-cash-rewards':'BOA'};
+const banks=REWARD_ROW_BANKS;
 const region=r=>['US','HK','CA'].includes(r.region)?r.region:({'hk-mr':'HK','ca-mr':'CA'})[r.id]||'US';
 const scope=r=>[r.bank||banks[r.id]||'',region(r),canonicalProgramme(r.label||'')].join('|');
 // Fresh card readings take the main position. Pools are summed only by pointsPooling.js from its rules (#192).
