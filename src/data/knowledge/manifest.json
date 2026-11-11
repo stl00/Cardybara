@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-11.cards-6",
+  "snapshotId": "cardybara-public-knowledge-2026-11-11.cards-7",
   "asOf": "2026-11-11",
   "locale": "zh-CN",
   "files": [
@@ -1180,6 +1180,68 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "amex-us-us-hilton-honors-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "American Express Venue Collection 场馆消费返还、购物保障和租车险未录入。附属卡年费未确认。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-hilton-honors-surpass-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "年费150美元来自产品页数据块（只在浏览器里显示）；同一处写首年0美元，来自联盟推广申请流程，是否适用于你未核实。附属卡年费未确认。",
+        "行李险、购物保障、延长保修和租车险未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-delta-skymiles-blue-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Pay with Miles（每5,000里程抵50美元机票）属于兑换方式，未录入。购物保障、延长保修和租车险未录入。附属卡年费未确认。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-blue-business-cash-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "来源是发卡行的商务现金回馈卡对比页：产品页（/en-us/business/credit-cards/blue-business-cash/）的年费在浏览器中加载，未登录状态保存的页面文本没有金额。年费取自对比页里 Blue Business Cash 自己的数据块。",
+        "购物保障、延长保修和租车险未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -1270,6 +1332,10 @@
     "chase-us-amazon-visa",
     "chase-us-marriott-bonvoy-bold-credit-card",
     "chase-us-marriott-bonvoy-bountiful-credit-card",
-    "amex-us-us-blue-cash-preferred-card"
+    "amex-us-us-blue-cash-preferred-card",
+    "amex-us-us-hilton-honors-card",
+    "amex-us-us-hilton-honors-surpass-card",
+    "amex-us-us-delta-skymiles-blue-card",
+    "amex-us-us-blue-business-cash-card"
   ]
 }

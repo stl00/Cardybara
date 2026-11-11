@@ -1,0 +1,480 @@
+{
+ "batch": 7,
+ "checkedAt": "2026-11-11",
+ "reviewAfter": "2027-02-09",
+ "cards": [
+  {
+   "id": "amex-us-us-hilton-honors-card",
+   "page": "amex-us-us-hilton-honors",
+   "issuer": "American Express",
+   "url": "https://www.americanexpress.com/us/credit-cards/card/hilton-honors/",
+   "new": {
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Hilton Honors American Express Card"
+   },
+   "aliases": [
+    "Hilton Honors Card",
+    "Hilton Honors American Express"
+   ],
+   "transfer": {
+    "name": "Hilton Honors",
+    "programmeId": "programme.hilton-honors",
+    "linkOnly": true,
+    "quote": "Earn 3X Hilton Honors Bonus Points for all other eligible purchases on your Card."
+   },
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "There is no annual fee for the Hilton Honors American Express Card."
+   },
+   "earning": [
+    {
+     "zh": "Hilton 旗下酒店直接消费",
+     "en": "Hotels and resorts in the Hilton portfolio",
+     "multiplier": 7,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "quote": "Earn 7X Hilton Honors Bonus Points for each dollar of eligible purchases charged on your Card directly with a hotel"
+    },
+    {
+     "zh": "美国餐厅",
+     "en": "U.S. restaurants",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "noteZh": "页面写明包括外卖和配送。",
+     "noteEn": "The page says this includes takeout and delivery.",
+     "quote": "Earn 5X Hilton Honors Bonus Points for each dollar of eligible purchases on your Card at U.S. restaurants."
+    },
+    {
+     "zh": "美国超市",
+     "en": "U.S. supermarkets",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 5X Hilton Honors Bonus Points for each dollar of eligible purchases on your Card at U.S. supermarkets."
+    },
+    {
+     "zh": "美国加油站",
+     "en": "U.S. gas stations",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "ground-transport",
+     "quote": "Earn 5X Hilton Honors Bonus Points for each dollar of eligible purchases on your Card at U.S. gas stations."
+    },
+    {
+     "zh": "其他合资格消费",
+     "en": "Other eligible purchases",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 3X Hilton Honors Bonus Points for all other eligible purchases on your Card."
+    }
+   ],
+   "credits": [
+    {
+     "key": "silver-status",
+     "zh": "Hilton Honors Silver 会籍",
+     "en": "Hilton Honors Silver status",
+     "noteZh": "持卡即享；个人会籍未核实。",
+     "noteEn": "Comes with the card; personal status is unverified.",
+     "scenario": "hotel-stay",
+     "category": "membership",
+     "period": "ongoing",
+     "programmeIds": [
+      "programme.hilton-honors"
+     ],
+     "quote": "Enjoy complimentary Hilton Honors Silver status with your Card.",
+     "original": {
+      "title": "Hilton Honors Silver status",
+      "summary": "Complimentary Hilton Honors Silver status with the card.",
+      "howToUse": [
+       "Check your tier in your Hilton Honors account."
+      ]
+     }
+    },
+    {
+     "key": "gold-upgrade",
+     "zh": "消费满2万美元升级 Gold 会籍",
+     "en": "Gold status upgrade after $20,000 in spend",
+     "noteZh": "一个自然年内用本卡消费满20,000美元，可升级 Hilton Honors Gold，有效到下一个自然年年底。是否达标未核实。",
+     "noteEn": "Spend $20,000 on the card in a calendar year to earn Hilton Honors Gold status through the end of the next calendar year. Whether you reach it is unverified.",
+     "scenario": "hotel-stay",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "programmeIds": [
+      "programme.hilton-honors"
+     ],
+     "quote": "spend $20,000 on eligible purchases on your Card in a calendar year and you can earn an upgrade",
+     "original": {
+      "title": "Gold status upgrade after $20,000 in spend",
+      "summary": "Spend $20,000 on eligible purchases in a calendar year to earn an upgrade to Hilton Honors Gold status through the end of the next calendar year.",
+      "howToUse": [
+       "Track your calendar-year spend on the card."
+      ],
+      "quotes": [
+       "you can earn an upgrade to Hilton Honors Gold Status through the end of the next calendar year"
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "American Express Venue Collection 场馆消费返还、购物保障和租车险未录入。附属卡年费未确认。",
+     "en": "The American Express Venue Collection concessions offer, purchase protection and car rental coverage are not recorded. The additional card fee is not confirmed."
+    }
+   ]
+  },
+  {
+   "id": "amex-us-us-hilton-honors-surpass-card",
+   "page": "amex-us-us-hilton-honors-surpass",
+   "issuer": "American Express",
+   "url": "https://www.americanexpress.com/us/credit-cards/card/hilton-honors-surpass/",
+   "new": {
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Hilton Honors American Express Surpass Card"
+   },
+   "aliases": [
+    "Hilton Honors Surpass Card",
+    "Hilton Honors Surpass",
+    "Hilton Surpass"
+   ],
+   "transfer": {
+    "name": "Hilton Honors",
+    "programmeId": "programme.hilton-honors",
+    "linkOnly": true,
+    "quote": "Earn 3X Hilton Honors Bonus Points for each dollar of all other eligible purchases on your Card."
+   },
+   "earning": [
+    {
+     "zh": "Hilton 旗下酒店直接消费",
+     "en": "Hotels and resorts in the Hilton portfolio",
+     "multiplier": 12,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "quote": "Earn 12X Hilton Honors Bonus Points for each dollar of eligible purchases charged on your Card directly with a hotel"
+    },
+    {
+     "zh": "美国餐厅",
+     "en": "U.S. restaurants",
+     "multiplier": 6,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "noteZh": "页面写明包括外卖和配送。",
+     "noteEn": "The page says this includes takeout and delivery.",
+     "quote": "Earn 6X Hilton Honors Bonus Points for each dollar of eligible purchases on your Card at U.S. restaurants."
+    },
+    {
+     "zh": "美国超市",
+     "en": "U.S. supermarkets",
+     "multiplier": 6,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 6X Hilton Honors Bonus Points for each dollar of eligible purchases on your Card at U.S. supermarkets."
+    },
+    {
+     "zh": "美国加油站",
+     "en": "U.S. gas stations",
+     "multiplier": 6,
+     "unit": "points-per-USD",
+     "category": "ground-transport",
+     "quote": "Earn 6X Hilton Honors Bonus Points for each dollar of eligible purchases on your Card at U.S. Gas Stations."
+    },
+    {
+     "zh": "美国网上零售",
+     "en": "U.S. online retail purchases",
+     "multiplier": 4,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 4X Hilton Honors Bonus Points for each dollar of U.S. Online Retail purchases."
+    },
+    {
+     "zh": "其他合资格消费",
+     "en": "Other eligible purchases",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 3X Hilton Honors Bonus Points for each dollar of all other eligible purchases on your Card."
+    }
+   ],
+   "credits": [
+    {
+     "key": "gold-status",
+     "zh": "Hilton Honors Gold 会籍",
+     "en": "Hilton Honors Gold status",
+     "noteZh": "持卡即享；个人会籍未核实。",
+     "noteEn": "Comes with the card; personal status is unverified.",
+     "scenario": "hotel-stay",
+     "category": "membership",
+     "period": "ongoing",
+     "programmeIds": [
+      "programme.hilton-honors"
+     ],
+     "quote": "Enjoy complimentary Hilton Honors Gold Status with your Hilton Honors Surpass Card.",
+     "original": {
+      "title": "Hilton Honors Gold status",
+      "summary": "Complimentary Hilton Honors Gold status with the card.",
+      "howToUse": [
+       "Check your tier in your Hilton Honors account."
+      ]
+     }
+    },
+    {
+     "key": "hilton-credit",
+     "zh": "Hilton 抵扣",
+     "en": "Hilton credit",
+     "noteZh": "每季最多50美元，全年最多200美元，须用本卡直接向 Hilton 旗下酒店消费。页面只写“每季”，按自然季记录。",
+     "noteEn": "Up to $50 each quarter, $200 a year, on purchases made with the card directly with a property in the Hilton portfolio. The page says \"each quarter\"; it is recorded as calendar quarters.",
+     "amount": 50,
+     "period": "calendar-quarter",
+     "scenario": "hotel-stay",
+     "programmeIds": [
+      "programme.hilton-honors"
+     ],
+     "terms": {
+      "annualMaximum": 200,
+      "partner": "Hilton"
+     },
+     "quote": "Get up to $50 in statement credits each quarter for purchases made directly with a property",
+     "original": {
+      "title": "$200 Hilton Credit",
+      "summary": "Up to $50 in statement credits each quarter for purchases made directly with a property in the Hilton portfolio, up to $200 a year.",
+      "howToUse": [
+       "Pay a Hilton property directly with the card; the credit resets each quarter."
+      ],
+      "quotes": [
+       "That’s up to $200 in statement credits annually."
+      ]
+     }
+    },
+    {
+     "key": "free-night",
+     "zh": "消费满15,000美元得免费房晚",
+     "en": "Free Night Reward after $15,000 in spend",
+     "noteZh": "一个自然年内用本卡消费满15,000美元后获得。是否达标未核实。",
+     "noteEn": "Earned after $15,000 in eligible purchases on the card in a calendar year. Whether you reach it is unverified.",
+     "scenario": "hotel-stay",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "programmeIds": [
+      "programme.hilton-honors"
+     ],
+     "quote": "Earn a Free Night Reward from Hilton Honors after you spend $15,000 on eligible purchases on your card in a calendar year.",
+     "original": {
+      "title": "Free Night Reward after $15,000 in spend",
+      "summary": "A Free Night Reward from Hilton Honors after $15,000 in eligible purchases on the card in a calendar year.",
+      "howToUse": [
+       "Track your calendar-year spend on the card."
+      ]
+     }
+    },
+    {
+     "key": "diamond-upgrade",
+     "zh": "消费满4万美元升级 Diamond 会籍",
+     "en": "Diamond status upgrade after $40,000 in spend",
+     "noteZh": "一个自然年内用本卡消费满40,000美元，可升级 Hilton Honors Diamond，有效到下一个自然年年底。是否达标未核实。",
+     "noteEn": "Spend $40,000 on the card in a calendar year to earn Hilton Honors Diamond status through the end of the next calendar year. Whether you reach it is unverified.",
+     "scenario": "hotel-stay",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "programmeIds": [
+      "programme.hilton-honors"
+     ],
+     "quote": "Spend $40,000 on eligible purchases on your Card in a calendar year",
+     "original": {
+      "title": "Diamond status upgrade after $40,000 in spend",
+      "summary": "Spend $40,000 on eligible purchases in a calendar year to earn an upgrade to Hilton Honors Diamond status through the end of the next calendar year.",
+      "howToUse": [
+       "Track your calendar-year spend on the card."
+      ],
+      "quotes": [
+       "you can earn an upgrade to Hilton Honors Diamond status through the end of the next calendar year"
+      ]
+     }
+    },
+    {
+     "key": "national-emerald",
+     "zh": "National Car Rental Emerald Club Executive 会籍",
+     "en": "National Car Rental Emerald Club Executive status",
+     "noteZh": "须通过 American Express 网上账户用本卡登记。",
+     "noteEn": "Enroll through your American Express online account using the card.",
+     "scenario": "ground-transport",
+     "category": "membership",
+     "period": "ongoing",
+     "enrollment": true,
+     "quote": "Enjoy complimentary Emerald Club Executive status from National Car Rental when you enroll",
+     "original": {
+      "title": "Complimentary National Car Rental Emerald Club Executive status",
+      "summary": "Complimentary Emerald Club Executive status from National Car Rental when you enroll through your American Express online account using the card.",
+      "howToUse": [
+       "Enroll through your American Express online account using the card."
+      ],
+      "quotes": [
+       "Card Members must enroll in the National Car Rental Emerald Club Executive status through their American Express online account using their Card."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "年费150美元来自产品页数据块（只在浏览器里显示）；同一处写首年0美元，来自联盟推广申请流程，是否适用于你未核实。附属卡年费未确认。",
+     "en": "The $150 fee comes from the product page's data block, which only shows in the browser; the same block's $0 first year comes from an affiliate offer flow and may not apply to you. The additional card fee is not confirmed."
+    },
+    {
+     "zh": "行李险、购物保障、延长保修和租车险未录入。",
+     "en": "Baggage insurance, purchase protection, extended warranty and car rental coverage are not recorded."
+    }
+   ],
+   "fee": {
+    "amount": 150,
+    "currency": "USD",
+    "embedded": true,
+    "quote": "$0 introductory annual fee for the first year, then $150."
+   }
+  },
+  {
+   "id": "amex-us-us-delta-skymiles-blue-card",
+   "page": "amex-us-us-delta-skymiles-blue",
+   "issuer": "American Express",
+   "url": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-blue-american-express-card/",
+   "new": {
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Delta SkyMiles Blue American Express Card"
+   },
+   "aliases": [
+    "Delta SkyMiles Blue Card",
+    "Delta SkyMiles Blue"
+   ],
+   "transfer": {
+    "name": "Delta SkyMiles",
+    "programmeId": "programme.delta-skymiles",
+    "linkOnly": true,
+    "quote": "Earn 2 miles for every dollar spent on eligible purchases made directly with Delta"
+   },
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "There is no annual fee for the Delta SkyMiles Blue American Express Card."
+   },
+   "earning": [
+    {
+     "zh": "餐厅（外卖和配送限美国）",
+     "en": "Restaurants (takeout and delivery in the U.S.)",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "dining",
+     "quote": "including takeout and delivery in the U.S.- earn 2X Miles at restaurants"
+    },
+    {
+     "zh": "Delta 直接消费",
+     "en": "Purchases made directly with Delta",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "airline",
+     "quote": "Earn 2 miles for every dollar spent on eligible purchases made directly with Delta"
+    },
+    {
+     "zh": "其他合资格消费",
+     "en": "All other eligible purchases",
+     "multiplier": 1,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "Earn 1 mile per dollar for purchases you make with your Card"
+    }
+   ],
+   "credits": [
+    {
+     "key": "inflight",
+     "zh": "机上消费20%返还",
+     "en": "20% back on in-flight purchases",
+     "noteZh": "以抵扣形式返还，限 Delta 机上餐饮。",
+     "noteEn": "A 20% statement credit on eligible Delta in-flight food and beverage purchases.",
+     "scenarios": [
+      "travel",
+      "airport"
+     ],
+     "scenario": "airport",
+     "category": "membership",
+     "period": "ongoing",
+     "programmeIds": [
+      "programme.delta-skymiles"
+     ],
+     "quote": "Receive a 20% savings in the form of a statement credit",
+     "original": {
+      "title": "20% back on in-flight purchases",
+      "summary": "A 20% savings as a statement credit on eligible Delta in-flight purchases of food and beverages.",
+      "howToUse": [
+       "Pay for food and drinks on Delta flights with the card."
+      ],
+      "quotes": [
+       "on eligible Delta in-flight purchases of food and beverages"
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "Pay with Miles（每5,000里程抵50美元机票）属于兑换方式，未录入。购物保障、延长保修和租车险未录入。附属卡年费未确认。",
+     "en": "Pay with Miles ($50 off a flight per 5,000 miles) is a redemption option and is not recorded. Purchase protection, extended warranty and car rental coverage are not recorded. The additional card fee is not confirmed."
+    }
+   ]
+  },
+  {
+   "id": "amex-us-us-blue-business-cash-card",
+   "page": "amex-us-compare-cash-back-business",
+   "issuer": "American Express",
+   "url": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/compare-credit-cards/compare-cash-back-business-credit-cards/",
+   "new": {
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Blue Business Cash Card"
+   },
+   "aliases": [
+    "Blue Business Cash",
+    "American Express Blue Business Cash Card"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "embedded": true,
+    "quote": "$0 Annual Fee"
+   },
+   "earning": [
+    {
+     "zh": "所有合资格消费",
+     "en": "All eligible purchases",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "afterCap": 1,
+     "cap": {
+      "amount": 50000,
+      "currency": "USD",
+      "period": "calendar-year"
+     },
+     "noteZh": "每自然年前50,000美元返2%，之后1%。返现自动记入账单。",
+     "noteEn": "2% on the first $50,000 each calendar year, then 1%. Cash back is credited to the statement automatically.",
+     "quote": "Earn 2% cash back on the first $50,000 of eligible purchases each calendar year, 1% thereafter."
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "来源是发卡行的商务现金回馈卡对比页：产品页（/en-us/business/credit-cards/blue-business-cash/）的年费在浏览器中加载，未登录状态保存的页面文本没有金额。年费取自对比页里 Blue Business Cash 自己的数据块。",
+     "en": "The source is the issuer's cash back business card comparison page: the product page (/en-us/business/credit-cards/blue-business-cash/) loads its fee in the browser, so the saved signed-out text has no amount. The fee comes from the Blue Business Cash block in the comparison page's data."
+    },
+    {
+     "zh": "购物保障、延长保修和租车险未录入。",
+     "en": "Purchase protection, extended warranty and car rental coverage are not recorded."
+    }
+   ],
+   "sourceTitle": {
+    "zh": "商务现金回馈卡对比页",
+    "en": "cash back business card comparison page"
+   }
+  }
+ ]
+}
