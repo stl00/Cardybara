@@ -3,7 +3,8 @@
 // sent as far as the model boundary: the exact chatRequest the model would receive is captured, and the check asks
 // whether the entity the user refers to is still identifiable in it. Synthetic public products only.
 import {cards as catalogueCards} from '../fixtures.mjs';
-import {runAgentTurn} from '../../src/agentSession.js';
+// CARDYBARA_AGENT=cloud replays through the hosted agent (tests/helpers/agent-target.mjs).
+import {runAgentTurn} from '../../tests/helpers/agent-target.mjs';
 import {chatRequest,SYSTEM} from '../../src/chatProtocol.js';
 import {runWalletTool,validateToolCall} from '../../src/walletAgent.js';
 

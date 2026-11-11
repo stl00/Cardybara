@@ -5,7 +5,7 @@ import {context as evalContext} from '../evals/fixtures.mjs';
 const context={...evalContext,marketDefaults:false};
 import {prepareAgentContext,validateMemory} from '../src/agentContext.js';
 import {answerGrounding} from '../src/answerGrounding.js';
-import {runAgentTurn} from '../src/agentSession.js';
+import {runAgentTurn} from './helpers/agent-target.mjs';
 import {validateChat} from '../scripts/chat-agent.mjs';
 const comparison={category:'dining',country:'US',currency:'USD',amount:100};
 const call={id:'c1',type:'function',function:{name:'choose_card',arguments:JSON.stringify(comparison)}};

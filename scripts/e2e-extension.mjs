@@ -44,6 +44,7 @@ import {findChrome} from './dev-collector/chrome-launcher.mjs';
 import {readZipEntry,zipEntryNames} from './read-zip.mjs';
 import {GATEWAY_ORIGIN} from '../extension-next/model-client.js';
 import {localGateway} from '../gateway/src/local.mjs';
+import {providerResponse} from '../tests/helpers/agent-target.mjs';
 
 const root=fileURLToPath(new URL('..',import.meta.url));
 let STEP_MS=Number(process.env.CARDYBARA_E2E_STEP_MS||30000);
@@ -133,7 +134,13 @@ async function syntheticBank(work){
   async startGateway({origin,status,dailyRequests}){
    const g=localGateway({vars:{PROVIDER_KEY:GATEWAY_PROVIDER_KEY,ALLOWED_ORIGINS:origin,DAILY_REQUESTS_PER_CODE:String(dailyRequests)},log:line=>{gateway.logs.push(line);note('gateway',line);},
     // The gateway's upstream is the same scripted provider, reached in process.
-    fetch:async(url,init)=>{const {status,value}=await providerAnswer(model,{method:init.method,path:new URL(url).pathname,authorization:init.headers.Authorization,raw:init.body,via:'gateway'});return new Response(JSON.stringify(value),{status,headers:{'Content-Type':'application/json'}});}});
+    fetch:async(url,init)=>{
+     const {status,value}=await providerAnswer(model,{method:init.method,path:new URL(url).pathname,authorization:init.headers.Authorization,raw:init.body,via:'gateway'});
+     // The hosted agent asks the provider to stream; the scripted answer is sent as the provider's events.
+     let stream=false;try{stream=JSON.parse(init.body).stream===true;}catch{}
+     if(status===200&&stream){const choice=value.choices[0];return providerResponse({message:choice.message,finishReason:choice.finish_reason},{stream:true});}
+     return new Response(JSON.stringify(value),{status,headers:{'Content-Type':'application/json'}});
+    }});
    await g.addInvite(TEST_INVITE,{id:'e2e-tester',status});gateway.handle=g.handle;
   },
   hold(){held=held||[];},heldCount:()=>held?.length||0,release(){const waiting=held||[];held=null;waiting.forEach(f=>f());return waiting.length;},close:()=>new Promise(r=>{server.close(r);server.closeAllConnections();})};
@@ -176,7 +183,13 @@ function serveGateway(gateway,req,res){
   if(!gateway.handle){res.writeHead(503).end();return;}
   const headers=Object.fromEntries(['origin','authorization','content-type','access-control-request-method','access-control-request-headers'].filter(h=>req.headers[h]).map(h=>[h,req.headers[h]]));
   const response=await gateway.handle(new Request(`https://${GATEWAY_HOST}${req.url}`,{method:req.method,headers,...(['GET','HEAD'].includes(req.method)?{}:{body:raw})}));
-  res.writeHead(response.status,Object.fromEntries(response.headers)).end(Buffer.from(await response.arrayBuffer()));
+  // Streamed through as it arrives, so the hosted agent's events reach the extension as they would from the Worker.
+  res.writeHead(response.status,Object.fromEntries(response.headers));
+  if(!response.body){res.end();return;}
+  const reader=response.body.getReader();
+  res.on('close',()=>{reader.cancel().catch(()=>{});});
+  try{for(;;){const {done,value}=await reader.read();if(done)break;res.write(Buffer.from(value));}}catch{}
+  res.end();
  });
 }
 
@@ -217,9 +230,10 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=scriptedChat,hosted=false,invite=TEST_INVITE,inviteStatus='active',inviteDailyRequests=50,cards=false,cardFeeDate={month:2,day:29},upgradeFrom=null,mutatePrevious,swap=true}={}){
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=null,hosted=false,tamper=null,invite=TEST_INVITE,inviteStatus='active',inviteDailyRequests=50,cards=false,cardFeeDate={month:2,day:29},upgradeFrom=null,mutatePrevious,swap=true}={}){
  if([restart,expiredLogin,cancel,chat,cards,!!upgradeFrom].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel, --chat, --cards and --upgrade-from separately: each starts from the end of the main path');
  if(hosted&&!chat)throw Error('--hosted is a variant of --chat');
+ chatScript??=hosted?scriptedHostedChat:scriptedChat;
  if(stepMs)STEP_MS=stepMs;log=[];lastState=null;
  const work=await mkdtemp(join(tmpdir(),'cardybara-e2e-'));
  const sessions={};let browser,bank;
@@ -578,6 +592,8 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    if((await pageText('wallet')).includes(credential))throw new StepError(`the settings page shows the saved ${what} in full`);
 
    await evaluate('wallet','location.hash="advisor"');
+   // Negative controls only: the page's requests to the hosted agent are changed before they leave it.
+   if(tamper)await evaluate('wallet',`(()=>{const real=window.fetch;window.fetch=async(url,init)=>{if(String(url).endsWith('/v1/chat')&&init?.body){const body=JSON.parse(init.body);(${tamper})(body);init={...init,body:JSON.stringify(body)};}return real(url,init);};return true;})()`);
    const box=await until('the chat composer to accept text',()=>evaluate('wallet',`(()=>{const el=document.querySelector('.chat-compose textarea');if(!el||el.disabled)return false;el.focus();return true;})()`));
    if(!box)throw new StepError('no chat composer');
    await cdp.send('Input.insertText',{text:QUESTION},sessions.wallet);
@@ -586,7 +602,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    note('asked the assistant a question');
    await until('the scripted answer in the chat',async()=>{
     const t=await pageText('wallet');
-    const failed=['这次没有完成，AI 服务可能暂时不可用。可以重试；你的钱包没有被修改。','聊天助手需要先在设置里输入邀请码，钱包其他功能不受影响。','已达到托管服务的用量上限，请稍后再试，或在设置里改用自己的 key。','这个邀请码已停用，请联系发码人，或在设置里改用自己的 key。','邀请码无效，请在设置里检查是否复制完整。'].find(zh=>JSON.parse(words(zh)).some(w=>t.includes(w)));
+    const failed=['这次没有完成，AI 服务可能暂时不可用。可以重试；你的钱包没有被修改。','聊天助手需要先在设置里输入邀请码，钱包其他功能不受影响。','已达到托管服务的用量上限，请稍后再试。','这个邀请码已停用，请联系发码人。','邀请码无效，请在设置里检查是否复制完整。'].find(zh=>JSON.parse(words(zh)).some(w=>t.includes(w)));
     if(failed)throw new StepError('the chat failed instead of answering: '+failed);
     return t.includes(ANSWER_MARK);
    },STEP_MS*2);
@@ -599,13 +615,26 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
     for(const v of READ_VALUES)if(r.raw.includes(v))throw new StepError(`a value read from the bank (${v}) reached the model`);
    }
    if(hosted){
-    const viaGateway=bank.gateway.requests.filter(r=>r.path==='/v1/chat/completions'&&r.method==='POST');
-    if(viaGateway.length!==chatScript.length)throw new StepError(`the gateway relayed ${viaGateway.length} chat requests, the script has ${chatScript.length} steps`);
+    // The chat runs on the hosted agent, which calls the provider itself; nothing goes to the single-completion proxy.
+    if(bank.gateway.requests.some(r=>r.path==='/v1/chat/completions'))throw new StepError('the hosted chat used the completion proxy instead of the agent');
+    if(chats.some(r=>r.body?.stream!==true))throw new StepError('the hosted agent did not stream its model calls');
     for(const r of bank.gateway.requests.filter(r=>r.method==='POST')){
      if(r.authorization!=='Bearer '+credential)throw new StepError('a gateway request did not carry the saved invite code');
      if(r.origin!==`chrome-extension://${id}`)throw new StepError('a gateway request came without the extension origin: '+r.origin);
      for(const v of READ_VALUES)if(r.raw.includes(v))throw new StepError(`a value read from the bank (${v}) reached the gateway`);
+     for(const v of READ_TAILS)if(r.raw.includes(v))throw new StepError(`a card tail read from the bank (${v}) reached the gateway`);
     }
+    // The hosted agent (stl00/Cardybara#210): the question, then one continuation carrying only the result of the
+    // wallet tool the agent asked for. Nothing else from the wallet travels: no other result, field or round.
+    const turns=bank.gateway.requests.filter(r=>r.path==='/v1/chat'&&r.method==='POST').map(r=>JSON.parse(r.raw));
+    if(turns.length!==2)throw new StepError(`the chat made ${turns.length} requests to the hosted agent, expected the question and one tool continuation`);
+    const allowed=['question','history','memory','summary'];
+    if(Object.keys(turns[0]).sort().join()!==allowed.sort().join())throw new StepError('the first hosted request carries more than the question, history, memory and summary: '+Object.keys(turns[0]).join());
+    if(Object.keys(turns[1]).sort().join()!==[...allowed,'rounds','turn'].sort().join())throw new StepError('the continuation carries more than the turn and its rounds: '+Object.keys(turns[1]).join());
+    const results=turns[1].rounds.flatMap(r=>Object.keys(r.results));
+    if(results.join()!==HOSTED_WALLET_CALL)throw new StepError('the continuation carries tool results beyond the one requested: '+results.join());
+    if(turns[0].summary.cards.some(c=>Object.keys(c).sort().join()!=='bank,currency,feeDate,name,productId,region'))throw new StepError('the wallet summary carries a field beyond the held product');
+    note('hosted agent: question, then one continuation with only the requested wallet tool result; the summary names products only');
     const logs=bank.gateway.logs.join('\n');
     for(const secret of [credential,GATEWAY_PROVIDER_KEY,QUESTION,ANSWER_MARK])if(logs.includes(secret))throw new StepError('the gateway log carries a body, code or key');
     const everything=await evaluate('worker',`chrome.storage.local.get(null).then(r=>JSON.stringify(r))`);
@@ -639,7 +668,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    await until('the overview to leave out the hidden card',async()=>{const t=await pageText('wallet');return JSON.parse(words('信用卡总览')).some(w=>t.includes(w))&&!t.includes(hideName);});
    note('hid',hideName,': the overview leaves it out, the bank records stay');
    // A new chat, so the earlier answer naming every card is not in the history the model sees.
-   bank.model.script=[...chatScript,...scriptedChat];
+   bank.model.script=[...chatScript,...chatScript];
    const before=bank.model.requests.filter(r=>r.method==='POST').length;
    await evaluate('wallet','location.hash="advisor"');
    await until('the new-chat button',()=>evaluate('wallet',`(()=>{const want=['新对话','New chat','新對話'].map(v=>v.replace(/\\s+/g,''));const b=[...document.querySelectorAll('button')].find(b=>want.includes(b.textContent.replace(/\\s+/g,''))&&!b.disabled);if(!b)return false;b.click();return true;})()`));
@@ -713,6 +742,13 @@ async function restoreSiteAccess(ctx){
 const QUESTION='E2E: which cards do I hold?';
 const ANSWER_MARK='Synthetic scripted answer';
 const toolCall=(id,name,args={})=>({id,type:'function',function:{name,arguments:JSON.stringify(args)}});
+// The hosted agent's script: a public tool (run in the Worker) and a wallet tool (run in the extension) in one round,
+// so the turn makes one round trip through the extension, then the answer.
+const HOSTED_WALLET_CALL='e2e-2';
+export const scriptedHostedChat=[
+ ()=>({content:'',tool_calls:[toolCall('e2e-1','list_cards'),toolCall(HOSTED_WALLET_CALL,'query_credits')]}),
+ body=>{const cards=body.messages.filter(m=>m.role==='tool').map(m=>JSON.parse(m.content)).find(Array.isArray)||[];return {content:`${ANSWER_MARK}: you hold ${cards.map(c=>c.name).join(' and ')||'no cards'}.`};},
+];
 export const scriptedChat=[
  ()=>({content:'',tool_calls:[toolCall('e2e-1','list_cards')]}),
  body=>{const cards=body.messages.filter(m=>m.role==='tool').map(m=>JSON.parse(m.content)).find(Array.isArray)||[];return {content:`${ANSWER_MARK}: you hold ${cards.map(c=>c.name).join(' and ')||'no cards'}.`};},
@@ -893,6 +929,10 @@ export const BROKEN_CHAT={
 export const BROKEN_HOSTED_CHAT={
  'a revoked invite code':[/the invite code was not saved: 这个邀请码已停用/,{inviteStatus:'revoked'}],
  'an invite code over its daily cap':[/the chat failed instead of answering: 已达到托管服务的用量上限/,{inviteDailyRequests:1}],
+ // Wallet data beyond the requested tool result: the Worker refuses a request with an extra field, and a read value
+ // smuggled into a requested result is still caught by the check of every request to the gateway.
+ 'a wallet field sent beside the question':[/the chat failed instead of answering/,{tamper:"b=>{b.balance='1234.56';}"}],
+ 'a read value inside a requested tool result':[/a value read from the bank \(1234\.56\) reached the gateway/,{tamper:"b=>{for(const r of b.rounds||[])for(const id of Object.keys(r.results))r.results[id].leak='1234.56';}"}],
 };
 // With --cards: a card with a fee date that does not exist is never saved; the check must notice.
 export const BROKEN_CARDS={

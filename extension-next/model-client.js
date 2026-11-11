@@ -10,7 +10,7 @@ export const gatewayConfigured=!new URL(GATEWAY_ORIGIN).hostname.endsWith('.inva
 export const HOSTED='cardybara';
 export const PROVIDERS={
  deepseek:{label:'DeepSeek',origin:'https://api.deepseek.com',chat:'https://api.deepseek.com/chat/completions',models:'https://api.deepseek.com/models',model:'deepseek-flash'},
- [HOSTED]:{label:'Cardybara 托管服务',origin:GATEWAY_ORIGIN,chat:GATEWAY_ORIGIN+'/v1/chat/completions',check:GATEWAY_ORIGIN+'/v1/invite',model:'deepseek-flash',hosted:true},
+ [HOSTED]:{label:'Cardybara 托管服务',origin:GATEWAY_ORIGIN,chat:GATEWAY_ORIGIN+'/v1/chat/completions',agent:GATEWAY_ORIGIN+'/v1/chat',check:GATEWAY_ORIGIN+'/v1/invite',model:'deepseek-flash',hosted:true},
 };
 // The beta offers the hosted service only. An own provider key is a developer-only mode (local development and
 // the owner's live evals), switched on by this storage flag from DevTools or a test harness; no wallet UI sets it.
@@ -72,6 +72,8 @@ async function send(url,{provider,key,method='POST',body,signal,timeout=45000}){
  try{return await response.json();}catch{throw Error('model_failed');}
 }
 const GATEWAY_ERRORS={invite_invalid:'invite_invalid',invite_revoked:'invite_revoked',daily_requests:'hosted_over_cap',daily_tokens:'hosted_over_cap',monthly_budget:'hosted_over_cap',provider_rate_limited:'model_rate_limited',rate_limited:'model_rate_limited'};
+/** The code the wallet shows for a gateway error code, from a response or a streamed error event. */
+export const hostedError=code=>['answer_not_grounded','tool_limit'].includes(code)?code:Object.hasOwn(GATEWAY_ERRORS,code)?GATEWAY_ERRORS[code]:'model_failed';
 async function gatewayError(response){
  let code=null;try{code=(await response.json())?.error?.code;}catch{}
  return Object.hasOwn(GATEWAY_ERRORS,code)?GATEWAY_ERRORS[code]:response.status===401?'invite_invalid':'model_failed';
@@ -105,3 +107,21 @@ export async function completeJSON({system,user,maxTokens=600,signal}){
  if(finishReason==='length')throw Error('answer_truncated');
  try{const parsed=JSON.parse(message?.content||'');if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))throw Error();return parsed;}catch{throw Error('invalid_json');}
 }
+/**
+ * The hosted assistant (stl00/Cardybara#210): posts one /v1/chat request with the invite code and returns the
+ * response body, a stream of server-sent events (src/cloudProtocol.js). Only the hosted service has this route.
+ * Gateway errors become the same codes as for completions; a connection that fails becomes model_failed.
+ */
+export async function postAgent(body,{signal,timeout=120000}={}){
+ const saved=await ready(),target=PROVIDERS[saved.provider];
+ if(!target.hosted)throw Error('model_not_ready');
+ if(!await hasPermission(saved.provider))throw Error('model_not_ready');
+ let response;
+ try{response=await fetch(target.agent,{method:'POST',headers:{Authorization:'Bearer '+saved.key,'Content-Type':'application/json'},body:JSON.stringify(body),credentials:'omit',redirect:'error',cache:'no-store',signal:AbortSignal.any([AbortSignal.timeout(timeout),signal].filter(Boolean))});}
+ catch(error){if(signal?.aborted)throw error;throw Error('model_failed');}
+ if(!response.ok)throw Error(await gatewayError(response));
+ if(!/^text\/event-stream/i.test(response.headers.get('Content-Type')||'')||!response.body)throw Error('model_failed');
+ return response.body;
+}
+/** Whether the saved credential is the hosted service's invite code (the assistant then runs in the cloud). */
+export async function hostedReady(){const saved=await readKey();return !!saved&&saved.enabled!==false&&!!PROVIDERS[saved.provider]?.hosted;}

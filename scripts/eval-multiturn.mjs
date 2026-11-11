@@ -14,7 +14,7 @@ import {replay,contextSources,resolvable,strictTarget,checkLabels,selectCards,ev
 const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
 const rescoring=process.argv.some(a=>a.startsWith('--rescore=')),live=process.argv.includes('--live')||rescoring,dryRun=process.argv.includes('--dry-run')||rescoring;
 const arg=name=>process.argv.find(a=>a.startsWith(`--${name}=`))?.slice(name.length+3);
-const output=resolve(arg('out')||resolve(root,'evals/latest-multiturn-'+(live?(dryRun?'dry-run':'live'):'offline')+'.json'));
+const output=resolve(arg('out')||resolve(root,'evals/latest-multiturn-'+(live?(dryRun?'dry-run':'live'):'offline')+(process.env.CARDYBARA_AGENT==='cloud'?'-cloud':'')+'.json'));
 // Live runs go round-robin by kind, so --limit=n still covers every kind; offline runs keep file order.
 const limit=arg('limit')===undefined?Infinity:Number(arg('limit'));
 if(!(limit>0))throw Error('--limit must be a positive number');

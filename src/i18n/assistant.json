@@ -113,12 +113,12 @@
     "保存邀请码": "Save invite code",
     "Cardybara 托管服务": "Cardybara hosted service",
     "邀请码无效，请在设置里检查是否复制完整。": "The invite code is not valid. Check in Settings that it was copied in full.",
-    "这个邀请码已停用，请联系发码人，或在设置里改用自己的 key。": "This invite code has been turned off. Contact the person who gave it to you, or switch to your own key in Settings.",
-    "已达到托管服务的用量上限，请稍后再试，或在设置里改用自己的 key。": "The hosted service has reached its usage limit. Try again later, or switch to your own key in Settings.",
-    "聊天内容和卡片识别会经过 Cardybara 网关转发给模型服务商，网关不保存这些内容，只记录邀请码编号、时间、用量和状态。用托管服务时，AI 补全银行数据不可用，银行数据不经过网关。": "Chat content and card recognition pass through the Cardybara gateway to the model provider. The gateway does not store them; it records only the invite code number, time, usage and status. With the hosted service, AI-assisted bank reading is off and bank data never goes through the gateway.",
+    "聊天助手在 Cardybara 云端运行：网关收到你的问题、持有的卡种和助手请求的钱包查询结果，转给模型服务商；不收到卡号、余额或账单，钱包只保存在本机。网关不保存这些内容，只记录邀请码编号、时间、用量和状态。卡片识别也经过网关。用托管服务时，AI 补全银行数据不可用，银行数据不经过网关。": "The chat assistant runs in the Cardybara cloud: the gateway receives your question, which cards you hold and the results of wallet lookups the assistant asks for, and passes them to the model provider. It never receives card numbers, balances or statements, and your wallet stays on this device. The gateway does not store this content; it records only the invite code number, time, usage and status. Card recognition also goes through the gateway. With the hosted service, AI-assisted bank reading is off and bank data never goes through the gateway.",
     "这是 Cardybara 邀请码，请选择“使用 Cardybara 托管服务（输入邀请码）”后再粘贴。": "This is a Cardybara invite code. Choose \"Use the Cardybara hosted service (enter an invite code)\" and paste it there.",
     "输入邀请码后即可使用聊天助手和 AI 识别卡种。不输入也能正常使用钱包，只是没有 AI。": "Enter an invite code to use the chat assistant and AI card recognition. The wallet works without it, just without AI.",
-    "聊天助手需要先在设置里输入邀请码，钱包其他功能不受影响。": "The chat assistant needs an invite code in Settings first. The rest of the wallet works as usual."
+    "聊天助手需要先在设置里输入邀请码，钱包其他功能不受影响。": "The chat assistant needs an invite code in Settings first. The rest of the wallet works as usual.",
+    "输入邀请码": "Enter invite code",
+    "由 Cardybara 云端助手回答（模型：DeepSeek）。发送的是你的问题、持有的卡种和助手请求的钱包查询结果；不发送卡号、余额或账单，钱包只保存在本机。对话仅保留在本次页面会话。": "Answered by the Cardybara cloud assistant (model: DeepSeek). It receives your question, which cards you hold and the results of wallet lookups it asks for; card numbers, balances and statements are never sent, and your wallet stays on this device. Chat stays in this page session only."
   },
   "zh-TW": {
     "AI 助手在 Chrome 扩展内运行": "AI 助手在 Chrome 擴充功能內執行",
@@ -234,11 +234,11 @@
     "保存邀请码": "儲存邀請碼",
     "Cardybara 托管服务": "Cardybara 託管服務",
     "邀请码无效，请在设置里检查是否复制完整。": "邀請碼無效，請在設定裡檢查是否複製完整。",
-    "这个邀请码已停用，请联系发码人，或在设置里改用自己的 key。": "這個邀請碼已停用，請聯絡發碼人，或在設定裡改用自己的 key。",
-    "已达到托管服务的用量上限，请稍后再试，或在设置里改用自己的 key。": "已達到託管服務的用量上限，請稍後再試，或在設定裡改用自己的 key。",
-    "聊天内容和卡片识别会经过 Cardybara 网关转发给模型服务商，网关不保存这些内容，只记录邀请码编号、时间、用量和状态。用托管服务时，AI 补全银行数据不可用，银行数据不经过网关。": "聊天內容和卡片識別會經過 Cardybara 閘道轉發給模型服務商，閘道不儲存這些內容，只記錄邀請碼編號、時間、用量和狀態。使用託管服務時，AI 補全銀行資料不可用，銀行資料不經過閘道。",
+    "聊天助手在 Cardybara 云端运行：网关收到你的问题、持有的卡种和助手请求的钱包查询结果，转给模型服务商；不收到卡号、余额或账单，钱包只保存在本机。网关不保存这些内容，只记录邀请码编号、时间、用量和状态。卡片识别也经过网关。用托管服务时，AI 补全银行数据不可用，银行数据不经过网关。": "聊天助理在 Cardybara 雲端執行：閘道收到你的問題、持有的卡種和助理請求的錢包查詢結果，轉給模型服務商；不收到卡號、餘額或帳單，錢包只保存在本機。閘道不儲存這些內容，只記錄邀請碼編號、時間、用量和狀態。卡片識別也經過閘道。使用託管服務時，AI 補全銀行資料不可用，銀行資料不經過閘道。",
     "这是 Cardybara 邀请码，请选择“使用 Cardybara 托管服务（输入邀请码）”后再粘贴。": "這是 Cardybara 邀請碼，請選擇「使用 Cardybara 託管服務（輸入邀請碼）」後再貼上。",
     "输入邀请码后即可使用聊天助手和 AI 识别卡种。不输入也能正常使用钱包，只是没有 AI。": "輸入邀請碼後即可使用聊天助理和 AI 識別卡種。不輸入也能正常使用錢包，只是沒有 AI。",
-    "聊天助手需要先在设置里输入邀请码，钱包其他功能不受影响。": "聊天助理需要先在設定裡輸入邀請碼，錢包其他功能不受影響。"
+    "聊天助手需要先在设置里输入邀请码，钱包其他功能不受影响。": "聊天助理需要先在設定裡輸入邀請碼，錢包其他功能不受影響。",
+    "输入邀请码": "輸入邀請碼",
+    "由 Cardybara 云端助手回答（模型：DeepSeek）。发送的是你的问题、持有的卡种和助手请求的钱包查询结果；不发送卡号、余额或账单，钱包只保存在本机。对话仅保留在本次页面会话。": "由 Cardybara 雲端助手回答（模型：DeepSeek）。傳送的是你的問題、持有的卡種和助手請求的錢包查詢結果；不傳送卡號、餘額或帳單，錢包只保存在本機。對話僅保留在本次頁面工作階段。"
   }
 }

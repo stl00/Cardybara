@@ -9,7 +9,7 @@ import {cardProducts} from '../src/productCatalog.js';
 import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
 import {validateMemory,prepareAgentContext} from '../src/agentContext.js';
 import {answerGrounding} from '../src/answerGrounding.js';
-import {runAgentTurn} from '../src/agentSession.js';
+import {runAgentTurn} from './helpers/agent-target.mjs';
 import {renderChoiceAnswer} from '../src/decisionAnswer.js';
 import {chatAgent} from '../scripts/chat-agent.mjs';
 const {GOLD,GOLD_DINING}=decisionIds,DAY='2026-11-05';

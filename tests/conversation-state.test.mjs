@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {validateMemory} from '../src/agentContext.js';
 import {validateState,reduceToolResult,diffState,startTurn,endTurn,topicContext,TOPIC_ITEMS,TOPIC_CARDS,STATE_CHANNELS} from '../src/conversationState.js';
 import {chatRequest,validateChat} from '../src/chatProtocol.js';
-import {runAgentTurn} from '../src/agentSession.js';
+import {runAgentTurn} from './helpers/agent-target.mjs';
 import {runWalletTool} from '../src/walletAgent.js';
 import {cards as catalogueCards} from '../evals/fixtures.mjs';
 

@@ -1,4 +1,4 @@
-import {runWalletTool} from './walletAgent.js';
+import {runWalletTool,validateToolCall} from './walletAgent.js';
 import {heldCards} from './heldCards.js';
 import {prepareAgentContext,statedPointValues} from './agentContext.js';
 import {validateState,reduceToolResult,diffState,endTurn,keepHeldTopics} from './conversationState.js';
@@ -7,21 +7,32 @@ import {planResults} from './creditClaims.js';
 import {renderCreditAnswers} from './creditAnswer.js';
 import {renderChoiceAnswer} from './decisionAnswer.js';
 import {creditNamesForCards} from './creditQuery.js';
-export async function runAgentTurn({history,question,context,request,memory={},onProgress=()=>{},signal}){
+/**
+ * One assistant turn. The same loop runs in the extension (developer own-key mode) and in the hosted agent
+ * (gateway/src/agent.js, stl00/Cardybara#210). For the hosted agent, tools named in remoteTools read the user's
+ * wallet and run in the extension: a model round that calls one returns {pending:{rounds,calls,trip}} instead
+ * of running it: rounds are this turn's tool-call messages so far. The next request replays them in order from
+ * rounds[i] = {message, results: {callId: result}} (results only for remote calls; the others run again here), so
+ * no conversation state is kept between requests. Every other tool runs here on context.cards.
+ */
+export async function runAgentTurn({history,question,context,request,memory={},onProgress=()=>{},signal,rounds=[],remoteTools=null}){
  if(!question.trim()||question.length>4000)throw Error('invalid_question');
  context={...context,cards:heldCards(context.cards)}; // the assistant never sees a hidden card
  const prepared=prepareAgentContext(history,keepHeldTopics(memory,context.cards));
  // The conversation state. Only reduceToolResult replaces it; nothing modifies it in place.
- let state=prepared.memory,toolsRun=0;
+ let state=prepared.memory,toolsRun=0;const turnRounds=[];
  const messages=[...prepared.messages,{role:'user',content:question}],tools=[],evidence=[],trace=[];
  // The model receives the wallet day every turn; it never infers the current date.
- const invoke=async(final=false,override)=>{signal?.throwIfAborted();const start=Date.now();const reply=await request({messages:override||messages,memory:state,final,...(context.day?{today:context.day}:{})},signal);trace.push({type:'model',ms:Date.now()-start,inputChars:JSON.stringify(override||messages).length,final,...(reply.usage?{usage:reply.usage}:{})});return reply.message;};
+ const invoke=async(final=false,override)=>{signal?.throwIfAborted();const start=Date.now();const reply=await request({messages:override||messages,memory:state,final,...(context.day?{today:context.day}:{})},signal,{repair:!!override});trace.push({type:'model',ms:Date.now()-start,inputChars:JSON.stringify(override||messages).length,final,...(reply.usage?{usage:reply.usage}:{})});return reply.message;};
  const creditNames=creditNamesForCards(context.cards,context.day);
  const groundingContext=()=>question+' '+JSON.stringify(state.lastPurchase||{})+' '+JSON.stringify(state.trip||{})+' '+(context.day||'');
  // Complete turns only; old tool evidence is not replayed as current account state.
  for(let round=0;round<5;round++){
-  onProgress({phase:round?'thinking':'connecting',tools:[...tools]});
-  let message=await invoke(round===4);
+  // A round replayed from an earlier request of this turn: its model reply is not asked for again.
+  const replayed=rounds[round]||null;
+  if(!replayed)onProgress({phase:round?'thinking':'connecting',tools:[...tools]});
+  let message=replayed?replayed.message:await invoke(round===4);
+  if(replayed&&!message?.tool_calls?.length)throw Error('invalid_round');
   if(!message||message.role!=='assistant')throw Error('invalid_response');
   if(!message.tool_calls?.length){
    if(!message.content?.trim())throw Error('empty_answer');
@@ -54,10 +65,17 @@ export async function runAgentTurn({history,question,context,request,memory={},o
    const kept=statedPointValues(raw.pointValues,question,state.lastPurchase?.pointValues),{pointValues,...rest}=raw;
    return {...call,function:{...call.function,arguments:JSON.stringify(kept?{...rest,pointValues:kept}:rest)}};
   })};
+  const remote=remoteTools?message.tool_calls.filter(call=>remoteTools.has(call.function.name)):[];
+  // The extension runs these and posts back only their results; the state it needs for them is the remembered trip.
+  turnRounds.push(message);
+  if(remote.length&&!replayed){remote.forEach(validateToolCall);return {pending:{rounds:turnRounds,calls:remote,trip:state.trip||null}};}
+  if(replayed){const ids=new Set(remote.map(c=>c.id)),given=Object.keys(replayed.results||{});if(given.length!==ids.size||given.some(id=>!ids.has(id)))throw Error('invalid_tool_results');}
   messages.push(message);
   for(const call of message.tool_calls){
    signal?.throwIfAborted();
-   const start=Date.now(),result=runWalletTool(call,{...context,trip:state.trip}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
+   const isRemote=!!remoteTools?.has(call.function.name);
+   if(isRemote)validateToolCall(call);
+   const start=Date.now(),result=isRemote?replayed.results[call.id]:runWalletTool(call,{...context,trip:state.trip}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
    // A flight plan's credits and transfer rows are checked exactly as query_credits and convert_points results are.
    if(call.function.name==='plan_flight')evidence.push(result.credits,result.transfers);
    // Each tool result updates the state through the reducers; the trace records what changed, channel by channel.

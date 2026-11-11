@@ -187,3 +187,26 @@ test('beta: without the developer flag an own key cannot be saved; the hosted se
  const ui=readFileSync('src/ModelKeySettings.jsx','utf8');assert.match(ui,/ownKeyAllowed/,'the settings page asks for the flag before showing own-key controls');
  assert.ok(!/DEV_OWN_KEY|cardybara-dev-own-key/.test(ui+readFileSync('src/ParserSettings.jsx','utf8')),'no wallet UI sets the developer flag');
 });
+test('the hosted assistant route: invite code only to the gateway, an event stream back, errors as codes',async()=>{
+ const {postAgent,hostedReady,hostedError}=await import('../extension-next/model-client.js');
+ const {local}=fakeChrome({ownKey:false});
+ const INVITE='cdy_'+'model-client-test-only-'.padEnd(43,'0');
+ // No credential, or an own key: there is no hosted agent to reach.
+ await assert.rejects(()=>postAgent({question:'hi'}),/model_not_ready/);
+ local.set(KEY_STORE,{provider:'deepseek',key:KEY,enabled:true});
+ assert.equal(await hostedReady(),false);await assert.rejects(()=>postAgent({question:'hi'}),/model_not_ready/);
+ local.set(KEY_STORE,{provider:HOSTED,key:INVITE,enabled:true});assert.equal(await hostedReady(),true);
+ const seen=[];
+ globalThis.fetch=async(url,options)=>{seen.push({url:String(url),options});return new Response('data: {"type":"done"}\n\n',{status:200,headers:{'Content-Type':'text/event-stream'}});};
+ const body=await postAgent({question:'hi'});assert.ok(body.getReader);
+ assert.equal(seen[0].url,GATEWAY_ORIGIN+'/v1/chat');assert.equal(seen[0].options.headers.Authorization,'Bearer '+INVITE);assert.equal(seen[0].options.credentials,'omit');assert.equal(seen[0].options.redirect,'error');
+ globalThis.fetch=async()=>new Response('{}',{status:200,headers:{'Content-Type':'application/json'}});
+ await assert.rejects(()=>postAgent({question:'hi'}),/model_failed/,'only an event stream is read');
+ for(const [code,status,want] of [['daily_requests',429,'hosted_over_cap'],['invite_revoked',403,'invite_revoked'],['turn_invalid',400,'model_failed']]){
+  globalThis.fetch=async()=>Response.json({error:{code}},{status});
+  await assert.rejects(()=>postAgent({question:'hi'}),new RegExp(want));
+ }
+ globalThis.fetch=async()=>{throw TypeError('network down');};
+ await assert.rejects(()=>postAgent({question:'hi'}),/model_failed/);
+ assert.equal(hostedError('answer_not_grounded'),'answer_not_grounded');assert.equal(hostedError('monthly_budget'),'hosted_over_cap');assert.equal(hostedError('anything else'),'model_failed');
+});
