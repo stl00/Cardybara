@@ -42,6 +42,21 @@ export function convertPoints(points,terms){
  const fees=(terms.fees||[]).map(fee=>fee.perPoint?{...fee,charge:Math.min(Math.round(spend*fee.perPoint*100)/100,fee.maximum)}:{...fee,charge:fee.amount??null});
  return {status:'computed',spend,receive,unusedPoints:points-spend,capped,fees};
 }
+/** The fewest points that reach a stated number of partner miles, in whole transfer steps (#82).
+ * Rounds the transfer up to the next minimum or increment, never down, and stops at a published maximum. */
+export function pointsToReach(miles,terms){
+ const {ratio,minimumPoints,incrementPoints,maximumPoints}=terms||{};
+ if(!ratio)return {status:'ratio-unknown'};
+ if(!Number.isSafeInteger(miles)||miles<=0)return {status:'no-miles'};
+ const step=incrementPoints||null,floor=minimumPoints??step??0;
+ let spend=Math.ceil(miles*ratio.from/ratio.to);
+ if(step)spend=spend<=floor?floor:floor+Math.ceil((spend-floor)/step)*step;else spend=Math.max(spend,floor);
+ // Partner units are floored per transfer, so one more step may be needed to cover the miles.
+ while(Math.floor(spend*ratio.to/ratio.from)<miles)spend+=step||1;
+ if(maximumPoints!=null&&spend>maximumPoints)return {status:'above-maximum',maximumPoints};
+ const done=convertPoints(spend,terms);
+ return {status:'computed',spend,receive:done.receive,extraMiles:done.receive-miles,fees:done.fees};
+}
 // Readings stay per card: one card's balance is never added to another's without pool evidence.
 export function readingsFor(transferProgramme,accounts,cards=[]){
  return (accounts?.current||[]).filter(r=>r.bank===transferProgramme.bank&&r.region===transferProgramme.region&&r.unit!=='USD'&&canonicalProgramme(r.label||'')===transferProgramme.reading&&Number.isFinite(r.amount)).map(r=>{const card=cards.find(c=>c.id===r.card)||null,match=card?matchCardProduct(card):null;return {...r,key:[r.id,r.card||'',r.label,r.historical?'historical':'current'].join('|'),usable:Number.isSafeInteger(r.amount),cardRecord:card,productId:match?.status==='matched'?match.product.id:null};});
