@@ -8,6 +8,7 @@ import Welcome from '@ant-design/x/es/welcome';
 import {ArrowUpOutlined,ArrowDownOutlined,PlusOutlined,StopOutlined,CopyOutlined,CheckOutlined,InfoCircleOutlined,ShopOutlined,CrownOutlined,GiftOutlined} from '@ant-design/icons';
 import {useI18n,t} from './i18n';
 import {runAgentTurn} from './agentSession';
+import {loadPointValues} from './PointValueSettings.jsx';
 import {requestAdvisor} from './advisorTransport';
 import {isModelReady} from '../extension-next/model-client.js';
 import {extensionChat} from './extensionChat.js';
@@ -36,7 +37,7 @@ export default function ChatAdvisor({cards,events,day}){
   setTurns([...session.turns,{role:'user',content:q}]);
   // Earlier answers may name a card the user has hidden or unhidden since (#198): the model then starts from this question.
   const held=cards.map(c=>c.id).sort().join('|'),fresh=session.held!==undefined&&session.held!==held;
-  try{const result=await runAgentTurn({history:fresh?[]:session.history,memory:fresh?{}:session.memory||{},question:q,context:{cards,events,day,language},signal:controller.current.signal,onProgress:p=>{if(mounted.current)setProgress(s[p.name]||s[p.phase]||s.thinking)},request:async(payload,signal)=>{const bounded=AbortSignal.any([signal,AbortSignal.timeout(50000)]);return location.protocol==='chrome-extension:'?extensionChat(payload,bounded):requestAdvisor('',payload,bounded);}});
+  try{const result=await runAgentTurn({history:fresh?[]:session.history,memory:fresh?{}:session.memory||{},question:q,context:{cards,events,day,language,pointValues:loadPointValues()},signal:controller.current.signal,onProgress:p=>{if(mounted.current)setProgress(s[p.name]||s[p.phase]||s.thinking)},request:async(payload,signal)=>{const bounded=AbortSignal.any([signal,AbortSignal.timeout(50000)]);return location.protocol==='chrome-extension:'?extensionChat(payload,bounded):requestAdvisor('',payload,bounded);}});
    if(!mounted.current)return;session={held,memory:result.memory,history:result.messages,turns:[...session.turns,{role:'user',content:q},{role:'assistant',content:result.answer,tools:result.tools}]};setTurns(session.turns);
   }catch(e){if(mounted.current){setTurns(session.turns);setError(e.name==='AbortError'?s.cancelled:e.message==='model_auth_failed'?t('服务商拒绝了模型密钥，请在设置里更换。'):e.message==='model_rate_limited'?t('服务商暂时限流，请稍后再问。'):e.message==='model_not_ready'?t('聊天助手需要先在设置里添加 AI 模型密钥，钱包其他功能不受影响。'):e.message==='answer_not_grounded'?(language==='en-US'?'I could not verify this answer against wallet data. Try a more specific question.':language==='zh-TW'?'這次回答未通過資料核對，請換個更具體的問法。':'这次回答未通过资料核对，请换个更具体的问法。'):s.error);setFailed(q);setQuestion(q)}}finally{if(mounted.current){setBusy(false);setProgress('')}}
  };

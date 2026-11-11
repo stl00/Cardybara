@@ -1,0 +1,614 @@
+{
+ "schema": 1,
+ "checkedAt": "2026-11-11",
+ "unitNote": "cents is the value of one point or mile in cents of currency (US cents for USD, HK cents for HKD). Rule, checked 2026-11-11: the lower of the two directly fetched published valuations (Frequent Miler RRV, The Points Guy monthly); NerdWallet figures could only be read from search extracts and are listed as unverified context. Where neither publishes a value, the issuer's own fixed cash value or a local HK benchmark is used, as noted. cents null means no credible public value: the programme stays unvalued unless the user sets one.",
+ "programmes": [
+  {
+   "id": "amex-mr-us",
+   "name": "Amex Membership Rewards US",
+   "knowledgeProgrammeId": "programme.amex-membership-rewards-us",
+   "region": "US",
+   "currency": "USD",
+   "unit": "point",
+   "cents": 1.5,
+   "programmeNames": [
+    "membership rewards us",
+    "membership rewards"
+   ],
+   "cardNames": [],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.5
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 2.0,
+     "pageDate": "2026-11-02"
+    },
+    {
+     "name": "Upgraded Points",
+     "url": "https://upgradedpoints.com/points-and-miles-valuations/",
+     "value": 2.2,
+     "pageDate": "2026-11"
+    },
+    {
+     "name": "Bankrate",
+     "url": "https://www.bankrate.com/credit-cards/travel/points-and-miles-valuations/",
+     "value": 2.0
+    },
+    {
+     "name": "NerdWallet (search extracts disagree: 1.3 and 1.6; page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/amex-points-value",
+     "value": 1.3,
+     "pageDate": "2026-10"
+    }
+   ],
+   "note": "Lower of the two directly fetched sources (FM RRV, TPG). The owner's recollection of 1.3 is below every directly fetched source."
+  },
+  {
+   "id": "chase-ur",
+   "name": "Chase Ultimate Rewards",
+   "knowledgeProgrammeId": "programme.chase-ultimate-rewards",
+   "region": "US",
+   "currency": "USD",
+   "unit": "point",
+   "cents": 1.5,
+   "programmeNames": [
+    "ultimate rewards"
+   ],
+   "cardNames": [],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.5
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 2.05,
+     "pageDate": "2026-11-02"
+    },
+    {
+     "name": "Upgraded Points",
+     "url": "https://upgradedpoints.com/points-and-miles-valuations/",
+     "value": 2.0,
+     "pageDate": "2026-11"
+    },
+    {
+     "name": "NerdWallet, Sapphire Preferred / Ink Preferred (search extract; 1.8 for Sapphire Reserve)",
+     "url": "https://www.nerdwallet.com/travel/learn/chase-ultimate-rewards-points-value",
+     "value": 1.4,
+     "pageDate": "2026-10"
+    }
+   ],
+   "note": "Lower of the two directly fetched sources (FM RRV, TPG); equals the owner's recollection of 1.5."
+  },
+  {
+   "id": "citi-thankyou",
+   "name": "Citi ThankYou Points",
+   "knowledgeProgrammeId": "programme.citi-thankyou",
+   "region": "US",
+   "currency": "USD",
+   "unit": "point",
+   "cents": 1.5,
+   "programmeNames": [
+    "thankyou"
+   ],
+   "cardNames": [],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.5
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 1.95,
+     "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.2,
+     "pageDate": "2026-10"
+    }
+   ]
+  },
+  {
+   "id": "capital-one-miles",
+   "name": "Capital One Miles",
+   "knowledgeProgrammeId": "programme.capital-one-miles",
+   "region": "US",
+   "currency": "USD",
+   "unit": "mile",
+   "cents": 1.45,
+   "programmeNames": [
+    "capital one"
+   ],
+   "cardNames": [],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.45
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 1.85,
+     "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.3,
+     "pageDate": "2026-10"
+    }
+   ]
+  },
+  {
+   "id": "aeroplan",
+   "name": "Air Canada Aeroplan",
+   "knowledgeProgrammeId": "programme.air-canada-aeroplan",
+   "region": "US",
+   "currency": "USD",
+   "unit": "point",
+   "cents": 1.4,
+   "programmeNames": [
+    "aeroplan"
+   ],
+   "cardNames": [
+    "aeroplan"
+   ],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.4
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 1.45,
+     "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.1,
+     "pageDate": "2026-10"
+    }
+   ]
+  },
+  {
+   "id": "aadvantage",
+   "name": "American Airlines AAdvantage",
+   "knowledgeProgrammeId": "programme.aadvantage",
+   "region": "US",
+   "currency": "USD",
+   "unit": "mile",
+   "cents": 1.4,
+   "programmeNames": [
+    "aadvantage"
+   ],
+   "cardNames": [
+    "aadvantage"
+   ],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.4
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 1.45,
+     "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.7,
+     "pageDate": "2026-10"
+    }
+   ]
+  },
+  {
+   "id": "delta-skymiles",
+   "name": "Delta SkyMiles",
+   "knowledgeProgrammeId": "programme.delta-skymiles",
+   "region": "US",
+   "currency": "USD",
+   "unit": "mile",
+   "cents": 1.1,
+   "programmeNames": [
+    "skymiles"
+   ],
+   "cardNames": [
+    "skymiles"
+   ],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.1
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 1.2,
+     "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.2,
+     "pageDate": "2026-10"
+    }
+   ]
+  },
+  {
+   "id": "united-mileageplus",
+   "name": "United MileagePlus",
+   "knowledgeProgrammeId": "programme.united-mileageplus",
+   "region": "US",
+   "currency": "USD",
+   "unit": "mile",
+   "cents": 1.2,
+   "programmeNames": [
+    "mileageplus"
+   ],
+   "cardNames": [
+    "united"
+   ],
+   "source": {
+    "name": "The Points Guy",
+    "url": "https://thepointsguy.com/guide/monthly-valuations/",
+    "value": 1.2,
+    "pageDate": "2026-11-02"
+   },
+   "otherSources": [
+    {
+     "name": "Frequent Miler RRV",
+     "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+     "value": 1.3
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.2,
+     "pageDate": "2026-10"
+    }
+   ]
+  },
+  {
+   "id": "southwest-rapid-rewards",
+   "name": "Southwest Rapid Rewards",
+   "knowledgeProgrammeId": "programme.southwest-rapid-rewards",
+   "region": "US",
+   "currency": "USD",
+   "unit": "point",
+   "cents": 1.25,
+   "programmeNames": [
+    "rapid rewards"
+   ],
+   "cardNames": [
+    "southwest"
+   ],
+   "source": {
+    "name": "The Points Guy",
+    "url": "https://thepointsguy.com/guide/monthly-valuations/",
+    "value": 1.25,
+    "pageDate": "2026-11-02"
+   },
+   "otherSources": [
+    {
+     "name": "Frequent Miler RRV",
+     "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+     "value": 1.3
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.4,
+     "pageDate": "2026-10"
+    }
+   ]
+  },
+  {
+   "id": "atmos-rewards",
+   "name": "Atmos Rewards",
+   "knowledgeProgrammeId": "programme.atmos-rewards",
+   "region": "US",
+   "currency": "USD",
+   "unit": "point",
+   "cents": 1.5,
+   "programmeNames": [
+    "atmos"
+   ],
+   "cardNames": [
+    "atmos"
+   ],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.5
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 1.6,
+     "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.4,
+     "pageDate": "2026-10"
+    }
+   ]
+  },
+  {
+   "id": "hilton-honors",
+   "name": "Hilton Honors",
+   "knowledgeProgrammeId": "programme.hilton-honors",
+   "region": "US",
+   "currency": "USD",
+   "unit": "point",
+   "cents": 0.35,
+   "programmeNames": [
+    "hilton honors"
+   ],
+   "cardNames": [
+    "hilton"
+   ],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 0.35,
+    "pageDate": "2026-05-27"
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 0.4,
+     "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 0.4,
+     "pageDate": "2026-10"
+    }
+   ]
+  },
+  {
+   "id": "ihg-one-rewards",
+   "name": "IHG One Rewards",
+   "knowledgeProgrammeId": "programme.ihg-one-rewards",
+   "region": "US",
+   "currency": "USD",
+   "unit": "point",
+   "cents": 0.59,
+   "programmeNames": [
+    "ihg"
+   ],
+   "cardNames": [
+    "ihg"
+   ],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 0.59,
+    "pageDate": "2026-05-07"
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 0.6,
+     "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 0.6,
+     "pageDate": "2026-10"
+    }
+   ]
+  },
+  {
+   "id": "marriott-bonvoy",
+   "name": "Marriott Bonvoy",
+   "knowledgeProgrammeId": "programme.marriott-bonvoy",
+   "region": "US",
+   "currency": "USD",
+   "unit": "point",
+   "cents": 0.73,
+   "programmeNames": [
+    "marriott bonvoy"
+   ],
+   "cardNames": [
+    "marriott"
+   ],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 0.73,
+    "pageDate": "2026-07-23"
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 0.75,
+     "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 0.7,
+     "pageDate": "2026-10"
+    }
+   ]
+  },
+  {
+   "id": "world-of-hyatt",
+   "name": "World of Hyatt",
+   "knowledgeProgrammeId": "programme.world-of-hyatt",
+   "region": "US",
+   "currency": "USD",
+   "unit": "point",
+   "cents": 1.5,
+   "programmeNames": [
+    "world of hyatt"
+   ],
+   "cardNames": [
+    "hyatt"
+   ],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.5,
+    "pageDate": "2026-06-23"
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 1.65,
+     "pageDate": "2026-11-02"
+    },
+    {
+     "name": "NerdWallet (search extract, page body not fetched)",
+     "url": "https://www.nerdwallet.com/travel/learn/airline-miles-and-hotel-points-valuations",
+     "value": 1.8,
+     "pageDate": "2026-10"
+    }
+   ]
+  },
+  {
+   "id": "us-bank-altitude",
+   "name": "U.S. Bank Altitude Points",
+   "knowledgeProgrammeId": null,
+   "region": "US",
+   "currency": "USD",
+   "unit": "point",
+   "cents": 1.0,
+   "programmeNames": [
+    "altitude"
+   ],
+   "cardNames": [
+    "altitude"
+   ],
+   "source": {
+    "name": "U.S. Bank (issuer terms, cash deposit)",
+    "url": "https://www.usbank.com/credit-cards/altitude-go-visa-signature-credit-card.html",
+    "value": 1.0
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy (transferable U.S. Bank Rewards, not Altitude Go)",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 1.6,
+     "pageDate": "2026-11-02"
+    }
+   ],
+   "note": "No NerdWallet or Frequent Miler value; the issuer's fixed cash value is used."
+  },
+  {
+   "id": "wells-fargo-rewards",
+   "name": "Wells Fargo Rewards",
+   "knowledgeProgrammeId": null,
+   "region": "US",
+   "currency": "USD",
+   "unit": "point",
+   "cents": 1.4,
+   "programmeNames": [
+    "wells fargo rewards"
+   ],
+   "cardNames": [
+    "autograph"
+   ],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.4
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 1.8,
+     "pageDate": "2026-11-02"
+    }
+   ],
+   "note": "Cash redemption is 1.0."
+  },
+  {
+   "id": "amex-mr-hk",
+   "name": "Amex Membership Rewards HK",
+   "knowledgeProgrammeId": "programme.amex-membership-rewards-hk",
+   "region": "HK",
+   "currency": "HKD",
+   "unit": "point",
+   "cents": 0.3333,
+   "programmeNames": [
+    "membership rewards hk",
+    "membership rewards"
+   ],
+   "cardNames": [],
+   "source": {
+    "name": "American Express HK, Cover it with Points (300 points = HK$1)",
+    "url": "https://www.americanexpress.com/zh-hk/rewards/membership-rewards/agency/Pay-with-Points/Cover-w-Points/PWP-COVER",
+    "value": 0.3333
+   },
+   "otherSources": [],
+   "note": "No published market valuation found; the issuer's fixed statement-credit rate is used as a floor. Not derived from transfer ratios."
+  },
+  {
+   "id": "asia-miles",
+   "name": "Cathay Asia Miles",
+   "knowledgeProgrammeId": "programme.cathay-asia-miles",
+   "region": "HK",
+   "currency": "HKD",
+   "unit": "mile",
+   "cents": 10,
+   "programmeNames": [
+    "asia miles"
+   ],
+   "cardNames": [
+    "cathay"
+   ],
+   "source": {
+    "name": "FlyAsia (HK$0.10 per mile benchmark)",
+    "url": "https://www.flyasia.co/2026/what-is-cpm/",
+    "value": 10,
+    "pageDate": "2026-10-22"
+   },
+   "otherSources": [
+    {
+     "name": "Frequent Miler RRV (US cents; about HK$0.086 at 7.8 HKD per USD)",
+     "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+     "value": 1.1
+    },
+    {
+     "name": "The Points Guy (US cents)",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 1.3,
+     "pageDate": "2026-11-02"
+    }
+   ],
+   "mileCards": true,
+   "note": "HK programmes are valued in HKD from local sources. HK$0.10 per mile is the common local benchmark; FlyAsia notes banks' implied value is nearer HK$0.05. FM's US-cent figure converts to about HK$0.086, which is not used because conversion needs a rate. Owner to confirm."
+  }
+ ]
+}

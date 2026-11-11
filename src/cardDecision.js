@@ -1,11 +1,13 @@
 // Which card for this purchase. Code compares every held card; the model only collects the facts and explains the result.
 import {heldCards} from './heldCards.js';
-// Cash is compared only with cash. Points get a value only from the user. Nothing here is per-card code: new cards join through their earning rules.
+// Points are valued at the user's own value (said in the chat, or set in settings), else a published default (#193);
+// the basis rides along with every value. Nothing here is per-card code: new cards join through their earning rules.
 import data from './data/earning-categories.json' with {type:'json'};
 import {queryKnowledge,knowledgeEntities,knowledgeSources} from './knowledge.js';
 import {matchCardProduct} from './productCatalog.js';
 import {queryCredits} from './creditQuery.js';
 import {resolveTripDates,isRealDate} from './tripDates.js';
+import {valuationFor,resolvePointValue} from './pointValues.js';
 export const PURCHASE_CATEGORIES=['dining','supermarket','wholesale','gas','ev-charging','online-retail','drugstore','flight','hotel','vacation-rental','car-rental','transit','streaming','entertainment','travel','utilities','telecom','office','advertising','shipping','fitness','other'];
 export const PURCHASE_CHANNELS=['direct','portal','wallet'];
 const MAX_ROWS=8;
@@ -137,7 +139,7 @@ const programmeAliases={'membership rewards':['mr','membership rewards'],'ultima
 const REGIONAL=['membership rewards','ultimate rewards','thankyou'];
 const REGION_TOKEN=/(?:^|\s)(us|hk|ca)$/;
 /** A value is in cents of the card's own currency. A bare MR or UR means the US programme; another region must be named. */
-function pointValueFor(programme,card,region,values){
+export function pointValueFor(programme,card,region,values){
  if(!values)return null;
  // A co-brand card with no recorded programme can still be valued by the name on the card.
  const name=norm(programme||card),nameRegion=name.match(REGION_TOKEN)?.[1]||region.toLowerCase();
@@ -149,14 +151,28 @@ function pointValueFor(programme,card,region,values){
  return null;
 }
 export const POINT_VALUE_NAMES=new Set([...Object.values(programmeAliases).flat(),...knowledgeEntities.programmes.map(p=>norm(p.name)),...Object.keys(data.merchantGroups),'membership rewards','ultimate rewards','hilton honors','marriott bonvoy','world of hyatt','ihg one rewards','asia miles','avios','aeroplan','atmos','skymiles','mileageplus','rapid rewards','aadvantage','venture','capital one']);
-/** Cash a row is sure of. Points count only at the user's own value. */
+/** The programmes a held card earns points into, by its earning rules; cash back is left out. */
+export function cardEarnings(card,asOf){
+ const match=matchCardProduct(card);if(match.status!=='matched')return [];
+ const seen=new Map();
+ for(const rule of queryKnowledge({productId:match.product.id,kind:'earning-rate',asOf}).rules){if(rule.terms.unit==='cashback-percent')continue;const programme=programmeOf(rule,match.product);seen.set(programme+'|'+rule.terms.unit,{programme,unit:rule.terms.unit});}
+ return [...seen.values()];
+}
+/** The value per point a row is compared at: said in the chat, else the user's setting, else the default, else none. */
+function pointValueOf(row,{stated,overrides,marketDefaults}){
+ const entry=valuationFor({programme:row.earn.programme,card:row.card,region:row.cardRegion,currency:row.currency,unit:row.earn.unit});
+ const said=pointValueFor(row.earn.programme,row.card,row.cardRegion,stated);
+ if(said!=null)return {...(entry?{programmeId:entry.id,programme:entry.name}:{programme:row.earn.programme||row.card}),cents:said,currency:row.currency,basis:'stated'};
+ return resolvePointValue(entry,overrides,{marketDefaults});
+}
+/** Cash a row is sure of, and points at the value resolved for them. */
 function valueOf(row,values){
  const credit=row.countedCredit?.value||0,earn=row.earn;
  if(earn.isCash)return {value:earn.reward==null?null:round2(earn.reward+credit),valued:false};
- const cents=pointValueFor(earn.programme,row.card,row.cardRegion,values);
- if(cents!=null&&earn.reward!=null)return {value:round2(earn.reward*cents/100+credit),valued:true,centsPerPoint:cents};
+ const pointValue=pointValueOf(row,values),cents=pointValue?.cents;
+ if(cents!=null&&earn.reward!=null)return {value:round2(earn.reward*cents/100+credit),valued:true,centsPerPoint:cents,pointValue};
  // No amount: a valued programme still compares as a percent of spend.
- if(cents!=null)return {value:credit||null,valued:true,centsPerPoint:cents,valuedRate:earn.unit==='HKD-per-mile'?cents/earn.rate:earn.rate*cents};
+ if(cents!=null)return {value:credit||null,valued:true,centsPerPoint:cents,pointValue,valuedRate:earn.unit==='HKD-per-mile'?cents/earn.rate:earn.rate*cents};
  return {value:credit||(earn.reward==null?null:0),valued:false};
 }
 function compare(rows,values){
@@ -165,7 +181,8 @@ function compare(rows,values){
  const moneyBasis=scored.some(s=>s.value!=null)&&scored.filter(s=>s.row.earn.isCash).every(s=>s.value!=null);
  // Without an amount, or across currencies, only cash rates can be compared.
  const rank=s=>moneyBasis?(s.value??-1):s.row.earn.isCash?s.row.earn.rate:s.valuedRate??-1;
- const sorted=[...scored].sort((a,b)=>rank(b)-rank(a));
+ // On a tie, cash wins: a cash amount is certain, a value per point is an estimate.
+ const sorted=[...scored].sort((a,b)=>rank(b)-rank(a)||Number(!!b.row.earn.isCash)-Number(!!a.row.earn.isCash));
  const lead=sorted.find(s=>moneyBasis?s.value>0:s.row.earn.isCash||s.valuedRate!=null)||null;
  return {sorted,lead,moneyBasis,pool,outside:rows.filter(r=>!pool.includes(r))};
 }
@@ -192,19 +209,26 @@ function resolvePurchase(raw,day){
  if(raw.channel==='portal'&&!raw.portal)assumptions.push('portal-not-named');
  return {purchase:{category,date,merchant:raw.merchant||null,amount:Number.isFinite(raw.amount)?raw.amount:null,country:raw.country||null,currency:raw.currency||null,channel:raw.channel||null,portal:raw.portal||null,nights:Number.isInteger(raw.nights)?raw.nights:null},assumptions};
 }
+// Rounded up, so at the shown value the lead still holds.
+const ceil2=n=>Math.ceil(Math.round(n*1e6)/1e4)/100;
 const publicRow=({_baseRate,unclassified,...row})=>row;
+const POINT_VALUE_NOTE='Points were compared at pointValue.cents per point, in cents of pointValue.currency. Say which value was used for each programme: basis stated is the value the user said in this chat; user is the value the user set in settings; default is a published market valuation, not the user\'s view, so say it is the default market valuation and that the user can change it in settings. Never present a default as the user\'s value, and never use any other value.';
 const whoLeads=d=>d.lead?.row||null;
-export function chooseCard(raw,{cards,events=[],day}){
+/**
+ * pointValues are the user's own values from settings. marketDefaults false leaves programmes the user has not valued
+ * unvalued, as before #193; tests of the comparison mechanics use it so they don't depend on the valuation table.
+ */
+export function chooseCard(raw,{cards,events=[],day,pointValues=[],marketDefaults=true}){
  cards=heldCards(cards);
  if(!isRealDate(day))throw TypeError('chooseCard needs the wallet day');
  const resolved=resolvePurchase(raw,day);
  if(resolved.needsDates)return {tool:'choose_card',today:day,needsDates:true,reason:resolved.reason,instruction:'The date phrase could not be resolved. Answer for today or ask for the date; do not guess it.'};
- const {purchase,assumptions}=resolved,values=raw.pointValues||null,context={cards,events,day};
+ const {purchase,assumptions}=resolved,values={stated:raw.pointValues||null,overrides:Array.isArray(pointValues)?pointValues:[],marketDefaults},context={cards,events,day};
  // With cards billed in several currencies and no place or currency given, each currency is its own answer.
  const currencies=[...new Set(cards.filter(c=>matchCardProduct(c).status==='matched').map(c=>c.currency))];
  if(!purchase.country&&!purchase.currency&&currencies.length>1){
-  const options=currencies.map(currency=>{const d=decide({...purchase,currency,amount:null},{...context,cards:cards.filter(c=>c.currency===currency)},values),lead=whoLeads(d);return {currency,card:lead?.card||null,rate:lead?.earn.rate??null,unit:lead?.earn.unit||null};});
-  return {tool:'choose_card',today:day,purchase,assumptions:[...assumptions,'purchase-currency-not-given'],choice:{kind:'depends-on-currency',options},rows:[],totalRows:0,otherCurrencyCards:[],pointsAlternatives:[],couldChange:[],excluded:[],unclassifiedRules:[],limits:'Cards are billed in different currencies and the purchase currency was not given, so each currency is answered separately. Ask where the purchase is or in which currency.'};
+  const options=currencies.map(currency=>{const d=decide({...purchase,currency,amount:null},{...context,cards:cards.filter(c=>c.currency===currency)},values),lead=whoLeads(d);return {currency,card:lead?.card||null,rate:lead?.earn.rate??null,unit:lead?.earn.unit||null,...(d.lead?.valued?{pointValue:d.lead.pointValue}:{})};});
+  return {tool:'choose_card',today:day,purchase,assumptions:[...assumptions,'purchase-currency-not-given'],choice:{kind:'depends-on-currency',options},...(options.some(o=>o.pointValue)?{pointValues:options.filter(o=>o.pointValue).map(o=>o.pointValue),pointValueNote:POINT_VALUE_NOTE}:{}),rows:[],totalRows:0,otherCurrencyCards:[],pointsAlternatives:[],couldChange:[],excluded:[],unclassifiedRules:[],limits:'Cards are billed in different currencies and the purchase currency was not given, so each currency is answered separately. Ask where the purchase is or in which currency.'};
  }
  const main=decide(purchase,context,values);
  const lead=whoLeads(main),leadValue=main.lead?.value??null,couldChange=[];
@@ -232,18 +256,26 @@ export function chooseCard(raw,{cards,events=[],day}){
  }
  // Credits that would change the choice come first; the list stays short.
  couldChange.push(...creditChanges.sort((a,b)=>Number(b.wouldChangeChoice)-Number(a.wouldChangeChoice)||b.value-a.value).slice(0,4));
- // Points against the lead: the value per point at which each programme overtakes it. No value is assumed.
+ // Points against the lead: the value per point at which each programme overtakes it, whatever value it was compared at.
  const pointsAlternatives=[];
- for(const s of main.sorted.filter(s=>!s.row.earn.isCash&&s.row!==lead&&!s.valued)){
+ for(const s of main.sorted.filter(s=>!s.row.earn.isCash&&s.row!==lead)){
   const credit=s.row.countedCredit?.value||0,points=s.row.earn.reward,gap=main.moneyBasis&&leadValue!=null?leadValue-credit:null;
-  pointsAlternatives.push({card:s.row.card,cardRegion:s.row.cardRegion,programme:s.row.earn.programme,rate:s.row.earn.rate,unit:s.row.earn.unit,points,...(gap!=null&&points>0?{breakEvenCentsPerPoint:round2(Math.max(gap,0)/points*100)}:{})});
+  pointsAlternatives.push({card:s.row.card,cardRegion:s.row.cardRegion,programme:s.row.earn.programme,rate:s.row.earn.rate,unit:s.row.earn.unit,points,...(gap!=null&&points>0?{breakEvenCentsPerPoint:round2(Math.max(gap,0)/points*100)}:{}),...(s.valued?{pointValue:s.pointValue,...(main.moneyBasis&&s.value!=null?{valueAtPointValue:s.value}:{})}:{})});
  }
+ // A points lead holds down to the value per point at which the next card would catch it.
+ const leadPoints=main.lead?.valued&&main.moneyBasis&&lead.earn.reward>0?lead.earn.reward:null;
+ // A runner-up valued in the same programme moves with the same value, so it can't set the threshold.
+ const sameProgramme=s=>s.valued&&s.pointValue.programme===main.lead.pointValue.programme&&s.pointValue.currency===main.lead.pointValue.currency;
+ const runnerUp=leadPoints?Math.max(0,...main.sorted.filter(s=>s!==main.lead&&s.value!=null&&!sameProgramme(s)).map(s=>s.value)):null;
  const choice=lead
-  ?{kind:'use-card',card:lead.card,cardRegion:lead.cardRegion,basis:main.moneyBasis?'money':lead.earn.isCash?'cash-rate':'rate-at-your-point-value',value:main.moneyBasis?leadValue:null,currency:purchase.currency,valuedPoints:!!main.lead.valued,certainty:lead.certainty,reasons:lead.reasons}
-  :main.rows.length?{kind:'points-depends',reason:'no-cash-card-and-no-stated-point-value'}:{kind:'none',reason:'no-eligible-card'};
+  ?{kind:'use-card',card:lead.card,cardRegion:lead.cardRegion,basis:main.moneyBasis?'money':lead.earn.isCash?'cash-rate':'rate-at-point-value',value:main.moneyBasis?leadValue:null,currency:purchase.currency,valuedPoints:!!main.lead.valued,...(main.lead.valued?{pointValue:main.lead.pointValue,...(leadPoints?{holdsAboveCentsPerPoint:ceil2(Math.max(runnerUp-(lead.countedCredit?.value||0),0)/leadPoints*100)}:{})}:{}),certainty:lead.certainty,reasons:lead.reasons}
+  :main.rows.length?{kind:'points-depends',reason:'no-cash-card-and-no-point-value'}:{kind:'none',reason:'no-eligible-card'};
+ // Every value used, once, with whose number it is: the answer must say so and never call a default the user's.
+ const used=new Map();for(const s of main.sorted)if(s.valued)used.set(s.pointValue.programme+'|'+s.pointValue.basis,s.pointValue);
  return {
   tool:'choose_card',today:day,purchase,assumptions,choice,
-  rows:main.sorted.slice(0,MAX_ROWS).map(s=>({...publicRow(s.row),...(s.valued?{valueAtYourPointValue:s.value,centsPerPoint:s.centsPerPoint,...(s.valuedRate!=null?{percentAtYourPointValue:round2(s.valuedRate)}:{})}:{})})),totalRows:main.sorted.length,
+  rows:main.sorted.slice(0,MAX_ROWS).map(s=>({...publicRow(s.row),...(s.valued?{valueAtPointValue:s.value,centsPerPoint:s.centsPerPoint,pointValue:s.pointValue,...(s.valuedRate!=null?{percentAtPointValue:round2(s.valuedRate)}:{})}:{})})),totalRows:main.sorted.length,
+  ...(used.size?{pointValues:[...used.values()],pointValueNote:POINT_VALUE_NOTE}:{}),
   otherCurrencyCards:main.outside.map(r=>({card:r.card,cardRegion:r.cardRegion,currency:r.currency,rate:r.earn.rate,unit:r.earn.unit,reason:'different-billing-currency-so-not-compared'})),
   pointsAlternatives:pointsAlternatives.slice(0,MAX_ROWS),couldChange:couldChange.slice(0,20),excluded:main.excluded,unclassifiedRules:main.unclassified,
   limits:'Merchant coding, network acceptance, remaining caps and enrollment are not known. Foreign transaction fees are not recorded, so they are unknown and not zero. Offers are not included. Never a global best: this compares held cards on recorded rules.'
