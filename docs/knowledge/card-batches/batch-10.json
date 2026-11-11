@@ -74,6 +74,10 @@
     {
      "zh": "行李延误、购物保障等保障类福利未录入。附属卡年费未确认。",
      "en": "Baggage delay, purchase protection and the other coverage benefits are not recorded. The additional card fee is not confirmed."
+    },
+    {
+     "zh": "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+     "en": "Partner offers on the page, such as DoorDash DashPass, are not recorded."
     }
    ]
   },
@@ -129,6 +133,14 @@
     {
      "zh": "Disney 度假套餐的0%促销分期和保障类福利未录入。",
      "en": "The 0% promotional financing on Disney vacation packages and the coverage benefits are not recorded."
+    },
+    {
+     "zh": "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+     "en": "Partner offers on the page, such as DoorDash DashPass, are not recorded."
+    },
+    {
+     "zh": "Disney Cruise Line 船上优惠和导览优惠未录入；购物9折也适用于美国 Disney Store 和 Disney Outlet 门店，只录入了网店和度假区。",
+     "en": "Disney Cruise Line onboard and guided tour savings are not recorded; the 10% shopping discount also covers U.S. Disney Store and Disney Outlet stores, and only the online store and resorts are recorded."
     }
    ]
   },
@@ -235,6 +247,14 @@
     {
      "zh": "Disney 度假套餐的0%促销分期、Pay Yourself Back 和保障类福利未录入。",
      "en": "The 0% promotional financing on Disney vacation packages, Pay Yourself Back and the coverage benefits are not recorded."
+    },
+    {
+     "zh": "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+     "en": "Partner offers on the page, such as DoorDash DashPass, are not recorded."
+    },
+    {
+     "zh": "Disney Cruise Line 船上优惠和导览优惠未录入；购物9折也适用于美国 Disney Store 和 Disney Outlet 门店，只录入了网店和度假区。",
+     "en": "Disney Cruise Line onboard and guided tour savings are not recorded; the 10% shopping discount also covers U.S. Disney Store and Disney Outlet stores, and only the online store and resorts are recorded."
     }
    ]
   },
@@ -295,8 +315,8 @@
      "key": "disney-streaming",
      "zh": "Disney Streaming 抵扣",
      "en": "Disney streaming credit",
-     "noteZh": "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。",
-     "noteEn": "Yearly activation required. A $10 statement credit each month after spending $10 or more on qualifying subscriptions directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com.",
+     "noteZh": "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。年费订阅只在购买当月得一次10美元；须每个自然年在 Chase 激活一次。",
+     "noteEn": "Yearly activation required. A $10 statement credit each month after spending $10 or more on qualifying subscriptions directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com. An annual subscription earns a one-time $10 credit in the month of purchase; activate each calendar year with Chase.",
      "scenario": "entertainment",
      "category": "credit",
      "period": "calendar-month",
@@ -308,7 +328,8 @@
        "Activate each year, then pay the subscription directly with the card."
       ],
       "quotes": [
-       "Yearly activation required."
+       "Yearly activation required.",
+       "An annual subscription would only be eligible for a one-time $10.00 statement credit in the month of the purchase."
       ]
      },
      "amount": 10,
@@ -334,10 +355,11 @@
       "title": "$200 Disney Rewards Dollars on resort stays",
       "summary": "$200 Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings.",
       "howToUse": [
-       "Pay Disney Resort stays and Disney Cruise Line bookings with the card."
+       "Book U.S. Disney Resort stays or Disney Cruise Line directly with Disney and pay with the card."
       ],
       "quotes": [
-       "Purchases made for Adventures by Disney, National Geographic Expeditions or international Disney Resorts or Parks will not qualify."
+       "Purchases made for Adventures by Disney, National Geographic Expeditions or international Disney Resorts or Parks will not qualify.",
+       "made directly with Disney (including through Disney operated websites, apps or call centers)"
       ]
      },
      "amount": 200,
@@ -375,6 +397,10 @@
     {
      "zh": "Disney 度假套餐的0%促销分期、Pay Yourself Back、园区购物和餐饮折扣及保障类福利未录入。",
      "en": "The 0% promotional financing on Disney vacation packages, Pay Yourself Back, park shopping and dining discounts and the coverage benefits are not recorded."
+    },
+    {
+     "zh": "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+     "en": "Partner offers on the page, such as DoorDash DashPass, are not recorded."
     }
    ]
   },
@@ -403,6 +429,10 @@
     {
      "zh": "开户三个月内登记自动还款得25美元属于新开户优惠，未录入。每年升级 Freedom Unlimited 的评估和保障类福利未录入。",
      "en": "The $25 for enrolling in automatic payments within three months of opening is a new-account offer and is not recorded. The yearly Freedom Unlimited upgrade review and the coverage benefits are not recorded."
+    },
+    {
+     "zh": "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+     "en": "Partner offers on the page, such as DoorDash DashPass, are not recorded."
     }
    ]
   }

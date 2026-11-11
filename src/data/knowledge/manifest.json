@@ -1393,6 +1393,7 @@
       "changeNotes": [],
       "knowledgeGaps": [
         "行李延误、购物保障等保障类福利未录入。附属卡年费未确认。",
+        "页面上的 DoorDash DashPass 等合作方优惠未录入。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -1408,6 +1409,8 @@
       "changeNotes": [],
       "knowledgeGaps": [
         "Disney 度假套餐的0%促销分期和保障类福利未录入。",
+        "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+        "Disney Cruise Line 船上优惠和导览优惠未录入；购物9折也适用于美国 Disney Store 和 Disney Outlet 门店，只录入了网店和度假区。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -1423,6 +1426,8 @@
       "changeNotes": [],
       "knowledgeGaps": [
         "Disney 度假套餐的0%促销分期、Pay Yourself Back 和保障类福利未录入。",
+        "页面上的 DoorDash DashPass 等合作方优惠未录入。",
+        "Disney Cruise Line 船上优惠和导览优惠未录入；购物9折也适用于美国 Disney Store 和 Disney Outlet 门店，只录入了网店和度假区。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -1438,6 +1443,7 @@
       "changeNotes": [],
       "knowledgeGaps": [
         "Disney 度假套餐的0%促销分期、Pay Yourself Back、园区购物和餐饮折扣及保障类福利未录入。",
+        "页面上的 DoorDash DashPass 等合作方优惠未录入。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -1453,6 +1459,7 @@
       "changeNotes": [],
       "knowledgeGaps": [
         "开户三个月内登记自动还款得25美元属于新开户优惠，未录入。每年升级 Freedom Unlimited 的评估和保障类福利未录入。",
+        "页面上的 DoorDash DashPass 等合作方优惠未录入。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null

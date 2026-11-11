@@ -67958,11 +67958,11 @@
     ],
     "content": {
       "title": "Disney Streaming 抵扣",
-      "summary": "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。",
+      "summary": "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。年费订阅只在购买当月得一次10美元；须每个自然年在 Chase 激活一次。",
       "sourceText": "Earn a $10 statement credit each month after spending $10 or more on qualifying subscriptions directly at DisneyPlus.com",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。",
+        "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。年费订阅只在购买当月得一次10美元；须每个自然年在 Chase 激活一次。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ],
       "translatedFrom": "en-US"
@@ -67983,7 +67983,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。"
+      "unparsedText": "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。年费订阅只在购买当月得一次10美元；须每个自然年在 Chase 激活一次。"
     },
     "evidence": {
       "sourceIds": [
@@ -68020,6 +68020,10 @@
         {
           "sourceId": "card-chase-us-disney-inspire-visa-card",
           "text": "Yearly activation required."
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "An annual subscription would only be eligible for a one-time $10.00 statement credit in the month of the purchase."
         }
       ]
     }
@@ -68097,7 +68101,7 @@
       "title": "$200 Disney Rewards Dollars on resort stays",
       "summary": "$200 Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings.",
       "howToUse": [
-        "Pay Disney Resort stays and Disney Cruise Line bookings with the card."
+        "Book U.S. Disney Resort stays or Disney Cruise Line directly with Disney and pay with the card."
       ],
       "quotes": [
         {
@@ -68107,6 +68111,10 @@
         {
           "sourceId": "card-chase-us-disney-inspire-visa-card",
           "text": "Purchases made for Adventures by Disney, National Geographic Expeditions or international Disney Resorts or Parks will not qualify."
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "made directly with Disney (including through Disney operated websites, apps or call centers)"
         }
       ]
     }
