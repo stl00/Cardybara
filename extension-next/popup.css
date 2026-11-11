@@ -63,3 +63,5 @@ details[open]>summary{margin-bottom:4px}
 details .banks{max-height:96px;overflow-y:auto}
 .note{color:var(--text-3);font-size:12px}
 .diag{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--text-2);word-break:break-all;margin-top:2px;max-height:32px;overflow-y:auto}
+.report-json{max-height:220px;overflow:auto;font-size:11px;white-space:pre-wrap;word-break:break-all;margin:0;padding:8px;border-radius:6px;background:rgba(127,127,127,.12)}
+#report[hidden]{display:none}
