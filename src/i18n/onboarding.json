@@ -1,0 +1,38 @@
+{
+  "en-US": {
+    "添加卡片": "Add card",
+    "添加自己的卡片": "Add your card",
+    "保存卡片": "Save card",
+    "卡片未保存，请检查信息或浏览器存储空间。": "Card was not saved. Check the details or browser storage.",
+    "欢迎，这是你的新钱包": "Welcome to your new wallet",
+    "连接第一家银行": "Connect your first bank",
+    "只填写卡种和尾号，不要填写完整卡号、密码或验证码。": "Only choose the card type and last digits. Never enter a full card number, password or code.",
+    "银行与地区": "Bank and region",
+    "请选择卡种；找不到时选“不在列表里”。": "Choose the card type, or “Not in the list” if you can't find it.",
+    "搜索卡种名称": "Search card types",
+    "不在列表里": "Not in the list",
+    "不在列表里（自己填写卡名）": "Not in the list (type the card name)",
+    "显示名称（可不填，默认用卡种名称）": "Display name (optional; the card type's name by default)",
+    "年费日（持卡周年日，可不填）": "Annual fee date (card anniversary, optional)",
+    "银行页面不显示年费日。按你的账单或年费扣款记录填写；不知道可以留空，之后在卡片详情里设置。": "Bank pages don't show this. Use your statement or the date the fee was charged; leave it empty if you don't know and set it later in card details.",
+    "选择一家银行并登录，读取页面上可确认的卡片；没有识别到时，可以手动添加卡种与尾号。不需要旧备份。": "Choose a bank and sign in to read the cards its pages confirm. If a card isn't found, add it yourself by card type and last digits. No old backup is needed."
+  },
+  "zh-TW": {
+    "添加卡片": "新增卡片",
+    "添加自己的卡片": "新增自己的卡片",
+    "保存卡片": "儲存卡片",
+    "卡片未保存，请检查信息或浏览器存储空间。": "卡片未儲存，請檢查資料或瀏覽器儲存空間。",
+    "欢迎，这是你的新钱包": "歡迎，這是你的新錢包",
+    "连接第一家银行": "連接第一家銀行",
+    "只填写卡种和尾号，不要填写完整卡号、密码或验证码。": "只填寫卡種和尾號，不要填寫完整卡號、密碼或驗證碼。",
+    "银行与地区": "銀行與地區",
+    "请选择卡种；找不到时选“不在列表里”。": "請選擇卡種；找不到時選「不在列表裡」。",
+    "搜索卡种名称": "搜尋卡種名稱",
+    "不在列表里": "不在列表裡",
+    "不在列表里（自己填写卡名）": "不在列表裡（自己填寫卡名）",
+    "显示名称（可不填，默认用卡种名称）": "顯示名稱（可不填，預設用卡種名稱）",
+    "年费日（持卡周年日，可不填）": "年費日（持卡週年日，可不填）",
+    "银行页面不显示年费日。按你的账单或年费扣款记录填写；不知道可以留空，之后在卡片详情里设置。": "銀行頁面不顯示年費日。按你的帳單或年費扣款記錄填寫；不知道可以留空，之後在卡片詳情裡設定。",
+    "选择一家银行并登录，读取页面上可确认的卡片；没有识别到时，可以手动添加卡种与尾号。不需要旧备份。": "選擇一家銀行並登入，讀取頁面上可確認的卡片；沒有識別到時，可以手動新增卡種與尾號。不需要舊備份。"
+  }
+}

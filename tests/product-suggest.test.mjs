@@ -5,6 +5,7 @@ import {suggestProduct,validateSuggestRequest,suggestionMessages,cleanCardName} 
 import {cleanCardName as clientClean,needsSuggestion,suggestionFor,withSuggestion,readSuggestions,requestSuggestion,suggestionKey,SUGGESTION_KEY} from '../src/productSuggestion.js';
 import {matchCardProduct} from '../src/productCatalog.js';
 import {choicesFromBackup} from '../src/cardProductChoice.js';
+import {translations as i18nCatalog} from '../src/i18n/index.js';
 const env={DEEPSEEK_API_KEY:'test-key'};
 // A scripted model: records what it was sent and answers with fixed content.
 const model=content=>{const calls=[];const fetcher=async(url,options)=>{calls.push({url,body:JSON.parse(options.body)});return {ok:true,json:async()=>({choices:[{message:{content}}]})};};return {calls,fetcher};};
@@ -59,7 +60,7 @@ test('the client sends only bank, region and name, and drops an out-of-scope ans
  await assert.rejects(()=>requestSuggestion('',hsbc('x'),async()=>({ok:false})),/suggestion_failed/);
 });
 test('suggestion strings exist in three languages',()=>{
- const catalog=JSON.parse(readFileSync(new URL('../src/translations.json',import.meta.url),'utf8'));
+ const catalog=i18nCatalog;
  for(const file of ['../src/CardProductPicker.jsx','../src/CardArt.jsx'])for(const [,key] of readFileSync(new URL(file,import.meta.url),'utf8').matchAll(/t\('([^']+)'/g))for(const l of ['en-US','zh-TW'])assert.ok(catalog[l][key],`${l}: ${key}`);
  assert.ok(catalog['en-US']['有 AI 建议的卡种，打开卡片确认']);
 });

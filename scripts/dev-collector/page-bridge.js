@@ -2,7 +2,7 @@
 // installed extension. Served only by the Vite dev plugin and never part of a build.
 (()=>{
  const origin=location.origin,base='/__cardybara/collector/';if(window.top!==window)return;
- // Dev-only messages stay here rather than in src/translations.json so they cannot ship.
+ // Dev-only messages stay here rather than in src/i18n/ so they cannot ship.
  const text={
   bank_blocked:['银行页面拒绝或离开了开发浏览器，已停止本次读取。','銀行頁面拒絕或離開了開發瀏覽器，已停止本次讀取。','The bank refused or left the dev browser. This read has stopped.'],
   browser_closed:['开发浏览器已关闭，已停止本次读取。','開發瀏覽器已關閉，已停止本次讀取。','The dev browser was closed. This read has stopped.'],
