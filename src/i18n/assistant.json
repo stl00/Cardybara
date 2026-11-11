@@ -116,7 +116,6 @@
     "这是 Cardybara 邀请码，请选择“使用 Cardybara 托管服务（输入邀请码）”后再粘贴。": "This is a Cardybara invite code. Choose \"Use the Cardybara hosted service (enter an invite code)\" and paste it there.",
     "输入邀请码后即可使用聊天助手和 AI 识别卡种。不输入也能正常使用钱包，只是没有 AI。": "Enter an invite code to use the chat assistant and AI card recognition. The wallet works without it, just without AI.",
     "聊天助手需要先在设置里输入邀请码，钱包其他功能不受影响。": "The chat assistant needs an invite code in Settings first. The rest of the wallet works as usual.",
-    "输入邀请码": "Enter invite code",
     "由 Cardybara 云端助手回答（模型：DeepSeek）。发送的是你的问题、持有的卡种和助手请求的钱包查询结果；不发送卡号、余额或账单，钱包只保存在本机。对话仅保留在本次页面会话。": "Answered by the Cardybara cloud assistant (model: DeepSeek). It receives your question, which cards you hold and the results of wallet lookups it asks for; card numbers, balances and statements are never sent, and your wallet stays on this device. Chat stays in this page session only.",
     "聊天助手在 Cardybara 服务上运行：服务收到你的问题、持有的卡种和助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单，钱包只保存在本机。服务不保存这些内容，只记录邀请码编号、时间、用量和状态。卡片识别也经过 Cardybara 服务。": "The chat assistant runs on the Cardybara service: it receives your question, which cards you hold and the results of wallet lookups the assistant asks for, and has an AI model process them. It never receives card numbers, balances or statements, and your wallet stays on this device. The service does not store this content; it records only the invite code number, time, usage and status. Card recognition also goes through the Cardybara service."
   },
@@ -237,7 +236,6 @@
     "这是 Cardybara 邀请码，请选择“使用 Cardybara 托管服务（输入邀请码）”后再粘贴。": "這是 Cardybara 邀請碼，請選擇「使用 Cardybara 託管服務（輸入邀請碼）」後再貼上。",
     "输入邀请码后即可使用聊天助手和 AI 识别卡种。不输入也能正常使用钱包，只是没有 AI。": "輸入邀請碼後即可使用聊天助理和 AI 識別卡種。不輸入也能正常使用錢包，只是沒有 AI。",
     "聊天助手需要先在设置里输入邀请码，钱包其他功能不受影响。": "聊天助理需要先在設定裡輸入邀請碼，錢包其他功能不受影響。",
-    "输入邀请码": "輸入邀請碼",
     "由 Cardybara 云端助手回答（模型：DeepSeek）。发送的是你的问题、持有的卡种和助手请求的钱包查询结果；不发送卡号、余额或账单，钱包只保存在本机。对话仅保留在本次页面会话。": "由 Cardybara 雲端助手回答（模型：DeepSeek）。傳送的是你的問題、持有的卡種和助手請求的錢包查詢結果；不傳送卡號、餘額或帳單，錢包只保存在本機。對話僅保留在本次頁面工作階段。",
     "聊天助手在 Cardybara 服务上运行：服务收到你的问题、持有的卡种和助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单，钱包只保存在本机。服务不保存这些内容，只记录邀请码编号、时间、用量和状态。卡片识别也经过 Cardybara 服务。": "聊天助理在 Cardybara 服務上執行：服務收到你的問題、持有的卡種和助理請求的錢包查詢結果，交給 AI 模型處理；不收到卡號、餘額或帳單，錢包只保存在本機。服務不儲存這些內容，只記錄邀請碼編號、時間、用量和狀態。卡片識別也經過 Cardybara 服務。"
   }
