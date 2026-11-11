@@ -64,3 +64,37 @@
 | UR | Wyndham Rewards | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
 | UR | World of Hyatt (Sapphire Preferred / Ink Business Preferred) | 4 → 3 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/sapphire-cards/personal/preferred |
 | UR | World of Hyatt (Sapphire Reserve) | 未逐项列明 | — | 1,000 | — | up-to 7 business-days | 可能收取 | https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points |
+
+## Bilt Rewards（2026-11-11，#231）
+
+来源：Bilt 帮助中心转点伙伴文章（2026-10-20 更新），https://support.biltrewards.com/hc/en-us/articles/19086448638989-Bilt-s-Transfer-Partners 。最低转点数按会员等级不同：Blue 等级 2,000 点，Silver 及以上 1,000 点，都按 1,000 点递增；会员等级未知，所以最低数量不用于计算，只按增量算。多数即时到账，最长 48 小时，Southwest 最长 72 小时。页面没写费用和单笔上限，留空。Bilt 自己的页面写的伙伴数不一致（23、25、27、28），这里按帮助中心逐项列出的 27 个记录。Atmos Rewards 的实体类型从 partner 改为 airline。
+
+| 伙伴 | 类型 | 比例（点→单位） | 最低 | 增量 | 预计时间 |
+| --- | --- | --- | --- | --- | --- |
+| Aer Lingus AerClub | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Air Canada Aeroplan | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Air France KLM Flying Blue | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| ALL Accor | hotel | 3 → 2 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Amtrak Guest Rewards | rail | 2 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Atmos Rewards | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| avianca lifemiles | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Cathay Asia Miles | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Emirates Skywards | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Etihad Guest | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Hilton Honors | hotel | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| I Prefer Hotel Rewards | hotel | 1 → 2 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Iberia Club | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| IHG One Rewards | hotel | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Japan Airlines Mileage Bank | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| JetBlue TrueBlue | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Marriott Bonvoy | hotel | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Qatar Airways Privilege Club | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Southwest Rapid Rewards | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 72 hours |
+| TAP Miles&Go | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| The British Airways Club | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Turkish Airlines Miles&Smiles | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| United MileagePlus | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Virgin Atlantic Flying Club | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Virgin Red | airline | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| World of Hyatt | hotel | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |
+| Wyndham Rewards | hotel | 1 → 1 | 2,000 / 1,000 | 1,000 | up to 48 hours |

@@ -2,7 +2,7 @@ import {validateToolCall} from './walletAgent.js';
 import {validateState,reduceToolResult,startTurn} from './conversationState.js';
 // The conversation state lives in conversationState.js; memory is that state as it travels between turns.
 export {validateState as validateMemory,purchaseMemory,topicContext} from './conversationState.js';
-const VALUE_ALIASES={mr:['membership rewards','美国运通积分','美國運通積分'],ur:['ultimate rewards'],'asia miles':['亚洲万里通','亞洲萬里通','cathay','国泰','國泰'],cathay:['asia miles','亚洲万里通','亞洲萬里通','国泰','國泰'],hilton:['希尔顿','希爾頓','hilton honors'],marriott:['万豪','萬豪','bonvoy'],hyatt:['凯悦','凱悅'],ihg:['洲际','洲際']};
+const VALUE_ALIASES={mr:['membership rewards','美国运通积分','美國運通積分'],ur:['ultimate rewards'],bilt:['bilt rewards','bilt points'],'bilt rewards':['bilt','bilt points'],'asia miles':['亚洲万里通','亞洲萬里通','cathay','国泰','國泰'],cathay:['asia miles','亚洲万里通','亞洲萬里通','国泰','國泰'],hilton:['希尔顿','希爾頓','hilton honors'],marriott:['万豪','萬豪','bonvoy'],hyatt:['凯悦','凱悅'],ihg:['洲际','洲際']};
 const aliasesFor=key=>{const k=key.toLowerCase().trim(),base=k.replace(/\s+(?:us|hk|ca)$/,'');return [...new Set([k,base,...(VALUE_ALIASES[base]||[])])];};
 /** A point value survives only if the user's own words this turn contain it, or memory already held it. */
 export function statedPointValues(values,question,remembered={}){

@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {convertPoints,readingsFor,routesForCard,transferOptions,transferProgrammes,transferRoutes} from '../src/transferRoutes.js';
-const [mrUs,ur,mrHk]=transferProgrammes;
+const [mrUs,ur,mrHk,bilt]=transferProgrammes;
 const route=(programme,id)=>transferRoutes(programme.id).find(r=>r.partnerId===id&&(!r.cardSpecific||r.terms.ratio));
 test('published rates convert in whole units and never round leftovers up',()=>{
  assert.deepEqual(convertPoints(1500,route(mrUs,'programme.aeromexico-rewards').terms),{status:'computed',spend:1000,receive:1600,unusedPoints:500,capped:false,fees:[]});
@@ -56,9 +57,11 @@ test('readings stay per card, per programme and per market',()=>{
  const partial=readingsFor(ur,{current:[{id:'6',bank:'Chase',region:'US',label:'Ultimate Rewards',amount:12.5,card:'z'}]},cards);assert.equal(partial.length,1,'a non-integer reading is shown, not dropped');assert.equal(partial[0].usable,false);
  const both=readingsFor(mrUs,{current:[{id:'a',bank:'Amex US',region:'US',label:'Membership Rewards',amount:1,card:'g'},{id:'us-mr',bank:'Amex US',region:'US',label:'Membership Rewards',amount:2,card:'g',historical:true}]},cards);assert.equal(new Set(both.map(r=>r.key)).size,2,'each reading can be chosen');
 });
-test('every partner lands in the airline or hotel list so none disappears from the page',()=>{
- for(const programme of transferProgrammes)for(const r of transferRoutes(programme.id))assert.ok(['airline','hotel'].includes(r.kind),r.partner);
- assert.equal(transferRoutes(mrUs.id).length,20);assert.equal(transferRoutes(mrHk.id).length,10);assert.equal(transferRoutes(ur.id).length,15);
+test('every partner lands in the airline, hotel or other list so none disappears from the page',()=>{
+ // The rewards page lists airlines, hotels, then every other kind (Amtrak is rail) under its own heading.
+ for(const programme of transferProgrammes)for(const r of transferRoutes(programme.id))assert.ok(['airline','hotel','rail'].includes(r.kind),r.partner);
+ assert.match(readFileSync(new URL('../src/RewardsView.jsx',import.meta.url),'utf8'),/others=rows\.filter\(r=>!\['airline','hotel'\]\.includes\(r\.kind\)\)/);
+ assert.equal(transferRoutes(mrUs.id).length,20);assert.equal(transferRoutes(mrHk.id).length,10);assert.equal(transferRoutes(ur.id).length,15);assert.equal(transferRoutes(bilt.id).length,27);
 });
 test('transfer options give each card the rates its rules list, and a rate reached through another card names it (#72, #192)',()=>{
  const csr={id:'s1',name:'Sapphire Reserve',bank:'Chase',region:'US'},csp={id:'s2',name:'Sapphire Preferred',bank:'Chase',region:'US'},cfu={id:'s3',name:'Freedom Unlimited',bank:'Chase',region:'US'};

@@ -150,7 +150,7 @@ export function pointValueFor(programme,card,region,values){
  }
  return null;
 }
-export const POINT_VALUE_NAMES=new Set([...Object.values(programmeAliases).flat(),...knowledgeEntities.programmes.map(p=>norm(p.name)),...Object.keys(data.merchantGroups),'membership rewards','ultimate rewards','hilton honors','marriott bonvoy','world of hyatt','ihg one rewards','asia miles','avios','aeroplan','atmos','skymiles','mileageplus','rapid rewards','aadvantage','venture','capital one']);
+export const POINT_VALUE_NAMES=new Set([...Object.values(programmeAliases).flat(),...knowledgeEntities.programmes.map(p=>norm(p.name)),...Object.keys(data.merchantGroups),'membership rewards','ultimate rewards','hilton honors','marriott bonvoy','world of hyatt','ihg one rewards','asia miles','avios','aeroplan','atmos','skymiles','mileageplus','rapid rewards','aadvantage','venture','capital one','bilt']);
 /** The programmes a held card earns points into, by its earning rules; cash back is left out. */
 export function cardEarnings(card,asOf){
  const match=matchCardProduct(card);if(match.status!=='matched')return [];

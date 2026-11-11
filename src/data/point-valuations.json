@@ -152,6 +152,37 @@
    ]
   },
   {
+   "id": "bilt-rewards",
+   "name": "Bilt Rewards",
+   "knowledgeProgrammeId": "programme.bilt-rewards",
+   "region": "US",
+   "currency": "USD",
+   "unit": "point",
+   "cents": 1.55,
+   "programmeNames": [
+    "bilt rewards",
+    "bilt points",
+    "bilt"
+   ],
+   "cardNames": [
+    "bilt"
+   ],
+   "source": {
+    "name": "Frequent Miler RRV",
+    "url": "https://frequentmiler.com/reasonable-redemption-values-rrvs/",
+    "value": 1.55
+   },
+   "otherSources": [
+    {
+     "name": "The Points Guy",
+     "url": "https://thepointsguy.com/guide/monthly-valuations/",
+     "value": 2.2,
+     "pageDate": "2026-11-02"
+    }
+   ],
+   "note": "Lower of the two directly fetched sources (FM RRV 1.55, page modified 2026-10-08; TPG 2.2). TPG discloses that its founder is a Bilt advisor and investor."
+  },
+  {
    "id": "aeroplan",
    "name": "Air Canada Aeroplan",
    "knowledgeProgrammeId": "programme.air-canada-aeroplan",
