@@ -53,6 +53,7 @@ test('dated and capped terms from issuer pages are kept',()=>{
  assert.equal(rule('amex-us-us-the-platinum-card','lululemon').terms.requiresEnrollment,true);
  const m=matchCardProduct({bank:'Amex US',region:'US',name:'Platinum Card'});assert.equal(m.status,'unknown','a bare name could be another Platinum product');
 });
-test('new products ship no card art until its use is cleared',()=>{
- for(const card of cards.filter(c=>c.new))assert.equal(product(card.id).art,null,card.id);
+test('new products ship card art only with a recorded issuer source',()=>{
+ // Art for a new product must come from its issuer's own page; tests/card-art-sources.test.mjs checks the record.
+ for(const card of cards.filter(c=>c.new)){const art=product(card.id).art;if(art!==null)assert.ok(art.verification==='issuer-asset'&&art.pageUrl&&art.checkedAt&&art.terms,card.id);}
 });

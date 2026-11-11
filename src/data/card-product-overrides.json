@@ -174,7 +174,15 @@
     "region": "US",
     "name": "The Platinum Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-925907b3857bfb57.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000237_480x304_straight_withname.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
+      "foundIn": "schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-business-platinum-card",
@@ -198,7 +206,15 @@
     "region": "US",
     "name": "Business Platinum Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-b83200a169fc795d.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/business-platinum.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-platinum-credit-card-amex/",
+      "foundIn": "og:image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-business-gold-card",
@@ -221,7 +237,15 @@
     "region": "US",
     "name": "Business Gold Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-a66ecab22883b6ce.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/business-gold.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-gold-card-amex/",
+      "foundIn": "og:image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-blue-business-plus-credit-card",
@@ -246,7 +270,15 @@
     "region": "US",
     "name": "Blue Business Plus Credit Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-0e6425cb14be23bc.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/blue-business-plus.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-blue-business-plus-credit-card-amex/",
+      "foundIn": "og:image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "citi-us-citi-strata-premier-card",
@@ -496,7 +528,15 @@
     "region": "US",
     "name": "Delta SkyMiles Gold American Express Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-069d3a8d8a32c25b.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000268_480x304_straight_withname.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/",
+      "foundIn": "schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-delta-skymiles-platinum-card",
@@ -519,7 +559,15 @@
     "region": "US",
     "name": "Delta SkyMiles Platinum American Express Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-9feb5918e055cec3.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000269_480x304_straight_withname.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-platinum-american-express-card/",
+      "foundIn": "schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-delta-skymiles-reserve-card",
@@ -542,7 +590,15 @@
     "region": "US",
     "name": "Delta SkyMiles Reserve American Express Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-57d69282dbbe7e01.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/delta-reserve.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-reserve-american-express-card/",
+      "foundIn": "schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-marriott-bonvoy-brilliant-card",
@@ -565,7 +621,15 @@
     "region": "US",
     "name": "Marriott Bonvoy Brilliant American Express Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-73848fc7f063fa28.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000313_480x304_straight_withname.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/",
+      "foundIn": "schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-marriott-bonvoy-bevy-card",
@@ -588,7 +652,15 @@
     "region": "US",
     "name": "Marriott Bonvoy Bevy American Express Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-d064eb07004496ae.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000311_480x304_straight_withname.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-bevy/",
+      "foundIn": "schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-hilton-honors-business-card",
@@ -611,7 +683,15 @@
     "region": "US",
     "name": "Hilton Honors American Express Business Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-840796e917265353.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/hilton-honors.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/hilton-honors/",
+      "foundIn": "og:image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-delta-skymiles-platinum-business-card",
@@ -634,7 +714,15 @@
     "region": "US",
     "name": "Delta SkyMiles Platinum Business Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-01d7f07cac5a91eb.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/platinum-delta-skymiles-business.png",
+      "pageUrl": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-platinum/",
+      "foundIn": "og:image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-delta-skymiles-gold-business-card",
@@ -657,7 +745,15 @@
     "region": "US",
     "name": "Delta SkyMiles Gold Business Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-d38f1a19dcaa28ba.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/gold-delta-skymiles-business.png",
+      "pageUrl": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-gold/",
+      "foundIn": "og:image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "chase-us-united-explorer-card",
@@ -1012,7 +1108,15 @@
     "region": "US",
     "name": "Blue Cash Preferred Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-d74106c987556a79.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000264_480x304_straight_withname.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/blue-cash-preferred/",
+      "foundIn": "schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-green-card",
@@ -1028,7 +1132,15 @@
     ],
     "currencies": [],
     "rewardPrograms": [],
-    "art": null,
+    "art": {
+      "file": "catalog-65536a9ee84b6885.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000274_480x304_straight_withname.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/",
+      "foundIn": "schema.org WebPage primaryImageOfPage for /us/credit-cards/card/green/",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    },
     "sourceUrl": "https://www.americanexpress.com/us/credit-cards/",
     "checkedAt": "2026-11-11",
     "verification": "needs-review"
@@ -1054,7 +1166,15 @@
     "region": "US",
     "name": "Hilton Honors American Express Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-e21cb7d4d6a70637.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000327_480x304_straight_withname.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/hilton-honors/",
+      "foundIn": "schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-hilton-honors-surpass-card",
@@ -1078,7 +1198,15 @@
     "region": "US",
     "name": "Hilton Honors American Express Surpass Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-1bf150d8b22e4230.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000328_480x304_straight_withname.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/hilton-honors-surpass/",
+      "foundIn": "schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-delta-skymiles-blue-card",
@@ -1101,7 +1229,15 @@
     "region": "US",
     "name": "Delta SkyMiles Blue American Express Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-13470a44dffb21a6.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/acquisition/card-art/NUS000000267_480x304_straight_withname.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-blue-american-express-card/",
+      "foundIn": "schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-blue-business-cash-card",
@@ -1117,7 +1253,15 @@
     "region": "US",
     "name": "Blue Business Cash Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-c1b225ff00b76970.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/blue-business-cash.png",
+      "pageUrl": "https://www.americanexpress.com/en-us/business/credit-cards/blue-business-cash/",
+      "foundIn": "og:image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-marriott-bonvoy-business-card",
@@ -1140,7 +1284,15 @@
     "region": "US",
     "name": "Marriott Bonvoy Business American Express Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-560b09d9bbb37339.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/amex-marriott-bonvoy-business.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/amex-marriott-bonvoy-business-credit-card/",
+      "foundIn": "og:image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-delta-skymiles-reserve-business-card",
@@ -1164,7 +1316,15 @@
     "region": "US",
     "name": "Delta SkyMiles Reserve Business Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-454ad869ac06a591.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/delta-reserve-business.png",
+      "pageUrl": "https://www.americanexpress.com/en-us/business/credit-cards/delta-skymiles-reserve/",
+      "foundIn": "og:image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-business-green-rewards-card",
@@ -1190,7 +1350,15 @@
     "region": "US",
     "name": "Business Green Rewards Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-5bba3af538f4ab02.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/business-green-rewards.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-green-card-amex/",
+      "foundIn": "og:image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-graphite-business-cash-unlimited-card",
@@ -1207,7 +1375,15 @@
     "region": "US",
     "name": "Graphite Business Cash Unlimited Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-53b0eda1c4f886ed.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/graphite.png",
+      "pageUrl": "https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/graphite-business-cash-unlimited-card/",
+      "foundIn": "og:image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "amex-us-us-schwab-platinum-card",
