@@ -9,7 +9,7 @@ import * as dev from '../evals/fixtures.mjs';
 import * as held from '../evals/holdout/cases.mjs';
 import {validateAcceptance} from '../scripts/acceptance.mjs';
 import {BUILD_ID} from '../extension-next/build-info.js';
-const devIds=new Set([...dev.retrievalCases,...dev.decisionCases,...dev.planCases,...dev.publicRuleCases,...dev.liveCases].map(c=>c.id).concat(dev.planGroundingCases.map(c=>c[0]),dev.actionClaimCases.map(c=>c[0]),dev.actionClaimControls.map(c=>c[0])));
+const devIds=new Set([...dev.retrievalCases,...dev.decisionCases,...dev.planCases,...dev.publicRuleCases,...dev.liveCases,...dev.tripCases].map(c=>c.id).concat(dev.planGroundingCases.map(c=>c[0]),dev.actionClaimCases.map(c=>c[0]),dev.actionClaimControls.map(c=>c[0])));
 test('the held-out cases, their wallet and checks are frozen: any edit must update the manifest on purpose',()=>{
  assert.equal(holdoutSha256(),holdoutManifest.sha256,'evals/holdout changed without updating evals/holdout/manifest.json');
  assert.equal(holdoutCaseIds().length,holdoutManifest.caseCount);

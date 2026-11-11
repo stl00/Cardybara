@@ -187,6 +187,13 @@ export const publicRuleCases=[
  {id:'corporate-unknown-fee',args:{kind:'fee',region:'US',cardName:'Corporate Card'},role:'primary',terms:{amount:null,actualCharge:null}},
  {id:'ca-hilton-transfer-unknown-ratio',args:{kind:'transfer-relationship',region:'CA',cardName:'Platinum Card',programme:'Hilton'},terms:{relationship:'transfer-only',ratio:null,grantsEliteStatus:false,accountLinked:null}},
 ];
+// Whole-trip questions (#183): a flight, a hotel stay and the cover, on one set of date words. Offline, code runs
+// the three tools the system prompt routes to and checks they agree on the dates; live, the model must call all three.
+export const tripCases=[
+ {id:'trip-whole-hans',airline:'达美',when:'12月20日到27日',expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
+ {id:'trip-whole-hant',airline:'達美',when:'聖誕節',expectedWindow:{start:'2026-12-01',end:'2026-12-31'}},
+ {id:'trip-whole-en',airline:'Delta',when:'Dec 20-27',expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
+];
 export const liveCases=[
  {id:'dining',question:'在美国餐厅消费100美元用哪张卡？请简短回答并保留来源。',expectTool:'choose_card',answerPatterns:['Freedom Unlimited'],expectedArgs:{category:'dining',country:'US',currency:'USD',amount:100}},
  {id:'answers-before-asking',question:'我在餐厅花100，要刷哪张？',expectTool:'choose_card',answersFirst:true},
@@ -210,6 +217,9 @@ export const liveCases=[
  {id:'trip-traditional',question:'12月聖誕節想出去玩，住飯店，我還有什麼飯店 credit 沒用？',expectTool:'query_credits',expectedArgs:{use:'hotel'},expectedWindow:{start:'2026-12-01',end:'2026-12-31'},answerPatterns:['2026']},
  {id:'trip-english',question:'I want to travel and stay in a hotel at Christmas in December. Which hotel credits have I not used?',expectTool:'query_credits',expectedArgs:{use:'hotel'},expectedWindow:{start:'2026-12-01',end:'2026-12-31'},answerPatterns:['December 2026|Dec\\.? 2026|2026-12']},
  {id:'trip-marks-respected',events:secondHalfMarks,question:'12月圣诞节想住酒店，我还有什么酒店 credit 没用？',expectTool:'query_credits',expectedWindow:{start:'2026-12-01',end:'2026-12-31'},answerPatterns:['Morgan Stanley|住宿预订','The Edit']},
+ {id:'trip-whole-question',question:'12月20日到27日坐达美飞东京，住凯悦，怎么付最好？有什么保障？',expectAllTools:['plan_flight','query_credits','find_protections'],expectedArgs:{use:'hotel'},expectTool:'query_credits',sameDateWords:true,expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
+ {id:'trip-whole-traditional',question:'聖誕節搭國泰飛東京，住凱悅，怎麼付比較好？有什麼保障？',expectAllTools:['plan_flight','query_credits','find_protections'],sameDateWords:true},
+ {id:'trip-whole-english',question:'Flying Delta to Tokyo Dec 20-27 and staying at a Hyatt — how should I pay and what covers me?',expectAllTools:['plan_flight','query_credits','find_protections'],sameDateWords:true,answerPatterns:['2026']},
  {id:'credits-by-card',question:'我的 Sapphire Reserve 本期有哪些 credit？没标记的不要当成没用。',expectTool:'query_credits'},
  {id:'follow-up',question:'那换成加拿大，100加元的餐厅呢？简短回答。',memory:{lastPurchase:{category:'dining',country:'US',currency:'USD',amount:100}},expectTool:'choose_card',expectedArgs:{category:'dining',country:'CA',currency:'CAD',amount:100}}
 ];
