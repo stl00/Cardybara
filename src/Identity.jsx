@@ -18,6 +18,8 @@ const banks={
  Hilton:['hilton.png','Hilton Honors','US'],
  IHG:['ihg.ico','IHG One Rewards','US']
 };
+/** The bank's display name in the wallet's language. */
+export const bankName=bank=>t(banks[bank]?.[1]||bank);
 export function RegionFlag({region,decorative=false}){
  useI18n();const entry=regions[region];
  return entry?<span className="region-flag" role={decorative?undefined:"img"} aria-hidden={decorative||undefined} aria-label={decorative?undefined:t(entry[1])} title={t(entry[1])}>{entry[0]}</span>:null;
