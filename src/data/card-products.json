@@ -408,7 +408,7 @@
         "sourceUrl": "https://www.chase.com/content/dam/unified-assets/card-art/chase-freedom/freedom-rise/card_freedomRise_V.png"
       },
       "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/freedom/rise",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
     },
     {
@@ -808,7 +808,7 @@
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/disney-inspire.png"
       },
       "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/inspire",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
     },
     {
@@ -828,7 +828,7 @@
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/disney_sleeping_beauty_premier_vs_Jan_2026.png"
       },
       "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/premier",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
     },
     {
@@ -848,7 +848,7 @@
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/disney_vintage_mickey_Jan_2026.png"
       },
       "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/disney/rewards",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
     },
     {
@@ -977,15 +977,21 @@
         "Iberia Visa Signature"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Iberia Club"
+      ],
       "art": {
         "file": "catalog-c3f19c1b741999c4.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/iberia_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-11",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
+        "checkedAt": "2026-11-11"
+      }
     },
     {
       "id": "chase-us-doordash-rewards-mastercard",

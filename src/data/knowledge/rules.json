@@ -71213,5 +71213,1833 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-iberia-visa-signature-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-iberia-visa-signature-credit-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-iberia-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $95",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-iberia-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-iberia-visa-signature-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-iberia-visa-signature-credit-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-iberia-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.iberia-club"
+    ],
+    "content": {
+      "title": "Iberia、British Airways、Aer Lingus 和 LEVEL 直订机票",
+      "summary": "条款写明须直接向 Iberia、British Airways、LEVEL 或 Aer Lingus 购买。",
+      "sourceText": "Earn 3 Avios for every $1 spent on Iberia, British Airways, and Aer Lingus flight purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "条款写明须直接向 Iberia、British Airways、LEVEL 或 Aer Lingus 购买。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "Iberia、British Airways、Aer Lingus 和 LEVEL 直订机票",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款写明须直接向 Iberia、British Airways、LEVEL 或 Aer Lingus 购买。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-iberia-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-iberia-visa-signature-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-iberia-visa-signature-credit-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-iberia-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.iberia-club"
+    ],
+    "content": {
+      "title": "直订酒店",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 Avios for every $1 spent on hotel accommodations booked directly with the hotel.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "直订酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-iberia-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-iberia-visa-signature-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-iberia-visa-signature-credit-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-iberia-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.iberia-club"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 1 Avios for every $1 spent on all other purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-iberia-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-iberia-visa-signature-credit-card.anniversary-avios",
+    "revision": 1,
+    "revisionId": "rule.chase-us-iberia-visa-signature-credit-card.anniversary-avios@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-iberia-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [
+      "programme.iberia-club"
+    ],
+    "content": {
+      "title": "每个账户年2,500 Avios",
+      "summary": "每个账户周年年度得2,500 Avios。",
+      "sourceText": "earn 2,500 anniversary bonus Avios each account anniversary year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户周年年度得2,500 Avios。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户周年年度得2,500 Avios。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-iberia-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "2,500 anniversary Avios",
+      "summary": "2,500 bonus Avios each account anniversary year.",
+      "howToUse": [
+        "Look for the Avios in your Iberia Club account after the anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-iberia-visa-signature-credit-card",
+          "text": "earn 2,500 anniversary bonus Avios each account anniversary year"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-disney-visa-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-visa-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-disney-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $0",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-visa-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-visa-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 1% in Disney Rewards Dollars on all card purchases with no limits to the amount you can earn.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-visa-card.disney-shopping",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-visa-card.disney-shopping@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney 购物9折",
+      "summary": "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。",
+      "sourceText": "Save 10% on select purchases at DisneyStore.com when you use your Disney Visa Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "10% savings on Disney shopping",
+      "summary": "10% off select purchases at DisneyStore.com and select merchandise at select locations at the Disneyland Resort and Walt Disney World Resort.",
+      "howToUse": [
+        "Pay with the card at DisneyStore.com or the resort shops."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-visa-card",
+          "text": "Save 10% on select purchases at DisneyStore.com when you use your Disney Visa Card."
+        },
+        {
+          "sourceId": "card-chase-us-disney-visa-card",
+          "text": "Receive 10% off select merchandise purchases at select locations at the Disneyland Resort and Walt Disney World Resort"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $49",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 49,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 5% on card purchases made directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "加油站和美国大部分 Disney 场所",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 2% on card purchases at gas stations and most Disney U.S. locations.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "加油站和美国大部分 Disney 场所",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "超市和餐厅",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 2% on card purchases at grocery stores and restaurants.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "超市和餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 1% on all other card purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.disney-shopping",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.disney-shopping@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney 购物9折",
+      "summary": "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。",
+      "sourceText": "Save 10% on select purchases at DisneyStore.com when you use your Disney Premier Visa Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在 DisneyStore.com 指定商品和 Disneyland、Walt Disney World 指定地点的指定商品用本卡消费享9折。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "10% savings on Disney shopping",
+      "summary": "10% off select purchases at DisneyStore.com and select merchandise at select locations at the Disneyland Resort and Walt Disney World Resort.",
+      "howToUse": [
+        "Pay with the card at DisneyStore.com or the resort shops."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-premier-visa-card",
+          "text": "Save 10% on select purchases at DisneyStore.com when you use your Disney Premier Visa Card."
+        },
+        {
+          "sourceId": "card-chase-us-disney-premier-visa-card",
+          "text": "Receive 10% off select merchandise purchases at select locations at the Disneyland Resort and Walt Disney World Resort"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.disney-dining",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.disney-dining@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "dining"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney 度假区指定餐厅9折",
+      "summary": "在 Disneyland 和 Walt Disney World 度假区指定餐厅用本卡消费享9折。",
+      "sourceText": "Receive 10% off select dining locations at the Disneyland Resort and Walt Disney World Resort",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "在 Disneyland 和 Walt Disney World 度假区指定餐厅用本卡消费享9折。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在 Disneyland 和 Walt Disney World 度假区指定餐厅用本卡消费享9折。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "10% off select Disney resort dining",
+      "summary": "10% off at select dining locations at the Disneyland Resort and Walt Disney World Resort.",
+      "howToUse": [
+        "Pay with the card at the participating restaurants."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-premier-visa-card",
+          "text": "Receive 10% off select dining locations at the Disneyland Resort and Walt Disney World Resort"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $149",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 149,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 10% on card purchases made directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 10,
+      "unit": "cashback-percent",
+      "spendCategory": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "加油站和美国大部分 Disney 场所",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 3% on card purchases at gas stations and most other U.S. Disney locations.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "cashback-percent",
+      "spendCategory": "加油站和美国大部分 Disney 场所",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "超市和餐厅",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 2% on card purchases at grocery stores and restaurants.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "超市和餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 1% on all other card purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.disney-streaming",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.disney-streaming@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "entertainment"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney Streaming 抵扣",
+      "summary": "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。年费订阅只在购买当月得一次10美元；须每个自然年在 Chase 激活一次。",
+      "sourceText": "Earn a $10 statement credit each month after spending $10 or more on qualifying subscriptions directly at DisneyPlus.com",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。年费订阅只在购买当月得一次10美元；须每个自然年在 Chase 激活一次。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-month",
+      "amount": 10,
+      "currency": "USD",
+      "requiresEnrollment": true,
+      "partner": "Disney"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年须激活一次；每月在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 直接消费合资格订阅满10美元，得10美元。年费订阅只在购买当月得一次10美元；须每个自然年在 Chase 激活一次。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Disney streaming credit",
+      "summary": "A $10 statement credit each month after spending $10 or more on qualifying subscriptions directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com; yearly activation required.",
+      "howToUse": [
+        "Activate each year, then pay the subscription directly with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Earn a $10 statement credit each month after spending $10 or more on qualifying subscriptions directly at DisneyPlus.com"
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Yearly activation required."
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "An annual subscription would only be eligible for a one-time $10.00 statement credit in the month of the purchase."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.resort-stays",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.resort-stays@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney 度假酒店和邮轮消费满2,000美元得200 Rewards Dollars",
+      "summary": "每个账户年在美国 Disney 度假酒店和 Disney Cruise Line 消费满2,000美元，得200美元 Disney Rewards Dollars；Adventures by Disney、National Geographic Expeditions、海外 Disney 度假区和乐园，以及单独购买的乐园门票不计。是否达标未核实。",
+      "sourceText": "Earn $200 Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年在美国 Disney 度假酒店和 Disney Cruise Line 消费满2,000美元，得200美元 Disney Rewards Dollars；Adventures by Disney、National Geographic Expeditions、海外 Disney 度假区和乐园，以及单独购买的乐园门票不计。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "account-anniversary",
+      "amount": 200,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年在美国 Disney 度假酒店和 Disney Cruise Line 消费满2,000美元，得200美元 Disney Rewards Dollars；Adventures by Disney、National Geographic Expeditions、海外 Disney 度假区和乐园，以及单独购买的乐园门票不计。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Disney Rewards Dollars on resort stays",
+      "summary": "$200 Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings.",
+      "howToUse": [
+        "Book U.S. Disney Resort stays or Disney Cruise Line directly with Disney and pay with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Earn $200 Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings."
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Purchases made for Adventures by Disney, National Geographic Expeditions or international Disney Resorts or Parks will not qualify."
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "made directly with Disney (including through Disney operated websites, apps or call centers)"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.park-tickets",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.park-tickets@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "entertainment"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney 门票消费满200美元得100美元抵扣",
+      "summary": "每个账户年直接向 Disney 购买美国 Disney 主题乐园门票满200美元，得100美元账单抵扣；度假套餐内的门票不计。是否达标未核实。",
+      "sourceText": "Earn a $100 Statement Credit after spending $200 per anniversary year on U.S. Disney Theme Park Tickets.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年直接向 Disney 购买美国 Disney 主题乐园门票满200美元，得100美元账单抵扣；度假套餐内的门票不计。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "account-anniversary",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年直接向 Disney 购买美国 Disney 主题乐园门票满200美元，得100美元账单抵扣；度假套餐内的门票不计。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$100 statement credit on park tickets",
+      "summary": "A $100 statement credit after spending $200 per anniversary year on U.S. Disney Theme Park Tickets.",
+      "howToUse": [
+        "Buy U.S. Disney Theme Park Tickets with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Earn a $100 Statement Credit after spending $200 per anniversary year on U.S. Disney Theme Park Tickets."
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Disney Theme Park tickets purchased as part of Disney Vacation Packages will not qualify."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-chase-freedom-rise-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-chase-freedom-rise-credit-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-chase-freedom-rise-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $0",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-chase-freedom-rise-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-chase-freedom-rise-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-chase-freedom-rise-credit-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-chase-freedom-rise-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "earn 1.5% cash back on all purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1.5,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-chase-freedom-rise-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]
