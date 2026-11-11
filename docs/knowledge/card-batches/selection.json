@@ -221,6 +221,22 @@
     {
       "id": "amex-us-us-blue-cash-preferred-card",
       "name": "Amex Blue Cash Preferred"
+    },
+    {
+      "id": "amex-us-us-hilton-honors-card",
+      "name": "Amex Hilton Honors"
+    },
+    {
+      "id": "amex-us-us-hilton-honors-surpass-card",
+      "name": "Amex Hilton Honors Surpass"
+    },
+    {
+      "id": "amex-us-us-delta-skymiles-blue-card",
+      "name": "Amex Delta SkyMiles Blue"
+    },
+    {
+      "id": "amex-us-us-blue-business-cash-card",
+      "name": "Amex Blue Business Cash"
     }
   ]
 }
