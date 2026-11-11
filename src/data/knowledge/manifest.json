@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-11.cards-9",
+  "snapshotId": "cardybara-public-knowledge-2026-11-11.cards-10",
   "asOf": "2026-11-11",
   "locale": "zh-CN",
   "files": [
@@ -1381,6 +1381,81 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "chase-us-iberia-visa-signature-credit-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "行李延误、购物保障等保障类福利未录入。附属卡年费未确认。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-disney-visa-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Disney 度假套餐的0%促销分期和保障类福利未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-disney-premier-visa-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Disney 度假套餐的0%促销分期、Pay Yourself Back 和保障类福利未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-disney-inspire-visa-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Disney 度假套餐的0%促销分期、Pay Yourself Back、园区购物和餐饮折扣及保障类福利未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-chase-freedom-rise-credit-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户三个月内登记自动还款得25美元属于新开户优惠，未录入。每年升级 Freedom Unlimited 的评估和保障类福利未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -1484,6 +1559,11 @@
     "chase-us-united-business-card",
     "chase-us-united-club-business-card",
     "chase-us-british-airways-visa-signature-credit-card",
-    "chase-us-aer-lingus-visa-signature-credit-card"
+    "chase-us-aer-lingus-visa-signature-credit-card",
+    "chase-us-iberia-visa-signature-credit-card",
+    "chase-us-disney-visa-card",
+    "chase-us-disney-premier-visa-card",
+    "chase-us-disney-inspire-visa-card",
+    "chase-us-chase-freedom-rise-credit-card"
   ]
 }

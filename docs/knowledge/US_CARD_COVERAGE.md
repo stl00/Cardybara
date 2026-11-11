@@ -74,3 +74,8 @@
 | 9 | Chase United Club Business | $695 | 3 | 12 | United MileagePlus | 已支持的银行，未验收 | 机上餐饮和 Wi-Fi 25%返还、有员工卡时每年4张 United Club 单次通行证、里程兑换折扣和保障类福利未录入。 | https://creditcards.chase.com/business-credit-cards/united/united-club-business |
 | 9 | Chase British Airways | $95 | 3 | 3 | The British Airways Club | 已支持的银行，未验收 | 保障类福利未录入。附属卡年费未确认。 | https://creditcards.chase.com/travel-credit-cards/avios/british-airways |
 | 9 | Chase Aer Lingus | $95 | 3 | 2 | Aer Lingus AerClub | 已支持的银行，未验收 | 行李延误、购物保障等保障类福利未录入。附属卡年费未确认。 | https://creditcards.chase.com/travel-credit-cards/avios/aer-lingus |
+| 10 | Chase Iberia | $95 | 3 | 1 | Iberia Club | 已支持的银行，未验收 | 行李延误、购物保障等保障类福利未录入。附属卡年费未确认。 | https://creditcards.chase.com/travel-credit-cards/avios/iberia |
+| 10 | Chase Disney Visa | $0 | 1 | 1 | — | 已支持的银行，未验收 | Disney 度假套餐的0%促销分期和保障类福利未录入。 | https://creditcards.chase.com/rewards-credit-cards/disney/rewards |
+| 10 | Chase Disney Premier Visa | $49 | 4 | 2 | — | 已支持的银行，未验收 | Disney 度假套餐的0%促销分期、Pay Yourself Back 和保障类福利未录入。 | https://creditcards.chase.com/rewards-credit-cards/disney/premier |
+| 10 | Chase Disney Inspire Visa | $149 | 4 | 3 | — | 已支持的银行，未验收 | Disney 度假套餐的0%促销分期、Pay Yourself Back、园区购物和餐饮折扣及保障类福利未录入。 | https://creditcards.chase.com/rewards-credit-cards/disney/inspire |
+| 10 | Chase Freedom Rise | $0 | 1 | 0 | — | 已支持的银行，未验收 | 开户三个月内登记自动还款得25美元属于新开户优惠，未录入。每年升级 Freedom Unlimited 的评估和保障类福利未录入。 | https://creditcards.chase.com/cash-back-credit-cards/freedom/rise |

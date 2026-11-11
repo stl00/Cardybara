@@ -258,7 +258,10 @@
   "AmexTravel.com 预付酒店、租车、邮轮和机票": "travel",
   "办公用品店": "shopping",
   "British Airways、Aer Lingus、Iberia 和 LEVEL 直订机票": "airline",
-  "Aer Lingus、British Airways、Iberia 和 LEVEL 直订机票": "airline"
+  "Aer Lingus、British Airways、Iberia 和 LEVEL 直订机票": "airline",
+  "Iberia、British Airways、Aer Lingus 和 LEVEL 直订机票": "airline",
+  "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费": "entertainment",
+  "加油站和美国大部分 Disney 场所": "general"
  },
  "brands": [
   {

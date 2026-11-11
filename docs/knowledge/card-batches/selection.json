@@ -273,6 +273,26 @@
     {
       "id": "chase-us-aer-lingus-visa-signature-credit-card",
       "name": "Chase Aer Lingus"
+    },
+    {
+      "id": "chase-us-iberia-visa-signature-credit-card",
+      "name": "Chase Iberia"
+    },
+    {
+      "id": "chase-us-disney-visa-card",
+      "name": "Chase Disney Visa"
+    },
+    {
+      "id": "chase-us-disney-premier-visa-card",
+      "name": "Chase Disney Premier Visa"
+    },
+    {
+      "id": "chase-us-disney-inspire-visa-card",
+      "name": "Chase Disney Inspire Visa"
+    },
+    {
+      "id": "chase-us-chase-freedom-rise-credit-card",
+      "name": "Chase Freedom Rise"
     }
   ]
 }
