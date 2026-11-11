@@ -1,6 +1,6 @@
 # 美国常见卡片覆盖表
 
-2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这份名单。 名单共 50 项：49 张有资料，1 张因发卡行页面读不到数字而跳过。 2026-11-11 起第6批及以后按 #195 补充 friends beta 测试者常持有的 Chase 和 Amex US 卡（Chase 已在产品目录中但缺规则，Amex US 为新增产品），事实同样只来自发卡行页面。
+2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这份名单。 名单共 50 项：49 张有资料，1 张因发卡行页面读不到数字而跳过。 2026-11-11 起第6批及以后按 #195 补充 friends beta 测试者常持有的 Chase 和 Amex US 卡（Chase 已在产品目录中但缺规则，Amex US 为新增产品），事实同样只来自发卡行页面。 2026-11-11 第10批按 #231 加入 Bilt Card 2.0 的三张卡（仅手动添加，不读取账户），事实只来自 Bilt 和 Cardless 的公开页面。
 
 “读取”指插件能否自动读取账户数据；这里的资料只是公开产品信息，不代表该银行已能采集或已验收。卡面暂不新增，发卡行图片的使用条款未确认。
 
@@ -74,8 +74,11 @@
 | 9 | Chase United Club Business | $695 | 3 | 12 | United MileagePlus | 已支持的银行，未验收 | 机上餐饮和 Wi-Fi 25%返还、有员工卡时每年4张 United Club 单次通行证、里程兑换折扣和保障类福利未录入。 | https://creditcards.chase.com/business-credit-cards/united/united-club-business |
 | 9 | Chase British Airways | $95 | 3 | 3 | The British Airways Club | 已支持的银行，未验收 | 保障类福利未录入。附属卡年费未确认。 | https://creditcards.chase.com/travel-credit-cards/avios/british-airways |
 | 9 | Chase Aer Lingus | $95 | 3 | 2 | Aer Lingus AerClub | 已支持的银行，未验收 | 行李延误、购物保障等保障类福利未录入。附属卡年费未确认。 | https://creditcards.chase.com/travel-credit-cards/avios/aer-lingus |
-| 10 | Chase Iberia | $95 | 3 | 1 | Iberia Club | 已支持的银行，未验收 | 行李延误、购物保障等保障类福利未录入。附属卡年费未确认。；页面上的 DoorDash DashPass 等合作方优惠未录入。 | https://creditcards.chase.com/travel-credit-cards/avios/iberia |
-| 10 | Chase Disney Visa | $0 | 1 | 1 | — | 已支持的银行，未验收 | Disney 度假套餐的0%促销分期和保障类福利未录入。；页面上的 DoorDash DashPass 等合作方优惠未录入。；Disney Cruise Line 船上优惠和导览优惠未录入；购物9折也适用于美国 Disney Store 和 Disney Outlet 门店，只录入了网店和度假区。 | https://creditcards.chase.com/rewards-credit-cards/disney/rewards |
-| 10 | Chase Disney Premier Visa | $49 | 4 | 2 | — | 已支持的银行，未验收 | Disney 度假套餐的0%促销分期、Pay Yourself Back 和保障类福利未录入。；页面上的 DoorDash DashPass 等合作方优惠未录入。；Disney Cruise Line 船上优惠和导览优惠未录入；购物9折也适用于美国 Disney Store 和 Disney Outlet 门店，只录入了网店和度假区。 | https://creditcards.chase.com/rewards-credit-cards/disney/premier |
-| 10 | Chase Disney Inspire Visa | $149 | 4 | 3 | — | 已支持的银行，未验收 | Disney 度假套餐的0%促销分期、Pay Yourself Back、园区购物和餐饮折扣及保障类福利未录入。；页面上的 DoorDash DashPass 等合作方优惠未录入。 | https://creditcards.chase.com/rewards-credit-cards/disney/inspire |
-| 10 | Chase Freedom Rise | $0 | 1 | 0 | — | 已支持的银行，未验收 | 开户三个月内登记自动还款得25美元属于新开户优惠，未录入。每年升级 Freedom Unlimited 的评估和保障类福利未录入。；页面上的 DoorDash DashPass 等合作方优惠未录入。 | https://creditcards.chase.com/cash-back-credit-cards/freedom/rise |
+| 11 | Chase Iberia | $95 | 3 | 1 | Iberia Club | 已支持的银行，未验收 | 行李延误、购物保障等保障类福利未录入。附属卡年费未确认。；页面上的 DoorDash DashPass 等合作方优惠未录入。 | https://creditcards.chase.com/travel-credit-cards/avios/iberia |
+| 11 | Chase Disney Visa | $0 | 1 | 1 | — | 已支持的银行，未验收 | Disney 度假套餐的0%促销分期和保障类福利未录入。；页面上的 DoorDash DashPass 等合作方优惠未录入。；Disney Cruise Line 船上优惠和导览优惠未录入；购物9折也适用于美国 Disney Store 和 Disney Outlet 门店，只录入了网店和度假区。 | https://creditcards.chase.com/rewards-credit-cards/disney/rewards |
+| 11 | Chase Disney Premier Visa | $49 | 4 | 2 | — | 已支持的银行，未验收 | Disney 度假套餐的0%促销分期、Pay Yourself Back 和保障类福利未录入。；页面上的 DoorDash DashPass 等合作方优惠未录入。；Disney Cruise Line 船上优惠和导览优惠未录入；购物9折也适用于美国 Disney Store 和 Disney Outlet 门店，只录入了网店和度假区。 | https://creditcards.chase.com/rewards-credit-cards/disney/premier |
+| 11 | Chase Disney Inspire Visa | $149 | 4 | 3 | — | 已支持的银行，未验收 | Disney 度假套餐的0%促销分期、Pay Yourself Back、园区购物和餐饮折扣及保障类福利未录入。；页面上的 DoorDash DashPass 等合作方优惠未录入。 | https://creditcards.chase.com/rewards-credit-cards/disney/inspire |
+| 11 | Chase Freedom Rise | $0 | 1 | 0 | — | 已支持的银行，未验收 | 开户三个月内登记自动还款得25美元属于新开户优惠，未录入。每年升级 Freedom Unlimited 的评估和保障类福利未录入。；页面上的 DoorDash DashPass 等合作方优惠未录入。 | https://creditcards.chase.com/cash-back-credit-cards/freedom/rise |
+| 10 | Bilt Blue | $0 | 4 | 1 | Bilt Rewards | 暂不支持 | Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。；保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。；开卡奖励按个人报价变化，未记录。 | https://www.bilt.com/card |
+| 10 | Bilt Obsidian | $95 | 7 | 3 | Bilt Rewards | 暂不支持 | Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。；保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。；开卡奖励按个人报价变化，未记录。；2027年1月1日前开户的账户在2027年后第一个开卡周年日改用每年100美元 Bilt Cash（不作 Legacy Election 时），个人适用哪一套未核实。 | https://www.bilt.com/card |
+| 10 | Bilt Palladium | $495 | 4 | 5 | Bilt Rewards | 暂不支持 | Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。；保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。；开卡奖励按个人报价变化，未记录。；2027年1月1日前开户的账户在2027年后第一个开卡周年日改用每年600美元 Bilt Cash（不作 Legacy Election 时），个人适用哪一套未核实。 | https://www.bilt.com/card |

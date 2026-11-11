@@ -18,7 +18,8 @@
   "british airways":{"aliases":["british airways","ba.com","英国航空","英國航空","英航"],"category":"flight"},
   "iberia":{"aliases":["iberia","西班牙国家航空","西班牙國家航空","伊比利亚航空","伊比利亞航空"],"category":"flight"},
   "disney":{"aliases":["disney","迪士尼"],"category":"entertainment"},
-  "disney streaming":{"aliases":["disneyplus","disney+","hulu","espn+","stream.espn"],"category":"streaming"}
+  "disney streaming":{"aliases":["disneyplus","disney+","hulu","espn+","stream.espn"],"category":"streaming"},
+  "lyft":{"aliases":["lyft"],"category":"transit"}
  },
  "spendCategories":{
   "AAdvantage Hotels 和 AAdvantage Cars":[{"uses":["hotel","car-rental"],"channel":"portal","via":"AAdvantage Hotels / Cars"}],
@@ -145,6 +146,12 @@
   "办公用品店":[{"uses":["office"]}],
   "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费":[{"merchants":["disney streaming"],"channel":"direct"}],
   "Iberia、British Airways、Aer Lingus 和 LEVEL 直订机票":[{"merchants":["british airways","aer lingus","iberia"],"channel":"direct"}],
-  "加油站和美国大部分 Disney 场所":[{"uses":["gas"]},{"merchants":["disney"],"country":"US"}]
+  "加油站和美国大部分 Disney 场所":[{"uses":["gas"]},{"merchants":["disney"],"country":"US"}],
+  "Bilt Travel 酒店":[{"uses":["hotel"],"channel":"portal","via":"Bilt Travel"}],
+  "Bilt Travel 机票":[{"uses":["flight"],"channel":"portal","via":"Bilt Travel"}],
+  "Lyft（关联 Bilt 账户）":[{"merchants":["lyft"],"condition":"linked-account"}],
+  "餐饮（自选类别，默认）":[{"uses":["dining"],"condition":"chosen-category"}],
+  "超市（自选类别）":[{"uses":["supermarket"],"condition":"chosen-category"}],
+  "航空、酒店、邮轮和租车直接消费":[{"uses":["flight","hotel","car-rental","travel"],"channel":"direct"}]
  }
 }

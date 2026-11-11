@@ -10,6 +10,7 @@ export const transferProgrammes=[
  {id:'programme.amex-membership-rewards-us',bank:'Amex US',region:'US',reading:'membership rewards',label:'Membership Rewards'},
  {id:'programme.chase-ultimate-rewards',bank:'Chase',region:'US',reading:'ultimate rewards',label:'Ultimate Rewards'},
  {id:'programme.amex-membership-rewards-hk',bank:'Amex HK',region:'HK',reading:'membership rewards',label:'Membership Rewards'},
+ {id:'programme.bilt-rewards',bank:'Bilt',region:'US',reading:'bilt rewards',label:'Bilt Rewards'},
 ];
 const programme=id=>knowledgeEntities.programmes.find(p=>p.id===id);
 // Partners of one programme. The same partner has several rows only when its rate differs by card.

@@ -1,16 +1,17 @@
 import {ACTIVE_BANKS,PROVIDERS,bankOrder,scopedBanks} from '../extension-next/providers.js';
 import {cleanPageName} from './cardName.js';
+import {bankProfile,manualOnly} from './manualBanks.js';
 // An archived bank shows only for a wallet already holding its cards, and never joins a refresh-all. A scoped build
 // (the beta) shows only its own banks: a manual card of another bank stays in the wallet, but its bank can't be connected.
 // Chase and Amex US come first. `scope` defaults to this build's (extension-next/build-scope.js).
-export const visibleConnections=(data,scope)=>{const banks=scopedBanks(scope);return bankOrder(data.connections.map(c=>c.bank)).map(b=>data.connections.find(c=>c.bank===b)).filter(c=>banks?banks.includes(c.bank):!PROVIDERS[c.bank]?.archived||data.cards.some(card=>card.bank===c.bank));};
+export const visibleConnections=(data,scope)=>{const banks=scopedBanks(scope);return bankOrder(data.connections.map(c=>c.bank)).map(b=>data.connections.find(c=>c.bank===b)).filter(c=>!manualOnly(c.bank)&&(banks?banks.includes(c.bank):!PROVIDERS[c.bank]?.archived||data.cards.some(card=>card.bank===c.bank)));};
 export const selectableBanks=(banks,cards,scope)=>{const offered=scopedBanks(scope);return banks.filter(b=>(offered?offered.includes(b):!PROVIDERS[b]?.archived)||cards.some(c=>c.bank===b));};
 // Regions for the wallet filter: a region with a bank this build offers, or one the wallet holds a card in.
 export const selectableRegions=(regions,cards,scope)=>{const offered=scopedBanks(scope)||ACTIVE_BANKS;return regions.filter(r=>offered.some(b=>PROVIDERS[b].region===r)||cards.some(c=>c.region===r));};
 export const defaultRefreshBanks=(cards,scope)=>{const offered=scopedBanks(scope)||ACTIVE_BANKS;return [...new Set(cards.map(c=>c.bank))].filter(b=>offered.includes(b));};
 export const WALLET_CARDS_KEY='cardybara-wallet-cards-v1';
 export function newWalletCard({bank,name,tail,currency},id=crypto.randomUUID()){
- const p=PROVIDERS[bank];const label=String(name||'').trim();
+ const p=bankProfile(bank);const label=String(name||'').trim();
  if(!p||!label||label.length>100||/[<>\u0000-\u001f]/.test(label)||/(?:\d[ -]?){9,}/.test(label)||typeof tail!=='string'||!/^\d{4,5}$/.test(tail)||typeof id!=='string'||!/^[a-zA-Z0-9-]{1,64}$/.test(id))throw Error('invalid_card');
  return {id,bank,name:label,tail,region:p.region,currency:p.cardCurrencies?.includes(currency)?currency:p.currency,identitySource:'manual'};
 }
@@ -31,7 +32,7 @@ export function mergeWalletCards(base,extra=[]){
   cards.push({...clean,identitySource:c.identitySource==='bank-page'?'bank-page':'manual'});
  }
  // A saved seed can be older than the product, and an upgrade can drop a held bank: every active or held bank needs its row.
- const connections=Array.isArray(base.connections)?[...base.connections,...[...new Set([...ACTIVE_BANKS,...cards.map(c=>c.bank)])].filter(b=>!base.connections.some(c=>c.bank===b)).map(bank=>({bank,note:''}))]:base.connections;
+ const connections=Array.isArray(base.connections)?[...base.connections,...[...new Set([...ACTIVE_BANKS,...cards.map(c=>c.bank)])].filter(b=>!manualOnly(b)&&!base.connections.some(c=>c.bank===b)).map(bank=>({bank,note:''}))]:base.connections;
  return {...base,cards,connections};
 }
 /**

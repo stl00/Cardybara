@@ -1022,6 +1022,111 @@
     "authority": "official"
   },
   {
+    "id": "card-bilt-us-bilt-blue-card",
+    "url": "https://www.bilt.com/card",
+    "title": "Bilt · Bilt Blue Card 官方卡片页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-blue-card-terms",
+    "url": "https://www.bilt.com/terms/bilt-card-offer-terms",
+    "title": "Bilt · Bilt Card 优惠条款（Bilt Card Offer Terms）",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-blue-card-fees",
+    "url": "https://legal.cardless.com/rates_and_fees/bilt/rates_and_fees.pdf",
+    "title": "Cardless · Bilt 卡利率和费用表",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-blue-card-overview",
+    "url": "https://support.biltrewards.com/hc/en-us/articles/42897766682381-Bilt-Card-2-0-Program-Overview",
+    "title": "Bilt 帮助中心 · Bilt Card 2.0 计划概览",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-obsidian-card",
+    "url": "https://www.bilt.com/card",
+    "title": "Bilt · Bilt Obsidian Card 官方卡片页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-obsidian-card-terms",
+    "url": "https://www.bilt.com/terms/bilt-card-offer-terms",
+    "title": "Bilt · Bilt Card 优惠条款（Bilt Card Offer Terms）",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-obsidian-card-fees",
+    "url": "https://legal.cardless.com/rates_and_fees/bilt/rates_and_fees.pdf",
+    "title": "Cardless · Bilt 卡利率和费用表",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-obsidian-card-overview",
+    "url": "https://support.biltrewards.com/hc/en-us/articles/42897766682381-Bilt-Card-2-0-Program-Overview",
+    "title": "Bilt 帮助中心 · Bilt Card 2.0 计划概览",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-palladium-card",
+    "url": "https://www.bilt.com/card",
+    "title": "Bilt · Bilt Palladium Card 官方卡片页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-palladium-card-terms",
+    "url": "https://www.bilt.com/terms/bilt-card-offer-terms",
+    "title": "Bilt · Bilt Card 优惠条款（Bilt Card Offer Terms）",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-palladium-card-fees",
+    "url": "https://legal.cardless.com/rates_and_fees/bilt/rates_and_fees.pdf",
+    "title": "Cardless · Bilt 卡利率和费用表",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "card-bilt-us-bilt-palladium-card-overview",
+    "url": "https://support.biltrewards.com/hc/en-us/articles/42897766682381-Bilt-Card-2-0-Program-Overview",
+    "title": "Bilt 帮助中心 · Bilt Card 2.0 计划概览",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "bilt-transfer-partners",
+    "url": "https://support.biltrewards.com/hc/en-us/articles/19086448638989-Bilt-s-Transfer-Partners",
+    "title": "Bilt 帮助中心 · 转点伙伴",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "bilt-rewards-terms",
+    "url": "https://www.bilt.com/terms",
+    "title": "Bilt · Bilt Rewards 条款",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "bilt-card-2-overview",
+    "url": "https://support.biltrewards.com/hc/en-us/articles/42897766682381-Bilt-Card-2-0-Program-Overview",
+    "title": "Bilt 帮助中心 · Bilt Card 2.0 计划概览",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
     "id": "card-chase-us-iberia-visa-signature-credit-card",
     "url": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
     "title": "Chase · Iberia Visa Signature Credit Card 官方产品页",
