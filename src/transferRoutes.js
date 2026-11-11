@@ -4,6 +4,7 @@
 import {queryKnowledge,knowledgeEntities,knowledgeManifest} from './knowledge.js';
 import {canonicalProgramme} from '../extension-next/bank-adapters.js';
 import {matchCardProduct} from './productCatalog.js';
+import {pointsReach,poolingRule,poolingExplanation} from './pointsPooling.js';
 
 export const transferProgrammes=[
  {id:'programme.amex-membership-rewards-us',bank:'Amex US',region:'US',reading:'membership rewards',label:'Membership Rewards'},
@@ -18,12 +19,14 @@ export function transferRoutes(programmeId,{asOf=knowledgeManifest.asOf}={}){
 }
 // With no card chosen every row shows, each labelled with its cards. A chosen card only gets rows that
 // list it; otherwise the partner stays visible with its rate hidden, because the evidence does not reach it.
-export function routesForCard(routes,{hasCard=false,productId=null}={}){
+// productIds widens one card to every product its points reach under the pooling rule (#192), such as a held Sapphire for
+// a Freedom card's Ultimate Rewards; rows from several products stay labelled with their cards.
+export function routesForCard(routes,{hasCard=false,productId=null,productIds=null}={}){
  if(!hasCard)return routes.map(r=>({...r,coverage:'listed'}));
- const partners=[...new Set(routes.map(r=>r.partnerId))];
+ const reach=productIds||(productId?[productId]:[]),partners=[...new Set(routes.map(r=>r.partnerId))];
  return partners.flatMap(id=>{
-  const rows=routes.filter(r=>r.partnerId===id),listed=rows.filter(r=>productId&&r.productIds.includes(productId));
-  if(listed.length)return listed.map(r=>({...r,coverage:'listed',cardSpecific:false}));
+  const rows=routes.filter(r=>r.partnerId===id),listed=rows.filter(r=>r.productIds.some(p=>reach.includes(p)));
+  if(listed.length)return listed.map(r=>({...r,coverage:'listed',cardSpecific:listed.length>1||!!productId&&!r.productIds.includes(productId)}));
   return [{...rows[0],coverage:'card-not-listed',cardSpecific:false,terms:{...rows[0].terms,ratio:null,ratioCondition:null,ratioStatement:null}}];
  });
 }
@@ -65,17 +68,24 @@ const nameKey=s=>String(s??'').normalize('NFKC').toLowerCase().replace(/[^\p{L}\
 const partnerMatches=(partnerId,named)=>{if(!named)return true;const p=programme(partnerId),n=nameKey(named);return !!n&&[p?.name,...(p?.aliases||[])].some(x=>x&&nameKey(x).includes(n));};
 const ROW_LIMIT=40;
 /** The assistant's answer to "where can my points go and how many is that?" for held cards (#72).
- * A card belongs to a programme only when a transfer rule lists its product; rates come only from transferRate
- * rules that list that card, and a stated points amount is converted by convertPoints. Cards are never pooled. */
-export function transferOptions(cards,{partner=null,points=null}={},{asOf=knowledgeManifest.asOf}={}){
- const programmes=new Map(),withoutRecord=[],routesOf=new Map(transferProgrammes.map(p=>[p.id,transferRoutes(p.id,{asOf})]));
+ * A card belongs to a programme when a transfer rule lists its product, or when the pooling rule (#192) makes it a member:
+ * a shared pool or a combinable programme reaches the partners of every held transfer card of that programme, and a
+ * per-card programme only its own. Rates come only from transferRate rules that list a reached card, and a stated
+ * points amount is converted by convertPoints. Balances are never added here. */
+// held is the whole wallet: a selected Freedom still reaches the Sapphire it can combine into, though only selected cards are listed.
+export function transferOptions(cards,{partner=null,points=null}={},{asOf=knowledgeManifest.asOf,held=cards}={}){
+ const programmes=new Map(),withoutRecord=[],noTransferCard=[],routesOf=new Map(transferProgrammes.map(p=>[p.id,transferRoutes(p.id,{asOf})]));
+ const reachOf=new Map(pointsReach([...new Set([...cards,...held])]).map(r=>[r.card,r]));
  for(const card of cards){
-  const productId=matchCardProduct(card).product?.id||null;
-  const tp=productId&&transferProgrammes.find(p=>routesOf.get(p.id).some(r=>r.productIds.includes(productId)));
+  const productId=matchCardProduct(card).product?.id||null,pooled=reachOf.get(card);
+  const tp=pooled?transferProgrammes.find(p=>p.id===pooled.rule.programmeId):productId&&transferProgrammes.find(p=>routesOf.get(p.id).some(r=>r.productIds.includes(productId)));
   if(!tp){withoutRecord.push({name:card.name,region:card.region});continue;}
-  const group=programmes.get(tp.id)||{programme:tp.label,region:tp.region,cards:[],rows:new Map()};programmes.set(tp.id,group);
-  group.cards.push({name:card.name,region:card.region});
-  for(const r of routesForCard(routesOf.get(tp.id),{hasCard:true,productId}).filter(r=>partnerMatches(r.partnerId,partner))){
+  const reach=pooled?pooled.reachProductIds:[productId];
+  // A member card whose programme holds no transfer card here: its points stay in the programme with no partner.
+  if(!reach.length){noTransferCard.push({name:card.name,region:card.region,programme:tp.label,pooling:pooled.rule.pooling});continue;}
+  const group=programmes.get(tp.id)||{programme:tp.label,region:tp.region,programmeId:tp.id,cards:[],rows:new Map()};programmes.set(tp.id,group);
+  group.cards.push({name:card.name,region:card.region,...(pooled&&!pooled.ownTransfer?{transfersThrough:pooled.via.map(c=>c.name)}:{})});
+  for(const r of routesForCard(routesOf.get(tp.id),{hasCard:true,productIds:reach}).filter(r=>partnerMatches(r.partnerId,partner))){
    const key=r.coverage==='listed'?r.ruleId:r.partnerId+'|not-listed';
    // A programme-wide phrase ("1:1 to most partners") is left out: it is not a rate for this partner.
    const row=group.rows.get(key)||(r.coverage==='listed'?{
@@ -86,11 +96,15 @@ export function transferOptions(cards,{partner=null,points=null}={},{asOf=knowle
     effectiveFrom:r.effectiveFrom??null,sourceIds:r.sourceIds,checkedAt:r.checkedAt,reviewDue:!!r.reviewDue
    // The partner is in the programme but no rule lists this card: no rate, minimum or conversion reaches it.
    }:{partner:r.partner,partnerKind:r.kind,cards:[],rate:'card-not-listed',ratio:null,sourceIds:r.sourceIds,checkedAt:r.checkedAt});
-   row.cards.push({name:card.name,region:card.region});group.rows.set(key,row);
+   // A rate another held card's rule lists reaches this card only through that card (pooled or combined first), so
+   // it is named: a Sapphire-only rate is never read as the Freedom's own.
+   const through=r.coverage==='listed'&&!r.productIds.includes(productId)?{through:[...new Set([...cards,...held])].filter(c=>c!==card&&reach.includes(matchCardProduct(c).product?.id)&&r.productIds.includes(matchCardProduct(c).product?.id)).map(c=>c.name)}:{};
+   row.cards.push({name:card.name,region:card.region,...through});group.rows.set(key,row);
   }
  }
- const all=[...programmes.values()].map(g=>({programme:g.programme,region:g.region,cards:g.cards,partners:[...g.rows.values()]}));
+ const pooling=id=>{const rule=poolingRule(id);if(!rule)return {};const e=poolingExplanation(rule);return {pooling:{kind:e.pooling,usableOnAnotherCard:e.usableOnAnotherCard,transferReach:e.transferReach,summary:e.summary,caveats:e.caveats.map(c=>c.summary)}};};
+ const all=[...programmes.values()].map(g=>({programme:g.programme,region:g.region,...pooling(g.programmeId),cards:g.cards,partners:[...g.rows.values()]}));
  const total=all.reduce((n,g)=>n+g.partners.length,0);let left=ROW_LIMIT;
  const shown=all.map(g=>{const partners=g.partners.slice(0,Math.max(left,0));left-=partners.length;return {...g,partners};});
- return {programmes:shown,cardsWithoutTransferRecord:withoutRecord,totalPartners:total,truncated:total>ROW_LIMIT,partnerFound:!partner||total>0};
+ return {programmes:shown,cardsWithoutTransferRecord:withoutRecord,...(noTransferCard.length?{cardsWithoutTransferCard:noTransferCard}:{}),totalPartners:total,truncated:total>ROW_LIMIT,partnerFound:!partner||total>0};
 }

@@ -831,5 +831,54 @@
     "title": "Citi · Citi Custom Cash Card 官方产品页",
     "checkedAt": "2026-11-04",
     "authority": "official"
+  },
+  {
+    "id": "mr-us-multiple-cards",
+    "title": "Amex US · 多张卡的 Membership Rewards 账户",
+    "url": "https://www.americanexpress.com/us/customer-service/faq.multiple-cards-enroll-membership-rewards.html",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "omaat-mr-us-pooling-2026",
+    "title": "One Mile at a Time · Amex 新卡不再自动合并积分（2026-10）",
+    "url": "https://onemileatatime.com/news/amex-stops-automatically-pooling-membership-rewards-points-new-cards/",
+    "checkedAt": "2026-11-11",
+    "authority": "community"
+  },
+  {
+    "id": "upgradedpoints-mr-us-pooling-2026",
+    "title": "Upgraded Points · Amex 积分合并规则变更（2026-10）",
+    "url": "https://upgradedpoints.com/news/amex-changes-points-pooling/",
+    "checkedAt": "2026-11-11",
+    "authority": "community"
+  },
+  {
+    "id": "mr-hk-about-linking",
+    "title": "Amex HK · 关于 Membership Rewards（合并账户）",
+    "url": "https://www.americanexpress.com/en-hk/rewards/membership-rewards/about-program",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "mr-hk-terms",
+    "title": "Amex HK · Membership Rewards 条款",
+    "url": "https://www.americanexpress.com/en-hk/rewards/membership-rewards/terms",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "chase-combine-points",
+    "title": "Chase · 合并信用卡积分",
+    "url": "https://www.chase.com/personal/credit-cards/education/rewards-benefits/how-to-combine-chase-credit-card-points-in-household",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "omaat-combine-ur",
+    "title": "One Mile at a Time · 合并 Ultimate Rewards 积分",
+    "url": "https://onemileatatime.com/combine-ultimate-rewards-points/",
+    "checkedAt": "2026-11-11",
+    "authority": "community"
   }
 ]

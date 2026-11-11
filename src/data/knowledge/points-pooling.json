@@ -1,0 +1,95 @@
+{
+  "schema": "points-pooling/1",
+  "checkedAt": "2026-11-11",
+  "note": "How the points accounts of one cardholder's cards relate, per programme and issuing region (#192). ownerOverride rules were stated by the owner and win over inference and over the default reading of public sources; the sources support them and give the caveats.",
+  "rules": [
+    {
+      "id": "pooling.amex-mr-us",
+      "programmeId": "programme.amex-membership-rewards-us",
+      "bank": "Amex US",
+      "region": "US",
+      "reading": "membership rewards",
+      "label": "Membership Rewards",
+      "pooling": "shared",
+      "ownerOverride": true,
+      "checkedAt": "2026-11-11",
+      "earningProductIds": [],
+      "summary": "美国 Membership Rewards：同一持卡人的 MR 卡共用一个积分池，余额只计一次，不按卡相加；池里的积分可用于池内任何一张卡能转的伙伴。",
+      "summaryEn": "Amex US Membership Rewards: the cardholder's MR cards share one points pool. The balance is counted once, not per card, and pooled points reach the transfer partners of any card in the pool.",
+      "caveats": [
+        {
+          "id": "new-card-needs-linking",
+          "since": "2026-10",
+          "summary": "2026年10月起，新开的美国卡默认有自己的积分账户，需要自己关联才会并入积分池；Amex 官方 FAQ 也写明积分可能分属一个或多个账户，可来电关联或解除。",
+          "summaryEn": "Since October 2026 a newly opened US card gets its own Rewards Account by default and joins the pool only once linked. Amex's FAQ says points may sit in one or several Rewards Accounts, and products can be linked or delinked by phone.",
+          "sourceIds": ["mr-us-multiple-cards", "omaat-mr-us-pooling-2026", "upgradedpoints-mr-us-pooling-2026"]
+        }
+      ],
+      "sourceIds": ["mr-us-multiple-cards", "omaat-mr-us-pooling-2026", "upgradedpoints-mr-us-pooling-2026"]
+    },
+    {
+      "id": "pooling.amex-mr-hk",
+      "programmeId": "programme.amex-membership-rewards-hk",
+      "bank": "Amex HK",
+      "region": "HK",
+      "reading": "membership rewards",
+      "label": "Membership Rewards",
+      "pooling": "per-card",
+      "ownerOverride": true,
+      "checkedAt": "2026-11-11",
+      "earningProductIds": [],
+      "summary": "香港 Membership Rewards：每张卡有自己的 MR 账户和余额，不共用。余额按卡相加得到总数，但一张卡的积分不能当作另一张卡的积分使用或转点。",
+      "summaryEn": "Amex HK Membership Rewards: each card has its own MR account and balance; nothing is shared. Balances are added up for a total, but one card's points are never usable on, or transferable through, another card.",
+      "caveats": [
+        {
+          "id": "linking-possible",
+          "summary": "Amex HK 官方页面和条款写明，同币种的合资格卡可以申请合并积分账户；本钱包按持卡人说明默认不合并，除非你已办理合并。",
+          "summaryEn": "Amex HK's page and terms say eligible accounts billed in the same currency can be linked into one programme account on request. The wallet keeps them separate, as the cardholder stated, unless you have linked them.",
+          "sourceIds": ["mr-hk-about-linking", "mr-hk-terms"]
+        },
+        {
+          "id": "explorer-corporate-separate",
+          "summary": "Explorer 信用卡和公司卡的积分账户在任何情况下都保持独立，不能合并。",
+          "summaryEn": "Explorer Credit Card and Corporate Card points accounts always stay separate and cannot be linked.",
+          "sourceIds": ["mr-hk-about-linking", "mr-hk-terms"]
+        }
+      ],
+      "sourceIds": ["mr-hk-about-linking", "mr-hk-terms"]
+    },
+    {
+      "id": "pooling.chase-ur-us",
+      "programmeId": "programme.chase-ultimate-rewards",
+      "bank": "Chase",
+      "region": "US",
+      "reading": "ultimate rewards",
+      "label": "Ultimate Rewards",
+      "pooling": "per-card-combinable",
+      "ownerOverride": true,
+      "checkedAt": "2026-11-11",
+      "earningProductIds": [
+        "chase-us-freedom-unlimited",
+        "chase-us-chase-freedom-flex-credit-card",
+        "chase-us-chase-freedom-rise-credit-card",
+        "chase-us-ink-business-unlimited-credit-card",
+        "chase-us-ink-business-cash-credit-card"
+      ],
+      "summary": "Chase Ultimate Rewards：每张卡有自己的 UR 账户和余额，按卡相加（不重复计算）；同一持卡人的 UR 卡之间可以自由合并积分，所以 Freedom 等不能直接转点的卡，把积分合并到 Sapphire 或 Ink Preferred 后，也能转到这些卡的伙伴。",
+      "summaryEn": "Chase Ultimate Rewards: each card has its own UR account and balance; balances are added up once, never double counted. Points move freely between the same cardholder's UR cards, so a Freedom or other non-transfer card's points reach the partners of a held Sapphire or Ink Preferred once combined into it.",
+      "caveats": [
+        {
+          "id": "combine-first",
+          "summary": "要先在 Chase 账户里把积分合并到能转点的卡，再从那张卡转出；合并不收费、无最低额、即时到账，但不可撤销。",
+          "summaryEn": "Points must first be combined into the transfer card in the Chase account, then transferred from it. Combining is free, has no minimum and is instant, but cannot be undone.",
+          "sourceIds": ["chase-combine-points", "omaat-combine-ur"]
+        },
+        {
+          "id": "co-brand-excluded",
+          "summary": "联名卡（航空、酒店等）的积分不是 UR，不能合并。",
+          "summaryEn": "Co-brand cards (airline, hotel and others) earn their partner's currency, not UR, and cannot be combined.",
+          "sourceIds": ["chase-combine-points", "omaat-combine-ur"]
+        }
+      ],
+      "sourceIds": ["chase-combine-points", "omaat-combine-ur"]
+    }
+  ]
+}
