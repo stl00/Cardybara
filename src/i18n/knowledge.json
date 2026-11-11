@@ -489,7 +489,8 @@
     "I Prefer Hotel Rewards": "I Prefer Hotel Rewards",
     "Amtrak Guest Rewards": "Amtrak Guest Rewards",
     "Bilt Rewards：每人只能有一个 Bilt Rewards 账户，卡、房租和合作商户赚的积分都进这个账户，余额只计一次。": "Bilt Rewards: each person may hold only one Bilt Rewards account. Points from the card, housing payments and partner merchants all go into it, so the balance is counted once.",
-    "每位会员同一时间只能持有一张 Bilt 卡；换卡后积分仍在同一个账户。": "Each member can hold only one Bilt Card at a time; points stay in the same account after changing cards."
+    "每位会员同一时间只能持有一张 Bilt 卡；换卡后积分仍在同一个账户。": "Each member can hold only one Bilt Card at a time; points stay in the same account after changing cards.",
+    "航空、酒店、邮轮和租车直接消费": "Airlines, hotels, cruise lines and car rental, bought directly"
   },
   "zh-TW": {
     "直订航班": "直訂航班",
@@ -981,6 +982,7 @@
     "I Prefer Hotel Rewards": "I Prefer Hotel Rewards",
     "Amtrak Guest Rewards": "Amtrak Guest Rewards",
     "Bilt Rewards：每人只能有一个 Bilt Rewards 账户，卡、房租和合作商户赚的积分都进这个账户，余额只计一次。": "Bilt Rewards：每人只能有一個 Bilt Rewards 賬戶，卡、房租和合作商戶賺的積分都進這個賬戶，餘額只計一次。",
-    "每位会员同一时间只能持有一张 Bilt 卡；换卡后积分仍在同一个账户。": "每位會員同一時間只能持有一張 Bilt 卡；換卡後積分仍在同一個賬戶。"
+    "每位会员同一时间只能持有一张 Bilt 卡；换卡后积分仍在同一个账户。": "每位會員同一時間只能持有一張 Bilt 卡；換卡後積分仍在同一個賬戶。",
+    "航空、酒店、邮轮和租车直接消费": "航空、酒店、郵輪和租車直接消費"
   }
 }

@@ -67336,7 +67336,8 @@
         "currency": "USD",
         "period": "calendar-year"
       },
-      "creditedSpendMayNotEarn": null
+      "creditedSpendMayNotEarn": null,
+      "afterCapPercent": 1
     },
     "validity": {
       "effectiveFrom": null,
@@ -67391,7 +67392,7 @@
       "programme.bilt-rewards"
     ],
     "content": {
-      "title": "其他旅行",
+      "title": "航空、酒店、邮轮和租车直接消费",
       "summary": "直接向航空公司、酒店、邮轮和租车商户消费（按 Mastercard 商户类别）。",
       "sourceText": "You’ll earn 2 Bilt Points (1 base Bilt Point plus 1 bonus Bilt Point) per $1 spent on Eligible Purchases made directly",
       "howToUse": [
@@ -67403,7 +67404,7 @@
     "terms": {
       "multiplier": 2,
       "unit": "points-per-USD",
-      "spendCategory": "其他旅行",
+      "spendCategory": "航空、酒店、邮轮和租车直接消费",
       "spendCap": null,
       "creditedSpendMayNotEarn": null
     },

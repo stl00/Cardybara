@@ -37,7 +37,12 @@ test('a Bilt card is added by hand, gets no connection row and never joins a ref
  // The collector rejects a refresh that names a card of a bank it does not know, so the page leaves Bilt cards out.
  const chase={id:'c1',bank:'Chase',tail:'1111',currency:'USD'},bilt={id:'b1',bank:'Bilt',tail:'2222',currency:'USD'};
  assert.throws(()=>request({type:'refresh',requestId:'r1',banks:['Chase'],cards:[chase,bilt],channel:'cardybara-dashboard'}),/invalid_card/);
- assert.match(readFileSync(new URL('../src/main.jsx',import.meta.url),'utf8'),/cards:data\.cards\.filter\(c=>!manualOnly\(c\.bank\)\)\.map\(refreshCard\)/);
+ const main=readFileSync(new URL('../src/main.jsx',import.meta.url),'utf8');
+ assert.match(main,/cards:data\.cards\.filter\(c=>!manualOnly\(c\.bank\)\)\.map\(refreshCard\)/);
+ // Removing a Bilt card sends nothing to the collector, which would reject the unknown bank with an error toast.
+ assert.throws(()=>request({type:'remove-card',requestId:'r2',bank:'Bilt',cardId:'b1',tail:'2222',channel:'cardybara-dashboard'}));
+ assert.match(main,/if\(v2\.current&&!manualOnly\(card\.bank\)\)sendCollector\('remove-card'/);
+ assert.match(main,/Bilt:'Bilt'\}\);/,'the wallet bank filter offers Bilt');
 });
 
 test('the visual picker lists Bilt after Chase and Amex US and finds it by name',()=>{
@@ -85,8 +90,14 @@ test('card choice reads the Bilt earning rules, with conditions kept',()=>{
  assert.ok(obs.optional.some(o=>o.rate===3&&o.needs.includes('chosen-category')));
  const hotel=chooseCard({category:'hotel',channel:'portal',portal:'Bilt Travel',amount:300,currency:'USD',country:'US'},ctx);
  assert.equal(row(hotel,'Bilt Obsidian Card').earn.rate,4);assert.equal(row(hotel,'Bilt Palladium Card').earn.rate,4);
+ // Obsidian's 2X travel is airlines, hotels, cruise lines and car rental bought directly; transit and Lyft stay 1X.
+ const transit=chooseCard({category:'transit',amount:20,currency:'USD',country:'US'},ctx);assert.equal(row(transit,'Bilt Obsidian Card').earn.rate,1);
+ assert.equal(row(chooseCard({category:'car-rental',amount:200,currency:'USD',country:'US'},ctx),'Bilt Obsidian Card').earn.rate,2);
  const lyft=chooseCard({category:'transit',merchant:'Lyft',amount:20,currency:'USD',country:'US'},ctx);
  assert.ok(row(lyft,'Bilt Palladium Card').optional.some(o=>o.rate===4&&o.needs.includes('linked-account')));
+ assert.equal(row(lyft,'Bilt Obsidian Card').earn.rate,1);
+ const grocery=queryKnowledge({productId:IDS.obsidian,kind:'earning-rate',asOf:DAY}).rules.find(r=>r.terms.spendCategory==='超市（自选类别）');
+ assert.deepEqual([grocery.terms.spendCap.amount,grocery.terms.afterCapPercent],[25000,1]);
 });
 
 test('hotel credits become half-year credit tasks; Bilt Cash is not a credit to track',()=>{

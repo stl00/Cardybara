@@ -263,7 +263,8 @@
   "Bilt Travel 机票": "airline",
   "Lyft（关联 Bilt 账户）": "ground-transport",
   "餐饮（自选类别，默认）": "dining",
-  "超市（自选类别）": "shopping"
+  "超市（自选类别）": "shopping",
+  "航空、酒店、邮轮和租车直接消费": "travel"
  },
  "brands": [
   {

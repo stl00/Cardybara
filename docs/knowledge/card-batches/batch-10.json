@@ -238,13 +238,13 @@
       "currency": "USD",
       "period": "calendar-year"
      },
-     "afterCap": null,
+     "afterCap": 1,
      "noteZh": "选了超市时，每个自然年合计25,000美元内3倍，之后1倍；与餐饮二选一。",
      "noteEn": "When grocery is chosen: 3X on up to $25,000 a calendar year, then 1X. Either grocery or dining."
     },
     {
-     "zh": "其他旅行",
-     "en": "Other travel",
+     "zh": "航空、酒店、邮轮和租车直接消费",
+     "en": "Airlines, hotels, cruise lines and car rental, bought directly",
      "multiplier": 2,
      "unit": "points-per-USD",
      "category": "travel",
