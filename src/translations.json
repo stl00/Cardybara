@@ -1805,7 +1805,6 @@
     "同一积分池的读数；合计只计一次。": "Reading of a shared pool; the total counts it once.",
     "每张卡独立账户，按卡相加（{0} 张卡）": "One account per card, added up ({0} cards)",
     "这张卡自己的积分账户，已计入合计；不能用于其他卡。": "This card's own points account, included in the total; not usable on other cards.",
-    "每张卡独立账户，按卡相加（{0} 张卡）；可在同一持卡人的卡之间合并": "One account per card, added up ({0} cards); points can be combined between the same cardholder's cards",
     "这张卡自己的积分账户，已计入合计；可合并到同一持卡人的其他卡。": "This card's own points account, included in the total; it can be combined into the same cardholder's other cards.",
     "合计": "Total",
     "同一积分池的卡读数不同：新开的卡可能还没有关联到积分池，合计按最新读数。": "Cards of one pool show different balances: a newly opened card may not be linked to the pool yet. The total uses the newest reading.",
@@ -1858,7 +1857,12 @@
     "这张卡已隐藏": "This card is hidden",
     "银行刷新照常读取这张卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它。": "Bank refreshes still read this card, but the overview, points, benefits, reminders and card assistant treat it as a card you don't hold.",
     "显示已隐藏的卡（{0}）": "Show hidden cards ({0})",
-    "匹配的卡都已隐藏，可以在下方查看。": "Every matching card is hidden. You can see them below."
+    "匹配的卡都已隐藏，可以在下方查看。": "Every matching card is hidden. You can see them below.",
+    "{0} 张卡合计；同一持卡人的卡之间可以合并": "Total of {0} cards; points can be combined between the same cardholder's cards",
+    "按卡查看": "By card",
+    "积分池": "Points pool",
+    "合计（可合并）": "Total (combinable)",
+    "未识别的卡片": "Unrecognised card"
   },
   "zh-TW": {
     "美国": "美國",
@@ -3666,7 +3670,6 @@
     "同一积分池的读数；合计只计一次。": "同一積分池的讀數；合計只計一次。",
     "每张卡独立账户，按卡相加（{0} 张卡）": "每張卡獨立帳戶，按卡相加（{0} 張卡）",
     "这张卡自己的积分账户，已计入合计；不能用于其他卡。": "這張卡自己的積分帳戶，已計入合計；不能用於其他卡。",
-    "每张卡独立账户，按卡相加（{0} 张卡）；可在同一持卡人的卡之间合并": "每張卡獨立帳戶，按卡相加（{0} 張卡）；可在同一持卡人的卡之間合併",
     "这张卡自己的积分账户，已计入合计；可合并到同一持卡人的其他卡。": "這張卡自己的積分帳戶，已計入合計；可合併到同一持卡人的其他卡。",
     "合计": "合計",
     "同一积分池的卡读数不同：新开的卡可能还没有关联到积分池，合计按最新读数。": "同一積分池的卡讀數不同：新開的卡可能還沒有關聯到積分池，合計按最新讀數。",
@@ -3719,6 +3722,11 @@
     "这张卡已隐藏": "這張卡已隱藏",
     "银行刷新照常读取这张卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它。": "銀行刷新照常讀取這張卡，但總覽、積分、福利、提醒和用卡助手都當作你沒有持有它。",
     "显示已隐藏的卡（{0}）": "顯示已隱藏的卡（{0}）",
-    "匹配的卡都已隐藏，可以在下方查看。": "符合的卡都已隱藏，可以在下方查看。"
+    "匹配的卡都已隐藏，可以在下方查看。": "符合的卡都已隱藏，可以在下方查看。",
+    "{0} 张卡合计；同一持卡人的卡之间可以合并": "{0} 張卡合計；同一持卡人的卡之間可以合併",
+    "按卡查看": "按卡查看",
+    "积分池": "積分池",
+    "合计（可合并）": "合計（可合併）",
+    "未识别的卡片": "未識別的卡片"
   }
 }
