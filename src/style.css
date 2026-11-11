@@ -79,7 +79,7 @@ html{scroll-behavior:smooth}body{margin:0}.app-layout{min-height:100vh}.app-side
 @media(max-width:767px){.payment-assistant .ant-card-body{padding:12px 16px}.payment-search{width:100%}.payment-actions{flex:1 1 100%}.page-heading .ant-space{width:100%}.page-overview .wallet-data-status,.page-overview .page-heading .ant-typography-secondary{display:none}}
 .card-product-picker{margin:12px 0 4px}
 .card-product-suggestion{margin-top:8px;padding:10px 12px;border:1px solid var(--ant-color-border-secondary);border-radius:8px}
-/* Card-product picker (#199): tiles drawn from Ant Design tokens, so both themes work without literal colours. */
+/* Card-product picker (issue 199): tiles drawn from Ant Design tokens, so both themes work without literal colours. */
 .product-picker{display:flex;flex-direction:column;gap:12px}.product-picker-filters .ant-tag-checkable{margin:0;padding:2px 8px;border:1px solid var(--ant-color-border-secondary)}.product-picker-filters .bank-identity{font-size:12px}
 .product-picker-list{max-height:min(62vh,640px);overflow-y:auto;overscroll-behavior:contain;padding:2px 4px 4px;margin:0 -4px}.product-picker-group+.product-picker-group{margin-top:16px}
 .product-picker-group-head{position:sticky;top:-2px;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 2px;margin-bottom:8px;background:var(--ant-color-bg-elevated);border-bottom:1px solid var(--ant-color-border-secondary);font-weight:600}.product-picker-group-head .ant-typography{font-size:12px;font-weight:400}
