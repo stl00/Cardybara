@@ -11,8 +11,10 @@ import {keyStatus,completeBody} from './model-client.js';
 export const PARSER_SETTINGS='cardybara-parser-settings';
 export const SECTION_KEYS=['card','reward','benefit','offer','transaction'];
 // Model-assisted parsing talks to the provider directly with the owner's key; nothing on localhost is involved.
+// With the hosted service it is off: bank figures never go through the Cardybara gateway.
 export async function parserStatus(){
  const status=await keyStatus();
+ if(status.hosted)return {configured:false,provider:status.provider,model:status.model||null,processing:'cloud-direct',reason:'hosted_no_parsing'};
  return {configured:status.ready,provider:status.provider||'deepseek',model:status.model||null,processing:'cloud-direct',...(status.ready?{}:{reason:status.saved?'model_disabled_or_no_permission':'add_model_key'})};
 }
 /** One bounded parse: the same request the local server used to send, now from the extension. */
@@ -20,7 +22,7 @@ export async function modelParse(batch,{signal}={}){
  // The bounds the local server used to enforce, kept so a page can't push an oversized request to the provider.
  if(!batch||!Array.isArray(batch.blocks)||batch.blocks.length>60||!Array.isArray(batch.aliases)||batch.aliases.length>40||!Array.isArray(batch.links)||batch.links.length>12||batch.blocks.some(b=>typeof b.text!=='string'||b.text.length>1500)||JSON.stringify(batch).length>100000)throw Error('model_request_failed');
  const {body}=modelRequest({provider:'deepseek',key:'unused'},batch);
- const response=await completeBody(body,{signal,timeout:27000}),content=response.choices?.[0]?.message?.content;
+ const response=await completeBody(body,{signal,timeout:27000,hosted:false}),content=response.choices?.[0]?.message?.content;
  if(typeof content!=='string'||content.length>150000)throw Error('model_request_failed');
  try{return JSON.parse(content);}catch{throw Error('model_request_failed');}
 }
@@ -88,7 +90,7 @@ switchTails=(found[0]?.result||[]).filter(t=>ctx.cards.some(c=>c.tail===t&&(['BO
    if(raw.observations?.length){for(let start=0;start<raw.observations.length;start+=80){const grounded=validateModel({items:raw.observations.slice(start,start+80),nextLinkId:null},snapshot);items=mergeRecords(items,grounded.items.map(i=>({...i,method:'rules'})));rejected+=grounded.rejected.length;for(const reason of grounded.rejected)rejectReasons[reason]=(rejectReasons[reason]||0)+1;await io.checkpoint(items,summary('reading'));}}
 
    for(const batch of (!allowModel||raw.rulesComplete||raw.observations?.length&&url.pathname.startsWith('/offers')?[]:snapshotBatches(snapshot))){
-    await check();stage='parse';let body;try{body={raw:await modelParse(batch)};}catch(e){throw Error(({model_auth_failed:'model_auth_failed',model_rate_limited:'parser_busy',model_not_ready:'setup_required'})[e.message]||'parser_unavailable');}await check();
+    await check();stage='parse';let body;try{body={raw:await modelParse(batch)};}catch(e){throw Error(({model_auth_failed:'model_auth_failed',invite_invalid:'model_auth_failed',invite_revoked:'model_auth_failed',model_rate_limited:'parser_busy',hosted_over_cap:'parser_busy',model_not_ready:'setup_required'})[e.message]||'parser_unavailable');}await check();
     const current=await chrome.tabs.get(ctx.tabId);const same=await chrome.scripting.executeScript({target:{tabId:ctx.tabId,documentIds:[read[0].documentId]},func:()=>true});if(current.url!==tab.url||same[0]?.documentId!==read[0].documentId)throw Error('document_changed');
     const result=validateModel(body.raw,batch);items=mergeRecords(items,mvp?result.items.filter(i=>inScope(i,id=>id)):result.items);suggested??=result.nextLinkId;rejected+=result.rejected.length;for(const reason of result.rejected)rejectReasons[reason]=(rejectReasons[reason]||0)+1;
     await io.checkpoint(items,summary('reading'));

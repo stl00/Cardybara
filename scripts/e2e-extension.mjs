@@ -1,7 +1,7 @@
 // End-to-end test of the packaged extension: the exact release ZIP, installed in a clean Chrome
 // profile, against a local synthetic bank. No bank is contacted and no secret is used.
 //
-//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart] [--expired-login] [--cancel] [--chat] [--cards] [--upgrade-from <previous-release-dir-or-zip>]
+//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart] [--expired-login] [--cancel] [--chat [--hosted]] [--cards] [--upgrade-from <previous-release-dir-or-zip>]
 //
 // --restart (nightly set): after the main path, close Chrome and start it again on the same
 // profile; the extension must still be installed and the records it read must still be there.
@@ -11,7 +11,11 @@
 // --chat (nightly set): after the main path, the user saves a test-only model key in settings, which
 // asks for the provider's host permission, then asks the assistant a question. A scripted model
 // answers through a synthetic provider; the answer must show in the chat, and no balance read from
-// the bank may ever reach the model. The user then hides a card: the overview and a new chat leave it
+// the bank may ever reach the model. With --hosted, the user picks the Cardybara hosted service and saves a
+// test-only invite code instead; the packaged client goes through the gateway's own code (gateway/src),
+// served locally on the gateway host, which forwards to the same scripted provider with its own synthetic
+// key. With --negative-controls, a revoked code and a code over its daily cap must fail.
+// The user then hides a card: the overview and a new chat leave it
 // out while the bank records stay, and unhiding brings it back (stl00/Cardybara#198).
 // --upgrade-from (nightly set): the main path runs on the previous package instead; then Chrome is
 // closed, the tested package replaces the previous one in the same directory, and Chrome starts again
@@ -38,6 +42,8 @@ import {basename,dirname,join,normalize,isAbsolute,resolve,sep} from 'node:path'
 import {fileURLToPath} from 'node:url';
 import {findChrome} from './dev-collector/chrome-launcher.mjs';
 import {readZipEntry,zipEntryNames} from './read-zip.mjs';
+import {GATEWAY_ORIGIN} from '../extension-next/model-client.js';
+import {localGateway} from '../gateway/src/local.mjs';
 
 const root=fileURLToPath(new URL('..',import.meta.url));
 let STEP_MS=Number(process.env.CARDYBARA_E2E_STEP_MS||30000);
@@ -46,6 +52,11 @@ const BANK_HOST='secure.chase.com';
 const MODEL_HOST='api.deepseek.com';
 // A made-up key in the provider's key shape. It is never a real key and only ever reaches the synthetic provider.
 const TEST_KEY='e2e-test-only-'+'0'.repeat(24);
+// The hosted gateway the packaged client calls under --chat --hosted, a made-up invite code in the gateway's
+// shape, and the gateway's own made-up provider key. None of them is real.
+const GATEWAY_HOST=new URL(GATEWAY_ORIGIN).hostname;
+const TEST_INVITE='cdy_'+'e2e-test-only-'.padEnd(43,'0');
+const GATEWAY_PROVIDER_KEY='e2e-gateway-provider-key-not-real';
 // Values the synthetic bank shows. They are read into the wallet and must never travel to the model.
 const READ_VALUES=['1234.56','1,234.56','67.89'];
 const READ_TAILS=['1234','5678'];
@@ -101,12 +112,15 @@ export async function checkManifest(dir){
 // --- synthetic bank ------------------------------------------------------------------------
 async function syntheticBank(work){
  const key=join(work,'bank-key.pem'),cert=join(work,'bank-cert.pem');
- execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',key,'-out',cert,'-days','1','-subj','/CN='+BANK_HOST,'-addext',`subjectAltName=DNS:${BANK_HOST},DNS:${MODEL_HOST}`],{stdio:'ignore'});
+ execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',key,'-out',cert,'-days','1','-subj','/CN='+BANK_HOST,'-addext',`subjectAltName=DNS:${BANK_HOST},DNS:${MODEL_HOST},DNS:${GATEWAY_HOST}`],{stdio:'ignore'});
  const page=await readFile(join(root,'tests/fixtures/synthetic-bank.html'));
  const requests=[];let held=null;
  const model={script:null,requests:[]};
+ // The gateway starts once the extension id is known (it allows only that origin); until then it refuses.
+ const gateway={handle:null,requests:[],logs:[]};
  const server=createServer({key:await readFile(key),cert:await readFile(cert)},(req,res)=>{
   if((req.headers.host||'').split(':')[0]===MODEL_HOST){syntheticProvider(model,req,res);return;}
+  if((req.headers.host||'').split(':')[0]===GATEWAY_HOST){serveGateway(gateway,req,res);return;}
   requests.push(req.headers.host+req.url);note('synthetic bank served',req.method,req.url);
   if(req.url==='/favicon.ico'){res.writeHead(404).end();return;}
   const answer=()=>setTimeout(()=>res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}).end(page),BANK_DELAY_MS);
@@ -115,7 +129,14 @@ async function syntheticBank(work){
  });
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const spki=createHash('sha256').update(createPublicKey(await readFile(cert)).export({type:'spki',format:'der'})).digest('base64');
- return {port:server.address().port,spki,requests,model,hold(){held=held||[];},heldCount:()=>held?.length||0,release(){const waiting=held||[];held=null;waiting.forEach(f=>f());return waiting.length;},close:()=>new Promise(r=>{server.close(r);server.closeAllConnections();})};
+ return {port:server.address().port,spki,requests,model,gateway,
+  async startGateway({origin,status,dailyRequests}){
+   const g=localGateway({vars:{PROVIDER_KEY:GATEWAY_PROVIDER_KEY,ALLOWED_ORIGINS:origin,DAILY_REQUESTS_PER_CODE:String(dailyRequests)},log:line=>{gateway.logs.push(line);note('gateway',line);},
+    // The gateway's upstream is the same scripted provider, reached in process.
+    fetch:async(url,init)=>{const {status,value}=await providerAnswer(model,{method:init.method,path:new URL(url).pathname,authorization:init.headers.Authorization,raw:init.body,via:'gateway'});return new Response(JSON.stringify(value),{status,headers:{'Content-Type':'application/json'}});}});
+   await g.addInvite(TEST_INVITE,{id:'e2e-tester',status});gateway.handle=g.handle;
+  },
+  hold(){held=held||[];},heldCount:()=>held?.length||0,release(){const waiting=held||[];held=null;waiting.forEach(f=>f());return waiting.length;},close:()=>new Promise(r=>{server.close(r);server.closeAllConnections();})};
 }
 
 // A scripted stand-in for the provider's API: GET /models answers a key check, and each chat request takes
@@ -124,18 +145,38 @@ function syntheticProvider(model,req,res){
  const chunks=[];
  req.on('data',c=>chunks.push(c));
  req.on('end',async()=>{
-  const raw=Buffer.concat(chunks).toString('utf8');let body=null;try{body=raw?JSON.parse(raw):null;}catch{}
-  model.requests.push({method:req.method,path:req.url,authorization:req.headers.authorization||null,raw,body});
-  note('synthetic provider served',req.method,req.url);
-  const json=(status,value)=>res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'}).end(JSON.stringify(value));
-  if(req.headers.authorization!=='Bearer '+TEST_KEY)return json(401,{error:{message:'synthetic: unknown key'}});
-  if(req.method==='GET'&&req.url==='/models')return json(200,{object:'list',data:[{id:'deepseek-flash',object:'model'}]});
-  if(req.method!=='POST'||req.url!=='/chat/completions'||!body)return json(404,{error:{message:'synthetic: not found'}});
-  const chats=model.requests.filter(r=>r.method==='POST');
-  const step=model.script?.[chats.length-1];
-  if(!step)return json(500,{error:{message:'synthetic: the script has no step '+chats.length}});
-  const message=await step(body);
-  json(200,{id:'synthetic-'+chats.length,object:'chat.completion',choices:[{index:0,message:{role:'assistant',...message},finish_reason:message.tool_calls?'tool_calls':'stop'}],usage:{prompt_tokens:1,completion_tokens:1}});
+  const {status,value}=await providerAnswer(model,{method:req.method,path:req.url,authorization:req.headers.authorization||null,raw:Buffer.concat(chunks).toString('utf8'),via:'direct'});
+  res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'}).end(JSON.stringify(value));
+ });
+}
+// The provider accepts the test key a user pastes and the gateway's own test key, nothing else.
+async function providerAnswer(model,{method,path,authorization,raw,via}){
+ let body=null;try{body=raw?JSON.parse(raw):null;}catch{}
+ model.requests.push({method,path,authorization:authorization||null,raw:raw||'',body,via});
+ note('synthetic provider served',method,path,'via',via);
+ const json=(status,value)=>({status,value});
+ if(![TEST_KEY,GATEWAY_PROVIDER_KEY].some(k=>authorization==='Bearer '+k))return json(401,{error:{message:'synthetic: unknown key'}});
+ if(method==='GET'&&path==='/models')return json(200,{object:'list',data:[{id:'deepseek-flash',object:'model'}]});
+ if(method!=='POST'||path!=='/chat/completions'||!body)return json(404,{error:{message:'synthetic: not found'}});
+ const chats=model.requests.filter(r=>r.method==='POST');
+ const step=model.script?.[chats.length-1];
+ if(!step)return json(500,{error:{message:'synthetic: the script has no step '+chats.length}});
+ const message=await step(body);
+ return json(200,{id:'synthetic-'+chats.length,object:'chat.completion',choices:[{index:0,message:{role:'assistant',...message},finish_reason:message.tool_calls?'tool_calls':'stop'}],usage:{prompt_tokens:1,completion_tokens:1}});
+}
+// The gateway host runs the gateway's own request handler on in-memory bindings. Every request is kept
+// with its Origin and Authorization headers for the checks.
+function serveGateway(gateway,req,res){
+ const chunks=[];
+ req.on('data',c=>chunks.push(c));
+ req.on('end',async()=>{
+  const raw=Buffer.concat(chunks).toString('utf8');
+  gateway.requests.push({method:req.method,path:req.url,origin:req.headers.origin||null,authorization:req.headers.authorization||null,raw});
+  note('gateway request',req.method,req.url);
+  if(!gateway.handle){res.writeHead(503).end();return;}
+  const headers=Object.fromEntries(['origin','authorization','content-type','access-control-request-method','access-control-request-headers'].filter(h=>req.headers[h]).map(h=>[h,req.headers[h]]));
+  const response=await gateway.handle(new Request(`https://${GATEWAY_HOST}${req.url}`,{method:req.method,headers,...(['GET','HEAD'].includes(req.method)?{}:{body:raw})}));
+  res.writeHead(response.status,Object.fromEntries(response.headers)).end(Buffer.from(await response.arrayBuffer()));
  });
 }
 
@@ -164,9 +205,9 @@ async function launch(profile,bank){
  const args=[
   '--user-data-dir='+profile,'--remote-debugging-pipe','--enable-unsafe-extension-debugging',
   '--headless=new','--no-first-run','--no-default-browser-check','--disable-sync','--disable-component-update','--window-size=1280,900',
-  // The bank host goes to the synthetic bank and the model host to the synthetic provider (one local
-  // server, routed by Host); nothing else resolves.
-  `--host-rules=MAP ${BANK_HOST} 127.0.0.1:${bank.port}, MAP ${MODEL_HOST} 127.0.0.1:${bank.port}, MAP * ~NOTFOUND`,
+  // The bank host goes to the synthetic bank, the model host to the synthetic provider and the gateway
+  // host to the gateway's own code (one local server, routed by Host); nothing else resolves.
+  `--host-rules=MAP ${BANK_HOST} 127.0.0.1:${bank.port}, MAP ${MODEL_HOST} 127.0.0.1:${bank.port}, MAP ${GATEWAY_HOST} 127.0.0.1:${bank.port}, MAP * ~NOTFOUND`,
   '--ignore-certificate-errors-spki-list='+bank.spki,
   ...(process.platform==='linux'?['--no-sandbox']:[]),'about:blank'];
  const child=spawn(await findChrome(),args,{stdio:['ignore','ignore','pipe','pipe','pipe']});
@@ -176,8 +217,9 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=scriptedChat,cards=false,cardFeeDate={month:2,day:29},upgradeFrom=null,mutatePrevious,swap=true}={}){
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=scriptedChat,hosted=false,invite=TEST_INVITE,inviteStatus='active',inviteDailyRequests=50,cards=false,cardFeeDate={month:2,day:29},upgradeFrom=null,mutatePrevious,swap=true}={}){
  if([restart,expiredLogin,cancel,chat,cards,!!upgradeFrom].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel, --chat, --cards and --upgrade-from separately: each starts from the end of the main path');
+ if(hosted&&!chat)throw Error('--hosted is a variant of --chat');
  if(stepMs)STEP_MS=stepMs;log=[];lastState=null;
  const work=await mkdtemp(join(tmpdir(),'cardybara-e2e-'));
  const sessions={};let browser,bank;
@@ -481,44 +523,59 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    note('PASS: a refresh waiting at needs-login stops from the wallet header and does not read after a sign-in');
   }
   if(chat){
-   // 9. The assistant chat UI on the packaged extension with a scripted model. The user pastes a key
-   // in settings and saves it with a real click, which asks for the provider's host permission; then
-   // asks a question. The answer comes from the scripted provider through the packaged client.
+   // 9. The assistant chat UI on the packaged extension with a scripted model. The user picks how to reach
+   // the model, pastes a test-only key (or, with --hosted, an invite code) in settings and saves it with a
+   // real click, which asks for that host's permission; then asks a question. The answer comes from the
+   // scripted provider through the packaged client, and with --hosted through the gateway.
    bank.model.script=chatScript;
+   const credential=hosted?invite:chatKey,host=hosted?GATEWAY_HOST:MODEL_HOST,what=hosted?'invite code':'key';
+   if(hosted)await bank.startGateway({origin:`chrome-extension://${id}`,status:inviteStatus,dailyRequests:inviteDailyRequests});
+   const reached=()=>hosted?bank.gateway.requests.length:bank.model.requests.length;
    const access={cdp,id,attach,evaluate,sessions};
-   await allowModelHost(access);
+   await allowModelHost(access,host);
+   // The beta build offers the hosted service only. An own key is a developer-only mode behind a storage flag
+   // no wallet UI sets; the harness sets it the way a developer would, from DevTools.
+   if(!hosted)await evaluate('worker',`chrome.storage.local.set({'cardybara-dev-own-key':true}).then(()=>true)`);
+   // Leave and re-enter settings so the page reads the flag afresh.
+   await evaluate('wallet','location.hash="wallet"');await sleep(200);
    await evaluate('wallet','location.hash="settings"');
-   const keyBox=await until('the model key field',()=>evaluate('wallet',`(()=>{const el=document.querySelector('input[type=password]');if(!el)return false;el.focus();return true;})()`));
-   if(!keyBox)throw new StepError('no model key field on the settings page');
-   await cdp.send('Input.insertText',{text:chatKey},sessions.wallet);
+   if(hosted){
+    await until('the invite code field',()=>evaluate('wallet',`!!document.querySelector('input[type=password]')`));
+    const t=await pageText('wallet');
+    for(const zh of ['使用自己的 key','粘贴你的 API 密钥','保存密钥','自动补全银行数据'])if(JSON.parse(words(zh)).some(w=>t.includes(w)))throw new StepError('the beta settings page offers an own model key: '+zh);
+    note('settings offer the hosted service only');
+   }else await until('the AI mode choice',()=>clickText('wallet','label.ant-radio-wrapper','使用自己的 key'));
+   const keyBox=await until('the '+what+' field',()=>evaluate('wallet',`(()=>{const el=document.querySelector('input[type=password]');if(!el||!${JSON.stringify(words(hosted?'粘贴邀请码':'粘贴你的 API 密钥'))}.includes(el.placeholder))return false;el.focus();return true;})()`));
+   if(!keyBox)throw new StepError('no '+what+' field on the settings page');
+   await cdp.send('Input.insertText',{text:credential},sessions.wallet);
    await cdp.send('Target.activateTarget',{targetId:walletTarget}).catch(()=>{});
    // A real mouse click: Chrome only asks for the host permission from a user gesture.
-   // A click that lands is seen as the button going busy or as the key check reaching the provider; a
+   // A click that lands is seen as the button going busy or as the check reaching the service; a
    // click that missed (the page still settling) is sent again.
-   await until('the save-key click to take effect',async()=>{
-    const checks=bank.model.requests.length;
-    if(!await realClick('wallet','button',words('保存密钥')))return false;
+   await until('the save click to take effect',async()=>{
+    const checks=reached();
+    if(!await realClick('wallet','button',words(hosted?'保存邀请码':'保存密钥')))return false;
     const end=Date.now()+2000;
-    while(Date.now()<end){if(bank.model.requests.length>checks||await evaluate('wallet',`!!document.querySelector('.ant-btn-loading')||!document.querySelector('input[type=password]')`))return true;await sleep(100);}
+    while(Date.now()<end){if(reached()>checks||await evaluate('wallet',`!!document.querySelector('.ant-btn-loading')||!document.querySelector('input[type=password]')`))return true;await sleep(100);}
     note('the save click did not take effect; clicking again');return false;
    });
-   note('pasted a test-only key and pressed save');
-   await until('the key to be saved and ready',async()=>{
+   note('pasted a test-only',what,'and pressed save');
+   await until('the '+what+' to be saved and ready',async()=>{
     const t=await pageText('wallet');
-    for(const zh of ['没有获得访问服务商的权限，密钥未保存。','服务商拒绝了这个密钥，请检查是否复制完整或已过期。'])if(JSON.parse(words(zh)).some(w=>t.includes(w)))throw new StepError('the key was not saved: '+zh);
+    for(const zh of ['没有获得访问服务商的权限，密钥未保存。','服务商拒绝了这个密钥，请检查是否复制完整或已过期。','没有获得访问托管服务的权限，邀请码未保存。','托管服务不认识这个邀请码，请检查是否复制完整。','这个邀请码已停用，请联系发码人。'])if(JSON.parse(words(zh)).some(w=>t.includes(w)))throw new StepError(`the ${what} was not saved: `+zh);
     return JSON.parse(words('已就绪')).some(w=>t.includes(w));
    });
    const stored=await evaluate('worker',`chrome.storage.local.get('cardybara-model-key').then(r=>r['cardybara-model-key']||null)`);
-   if(stored?.key!==chatKey||stored?.provider!=='deepseek')throw new StepError('the saved key is not the one pasted');
-   if(!await evaluate('worker',`chrome.permissions.contains({origins:['https://${MODEL_HOST}/*']})`))throw new StepError('the provider host permission was not granted');
+   if(stored?.key!==credential||stored?.provider!==(hosted?'cardybara':'deepseek'))throw new StepError(`the saved ${what} is not the one pasted`);
+   if(!await evaluate('worker',`chrome.permissions.contains({origins:['https://${host}/*']})`))throw new StepError(`the ${hosted?'gateway':'provider'} host permission was not granted`);
    await restoreSiteAccess(access);
    // The permission the save button obtained is the extension's own and stays; the bank hosts are back.
-   for(const host of [MODEL_HOST,BANK_HOST])if(!await evaluate('worker',`chrome.permissions.contains({origins:['https://${host}/*']})`))throw new StepError(`no host permission for ${host} after site access went back to all sites`);
-   const checks=bank.model.requests.filter(r=>r.method==='GET'&&r.path==='/models');
-   if(!checks.length)throw new StepError('the key was saved without a key check against the provider');
-   note('key saved with the provider permission after one key check');
-   // The page must not show the key in full once saved.
-   if((await pageText('wallet')).includes(chatKey))throw new StepError('the settings page shows the saved key in full');
+   for(const h of [host,BANK_HOST])if(!await evaluate('worker',`chrome.permissions.contains({origins:['https://${h}/*']})`))throw new StepError(`no host permission for ${h} after site access went back to all sites`);
+   const checks=hosted?bank.gateway.requests.filter(r=>r.method==='POST'&&r.path==='/v1/invite'):bank.model.requests.filter(r=>r.method==='GET'&&r.path==='/models');
+   if(!checks.length)throw new StepError(`the ${what} was saved without a check against the ${hosted?'gateway':'provider'}`);
+   note(what,'saved with the host permission after one check');
+   // The page must not show the credential in full once saved.
+   if((await pageText('wallet')).includes(credential))throw new StepError(`the settings page shows the saved ${what} in full`);
 
    await evaluate('wallet','location.hash="advisor"');
    const box=await until('the chat composer to accept text',()=>evaluate('wallet',`(()=>{const el=document.querySelector('.chat-compose textarea');if(!el||el.disabled)return false;el.focus();return true;})()`));
@@ -529,15 +586,30 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    note('asked the assistant a question');
    await until('the scripted answer in the chat',async()=>{
     const t=await pageText('wallet');
-    const failed=['这次没有完成，AI 服务可能暂时不可用。可以重试；你的钱包没有被修改。','聊天助手需要先在设置里添加 AI 模型密钥，钱包其他功能不受影响。'].find(zh=>JSON.parse(words(zh)).some(w=>t.includes(w)));
+    const failed=['这次没有完成，AI 服务可能暂时不可用。可以重试；你的钱包没有被修改。','聊天助手需要先在设置里输入邀请码，钱包其他功能不受影响。','已达到托管服务的用量上限，请稍后再试，或在设置里改用自己的 key。','这个邀请码已停用，请联系发码人，或在设置里改用自己的 key。','邀请码无效，请在设置里检查是否复制完整。'].find(zh=>JSON.parse(words(zh)).some(w=>t.includes(w)));
     if(failed)throw new StepError('the chat failed instead of answering: '+failed);
     return t.includes(ANSWER_MARK);
    },STEP_MS*2);
    const chats=bank.model.requests.filter(r=>r.method==='POST');
    if(chats.length!==chatScript.length)throw new StepError(`the chat asked the model ${chats.length} times, the script has ${chatScript.length} steps`);
    for(const r of bank.model.requests){
-    if(r.authorization!=='Bearer '+chatKey)throw new StepError('a provider request did not carry the saved key');
+    if(r.authorization!=='Bearer '+(hosted?GATEWAY_PROVIDER_KEY:chatKey))throw new StepError(`a provider request did not carry the ${hosted?'gateway\'s own key':'saved key'}`);
+    if(hosted&&r.via!=='gateway')throw new StepError('in hosted mode the extension reached the provider directly');
+    if(hosted&&r.raw.includes(credential))throw new StepError('the invite code reached the provider');
     for(const v of READ_VALUES)if(r.raw.includes(v))throw new StepError(`a value read from the bank (${v}) reached the model`);
+   }
+   if(hosted){
+    const viaGateway=bank.gateway.requests.filter(r=>r.path==='/v1/chat/completions'&&r.method==='POST');
+    if(viaGateway.length!==chatScript.length)throw new StepError(`the gateway relayed ${viaGateway.length} chat requests, the script has ${chatScript.length} steps`);
+    for(const r of bank.gateway.requests.filter(r=>r.method==='POST')){
+     if(r.authorization!=='Bearer '+credential)throw new StepError('a gateway request did not carry the saved invite code');
+     if(r.origin!==`chrome-extension://${id}`)throw new StepError('a gateway request came without the extension origin: '+r.origin);
+     for(const v of READ_VALUES)if(r.raw.includes(v))throw new StepError(`a value read from the bank (${v}) reached the gateway`);
+    }
+    const logs=bank.gateway.logs.join('\n');
+    for(const secret of [credential,GATEWAY_PROVIDER_KEY,QUESTION,ANSWER_MARK])if(logs.includes(secret))throw new StepError('the gateway log carries a body, code or key');
+    const everything=await evaluate('worker',`chrome.storage.local.get(null).then(r=>JSON.stringify(r))`);
+    if(everything.includes(GATEWAY_PROVIDER_KEY))throw new StepError('the gateway\'s provider key reached the extension');
    }
    if(!chats[0].body.messages?.some(m=>m.role==='user'&&m.content.includes(QUESTION)))throw new StepError('the question did not reach the model');
    const listed=chats[1].body.messages.filter(m=>m.role==='tool').map(m=>JSON.parse(m.content)).find(Array.isArray);
@@ -545,8 +617,8 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    // Card tails are read from the bank too; the projected inventory the model sees must not carry them.
    const inventory=JSON.stringify(listed);
    for(const tail of READ_TAILS)if(inventory.includes(tail))throw new StepError(`a card tail read from the bank (${tail}) reached the model`);
-   note('scripted answer shown;',String(chats.length),'model requests, the saved key only, no read value sent');
-   note('PASS: the assistant chat on the packaged extension answers through a scripted model');
+   note('scripted answer shown;',String(chats.length),'model requests,',hosted?'all through the gateway with its own key, the invite code only to the gateway,':'the saved key only,','no read value sent');
+   note(`PASS: the assistant chat on the packaged extension answers through a scripted model${hosted?' via the hosted gateway':''}`);
 
    // 9b. Hide a card (stl00/Cardybara#198): the bank keeps it, but the overview and the assistant act as if it is not held.
    const HIDE_TAIL='1234',walletCardJs=`[...document.querySelectorAll('.wallet-card')].find(c=>c.innerText.includes(${JSON.stringify(HIDE_TAIL)}))`;
@@ -625,10 +697,10 @@ async function siteAccess({cdp,id,attach,evaluate,sessions},change){
   return await evaluate('extensions',`chrome.developerPrivate.getExtensionInfo(${JSON.stringify(id)}).then(i=>i.permissions.runtimeHostPermissions)`);
  }finally{await cdp.send('Target.closeTarget',{targetId}).catch(()=>{});delete sessions.extensions;}
 }
-async function allowModelHost(ctx){
- const access=await siteAccess(ctx,`await chrome.developerPrivate.updateExtensionConfiguration({extensionId:id,hostAccess:'ON_SPECIFIC_SITES'});await chrome.developerPrivate.addHostPermission(id,'https://${MODEL_HOST}/*');`);
- if(!access?.hosts?.some(h=>h.granted&&h.host===`https://${MODEL_HOST}/*`))throw new StepError('could not allow the provider host on the extension details page: '+JSON.stringify(access));
- note('site access: on specific sites, with',MODEL_HOST,'added');
+async function allowModelHost(ctx,host=MODEL_HOST){
+ const access=await siteAccess(ctx,`await chrome.developerPrivate.updateExtensionConfiguration({extensionId:id,hostAccess:'ON_SPECIFIC_SITES'});await chrome.developerPrivate.addHostPermission(id,'https://${host}/*');`);
+ if(!access?.hosts?.some(h=>h.granted&&h.host===`https://${host}/*`))throw new StepError('could not allow the model host on the extension details page: '+JSON.stringify(access));
+ note('site access: on specific sites, with',host,'added');
 }
 async function restoreSiteAccess(ctx){
  const access=await siteAccess(ctx,`await chrome.developerPrivate.updateExtensionConfiguration({extensionId:id,hostAccess:'ON_ALL_SITES'});`);
@@ -816,6 +888,12 @@ export const BROKEN_CHAT={
  'a key the provider rejects':[/the key was not saved/,{chatKey:'e2e-rejected-'+'1'.repeat(24)}],
  'a model that never gives the answer':[/the chat failed instead of answering|timed out waiting for the scripted answer/,{chatScript:[()=>({content:'',tool_calls:[toolCall('e2e-1','list_cards')]})]}],
 };
+// With --chat --hosted: a revoked invite code is never saved, and a code over its daily cap cannot finish a
+// chat; the check must notice either.
+export const BROKEN_HOSTED_CHAT={
+ 'a revoked invite code':[/the invite code was not saved: 这个邀请码已停用/,{inviteStatus:'revoked'}],
+ 'an invite code over its daily cap':[/the chat failed instead of answering: 已达到托管服务的用量上限/,{inviteDailyRequests:1}],
+};
 // With --cards: a card with a fee date that does not exist is never saved; the check must notice.
 export const BROKEN_CARDS={
  'a fee date that does not exist':[/timed out waiting for the manual card to be stored/,{cardFeeDate:{month:2,day:30}}],
@@ -833,12 +911,12 @@ async function sameFiles(a,b){
  for(const f of x)if(!(await readFile(join(a,f))).equals(await readFile(join(b,f))))return false;
  return true;
 }
-export async function negativeControls(input,{out,restart=false,expiredLogin=false,cancel=false,chat=false,cards=false,upgradeFrom=null}){
+export async function negativeControls(input,{out,restart=false,expiredLogin=false,cancel=false,chat=false,hosted=false,cards=false,upgradeFrom=null}){
  const escaped=[];
  // With --restart, --expired-login or --cancel only that scenario's controls run; the package controls run
  // in their own step.
  const extended=restart||expiredLogin||cancel||chat||cards||!!upgradeFrom;
- const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire,requireExpired:false}]):[]),...(cancel?Object.entries(BROKEN_CANCEL).map(([name,[reason,broken]])=>[name,reason,{cancel:true,...broken}]):[]),...(chat?Object.entries(BROKEN_CHAT).map(([name,[reason,broken]])=>[name,reason,{chat:true,...broken}]):[]),...(cards?Object.entries(BROKEN_CARDS).map(([name,[reason,broken]])=>[name,reason,{cards:true,...broken}]):[]),...(upgradeFrom?Object.entries(BROKEN_UPGRADE).map(([name,[reason,broken]])=>[name,reason,{upgradeFrom,...broken}]):[])];
+ const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire,requireExpired:false}]):[]),...(cancel?Object.entries(BROKEN_CANCEL).map(([name,[reason,broken]])=>[name,reason,{cancel:true,...broken}]):[]),...(chat?Object.entries(hosted?BROKEN_HOSTED_CHAT:BROKEN_CHAT).map(([name,[reason,broken]])=>[name,reason,{chat:true,hosted,...broken}]):[]),...(cards?Object.entries(BROKEN_CARDS).map(([name,[reason,broken]])=>[name,reason,{cards:true,...broken}]):[]),...(upgradeFrom?Object.entries(BROKEN_UPGRADE).map(([name,[reason,broken]])=>[name,reason,{upgradeFrom,...broken}]):[])];
  for(const [name,reason,options] of controls){
   console.log(`--- negative control: ${name}`);
   const error=await run(input,{out:join(out,name.replace(/\W+/g,'-')),...options,stepMs:12000}).then(()=>null,e=>e);
@@ -852,8 +930,8 @@ export async function negativeControls(input,{out,restart=false,expiredLogin=fal
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const valued=['--out','--upgrade-from'];
  const args=process.argv.slice(2),take=flag=>{const i=args.indexOf(flag);if(i<0)return undefined;if(valued.includes(flag)&&!args[i+1]){console.error(flag+' needs a path');process.exit(2);}return args.splice(i,valued.includes(flag)?2:1).at(-1);};
- const outArg=take('--out'),upgradeFrom=take('--upgrade-from')||null,controls=take('--negative-controls'),restart=!!take('--restart'),expiredLogin=!!take('--expired-login'),cancel=!!take('--cancel'),chat=!!take('--chat'),cards=!!take('--cards');
- if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart] [--expired-login] [--cancel] [--chat] [--cards] [--upgrade-from <previous-release-dir-or-zip>]');process.exit(2);}
+ const outArg=take('--out'),upgradeFrom=take('--upgrade-from')||null,controls=take('--negative-controls'),restart=!!take('--restart'),expiredLogin=!!take('--expired-login'),cancel=!!take('--cancel'),chat=!!take('--chat'),hosted=!!take('--hosted'),cards=!!take('--cards');
+ if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart] [--expired-login] [--cancel] [--chat [--hosted]] [--cards] [--upgrade-from <previous-release-dir-or-zip>]');process.exit(2);}
  const out=resolve(outArg||join(root,'.debug/e2e'));
- (controls?negativeControls(args[0],{out,restart,expiredLogin,cancel,chat,cards,upgradeFrom}):run(args[0],{out,restart,expiredLogin,cancel,chat,cards,upgradeFrom})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
+ (controls?negativeControls(args[0],{out,restart,expiredLogin,cancel,chat,hosted,cards,upgradeFrom}):run(args[0],{out,restart,expiredLogin,cancel,chat,hosted,cards,upgradeFrom})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
 }
