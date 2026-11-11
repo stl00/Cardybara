@@ -1,4 +1,5 @@
 import {runWalletTool} from './walletAgent.js';
+import {heldCards} from './heldCards.js';
 import {prepareAgentContext,statedPointValues} from './agentContext.js';
 import {validateState,reduceToolResult,diffState,endTurn} from './conversationState.js';
 import {answerGrounding} from './answerGrounding.js';
@@ -8,6 +9,7 @@ import {renderChoiceAnswer} from './decisionAnswer.js';
 import {creditNamesForCards} from './creditQuery.js';
 export async function runAgentTurn({history,question,context,request,memory={},onProgress=()=>{},signal}){
  if(!question.trim()||question.length>4000)throw Error('invalid_question');
+ context={...context,cards:heldCards(context.cards)}; // the assistant never sees a hidden card
  const prepared=prepareAgentContext(history,memory);
  // The conversation state. Only reduceToolResult replaces it; nothing modifies it in place.
  let state=prepared.memory,toolsRun=0;

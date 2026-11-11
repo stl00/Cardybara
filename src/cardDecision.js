@@ -1,4 +1,5 @@
 // Which card for this purchase. Code compares every held card; the model only collects the facts and explains the result.
+import {heldCards} from './heldCards.js';
 // Cash is compared only with cash. Points get a value only from the user. Nothing here is per-card code: new cards join through their earning rules.
 import data from './data/earning-categories.json' with {type:'json'};
 import {queryKnowledge,knowledgeEntities,knowledgeSources} from './knowledge.js';
@@ -194,6 +195,7 @@ function resolvePurchase(raw,day){
 const publicRow=({_baseRate,unclassified,...row})=>row;
 const whoLeads=d=>d.lead?.row||null;
 export function chooseCard(raw,{cards,events=[],day}){
+ cards=heldCards(cards);
  if(!isRealDate(day))throw TypeError('chooseCard needs the wallet day');
  const resolved=resolvePurchase(raw,day);
  if(resolved.needsDates)return {tool:'choose_card',today:day,needsDates:true,reason:resolved.reason,instruction:'The date phrase could not be resolved. Answer for today or ask for the date; do not guess it.'};

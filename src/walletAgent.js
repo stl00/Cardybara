@@ -1,4 +1,5 @@
 import {searchBenefitKnowledge} from './benefitSearch.js';
+import {heldCards} from './heldCards.js';
 import {chooseCard,PURCHASE_CATEGORIES,PURCHASE_CHANNELS,POINT_VALUE_NAMES} from './cardDecision.js';
 import {matchCardProduct} from './productCatalog.js';
 import {knowledgeSources,queryKnowledge,knowledgeEntities,ruleText,COVERAGE_TYPES} from './knowledge.js';
@@ -70,6 +71,7 @@ function suggestScenarios(args,cards,day){
  return {basis:loose.length?'same query without '+dropped.join(', '):'held cards, any query',scenarios:Object.entries(counts).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).slice(0,4).map(([scenarioId,matches])=>({scenarioId,matches}))};
 }
 export function runWalletTool(call,{cards,events,day,trip,language}){
+ cards=heldCards(cards); // a hidden card is not held: no tool sees it
  const {name,args}=validateToolCall(call);const nameOf=id=>cards.find(c=>c.id===id)?.name||'Unidentified card';
  if(name==='list_cards')return cards.map(c=>({name:c.name,region:c.region,currency:c.currency}));
  if(name==='convert_points'){

@@ -17,7 +17,7 @@ test('the wallet entry and the chat use the same engine and give the same choice
   assert.equal(mine.certainty,chat.choice.certainty||null,category);
  }
  // The overview mounts the entry, and the entry reaches the engine only through quickChoice.
- assert.match(source('../src/main.jsx'),/<PurchaseChooser cards=\{displayed\.cards\}/);
+ assert.match(source('../src/main.jsx'),/<PurchaseChooser cards=\{held\.cards\}/);
  const ui=source('../src/PurchaseChooser.jsx');
  assert.match(ui,/quickChoice\(/);assert.doesNotMatch(ui,/fetch\(|requestAdvisor|extensionChat|sendCollector/,'no model or network call');
  assert.match(source('../src/purchaseChoice.js'),/from '\.\/cardDecision\.js'/);

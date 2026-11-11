@@ -1792,7 +1792,17 @@
     "卡片信息已保存；换了地区，请重新选择卡种。": "Card details saved. The region changed, so choose the card type again.",
     "（年份按读取日期推断）": " (year inferred from the read date)",
     "年份按读取日期推断": "Year inferred from the read date",
-    " · 推断年份": " · year inferred"
+    " · 推断年份": " · year inferred",
+    "已隐藏这张卡，钱包和助手会当作你没有持有它。": "Card hidden. The wallet and assistant now treat it as a card you don't hold.",
+    "已取消隐藏，这张卡重新计入钱包。": "Card unhidden. It counts in the wallet again.",
+    "取消隐藏": "Unhide",
+    "隐藏这张卡": "Hide this card",
+    "已隐藏": "Hidden",
+    "已隐藏的卡": "Hidden cards",
+    "银行刷新照常读取这些卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它们。": "Bank refreshes still read these cards, but the overview, points, benefits, reminders and card assistant treat them as cards you don't hold.",
+    "这张卡已隐藏": "This card is hidden",
+    "银行刷新照常读取这张卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它。": "Bank refreshes still read this card, but the overview, points, benefits, reminders and card assistant treat it as a card you don't hold.",
+    "显示已隐藏的卡（{0}）": "Show hidden cards ({0})"
   },
   "zh-TW": {
     "美国": "美國",
@@ -3587,6 +3597,16 @@
     "卡片信息已保存；换了地区，请重新选择卡种。": "卡片資料已儲存；換了地區，請重新選擇卡種。",
     "（年份按读取日期推断）": "（年份按讀取日期推斷）",
     "年份按读取日期推断": "年份按讀取日期推斷",
-    " · 推断年份": " · 推斷年份"
+    " · 推断年份": " · 推斷年份",
+    "已隐藏这张卡，钱包和助手会当作你没有持有它。": "已隱藏這張卡，錢包和助手會當作你沒有持有它。",
+    "已取消隐藏，这张卡重新计入钱包。": "已取消隱藏，這張卡重新計入錢包。",
+    "取消隐藏": "取消隱藏",
+    "隐藏这张卡": "隱藏這張卡",
+    "已隐藏": "已隱藏",
+    "已隐藏的卡": "已隱藏的卡",
+    "银行刷新照常读取这些卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它们。": "銀行刷新照常讀取這些卡，但總覽、積分、福利、提醒和用卡助手都當作你沒有持有它們。",
+    "这张卡已隐藏": "這張卡已隱藏",
+    "银行刷新照常读取这张卡，但总览、积分、福利、提醒和用卡助手都当作你没有持有它。": "銀行刷新照常讀取這張卡，但總覽、積分、福利、提醒和用卡助手都當作你沒有持有它。",
+    "显示已隐藏的卡（{0}）": "顯示已隱藏的卡（{0}）"
   }
 }
