@@ -2,7 +2,7 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {performance} from 'node:perf_hooks';
-import {context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,planGroundingCases,decisionCases,actionClaimCases,actionClaimControls} from '../evals/fixtures.mjs';
+import {context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,planGroundingCases,decisionCases,actionClaimCases,actionClaimControls,tripCases} from '../evals/fixtures.mjs';
 import {resolveTripDates} from '../src/tripDates.js';
 import {searchBenefitKnowledge} from '../src/benefitSearch.js';
 import {queryKnowledge} from '../src/knowledge.js';
@@ -41,6 +41,12 @@ if(!live){
   const result=runWalletTool({id:c.id,function:{name:'query_credits',arguments:JSON.stringify({use:c.use||'hotel',...(c.when?{when:c.when}:{})})}},{...referenceContext,events:c.events||[]});
   check(c.id,{expected:c.check(result)});
  }
+ for(const c of tripCases){
+  const run=(name,args)=>runWalletTool({id:c.id,function:{name,arguments:JSON.stringify(args)}},referenceContext);
+  const flight=run('plan_flight',{airline:c.airline,when:c.when}),hotel=run('query_credits',{use:'hotel',when:c.when}),cover=run('find_protections',{});
+  const same=flight.dates.start===hotel.window.start&&flight.dates.end===hotel.window.end;
+  check(c.id,{sameWindow:same,expectedWindow:hotel.window.start===c.expectedWindow.start&&hotel.window.end===c.expectedWindow.end,awardNotChecked:flight.award.status==='not-checked',hotelCredits:hotel.totalItems>0,coverFound:cover.cards.some(x=>x.status==='found'),noRecordIsNotFound:cover.cards.every(x=>['found','not_found'].includes(x.status))});
+ }
  const planEvidence=[runWalletTool({id:'grounding',function:{name:'query_credits',arguments:JSON.stringify({use:'hotel',when:'12月'})}},referenceContext)];
  for(const [id,answer,code] of planGroundingCases)check(id,{caught:answerGrounding(answer,planEvidence).issues.some(i=>i.code===code)});
  const old=Array.from({length:30},(_,i)=>[{role:'user',content:'question '+i},{role:'assistant',content:'reply '.repeat(1000)}]).flat();const prep=prepareAgentContext(old,{lastPurchase:{category:'dining',country:'US',currency:'USD',amount:100}});check('bounded-context',{bounded:prep.chars<=22000,keepsLatest:prep.messages.some(x=>x.content==='question 29'),memory:prep.memory.lastPurchase.amount===100});
@@ -76,6 +82,8 @@ if(!live){
    if(c.expectTools)checks.expectedTool=calls.some(x=>c.expectTools.includes(x.name));
       if(c.expectedArgs)checks.expectedArguments=calls.some(x=>x.name===c.expectTool&&Object.entries(c.expectedArgs).every(([k,v])=>x.args[k]===v));
    if(c.expectedWindow)checks.expectedWindow=calls.some(x=>{const w=x.name==='query_credits'&&resolveTripDates(x.args.when,context.day);return w?.ok&&w.start===c.expectedWindow.start&&w.end===c.expectedWindow.end;});
+   if(c.expectAllTools)checks.expectedAllTools=c.expectAllTools.every(name=>calls.some(x=>x.name===name));
+   if(c.sameDateWords){const words=calls.filter(x=>['plan_flight','query_credits'].includes(x.name)).map(x=>x.args.when);checks.sameDateWords=words.length>=2&&words.every(w=>w===words[0]);}
    if(c.expectedTrip)checks.expectedTrip=r.memory.trip?.start===c.expectedTrip.start;
    if(c.answerPatterns)checks.coversNamedProgrammes=c.answerPatterns.every(pattern=>new RegExp(pattern,'i').test(r.answer));
    if(c.answersFirst)checks.answersBeforeAsking=calls.some(x=>x.name==='choose_card');
