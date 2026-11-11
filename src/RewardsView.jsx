@@ -9,6 +9,7 @@ import {cardEarnings} from './cardDecision.js';
 import {usePointValues} from './PointValueSettings.jsx';
 import {cardProducts} from './productCatalog';
 import {convertPoints,readingsFor,routesForCard,transferProgrammes,transferRoutes} from './transferRoutes';
+import {POOLING_TEXT,poolingRule,poolingRuleForRow,pointsReach,programmeTotals} from './pointsPooling';
 const {Paragraph,Text,Link}=Typography;
 const NO_CARD='no-card';
 const whole=n=>Number(n).toLocaleString('en-US');
@@ -50,14 +51,18 @@ function PartnerTable({rows,points,hidden}){
 function ProgrammePanel({programme,accounts,cards,count,hidden}){
  const readings=readingsFor(programme,accounts,cards),[selected,setSelected]=useState(null),[manual,setManual]=useState(null);
  const reading=selected===NO_CARD?null:readings.find(r=>r.key===selected)||readings[0]||null,points=manual??(reading?.usable?reading.amount:null),all=transferRoutes(programme.id);
+ // The pooling rule (#192) decides which held cards' partners a reading reaches: its own, or every transfer card of the pool.
+ const rule=poolingRule(programme.id),reach=reading?.cardRecord?pointsReach(cards).find(m=>m.card===reading.cardRecord):null;
  // Typing a number keeps the chosen card's scope: an amount must never change which rate applies.
- const rows=routesForCard(all,{hasCard:!!reading,productId:reading?.productId??null});
+ const rows=routesForCard(all,{hasCard:!!reading,productId:reading?.productId??null,...(reach?{productIds:reach.reachProductIds}:{})});
  const airlines=rows.filter(r=>r.kind==='airline'),hotels=rows.filter(r=>r.kind==='hotel'),sources=knowledgeSources([...new Set(all.flatMap(r=>r.sourceIds))]);
  return <><Flex gap={16} wrap align="end" style={{marginBottom:16}}>
   {readings.length?<div><Text type="secondary">{t('卡片读数')}</Text><br/><Select aria-label={t('卡片读数')} value={reading?.key??NO_CARD} onChange={v=>{setSelected(v);setManual(null);}} style={{minWidth:260}} options={readings.map(r=>({value:r.key,label:`${r.cardRecord?.name||r.label} · ${count(r.amount)}`})).concat({value:NO_CARD,label:t('不选卡，看全部比例')})}/></div>:null}
   <div><Text type="secondary">{t('试算积分')}</Text><br/><InputNumber aria-label={t('试算积分')} min={0} precision={0} max={1000000000} step={1000} value={manual} placeholder={hidden||!reading?.usable?t('输入积分数'):whole(reading.amount)} onChange={v=>setManual(v??null)} style={{width:180}}/></div>
  </Flex>
- {!readings.length?<Alert showIcon type="info" title={t('尚未读取这个计划的积分')} description={t('刷新对应银行后会显示读数；也可以先输入积分数试算。')} style={{marginBottom:16}}/>:readings.length>1?<Paragraph type="secondary">{t('多张卡的读数分别列出；共用积分池未确认，不合计。')}</Paragraph>:null}
+ {!readings.length?<Alert showIcon type="info" title={t('尚未读取这个计划的积分')} description={t('刷新对应银行后会显示读数；也可以先输入积分数试算。')} style={{marginBottom:16}}/>:null}
+ {rule?<Alert showIcon type="info" title={t(rule.summary)} description={<ul style={{margin:0,paddingInlineStart:18}}>{rule.caveats.map(c=><li key={c.id}>{t(c.summary)}</li>)}</ul>} style={{marginBottom:16}}/>:readings.length>1?<Paragraph type="secondary">{t('多张卡的读数分别列出；共用积分池未确认，不合计。')}</Paragraph>:null}
+ {reach&&!reach.ownTransfer&&reach.via.length?<Paragraph type="secondary">{t('这张卡本身没有转点伙伴；按积分池规则，经 {0} 转出。',[reach.via.map(c=>c.name).join(' / ')])}</Paragraph>:null}
  {reading&&!reading.usable&&manual==null?<Paragraph type="secondary">{t('这个读数不是整数，不用于计算；可以输入积分数，或不选卡后试算。')}</Paragraph>:null}
  {reading?.historical&&manual==null?<Paragraph type="secondary">{t('历史记录；本次尚未取得更新读数。')}</Paragraph>:null}
  {programme.id.endsWith('-hk')?<Alert showIcon type="warning" title={t('香港只公开 Turbo 计划费率')} description={t('是否已登记 Turbo 未核实，未登记的费率须登录查看。把已有伙伴账号加入转点时，页面列明每次收取400港元行政费，部分卡种除外。')} style={{marginBottom:16}}/>:null}
@@ -66,13 +71,16 @@ function ProgrammePanel({programme,accounts,cards,count,hidden}){
   {airlines.length?<div><Paragraph strong style={{marginBottom:8}}>{t('航空伙伴')}</Paragraph><PartnerTable rows={airlines} points={points} hidden={hidden&&manual==null}/></div>:null}
   {hotels.length?<div><Paragraph strong style={{marginBottom:8}}>{t('酒店伙伴')}</Paragraph><PartnerTable rows={hotels} points={points} hidden={hidden&&manual==null}/></div>:null}
  </Space>
- <Paragraph type="secondary" style={{marginTop:12,marginBottom:0}}>{t('来源（核对 {0}）：',[all[0]?.checkedAt||'—'])}<Space wrap size={[12,4]}>{sources.map(s=><Link key={s.id} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></Paragraph></>;
+ <Paragraph type="secondary" style={{marginTop:12,marginBottom:0}}>{t('来源（核对 {0}）：',[all[0]?.checkedAt||'—'])}<Space wrap size={[12,4]}>{sources.map(s=><Link key={s.id} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></Paragraph>
+ {rule?<Paragraph type="secondary" style={{marginTop:4,marginBottom:0}}>{t('积分池规则（持卡人说明，核对 {0}）：',[rule.checkedAt])}<Space wrap size={[12,4]}>{knowledgeSources(rule.sourceIds).map(s=><Link key={s.id} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></Paragraph>:null}</>;
 }
 export default function RewardsView({accounts,cards,count,hidden=false}){
- useI18n();const render=r=><Col xs={24} md={12} xl={8} key={r.id}><Card className="reward-card" title={<BankIdentity bank={r.bank} label={r.label} flag={false}/>} extra={<RegionLabel region={r.region}/>}><Statistic value={r.amount} formatter={()=>count(r.amount)} suffix={r.unit==='USD'?t('美元现金奖励'):r.unit}/><ReadingValue reading={r} card={cards.find(c=>c.id===r.card)} hidden={hidden}/>{r.cardReading?<><div style={{marginTop:16}}><CardIdentity card={cards.find(c=>c.id===r.card)}/></div><Paragraph type="secondary" style={{marginTop:8,marginBottom:8}}>{t('卡片页面读数；共用积分池关系未确认，不合计。')}</Paragraph><Tag color="success">{t('已读取积分')}</Tag></>:<Paragraph type="secondary" style={{marginTop:16}}>{t('历史记录；本次尚未取得更新读数。')}</Paragraph>}<Text type="secondary">{t('采集于 ')}{r.date}</Text></Card></Col>;
+ useI18n();const render=r=><Col xs={24} md={12} xl={8} key={r.id}><Card className="reward-card" title={<BankIdentity bank={r.bank} label={r.label} flag={false}/>} extra={<RegionLabel region={r.region}/>}><Statistic value={r.amount} formatter={()=>count(r.amount)} suffix={r.unit==='USD'?t('美元现金奖励'):r.unit}/><ReadingValue reading={r} card={cards.find(c=>c.id===r.card)} hidden={hidden}/>{r.cardReading?<><div style={{marginTop:16}}><CardIdentity card={cards.find(c=>c.id===r.card)}/></div><Paragraph type="secondary" style={{marginTop:8,marginBottom:8}}>{t(POOLING_TEXT[poolingRuleForRow(r)?.pooling]?.reading||'卡片页面读数；共用积分池关系未确认，不合计。')}</Paragraph><Tag color="success">{t('已读取积分')}</Tag></>:<Paragraph type="secondary" style={{marginTop:16}}>{t('历史记录；本次尚未取得更新读数。')}</Paragraph>}<Text type="secondary">{t('采集于 ')}{r.date}</Text></Card></Col>;
  const tabs=transferProgrammes.map(programme=>({key:programme.id,label:<Space size={6}><RegionFlag region={programme.region} decorative/><ItemLogo programme={programme.id} size={14}/>{t(programme.label)} · {t(programme.region==='US'?'美国':'香港')}</Space>,children:<ProgrammePanel programme={programme} accounts={accounts} cards={cards} count={count} hidden={hidden}/>}));
- return <><Paragraph type="secondary">{t('最新卡片读数优先展示。不同国家、不同计划分别列出；不推测或重复汇总积分池。')}</Paragraph><Row gutter={[20,20]}>{accounts.current.map(render)}</Row>{!accounts.current.length&&<Empty description={t('尚未读取积分，请刷新对应银行。')}/>} {!!accounts.historical.length&&<Collapse style={{marginTop:24}} items={[{key:'history',label:t('查看之前的积分记录'),children:<Row gutter={[16,16]}>{accounts.historical.map(r=>render({...r,historical:true}))}</Row>}]} />}
+ const {totals}=programmeTotals(accounts.current);
+ const total=r=><Col xs={24} md={12} xl={8} key={r.ruleId}><Card className="reward-card" title={<BankIdentity bank={r.bank} label={`${t(r.label)} · ${t('合计')}`} flag={false}/>} extra={<RegionLabel region={r.region}/>}><Statistic value={r.amount} formatter={()=>count(r.amount)} suffix={r.unit}/>{r.basis!=='record'?<Paragraph type="secondary" style={{marginTop:8,marginBottom:8}}>{t(POOLING_TEXT[r.pooling].total,[r.cardCount])}</Paragraph>:null}{r.readingsDiffer?<Paragraph type="warning" style={{marginBottom:8}}>{t('同一积分池的卡读数不同：新开的卡可能还没有关联到积分池，合计按最新读数。')}</Paragraph>:null}{r.basis==='record'?<Paragraph type="secondary" style={{marginBottom:8}}>{t('历史记录；本次尚未取得更新读数。')}</Paragraph>:null}{r.readingsSpanDays>0?<Paragraph type="secondary" style={{marginBottom:8}}>{t('各卡读数时间不同，采集日期按最早的读数。')}</Paragraph>:null}{r.notCounted?<Paragraph type="secondary" style={{marginBottom:8}}>{t('{0} 条没有对应卡片的历史记录未计入合计，避免重复计算。',[r.notCounted])}</Paragraph>:null}<Text type="secondary">{t('采集于 ')}{r.date}</Text></Card></Col>;
+ return <><Paragraph type="secondary">{t('最新卡片读数优先展示。不同国家、不同计划分别列出；积分池按计划规则合计，不重复计算。')}</Paragraph>{totals.length?<Row gutter={[20,20]} style={{marginBottom:20}}>{totals.map(total)}</Row>:null}<Row gutter={[20,20]}>{accounts.current.map(render)}</Row>{!accounts.current.length&&<Empty description={t('尚未读取积分，请刷新对应银行。')}/>} {!!accounts.historical.length&&<Collapse style={{marginTop:24}} items={[{key:'history',label:t('查看之前的积分记录'),children:<Row gutter={[16,16]}>{accounts.historical.map(r=>render({...r,historical:true}))}</Row>}]} />}
  <Typography.Title level={4} style={{marginTop:32}}>{t('积分能转到哪里')}</Typography.Title>
- <Alert showIcon type="info" title={t('转点前请看')} description={<ul style={{margin:0,paddingInlineStart:18}}><li>{t('转点通常不可撤销，到账后积分不能退回。')}</li><li>{t('共用积分池需要证据：这里不把多张卡的读数相加。')}</li><li>{t('结果只是按公布比例算出的数量，不代表每点价值，也不代表有可兑换的航班或房间。')}</li><li>{t('账号是否已关联、是否满足条件未核实；本页不会执行转点。')}</li></ul>} style={{marginBottom:16}}/>
+ <Alert showIcon type="info" title={t('转点前请看')} description={<ul style={{margin:0,paddingInlineStart:18}}><li>{t('转点通常不可撤销，到账后积分不能退回。')}</li><li>{t('积分池按计划和地区记录：美国 MR 共用一个积分池；香港 MR 每张卡独立；Chase UR 每张卡独立，但可在同一持卡人的卡之间合并。')}</li><li>{t('结果只是按公布比例算出的数量，不代表每点价值，也不代表有可兑换的航班或房间。')}</li><li>{t('账号是否已关联、是否满足条件未核实；本页不会执行转点。')}</li></ul>} style={{marginBottom:16}}/>
  <Tabs items={tabs}/></>;
 }

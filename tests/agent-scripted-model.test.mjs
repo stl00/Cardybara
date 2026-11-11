@@ -97,7 +97,7 @@ for(const transport of Object.keys(transports)){
    assert.equal(url,PROVIDER);
    assert.deepEqual(Object.keys(body).sort(),['max_tokens','messages','model','temperature','thinking','tool_choice','tools']);
    assert.equal(body.model,'deepseek-flash');assert.deepEqual(body.thinking,{type:'disabled'});
-   assert.deepEqual(body.tools.map(t=>t.function.name).sort(),['choose_card','convert_points','find_benefits','find_protections','get_card_rules','list_cards','plan_flight','query_credits']);
+   assert.deepEqual(body.tools.map(t=>t.function.name).sort(),['choose_card','convert_points','find_benefits','find_protections','get_card_rules','list_cards','plan_flight','points_accounts','query_credits']);
    assert.equal(body.messages.filter(x=>x.role==='system').length,1);assert.equal(body.messages[0].role,'system');assert.ok(body.messages[0].content.startsWith(SYSTEM));
    assert.ok(body.messages.slice(1).every(x=>['user','assistant','tool'].includes(x.role)));
    assert.equal(authorization,'Bearer '+(transport==='extension'?EXTENSION_KEY:SERVER_KEY));
@@ -111,6 +111,22 @@ for(const transport of Object.keys(transports)){
   assert.deepEqual(JSON.parse(chosen.function.arguments),{category:'dining',categorySource:'stated',amount:100,currency:'USD',country:'US'});
   assert.equal(result.memory.lastPurchase.pointValues,undefined);
   assert.match(result.answer,/^Use /);
+ });
+
+ test(`${transport}: a pooling question is answered from the owner rule, its caveat and an official source (#192)`,async()=>{
+  const m=script(
+   toolsMessage(call('points_accounts',{programme:'Membership Rewards',region:'HK'})),
+   body=>{const hk=toolResults(body).at(-1).programmes[0],caveat=hk.caveats.find(c=>c.id==='linking-possible');
+    return say(`不能。香港 Membership Rewards 每张卡有自己的账户（${hk.cards.map(c=>c.name).join('、')}），余额可以加起来看总数，但一张卡的积分不能用在另一张卡上。注意：Amex HK 允许申请合并同币种的合资格卡，Explorer 和公司卡永远独立。来源：${caveat.sources.find(s=>s.authority==='official').url}`);}
+  );
+  const {run,tools}=await turn(transport,{question:'我的 HK MR 能合起来用吗'});const result=await run;
+  assert.deepEqual(tools,['points_accounts']);
+  const hk=toolResults(m.requests[1].body)[0].programmes[0];
+  assert.equal(hk.pooling,'per-card');assert.equal(hk.usableOnAnotherCard,false);assert.equal(hk.ownerOverride,true);assert.equal(hk.held,true);
+  assert.deepEqual(hk.cards.map(c=>c.name).sort(),['American Express Explorer Credit Card','The Platinum Card']);
+  assert.equal(m.requests.length,2,'grounded on the first answer, no repair');
+  assert.match(result.answer,/每张卡有自己的账户/);assert.match(result.answer,/americanexpress\.com\/en-hk/);
+  for(const s of SENTINELS)assert.ok(!JSON.stringify(m.requests.map(r=>r.body)).includes(s),s+' reached the model');
  });
 
  test(`${transport}: #193 a default point value reaches the model with its basis, and calling it the user's is repaired`,async()=>{

@@ -1,11 +1,13 @@
-import {latestDueField,latestNoPayment} from './agentData.js';
+import {cardDue,latestDueField,latestNoPayment} from './agentData.js';
 import {walletDay} from './personalBenefits.js';
 
 // Everything the payment assistant says about a bill is decided here, so the honesty rules
-// (unknown is not zero, no guessed year, old readings are labelled) can be tested without a browser.
+// (unknown is not zero, a missing year comes only from the read day, old readings are labelled) can be tested without a browser.
 export const PAYMENT_MARKS_KEY='cardybara-payment-handled-v1';
 export const SOON_DAYS=7,STALE_DAYS=14,VISIBLE_ITEMS=4;
-// A yearless date repeats every year, so its mark cannot outlive roughly one billing cycle.
+// A yearless date repeats every year, so its mark cannot outlive roughly one billing cycle. Only a date
+// whose month and day cannot be read stays yearless now; a mark made on the label before the year was
+// inferred still covers the inferred date within that window.
 const YEARLESS_MARK_DAYS=45,MAX_MARKS=2000;
 const DAY_MS=86400000;
 const isoDay=/^\d{4}-\d{2}-\d{2}$/;
@@ -20,11 +22,17 @@ function readDay(value,asOf){
  return day&&daysBetween(day,asOf)>=-1?day:null;
 }
 
-/** The bill a card is currently in: a full date, a yearless bank label, or none. A year is never added. */
+/**
+ * The bill a card is currently in: a calendar date, a yearless bank label, or none. A yearless bank date
+ * becomes a date with the year its read day implies (`inferred`); it stays a label only when its month and
+ * day cannot be read. `field` is the reading the date came from.
+ */
 export function paymentCycle(card){
  if(latestNoPayment(card))return null;
- if(latestDueField(card)==='duePartial'&&card.duePartial)return {kind:'yearless',label:String(card.duePartial)};
- return validDate(card.due)?{kind:'date',date:card.due}:null;
+ const due=cardDue(card);
+ if(due)return {kind:'date',date:due.date,field:due.field,...(due.inferred?{inferred:true,label:due.label}:{})};
+ if(latestDueField(card)==='duePartial'&&card.duePartial)return {kind:'yearless',field:'duePartial',label:String(card.duePartial)};
+ return null;
 }
 export function paymentKey(card,cycle){return cycle?JSON.stringify([card.id,cycle.kind,cycle.kind==='date'?cycle.date:cycle.label]):null;}
 
@@ -47,13 +55,15 @@ export function isHandled(key,marks,asOf=walletDay()){
 /** One card's payment state. `stale` is separate because an old reading can be in any state. */
 export function paymentItem(card,marks=[],asOf=walletDay()){
  const cycle=paymentCycle(card),noPayment=latestNoPayment(card),key=paymentKey(card,cycle);
- const known=noPayment?['paymentStatus']:[...(cycle?[cycle.kind==='date'?'due':'duePartial']:[]),...['statement','minimum'].filter(k=>card[k]!=null),...(card.autopay==='on'||card.autopay==='off'?['autopay']:[])];
+ // The key a mark had before the year was inferred; undo clears it too.
+ const legacyKey=cycle?.inferred?paymentKey(card,{kind:'yearless',label:cycle.label}):null;
+ const known=noPayment?['paymentStatus']:[...(cycle?[cycle.field]:[]),...['statement','minimum'].filter(k=>card[k]!=null),...(card.autopay==='on'||card.autopay==='off'?['autopay']:[])];
  const isOld=day=>!day||daysBetween(day,asOf)>STALE_DAYS;
  const readAt=known.length?oldestReading(card,known,asOf):null,stale=known.length>0&&isOld(readAt);
  // Only the due date's own reading can say a bill is overdue; an old autopay reading cannot hide it.
- const dueOld=cycle?.kind==='date'&&isOld(oldestReading(card,['due'],asOf));
+ const dueOld=cycle?.kind==='date'&&isOld(oldestReading(card,[cycle.field],asOf));
  // A zero statement older than the due date belongs to an earlier bill and says nothing about this one.
- const statementDay=readDay(card.fieldDates?.statement||card.updated,asOf),dueDay=cycle?readDay(card.fieldDates?.[cycle.kind==='date'?'due':'duePartial']||card.updated,asOf):null;
+ const statementDay=readDay(card.fieldDates?.statement||card.updated,asOf),dueDay=cycle?readDay(card.fieldDates?.[cycle.field]||card.updated,asOf):null;
  const nothingBilled=Number.isFinite(card.statement)&&card.statement<=0&&(card.minimum==null||card.minimum===0)&&!!statementDay&&(!cycle||(!!dueDay&&statementDay>=dueDay));
  const days=cycle?.kind==='date'?daysBetween(asOf,cycle.date):null,autopayOn=card.autopay==='on';
  let state;
@@ -65,7 +75,7 @@ export function paymentItem(card,marks=[],asOf=walletDay()){
  else if(cycle)state='due';
  else state='unknown'; // Amounts without a due date still cannot say when to pay.
  const soon=state==='due'&&days<=SOON_DAYS;
- return {card,key,cycle,state,soon,days,stale,readAt,autopay:autopayOn?'on':card.autopay==='off'?'off':'unknown',autopayOld:autopayOn&&isOld(oldestReading(card,['autopay'],asOf)),handled:state!=='nothing_billed'&&isHandled(key,marks,asOf),canMark:!!key&&state!=='nothing_billed'};
+ return {card,key,cycle,state,soon,days,stale,readAt,autopay:autopayOn?'on':card.autopay==='off'?'off':'unknown',autopayOld:autopayOn&&isOld(oldestReading(card,['autopay'],asOf)),handled:state!=='nothing_billed'&&(isHandled(key,marks,asOf)||!!legacyKey&&isHandled(legacyKey,marks,asOf)),legacyKey,canMark:!!key&&state!=='nothing_billed'};
 }
 
 const RANKS={overdue:0,yearless:3,stale:5,autopay:6,nothing_billed:7,no_payment:7,unknown:8};
@@ -107,7 +117,7 @@ export function readPaymentMarks(storage){
  try{const rows=JSON.parse(storage.getItem(PAYMENT_MARKS_KEY));return Array.isArray(rows)?rows.filter(validMark).map(({key,at})=>({key,at})):[];}catch{return []}
 }
 export function withPaymentMark(marks,key,at=new Date().toISOString()){return [...marks.filter(m=>m.key!==key),{key,at}].slice(-MAX_MARKS);}
-export function withoutPaymentMark(marks,key){return marks.filter(m=>m.key!==key);}
+export function withoutPaymentMark(marks,...keys){return marks.filter(m=>!keys.includes(m.key));}
 /** Backup restore: rejects a malformed file as a whole; on a conflict the later mark wins. */
 export function mergePaymentMarks(marks,backup){
  if(backup?.schema!==1||!Array.isArray(backup.marks)||backup.marks.length>MAX_MARKS||!backup.marks.every(validMark))throw Error('invalid_payment_backup');

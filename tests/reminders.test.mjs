@@ -24,7 +24,7 @@ test('only a bill inside its lead time fires',()=>{
 test('handled, autopay, no-payment, unread, yearless and nothing-billed bills never fire',()=>{
  const due=card('h',{due:'2026-11-05'}),marks=withPaymentMark([],paymentItem(due,[],asOf).key);
  assert.deepEqual(billReminders([due],marks,on,asOf),[]);
- for(const fields of [{due:'2026-11-05',autopay:'on'},{due:'2026-11-01',autopay:'on'},{paymentStatus:'No payment due'},{},{statement:40},{duePartial:'11月5日'},{statement:0,minimum:0,due:'2026-11-05'}])
+ for(const fields of [{due:'2026-11-05',autopay:'on'},{due:'2026-11-01',autopay:'on'},{paymentStatus:'No payment due'},{},{statement:40},{duePartial:'11月31日'},{statement:0,minimum:0,due:'2026-11-05'}])
   assert.deepEqual(billReminders([card('x',fields)],[],on,asOf),[],JSON.stringify(fields));
 });
 test('an old autopay reading no longer counts as covering the bill',()=>{
@@ -32,7 +32,8 @@ test('an old autopay reading no longer counts as covering the bill',()=>{
  assert.equal(billReminders([aged({due:'2026-11-03',autopay:'on'})],[],on,asOf)[0].kind,'overdue');
  assert.equal(billReminders([aged({due:'2026-11-05',autopay:'on'})],[],on,asOf)[0].kind,'bill');
  assert.deepEqual(billReminders([aged({due:'2026-12-20',autopay:'on'})],[],on,asOf),[],'outside the lead time');
- assert.deepEqual(billReminders([aged({duePartial:'11月5日',autopay:'on'})],[],on,asOf),[],'a yearless date still cannot be timed');
+ assert.equal(billReminders([aged({duePartial:'11月5日',autopay:'on'})],[],on,asOf)[0].kind,'bill','a yearless date is timed from its inferred year');
+ assert.deepEqual(billReminders([aged({duePartial:'Smarch 5',autopay:'on'})],[],on,asOf),[],'a month and day that cannot be read still cannot be timed');
 });
 test('an old passed date does not fire, and an old upcoming date is flagged',()=>{
  const old=f=>{const c=card('o',f);for(const k of Object.keys(c.fieldDates))c.fieldDates[k]='2026-09-01T15:00:00Z';return c;};
@@ -71,4 +72,9 @@ test('notifications stay optional in the package and every string has translatio
  assert.ok(!manifest.permissions.includes('notifications'));assert.deepEqual(manifest.optional_permissions,['notifications']);assert.doesNotMatch(build,/optional_permissions/,'the package inherits the manifest and must not list it twice');
  const ui=readFileSync(new URL('../src/ReminderSettings.jsx',import.meta.url),'utf8'),catalog=JSON.parse(readFileSync(new URL('../src/translations.json',import.meta.url),'utf8'));
  for(const [,key] of ui.matchAll(/t\('([^']+)'/g))for(const language of ['en-US','zh-TW'])assert.ok(catalog[language][key],`${language}: ${key}`);
+});
+test('a yearless bank date reminds on the date its read day implies',()=>{
+ const c=card('y',{duePartial:'Jan 2'});c.fieldDates.duePartial='2026-12-29T15:00:00Z';
+ assert.deepEqual(billReminders([c],[],on,'2026-12-30').map(r=>[r.id,r.days]),[[`bill:${JSON.stringify(['y','date','2027-01-02'])}`,3]]);
+ assert.deepEqual(billReminders([c],[],on,'2026-12-29'),[],'outside the lead time');
 });

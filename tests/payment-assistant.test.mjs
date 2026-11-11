@@ -13,7 +13,8 @@ test('each payment state stays distinct',()=>{
  assert.equal(item({due:'2026-11-30'}).soon,false);
  assert.equal(item({due:'2026-11-06',autopay:'on'}).state,'autopay');
  assert.equal(item({autopay:'on'}).state,'autopay');
- assert.equal(item({duePartial:'11月6日'}).state,'yearless');
+ assert.equal(item({duePartial:'11月6日'}).state,'due','a yearless bank date gets its year from the read day');
+ assert.equal(item({duePartial:'11月31日'}).state,'yearless','only a month and day that cannot be read stay yearless');
  assert.equal(item({paymentStatus:'No payment due'}).state,'no_payment');
  assert.equal(item({}).state,'unknown');
 });
@@ -22,14 +23,20 @@ test('unknown amounts stay unknown and amounts alone do not invent a due date',(
  const amounts=item({statement:50});assert.equal(amounts.state,'unknown');assert.equal(amounts.cycle,null);
  assert.equal(item({statement:0,due:'2026-11-06'}).card.statement,0,'a read zero is kept as read');
 });
-test('a yearless date never gains a year or a day count',()=>{
- const yearless=item({duePartial:'Nov 6'});assert.deepEqual(yearless.cycle,{kind:'yearless',label:'Nov 6'});assert.equal(yearless.days,null);assert.equal(yearless.soon,false);
- assert.ok(!paymentKey(yearless.card,yearless.cycle).includes('2026'));
+test('a yearless date takes its year from the read day, not today',()=>{
+ const inferred=item({duePartial:'Nov 6'});assert.deepEqual(inferred.cycle,{kind:'date',date:'2026-11-06',field:'duePartial',inferred:true,label:'Nov 6'});assert.equal(inferred.days,2);assert.equal(inferred.soon,true);
+ assert.equal(paymentKey(inferred.card,inferred.cycle),JSON.stringify(['a','date','2026-11-06']));
+ // Read on 20 December: still January of the next year when looked at in February.
+ const late=card({duePartial:'Jan 15',statement:10});late.fieldDates.duePartial=late.fieldDates.statement='2026-12-20T18:00:00Z';
+ const feb=paymentItem(late,[],'2027-02-01');assert.equal(feb.cycle.date,'2027-01-15');assert.equal(feb.state,'stale','an old reading is not called overdue');
+ assert.equal(paymentItem(late,[],'2026-12-21').days,25);
+ const unread=item({duePartial:'Smarch 6'});assert.deepEqual(unread.cycle,{kind:'yearless',field:'duePartial',label:'Smarch 6'});assert.equal(unread.days,null);assert.equal(unread.soon,false);
+ assert.ok(!paymentKey(unread.card,unread.cycle).includes('2026'));
  for(const bad of ['2026-02-30','11/06','2026-13-01'])assert.equal(paymentCycle(card({due:bad})),null,bad);
 });
 test('the latest reading decides between a full date and a yearless one',()=>{
- const c=card({due:'2026-11-06',duePartial:'12月6日'});c.fieldDates.due='2026-10-01T00:00:00Z';assert.equal(paymentCycle(c).kind,'yearless');
- c.fieldDates.due='2026-11-04T00:00:00Z';assert.equal(paymentCycle(c).kind,'date');
+ const c=card({due:'2026-11-06',duePartial:'12月6日'});c.fieldDates.due='2026-10-01T00:00:00Z';assert.deepEqual(paymentCycle(c),{kind:'date',date:'2026-12-06',field:'duePartial',inferred:true,label:'12月6日'});
+ c.fieldDates.due='2026-11-04T00:00:00Z';assert.deepEqual(paymentCycle(c),{kind:'date',date:'2026-11-06',field:'due'},'a full date from the bank wins');
 });
 test('old readings are labelled, and an old reading is not called overdue',()=>{
  const old=f=>{const c=card(f);for(const k of Object.keys(c.fieldDates))c.fieldDates[k]='2026-10-01T15:00:00Z';return paymentItem(c,[],today);};
@@ -48,11 +55,11 @@ test('autopay does not hide a passed due date, but ranks below an unpaid one',()
  const covered=item({due:'2026-11-02',autopay:'on'}),plain=item({due:'2026-11-02'});assert.equal(covered.state,'overdue');assert.ok(paymentRank(plain)<paymentRank(covered));
 });
 test('overview shows the most urgent bills first and rolls up the rest',()=>{
- const cards=[card({},'unknown1'),card({},'unknown2'),card({paymentStatus:'No payment due'},'none'),card({due:'2026-11-30'},'later'),card({duePartial:'11月6日'},'yearless'),card({due:'2026-11-05'},'tomorrow'),card({due:'2026-11-09'},'soon'),card({due:'2026-11-01'},'late'),card({due:'2026-11-05',autopay:'on'},'auto')];
+ const cards=[card({},'unknown1'),card({},'unknown2'),card({paymentStatus:'No payment due'},'none'),card({due:'2026-11-30'},'later'),card({duePartial:'11月6日'},'inferred'),card({due:'2026-11-05'},'tomorrow'),card({due:'2026-11-09'},'soon'),card({due:'2026-11-01'},'late'),card({due:'2026-11-05',autopay:'on'},'auto')];
  const view=paymentView(cards,[],today);
- assert.deepEqual(view.top.map(i=>i.card.id),['late','tomorrow','soon','yearless']);assert.equal(view.top.length,VISIBLE_ITEMS);
+ assert.deepEqual(view.top.map(i=>i.card.id),['late','tomorrow','inferred','soon']);assert.equal(view.top.length,VISIBLE_ITEMS);
  assert.deepEqual(view.rest.map(i=>i.card.id),['later','auto','none','unknown1','unknown2']);
- assert.deepEqual(view.refresh.map(i=>i.card.id),['unknown1','unknown2']);assert.equal(view.urgent,3);assert.equal(view.action,5);
+ assert.deepEqual(view.refresh.map(i=>i.card.id),['unknown1','unknown2']);assert.equal(view.urgent,4);assert.equal(view.action,5);
  assert.deepEqual(paymentView([],[],today).top,[]);
 });
 test('handled applies to one cycle and comes back for the next bill',()=>{
@@ -65,6 +72,11 @@ test('handled applies to one cycle and comes back for the next bill',()=>{
 test('a yearless mark does not silently cover the same date next year',()=>{
  const key=JSON.stringify(['a','yearless','11月6日']),marks=[{key,at:'2026-11-01T00:00:00.000Z'}];
  assert.equal(isHandled(key,marks,'2026-11-20'),true);assert.equal(isHandled(key,marks,'2027-11-01'),false);
+ // A mark made on the label before years were inferred still covers the inferred date, within the same window.
+ assert.equal(item({duePartial:'11月6日'},marks).handled,true);
+ const legacy=item({duePartial:'11月6日'},marks);assert.equal(legacy.legacyKey,key);
+ assert.equal(item({duePartial:'11月6日'},withoutPaymentMark(marks,legacy.key,legacy.legacyKey)).handled,false,'undo clears a mark made before the year was inferred');
+ const next=card({duePartial:'11月6日'});next.fieldDates.duePartial='2027-11-01T15:00:00Z';assert.equal(paymentItem(next,marks,'2027-11-02').handled,false);
 });
 test('marks tolerate damaged storage and backup restore rejects malformed files',()=>{
  const store=value=>({getItem:k=>k===PAYMENT_MARKS_KEY?value:null}),good={key:JSON.stringify(['a','date','2026-11-06']),at:'2026-11-04T10:00:00.000Z'};
