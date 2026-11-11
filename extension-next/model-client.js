@@ -1,16 +1,28 @@
 // The one model client for the extension: wallet chat, card-type suggestions and model-assisted bank parsing.
-// The owner pastes the key. It lives only in chrome.storage.local, goes only to the provider's API host, and is
-// never logged, exported, synced or shown in full after saving.
+// Two ways to reach a model: the Cardybara hosted gateway with an invite code, or the owner's own provider key.
+// Either credential lives only in chrome.storage.local, goes only to its own host, and is never logged,
+// exported, synced or shown in full after saving.
 export const KEY_STORE='cardybara-model-key';
-export const PROVIDERS={deepseek:{label:'DeepSeek',origin:'https://api.deepseek.com',chat:'https://api.deepseek.com/chat/completions',models:'https://api.deepseek.com/models',model:'deepseek-flash'}};
+// The hosted gateway (gateway/ in this repo). The owner deploys it and sets this origin, together with the
+// manifest's optional host permission; until then it is a reserved name that never resolves (docs/GATEWAY.md).
+export const GATEWAY_ORIGIN='https://cardybara-gateway.invalid';
+export const gatewayConfigured=!new URL(GATEWAY_ORIGIN).hostname.endsWith('.invalid');
+export const HOSTED='cardybara';
+export const PROVIDERS={
+ deepseek:{label:'DeepSeek',origin:'https://api.deepseek.com',chat:'https://api.deepseek.com/chat/completions',models:'https://api.deepseek.com/models',model:'deepseek-flash'},
+ [HOSTED]:{label:'Cardybara 托管服务',origin:GATEWAY_ORIGIN,chat:GATEWAY_ORIGIN+'/v1/chat/completions',check:GATEWAY_ORIGIN+'/v1/invite',model:'deepseek-flash',hosted:true},
+};
+export const INVITE_PATTERN=/^cdy_[A-Za-z0-9_-]{43}$/;
 const local=()=>globalThis.chrome?.storage?.local||null;
 const permissionFor=provider=>({origins:[PROVIDERS[provider].origin+'/*']});
 export const validKey=key=>typeof key==='string'&&/^[\x21-\x7e]{16,200}$/.test(key);
+export const validInvite=code=>typeof code==='string'&&INVITE_PATTERN.test(code);
+const validCredential=(provider,key)=>PROVIDERS[provider]?.hosted?validInvite(key):validKey(key);
 export const maskKey=key=>key.slice(0,3)+'…'+key.slice(-4);
 async function readKey(){
  const store=local();if(!store)return null;
  const saved=(await store.get(KEY_STORE))[KEY_STORE];
- return saved&&PROVIDERS[saved.provider]&&validKey(saved.key)?saved:null;
+ return saved&&PROVIDERS[saved.provider]&&validCredential(saved.provider,saved.key)?saved:null;
 }
 export async function hasPermission(provider){try{return !!(await chrome.permissions.contains(permissionFor(provider)));}catch{return false;}}
 /** Must run from a click: Chrome only shows the permission prompt for a user gesture. */
@@ -18,11 +30,11 @@ export async function requestPermission(provider){if(!PROVIDERS[provider])throw 
 export async function keyStatus(){
  const saved=await readKey();if(!saved)return {saved:false,enabled:false,permission:false,ready:false};
  const permission=await hasPermission(saved.provider),enabled=saved.enabled!==false;
- return {saved:true,provider:saved.provider,label:PROVIDERS[saved.provider].label,model:PROVIDERS[saved.provider].model,masked:maskKey(saved.key),savedAt:saved.savedAt,enabled,permission,ready:enabled&&permission};
+ return {saved:true,provider:saved.provider,hosted:!!PROVIDERS[saved.provider].hosted,label:PROVIDERS[saved.provider].label,model:PROVIDERS[saved.provider].model,masked:maskKey(saved.key),savedAt:saved.savedAt,enabled,permission,ready:enabled&&permission};
 }
 export async function isModelReady(){return (await keyStatus()).ready;}
 export async function saveKey({provider,key}){
- if(!PROVIDERS[provider])throw Error('invalid_provider');if(!validKey(key))throw Error('invalid_key');
+ if(!PROVIDERS[provider])throw Error('invalid_provider');if(!validCredential(provider,key))throw Error(PROVIDERS[provider].hosted?'invalid_invite':'invalid_key');
  const store=local();if(!store)throw Error('storage_unavailable');
  await store.set({[KEY_STORE]:{provider,key,savedAt:new Date().toISOString(),enabled:true}});
  return keyStatus();
@@ -45,18 +57,29 @@ async function send(url,{provider,key,method='POST',body,signal,timeout=45000}){
  let response;
  try{response=await fetch(url,{method,headers:{Authorization:'Bearer '+key,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{}),credentials:'omit',redirect:'error',cache:'no-store',signal:AbortSignal.any(signals)});}
  catch(error){if(signal?.aborted)throw error;throw Error('model_failed');}
- // Error codes only. Provider text can echo the request, so it never travels further.
+ // Error codes only. Provider text can echo the request, so it never travels further. The gateway's own
+ // error codes are a fixed list and are read from its body; anything else falls back to the status.
+ if(target.hosted&&!response.ok)throw Error(await gatewayError(response));
  if(response.status===401||response.status===403)throw Error('model_auth_failed');
  if(response.status===429)throw Error('model_rate_limited');
  if(!response.ok)throw Error('model_failed');
  try{return await response.json();}catch{throw Error('model_failed');}
 }
+const GATEWAY_ERRORS={invite_invalid:'invite_invalid',invite_revoked:'invite_revoked',daily_requests:'hosted_over_cap',daily_tokens:'hosted_over_cap',monthly_budget:'hosted_over_cap',provider_rate_limited:'model_rate_limited'};
+async function gatewayError(response){
+ let code=null;try{code=(await response.json())?.error?.code;}catch{}
+ return Object.hasOwn(GATEWAY_ERRORS,code)?GATEWAY_ERRORS[code]:response.status===401?'invite_invalid':'model_failed';
+}
 async function ready(){const saved=await readKey();if(!saved||saved.enabled===false)throw Error('model_not_ready');return saved;}
-/** Checks a key before or after saving it, with a request that costs nothing. */
+/** Checks a key or invite code before or after saving it, with a request that costs nothing. */
 export async function testKey(candidate){
  const {provider,key}=candidate||await ready();
- if(!PROVIDERS[provider]||!validKey(key))throw Error('invalid_key');
- await send(PROVIDERS[provider].models,{provider,key,method:'GET',timeout:10000});return true;
+ if(!PROVIDERS[provider])throw Error('invalid_key');
+ if(!validCredential(provider,key))throw Error(PROVIDERS[provider].hosted?'invalid_invite':'invalid_key');
+ const target=PROVIDERS[provider];
+ if(target.hosted)await send(target.check,{provider,key,method:'POST',timeout:10000});
+ else await send(target.models,{provider,key,method:'GET',timeout:10000});
+ return true;
 }
 /** A provider request body as built by agent-core or the chat protocol. */
 export async function completeBody(body,{signal,timeout}={}){

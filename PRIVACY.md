@@ -12,6 +12,8 @@ Collection runs on supported bank pages in an existing user session. The reader 
 
 Cloud parsing is optional and requires configured permissions and consent. When enabled, selected redacted financial excerpts may be sent to a chosen model service, including DeepSeek or Gemini through the configured route. Redaction is best effort and the excerpts remain sensitive. Review the consent UI and do not enable cloud parsing unless you accept that transfer.
 
+The conversational assistant can use the Cardybara hosted service with an invite code: chat content then passes through the Cardybara gateway to the model provider (DeepSeek) and is not stored by the gateway, which logs only the invite code's id, the time, token counts and status. The invite code is kept only in the extension's local storage and sent only to the gateway. With an own key instead, requests go straight from the extension to the provider. See docs/GATEWAY.md.
+
 The conversational assistant uses the configured local proxy to send chat text and necessary public card/benefit information and explicit manual benefit marks to DeepSeek. Its read-only tools do not expose bank balances or card numbers. It has no included shared API key. The local proxy key is stored in the user's private .env.local; direct-parser keys, when configured through the extension, are session-scoped. The optional loopback proxy is HTTP restricted to the user's own machine; provider requests use HTTPS.
 
 ## Reminders

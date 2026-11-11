@@ -1,0 +1,59 @@
+# Cardybara model gateway. Deploying, the account, the secret and the KV namespace are owner-only: see docs/GATEWAY.md.
+name = "cardybara-gateway"
+main = "src/worker.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
+
+[vars]
+PROVIDER_URL = "https://api.deepseek.com/chat/completions"
+ALLOWED_MODELS = "deepseek-flash"
+# The extension origins allowed to call the gateway, comma-separated: chrome-extension://<id>.
+# Empty means no client is allowed (fail closed). The owner sets the real id(s); see docs/GATEWAY.md.
+ALLOWED_ORIGINS = ""
+DAILY_REQUESTS_PER_CODE = "200"
+DAILY_TOKENS_PER_CODE = "1000000"
+MONTHLY_BUDGET_USD = "10"
+# Charged per token from the provider's usage numbers; set to the provider's list price or above.
+PRICE_INPUT_USD_PER_MTOK = "0.6"
+PRICE_OUTPUT_USD_PER_MTOK = "2.4"
+MAX_OUTPUT_TOKENS = "8192"
+MAX_BODY_BYTES = "262144"
+# PROVIDER_KEY is a secret: `wrangler secret put PROVIDER_KEY`. It is never a var and never in this file.
+
+# Invite codes, stored by the SHA-256 digest of the code only.
+[[kv_namespaces]]
+binding = "INVITES"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+[[durable_objects.bindings]]
+name = "USAGE"
+class_name = "UsageLedger"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["UsageLedger"]
+
+# Workers Logs keep the one metadata line per request (code id, time, tokens, status) for reading usage.
+[observability]
+enabled = true
+
+# `wrangler dev --env local` runs against the mock provider in scripts/mock-provider.mjs.
+[env.local]
+[env.local.vars]
+PROVIDER_URL = "http://127.0.0.1:8799/chat/completions"
+ALLOW_HTTP_PROVIDER = "1"
+ALLOWED_MODELS = "deepseek-flash"
+ALLOWED_ORIGINS = "chrome-extension://*"
+DAILY_REQUESTS_PER_CODE = "20"
+DAILY_TOKENS_PER_CODE = "200000"
+MONTHLY_BUDGET_USD = "1"
+PRICE_INPUT_USD_PER_MTOK = "0.6"
+PRICE_OUTPUT_USD_PER_MTOK = "2.4"
+MAX_OUTPUT_TOKENS = "8192"
+MAX_BODY_BYTES = "262144"
+[[env.local.kv_namespaces]]
+binding = "INVITES"
+id = "local-invites"
+[[env.local.durable_objects.bindings]]
+name = "USAGE"
+class_name = "UsageLedger"
