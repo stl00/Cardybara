@@ -1,7 +1,7 @@
 // End-to-end test of the packaged extension: the exact release ZIP, installed in a clean Chrome
 // profile, against a local synthetic bank. No bank is contacted and no secret is used.
 //
-//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart] [--expired-login] [--cancel] [--chat] [--upgrade-from <previous-release-dir-or-zip>]
+//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart] [--expired-login] [--cancel] [--chat] [--cards] [--upgrade-from <previous-release-dir-or-zip>]
 //
 // --restart (nightly set): after the main path, close Chrome and start it again on the same
 // profile; the extension must still be installed and the records it read must still be there.
@@ -15,6 +15,10 @@
 // --upgrade-from (nightly set): the main path runs on the previous package instead; then Chrome is
 // closed, the tested package replaces the previous one in the same directory, and Chrome starts again
 // on the same profile. The same extension must now run the tested package with the records kept.
+// --cards: after the main path, the user adds a card by hand by picking its product from the catalogue
+// and setting its annual fee date, sees its anniversary credit get a real cycle, edits it, corrects the
+// name of a card the bank page showed and resets that correction, then removes the manual card
+// (stl00/Cardybara#176). The product is chosen from the catalogue data, and every tail and date is synthetic.
 // --cancel (nightly set): after the main path, the user stops a refresh from the wallet while the
 // bank page is still loading, then stops a reading that waits at needs-login from the bank page's
 // guide, then stops another such reading from the wallet header; each must end cancelled with the
@@ -171,8 +175,8 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=scriptedChat,upgradeFrom=null,mutatePrevious,swap=true}={}){
- if([restart,expiredLogin,cancel,chat,!!upgradeFrom].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel, --chat and --upgrade-from separately: each starts from the end of the main path');
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=scriptedChat,cards=false,cardFeeDate={month:2,day:29},upgradeFrom=null,mutatePrevious,swap=true}={}){
+ if([restart,expiredLogin,cancel,chat,cards,!!upgradeFrom].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel, --chat, --cards and --upgrade-from separately: each starts from the end of the main path');
  if(stepMs)STEP_MS=stepMs;log=[];lastState=null;
  const work=await mkdtemp(join(tmpdir(),'cardybara-e2e-'));
  const sessions={};let browser,bank;
@@ -543,6 +547,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    note('scripted answer shown;',String(chats.length),'model requests, the saved key only, no read value sent');
    note('PASS: the assistant chat on the packaged extension answers through a scripted model');
   }
+  if(cards)await manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate:cardFeeDate});
   return {ok:true};
  }catch(error){
   note('FAIL:',error.message);
@@ -626,6 +631,115 @@ async function stopFromGuide({cdp,session,until}){
  });
 }
 
+// --- --cards -------------------------------------------------------------------------------
+// A catalogue product at the synthetic bank with a credit that resets on the account anniversary, whose
+// English name no other product there contains, so typing it in the search picks exactly that product.
+async function anniversaryProduct(){
+ const [{benefitProfiles},{cardProducts}]=await Promise.all([import('../src/benefitRules.js'),import('../src/productCatalog.js')]);
+ const scoped=cardProducts.filter(p=>p.bank==='Chase'&&p.region==='US'),search=p=>[p.name,...p.aliases].join(' ').toLowerCase();
+ for(const product of scoped){
+  const profile=benefitProfiles.find(x=>x.productId===product.id);
+  if(!profile||profile.coverage==='variant-unconfirmed'||!profile.benefits.some(b=>b.period==='account-anniversary'&&['credit','promo'].includes(b.category)&&b.amount>0&&!b.applicability&&!b.validFrom&&!b.validThrough))continue;
+  if(scoped.some(p=>p!==product&&search(p).includes(product.name.toLowerCase())))continue;
+  return product;
+ }
+ throw new StepError('the catalogue has no Chase product with an anniversary credit to test with');
+}
+async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate}){
+ const [{anniversaryPeriod},{walletDay}]=await Promise.all([import('../src/feeDate.js'),import('../src/personalBenefits.js')]);
+ const product=await anniversaryProduct(),TAIL='9081';
+ const local=key=>evaluate('wallet',`JSON.parse(localStorage.getItem(${JSON.stringify(key)})||'null')`);
+ const key=async(key,code,vk)=>{for(const type of ['keyDown','keyUp'])await cdp.send('Input.dispatchKeyEvent',{type,key,code,windowsVirtualKeyCode:vk,...(type==='keyDown'&&key==='Enter'?{text:'\r'}:{})},sessions.wallet);};
+ // A closed dialog can linger in a background tab until its animation ends, so the newest match is the live one.
+ // Focus a field by selector, select what it holds, and type over it as a user would.
+ const type=async(selector,text)=>{
+  if(!await until('the field '+selector,()=>evaluate('wallet',`(()=>{const el=[...document.querySelectorAll(${JSON.stringify(selector)})].at(-1);if(!el||el.disabled)return false;el.focus();el.select?.();return document.activeElement===el;})()`)))throw new StepError('no field '+selector);
+  await cdp.send('Input.insertText',{text},sessions.wallet);
+ };
+ const choose=async(selector,text)=>{await type(selector,text);await sleep(300);await key('Enter','Enter',13);await sleep(300);};
+ const drawerText=()=>evaluate('wallet',`[...document.querySelectorAll('.ant-drawer-open .ant-drawer-body')].map(e=>e.innerText).join(' | ')`);
+ const openCard=async tail=>{
+  await evaluate('wallet','location.hash="wallet"');
+  await until('the card ending '+tail,()=>evaluate('wallet',`(()=>{const el=[...document.querySelectorAll('.wallet-card')].find(c=>c.innerText.includes(${JSON.stringify(tail)}));if(!el)return false;el.click();return true;})()`));
+  await until('the details of the card ending '+tail,async()=>(await drawerText()).includes(tail));
+ };
+ const closeDrawer=async()=>{await until('the back-to-cards button',()=>press('.ant-drawer-open button','返回卡片列表'));await until('the card details to close',async()=>!(await evaluate('wallet',`!!document.querySelector('.ant-drawer-open')`)));};
+ // Ant Design spaces out a two-character Chinese button label, so labels are compared without spaces.
+ const press=(selector,zh)=>evaluate('wallet',`(()=>{const flat=v=>v.replace(/\\s+/g,'');const want=${words(zh)}.map(flat);const b=[...document.querySelectorAll(${JSON.stringify(selector)})].reverse().find(b=>want.includes(flat(b.textContent))&&!b.disabled&&b.offsetParent);if(!b)return false;b.click();return true;})()`);
+ const modalOk=async zh=>{if(!await until('the '+zh+' button',()=>press('.ant-modal-footer button',zh)))throw new StepError('no '+zh+' button');};
+
+ const day=walletDay();
+ // The wallet tab in front, as the user would have it, so dialogs finish opening and closing.
+ await cdp.send('Page.bringToFront',{},sessions.wallet);
+
+ // 10a. Add a card by hand: bank, product from the catalogue (with its art), last digits and fee date.
+ await evaluate('wallet','location.hash="wallet"');
+ await until('the add-card button',()=>press('button','添加卡片'));
+ await choose('.add-card-bank input','Chase');
+ await choose('.add-card-product input',product.name);
+ await until('the product art preview',()=>evaluate('wallet',`!!document.querySelector('.add-card-form .card-art img')`));
+ await type('.add-card-tail',TAIL);
+ await type('.add-card-form .fee-month input',String(feeDate.month));
+ await type('.add-card-form .fee-day input',String(feeDate.day));
+ await modalOk('保存卡片');
+ const added=await until('the manual card to be stored',async()=>(await local('cardybara-wallet-cards-v1'))?.find(c=>c.tail===TAIL));
+ if(added.bank!=='Chase'||added.identitySource!=='manual')throw new StepError('the manual card was stored wrongly: '+JSON.stringify(added));
+ const choice=(await local('cardybara-card-products-v1'))?.find(c=>c.cardId===added.id);
+ if(choice?.productId!==product.id)throw new StepError(`the picked product was not stored for the manual card: ${JSON.stringify(choice)}`);
+ const edits=async()=>(await local('cardybara-card-edits-v1'))||[];
+ const stored=(await edits()).find(e=>e.cardId===added.id);
+ if(JSON.stringify(stored?.feeDate)!==JSON.stringify(feeDate))throw new StepError('the fee date was not stored as entered: '+JSON.stringify(stored));
+ note('added a manual card by picking a catalogue product, with a fee date');
+
+ // 10b. Its anniversary credit now has a real cycle from that date, and no fee-date prompt shows.
+ const expect=anniversaryPeriod(feeDate,day);
+ await openCard(TAIL);
+ if(await evaluate('wallet',`!!document.querySelector('.ant-drawer-open .fee-date-prompt')`))throw new StepError('the card still asks for its fee date after one was set');
+ await until('the card year from the fee date',async()=>{const text=await drawerText();return text.includes(expect.start)&&text.includes(expect.end);});
+ await press('.ant-drawer-open button','查看本卡全部');
+ await until('an anniversary credit running to the end of the card year',()=>evaluate('wallet',`[...document.querySelectorAll('.ant-drawer-open .credit-row-facts')].some(e=>e.innerText.includes(${JSON.stringify(expect.end)}))`));
+ note('the anniversary credit runs',expect.start,'to',expect.end);
+
+ // 10c. Edit it: a new name and another fee date.
+ const editCard=async(fill)=>{
+  await until('the edit-card button',()=>press('.ant-drawer-open button','编辑卡片信息'));
+  await until('the edit-card form',()=>evaluate('wallet',`!!document.querySelector('.card-edit-modal .ant-form')`));
+  await fill();await modalOk('保存');
+ };
+ const renamed='E2E Synthetic Card',next={month:1,day:31};
+ await editCard(async()=>{await type('.card-edit-modal #name',renamed);await type('.card-edit-modal .fee-month input',String(next.month));await type('.card-edit-modal .fee-day input',String(next.day));});
+ const after=anniversaryPeriod(next,day);
+ await until('the edited name and card year',async()=>{const text=await drawerText();return text.includes(renamed)&&text.includes(after.start)&&text.includes(after.end);});
+ const edited=(await edits()).find(e=>e.cardId===added.id);
+ if(edited?.name!==renamed||JSON.stringify(edited?.feeDate)!==JSON.stringify(next))throw new StepError('the edit was not stored: '+JSON.stringify(edited));
+ note('edited the manual card: name and fee date');
+ await closeDrawer();
+
+ // 10d. Correct the name of a card the bank page showed, then reset it to what the bank showed.
+ await openCard('1234');
+ const bankName=(await evaluate('wallet',`document.querySelector('.ant-drawer-open .card-edit-section .ant-descriptions-item-content')?.innerText||''`)).trim();
+ if(!bankName)throw new StepError('the detected card shows no name');
+ await editCard(async()=>{await type('.card-edit-modal #name','E2E Corrected Name');});
+ await until('the corrected name labelled as set by the user',async()=>{const text=await drawerText();return text.includes('E2E Corrected Name')&&JSON.parse(words('你设置的')).some(w=>text.includes(w));});
+ const detectedId=(await edits()).find(e=>e.name==='E2E Corrected Name')?.cardId;
+ if(!detectedId)throw new StepError('the correction on the detected card was not stored');
+ await until('the reset link',()=>press('.ant-drawer-open button','恢复银行显示的值'));
+ await until('the bank name back after the reset',async()=>{const text=await drawerText();return text.includes(bankName)&&!text.includes('E2E Corrected Name');});
+ if((await edits()).some(e=>e.cardId===detectedId))throw new StepError('the reset left the correction stored');
+ note('corrected a detected card and reset it to the bank value');
+ await closeDrawer();
+
+ // 10e. Remove the manual card: it leaves the wallet with its product choice and edits.
+ await openCard(TAIL);
+ await until('the remove button',()=>press('.ant-drawer-open button','移除此卡'));
+ await until('the remove confirmation',()=>press('.ant-modal-confirm button','移除'));
+ await until('the manual card to leave the wallet',async()=>!(await pageText('wallet')).includes(renamed)&&!(await local('cardybara-wallet-cards-v1'))?.some(c=>c.tail===TAIL));
+ if((await edits()).some(e=>e.cardId===added.id))throw new StepError('the removed card left its edits behind');
+ if((await local('cardybara-card-products-v1'))?.some(c=>c.cardId===added.id))throw new StepError('the removed card left its product choice behind');
+ const removed=await local('cardybara-wallet-removed-v1');
+ if(!removed?.some(r=>r.id===added.id))throw new StepError('the removed card was not recorded as removed');
+ note('PASS: a manual card is added from the catalogue with a fee date, gets an anniversary cycle, is edited and removed; a detected card is corrected and reset');
+}
 // Negative controls: each deliberately broken copy of the same package must fail the run, and for
 // the expected reason, so a broken environment cannot pass them.
 export const BROKEN={
@@ -657,6 +771,10 @@ export const BROKEN_CHAT={
  'a key the provider rejects':[/the key was not saved/,{chatKey:'e2e-rejected-'+'1'.repeat(24)}],
  'a model that never gives the answer':[/the chat failed instead of answering|timed out waiting for the scripted answer/,{chatScript:[()=>({content:'',tool_calls:[toolCall('e2e-1','list_cards')]})]}],
 };
+// With --cards: a card with a fee date that does not exist is never saved; the check must notice.
+export const BROKEN_CARDS={
+ 'a fee date that does not exist':[/timed out waiting for the manual card to be stored/,{cardFeeDate:{month:2,day:30}}],
+};
 // With --upgrade-from: the records are lost during the upgrade, or the tested package never replaces the
 // previous one (made to differ from it so the check can tell); the upgrade check must notice either.
 export const BROKEN_UPGRADE={
@@ -670,12 +788,12 @@ async function sameFiles(a,b){
  for(const f of x)if(!(await readFile(join(a,f))).equals(await readFile(join(b,f))))return false;
  return true;
 }
-export async function negativeControls(input,{out,restart=false,expiredLogin=false,cancel=false,chat=false,upgradeFrom=null}){
+export async function negativeControls(input,{out,restart=false,expiredLogin=false,cancel=false,chat=false,cards=false,upgradeFrom=null}){
  const escaped=[];
  // With --restart, --expired-login or --cancel only that scenario's controls run; the package controls run
  // in their own step.
- const extended=restart||expiredLogin||cancel||chat||!!upgradeFrom;
- const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire,requireExpired:false}]):[]),...(cancel?Object.entries(BROKEN_CANCEL).map(([name,[reason,broken]])=>[name,reason,{cancel:true,...broken}]):[]),...(chat?Object.entries(BROKEN_CHAT).map(([name,[reason,broken]])=>[name,reason,{chat:true,...broken}]):[]),...(upgradeFrom?Object.entries(BROKEN_UPGRADE).map(([name,[reason,broken]])=>[name,reason,{upgradeFrom,...broken}]):[])];
+ const extended=restart||expiredLogin||cancel||chat||cards||!!upgradeFrom;
+ const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire,requireExpired:false}]):[]),...(cancel?Object.entries(BROKEN_CANCEL).map(([name,[reason,broken]])=>[name,reason,{cancel:true,...broken}]):[]),...(chat?Object.entries(BROKEN_CHAT).map(([name,[reason,broken]])=>[name,reason,{chat:true,...broken}]):[]),...(cards?Object.entries(BROKEN_CARDS).map(([name,[reason,broken]])=>[name,reason,{cards:true,...broken}]):[]),...(upgradeFrom?Object.entries(BROKEN_UPGRADE).map(([name,[reason,broken]])=>[name,reason,{upgradeFrom,...broken}]):[])];
  for(const [name,reason,options] of controls){
   console.log(`--- negative control: ${name}`);
   const error=await run(input,{out:join(out,name.replace(/\W+/g,'-')),...options,stepMs:12000}).then(()=>null,e=>e);
@@ -689,8 +807,8 @@ export async function negativeControls(input,{out,restart=false,expiredLogin=fal
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const valued=['--out','--upgrade-from'];
  const args=process.argv.slice(2),take=flag=>{const i=args.indexOf(flag);if(i<0)return undefined;if(valued.includes(flag)&&!args[i+1]){console.error(flag+' needs a path');process.exit(2);}return args.splice(i,valued.includes(flag)?2:1).at(-1);};
- const outArg=take('--out'),upgradeFrom=take('--upgrade-from')||null,controls=take('--negative-controls'),restart=!!take('--restart'),expiredLogin=!!take('--expired-login'),cancel=!!take('--cancel'),chat=!!take('--chat');
- if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart] [--expired-login] [--cancel] [--chat] [--upgrade-from <previous-release-dir-or-zip>]');process.exit(2);}
+ const outArg=take('--out'),upgradeFrom=take('--upgrade-from')||null,controls=take('--negative-controls'),restart=!!take('--restart'),expiredLogin=!!take('--expired-login'),cancel=!!take('--cancel'),chat=!!take('--chat'),cards=!!take('--cards');
+ if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart] [--expired-login] [--cancel] [--chat] [--cards] [--upgrade-from <previous-release-dir-or-zip>]');process.exit(2);}
  const out=resolve(outArg||join(root,'.debug/e2e'));
- (controls?negativeControls(args[0],{out,restart,expiredLogin,cancel,chat,upgradeFrom}):run(args[0],{out,restart,expiredLogin,cancel,chat,upgradeFrom})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
+ (controls?negativeControls(args[0],{out,restart,expiredLogin,cancel,chat,cards,upgradeFrom}):run(args[0],{out,restart,expiredLogin,cancel,chat,cards,upgradeFrom})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
 }

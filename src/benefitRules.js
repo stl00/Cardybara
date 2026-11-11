@@ -1,18 +1,21 @@
 import {benefitProfileView,benefitSourceView,hsbcRewardCashView} from './knowledge.js';
 const data={profiles:benefitProfileView(),sources:benefitSourceView,hsbcRewardCash:hsbcRewardCashView};
 import {matchCardProduct} from './productCatalog.js';
+import {anniversaryPeriod} from './feeDate.js';
 export const benefitProfiles=data.profiles;
 export const benefitSources=data.sources;
 export const hsbcRewardCash=data.hsbcRewardCash;
 export function profileForCard(card){const m=matchCardProduct(card);return m.status==='matched'?data.profiles.find(p=>p.productId===m.product.id)||null:null;}
 const isDate=value=>typeof value==='string'&&/^20\d{2}-\d{2}-\d{2}$/.test(value)&&Number.isFinite(Date.parse(value+'T00:00:00Z'))&&new Date(value+'T00:00:00Z').toISOString().slice(0,10)===value;
-export function benefitPeriod(rule,asOf){
+/** account.feeDate is the annual fee date the user set on the card; only it gives an anniversary cycle. */
+export function benefitPeriod(rule,asOf,account={}){
  if(!isDate(asOf))return null;const [y,m]=asOf.split('-').map(Number);
  if(rule.period==='calendar-year')return {start:`${y}-01-01`,end:`${y}-12-31`};
  if(rule.period==='calendar-quarter'){const start=Math.floor((m-1)/3)*3+1,end=start+2;return {start:`${y}-${String(start).padStart(2,'0')}-01`,end:`${y}-${String(end).padStart(2,'0')}-${new Date(Date.UTC(y,end,0)).getUTCDate()}`};}
  if(rule.period==='calendar-half-year')return {start:`${y}-${m<=6?'01':'07'}-01`,end:`${y}-${m<=6?'06-30':'12-31'}`};
  if(rule.period==='calendar-month'){const end=new Date(Date.UTC(y,m,0)).getUTCDate();return {start:`${y}-${String(m).padStart(2,'0')}-01`,end:`${y}-${String(m).padStart(2,'0')}-${end}`};}
- return null; // Anniversary and rolling periods require account-specific dates.
+ if(rule.period==='account-anniversary')return anniversaryPeriod(account?.feeDate,asOf);
+ return null; // Rolling and activation periods, and an anniversary the user has not set, require account-specific dates.
 }
 export function benefitStatus(rule,asOf,account={}){
  if(rule.validFrom&&asOf<rule.validFrom)return 'not_started';

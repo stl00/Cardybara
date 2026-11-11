@@ -1,12 +1,14 @@
 import {paymentView} from './paymentStates.js';
 import {activeTasks,creditTasks,taskStatus} from './personalBenefits.js';
+import {nextFeeDay} from './feeDate.js';
+import {profileForCard} from './benefitRules.js';
 import {REMINDER_LOG_KEY,REMINDER_SCHEDULE_KEY,SCHEDULE_SCHEMA,SINGLE_LIMIT,pruneSent,readLog,reminderDay} from '../extension-next/reminder-core.js';
 export {pruneSent};
 // Decides which reminders are due. No browser APIs here, so "never fire for handled or autopay bills"
 // and "no amounts unless asked" can be tested directly.
 export const REMINDER_SETTINGS_KEY='cardybara-reminders-v1',REMINDER_SENT_KEY='cardybara-reminders-sent-v1';
 export const LEAD_DAYS=[1,3,7];
-export const DEFAULT_SETTINGS=Object.freeze({enabled:false,bills:true,credits:true,billDays:3,creditDays:3,showAmounts:false});
+export const DEFAULT_SETTINGS=Object.freeze({enabled:false,bills:true,credits:true,fees:true,billDays:3,creditDays:3,feeDays:7,showAmounts:false});
 const DAY_MS=86400000;
 // How far ahead the page plans for the worker, and the local hour a planned reminder fires.
 export const SCHEDULE_DAYS=60,FIRE_HOUR=9;
@@ -14,7 +16,7 @@ const MAX_ENTRIES=300;
 
 export function normalizeSettings(value){
  const v=value&&typeof value==='object'?value:{};
- return {enabled:v.enabled===true,bills:v.bills!==false,credits:v.credits!==false,billDays:LEAD_DAYS.includes(v.billDays)?v.billDays:DEFAULT_SETTINGS.billDays,creditDays:LEAD_DAYS.includes(v.creditDays)?v.creditDays:DEFAULT_SETTINGS.creditDays,showAmounts:v.showAmounts===true};
+ return {enabled:v.enabled===true,bills:v.bills!==false,credits:v.credits!==false,fees:v.fees!==false,billDays:LEAD_DAYS.includes(v.billDays)?v.billDays:DEFAULT_SETTINGS.billDays,creditDays:LEAD_DAYS.includes(v.creditDays)?v.creditDays:DEFAULT_SETTINGS.creditDays,feeDays:LEAD_DAYS.includes(v.feeDays)?v.feeDays:DEFAULT_SETTINGS.feeDays,showAmounts:v.showAmounts===true};
 }
 export function readSettings(storage){try{return normalizeSettings(JSON.parse(storage.getItem(REMINDER_SETTINGS_KEY)));}catch{return normalizeSettings(null)}}
 export function readSent(storage){try{const rows=JSON.parse(storage.getItem(REMINDER_SENT_KEY));return Array.isArray(rows)?rows.filter(r=>typeof r?.id==='string'&&typeof r?.day==='string'):[];}catch{return []}}
@@ -35,6 +37,15 @@ export function creditReminders(cards,events,settings,asOf){
   id:`credit:${task.key}`,kind:'credit',title:task.title,...(task.original?{original:task.original}:{}),name:cards.find(c=>c.id===task.cardId)?.name||'',days,
  }));
 }
+/**
+ * Only a fee date the user set reminds, once per card year. A card whose published annual fee is zero has
+ * nothing to remind about; an unknown fee still reminds, because the user set the date for a reason.
+ */
+export function feeReminders(cards,settings,asOf){
+ return cards.filter(c=>c.feeDate&&profileForCard(c)?.fees?.primaryAnnual!==0).map(card=>{const day=nextFeeDay(card.feeDate,asOf);return day&&{card,day,days:Math.round((Date.parse(day+'T00:00:00Z')-Date.parse(asOf+'T00:00:00Z'))/DAY_MS)};}).filter(r=>r&&r.days<=settings.feeDays).map(({card,day,days})=>({
+  id:`fee:${JSON.stringify([card.id,day])}`,kind:'fee',name:card.name,days,
+ }));
+}
 const ofKind=(list,...kinds)=>list.filter(r=>kinds.includes(r.kind));
 /**
  * Turns what is due into notifications, once per bill or credit cycle. Several at once become one
@@ -43,9 +54,9 @@ const ofKind=(list,...kinds)=>list.filter(r=>kinds.includes(r.kind));
 export function pendingNotifications({cards,marks,events,settings,sent,asOf}){
  if(!settings.enabled)return [];
  const seen=new Set(sent.map(r=>r.id));
- const fresh=[...(settings.bills?billReminders(cards,marks,settings,asOf):[]),...(settings.credits?creditReminders(cards,events,settings,asOf):[])].filter(r=>!seen.has(r.id));
+ const fresh=[...(settings.bills?billReminders(cards,marks,settings,asOf):[]),...(settings.fees?feeReminders(cards,settings,asOf):[]),...(settings.credits?creditReminders(cards,events,settings,asOf):[])].filter(r=>!seen.has(r.id));
  const out=[];
- for(const [group,rows] of [['bills',ofKind(fresh,'overdue','bill')],['credits',ofKind(fresh,'credit')]]){
+ for(const [group,rows] of [['bills',ofKind(fresh,'overdue','bill','fee')],['credits',ofKind(fresh,'credit')]]){
   if(!rows.length)continue;
   if(rows.length>SINGLE_LIMIT)out.push({type:group==='bills'?'bill-summary':'credit-summary',count:rows.length,ids:rows.map(r=>r.id),tag:`cardybara-${group}-${asOf}-${sent.length}`});
   else for(const r of rows)out.push({type:r.kind,...r,ids:[r.id],tag:r.id,...(r.kind==='credit'||settings.showAmounts?{}:{statement:undefined,currency:undefined})});
@@ -72,12 +83,12 @@ export function buildSchedule({cards,marks,events,settings,sent,asOf,phrases,tra
  const seen=new Set(sent.map(r=>r.id)),entries=new Map();
  for(let n=0;n<=days;n++){
   const day=addDays(asOf,n);
-  for(const r of [...(settings.bills?billReminders(cards,marks,settings,day):[]),...(settings.credits?creditReminders(cards,events,settings,day):[])]){
+  for(const r of [...(settings.bills?billReminders(cards,marks,settings,day):[]),...(settings.fees?feeReminders(cards,settings,day):[]),...(settings.credits?creditReminders(cards,events,settings,day):[])]){
    if(seen.has(r.id))continue;
    let entry=entries.get(r.id);
    if(!entry){
     const credit=r.kind==='credit',amount=!credit&&settings.showAmounts&&r.statement!=null&&r.currency?`${r.currency} ${Number(r.statement).toLocaleString()}`:null;
-    entry={id:r.id,group:credit?'credits':'bills',label:credit?`${translate(r.title,r)} · ${r.name}`:r.name,firstDay:day,lastDay:day,targetDay:addDays(day,r.days),fireAt:fireTime(day),...(amount?{amount}:{})};
+    entry={id:r.id,group:credit?'credits':'bills',label:credit?`${translate(r.title,r)} · ${r.name}`:r.kind==='fee'?`${translate('年费日')} · ${r.name}`:r.name,firstDay:day,lastDay:day,targetDay:addDays(day,r.days),fireAt:fireTime(day),...(amount?{amount}:{})};
     entries.set(r.id,entry);
    }
    entry.lastDay=day;

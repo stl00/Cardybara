@@ -12,6 +12,7 @@ import {creditView,isDone,ENDING_SOON_DAYS,SHORT_LIST,COMPACT_LIST} from './cred
 import {creditCategoryLabel} from './creditCategories';
 import {CardIdentity} from './Identity';
 import ItemLogo from './ItemLogo';
+import {FeeDateHint} from './CardEditor.jsx';
 const {Text,Paragraph,Title}=Typography;
 const Personal=createContext(null);
 function broadcast(){if(typeof BroadcastChannel!=='undefined'){const c=new BroadcastChannel('cardybara-personal');c.postMessage('changed');c.close();}}
@@ -59,6 +60,7 @@ export function CreditManager({cards,compact=false,hidden=false}){
  const headline=view.open.length?(view.ending.length?t('{0} 项 {1} 天内截止，共 {2} 项待处理',[view.ending.length,ENDING_SOON_DAYS,view.open.length]):t('{0} 项待处理',[view.open.length])):null;
  return <Card className="credit-manager" title={t(compact&&!singleCard&&view.ending.length?'快到期的福利':'本期 Credit')} style={{marginBottom:20}} extra={compact?(singleCard?(view.rows.length>COMPACT_LIST&&<Button type="link" onClick={()=>setExpanded(!expanded)}>{expanded?t('收起'):t('查看本卡全部')}</Button>):<Button type="link" onClick={()=>location.hash='credits'}>{t('查看全部')}</Button>):<Button onClick={calendar}>{t('添加本期日历提醒')}</Button>}>
  {error&&<Alert type="error" showIcon title={error}/>}
+ {!singleCard&&!compact&&<FeeDateHint cards={cards}/>}
  {headline&&<Paragraph type="secondary">{headline} · {t('用完点一下；默认是待确认，不会替你猜已用或未用。')}</Paragraph>}
  {!!due.length&&<Alert type="warning" showIcon title={t('{0} 项临近本期截止，仍待你确认',[due.length])} style={{marginBottom:16}}/>}
  {!compact&&<div className="credit-filters">
