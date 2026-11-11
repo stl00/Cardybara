@@ -1954,7 +1954,13 @@
       "category": "protection",
       "period": "event-based",
       "amount": null,
-      "currency": null
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -2032,7 +2038,13 @@
       "category": "protection",
       "period": "event-based",
       "amount": null,
-      "currency": null
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -2110,7 +2122,13 @@
       "category": "protection",
       "period": "event-based",
       "amount": null,
-      "currency": null
+      "currency": null,
+      "coverage": {
+        "type": "baggage-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -2188,7 +2206,13 @@
       "category": "protection",
       "period": "event-based",
       "amount": null,
-      "currency": null
+      "currency": null,
+      "coverage": {
+        "type": "emergency-evacuation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -2266,7 +2290,13 @@
       "category": "protection",
       "period": "event-based",
       "amount": null,
-      "currency": null
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "primary",
+        "requiresCardPayment": true,
+        "exclusions": []
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -2344,7 +2374,13 @@
       "category": "protection",
       "period": "event-based",
       "amount": null,
-      "currency": null
+      "currency": null,
+      "coverage": {
+        "type": "roadside",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -2422,7 +2458,13 @@
       "category": "protection",
       "period": "event-based",
       "amount": null,
-      "currency": null
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -2500,7 +2542,13 @@
       "category": "protection",
       "period": "event-based",
       "amount": null,
-      "currency": null
+      "currency": null,
+      "coverage": {
+        "type": "return-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -2578,7 +2626,13 @@
       "category": "protection",
       "period": "event-based",
       "amount": null,
-      "currency": null
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -15270,7 +15324,13 @@
       "category": "protection",
       "period": "event-based",
       "amount": null,
-      "currency": null
+      "currency": null,
+      "coverage": {
+        "type": "travel-insurance",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -15897,7 +15957,13 @@
       "category": "protection",
       "period": "event-based",
       "amount": null,
-      "currency": null
+      "currency": null,
+      "coverage": {
+        "type": "travel-insurance",
+        "basis": null,
+        "requiresCardPayment": true,
+        "exclusions": []
+      }
     },
     "validity": {
       "effectiveFrom": null,
@@ -15925,6 +15991,280 @@
     "review": {
       "checkedAt": "2026-10-27",
       "reviewAfter": "2027-01-25",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-chase-sapphire-preferred-credit-card.rental",
+    "revision": 1,
+    "revisionId": "rule.chase-us-chase-sapphire-preferred-credit-card.rental@2026-11-10.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-chase-sapphire-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车保障",
+      "summary": "用本卡付全部租金并拒绝租车公司碰撞险时，车辆被盗和碰撞损失为主要（primary）保障，上限 $60,000，适用于建议零售价 $125,000 以下的大多数车辆；纽约州居民在美国境内为次要（secondary）保障。",
+      "howToUse": [
+        "拒绝租车公司的碰撞险（CDW/LDW），并用本卡支付全部租金。",
+        "该条目仅为保障摘要；以完整保障指南（Guide to Benefits）为准，核对除外责任和理赔要求后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Auto Rental Coverage",
+      "summary": "Primary reimbursement up to $60,000 for theft and collision damage on most rental vehicles with an MSRP of $125,000 or less, when you decline the rental company's collision insurance and charge the entire rental to the card. New York residents are secondary inside the U.S.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-chase-sapphire-preferred-credit-card",
+          "text": "Decline the rental company's collision insurance and charge the entire rental cost to your card."
+        },
+        {
+          "sourceId": "card-chase-us-chase-sapphire-preferred-credit-card",
+          "text": "Coverage is primary and provides reimbursement up to $60,000 for theft and collision damage for most rental vehicles with an MSRP of $125,000 or less."
+        },
+        {
+          "sourceId": "card-chase-us-chase-sapphire-preferred-credit-card",
+          "text": "Specific limitations apply to New York residents: Auto Rental Coverage – inside the United States coverage is secondary to your personal automobile insurance."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "primary",
+        "requiresCardPayment": true,
+        "exclusions": [
+          "most rental vehicles with an MSRP of $125,000 or less",
+          "inside the United States coverage is secondary to your personal automobile insurance"
+        ]
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用本卡付全部租金并拒绝租车公司碰撞险时，车辆被盗和碰撞损失为主要（primary）保障，上限 $60,000，适用于建议零售价 $125,000 以下的大多数车辆；纽约州居民在美国境内为次要（secondary）保障。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-chase-sapphire-preferred-credit-card"
+      ],
+      "checkedAt": "2026-11-10",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-10",
+      "reviewAfter": "2027-02-08",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-freedom-unlimited.rental",
+    "revision": 1,
+    "revisionId": "rule.chase-us-freedom-unlimited.rental@2026-11-10.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-freedom-unlimited"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车保障",
+      "summary": "用本卡付全部租金并拒绝租车公司碰撞险时，报销大多数租赁车辆的被盗和碰撞损失。官网摘要没写是主要还是次要保障，也没写上限。",
+      "howToUse": [
+        "拒绝租车公司的碰撞险（CDW/LDW），并用本卡支付全部租金。",
+        "该条目仅为保障摘要；以完整保障指南（Guide to Benefits）为准，核对除外责任和理赔要求后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Auto Rental Coverage",
+      "summary": "Reimbursement for theft and collision damage on most rental vehicles when you decline the rental company's collision insurance and charge the entire rental to the card. The summary does not state whether coverage is primary or secondary, or a limit.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "freedom-us",
+          "text": "Decline the rental company's collision insurance and charge the entire rental cost to your card."
+        },
+        {
+          "sourceId": "freedom-us",
+          "text": "Coverage provides reimbursement for theft and collision damage for most rental vehicles."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": true,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用本卡付全部租金并拒绝租车公司碰撞险时，报销大多数租赁车辆的被盗和碰撞损失。官网摘要没写是主要还是次要保障，也没写上限。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "freedom-us"
+      ],
+      "checkedAt": "2026-11-10",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-10",
+      "reviewAfter": "2027-02-08",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-preferred-credit-card.rental",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-preferred-credit-card.rental@2026-11-10.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车保障",
+      "summary": "用本卡付全部租金并拒绝租车公司碰撞险时，因公租车的被盗和碰撞损失为主要（primary）保障，上限 $60,000，适用于建议零售价 $125,000 以下的大多数车辆。",
+      "howToUse": [
+        "拒绝租车公司的碰撞险（CDW/LDW），并用本卡支付全部租金。",
+        "该条目仅为保障摘要；以完整保障指南（Guide to Benefits）为准，核对除外责任和理赔要求后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Auto Rental Coverage",
+      "summary": "Primary when renting for business purposes: reimbursement up to $60,000 for theft and collision damage on most rental vehicles with an MSRP of $125,000 or less, when you decline the rental company's collision insurance and charge the entire rental to the card.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-preferred-credit-card",
+          "text": "Decline the rental company's collision insurance and charge the entire rental cost to your card."
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-preferred-credit-card",
+          "text": "Coverage is primary when renting for business purposes and provides reimbursement up to $60,000 for theft and collision damage for most rental vehicles with an MSRP of $125,000 or less."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "primary",
+        "basisScope": "when renting for business purposes",
+        "requiresCardPayment": true,
+        "exclusions": [
+          "most rental vehicles with an MSRP of $125,000 or less"
+        ]
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用本卡付全部租金并拒绝租车公司碰撞险时，因公租车的被盗和碰撞损失为主要（primary）保障，上限 $60,000，适用于建议零售价 $125,000 以下的大多数车辆。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-preferred-credit-card"
+      ],
+      "checkedAt": "2026-11-10",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-10",
+      "reviewAfter": "2027-02-08",
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"

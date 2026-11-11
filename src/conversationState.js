@@ -73,7 +73,7 @@ const normalizedName=s=>String(s).normalize('NFKC').toLowerCase().replace(/[^\p{
 export function topicItems({name,result},cards){
  const items=[];
  if(!result||typeof result!=='object')return items;
- if(name==='find_benefits'||name==='get_card_rules')for(const r of result.rules||[]){
+ if(name==='find_benefits'||name==='get_card_rules'||name==='find_protections')for(const r of result.rules||[]){
   const rule=ruleId(r.revision),card=r.cards?.length===1?heldProduct(cards,r.cards[0].name,r.cards[0].region):null;
   items.push({...(rule?{rule}:{}),...(card?{card}:{})});
  }

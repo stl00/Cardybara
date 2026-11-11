@@ -30,7 +30,7 @@ test('multi-tool loop retains context, returns synthesized answer, enforces fini
 });
 test('model boundary uses actual tool schemas, fixed destination and strips model metadata',async()=>{
  let sent;const reply=await chatAgent({DEEPSEEK_API_KEY:'fake'},{messages:[{role:'user',content:'Hi'}]},async(url,opts)=>{sent={url,body:JSON.parse(opts.body)};return {ok:true,json:async()=>({choices:[{message:{role:'assistant',content:'Hello',reasoning_content:'hidden'}}]})}});
- assert.equal(reply.content,'Hello');assert.ok(!reply.reasoning_content);assert.equal(sent.body.tools.length,6);assert.match(sent.url,/^https:\/\/api.deepseek.com\//);
+ assert.equal(reply.content,'Hello');assert.ok(!reply.reasoning_content);assert.equal(sent.body.tools.length,7);assert.match(sent.url,/^https:\/\/api.deepseek.com\//);
  await assert.rejects(()=>chatAgent({DEEPSEEK_API_KEY:'fake',DEEPSEEK_BASE_URL:'https://evil.test'},{messages:[{role:'user',content:'Hi'}]}),/unexpected/);
  await assert.rejects(()=>chatAgent({DEEPSEEK_API_KEY:'fake'},{messages:[{role:'user',content:'Hi'}]},async()=>({ok:true,json:async()=>({choices:[{message:{content:'',tool_calls:[call('transfer')]}}]})})),/invalid_tool/);
 });

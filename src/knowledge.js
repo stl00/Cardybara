@@ -93,6 +93,22 @@ export function benefitProfileView({asOf=manifest.asOf}={}){
 }
 export const benefitSourceView=Object.fromEntries(sources.map(s=>[s.id,copy(s)]));
 export const hsbcRewardCashView={...copy(manifest.hsbcRewardCash),capabilities:queryKnowledge({kind:'channel-capability',includeInactive:true}).rules.map(r=>({feature:r.content.title,channel:r.terms.channel,finding:r.content.summary,sourceIds:r.evidence.sourceIds}))};
+// What a protection benefit covers, held to its own quotes: a stated basis, payment requirement or exclusion must be
+// in the official text, and anything the text does not say stays null rather than read as "no".
+export const COVERAGE_TYPES=['rental-car','trip-cancellation','trip-delay','baggage-delay','emergency-evacuation','roadside','purchase-protection','return-protection','extended-warranty','travel-insurance'];
+export function validateCoverage(r){
+ const c=r.terms.coverage,errors=[];if(!c||typeof c!=='object')return ['protection benefit needs terms.coverage'];
+ const quotes=(r.original?.quotes||[]).map(q=>q.text.replace(/[\u2018\u2019]/g,"'")),said=re=>quotes.some(q=>re.test(q));
+ if(Object.keys(c).some(k=>!['type','basis','basisScope','requiresCardPayment','exclusions'].includes(k)))errors.push('unknown field');
+ if(!COVERAGE_TYPES.includes(c.type))errors.push('unknown type');
+ if(![null,'primary','secondary'].includes(c.basis))errors.push('basis must be primary, secondary or null');
+ else if(c.basis&&!said(new RegExp('\\b'+c.basis+'\\b','i')))errors.push('basis not stated in a quote');
+ if(c.basisScope!==undefined&&(!c.basis||typeof c.basisScope!=='string'||!quotes.some(q=>q.includes(c.basisScope))))errors.push('basisScope must quote the source');
+ if(![null,true].includes(c.requiresCardPayment))errors.push('requiresCardPayment must be true or null');
+ else if(c.requiresCardPayment&&!said(/\b(?:charge|pay)\b[^.]*\bcard\b/i))errors.push('card payment requirement not stated in a quote');
+ if(!Array.isArray(c.exclusions)||c.exclusions.some(e=>typeof e!=='string'||!quotes.some(q=>q.includes(e))))errors.push('exclusions must quote the source');
+ return errors;
+}
 export function validateKnowledge(records=rules){
  const errors=[],ids=new Map(),revIds=new Set(),sourceIds=new Set(sources.map(s=>s.id)),productIds=new Set(cardProducts.map(p=>p.id)),programmeIds=new Set(entities.programmes.map(p=>p.id));
  for(const r of records){
@@ -134,7 +150,8 @@ export function validateKnowledge(records=rules){
    for(const key of ['minimumPoints','incrementPoints','maximumPoints'])if(r.terms[key]!==undefined&&r.terms[key]!==null&&!(Number.isInteger(r.terms[key])&&r.terms[key]>0))fail(`invalid ${key}`);
   }
   if(r.status==='withdrawn'){const next=records.find(x=>x.id===r.terms.replacedByRuleId);if(!next||r.productIds.some(id=>!next.productIds.includes(id)))fail('withdrawn rule must name a replacement covering its cards');}
-  if(r.terms.coupon){
+  if(r.kind==='benefit'&&r.category==='protection')for(const error of validateCoverage(r))fail('coverage: '+error);
+ if(r.terms.coupon){
    for(const error of validateCoupon(r.terms.coupon,r.terms,[...sourceIds]))fail('coupon: '+error);
    if(r.kind!=='benefit'||!['credit','promo'].includes(r.category))fail('coupon outside benefit credit/promo');
    if(r.terms.coupon.review?.checkedAt!==r.evidence.checkedAt||(!Array.isArray(r.terms.coupon.review?.sourceIds)||r.terms.coupon.review.sourceIds.some(id=>!r.evidence.sourceIds.includes(id))))fail('coupon evidence mismatch');

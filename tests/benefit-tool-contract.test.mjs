@@ -159,3 +159,5 @@ test('typo fixes and new vocabulary do not turn real words into other benefits (
  assert.ok(ids('we are hiring, any credit for job posts?').includes('rule.amex-us-us-business-platinum-card.indeed'));
  assert.ok(ids('手提電腦有冇優惠').includes('rule.amex-us-us-business-platinum-card.dell'));
 });
+// Protection-coverage tests (#83) run with the benefit tool contract, so the existing check:agent list covers them.
+import './protections.test.mjs';
