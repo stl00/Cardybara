@@ -49,10 +49,14 @@ test('a card gets its due date from the latest reading, the bank\'s full date fi
  assert.deepEqual(cardDue(card({due:'2026-12-10',duePartial:'Jan 15',fieldDates:{due:'2026-11-21T00:00:00Z',duePartial:'2026-12-20T00:00:00Z'}})).date,'2027-01-15','a newer yearless reading replaces an older full date');
  assert.equal(cardDue(card({due:'2026-12-10',duePartial:'Smarch 15',fieldDates:{due:'2026-11-21T00:00:00Z',duePartial:'2026-12-20T00:00:00Z'}})),null,'an unreadable newer label does not fall back to the old date');
  assert.equal(cardDue(card({due:'2026-02-30'})),null);
+ // 03:00 UTC on 1 January is still 31 December on the wallet calendar; the date stays 1 January 2027.
+ assert.equal(cardDue(card({duePartial:'Jan 1',fieldDates:{duePartial:'2027-01-01T03:00:00Z'}})).date,'2027-01-01');
+ assert.equal(cardDue(card({duePartial:'Jul 2',fieldDates:{duePartial:'2027-01-01T03:00:00Z'}})).date,'2026-07-02','read day 2026-12-31: 182 back beats 183 ahead');
+ assert.equal(cardDue(card({duePartial:'Jul 2',fieldDates:{duePartial:'2027-01-01T12:00:00Z'}})).date,'2027-07-02','read day 2027-01-01: 182 ahead beats 183 back');
 });
 test('the wallet shows the inferred date with its note in three languages',()=>{
  const main=readFileSync(new URL('../src/main.jsx',import.meta.url),'utf8'),pay=readFileSync(new URL('../src/PaymentAssistant.jsx',import.meta.url),'utf8');
  const catalog=JSON.parse(readFileSync(new URL('../src/translations.json',import.meta.url),'utf8'));
  assert.match(main,/cardDue\(c\)/,'card list');assert.match(main,/cardDue\(detail\)/,'card details');assert.match(pay,/cycle\.inferred/,'payment assistant');
- for(const key of ['（年份按读取日期推断）','年份按读取日期推断'])for(const lang of ['en-US','zh-TW'])assert.ok(catalog[lang][key],`${lang}: ${key}`);
+ for(const key of ['（年份按读取日期推断）','年份按读取日期推断',' · 推断年份'])for(const lang of ['en-US','zh-TW'])assert.ok(catalog[lang][key],`${lang}: ${key}`);
 });

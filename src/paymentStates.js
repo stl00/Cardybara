@@ -55,6 +55,8 @@ export function isHandled(key,marks,asOf=walletDay()){
 /** One card's payment state. `stale` is separate because an old reading can be in any state. */
 export function paymentItem(card,marks=[],asOf=walletDay()){
  const cycle=paymentCycle(card),noPayment=latestNoPayment(card),key=paymentKey(card,cycle);
+ // The key a mark had before the year was inferred; undo clears it too.
+ const legacyKey=cycle?.inferred?paymentKey(card,{kind:'yearless',label:cycle.label}):null;
  const known=noPayment?['paymentStatus']:[...(cycle?[cycle.field]:[]),...['statement','minimum'].filter(k=>card[k]!=null),...(card.autopay==='on'||card.autopay==='off'?['autopay']:[])];
  const isOld=day=>!day||daysBetween(day,asOf)>STALE_DAYS;
  const readAt=known.length?oldestReading(card,known,asOf):null,stale=known.length>0&&isOld(readAt);
@@ -73,7 +75,7 @@ export function paymentItem(card,marks=[],asOf=walletDay()){
  else if(cycle)state='due';
  else state='unknown'; // Amounts without a due date still cannot say when to pay.
  const soon=state==='due'&&days<=SOON_DAYS;
- return {card,key,cycle,state,soon,days,stale,readAt,autopay:autopayOn?'on':card.autopay==='off'?'off':'unknown',autopayOld:autopayOn&&isOld(oldestReading(card,['autopay'],asOf)),handled:state!=='nothing_billed'&&(isHandled(key,marks,asOf)||!!cycle?.inferred&&isHandled(paymentKey(card,{kind:'yearless',label:cycle.label}),marks,asOf)),canMark:!!key&&state!=='nothing_billed'};
+ return {card,key,cycle,state,soon,days,stale,readAt,autopay:autopayOn?'on':card.autopay==='off'?'off':'unknown',autopayOld:autopayOn&&isOld(oldestReading(card,['autopay'],asOf)),handled:state!=='nothing_billed'&&(isHandled(key,marks,asOf)||!!legacyKey&&isHandled(legacyKey,marks,asOf)),legacyKey,canMark:!!key&&state!=='nothing_billed'};
 }
 
 const RANKS={overdue:0,yearless:3,stale:5,autopay:6,nothing_billed:7,no_payment:7,unknown:8};
@@ -115,7 +117,7 @@ export function readPaymentMarks(storage){
  try{const rows=JSON.parse(storage.getItem(PAYMENT_MARKS_KEY));return Array.isArray(rows)?rows.filter(validMark).map(({key,at})=>({key,at})):[];}catch{return []}
 }
 export function withPaymentMark(marks,key,at=new Date().toISOString()){return [...marks.filter(m=>m.key!==key),{key,at}].slice(-MAX_MARKS);}
-export function withoutPaymentMark(marks,key){return marks.filter(m=>m.key!==key);}
+export function withoutPaymentMark(marks,...keys){return marks.filter(m=>!keys.includes(m.key));}
 /** Backup restore: rejects a malformed file as a whole; on a conflict the later mark wins. */
 export function mergePaymentMarks(marks,backup){
  if(backup?.schema!==1||!Array.isArray(backup.marks)||backup.marks.length>MAX_MARKS||!backup.marks.every(validMark))throw Error('invalid_payment_backup');

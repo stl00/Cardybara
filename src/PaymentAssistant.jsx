@@ -86,9 +86,9 @@ export default function PaymentAssistant({cards,hidden=false,urls,onDetail,onRef
  const save=next=>{try{savePaymentMarks(next);return true}catch{message.error(t('保存失败，刚才的标记没有生效。'));return false}};
  const onMark=item=>{
   if(!save(withPaymentMark(marks,item.key)))return;
-  message.open({key:'payment-mark',type:'success',duration:6,content:<Space>{t('已标记本期已处理；钱包没有付款。')}<Button type="link" size="small" onClick={()=>{save(withoutPaymentMark(loadPaymentMarks(),item.key));message.destroy('payment-mark')}}>{t('撤销')}</Button></Space>});
+  message.open({key:'payment-mark',type:'success',duration:6,content:<Space>{t('已标记本期已处理；钱包没有付款。')}<Button type="link" size="small" onClick={()=>{save(withoutPaymentMark(loadPaymentMarks(),item.key,item.legacyKey));message.destroy('payment-mark')}}>{t('撤销')}</Button></Space>});
  };
- const onUndo=item=>save(withoutPaymentMark(marks,item.key));
+ const onUndo=item=>save(withoutPaymentMark(marks,item.key,item.legacyKey));
  const row=item=><PaymentRow key={item.card.id} item={item} money={money} urls={urls} onDetail={onDetail} onMark={onMark} onUndo={onUndo}/>;
  const counts={all:view.rest.length+view.handled.length,handled:view.handled.length};
  for(const item of view.rest){const group=paymentGroup(item);counts[group]=(counts[group]||0)+1;}

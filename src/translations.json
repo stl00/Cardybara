@@ -1791,7 +1791,8 @@
     "年费日提前天数": "Days before the annual fee date",
     "卡片信息已保存；换了地区，请重新选择卡种。": "Card details saved. The region changed, so choose the card type again.",
     "（年份按读取日期推断）": " (year inferred from the read date)",
-    "年份按读取日期推断": "Year inferred from the read date"
+    "年份按读取日期推断": "Year inferred from the read date",
+    " · 推断年份": " · year inferred"
   },
   "zh-TW": {
     "美国": "美國",
@@ -3585,6 +3586,7 @@
     "年费日提前天数": "年費日提前天數",
     "卡片信息已保存；换了地区，请重新选择卡种。": "卡片資料已儲存；換了地區，請重新選擇卡種。",
     "（年份按读取日期推断）": "（年份按讀取日期推斷）",
-    "年份按读取日期推断": "年份按讀取日期推斷"
+    "年份按读取日期推断": "年份按讀取日期推斷",
+    " · 推断年份": " · 推斷年份"
   }
 }

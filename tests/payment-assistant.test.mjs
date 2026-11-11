@@ -74,6 +74,8 @@ test('a yearless mark does not silently cover the same date next year',()=>{
  assert.equal(isHandled(key,marks,'2026-11-20'),true);assert.equal(isHandled(key,marks,'2027-11-01'),false);
  // A mark made on the label before years were inferred still covers the inferred date, within the same window.
  assert.equal(item({duePartial:'11月6日'},marks).handled,true);
+ const legacy=item({duePartial:'11月6日'},marks);assert.equal(legacy.legacyKey,key);
+ assert.equal(item({duePartial:'11月6日'},withoutPaymentMark(marks,legacy.key,legacy.legacyKey)).handled,false,'undo clears a mark made before the year was inferred');
  const next=card({duePartial:'11月6日'});next.fieldDates.duePartial='2027-11-01T15:00:00Z';assert.equal(paymentItem(next,marks,'2027-11-02').handled,false);
 });
 test('marks tolerate damaged storage and backup restore rejects malformed files',()=>{
