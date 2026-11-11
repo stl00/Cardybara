@@ -5,7 +5,8 @@ import {referenceCards as cards,creditMark,decisionIds} from '../evals/fixtures.
 import {chooseCard,PURCHASE_CATEGORIES} from '../src/cardDecision.js';
 import {QUICK_CATEGORIES,walletCurrencies,purchaseArgs,quickChoice} from '../src/purchaseChoice.js';
 const {GOLD,GOLD_DINING}=decisionIds,DAY='2026-11-05';
-const wallet={cards,events:[],day:DAY};
+// Mechanics apart from the valuation table (#193); default values have their own test below.
+const wallet={cards,events:[],day:DAY,marketDefaults:false};
 const source=path=>readFileSync(new URL(path,import.meta.url),'utf8');
 
 test('the wallet entry and the chat use the same engine and give the same choice',()=>{
@@ -17,7 +18,7 @@ test('the wallet entry and the chat use the same engine and give the same choice
   assert.equal(mine.certainty,chat.choice.certainty||null,category);
  }
  // The overview mounts the entry, and the entry reaches the engine only through quickChoice.
- assert.match(source('../src/main.jsx'),/<PurchaseChooser cards=\{displayed\.cards\}/);
+ assert.match(source('../src/main.jsx'),/<PurchaseChooser cards=\{held\.cards\}/);
  const ui=source('../src/PurchaseChooser.jsx');
  assert.match(ui,/quickChoice\(/);assert.doesNotMatch(ui,/fetch\(|requestAdvisor|extensionChat|sendCollector/,'no model or network call');
  assert.match(source('../src/purchaseChoice.js'),/from '\.\/cardDecision\.js'/);

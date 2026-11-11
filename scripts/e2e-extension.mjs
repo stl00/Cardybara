@@ -15,6 +15,8 @@
 // test-only invite code instead; the packaged client goes through the gateway's own code (gateway/src),
 // served locally on the gateway host, which forwards to the same scripted provider with its own synthetic
 // key. With --negative-controls, a revoked code and a code over its daily cap must fail.
+// The user then hides a card: the overview and a new chat leave it
+// out while the bank records stay, and unhiding brings it back (stl00/Cardybara#198).
 // --upgrade-from (nightly set): the main path runs on the previous package instead; then Chrome is
 // closed, the tested package replaces the previous one in the same directory, and Chrome starts again
 // on the same profile. The same extension must now run the tested package with the records kept.
@@ -607,6 +609,49 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    for(const tail of READ_TAILS)if(inventory.includes(tail))throw new StepError(`a card tail read from the bank (${tail}) reached the model`);
    note('scripted answer shown;',String(chats.length),'model requests,',hosted?'all through the gateway with its own key, the invite code only to the gateway,':'the saved key only,','no read value sent');
    note(`PASS: the assistant chat on the packaged extension answers through a scripted model${hosted?' via the hosted gateway':''}`);
+
+   // 9b. Hide a card (stl00/Cardybara#198): the bank keeps it, but the overview and the assistant act as if it is not held.
+   const HIDE_TAIL='1234',walletCardJs=`[...document.querySelectorAll('.wallet-card')].find(c=>c.innerText.includes(${JSON.stringify(HIDE_TAIL)}))`;
+   const hiddenEdit=async()=>(JSON.parse(await evaluate('wallet',`localStorage.getItem('cardybara-card-edits-v1')||'[]'`))).find(e=>e.hidden);
+   const toggleHide=async label=>{if(!await until(`the ${label} button on the card ending ${HIDE_TAIL}`,()=>evaluate('wallet',`(()=>{const b=${walletCardJs}?.querySelector('.hide-card-button');if(!b)return false;b.click();return true;})()`)))throw new StepError('no '+label+' button');};
+   await evaluate('wallet','location.hash="wallet"');
+   const hideName=await until('the name of the card ending '+HIDE_TAIL,()=>evaluate('wallet',`${walletCardJs}?.querySelector('.card-title')?.innerText?.trim()||''`));
+   await evaluate('wallet','location.hash="overview"');
+   await until('the overview to name the card before it is hidden',async()=>(await pageText('wallet')).includes(hideName));
+   await evaluate('wallet','location.hash="wallet"');
+   await toggleHide('hide');
+   const edit=await until('the hidden flag to be stored',hiddenEdit);
+   if(!edit?.cardId)throw new StepError('hiding stored no flag');
+   await until('the hidden-cards group',async()=>{const t=await pageText('wallet');return JSON.parse(words('已隐藏的卡')).some(w=>t.includes(w));});
+   const cardsLeft=await state();
+   if(!Object.values(cardsLeft?.records?.Chase||{}).length)throw new StepError('hiding a card cleared what the bank read');
+   await evaluate('wallet','location.hash="overview"');
+   await until('the overview to leave out the hidden card',async()=>{const t=await pageText('wallet');return JSON.parse(words('信用卡总览')).some(w=>t.includes(w))&&!t.includes(hideName);});
+   note('hid',hideName,': the overview leaves it out, the bank records stay');
+   // A new chat, so the earlier answer naming every card is not in the history the model sees.
+   bank.model.script=[...chatScript,...scriptedChat];
+   const before=bank.model.requests.filter(r=>r.method==='POST').length;
+   await evaluate('wallet','location.hash="advisor"');
+   await until('the new-chat button',()=>evaluate('wallet',`(()=>{const want=['新对话','New chat','新對話'].map(v=>v.replace(/\\s+/g,''));const b=[...document.querySelectorAll('button')].find(b=>want.includes(b.textContent.replace(/\\s+/g,''))&&!b.disabled);if(!b)return false;b.click();return true;})()`));
+   await until('the chat composer to accept text again',()=>evaluate('wallet',`(()=>{const el=document.querySelector('.chat-compose textarea');if(!el||el.disabled)return false;el.focus();return true;})()`));
+   await cdp.send('Input.insertText',{text:QUESTION},sessions.wallet);
+   await cdp.send('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,text:'\r'},sessions.wallet);
+   await cdp.send('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13},sessions.wallet);
+   await until('the answer after hiding',async()=>bank.model.requests.filter(r=>r.method==='POST').length>=before+scriptedChat.length&&(await pageText('wallet')).includes(ANSWER_MARK),STEP_MS*2);
+   if((await pageText('wallet')).includes(hideName))throw new StepError('the chat names the hidden card');
+   const afterHide=bank.model.requests.filter(r=>r.method==='POST').slice(before);
+   for(const r of afterHide)if(r.raw.includes(hideName))throw new StepError('the hidden card reached the model: '+hideName);
+   const heldList=afterHide[1].body.messages.filter(m=>m.role==='tool').map(m=>JSON.parse(m.content)).find(Array.isArray);
+   if(!heldList?.length||heldList.length!==listed.length-1)throw new StepError('list_cards after hiding did not drop exactly the hidden card: '+JSON.stringify(heldList));
+   note('PASS: the assistant does not see the hidden card');
+   // 9c. Unhide: the card comes back everywhere at once.
+   await evaluate('wallet','location.hash="wallet"');
+   await until('the hidden-cards group to open',()=>evaluate('wallet',`(()=>{if(${walletCardJs})return true;const h=document.querySelector('.hidden-cards .ant-collapse-header');if(h)h.click();return false;})()`));
+   await toggleHide('unhide');
+   await until('the hidden flag to be cleared',async()=>!(await hiddenEdit()));
+   await evaluate('wallet','location.hash="overview"');
+   await until('the overview to name the card again',async()=>(await pageText('wallet')).includes(hideName));
+   note('PASS: a hidden card is left out of the overview and the assistant, and comes back when unhidden');
   }
   if(cards)await manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate:cardFeeDate});
   return {ok:true};

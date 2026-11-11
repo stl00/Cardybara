@@ -100,12 +100,44 @@ const POINT_PRICE=/(?:每点|每點|每分|积分|積分|点数|點數|里程|�
 // Only a condition on the user's own valuation makes a price hypothetical.
 // Repeating the user's own value is not inventing one.
 const USER_VALUE=/按你|你说|你說|你给|你給|你认为|你認為|你觉得|你覺得|your (?:value|valuation)|you (?:said|gave|value)|at your/i;
+// Words that credit a value to the user: "your 1.3 cents", 按你设定的. Hypotheticals ("if you value") are not this.
+const OWN_VALUE=/按你|你说的|你說的|你给的|你給的|你设定|你設定|你的估值|at your|your (?:own )?(?:value|valuation)|you (?:said|gave|set)/i;
+const DEFAULT_WORDS=/默认|默認|預設|default|market valuation/i;
 const CONDITIONAL_PRICE=/(?:如果|若|假如|要是)你|(?:如果|若)每[点點]|if you(?:'d)? value|once you value|if (?:a|each|one) (?:point|mile)|超过|超過|above|\bover\b|盈亏|盈虧|打平|保本|break-?even/i;
-/** A flight plan gives no value per point (#82): a price for points in its answer must be the user's own or conditional. */
+const lines=answer=>answer.split(/\n|(?<=[。！？!?])/);
+// A value per point as written: "1.5 美分", "1.5 分", "1.5¢", "1.5 cents". Not 分钟.
+const centsIn=line=>[...line.matchAll(/(\d+(?:\.\d+)?)\s*(?:美分|港仙|分(?![钟鐘])|¢|cents?\b)/gi)].map(m=>Number(m[1]));
+const near=(set,n)=>[...set].some(v=>Math.abs(v-n)<0.006);
+/**
+ * #193: a default market valuation is never the user's own. A line crediting a value to the user ("按你…", "at
+ * your…") is wrong when the number it gives is a default and not one the user said or set, or, with no number, when
+ * it prices points and every value used was a default.
+ */
+function defaultAsUserIssues(answer,values){
+ const own=new Set(values.filter(v=>v&&v.basis!=='default').map(v=>v.cents)),byDefault=new Set(values.filter(v=>v?.basis==='default').map(v=>v.cents));
+ if(!byDefault.size)return [];
+ return lines(answer).filter(line=>{
+  if(!OWN_VALUE.test(line)||DEFAULT_WORDS.test(line))return false;
+  const quoted=centsIn(line);
+  return quoted.length?quoted.some(n=>near(byDefault,n)&&!near(own,n)):!own.size&&POINT_PRICE.test(line);
+ }).map(line=>({code:'default_as_user_value',sentence:line.slice(0,160)}));
+}
+// Values per point a line may quote: the ones a tool returned and the thresholds it computed.
+const returnedCents=evidence=>new Set(evidence.flatMap(x=>[
+ ...(x?.pointValues||[]),...(x?.valuation?.programmes||[])].map(v=>v.cents).concat(
+ (x?.pointsAlternatives||[]).map(p=>p.breakEvenCentsPerPoint),(x?.rows||[]).map(r=>r.centsPerPoint),[x?.choice?.holdsAboveCentsPerPoint])).filter(n=>Number.isFinite(n)));
+const unreturned=(line,allowed)=>centsIn(line).some(n=>!near(allowed,n));
+/**
+ * A flight plan (#82) prices points only at the values it returned (#193): with none, a price must be the user's own
+ * or conditional; with some, every value per point it quotes must be one of them.
+ */
 export function flightPlanIssues(answer,evidence){
- if(!evidence.some(x=>x?.kind==='flight-plan'))return [];
- const issues=[];
- for(const line of answer.split(/\n|(?<=[。！？!?])/))if(POINT_PRICE.test(line)&&!CONDITIONAL_PRICE.test(line)&&!USER_VALUE.test(line))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
+ const plans=evidence.filter(x=>x?.kind==='flight-plan');if(!plans.length)return [];
+ const values=plans.flatMap(p=>p.valuation?.programmes||[]),issues=defaultAsUserIssues(answer,values),allowed=returnedCents(plans);
+ for(const line of lines(answer)){
+  if(CONDITIONAL_PRICE.test(line)||!(POINT_PRICE.test(line)||centsIn(line).length))continue;
+  if(values.length?unreturned(line,allowed):!USER_VALUE.test(line))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
+ }
  return issues;
 }
 export function choiceIssues(answer,evidence){
@@ -117,8 +149,11 @@ export function choiceIssues(answer,evidence){
   const anchors=cardAnchors({card:latest.choice.card});
   if(anchors.length&&!mentions(text.slice(0,240),anchors))issues.push({code:'choice_not_first',value:latest.choice.card});
  }
- // Pricing is allowed only on a line about a card the user gave a value for.
+ // #193: a default market valuation is never the user's own.
+ issues.push(...defaultAsUserIssues(answer,decisions.flatMap(d=>d.pointValues||[])));
+ const defaults=decisions.some(d=>(d.pointValues||[]).some(v=>v.basis==='default')),allowed=returnedCents(decisions);
+ // Pricing is allowed only on a line about a card that has a value: the user's, or the default market valuation.
  const valued=decisions.flatMap(d=>(d.rows||[]).filter(r=>r.centsPerPoint!=null)).flatMap(r=>cardAnchors({card:r.card}));
- for(const line of answer.split(/\n|(?<=[。！？!?])/))if(POINT_PRICE.test(line)&&!CONDITIONAL_PRICE.test(line)&&!(valued.length&&(mentions(norm(line),valued)||USER_VALUE.test(line))))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
+ for(const line of answer.split(/\n|(?<=[。！？!?])/))if(POINT_PRICE.test(line)&&!CONDITIONAL_PRICE.test(line)&&!(valued.length&&(mentions(norm(line),valued)||USER_VALUE.test(line)||defaults&&DEFAULT_WORDS.test(line)))||defaults&&!CONDITIONAL_PRICE.test(line)&&unreturned(line,allowed))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
  return issues;
 }
