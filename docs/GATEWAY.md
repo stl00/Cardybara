@@ -19,7 +19,7 @@ Code: `gateway/src/gateway.js` (router, middleware, model proxy and the `UsageLe
 - **CORS:** only `ALLOWED_ORIGINS`. The alpha is loaded unpacked, so every tester's extension id differs; the default `chrome-extension://*` admits any extension origin but no web page. The invite code is the real gate. Once the id is pinned (store listing or a manifest `key`), set the exact `chrome-extension://<id>`.
 - **Errors:** provider failures pass through as a code only (`provider_rejected`, `provider_rate_limited`, `provider_error`, `provider_unreachable`, `provider_timeout`); provider text never reaches the client because it can echo the request. Redirects are never followed.
 - **Logging:** one JSON line per request: time, route, code id, status, error code, prompt and completion tokens. Never bodies, codes, keys or wallet data. Workers Logs keeps these lines for reading usage; the platform's invocation logs (request metadata) are turned off in `wrangler.jsonc` so no request header is kept. After the first deploy, open one log entry in the dashboard and confirm it carries no `Authorization` header.
-- **Rate limit:** a Workers Rate Limiting binding (`RATE_LIMITER`, 60 requests a minute per client address) runs before any invite lookup, so guessing codes cannot exhaust KV or the Workers quota.
+- **Rate limit:** a Workers Rate Limiting binding (`RATE_LIMITER`, 60 requests a minute per IPv4 address or IPv6 /64) runs before any invite lookup, so guessing codes cannot exhaust KV reads. The gateway refuses to run without it (except a local run against an http mock). A limited request is still a Worker invocation, so it does not protect the Workers request quota; on workers.dev there is no WAF in front.
 - **Fail closed:** a missing `PROVIDER_KEY`, binding, model list, origin list or a malformed number answers `503 gateway_not_configured`.
 
 ## Run it locally
@@ -40,7 +40,7 @@ The Worker is plain ES modules with no build step: main module `src/worker.js` (
 
 1. Create the KV namespace (`wrangler kv namespace create INVITES`, or the API) and put its id in `gateway/wrangler.jsonc` in place of `SET_AT_DEPLOY` (not a secret).
 2. Upload: `npx wrangler@4.150.0 deploy --config gateway/wrangler.jsonc --env=""` (the top-level environment), or the Workers scripts API with `src/worker.js` as the main module plus `src/gateway.js` as a second module, the vars, the `INVITES` KV binding, the `USAGE` Durable Object binding (class `UsageLedger`) and migration `v1` (`new_sqlite_classes: ["UsageLedger"]`). The Worker answers `503 gateway_not_configured` until the key is set.
-3. **Owner, once:** set the provider key without anyone else handling it. Recommended: create a separate DeepSeek key for the gateway with its own spend limit at the provider, and put it in the same file as `DEEPSEEK_GATEWAY_API_KEY`; the script uses it in preference to `DEEPSEEK_API_KEY`. The provider-side limit backs up the gateway's own budget, and gateway spend stays apart from personal use.
+3. **Owner, once:** set the provider key without anyone else handling it. Required before testers get codes: create a separate DeepSeek key for the gateway with its own spend limit at the provider, and put it in the same file as `DEEPSEEK_GATEWAY_API_KEY`; the script uses it in preference to `DEEPSEEK_API_KEY`. The provider-side limit backs up the gateway's own budget, and gateway spend stays apart from personal use.
 
    ```sh
    CARDYBARA_MODEL_CONFIG=/path/to/.env.local scripts/gateway-set-key.sh
@@ -49,7 +49,7 @@ The Worker is plain ES modules with no build step: main module `src/worker.js` (
    It reads `DEEPSEEK_API_KEY` from that file and pipes it to `wrangler secret put PROVIDER_KEY`; the key is never printed. Run it again to rotate.
 4. Issue codes (below) and test one with the extension.
 
-Emergency stop: `node scripts/gateway-codes.mjs set-caps --monthly-usd 0`, or `npx wrangler secret delete PROVIDER_KEY --config gateway/wrangler.jsonc` (every request then answers 503). A leaked provider key: rotate it at the provider, then run `gateway-set-key.sh` again.
+Emergency stop: `node scripts/gateway-codes.mjs set-caps --monthly-usd 0` (KV caching can take about a minute to apply it everywhere), or `npx wrangler secret delete PROVIDER_KEY --config gateway/wrangler.jsonc` (every request then answers 503). A leaked provider key: rotate it at the provider, then run `gateway-set-key.sh` again.
 
 ## Invite codes and caps
 
@@ -60,7 +60,7 @@ node scripts/gateway-codes.mjs issue t01 [--daily-requests 100] [--daily-tokens 
 node scripts/gateway-codes.mjs list                                                       # ids, status, caps; never codes
 node scripts/gateway-codes.mjs revoke t01        # and: restore t01
 node scripts/gateway-codes.mjs caps
-node scripts/gateway-codes.mjs set-caps --daily-requests 200 --daily-tokens 1000000 --monthly-usd 10
+node scripts/gateway-codes.mjs set-caps --monthly-usd 5                                   # raising any cap needs --yes
 ```
 
 Hand a code to the tester privately; it is not stored anywhere and cannot be shown again (issue a new one after revoking). Use short ids such as `t01`, not names: the id is what appears in logs. KV changes can take about a minute to reach every location.

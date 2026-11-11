@@ -71,7 +71,7 @@ async function send(url,{provider,key,method='POST',body,signal,timeout=45000}){
  if(!response.ok)throw Error('model_failed');
  try{return await response.json();}catch{throw Error('model_failed');}
 }
-const GATEWAY_ERRORS={invite_invalid:'invite_invalid',invite_revoked:'invite_revoked',daily_requests:'hosted_over_cap',daily_tokens:'hosted_over_cap',monthly_budget:'hosted_over_cap',provider_rate_limited:'model_rate_limited'};
+const GATEWAY_ERRORS={invite_invalid:'invite_invalid',invite_revoked:'invite_revoked',daily_requests:'hosted_over_cap',daily_tokens:'hosted_over_cap',monthly_budget:'hosted_over_cap',provider_rate_limited:'model_rate_limited',rate_limited:'model_rate_limited'};
 async function gatewayError(response){
  let code=null;try{code=(await response.json())?.error?.code;}catch{}
  return Object.hasOwn(GATEWAY_ERRORS,code)?GATEWAY_ERRORS[code]:response.status===401?'invite_invalid':'model_failed';

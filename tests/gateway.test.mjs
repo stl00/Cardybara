@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {localGateway} from '../gateway/src/local.mjs';
-import {ROUTES,ROUTE_TABLE,INVITE_PATTERN,SETTINGS_KEY,originAllowed,sameBytes,sanitizeBody,readConfig,handle} from '../gateway/src/gateway.js';
+import {ROUTES,ROUTE_TABLE,INVITE_PATTERN,SETTINGS_KEY,clientKey,originAllowed,sameBytes,sanitizeBody,readConfig,handle} from '../gateway/src/gateway.js';
 
 // Synthetic values only. None of them is a real key or invite code.
 const ORIGIN='chrome-extension://'+'a'.repeat(32);
@@ -160,7 +160,7 @@ test('provider failures pass through as codes only, release the reservation, and
 });
 
 test('without the provider key, bindings or valid numbers the gateway fails closed',async()=>{
- for(const vars of [{PROVIDER_KEY:''},{MONTHLY_BUDGET_USD:'lots'},{PROVIDER_URL:'http://api.example/chat'},{ALLOWED_MODELS:''}]){
+ for(const vars of [{RATE_LIMITER:null},{PROVIDER_KEY:''},{MONTHLY_BUDGET_USD:'lots'},{PROVIDER_URL:'http://api.example/chat'},{ALLOWED_MODELS:''}]){
   const g=setup({vars});await g.addInvite(CODE,{id:'t01'});
   const r=await g.handle(post(ROUTES.chat));assert.equal(r.status,503,JSON.stringify(vars));assert.equal(await errorOf(r),'gateway_not_configured');assert.equal(g.upstream.length,0);
  }
@@ -206,7 +206,7 @@ test('streaming: a stream without usage keeps its worst case, and an oversized s
   const r=await handle(post(ROUTES.chat,{body:chatBody({stream:true})}),g.env,{fetch:async()=>sse(events),log:l=>g.logs.push(l),waitUntil:p=>waits.push(p)});
   const body=await r.text().catch(e=>e);await Promise.all(waits);return {g,body,month:[...g.ledger().entries()].find(([k])=>k.startsWith('m:'))[1]};};
  const blind=await run([chunk('a'),'data: [DONE]\n\n']);assert.ok(blind.month.micros>0,'no usage keeps the worst case');
- const big=await run(Array.from({length:80},()=>chunk('x'.repeat(1000))),{MAX_BODY_BYTES:'1024'});
+ const big=await run(Array.from({length:150},()=>chunk('x'.repeat(1000))),{MAX_BODY_BYTES:'1024'});
  assert.ok(big.body instanceof Error,'the client sees the stream fail');assert.equal(JSON.parse(big.g.logs.at(-1)).error,'stream_aborted');assert.ok(big.month.micros>0);
 });
 test('global caps can be changed in KV without a deploy; bad values are ignored',async()=>{
@@ -258,4 +258,17 @@ test('without an injected fetch the gateway calls the global fetch unbound, as W
  globalThis.fetch=function(){self=this;return Promise.resolve(Response.json(reply()));};
  try{const r=await handle(post(ROUTES.chat),g.env,{log:()=>{}});assert.equal(r.status,200);}finally{globalThis.fetch=saved;}
  assert.ok(self===undefined||self===globalThis,'fetch was called as a method of another object');
+});
+
+test('rate-limit keys: an IPv4 address, or the /64 of an IPv6 address',()=>{
+ const key=ip=>clientKey(new Request('https://g.test',{headers:ip?{'CF-Connecting-IP':ip}:{}}));
+ assert.equal(key('203.0.113.9'),'203.0.113.9');
+ assert.equal(key('2001:db8:1:2:aaaa:bbbb:cccc:dddd'),'2001:db8:1:2::/64');assert.equal(key('2001:db8:1:2::9'),'2001:db8:1:2::/64');
+ assert.equal(key('2001:db8::1'),'2001:db8:0:0::/64');assert.equal(key(null),'unknown');
+});
+test('a long stream may exceed the JSON reply cap, within what max_tokens allows',async()=>{
+ const g=setup({vars:{MAX_BODY_BYTES:'1024'}});await g.addInvite(CODE,{id:'t01'});const waits=[];
+ const events=[...Array.from({length:150},()=>chunk('x'.repeat(500))),chunk(null,{prompt_tokens:5,completion_tokens:150}),'data: [DONE]\n\n'];
+ const r=await handle(post(ROUTES.chat,{body:chatBody({stream:true,max_tokens:200})}),g.env,{fetch:async()=>sse(events),log:l=>g.logs.push(l),waitUntil:p=>waits.push(p)});
+ assert.ok((await r.text()).includes('[DONE]'));await Promise.all(waits);assert.equal(JSON.parse(g.logs.at(-1)).completion_tokens,150);
 });

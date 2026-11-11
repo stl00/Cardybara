@@ -7,7 +7,8 @@
 //   node scripts/gateway-codes.mjs revoke <tester-id>
 //   node scripts/gateway-codes.mjs restore <tester-id>
 //   node scripts/gateway-codes.mjs caps                      # show the global caps in KV
-//   node scripts/gateway-codes.mjs set-caps [--daily-requests N] [--daily-tokens N] [--monthly-usd X]
+//   node scripts/gateway-codes.mjs set-caps [--daily-requests N] [--daily-tokens N] [--monthly-usd X] [--yes]
+//                                  (raising any cap above its current value needs --yes)
 //
 // Backend: the Cloudflare API when CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID and CARDYBARA_KV_NAMESPACE_ID
 // are set; otherwise wrangler (logged in) with gateway/wrangler.jsonc. Tester ids are short labels such as
@@ -16,6 +17,7 @@ import {randomBytes,createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {resolve} from 'node:path';
+import {readFileSync} from 'node:fs';
 
 const PREFIX='invite:',SETTINGS='settings',ID=/^[a-z0-9-]{1,32}$/;
 export const newCode=()=>'cdy_'+randomBytes(32).toString('base64url');
@@ -40,6 +42,13 @@ export function wranglerKV({config=resolve(fileURLToPath(new URL('..',import.met
  };
 }
 
+/** The caps in gateway/wrangler.jsonc vars, which apply while KV has none. */
+export function deployedDefaults(file=resolve(fileURLToPath(new URL('..',import.meta.url)),'gateway/wrangler.jsonc')){
+ try{
+  const vars=JSON.parse(readFileSync(file,'utf8').replace(/^\s*\/\/.*$/gm,'')).vars||{};
+  return {dailyRequests:Number(vars.DAILY_REQUESTS_PER_CODE),dailyTokens:Number(vars.DAILY_TOKENS_PER_CODE),monthlyBudgetUsd:Number(vars.MONTHLY_BUDGET_USD)};
+ }catch{return {};}
+}
 const whole=(v,flag)=>{if(v==null)return undefined;if(!/^\d+$/.test(v))throw Error(flag+' must be a whole number');return Number(v);};
 async function invites(kv){
  const out=[];
@@ -47,7 +56,7 @@ async function invites(kv){
  return out;
 }
 /** Runs one command against a KV backend; returns the lines to print. */
-export async function command(kv,argv){
+export async function command(kv,argv,{defaults={}}={}){
  const args=[...argv],take=flag=>{const i=args.indexOf(flag);if(i<0)return undefined;const v=args[i+1];if(v==null||v.startsWith('--'))throw Error(flag+' needs a value');args.splice(i,2);return v;};
  const op=args.shift();
  if(op==='issue'){
@@ -76,6 +85,10 @@ export async function command(kv,argv){
   if(r!=null)next.dailyRequests=r;if(t!=null)next.dailyTokens=t;
   if(m!=null){const usd=Number(m);if(!(usd>=0)||!Number.isFinite(usd))throw Error('--monthly-usd must be a number of dollars');next.monthlyBudgetUsd=usd;}
   if(r==null&&t==null&&m==null)throw Error('set-caps needs --daily-requests, --daily-tokens or --monthly-usd');
+  // A typo can multiply spend, so raising a cap above what applies now must be confirmed.
+  const yes=args.includes('--yes'),before={...defaults,...JSON.parse(await kv.get(SETTINGS)||'{}')};
+  const raised=['dailyRequests','dailyTokens','monthlyBudgetUsd'].filter(k=>next[k]!=null&&before[k]!=null&&next[k]>before[k]);
+  if(raised.length&&!yes)throw Error('This raises '+raised.map(k=>`${k} from ${before[k]} to ${next[k]}`).join(', ')+'. Run again with --yes to confirm.');
   await kv.put(SETTINGS,JSON.stringify(next));
   return ['Caps now: '+JSON.stringify(next)];
  }
@@ -85,5 +98,5 @@ export async function command(kv,argv){
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const {CLOUDFLARE_API_TOKEN:token,CLOUDFLARE_ACCOUNT_ID:account,CARDYBARA_KV_NAMESPACE_ID:namespace}=process.env;
  const kv=token&&account&&namespace?apiKV({token,account,namespace}):wranglerKV();
- command(kv,process.argv.slice(2)).then(lines=>{console.log(lines.join('\n'));},e=>{console.error(e.message);process.exit(2);});
+ command(kv,process.argv.slice(2),{defaults:deployedDefaults()}).then(lines=>{console.log(lines.join('\n'));},e=>{console.error(e.message);process.exit(2);});
 }

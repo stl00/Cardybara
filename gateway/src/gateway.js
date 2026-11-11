@@ -43,6 +43,8 @@ export function readConfig(env){
  let url=null;try{url=new URL(c.providerUrl);}catch{}
  // Fail closed: a missing key, binding, origin list or a malformed number disables the gateway.
  c.ready=!!(c.providerKey&&url&&(url.protocol==='https:'||env.ALLOW_HTTP_PROVIDER==='1')&&c.models.length&&c.origins.length&&env.INVITES&&env.USAGE
+  // The rate limiter is required in production; only a local run against an http mock may go without.
+  &&(env.RATE_LIMITER||env.ALLOW_HTTP_PROVIDER==='1')
   &&[c.maxBodyBytes,c.maxOutputTokens,c.dailyRequests,c.dailyTokens,c.monthlyBudgetMicros,c.priceInput,c.priceOutput,c.timeoutMs].every(v=>v!=null));
  return c;
 }
@@ -223,6 +225,15 @@ export async function callProvider(ctx,forwarded,settle){
  return response;
 }
 
+/** The rate-limit key for a client: its IPv4 address, or the /64 prefix of an IPv6 address (one subscriber's block). */
+export function clientKey(request){
+ const ip=request.headers.get('CF-Connecting-IP')||'unknown';
+ if(!ip.includes(':'))return ip;
+ const [head,tail=''] =ip.split('::'),h=head?head.split(':'):[],t=tail?tail.split(':'):[];
+ const groups=ip.includes('::')?[...h,...Array(Math.max(0,8-h.length-t.length)).fill('0'),...t]:h;
+ return groups.slice(0,4).map(g=>(parseInt(g||'0',16)||0).toString(16)).join(':')+'::/64';
+}
+
 // --- Routes.
 
 async function inviteRoute(ctx){return respond(200,{status:'active'},ctx.cors);}
@@ -234,7 +245,8 @@ async function completionRoute(ctx){
  const settle=await reserve(ctx,worstCase(forwarded,ctx.config));
  const response=await callProvider(ctx,forwarded,settle);
  const limit=4*ctx.config.maxBodyBytes+65536;
- if(forwarded.stream)return streamCompletion(ctx,response,settle,limit);
+ // Each streamed token arrives in its own event of a few hundred bytes.
+ if(forwarded.stream)return streamCompletion(ctx,response,settle,Math.max(limit,forwarded.max_tokens*400+65536));
  let payload;
  try{payload=JSON.parse(await readLimited(response,limit));if(!plain(payload))throw Error();}
  // A garbled answer keeps the worst case charged: the provider may have billed it.
@@ -311,7 +323,7 @@ export async function handle(request,env,deps={}){
  try{
   // Per client address, before any KV read, so guessing codes can't exhaust KV or the Workers quota. The
   // binding is optional (local runs and tests have none); gateway/wrangler.jsonc declares it.
-  if(env.RATE_LIMITER){const ip=request.headers.get('CF-Connecting-IP')||'unknown';const {success}=await env.RATE_LIMITER.limit({key:ip});if(!success)throw new Refusal('rate_limited');}
+  if(env.RATE_LIMITER){const {success}=await env.RATE_LIMITER.limit({key:clientKey(request)});if(!success)throw new Refusal('rate_limited');}
   if(route.auth)await authenticate(ctx);
   return finish(await route.handler(ctx));
  }catch(e){

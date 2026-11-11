@@ -4,7 +4,7 @@ import {execFileSync} from 'node:child_process';
 import {mkdtempSync,writeFileSync,readFileSync,chmodSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {command,digest,apiKV} from '../scripts/gateway-codes.mjs';
+import {command,digest,apiKV,deployedDefaults} from '../scripts/gateway-codes.mjs';
 import {localGateway} from '../gateway/src/local.mjs';
 import {INVITE_PATTERN,ROUTES} from '../gateway/src/gateway.js';
 
@@ -25,8 +25,14 @@ test('issue prints a new code once, stores only its digest, and the gateway acce
  await command(kv,['restore','t01']);assert.equal((await invite(g,code[0])).status,200);
  await assert.rejects(()=>command(kv,['issue','Tester Name']),/tester-id/);await assert.rejects(()=>command(kv,['revoke','t99']),/no code/);
 });
-test('set-caps writes the global caps the gateway reads from KV',async()=>{
+test('set-caps writes the global caps the gateway reads from KV, and raising one needs --yes',async()=>{
  const g=localGateway({vars:{ALLOWED_ORIGINS:ORIGIN}}),kv=g.env.INVITES;
+ const defaults=deployedDefaults();assert.deepEqual(defaults,{dailyRequests:200,dailyTokens:300000,monthlyBudgetUsd:10});
+ await assert.rejects(()=>command(kv,['set-caps','--monthly-usd','1000'],{defaults}),/raises monthlyBudgetUsd from 10 to 1000.*--yes/);
+ assert.equal(await kv.get('settings'),null,'nothing written without --yes');
+ await command(kv,['set-caps','--monthly-usd','1000','--yes'],{defaults});assert.equal(JSON.parse(await kv.get('settings')).monthlyBudgetUsd,1000);
+ await command(kv,['set-caps','--monthly-usd','0'],{defaults});assert.equal(JSON.parse(await kv.get('settings')).monthlyBudgetUsd,0,'lowering never needs --yes');
+ await kv.delete('settings');
  await command(kv,['set-caps','--daily-requests','1','--monthly-usd','2.5']);
  assert.deepEqual(JSON.parse(await kv.get('settings')),{dailyRequests:1,monthlyBudgetUsd:2.5});
  await command(kv,['set-caps','--daily-tokens','1000']);assert.deepEqual(JSON.parse(await kv.get('settings')),{dailyRequests:1,monthlyBudgetUsd:2.5,dailyTokens:1000});
