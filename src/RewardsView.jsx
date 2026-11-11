@@ -42,7 +42,7 @@ function PartnerTable({rows,points,hidden}){
   {title:t('计划'),render:(_,r)=><><ItemLogo programme={r.partnerId}/> {r.partner}{r.cardSpecific?<div><Text type="secondary">{r.terms.ratio?t('仅适用：{0}',[cardNames(r.productIds)]):t('页面未列明：{0}',[cardNames(r.productIds)])}</Text></div>:null}</>},
   {title:t('兑换比例'),render:(_,r)=>r.coverage==='card-not-listed'?t('这个读数的卡不在已核对范围内'):r.terms.ratio?<>{whole(r.terms.ratio.from)} → {whole(r.terms.ratio.to)}{r.terms.ratioCondition==='turbo-program'?<div><Tag>{t('仅 Turbo 计划费率')}</Tag></div>:null}</>:<>{t('未逐项列明')}{r.terms.ratioStatement?<div><Text type="secondary">{t('Sapphire Preferred 页面称多数伙伴 {0}:{1}',[r.terms.ratioStatement.ratio.from,r.terms.ratioStatement.ratio.to])}</Text></div>:null}</>},
   {title:t('可得'),render:(_,r)=><Result row={r} points={points} hidden={hidden}/>},
-  {title:t('最低 / 增量'),render:(_,r)=><>{r.terms.minimumPoints?whole(r.terms.minimumPoints):t('未列明')} / {r.terms.incrementPoints?whole(r.terms.incrementPoints):t('未列明')}</>},
+  {title:t('最低 / 增量'),render:(_,r)=><>{r.terms.minimumPoints?whole(r.terms.minimumPoints):r.terms.minimumByStatus?t('{0}（Blue 等级）或 {1}（Silver 及以上）',[whole(r.terms.minimumByStatus.blue),whole(r.terms.minimumByStatus['silver-and-above'])]):t('未列明')} / {r.terms.incrementPoints?whole(r.terms.incrementPoints):t('未列明')}</>},
   {title:t('到账时间'),render:(_,r)=>timeLabel(r.terms.estimatedTime)},
   {title:t('费用'),render:(_,r)=>r.terms.fees?.length?r.terms.fees.map(f=><div key={f.kind}>{feeLabel(f)}: {feeDetail(f)}</div>):r.terms.feeStatement==='may-be-charged'?t('可能收取，转点前会告知'):t('页面未列明')},
  ];
@@ -66,7 +66,7 @@ function ProgrammePanel({programme,accounts,cards,count,hidden}){
  const reach=reading?.productIds?{reachProductIds:reading.productIds,ownTransfer:true,via:[]}:reading?.cardRecord?pointsReach(cards).find(m=>m.card===reading.cardRecord):null;
  // Typing a number keeps the chosen card's scope: an amount must never change which rate applies.
  const rows=routesForCard(all,{hasCard:!!reading,productId:reading?.productId??null,...(reach?{productIds:reach.reachProductIds}:{})});
- const airlines=rows.filter(r=>r.kind==='airline'),hotels=rows.filter(r=>r.kind==='hotel'),sources=knowledgeSources([...new Set(all.flatMap(r=>r.sourceIds))]);
+ const airlines=rows.filter(r=>r.kind==='airline'),hotels=rows.filter(r=>r.kind==='hotel'),others=rows.filter(r=>!['airline','hotel'].includes(r.kind)),sources=knowledgeSources([...new Set(all.flatMap(r=>r.sourceIds))]);
  return <><Flex gap={16} wrap align="end" style={{marginBottom:16}}>
   {readings.length?<div><Text type="secondary">{t('卡片读数')}</Text><br/><Select aria-label={t('卡片读数')} value={reading?.key??NO_CARD} onChange={v=>{setSelected(v);setManual(null);}} style={{minWidth:260}} options={readings.map(r=>({value:r.key,label:`${r.pooled?t('积分池'):r.combined?t('合计（可合并）'):r.cardRecord?.name||r.label} · ${count(r.amount)}`})).concat({value:NO_CARD,label:t('不选卡，看全部比例')})}/></div>:null}
   <div><Text type="secondary">{t('试算积分')}</Text><br/><InputNumber aria-label={t('试算积分')} min={0} precision={0} max={1000000000} step={1000} value={manual} placeholder={hidden||!reading?.usable?t('输入积分数'):whole(reading.amount)} onChange={v=>setManual(v??null)} style={{width:180}}/></div>
@@ -77,10 +77,12 @@ function ProgrammePanel({programme,accounts,cards,count,hidden}){
  {reading&&!reading.usable&&manual==null?<Paragraph type="secondary">{t('这个读数不是整数，不用于计算；可以输入积分数，或不选卡后试算。')}</Paragraph>:null}
  {reading?.historical&&manual==null?<Paragraph type="secondary">{t('历史记录；本次尚未取得更新读数。')}</Paragraph>:null}
  {programme.id.endsWith('-hk')?<Alert showIcon type="warning" title={t('香港只公开 Turbo 计划费率')} description={t('是否已登记 Turbo 未核实，未登记的费率须登录查看。把已有伙伴账号加入转点时，页面列明每次收取400港元行政费，部分卡种除外。')} style={{marginBottom:16}}/>:null}
+ {programme.id==='programme.bilt-rewards'?<Alert showIcon type="warning" title={t('Bilt 的最低转点数看会员等级')} description={t('Blue 等级会员每次最少转2,000点，Silver 及以上最少1,000点，都按1,000点递增。会员等级未核实，试算只按1,000点递增计算。Bilt 卡只能手动添加，不读取积分余额，可以输入积分数试算。')} style={{marginBottom:16}}/>:null}
  {programme.id.includes('ultimate')?<Alert showIcon type="warning" title={t('Chase 没有逐项公布比例')} description={t('Sapphire Preferred 页面只说多数伙伴1:1，没有逐项列明，因此这些伙伴不计算结果。World of Hyatt 的4:3只有 Sapphire Preferred 和 Ink Business Preferred 页面写明。')} style={{marginBottom:16}}/>:null}
  <Space orientation="vertical" size="large" style={{width:"100%"}}>
   {airlines.length?<div><Paragraph strong style={{marginBottom:8}}>{t('航空伙伴')}</Paragraph><PartnerTable rows={airlines} points={points} hidden={hidden&&manual==null}/></div>:null}
   {hotels.length?<div><Paragraph strong style={{marginBottom:8}}>{t('酒店伙伴')}</Paragraph><PartnerTable rows={hotels} points={points} hidden={hidden&&manual==null}/></div>:null}
+  {others.length?<div><Paragraph strong style={{marginBottom:8}}>{t('其他伙伴')}</Paragraph><PartnerTable rows={others} points={points} hidden={hidden&&manual==null}/></div>:null}
  </Space>
  <Paragraph type="secondary" style={{marginTop:12,marginBottom:0}}>{t('来源（核对 {0}）：',[all[0]?.checkedAt||'—'])}<Space wrap size={[12,4]}>{sources.map(s=><Link key={s.id} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></Paragraph>
  {rule?<Paragraph type="secondary" style={{marginTop:4,marginBottom:0}}>{t('积分池规则（持卡人说明，核对 {0}）：',[rule.checkedAt])}<Space wrap size={[12,4]}>{knowledgeSources(rule.sourceIds).map(s=><Link key={s.id} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></Paragraph>:null}</>;
@@ -94,6 +96,6 @@ export default function RewardsView({accounts,cards,count,hidden=false}){
  const own=accounts.current.filter(r=>!shownInPooledEntry(r));
  return <><Paragraph type="secondary">{t('最新卡片读数优先展示。不同国家、不同计划分别列出；积分池按计划规则合计，不重复计算。')}</Paragraph>{totals.length?<Row gutter={[20,20]} style={{marginBottom:20}}>{totals.map(total)}</Row>:null}{own.length?<Row gutter={[20,20]}>{own.map(render)}</Row>:null}{!accounts.current.length&&<Empty description={t('尚未读取积分，请刷新对应银行。')}/>} {!!accounts.historical.length&&<Collapse style={{marginTop:24}} items={[{key:'history',label:t('查看之前的积分记录'),children:<Row gutter={[16,16]}>{accounts.historical.map(r=>render({...r,historical:true}))}</Row>}]} />}
  <Typography.Title level={4} style={{marginTop:32}}>{t('积分能转到哪里')}</Typography.Title>
- <Alert showIcon type="info" title={t('转点前请看')} description={<ul style={{margin:0,paddingInlineStart:18}}><li>{t('转点通常不可撤销，到账后积分不能退回。')}</li><li>{t('积分池按计划和地区记录：美国 MR 共用一个积分池；香港 MR 每张卡独立；Chase UR 每张卡独立，但可在同一持卡人的卡之间合并。')}</li><li>{t('结果只是按公布比例算出的数量，不代表每点价值，也不代表有可兑换的航班或房间。')}</li><li>{t('账号是否已关联、是否满足条件未核实；本页不会执行转点。')}</li></ul>} style={{marginBottom:16}}/>
+ <Alert showIcon type="info" title={t('转点前请看')} description={<ul style={{margin:0,paddingInlineStart:18}}><li>{t('转点通常不可撤销，到账后积分不能退回。')}</li><li>{t('积分池按计划和地区记录：美国 MR 共用一个积分池；香港 MR 每张卡独立；Chase UR 每张卡独立，但可在同一持卡人的卡之间合并。')}</li><li>{t('Bilt Rewards 每人只有一个账户，卡、房租和合作商户的积分都进这个账户。')}</li><li>{t('结果只是按公布比例算出的数量，不代表每点价值，也不代表有可兑换的航班或房间。')}</li><li>{t('账号是否已关联、是否满足条件未核实；本页不会执行转点。')}</li></ul>} style={{marginBottom:16}}/>
  <Tabs items={tabs}/></>;
 }

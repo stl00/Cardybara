@@ -413,7 +413,9 @@
     "默认市场估值": "Default market valuation",
     "已隐藏": "Hidden",
     "已隐藏的卡": "Hidden cards",
-    "积分池": "Points pool"
+    "积分池": "Points pool",
+    "Bilt Rewards": "Bilt Rewards",
+    "Bilt": "Bilt"
   },
   "zh-TW": {
     "美国": "美國",
@@ -829,6 +831,8 @@
     "默认市场估值": "預設市場估值",
     "已隐藏": "已隱藏",
     "已隐藏的卡": "已隱藏的卡",
-    "积分池": "積分池"
+    "积分池": "積分池",
+    "Bilt Rewards": "Bilt Rewards",
+    "Bilt": "Bilt"
   }
 }

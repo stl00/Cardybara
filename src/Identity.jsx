@@ -15,6 +15,7 @@ const banks={
  Discover:[null,'Discover','US'],
  'U.S. Bank':[null,'U.S. Bank','US'],
  'Wells Fargo':[null,'Wells Fargo','US'],
+ Bilt:[null,'Bilt','US'],
  Hilton:['hilton.png','Hilton Honors','US'],
  IHG:['ihg.ico','IHG One Rewards','US']
 };

@@ -112,7 +112,7 @@ test('Amex Canada is archived: off by default, code kept, and a wallet holding i
  assert.ok(PROVIDERS['Amex CA'].archived);assert.ok(!ACTIVE_BANKS.includes('Amex CA'));assert.ok(!REQUIRED_BANKS.includes('Amex CA'));
  assert.ok(!seed.connections.some(c=>c.bank==='Amex CA'));assert.ok(!readFileSync(new URL('../scripts/package-standalone.py',import.meta.url),'utf8').includes("'Amex CA'"));
  // Manual add offers every active bank; the collector panel only the banks this build connects (tests/beta-scope.test.mjs).
- assert.match(readFileSync(new URL('../src/WalletOnboarding.jsx',import.meta.url),'utf8'),/bankOrder\(ACTIVE_BANKS\)\.map/);
+ assert.match(readFileSync(new URL('../src/WalletOnboarding.jsx',import.meta.url),'utf8'),/\[\.\.\.bankOrder\(ACTIVE_BANKS\),\.\.\.MANUAL_BANK_NAMES\]\.map/);
  assert.match(readFileSync(new URL('../src/CollectorPanel.jsx',import.meta.url),'utf8'),/CONNECTABLE_BANKS\.map/);
  const connections=[{bank:'Amex CA'},{bank:'Chase'}],held={id:'x',bank:'Amex CA'},chase={id:'y',bank:'Chase'};
  assert.deepEqual(visibleConnections({connections,cards:[chase]}).map(c=>c.bank),['Chase'],'hidden with no card');
