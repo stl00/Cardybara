@@ -190,6 +190,25 @@ test('the wallet keeps a removal through reloads and discovery until the user ad
  const hidden={id:'discovered-chase-9999',bank:'Chase',tail:'9999',identitySource:'bank-page'};assert.deepEqual(removeWalletCard([hidden,keep],[],seed).registry.map(c=>c.id),['manual-two'],'a registry row hidden by the removed card goes with it');
  const live={Chase:{status:'updated',patches:[{id:'manual-one'},{id:'manual-two'}]}};assert.deepEqual(withoutLiveCard(live,manual).Chase.patches,[{id:'manual-two'}]);assert.equal(withoutLiveCard(live,seed),live);
 });
+test('removing a snapshot card hides its rows and keeps reward pools and other cards',()=>{
+ const gone={id:'seed-one',bank:'Chase',tail:'9999',name:'Seed',region:'US',currency:'USD'},gold={id:'gold',bank:'Amex US',tail:'1005',name:'Gold',region:'US',currency:'USD'},keep={id:'seed-two',bank:'Chase',tail:'4321',name:'Keep',region:'US',currency:'USD'};
+ const base={cards:[gone,gold,keep],connections:[],rewards:[{id:'ur',label:'Ultimate Rewards',amount:1000}],
+  transactions:[{id:'t1',card:'seed-one'},{id:'t2',card:'seed-two'},{id:'t3'}],offers:[{name:'o1',card:'seed-one'},{name:'o2',card:'seed-two'},{name:'o3'}],
+  benefits:[{name:'b1',card:'seed-one'},{name:'b2'}],spendingGoals:[{card:'seed-one',name:'g1'},{card:'seed-two',name:'g2'}],
+  rewardObservations:[{card:'seed-one',bank:'Chase',amount:5},{card:'seed-two',bank:'Chase',amount:6}],benefitProgress:[{card:'seed-one'},{card:'seed-two'}]};
+ const {removed}=removeWalletCard([],[],gone),out=withoutRemoved(base,removed);
+ assert.deepEqual(out.cards.map(c=>c.id),['gold','seed-two']);
+ assert.deepEqual(out.transactions.map(r=>r.id),['t2','t3'],'a row without a card id is the legacy gold card and stays');
+ assert.deepEqual(out.offers.map(r=>r.name),['o2','o3'],'an offer with no card stays as card-to-confirm');
+ assert.deepEqual(out.benefits.map(r=>r.name),['b2']);
+ assert.deepEqual(out.spendingGoals.map(g=>g.name),['g2'],'no goal is left titled undefined');
+ assert.deepEqual(out.rewardObservations.map(r=>r.amount),[6]);assert.deepEqual(out.benefitProgress,[{card:'seed-two'}]);
+ assert.deepEqual(out.rewards,base.rewards,'a reward pool is an account, not a card');
+ assert.equal(base.transactions.length,3,'the stored snapshot is not changed, so an import can bring the rows back');
+ const legacy=withoutRemoved(base,removeWalletCard([],[],gold).removed);
+ assert.deepEqual(legacy.transactions.map(r=>r.id),['t1','t2'],'removing the gold card hides rows that default to it');assert.deepEqual(legacy.benefits.map(r=>r.name),['b1']);
+ assert.equal(withoutRemoved({cards:[keep]},removed).transactions,undefined,'a snapshot without row lists stays without them');
+});
 test('the removal message reaches the worker through the page bridge',()=>{
  for(const bridge of ['extension-next/dashboard.js','scripts/dev-collector/page-bridge.js'])assert.match(readFileSync(bridge,'utf8'),/'remove-card'/,bridge);assert.match(readFileSync('extension-next/background.js','utf8'),/m\.type==='remove-card'/);
 });
