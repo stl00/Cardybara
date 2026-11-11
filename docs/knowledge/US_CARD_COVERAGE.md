@@ -1,6 +1,6 @@
 # 美国常见卡片覆盖表
 
-2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这份名单。 名单共 50 项：49 张有资料，1 张因发卡行页面读不到数字而跳过。
+2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这份名单。 名单共 50 项：49 张有资料，1 张因发卡行页面读不到数字而跳过。 2026-11-11 起第6批及以后按 #195 补充 friends beta 测试者常持有的 Chase 和 Amex US 卡（Chase 已在产品目录中但缺规则，Amex US 为新增产品），事实同样只来自发卡行页面。
 
 “读取”指插件能否自动读取账户数据；这里的资料只是公开产品信息，不代表该银行已能采集或已验收。卡面暂不新增，发卡行图片的使用条款未确认。
 
@@ -56,3 +56,8 @@
 | 5 | Wells Fargo Autograph Journey Visa Card | $95 | 4 | 1 | — | 暂不支持 | 转点伙伴和比例尚未核对；页面写明可以转到部分旅行计划。 | https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/ |
 | 5 | Citi Custom Cash | $0 | 2 | 0 | — | 已支持的银行，未验收 | Citi 自2026年5月28日起停止受理新申请，已持卡者不受影响；资料来自页面内嵌数据，可见页面显示 Not Available。 | https://www.citi.com/credit-cards/citi-custom-cash-credit-card |
 | — | BOA Premium Rewards | — | — | — | — | — | 发卡行页面的公开内容里读不到年费和赚取比例，已跳过。 | — |
+| 6 | Chase Prime Visa | $0 | 4 | 1 | — | 已支持的银行，未验收 | 页面只列出“Travel & Purchase Protection”，没有写保障内容，未录入。 | https://creditcards.chase.com/cash-back-credit-cards/amazon-prime-rewards |
+| 6 | Chase Amazon Visa | $0 | 4 | 0 | — | 已支持的银行，未验收 | 页面只列出“Travel & Purchase Protection”，没有写保障内容，未录入。 | https://creditcards.chase.com/cash-back-credit-cards/amazon-rewards |
+| 6 | Chase Marriott Bonvoy Bold | $0 | 5 | 2 | Marriott Bonvoy | 已支持的银行，未验收 | Pay Yourself Back（积分抵扣直订机票和 Marriott 酒店消费，每年最多兑换750美元）和行李延误、行程延误等保障未录入。 | https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold |
+| 6 | Chase Marriott Bonvoy Bountiful | $250 | 3 | 4 | Marriott Bonvoy | 已支持的银行，未验收 | 行李延误、行程延误等保障未录入。 | https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bountiful |
+| 6 | Amex Blue Cash Preferred | $95 | 5 | 1 | — | 已支持的银行，未验收 | 首年0美元优惠年费是否适用取决于个人资格，未核实。附属卡年费未确认。；租车险、购物保障、退货保障和延长保修未录入。 | https://www.americanexpress.com/us/credit-cards/card/blue-cash-preferred/ |
