@@ -28,8 +28,9 @@ async function scopedExtension(t,banks){
 test('source and tests keep every bank; only a build writes a scope',()=>{
  assert.equal(BUILD_BANKS,null);assert.equal(SCOPED,false);assert.deepEqual(CONNECTABLE_BANKS,ACTIVE_BANKS);
  for(const bank of Object.keys(PROVIDERS))assert.equal(connectable(bank),true,bank);
- assert.equal(scopeSource({}),'export const BUILD_BANKS=null;\n');
- assert.equal(scopeSource({banks:BETA}),'export const BUILD_BANKS=["Chase","Amex US"];\n');
+ assert.equal(scopeSource({}),'export const BUILD_BANKS=null;\nexport const BUILD_SCOPE="cardybara-scope:all";\n');
+ assert.equal(scopeSource({banks:BETA}),'export const BUILD_BANKS=["Chase","Amex US"];\nexport const BUILD_SCOPE="cardybara-scope:Chase,Amex US";\n');
+ assert.ok(readFileSync(new URL('../extension-next/build-scope.js',import.meta.url),'utf8').endsWith(scopeSource(null)),'the source file is the unscoped build text');
 });
 
 test('the beta release is scoped to Chase and Amex US, with its notes in the package',()=>{
@@ -39,13 +40,15 @@ test('the beta release is scoped to Chase and Amex US, with its notes in the pac
 });
 
 test('the release builder writes the same scope text as Vite and the dev extension builder',()=>{
- const py=execFileSync('python3',['-c',"import json,sys\ncfg=json.loads(sys.argv[1])\nscope=cfg.get('banks') if isinstance(cfg.get('banks'),list) else None\nsys.stdout.write('export const BUILD_BANKS='+json.dumps(scope,separators=(',',':'),ensure_ascii=False)+';\\n')",JSON.stringify(release)],{encoding:'utf8'});
+ const py=execFileSync('python3',['-c',"import json,sys\ncfg=json.loads(sys.argv[1])\nscope=cfg.get('banks') if isinstance(cfg.get('banks'),list) else None\nsys.stdout.write('export const BUILD_BANKS='+json.dumps(scope,separators=(',',':'),ensure_ascii=False)+';\\nexport const BUILD_SCOPE='+json.dumps('cardybara-scope:'+(','.join(scope) if scope else 'all'),ensure_ascii=False)+';\\n')",JSON.stringify(release)],{encoding:'utf8'});
  assert.equal(py,scopeSource(release));
  const builder=readFileSync(new URL('../scripts/build-release.py',import.meta.url),'utf8');
  assert.ok(builder.includes("json.dumps(scope,separators=(',',':'),ensure_ascii=False)"),'build-release.py uses the shared formula');
  const root=new URL('../',import.meta.url),plugin=buildScopePlugin(root,{all:false});
  assert.equal(plugin.transform('x','/repo/extension-next/build-scope.js').code,scopeSource(release));
  assert.equal(plugin.transform('x','/repo/src/other.js'),null);
+ assert.equal(plugin.apply,'build','npm run dev keeps every bank, like the Node dev collector');
+ assert.match(readFileSync(new URL('../src/ReleaseNotes.jsx',import.meta.url),'utf8'),/data-build-scope=\{BUILD_SCOPE\}/,'the wallet bundle keeps the scope marker the package audit checks');
  assert.equal(buildScopePlugin(root,{all:true}).transform('x','/repo/extension-next/build-scope.js').code,scopeSource(null));
  assert.match(readFileSync(new URL('../scripts/build-dev-extension.mjs',import.meta.url),'utf8'),/writeFile\(join\(work,SCOPE_FILE\),scopeSource\(/);
 });
@@ -57,6 +60,11 @@ test('a beta build offers only Chase and Amex US, Chase first',async t=>{
  // The other banks are hidden, not deleted.
  assert.deepEqual(Object.keys(providers.PROVIDERS),Object.keys(PROVIDERS));assert.deepEqual(providers.ACTIVE_BANKS,ACTIVE_BANKS);
  assert.deepEqual(bankOrder(ACTIVE_BANKS).slice(0,2),BETA);
+});
+
+test('the dev schedule reads only the banks the build connects',()=>{
+ const dev=readFileSync(new URL('../extension-dev/background-dev.js',import.meta.url),'utf8');
+ assert.doesNotMatch(dev,/ACTIVE_BANKS/);assert.match(dev,/activeBanks:CONNECTABLE_BANKS/);
 });
 
 test('a beta build refuses to start or turn on any other bank',async t=>{
@@ -71,6 +79,10 @@ test('a beta build refuses to start or turn on any other bank',async t=>{
   for(const type of ['disconnect','clear'])assert.equal(protocol.request({type,requestId:'beta',bank}).bank,bank);
  }
  assert.throws(()=>protocol.request({type:'refresh',requestId:'beta',banks:['Amex CA'],cards:[]}),/bank_not_offered/);
+});
+
+test('the page parser checks the build scope before touching a tab',()=>{
+ assert.match(readFileSync(new URL('../extension-next/agent-runtime.js',import.meta.url),'utf8'),/!PROVIDERS\[bank\]\|\|!connectable\(bank\)/);
 });
 
 test('the wallet shows only the beta banks, and keeps a manual card of another bank',()=>{

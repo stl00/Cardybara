@@ -1,5 +1,6 @@
 // Cardybara registry. Design reference: nextcard-sync, see THIRD_PARTY_NOTICES.md.
-import {BUILD_BANKS} from './build-scope.js';
+import {BUILD_BANKS,BUILD_SCOPE} from './build-scope.js';
+export {BUILD_SCOPE};
 export const VERSION='1.1.0';
 export const ORIGIN='http://127.0.0.1:8766';
 const amex=['www.americanexpress.com','global.americanexpress.com'];

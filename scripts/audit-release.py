@@ -50,10 +50,11 @@ if '--package' in sys.argv:
   assert m['manifest_version']==3 and m['version']==cfg['version'];assert not m.get('content_scripts');assert 'notifications' not in m['permissions'] and 'notifications' in m['optional_permissions'],'Notifications must stay optional';assert not any(x.startswith('http:') for x in m['host_permissions'])
   # The packaged worker's bank scope is release.json's, the same text the wallet bundle was built with.
   scope=cfg.get('banks') if isinstance(cfg.get('banks'),list) else None
-  assert z.read('build-scope.js').decode()=='export const BUILD_BANKS='+json.dumps(scope,separators=(',',':'),ensure_ascii=False)+';\n','Packaged bank scope differs from release.json'
-  if scope:
-   bundle=b''.join(z.read(n) for n in names if n.startswith('assets/') and n.endswith('.js'))
-   assert json.dumps(scope,separators=(',',':')).encode() in bundle,'Wallet bundle was built without the release bank scope'
+  marker='cardybara-scope:'+(','.join(scope) if scope else 'all')
+  assert z.read('build-scope.js').decode()=='export const BUILD_BANKS='+json.dumps(scope,separators=(',',':'),ensure_ascii=False)+';\nexport const BUILD_SCOPE='+json.dumps(marker,ensure_ascii=False)+';\n','Packaged bank scope differs from release.json'
+  # The wallet bundle carries exactly one scope marker, and it is the package's (a dist/ built for every bank fails here).
+  bundle=b''.join(z.read(n) for n in names if n.startswith('assets/') and n.endswith('.js'))
+  assert set(re.findall(rb'cardybara-scope:[A-Za-z ,]+',bundle))=={marker.encode()},'Wallet bundle was built with another bank scope than the package'
   d=json.loads(z.read('data.json'));assert d['cards']==[] and d['rewards']==[];assert d==json.loads((r/'public/data.example.json').read_text()),'Local and packaged empty-wallet seeds differ'
   for n in names:
    assert not n.startswith('/') and '..' not in Path(n).parts and not n.endswith(('.zip','.map','.env'))

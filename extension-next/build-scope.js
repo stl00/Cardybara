@@ -2,3 +2,4 @@
 // The release builder (scripts/build-release.py), the dev extension builder and Vite write it from release.json's
 // "banks" (scripts/build-scope.mjs), so the beta package offers only those. Other banks stay in the code, hidden.
 export const BUILD_BANKS=null;
+export const BUILD_SCOPE="cardybara-scope:all";

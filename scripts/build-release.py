@@ -8,7 +8,7 @@ r=Path(__file__).resolve().parents[1];cfg=json.loads((r/'release.json').read_tex
 if os.environ.get('CARDYBARA_ALL_BANKS')=='1':raise SystemExit('CARDYBARA_ALL_BANKS=1 is for local development; unset it to build a release')
 # Same text as scripts/build-scope.mjs scopeSource(): release.json's "banks", or null for every active bank.
 scope=cfg.get('banks') if isinstance(cfg.get('banks'),list) else None
-scope_source=('export const BUILD_BANKS='+json.dumps(scope,separators=(',',':'),ensure_ascii=False)+';\n').encode()
+scope_source=('export const BUILD_BANKS='+json.dumps(scope,separators=(',',':'),ensure_ascii=False)+';\nexport const BUILD_SCOPE='+json.dumps('cardybara-scope:'+(','.join(scope) if scope else 'all'),ensure_ascii=False)+';\n').encode()
 channel=cfg.get('channel','alpha')
 for p in (r/'extension-next').rglob('*'):
  if p.is_file() and not any(x.startswith('.') for x in p.relative_to(r/'extension-next').parts) and p.suffix in ['.js','.json','.html','.css','.svg','.png','.txt','.md'] and p.name!='CHECKSUMS.json':

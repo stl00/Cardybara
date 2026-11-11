@@ -27,9 +27,9 @@ Install guide for testers: [docs/BETA-INSTALL.md](../BETA-INSTALL.md).
 
 ### 用卡助手
 - 需要邀请码：在 设置 → AI 服务 输入邀请你的人给的邀请码。不输入也能正常使用钱包，只是没有聊天助手和 AI 识别卡种。
-- 能做：回答持卡、福利、积分和还款的问题；比较一笔消费用哪张卡更好。
+- 能做：回答持卡、福利、积分和年费周期的问题；比较一笔消费用哪张卡更好。
 - 不能做：付款、操作银行、替你登记优惠。
-- 回答里的金额和日期只来自钱包工具读出的数据；查不到时会说不知道，不会猜。
+- 它看不到银行余额、账单和还款日；回答里的数字只来自钱包的福利、积分和卡片资料，查不到时会说不知道，不会猜。
 
 ### 隐私
 - 钱包数据保存在这台电脑的 Chrome 里，不上传，也不同步。
@@ -41,7 +41,7 @@ Install guide for testers: [docs/BETA-INSTALL.md](../BETA-INSTALL.md).
 - 联名卡的积分（航空、酒店等计划）不读取。
 - 银行页面没有印年份的日期，按读取当天推断最近的年份，并标明“年份按读取日期推断”。
 - 没读到的金额保持未知，不按零计算；银行页面改版可能让读取暂时失败。
-- Chrome 关闭时不会刷新；需要手机验证时要你本人在银行完成。
+- 只在你点击刷新时读取，不会在后台自动刷新；需要手机验证时要你本人在银行完成。
 - 只在 Chrome 桌面版测试过。
 
 ### 反馈问题
@@ -70,9 +70,9 @@ This is a beta for friends, not a Chrome Web Store release.
 
 ### The assistant
 - Needs an invite code: Settings → AI service, enter the code from the person who invited you. Without it the wallet works, just without the chat assistant and AI card recognition.
-- Can: answer questions about your cards, benefits, points and payments; compare which card to use for a purchase.
+- Can: answer questions about your cards, benefits, points and card-year cycles; compare which card to use for a purchase.
 - Cannot: pay, act on your bank, or enrol offers.
-- Amounts and dates in answers come only from what the wallet's tools read; when it can't find something it says so instead of guessing.
+- It can't see bank balances, statements or due dates; numbers in its answers come only from the wallet's benefit, points and card data, and when it can't find something it says so instead of guessing.
 
 ### Privacy
 - Your wallet stays in Chrome on this computer; it is not uploaded or synced.
@@ -84,7 +84,7 @@ This is a beta for friends, not a Chrome Web Store release.
 - Co-brand points (airline, hotel and similar programmes) are not read.
 - A date printed without a year gets the year nearest the day it was read, marked as inferred.
 - Amounts that weren't read stay unknown, never zero; a bank page redesign can break reading for a while.
-- Nothing refreshes while Chrome is closed; phone confirmations must be done by you at the bank.
+- It reads only when you click refresh, never in the background; phone confirmations must be done by you at the bank.
 - Tested on desktop Chrome only.
 
 ### Reporting a problem

@@ -21,9 +21,7 @@
     "积分估值：每种积分值多少钱，用来比较用哪张卡。": "Point valuations: what each kind of point is worth to you, used when comparing cards.",
     "手动添加的卡片和福利使用记录。": "Cards you add by hand and benefit usage you mark.",
     "需要邀请码：在设置的“AI 服务”里输入邀请你的人给的邀请码。不输入也能正常使用钱包，只是没有聊天助手。": "Needs an invite code: enter the code from the person who invited you under Settings → AI service. Without it the wallet works, just without the chat assistant.",
-    "可以回答持卡、福利、积分和还款的问题，也可以比较一笔消费用哪张卡更好。": "It answers questions about your cards, benefits, points and payments, and compares which card to use for a purchase.",
     "不能付款、不能操作银行、不能替你登记优惠。": "It cannot pay, act on your bank, or enrol offers for you.",
-    "回答里的金额和日期只来自钱包里的数据；查不到时会说不知道，不会猜。": "Amounts and dates in answers come only from your wallet data; when it can't find one it says so instead of guessing.",
     "钱包数据保存在这台电脑的 Chrome 里，不上传，也不同步。": "Your wallet stays in Chrome on this computer; it is not uploaded or synced.",
     "和用卡助手的聊天会经过 Cardybara 服务转交 AI 模型处理。服务不保存聊天内容，只记录邀请码编号、时间、用量和状态。": "Chat with the assistant goes through the Cardybara service to an AI model. The service does not store the chat; it records only the invite code's id, time, usage and status.",
     "没有广告，也没有使用统计。": "No ads and no usage analytics.",
@@ -31,7 +29,6 @@
     "联名卡的积分（例如航空或酒店计划）不读取。": "Co-brand points (airline or hotel programmes, for example) are not read.",
     "银行页面没有印年份的日期，按读取当天推断最近的年份，并标明是推断的。": "A date printed without a year gets the year nearest the day it was read, marked as inferred.",
     "没读到的金额保持未知，不按零计算；银行页面改版可能让读取暂时失败。": "Amounts that weren't read stay unknown, never zero; a bank page redesign can break reading for a while.",
-    "Chrome 关闭时不会刷新；需要手机验证时要你本人在银行完成。": "Nothing refreshes while Chrome is closed; phone confirmations must be done by you at the bank.",
     "这个测试版只从 {0} 的官网读取余额和账单。": "This beta reads balances and statements only from {0}.",
     "这张卡可以记在钱包里，用来看福利和问用卡助手；它的余额、账单和还款日不会自动更新。": "You can keep this card in the wallet for its benefits and the assistant; its balance, statement and due date won't update automatically.",
     "这个测试版可以连接 {0}。": "This beta can connect {0}.",
@@ -48,7 +45,10 @@
     "托管服务暂时繁忙，请稍后再试。": "The hosted service is busy. Please try again later.",
     "托管服务还没有开通，请稍后再试。": "The hosted service isn't open yet. Please try again later.",
     "AI 补全未启用，本次只用规则读取": "AI completion is off; this read used rules only",
-    "AI 服务拒绝了请求，请在设置里检查 AI 服务": "The AI service refused the request; check it in Settings"
+    "AI 服务拒绝了请求，请在设置里检查 AI 服务": "The AI service refused the request; check it in Settings",
+    "可以回答持卡、福利、积分和年费周期的问题，也可以比较一笔消费用哪张卡更好。": "It answers questions about your cards, benefits, points and card-year cycles, and compares which card to use for a purchase.",
+    "它看不到银行余额、账单和还款日；回答里的数字只来自钱包的福利、积分和卡片资料，查不到时会说不知道，不会猜。": "It can't see bank balances, statements or due dates; numbers in its answers come only from the wallet's benefit, points and card data, and when it can't find something it says so instead of guessing.",
+    "只在你点击刷新时读取，不会在后台自动刷新；需要手机验证时要你本人在银行完成。": "It reads only when you click refresh, never in the background; phone confirmations must be done by you at the bank."
   },
   "zh-TW": {
     "版本 {0}": "版本 {0}",
@@ -72,9 +72,7 @@
     "积分估值：每种积分值多少钱，用来比较用哪张卡。": "積分估值：每種積分值多少錢，用來比較用哪張卡。",
     "手动添加的卡片和福利使用记录。": "手動加入的卡片和福利使用記錄。",
     "需要邀请码：在设置的“AI 服务”里输入邀请你的人给的邀请码。不输入也能正常使用钱包，只是没有聊天助手。": "需要邀請碼：在設定的「AI 服務」裡輸入邀請你的人給的邀請碼。不輸入也能正常使用錢包，只是沒有聊天助手。",
-    "可以回答持卡、福利、积分和还款的问题，也可以比较一笔消费用哪张卡更好。": "可以回答持卡、福利、積分和還款的問題，也可以比較一筆消費用哪張卡更好。",
     "不能付款、不能操作银行、不能替你登记优惠。": "不能付款、不能操作銀行、不能替你登記優惠。",
-    "回答里的金额和日期只来自钱包里的数据；查不到时会说不知道，不会猜。": "回答裡的金額和日期只來自錢包裡的資料；查不到時會說不知道，不會猜。",
     "钱包数据保存在这台电脑的 Chrome 里，不上传，也不同步。": "錢包資料儲存在這台電腦的 Chrome 裡，不上傳，也不同步。",
     "和用卡助手的聊天会经过 Cardybara 服务转交 AI 模型处理。服务不保存聊天内容，只记录邀请码编号、时间、用量和状态。": "和用卡助手的聊天會經過 Cardybara 服務轉交 AI 模型處理。服務不儲存聊天內容，只記錄邀請碼編號、時間、用量和狀態。",
     "没有广告，也没有使用统计。": "沒有廣告，也沒有使用統計。",
@@ -82,7 +80,6 @@
     "联名卡的积分（例如航空或酒店计划）不读取。": "聯名卡的積分（例如航空或酒店計劃）不讀取。",
     "银行页面没有印年份的日期，按读取当天推断最近的年份，并标明是推断的。": "銀行頁面沒有印年份的日期，按讀取當天推斷最近的年份，並標明是推斷的。",
     "没读到的金额保持未知，不按零计算；银行页面改版可能让读取暂时失败。": "沒讀到的金額保持未知，不按零計算；銀行頁面改版可能讓讀取暫時失敗。",
-    "Chrome 关闭时不会刷新；需要手机验证时要你本人在银行完成。": "Chrome 關閉時不會刷新；需要手機驗證時要你本人在銀行完成。",
     "这个测试版只从 {0} 的官网读取余额和账单。": "這個測試版只從 {0} 的官網讀取餘額和帳單。",
     "这张卡可以记在钱包里，用来看福利和问用卡助手；它的余额、账单和还款日不会自动更新。": "這張卡可以記在錢包裡，用來看福利和問用卡助手；它的餘額、帳單和還款日不會自動更新。",
     "这个测试版可以连接 {0}。": "這個測試版可以連接 {0}。",
@@ -99,6 +96,9 @@
     "托管服务暂时繁忙，请稍后再试。": "託管服務暫時繁忙，請稍後再試。",
     "托管服务还没有开通，请稍后再试。": "託管服務還沒有開通，請稍後再試。",
     "AI 补全未启用，本次只用规则读取": "AI 補全未啟用，本次只用規則讀取",
-    "AI 服务拒绝了请求，请在设置里检查 AI 服务": "AI 服務拒絕了請求，請在設定中檢查 AI 服務"
+    "AI 服务拒绝了请求，请在设置里检查 AI 服务": "AI 服務拒絕了請求，請在設定中檢查 AI 服務",
+    "可以回答持卡、福利、积分和年费周期的问题，也可以比较一笔消费用哪张卡更好。": "可以回答持卡、福利、積分和年費週期的問題，也可以比較一筆消費用哪張卡更好。",
+    "它看不到银行余额、账单和还款日；回答里的数字只来自钱包的福利、积分和卡片资料，查不到时会说不知道，不会猜。": "它看不到銀行餘額、帳單和還款日；回答裡的數字只來自錢包的福利、積分和卡片資料，查不到時會說不知道，不會猜。",
+    "只在你点击刷新时读取，不会在后台自动刷新；需要手机验证时要你本人在银行完成。": "只在你點擊刷新時讀取，不會在背景自動刷新；需要手機驗證時要你本人在銀行完成。"
   }
 }
