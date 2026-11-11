@@ -16,7 +16,7 @@ export default function ParserSettings(){
  <ModelKeySettings/>
  <Card title={t('AI 识别卡种')}>
  <Flex align="center" gap={12} wrap><Switch checked={auto} disabled={!state?.configured} onChange={on=>{try{setAutoSuggest(on);setAuto(on)}catch{}}}/><Text>{t('自动用 AI 推测未识别的卡种')}</Text></Flex>
- <Paragraph type="secondary" style={{marginTop:8,fontSize:12}}>{t('默认关闭。开启后，钱包会把未识别卡片的银行、地区和卡名（不含尾号和金额）发给你配置的模型，每个卡名只问一次；推测结果需要你在卡片详情里确认。')}</Paragraph>
+ <Paragraph type="secondary" style={{marginTop:8,fontSize:12}}>{t('默认关闭。开启后，钱包会把未识别卡片的银行、地区和卡名（不含尾号和金额）发给 AI 服务，每个卡名只问一次；推测结果需要你在卡片详情里确认。')}</Paragraph>
  </Card>
  {!internal()&&<Card title={t('可选 AI 解析')} extra={<Tag color={state?.configured?'success':'default'}>{state?.configured?t('已连接'):t('未连接')}</Tag>}>
  <Paragraph>{t('本页由本机调试服务提供，AI 使用服务端 .env.local 里的配置。')}</Paragraph><Text code>{location.origin}</Text>
