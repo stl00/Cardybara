@@ -126,9 +126,9 @@
   "酒店":[{"uses":["hotel"]}],
   "航空":[{"uses":["flight"]}],
   "餐厅和其他旅行":[{"uses":["dining","any-travel"]}],
-  "Amazon.com、Audible.com 和 Whole Foods Market":[{"merchants":["amazon","whole foods"]}],
+  "Amazon.com、Audible.com 和 Whole Foods Market":[{"merchants":["amazon","whole foods"],"country":"US"}],
   "加油站、餐厅、本地交通和通勤":[{"uses":["gas","dining","transit"]}],
-  "网约车和指定外卖平台":[{"uses":["transit"]},{"uses":["dining"],"condition":"selected-merchants"}],
+  "网约车和指定外卖平台":[{"uses":["transit"],"condition":"taxi-and-limousine"},{"uses":["dining"],"condition":"selected-merchants"}],
   "指定流媒体、网络、有线电视和电话":[{"uses":["telecom"]},{"uses":["streaming"],"condition":"selected-merchants"}],
   "指定美国流媒体订阅":[{"uses":["streaming"],"country":"US","condition":"selected-merchants"}],
   "交通（出租车、网约车、停车、过路费、火车、巴士等）":[{"uses":["transit"]}]

@@ -58,6 +58,6 @@
 | — | BOA Premium Rewards | — | — | — | — | — | 发卡行页面的公开内容里读不到年费和赚取比例，已跳过。 | — |
 | 6 | Chase Prime Visa | $0 | 4 | 1 | — | 已支持的银行，未验收 | 页面只列出“Travel & Purchase Protection”，没有写保障内容，未录入。 | https://creditcards.chase.com/cash-back-credit-cards/amazon-prime-rewards |
 | 6 | Chase Amazon Visa | $0 | 4 | 0 | — | 已支持的银行，未验收 | 页面只列出“Travel & Purchase Protection”，没有写保障内容，未录入。 | https://creditcards.chase.com/cash-back-credit-cards/amazon-rewards |
-| 6 | Chase Marriott Bonvoy Bold | $0 | 5 | 2 | Marriott Bonvoy | 已支持的银行，未验收 | Pay Yourself Back（积分兑换旅行消费，每年最多750美元）和行李延误、行程延误等保障未录入。 | https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold |
+| 6 | Chase Marriott Bonvoy Bold | $0 | 5 | 2 | Marriott Bonvoy | 已支持的银行，未验收 | Pay Yourself Back（积分抵扣直订机票和 Marriott 酒店消费，每年最多兑换750美元）和行李延误、行程延误等保障未录入。 | https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold |
 | 6 | Chase Marriott Bonvoy Bountiful | $250 | 3 | 4 | Marriott Bonvoy | 已支持的银行，未验收 | 行李延误、行程延误等保障未录入。 | https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bountiful |
 | 6 | Amex Blue Cash Preferred | $95 | 5 | 1 | — | 已支持的银行，未验收 | 首年0美元优惠年费是否适用取决于个人资格，未核实。附属卡年费未确认。；租车险、购物保障、退货保障和延长保修未录入。 | https://www.americanexpress.com/us/credit-cards/card/blue-cash-preferred/ |

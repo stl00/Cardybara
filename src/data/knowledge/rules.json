@@ -57005,11 +57005,11 @@
     ],
     "content": {
       "title": "每年15晚 Elite Night Credits",
-      "summary": "开户后60天内存入，之后每年3月1日前存入，计入会籍升级。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。",
+      "summary": "开户后60天内到账，之后每年3月1日前到账，计入会籍升级；须为主卡持卡人。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。",
       "sourceText": "15 Elite Night Credits (“ENC”) will be deposited into your Marriott Bonvoy Member Account within 60 days",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "开户后60天内存入，之后每年3月1日前存入，计入会籍升级。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。",
+        "开户后60天内到账，之后每年3月1日前到账，计入会籍升级；须为主卡持卡人。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ],
       "translatedFrom": "en-US"
@@ -57028,7 +57028,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "开户后60天内存入，之后每年3月1日前存入，计入会籍升级。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。"
+      "unparsedText": "开户后60天内到账，之后每年3月1日前到账，计入会籍升级；须为主卡持卡人。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。"
     },
     "evidence": {
       "sourceIds": [
@@ -57092,11 +57092,11 @@
     ],
     "content": {
       "title": "每次合资格入住1,000点",
-      "summary": "须直接向 Marriott 以合资格价格预订，至少一晚付费；第三方网站和旅行社预订不计。",
+      "summary": "须为主卡持卡人并用本卡支付；须直接向 Marriott 以合资格价格预订，至少一晚付费；第三方网站和旅行社预订不计。",
       "sourceText": "Earn 1,000 Bonus Points per eligible stay at hotels participating in Marriott Bonvoy",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "须直接向 Marriott 以合资格价格预订，至少一晚付费；第三方网站和旅行社预订不计。",
+        "须为主卡持卡人并用本卡支付；须直接向 Marriott 以合资格价格预订，至少一晚付费；第三方网站和旅行社预订不计。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ],
       "translatedFrom": "en-US"
@@ -57115,7 +57115,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "须直接向 Marriott 以合资格价格预订，至少一晚付费；第三方网站和旅行社预订不计。"
+      "unparsedText": "须为主卡持卡人并用本卡支付；须直接向 Marriott 以合资格价格预订，至少一晚付费；第三方网站和旅行社预订不计。"
     },
     "evidence": {
       "sourceIds": [
@@ -57140,7 +57140,7 @@
     "original": {
       "lang": "en-US",
       "title": "1,000 bonus points per eligible stay",
-      "summary": "Up to 1,000 bonus points per eligible stay at participating Marriott Bonvoy hotels booked directly with Marriott on a qualifying rate.",
+      "summary": "Up to 1,000 bonus points per eligible stay at participating Marriott Bonvoy hotels, booked directly with Marriott on a qualifying rate and paid with the card by the primary cardmember.",
       "howToUse": [
         "Book directly with Marriott on a qualifying rate; third-party and tour operator bookings do not count."
       ],
@@ -57152,6 +57152,10 @@
         {
           "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
           "text": "Rooms booked through third party online retailers and tour operator bookings are not eligible for this bonus."
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "you must be the primary cardmember"
         }
       ]
     }

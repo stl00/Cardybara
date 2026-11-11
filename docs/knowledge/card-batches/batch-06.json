@@ -252,8 +252,8 @@
    ],
    "unknown": [
     {
-     "zh": "Pay Yourself Back（积分兑换旅行消费，每年最多750美元）和行李延误、行程延误等保障未录入。",
-     "en": "Pay Yourself Back (points toward travel purchases, up to $750 a year) and the baggage and trip delay coverage are not recorded."
+     "zh": "Pay Yourself Back（积分抵扣直订机票和 Marriott 酒店消费，每年最多兑换750美元）和行李延误、行程延误等保障未录入。",
+     "en": "Pay Yourself Back (points toward airline tickets bought directly and Marriott hotel purchases, up to $750 in redemptions a year) and the baggage and trip delay coverage are not recorded."
     }
    ]
   },
@@ -334,8 +334,8 @@
      "key": "elite-night-credits",
      "zh": "每年15晚 Elite Night Credits",
      "en": "15 Elite Night Credits each year",
-     "noteZh": "开户后60天内存入，之后每年3月1日前存入，计入会籍升级。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。",
-     "noteEn": "Deposited within 60 days of opening and then by March 1 each year, toward elite status. Annual ENCs already received from another Marriott consumer card do not stack; only the difference is deposited.",
+     "noteZh": "开户后60天内到账，之后每年3月1日前到账，计入会籍升级；须为主卡持卡人。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。",
+     "noteEn": "Deposited within 60 days of opening and then by March 1 each year, toward elite status; the primary cardmember only. Annual ENCs already received from another Marriott consumer card do not stack; only the difference is deposited.",
      "scenario": "hotel-stay",
      "category": "membership",
      "period": "calendar-year",
@@ -358,8 +358,8 @@
      "key": "stay-bonus",
      "zh": "每次合资格入住1,000点",
      "en": "1,000 bonus points per eligible stay",
-     "noteZh": "须直接向 Marriott 以合资格价格预订，至少一晚付费；第三方网站和旅行社预订不计。",
-     "noteEn": "The stay must be booked directly with Marriott on a qualifying rate with at least one paid night; third-party online retailers and tour operators do not count.",
+     "noteZh": "须为主卡持卡人并用本卡支付；须直接向 Marriott 以合资格价格预订，至少一晚付费；第三方网站和旅行社预订不计。",
+     "noteEn": "The primary cardmember only, paying for the stay with this card. It must be booked directly with Marriott on a qualifying rate with at least one paid night; third-party online retailers and tour operators do not count.",
      "scenario": "hotel-stay",
      "category": "hotel-service",
      "period": "per-stay",
@@ -369,12 +369,13 @@
      "quote": "Earn 1,000 Bonus Points per eligible stay at hotels participating in Marriott Bonvoy",
      "original": {
       "title": "1,000 bonus points per eligible stay",
-      "summary": "Up to 1,000 bonus points per eligible stay at participating Marriott Bonvoy hotels booked directly with Marriott on a qualifying rate.",
+      "summary": "Up to 1,000 bonus points per eligible stay at participating Marriott Bonvoy hotels, booked directly with Marriott on a qualifying rate and paid with the card by the primary cardmember.",
       "howToUse": [
        "Book directly with Marriott on a qualifying rate; third-party and tour operator bookings do not count."
       ],
       "quotes": [
-       "Rooms booked through third party online retailers and tour operator bookings are not eligible for this bonus."
+       "Rooms booked through third party online retailers and tour operator bookings are not eligible for this bonus.",
+       "you must be the primary cardmember"
       ]
      }
     },
