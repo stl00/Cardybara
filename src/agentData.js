@@ -1,6 +1,7 @@
 import {billingObservation} from '../extension-next/agent-core.js';
 import {formatReadDate} from './i18n-core.js';
 import {canonicalProgramme} from '../extension-next/bank-adapters.js';
+import {inferDueDate} from './dueYear.js';
 // Only evidence-validated findings from the bank-scoped refresh reach this reducer.
 export function applyAgentRecords(data,records=[]){
  const d=structuredClone(data);
@@ -55,6 +56,20 @@ export function latestDueField(card){
  const partial=card.fieldDates?.duePartial,full=card.fieldDates?.due||card.updated;
  return card.duePartial&&partial&&(!card.due||!full||Date.parse(partial)>=Date.parse(full))?'duePartial':'due';
 }
+
+/**
+ * The due date to show and count from. A full date from the bank wins when it is the latest reading;
+ * a yearless one gets the year its read day implies (`inferred`). Null when neither gives a calendar date,
+ * in which case `card.duePartial` can still be shown as printed.
+ */
+export function cardDue(card){
+ if(latestDueField(card)==='duePartial'&&card.duePartial){
+  const date=inferDueDate(card.duePartial,card.fieldDates?.duePartial||card.updated);
+  return date?{date,field:'duePartial',inferred:true,label:String(card.duePartial)}:null;
+ }
+ return validDay(card.due)?{date:card.due,field:'due',inferred:false}:null;
+}
+const validDay=v=>{if(typeof v!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(v))return false;const d=new Date(v+'T00:00:00Z');return Number.isFinite(d.getTime())&&d.toISOString().slice(0,10)===v;};
 
 // A bank job's reading phase is limited to this (see Engine.progress), so a reading this close to
 // the statement almost always came from the same run, and a positive one contradicts it. A real
