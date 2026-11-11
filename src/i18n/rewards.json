@@ -48,7 +48,6 @@
     "同一积分池的读数；合计只计一次。": "Reading of a shared pool; the total counts it once.",
     "每张卡独立账户，按卡相加（{0} 张卡）": "One account per card, added up ({0} cards)",
     "这张卡自己的积分账户，已计入合计；不能用于其他卡。": "This card's own points account, included in the total; not usable on other cards.",
-    "每张卡独立账户，按卡相加（{0} 张卡）；可在同一持卡人的卡之间合并": "One account per card, added up ({0} cards); points can be combined between the same cardholder's cards",
     "这张卡自己的积分账户，已计入合计；可合并到同一持卡人的其他卡。": "This card's own points account, included in the total; it can be combined into the same cardholder's other cards.",
     "最新卡片读数优先展示。不同国家、不同计划分别列出；积分池按计划规则合计，不重复计算。": "Latest card readings come first. Countries and programmes are listed separately; points pools are totalled by each programme's rule, never counted twice.",
     "这张卡本身没有转点伙伴；按积分池规则，经 {0} 转出。": "This card has no transfer partners of its own; under the pool rule its points transfer through {0}.",
@@ -66,7 +65,11 @@
     "没有可靠的公开估值，未设默认": "No reliable published valuation, so no default",
     "钱包里的卡没有积分或里程计划。": "No card in the wallet earns points or miles.",
     "按你设定的每里 {0} {1}": "at the {0} {1} a mile you set",
-    "按默认市场估值每里 {0} {1}，可在设置里改": "at the default market valuation of {0} {1} a mile; change it in settings"
+    "按默认市场估值每里 {0} {1}，可在设置里改": "at the default market valuation of {0} {1} a mile; change it in settings",
+    "{0} 张卡合计；同一持卡人的卡之间可以合并": "Total of {0} cards; points can be combined between the same cardholder's cards",
+    "按卡查看": "By card",
+    "合计（可合并）": "Total (combinable)",
+    "未识别的卡片": "Unrecognised card"
   },
   "zh-TW": {
     "美元现金奖励": "美元現金獎勵",
@@ -117,7 +120,6 @@
     "同一积分池的读数；合计只计一次。": "同一積分池的讀數；合計只計一次。",
     "每张卡独立账户，按卡相加（{0} 张卡）": "每張卡獨立帳戶，按卡相加（{0} 張卡）",
     "这张卡自己的积分账户，已计入合计；不能用于其他卡。": "這張卡自己的積分帳戶，已計入合計；不能用於其他卡。",
-    "每张卡独立账户，按卡相加（{0} 张卡）；可在同一持卡人的卡之间合并": "每張卡獨立帳戶，按卡相加（{0} 張卡）；可在同一持卡人的卡之間合併",
     "这张卡自己的积分账户，已计入合计；可合并到同一持卡人的其他卡。": "這張卡自己的積分帳戶，已計入合計；可合併到同一持卡人的其他卡。",
     "最新卡片读数优先展示。不同国家、不同计划分别列出；积分池按计划规则合计，不重复计算。": "最新卡片讀數優先展示。不同國家、不同計劃分別列出；積分池按計劃規則合計，不重複計算。",
     "这张卡本身没有转点伙伴；按积分池规则，经 {0} 转出。": "這張卡本身沒有轉點夥伴；按積分池規則，經 {0} 轉出。",
@@ -135,6 +137,10 @@
     "没有可靠的公开估值，未设默认": "沒有可靠的公開估值，未設預設",
     "钱包里的卡没有积分或里程计划。": "錢包裡的卡沒有積分或里程計劃。",
     "按你设定的每里 {0} {1}": "按你設定的每里 {0} {1}",
-    "按默认市场估值每里 {0} {1}，可在设置里改": "按預設市場估值每里 {0} {1}，可在設定裡改"
+    "按默认市场估值每里 {0} {1}，可在设置里改": "按預設市場估值每里 {0} {1}，可在設定裡改",
+    "{0} 张卡合计；同一持卡人的卡之间可以合并": "{0} 張卡合計；同一持卡人的卡之間可以合併",
+    "按卡查看": "按卡查看",
+    "合计（可合并）": "合計（可合併）",
+    "未识别的卡片": "未識別的卡片"
   }
 }
