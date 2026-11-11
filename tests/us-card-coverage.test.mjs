@@ -8,6 +8,8 @@ import {runWalletTool} from '../src/walletAgent.js';
 const dir=new URL('../docs/knowledge/card-batches/',import.meta.url);
 const read=name=>JSON.parse(readFileSync(new URL(name,dir),'utf8'));
 const batches=readdirSync(dir).filter(n=>n.startsWith('batch-')).map(read),cards=batches.flatMap(b=>b.cards),selection=read('selection.json');
+// Each batch is checked on its own day; its facts are known from then.
+const checkedOn=card=>batches.find(b=>b.cards.includes(card)).checkedAt;
 const product=id=>cardProducts.find(p=>p.id===id);
 const call=(name,args)=>({id:'t',type:'function',function:{name,arguments:JSON.stringify(args)}});
 test('batches are valid and every batch card is on the recorded selection list once',()=>{
@@ -20,13 +22,13 @@ test('each card is matched by the wallet from its name and every alias, without 
  for(const card of cards){const p=product(card.id);assert.ok(p,card.id);for(const name of [p.name,...p.aliases]){const m=matchCardProduct({bank:p.bank,region:p.region,name});assert.equal(m.status,'matched',`${card.id}: ${name}`);assert.equal(m.product.id,card.id);}}
 });
 test('each recorded fact has an official source, a date and the issuer wording',()=>{
- for(const card of cards){const rows=queryKnowledge({productId:card.id,asOf:'2026-11-04'}).rules.filter(r=>r.id.startsWith(`rule.${card.id}.`));assert.ok(rows.length,card.id);
-  for(const r of rows){assert.ok(knowledgeSources(r.evidence.sourceIds).every(s=>s.authority==='official'&&s.url===card.url),r.id);assert.equal(r.evidence.checkedAt,batches[0].checkedAt);assert.ok(r.content.sourceText,r.id);assert.equal(r.personalState,'not-in-public-knowledge');}
+ for(const card of cards){const rows=queryKnowledge({productId:card.id,asOf:checkedOn(card)}).rules.filter(r=>r.id.startsWith(`rule.${card.id}.`));assert.ok(rows.length,card.id);
+  for(const r of rows){assert.ok(knowledgeSources(r.evidence.sourceIds).every(s=>s.authority==='official'&&s.url===card.url),r.id);assert.equal(r.evidence.checkedAt,checkedOn(card));assert.ok(r.content.sourceText,r.id);assert.equal(r.personalState,'not-in-public-knowledge');}
   if(card.fee){const fee=rows.find(r=>r.kind==='fee'&&r.terms.cardholderRole==='primary');assert.equal(fee.terms.amount,card.fee.amount);assert.equal(fee.terms.actualCharge,null);}
  }
 });
 test('the assistant answers a listed card with its official source',()=>{
- for(const card of cards){assert.ok(card.fee,`${card.id} has no annual fee`);const p=product(card.id);const result=runWalletTool(call('get_card_rules',{kind:'fee'}),{cards:[{id:'x',bank:p.bank,region:p.region,name:p.name}],events:[],day:'2026-11-04'});assert.ok(result.rules.length,card.id);assert.ok(JSON.stringify(result).includes(card.url),card.id);}
+ for(const card of cards){assert.ok(card.fee,`${card.id} has no annual fee`);const p=product(card.id);const result=runWalletTool(call('get_card_rules',{kind:'fee'}),{cards:[{id:'x',bank:p.bank,region:p.region,name:p.name}],events:[],day:checkedOn(card)});assert.ok(result.rules.length,card.id);assert.ok(JSON.stringify(result).includes(card.url),card.id);}
 });
 test('a held listed card gets a profile that marks personal state unverified',()=>{
  for(const card of cards){const p=product(card.id),profile=profileForCard({bank:p.bank,region:p.region,name:p.name});assert.ok(profile,card.id);assert.ok(profile.knowledgeGaps.length,card.id);for(const b of profile.benefits)assert.equal(b.accountState,'unverified');}

@@ -20,7 +20,7 @@
 // --upgrade-from (nightly set): the main path runs on the previous package instead; then Chrome is
 // closed, the tested package replaces the previous one in the same directory, and Chrome starts again
 // on the same profile. The same extension must now run the tested package with the records kept.
-// --cards: after the main path, the user adds a card by hand by picking its product from the catalogue
+// --cards: after the main path, the user adds a card by hand by picking its product from the catalogue panel
 // and setting its annual fee date, sees its anniversary credit get a real cycle, edits it, corrects the
 // name of a card the bank page showed and resets that correction, then removes the manual card
 // (stl00/Cardybara#176). The product is chosen from the catalogue data, and every tail and date is synthetic.
@@ -41,6 +41,7 @@ import {tmpdir} from 'node:os';
 import {basename,dirname,join,normalize,isAbsolute,resolve,sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {findChrome} from './dev-collector/chrome-launcher.mjs';
+import {pipeCdp,startChrome} from './e2e-chrome.mjs';
 import {readZipEntry,zipEntryNames} from './read-zip.mjs';
 import {GATEWAY_ORIGIN} from '../extension-next/model-client.js';
 import {localGateway} from '../gateway/src/local.mjs';
@@ -48,6 +49,9 @@ import {providerResponse} from '../tests/helpers/agent-target.mjs';
 
 const root=fileURLToPath(new URL('..',import.meta.url));
 let STEP_MS=Number(process.env.CARDYBARA_E2E_STEP_MS||30000);
+// How long one Chrome launch may take to answer over DevTools before it is killed and launched once more.
+// A value that is not a positive number falls back to the default, so the start can never wait forever.
+const CHROME_START_MS=Number(process.env.CARDYBARA_E2E_CHROME_START_MS)>0?Number(process.env.CARDYBARA_E2E_CHROME_START_MS):30000;
 const BANK_HOST='secure.chase.com';
 // The model provider the packaged client calls. Under --chat it resolves to a scripted synthetic provider.
 const MODEL_HOST='api.deepseek.com';
@@ -193,27 +197,7 @@ function serveGateway(gateway,req,res){
  });
 }
 
-// --- Chrome over a debugging pipe ----------------------------------------------------------
-function pipeCdp(child){
- // Split on NUL bytes before decoding, so a character split across chunks is never mangled.
- let next=0,buffer=Buffer.alloc(0),gone=null;const pending=new Map(),handlers=new Set();
- const fail=reason=>{gone=gone||reason;for(const [id,p] of pending){pending.delete(id);p.reject(Error(`${p.method}: ${gone}`));}};
- child.stdio[3].on('error',e=>fail('pipe closed ('+e.message+')'));
- child.stdio[4].on('error',e=>fail('pipe closed ('+e.message+')'));
- child.on('exit',(code,signal)=>fail(`Chrome exited (${signal||code})`));
- child.stdio[4].on('data',chunk=>{
-  buffer=Buffer.concat([buffer,chunk]);let i;
-  while((i=buffer.indexOf(0))>=0){
-   let msg;try{msg=JSON.parse(buffer.subarray(0,i).toString('utf8'));}catch{msg={};}buffer=buffer.subarray(i+1);
-   if(msg.id!=null&&pending.has(msg.id)){const {resolve,reject,method}=pending.get(msg.id);pending.delete(msg.id);msg.error?reject(Error(`${method}: ${msg.error.message}`)):resolve(msg.result);}
-   else for(const h of handlers)h(msg);
-  }
- });
- return {
-  send(method,params={},sessionId){if(gone)return Promise.reject(Error(`${method}: ${gone}`));const id=++next;child.stdio[3].write(JSON.stringify({id,method,params,...(sessionId?{sessionId}:{})})+'\0');return new Promise((resolve,reject)=>{pending.set(id,{resolve,reject,method});setTimeout(()=>{if(pending.delete(id))reject(Error(method+': no answer'));},STEP_MS);});},
-  on(h){handlers.add(h);},
- };
-}
+// --- Chrome over a debugging pipe (scripts/e2e-chrome.mjs) ---------------------------------
 async function launch(profile,bank){
  const args=[
   '--user-data-dir='+profile,'--remote-debugging-pipe','--enable-unsafe-extension-debugging',
@@ -226,11 +210,11 @@ async function launch(profile,bank){
  const child=spawn(await findChrome(),args,{stdio:['ignore','ignore','pipe','pipe','pipe']});
  child.stdio[2].on('data',d=>{for(const l of d.toString().split('\n'))if(l.trim())log.push('[chrome] '+l);});
  child.on('error',e=>note('chrome spawn error',e.message));
- return {child,cdp:pipeCdp(child)};
+ return {child,cdp:pipeCdp(child,{timeoutMs:()=>STEP_MS})};
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=null,hosted=false,tamper=null,invite=TEST_INVITE,inviteStatus='active',inviteDailyRequests=50,cards=false,cardFeeDate={month:2,day:29},upgradeFrom=null,mutatePrevious,swap=true}={}){
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=null,hosted=false,tamper=null,invite=TEST_INVITE,inviteStatus='active',inviteDailyRequests=50,cards=false,cardFeeDate={month:2,day:29},cardQuery=null,upgradeFrom=null,mutatePrevious,swap=true}={}){
  if([restart,expiredLogin,cancel,chat,cards,!!upgradeFrom].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel, --chat, --cards and --upgrade-from separately: each starts from the end of the main path');
  if(hosted&&!chat)throw Error('--hosted is a variant of --chat');
  chatScript??=hosted?scriptedHostedChat:scriptedChat;
@@ -259,16 +243,23 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    await checkManifest(ext);
   }
   bank=await syntheticBank(work);
-  const profile=join(work,'profile');
-  let cdp;
-  const start=async()=>{
-   browser=await launch(profile,bank);cdp=browser.cdp;
+  let profile=join(work,'profile'),cdp;
+  // Chrome sometimes starts slowly or hangs on a cold runner (stl00/Cardybara#211), so the start waits for
+  // it within a bound and launches it once more if it never answers. A first start relaunches on a fresh
+  // profile, a restart on the same one. This is before the extension is installed in that browser.
+  const start=async({again=false}={})=>{
+   let version;
+   ({browser,version}=await startChrome(async n=>{
+    if(n>1&&!again)profile=join(work,'profile-'+n);
+    return launch(profile,bank);
+   },{budgetMs:CHROME_START_MS,note}));
+   cdp=browser.cdp;
    cdp.on(msg=>{
     const who=Object.entries(sessions).find(([,id])=>id===msg.sessionId)?.[0]||msg.sessionId||'browser';
     if(msg.method==='Runtime.consoleAPICalled')log.push(`[${who} console.${msg.params.type}] `+msg.params.args.map(a=>a.value??a.description??a.type).join(' '));
     if(msg.method==='Runtime.exceptionThrown')log.push(`[${who} exception] `+(msg.params.exceptionDetails.exception?.description||msg.params.exceptionDetails.text));
    });
-   note('chrome',(await cdp.send('Browser.getVersion')).product);
+   note('chrome',version.product);
   };
   await start();
 
@@ -379,7 +370,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    // Upgrade: the tested package replaces the previous one in place, as an update of the same extension.
    if(upgradeFrom&&swap){await rm(ext,{recursive:true,force:true});await cp(next,ext,{recursive:true});note('tested package copied over the previous one');}
    for(const k of Object.keys(sessions))delete sessions[k];lastState=null;
-   await start();
+   await start({again:true});
    // An extension installed over the debugging pipe lasts for that browser session only, so the
    // harness installs the same unpacked directory again. Chrome derives an unpacked extension's id
    // from its path, so this must be the same extension with the profile's storage, not a new one.
@@ -692,7 +683,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    await until('the overview to name the card again',async()=>(await pageText('wallet')).includes(hideName));
    note('PASS: a hidden card is left out of the overview and the assistant, and comes back when unhidden');
   }
-  if(cards)await manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate:cardFeeDate});
+  if(cards)await manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate:cardFeeDate,query:cardQuery});
   return {ok:true};
  }catch(error){
   note('FAIL:',error.message);
@@ -785,7 +776,7 @@ async function stopFromGuide({cdp,session,until}){
 
 // --- --cards -------------------------------------------------------------------------------
 // A catalogue product at the synthetic bank with a credit that resets on the account anniversary, whose
-// English name no other product there contains, so typing it in the search picks exactly that product.
+// English name no other product there contains, so typing it in the panel's search puts that product first.
 async function anniversaryProduct(){
  const [{benefitProfiles},{cardProducts}]=await Promise.all([import('../src/benefitRules.js'),import('../src/productCatalog.js')]);
  const scoped=cardProducts.filter(p=>p.bank==='Chase'&&p.region==='US'),search=p=>[p.name,...p.aliases].join(' ').toLowerCase();
@@ -797,7 +788,7 @@ async function anniversaryProduct(){
  }
  throw new StepError('the catalogue has no Chase product with an anniversary credit to test with');
 }
-async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate}){
+async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate,query}){
  const [{anniversaryPeriod},{walletDay}]=await Promise.all([import('../src/feeDate.js'),import('../src/personalBenefits.js')]);
  const product=await anniversaryProduct(),TAIL='9081';
  const local=key=>evaluate('wallet',`JSON.parse(localStorage.getItem(${JSON.stringify(key)})||'null')`);
@@ -808,7 +799,6 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate})
   if(!await until('the field '+selector,()=>evaluate('wallet',`(()=>{const el=[...document.querySelectorAll(${JSON.stringify(selector)})].at(-1);if(!el||el.disabled)return false;el.focus();el.select?.();return document.activeElement===el;})()`)))throw new StepError('no field '+selector);
   await cdp.send('Input.insertText',{text},sessions.wallet);
  };
- const choose=async(selector,text)=>{await type(selector,text);await sleep(300);await key('Enter','Enter',13);await sleep(300);};
  const drawerText=()=>evaluate('wallet',`[...document.querySelectorAll('.ant-drawer-open .ant-drawer-body')].map(e=>e.innerText).join(' | ')`);
  const openCard=async tail=>{
   await evaluate('wallet','location.hash="wallet"');
@@ -819,17 +809,26 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate})
  // Ant Design spaces out a two-character Chinese button label, so labels are compared without spaces.
  const press=(selector,zh)=>evaluate('wallet',`(()=>{const flat=v=>v.replace(/\\s+/g,'');const want=${words(zh)}.map(flat);const b=[...document.querySelectorAll(${JSON.stringify(selector)})].reverse().find(b=>want.includes(flat(b.textContent))&&!b.disabled&&b.offsetParent);if(!b)return false;b.click();return true;})()`);
  const modalOk=async zh=>{if(!await until('the '+zh+' button',()=>press('.ant-modal-footer button',zh)))throw new StepError('no '+zh+' button');};
+ // The product panel: type in its search box, wait until the wanted tile is the highlighted first match, press Enter.
+ const SEARCH='.product-picker-modal .product-picker-search input, .product-picker-modal input.product-picker-search';
+ const pick=async(text,id)=>{
+  await type(SEARCH,text);
+  await until('the product tile for '+id,()=>evaluate('wallet',`(()=>{const tiles=[...document.querySelectorAll('.product-picker-modal .product-tile')];return tiles[0]?.dataset.productId===${JSON.stringify(id)}&&tiles[0].classList.contains('active');})()`));
+  await key('Enter','Enter',13);
+  await until('the product panel to close',async()=>!(await evaluate('wallet',`[...document.querySelectorAll('.product-picker-modal')].some(m=>m.offsetParent&&!m.closest('.ant-zoom-leave'))`)));
+ };
 
  const day=walletDay();
  // The wallet tab in front, as the user would have it, so dialogs finish opening and closing.
  await cdp.send('Page.bringToFront',{},sessions.wallet);
 
- // 10a. Add a card by hand: bank, product from the catalogue (with its art), last digits and fee date.
+ // 10a. Add a card by hand: the product from the catalogue panel (with its art), last digits and fee date.
  await evaluate('wallet','location.hash="wallet"');
  await until('the add-card button',()=>press('button','添加卡片'));
- await choose('.add-card-bank input','Chase');
- await choose('.add-card-product input',product.name);
- await until('the product art preview',()=>evaluate('wallet',`!!document.querySelector('.add-card-form .card-art img')`));
+ // The panel opens on the bank groups, Chase first.
+ await until('the product panel grouped by bank, Chase first',()=>evaluate('wallet',`document.querySelector('.product-picker-modal .product-picker-group')?.dataset.bank==='Chase'`));
+ await pick(query??product.name,product.id);
+ await until('the chosen product with its art',()=>evaluate('wallet',`(()=>{const c=document.querySelector('.add-card-form .chosen-product');return !!c?.querySelector('img')&&c.innerText.includes(${JSON.stringify(product.name)});})()`));
  await type('.add-card-tail',TAIL);
  await type('.add-card-form .fee-month input',String(feeDate.month));
  await type('.add-card-form .fee-day input',String(feeDate.day));
@@ -868,8 +867,18 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate})
  note('edited the manual card: name and fee date');
  await closeDrawer();
 
- // 10d. Correct the name of a card the bank page showed, then reset it to what the bank showed.
+ // 10d. Correct the name of a card the bank page showed, then reset it to what the bank showed. Its card type is
+ // corrected from the same panel, scoped to its bank, and set back to automatic recognition.
  await openCard('1234');
+ const before=new Set(((await local('cardybara-card-products-v1'))||[]).map(c=>c.cardId));
+ await until('the change-card-type button',()=>evaluate('wallet',`(()=>{const b=document.querySelector('.ant-drawer-open .card-product-choose');if(!b)return false;b.click();return true;})()`));
+ if(!await until('a product panel holding only the card\'s bank',()=>evaluate('wallet',`(()=>{const g=[...document.querySelectorAll('.product-picker-modal .product-picker-group')];return g.length===1&&g[0].dataset.bank==='Chase';})()`)))throw new StepError('no scoped product panel');
+ await pick(product.name,product.id);
+ const corrected=await until('the corrected card type to be stored',async()=>((await local('cardybara-card-products-v1'))||[]).find(c=>!before.has(c.cardId)));
+ if(corrected.productId!==product.id)throw new StepError('the corrected card type was stored wrongly: '+JSON.stringify(corrected));
+ await until('the back-to-automatic link',()=>press('.ant-drawer-open button','改回自动识别'));
+ await until('the card type choice to be cleared',async()=>!((await local('cardybara-card-products-v1'))||[]).some(c=>c.cardId===corrected.cardId));
+ note('corrected a detected card\'s type from the panel and set it back to automatic');
  const bankName=(await evaluate('wallet',`document.querySelector('.ant-drawer-open .card-edit-section .ant-descriptions-item-content')?.innerText||''`)).trim();
  if(!bankName)throw new StepError('the detected card shows no name');
  await editCard(async()=>{await type('.card-edit-modal #name','E2E Corrected Name');});
@@ -891,7 +900,7 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate})
  if((await local('cardybara-card-products-v1'))?.some(c=>c.cardId===added.id))throw new StepError('the removed card left its product choice behind');
  const removed=await local('cardybara-wallet-removed-v1');
  if(!removed?.some(r=>r.id===added.id))throw new StepError('the removed card was not recorded as removed');
- note('PASS: a manual card is added from the catalogue with a fee date, gets an anniversary cycle, is edited and removed; a detected card is corrected and reset');
+ note('PASS: a manual card is added from the catalogue panel with a fee date, gets an anniversary cycle, is edited and removed; a detected card is corrected and reset, its type from the panel');
 }
 // Negative controls: each deliberately broken copy of the same package must fail the run, and for
 // the expected reason, so a broken environment cannot pass them.
@@ -934,9 +943,11 @@ export const BROKEN_HOSTED_CHAT={
  'a wallet field sent beside the question':[/the chat failed instead of answering/,{tamper:"b=>{b.balance='1234.56';}"}],
  'a read value inside a requested tool result':[/a value read from the bank \(1234\.56\) reached the (model|gateway)/,{tamper:"b=>{for(const r of b.rounds||[])for(const id of Object.keys(r.results))r.results[id].leak='1234.56';}"}],
 };
-// With --cards: a card with a fee date that does not exist is never saved; the check must notice.
+// With --cards: a card with a fee date that does not exist is never saved, and a search that finds nothing
+// leaves no tile to choose; the check must notice either.
 export const BROKEN_CARDS={
  'a fee date that does not exist':[/timed out waiting for the manual card to be stored/,{cardFeeDate:{month:2,day:30}}],
+ 'a product search that matches nothing':[/timed out waiting for the product tile for /,{cardQuery:'zz no such card zz'}],
 };
 // With --upgrade-from: the records are lost during the upgrade, or the tested package never replaces the
 // previous one (made to differ from it so the check can tell); the upgrade check must notice either.

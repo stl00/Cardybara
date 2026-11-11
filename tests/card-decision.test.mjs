@@ -23,7 +23,8 @@ const call=(args,id='d1',name='choose_card')=>({id,type:'function',function:{nam
 const script=steps=>{let n=0;const requests=[];return {requests,request:async p=>{requests.push(structuredClone(p));const step=steps[n++];assert.ok(step,'unexpected model call');return {message:typeof step==='string'?{role:'assistant',content:step}:{role:'assistant',content:'',tool_calls:step}};}};};
 
 test('every earning rule is classified, so no card is left out silently',()=>{
- const rules=queryKnowledge({kind:'earning-rate',asOf:DAY,includeInactive:true}).rules;assert.ok(rules.length>100);
+ // Every rule in the snapshot, including batches checked after DAY.
+ const rules=queryKnowledge({kind:'earning-rate',includeInactive:true}).rules;assert.ok(rules.length>100);
  const missing=rules.filter(r=>!earningClauses(r)).map(r=>r.id+': '+r.terms.spendCategory);
  assert.deepEqual(missing,[],'add these spend categories to src/data/earning-categories.json');
  const allowedUses=new Set([...PURCHASE_CATEGORIES,'any-travel']),keys=new Set(['uses','channel','via','merchants','country','foreign','minAmount','condition','base']);
