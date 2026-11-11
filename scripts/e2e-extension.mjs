@@ -49,7 +49,8 @@ import {localGateway} from '../gateway/src/local.mjs';
 const root=fileURLToPath(new URL('..',import.meta.url));
 let STEP_MS=Number(process.env.CARDYBARA_E2E_STEP_MS||30000);
 // How long one Chrome launch may take to answer over DevTools before it is killed and launched once more.
-const CHROME_START_MS=Number(process.env.CARDYBARA_E2E_CHROME_START_MS||30000);
+// A value that is not a positive number falls back to the default, so the start can never wait forever.
+const CHROME_START_MS=Number(process.env.CARDYBARA_E2E_CHROME_START_MS)>0?Number(process.env.CARDYBARA_E2E_CHROME_START_MS):30000;
 const BANK_HOST='secure.chase.com';
 // The model provider the packaged client calls. Under --chat it resolves to a scripted synthetic provider.
 const MODEL_HOST='api.deepseek.com';

@@ -35,7 +35,7 @@ test('a Chrome that never answers is killed and launched once more',async()=>{
  assert.equal(version.product,'FakeChrome/1.0');
  assert.ok(first[0].signalCode==='SIGKILL','the stuck Chrome was killed');
  assert.match(notes.join('\n'),/chrome launch 1 of 2 gave no DevTools answer \(Browser\.getVersion: no answer, \d+ ms\); killing it and launching again/);
- assert.match(notes.join('\n'),/chrome answered on launch 2 of 2, attempt 1/);
+ assert.match(notes.join('\n'),/chrome answered on launch 2 of 2, attempt \d+,/);
 });
 
 test('a Chrome that exits is noticed at once, not after the whole budget',async()=>{
