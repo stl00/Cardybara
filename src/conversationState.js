@@ -81,6 +81,7 @@ export function topicItems({name,result},cards){
   const card=heldProduct(cards,x.card,x.cardRegion),rule=card?ruleByTitle(card,x.title):null;
   items.push({...(rule?{rule}:{}),...(card?{card}:{})});
  }
+ if(name==='plan_flight')return [...topicItems({name:'convert_points',result:result.transfers},cards),...topicItems({name:'query_credits',result:result.credits},cards)];
  if(name==='convert_points')for(const g of result.programmes||[])for(const c of g.cards||[]){const card=heldProduct(cards,c.name,c.region);if(card)items.push({card});}
  if(name==='choose_card')for(const row of result.rows||[]){const card=heldProduct(cards,row.card,row.cardRegion);if(card)items.push({card});}
  if(name==='list_cards'&&Array.isArray(result))for(const c of result)items.push({card:heldProduct(cards,c.name,c.region)});
@@ -120,7 +121,9 @@ const reducers={
  lastPurchase:(previous,{name,args})=>name==='choose_card'?purchaseMemory(args):previous,
  // Only dates that code resolved reach state, so a failed resolution keeps the previous trip.
  trip:(previous,{name,result})=>{
-  const w=name==='query_credits'&&result?.window;
+  // A flight plan reads credits for its dates the same way, so its resolved dates are remembered too.
+  if(name==='plan_flight')result=result?.credits;
+  const w=(name==='query_credits'||name==='plan_flight')&&result?.window;
   if(!w||w.precision==='current-cycle')return previous;
   return {...(result.use?{use:result.use}:{}),start:w.start,end:w.end,precision:w.precision,...(result.destination?{destination:result.destination}:{}),...(w.assumptions.some(a=>a!=='dates-remembered-from-earlier-turn')?{assumed:true}:{})};
  },

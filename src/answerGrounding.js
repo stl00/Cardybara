@@ -1,5 +1,5 @@
 import {actionClaimIssues} from './actionClaims.js';
-import {creditClaimIssues,planCoverageIssues,choiceIssues} from './creditClaims.js';
+import {creditClaimIssues,planCoverageIssues,choiceIssues,flightPlanIssues} from './creditClaims.js';
 const cleanUrl=url=>url.replace(/[.,，。；;]+$/,'').replace(/\/$/,'');
 export function answerGrounding(answer,evidence=[],{contextText='',creditNames=[]}={}){
  const urls=new Set(),numbers=new Set(),ratios=new Set();
@@ -22,7 +22,7 @@ export function answerGrounding(answer,evidence=[],{contextText='',creditNames=[
  for(const url of answer.match(/https?:\/\/[^\s)\]"<>]+/g)||[])if(!urls.has(cleanUrl(url)))issues.push({code:'unsupported_citation',value:url});
  // The assistant takes no action and can't see one taken: a claim that one is done, in any wording, is ungrounded.
  issues.push(...actionClaimIssues(answer));
- issues.push(...creditClaimIssues(answer,evidence,creditNames),...planCoverageIssues(answer,evidence),...choiceIssues(answer,evidence));
+ issues.push(...creditClaimIssues(answer,evidence,creditNames),...planCoverageIssues(answer,evidence),...choiceIssues(answer,evidence),...flightPlanIssues(answer,evidence));
  // Also check answers that skipped tools; absence of evidence is not permission to invent.
  const content=answer.replace(/https?:\/\/[^\s)\]"<>]+/g,'').replace(/^\s*\d+[.)、]\s/gm,'');
  for(const n of content.match(/\d+(?:,\d{3})*(?:\.\d+)?/g)||[])if(!numbers.has(Number(n.replaceAll(',',''))))issues.push({code:'unsupported_number',value:n});
