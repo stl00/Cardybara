@@ -1593,6 +1593,78 @@
     }
   },
   {
+    "id": "bilt-us-bilt-blue-card",
+    "sourceUrl": "https://www.bilt.com/card",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Bilt Blue Card",
+      "Bilt Blue"
+    ],
+    "collection": "not-supported",
+    "rewardPrograms": [
+      "Bilt Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://www.bilt.com/card",
+      "checkedAt": "2026-11-11"
+    },
+    "transferProgrammeId": "programme.bilt-rewards",
+    "bank": "Bilt",
+    "region": "US",
+    "name": "Bilt Blue Card",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "bilt-us-bilt-obsidian-card",
+    "sourceUrl": "https://www.bilt.com/card",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Bilt Obsidian Card",
+      "Bilt Obsidian"
+    ],
+    "collection": "not-supported",
+    "rewardPrograms": [
+      "Bilt Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://www.bilt.com/card",
+      "checkedAt": "2026-11-11"
+    },
+    "transferProgrammeId": "programme.bilt-rewards",
+    "bank": "Bilt",
+    "region": "US",
+    "name": "Bilt Obsidian Card",
+    "currencies": [],
+    "art": null
+  },
+  {
+    "id": "bilt-us-bilt-palladium-card",
+    "sourceUrl": "https://www.bilt.com/card",
+    "checkedAt": "2026-11-11",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Bilt Palladium Card",
+      "Bilt Palladium"
+    ],
+    "collection": "not-supported",
+    "rewardPrograms": [
+      "Bilt Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://www.bilt.com/card",
+      "checkedAt": "2026-11-11"
+    },
+    "transferProgrammeId": "programme.bilt-rewards",
+    "bank": "Bilt",
+    "region": "US",
+    "name": "Bilt Palladium Card",
+    "currencies": [],
+    "art": null
+  },
+  {
     "id": "hsbc-hk-hk-visa-gold-card-for-students",
     "art": {
       "file": "catalog-0fedec0b612e119c.jpg",

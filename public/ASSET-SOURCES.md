@@ -249,6 +249,13 @@ Some programmes show a related company's mark, and are labelled as that company:
 | Qatar Airways Privilege Club | unverified | null | null | not located | Not checked; no mark is shipped. |
 | Choice Privileges | unverified | null | null | not located | Not checked; no mark is shipped. |
 | The Leading Hotels of the World Leaders Club | unverified | null | null | not located | Not checked; no mark is shipped. |
+| Bilt Rewards | unverified | null | null | not located | Not checked; no mark is shipped. |
+| Virgin Red | unverified | null | null | not located | Not checked; no mark is shipped. |
+| Turkish Airlines Miles&Smiles | unverified | null | null | not located | Not checked; no mark is shipped. |
+| TAP Miles&Go | unverified | null | null | not located | Not checked; no mark is shipped. |
+| Japan Airlines Mileage Bank | unverified | null | null | not located | Not checked; no mark is shipped. |
+| I Prefer Hotel Rewards | unverified | null | null | not located | Not checked; no mark is shipped. |
+| Amtrak Guest Rewards | unverified | null | null | not located | Not checked; no mark is shipped. |
 | Citi ThankYou Points | unverified | null | null | not located | Not checked; no mark is shipped. |
 | American Airlines AAdvantage | unverified | null | null | not located | Not checked; no mark is shipped. |
 | Capital One Miles | unverified | null | null | not located | Not checked; no mark is shipped. |

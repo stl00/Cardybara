@@ -1,0 +1,655 @@
+{
+ "batch": 10,
+ "programmes": [
+  {
+   "id": "programme.bilt-rewards",
+   "name": "Bilt Rewards",
+   "kind": "reward-currency"
+  }
+ ],
+ "checkedAt": "2026-11-11",
+ "reviewAfter": "2027-02-09",
+ "cards": [
+  {
+   "id": "bilt-us-bilt-blue-card",
+   "page": "bilt-card",
+   "issuer": "Bilt",
+   "url": "https://www.bilt.com/card",
+   "sourceTitle": {
+    "zh": "官方卡片页",
+    "en": "official card page"
+   },
+   "extraSources": {
+    "terms": {
+     "page": "offer-terms",
+     "url": "https://www.bilt.com/terms/bilt-card-offer-terms",
+     "zh": "Bilt · Bilt Card 优惠条款（Bilt Card Offer Terms）",
+     "en": "Bilt · Bilt Card Offer Terms"
+    },
+    "fees": {
+     "page": "rates-fees",
+     "url": "https://legal.cardless.com/rates_and_fees/bilt/rates_and_fees.pdf",
+     "zh": "Cardless · Bilt 卡利率和费用表",
+     "en": "Cardless · Bilt Cards rates and fees"
+    },
+    "overview": {
+     "page": "support-card2-overview",
+     "url": "https://support.biltrewards.com/hc/en-us/articles/42897766682381-Bilt-Card-2-0-Program-Overview",
+     "zh": "Bilt 帮助中心 · Bilt Card 2.0 计划概览",
+     "en": "Bilt Help Center · Bilt Card 2.0 Program Overview"
+    }
+   },
+   "new": {
+    "bank": "Bilt",
+    "region": "US",
+    "name": "Bilt Blue Card"
+   },
+   "aliases": [
+    "Bilt Blue"
+   ],
+   "collection": "not-supported",
+   "transfer": {
+    "name": "Bilt Rewards",
+    "programmeId": "programme.bilt-rewards",
+    "quote": "Points transfer at a 1:1 ratio for Bilt travel partners."
+   },
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Annual Fee $0; each authorized user: $0 per year.",
+    "source": "fees"
+   },
+   "earning": [
+    {
+     "zh": "Bilt Travel 酒店",
+     "en": "Hotels booked through Bilt Travel",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "quote": "3X on hotels through Bilt Travel, 3X on Lyft, 2X on flights through Bilt Travel, and 1X on everything else.",
+     "noteZh": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+     "noteEn": "Booked through Bilt Travel on the website or app; the total includes the Bilt Rewards booking bonus."
+    },
+    {
+     "zh": "Bilt Travel 机票",
+     "en": "Flights booked through Bilt Travel",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "airline",
+     "quote": "3X on hotels through Bilt Travel, 3X on Lyft, 2X on flights through Bilt Travel, and 1X on everything else.",
+     "noteZh": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+     "noteEn": "Booked through Bilt Travel on the website or app; the total includes the Bilt Rewards booking bonus."
+    },
+    {
+     "zh": "Lyft（关联 Bilt 账户）",
+     "en": "Lyft (Bilt account linked)",
+     "unit": "points-per-USD",
+     "category": "ground-transport",
+     "quote": "Blue and Obsidian cardholders earn 3X total on Lyft, and Palladium cardholders earn 4X total.",
+     "noteZh": "含 Bilt Rewards 的 Lyft 奖励，须在 Lyft 关联 Bilt 账户并设为当前积分伙伴。",
+     "noteEn": "Includes the Bilt Rewards Lyft bonus; link your Bilt account in Lyft and set Bilt as the active loyalty partner.",
+     "multiplier": 3
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Other Eligible Purchases: You’ll earn 1 Bilt Point (\"1X Points\") on other Eligible Purchases.",
+     "source": "terms"
+    }
+   ],
+   "credits": [
+    {
+     "key": "housing-points",
+     "zh": "房租和房贷积分（经 Bilt 支付）",
+     "en": "Points on rent and mortgage paid through Bilt",
+     "noteZh": "经 Bilt 支付房租、房贷不收交易费。默认“仅住房”方式按当期日常消费占住房付款的比例给0.5倍到1.25倍积分，不足25%时每期给250点；没有年度或每月上限。旧卡的每月5笔交易要求不适用于 Bilt Card 2.0。另有“Flexible Bilt Cash”方式，2027年1月1日起新开账户不能选。",
+     "noteEn": "No transaction fee on rent or mortgage paid through Bilt. Under the default housing-only option, the everyday spend in a billing cycle, as a share of the housing payment, sets 0.5X to 1.25X; below 25% the cycle earns 250 points. No annual or monthly cap. The original card's 5-transaction monthly minimum does not apply to Bilt Card 2.0. The Flexible Bilt Cash option is closed to accounts opened on or after January 1, 2027.",
+     "scenario": "reward-redemption",
+     "category": "spend-unlock",
+     "period": "ongoing",
+     "quote": "Earn up to 1.25X points on rent and mortgage payments",
+     "original": {
+      "title": "Points on rent and mortgage payments",
+      "summary": "Earn up to 1.25X points on rent and mortgage payments with no transaction fee. With housing-only rewards, everyday spend in each billing cycle sets the multiplier; below 25% of the housing payment you earn 250 points.",
+      "howToUse": [
+       "Pay rent or mortgage through the Bilt app or website with the card.",
+       "Your everyday spend in the billing cycle decides the housing multiplier."
+      ],
+      "quotes": [
+       "If you do not meet the minimum 25% of your housing payment, you’ll earn 250 points.",
+       "The 5-transaction monthly minimum was a requirement of the original Bilt Card and does not apply to any Bilt Card 2.0",
+       "All three cards have no transaction fee on rent, mortgage and HOA"
+      ]
+     },
+     "programmeIds": [
+      "programme.bilt-rewards"
+     ]
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。",
+     "en": "The \"up to\" rate at Bilt partner restaurants varies by restaurant and is not recorded as a fixed rate."
+    },
+    {
+     "zh": "保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。",
+     "en": "Protection benefits (cell phone, purchase assurance and others) are not recorded; their limits were not checked in the guide to benefits."
+    },
+    {
+     "zh": "开卡奖励按个人报价变化，未记录。",
+     "en": "Welcome offers vary by person and are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "bilt-us-bilt-obsidian-card",
+   "page": "bilt-card",
+   "issuer": "Bilt",
+   "url": "https://www.bilt.com/card",
+   "sourceTitle": {
+    "zh": "官方卡片页",
+    "en": "official card page"
+   },
+   "extraSources": {
+    "terms": {
+     "page": "offer-terms",
+     "url": "https://www.bilt.com/terms/bilt-card-offer-terms",
+     "zh": "Bilt · Bilt Card 优惠条款（Bilt Card Offer Terms）",
+     "en": "Bilt · Bilt Card Offer Terms"
+    },
+    "fees": {
+     "page": "rates-fees",
+     "url": "https://legal.cardless.com/rates_and_fees/bilt/rates_and_fees.pdf",
+     "zh": "Cardless · Bilt 卡利率和费用表",
+     "en": "Cardless · Bilt Cards rates and fees"
+    },
+    "overview": {
+     "page": "support-card2-overview",
+     "url": "https://support.biltrewards.com/hc/en-us/articles/42897766682381-Bilt-Card-2-0-Program-Overview",
+     "zh": "Bilt 帮助中心 · Bilt Card 2.0 计划概览",
+     "en": "Bilt Help Center · Bilt Card 2.0 Program Overview"
+    }
+   },
+   "new": {
+    "bank": "Bilt",
+    "region": "US",
+    "name": "Bilt Obsidian Card"
+   },
+   "aliases": [
+    "Bilt Obsidian"
+   ],
+   "collection": "not-supported",
+   "transfer": {
+    "name": "Bilt Rewards",
+    "programmeId": "programme.bilt-rewards",
+    "quote": "Points transfer at a 1:1 ratio for Bilt travel partners."
+   },
+   "fee": {
+    "amount": 95,
+    "currency": "USD",
+    "quote": "Annual Fee $95; each authorized user: $50 per year.",
+    "source": "fees"
+   },
+   "earning": [
+    {
+     "zh": "Bilt Travel 酒店",
+     "en": "Hotels booked through Bilt Travel",
+     "multiplier": 4,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "quote": "earns 4X on hotels through Bilt Travel, 3X dining or grocery (up to 6X at Bilt dining partners; grocery up to $25k/year),",
+     "noteZh": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+     "noteEn": "Booked through Bilt Travel on the website or app; the total includes the Bilt Rewards booking bonus."
+    },
+    {
+     "zh": "Bilt Travel 机票",
+     "en": "Flights booked through Bilt Travel",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "airline",
+     "quote": "3X on flights through Bilt Travel, 2X on other travel, and includes a $100 annual Bilt Travel Hotel credit.",
+     "noteZh": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+     "noteEn": "Booked through Bilt Travel on the website or app; the total includes the Bilt Rewards booking bonus."
+    },
+    {
+     "zh": "餐饮（自选类别，默认）",
+     "en": "Dining (chosen category, the default)",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "source": "terms",
+     "quote": "if you select Dining as the bonus category (default)",
+     "noteZh": "餐饮和超市二选一，默认餐饮；开户30天内可改一次，之后当年锁定。未选的类别按1倍。",
+     "noteEn": "Choose dining or grocery; dining is the default. You may change it once within 30 days of opening, then it is locked for the calendar year. The other category earns 1X."
+    },
+    {
+     "zh": "超市（自选类别）",
+     "en": "Grocery (chosen category)",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "source": "terms",
+     "quote": "up to $25,000 in combined grocery purchases by you and any Authorized Users on the Card Account",
+     "cap": {
+      "amount": 25000,
+      "currency": "USD",
+      "period": "calendar-year"
+     },
+     "afterCap": 1,
+     "noteZh": "选了超市时，每个自然年合计25,000美元内3倍，之后1倍；与餐饮二选一。",
+     "noteEn": "When grocery is chosen: 3X on up to $25,000 a calendar year, then 1X. Either grocery or dining."
+    },
+    {
+     "zh": "航空、酒店、邮轮和租车直接消费",
+     "en": "Airlines, hotels, cruise lines and car rental, bought directly",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "source": "terms",
+     "quote": "You’ll earn 2 Bilt Points (1 base Bilt Point plus 1 bonus Bilt Point) per $1 spent on Eligible Purchases made directly",
+     "noteZh": "直接向航空公司、酒店、邮轮和租车商户消费（按 Mastercard 商户类别）。",
+     "noteEn": "Bought directly from airlines, hotels, cruise lines and car rental agencies, by Mastercard merchant code."
+    },
+    {
+     "zh": "Lyft（关联 Bilt 账户）",
+     "en": "Lyft (Bilt account linked)",
+     "unit": "points-per-USD",
+     "category": "ground-transport",
+     "quote": "Blue and Obsidian cardholders earn 3X total on Lyft, and Palladium cardholders earn 4X total.",
+     "noteZh": "含 Bilt Rewards 的 Lyft 奖励，须在 Lyft 关联 Bilt 账户并设为当前积分伙伴。",
+     "noteEn": "Includes the Bilt Rewards Lyft bonus; link your Bilt account in Lyft and set Bilt as the active loyalty partner.",
+     "multiplier": 3
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Other purchases: You’ll earn 1 reward point per $1 spent on other Eligible Purchases.",
+     "source": "terms"
+    }
+   ],
+   "credits": [
+    {
+     "key": "housing-points",
+     "zh": "房租和房贷积分（经 Bilt 支付）",
+     "en": "Points on rent and mortgage paid through Bilt",
+     "noteZh": "经 Bilt 支付房租、房贷不收交易费。默认“仅住房”方式按当期日常消费占住房付款的比例给0.5倍到1.25倍积分，不足25%时每期给250点；没有年度或每月上限。旧卡的每月5笔交易要求不适用于 Bilt Card 2.0。另有“Flexible Bilt Cash”方式，2027年1月1日起新开账户不能选。",
+     "noteEn": "No transaction fee on rent or mortgage paid through Bilt. Under the default housing-only option, the everyday spend in a billing cycle, as a share of the housing payment, sets 0.5X to 1.25X; below 25% the cycle earns 250 points. No annual or monthly cap. The original card's 5-transaction monthly minimum does not apply to Bilt Card 2.0. The Flexible Bilt Cash option is closed to accounts opened on or after January 1, 2027.",
+     "scenario": "reward-redemption",
+     "category": "spend-unlock",
+     "period": "ongoing",
+     "quote": "Earn up to 1.25X points on rent and mortgage payments",
+     "original": {
+      "title": "Points on rent and mortgage payments",
+      "summary": "Earn up to 1.25X points on rent and mortgage payments with no transaction fee. With housing-only rewards, everyday spend in each billing cycle sets the multiplier; below 25% of the housing payment you earn 250 points.",
+      "howToUse": [
+       "Pay rent or mortgage through the Bilt app or website with the card.",
+       "Your everyday spend in the billing cycle decides the housing multiplier."
+      ],
+      "quotes": [
+       "If you do not meet the minimum 25% of your housing payment, you’ll earn 250 points.",
+       "The 5-transaction monthly minimum was a requirement of the original Bilt Card and does not apply to any Bilt Card 2.0",
+       "All three cards have no transaction fee on rent, mortgage and HOA"
+      ]
+     },
+     "programmeIds": [
+      "programme.bilt-rewards"
+     ]
+    },
+    {
+     "key": "hotel-credit",
+     "zh": "Bilt Travel 酒店额度（每半年50美元）",
+     "en": "$100 Bilt Travel Hotel Credit",
+     "noteZh": "1–6月、7–12月各最多50美元，用于本卡经 Bilt Travel 预订的2晚及以上酒店，结账时须选择使用额度。适用于2027年1月1日前开户的账户；这些账户在2027年1月1日或之后的第一个开卡周年日改为每年发放 Bilt Cash，除非持卡人作了 Legacy Election。",
+     "noteEn": "Up to $50 from January 1 through June 30 and up to $50 from July 1 through December 31, on hotel bookings of 2 nights or more made with the card through Bilt Travel; opt in at checkout. For accounts opened before January 1, 2027; at the first card anniversary on or after that date it is replaced by yearly Bilt Cash unless a Legacy Election was made.",
+     "scenario": "hotel-stay",
+     "category": "credit",
+     "period": "calendar-half-year",
+     "amount": 50,
+     "source": "terms",
+     "quote": "Credits of up to $50 may be applied to qualifying hotel bookings made through the Bilt Travel Portal from January",
+     "original": {
+      "title": "$100 Bilt Travel Hotel Credit",
+      "summary": "Up to $50 from January 1 through June 30 and up to $50 from July 1 through December 31 on qualifying hotel bookings of 2 nights or more through the Bilt Travel Portal, for a total of $100 each calendar year.",
+      "howToUse": [
+       "Book a stay of 2 nights or more through the Bilt Travel Portal or the Bilt app with the card.",
+       "Turn on the credit at checkout."
+      ],
+      "quotes": [
+       "for a total maximum of $100 each calendar year."
+      ]
+     },
+     "scenarios": [
+      "hotel-stay",
+      "travel"
+     ]
+    },
+    {
+     "key": "bilt-cash-2027",
+     "zh": "每年100美元 Bilt Cash（2027年起）",
+     "en": "$100 Bilt Cash each year (from 2027)",
+     "noteZh": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放100美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+     "noteEn": "$100 in Bilt Cash to the primary cardholder at account opening and on each card anniversary, for accounts opened on or after January 1, 2027; older accounts move to it at their first card anniversary on or after that date unless they made a Legacy Election. Bilt Cash is not a statement credit and expires 12 months after it is earned.",
+     "scenario": "card-ownership",
+     "category": "credit",
+     "period": null,
+     "amount": 100,
+     "source": "terms",
+     "quote": "You, as the Primary Cardholder, will receive $100 in Bilt Cash.",
+     "original": {
+      "title": "$100 Bilt Cash Benefit",
+      "summary": "$100 in Bilt Cash is credited to the primary cardholder's Bilt Rewards Account at account opening and on each card anniversary while the account stays open and in good standing.",
+      "howToUse": [
+       "Bilt Cash is credited automatically; use it in the Bilt app or website before it expires."
+      ],
+      "quotes": [
+       "This $100 annual Bilt Cash benefit is separate from and in addition to"
+      ]
+     },
+     "programmeIds": [
+      "programme.bilt-rewards"
+     ],
+     "scenarios": [
+      "card-ownership",
+      "reward-redemption"
+     ],
+     "validity": {
+      "effectiveFrom": "2027-01-01"
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。",
+     "en": "The \"up to\" rate at Bilt partner restaurants varies by restaurant and is not recorded as a fixed rate."
+    },
+    {
+     "zh": "保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。",
+     "en": "Protection benefits (cell phone, purchase assurance and others) are not recorded; their limits were not checked in the guide to benefits."
+    },
+    {
+     "zh": "开卡奖励按个人报价变化，未记录。",
+     "en": "Welcome offers vary by person and are not recorded."
+    },
+    {
+     "zh": "2027年1月1日前开户的账户在2027年后第一个开卡周年日改用每年100美元 Bilt Cash（不作 Legacy Election 时），个人适用哪一套未核实。",
+     "en": "Accounts opened before January 1, 2027 move to $100 yearly Bilt Cash at their first card anniversary after that date unless a Legacy Election is made; which set applies to you is unverified."
+    }
+   ],
+   "additionalFee": {
+    "amount": 50,
+    "currency": "USD",
+    "quote": "Annual Fee $95; each authorized user: $50 per year.",
+    "source": "fees"
+   }
+  },
+  {
+   "id": "bilt-us-bilt-palladium-card",
+   "page": "bilt-card",
+   "issuer": "Bilt",
+   "url": "https://www.bilt.com/card",
+   "sourceTitle": {
+    "zh": "官方卡片页",
+    "en": "official card page"
+   },
+   "extraSources": {
+    "terms": {
+     "page": "offer-terms",
+     "url": "https://www.bilt.com/terms/bilt-card-offer-terms",
+     "zh": "Bilt · Bilt Card 优惠条款（Bilt Card Offer Terms）",
+     "en": "Bilt · Bilt Card Offer Terms"
+    },
+    "fees": {
+     "page": "rates-fees",
+     "url": "https://legal.cardless.com/rates_and_fees/bilt/rates_and_fees.pdf",
+     "zh": "Cardless · Bilt 卡利率和费用表",
+     "en": "Cardless · Bilt Cards rates and fees"
+    },
+    "overview": {
+     "page": "support-card2-overview",
+     "url": "https://support.biltrewards.com/hc/en-us/articles/42897766682381-Bilt-Card-2-0-Program-Overview",
+     "zh": "Bilt 帮助中心 · Bilt Card 2.0 计划概览",
+     "en": "Bilt Help Center · Bilt Card 2.0 Program Overview"
+    }
+   },
+   "new": {
+    "bank": "Bilt",
+    "region": "US",
+    "name": "Bilt Palladium Card"
+   },
+   "aliases": [
+    "Bilt Palladium"
+   ],
+   "collection": "not-supported",
+   "transfer": {
+    "name": "Bilt Rewards",
+    "programmeId": "programme.bilt-rewards",
+    "quote": "Points transfer at a 1:1 ratio for Bilt travel partners."
+   },
+   "fee": {
+    "amount": 495,
+    "currency": "USD",
+    "quote": "Annual Fee $495; each authorized user: $95 per year.",
+    "source": "fees"
+   },
+   "earning": [
+    {
+     "zh": "Bilt Travel 酒店",
+     "en": "Hotels booked through Bilt Travel",
+     "multiplier": 4,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "quote": "4X on hotels and 3X on flights through Bilt Travel, 4X on Lyft, 2X points on all everyday purchases",
+     "noteZh": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+     "noteEn": "Booked through Bilt Travel on the website or app; the total includes the Bilt Rewards booking bonus."
+    },
+    {
+     "zh": "Bilt Travel 机票",
+     "en": "Flights booked through Bilt Travel",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "airline",
+     "quote": "4X on hotels and 3X on flights through Bilt Travel, 4X on Lyft, 2X points on all everyday purchases",
+     "noteZh": "经 Bilt Travel（网站或 App）预订；合计倍数含 Bilt Rewards 的预订奖励。",
+     "noteEn": "Booked through Bilt Travel on the website or app; the total includes the Bilt Rewards booking bonus."
+    },
+    {
+     "zh": "Lyft（关联 Bilt 账户）",
+     "en": "Lyft (Bilt account linked)",
+     "unit": "points-per-USD",
+     "category": "ground-transport",
+     "quote": "Blue and Obsidian cardholders earn 3X total on Lyft, and Palladium cardholders earn 4X total.",
+     "noteZh": "含 Bilt Rewards 的 Lyft 奖励，须在 Lyft 关联 Bilt 账户并设为当前积分伙伴。",
+     "noteEn": "Includes the Bilt Rewards Lyft bonus; link your Bilt account in Lyft and set Bilt as the active loyalty partner.",
+     "multiplier": 4
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "general",
+     "source": "terms",
+     "quote": "You'll earn 2 Bilt Points for each $1 spent on all Eligible Purchases except Bilt Housing Payments.",
+     "noteZh": "住房付款除外。",
+     "noteEn": "Except Bilt housing payments."
+    }
+   ],
+   "credits": [
+    {
+     "key": "housing-points",
+     "zh": "房租和房贷积分（经 Bilt 支付）",
+     "en": "Points on rent and mortgage paid through Bilt",
+     "noteZh": "经 Bilt 支付房租、房贷不收交易费。默认“仅住房”方式按当期日常消费占住房付款的比例给0.5倍到1.25倍积分，不足25%时每期给250点；没有年度或每月上限。旧卡的每月5笔交易要求不适用于 Bilt Card 2.0。另有“Flexible Bilt Cash”方式，2027年1月1日起新开账户不能选。",
+     "noteEn": "No transaction fee on rent or mortgage paid through Bilt. Under the default housing-only option, the everyday spend in a billing cycle, as a share of the housing payment, sets 0.5X to 1.25X; below 25% the cycle earns 250 points. No annual or monthly cap. The original card's 5-transaction monthly minimum does not apply to Bilt Card 2.0. The Flexible Bilt Cash option is closed to accounts opened on or after January 1, 2027.",
+     "scenario": "reward-redemption",
+     "category": "spend-unlock",
+     "period": "ongoing",
+     "quote": "Earn up to 1.25X points on rent and mortgage payments",
+     "original": {
+      "title": "Points on rent and mortgage payments",
+      "summary": "Earn up to 1.25X points on rent and mortgage payments with no transaction fee. With housing-only rewards, everyday spend in each billing cycle sets the multiplier; below 25% of the housing payment you earn 250 points.",
+      "howToUse": [
+       "Pay rent or mortgage through the Bilt app or website with the card.",
+       "Your everyday spend in the billing cycle decides the housing multiplier."
+      ],
+      "quotes": [
+       "If you do not meet the minimum 25% of your housing payment, you’ll earn 250 points.",
+       "The 5-transaction monthly minimum was a requirement of the original Bilt Card and does not apply to any Bilt Card 2.0",
+       "All three cards have no transaction fee on rent, mortgage and HOA"
+      ]
+     },
+     "programmeIds": [
+      "programme.bilt-rewards"
+     ]
+    },
+    {
+     "key": "hotel-credit",
+     "zh": "Bilt Travel 酒店额度（每半年200美元）",
+     "en": "$400 Bilt Travel Hotel Credit",
+     "noteZh": "1–6月、7–12月各最多200美元，用于本卡经 Bilt Travel 预订的2晚及以上酒店，结账时须选择使用额度。适用于2027年1月1日前开户的账户；这些账户在2027年1月1日或之后的第一个开卡周年日改为每年发放 Bilt Cash，除非持卡人作了 Legacy Election。",
+     "noteEn": "Up to $200 from January 1 through June 30 and up to $200 from July 1 through December 31, on hotel bookings of 2 nights or more made with the card through Bilt Travel; opt in at checkout. For accounts opened before January 1, 2027; at the first card anniversary on or after that date it is replaced by yearly Bilt Cash unless a Legacy Election was made.",
+     "scenario": "hotel-stay",
+     "category": "credit",
+     "period": "calendar-half-year",
+     "amount": 200,
+     "source": "terms",
+     "quote": "Credits of up to $200 may be applied to qualifying hotel bookings made through the Bilt Travel Portal from January",
+     "original": {
+      "title": "$400 Bilt Travel Hotel Credit",
+      "summary": "Up to $200 from January 1 through June 30 and up to $200 from July 1 through December 31 on qualifying hotel bookings of 2 nights or more through the Bilt Travel Portal, for a total of $400 each calendar year.",
+      "howToUse": [
+       "Book a stay of 2 nights or more through the Bilt Travel Portal or the Bilt app with the card.",
+       "Turn on the credit at checkout."
+      ],
+      "quotes": [
+       "for a total maximum of $400 each calendar year."
+      ]
+     },
+     "scenarios": [
+      "hotel-stay",
+      "travel"
+     ]
+    },
+    {
+     "key": "bilt-cash",
+     "zh": "每年200美元 Bilt Cash",
+     "en": "$200 Bilt Cash each year",
+     "noteZh": "2027年1月1日前开户的账户，开户时和每个开卡周年日向主卡持卡人发放200美元 Bilt Cash；在2027年1月1日或之后的第一个开卡周年日改为新的每年 Bilt Cash，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+     "noteEn": "$200 in Bilt Cash to the primary cardholder at account opening and on each card anniversary, for accounts opened before January 1, 2027; replaced at the first card anniversary on or after that date unless a Legacy Election was made. Bilt Cash is not a statement credit and expires 12 months after it is earned.",
+     "scenario": "card-ownership",
+     "category": "credit",
+     "period": null,
+     "amount": 200,
+     "source": "terms",
+     "quote": "You, as the Primary Cardholder, will receive $200 in Bilt Cash.",
+     "original": {
+      "title": "$200 Bilt Cash Benefit",
+      "summary": "$200 in Bilt Cash is credited to the primary cardholder's Bilt Rewards Account at account opening and on each card anniversary while the account stays open and in good standing.",
+      "howToUse": [
+       "Bilt Cash is credited automatically; use it in the Bilt app or website before it expires."
+      ],
+      "quotes": [
+       "This $200 annual Bilt Cash benefit is separate from and in addition to"
+      ]
+     },
+     "programmeIds": [
+      "programme.bilt-rewards"
+     ],
+     "scenarios": [
+      "card-ownership",
+      "reward-redemption"
+     ]
+    },
+    {
+     "key": "bilt-cash-2027",
+     "zh": "每年600美元 Bilt Cash（2027年起）",
+     "en": "$600 Bilt Cash each year (from 2027)",
+     "noteZh": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放600美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+     "noteEn": "$600 in Bilt Cash to the primary cardholder at account opening and on each card anniversary, for accounts opened on or after January 1, 2027; older accounts move to it at their first card anniversary on or after that date unless they made a Legacy Election. Bilt Cash is not a statement credit and expires 12 months after it is earned.",
+     "scenario": "card-ownership",
+     "category": "credit",
+     "period": null,
+     "amount": 600,
+     "source": "terms",
+     "quote": "You, as the Primary Cardholder, will receive $600 in Bilt Cash.",
+     "original": {
+      "title": "$600 Bilt Cash Benefit",
+      "summary": "$600 in Bilt Cash is credited to the primary cardholder's Bilt Rewards Account at account opening and on each card anniversary while the account stays open and in good standing.",
+      "howToUse": [
+       "Bilt Cash is credited automatically; use it in the Bilt app or website before it expires."
+      ],
+      "quotes": [
+       "This $600 annual Bilt Cash benefit is separate from and in addition to"
+      ]
+     },
+     "programmeIds": [
+      "programme.bilt-rewards"
+     ],
+     "scenarios": [
+      "card-ownership",
+      "reward-redemption"
+     ],
+     "validity": {
+      "effectiveFrom": "2027-01-01"
+     }
+    },
+    {
+     "key": "priority-pass",
+     "zh": "Priority Pass 贵宾室",
+     "en": "Priority Pass lounge access",
+     "noteZh": "Priority Pass 会籍，可用1,300多个机场的贵宾室；同行人规则和登记方式未核实。",
+     "noteEn": "Priority Pass membership with lounge access at 1,300+ airports; guest rules and how to enroll are unverified.",
+     "scenario": "airport",
+     "category": "lounge",
+     "period": null,
+     "quote": "and Priority Pass lounge access at 1,300+ airports",
+     "original": {
+      "title": "Priority Pass lounge access",
+      "summary": "Priority Pass lounge access at 1,300+ airports.",
+      "howToUse": [
+       "Activate Priority Pass as the card offers it, then show the membership at the lounge."
+      ],
+      "quotes": []
+     },
+     "programmeIds": [
+      "programme.priority-pass"
+     ],
+     "scenarios": [
+      "airport",
+      "travel"
+     ]
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。",
+     "en": "The \"up to\" rate at Bilt partner restaurants varies by restaurant and is not recorded as a fixed rate."
+    },
+    {
+     "zh": "保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。",
+     "en": "Protection benefits (cell phone, purchase assurance and others) are not recorded; their limits were not checked in the guide to benefits."
+    },
+    {
+     "zh": "开卡奖励按个人报价变化，未记录。",
+     "en": "Welcome offers vary by person and are not recorded."
+    },
+    {
+     "zh": "2027年1月1日前开户的账户在2027年后第一个开卡周年日改用每年600美元 Bilt Cash（不作 Legacy Election 时），个人适用哪一套未核实。",
+     "en": "Accounts opened before January 1, 2027 move to $600 yearly Bilt Cash at their first card anniversary after that date unless a Legacy Election is made; which set applies to you is unverified."
+    }
+   ],
+   "additionalFee": {
+    "amount": 95,
+    "currency": "USD",
+    "quote": "Annual Fee $495; each authorized user: $95 per year.",
+    "source": "fees"
+   }
+  }
+ ]
+}

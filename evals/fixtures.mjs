@@ -157,7 +157,7 @@ export const retrievalCases=[
  {id:'multi-partner-traditional',query:'希爾頓和萬豪會籍',filters:{category:'membership'},expected:['rule.amex-hk-hk-the-platinum-card.hilton','rule.amex-hk-hk-the-platinum-card.marriott'],expectedAll:true},
  {id:'unknown-no-fabrication',query:'不存在的火星卡福利',expected:[],empty:true},
  // A named card product the wallet does not hold returns nothing, never other cards' benefits (#157).
- {id:'unheld-made-up-en',query:'Chase Sapphire Obsidian card airport lounge access',expected:[],empty:true},
+ {id:'unheld-made-up-en',query:'Chase Sapphire Opal card airport lounge access',expected:[],empty:true},
  {id:'unheld-made-up-zh',query:'钛晶卡的酒店优惠和贵宾室',expected:[],empty:true},
  {id:'unheld-made-up-zht',query:'火星白金卡有什麼機場貴賓室',expected:[],empty:true},
  // The eval wallet holds every profiled product, so this one must stay without rules (Amex CA is archived).

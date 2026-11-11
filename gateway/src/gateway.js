@@ -10,7 +10,14 @@
 //   provider, so parallel requests cannot overrun a per-code daily cap or the global monthly budget;
 // - bodies, codes and keys are never logged or echoed: a log line carries the code id, time, tokens and status.
 
-import {agentRoute} from './agent.js';
+// The assistant (agent.js) brings the agent loop and the bundled public knowledge, whose modules build their indexes
+// when first evaluated: hundreds of milliseconds of CPU. Workers caps the CPU a script may spend at startup, so that
+// code is loaded on the first /v1/chat request, not at startup, and the proxy and invite routes never load it. The
+// bundler keeps a dynamically imported module lazy; tests/gateway-startup.test.mjs holds the built Worker to this.
+// A failed load stays cached on purpose: a module whose evaluation threw cannot be evaluated again (the bundler's lazy
+// init and native ESM both keep the failure), so every /v1/chat then answers agent_unavailable until a redeploy.
+let agent=null;
+const agentRoute=ctx=>(agent||=import('./agent.js')).then(m=>m.agentRoute(ctx),()=>{throw new Refusal('agent_unavailable');});
 
 export const ROUTES={chat:'/v1/chat/completions',agent:'/v1/chat',invite:'/v1/invite'};
 export const INVITE_PATTERN=/^cdy_[A-Za-z0-9_-]{43}$/;
@@ -23,7 +30,7 @@ export const ERRORS={
  bad_request:400,model_not_allowed:400,invite_invalid:401,invite_revoked:403,origin_forbidden:403,not_found:404,method_not_allowed:405,
  too_large:413,unsupported_media_type:415,rate_limited:429,daily_requests:429,daily_tokens:429,monthly_budget:429,provider_rate_limited:429,
  provider_rejected:502,provider_error:502,provider_unreachable:502,gateway_not_configured:503,gateway_busy:503,provider_timeout:504,
- turn_invalid:400,turn_expired:409,
+ turn_invalid:400,turn_expired:409,agent_unavailable:503,
 };
 
 const number=(value,fallback,{min=0,integer=false}={})=>{const n=Number(value??fallback);return Number.isFinite(n)&&n>=min&&(!integer||Number.isInteger(n))?n:null;};

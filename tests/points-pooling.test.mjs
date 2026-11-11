@@ -21,7 +21,7 @@ const totalOf=(rows,id)=>programmeTotals(rows).totals.find(t=>t.programmeId===id
 
 test('the pooling data is valid, owner-stated and sourced, one rule per programme and region',()=>{
  assert.deepEqual(validatePooling(),[]);
- assert.deepEqual(poolingRules.map(r=>[r.region,r.label,r.pooling,r.ownerOverride]),[['US',MR,'shared',true],['HK',MR,'per-card',true],['US',UR,'per-card-combinable',true]]);
+ assert.deepEqual(poolingRules.map(r=>[r.region,r.label,r.pooling,r.ownerOverride]),[['US',MR,'shared',true],['HK',MR,'per-card',true],['US',UR,'per-card-combinable',true],['US','Bilt Rewards','shared',false]]);
  assert.ok(poolingRules.every(r=>r.checkedAt==='2026-11-11'&&r.caveats.length));
  assert.deepEqual(validatePooling([{...poolingRules[0],pooling:'family',sourceIds:['nope']}]).length>1,true,'unknown kinds and sources fail');
  const catalog=i18nCatalog;
