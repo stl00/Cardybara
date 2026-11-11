@@ -111,10 +111,12 @@ test('Amex Canada is archived: off by default, code kept, and a wallet holding i
  const seed=JSON.parse(readFileSync(new URL('../public/data.example.json',import.meta.url),'utf8'));
  assert.ok(PROVIDERS['Amex CA'].archived);assert.ok(!ACTIVE_BANKS.includes('Amex CA'));assert.ok(!REQUIRED_BANKS.includes('Amex CA'));
  assert.ok(!seed.connections.some(c=>c.bank==='Amex CA'));assert.ok(!readFileSync(new URL('../scripts/package-standalone.py',import.meta.url),'utf8').includes("'Amex CA'"));
- for(const file of ['../src/WalletOnboarding.jsx','../src/CollectorPanel.jsx'])assert.match(readFileSync(new URL(file,import.meta.url),'utf8'),/ACTIVE_BANKS\.map/,file);
+ // Manual add offers every active bank; the collector panel only the banks this build connects (tests/beta-scope.test.mjs).
+ assert.match(readFileSync(new URL('../src/WalletOnboarding.jsx',import.meta.url),'utf8'),/bankOrder\(ACTIVE_BANKS\)\.map/);
+ assert.match(readFileSync(new URL('../src/CollectorPanel.jsx',import.meta.url),'utf8'),/CONNECTABLE_BANKS\.map/);
  const connections=[{bank:'Amex CA'},{bank:'Chase'}],held={id:'x',bank:'Amex CA'},chase={id:'y',bank:'Chase'};
  assert.deepEqual(visibleConnections({connections,cards:[chase]}).map(c=>c.bank),['Chase'],'hidden with no card');
- assert.deepEqual(visibleConnections({connections,cards:[held,chase]}).map(c=>c.bank),['Amex CA','Chase'],'kept for a holder');
+ assert.deepEqual(visibleConnections({connections,cards:[held,chase]}).map(c=>c.bank),['Chase','Amex CA'],'kept for a holder, after Chase');
  assert.deepEqual(defaultRefreshBanks([held,chase]),['Chase'],'never in a refresh-all');
  assert.equal(newWalletCard({bank:'Amex CA',name:'Existing Card',tail:'12345'}).bank,'Amex CA','an existing record stays valid');
  // An upgraded seed has no row for the bank; the wallet restores it from the held card, and only then.

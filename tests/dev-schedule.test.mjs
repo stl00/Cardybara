@@ -156,7 +156,8 @@ test('the local server stores a redacted report from the dev extension and refus
 test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, reports, and reloads itself on a new build',async()=>{
  const dir=mkdtempSync(join(tmpdir(),'cardybara-dev-worker-'));
  try{
-  const built=spawnSync(process.execPath,['scripts/build-dev-extension.mjs','--no-wallet'],{cwd:root,encoding:'utf8',env:{...process.env,CARDYBARA_DEV_EXTENSION_DIR:join(dir,'ext')}});assert.equal(built.status,0,built.stderr);
+  // BOA is outside the beta scope in release.json; this test drives the worker, so it keeps every bank.
+  const built=spawnSync(process.execPath,['scripts/build-dev-extension.mjs','--no-wallet'],{cwd:root,encoding:'utf8',env:{...process.env,CARDYBARA_DEV_EXTENSION_DIR:join(dir,'ext'),CARDYBARA_ALL_BANKS:'1'}});assert.equal(built.status,0,built.stderr);
   const store={'cardybara-parser-settings':{scope:'mvp',enabled:true,cloudConsent:true}},L={},calls={files:[],created:[],removed:[],reloads:0,posts:[]};let idle='idle',tabs=[],nextTab=10,read='updated',captureError=null,stamp=JSON.parse(readFileSync(join(dir,'ext/build-stamp.json'),'utf8')).stamp;
   const listen=name=>{L[name]=[];return {addListener:f=>L[name].push(f)};};
   const href='https://secure.bankofamerica.com/accounts-home/';

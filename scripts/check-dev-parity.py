@@ -44,7 +44,7 @@ def compare(dev):
 if '--dev-dir' in args:problems=compare(Path(args['--dev-dir']))
 else:
  with tempfile.TemporaryDirectory(prefix='cardybara-parity-') as tmp:
-  subprocess.run(['node',str(r/'scripts/build-dev-extension.mjs'),'--reuse-wallet'],cwd=r,check=True,capture_output=True,env={**os.environ,'CARDYBARA_DEV_EXTENSION_DIR':str(Path(tmp)/'ext')})
+  subprocess.run(['node',str(r/'scripts/build-dev-extension.mjs'),'--reuse-wallet'],cwd=r,check=True,capture_output=True,env={**{k:v for k,v in os.environ.items() if k!='CARDYBARA_ALL_BANKS'},'CARDYBARA_DEV_EXTENSION_DIR':str(Path(tmp)/'ext')})
   problems=compare(Path(tmp)/'ext')
 if problems:raise SystemExit('Dev build differs from the release package:\n'+'\n'.join(problems))
 print('PASS: dev build runs the release package code byte for byte')
