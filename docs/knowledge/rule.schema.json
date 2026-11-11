@@ -142,6 +142,19 @@
       "properties": {
         "coupon": {
           "$ref": "#/$defs/coupon"
+        },
+        "coverage": {
+          "type": "object",
+          "description": "Protection benefits only (#83). Every non-null basis, basisScope, card payment requirement and exclusion must appear in the rule's own quotes; what the text does not state stays null.",
+          "additionalProperties": false,
+          "required": ["type", "basis", "requiresCardPayment", "exclusions"],
+          "properties": {
+            "type": {"enum": ["rental-car", "trip-cancellation", "trip-delay", "baggage-delay", "emergency-evacuation", "roadside", "purchase-protection", "return-protection", "extended-warranty", "travel-insurance"]},
+            "basis": {"enum": ["primary", "secondary", null]},
+            "basisScope": {"type": "string"},
+            "requiresCardPayment": {"enum": [true, null]},
+            "exclusions": {"type": "array", "items": {"type": "string"}}
+          }
         }
       }
     },

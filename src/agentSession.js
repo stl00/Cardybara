@@ -60,7 +60,7 @@ export async function runAgentTurn({history,question,context,request,memory={},o
    const event={name:call.function.name,args,result},before=state;
    state=reduceToolResult(state,event,{cards:context.cards,appendItems:toolsRun++>0});
    const changes=diffState(before,state);if(changes.length)trace.push({type:'state',tool:call.function.name,changes});
-   trace.push({type:'tool',name:call.function.name,ms:Date.now()-start,resultChars:JSON.stringify(result).length,...(['find_benefits','get_card_rules'].includes(call.function.name)?{matches:result.totalMatches,returned:result.rules.length,truncated:result.truncated}:{}),...(call.function.name==='choose_card'?{choice:result.choice?.kind,certainty:result.choice?.certainty||null,rows:result.totalRows,excluded:result.excluded?.length}:{}),...(call.function.name==='query_credits'?{needsDates:!!result.needsDates,...(result.groupCounts?{groups:result.groupCounts,truncated:result.truncated}:{})}:{})});
+   trace.push({type:'tool',name:call.function.name,ms:Date.now()-start,resultChars:JSON.stringify(result).length,...(['find_benefits','get_card_rules','find_protections'].includes(call.function.name)?{matches:result.totalMatches,returned:result.rules.length,truncated:result.truncated}:{}),...(call.function.name==='choose_card'?{choice:result.choice?.kind,certainty:result.choice?.certainty||null,rows:result.totalRows,excluded:result.excluded?.length}:{}),...(call.function.name==='query_credits'?{needsDates:!!result.needsDates,...(result.groupCounts?{groups:result.groupCounts,truncated:result.truncated}:{})}:{})});
    onProgress({phase:'tool',name:call.function.name,tools:[...tools]});messages.push({role:'tool',tool_call_id:call.id,content:JSON.stringify(result)});
   }
  }
