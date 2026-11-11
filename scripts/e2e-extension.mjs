@@ -932,7 +932,7 @@ export const BROKEN_HOSTED_CHAT={
  // Wallet data beyond the requested tool result: the Worker refuses a request with an extra field, and a read value
  // smuggled into a requested result is still caught by the check of every request to the gateway.
  'a wallet field sent beside the question':[/the chat failed instead of answering/,{tamper:"b=>{b.balance='1234.56';}"}],
- 'a read value inside a requested tool result':[/a value read from the bank \(1234\.56\) reached the gateway/,{tamper:"b=>{for(const r of b.rounds||[])for(const id of Object.keys(r.results))r.results[id].leak='1234.56';}"}],
+ 'a read value inside a requested tool result':[/a value read from the bank \(1234\.56\) reached the (model|gateway)/,{tamper:"b=>{for(const r of b.rounds||[])for(const id of Object.keys(r.results))r.results[id].leak='1234.56';}"}],
 };
 // With --cards: a card with a fee date that does not exist is never saved; the check must notice.
 export const BROKEN_CARDS={
