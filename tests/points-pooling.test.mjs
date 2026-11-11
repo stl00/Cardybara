@@ -3,7 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {POOLING_TEXT,cardProgramme,pointsReach,poolingRule,poolingRules,programmeTotals,rewardSummary,validatePooling} from '../src/pointsPooling.js';
+import {POOLING_TEXT,cardProgramme,pointsReach,poolingRule,poolingRules,programmeTotals,rewardSummary,shownInPooledEntry,validatePooling} from '../src/pointsPooling.js';
 import {rewardAccounts} from '../src/rewardAccounts.js';
 import {transferOptions} from '../src/transferRoutes.js';
 import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
@@ -119,4 +119,47 @@ test('a card named alone still reaches the held card it combines into (review of
 test('a sum of card readings shows its oldest date',()=>{
  const hk=totalOf([reading(hkPlat,1,'2026-10-20T10:00:00Z',MR),reading(hkExplorer,2,T2,MR)],'programme.amex-membership-rewards-hk');
  assert.equal(hk.date,'2026-10-20');assert.equal(hk.readingsSpanDays,13);
+});
+
+// #204: what the collector actually stores, synthetic. Pool readings carry poolStatus "unconfirmed" from collection;
+// the owner rule, not that flag, decides how they are shown.
+const observed=(c,amount,capturedAt,label)=>({id:`observed-${c.bank}-${c.id}-${label.toLowerCase()}`,card:c.id,bank:c.bank,region:c.region,label,amount,unit:'points',date:capturedAt.slice(0,10),capturedAt,evidence:'synthetic',poolStatus:'unconfirmed'});
+const wallet={cards:[usGold,usPlat,csp,cfu,hkPlat,hkExplorer],rewards:[],rewardObservations:[observed(usGold,61000,T1,MR),observed(usPlat,61000,T1,MR),observed(csp,4000,T1,UR),observed(cfu,2500,T2,UR),observed(hkPlat,8000,T1,MR),observed(hkExplorer,9000,T1,MR)]};
+test('a shared pool and a combinable programme are one entry; per-card programmes keep their cards (#204)',()=>{
+ const current=rewardAccounts(wallet).current;
+ const summary=rewardSummary(current);
+ assert.deepEqual(summary.map(r=>[r.region,r.label,r.amount,r.display]),[['US',MR,61000,'pooled-only'],['US',UR,6500,'combined-with-detail'],['HK',MR,17000,'per-card-rows']],'overview: one row per programme, the pool counted once');
+ assert.equal(summary[0].readingsDiffer,false);assert.equal(summary[0].breakdown,undefined,'a shared pool has no per-card split');
+ assert.deepEqual(summary[1].breakdown.map(b=>[b.card,b.amount]),[['cp',4000],['cf',2500]],'the UR split is kept for the folded detail');
+ assert.deepEqual(current.filter(r=>!shownInPooledEntry(r)).map(r=>r.card).sort(),['he','hp'],'only Amex HK cards keep rows of their own');
+ const differ=rewardSummary(rewardAccounts({...wallet,rewardObservations:[observed(usGold,61000,T2,MR),observed(usPlat,300,T1,MR)]}).current)[0];
+ assert.equal(differ.amount,61000);assert.equal(differ.readingsDiffer,true,'the warning stays on the pooled entry');
+});
+test('the assistant is told to present each programme the way the wallet shows it (#204)',()=>{
+ const present=id=>tool([usGold,usPlat,csp,cfu,hkPlat,hkExplorer],{}).programmes.find(p=>p.region===id[0]&&p.programme===id[1]).present;
+ assert.match(present(['US',MR]),/One pooled entry only/);assert.match(present(['US',UR]),/combined total/);assert.match(present(['HK',MR]),/One row per card/);
+});
+test('the rewards page renders one pooled entry, a folded UR split and Amex HK cards (#204)',async()=>{
+ const {build}=await import('esbuild'),{createRequire}=await import('node:module');
+ const root=new URL('..',import.meta.url).pathname;
+ const {outputFiles:[bundle]}=await build({stdin:{contents:`import React from 'react';import {renderToStaticMarkup} from 'react-dom/server';import RewardsView from './src/RewardsView.jsx';import {activateLanguage} from './src/i18n-core.js';export const render=(props)=>{activateLanguage('zh-CN');return renderToStaticMarkup(React.createElement(RewardsView,props));};`,resolveDir:root,loader:'jsx'},bundle:true,write:false,format:'cjs',platform:'node',jsx:'automatic',loader:{'.css':'empty','.png':'empty','.svg':'empty'},logLevel:'silent',external:['react','react-dom','react-dom/server']});
+ const module={exports:{}};new Function('module','exports','require',bundle.text)(module,module.exports,createRequire(new URL('../package.json',import.meta.url)));
+ const html=module.exports.render({accounts:rewardAccounts(wallet),cards:wallet.cards,count:n=>Number(n).toLocaleString('en-US'),hidden:false});
+ const cardsShown=html.match(/class="[^"]*reward-card/g).length;
+ assert.equal(cardsShown,5,'three programme totals and the two Amex HK cards; no US MR or UR card of its own');
+ assert.ok(html.includes('按卡查看'),'the UR split is folded behind 按卡查看');
+ assert.ok(!html.includes('American Express Gold Card')&&!html.includes('Freedom Unlimited'),'pooled and combined cards are not listed open');
+ assert.ok(html.includes('American Express Explorer Credit Card'),'an Amex HK card keeps its row');
+ assert.ok(html.includes('约值 $915')&&html.includes('约值 $97.50'),'each pooled or combined total carries its point value (#202)');
+ const differ=module.exports.render({accounts:rewardAccounts({...wallet,rewardObservations:[observed(usGold,61000,T2,MR),observed(usPlat,300,T1,MR)]}),cards:wallet.cards,count:n=>Number(n).toLocaleString('en-US'),hidden:false});
+ assert.ok(differ.includes('同一积分池的卡读数不同'),'the warning renders in the pooled entry');
+ assert.ok(html.includes('积分池 · 61,000'),'the transfer trial starts from the pool, counted once');
+ const hiddenHtml=module.exports.render({accounts:rewardAccounts(wallet),cards:wallet.cards,count:()=>'••••',hidden:true});
+ assert.ok(!/61,000|6,500|17,000/.test(hiddenHtml),'hidden mode shows no total');
+ assert.ok(!html.includes('未确认'),'the unconfirmed flag from collection is not shown against the owner rule');
+});
+test('a stored UR record with no card keeps its own row beside the combined total (#204 review)',()=>{
+ const record={id:'ur',bank:'Chase',region:'US',label:UR,amount:777,date:'2026-11-03'};
+ assert.equal(shownInPooledEntry(record),false);assert.equal(shownInPooledEntry({...record,bank:'Amex US',label:MR}),true,'a shared pool record is the pool');
+ assert.equal(shownInPooledEntry(observed(cfu,1,T1,UR)),true);
 });
