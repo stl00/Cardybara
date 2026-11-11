@@ -301,7 +301,16 @@
     "region": "US",
     "name": "Citi Strata Premier Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-e051ee64912ecf07.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://aemapi.citi.com/content/dam/cfs/uspb/usmkt/cards/en/static/images/citi-strata-premier-credit-card/citi-strata-premier-credit-card_306x192.webp",
+      "pageUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
+      "foundIn": "schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "unverified",
+      "convertedFrom": "webp"
+    }
   },
   {
     "id": "citi-us-citi-strata-elite-card",
@@ -324,7 +333,16 @@
     "region": "US",
     "name": "Citi Strata Elite Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-5d37e05a20f3047d.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://aemapi.citi.com/content/dam/cfs/uspb/usmkt/cards/en/static/images/citi-strata-elite-credit-card/citi-strata-elite-credit-card_306x192.webp",
+      "pageUrl": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card",
+      "foundIn": "schema.org CreditCard image + hero img",
+      "checkedAt": "2026-11-11",
+      "terms": "unverified",
+      "convertedFrom": "webp"
+    }
   },
   {
     "id": "citi-us-citi-double-cash-card",
@@ -347,7 +365,16 @@
     "region": "US",
     "name": "Citi Double Cash Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-84ca71e365e6d028.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://aemapi.citi.com/content/dam/cfs/uspb/usmkt/cards/en/static/images/citi-double-cash-credit-card/citi-double-cash-credit-card_306x192.webp",
+      "pageUrl": "https://www.citi.com/credit-cards/citi-double-cash-credit-card",
+      "foundIn": "schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "unverified",
+      "convertedFrom": "webp"
+    }
   },
   {
     "id": "citi-us-citi-aadvantage-platinum-select-card",
@@ -371,7 +398,16 @@
     "region": "US",
     "name": "Citi / AAdvantage Platinum Select Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-479adf8548ca7e35.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://aemapi.citi.com/content/dam/cfs/uspb/usmkt/cards/en/static/images/citi-aadvantage-platinum-elite-credit-card/citi-aadvantage-platinum-select-elite-credit-card_306x192.webp",
+      "pageUrl": "https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard",
+      "foundIn": "schema.org CreditCard image",
+      "checkedAt": "2026-11-11",
+      "terms": "unverified",
+      "convertedFrom": "webp"
+    }
   },
   {
     "id": "citi-us-citi-aadvantage-executive-card",
@@ -395,7 +431,16 @@
     "region": "US",
     "name": "Citi / AAdvantage Executive Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-df8e239759158dfb.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://aemapi.citi.com/content/dam/cfs/uspb/usmkt/cards/en/static/images/citi-aadvantage-executive-world-legend-mastercard/citi-aadvantage-executive-world-legend-mastercard_306x192.webp",
+      "pageUrl": "https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard",
+      "foundIn": "schema.org image + hero img",
+      "checkedAt": "2026-11-11",
+      "terms": "unverified",
+      "convertedFrom": "webp"
+    }
   },
   {
     "id": "capital-one-us-venture-rewards-credit-card",
@@ -420,7 +465,15 @@
     "region": "US",
     "name": "Venture Rewards Credit Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-46752794fb00afae.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://ecm.capitalone.com/WCM/card/products/venture-card-art.png",
+      "pageUrl": "https://www.capitalone.com/credit-cards/venture/",
+      "foundIn": "og:image (same art as hero img alt='Venture Rewards' venture_cardart_prim_323x203-1/mobile.png)",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "capital-one-us-venture-x-rewards-credit-card",
@@ -445,7 +498,15 @@
     "region": "US",
     "name": "Venture X Rewards Credit Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-19f845d03a5b4037.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://ecm.capitalone.com/WCM/card/products/venturex-cg-static-card-1000x630-2.png",
+      "pageUrl": "https://www.capitalone.com/credit-cards/venture-x/",
+      "foundIn": "img alt='Capital One Venture X credit card art'",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "capital-one-us-savor-credit-card",
@@ -463,7 +524,15 @@
     "region": "US",
     "name": "Savor Credit Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-9dabc7b015153f5b.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://ecm.capitalone.com/WCM/card/products/new-savor-card-art.png",
+      "pageUrl": "https://www.capitalone.com/credit-cards/savor/",
+      "foundIn": "embedded WCM JSON asset new-savor-card-art.png (mobile rendition in page img)",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "capital-one-us-venture-x-business-card",
@@ -487,7 +556,15 @@
     "region": "US",
     "name": "Venture X Business Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-53f4b050628850e1.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://ecm.capitalone.com/WCM/card/products/vxb-card-alt-at-2x.png",
+      "pageUrl": "https://www.capitalone.com/small-business/credit-cards/venture-x-business/",
+      "foundIn": "schema.org product image",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "capital-one-us-spark-cash-plus-card",
@@ -987,7 +1064,15 @@
     "region": "US",
     "name": "Discover it Cash Back Credit Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-bb0875740b89ae55.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://ecm.capitalone.com/WCM/dfs-card/products/cardart-cashit-with-shadow.png",
+      "pageUrl": "https://www.discover.com/credit-cards/cash-back/it-card/",
+      "foundIn": "data block imageUrl labelled 'Discover it Cash Back Card'",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "us-bank-us-cash-plus-visa-signature-card",
@@ -1004,7 +1089,15 @@
     "region": "US",
     "name": "U.S. Bank Cash+ Visa Signature Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-b5a595ba2c7a2f48.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://www.usbank.com/content/dam/usbank/en/images/illustrations/card-art/credit-cards/photo-cash-plus-signature-lg.png",
+      "pageUrl": "https://www.usbank.com/credit-cards/cash-back-credit-cards.html",
+      "foundIn": "img alt='U.S. Bank Cash Plus Signature Visa Card' (also on /credit-cards.html carousel)",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "us-bank-us-altitude-go-visa-signature-card",
@@ -1021,7 +1114,15 @@
     "region": "US",
     "name": "U.S. Bank Altitude Go Visa Signature Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-8552729d1eac2910.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://www.usbank.com/content/dam/usbank/en/images/illustrations/card-art/credit-cards/altitude-go-visa-signature-credit-card.png",
+      "pageUrl": "https://www.usbank.com/credit-cards.html",
+      "foundIn": "img alt='Altitude Go Visa Signature Card' data-alignment=vertical",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission"
+    }
   },
   {
     "id": "wells-fargo-us-autograph-journey-visa-card",
@@ -1038,7 +1139,16 @@
     "region": "US",
     "name": "Wells Fargo Autograph Journey Visa Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-2d7ec71005902aeb.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://creditcards.wellsfargo.com/rv/next/images/cards/autograph-journey.webp",
+      "pageUrl": "https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/",
+      "foundIn": "img alt='Wells Fargo Autograph Journey Card' data-product-card-art (avif variant exists; png/jpg 404)",
+      "checkedAt": "2026-11-11",
+      "terms": "requires-permission",
+      "convertedFrom": "webp"
+    }
   },
   {
     "id": "citi-us-citi-custom-cash-card",
@@ -1053,7 +1163,16 @@
     "region": "US",
     "name": "Citi Custom Cash Card",
     "currencies": [],
-    "art": null
+    "art": {
+      "file": "catalog-8603ba2b616a078c.png",
+      "verification": "issuer-asset",
+      "sourceUrl": "https://aemapi.citi.com/content/dam/cfs/uspb/usmkt/cards/en/static/images/citi-custom-cash-credit-card/citi-custom-cash-credit-card_306x192.webp",
+      "pageUrl": "https://www.citi.com/credit-cards/citi-custom-cash-credit-card",
+      "foundIn": "embedded JSON cardArtUrl._path",
+      "checkedAt": "2026-11-11",
+      "terms": "unverified",
+      "convertedFrom": "webp"
+    }
   },
   {
     "id": "chase-us-prime-visa",

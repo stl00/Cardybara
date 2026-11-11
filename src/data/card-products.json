@@ -1304,7 +1304,23 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-0fedec0b612e119c.jpg",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://www.hsbc.com.hk/content/dam/hsbc/hk/images/mass/credit-cards/tile-16-9/9358-hsbc-visa-gold-card-grey-1600x900.jpg",
+        "pageUrl": "https://www.hsbc.com.hk/credit-cards/products/student-visa-gold/",
+        "foundIn": "main product picture (pp_main_image)",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission",
+        "crop": {
+          "canvasWidth": 1600,
+          "canvasHeight": 900,
+          "x": 440,
+          "y": 224,
+          "width": 720,
+          "height": 453
+        }
+      },
       "sourceUrl": "https://www.hsbc.com.hk/credit-cards/products/student-visa-gold/",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed"
@@ -1319,7 +1335,23 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-3dcdee845d63c12a.jpg",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://www.hsbc.com.hk/content/dam/hsbc/hk/images/mass/credit-cards/tile-16-9/9358-hsbc-unionpay-credit-card-grey-1600x900.jpg",
+        "pageUrl": "https://www.hsbc.com.hk/credit-cards/products/unionpay-dual-currency-classic/",
+        "foundIn": "product picture (pp_tools_image)",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission",
+        "crop": {
+          "canvasWidth": 1600,
+          "canvasHeight": 900,
+          "x": 440,
+          "y": 224,
+          "width": 720,
+          "height": 453
+        }
+      },
       "sourceUrl": "https://www.hsbc.com.hk/credit-cards/products/unionpay-dual-currency-classic/",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed"
@@ -1334,7 +1366,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-8c6ab7fb20a6ad88.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://www.sc.com/content/dam/sc/hk/shared/hk-sccc-180x110-1.png",
+        "pageUrl": "https://www.sc.com/hk/credit-cards/",
+        "foundIn": "top navigation img alt='Simple Cash Visa Card' linking to /hk/credit-cards/simplycash/",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.sc.com/hk/credit-cards/",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed"
@@ -1349,7 +1389,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-3a83e97c113acbb9.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://www.sc.com/content/dam/sc/hk/shared/hk-sc-cf2-180-110.png",
+        "pageUrl": "https://www.sc.com/hk/credit-cards/",
+        "foundIn": "top navigation img alt='Smart Card' linking to /hk/credit-cards/smart/",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.sc.com/hk/credit-cards/",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed"
@@ -1364,7 +1412,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-390f5321a0ac9a82.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://www.sc.com/content/dam/sc/hk/shared/hk-cc-apoint-card.png",
+        "pageUrl": "https://www.sc.com/hk/credit-cards/",
+        "foundIn": "top navigation img alt='A.Point Card' linking to /hk/credit-cards/apointcard/",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.sc.com/hk/credit-cards/",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed"
@@ -1379,7 +1435,16 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-4e8c39f996151fa6.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_hk/images/cards/Platinum_Credit_Card.png",
+        "pageUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
+        "foundIn": "img alt='American Express Platinum Credit Card' (productCode platinum-credit-card)",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission",
+        "resizedFrom": "1920x1216"
+      },
       "sourceUrl": "https://www.americanexpress.com/hk/en/credit-cards/all-cards/",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed"
@@ -1675,7 +1740,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-31f66fbd931ad272.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://www.bankofamerica.com/content/images/ContextualSiteGraphics/CreditCardArt/en_US/Approved_PCM/1bbt_sigcm_v_atmos_ascent_250.png",
+        "pageUrl": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
+        "foundIn": "og:image (alt='Atmos Rewards Ascent Visa Signature Alaska Airlines Credit Card') + schema.org image",
+        "checkedAt": "2026-11-11",
+        "terms": "unverified"
+      },
       "sourceUrl": "https://www.bankofamerica.com/credit-cards/",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed"
@@ -1720,7 +1793,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-0fb1e79e89c661cb.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://www.bankofamerica.com/content/images/ContextualSiteGraphics/CreditCardArt/en_US/Approved_PCM/ragp_sigcm_v_250.png",
+        "pageUrl": "https://www.bankofamerica.com/credit-cards/products/allegiant-credit-card/",
+        "foundIn": "og:image (alt='Benefits and Rewards of an Allways Rewards Visa Credit Card') + schema.org CreditCard image",
+        "checkedAt": "2026-11-11",
+        "terms": "unverified"
+      },
       "sourceUrl": "https://www.bankofamerica.com/credit-cards/",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed"
@@ -1737,7 +1818,15 @@
       "rewardPrograms": [
         "Membership Rewards"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-ad1699b31c81347f.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_ca/images/pdp-uplift/consumer/cobalt-card/Cobalt-card.webp",
+        "pageUrl": "https://www.americanexpress.com/en-ca/credit-cards/cobalt-card/",
+        "foundIn": "preloaded hero image (served as PNG despite .webp); og:image is a 200x126 version cards/American_Express_Cobalt_Card.png",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/ca/en/legal/cardmember-agreements.html",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed",
@@ -1758,7 +1847,15 @@
       "rewardPrograms": [
         "Membership Rewards"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-d37b82a264d5a56c.jpg",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_ca/images/cards/Gold_Rewards_Card.png",
+        "pageUrl": "https://www.americanexpress.com/en-ca/credit-cards/gold-rewards-card/",
+        "foundIn": "img alt='American Express Gold Rewards Card' (served as JPEG; hero gold-card-art-ca.webp is the same art; og:image is a two-card gold/rose-gold composite)",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/ca/en/legal/cardmember-agreements.html",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed",
@@ -1777,7 +1874,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-d8dc74fe63f9f51a.jpg",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_ca/images/cards/SimplyCash_Card.png",
+        "pageUrl": "https://www.americanexpress.com/en-ca/credit-cards/simply-cash/",
+        "foundIn": "og:image (served as JPEG)",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/ca/en/legal/cardmember-agreements.html",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed"
@@ -1792,7 +1897,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-f69ea6066048e6e7.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://icm.aexp-static.com/Internet/internationalcardshop/en_ca/images/cards/SimplyCash_Preferred_Card.png",
+        "pageUrl": "https://www.americanexpress.com/en-ca/credit-cards/simply-cash-preferred/",
+        "foundIn": "og:image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.americanexpress.com/ca/en/legal/cardmember-agreements.html",
       "checkedAt": "2026-10-27",
       "verification": "issuer-listed"
@@ -2093,7 +2206,16 @@
       "rewardPrograms": [
         "Citi ThankYou Points"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-e051ee64912ecf07.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://aemapi.citi.com/content/dam/cfs/uspb/usmkt/cards/en/static/images/citi-strata-premier-credit-card/citi-strata-premier-credit-card_306x192.webp",
+        "pageUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
+        "foundIn": "schema.org CreditCard image",
+        "checkedAt": "2026-11-11",
+        "terms": "unverified",
+        "convertedFrom": "webp"
+      },
       "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2116,7 +2238,16 @@
       "rewardPrograms": [
         "Citi ThankYou Points"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-5d37e05a20f3047d.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://aemapi.citi.com/content/dam/cfs/uspb/usmkt/cards/en/static/images/citi-strata-elite-credit-card/citi-strata-elite-credit-card_306x192.webp",
+        "pageUrl": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card",
+        "foundIn": "schema.org CreditCard image + hero img",
+        "checkedAt": "2026-11-11",
+        "terms": "unverified",
+        "convertedFrom": "webp"
+      },
       "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2139,7 +2270,16 @@
       "rewardPrograms": [
         "Citi ThankYou Points"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-84ca71e365e6d028.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://aemapi.citi.com/content/dam/cfs/uspb/usmkt/cards/en/static/images/citi-double-cash-credit-card/citi-double-cash-credit-card_306x192.webp",
+        "pageUrl": "https://www.citi.com/credit-cards/citi-double-cash-credit-card",
+        "foundIn": "schema.org CreditCard image",
+        "checkedAt": "2026-11-11",
+        "terms": "unverified",
+        "convertedFrom": "webp"
+      },
       "sourceUrl": "https://www.citi.com/credit-cards/citi-double-cash-credit-card",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2163,7 +2303,16 @@
       "rewardPrograms": [
         "American Airlines AAdvantage"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-479adf8548ca7e35.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://aemapi.citi.com/content/dam/cfs/uspb/usmkt/cards/en/static/images/citi-aadvantage-platinum-elite-credit-card/citi-aadvantage-platinum-select-elite-credit-card_306x192.webp",
+        "pageUrl": "https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard",
+        "foundIn": "schema.org CreditCard image",
+        "checkedAt": "2026-11-11",
+        "terms": "unverified",
+        "convertedFrom": "webp"
+      },
       "sourceUrl": "https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2187,7 +2336,16 @@
       "rewardPrograms": [
         "American Airlines AAdvantage"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-df8e239759158dfb.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://aemapi.citi.com/content/dam/cfs/uspb/usmkt/cards/en/static/images/citi-aadvantage-executive-world-legend-mastercard/citi-aadvantage-executive-world-legend-mastercard_306x192.webp",
+        "pageUrl": "https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard",
+        "foundIn": "schema.org image + hero img",
+        "checkedAt": "2026-11-11",
+        "terms": "unverified",
+        "convertedFrom": "webp"
+      },
       "sourceUrl": "https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2211,7 +2369,15 @@
       "rewardPrograms": [
         "Capital One Miles"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-46752794fb00afae.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://ecm.capitalone.com/WCM/card/products/venture-card-art.png",
+        "pageUrl": "https://www.capitalone.com/credit-cards/venture/",
+        "foundIn": "og:image (same art as hero img alt='Venture Rewards' venture_cardart_prim_323x203-1/mobile.png)",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.capitalone.com/credit-cards/venture/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2236,7 +2402,15 @@
       "rewardPrograms": [
         "Capital One Miles"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-19f845d03a5b4037.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://ecm.capitalone.com/WCM/card/products/venturex-cg-static-card-1000x630-2.png",
+        "pageUrl": "https://www.capitalone.com/credit-cards/venture-x/",
+        "foundIn": "img alt='Capital One Venture X credit card art'",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.capitalone.com/credit-cards/venture-x/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2259,7 +2433,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-9dabc7b015153f5b.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://ecm.capitalone.com/WCM/card/products/new-savor-card-art.png",
+        "pageUrl": "https://www.capitalone.com/credit-cards/savor/",
+        "foundIn": "embedded WCM JSON asset new-savor-card-art.png (mobile rendition in page img)",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.capitalone.com/credit-cards/savor/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2279,7 +2461,15 @@
       "rewardPrograms": [
         "Capital One Miles"
       ],
-      "art": null,
+      "art": {
+        "file": "catalog-53f4b050628850e1.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://ecm.capitalone.com/WCM/card/products/vxb-card-alt-at-2x.png",
+        "pageUrl": "https://www.capitalone.com/small-business/credit-cards/venture-x-business/",
+        "foundIn": "schema.org product image",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/venture-x-business/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2568,7 +2758,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-bb0875740b89ae55.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://ecm.capitalone.com/WCM/dfs-card/products/cardart-cashit-with-shadow.png",
+        "pageUrl": "https://www.discover.com/credit-cards/cash-back/it-card/",
+        "foundIn": "data block imageUrl labelled 'Discover it Cash Back Card'",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.discover.com/credit-cards/cash-back/it-card/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2586,7 +2784,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-b5a595ba2c7a2f48.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://www.usbank.com/content/dam/usbank/en/images/illustrations/card-art/credit-cards/photo-cash-plus-signature-lg.png",
+        "pageUrl": "https://www.usbank.com/credit-cards/cash-back-credit-cards.html",
+        "foundIn": "img alt='U.S. Bank Cash Plus Signature Visa Card' (also on /credit-cards.html carousel)",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.usbank.com/credit-cards/cash-plus-visa-signature-credit-card.html",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2604,7 +2810,15 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-8552729d1eac2910.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://www.usbank.com/content/dam/usbank/en/images/illustrations/card-art/credit-cards/altitude-go-visa-signature-credit-card.png",
+        "pageUrl": "https://www.usbank.com/credit-cards.html",
+        "foundIn": "img alt='Altitude Go Visa Signature Card' data-alignment=vertical",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission"
+      },
       "sourceUrl": "https://www.usbank.com/credit-cards/altitude-go-visa-signature-credit-card.html",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2622,7 +2836,16 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-2d7ec71005902aeb.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://creditcards.wellsfargo.com/rv/next/images/cards/autograph-journey.webp",
+        "pageUrl": "https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/",
+        "foundIn": "img alt='Wells Fargo Autograph Journey Card' data-product-card-art (avif variant exists; png/jpg 404)",
+        "checkedAt": "2026-11-11",
+        "terms": "requires-permission",
+        "convertedFrom": "webp"
+      },
       "sourceUrl": "https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed",
@@ -2639,7 +2862,16 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "art": null,
+      "art": {
+        "file": "catalog-8603ba2b616a078c.png",
+        "verification": "issuer-asset",
+        "sourceUrl": "https://aemapi.citi.com/content/dam/cfs/uspb/usmkt/cards/en/static/images/citi-custom-cash-credit-card/citi-custom-cash-credit-card_306x192.webp",
+        "pageUrl": "https://www.citi.com/credit-cards/citi-custom-cash-credit-card",
+        "foundIn": "embedded JSON cardArtUrl._path",
+        "checkedAt": "2026-11-11",
+        "terms": "unverified",
+        "convertedFrom": "webp"
+      },
       "sourceUrl": "https://www.citi.com/credit-cards/citi-custom-cash-credit-card",
       "checkedAt": "2026-11-04",
       "verification": "issuer-listed"
