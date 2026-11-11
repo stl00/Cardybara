@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {inferDueDate,parseMonthDay,readDayOf} from '../src/dueYear.js';
 import {cardDue} from '../src/agentData.js';
+import {translations as i18nCatalog} from '../src/i18n/index.js';
 
 test('the year is the one that puts the date nearest the day it was read (issue cases)',()=>{
  assert.equal(inferDueDate('January 15','2026-12-20'),'2027-01-15');
@@ -56,7 +57,7 @@ test('a card gets its due date from the latest reading, the bank\'s full date fi
 });
 test('the wallet shows the inferred date with its note in three languages',()=>{
  const main=readFileSync(new URL('../src/main.jsx',import.meta.url),'utf8'),pay=readFileSync(new URL('../src/PaymentAssistant.jsx',import.meta.url),'utf8');
- const catalog=JSON.parse(readFileSync(new URL('../src/translations.json',import.meta.url),'utf8'));
+ const catalog=i18nCatalog;
  assert.match(main,/cardDue\(c\)/,'card list');assert.match(main,/cardDue\(detail\)/,'card details');assert.match(pay,/cycle\.inferred/,'payment assistant');
  for(const key of ['（年份按读取日期推断）','年份按读取日期推断',' · 推断年份'])for(const lang of ['en-US','zh-TW'])assert.ok(catalog[lang][key],`${lang}: ${key}`);
 });

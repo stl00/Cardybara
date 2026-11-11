@@ -13,8 +13,11 @@ import argparse
 import html
 import json
 import re
+import sys
 from pathlib import Path
 from opencc import OpenCC
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import i18n_catalog  # noqa: E402
 
 root = Path(__file__).resolve().parents[1]
 base = root / 'src/data/knowledge'
@@ -61,7 +64,7 @@ def main():
             asset_rows.append(f"| {programme['name']} | unverified | null | null | not located | Not checked; no mark is shipped. |")
     products = read(root / 'src/data/card-products.json')
     overrides = read(root / 'src/data/card-product-overrides.json')
-    tr = read(root / 'src/translations.json')
+    tr = i18n_catalog.load(root)
 
     def txt(zh, en):
         # An existing translation stays: other screens already show it for this Chinese text.
@@ -174,7 +177,7 @@ def main():
     write(base / 'taxonomy.json', taxonomy)
     write(root / 'src/data/card-products.json', products)
     write(root / 'src/data/card-product-overrides.json', overrides)
-    write(root / 'src/translations.json', tr)
+    i18n_catalog.save(root, tr, 'knowledge')
     write(root / 'src/data/logos.json', logos, indent=1)
     if asset_rows:
         assets = root / 'public/ASSET-SOURCES.md'

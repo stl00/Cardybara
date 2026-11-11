@@ -7,6 +7,7 @@ import {POOLING_TEXT,cardProgramme,pointsReach,poolingRule,poolingRules,programm
 import {rewardAccounts} from '../src/rewardAccounts.js';
 import {transferOptions} from '../src/transferRoutes.js';
 import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
+import {translations as i18nCatalog} from '../src/i18n/index.js';
 
 const card=(id,bank,region,name)=>({id,bank,region,name,currency:region==='HK'?'HKD':'USD'});
 const reading=(c,amount,capturedAt,label)=>({id:'r-'+c.id+'-'+capturedAt,card:c.id,bank:c.bank,region:c.region,label,amount,unit:'points',date:capturedAt.slice(0,10),capturedAt,cardReading:true});
@@ -23,7 +24,7 @@ test('the pooling data is valid, owner-stated and sourced, one rule per programm
  assert.deepEqual(poolingRules.map(r=>[r.region,r.label,r.pooling,r.ownerOverride]),[['US',MR,'shared',true],['HK',MR,'per-card',true],['US',UR,'per-card-combinable',true]]);
  assert.ok(poolingRules.every(r=>r.checkedAt==='2026-11-11'&&r.caveats.length));
  assert.deepEqual(validatePooling([{...poolingRules[0],pooling:'family',sourceIds:['nope']}]).length>1,true,'unknown kinds and sources fail');
- const catalog=JSON.parse(readFileSync(new URL('../src/translations.json',import.meta.url),'utf8'));
+ const catalog=i18nCatalog;
  const texts=[...poolingRules.flatMap(r=>[r.summary,...r.caveats.map(c=>c.summary)]),...Object.values(POOLING_TEXT).flatMap(Object.values)];
  for(const language of ['en-US','zh-TW'])for(const text of texts)assert.ok(catalog[language][text],language+': '+text);
 });

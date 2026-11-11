@@ -1,4 +1,4 @@
-import translations from './translations.json' with {type:'json'};
+import {translations} from './i18n/index.js';
 export const LANGUAGES = ['zh-CN', 'zh-TW', 'en-US'];
 let activeLanguage = 'zh-CN';
 export function normalizeLanguage(language) {

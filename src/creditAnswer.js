@@ -9,7 +9,7 @@ const WORDS={
   markedUnused:'You marked these unused or partly used',unknownStatus:'No mark, so not confirmed either way',markedUsed:'You marked these used or skipped',noFixedCycle:'No fixed cycle, status not confirmed',cycleUnknown:'Cycle cannot be determined, status not confirmed',outsideDates:'Do not apply to these dates',dismissedByUser:'You chose to stop reminders for these',more:'Showing part of a longer list.',none:'No matching credits found.',unmatched:'These cards could not be matched and are not included: ',partial:'I could not answer the rest of your question this time. Please ask it again.',note:'This is an automatic summary of the lookup.'}
 };
 const REASONS={
- 'anniversary-date-unknown':{'zh-CN':'账户周年日未知','zh-TW':'帳戶週年日未知',en:'account anniversary unknown'},
+ 'anniversary-date-unknown':{'zh-CN':'未设置年费日','zh-TW':'未設定年費日',en:'annual fee date not set'},
  'account-version-unverified':{'zh-CN':'账户版本未核实','zh-TW':'帳戶版本未核實',en:'account version unverified'},
  'product-variant-unconfirmed':{'zh-CN':'卡片版本未确认','zh-TW':'卡片版本未確認',en:'card version unconfirmed'},
  'current-cycle-ends-before-dates':{'zh-CN':'当前周期在这些日期前结束','zh-TW':'目前週期在這些日期前結束',en:'current cycle ends before these dates'},

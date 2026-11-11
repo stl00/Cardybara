@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,statSync} from 'node:fs';
 import {join} from 'node:path';
-import {KEY_STORE,PROVIDERS,keyStatus,saveKey,deleteKey,setModelEnabled,isModelReady,testKey,completeChat,completeJSON,completeBody,maskKey,validKey,requestPermission} from '../extension-next/model-client.js';
+import {KEY_STORE,DEV_OWN_KEY,PROVIDERS,GATEWAY_ORIGIN,HOSTED,validInvite,keyStatus,saveKey,deleteKey,setModelEnabled,isModelReady,testKey,completeChat,completeJSON,completeBody,maskKey,validKey,requestPermission} from '../extension-next/model-client.js';
 import {parserStatus,modelParse} from '../extension-next/parser-client.js';
 import {extensionChat} from '../src/extensionChat.js';
 import {chatRequest} from '../src/chatProtocol.js';
@@ -11,11 +11,11 @@ import {suggestInExtension} from '../src/productSuggestion.js';
 import {suggestionMessages,validateSuggestRequest} from '../src/productSuggestProtocol.js';
 // A made-up key for tests. The real key is only ever pasted by the owner into the extension.
 const KEY='test-only-0123456789abcdef';
-function fakeChrome({granted=true}={}){
- const local=new Map(),calls={sync:0,permissionRequests:[],removed:[]};
+function fakeChrome({granted=true,ownKey=true}={}){
+ const local=new Map(ownKey?[[DEV_OWN_KEY,true]]:[]),calls={sync:0,permissionRequests:[],removed:[]};
  globalThis.chrome={
   storage:{local:{get:async k=>local.has(k)?{[k]:structuredClone(local.get(k))}:{},set:async o=>{for(const [k,v] of Object.entries(o))local.set(k,structuredClone(v));},remove:async k=>{local.delete(k);}},sync:new Proxy({},{get:()=>{calls.sync++;throw Error('sync must not be used');}})},
-  permissions:{contains:async o=>granted&&o.origins[0]==='https://api.deepseek.com/*',request:async o=>{calls.permissionRequests.push(o.origins);return granted;},remove:async o=>{calls.removed.push(o.origins);granted=false;return true;}}
+  permissions:{contains:async o=>granted&&['https://api.deepseek.com/*',GATEWAY_ORIGIN+'/*'].includes(o.origins[0]),request:async o=>{calls.permissionRequests.push(o.origins);return granted;},remove:async o=>{calls.removed.push(o.origins);granted=false;return true;}}
  };
  return {local,calls,grant:value=>{granted=value;}};
 }
@@ -32,7 +32,7 @@ test('the key is saved locally only, masked after saving, and removed with its p
  assert.equal(local.get(KEY_STORE).key,KEY);assert.equal(calls.sync,0);
  assert.equal(await requestPermission('deepseek'),true);assert.deepEqual(calls.permissionRequests,[['https://api.deepseek.com/*']]);await assert.rejects(()=>requestPermission('evil'),/invalid_provider/);
  await setModelEnabled(false);assert.equal(await isModelReady(),false);await setModelEnabled(true);
- assert.equal((await deleteKey()).saved,false);assert.equal(local.has(KEY_STORE),false);assert.deepEqual(calls.removed,[['https://api.deepseek.com/*']]);
+ assert.equal((await deleteKey()).saved,false);assert.equal(local.has(KEY_STORE),false);assert.deepEqual(calls.removed,[['https://api.deepseek.com/*'],[GATEWAY_ORIGIN+'/*']]);
  for(const bad of ['','short','has space inside key here','x'.repeat(201),'中文密钥中文密钥中文密钥'])await assert.rejects(()=>saveKey({provider:'deepseek',key:bad}),/invalid_key/,bad);
  await assert.rejects(()=>saveKey({provider:'evil',key:KEY}),/invalid_provider/);
  assert.equal(validKey(KEY),true);assert.equal(maskKey(KEY).length<KEY.length,true);
@@ -117,7 +117,7 @@ test('review: card-type suggestion goes to the provider with the server\'s promp
 });
 test('review: deleting a damaged key record still gives the permission back, and oversized pages are not sent',async()=>{
  const {local,calls}=fakeChrome();local.set(KEY_STORE,{provider:'deepseek',key:'has a space'});
- await deleteKey();assert.deepEqual(calls.removed,[['https://api.deepseek.com/*']]);
+ await deleteKey();assert.deepEqual(calls.removed,[['https://api.deepseek.com/*'],[GATEWAY_ORIGIN+'/*']]);
  fakeChrome();await saveKey({provider:'deepseek',key:KEY});const requests=fakeProvider();
  const batch={bank:'Amex HK',page:'/overview',scope:'mvp',aliases:[],links:[],blocks:[{id:'B1',text:'x'.repeat(1501)}]};
  await assert.rejects(()=>modelParse(batch),/model_request_failed/);await assert.rejects(()=>modelParse({...batch,blocks:Array.from({length:61},(_,i)=>({id:'B'+i,text:'x'}))}),/model_request_failed/);
@@ -126,4 +126,64 @@ test('review: deleting a damaged key record still gives the permission back, and
 test('review: the settings page keeps the separate consent switch for automatic card recognition',()=>{
  const page=readFileSync('src/ParserSettings.jsx','utf8');assert.match(page,/checked=\{auto\}/);assert.match(page,/setAutoSuggest\(on\)/);
  const picker=readFileSync('src/CardProductPicker.jsx','utf8');assert.ok(!picker.includes('127.0.0.1'),'the extension never sends card names to localhost');
+});
+
+// A made-up invite code in the gateway's shape.
+const INVITE='cdy_'+'test-only-'.padEnd(43,'a');
+function fakeGateway(answer){
+ const requests=[];
+ globalThis.fetch=async(url,options)=>{requests.push({url:String(url),options});const [status,body]=answer(String(url),options);return {ok:status>=200&&status<300,status,json:async()=>{if(body instanceof Error)throw body;return body;}};};
+ return requests;
+}
+test('hosted mode: an invite code is saved like a key and goes only to the gateway',async()=>{
+ const {local,calls}=fakeChrome();
+ assert.equal(validInvite(INVITE),true);assert.equal(validInvite(KEY),false);assert.equal(validInvite(INVITE+'x'),false);
+ await assert.rejects(()=>saveKey({provider:HOSTED,key:KEY}),/invalid_invite/);await assert.rejects(()=>testKey({provider:HOSTED,key:'cdy_short'}),/invalid_invite/);
+ const status=await saveKey({provider:HOSTED,key:INVITE});
+ assert.equal(status.ready,true);assert.equal(status.hosted,true);assert.equal(status.label,'Cardybara 托管服务');assert.ok(!JSON.stringify(status).includes(INVITE));
+ assert.equal(local.get(KEY_STORE).key,INVITE);assert.equal(calls.sync,0);
+ await requestPermission(HOSTED);assert.deepEqual(calls.permissionRequests.at(-1),[GATEWAY_ORIGIN+'/*']);
+ const requests=fakeGateway(url=>url.endsWith('/v1/invite')?[200,{status:'active'}]:[200,{choices:[{message:{role:'assistant',content:'hosted hello'},finish_reason:'stop'}],usage:{prompt_tokens:2,completion_tokens:1}}]);
+ assert.equal(await testKey(),true);assert.equal(requests[0].url,GATEWAY_ORIGIN+'/v1/invite');assert.equal(requests[0].options.method,'POST');
+ const reply=await completeChat({messages:[{role:'user',content:'hi'}]});assert.equal(reply.message.content,'hosted hello');
+ for(const r of requests){assert.ok(r.url.startsWith(GATEWAY_ORIGIN+'/'));assert.ok(!r.url.includes(INVITE));assert.equal(r.options.headers.Authorization,'Bearer '+INVITE);assert.equal(r.options.credentials,'omit');assert.equal(r.options.redirect,'error');}
+ assert.equal(requests[1].url,PROVIDERS[HOSTED].chat);assert.equal(JSON.parse(requests[1].options.body).model,'deepseek-flash');
+ // Switching to an own key sends nothing to the gateway any more.
+ await saveKey({provider:'deepseek',key:KEY});const own=fakeProvider();await completeChat({messages:[{role:'user',content:'hi'}]});assert.equal(own[0].url,PROVIDERS.deepseek.chat);
+ assert.ok(!own[0].options.body.includes(INVITE)&&own[0].options.headers.Authorization==='Bearer '+KEY);
+});
+test('hosted mode: gateway errors become a fixed set of codes, never gateway or provider text',async()=>{
+ fakeChrome();await saveKey({provider:HOSTED,key:INVITE});
+ for(const [status,body,code] of [[401,{error:{code:'invite_invalid'}},'invite_invalid'],[403,{error:{code:'invite_revoked'}},'invite_revoked'],[429,{error:{code:'daily_requests'}},'hosted_over_cap'],[429,{error:{code:'daily_tokens'}},'hosted_over_cap'],[429,{error:{code:'monthly_budget'}},'hosted_over_cap'],[429,{error:{code:'provider_rate_limited'}},'model_rate_limited'],[502,{error:{code:'provider_error'}},'model_failed'],[401,Error('not json'),'invite_invalid'],[500,{error:{code:'<script>'+INVITE}},'model_failed'],[403,{error:{code:'origin_forbidden'}},'model_failed']]){
+  fakeGateway(()=>[status,body]);const error=await completeChat({messages:[]}).catch(e=>e);
+  assert.equal(error.message,code,JSON.stringify([status,String(body)]));assert.ok(!String(error.stack).includes(INVITE));
+ }
+ // The settings page's save check refuses a revoked code.
+ fakeGateway(()=>[403,{error:{code:'invite_revoked'}}]);await assert.rejects(()=>testKey({provider:HOSTED,key:INVITE}),/invite_revoked/);
+});
+test('the manifest asks for the gateway host only as an optional permission',()=>{
+ const m=JSON.parse(readFileSync('extension-next/manifest.json','utf8'));
+ assert.ok(m.optional_host_permissions.includes(GATEWAY_ORIGIN+'/*'));assert.ok(!m.host_permissions.includes(GATEWAY_ORIGIN+'/*'));
+ for(const p of Object.values(PROVIDERS))assert.ok(m.optional_host_permissions.includes(p.origin+'/*'),p.origin);
+ assert.match(GATEWAY_ORIGIN,/^https:\/\/[a-z0-9.-]+$/);
+});
+
+test('hosted mode: bank parsing never goes through the gateway, and an invite code is never an own key',async()=>{
+ fakeChrome();await saveKey({provider:HOSTED,key:INVITE});const requests=fakeGateway(()=>[200,{choices:[{message:{content:'{}'}}]}]);
+ const status=await parserStatus();assert.equal(status.configured,false);assert.equal(status.reason,'hosted_no_parsing');
+ const batch={bank:'Amex HK',page:'/overview',scope:'mvp',aliases:[{id:'C1',cardId:'card-one',currency:'HKD'}],blocks:[{id:'B1',text:'[C1] balance 1'}],links:[]};
+ await assert.rejects(()=>modelParse(batch),/model_request_failed|model_not_ready/);
+ await assert.rejects(()=>completeBody({messages:[]},{hosted:false}),/model_not_ready/);
+ assert.equal(requests.length,0,'nothing was sent');
+ // Card-type recognition and chat do use the gateway.
+ await completeJSON({system:'s',user:'u'});assert.equal(requests.length,1);
+ assert.equal(validKey(INVITE),false);await assert.rejects(()=>saveKey({provider:'deepseek',key:INVITE}),/invalid_key/);await assert.rejects(()=>testKey({provider:'deepseek',key:INVITE}),/invalid_key/);
+});
+
+test('beta: without the developer flag an own key cannot be saved; the hosted service can',async()=>{
+ const {local}=fakeChrome({ownKey:false});
+ await assert.rejects(()=>saveKey({provider:'deepseek',key:KEY}),/own_key_disabled/);assert.equal(local.has(KEY_STORE),false);
+ assert.equal((await saveKey({provider:HOSTED,key:INVITE})).ready,true);
+ const ui=readFileSync('src/ModelKeySettings.jsx','utf8');assert.match(ui,/ownKeyAllowed/,'the settings page asks for the flag before showing own-key controls');
+ assert.ok(!/DEV_OWN_KEY|cardybara-dev-own-key/.test(ui+readFileSync('src/ParserSettings.jsx','utf8')),'no wallet UI sets the developer flag');
 });

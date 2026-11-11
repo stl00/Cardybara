@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {paymentGroup,paymentItem,paymentView,paymentRank,paymentKey,paymentCycle,withPaymentMark,withoutPaymentMark,mergePaymentMarks,readPaymentMarks,PAYMENT_MARKS_KEY,VISIBLE_ITEMS,isHandled} from '../src/paymentStates.js';
+import {translations as i18nCatalog} from '../src/i18n/index.js';
 const today='2026-11-04',read='2026-11-03T15:00:00Z';
 const card=(fields={},id='a')=>({id,bank:'Chase',name:'Synthetic '+id,currency:'USD',updated:'2026-11-03',fieldDates:Object.fromEntries(Object.keys(fields).map(k=>[k,read])),...fields});
 const item=(fields,marks=[])=>paymentItem(card(fields),marks,today);
@@ -118,7 +119,7 @@ test('a mark dated in the future is ignored so it cannot outlive its cycle',()=>
  assert.equal(isHandled(future.key,[future],today),false);
 });
 test('the assistant keeps the wallet read-only and has all its strings in three languages',()=>{
- const ui=readFileSync(new URL('../src/PaymentAssistant.jsx',import.meta.url),'utf8'),catalog=JSON.parse(readFileSync(new URL('../src/translations.json',import.meta.url),'utf8'));
+ const ui=readFileSync(new URL('../src/PaymentAssistant.jsx',import.meta.url),'utf8'),catalog=i18nCatalog;
  const keys=[...ui.matchAll(/t\('([^']+)'/g),...ui.matchAll(/\['[a-z_]+','([^']+)'\]/g)].map(m=>m[1]);assert.ok(keys.length>20);
  for(const key of keys)for(const language of ['en-US','zh-TW'])assert.ok(catalog[language][key],`${language}: ${key}`);
  assert.doesNotMatch(ui,/fetch\(|sendCollector|postMessage/,'marking a bill only touches local storage');
