@@ -101,6 +101,13 @@ const POINT_PRICE=/(?:每点|每點|每分|积分|積分|点数|點數|里程|�
 // Repeating the user's own value is not inventing one.
 const USER_VALUE=/按你|你说|你說|你给|你給|你认为|你認為|你觉得|你覺得|your (?:value|valuation)|you (?:said|gave|value)|at your/i;
 const CONDITIONAL_PRICE=/(?:如果|若|假如|要是)你|(?:如果|若)每[点點]|if you(?:'d)? value|once you value|if (?:a|each|one) (?:point|mile)|超过|超過|above|\bover\b|盈亏|盈虧|打平|保本|break-?even/i;
+/** A flight plan gives no value per point (#82): a price for points in its answer must be the user's own or conditional. */
+export function flightPlanIssues(answer,evidence){
+ if(!evidence.some(x=>x?.kind==='flight-plan'))return [];
+ const issues=[];
+ for(const line of answer.split(/\n|(?<=[。！？!?])/))if(POINT_PRICE.test(line)&&!CONDITIONAL_PRICE.test(line)&&!USER_VALUE.test(line))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
+ return issues;
+}
 export function choiceIssues(answer,evidence){
  const decisions=evidence.filter(x=>x?.tool==='choose_card'&&x.choice);if(!decisions.length)return [];
  const issues=[],latest=decisions.at(-1),text=norm(answer);

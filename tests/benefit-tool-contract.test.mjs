@@ -159,3 +159,31 @@ test('typo fixes and new vocabulary do not turn real words into other benefits (
  assert.ok(ids('we are hiring, any credit for job posts?').includes('rule.amex-us-us-business-platinum-card.indeed'));
  assert.ok(ids('手提電腦有冇優惠').includes('rule.amex-us-us-business-platinum-card.dell'));
 });
+// Protection-coverage tests (#83) run with the benefit tool contract, so the existing check:agent list covers them.
+import './protections.test.mjs';
+
+// #131 step (b): a benefit-flavoured credit question ("phone bill credit?", "Global Entry 能报销吗？") is a find_benefits
+// question; query_credits answers status and dates, and points back when its listing cannot answer.
+test('the prompt and tools route "does a card have a credit for X" to find_benefits', () => {
+ const credits=agentTools.find(t=>t.function.name==='query_credits').function.description;
+ assert.match(SYSTEM,/Whether a card has a credit for something, or how a credit works .* is a benefit question: call find_benefits with category credit/);
+ assert.match(SYSTEM,/For whether credits were used, which are left, or credits for named dates, call query_credits/);
+ assert.doesNotMatch(SYSTEM,/For any question about credits or whether they were used, call query_credits/);
+ assert.match(credits,/Whether a card has a credit for something, or how a credit works, is a find_benefits question \(category credit\)/);
+ assert.match(credits,/If findBenefitsHint is returned, follow it/);
+});
+
+test('query_credits points to find_benefits when its listing is empty or cut short, and only then', () => {
+ const credits=(ids,args)=>runWalletTool({id:'q1',function:{name:'query_credits',arguments:JSON.stringify(args)}},{cards:ids.map(card),events:[],day:'2026-11-09'});
+ const empty=credits(['chase-us-chase-sapphire-preferred-credit-card'],{use:'fitness'});
+ assert.equal(empty.totalItems,0);
+ assert.match(empty.findBenefitsHint,/call find_benefits with category credit before saying none applies/);
+ const wide=credits(['chase-us-sapphire-reserve','amex-us-us-the-platinum-card','amex-us-us-business-platinum-card','chase-us-sapphire-reserve-for-business-credit-card','amex-us-us-business-gold-card'],{});
+ assert.equal(wide.truncated,true);
+ assert.match(wide.findBenefitsHint,/cut short/);
+ const hotel=credits(['chase-us-sapphire-reserve'],{use:'hotel'});
+ assert.ok(hotel.totalItems>0&&!hotel.truncated);
+ assert.equal(hotel.findBenefitsHint,undefined);
+ // Unresolved dates are a question for the user, not a search.
+ assert.equal(credits(['chase-us-sapphire-reserve'],{when:'blorp'}).findBenefitsHint,undefined);
+});

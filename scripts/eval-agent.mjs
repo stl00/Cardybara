@@ -70,7 +70,7 @@ if(!live){
    for(const question of c.setupQuestions||[]){const setup=await runAgentTurn({history,memory,question,context:caseContext,request});history=setup.messages;memory=setup.memory;}
    calls.length=0;
    const r=await runAgentTurn({history,memory,question:c.question,context:caseContext,request});
-   const checks={completed:!!r.answer.trim(),modelAnswered:!r.trace.some(t=>t.type==='fallback'),readOnly:calls.every(x=>['list_cards','choose_card','find_benefits','get_card_rules','convert_points','query_credits'].includes(x.name)),bounded:r.tools.length<=16};
+   const checks={completed:!!r.answer.trim(),modelAnswered:!r.trace.some(t=>t.type==='fallback'),readOnly:calls.every(x=>['list_cards','choose_card','find_benefits','get_card_rules','convert_points','query_credits','find_protections','plan_flight'].includes(x.name)),bounded:r.tools.length<=16};
    if(c.expectTool)checks.expectedTool=calls.some(x=>x.name===c.expectTool);
    // Either tool carries these terms, so either is a correct choice.
    if(c.expectTools)checks.expectedTool=calls.some(x=>c.expectTools.includes(x.name));
