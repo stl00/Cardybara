@@ -230,7 +230,13 @@
   "酒店": "hotel",
   "航空": "airline",
   "餐厅和其他旅行": "general",
-  "每个账单周期消费最高的合资格类别": "general"
+  "每个账单周期消费最高的合资格类别": "general",
+  "Amazon.com、Audible.com 和 Whole Foods Market": "shopping",
+  "加油站、餐厅、本地交通和通勤": "general",
+  "网约车和指定外卖平台": "general",
+  "指定流媒体、网络、有线电视和电话": "entertainment",
+  "指定美国流媒体订阅": "entertainment",
+  "交通（出租车、网约车、停车、过路费、火车、巴士等）": "ground-transport"
  },
  "brands": [
   {

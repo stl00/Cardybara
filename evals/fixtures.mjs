@@ -160,7 +160,8 @@ export const retrievalCases=[
  {id:'unheld-made-up-en',query:'Chase Sapphire Obsidian card airport lounge access',expected:[],empty:true},
  {id:'unheld-made-up-zh',query:'钛晶卡的酒店优惠和贵宾室',expected:[],empty:true},
  {id:'unheld-made-up-zht',query:'火星白金卡有什麼機場貴賓室',expected:[],empty:true},
- {id:'unheld-catalogued',query:'Marriott Bonvoy Bold card hotel benefits',expected:[],empty:true},
+ // The eval wallet holds every profiled product, so this one must stay without rules (Amex CA is archived).
+ {id:'unheld-catalogued',query:'Amex Cobalt card dining benefits',expected:[],empty:true},
  {id:'unheld-no-card-word',query:'Amex Aurora travel credit',expected:[],empty:true},
  {id:'unheld-plural',query:'what do my Zephyr cards offer for dining',expected:[],empty:true},
  // The asked-about thing is unknown to every card, rule and programme, with no card word at all.
