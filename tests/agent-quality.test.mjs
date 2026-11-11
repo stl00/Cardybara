@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {context} from '../evals/fixtures.mjs';
+import {context as evalContext} from '../evals/fixtures.mjs';
+// Mechanics apart from the valuation table (#193).
+const context={...evalContext,marketDefaults:false};
 import {prepareAgentContext,validateMemory} from '../src/agentContext.js';
 import {answerGrounding} from '../src/answerGrounding.js';
 import {runAgentTurn} from '../src/agentSession.js';

@@ -21,8 +21,8 @@ export function purchaseArgs({category,amount,merchant,currency}={}){
 const earnOf=row=>row?{rate:row.earn.rate,unit:row.earn.unit,reward:row.earn.reward??null,programme:row.earn.programme||null,isCash:!!row.earn.isCash}:null;
 
 /** Runs chooseCard and keeps what the wallet shows: the choice, a few alternatives and what could change it. */
-export function quickChoice(input,{cards=[],events=[],day}){
- const result=chooseCard(purchaseArgs(input),{cards,events,day});
+export function quickChoice(input,{cards=[],events=[],day,pointValues=[],marketDefaults=true}){
+ const result=chooseCard(purchaseArgs(input),{cards,events,day,pointValues,marketDefaults});
  if(result.needsDates)return {kind:'none',assumptions:[],others:[],points:[],changes:[],excluded:0,otherCurrency:0};
  const {choice}=result,lead=choice.kind==='use-card'?result.rows.find(r=>r.card===choice.card):null;
  return {
@@ -34,6 +34,8 @@ export function quickChoice(input,{cards=[],events=[],day}){
   certainty:choice.certainty||null,
   reasons:choice.reasons||[],
   earn:earnOf(lead),
+  pointValue:choice.pointValue||null,
+  holdsAbove:choice.holdsAboveCentsPerPoint??null,
   credit:lead?.countedCredit||null,
   options:choice.options||[],
   others:result.rows.filter(r=>r!==lead).slice(0,MAX_OTHERS).map(r=>({card:r.card,...earnOf(r)})),
