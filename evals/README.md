@@ -158,3 +158,22 @@ Live, `deepseek-flash`, two runs per side; before = `a9179ff` (main with #144), 
 | zh-Hans / zh-Hant / en | 44 / 19 / 27 | 34 / 12 / 23 → 39 / 12 / 24 | |
 
 Long range moved beyond run-to-run noise (it held at 2/20 over four earlier runs); everything else is within ±1. Remaining long-range failures: "the second one from the very first list" (items keep only the last tool turn, by design), and the Traditional Chinese "一開始問嗰張卡", where the model asks which card instead of calling a tool. The offline eval cannot see this change: its longest dialogue has seven earlier turns, and every dialogue's request is byte-identical before and after the trimmed-turn fix; a unit test chains ten turns the way the app does.
+
+## Scheduled live eval · 2026-11 (#40)
+
+`.github/workflows/live-evals.yml` runs `node scripts/live-eval.mjs` once a day and on manual dispatch, on `main` only, never on a pull request. `evals/live/config.json` pins the model, lists the cases (at most `maxCases`), and caps each run's spend (`budgetUsd`; 31 daily runs at the cap stay under the owner's budget of about 10 USD a month). The meter from `evals/multiturn/live.mjs` charges list prices, charges an unmetered call its worst case, and stops before a dialogue that could pass the cap.
+
+- **Judging.** Every check is code (`evals/live-case.mjs`): tool choice, arguments, date windows, read-only scope, required wording, and the runtime's grounding checks on numbers and claims. There is no LLM judge. A case is run up to `attempts` times and passes with `passesNeeded` passes, so one unlucky sample does not fail it.
+- **Comparison.** A good run uploads its report as the `live-eval-baseline` artifact. The next run downloads the latest one and reports a regression for each case that passed there and fails now. A case the budget cut short keeps its baseline status. A case that has never passed is listed but is not a regression.
+- **Regression.** The run fails and opens one issue labelled `live-eval-regression`, or comments on the open one. The next good run comments and closes it. If a case changed on purpose, run the workflow by hand with `accept_as_baseline`.
+- **Report.** Case ids, check outcomes, tool names, token counts and spend, on the synthetic wallet. No questions, answers, model text or key.
+
+`node scripts/live-eval.mjs --dry-run --out=.debug/live-eval [--fail=id]` exercises the same path with no model and no key.
+
+Owner steps before the first run (the workflow is skipped until all are done):
+
+1. Repository settings → Environments → new environment `live-evals`; limit deployment branches to `main`; optionally require a reviewer.
+2. Add the environment secret `DEEPSEEK_API_KEY`. It is read by one step and goes only to the model provider.
+3. Repository settings → Variables → `LIVE_EVALS_ENABLED` = `true`.
+
+Not yet measured: the real cost of one case. The first runs may stop at the cap with cases `not_run`; raise `budgetUsd` or trim `cases` from what the report shows.

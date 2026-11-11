@@ -3,7 +3,6 @@ import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {performance} from 'node:perf_hooks';
 import {context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,planGroundingCases,decisionCases,actionClaimCases,actionClaimControls,tripCases} from '../evals/fixtures.mjs';
-import {resolveTripDates} from '../src/tripDates.js';
 import {searchBenefitKnowledge} from '../src/benefitSearch.js';
 import {queryKnowledge} from '../src/knowledge.js';
 import {matchCardProduct} from '../src/productCatalog.js';
@@ -11,9 +10,10 @@ import {chooseCard} from '../src/cardDecision.js';
 import {prepareAgentContext} from '../src/agentContext.js';
 import {answerGrounding} from '../src/answerGrounding.js';
 // CARDYBARA_AGENT=cloud runs every case through the hosted agent (tests/helpers/agent-target.mjs).
-import {runAgentTurn,AGENT_TARGET} from '../tests/helpers/agent-target.mjs';
+import {AGENT_TARGET} from '../tests/helpers/agent-target.mjs';
 import {runWalletTool} from '../src/walletAgent.js';
 import {chatAgent} from './chat-agent.mjs';
+import {runLiveCase} from '../evals/live-case.mjs';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url))),live=process.argv.includes('--live');
 const outputArg=process.argv.find(a=>a.startsWith('--out=')),output=resolve(outputArg?.slice(6)||resolve(root,'evals/latest-'+(live?'live':'offline')+(AGENT_TARGET==='cloud'?'-cloud':'')+'.json'));
 const report={schema:1,dataset:'wallet-agent-development-v1',asOf:context.day,mode:(live?'live-deepseek-sdk':'offline')+(AGENT_TARGET==='cloud'?'-cloud-agent':''),syntheticWallet:true,createdAt:new Date().toISOString(),cases:[],limitations:['Development set, not a held-out benchmark.','Automated checks do not prove all statements true.','Live model runs are stochastic and use only synthetic products.']};
@@ -69,27 +69,7 @@ if(!live){
  const only=process.argv.find(a=>a.startsWith('--case='))?.slice(7);
  const selected=only?liveCases.filter(c=>c.id===only):liveCases;if(!selected.length)throw Error('unknown_eval_case');
  for(const c of selected){
-  const start=performance.now(),calls=[];
-  try{
-   const request=async p=>{const m=await chatAgent(env,p);for(const call of m.tool_calls||[])calls.push({name:call.function.name,args:JSON.parse(call.function.arguments)});return {message:m}};
-   let history=[],memory=c.memory||{};
-   const caseContext={...(['query_credits','choose_card'].includes(c.expectTool)?referenceContext:context),events:c.events||context.events};
-   for(const question of c.setupQuestions||[]){const setup=await runAgentTurn({history,memory,question,context:caseContext,request});history=setup.messages;memory=setup.memory;}
-   calls.length=0;
-   const r=await runAgentTurn({history,memory,question:c.question,context:caseContext,request});
-   const checks={completed:!!r.answer.trim(),modelAnswered:!r.trace.some(t=>t.type==='fallback'),readOnly:calls.every(x=>['list_cards','choose_card','find_benefits','get_card_rules','convert_points','query_credits','find_protections','plan_flight','points_accounts'].includes(x.name)),bounded:r.tools.length<=16};
-   if(c.expectTool)checks.expectedTool=calls.some(x=>x.name===c.expectTool);
-   // Either tool carries these terms, so either is a correct choice.
-   if(c.expectTools)checks.expectedTool=calls.some(x=>c.expectTools.includes(x.name));
-      if(c.expectedArgs)checks.expectedArguments=calls.some(x=>x.name===c.expectTool&&Object.entries(c.expectedArgs).every(([k,v])=>x.args[k]===v));
-   if(c.expectedWindow)checks.expectedWindow=calls.some(x=>{const w=x.name==='query_credits'&&resolveTripDates(x.args.when,context.day);return w?.ok&&w.start===c.expectedWindow.start&&w.end===c.expectedWindow.end;});
-   if(c.expectAllTools)checks.expectedAllTools=c.expectAllTools.every(name=>calls.some(x=>x.name===name));
-   if(c.sameDateWords){const words=calls.filter(x=>['plan_flight','query_credits'].includes(x.name)).map(x=>x.args.when);checks.sameDateWords=words.length>=2&&words.every(w=>w===words[0]);}
-   if(c.expectedTrip)checks.expectedTrip=r.memory.trip?.start===c.expectedTrip.start;
-   if(c.answerPatterns)checks.coversNamedProgrammes=c.answerPatterns.every(pattern=>new RegExp(pattern,'i').test(r.answer));
-   if(c.answersFirst)checks.answersBeforeAsking=calls.some(x=>x.name==='choose_card');
-   check(c.id,checks,{ms:Math.round(performance.now()-start),toolNames:calls.map(x=>x.name),answerChars:r.answer.length,trace:r.trace,context:r.context});
-  }catch(error){check(c.id,{completed:false},{ms:Math.round(performance.now()-start),error:error.message==='answer_not_grounded'?'answer_not_grounded':'model_or_execution_failed',...(error.codes?{codes:error.codes}:{}),toolNames:calls.map(x=>x.name)});}
+  const r=await runLiveCase(c,{chat:p=>chatAgent(env,p)});check(c.id,r.checks,r.detail);
   console.log(c.id+': '+(report.cases.at(-1).passed?'PASS':'FAIL'));
  }
 }
