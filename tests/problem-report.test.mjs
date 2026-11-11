@@ -6,26 +6,63 @@ import {redactStructureText} from '../extension-next/structure-report.js';
 import {buildReport,needsReport,cardFields,replayText} from '../extension-next/problem-report.js';
 import {problemStructureSource} from '../scripts/build-problem-structure.mjs';
 
-const dir=new URL('./fixtures/',import.meta.url),banks=new URL('./fixtures/banks/',import.meta.url);
-// Every line of text a fixture holds: bank JSON text and details, and the visible text of the HTML samples.
-const strings=v=>typeof v==='string'?[v]:Array.isArray(v)?v.flatMap(strings):v&&typeof v==='object'?Object.values(v).flatMap(strings):[];
-const fixtureTexts=()=>[
- ...fs.readdirSync(banks).filter(f=>f.endsWith('.json')).map(f=>{const j=JSON.parse(fs.readFileSync(new URL(f,banks),'utf8'));return [f,strings({text:j.text,details:j.details,heading:j.heading,cards:j.cards,card:j.card})];}),
- ...fs.readdirSync(dir).filter(f=>f.endsWith('.html')).map(f=>[f,[fs.readFileSync(new URL(f,dir),'utf8').replace(/<(script|style)[\s\S]*?<\/\1>/gi,' ').replace(/<[^>]+>/g,'\n').replace(/&[a-z#0-9]+;/gi,' ')]]),
-];
+const dir=new URL('./fixtures/',import.meta.url);
+// Every bank fixture under tests/fixtures, at any depth: JSON samples that name a bank, and the HTML pages.
+const walk=u=>fs.readdirSync(u,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(new URL(e.name+'/',u)):[new URL(e.name,u)]);
+const fixtureFiles=walk(dir).map(u=>u.pathname.slice(dir.pathname.length));
+const jsonFixtures=fixtureFiles.filter(f=>f.endsWith('.json')).map(f=>[f,JSON.parse(fs.readFileSync(new URL(f,dir),'utf8'))]).filter(([,j])=>typeof j.bank==='string');
+const htmlFixtures=fixtureFiles.filter(f=>f.endsWith('.html')).map(f=>[f,fs.readFileSync(new URL(f,dir),'utf8')]);
+// Every string a fixture holds, keys included, except our own metadata about the fixture and what it expects.
+const META=new Set(['id','provenance','description','bank','locale','billingRules','expected','currency']);
+const strings=(v,top=true)=>typeof v==='string'?[v]:Array.isArray(v)?v.flatMap(x=>strings(x,false)):v&&typeof v==='object'?Object.entries(v).filter(([k])=>!(top&&META.has(k))).flatMap(([k,x])=>[k,...strings(x,false)]):[];
+const htmlBody=html=>html.replace(/<(script|style)[\s\S]*?<\/\1>/gi,' ');
+const htmlText=html=>htmlBody(html).replace(/<[^>]+>/g,'\n').replace(/&[a-z#0-9]+;/gi,' ');
+const htmlAttrs=(html,name)=>[...htmlBody(html).matchAll(new RegExp(`\\s${name}="([^"]*)"`,'gi'))].map(m=>m[1]);
 const lines=t=>t.split(/\n+/).map(x=>x.trim()).filter(Boolean);
+const fixtureLines=()=>[...jsonFixtures.map(([f,j])=>[f,strings(j).flatMap(lines)]),...htmlFixtures.map(([f,h])=>[f,[...lines(htmlText(h)),...htmlAttrs(h,'aria-label'),...htmlAttrs(h,'title')]])];
+// Distinctive values a fixture holds: tails, amounts and dates as digit runs, and card names.
+const secretsOf=j=>{
+ const out=new Set(),add=v=>{if(typeof v==='number'&&Number.isFinite(v)&&Math.abs(v)>=10){out.add(String(Math.trunc(Math.abs(v))));}else if(typeof v==='string')for(const m of v.match(/\d{3,}/g)||[])out.add(m);};
+ const visit=v=>Array.isArray(v)?v.forEach(visit):v&&typeof v==='object'?Object.values(v).forEach(visit):add(v);
+ visit(j.expected);for(const c of [j.card,...(j.cards||[])].filter(Boolean)){add(c.tail);if(c.name)out.add(c.name);}
+ return [...out];
+};
 
 test('the committed injectable structure file matches its source',()=>{
  assert.equal(fs.readFileSync(new URL('../extension-next/problem-structure.js',import.meta.url),'utf8'),problemStructureSource(),'run node scripts/build-problem-structure.mjs');
 });
 
+test('the scrubber is checked against every bank fixture, Chase and Amex US included',()=>{
+ const banks=new Set(jsonFixtures.map(([,j])=>j.bank));
+ for(const bank of ['Chase','Amex US','Amex HK','BOA','Citi US','HSBC HK','SC HK'])assert.ok(banks.has(bank),'no fixture for '+bank);
+ assert.ok(jsonFixtures.length>=17&&htmlFixtures.length>=10,`found ${jsonFixtures.length} JSON and ${htmlFixtures.length} HTML fixtures`);
+});
+
 test('no digit from any bank fixture survives the scrubber',()=>{
  let checked=0;
- for(const [file,texts]of fixtureTexts())for(const text of texts)for(const line of lines(text)){
+ for(const [file,texts]of fixtureLines())for(const line of texts){
   const out=redactStructureText(line);checked++;
   assert.ok(!/\p{N}/u.test(out),`${file}: "${out}"`);
  }
- assert.ok(checked>200,'scrubbed every fixture line');
+ // Ids, paths and hashes go through the identifier mode.
+ for(const [file,html]of htmlFixtures)for(const id of htmlAttrs(html,'id')){const out=redactStructureText(id,true);checked++;assert.ok(!/\p{N}/u.test(out),`${file} id: "${out}"`);}
+ for(const [file,j]of jsonFixtures)for(const d of j.details||[])for(const key of Object.keys(d.fields||{})){const out=redactStructureText(key,true);checked++;assert.ok(!/\p{N}/u.test(out),`${file} key: "${out}"`);}
+ assert.ok(checked>500,'scrubbed every fixture line: '+checked);
+});
+
+test('a report built from each bank fixture leaks none of its values',()=>{
+ for(const [file,j]of jsonFixtures){
+  const cards=[j.card,...(j.cards||[])].filter(Boolean);
+  // The fixture's page lines as the structure rows; an older build's raw rows, so the report itself must scrub them.
+  const rows=strings(j).flatMap(lines).map((text,i)=>i%2?{tag:'h2',text}:{tag:'span',aria:text,id:'row-'+text.slice(0,20)});
+  const records=Object.fromEntries(cards.map(c=>[c.id+'-'+c.tail,Object.fromEntries(Object.entries(Array.isArray(j.expected)?j.expected[0]||{}:j.expected||{}).map(([k,v])=>[k,{value:v,capturedAt:'x'}]))]));
+  const report=buildReport({build:'b',version:'v',bank:j.bank,job:{status:'partial',readError:'card '+(cards[0]?.tail||'')+' timeout'},records,structure:{capturedAt:'T',report:{lang:j.locale||'',path:'/x',title:j.heading||'',rows}},createdAt:'T'});
+  const body=JSON.stringify(report);
+  assert.ok(!/\p{N}/u.test(JSON.stringify({...report.structure,rows:report.structure.rows.map(({tag,...r})=>r)})),`${file}: digit in structure`);
+  assert.ok(!/\p{N}/u.test(JSON.stringify(report.run)),`${file}: digit in run`);
+  for(const s of secretsOf(j))assert.ok(!body.includes(s),`${file}: report leaks "${s}"`);
+  assert.ok(report.region,`${file}: region for ${j.bank}`);
+ }
 });
 
 const records={'card-ending-4321':{balance:{value:1234.56,capturedAt:'2030-12-01T00:00:00Z'},statement:{value:987.65,capturedAt:'2030-12-01T00:00:00Z'},creditLimit:{value:24680,capturedAt:'x'}},
@@ -59,7 +96,7 @@ test('a report is offered after a failed or partial read, or a missing field',()
 
 test('a report replays into text the reader can parse',()=>{
  const ctx={self:{}};vm.createContext(ctx);vm.runInContext(fs.readFileSync(new URL('../extension-next/reader.js',import.meta.url),'utf8'),ctx);
- const f=JSON.parse(fs.readFileSync(new URL('sc-hk-en-card-details.json',banks),'utf8'));
+ const f=JSON.parse(fs.readFileSync(new URL('banks/sc-hk-en-card-details.json',dir),'utf8'));
  const report=buildReport({bank:'SC HK',job:{status:'partial'},records:{},structure:{capturedAt:'T',report:{lang:'en-HK',rows:lines(f.text).map(text=>({tag:'div',text:redactStructureText(text)}))}}});
  const text=replayText(report);assert.ok(!/\[word\]|#/.test(text));
  const items=ctx.self.CardyReader.issuerBilling(text,'SC HK',{id:'report-card-1',bank:'SC HK',tail:'0000',currency:'HKD'});
