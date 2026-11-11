@@ -55279,5 +55279,2465 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-prime-visa.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-prime-visa.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-prime-visa"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $0",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-prime-visa"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-prime-visa.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-prime-visa.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-prime-visa"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Amazon.com、Audible.com 和 Whole Foods Market",
+      "summary": "须有合资格 Prime 会籍，否则按3%；Amazon Pay 商户、海外 Amazon 网站和海外 Whole Foods 不计。个人 Prime 会籍未核实。",
+      "sourceText": "Earn unlimited 5% back at Amazon.com, Audible.com, Whole Foods Market, and on Chase Travel purchases with an eligible Prime membership",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须有合资格 Prime 会籍，否则按3%；Amazon Pay 商户、海外 Amazon 网站和海外 Whole Foods 不计。个人 Prime 会籍未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Amazon.com、Audible.com 和 Whole Foods Market",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须有合资格 Prime 会籍，否则按3%；Amazon Pay 商户、海外 Amazon 网站和海外 Whole Foods 不计。个人 Prime 会籍未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-prime-visa"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-prime-visa.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-prime-visa.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-prime-visa"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Chase Travel",
+      "summary": "须有合资格 Prime 会籍，否则按3%；直接向航空、酒店、租车或邮轮公司付款不计。",
+      "sourceText": "Earn unlimited 5% back at Amazon.com, Audible.com, Whole Foods Market, and on Chase Travel purchases with an eligible Prime membership",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须有合资格 Prime 会籍，否则按3%；直接向航空、酒店、租车或邮轮公司付款不计。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Chase Travel",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须有合资格 Prime 会籍，否则按3%；直接向航空、酒店、租车或邮轮公司付款不计。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-prime-visa"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-prime-visa.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-prime-visa.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-prime-visa"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "加油站、餐厅、本地交通和通勤",
+      "summary": "本地交通和通勤包括网约车。",
+      "sourceText": "Earn unlimited 2% back at gas stations, restaurants, and on local transit and commuting (including rideshare)",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "本地交通和通勤包括网约车。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "加油站、餐厅、本地交通和通勤",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "本地交通和通勤包括网约车。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-prime-visa"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-prime-visa.earning-3",
+    "revision": 1,
+    "revisionId": "rule.chase-us-prime-visa.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-prime-visa"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 1% back on all other purchases anywhere Visa is accepted",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-prime-visa"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-prime-visa.prime-card-bonus",
+    "revision": 1,
+    "revisionId": "rule.chase-us-prime-visa.prime-card-bonus@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-prime-visa"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "promo",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Prime Card Bonus 轮换加码",
+      "summary": "限时优惠：合资格 Prime 持卡人在 Amazon.com 指定商品和类别上得10%或以上（已含5%基础）。分期、Prime Wardrobe 和 Amazon Fresh 不计。当期商品须在 Amazon 上核对。",
+      "sourceText": "Eligible Prime cardmembers earn 10% back or more on a rotating selection of items and categories on Amazon.com",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "限时优惠：合资格 Prime 持卡人在 Amazon.com 指定商品和类别上得10%或以上（已含5%基础）。分期、Prime Wardrobe 和 Amazon Fresh 不计。当期商品须在 Amazon 上核对。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "promo",
+      "period": "promotion-period",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "限时优惠：合资格 Prime 持卡人在 Amazon.com 指定商品和类别上得10%或以上（已含5%基础）。分期、Prime Wardrobe 和 Amazon Fresh 不计。当期商品须在 Amazon 上核对。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-prime-visa"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Prime Card Bonus",
+      "summary": "Limited-time offers: eligible Prime cardmembers earn 10% back or more on a rotating selection of items and categories on Amazon.com.",
+      "howToUse": [
+        "Check which items and categories carry the bonus on Amazon.com before buying, and pay with the Prime Visa."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-prime-visa",
+          "text": "Eligible Prime cardmembers earn 10% back or more on a rotating selection of items and categories on Amazon.com"
+        },
+        {
+          "sourceId": "card-chase-us-prime-visa",
+          "text": "excluding purchases made through Installments, Prime Wardrobe, and Amazon Fresh"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-amazon-visa.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-amazon-visa.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-amazon-visa"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $0",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-amazon-visa"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-amazon-visa.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-amazon-visa.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-amazon-visa"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Amazon.com、Audible.com 和 Whole Foods Market",
+      "summary": "Amazon Pay 商户、海外 Amazon 网站和海外 Whole Foods 不计。",
+      "sourceText": "Earn unlimited 3% back at Amazon.com, Audible.com, Whole Foods Market, and on Chase Travel purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "Amazon Pay 商户、海外 Amazon 网站和海外 Whole Foods 不计。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "cashback-percent",
+      "spendCategory": "Amazon.com、Audible.com 和 Whole Foods Market",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Amazon Pay 商户、海外 Amazon 网站和海外 Whole Foods 不计。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-amazon-visa"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-amazon-visa.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-amazon-visa.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-amazon-visa"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Chase Travel",
+      "summary": "直接向航空、酒店、租车或邮轮公司付款不计。",
+      "sourceText": "Earn unlimited 3% back at Amazon.com, Audible.com, Whole Foods Market, and on Chase Travel purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "直接向航空、酒店、租车或邮轮公司付款不计。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "cashback-percent",
+      "spendCategory": "Chase Travel",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "直接向航空、酒店、租车或邮轮公司付款不计。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-amazon-visa"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-amazon-visa.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-amazon-visa.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-amazon-visa"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "加油站、餐厅、本地交通和通勤",
+      "summary": "本地交通和通勤包括网约车。",
+      "sourceText": "Earn unlimited 2% back at gas stations, restaurants, and on local transit and commuting (including rideshare)",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "本地交通和通勤包括网约车。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "加油站、餐厅、本地交通和通勤",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "本地交通和通勤包括网约车。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-amazon-visa"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-amazon-visa.earning-3",
+    "revision": 1,
+    "revisionId": "rule.chase-us-amazon-visa.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-amazon-visa"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 1% back on all other purchases anywhere Visa is accepted",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-amazon-visa"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bold-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bold-credit-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bold-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $0",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bold-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bold-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bold-credit-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bold-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy 酒店",
+      "summary": "本卡的比例；页面的14倍合计还包含会员和会籍部分。",
+      "sourceText": "Earn 3X points for every $1 spent at over 7,000 hotels participating in Marriott Bonvoy",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "本卡的比例；页面的14倍合计还包含会员和会籍部分。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "Marriott Bonvoy 酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "本卡的比例；页面的14倍合计还包含会员和会籍部分。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bold-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bold-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bold-credit-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bold-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "超市",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2X points for every $1 spent on purchases at grocery stores",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "超市",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bold-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bold-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bold-credit-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bold-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "网约车和指定外卖平台",
+      "summary": "条款把网约车类别定义为出租车和豪华轿车；外卖限条款列出的平台直接下单（DoorDash、Caviar、Uber Eats、Postmates、Grubhub、Seamless、Delivery.com）。",
+      "sourceText": "Earn 2X points for every $1 spent on rideshare and select food delivery",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "条款把网约车类别定义为出租车和豪华轿车；外卖限条款列出的平台直接下单（DoorDash、Caviar、Uber Eats、Postmates、Grubhub、Seamless、Delivery.com）。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "网约车和指定外卖平台",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款把网约车类别定义为出租车和豪华轿车；外卖限条款列出的平台直接下单（DoorDash、Caviar、Uber Eats、Postmates、Grubhub、Seamless、Delivery.com）。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bold-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bold-credit-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bold-credit-card.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bold-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "指定流媒体、网络、有线电视和电话",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2X points for every $1 spent on select streaming, and internet, cable, and phone services",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "指定流媒体、网络、有线电视和电话",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bold-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bold-credit-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bold-credit-card.earning-4@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bold-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "You’ll earn 1 point for each $1 spent on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bold-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bold-credit-card.silver-elite",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bold-credit-card.silver-elite@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bold-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy Silver Elite 会籍",
+      "summary": "持卡期间每个自然年自动获得；首次授予最长需8周。个人会籍未核实。",
+      "sourceText": "You will automatically receive Silver Elite Status each calendar year as a cardmember.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "持卡期间每个自然年自动获得；首次授予最长需8周。个人会籍未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "持卡期间每个自然年自动获得；首次授予最长需8周。个人会籍未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bold-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Marriott Bonvoy Silver Elite status",
+      "summary": "Automatic Silver Elite status each calendar year as a cardmember.",
+      "howToUse": [
+        "Check your tier in your Marriott Bonvoy account; the first award can take up to 8 weeks after account opening."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bold-credit-card",
+          "text": "You will automatically receive Silver Elite Status each calendar year as a cardmember."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bold-credit-card.elite-night-credits",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bold-credit-card.elite-night-credits@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bold-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "每年5晚 Elite Night Credits",
+      "summary": "每个自然年存入 Marriott Bonvoy 账户，计入会籍升级。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。",
+      "sourceText": "Plus, you'll receive 5 Elite Night Credits every calendar year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年存入 Marriott Bonvoy 账户，计入会籍升级。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个自然年存入 Marriott Bonvoy 账户，计入会籍升级。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bold-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "5 Elite Night Credits each year",
+      "summary": "5 Elite Night Credits every calendar year toward the next level of Marriott Bonvoy Elite status.",
+      "howToUse": [
+        "Check the credits in your Marriott Bonvoy account; annual credits from another Marriott consumer card do not stack."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bold-credit-card",
+          "text": "Plus, you'll receive 5 Elite Night Credits every calendar year."
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bold-credit-card",
+          "text": "you will only receive a deposit equal to the difference between the Annual ENC benefits"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bountiful-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "ANNUAL FEE $250",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 250,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bountiful-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bountiful-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy 酒店",
+      "summary": "本卡的比例；页面的18.5倍合计还包含会员和会籍部分。",
+      "sourceText": "Earn 6X points for every $1 spent at over 7,000 hotels participating in Marriott Bonvoy",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "本卡的比例；页面的18.5倍合计还包含会员和会籍部分。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 6,
+      "unit": "points-per-USD",
+      "spendCategory": "Marriott Bonvoy 酒店",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "本卡的比例；页面的18.5倍合计还包含会员和会籍部分。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bountiful-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bountiful-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "超市和餐厅",
+      "summary": "每年合计前15,000美元，之后按2倍；“每年”按开户日和12月账单周期计算，不是自然年。餐厅含外卖和合资格配送。",
+      "sourceText": "Earn 4X points for every $1 on the first $15,000 in combined purchases annually on grocery stores and dining",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年合计前15,000美元，之后按2倍；“每年”按开户日和12月账单周期计算，不是自然年。餐厅含外卖和合资格配送。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "points-per-USD",
+      "spendCategory": "超市和餐厅",
+      "spendCap": {
+        "amount": 15000,
+        "currency": "USD",
+        "period": null
+      },
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年合计前15,000美元，之后按2倍；“每年”按开户日和12月账单周期计算，不是自然年。餐厅含外卖和合资格配送。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bountiful-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bountiful-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2X points for every $1 you spend on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bountiful-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.gold-elite",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.gold-elite@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bountiful-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "Marriott Bonvoy Gold Elite 会籍",
+      "summary": "持卡期间每个自然年自动获得；首次授予最长需8周。个人会籍未核实。",
+      "sourceText": "You will automatically receive Gold Elite Status each calendar year as a cardmember.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "持卡期间每个自然年自动获得；首次授予最长需8周。个人会籍未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "持卡期间每个自然年自动获得；首次授予最长需8周。个人会籍未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bountiful-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Marriott Bonvoy Gold Elite status",
+      "summary": "Automatic Gold Elite status each calendar year as a cardmember.",
+      "howToUse": [
+        "Check your tier in your Marriott Bonvoy account; the first award can take up to 8 weeks after account opening."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "You will automatically receive Gold Elite Status each calendar year as a cardmember."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.elite-night-credits",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.elite-night-credits@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bountiful-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "每年15晚 Elite Night Credits",
+      "summary": "开户后60天内存入，之后每年3月1日前存入，计入会籍升级。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。",
+      "sourceText": "15 Elite Night Credits (“ENC”) will be deposited into your Marriott Bonvoy Member Account within 60 days",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "开户后60天内存入，之后每年3月1日前存入，计入会籍升级。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "开户后60天内存入，之后每年3月1日前存入，计入会籍升级。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bountiful-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "15 Elite Night Credits each year",
+      "summary": "15 Elite Night Credits within 60 days of account opening, then the annual credits by March 1 of each later calendar year.",
+      "howToUse": [
+        "Check the credits in your Marriott Bonvoy account; annual credits from another Marriott consumer card do not stack."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "15 Elite Night Credits (“ENC”) will be deposited into your Marriott Bonvoy Member Account within 60 days"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "On or before March 1 of each subsequent calendar year, the Annual ENC benefit will be deposited"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.stay-bonus",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.stay-bonus@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bountiful-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "hotel-service",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "每次合资格入住1,000点",
+      "summary": "须直接向 Marriott 以合资格价格预订，至少一晚付费；第三方网站和旅行社预订不计。",
+      "sourceText": "Earn 1,000 Bonus Points per eligible stay at hotels participating in Marriott Bonvoy",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须直接向 Marriott 以合资格价格预订，至少一晚付费；第三方网站和旅行社预订不计。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "hotel-service",
+      "period": "per-stay",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须直接向 Marriott 以合资格价格预订，至少一晚付费；第三方网站和旅行社预订不计。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bountiful-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "1,000 bonus points per eligible stay",
+      "summary": "Up to 1,000 bonus points per eligible stay at participating Marriott Bonvoy hotels booked directly with Marriott on a qualifying rate.",
+      "howToUse": [
+        "Book directly with Marriott on a qualifying rate; third-party and tour operator bookings do not count."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "Earn 1,000 Bonus Points per eligible stay at hotels participating in Marriott Bonvoy"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "Rooms booked through third party online retailers and tour operator bookings are not eligible for this bonus."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.free-night",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.free-night@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bountiful-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "消费满15,000美元得年度免费房晚",
+      "summary": "每个自然年消费满15,000美元后获得，可用于兑换门槛不超过50,000点的酒店一晚，有效期12个月；部分酒店另收度假村费。是否达标未核实。",
+      "sourceText": "you'll enjoy a Free Night Award every calendar year, after $15,000 in spend",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年消费满15,000美元后获得，可用于兑换门槛不超过50,000点的酒店一晚，有效期12个月；部分酒店另收度假村费。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个自然年消费满15,000美元后获得，可用于兑换门槛不超过50,000点的酒店一晚，有效期12个月；部分酒店另收度假村费。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bountiful-credit-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free Night Award after $15,000 in spend",
+      "summary": "A Free Night Award every calendar year after $15,000 in spend, valid for one night at a property with a redemption level of up to 50,000 points.",
+      "howToUse": [
+        "Track your calendar-year spend; the award expires 12 months after it is issued."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "you'll enjoy a Free Night Award every calendar year, after $15,000 in spend"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "All Free Night Awards issued will have an expiration of 12 months."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.amex-us-us-blue-cash-preferred-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-cash-preferred-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-blue-cash-preferred-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "After that it will be $95 per year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-blue-cash-preferred-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-blue-cash-preferred-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-cash-preferred-card.earning-0@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-blue-cash-preferred-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "美国超市",
+      "summary": "每年前6,000美元，之后1%；页面没有写“每年”是自然年还是账户年。",
+      "sourceText": "earn 6% cash back on eligible purchases at U.S. supermarkets, on up to $6,000 per year in purchases (then 1%).",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年前6,000美元，之后1%；页面没有写“每年”是自然年还是账户年。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 6,
+      "unit": "cashback-percent",
+      "spendCategory": "美国超市",
+      "spendCap": {
+        "amount": 6000,
+        "currency": "USD",
+        "period": null
+      },
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年前6,000美元，之后1%；页面没有写“每年”是自然年还是账户年。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-blue-cash-preferred-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-blue-cash-preferred-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-cash-preferred-card.earning-1@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-blue-cash-preferred-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "指定美国流媒体订阅",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Card Members can earn 6% cash back on select U.S. streaming subscriptions",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 6,
+      "unit": "cashback-percent",
+      "spendCategory": "指定美国流媒体订阅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-blue-cash-preferred-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-blue-cash-preferred-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-cash-preferred-card.earning-2@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-blue-cash-preferred-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "交通（出租车、网约车、停车、过路费、火车、巴士等）",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Card Members can earn 3% cash back on transit (e.g., taxis/rideshare, parking, tolls, trains, buses and more).",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "cashback-percent",
+      "spendCategory": "交通（出租车、网约车、停车、过路费、火车、巴士等）",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-blue-cash-preferred-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-blue-cash-preferred-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-cash-preferred-card.earning-3@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-blue-cash-preferred-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "美国加油站",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Card Members can earn 3% cash back on eligible purchases at U.S. gas stations.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "cashback-percent",
+      "spendCategory": "美国加油站",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-blue-cash-preferred-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-blue-cash-preferred-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-cash-preferred-card.earning-4@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "amex-us-us-blue-cash-preferred-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他合资格消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Card Members can earn 1% cash back on other eligible purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他合资格消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-blue-cash-preferred-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-blue-cash-preferred-card.disney",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-cash-preferred-card.disney@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-blue-cash-preferred-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "entertainment"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney Streaming 抵扣",
+      "summary": "需登记；在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 美国网站用本卡订阅（含组合订阅），每月最多10美元，全年最多120美元。",
+      "sourceText": "Get up to a $10 monthly statement credit after using your enrolled Blue Cash Preferred Card for a subscription",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "需登记；在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 美国网站用本卡订阅（含组合订阅），每月最多10美元，全年最多120美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-month",
+      "amount": 10,
+      "currency": "USD",
+      "requiresEnrollment": true,
+      "annualMaximum": 120,
+      "partner": "Disney"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "需登记；在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 美国网站用本卡订阅（含组合订阅），每月最多10美元，全年最多120美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-blue-cash-preferred-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$120 Disney Streaming Credit",
+      "summary": "Up to a $10 monthly statement credit after using the enrolled card for a subscription, including a bundle, at DisneyPlus.com, Hulu.com or Stream.ESPN.com U.S. websites.",
+      "howToUse": [
+        "Enroll the card first, then pay the subscription on the Disney+, Hulu or ESPN U.S. website with it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-blue-cash-preferred-card",
+          "text": "Get up to a $10 monthly statement credit after using your enrolled Blue Cash Preferred Card for a subscription"
+        },
+        {
+          "sourceId": "card-amex-us-us-blue-cash-preferred-card",
+          "text": "purchase, including a bundle subscription purchase, at DisneyPlus.com, Hulu.com, or Stream.ESPN.com U.S. websites"
+        }
+      ]
+    }
   }
 ]

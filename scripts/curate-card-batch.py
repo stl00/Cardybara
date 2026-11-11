@@ -129,7 +129,7 @@ def main():
         manifest['profileProductIds'].append(pid)
         manifest['profileMetadata'][pid] = {'checkedAt': checked, 'coverage': 'issuer-page-summary', 'market': market, 'communitySourceIds': [], 'changeNotes': [], 'knowledgeGaps': gaps, 'feeNotes': None}
 
-        def rule(key, kind, category, scenes, programme_ids, title, summary, quote, terms, validity=None, embedded=False):
+        def rule(key, kind, category, scenes, programme_ids, title, summary, quote, terms, validity=None, embedded=False, original=None):
             check(card, quote, embedded)
             id = f'rule.{pid}.{key}'
             valid = {'effectiveFrom': None, 'effectiveThrough': None, 'enrollBy': None, **(validity or {})}
@@ -143,6 +143,15 @@ def main():
                 'review': {'checkedAt': checked, 'reviewAfter': review_after, 'state': 'reviewed-summary'},
                 'personalState': 'not-in-public-knowledge',
             })
+            if original:
+                # The issuer's own wording (#148): the zh-CN text above is its translation.
+                quotes = [quote] + original.get('quotes', [])
+                for extra in original.get('quotes', []):
+                    check(card, extra, embedded)
+                rules[-1]['content']['translatedFrom'] = 'en-US'
+                rules[-1]['original'] = {'lang': 'en-US', 'title': original['title'], 'summary': original['summary'], 'howToUse': original['howToUse'], 'quotes': [{'sourceId': source_id, 'text': q} for q in quotes]}
+            elif kind == 'benefit' and batch['batch'] >= 6:
+                missing.append(f'{id}: a benefit needs its original wording')
 
         fee_title = {'primary': txt('主卡年费', 'Primary annual fee'), 'additional': txt('附属卡年费', 'Additional card annual fee')}
         fee_summary = txt('公布标准年费，不代表个人已收取或已获豁免。', 'Published standard fee; it does not show a personal charge or waiver.')
@@ -162,7 +171,8 @@ def main():
             terms = {'category': row.get('category', 'credit'), 'period': row.get('period'), 'amount': row.get('amount'), 'currency': row.get('currency', 'USD' if row.get('amount') is not None else None)}
             if 'enrollment' in row:
                 terms['requiresEnrollment'] = row['enrollment']
-            rule(row['key'], 'benefit', row.get('category', 'credit'), [row['scenario']], row.get('programmeIds', []), title, summary, row['quote'], terms, row.get('validity'), row.get('embedded', False))
+            terms.update(row.get('terms', {}))
+            rule(row['key'], 'benefit', row.get('category', 'credit'), row.get('scenarios') or [row['scenario']], row.get('programmeIds', []), title, summary, row['quote'], terms, row.get('validity'), row.get('embedded', False), row.get('original'))
 
     for key, value in tr['zh-TW'].items():
         tr['zh-TW'][key] = value.replace('托執行李', '托運行李').replace('髮卡', '發卡').replace('美元后', '美元後')

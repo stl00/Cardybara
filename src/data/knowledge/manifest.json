@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-10.protections-1",
-  "asOf": "2026-11-10",
+  "snapshotId": "cardybara-public-knowledge-2026-11-11.cards-6",
+  "asOf": "2026-11-11",
   "locale": "zh-CN",
   "files": [
     "taxonomy.json",
@@ -1104,6 +1104,82 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "chase-us-prime-visa": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "页面只列出“Travel & Purchase Protection”，没有写保障内容，未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-amazon-visa": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "页面只列出“Travel & Purchase Protection”，没有写保障内容，未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-marriott-bonvoy-bold-credit-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Pay Yourself Back（积分兑换旅行消费，每年最多750美元）和行李延误、行程延误等保障未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "chase-us-marriott-bonvoy-bountiful-credit-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Chase"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "行李延误、行程延误等保障未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "amex-us-us-blue-cash-preferred-card": {
+      "checkedAt": "2026-11-11",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Amex US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "首年0美元优惠年费是否适用取决于个人资格，未核实。附属卡年费未确认。",
+        "租车险、购物保障、退货保障和延长保修未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -1189,6 +1265,11 @@
     "us-bank-us-cash-plus-visa-signature-card",
     "us-bank-us-altitude-go-visa-signature-card",
     "wells-fargo-us-autograph-journey-visa-card",
-    "citi-us-citi-custom-cash-card"
+    "citi-us-citi-custom-cash-card",
+    "chase-us-prime-visa",
+    "chase-us-amazon-visa",
+    "chase-us-marriott-bonvoy-bold-credit-card",
+    "chase-us-marriott-bonvoy-bountiful-credit-card",
+    "amex-us-us-blue-cash-preferred-card"
   ]
 }

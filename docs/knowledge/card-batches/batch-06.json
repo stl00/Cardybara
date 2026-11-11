@@ -1,0 +1,526 @@
+{
+ "batch": 6,
+ "checkedAt": "2026-11-11",
+ "reviewAfter": "2027-02-09",
+ "cards": [
+  {
+   "id": "chase-us-prime-visa",
+   "page": "chase-us-prime-visa",
+   "issuer": "Chase",
+   "url": "https://creditcards.chase.com/cash-back-credit-cards/amazon-prime-rewards",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "ANNUAL FEE $0"
+   },
+   "earning": [
+    {
+     "zh": "Amazon.com、Audible.com 和 Whole Foods Market",
+     "en": "Amazon.com, Audible.com and Whole Foods Market",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "shopping",
+     "noteZh": "须有合资格 Prime 会籍，否则按3%；Amazon Pay 商户、海外 Amazon 网站和海外 Whole Foods 不计。个人 Prime 会籍未核实。",
+     "noteEn": "Needs an eligible Prime membership, otherwise 3%. Amazon Pay merchants, international Amazon sites and international Whole Foods stores do not count. Personal Prime membership is unverified.",
+     "quote": "Earn unlimited 5% back at Amazon.com, Audible.com, Whole Foods Market, and on Chase Travel purchases with an eligible Prime membership"
+    },
+    {
+     "zh": "Chase Travel",
+     "en": "Chase Travel",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "travel",
+     "noteZh": "须有合资格 Prime 会籍，否则按3%；直接向航空、酒店、租车或邮轮公司付款不计。",
+     "noteEn": "Needs an eligible Prime membership, otherwise 3%. Paying airlines, hotels, car rental or cruise companies directly does not count.",
+     "quote": "Earn unlimited 5% back at Amazon.com, Audible.com, Whole Foods Market, and on Chase Travel purchases with an eligible Prime membership"
+    },
+    {
+     "zh": "加油站、餐厅、本地交通和通勤",
+     "en": "Gas stations, restaurants, local transit and commuting",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "noteZh": "本地交通和通勤包括网约车。",
+     "noteEn": "Local transit and commuting includes rideshare.",
+     "quote": "Earn unlimited 2% back at gas stations, restaurants, and on local transit and commuting (including rideshare)"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn unlimited 1% back on all other purchases anywhere Visa is accepted"
+    }
+   ],
+   "credits": [
+    {
+     "key": "prime-card-bonus",
+     "zh": "Prime Card Bonus 轮换加码",
+     "en": "Prime Card Bonus",
+     "noteZh": "限时优惠：合资格 Prime 持卡人在 Amazon.com 指定商品和类别上得10%或以上（已含5%基础）。分期、Prime Wardrobe 和 Amazon Fresh 不计。当期商品须在 Amazon 上核对。",
+     "noteEn": "Limited-time offers: eligible Prime cardmembers earn 10% back or more on selected Amazon.com items and categories, including the base 5%. Installments, Prime Wardrobe and Amazon Fresh are excluded. Check the current items on Amazon.",
+     "scenario": "shopping",
+     "category": "promo",
+     "period": "promotion-period",
+     "quote": "Eligible Prime cardmembers earn 10% back or more on a rotating selection of items and categories on Amazon.com",
+     "original": {
+      "title": "Prime Card Bonus",
+      "summary": "Limited-time offers: eligible Prime cardmembers earn 10% back or more on a rotating selection of items and categories on Amazon.com.",
+      "howToUse": [
+       "Check which items and categories carry the bonus on Amazon.com before buying, and pay with the Prime Visa."
+      ],
+      "quotes": [
+       "excluding purchases made through Installments, Prime Wardrobe, and Amazon Fresh"
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "页面只列出“Travel & Purchase Protection”，没有写保障内容，未录入。",
+     "en": "The page only names Travel & Purchase Protection without its terms, so it is not recorded."
+    }
+   ]
+  },
+  {
+   "id": "chase-us-amazon-visa",
+   "page": "chase-us-amazon-visa",
+   "issuer": "Chase",
+   "url": "https://creditcards.chase.com/cash-back-credit-cards/amazon-rewards",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "ANNUAL FEE $0"
+   },
+   "earning": [
+    {
+     "zh": "Amazon.com、Audible.com 和 Whole Foods Market",
+     "en": "Amazon.com, Audible.com and Whole Foods Market",
+     "multiplier": 3,
+     "unit": "cashback-percent",
+     "category": "shopping",
+     "noteZh": "Amazon Pay 商户、海外 Amazon 网站和海外 Whole Foods 不计。",
+     "noteEn": "Amazon Pay merchants, international Amazon sites and international Whole Foods stores do not count.",
+     "quote": "Earn unlimited 3% back at Amazon.com, Audible.com, Whole Foods Market, and on Chase Travel purchases"
+    },
+    {
+     "zh": "Chase Travel",
+     "en": "Chase Travel",
+     "multiplier": 3,
+     "unit": "cashback-percent",
+     "category": "travel",
+     "noteZh": "直接向航空、酒店、租车或邮轮公司付款不计。",
+     "noteEn": "Paying airlines, hotels, car rental or cruise companies directly does not count.",
+     "quote": "Earn unlimited 3% back at Amazon.com, Audible.com, Whole Foods Market, and on Chase Travel purchases"
+    },
+    {
+     "zh": "加油站、餐厅、本地交通和通勤",
+     "en": "Gas stations, restaurants, local transit and commuting",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "noteZh": "本地交通和通勤包括网约车。",
+     "noteEn": "Local transit and commuting includes rideshare.",
+     "quote": "Earn unlimited 2% back at gas stations, restaurants, and on local transit and commuting (including rideshare)"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn unlimited 1% back on all other purchases anywhere Visa is accepted"
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "页面只列出“Travel & Purchase Protection”，没有写保障内容，未录入。",
+     "en": "The page only names Travel & Purchase Protection without its terms, so it is not recorded."
+    }
+   ]
+  },
+  {
+   "id": "chase-us-marriott-bonvoy-bold-credit-card",
+   "page": "chase-us-marriott-bonvoy-bold-credit-card",
+   "issuer": "Chase",
+   "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold",
+   "transfer": {
+    "name": "Marriott Bonvoy",
+    "programmeId": "programme.marriott-bonvoy",
+    "linkOnly": true,
+    "quote": "Earn 3X points for every $1 spent at over 7,000 hotels participating in Marriott Bonvoy"
+   },
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "ANNUAL FEE $0"
+   },
+   "earning": [
+    {
+     "zh": "Marriott Bonvoy 酒店",
+     "en": "Hotels participating in Marriott Bonvoy",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "noteZh": "本卡的比例；页面的14倍合计还包含会员和会籍部分。",
+     "noteEn": "The card's own rate; the 14X total on the page also counts member and status earnings.",
+     "quote": "Earn 3X points for every $1 spent at over 7,000 hotels participating in Marriott Bonvoy"
+    },
+    {
+     "zh": "超市",
+     "en": "Grocery stores",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 2X points for every $1 spent on purchases at grocery stores"
+    },
+    {
+     "zh": "网约车和指定外卖平台",
+     "en": "Rideshare and select food delivery",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "general",
+     "noteZh": "条款把网约车类别定义为出租车和豪华轿车；外卖限条款列出的平台直接下单（DoorDash、Caviar、Uber Eats、Postmates、Grubhub、Seamless、Delivery.com）。",
+     "noteEn": "The terms define the rideshare category as taxicabs and limousines; food delivery counts only when ordered directly through the listed services (DoorDash, Caviar, Uber Eats, Postmates, Grubhub, Seamless, Delivery.com).",
+     "quote": "Earn 2X points for every $1 spent on rideshare and select food delivery"
+    },
+    {
+     "zh": "指定流媒体、网络、有线电视和电话",
+     "en": "Select streaming, and internet, cable and phone services",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "entertainment",
+     "quote": "Earn 2X points for every $1 spent on select streaming, and internet, cable, and phone services"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "You’ll earn 1 point for each $1 spent on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "silver-elite",
+     "zh": "Marriott Bonvoy Silver Elite 会籍",
+     "en": "Marriott Bonvoy Silver Elite status",
+     "noteZh": "持卡期间每个自然年自动获得；首次授予最长需8周。个人会籍未核实。",
+     "noteEn": "Given automatically each calendar year as a cardmember; the first award can take up to 8 weeks. Personal status is unverified.",
+     "scenario": "hotel-stay",
+     "category": "membership",
+     "period": "calendar-year",
+     "programmeIds": [
+      "programme.marriott-bonvoy"
+     ],
+     "quote": "You will automatically receive Silver Elite Status each calendar year as a cardmember.",
+     "original": {
+      "title": "Marriott Bonvoy Silver Elite status",
+      "summary": "Automatic Silver Elite status each calendar year as a cardmember.",
+      "howToUse": [
+       "Check your tier in your Marriott Bonvoy account; the first award can take up to 8 weeks after account opening."
+      ]
+     }
+    },
+    {
+     "key": "elite-night-credits",
+     "zh": "每年5晚 Elite Night Credits",
+     "en": "5 Elite Night Credits each year",
+     "noteZh": "每个自然年存入 Marriott Bonvoy 账户，计入会籍升级。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。",
+     "noteEn": "Deposited into the Marriott Bonvoy account each calendar year toward elite status. Annual ENCs already received from another Marriott consumer card do not stack; only the difference is deposited.",
+     "scenario": "hotel-stay",
+     "category": "membership",
+     "period": "calendar-year",
+     "programmeIds": [
+      "programme.marriott-bonvoy"
+     ],
+     "quote": "Plus, you'll receive 5 Elite Night Credits every calendar year.",
+     "original": {
+      "title": "5 Elite Night Credits each year",
+      "summary": "5 Elite Night Credits every calendar year toward the next level of Marriott Bonvoy Elite status.",
+      "howToUse": [
+       "Check the credits in your Marriott Bonvoy account; annual credits from another Marriott consumer card do not stack."
+      ],
+      "quotes": [
+       "you will only receive a deposit equal to the difference between the Annual ENC benefits"
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "Pay Yourself Back（积分兑换旅行消费，每年最多750美元）和行李延误、行程延误等保障未录入。",
+     "en": "Pay Yourself Back (points toward travel purchases, up to $750 a year) and the baggage and trip delay coverage are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "chase-us-marriott-bonvoy-bountiful-credit-card",
+   "page": "chase-us-marriott-bonvoy-bountiful-credit-card",
+   "issuer": "Chase",
+   "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bountiful",
+   "transfer": {
+    "name": "Marriott Bonvoy",
+    "programmeId": "programme.marriott-bonvoy",
+    "linkOnly": true,
+    "quote": "Earn 6X points for every $1 spent at over 7,000 hotels participating in Marriott Bonvoy"
+   },
+   "fee": {
+    "amount": 250,
+    "currency": "USD",
+    "quote": "ANNUAL FEE $250"
+   },
+   "earning": [
+    {
+     "zh": "Marriott Bonvoy 酒店",
+     "en": "Hotels participating in Marriott Bonvoy",
+     "multiplier": 6,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "noteZh": "本卡的比例；页面的18.5倍合计还包含会员和会籍部分。",
+     "noteEn": "The card's own rate; the 18.5X total on the page also counts member and status earnings.",
+     "quote": "Earn 6X points for every $1 spent at over 7,000 hotels participating in Marriott Bonvoy"
+    },
+    {
+     "zh": "超市和餐厅",
+     "en": "Grocery stores and dining",
+     "multiplier": 4,
+     "unit": "points-per-USD",
+     "category": "general",
+     "cap": {
+      "amount": 15000,
+      "currency": "USD",
+      "period": null
+     },
+     "noteZh": "每年合计前15,000美元，之后按2倍；“每年”按开户日和12月账单周期计算，不是自然年。餐厅含外卖和合资格配送。",
+     "noteEn": "On the first $15,000 in combined purchases annually, then 2X. \"Annually\" follows the account open date and December statement cycles, not a calendar year. Dining includes takeout and eligible delivery.",
+     "quote": "Earn 4X points for every $1 on the first $15,000 in combined purchases annually on grocery stores and dining"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 2X points for every $1 you spend on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "gold-elite",
+     "zh": "Marriott Bonvoy Gold Elite 会籍",
+     "en": "Marriott Bonvoy Gold Elite status",
+     "noteZh": "持卡期间每个自然年自动获得；首次授予最长需8周。个人会籍未核实。",
+     "noteEn": "Given automatically each calendar year as a cardmember; the first award can take up to 8 weeks. Personal status is unverified.",
+     "scenario": "hotel-stay",
+     "category": "membership",
+     "period": "calendar-year",
+     "programmeIds": [
+      "programme.marriott-bonvoy"
+     ],
+     "quote": "You will automatically receive Gold Elite Status each calendar year as a cardmember.",
+     "original": {
+      "title": "Marriott Bonvoy Gold Elite status",
+      "summary": "Automatic Gold Elite status each calendar year as a cardmember.",
+      "howToUse": [
+       "Check your tier in your Marriott Bonvoy account; the first award can take up to 8 weeks after account opening."
+      ]
+     }
+    },
+    {
+     "key": "elite-night-credits",
+     "zh": "每年15晚 Elite Night Credits",
+     "en": "15 Elite Night Credits each year",
+     "noteZh": "开户后60天内存入，之后每年3月1日前存入，计入会籍升级。已从其他 Marriott 个人卡获得的年度 ENC 不叠加，只补足差额。",
+     "noteEn": "Deposited within 60 days of opening and then by March 1 each year, toward elite status. Annual ENCs already received from another Marriott consumer card do not stack; only the difference is deposited.",
+     "scenario": "hotel-stay",
+     "category": "membership",
+     "period": "calendar-year",
+     "programmeIds": [
+      "programme.marriott-bonvoy"
+     ],
+     "quote": "15 Elite Night Credits (“ENC”) will be deposited into your Marriott Bonvoy Member Account within 60 days",
+     "original": {
+      "title": "15 Elite Night Credits each year",
+      "summary": "15 Elite Night Credits within 60 days of account opening, then the annual credits by March 1 of each later calendar year.",
+      "howToUse": [
+       "Check the credits in your Marriott Bonvoy account; annual credits from another Marriott consumer card do not stack."
+      ],
+      "quotes": [
+       "On or before March 1 of each subsequent calendar year, the Annual ENC benefit will be deposited"
+      ]
+     }
+    },
+    {
+     "key": "stay-bonus",
+     "zh": "每次合资格入住1,000点",
+     "en": "1,000 bonus points per eligible stay",
+     "noteZh": "须直接向 Marriott 以合资格价格预订，至少一晚付费；第三方网站和旅行社预订不计。",
+     "noteEn": "The stay must be booked directly with Marriott on a qualifying rate with at least one paid night; third-party online retailers and tour operators do not count.",
+     "scenario": "hotel-stay",
+     "category": "hotel-service",
+     "period": "per-stay",
+     "programmeIds": [
+      "programme.marriott-bonvoy"
+     ],
+     "quote": "Earn 1,000 Bonus Points per eligible stay at hotels participating in Marriott Bonvoy",
+     "original": {
+      "title": "1,000 bonus points per eligible stay",
+      "summary": "Up to 1,000 bonus points per eligible stay at participating Marriott Bonvoy hotels booked directly with Marriott on a qualifying rate.",
+      "howToUse": [
+       "Book directly with Marriott on a qualifying rate; third-party and tour operator bookings do not count."
+      ],
+      "quotes": [
+       "Rooms booked through third party online retailers and tour operator bookings are not eligible for this bonus."
+      ]
+     }
+    },
+    {
+     "key": "free-night",
+     "zh": "消费满15,000美元得年度免费房晚",
+     "en": "Free Night Award after $15,000 in spend",
+     "noteZh": "每个自然年消费满15,000美元后获得，可用于兑换门槛不超过50,000点的酒店一晚，有效期12个月；部分酒店另收度假村费。是否达标未核实。",
+     "noteEn": "Earned each calendar year after $15,000 in spend, for one night at a hotel with a redemption level up to 50,000 points; it expires after 12 months and some hotels charge resort fees. Whether you reach it is unverified.",
+     "scenario": "hotel-stay",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "programmeIds": [
+      "programme.marriott-bonvoy"
+     ],
+     "quote": "you'll enjoy a Free Night Award every calendar year, after $15,000 in spend",
+     "original": {
+      "title": "Free Night Award after $15,000 in spend",
+      "summary": "A Free Night Award every calendar year after $15,000 in spend, valid for one night at a property with a redemption level of up to 50,000 points.",
+      "howToUse": [
+       "Track your calendar-year spend; the award expires 12 months after it is issued."
+      ],
+      "quotes": [
+       "All Free Night Awards issued will have an expiration of 12 months."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "行李延误、行程延误等保障未录入。",
+     "en": "The baggage and trip delay coverage is not recorded."
+    }
+   ]
+  },
+  {
+   "id": "amex-us-us-blue-cash-preferred-card",
+   "page": "amex-us-us-blue-cash-preferred",
+   "issuer": "American Express",
+   "url": "https://www.americanexpress.com/us/credit-cards/card/blue-cash-preferred/",
+   "new": {
+    "bank": "Amex US",
+    "region": "US",
+    "name": "Blue Cash Preferred Card"
+   },
+   "aliases": [
+    "Blue Cash Preferred",
+    "American Express Blue Cash Preferred Card",
+    "Blue Cash Preferred Card from American Express"
+   ],
+   "fee": {
+    "amount": 95,
+    "currency": "USD",
+    "quote": "After that it will be $95 per year."
+   },
+   "earning": [
+    {
+     "zh": "美国超市",
+     "en": "U.S. supermarkets",
+     "multiplier": 6,
+     "unit": "cashback-percent",
+     "category": "shopping",
+     "cap": {
+      "amount": 6000,
+      "currency": "USD",
+      "period": null
+     },
+     "noteZh": "每年前6,000美元，之后1%；页面没有写“每年”是自然年还是账户年。",
+     "noteEn": "On up to $6,000 per year, then 1%. The page does not say whether the year is a calendar year or an account year.",
+     "quote": "earn 6% cash back on eligible purchases at U.S. supermarkets, on up to $6,000 per year in purchases (then 1%)."
+    },
+    {
+     "zh": "指定美国流媒体订阅",
+     "en": "Select U.S. streaming subscriptions",
+     "multiplier": 6,
+     "unit": "cashback-percent",
+     "category": "entertainment",
+     "quote": "Card Members can earn 6% cash back on select U.S. streaming subscriptions"
+    },
+    {
+     "zh": "交通（出租车、网约车、停车、过路费、火车、巴士等）",
+     "en": "Transit (taxis, rideshare, parking, tolls, trains, buses and more)",
+     "multiplier": 3,
+     "unit": "cashback-percent",
+     "category": "ground-transport",
+     "quote": "Card Members can earn 3% cash back on transit (e.g., taxis/rideshare, parking, tolls, trains, buses and more)."
+    },
+    {
+     "zh": "美国加油站",
+     "en": "U.S. gas stations",
+     "multiplier": 3,
+     "unit": "cashback-percent",
+     "category": "ground-transport",
+     "quote": "Card Members can earn 3% cash back on eligible purchases at U.S. gas stations."
+    },
+    {
+     "zh": "其他合资格消费",
+     "en": "Other eligible purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Card Members can earn 1% cash back on other eligible purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "disney",
+     "zh": "Disney Streaming 抵扣",
+     "en": "Disney Streaming Credit",
+     "noteZh": "需登记；在 DisneyPlus.com、Hulu.com 或 Stream.ESPN.com 美国网站用本卡订阅（含组合订阅），每月最多10美元，全年最多120美元。",
+     "noteEn": "Enrollment required. Up to $10 a month, $120 a year, after paying a subscription (including a bundle) on the DisneyPlus.com, Hulu.com or Stream.ESPN.com U.S. websites with the card.",
+     "scenario": "entertainment",
+     "category": "credit",
+     "period": "calendar-month",
+     "amount": 10,
+     "enrollment": true,
+     "programmeIds": [
+      "programme.disney"
+     ],
+     "terms": {
+      "annualMaximum": 120,
+      "partner": "Disney"
+     },
+     "quote": "Get up to a $10 monthly statement credit after using your enrolled Blue Cash Preferred Card for a subscription",
+     "original": {
+      "title": "$120 Disney Streaming Credit",
+      "summary": "Up to a $10 monthly statement credit after using the enrolled card for a subscription, including a bundle, at DisneyPlus.com, Hulu.com or Stream.ESPN.com U.S. websites.",
+      "howToUse": [
+       "Enroll the card first, then pay the subscription on the Disney+, Hulu or ESPN U.S. website with it."
+      ],
+      "quotes": [
+       "purchase, including a bundle subscription purchase, at DisneyPlus.com, Hulu.com, or Stream.ESPN.com U.S. websites"
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "首年0美元优惠年费是否适用取决于个人资格，未核实。附属卡年费未确认。",
+     "en": "Whether the $0 first-year intro fee applies depends on personal eligibility and is unverified. The additional card fee is not confirmed."
+    },
+    {
+     "zh": "租车险、购物保障、退货保障和延长保修未录入。",
+     "en": "Car rental, purchase, return protection and extended warranty are not recorded."
+    }
+   ]
+  }
+ ]
+}

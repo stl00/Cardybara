@@ -671,15 +671,21 @@
         "Marriott Bonvoy Bountiful"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Marriott Bonvoy"
+      ],
       "art": {
         "file": "catalog-403af8bc5aa1d2dd.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/marriott_bonvoy_bountiful_card.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bountiful",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-11",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bountiful",
+        "checkedAt": "2026-11-11"
+      }
     },
     {
       "id": "chase-us-marriott-bonvoy-bold-credit-card",
@@ -691,15 +697,21 @@
         "Marriott Bonvoy Bold"
       ],
       "currencies": [],
-      "rewardPrograms": [],
+      "rewardPrograms": [
+        "Marriott Bonvoy"
+      ],
       "art": {
         "file": "catalog-ada5a8d57ddc75cb.png",
         "verification": "issuer-asset",
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/marriott_bonvoy_bold_card_NAF.png"
       },
       "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold",
-      "checkedAt": "2026-10-27",
-      "verification": "issuer-listed"
+      "checkedAt": "2026-11-11",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold",
+        "checkedAt": "2026-11-11"
+      }
     },
     {
       "id": "chase-us-ihg-one-rewards-premier-select-credit-card",
@@ -855,7 +867,7 @@
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/prime-visa.png"
       },
       "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/amazon-prime-rewards",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
     },
     {
@@ -874,7 +886,7 @@
         "sourceUrl": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/amazon-visa.png"
       },
       "sourceUrl": "https://creditcards.chase.com/cash-back-credit-cards/amazon-rewards",
-      "checkedAt": "2026-10-27",
+      "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
     },
     {
@@ -2510,6 +2522,24 @@
       "art": null,
       "sourceUrl": "https://www.citi.com/credit-cards/citi-custom-cash-credit-card",
       "checkedAt": "2026-11-04",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "amex-us-us-blue-cash-preferred-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Blue Cash Preferred Card",
+      "aliases": [
+        "Blue Cash Preferred Card",
+        "Blue Cash Preferred",
+        "American Express Blue Cash Preferred Card",
+        "Blue Cash Preferred Card from American Express"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/blue-cash-preferred/",
+      "checkedAt": "2026-11-11",
       "verification": "issuer-listed"
     }
   ]
