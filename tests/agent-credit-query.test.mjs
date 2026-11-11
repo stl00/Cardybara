@@ -420,7 +420,7 @@ test('the code-written fallback passes every check and states the facts in the q
   assert.deepEqual(answerGrounding(answer,[result]).issues,[],question+when);
   assert.ok(answer.includes(mark));assert.ok(!answer.includes(not));assert.ok(answer.includes(result.window.start));
  }
- const en=renderCreditAnswer(plan('12月'),'Which hotel credits?');assert.match(en,/\$500 Credit for stays with The Edit/);assert.match(en,/assumed dates/);assert.match(en,/account anniversary unknown/);
+ const en=renderCreditAnswer(plan('12月'),'Which hotel credits?');assert.match(en,/\$500 Credit for stays with The Edit/);assert.match(en,/assumed dates/);assert.match(en,/annual fee date not set/);
  assert.ok(!en.includes('null'));assert.ok(!renderCreditAnswer(plan('12月',{use:'airline'}),'which').includes('public limit USD null'));
  const empty=runWalletTool(call({use:'hotel',when:'12月',cardName:'No Such Card'}),wallet);assert.match(renderCreditAnswer(empty,'which?'),/No matching credits/);assert.deepEqual(answerGrounding(renderCreditAnswer(empty,'which?'),[empty]).issues,[]);
  assert.equal(answerLanguage('还有什么'),'zh-CN');assert.equal(answerLanguage('還有什麼'),'zh-TW');assert.equal(answerLanguage('which'),'en');
