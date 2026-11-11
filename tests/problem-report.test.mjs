@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {redactStructureText} from '../extension-next/structure-report.js';
-import {buildReport,needsReport,cardFields,replayText} from '../extension-next/problem-report.js';
+import {buildReport,collectReport,needsReport,cardFields,replayText,reportFileName,STRUCTURE_KEY} from '../extension-next/problem-report.js';
 import {problemStructureSource} from '../scripts/build-problem-structure.mjs';
 
 const dir=new URL('./fixtures/',import.meta.url);
@@ -102,4 +102,39 @@ test('a report replays into text the reader can parse',()=>{
  const items=ctx.self.CardyReader.issuerBilling(text,'SC HK',{id:'report-card-1',bank:'SC HK',tail:'0000',currency:'HKD'});
  const keys=items.map(i=>i.key);
  for(const k of ['balance','statement','minimum','due'])assert.ok(keys.includes(k),`replay reads ${k}: ${keys} from\n${text}`);
+});
+
+test('the popup and the wallet gather the same report, with or without extension storage',async()=>{
+ const job={bank:'Chase',status:'partial',phase:'complete'},state={runtimeBuild:'b1',records:{Chase:records}};
+ const stored={[STRUCTURE_KEY]:{Chase:{capturedAt:'T',report:{lang:'en-US',rows:[{tag:'span',text:'Balance $1,234.56'}]}},BOA:{capturedAt:'T',report:{rows:[{tag:'p',text:'other bank'}]}}},
+  'cardybara:last-read-diagnostic':{bank:'BOA',adapterBuild:'x'}};
+ const api={storage:{local:{get:async keys=>Object.fromEntries(keys.map(k=>[k,stored[k]]))}},runtime:{getManifest:()=>({version:'1.2.3'})}};
+ const inExtension=await collectReport(job,state,api);
+ assert.equal(inExtension.extension.version,'1.2.3');assert.equal(inExtension.extension.build,'b1');
+ assert.equal(inExtension.structure.rows.length,1,'only this bank\'s page structure');
+ assert.equal(inExtension.run.diagnostic,null,'another bank\'s diagnostic is left out');
+ assert.deepEqual(inExtension.cards[0].fields,{balance:'read',statement:'read',minimum:'missing',due:'missing'});
+ for(const s of secrets)assert.ok(!JSON.stringify({run:inExtension.run,cards:inExtension.cards,structure:inExtension.structure}).includes(s),'leaked '+s);
+ const website=await collectReport(job,state,undefined);
+ assert.equal(website.structure,null,'no page structure outside the extension');assert.equal(website.run.status,'partial');
+ assert.equal(reportFileName('Amex US'),'cardybara-problem-report-amex-us.json');
+});
+
+test('the wallet offers 生成问题报告 on a bank whose read was partial or missed a field, and only there (#196)',async()=>{
+ const {build}=await import('esbuild'),{createRequire}=await import('node:module');
+ const root=new URL('..',import.meta.url).pathname;
+ const {outputFiles:[bundle]}=await build({stdin:{contents:`import React from 'react';import {renderToStaticMarkup} from 'react-dom/server';import BankConnections from './src/BankConnections.jsx';import {activateLanguage} from './src/i18n-core.js';export const render=(props,lang='zh-CN')=>{activateLanguage(lang);return renderToStaticMarkup(React.createElement(BankConnections,props));};`,resolveDir:root,loader:'jsx'},bundle:true,write:false,format:'cjs',platform:'node',jsx:'automatic',loader:{'.css':'empty','.png':'empty','.svg':'empty'},logLevel:'silent',external:['react','react-dom','react-dom/server']});
+ const module={exports:{}};new Function('module','exports','require',bundle.text)(module,module.exports,createRequire(new URL('../package.json',import.meta.url)));
+ const full={a:{balance:1,statement:1,minimum:1,due:1}};
+ const props=(jobs,recs)=>({data:{connections:[{bank:'Chase'},{bank:'Amex US'}],cards:[]},connected:true,collectorConnected:true,collectorState:{runtimeBuild:'b',disabled:[],records:recs,run:{status:'complete',jobs}},
+  sendCollector(){},bankState:()=>'',isBusy:()=>false,refreshBank(){},urls:{},onSetup(){},onRestore(){},refreshing:false,onFocus(){}});
+ const offers=html=>(html.match(/problem-report-button/g)||[]).length;
+ const partial=module.exports.render(props([{bank:'Chase',status:'partial'},{bank:'Amex US',status:'updated'}],{'Amex US':full}));
+ assert.equal(offers(partial),1,'only the bank with the partial read');assert.ok(partial.includes('生成问题报告'));
+ assert.equal(offers(module.exports.render(props([{bank:'Chase',status:'load_error'}],{}))),1,'a failed read');
+ assert.equal(offers(module.exports.render(props([{bank:'Chase',status:'updated'}],{Chase:records}))),1,'a card missing a field');
+ assert.equal(offers(module.exports.render(props([{bank:'Chase',status:'updated'},{bank:'Amex US',status:'capturing'}],{Chase:full}))),0,'not after a full read or while reading');
+ assert.equal(offers(module.exports.render(props([],{}))),0,'no run, no offer');
+ assert.ok(module.exports.render(props([{bank:'Chase',status:'partial'}],{}),'en-US').includes('Create problem report'));
+ assert.ok(module.exports.render(props([{bank:'Chase',status:'partial'}],{}),'zh-TW').includes('產生問題報告'));
 });

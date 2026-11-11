@@ -48,6 +48,17 @@ export function buildReport({build,version,bank,job,records,structure,diagnostic
   privacy:'Amounts, card numbers, names, dates and free text are replaced by placeholders: # for each digit, [word] or [字] for other words. Only generic label words remain.'};
 }
 
+// One way to gather a report, for the popup and the wallet page. Outside the extension (no chrome.storage) the
+// report still holds the run and field states, with no page structure.
+export const reportFileName=bank=>'cardybara-problem-report-'+String(bank).replace(/\W+/g,'-').toLowerCase()+'.json';
+export async function collectReport(job,state,api=globalThis.chrome){
+ const DIAG='cardybara:last-read-diagnostic';let got={},version=null;
+ try{if(api?.storage?.local)got=await api.storage.local.get([STRUCTURE_KEY,DIAG])||{};}catch{}
+ try{version=api?.runtime?.getManifest?.().version||null;}catch{}
+ const diag=got[DIAG];
+ return buildReport({build:state?.runtimeBuild,version,bank:job.bank,job,records:state?.records?.[job.bank],structure:got[STRUCTURE_KEY]?.[job.bank]||null,diagnostic:diag?.bank===job.bank?diag:null});
+}
+
 // Replay a report's page structure as synthetic text a reader can parse, for a failing fixture.
 // Each # becomes a digit from a counter so amounts differ; date shapes become 12 Dec 2030, which reads the same day-first or month-first.
 export function replayText(report){

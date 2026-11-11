@@ -2,7 +2,7 @@ import {BUILD_ID} from './build-info.js';
 import {PROVIDERS} from './providers.js';
 import {exportCollectorState} from './export-state.js';
 import {RELEASE_WORDS,popupLanguage,bankName,bankMark,fill} from './popup-i18n.js';
-import {buildReport,needsReport,STRUCTURE_KEY} from './problem-report.js';
+import {collectReport,needsReport,reportFileName} from './problem-report.js';
 const lang=popupLanguage(),t=RELEASE_WORDS[lang],$=s=>document.querySelector(s),status=$('#status');
 document.documentElement.lang=lang;
 const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;};
@@ -27,11 +27,10 @@ function render(s){
 function error(e){status.textContent=e.message;}
 // The tester reads the whole report before saving it, and sends the file themselves (#196).
 async function showReport(job,s){
- const got=await chrome.storage.local.get([STRUCTURE_KEY,'cardybara:last-read-diagnostic']),diag=got['cardybara:last-read-diagnostic'];
- const report=buildReport({build:s.runtimeBuild,version:chrome.runtime.getManifest().version,bank:job.bank,job,records:s.records?.[job.bank],structure:got[STRUCTURE_KEY]?.[job.bank]||null,diagnostic:diag?.bank===job.bank?diag:null});
+ const report=await collectReport(job,s);
  const text=JSON.stringify(report,null,2),box=$('#report');box.hidden=false;
  const save=el('button','primary small',t.reportSave),close=el('button','small',t.reportClose);save.type=close.type='button';
- save.onclick=()=>{const url=URL.createObjectURL(new Blob([text+'\n'],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='cardybara-problem-report-'+job.bank.replace(/\W+/g,'-').toLowerCase()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+ save.onclick=()=>{const url=URL.createObjectURL(new Blob([text+'\n'],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=reportFileName(job.bank);a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
  close.onclick=()=>{box.hidden=true;box.replaceChildren();};
  const actions=el('div','row');actions.append(save,close);
  box.replaceChildren(el('h2',null,fill(t.reportTitle,bankName(job.bank,lang))),el('p','note',t.reportNote),...(report.structure?[]:[el('p','note',t.reportNoPage)]),el('pre','report-json',text),actions);
