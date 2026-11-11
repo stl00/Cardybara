@@ -10,7 +10,12 @@
 //   provider, so parallel requests cannot overrun a per-code daily cap or the global monthly budget;
 // - bodies, codes and keys are never logged or echoed: a log line carries the code id, time, tokens and status.
 
-import {agentRoute} from './agent.js';
+// The assistant (agent.js) brings the agent loop and the bundled public knowledge, whose modules build their indexes
+// when first evaluated: hundreds of milliseconds of CPU. Workers caps the CPU a script may spend at startup, so that
+// code is loaded on the first /v1/chat request, not at startup, and the proxy and invite routes never load it. The
+// bundler keeps a dynamically imported module lazy; tests/gateway-startup.test.mjs holds the built Worker to this.
+let agent=null;
+const agentRoute=ctx=>(agent||=import('./agent.js')).then(m=>m.agentRoute(ctx));
 
 export const ROUTES={chat:'/v1/chat/completions',agent:'/v1/chat',invite:'/v1/invite'};
 export const INVITE_PATTERN=/^cdy_[A-Za-z0-9_-]{43}$/;

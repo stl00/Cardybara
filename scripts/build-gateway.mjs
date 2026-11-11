@@ -10,13 +10,18 @@ import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 
 const root=fileURLToPath(new URL('..',import.meta.url));
-const out=root+'gateway/dist/worker.js';
-const result=await build({entryPoints:[root+'gateway/src/worker.js'],outfile:out,bundle:true,format:'esm',platform:'neutral',target:'es2022',conditions:['workerd','worker','browser'],minify:false,legalComments:'none',metafile:true,logLevel:'warning'});
-const inputs=Object.keys(result.metafile.inputs);
-// Only gateway/, src/ and the two extension modules the knowledge code shares; never a test, script or local stand-in.
-const foreign=inputs.filter(f=>!/^(gateway\/src|src|extension-next)\//.test(f)||/local\.mjs$|tests\//.test(f));
-if(foreign.length){console.error('unexpected modules in the Worker bundle: '+foreign.join(', '));process.exit(1);}
-const bytes=statSync(out).size,gz=gzipSync(readFileSync(out)).length;
-// Workers limits a script to 3 MB gzipped on the free plan and 10 MB on paid plans.
-if(gz>3*1024*1024){console.error(`the Worker bundle is ${gz} bytes gzipped, over the 3 MB free-plan limit`);process.exit(1);}
-console.log(`gateway/dist/worker.js: ${(bytes/1024).toFixed(0)} KiB, ${(gz/1024).toFixed(0)} KiB gzipped, ${inputs.length} inputs`);
+/** Bundles the Worker into out (default gateway/dist/worker.js) and checks its inputs and size. Returns its sizes. */
+export async function buildGateway(out=root+'gateway/dist/worker.js'){
+ const result=await build({entryPoints:[root+'gateway/src/worker.js'],outfile:out,bundle:true,format:'esm',platform:'neutral',target:'es2022',conditions:['workerd','worker','browser'],minify:false,legalComments:'none',metafile:true,logLevel:'warning'});
+ const inputs=Object.keys(result.metafile.inputs);
+ // Only gateway/, src/ and the two extension modules the knowledge code shares; never a test, script or local stand-in.
+ const foreign=inputs.filter(f=>!/^(gateway\/src|src|extension-next)\//.test(f)||/local\.mjs$|tests\//.test(f));
+ if(foreign.length)throw Error('unexpected modules in the Worker bundle: '+foreign.join(', '));
+ const bytes=statSync(out).size,gz=gzipSync(readFileSync(out)).length;
+ // Workers limits a script to 3 MB gzipped on the free plan and 10 MB on paid plans.
+ if(gz>3*1024*1024)throw Error(`the Worker bundle is ${gz} bytes gzipped, over the 3 MB free-plan limit`);
+ return {out,bytes,gz,inputs:inputs.length};
+}
+if(process.argv[1]===fileURLToPath(import.meta.url)){
+ buildGateway().then(r=>console.log(`gateway/dist/worker.js: ${(r.bytes/1024).toFixed(0)} KiB, ${(r.gz/1024).toFixed(0)} KiB gzipped, ${r.inputs} inputs`),e=>{console.error(e.message);process.exit(1);});
+}
