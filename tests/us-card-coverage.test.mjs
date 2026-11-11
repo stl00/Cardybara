@@ -29,8 +29,7 @@ test('each recorded fact has an official source, a date and the issuer wording',
 });
 test('the assistant answers a listed card with its official source',()=>{
  for(const card of cards){
-  // A fee the issuer page does not show stays unknown, and the card says so.
-  if(!card.fee){assert.ok(card.unknown.some(u=>u.zh.includes('年费')),`${card.id} has no annual fee and no reason`);continue;}
+assert.ok(card.fee,`${card.id} has no annual fee`);
   const p=product(card.id);const result=runWalletTool(call('get_card_rules',{kind:'fee'}),{cards:[{id:'x',bank:p.bank,region:p.region,name:p.name}],events:[],day:checkedOn(card)});assert.ok(result.rules.length,card.id);assert.ok(JSON.stringify(result).includes(card.url),card.id);}
 });
 test('a held listed card gets a profile that marks personal state unverified',()=>{

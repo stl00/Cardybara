@@ -225,8 +225,8 @@
      "key": "hilton-credit",
      "zh": "Hilton 抵扣",
      "en": "Hilton credit",
-     "noteZh": "每季最多50美元，全年最多200美元，须用本卡直接向 Hilton 旗下酒店消费。",
-     "noteEn": "Up to $50 each quarter, $200 a year, on purchases made with the card directly with a property in the Hilton portfolio.",
+     "noteZh": "每季最多50美元，全年最多200美元，须用本卡直接向 Hilton 旗下酒店消费。页面只写“每季”，按自然季记录。",
+     "noteEn": "Up to $50 each quarter, $200 a year, on purchases made with the card directly with a property in the Hilton portfolio. The page says \"each quarter\"; it is recorded as calendar quarters.",
      "amount": 50,
      "period": "calendar-quarter",
      "scenario": "hotel-stay",
@@ -319,14 +319,20 @@
    ],
    "unknown": [
     {
-     "zh": "年费：发卡行页面的年费在浏览器里加载，签出状态保存的页面文本没有金额，留作未知。",
-     "en": "Annual fee: the issuer page loads it in the browser and the saved signed-out page text has no amount, so it stays unknown."
+     "zh": "年费150美元来自产品页数据块（只在浏览器里显示）；同一处写首年0美元，来自联盟推广申请流程，是否适用于你未核实。附属卡年费未确认。",
+     "en": "The $150 fee comes from the product page's data block, which only shows in the browser; the same block's $0 first year comes from an affiliate offer flow and may not apply to you. The additional card fee is not confirmed."
     },
     {
      "zh": "行李险、购物保障、延长保修和租车险未录入。",
      "en": "Baggage insurance, purchase protection, extended warranty and car rental coverage are not recorded."
     }
-   ]
+   ],
+   "fee": {
+    "amount": 150,
+    "currency": "USD",
+    "embedded": true,
+    "quote": "$0 introductory annual fee for the first year, then $150."
+   }
   },
   {
    "id": "amex-us-us-delta-skymiles-blue-card",
@@ -457,14 +463,18 @@
    "credits": [],
    "unknown": [
     {
-     "zh": "来源是发卡行的商务现金回馈卡对比页：产品页（/en-us/business/credit-cards/blue-business-cash/）的年费在浏览器里加载，签出状态保存的页面文本没有金额。年费取自对比页里 Blue Business Cash 自己的数据块。",
+     "zh": "来源是发卡行的商务现金回馈卡对比页：产品页（/en-us/business/credit-cards/blue-business-cash/）的年费在浏览器中加载，未登录状态保存的页面文本没有金额。年费取自对比页里 Blue Business Cash 自己的数据块。",
      "en": "The source is the issuer's cash back business card comparison page: the product page (/en-us/business/credit-cards/blue-business-cash/) loads its fee in the browser, so the saved signed-out text has no amount. The fee comes from the Blue Business Cash block in the comparison page's data."
     },
     {
      "zh": "购物保障、延长保修和租车险未录入。",
      "en": "Purchase protection, extended warranty and car rental coverage are not recorded."
     }
-   ]
+   ],
+   "sourceTitle": {
+    "zh": "商务现金回馈卡对比页",
+    "en": "cash back business card comparison page"
+   }
   }
  ]
 }

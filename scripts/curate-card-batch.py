@@ -27,7 +27,7 @@ cc = OpenCC('s2twp')
 def traditional(zh):
     # OpenCC's mistakes on words this catalogue uses often.
     text = cc.convert(zh)
-    for wrong, right in (('托執行李', '托運行李'), ('髮卡', '發卡'), ('后', '後'), ('記憶體', '內存')):
+    for wrong, right in (('托執行李', '托運行李'), ('髮卡', '發卡'), ('后', '後'), ('記憶體', '內存'), ('瀏覽器里', '瀏覽器裡')):
         text = text.replace(wrong, right)
     return text
 
@@ -114,7 +114,7 @@ def main():
             patch['collection'] = card['collection']
         link = card.get('transfer')
         if link:
-            check(card, link['quote'], link.get('embedded', False))
+            check(card, link['quote'], link.get('embedded', False), link.get('source'))
             patch.update(rewardPrograms=[link['name']], rewardSource={'url': card['url'], 'checkedAt': checked})
             # linkOnly names the programme a card earns; its partners are not verified yet.
             if not link.get('linkOnly'):
@@ -123,7 +123,8 @@ def main():
         overrides.append({**patch, **({k: product[k] for k in ('bank', 'region', 'name', 'currencies', 'art') if 'new' in card})})
 
         source_id = f'card-{pid}'
-        sources.append({'id': source_id, 'url': card['url'], 'title': txt(f"{card['issuer']} · {product['name']} 官方产品页", f"{card['issuer']} · {product['name']} official product page"), 'checkedAt': checked, 'authority': 'official'})
+        kind_zh, kind_en = (card['sourceTitle']['zh'], card['sourceTitle']['en']) if card.get('sourceTitle') else ('官方产品页', 'official product page')
+        sources.append({'id': source_id, 'url': card['url'], 'title': txt(f"{card['issuer']} · {product['name']} {kind_zh}", f"{card['issuer']} · {product['name']} {kind_en}"), 'checkedAt': checked, 'authority': 'official'})
         # A fact the product page does not show (a fee rendered only in the browser) may cite another issuer page.
         for key, extra in card.get('extraSources', {}).items():
             sources.append({'id': f'{source_id}-{key}', 'url': extra['url'], 'title': txt(extra['zh'], extra['en']), 'checkedAt': checked, 'authority': 'official'})

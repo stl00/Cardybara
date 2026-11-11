@@ -58328,6 +58328,74 @@
     }
   },
   {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.fee-primary@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$0 introductory annual fee for the first year, then $150.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 150,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
     "id": "rule.amex-us-us-hilton-honors-surpass-card.earning-0",
     "revision": 1,
     "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.earning-0@2026-11-11.1",
@@ -58847,11 +58915,11 @@
     ],
     "content": {
       "title": "Hilton 抵扣",
-      "summary": "每季最多50美元，全年最多200美元，须用本卡直接向 Hilton 旗下酒店消费。",
+      "summary": "每季最多50美元，全年最多200美元，须用本卡直接向 Hilton 旗下酒店消费。页面只写“每季”，按自然季记录。",
       "sourceText": "Get up to $50 in statement credits each quarter for purchases made directly with a property",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "每季最多50美元，全年最多200美元，须用本卡直接向 Hilton 旗下酒店消费。",
+        "每季最多50美元，全年最多200美元，须用本卡直接向 Hilton 旗下酒店消费。页面只写“每季”，按自然季记录。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ],
       "translatedFrom": "en-US"
@@ -58872,7 +58940,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "每季最多50美元，全年最多200美元，须用本卡直接向 Hilton 旗下酒店消费。"
+      "unparsedText": "每季最多50美元，全年最多200美元，须用本卡直接向 Hilton 旗下酒店消费。页面只写“每季”，按自然季记录。"
     },
     "evidence": {
       "sourceIds": [
