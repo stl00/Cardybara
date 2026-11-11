@@ -1,4 +1,5 @@
 // Which card for this purchase. Code compares every held card; the model only collects the facts and explains the result.
+import {heldCards} from './heldCards.js';
 // Points are valued at the user's own value (said in the chat, or set in settings), else a published default (#193);
 // the basis rides along with every value. Nothing here is per-card code: new cards join through their earning rules.
 import data from './data/earning-categories.json' with {type:'json'};
@@ -218,6 +219,7 @@ const whoLeads=d=>d.lead?.row||null;
  * unvalued, as before #193; tests of the comparison mechanics use it so they don't depend on the valuation table.
  */
 export function chooseCard(raw,{cards,events=[],day,pointValues=[],marketDefaults=true}){
+ cards=heldCards(cards);
  if(!isRealDate(day))throw TypeError('chooseCard needs the wallet day');
  const resolved=resolvePurchase(raw,day);
  if(resolved.needsDates)return {tool:'choose_card',today:day,needsDates:true,reason:resolved.reason,instruction:'The date phrase could not be resolved. Answer for today or ask for the date; do not guess it.'};

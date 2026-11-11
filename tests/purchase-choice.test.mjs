@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import {referenceCards as cards,creditMark,decisionIds} from '../evals/fixtures.mjs';
 import {chooseCard,PURCHASE_CATEGORIES} from '../src/cardDecision.js';
 import {QUICK_CATEGORIES,walletCurrencies,purchaseArgs,quickChoice} from '../src/purchaseChoice.js';
+import {translations as i18nCatalog} from '../src/i18n/index.js';
 const {GOLD,GOLD_DINING}=decisionIds,DAY='2026-11-05';
 // Mechanics apart from the valuation table (#193); default values have their own test below.
 const wallet={cards,events:[],day:DAY,marketDefaults:false};
@@ -18,7 +19,7 @@ test('the wallet entry and the chat use the same engine and give the same choice
   assert.equal(mine.certainty,chat.choice.certainty||null,category);
  }
  // The overview mounts the entry, and the entry reaches the engine only through quickChoice.
- assert.match(source('../src/main.jsx'),/<PurchaseChooser cards=\{displayed\.cards\}/);
+ assert.match(source('../src/main.jsx'),/<PurchaseChooser cards=\{held\.cards\}/);
  const ui=source('../src/PurchaseChooser.jsx');
  assert.match(ui,/quickChoice\(/);assert.doesNotMatch(ui,/fetch\(|requestAdvisor|extensionChat|sendCollector/,'no model or network call');
  assert.match(source('../src/purchaseChoice.js'),/from '\.\/cardDecision\.js'/);
@@ -64,7 +65,7 @@ test('cards in several currencies: the entry asks for the currency, then compare
 
 test('every offered category is one the engine knows, and every string is in three languages',()=>{
  assert.ok(QUICK_CATEGORIES.length>=10);for(const c of QUICK_CATEGORIES)assert.ok(PURCHASE_CATEGORIES.includes(c),c);
- const ui=source('../src/PurchaseChooser.jsx'),catalog=JSON.parse(source('../src/translations.json'));
+ const ui=source('../src/PurchaseChooser.jsx'),catalog=i18nCatalog;
  const keys=[...ui.matchAll(/t\('([^']+)'/g)].map(m=>m[1]);assert.ok(keys.length>30);
  const labels=[...ui.matchAll(/:'([^'\x00-\x7f][^']*)'/g)].map(m=>m[1]);assert.ok(labels.length>=QUICK_CATEGORIES.length);
  for(const key of [...keys,...labels])for(const language of ['en-US','zh-TW'])assert.ok(catalog[language][key],`${language}: ${key}`);

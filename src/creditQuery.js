@@ -6,7 +6,7 @@ import {taskStatus,dismissedKeys,dismissKey} from './personalBenefits.js';
 import {resolveTripDates,addDays,isRealDate} from './tripDates.js';
 import {CREDIT_CATEGORIES,creditCategoriesForRule} from './creditCategories.js';
 import {creditApplicability} from './creditApplicability.js';
-import translations from './translations.json' with {type:'json'};
+import {translations} from './i18n/index.js';
 const MAX_ITEMS=30;
 const NO_FIXED_CYCLE=new Set(['ongoing','per-stay','per-trip','event-based']);
 const UNKNOWN_CYCLE_REASON={'account-anniversary':'anniversary-date-unknown','activation-based':'activation-date-unknown','rolling-four-years':'last-use-date-unknown','earned-year-plus-next':'earning-year-unknown','fixed-date':'promotion-dates-unverified','promotion-period':'promotion-dates-unverified'};

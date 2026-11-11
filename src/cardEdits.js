@@ -1,10 +1,10 @@
 import {PROVIDERS} from '../extension-next/providers.js';
 import {cleanFeeDate,feeDateFromCycles} from './feeDate.js';
-// What the user set on a card by hand: a display name, last digits, region (a manual card only) and the
-// annual fee date. Kept apart from the bank's readings and applied on top of them, so a later bank refresh
+// What the user set on a card by hand: a display name, last digits, region (a manual card only), the
+// annual fee date, and whether the card is hidden (still read from the bank, but treated as not held; see heldCards.js). Kept apart from the bank's readings and applied on top of them, so a later bank refresh
 // never overwrites a correction, and resetting a field brings back what the bank showed.
 export const CARD_EDITS_KEY='cardybara-card-edits-v1';
-export const CARD_EDIT_FIELDS=['name','tail','bank','feeDate'];
+export const CARD_EDIT_FIELDS=['name','tail','bank','feeDate','hidden'];
 const MAX=200;
 /** The same rules as a manually added card's name: no tags, no control characters, nothing like a card number. */
 export const validCardName=value=>typeof value==='string'&&!!value.trim()&&value.trim().length<=100&&!/[<>\u0000-\u001f]/.test(value)&&!/(?:\d[ -]?){9,}/.test(value);
@@ -19,6 +19,7 @@ function cleanRow(row){
  if(validTail(row.tail))out.tail=row.tail;
  if(validBank(row.bank))out.bank=row.bank;
  const fee=cleanFeeDate(row.feeDate);if(fee)out.feeDate=fee;
+ if(row.hidden===true)out.hidden=true;
  // Month-days that older card-year records disagreed on when the fee date was taken from them.
  if(fee&&Array.isArray(row.feeDateConflict)&&row.feeDateConflict.length>1&&row.feeDateConflict.length<=20&&row.feeDateConflict.every(d=>typeof d==='string'&&/^\d{2}-\d{2}$/.test(d)))out.feeDateConflict=[...row.feeDateConflict];
  return Object.keys(out).length>1?out:null;
@@ -37,7 +38,9 @@ export function withCardEdit(edits,card,patch){
   if(!CARD_EDIT_FIELDS.includes(field))throw Error('invalid_card_edit');
   // The user setting or clearing the fee date settles any conflict a migration noted.
   if(field==='feeDate')delete row.feeDateConflict;
-  if(value==null||value===''){delete row[field];continue;}
+  // Unhiding is clearing the flag, so a shown card carries no row for it.
+  if(value==null||value===''||(field==='hidden'&&value===false)){delete row[field];continue;}
+  if(field==='hidden'&&value!==true)throw Error('invalid_card_hidden');
   if(field==='name'&&!validCardName(value))throw Error('invalid_card_name');
   if(field==='tail'&&!validTail(value))throw Error('invalid_card_tail');
   if(field==='bank'&&(card.identitySource==='bank-page'||!validBank(value)||!regionBanks(card.detected?.bank??card.bank).includes(value)))throw Error('invalid_card_bank');
@@ -84,7 +87,9 @@ export const withoutCardEdits=(edits,cardId)=>edits.filter(e=>e.cardId!==cardId)
  */
 export function applyCardEdits(cards,edits){
  const byCard=new Map(edits.map(e=>[e.cardId,e]));
- return cards.map(card=>{
+ return cards.map(shown=>{
+  // Only the user's edit hides a card; a flag arriving with snapshot or bank data is not theirs and is dropped.
+  const card='hidden' in shown?(({hidden,...rest})=>rest)(shown):shown;
   const row=byCard.get(card.id);if(!row)return card;
   const next={...card},userSet=[],detected={};
   if(row.bank&&card.identitySource!=='bank-page'&&regionBanks(card.bank).includes(row.bank)&&row.bank!==card.bank){
@@ -94,7 +99,9 @@ export function applyCardEdits(cards,edits){
   if(row.name&&(row.name!==card.name||card.identitySource==='bank-page')){detected.name=card.name;if(card.identitySource==='bank-page')next.pageName=card.pageName??card.name;next.name=row.name;userSet.push('name');}
   if(row.tail&&row.tail!==card.tail){detected.tail=card.tail;next.tail=row.tail;userSet.push('tail');}
   if(row.feeDate){next.feeDate=row.feeDate;userSet.push('feeDate');if(row.feeDateConflict)next.feeDateConflict=row.feeDateConflict;}
-  return userSet.length?{...next,userSet,detected}:card;
+  // Hiding is not a correction of the bank's reading, so it is not listed in userSet.
+  if(row.hidden)next.hidden=true;
+  return userSet.length?{...next,userSet,detected}:row.hidden?next:card;
  });
 }
 /** Edits from a backup win over this wallet's for the same card; other cards' edits are kept. */

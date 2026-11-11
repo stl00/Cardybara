@@ -1,12 +1,13 @@
 """Apply reviewed public-source notes for held product identities. No account observations."""
 from pathlib import Path
 import sys,json,re,datetime
+sys.path.insert(0,str(Path(__file__).resolve().parent));import i18n_catalog
 sys.path.insert(0,'/tmp/cardybara-text-tools')
 from opencc import OpenCC
 cc=OpenCC('s2twp')
 root=Path(__file__).resolve().parents[1];base=root/'src/data/knowledge'
 load=lambda f:json.loads((base/f).read_text())
-manifest=load('manifest.json');sources=load('sources.json');entities=load('entities.json');rules=load('rules.json');tr=json.loads((root/'src/translations.json').read_text());date='2026-10-27'
+manifest=load('manifest.json');sources=load('sources.json');entities=load('entities.json');rules=load('rules.json');tr=i18n_catalog.load(root);date='2026-10-27'
 def text(cn,en):
  tr['en-US'][cn]=en;tr['zh-TW'][cn]=cc.convert(cn);return cn
 def source(id,url,title):
@@ -240,5 +241,5 @@ assert len(manifest['profileProductIds'])==22 and len(set(manifest['profileProdu
 manifest['snapshotId']='cardybara-public-knowledge-2026-10-27.2';manifest['asOf']=date
 manifest['schemaVersion']='1.1.0'
 for filename,data in [('manifest.json',manifest),('sources.json',sources),('entities.json',entities),('rules.json',rules)]: (base/filename).write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
-(root/'src/translations.json').write_text(json.dumps(tr,ensure_ascii=False,indent=2)+'\n')
+i18n_catalog.save(root,tr,'knowledge')
 print(json.dumps({'profiles':22,'rules':len(rules),'sources':len(sources),'entities':len(entities['programmes'])}))

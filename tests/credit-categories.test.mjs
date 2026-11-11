@@ -4,8 +4,9 @@ import {readFileSync} from 'node:fs';
 import {CREDIT_CATEGORIES,creditCategoriesForRule,creditCategoriesForRuleId,creditCategoryLabel} from '../src/creditCategories.js';
 import {creditTasks} from '../src/personalBenefits.js';
 import {logoForCategory} from '../src/logoRegistry.js';
+import {translations as i18nCatalog} from '../src/i18n/index.js';
 const json=path=>JSON.parse(readFileSync(new URL(path,import.meta.url),'utf8'));
-const rules=json('../src/data/knowledge/rules.json'),taxonomy=json('../src/data/knowledge/taxonomy.json'),data=json('../src/data/credit-categories.json'),catalog=json('../src/translations.json');
+const rules=json('../src/data/knowledge/rules.json'),taxonomy=json('../src/data/knowledge/taxonomy.json'),data=json('../src/data/credit-categories.json'),catalog=i18nCatalog;
 const fixtureCards=json('./fixtures/wallet-products.json').cards;
 const ids=new Set(CREDIT_CATEGORIES.map(c=>c.id));
 
