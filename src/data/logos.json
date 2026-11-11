@@ -76,6 +76,22 @@
   "general": {
    "icon": "WalletOutlined",
    "label": "一般消费"
+  },
+  "grocery": {
+   "icon": "ShopOutlined",
+   "label": "超市"
+  },
+  "fuel": {
+   "icon": "DashboardOutlined",
+   "label": "加油"
+  },
+  "streaming": {
+   "icon": "VideoCameraOutlined",
+   "label": "流媒体"
+  },
+  "pharmacy": {
+   "icon": "MedicineBoxOutlined",
+   "label": "药妆店"
   }
  },
  "scenarioCategories": {
