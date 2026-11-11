@@ -1,4 +1,4 @@
-import {ORIGIN,PROVIDERS,FIELDS,VERSION} from './providers.js';
+import {ORIGIN,PROVIDERS,FIELDS,VERSION,connectable} from './providers.js';
 const token=v=>typeof v==='string'&&/^[a-zA-Z0-9-]{1,64}$/.test(v);
 const object=v=>v&&typeof v==='object'&&!Array.isArray(v);
 const keys=(v,allowed)=>object(v)&&Object.keys(v).every(k=>allowed.includes(k));
@@ -16,12 +16,16 @@ export function request(m){
  if(!object(m)||JSON.stringify(m).length>16000||!token(m.requestId))throw Error('invalid_request');
  if(['hello','cancel','export'].includes(m.type)){if(!keys(m,['type','requestId','channel']))throw Error('invalid_request');return m;}
  if(['disconnect','connect','clear','focus-bank'].includes(m.type)){
-  if(!keys(m,['type','requestId','bank','channel'])||!Object.hasOwn(PROVIDERS,m.bank))throw Error('invalid_bank');return m;
+  if(!keys(m,['type','requestId','bank','channel'])||!Object.hasOwn(PROVIDERS,m.bank))throw Error('invalid_bank');
+  // Turning a bank on is connecting it; a build that doesn't offer the bank refuses. Turning off and clearing stay open.
+  if(m.type==='connect'&&!connectable(m.bank))throw Error('bank_not_offered');return m;
  }
  if(m.type==='remove-card'){
   if(!keys(m,['type','requestId','bank','cardId','tail','channel'])||!Object.hasOwn(PROVIDERS,m.bank)||!token(m.cardId)||!/^\d{4,5}$/.test(m.tail))throw Error('invalid_card');return m;
  }
  if(m.type!=='refresh'||!keys(m,['type','requestId','banks','cards','cardId','channel'])||!Array.isArray(m.banks)||!m.banks.length||m.banks.length>7||new Set(m.banks).size!==m.banks.length||m.banks.some(b=>!Object.hasOwn(PROVIDERS,b))||!Array.isArray(m.cards)||m.cards.length>40)throw Error('invalid_scope');
+ // A scoped build (the beta) never opens or reads a bank it doesn't offer, whatever the page asks.
+ if(m.banks.some(b=>!connectable(b)))throw Error('bank_not_offered');
  const ids=new Set();
  for(const c of m.cards){
   if(!keys(c,['id','bank','tail','currency','name'])||(c.name!==undefined&&!validCardName(c.name))||!token(c.id)||ids.has(c.id)||!Object.hasOwn(PROVIDERS,c.bank)||!/^\d{4,5}$/.test(c.tail)||!(PROVIDERS[c.bank].cardCurrencies||[PROVIDERS[c.bank].currency]).includes(c.currency))throw Error('invalid_card');ids.add(c.id);
