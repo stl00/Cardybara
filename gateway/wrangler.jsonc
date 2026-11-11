@@ -1,6 +1,7 @@
-// Cardybara model gateway: plain ES modules (src/worker.js), no build step, no account id.
-// Upload with `npx wrangler@4.150.0 deploy --config gateway/wrangler.jsonc` or the Workers scripts API
-// (main module src/worker.js, the bindings below). Steps and owner-only parts: docs/GATEWAY.md.
+// Cardybara gateway: the hosted assistant (/v1/chat) and the model proxy. No account id.
+// `npx wrangler@4.150.0 deploy --config gateway/wrangler.jsonc` bundles src/worker.js with the agent and public
+// knowledge from ../src itself. For the Workers scripts API, `npm run build:gateway` makes the one ES module
+// gateway/dist/worker.js (main module, nothing else) with the bindings below. Steps: docs/GATEWAY.md.
 {
   "$schema": "../node_modules/wrangler/config-schema.json",
   "name": "cardybara-gateway",
@@ -25,9 +26,9 @@
     "MAX_BODY_BYTES": "262144"
     // PROVIDER_KEY is a secret, set once by the owner with scripts/gateway-set-key.sh. Never a var.
   },
-  // Invite codes (by SHA-256 digest only) and the `settings` caps. The namespace id is created at deploy
-  // time and filled in here (it is not a secret and not an account id).
-  "kv_namespaces": [{"binding": "INVITES", "id": "SET_AT_DEPLOY"}],
+  // Invite codes (by SHA-256 digest only) and the `settings` caps. The namespace id is not a secret and not an
+  // account id.
+  "kv_namespaces": [{"binding": "INVITES", "id": "332d4b90299846508c1c85fc2c51411c"}],
   "durable_objects": {"bindings": [{"name": "USAGE", "class_name": "UsageLedger"}]},
   "migrations": [{"tag": "v1", "new_sqlite_classes": ["UsageLedger"]}],
   // Per client address, checked before any invite lookup, so guessing codes can't exhaust KV or the quota.

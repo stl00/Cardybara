@@ -27,8 +27,8 @@ export async function addInvite(kv,code,record){
  return key;
 }
 /** A gateway on in-memory bindings. vars override the defaults; fetch is the upstream provider. */
-export function localGateway({vars={},fetch,log=()=>{},now}={}){
+export function localGateway({vars={},fetch,log=()=>{},now,observe}={}){
  // A rate limiter that always allows; tests pass their own, or null to check the gateway refuses to run without one.
  const env={PROVIDER_KEY:'synthetic-provider-key-not-real',ALLOWED_MODELS:'deepseek-flash',RATE_LIMITER:{limit:async()=>({success:true})},...vars,INVITES:memoryKV(),USAGE:memoryDurableObject()};
- return {env,handle:request=>handle(request,env,{fetch,log,now}),addInvite:(code,record)=>addInvite(env.INVITES,code,record)};
+ return {env,handle:request=>handle(request,env,{fetch,log,now,observe}),addInvite:(code,record)=>addInvite(env.INVITES,code,record)};
 }

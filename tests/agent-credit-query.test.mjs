@@ -7,7 +7,7 @@ import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
 import {validateMemory} from '../src/agentContext.js';
 import {answerGrounding} from '../src/answerGrounding.js';
 import {renderCreditAnswer,renderCreditAnswers,answerLanguage} from '../src/creditAnswer.js';
-import {runAgentTurn} from '../src/agentSession.js';
+import {runAgentTurn} from './helpers/agent-target.mjs';
 import {chatAgent,validateChat} from '../scripts/chat-agent.mjs';
 import {requestAdvisor} from '../src/advisorTransport.js';
 const {CSR,MS,ASPIRE,EDIT,LODGING,RESORT}=planIds;

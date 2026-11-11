@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {runWalletTool,withBookingProtections} from '../src/walletAgent.js';
 import {chooseCard} from '../src/cardDecision.js';
-import {runAgentTurn} from '../src/agentSession.js';
+import {runAgentTurn} from './helpers/agent-target.mjs';
 import {SYSTEM} from '../src/chatProtocol.js';
 
 const cards=JSON.parse(readFileSync(new URL('./fixtures/wallet-products.json',import.meta.url))).cards;

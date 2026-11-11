@@ -33,7 +33,7 @@ export default function ModelKeySettings(){
  const test=()=>run('test',async()=>{const candidate=editing||!status?.saved;if(candidate&&!await requestPermission(provider))throw Error('permission_denied');await testKey(candidate?{provider,key:draft.trim()}:undefined);message.success(t(hosted?'连接成功，邀请码可用。':'连接成功，密钥可用。'));});
  const showForm=!status?.saved||editing;
  const privacy=hosted
-  ?<><Paragraph>{t('聊天内容和卡片识别由 Cardybara 服务转交 AI 模型处理。服务不保存这些内容，只记录邀请码编号、时间、用量和状态。银行余额和账单不经过 Cardybara 服务。')}</Paragraph>
+  ?<><Paragraph>{t('聊天助手在 Cardybara 服务上运行：服务收到你的问题、持有的卡种和助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单，钱包只保存在本机。服务不保存这些内容，只记录邀请码编号、时间、用量和状态。卡片识别也经过 Cardybara 服务。')}</Paragraph>
    <Paragraph type="secondary">{t('邀请码只保存在本扩展的本地存储里，不同步、不写入备份、日志或诊断报告，只发送给 Cardybara 托管服务。保存后只显示首尾几位。')}</Paragraph></>
   :<Paragraph type="secondary">{t('密钥只保存在本扩展的本地存储里，不同步、不写入备份、日志或诊断报告，只发送给你选择的服务商。保存后只显示首尾几位。')}</Paragraph>;
  return <Card title={t('AI 服务')} extra={<Tag color={status?.ready?'success':'default'}>{status?.ready?t('已就绪'):status?.saved?t('已保存，未启用'):t('未添加')}</Tag>}>

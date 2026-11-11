@@ -14,7 +14,7 @@ import {pendingNotifications,buildSchedule,DEFAULT_SETTINGS} from '../src/remind
 import {creditTasks} from '../src/personalBenefits.js';
 import {chooseCard} from '../src/cardDecision.js';
 import {runWalletTool,agentTools} from '../src/walletAgent.js';
-import {runAgentTurn} from '../src/agentSession.js';
+import {runAgentTurn} from './helpers/agent-target.mjs';
 
 const asOf='2026-11-04',read='2026-11-03T15:00:00Z';
 const HIDDEN={id:'h-plat',name:'Hidden Synthetic Platinum',productId:'amex-us-us-the-platinum-card'};

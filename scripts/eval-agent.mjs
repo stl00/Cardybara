@@ -10,12 +10,13 @@ import {matchCardProduct} from '../src/productCatalog.js';
 import {chooseCard} from '../src/cardDecision.js';
 import {prepareAgentContext} from '../src/agentContext.js';
 import {answerGrounding} from '../src/answerGrounding.js';
-import {runAgentTurn} from '../src/agentSession.js';
+// CARDYBARA_AGENT=cloud runs every case through the hosted agent (tests/helpers/agent-target.mjs).
+import {runAgentTurn,AGENT_TARGET} from '../tests/helpers/agent-target.mjs';
 import {runWalletTool} from '../src/walletAgent.js';
 import {chatAgent} from './chat-agent.mjs';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url))),live=process.argv.includes('--live');
-const outputArg=process.argv.find(a=>a.startsWith('--out=')),output=resolve(outputArg?.slice(6)||resolve(root,'evals/latest-'+(live?'live':'offline')+'.json'));
-const report={schema:1,dataset:'wallet-agent-development-v1',asOf:context.day,mode:live?'live-deepseek-sdk':'offline',syntheticWallet:true,createdAt:new Date().toISOString(),cases:[],limitations:['Development set, not a held-out benchmark.','Automated checks do not prove all statements true.','Live model runs are stochastic and use only synthetic products.']};
+const outputArg=process.argv.find(a=>a.startsWith('--out=')),output=resolve(outputArg?.slice(6)||resolve(root,'evals/latest-'+(live?'live':'offline')+(AGENT_TARGET==='cloud'?'-cloud':'')+'.json'));
+const report={schema:1,dataset:'wallet-agent-development-v1',asOf:context.day,mode:(live?'live-deepseek-sdk':'offline')+(AGENT_TARGET==='cloud'?'-cloud-agent':''),syntheticWallet:true,createdAt:new Date().toISOString(),cases:[],limitations:['Development set, not a held-out benchmark.','Automated checks do not prove all statements true.','Live model runs are stochastic and use only synthetic products.']};
 const check=(id,checks,detail={})=>report.cases.push({id,passed:Object.values(checks).every(Boolean),checks,...detail});
 function legacySearch(text){const products=new Set(context.cards.map(c=>matchCardProduct(c).product?.id).filter(Boolean)),scenario=/酒店|hotel|希尔顿|hilton/i.test(text)?'hotel-stay':/餐饮|dining|吃饭/i.test(text)?'dining':/机场|休息室|lounge/i.test(text)?'airport':null,keyword=/hilton|希尔顿/i.test(text)?'Hilton':/marriott|万豪/i.test(text)?'Marriott':/hyatt|凯悦/i.test(text)?'Hyatt':/ihg|洲际/i.test(text)?'IHG':null;return queryKnowledge({kind:'benefit',...(scenario?{scenarioId:scenario}:{}),...(keyword?{text:keyword}:{}),asOf:context.day}).rules.filter(r=>r.productIds.some(id=>products.has(id))).slice(0,12);}
 if(!live){

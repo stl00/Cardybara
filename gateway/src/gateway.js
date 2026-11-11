@@ -1,6 +1,7 @@
-// Cardybara model gateway (Cloudflare Worker): the logic. worker.js is the Worker's main module. It holds the owner's model key and forwards the extension's
-// chat-completion requests to the provider for testers with an invite code. The agent loop, tools and wallet
-// data stay in the extension; this only relays one completion at a time.
+// Cardybara model gateway (Cloudflare Worker): the logic. worker.js is the Worker's main module. It holds the owner's
+// model key and, for testers with an invite code, runs the hosted assistant (`/v1/chat`, agent.js: the agent loop and
+// public-knowledge tools, with wallet tools run in the extension) and relays single completions (`/v1/chat/completions`,
+// used for card-type suggestions).
 //
 // Treat it as public internet:
 // - an invite code is checked by its SHA-256 digest, compared in constant time; codes are never stored or logged;
@@ -9,7 +10,9 @@
 //   provider, so parallel requests cannot overrun a per-code daily cap or the global monthly budget;
 // - bodies, codes and keys are never logged or echoed: a log line carries the code id, time, tokens and status.
 
-export const ROUTES={chat:'/v1/chat/completions',invite:'/v1/invite'};
+import {agentRoute} from './agent.js';
+
+export const ROUTES={chat:'/v1/chat/completions',agent:'/v1/chat',invite:'/v1/invite'};
 export const INVITE_PATTERN=/^cdy_[A-Za-z0-9_-]{43}$/;
 const FIELDS=['model','messages','tools','tool_choice','max_tokens','temperature','response_format'];
 const ROLES=new Set(['system','user','assistant','tool']);
@@ -20,6 +23,7 @@ export const ERRORS={
  bad_request:400,model_not_allowed:400,invite_invalid:401,invite_revoked:403,origin_forbidden:403,not_found:404,method_not_allowed:405,
  too_large:413,unsupported_media_type:415,rate_limited:429,daily_requests:429,daily_tokens:429,monthly_budget:429,provider_rate_limited:429,
  provider_rejected:502,provider_error:502,provider_unreachable:502,gateway_not_configured:503,gateway_busy:503,provider_timeout:504,
+ turn_invalid:400,turn_expired:409,
 };
 
 const number=(value,fallback,{min=0,integer=false}={})=>{const n=Number(value??fallback);return Number.isFinite(n)&&n>=min&&(!integer||Number.isInteger(n))?n:null;};
@@ -90,7 +94,7 @@ async function findInvite(code,env){
  return record;
 }
 
-async function readLimited(request,limit){
+export async function readLimited(request,limit){
  const declared=request.headers.get('Content-Length');
  if(declared!=null&&!(Number(declared)<=limit))throw Error('too_large');
  if(!request.body)return '';
@@ -144,7 +148,7 @@ export function worstCase(forwarded,c){
  const input=encoder.encode(JSON.stringify(forwarded)).byteLength,output=forwarded.max_tokens;
  return {tokens:input+output,micros:Math.ceil(input*c.priceInput+output*c.priceOutput)};
 }
-const actualCost=(usage,c)=>{
+export const actualCost=(usage,c)=>{
  const input=Number.isInteger(usage?.prompt_tokens)&&usage.prompt_tokens>=0?usage.prompt_tokens:null,output=Number.isInteger(usage?.completion_tokens)&&usage.completion_tokens>=0?usage.completion_tokens:null;
  if(input==null||output==null)return null;
  return {input,output,tokens:input+output,micros:Math.ceil(input*c.priceInput+output*c.priceOutput)};
@@ -161,10 +165,10 @@ function respond(status,value,cors){
  return new Response(value==null?null:JSON.stringify(value),{status,headers:{...(value==null?{}:{'Content-Type':'application/json; charset=utf-8'}),'Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...cors}});
 }
 const today=now=>new Date(now).toISOString().slice(0,10);
-class Refusal extends Error{constructor(code,extra={}){super(code);this.extra=extra;}}
+export class Refusal extends Error{constructor(code,extra={}){super(code);this.extra=extra;}}
 
 // --- Middleware. Each takes the request context and either fills it in or throws a Refusal with an error code.
-// Step 2's agent route (`/v1/chat`) reuses them as they are: authenticate once per request, and reserve and
+// The agent route (`/v1/chat`, agent.js) reuses them as they are: authenticate once per request, and reserve and
 // settle once per model call.
 
 /** The invite code from the Authorization header; sets ctx.invite and the log's code id. */
@@ -204,10 +208,13 @@ export async function reserve(ctx,worst){
  };
 }
 /** Sends a sanitized body to the provider with the owner's key. Provider failures become codes only. */
-export async function callProvider(ctx,forwarded,settle){
- const c=ctx.config;let response;
- try{response=await ctx.upstream(c.providerUrl,{method:'POST',headers:{Authorization:'Bearer '+c.providerKey,'Content-Type':'application/json'},body:JSON.stringify(forwarded),redirect:'manual',signal:AbortSignal.timeout(c.timeoutMs)});}
+export async function callProvider(ctx,forwarded,settle,signal){
+ const c=ctx.config;let response,sent=false;
+ if(signal?.aborted){await settle({tokens:0,micros:0});throw signal.reason;}
+ try{sent=true;response=await ctx.upstream(c.providerUrl,{method:'POST',headers:{Authorization:'Bearer '+c.providerKey,'Content-Type':'application/json'},body:JSON.stringify(forwarded),redirect:'manual',signal:signal?AbortSignal.any([AbortSignal.timeout(c.timeoutMs),signal]):AbortSignal.timeout(c.timeoutMs)});}
  catch(e){
+  // Cancelled before the request left: nothing reached the provider, so nothing is charged. Later, the worst case stays.
+  if(signal?.aborted){await settle(sent?null:{tokens:0,micros:0});throw signal.reason;}
   // The provider may have received the request and billed it (a timeout often means it is still generating),
   // so the worst case stays charged.
   await settle(null);
@@ -288,14 +295,14 @@ function streamCompletion(ctx,response,settle,limit){
 }
 
 // The router. A route names its path, method and handler; `auth: true` runs authenticate first.
-// Step 2 adds {path:'/v1/chat', name:'agent', ...} here beside the model proxy.
 export const ROUTE_TABLE=[
  {path:ROUTES.invite,name:'invite',method:'POST',auth:true,handler:inviteRoute},
+ {path:ROUTES.agent,name:'agent',method:'POST',auth:true,handler:agentRoute},
  {path:ROUTES.chat,name:'chat',method:'POST',auth:true,handler:completionRoute},
 ];
 
 /**
- * The gateway. deps: {fetch, log, now, waitUntil} — the upstream fetch, a log sink for one metadata line per
+ * The gateway. deps: {fetch, log, now, waitUntil, observe} — the upstream fetch, a log sink for one metadata line per
  * request, a clock and the runtime's waitUntil; injected so tests and the packaged-extension E2E run this
  * exact code against a fake provider.
  */
@@ -308,7 +315,9 @@ export async function handle(request,env,deps={}){
  const record={at:new Date(now()).toISOString(),route:route?.name||'other',code:null,status:0};
  let deferred=null;
  const ctx={request,env,config,cors,record,url,now,// Called as a plain function: Workers' fetch throws "Illegal invocation" when called as a method of another object.
-  upstream:deps.fetch||((...a)=>globalThis.fetch(...a)),invite:null,deferLog:p=>{deferred=p;}};
+  upstream:deps.fetch||((...a)=>globalThis.fetch(...a)),invite:null,deferLog:p=>{deferred=p;},
+  // Tests only: sees each agent model call's payload before it becomes a provider request. The Worker never sets it.
+  observe:deps.observe||null};
  const write=()=>log(JSON.stringify(record));
  const finish=response=>{record.status=response.status;if(deferred){const p=deferred.then(write);deps.waitUntil?deps.waitUntil(p):void p;}else write();return response;};
  const refuse=(code,extra={})=>{Object.assign(record,{error:code},extra);return finish(respond(ERRORS[code]||500,{error:{code}},code==='method_not_allowed'?{...cors,Allow:route.method}:cors));};

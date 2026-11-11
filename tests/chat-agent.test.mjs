@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {validateChat,chatAgent} from '../scripts/chat-agent.mjs';
 import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
-import {runAgentTurn} from '../src/agentSession.js';
+import {runAgentTurn} from './helpers/agent-target.mjs';
 import {presentCard} from '../src/cardName.js';
 const cards=JSON.parse(readFileSync(new URL('./fixtures/wallet-products.json',import.meta.url))).cards;
 // Mechanics apart from the valuation table (#193).

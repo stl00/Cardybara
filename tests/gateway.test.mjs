@@ -218,8 +218,8 @@ test('global caps can be changed in KV without a deploy; bad values are ignored'
  const h=setup({vars:{DAILY_REQUESTS_PER_CODE:'1'}});await h.addInvite(CODE,{id:'t01'});await h.env.INVITES.put(SETTINGS_KEY,JSON.stringify({dailyRequests:-5,monthlyBudgetUsd:'lots'}));
  assert.equal((await h.handle(post(ROUTES.chat))).status,200);assert.equal((await h.handle(post(ROUTES.chat))).status,429);
 });
-test('the router lists each route once with its method; the agent route can be added beside the proxy',()=>{
- assert.deepEqual(ROUTE_TABLE.map(r=>[r.path,r.method,r.auth]),[[ROUTES.invite,'POST',true],[ROUTES.chat,'POST',true]]);
+test('the router lists each route once with its method; the agent route sits beside the proxy',()=>{
+ assert.deepEqual(ROUTE_TABLE.map(r=>[r.path,r.method,r.auth]),[[ROUTES.invite,'POST',true],[ROUTES.agent,'POST',true],[ROUTES.chat,'POST',true]]);
 });
 
 test('a rate limiter, when bound, refuses before any invite lookup',async()=>{
