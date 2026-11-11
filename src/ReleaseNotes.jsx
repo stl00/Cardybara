@@ -2,7 +2,7 @@ import React from 'react';
 import {Alert,Card,Space,Tag,Typography} from 'antd';
 import {ACTIVE_BANKS,CONNECTABLE_BANKS,SCOPED,bankOrder} from '../extension-next/providers.js';
 import release from '../release.json' with {type:'json'};
-import {BankIdentity,bankLabel} from './Identity';
+import {BankIdentity,bankName} from './Identity';
 import {t,useI18n} from './i18n';
 const {Paragraph,Text}=Typography;
 // "关于这个版本": what this build reads, what the user enters, what the assistant can do and where data goes.
@@ -15,7 +15,7 @@ export default function ReleaseNotes(){
   <Alert type="info" showIcon title={t('版本 {0}',[release.label])} description={release.channel==='beta'?t('这是给朋友试用的测试版，不是 Chrome 应用商店版本。功能和银行页面都可能变化，遇到问题请告诉我们。'):t('这是内部测试版，不是 Chrome 应用商店版本。')}/>
   <Card title={t('支持的银行')}>
    <Space wrap>{bankOrder(CONNECTABLE_BANKS).map(b=><Tag key={b}><BankIdentity bank={b} size={20}/></Tag>)}</Space>
-   {SCOPED&&others.length>0&&<Paragraph type="secondary" style={{marginTop:12,marginBottom:0}}>{t('这个版本不提供连接：{0}。这些银行的卡片可以手动添加到钱包，但余额和账单不会自动读取。',[others.map(bankLabel).join(t('、'))])}</Paragraph>}
+   {SCOPED&&others.length>0&&<Paragraph type="secondary" style={{marginTop:12,marginBottom:0}}>{t('这个版本不提供连接：{0}。这些银行的卡片可以手动添加到钱包，但余额和账单不会自动读取。',[others.map(bankName).join(t('、'))])}</Paragraph>}
   </Card>
   <Card title={t('从银行读取什么')}>
    <List items={['每张卡的余额、账单金额、最低还款和还款日。','American Express Membership Rewards 和 Chase Ultimate Rewards 积分；同一个积分池只显示一次。','只读取，不付款、不转账、不兑换积分、不登记优惠，也不改银行设置。','登录、密码和手机验证都在银行官网由你自己完成，钱包不读取也不保存它们。']}/>

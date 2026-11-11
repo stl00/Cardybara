@@ -1,5 +1,6 @@
-import React,{useEffect,useState} from 'react';
-import {Alert,App,Button,Flex,Select,Tag,Typography} from 'antd';
+import React,{useEffect,useMemo,useState} from 'react';
+import {App,Button,Flex,Tag,Typography} from 'antd';
+import ProductPickerPanel from './ProductPickerPanel.jsx';
 import {t,useI18n} from './i18n';
 import {cardProducts,matchCardProduct} from './productCatalog';
 import {productDisplayName} from './cardName';
@@ -64,17 +65,18 @@ export default function CardProductPicker({card}){
  const {language}=useI18n(),{message}=App.useApp(),suggestions=useSuggestions(),label=p=>productDisplayName(p.id,language)||p.name;
  // Recognition is judged on the card as read, without the user's own choice.
  const auto=matchCardProduct({...card,name:card.pageName??card.name,productId:undefined}),chosen=card.productChosen?cardProducts.find(p=>p.id===card.productId):null;
- const scoped=cardProducts.filter(p=>p.bank===card.bank&&p.region===card.region);
+ const scoped=useMemo(()=>cardProducts.filter(p=>p.bank===card.bank&&p.region===card.region),[card.bank,card.region]);
  const suggested=chosen||auto.status==='matched'?null:suggestionFor(card,suggestions);
  const ready=useModelReady(),[asking,setAsking]=useState(false),askable=!suggested&&!chosen&&auto.status!=='matched'&&ready&&needsSuggestion(card,suggestions);
  const ask=async()=>{setAsking(true);try{saveSuggestion(card,await suggest(card));}catch{message.error(t('AI 暂时无法给出建议，请稍后再试。'))}finally{setAsking(false)}};
  const answeredNone=!suggested&&!chosen&&auto.status!=='matched'&&suggestions.some(r=>r.key===suggestionKey(card)&&r.productId===null);
  const first=new Set([...(suggested?[suggested.id]:[]),...auto.candidates]);
- const options=[...scoped].sort((a,b)=>Number(b.id===suggested?.id)-Number(a.id===suggested?.id)||Number(first.has(b.id))-Number(first.has(a.id))||label(a).localeCompare(label(b))).map(p=>({value:p.id,label:label(p),search:[label(p),p.name,...p.aliases].join(' '),art:!!p.art}));
  const [editing,setEditing]=useState(false);
  const save=productId=>{try{saveCardProductChoices(withCardProductChoice(loadCardProductChoices(),card,productId));setEditing(false);message.success(productId?t('已设定卡种。'):t('已改回自动识别。'))}catch{message.error(t('保存失败，刚才的设置没有生效。'))}};
  const status=chosen?<><Tag color="blue">{t('你选择的卡种')}</Tag><Text>{label(chosen)}</Text></>:auto.status==='matched'?<><Tag color="success">{t('已自动识别')}</Tag><Text>{label(auto.product)}</Text></>:auto.candidates.length>1?<Tag color="warning">{t('有 {0} 个可能的卡种，无法确定',[auto.candidates.length])}</Tag>:<Tag>{t('未能识别卡种')}</Tag>;
- const product=chosen||auto.product,showPicker=editing||(!product&&!suggested&&scoped.length>0);
+ const product=chosen||auto.product,showPicker=!product&&!suggested&&scoped.length>0;
+ // The AI suggestion and the names that nearly matched come first in the panel, tagged.
+ const badges=Object.fromEntries([...first].map(id=>[id,<Tag key="b" color={id===suggested?.id?'purple':'default'}>{id===suggested?.id?t('AI 建议'):t('可能')}</Tag>]));
  return <div className="card-product-picker">
   {card.pageName&&card.pageName!==card.name&&<Paragraph type="secondary" style={{margin:'0 0 6px',fontSize:12}}>{t('银行页面显示：{0}',[card.pageName])}</Paragraph>}
   <Flex align="center" gap={8} wrap><Text type="secondary">{t('卡种')}</Text>{status}{product&&!product.art&&<Text type="secondary">{t('这个卡种暂时没有卡面图片。')}</Text>}</Flex>
@@ -83,14 +85,11 @@ export default function CardProductPicker({card}){
    <Paragraph type="secondary" style={{margin:'4px 0',fontSize:12}}>{t('由 AI 服务根据卡名推测，确认前不当作已识别。')}</Paragraph>
    <Flex gap={8} wrap><Button size="small" type="primary" onClick={()=>save(suggested.id)}>{t('确认是这个卡种')}</Button><Button size="small" onClick={()=>setEditing(true)}>{t('改选卡种')}</Button></Flex>
   </div>}
-  {showPicker?<Flex gap={8} wrap align="center" style={{marginTop:8}}>
-   <Select showSearch size="small" style={{minWidth:260,maxWidth:'100%'}} placeholder={t('选择这张卡的卡种')} aria-label={t('选择这张卡的卡种')} value={chosen?.id} onChange={save} optionFilterProp="search"
-    options={options.map(o=>({value:o.value,search:o.search,label:<span>{o.label}{o.value===suggested?.id?<Tag color="purple" style={{marginInlineStart:6}}>{t('AI 建议')}</Tag>:first.has(o.value)&&<Tag style={{marginInlineStart:6}}>{t('可能')}</Tag>}{!o.art&&<Text type="secondary"> · {t('无卡面')}</Text>}</span>}))}/>
-   {editing&&<Button size="small" type="text" onClick={()=>setEditing(false)}>{t('取消')}</Button>}
-  </Flex>:<Flex gap={8} wrap style={{marginTop:4}}>
-   {!suggested&&<Button size="small" type="link" style={{paddingInline:0}} onClick={()=>setEditing(true)}>{t('改选卡种')}</Button>}
+  <Flex gap={8} wrap align="center" style={{marginTop:showPicker?8:4}}>
+   {showPicker?<Button size="small" type="primary" ghost className="card-product-choose" onClick={()=>setEditing(true)}>{t('选择这张卡的卡种')}</Button>:!suggested&&<Button size="small" type="link" className="card-product-choose" style={{paddingInline:0}} onClick={()=>setEditing(true)}>{t('改选卡种')}</Button>}
    {chosen&&<Button size="small" type="link" onClick={()=>save(null)}>{t('改回自动识别')}</Button>}
-  </Flex>}
+  </Flex>
+  <ProductPickerPanel open={editing} onClose={()=>setEditing(false)} onChoose={save} products={scoped} title={t('选择这张卡的卡种')} selectedId={chosen?.id} badges={badges}/>
   {askable&&<Flex gap={8} wrap align="center" style={{marginTop:8}}><Button size="small" loading={asking} onClick={ask}>{t('用 AI 推测卡种')}</Button><Text type="secondary" style={{fontSize:12}}>{t('会把银行、地区和卡名（不含尾号）发给 AI 服务。')}</Text></Flex>}
   {answeredNone&&<Paragraph type="secondary" style={{margin:'6px 0 0',fontSize:12}}>{t('AI 也无法确定这张卡的卡种。')}</Paragraph>}
   {!product&&!scoped.length&&<Paragraph type="secondary" style={{margin:'6px 0 0'}}>{t('资料库里还没有这家银行的卡种。')}</Paragraph>}
