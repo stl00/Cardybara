@@ -5,7 +5,8 @@ import {referenceCards as cards,creditMark,decisionIds} from '../evals/fixtures.
 import {chooseCard,PURCHASE_CATEGORIES} from '../src/cardDecision.js';
 import {QUICK_CATEGORIES,walletCurrencies,purchaseArgs,quickChoice} from '../src/purchaseChoice.js';
 const {GOLD,GOLD_DINING}=decisionIds,DAY='2026-11-05';
-const wallet={cards,events:[],day:DAY};
+// Mechanics apart from the valuation table (#193); default values have their own test below.
+const wallet={cards,events:[],day:DAY,marketDefaults:false};
 const source=path=>readFileSync(new URL(path,import.meta.url),'utf8');
 
 test('the wallet entry and the chat use the same engine and give the same choice',()=>{
