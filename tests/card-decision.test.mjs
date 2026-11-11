@@ -13,7 +13,8 @@ import {runAgentTurn} from '../src/agentSession.js';
 import {renderChoiceAnswer} from '../src/decisionAnswer.js';
 import {chatAgent} from '../scripts/chat-agent.mjs';
 const {GOLD,GOLD_DINING}=decisionIds,DAY='2026-11-05';
-const wallet={cards,events:[],day:DAY};
+// The comparison mechanics are checked apart from the valuation table (#193); defaults have their own tests.
+const wallet={cards,events:[],day:DAY,marketDefaults:false};
 const pick=(args,context=wallet)=>chooseCard(args,context);
 const row=(result,card)=>result.rows.find(r=>r.card===card);
 const usDining={category:'dining',amount:100,currency:'USD',country:'US'};
@@ -104,7 +105,7 @@ test('points are never priced without a stated value, and a stated value can win
  const none=pick(usDining);assert.equal(none.choice.valuedPoints,false);
  assert.equal(none.pointsAlternatives.find(p=>p.card==='American Express Gold Card').breakEvenCentsPerPoint,0.75);
  assert.equal(none.pointsAlternatives.find(p=>p.card==='Sapphire Reserve').breakEvenCentsPerPoint,1);
- assert.ok(!JSON.stringify(none).includes('valueAtYourPointValue'));
+ assert.ok(!JSON.stringify(none).includes('valueAtPointValue'));
  const mr=pick({...usDining,pointValues:{MR:2}});assert.equal(mr.choice.card,'American Express Gold Card');assert.equal(mr.choice.value,8);assert.equal(mr.choice.valuedPoints,true);assert.equal(row(mr,'American Express Gold Card').centsPerPoint,2);
  const low=pick({...usDining,pointValues:{MR:0.5}});assert.equal(low.choice.card,'Freedom Unlimited');
  const ur=pick({...usDining,pointValues:{'Ultimate Rewards':1.5}});assert.equal(ur.choice.card,'Sapphire Reserve');assert.equal(ur.choice.value,4.5);
@@ -116,7 +117,7 @@ test('points are never priced without a stated value, and a stated value can win
 test('review: point values stay in their programme, region and currency, and count without an amount',()=>{
  const two=cards.filter(c=>['American Express Gold Card','Freedom Unlimited'].includes(c.name));
  const noAmount=chooseCard({category:'dining',currency:'USD',pointValues:{MR:2}},{...wallet,cards:two});
- assert.equal(noAmount.choice.card,'American Express Gold Card');assert.equal(noAmount.choice.basis,'rate-at-your-point-value');assert.equal(row(noAmount,'American Express Gold Card').percentAtYourPointValue,8);
+ assert.equal(noAmount.choice.card,'American Express Gold Card');assert.equal(noAmount.choice.basis,'rate-at-point-value');assert.equal(row(noAmount,'American Express Gold Card').percentAtPointValue,8);
  const hk={category:'online-retail',amount:1000,currency:'HKD',country:'HK'};
  const bare=pick({...hk,pointValues:{MR:1.5}});assert.ok(!bare.rows.some(r=>r.centsPerPoint!=null),'a bare MR is the US programme');
  const named=pick({...hk,pointValues:{'MR HK':1.5}});assert.ok(named.rows.some(r=>r.cardRegion==='HK'&&r.centsPerPoint===1.5));
@@ -168,7 +169,7 @@ test('second review: generic portal words, numbers that are not values, miles, a
  assert.deepEqual(statedPointValues({MR:2,UR:2},'MR 一点值 2 美分，餐厅100美元'),{MR:2});
  for(const [question,values] of [['MR is worth 2 cents',{MR:2}],['MR=2',{MR:2}],['UR 1.5 cents each',{UR:1.5}],['我觉得 MR 2 分一点',{MR:2}],['MR 每点 1.8 美分',{MR:1.8}],['MR HK 估 0.5 港分',{'MR HK':0.5}],['MR 一点值 2 美分',{MR:2}],['I value MR at 1.5',{MR:1.5}],['UR is worth 1.25 cents',{UR:1.25}],['亚洲万里通 10 港分一里',{'Asia Miles':10}]])assert.deepEqual(statedPointValues(values,question),values,question);
  const cathay=pick({category:'other',amount:1200,currency:'HKD',country:'HK',pointValues:{'Asia Miles':10}}).rows.find(r=>/Cathay/.test(r.card));assert.equal(cathay.centsPerPoint,10);
- const noAmount=pick({category:'other',currency:'HKD',country:'HK',pointValues:{'Asia Miles':10}}).rows.find(r=>/Cathay/.test(r.card));assert.equal(noAmount.percentAtYourPointValue,Math.round(10/noAmount.earn.rate*100)/100);
+ const noAmount=pick({category:'other',currency:'HKD',country:'HK',pointValues:{'Asia Miles':10}}).rows.find(r=>/Cathay/.test(r.card));assert.equal(noAmount.percentAtPointValue,Math.round(10/noAmount.earn.rate*100)/100);
  const mileAnswer=renderChoiceAnswer(pick({category:'other',currency:'HKD',country:'HK',pointValues:{'Asia Miles':10}}),'Which card?');assert.match(mileAnswer,/1 mile per HKD \d/);assert.ok(!/\dx points/.test(mileAnswer));
  const gold=chooseCard({category:'dining',currency:'USD',pointValues:{MR:2}},{...wallet,cards:cards.filter(c=>['American Express Gold Card','Freedom Unlimited'].includes(c.name))});
  for(const [q,expect] of [['刷哪张',/2 分，4 倍积分约合消费的 8%/],['Which card?',/2 cents a point, 4x points are worth about 8%/]]){const text=renderChoiceAnswer(gold,q);assert.match(text,expect);assert.ok(!/4% (?:返现|cash back)/.test(text));assert.deepEqual(answerGrounding(text,[gold],{contextText:q}).issues,[]);}
