@@ -1,6 +1,6 @@
 # 美国常见卡片覆盖表
 
-2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这份名单。 名单共 50 项：49 张有资料，1 张因发卡行页面读不到数字而跳过。 2026-11-11 起第6批及以后按 #195 补充 friends beta 测试者常持有的 Chase 和 Amex US 卡（Chase 已在产品目录中但缺规则，Amex US 为新增产品），事实同样只来自发卡行页面。 2026-11-11 第10批按 #231 加入 Bilt Card 2.0 的三张卡（仅手动添加，不读取账户），事实只来自 Bilt 和 Cardless 的公开页面。
+2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这份名单。 名单共 50 项：49 张有资料，1 张因发卡行页面读不到数字而跳过。 2026-11-11 起第6批及以后按 #195 补充 friends beta 测试者常持有的 Chase 和 Amex US 卡（Chase 已在产品目录中但缺规则，Amex US 为新增产品），事实同样只来自发卡行页面。 2026-11-11 第10批按 #231 加入 Bilt Card 2.0 的三张卡（仅手动添加，不读取账户），事实只来自 Bilt 和 Cardless 的公开页面。 2026-11-12 第12批按 #244 补充目录中已有但缺规则的 Bank of America Unlimited Cash Rewards 和 Atmos Rewards Ascent；American Express Green Card 的发卡行产品页公开内容读不到年费和赚取比例，已跳过。
 
 “读取”指插件能否自动读取账户数据；这里的资料只是公开产品信息，不代表该银行已能采集或已验收。卡面暂不新增，发卡行图片的使用条款未确认。
 
@@ -82,3 +82,6 @@
 | 10 | Bilt Blue | $0 | 4 | 1 | Bilt Rewards | 暂不支持 | Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。；保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。；开卡奖励按个人报价变化，未记录。 | https://www.bilt.com/card |
 | 10 | Bilt Obsidian | $95 | 7 | 3 | Bilt Rewards | 暂不支持 | Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。；保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。；开卡奖励按个人报价变化，未记录。；2027年1月1日前开户的账户在2027年后第一个开卡周年日改用每年100美元 Bilt Cash（不作 Legacy Election 时），个人适用哪一套未核实。 | https://www.bilt.com/card |
 | 10 | Bilt Palladium | $495 | 4 | 5 | Bilt Rewards | 暂不支持 | Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。；保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。；开卡奖励按个人报价变化，未记录。；2027年1月1日前开户的账户在2027年后第一个开卡周年日改用每年600美元 Bilt Cash（不作 Legacy Election 时），个人适用哪一套未核实。 | https://www.bilt.com/card |
+| 12 | BOA Unlimited Cash Rewards | $0 | 1 | 1 | — | 已支持的银行，未验收 | 产品页未写外币交易费；BofA Rewards 加成比例和附属卡年费未确认。；开户奖励和免息期等限时优惠未录入。 | https://www.bankofamerica.com/credit-cards/products/unlimited-cash-back-credit-card/ |
+| 12 | Atmos Rewards Ascent | $95 | 3 | 5 | Atmos Rewards | 已支持的银行，未验收 | 产品页未写外币交易费；附属卡年费未确认。；开户奖励未录入；同行票的适用航线和舱位限制未录入。 | https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/ |
+| — | Amex Green | — | — | — | — | — | 发卡行产品页的公开内容读不到年费和赚取比例，已跳过。 | — |

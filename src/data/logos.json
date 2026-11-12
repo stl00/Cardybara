@@ -267,7 +267,9 @@
   "Lyft（关联 Bilt 账户）": "ground-transport",
   "餐饮（自选类别，默认）": "dining",
   "超市（自选类别）": "shopping",
-  "航空、酒店、邮轮和租车直接消费": "travel"
+  "航空、酒店、邮轮和租车直接消费": "travel",
+  "Alaska Airlines 和 Hawaiian Airlines 消费": "airline",
+  "加油站、充电站、有线电视、流媒体和本地交通": "general"
  },
  "brands": [
   {

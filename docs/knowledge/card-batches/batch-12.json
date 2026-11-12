@@ -1,0 +1,244 @@
+{
+ "batch": 12,
+ "checkedAt": "2026-11-12",
+ "reviewAfter": "2027-02-10",
+ "cards": [
+  {
+   "id": "boa-us-bank-of-america-unlimited-cash-rewards",
+   "page": "boa-us-bank-of-america-unlimited-cash-rewards",
+   "issuer": "Bank of America",
+   "url": "https://www.bankofamerica.com/credit-cards/products/unlimited-cash-back-credit-card/",
+   "aliases": [
+    "Unlimited Cash Rewards",
+    "BofA Unlimited Cash Rewards"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Enjoy no annual fee while earning unlimited cash back on all purchases"
+   },
+   "earning": [
+    {
+     "zh": "所有消费",
+     "en": "All purchases",
+     "multiplier": 1.5,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn unlimited 1.5% cash back on all purchases",
+     "noteZh": "所有消费1.5%现金回馈，无上限；账户保持开立时回馈不过期。",
+     "noteEn": "1.5% cash back on all purchases with no limit; cash rewards do not expire while the account stays open."
+    }
+   ],
+   "credits": [
+    {
+     "key": "bofa-rewards-bonus",
+     "zh": "BofA Rewards 计划的刷卡回馈加成",
+     "en": "BofA Rewards bonus on card purchases",
+     "noteZh": "加入 BofA Rewards 计划后，每笔信用卡消费有回馈加成。加成比例和加入条件不在产品页上，未录入。",
+     "noteEn": "Members of the BofA Rewards program get a rewards bonus on every credit card purchase. The bonus rate and how to qualify are not on the product page and are not recorded.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "starting with a rewards bonus on every credit card purchase",
+     "original": {
+      "title": "BofA Rewards bonus",
+      "summary": "The BofA Rewards program starts with a rewards bonus on every credit card purchase.",
+      "howToUse": [
+       "Check your BofA Rewards enrollment and tier with Bank of America."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "产品页未写外币交易费；BofA Rewards 加成比例和附属卡年费未确认。",
+     "en": "The product page does not state a foreign transaction fee. The BofA Rewards bonus rate and the additional card fee are not confirmed."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "The new-account bonus and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "boa-us-atmos-rewards-ascent-visa-signature",
+   "page": "boa-us-atmos-rewards-ascent-visa-signature",
+   "issuer": "Bank of America",
+   "url": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
+   "aliases": [
+    "Atmos Rewards Ascent",
+    "Atmos Ascent",
+    "Alaska Airlines Visa Signature"
+   ],
+   "transfer": {
+    "name": "Atmos Rewards",
+    "programmeId": "programme.atmos-rewards",
+    "linkOnly": true,
+    "quote": "Atmos™ Rewards Ascent Visa Signature®"
+   },
+   "fee": {
+    "amount": 95,
+    "currency": "USD",
+    "quote": "$95 annual fee"
+   },
+   "earning": [
+    {
+     "zh": "Alaska Airlines 和 Hawaiian Airlines 消费",
+     "en": "Alaska Airlines and Hawaiian Airlines purchases",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "airline",
+     "quote": "Earn unlimited 3 points for every $1 spent on eligible Alaska Airlines and Hawaiian Airlines purchases."
+    },
+    {
+     "zh": "加油站、充电站、有线电视、流媒体和本地交通",
+     "en": "Gas, EV charging, cable, streaming and local transit",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn unlimited 2 points for every $1 spent on eligible gas, EV charging station, cable, streaming services",
+     "noteZh": "合资格的加油站、电动车充电站、有线电视、流媒体和本地交通（含网约车）消费；类别范围以条款为准。",
+     "noteEn": "Eligible gas, EV charging station, cable, streaming services and local transit purchases, including rideshare; category scope follows the terms."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn unlimited 1 point for every $1 spent on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "companion-fare",
+     "zh": "消费满6,000美元得99美元同行票",
+     "en": "$99 Companion Fare after $6,000",
+     "noteZh": "上一个账户周年年度消费满6,000美元，每个账户周年得一张99美元同行票，另付23美元起的税费。是否达标未核实。",
+     "noteEn": "A $99 Companion Fare, plus taxes and fees from $23, each account anniversary after $6,000 or more in purchases in the prior anniversary year. Whether you reach it is unverified.",
+     "scenario": "travel",
+     "scenarios": [
+      "travel",
+      "airport"
+     ],
+     "category": "spend-unlock",
+     "period": "account-anniversary",
+     "programmeIds": [
+      "programme.atmos-rewards"
+     ],
+     "quote": "Get a $99 Companion Fare (plus taxes and fees from $23) each account anniversary",
+     "original": {
+      "title": "Annual Companion Fare",
+      "summary": "A $99 Companion Fare (plus taxes and fees from $23) each account anniversary after you spend $6,000 or more on purchases within the prior anniversary year.",
+      "howToUse": [
+       "Track your anniversary-year spend on the card."
+      ],
+      "quotes": [
+       "after you spend $6,000 or more on purchases within the prior anniversary year."
+      ]
+     }
+    },
+    {
+     "key": "checked-bag",
+     "zh": "免费托运行李和优先登机",
+     "en": "Free checked bag and preferred boarding",
+     "noteZh": "你和同一订单最多6名同行人；须用本卡支付 Alaska Airlines 或 Hawaiian Airlines 机票。",
+     "noteEn": "For you and up to 6 guests on the same reservation when the Alaska Airlines or Hawaiian Airlines flight is paid with the card.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "per-trip",
+     "programmeIds": [
+      "programme.atmos-rewards"
+     ],
+     "quote": "Free checked bag and preferred boarding for you and up to 6 guests on the same reservation",
+     "original": {
+      "title": "Free checked bag and preferred boarding",
+      "summary": "Free checked bag and preferred boarding for you and up to 6 guests on the same reservation when you pay for your Alaska Airlines or Hawaiian Airlines flight with your card.",
+      "howToUse": [
+       "Pay for the flight with the card."
+      ],
+      "quotes": [
+       "when you pay for your Alaska Airlines or Hawaiian Airlines flight with your card."
+      ]
+     }
+    },
+    {
+     "key": "lounge-discount",
+     "zh": "Alaska Lounge+ 年度会籍减100美元",
+     "en": "$100 off an annual Alaska Lounge+ Membership",
+     "noteZh": "用本卡购买 Alaska Lounge+ 年度会籍时减100美元；这是购买折扣，不含免费进入休息室。",
+     "noteEn": "$100 off an annual Alaska Lounge+ Membership bought with the card. It is a purchase discount and does not include lounge access.",
+     "scenario": "airport",
+     "category": "promo",
+     "period": "ongoing",
+     "programmeIds": [
+      "programme.alaska-lounge"
+     ],
+     "quote": "Get $100 off an annual Alaska Lounge+ Membership purchased with your card.",
+     "original": {
+      "title": "$100 off Alaska Lounge+",
+      "summary": "Get $100 off an annual Alaska Lounge+ Membership purchased with your card.",
+      "howToUse": [
+       "Buy the membership with the card."
+      ]
+     }
+    },
+    {
+     "key": "inflight",
+     "zh": "机上消费返20%",
+     "en": "20% back on inflight purchases",
+     "noteZh": "用本卡支付 Alaska Airlines 和 Hawaiian Airlines 机上消费返20%。",
+     "noteEn": "20% back on Alaska Airlines and Hawaiian Airlines inflight purchases paid with the card.",
+     "scenario": "airport",
+     "category": "promo",
+     "period": "ongoing",
+     "programmeIds": [
+      "programme.atmos-rewards"
+     ],
+     "quote": "Enjoy 20% back on Alaska Airlines and Hawaiian Airlines inflight purchases when you pay with your card.",
+     "original": {
+      "title": "20% back inflight",
+      "summary": "Enjoy 20% back on Alaska Airlines and Hawaiian Airlines inflight purchases when you pay with your card.",
+      "howToUse": [
+       "Pay for inflight purchases with the card."
+      ]
+     }
+    },
+    {
+     "key": "relationship-bonus",
+     "zh": "持有合资格 Bank of America 账户多得10%积分",
+     "en": "10% rewards bonus with an eligible Bank of America account",
+     "noteZh": "持有合资格 Bank of America 账户时，刷卡所得积分多10%。哪些账户合资格不在已核对的文字里，未录入。",
+     "noteEn": "A 10% rewards bonus on all points earned from card purchases with an eligible Bank of America account. Which accounts are eligible is not in the checked text and is not recorded.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "programmeIds": [
+      "programme.atmos-rewards"
+     ],
+     "quote": "You can also earn a 10% rewards bonus on all points earned from card purchases",
+     "original": {
+      "title": "10% rewards bonus",
+      "summary": "You can also earn a 10% rewards bonus on all points earned from card purchases if you have an eligible Bank of America account.",
+      "howToUse": [
+       "Check with Bank of America whether your account is eligible."
+      ],
+      "quotes": [
+       "if you have an eligible Bank of America® account."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "产品页未写外币交易费；附属卡年费未确认。",
+     "en": "The product page does not state a foreign transaction fee. The additional card fee is not confirmed."
+    },
+    {
+     "zh": "开户奖励未录入；同行票的适用航线和舱位限制未录入。",
+     "en": "The new-account bonus is not recorded. Route and fare limits on the Companion Fare are not recorded."
+    }
+   ]
+  }
+ ]
+}

@@ -1167,5 +1167,19 @@
     "title": "Capital One · 转点伙伴说明",
     "checkedAt": "2026-11-11",
     "authority": "official"
+  },
+  {
+    "id": "card-boa-us-bank-of-america-unlimited-cash-rewards",
+    "url": "https://www.bankofamerica.com/credit-cards/products/unlimited-cash-back-credit-card/",
+    "title": "Bank of America · Bank of America Unlimited Cash Rewards 官方产品页",
+    "checkedAt": "2026-11-12",
+    "authority": "official"
+  },
+  {
+    "id": "card-boa-us-atmos-rewards-ascent-visa-signature",
+    "url": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
+    "title": "Bank of America · Atmos Rewards Ascent Visa Signature 官方产品页",
+    "checkedAt": "2026-11-12",
+    "authority": "official"
   }
 ]

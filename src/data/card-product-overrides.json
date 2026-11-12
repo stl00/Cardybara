@@ -1916,5 +1916,35 @@
       "checkedAt": "2026-11-11",
       "terms": "requires-permission"
     }
+  },
+  {
+    "id": "boa-us-bank-of-america-unlimited-cash-rewards",
+    "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/unlimited-cash-back-credit-card/",
+    "checkedAt": "2026-11-12",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Bank of America Unlimited Cash Rewards",
+      "Unlimited Cash Rewards",
+      "BofA Unlimited Cash Rewards"
+    ]
+  },
+  {
+    "id": "boa-us-atmos-rewards-ascent-visa-signature",
+    "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
+    "checkedAt": "2026-11-12",
+    "verification": "issuer-listed",
+    "aliases": [
+      "Atmos Rewards Ascent Visa Signature",
+      "Atmos Rewards Ascent",
+      "Atmos Ascent",
+      "Alaska Airlines Visa Signature"
+    ],
+    "rewardPrograms": [
+      "Atmos Rewards"
+    ],
+    "rewardSource": {
+      "url": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
+      "checkedAt": "2026-11-12"
+    }
   }
 ]
