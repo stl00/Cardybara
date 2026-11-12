@@ -15,11 +15,15 @@ const stated=batches.flatMap(b=>b.cards.flatMap(c=>(c.credits||[]).filter(r=>r.s
 const helper=(row,currency='USD')=>{const run=spawnSync('python3',['scripts/spend_threshold.py'],{cwd:root,input:JSON.stringify({row,currency}),encoding:'utf8'});assert.equal(run.status,0,run.stderr);return JSON.parse(run.stdout);};
 const BA='rule.chase-us-british-airways-visa-signature-credit-card.travel-together',AER='rule.chase-us-aer-lingus-visa-signature-credit-card.companion-ticket';
 const RESORT='rule.chase-us-disney-inspire-visa-card.resort-stays',TICKETS='rule.chase-us-disney-inspire-visa-card.park-tickets';
+// #250: five more, read again on the same day. All count every purchase on the card.
+const SPARK='rule.capital-one-us-spark-cash-plus-card.fee-refund',EXPLORER='rule.chase-us-united-explorer-card.travel-credit',BOUNTIFUL='rule.chase-us-marriott-bonvoy-bountiful-credit-card.free-night';
+const UNITED_BIZ='rule.chase-us-united-business-card.economy-plus',CLUB_BIZ='rule.chase-us-united-club-business-card.economy-plus';
+const MORE={[SPARK]:[150000,'account-anniversary'],[EXPLORER]:[10000,'calendar-year'],[BOUNTIFUL]:[15000,'calendar-year'],[UNITED_BIZ]:[25000,'calendar-year'],[CLUB_BIZ]:[40000,'calendar-year']};
 
 test('the companion tickets and the Disney Inspire spend rewards expose their spend threshold',()=>{
  assert.equal(validateKnowledge().valid,true);
- assert.deepEqual(stated.map(s=>s.id).sort(),[AER,BA,RESORT,TICKETS].sort());
- const want={[BA]:[30000,'calendar-year'],[AER]:[30000,'calendar-year'],[RESORT]:[2000,'account-anniversary'],[TICKETS]:[200,'account-anniversary']};
+ assert.deepEqual(stated.map(s=>s.id).sort(),[AER,BA,RESORT,TICKETS,...Object.keys(MORE)].sort());
+ const want={[BA]:[30000,'calendar-year'],[AER]:[30000,'calendar-year'],[RESORT]:[2000,'account-anniversary'],[TICKETS]:[200,'account-anniversary'],...MORE};
  for(const [id,[amount,period]] of Object.entries(want)){
   const rule=getKnowledgeRule(id,{asOf:DAY});
   assert.equal(rule.revision,2,id);assert.equal(rule.terms.spendThreshold,amount,id);assert.equal(rule.terms.period,period,id);
@@ -40,8 +44,24 @@ test('a calendar-year threshold on all purchases is a condition; a category thre
   assert.equal(rule.terms.spendScope,undefined);
   assert.equal(inspectRuleRequirements(id,{account:{eligibleCalendarYearSpend:1000}},{asOf:DAY}).result,'requirements-not-met');
  }
+ for(const [id,[amount,period]] of Object.entries(MORE)){
+  const rule=getKnowledgeRule(id,{asOf:DAY});assert.equal(rule.terms.spendScope,undefined,id);
+  // A membership-year threshold gets no condition: the account's calendar-year spend does not prove it.
+  if(period!=='calendar-year'){assert.deepEqual(rule.conditions.all,[],id);continue;}
+  assert.deepEqual(rule.conditions.all,[{field:'account.eligibleCalendarYearSpend',op:'gte',value:amount,currency:'USD',timeScope:'current-or-earned-year-needs-account-proof'}],id);
+  assert.equal(inspectRuleRequirements(id,{account:{eligibleCalendarYearSpend:amount-1}},{asOf:DAY}).result,'requirements-not-met',id);
+ }
  // Disney counts only Disney purchases of one kind, so the account's total spend proves nothing.
  for(const id of [RESORT,TICKETS]){const rule=getKnowledgeRule(id,{asOf:DAY});assert.equal(rule.terms.spendScope,'category');assert.deepEqual(rule.conditions.all,[]);}
+});
+
+test('spend-unlock rows that are not one spend amount, or whose page could not be read again, state no threshold',()=>{
+ // #250: per-$ accruals, ride and purchase counts, dated offers and the Bilt housing points are not a single threshold.
+ // The nine American Express rows keep revision 1 because their pages returned no text signed out on 2026-11-12.
+ const rows=batches.flatMap(b=>b.cards.flatMap(c=>(c.credits||[]).filter(r=>r.category==='spend-unlock'&&!r.spendThreshold).map(r=>`rule.${c.id}.${r.key}`)));
+ assert.equal(rows.length,23);
+ for(const id of rows){const rule=getKnowledgeRule(id,{asOf:DAY});assert.equal(rule.terms.spendThreshold,undefined,id);assert.equal(rule.revision,1,id);}
+ for(const key of ['a-list-tqp','mqd-boost','pqp','lyft','streaming','housing-points'])assert.ok(rows.some(id=>id.endsWith('.'+key)),key);
 });
 
 test('every batch row that states a threshold matches its rule',()=>{

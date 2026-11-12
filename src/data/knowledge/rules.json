@@ -40817,6 +40817,88 @@
     "personalState": "not-in-public-knowledge"
   },
   {
+    "id": "rule.capital-one-us-spark-cash-plus-card.fee-refund",
+    "revision": 2,
+    "revisionId": "rule.capital-one-us-spark-cash-plus-card.fee-refund@2026-11-12.2",
+    "supersedes": "rule.capital-one-us-spark-cash-plus-card.fee-refund@2026-11-04.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-cash-plus-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "年费退还",
+      "summary": "在会员周年日前净消费满15万美元，以抵扣方式退还150美元年费；是否达标未核实。",
+      "sourceText": "Get your $150 annual fee refunded every year you spend at least $150,000",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "在会员周年日前净消费满15万美元，以抵扣方式退还150美元年费；是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Annual fee refund",
+      "summary": "The $150 annual fee is refunded every year you spend at least $150,000.",
+      "howToUse": [
+        "Track net spending against $150,000 before the membership anniversary."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-cash-plus-card",
+          "text": "Get your $150 annual fee refunded every year you spend at least $150,000."
+        }
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "account-anniversary",
+      "amount": 150,
+      "currency": "USD",
+      "spendThreshold": 150000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在会员周年日前净消费满15万美元，以抵扣方式退还150美元年费；是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-cash-plus-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
     "id": "rule.amex-us-us-delta-skymiles-gold-card.fee-primary",
     "revision": 1,
     "revisionId": "rule.amex-us-us-delta-skymiles-gold-card.fee-primary@2026-11-04.1",
@@ -46426,6 +46508,99 @@
     },
     "review": {
       "checkedAt": "2026-11-04",
+      "reviewAfter": "2027-02-02",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-explorer-card.travel-credit",
+    "revision": 2,
+    "revisionId": "rule.chase-us-united-explorer-card.travel-credit@2026-11-12.2",
+    "supersedes": "rule.chase-us-united-explorer-card.travel-credit@2026-11-04.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-explorer-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "United 旅行额度",
+      "summary": "自然年消费满1万美元后得100美元；是否达标未核实。",
+      "sourceText": "Earn after you spend $10,000 with your United SM Explorer Card within a calendar year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "自然年消费满1万美元后得100美元；是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$100 United travel credit",
+      "summary": "After $10,000 of spending on the card in a calendar year, a $100 United travel credit.",
+      "howToUse": [
+        "Track spending on the card in the calendar year."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-explorer-card",
+          "text": "$100 United ® travel credit - Earn after you spend $10,000 with your United SM Explorer Card within a calendar year."
+        }
+      ]
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": 100,
+      "currency": "USD",
+      "spendThreshold": 10000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 10000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "自然年消费满1万美元后得100美元；是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-explorer-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
       "reviewAfter": "2027-02-02",
       "state": "reviewed-summary"
     },
@@ -57248,6 +57423,102 @@
     }
   },
   {
+    "id": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.free-night",
+    "revision": 2,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.free-night@2026-11-12.2",
+    "supersedes": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.free-night@2026-11-11.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bountiful-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "消费满15,000美元得年度免费房晚",
+      "summary": "每个自然年消费满15,000美元后获得，可用于兑换门槛不超过50,000点的酒店一晚，有效期12个月；部分酒店另收度假村费。是否达标未核实。",
+      "sourceText": "you'll enjoy a Free Night Award every calendar year, after $15,000 in spend",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年消费满15,000美元后获得，可用于兑换门槛不超过50,000点的酒店一晚，有效期12个月；部分酒店另收度假村费。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null,
+      "spendThreshold": 15000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 15000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "每个自然年消费满15,000美元后获得，可用于兑换门槛不超过50,000点的酒店一晚，有效期12个月；部分酒店另收度假村费。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bountiful-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free Night Award after $15,000 in spend",
+      "summary": "A Free Night Award every calendar year after $15,000 in spend, valid for one night at a property with a redemption level of up to 50,000 points.",
+      "howToUse": [
+        "Track your calendar-year spend; the award expires 12 months after it is issued."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "you'll enjoy a Free Night Award every calendar year, after $15,000 in spend"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "All Free Night Awards issued will have an expiration of 12 months."
+        }
+      ]
+    }
+  },
+  {
     "id": "rule.amex-us-us-blue-cash-preferred-card.fee-primary",
     "revision": 1,
     "revisionId": "rule.amex-us-us-blue-cash-preferred-card.fee-primary@2026-11-11.1",
@@ -64063,6 +64334,99 @@
     }
   },
   {
+    "id": "rule.chase-us-united-business-card.economy-plus",
+    "revision": 2,
+    "revisionId": "rule.chase-us-united-business-card.economy-plus@2026-11-12.2",
+    "supersedes": "rule.chase-us-united-business-card.economy-plus@2026-11-11.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "消费满2.5万美元得 Economy Plus 升舱",
+      "summary": "每个自然年消费满25,000美元，得2次美国本土 Economy Plus 升舱。是否达标未核实。",
+      "sourceText": "Earn 2 continental U.S. Economy Plus seat upgrades after spending $25,000 each calendar year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年消费满25,000美元，得2次美国本土 Economy Plus 升舱。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null,
+      "spendThreshold": 25000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 25000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "每个自然年消费满25,000美元，得2次美国本土 Economy Plus 升舱。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "2 Economy Plus seat upgrades after $25,000",
+      "summary": "2 continental U.S. Economy Plus seat upgrades after spending $25,000 each calendar year.",
+      "howToUse": [
+        "Track your calendar-year spend on the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Earn 2 continental U.S. Economy Plus seat upgrades after spending $25,000 each calendar year."
+        }
+      ]
+    }
+  },
+  {
     "id": "rule.chase-us-united-business-card.better-together",
     "revision": 1,
     "revisionId": "rule.chase-us-united-business-card.better-together@2026-11-11.1",
@@ -65326,6 +65690,99 @@
     },
     "review": {
       "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "2 global Economy Plus seat upgrades after $40,000",
+      "summary": "2 global Economy Plus seat upgrades after spending $40,000 each calendar year.",
+      "howToUse": [
+        "Track your calendar-year spend on the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Earn 2 global Economy Plus seat upgrades after spending $40,000 each calendar year."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.economy-plus",
+    "revision": 2,
+    "revisionId": "rule.chase-us-united-club-business-card.economy-plus@2026-11-12.2",
+    "supersedes": "rule.chase-us-united-club-business-card.economy-plus@2026-11-11.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.united-mileageplus"
+    ],
+    "content": {
+      "title": "消费满4万美元得 Economy Plus 升舱",
+      "summary": "每个自然年消费满40,000美元，得2次全球 Economy Plus 升舱。是否达标未核实。",
+      "sourceText": "Earn 2 global Economy Plus seat upgrades after spending $40,000 each calendar year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年消费满40,000美元，得2次全球 Economy Plus 升舱。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null,
+      "spendThreshold": 40000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 40000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "每个自然年消费满40,000美元，得2次全球 Economy Plus 升舱。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
       "reviewAfter": "2027-02-09",
       "state": "reviewed-summary"
     },
