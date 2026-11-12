@@ -77898,6 +77898,562 @@
     }
   },
   {
+    "id": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.first-bag",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.first-bag@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-plus-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "首件托运行李免费",
+      "summary": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+      "sourceText": "The primary Rapid Rewards® Credit Cardmember and up to eight Passengers traveling on the same reservation",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-plus-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free first checked bag",
+      "summary": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free.",
+      "howToUse": [
+        "Include your Rapid Rewards number in the reservation; the benefit does not apply to flights booked with a partner carrier."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-plus-credit-card",
+          "text": "The primary Rapid Rewards® Credit Cardmember and up to eight Passengers traveling on the same reservation"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-plus-credit-card",
+          "text": "the primary Cardmember must include their Rapid Rewards number"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-plus-credit-card",
+          "text": "The first standard checked bag free is not available on flights booked with a partner carrier."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.first-bag",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.first-bag@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-priority-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "首件托运行李免费",
+      "summary": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+      "sourceText": "The primary Rapid Rewards® Credit Cardmember and up to eight Passengers traveling on the same reservation",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-priority-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free first checked bag",
+      "summary": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free.",
+      "howToUse": [
+        "Include your Rapid Rewards number in the reservation; the benefit does not apply to flights booked with a partner carrier."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-priority-credit-card",
+          "text": "The primary Rapid Rewards® Credit Cardmember and up to eight Passengers traveling on the same reservation"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-priority-credit-card",
+          "text": "the primary Cardmember must include their Rapid Rewards number"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-priority-credit-card",
+          "text": "The first standard checked bag free is not available on flights booked with a partner carrier."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.first-bag",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.first-bag@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "首件托运行李免费",
+      "summary": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+      "sourceText": "The primary Rapid Rewards® Credit Cardmember and up to eight Passengers traveling on the same reservation",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free first checked bag",
+      "summary": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free.",
+      "howToUse": [
+        "Include your Rapid Rewards number in the reservation; the benefit does not apply to flights booked with a partner carrier."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-credit-card",
+          "text": "The primary Rapid Rewards® Credit Cardmember and up to eight Passengers traveling on the same reservation"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-credit-card",
+          "text": "the primary Cardmember must include their Rapid Rewards number"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-credit-card",
+          "text": "The first standard checked bag free is not available on flights booked with a partner carrier."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-business-credit-card.first-bag",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-business-credit-card.first-bag@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "首件托运行李免费",
+      "summary": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+      "sourceText": "The primary Rapid Rewards® Credit Cardmember and up to eight Passengers traveling on the same reservation",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-premier-business-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free first checked bag",
+      "summary": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free.",
+      "howToUse": [
+        "Include your Rapid Rewards number in the reservation; the benefit does not apply to flights booked with a partner carrier."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+          "text": "The primary Rapid Rewards® Credit Cardmember and up to eight Passengers traveling on the same reservation"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+          "text": "the primary Cardmember must include their Rapid Rewards number"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+          "text": "The first standard checked bag free is not available on flights booked with a partner carrier."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-performance-business-credit-card.first-bag",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-performance-business-credit-card.first-bag@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-performance-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.southwest-rapid-rewards"
+    ],
+    "content": {
+      "title": "首件托运行李免费",
+      "summary": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+      "sourceText": "up to eight Passengers traveling on the same reservation are each eligible to receive their first standard checked bag free",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-performance-business-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free first checked bag",
+      "summary": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free.",
+      "howToUse": [
+        "Include your Rapid Rewards number in the reservation; the benefit does not apply to flights booked with a partner carrier."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "up to eight Passengers traveling on the same reservation are each eligible to receive their first standard checked bag free"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "the primary Cardmember must include their Rapid Rewards number"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "The first standard checked bag free is not available on flights booked with a partner carrier."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-air-canada-aeroplan-card.first-bag",
+    "revision": 1,
+    "revisionId": "rule.chase-us-air-canada-aeroplan-card.first-bag@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-air-canada-aeroplan-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "首件托运行李免费",
+      "summary": "持卡人和同一订单中的最多8名其他乘客（合计最多9人），每人首件托运行李免费，重量上限50磅。仅适用于在 Air Canada 值机、由 Air Canada、Air Canada Rouge 或 Air Canada Express 运营的航班，须在指定值机柜台办理，登机口托运不适用。是否已享受未核实。",
+      "sourceText": "are each entitled to a free first checked bag up to 50lb.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "持卡人和同一订单中的最多8名其他乘客（合计最多9人），每人首件托运行李免费，重量上限50磅。仅适用于在 Air Canada 值机、由 Air Canada、Air Canada Rouge 或 Air Canada Express 运营的航班，须在指定值机柜台办理，登机口托运不适用。是否已享受未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "持卡人和同一订单中的最多8名其他乘客（合计最多9人），每人首件托运行李免费，重量上限50磅。仅适用于在 Air Canada 值机、由 Air Canada、Air Canada Rouge 或 Air Canada Express 运营的航班，须在指定值机柜台办理，登机口托运不适用。是否已享受未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-air-canada-aeroplan-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free first checked bag",
+      "summary": "The cardmember and up to eight other passengers on the same reservation each get a free first checked bag up to 50lb.",
+      "howToUse": [
+        "Check in with Air Canada at the designated check-in counter on an Air Canada, Air Canada Rouge or Air Canada Express flight; bags checked in at the gate are not eligible."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-air-canada-aeroplan-card",
+          "text": "are each entitled to a free first checked bag up to 50lb."
+        },
+        {
+          "sourceId": "card-chase-us-air-canada-aeroplan-card",
+          "text": "You, as the primary cardmember, and up to eight (8) other passengers traveling on the same reservation"
+        },
+        {
+          "sourceId": "card-chase-us-air-canada-aeroplan-card",
+          "text": "Benefit only applies when checking in with Air Canada"
+        },
+        {
+          "sourceId": "card-chase-us-air-canada-aeroplan-card",
+          "text": "Bags checked in at the gate are not eligible for this benefit."
+        }
+      ]
+    }
+  },
+  {
     "id": "rule.boa-us-bank-of-america-unlimited-cash-rewards.fee-primary",
     "revision": 1,
     "revisionId": "rule.boa-us-bank-of-america-unlimited-cash-rewards.fee-primary@2026-11-12.1",

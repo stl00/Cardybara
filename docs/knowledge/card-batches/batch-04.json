@@ -291,12 +291,37 @@
             "programme.southwest-rapid-rewards"
           ],
           "quote": "3,000 anniversary points each year"
+        },
+        {
+          "key": "first-bag",
+          "zh": "首件托运行李免费",
+          "en": "Free first checked bag",
+          "noteZh": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+          "noteEn": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free. The primary Cardmember must include their Rapid Rewards number in the reservation. It does not apply to flights booked with a partner carrier, to authorized users and employee cards, or to Cardmembers already exempt from the first-bag charge. Whether you have used it is unverified.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "per-trip",
+          "programmeIds": [
+            "programme.southwest-rapid-rewards"
+          ],
+          "quote": "The primary Rapid Rewards® Credit Cardmember and up to eight Passengers traveling on the same reservation",
+          "original": {
+            "title": "Free first checked bag",
+            "summary": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free.",
+            "howToUse": [
+              "Include your Rapid Rewards number in the reservation; the benefit does not apply to flights booked with a partner carrier."
+            ],
+            "quotes": [
+              "the primary Cardmember must include their Rapid Rewards number",
+              "The first standard checked bag free is not available on flights booked with a partner carrier."
+            ]
+          }
         }
       ],
       "unknown": [
         {
-          "zh": "免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
-          "en": "Free checked bags, flight discounts, seat selection, boarding group and limited-time Lyft rates are not recorded."
+          "zh": "航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
+          "en": "Flight discounts, seat selection, boarding group and limited-time Lyft rates are not recorded."
         }
       ]
     },
@@ -378,12 +403,37 @@
             "programme.southwest-rapid-rewards"
           ],
           "quote": "7,500 anniversary points each year"
+        },
+        {
+          "key": "first-bag",
+          "zh": "首件托运行李免费",
+          "en": "Free first checked bag",
+          "noteZh": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+          "noteEn": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free. The primary Cardmember must include their Rapid Rewards number in the reservation. It does not apply to flights booked with a partner carrier, to authorized users and employee cards, or to Cardmembers already exempt from the first-bag charge. Whether you have used it is unverified.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "per-trip",
+          "programmeIds": [
+            "programme.southwest-rapid-rewards"
+          ],
+          "quote": "The primary Rapid Rewards® Credit Cardmember and up to eight Passengers traveling on the same reservation",
+          "original": {
+            "title": "Free first checked bag",
+            "summary": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free.",
+            "howToUse": [
+              "Include your Rapid Rewards number in the reservation; the benefit does not apply to flights booked with a partner carrier."
+            ],
+            "quotes": [
+              "the primary Cardmember must include their Rapid Rewards number",
+              "The first standard checked bag free is not available on flights booked with a partner carrier."
+            ]
+          }
         }
       ],
       "unknown": [
         {
-          "zh": "免费托运行李、选座、登机组别和限时 Lyft 倍率未录入。",
-          "en": "Free checked bags, seat selection, boarding group and limited-time Lyft rates are not recorded."
+          "zh": "选座、登机组别和限时 Lyft 倍率未录入。",
+          "en": "Seat selection, boarding group and limited-time Lyft rates are not recorded."
         }
       ]
     },
@@ -472,12 +522,37 @@
             "programme.southwest-rapid-rewards"
           ],
           "quote": "6,000 anniversary points each year"
+        },
+        {
+          "key": "first-bag",
+          "zh": "首件托运行李免费",
+          "en": "Free first checked bag",
+          "noteZh": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+          "noteEn": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free. The primary Cardmember must include their Rapid Rewards number in the reservation. It does not apply to flights booked with a partner carrier, to authorized users and employee cards, or to Cardmembers already exempt from the first-bag charge. Whether you have used it is unverified.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "per-trip",
+          "programmeIds": [
+            "programme.southwest-rapid-rewards"
+          ],
+          "quote": "The primary Rapid Rewards® Credit Cardmember and up to eight Passengers traveling on the same reservation",
+          "original": {
+            "title": "Free first checked bag",
+            "summary": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free.",
+            "howToUse": [
+              "Include your Rapid Rewards number in the reservation; the benefit does not apply to flights booked with a partner carrier."
+            ],
+            "quotes": [
+              "the primary Cardmember must include their Rapid Rewards number",
+              "The first standard checked bag free is not available on flights booked with a partner carrier."
+            ]
+          }
         }
       ],
       "unknown": [
         {
-          "zh": "免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
-          "en": "Free checked bags, flight discounts, seat selection, boarding group and limited-time Lyft rates are not recorded."
+          "zh": "航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
+          "en": "Flight discounts, seat selection, boarding group and limited-time Lyft rates are not recorded."
         }
       ]
     },
@@ -903,12 +978,38 @@
           ],
           "quote": "from January 1 through June 30 and up to $50 from July 1 through December 31",
           "period": "calendar-half-year"
+        },
+        {
+          "key": "first-bag",
+          "zh": "首件托运行李免费",
+          "en": "Free first checked bag",
+          "noteZh": "持卡人和同一订单中的最多8名其他乘客（合计最多9人），每人首件托运行李免费，重量上限50磅。仅适用于在 Air Canada 值机、由 Air Canada、Air Canada Rouge 或 Air Canada Express 运营的航班，须在指定值机柜台办理，登机口托运不适用。是否已享受未核实。",
+          "noteEn": "The cardmember and up to eight other passengers on the same reservation (nine travelers at most) each get a free first checked bag up to 50lb. It applies only when checking in with Air Canada, on a flight operated by Air Canada, Air Canada Rouge or under the Air Canada Express brand, at the designated check-in counter; bags checked in at the gate are not eligible. Whether you have used it is unverified.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "per-trip",
+          "programmeIds": [
+            "programme.air-canada-aeroplan"
+          ],
+          "quote": "are each entitled to a free first checked bag up to 50lb.",
+          "original": {
+            "title": "Free first checked bag",
+            "summary": "The cardmember and up to eight other passengers on the same reservation each get a free first checked bag up to 50lb.",
+            "howToUse": [
+              "Check in with Air Canada at the designated check-in counter on an Air Canada, Air Canada Rouge or Air Canada Express flight; bags checked in at the gate are not eligible."
+            ],
+            "quotes": [
+              "You, as the primary cardmember, and up to eight (8) other passengers traveling on the same reservation",
+              "Benefit only applies when checking in with Air Canada",
+              "Bags checked in at the gate are not eligible for this benefit."
+            ]
+          }
         }
       ],
       "unknown": [
         {
-          "zh": "Aeroplan 25K 会籍、免费托运行李和 FLY15OFF 未录入。",
-          "en": "Aeroplan 25K status, free checked bags and FLY15OFF are not recorded."
+          "zh": "Aeroplan 25K 会籍和 FLY15OFF 未录入。",
+          "en": "Aeroplan 25K status and FLY15OFF are not recorded."
         }
       ]
     },
