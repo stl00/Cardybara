@@ -77662,7 +77662,8 @@
       "category": "spend-unlock",
       "period": "account-anniversary",
       "amount": null,
-      "currency": null
+      "currency": null,
+      "spendThreshold": 6000
     },
     "validity": {
       "effectiveFrom": null,

@@ -127,6 +127,11 @@
       "programme.atmos-rewards"
      ],
      "quote": "Get a $99 Companion Fare (plus taxes and fees from $23) each account anniversary",
+     "spendThreshold": {
+      "amount": 6000,
+      "currency": "USD",
+      "period": "account-anniversary"
+     },
      "original": {
       "title": "Annual Companion Fare",
       "summary": "A $99 Companion Fare (plus taxes and fees from $23) each account anniversary after you spend $6,000 or more on purchases within the prior anniversary year.",
