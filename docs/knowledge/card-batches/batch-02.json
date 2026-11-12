@@ -898,7 +898,12 @@
           "period": "account-anniversary",
           "scenario": "card-ownership",
           "category": "spend-unlock",
-          "quote": "Get your $150 annual fee refunded every year you spend at least $150,000"
+          "quote": "Get your $150 annual fee refunded every year you spend at least $150,000",
+          "spendThreshold": {
+            "amount": 150000,
+            "currency": "USD",
+            "period": "account-anniversary"
+          }
         }
       ]
     }

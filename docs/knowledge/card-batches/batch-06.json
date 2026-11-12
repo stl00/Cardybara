@@ -401,6 +401,11 @@
       "quotes": [
        "All Free Night Awards issued will have an expiration of 12 months."
       ]
+     },
+     "spendThreshold": {
+      "amount": 15000,
+      "currency": "USD",
+      "period": "calendar-year"
      }
     }
    ],
