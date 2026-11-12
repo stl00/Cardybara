@@ -1,0 +1,20 @@
+/* Shared look for the share images (stl00/Cardybara#239). Rendered at a fixed size by site/share/render.mjs. */
+:root{--bg:#FBF6EE;--bg2:#F4EBDD;--ink:#2B231D;--ink2:#6B5D51;--line:#E8DCCB;--blue:#1677FF;--fur:#DCC5A6;--green:#2F8F5B}
+*{box-sizing:border-box}
+html,body{margin:0;width:var(--w);height:var(--h);overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",sans-serif;position:relative}
+.brand{display:flex;align-items:center;gap:14px;font-weight:700}
+.brand img{display:block}
+.brand small{display:block;color:var(--ink2);font-weight:500;letter-spacing:.08em}
+.pill{display:inline-block;background:#fff;border:2px solid var(--line);border-radius:999px;color:var(--ink2);font-weight:600}
+.pill b{color:#fff;background:var(--blue);border-radius:999px;padding:2px 12px;margin-right:8px}
+h1,h2{margin:0;letter-spacing:-.01em}
+.soft{color:var(--ink2)}
+.blue{color:var(--blue)}
+/* A window onto part of a real screenshot: --img, --zoom (screenshot width in px) and --x/--y (offset). */
+.win{border-radius:24px;border:2px solid var(--line);background-color:#fff;background-image:var(--img);background-repeat:no-repeat;background-size:var(--zoom) auto;background-position:var(--x,0) var(--y,0);box-shadow:0 30px 60px -30px rgba(73,59,49,.45)}
+.foot{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;color:var(--ink2)}
+.sample{color:var(--ink2);opacity:.85}
+.check{list-style:none;padding:0;margin:0}
+.check li{position:relative;padding-left:1.5em}
+.check li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:800}

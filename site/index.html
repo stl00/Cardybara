@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>卡疲扒拉 Cardybara · 你的信用卡管家</title>
+<meta name="description" content="Cardybara（卡疲扒拉）是一个 Chrome 扩展：账单、积分、福利一屏看清，问一句就知道刷哪张卡。钱包数据保存在你自己的 Chrome 里。朋友内测中。">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FBF6EE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1B1714" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cardybara 卡疲扒拉">
+<meta property="og:title" content="卡疲扒拉 Cardybara · 你的信用卡管家">
+<meta property="og:description" content="账单、积分、福利一屏看清，问一句就知道刷哪张卡。钱包数据保存在你自己的 Chrome 里。">
+<meta property="og:url" content="https://cardybara.pages.dev/">
+<meta property="og:image" content="https://cardybara.pages.dev/share/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/cardybara.svg" type="image/svg+xml">
+<style>
+:root{
+ --bg:#FBF6EE;--bg2:#F4EBDD;--card:#FFFFFF;--ink:#2B231D;--ink2:#6B5D51;--line:#E8DCCB;
+ --brown:#493B31;--fur:#DCC5A6;--blue:#1677FF;--blue-soft:#E6F0FF;--green:#2F8F5B;--shadow:0 18px 50px -24px rgba(73,59,49,.35);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --bg:#1B1714;--bg2:#241F1B;--card:#2A241F;--ink:#F3ECE3;--ink2:#BFB2A3;--line:#3A322B;
+ --brown:#F3ECE3;--fur:#C2A17C;--blue:#4C94FF;--blue-soft:#1C2A40;--green:#5CC28A;--shadow:0 18px 50px -24px rgba(0,0,0,.7);
+}}
+:root[data-theme="dark"]{--bg:#1B1714;--bg2:#241F1B;--card:#2A241F;--ink:#F3ECE3;--ink2:#BFB2A3;--line:#3A322B;--brown:#F3ECE3;--fur:#C2A17C;--blue:#4C94FF;--blue-soft:#1C2A40;--green:#5CC28A;--shadow:0 18px 50px -24px rgba(0,0,0,.7)}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC","Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+html[data-lang="zh"] .en,html[data-lang="en"] .zh{display:none!important}
+a{color:var(--blue);text-underline-offset:3px}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink);text-decoration:none;font-size:18px}
+.brand img{width:36px;height:36px}
+.brand small{display:block;font-weight:500;color:var(--ink2);font-size:12px;letter-spacing:.06em;line-height:1.2}
+.navlinks{display:flex;align-items:center;gap:6px}
+.navlinks a{color:var(--ink2);text-decoration:none;padding:6px 10px;border-radius:999px;font-size:14px}
+.navlinks a:hover{background:var(--bg2);color:var(--ink)}
+.lang{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-size:14px;cursor:pointer}
+.hero{padding:40px 0 24px;display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 8px;font-size:13px;color:var(--ink2)}
+.pill b{background:var(--blue);color:#fff;border-radius:999px;padding:1px 8px;font-size:12px;font-weight:600}
+h1{font-size:clamp(32px,4.6vw,50px);line-height:1.12;margin:18px 0 14px;letter-spacing:-.01em}
+h1 .soft{color:var(--ink2);font-weight:600}
+.lede{font-size:clamp(17px,2vw,20px);color:var(--ink2);margin:0 0 26px;max-width:34em}
+.cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:12px;font-weight:600;text-decoration:none;border:1px solid transparent}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--ink);background:var(--card)}
+.note{font-size:13px;color:var(--ink2);margin-top:14px}
+.stage{position:relative}
+.stage .shot{border-radius:16px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;background:var(--card)}
+.stage .float{position:absolute;width:56%;right:-14px;bottom:-30px;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;background:var(--card)}
+.capy{position:absolute;left:-26px;bottom:-34px;width:96px;filter:drop-shadow(0 8px 14px rgba(73,59,49,.25))}
+section{padding:72px 0 8px}
+h2{font-size:clamp(26px,3.4vw,34px);line-height:1.25;margin:0 0 10px}
+.sub{color:var(--ink2);margin:0 0 30px;max-width:40em}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.feat .ico{width:40px;height:40px;border-radius:12px;background:var(--blue-soft);display:grid;place-items:center;font-size:20px;margin-bottom:12px}
+.feat h3{margin:0 0 6px;font-size:17px}
+.feat p{margin:0;color:var(--ink2);font-size:15px}
+.tag{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:6px;padding:0 6px;color:var(--ink2);margin-left:4px;vertical-align:2px;font-weight:500}
+.showcase{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;margin-top:44px}
+.showcase.rev .txt{order:2}
+.showcase .img{border-radius:16px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;background:var(--card)}
+.showcase h3{font-size:22px;margin:0 0 8px}
+.showcase p{color:var(--ink2);margin:0 0 10px}
+.privacy{background:var(--bg2);border-radius:24px;padding:36px;margin-top:8px}
+.privacy ul{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.privacy li{display:grid;grid-template-columns:28px 1fr;gap:10px}
+.privacy li::before{content:"✓";color:var(--green);font-weight:700;font-size:18px;line-height:1.5}
+.privacy .fine{font-size:13px;color:var(--ink2);margin-top:18px}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0;list-style:none;margin:0}
+.steps li{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 20px 20px 62px;position:relative}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:18px;width:30px;height:30px;border-radius:50%;background:var(--fur);color:#493B31;display:grid;place-items:center;font-weight:700}
+.limits{margin-top:22px;color:var(--ink2);font-size:14px}
+.limits ul{margin:6px 0 0;padding-left:20px}
+footer{margin-top:80px;border-top:1px solid var(--line);padding:28px 0 40px;color:var(--ink2);font-size:13px}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center}
+footer p{margin:6px 0}
+@media (max-width:860px){
+ .hero{grid-template-columns:1fr;gap:56px;padding-top:20px}
+ .grid,.steps{grid-template-columns:1fr}
+ .showcase{grid-template-columns:1fr}.showcase.rev .txt{order:0}
+ .navlinks a.hide-sm{display:none}
+ .privacy{padding:24px}
+ .stage .float{right:-6px;width:60%}
+ .capy{left:-6px;width:72px}
+}
+@media (prefers-reduced-motion:no-preference){.capy{animation:bob 4s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-6px)}}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+ <a class="brand" href="#top"><img src="assets/cardybara.svg" alt="" width="36" height="36"><span><span class="zh">卡疲扒拉</span><span class="en">Cardybara</span><small><span class="zh">Cardybara</span><span class="en">卡疲扒拉</span></small></span></a>
+ <div class="navlinks">
+  <a class="hide-sm" href="#features"><span class="zh">功能</span><span class="en">Features</span></a>
+  <a class="hide-sm" href="#privacy"><span class="zh">隐私</span><span class="en">Privacy</span></a>
+  <a href="#beta"><span class="zh">加入内测</span><span class="en">Join the beta</span></a>
+  <button class="lang" id="lang" type="button" aria-label="Switch language / 切换语言"><span class="zh">EN</span><span class="en">中文</span></button>
+ </div>
+</nav>
+
+<header class="hero" id="top">
+ <div>
+  <span class="pill"><b>Beta</b><span class="zh">朋友内测中 · Chase 和 American Express 美国</span><span class="en">Friends beta · Chase and American Express US</span></span>
+  <h1><span class="zh">你的信用卡管家<br><span class="soft">问一句就知道刷哪张卡</span></span><span class="en">Your credit-card butler.<br><span class="soft">Ask which card to use.</span></span></h1>
+  <p class="lede"><span class="zh">账单、积分、福利一屏看清。卡疲扒拉是一个 Chrome 扩展：替你读银行页面上的余额和还款日，记着每张卡的福利，帮你算这笔消费刷哪张最划算。钱包数据保存在你自己的 Chrome 里，不上传。</span><span class="en">Statements, points and benefits on one screen. Cardybara is a Chrome extension that reads balances and due dates from your bank's pages, keeps track of every card's benefits, and works out which card to use for a purchase. Your wallet is kept in your own Chrome and not uploaded.</span></p>
+  <div class="cta">
+   <a class="btn primary" href="#beta"><span class="zh">加入内测</span><span class="en">Join the beta</span></a>
+   <a class="btn ghost" href="#privacy"><span class="zh">数据去哪了？</span><span class="en">Where does my data go?</span></a>
+  </div>
+  <p class="note"><span class="zh">桌面版 Chrome · 邀请制 · 不是 Chrome 应用商店版本</span><span class="en">Desktop Chrome · invite only · not a Chrome Web Store release</span></p>
+ </div>
+ <div class="stage">
+  <div class="shot">
+   <picture class="zh"><source srcset="assets/shots/overview-dark-zh.webp" media="(prefers-color-scheme: dark)"><img src="assets/shots/overview-zh.webp" width="2560" height="1720" alt="卡疲扒拉总览：按还款日排列的待还账单（示例数据）"></picture>
+   <picture class="en"><source srcset="assets/shots/overview-dark-en.webp" media="(prefers-color-scheme: dark)"><img src="assets/shots/overview-en.webp" width="2560" height="1720" alt="Cardybara overview: statements due, sorted by due date (sample data)"></picture>
+  </div>
+  <div class="float">
+   <img class="zh" src="assets/shots/chooser-zh.webp" width="2048" height="1114" alt="这笔消费，用哪张卡？餐厅类别的建议（示例数据）">
+   <img class="en" src="assets/shots/chooser-en.webp" width="2048" height="1114" alt="Which card for this purchase? A dining suggestion (sample data)">
+  </div>
+  <img class="capy" src="assets/zen.svg" alt="" width="96" height="96">
+ </div>
+</header>
+
+<section id="features">
+ <h2><span class="zh">它能帮你做什么</span><span class="en">What it does</span></h2>
+ <p class="sub"><span class="zh">卡多了，账单日、积分和每月的 credit 很容易忘。卡疲扒拉把它们放在一起，替你记着。</span><span class="en">With a few cards, due dates, points and monthly credits are easy to lose track of. Cardybara keeps them in one place.</span></p>
+ <div class="grid">
+  <div class="feat"><div class="ico">🏦</div><h3><span class="zh">读取银行</span><span class="en">Reads your bank</span><span class="tag">Chase · Amex US</span></h3><p><span class="zh">每张卡的余额、账单金额、最低还款和还款日；Membership Rewards 和 Ultimate Rewards 积分，同一个积分池只算一次。只在你点刷新时读取，只读不写。</span><span class="en">Each card's balance, statement amount, minimum payment and due date; Membership Rewards and Ultimate Rewards points, with a shared pool counted once. Reads only when you click refresh, and only reads.</span></p></div>
+  <div class="feat"><div class="ico">🃏</div><h3><span class="zh">手动添加其他卡</span><span class="en">Add any other card</span></h3><p><span class="zh">从带卡面的卡种列表里选，包括 Bilt（Blue、Obsidian、Palladium）和常见联名卡。手动添加的卡不读取余额和账单。</span><span class="en">Pick the product from a list with card images, Bilt (Blue, Obsidian, Palladium) and common co-brands included. Cards you add by hand don't get balances or statements read.</span></p></div>
+  <div class="feat"><div class="ico">🎁</div><h3><span class="zh">福利与提醒</span><span class="en">Benefits and reminders</span></h3><p><span class="zh">每张卡本期还有哪些 credit、什么时候到期，一眼看到；用过就标记。可以开启账单和福利提醒（默认关闭，用 Chrome 通知）。</span><span class="en">See each card's credits for this period and when they end, and mark what you've used. Optional statement and benefit reminders (off by default, via Chrome notifications).</span></p></div>
+  <div class="feat"><div class="ico">🍜</div><h3><span class="zh">这笔消费，用哪张卡？</span><span class="en">Which card for this purchase?</span></h3><p><span class="zh">选消费类别，直接给出建议用的卡和其他选择，按你的持卡规则和积分估值计算，不含限时优惠。</span><span class="en">Pick a category and see the card to use and the other choices, from your cards' rules and your point valuations, without limited-time offers.</span></p></div>
+  <div class="feat"><div class="ico">⚖️</div><h3><span class="zh">积分估值</span><span class="en">Point valuations</span></h3><p><span class="zh">每种积分值多少钱，有默认值，你可以改成自己的；比较刷哪张卡时就按它算。</span><span class="en">What each kind of point is worth, with a default you can change; comparisons use your numbers.</span></p></div>
+  <div class="feat"><div class="ico">💬</div><h3><span class="zh">用卡助手</span><span class="en">The assistant</span><span class="tag"><span class="zh">需邀请码</span><span class="en">invite code</span></span></h3><p><span class="zh">问持卡、福利、积分和年费周期的问题，或者比较一笔消费刷哪张卡。回答边生成边显示；查不到会说不知道，不会猜。</span><span class="en">Ask about your cards, benefits, points and card-year cycles, or compare which card to use. Answers appear as they're written; when it can't find something it says so instead of guessing.</span></p></div>
+ </div>
+
+ <div class="showcase">
+  <div class="txt">
+   <h3><span class="zh">问一句，就知道刷哪张</span><span class="en">Ask, and know which card to use</span></h3>
+   <p><span class="zh">“吃饭 80 美元刷哪张？”助手会调用钱包里的比较工具，按你持有的卡和你的积分估值回答，并告诉你其次可以用哪张。</span><span class="en">“Which card for an $80 dinner?” The assistant runs the wallet's own comparison over the cards you hold and your point valuations, and tells you the next best choice too.</span></p>
+   <p><span class="zh">它看不到银行余额、账单和还款日；不能付款、操作银行或替你登记优惠。</span><span class="en">It can't see bank balances, statements or due dates, and it can't pay, act on your bank or enrol offers.</span></p>
+  </div>
+  <div class="img"><img class="zh" loading="lazy" src="assets/shots/assistant-zh.webp" width="2560" height="1720" alt="用卡助手回答吃饭 80 美元刷哪张卡（示例数据）"><img class="en" loading="lazy" src="assets/shots/assistant-en.webp" width="2560" height="1720" alt="The assistant answering which card to use for an $80 dinner (sample data)"></div>
+ </div>
+ <div class="showcase rev">
+  <div class="txt">
+   <h3><span class="zh">本期福利，别再过期</span><span class="en">Use your credits before they lapse</span></h3>
+   <p><span class="zh">按类别和到期时间列出每张卡的 credit，附使用条件和来源。默认是“待确认”，不替你猜用没用。按卡年重置的福利，按你填的年费日算周期。</span><span class="en">Every card's credits by category and end date, with conditions and sources. They start as “to confirm” — the wallet never guesses whether you used one. Card-year credits follow the annual fee date you enter.</span></p>
+  </div>
+  <div class="img"><img class="zh" loading="lazy" src="assets/shots/credits-zh.webp" width="2560" height="1720" alt="本期福利页面（示例数据）"><img class="en" loading="lazy" src="assets/shots/credits-en.webp" width="2560" height="1720" alt="Current benefits page (sample data)"></div>
+ </div>
+ <div class="showcase">
+  <div class="txt">
+   <h3><span class="zh">所有卡，一个钱包</span><span class="en">Every card, one wallet</span></h3>
+   <p><span class="zh">银行读到的卡和你手动添加的卡放在一起，每个数字都标着读取日期。没读到的金额保持未知，不按零算。</span><span class="en">Cards read from the bank and cards you add yourself sit together, and every number shows when it was read. Amounts that weren't read stay unknown, never zero.</span></p>
+  </div>
+  <div class="img"><img class="zh" loading="lazy" src="assets/shots/wallet-zh.webp" width="2560" height="1720" alt="卡片钱包页面（示例数据）"><img class="en" loading="lazy" src="assets/shots/wallet-en.webp" width="2560" height="1720" alt="Card wallet page (sample data)"></div>
+ </div>
+ <p class="note"><span class="zh">截图来自真实界面，使用虚构的示例钱包；金额、尾号和日期都是编的。助手截图里的回答是按钱包比较工具的结果写好的演示，不是模型实时生成的。</span><span class="en">Screenshots are of the real interface with a made-up sample wallet; amounts, card endings and dates are invented. The assistant's answer in its screenshot is a demo written from the wallet's comparison tool, not generated live by the model.</span></p>
+</section>
+
+<section id="privacy">
+ <div class="privacy">
+  <h2><span class="zh">你的数据，留在你这里</span><span class="en">Your data stays with you</span></h2>
+  <ul>
+   <li><span><span class="zh">钱包数据保存在这台电脑的 Chrome 里，不上传，也不同步。</span><span class="en">Your wallet stays in Chrome on this computer; it is not uploaded or synced.</span></span></li>
+   <li><span><span class="zh">登录、密码和手机验证都在银行官网由你本人完成，钱包不读取也不保存它们。只读取：不付款、不转账、不兑换积分、不登记优惠，也不改银行设置。</span><span class="en">You sign in, enter passwords and confirm on your phone on the bank's own site; the wallet never reads or stores them. Read only: no payments, transfers, redemptions, offer enrolment or setting changes.</span></span></li>
+   <li><span><span class="zh">用卡助手在 Cardybara 服务上运行：服务收到你的问题、这次对话的前文、持有的卡种、积分估值、每张卡是否填了年费日，以及助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单。服务不保存这些内容，只记录邀请码编号、时间、用量和状态。</span><span class="en">The assistant runs on the Cardybara service: it receives your question, the earlier turns of the conversation, the card products you hold, your point valuations, whether each card has an annual fee date, and the wallet lookups the assistant asks for, and passes them to an AI model; it does not receive card numbers, balances or statements. The service does not store any of it; it records only the invite code's id, time, usage and status.</span></span></li>
+   <li><span><span class="zh">AI 识别卡种默认关闭；开启后，或你在卡片详情里点“用 AI 推测卡种”时，未识别卡片的银行、地区和卡名（不含尾号和金额）经 Cardybara 服务发给 AI。</span><span class="en">AI card recognition is off by default; when you turn it on, or click “Ask AI for the card type” in card details, the unrecognised card's bank, region and name (no tail or amounts) go through the Cardybara service to the AI.</span></span></li>
+   <li><span><span class="zh">没有广告，也没有使用统计。不输入邀请码也能正常使用钱包，只是没有聊天助手和 AI 识别卡种。</span><span class="en">No ads and no usage analytics. Without an invite code the wallet still works, just without the chat assistant and AI card recognition.</span></span></li>
+  </ul>
+  <p class="fine"><span class="zh">这个网站本身也不用 cookie、统计或表单。卸载扩展会删除扩展里的数据；需要保留的话，先在“数据管理 → 导出备份”。</span><span class="en">This website itself uses no cookies, analytics or forms. Uninstalling the extension deletes its data; export a backup first (Data → Export backup) if you want to keep it.</span></p>
+ </div>
+</section>
+
+<section id="beta">
+ <h2><span class="zh">加入内测</span><span class="en">Join the beta</span></h2>
+ <p class="sub"><span class="zh">现在是给朋友试用的测试版，邀请制。想试的话，直接问邀请你的人（或项目作者）要下载链接和邀请码。</span><span class="en">This is a friends beta, by invitation. If you'd like to try it, ask the person who invited you (or the author) for the download link and an invite code.</span></p>
+ <ol class="steps">
+  <li><span class="zh"><b>下载并加载扩展</b><br>从 GitHub Release 下载 zip，解压后在 <code>chrome://extensions</code> 打开开发者模式，加载解压的文件夹。</span><span class="en"><b>Download and load it</b><br>Download the zip from the GitHub release, unzip it, turn on Developer mode in <code>chrome://extensions</code> and load the unzipped folder.</span></li>
+  <li><span class="zh"><b>输入邀请码</b><br>设置 → AI 服务，粘贴邀请码。不输入也能用钱包，只是没有聊天助手和 AI 识别卡种。</span><span class="en"><b>Enter your invite code</b><br>Settings → AI service, paste the code. The wallet works without it, just without the chat assistant and AI card recognition.</span></li>
+  <li><span class="zh"><b>连接银行</b><br>点“连接银行”，在 Chase 或 Amex 美国官网自己登录，钱包读取余额、账单和积分。</span><span class="en"><b>Connect a bank</b><br>Click “Connect bank”, sign in yourself on the Chase or Amex US site, and the wallet reads balances, statements and points.</span></li>
+ </ol>
+ <div class="cta" style="margin-top:22px">
+  <a class="btn primary" href="https://github.com/stl00/Cardybara/blob/main/docs/BETA-INSTALL.md"><span class="zh">安装指南</span><span class="en">Install guide</span></a>
+  <a class="btn ghost" href="https://github.com/stl00/Cardybara/releases"><span class="zh">GitHub Releases</span><span class="en">GitHub releases</span></a>
+  <a class="btn ghost" href="https://github.com/stl00/Cardybara/blob/main/docs/release-notes/beta-1.md"><span class="zh">版本说明</span><span class="en">Release notes</span></a>
+ </div>
+ <div class="limits">
+  <span class="zh">这个版本还做不到的：</span><span class="en">Not in this version yet:</span>
+  <ul>
+   <li><span class="zh">只连接 Chase 和 American Express 美国；其他银行的卡可以手动添加，但不读取余额和账单。</span><span class="en">Only Chase and American Express US connect; other banks' cards can be added by hand, without balances or statements.</span></li>
+   <li><span class="zh">联名卡的航空、酒店积分不读取；只在你点刷新时读取，不会后台自动刷新。</span><span class="en">Airline and hotel co-brand points aren't read; it reads only when you click refresh, never in the background.</span></li>
+   <li><span class="zh">只在桌面版 Chrome 上测试过。</span><span class="en">Tested on desktop Chrome only.</span></li>
+  </ul>
+ </div>
+</section>
+
+<footer>
+ <div class="row">
+  <a class="brand" href="#top" style="font-size:15px"><img src="assets/zen.svg" alt="" width="28" height="28" style="width:28px;height:28px"><span class="zh">卡疲扒拉 Cardybara</span><span class="en">Cardybara 卡疲扒拉</span></a>
+  <span><a href="https://github.com/stl00/Cardybara">GitHub</a></span>
+ </div>
+ <p><span class="zh">源代码在 GitHub 上公开；目前没有附开源许可证。</span><span class="en">The source code is public on GitHub; it does not carry an open-source licence yet.</span></p>
+ <p><span class="zh">卡疲扒拉与任何银行或发卡机构都没有关联，也没有得到它们的认可。卡片名称、卡面图片和标志是其各自所有者的商标。</span><span class="en">Cardybara is not affiliated with or endorsed by any bank or card issuer. Card names, card images and logos are trademarks of their respective owners.</span></p>
+</footer>
+</div>
+<script>
+(function(){
+ var root=document.documentElement,btn=document.getElementById('lang');
+ var titles={zh:'卡疲扒拉 Cardybara · 你的信用卡管家',en:'Cardybara 卡疲扒拉 · Your credit-card butler'};
+ function set(l,save){root.dataset.lang=l;root.lang=l==='en'?'en':'zh-CN';document.title=titles[l];if(save){try{localStorage.setItem('cardybara-site-lang',l)}catch(e){}}}
+ var q=/[?&]lang=(en|zh)\b/.exec(location.search),saved=null;try{saved=localStorage.getItem('cardybara-site-lang')}catch(e){}
+ set(q?q[1]:saved==='en'?'en':'zh',false);
+ btn.addEventListener('click',function(){set(root.dataset.lang==='en'?'zh':'en',true)});
+})();
+</script>
+</body>
+</html>

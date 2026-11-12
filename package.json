@@ -42,7 +42,10 @@
     "check:dev-parity": "python3 scripts/check-dev-parity.py",
     "check:acceptance": "node scripts/acceptance.mjs",
     "check:fixtures": "node scripts/debug-bank.mjs --parse-only",
-    "preview:wallet": "node scripts/dev-server.mjs"
+    "preview:wallet": "node scripts/dev-server.mjs",
+    "build:site": "node scripts/build-site.mjs",
+    "site:shots": "node site/share/capture.mjs",
+    "site:share": "node site/share/render.mjs"
   },
   "dependencies": {
     "@ant-design/icons": "^6.0.0",
