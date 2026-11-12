@@ -7,6 +7,8 @@ import {cloudGateway,ORIGIN,INVITE} from './helpers/agent-target.mjs';
 import {runCloudTurn} from '../src/cloudChat.js';
 import {buildWalletSummary} from '../src/walletSummary.js';
 import {sseEvents} from '../src/cloudProtocol.js';
+import {BLOBS,DOUBLES} from '../gateway/src/metrics.js';
+import manifest from '../src/data/knowledge/manifest.json' with {type:'json'};
 
 const DAY='2026-10-28',NOW=()=>Date.parse(DAY+'T12:00:00Z');
 const products=JSON.parse(readFileSync(new URL('./fixtures/wallet-products.json',import.meta.url))).cards;
@@ -158,4 +160,82 @@ test('a turn too big for the gateway ends as a too-long conversation before it i
  const history=Array.from({length:30},(_,i)=>[{role:'user',content:'q'+i},{role:'assistant',content:'a'.repeat(19000)}]).flat();
  await assert.rejects(()=>runCloudTurn({question:'hi',history,context,post:g.post}),/tool_limit/);
  assert.equal(g.agentRequests.length,0);
+});
+
+// --- Metrics (#257): one Analytics Engine data point per turn, with release identity, shape and outcome, and no content.
+function metered(steps,{binding,logs}={}){
+ const points=[];
+ const dataset=binding||{writeDataPoint:p=>points.push(structuredClone(p))};
+ return gateway(steps,{vars:{AGENT_METRICS:dataset,CF_VERSION_METADATA:{id:'ver-test-1'}},logs}).then(g=>({g,points}));
+}
+const field=(point,name)=>{
+ const i=DOUBLES.indexOf(name);if(i>=0)return point.doubles[i];
+ return point.blobs[BLOBS.indexOf(name)];
+};
+const SECRET_QUESTION='Synthetic-question-7731 about my cards';
+
+test('metrics: a normal turn writes release identity, shape and outcome, and no text',async()=>{
+ const {g,points}=await metered([tools(call('find_benefits',{query:'hotel 酒店',category:'credit'},'a'),call('list_cards',{},'b')),say('已核对。')]);
+ const r=await runCloudTurn({question:SECRET_QUESTION,context,post:g.post});
+ await settle();
+ assert.equal(points.length,1);
+ const p=points[0];
+ assert.deepEqual(p.indexes,['agent-tests']);
+ assert.equal(p.blobs.length,BLOBS.length);assert.equal(p.doubles.length,DOUBLES.length);
+ assert.deepEqual([field(p,'route'),field(p,'version_id'),field(p,'model'),field(p,'error')],['agent','ver-test-1','deepseek-flash','']);
+ assert.match(field(p,'prompt_hash'),/^[0-9a-f]{8}$/);
+ assert.equal(field(p,'snapshot_id'),manifest.snapshotId);
+ assert.equal(field(p,'tool_counts'),'find_benefits:1,list_cards:1');
+ assert.deepEqual(['status','model_calls','rounds_replayed','wallet_calls','repaired','fallback','model_answered','tool_request','answered','public_tool_calls'].map(n=>field(p,n)),[200,2,0,0,0,0,1,0,1,2]);
+ assert.ok(field(p,'prompt_tokens')>=0&&field(p,'duration_ms')>=0);
+ // Nothing a user or the model wrote reaches the data point.
+ const all=JSON.stringify(p);
+ for(const t of [SECRET_QUESTION,'Synthetic-question','已核对','酒店',INVITE,'acct-sentinel'])assert.ok(!all.includes(t),'the data point carries '+t);
+ assert.ok(r.answer);
+});
+
+test('metrics: a repaired turn, a fallback turn and a provider error',async()=>{
+ const rules=()=>tools(call('get_card_rules',{kind:'fee',cardName:'Sapphire Reserve'}));
+ const repaired=await metered([rules(),say('年费是 999 美元。'),say('Sapphire Reserve 的公开年费见上面的规则。')]);
+ await runCloudTurn({question:'CSR 年费多少？',context,post:repaired.g.post});await settle();
+ let p=repaired.points.at(-1);
+ assert.deepEqual(['model_calls','repaired','fallback','model_answered','answered'].map(n=>field(p,n)),[3,1,0,1,1]);
+
+ // The fallback needs a wallet tool's result (credits), so this turn spans a tool_request and its continuation.
+ const bad='你的酒店 credit 还剩 987654 美元，见 [详情](https://made-up.example/credits)。';
+ const fell=await metered([tools(call('query_credits',{use:'hotel'},'wal')),say(bad),say(bad)]);
+ await fell.g.turn({question:'本期酒店 credit 用了吗？',context});await settle();
+ p=fell.points.at(-1);
+ assert.deepEqual(['model_calls','repaired','fallback','model_answered','answered','tool_request'].map(n=>field(p,n)),[2,1,1,0,1,0]);
+ assert.ok(!JSON.stringify(p).includes('made-up.example')&&!JSON.stringify(p).includes('987654'));
+
+ const failed=await metered([{status:503}]);
+ await assert.rejects(()=>runCloudTurn({question:SECRET_QUESTION,context,post:failed.g.post}));await settle();
+ p=failed.points.at(-1);
+ assert.equal(field(p,'error'),'provider_error');
+ assert.deepEqual(['answered','model_answered','fallback'].map(n=>field(p,n)),[0,0,0]);
+});
+
+test('metrics: a tool_request turn and its continuation',async()=>{
+ const {g,points}=await metered([tools(call('query_credits',{use:'hotel'},'wal')),say('本期酒店 credit 都没有手动标记，不确定是否用过。'),say('本期酒店 credit 都没有手动标记，不确定是否用过。')]);
+ const base={question:'本期酒店 credit 用了吗？',history:[],memory:{},summary:summary()};
+ const ask=await events(await post(g,base));await settle();
+ assert.ok(ask.some(e=>e.type==='tool_request'));
+ const p=points[0];
+ assert.deepEqual(['tool_request','answered','model_answered','wallet_calls','model_calls'].map(n=>field(p,n)),[1,0,0,1,1]);
+ assert.equal(field(p,'tool_counts'),'query_credits:1');
+ // The continuation carries the extension's result; the data point counts it and nothing it holds.
+ const req=ask.find(e=>e.type==='tool_request');
+ await events(await post(g,{...base,rounds:[{message:req.rounds[0],results:{wal:{tool:'query_credits',items:[{name:'synthetic-credit-name-5521'}]}}}],turn:req.turn}));await settle();
+ const q=points[1];
+ assert.deepEqual(['rounds_replayed','wallet_results','tool_request'].map(n=>field(q,n)),[1,1,0]);
+ assert.ok(!JSON.stringify(points).includes('synthetic-credit-name-5521'));
+});
+
+test('metrics: a throwing or missing binding never changes a turn',async()=>{
+ const broken=await metered([tools(call('list_cards')),say('ok')],{binding:{writeDataPoint(){throw Error('binding exploded');}}});
+ const r=await runCloudTurn({question:'我有哪些卡？',context,post:broken.g.post});
+ assert.ok(r.answer);
+ const absent=await gateway([tools(call('list_cards')),say('ok')]);
+ assert.ok((await runCloudTurn({question:'我有哪些卡？',context,post:absent.post})).answer);
 });

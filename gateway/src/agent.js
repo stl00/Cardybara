@@ -10,7 +10,9 @@
 // a replayed round is not sent to the model again. Every model call reserves its worst case and settles it, as on
 // the model proxy, so a turn of several calls counts against the same caps. Nothing from a body is logged.
 import {runAgentTurn} from '../../src/agentSession.js';
-import {chatRequest,acceptReply} from '../../src/chatProtocol.js';
+import {chatRequest,acceptReply,SYSTEM} from '../../src/chatProtocol.js';
+import manifest from '../../src/data/knowledge/manifest.json' with {type:'json'};
+import {shortHash} from './metrics.js';
 import {validateMemory} from '../../src/agentContext.js';
 import {validateState} from '../../src/conversationState.js';
 import {validateToolCall} from '../../src/walletAgent.js';
@@ -71,7 +73,7 @@ async function modelCall(ctx,turn,payload,signal,{repair},emit){
  // A repair is checked before anyone sees it, so it is not streamed.
  const forwarded=sanitizeBody({messages:request.messages,tools:request.tools,tool_choice:request.toolChoice,max_tokens:request.maxTokens,temperature:request.temperature,stream:!repair},ctx.config);
  const settle=await reserve(ctx,worstCase(forwarded,ctx.config));
- ctx.record.model_calls=(ctx.record.model_calls||0)+1;
+ ctx.record.model_calls=(ctx.record.model_calls||0)+1;ctx.metrics.model=forwarded.model;
  const response=await callProvider(ctx,forwarded,settle,signal);
  let message,finishReason=null,usage=null;
  try{
@@ -122,6 +124,7 @@ export async function readStream(response,forwarded,onText){
  return {message:{role:'assistant',content,...(toolCalls.length?{tool_calls:toolCalls}:{})},finishReason,usage};
 }
 
+const countNames=names=>names.reduce((o,n)=>({...o,[n]:(o[n]||0)+1}),{});
 const errorCode=e=>e instanceof Refusal?e.message:AGENT_ERRORS.has(e?.message)?e.message:e?.name==='AbortError'||e?.name==='TimeoutError'?'cancelled':'agent_failed';
 
 /** POST /v1/chat. Validates before anything streams; then the turn runs while its events stream out. */
@@ -131,6 +134,8 @@ export async function agentRoute(ctx){
   if(!(turn.turn.exp>ctx.now()&&turn.turn.exp<=ctx.now()+TURN_TTL_MS))throw new Refusal('turn_expired');
   if(!sameText(turn.turn.sig,await signRounds(ctx,turn,turn.rounds.map(r=>r.message),turn.turn.exp)))throw new Refusal('turn_invalid');
  }
+ // Release identity for the metrics data point: which prompt and which knowledge snapshot answered.
+ ctx.metrics.promptHash=await shortHash(SYSTEM);ctx.metrics.snapshotId=manifest.snapshotId;
  ctx.record.rounds_replayed=turn.rounds.length;
  ctx.record.wallet_results=turn.rounds.reduce((n,r)=>n+Object.keys(r.results).length,0);
  const {readable,writable}=new TransformStream();
@@ -151,9 +156,13 @@ export async function agentRoute(ctx){
    if(result.pending){
     const exp=ctx.now()+TURN_TTL_MS,messages=result.pending.rounds;
     ctx.record.wallet_calls=result.pending.calls.length;
+    // Only the wallet calls this request asked for are known here; the public tools ran before them.
+    ctx.metrics.toolRequest=true;ctx.metrics.tools=countNames(result.pending.calls.map(c=>c.function.name));
     await emit({type:'tool_request',rounds:messages,calls:result.pending.calls,trip:result.pending.trip?validateState({trip:result.pending.trip}).trip:null,turn:{exp,sig:await signRounds(ctx,turn,messages,exp)}});
    }else{
     ctx.record.answered=true;
+    ctx.metrics.repaired=result.trace.some(t=>t.type==='repair');ctx.metrics.fallback=result.trace.some(t=>t.type==='fallback');
+    ctx.metrics.tools=countNames(result.tools);ctx.metrics.publicToolCalls=result.tools.filter(n=>!REMOTE.has(n)).length;
     // Only what the extension keeps for the next turn: no tool result goes back into its history.
     // The trace is the loop's own metadata (tool names, timings, check codes), for the wallet's diagnostics and tests.
     await emit({type:'done',answer:result.answer,memory:result.memory,history:trimHistory(result.messages),tools:result.tools,trace:result.trace,context:result.context});

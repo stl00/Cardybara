@@ -277,3 +277,26 @@ test('an agent that fails to load answers agent_unavailable, not a crash',async(
  assert.match(src,/import\('\.\/agent\.js'\)\)\.then\(m=>m\.agentRoute\(ctx\),\(\)=>\{throw new Refusal\('agent_unavailable'\);\}\)/);
  assert.equal((await import('../gateway/src/gateway.js')).ERRORS.agent_unavailable,503);
 });
+
+test('metrics: the model proxy writes one data point per request, with no text, and a failing binding changes nothing',async()=>{
+ const points=[];
+ const g=setup({vars:{AGENT_METRICS:{writeDataPoint:p=>points.push(structuredClone(p))},CF_VERSION_METADATA:{id:'ver-proxy-1'}}});await g.addInvite(CODE,{id:'t01'});
+ assert.equal((await g.handle(post(ROUTES.chat))).status,200);
+ assert.equal((await g.handle(post(ROUTES.invite))).status,200,'the invite check is not metered');
+ assert.equal((await g.handle(post(ROUTES.chat,{code:UNKNOWN}))).status,401);
+ assert.equal(points.length,2);
+ assert.deepEqual(points[0].indexes,['t01']);
+ assert.deepEqual([points[0].blobs[0],points[0].blobs[1],points[0].blobs[4],points[0].blobs[5]],['chat','ver-proxy-1','deepseek-flash','']);
+ assert.deepEqual([points[0].doubles[0],points[0].doubles[4],points[0].doubles[5],points[0].doubles[9]],[200,10,5,1]);
+ // A refused request is metered too, under the placeholder index when no code was found.
+ assert.deepEqual([points[1].indexes[0],points[1].blobs[5],points[1].doubles[0],points[1].doubles[9]],['none','invite_invalid',401,0]);
+ for(const text of [SECRET_TEXT,CODE,PROVIDER_KEY,'synthetic answer'])assert.ok(!JSON.stringify(points).includes(text),'a data point carries '+text);
+ const broken=setup({vars:{AGENT_METRICS:{writeDataPoint(){throw Error('boom');}}}});await broken.addInvite(CODE,{id:'t01'});
+ assert.equal((await broken.handle(post(ROUTES.chat))).status,200);
+});
+
+test('metrics: the Worker config declares the Analytics Engine and version bindings the code reads',()=>{
+ const config=readFileSync(new URL('../gateway/wrangler.jsonc',import.meta.url),'utf8');
+ assert.match(config,/"analytics_engine_datasets":\s*\[\{"binding":\s*"AGENT_METRICS"/);
+ assert.match(config,/"version_metadata":\s*\{"binding":\s*"CF_VERSION_METADATA"\}/);
+});

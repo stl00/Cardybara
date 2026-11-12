@@ -16,6 +16,7 @@
 // bundler keeps a dynamically imported module lazy; tests/gateway-startup.test.mjs holds the built Worker to this.
 // A failed load stays cached on purpose: a module whose evaluation threw cannot be evaluated again (the bundler's lazy
 // init and native ESM both keep the failure), so every /v1/chat then answers agent_unavailable until a redeploy.
+import {writeMetrics} from './metrics.js';
 let agent=null;
 const agentRoute=ctx=>(agent||=import('./agent.js')).then(m=>m.agentRoute(ctx),()=>{throw new Refusal('agent_unavailable');});
 
@@ -256,6 +257,7 @@ async function inviteRoute(ctx){return respond(200,{status:'active'},ctx.cors);}
 async function completionRoute(ctx){
  let forwarded;
  try{forwarded=sanitizeBody(await readJson(ctx),ctx.config);}catch(e){throw e instanceof Refusal?e:new Refusal(ERRORS[e.message]?e.message:'bad_request');}
+ ctx.metrics.model=forwarded.model;
  const settle=await reserve(ctx,worstCase(forwarded,ctx.config));
  const response=await callProvider(ctx,forwarded,settle);
  const limit=4*ctx.config.maxBodyBytes+65536;
@@ -324,8 +326,12 @@ export async function handle(request,env,deps={}){
  const ctx={request,env,config,cors,record,url,now,// Called as a plain function: Workers' fetch throws "Illegal invocation" when called as a method of another object.
   upstream:deps.fetch||((...a)=>globalThis.fetch(...a)),invite:null,deferLog:p=>{deferred=p;},
   // Tests only: sees each agent model call's payload before it becomes a provider request. The Worker never sets it.
-  observe:deps.observe||null};
- const write=()=>log(JSON.stringify(record));
+  observe:deps.observe||null,
+  // What the metrics data point needs beyond the log record (model, prompt hash, repair, tool counts); never logged.
+  metrics:{}};
+ const started=now();
+ // The log line first, then the metrics data point (metrics.js): neither can make the other fail.
+ const write=()=>{log(JSON.stringify(record));writeMetrics(ctx,now()-started);};
  const finish=response=>{record.status=response.status;if(deferred){const p=deferred.then(write);deps.waitUntil?deps.waitUntil(p):void p;}else write();return response;};
  const refuse=(code,extra={})=>{Object.assign(record,{error:code},extra);return finish(respond(ERRORS[code]||500,{error:{code}},code==='method_not_allowed'?{...cors,Allow:route.method}:cors));};
  if(request.method==='OPTIONS'){
