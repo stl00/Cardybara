@@ -2236,7 +2236,8 @@
       "rewardSource": {
         "url": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
         "checkedAt": "2026-11-04"
-      }
+      },
+      "transferProgrammeId": "programme.citi-thankyou"
     },
     {
       "id": "citi-us-citi-strata-elite-card",
@@ -2268,7 +2269,8 @@
       "rewardSource": {
         "url": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card",
         "checkedAt": "2026-11-04"
-      }
+      },
+      "transferProgrammeId": "programme.citi-thankyou"
     },
     {
       "id": "citi-us-citi-double-cash-card",

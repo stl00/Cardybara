@@ -328,7 +328,8 @@
       "checkedAt": "2026-11-11",
       "terms": "unverified",
       "convertedFrom": "webp"
-    }
+    },
+    "transferProgrammeId": "programme.citi-thankyou"
   },
   {
     "id": "citi-us-citi-strata-elite-card",
@@ -360,7 +361,8 @@
       "checkedAt": "2026-11-11",
       "terms": "unverified",
       "convertedFrom": "webp"
-    }
+    },
+    "transferProgrammeId": "programme.citi-thankyou"
   },
   {
     "id": "citi-us-citi-double-cash-card",

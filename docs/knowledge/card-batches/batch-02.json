@@ -110,8 +110,8 @@
       ],
       "unknown": [
         {
-          "zh": "ThankYou 转点伙伴和比例尚未核对。",
-          "en": "ThankYou transfer partners and rates are not yet checked."
+          "zh": "ThankYou 转点比例、增量和到账时间官方产品页没有写；只列出部分伙伴和最低1,000点。",
+          "en": "The product page does not state ThankYou transfer rates, increments or timing; it names some partners and a 1,000-point minimum."
         }
       ]
     },
@@ -231,8 +231,8 @@
           "en": "Only the main credits and earning rates are recorded; Priority Pass, Admirals Club passes and others are not."
         },
         {
-          "zh": "ThankYou 转点伙伴和比例尚未核对。",
-          "en": "ThankYou transfer partners and rates are not yet checked."
+          "zh": "ThankYou 转点比例、增量和到账时间官方产品页没有写；只列出部分伙伴和最低1,000点。",
+          "en": "The product page does not state ThankYou transfer rates, increments or timing; it names some partners and a 1,000-point minimum."
         }
       ],
       "fee": {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-11.cards-11",
+  "snapshotId": "cardybara-public-knowledge-2026-11-11.thankyou-1",
   "asOf": "2026-11-11",
   "locale": "zh-CN",
   "files": [
@@ -533,7 +533,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "ThankYou 转点伙伴和比例尚未核对。",
+        "ThankYou 转点比例、增量和到账时间官方产品页没有写；只列出部分伙伴和最低1,000点。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -549,7 +549,7 @@
       "changeNotes": [],
       "knowledgeGaps": [
         "只录入主要抵扣和赚取比例，Priority Pass、Admirals Club 通行证等未录入。",
-        "ThankYou 转点伙伴和比例尚未核对。",
+        "ThankYou 转点比例、增量和到账时间官方产品页没有写；只列出部分伙伴和最低1,000点。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
