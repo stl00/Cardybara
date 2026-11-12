@@ -27,7 +27,7 @@ const APPROX='≈ ';
 const percentText=n=>`${formatNumber(n,{maximumFractionDigits:2})}%`;
 function rateText(e){
  if(!e)return '';
- if(e.unit==='cashback-percent')return t('{0}% 现金返现',[e.rate]);
+ if(e.unit==='cashback-percent')return e.nonCash?t('{0}% {1}（不是现金）',[e.rate,e.rewardCurrency]):t('{0}% 现金返现',[e.rate]);
  if(e.unit==='points-per-USD')return t('每美元 {0} 积分',[e.rate]);
  if(e.unit==='miles-per-USD')return t('每美元 {0} 里',[e.rate]);
  if(e.unit==='HKD-per-mile')return t('每 HK${0} 1 里',[e.rate]);
@@ -35,7 +35,7 @@ function rateText(e){
  if(e.unit==='points-per-CAD')return t('每加元 {0} 积分',[e.rate]);
  return String(e.rate);
 }
-const ruleText=e=>e?.programme&&!e.isCash?`${rateText(e)} · ${e.programme}`:rateText(e);
+const ruleText=e=>e?.programme&&!e.isCash&&!e.nonCash?`${rateText(e)} · ${e.programme}`:rateText(e);
 // #193: whose value a point was compared at, always said beside the result.
 function valueBasis(v){
  const unit=v.currency==='HKD'?t('港仙'):t('美分');
@@ -66,7 +66,7 @@ function gapText(lead,o,currency,hidden){
 function caption(r,big,cash,hidden){
  const fromDefault=r.pointValue?.basis==='default';
  if(r.basis==='money'&&r.value!=null){const amount=money(r.value,r.currency,hidden);return r.credit?t('这笔约得 {0}（含抵扣）',[amount]):fromDefault?t('这笔约得 {0}（默认估值）',[amount]):t('这笔约得 {0}',[amount]);}
- if(!big)return t('积分未估值');
+ if(!big)return r.earn?.nonCash?t('不是现金，未折算'):t('积分未估值');
  return cash?t('现金返现'):fromDefault?t('按默认估值折算'):t('按积分估值折算');
 }
 function Hero({r,card,hidden,onDetail}){
