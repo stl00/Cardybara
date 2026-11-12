@@ -197,7 +197,7 @@ export const tripCases=[
  {id:'trip-whole-en',airline:'Delta',when:'Dec 20-27',expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
 ];
 export const liveCases=[
- {id:'dining',question:'在美国餐厅消费100美元用哪张卡？请简短回答并保留来源。',expectTool:'choose_card',answerPatterns:['Freedom Unlimited'],expectedArgs:{category:'dining',country:'US',currency:'USD',amount:100}},
+ {id:'dining',question:'在美国餐厅消费100美元用哪张卡？请简短回答并保留来源。',expectTool:'choose_card',answerPatterns:['Gold'],expectedArgs:{category:'dining',country:'US',currency:'USD',amount:100}},
  {id:'answers-before-asking',question:'我在餐厅花100，要刷哪张？',expectTool:'choose_card',answersFirst:true},
  {id:'points-with-value',question:'在美国餐厅刷100美元。我觉得 MR 一点值2美分，用哪张？',expectTool:'choose_card',answerPatterns:['Gold']},
  {id:'foreign-purchase',question:'在日本餐厅刷10000日元用哪张卡？',expectTool:'choose_card',expectedArgs:{country:'JP',currency:'JPY'},answerPatterns:['手续费|手續費']},

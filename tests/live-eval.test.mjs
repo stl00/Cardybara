@@ -68,7 +68,7 @@ test('the spend cap stops the run, and a case that was not run keeps its last go
 
 test('facts are checked by code and the report holds no model text',async()=>{
  const c=liveCases.find(x=>x.id==='dining'),secret='MODEL-TEXT-MUST-NOT-LEAVE';
- const turn=args=>async({request})=>{await request({});return {answer:'Freedom Unlimited '+secret,trace:[{type:'answer',text:secret}],tools:[],memory:{},messages:[],context:{note:secret}};};
+ const turn=args=>async({request})=>{await request({});return {answer:'American Express Gold Card '+secret,trace:[{type:'answer',text:secret}],tools:[],memory:{},messages:[],context:{note:secret}};};
  const call=(name,a)=>async()=>({content:secret,tool_calls:[{function:{name,arguments:JSON.stringify(a)}}]});
  const right=await runLiveCase(c,{chat:call('choose_card',c.expectedArgs),turn:turn()});
  assert.ok(Object.values(right.checks).every(Boolean));
