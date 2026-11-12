@@ -1,0 +1,23 @@
+{
+  "_note": "Synthetic demo wallet for site screenshots only. Every balance, date and tail here is made up; none belongs to a real account.",
+  "asOf": "2026-11-10",
+  "cards": [
+    {"id":"demo-plat","name":"The Platinum Card","productId":"amex-us-us-the-platinum-card","bank":"Amex US","region":"US","currency":"USD","tail":"1001","updated":"2026-11-10","balance":1280.40,"statement":964.20,"minimum":40.00,"due":"2026-11-26","feeDate":{"month":3,"day":1},"fieldDates":{"balance":"2026-11-10T09:00:00Z","statement":"2026-11-10T09:00:00Z","minimum":"2026-11-10T09:00:00Z","due":"2026-11-10T09:00:00Z"}},
+    {"id":"demo-gold","name":"American Express Gold Card","productId":"amex-us-us-american-express-gold-card","bank":"Amex US","region":"US","currency":"USD","tail":"2002","updated":"2026-11-10","balance":356.75,"statement":512.30,"minimum":35.00,"due":"2026-11-19","feeDate":{"month":6,"day":1},"fieldDates":{"balance":"2026-11-10T09:00:00Z","statement":"2026-11-10T09:00:00Z","minimum":"2026-11-10T09:00:00Z","due":"2026-11-10T09:00:00Z"}},
+    {"id":"demo-csp","name":"Chase Sapphire Preferred","productId":"chase-us-chase-sapphire-preferred-credit-card","bank":"Chase","region":"US","currency":"USD","tail":"3003","updated":"2026-11-10","balance":742.10,"statement":618.90,"minimum":25.00,"due":"2026-11-22","feeDate":{"month":9,"day":1},"fieldDates":{"balance":"2026-11-10T09:00:00Z","statement":"2026-11-10T09:00:00Z","minimum":"2026-11-10T09:00:00Z","due":"2026-11-10T09:00:00Z"}},
+    {"id":"demo-cfu","name":"Freedom Unlimited","productId":"chase-us-freedom-unlimited","bank":"Chase","region":"US","currency":"USD","tail":"4004","updated":"2026-11-10","balance":128.60,"statement":210.00,"minimum":25.00,"due":"2026-11-28","fieldDates":{"balance":"2026-11-10T09:00:00Z","statement":"2026-11-10T09:00:00Z","minimum":"2026-11-10T09:00:00Z","due":"2026-11-10T09:00:00Z"}},
+    {"id":"demo-bilt","name":"Bilt Blue Card","productId":"bilt-us-bilt-blue-card","bank":"Bilt","region":"US","currency":"USD","tail":"5005","identitySource":"manual"}
+  ],
+  "rewards": [
+    {"id":"demo-mr","bank":"Amex US","label":"Membership Rewards","amount":86400,"unit":"points","date":"2026-11-10"},
+    {"id":"demo-ur","bank":"Chase","label":"Ultimate Rewards","amount":41250,"unit":"points","date":"2026-11-10"}
+  ],
+  "transactions": [],
+  "offers": [],
+  "benefits": [],
+  "connections": [
+    {"bank":"Amex US","note":""},
+    {"bank":"Chase","note":""}
+  ],
+  "spendingGoals": []
+}
