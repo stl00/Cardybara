@@ -14,6 +14,9 @@ export const transferProgrammes=[
  // Citi publishes partners and a minimum but no rate (#181), and the wallet reads no ThankYou balance, so this
  // programme answers the assistant only and gets no tab on the rewards page.
  {id:'programme.citi-thankyou',bank:'Citi US',region:'US',reading:'thankyou points',label:'ThankYou Points',tab:false},
+ // Capital One publishes partners and rates (#182), but the wallet reads no Capital One balance, so this
+ // programme answers the assistant only and gets no tab on the rewards page.
+ {id:'programme.capital-one-miles',bank:'Capital One',region:'US',reading:'capital one miles',label:'Capital One Miles',tab:false},
 ];
 const programme=id=>knowledgeEntities.programmes.find(p=>p.id===id);
 // Partners of one programme. The same partner has several rows only when its rate differs by card.

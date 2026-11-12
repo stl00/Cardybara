@@ -128,3 +128,63 @@
 | EVA Infinity MileageLands | airline | 未写 | 1,000 | — | — | — | — |
 | Choice Privileges | hotel | 未写 | 1,000 | — | — | — | — |
 | The Leading Hotels of the World Leaders Club | hotel | 未写 | 1,000 | — | — | — | — |
+
+## Capital One Miles（2026-11-11，#182）
+
+来源：Capital One 官网文章 “Capital One transfer partners”（未登录），https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/ ；以及 Venture、Venture X、Venture X Business 三张卡的公开产品页，各自写明英里可以转到 “15+” 个旅行会员计划或伙伴。
+
+**已核对**
+
+- 19 个航空伙伴和 4 个酒店伙伴，每个都有比例。文章写 “most offer a 1:1 conversion ratio”，并逐项列出 2:1.5（Copa、Emirates Skywards、EVA Air、Japan Airlines Mileage Bank）、5:3（JetBlue）、1:2（I Prefer）和 2:1（Accor）。
+- 门槛：“you must have at least 1,000 Capital One rewards miles”。这里记为最低 1,000 英里，属于据此判断。
+- 转出后不能转回（文章正文和脚注都写了）。
+- Choice Privileges 只能转入美国的会员账户（脚注）。
+
+**仍未知（留空）**
+
+- 增量、单笔上限、到账时间、费用：文章和产品页都没有写。没有增量时，`convert_points` 按整数英里换算，伙伴单位向下取整。
+- 哪些卡可以转：文章只写 “a Capital One travel rewards card or a Capital One business rewards card”，没有逐张点名。这里只关联产品页自己写明可以转点的 Venture、Venture X 和 Venture X Business；VentureOne、Spark Miles 不在卡库里，Savor 和 Spark Cash Plus 是返现卡，不关联。
+- 伙伴会变：脚注写明伙伴名单可能变动。
+
+2:1.5 记录为 4 → 3，是同一比例的整数写法。文章里 Copa、EVA Air、JetBlue 只写公司名，这里按各公司自己的会员计划（ConnectMiles、Infinity MileageLands、TrueBlue）记录，属于据此判断；“Flying Blue”“British Airways Club”“Accor Live Limitless” 对应卡库里已有的计划。Finnair Plus 和 Copa ConnectMiles 是新加的计划，没有批准的标志，显示类别图标。钱包不读取 Capital One 余额，所以奖励页不加标签，只供 assistant 回答。
+
+| 伙伴 | 类型 | 比例（英里→单位） | 最低 | 增量 | 单笔上限 | 预计时间 | 费用 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Aeromexico Rewards | airline | 1 → 1 | 1,000 | — | — | — | — |
+| Air Canada Aeroplan | airline | 1 → 1 | 1,000 | — | — | — | — |
+| avianca lifemiles | airline | 1 → 1 | 1,000 | — | — | — | — |
+| The British Airways Club | airline | 1 → 1 | 1,000 | — | — | — | — |
+| Cathay Asia Miles | airline | 1 → 1 | 1,000 | — | — | — | — |
+| Etihad Guest | airline | 1 → 1 | 1,000 | — | — | — | — |
+| Finnair Plus | airline | 1 → 1 | 1,000 | — | — | — | — |
+| Air France KLM Flying Blue | airline | 1 → 1 | 1,000 | — | — | — | — |
+| Qantas Frequent Flyer | airline | 1 → 1 | 1,000 | — | — | — | — |
+| Qatar Airways Privilege Club | airline | 1 → 1 | 1,000 | — | — | — | — |
+| Singapore Airlines KrisFlyer | airline | 1 → 1 | 1,000 | — | — | — | — |
+| TAP Miles&Go | airline | 1 → 1 | 1,000 | — | — | — | — |
+| Turkish Airlines Miles&Smiles | airline | 1 → 1 | 1,000 | — | — | — | — |
+| Virgin Red | airline | 1 → 1 | 1,000 | — | — | — | — |
+| Copa Airlines ConnectMiles | airline | 4 → 3 | 1,000 | — | — | — | — |
+| Emirates Skywards | airline | 4 → 3 | 1,000 | — | — | — | — |
+| EVA Infinity MileageLands | airline | 4 → 3 | 1,000 | — | — | — | — |
+| Japan Airlines Mileage Bank | airline | 4 → 3 | 1,000 | — | — | — | — |
+| JetBlue TrueBlue | airline | 5 → 3 | 1,000 | — | — | — | — |
+| Choice Privileges | hotel | 1 → 1 | 1,000 | — | — | — | — |
+| Wyndham Rewards | hotel | 1 → 1 | 1,000 | — | — | — | — |
+| I Prefer Hotel Rewards | hotel | 1 → 2 | 1,000 | — | — | — | — |
+| ALL Accor | hotel | 2 → 1 | 1,000 | — | — | — | — |
+
+## Wells Fargo Rewards（2026-11-11，#182）
+
+来源：Autograph Journey 公开产品页 https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/ 和它的条款摘要页 https://www.wellsfargo.com/credit-cards/autograph-journey-visa/terms/ （均未登录）。
+
+**官方页面写了什么**
+
+- 产品页：“Transfer your points directly to select travel loyalty programs, in any amount.”，脚注写 “All rewards points transfer redemptions are final.”，并且只能在线兑换。
+- 条款摘要：“One Wells Fargo Rewards Point equals 1 Participating Transfer Partner mile, point, or credit, unless we state otherwise.”
+
+**仍未知（不记录伙伴）**
+
+- 伙伴名单：未登录的 Wells Fargo 页面没有列出任何伙伴。wellsfargo.com/credit-cards/rewards/points-transfer/ 返回 404；wellsfargo.com/rewardsterms 跳转到奖励网站，未登录时没有返回内容，没有绕过。
+- 因此没有任何转点规则，Autograph Journey 不关联转点计划，`convert_points` 把它列为没有转点记录的卡。条款里的默认 1:1 带有 “另有说明除外”，没有伙伴名就不能当作某个伙伴的比例。
+- 第三方网站列出的伙伴和比例不是官方来源，不采用。等 Wells Fargo 有公开的伙伴页，或用户提供官方页面内容后再补。

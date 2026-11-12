@@ -73615,5 +73615,2029 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-aeromexico-rewards",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-aeromexico-rewards@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.aeromexico-rewards"
+    ],
+    "content": {
+      "title": "Aeromexico Rewards",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.aeromexico-rewards",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-air-canada-aeroplan",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-air-canada-aeroplan@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.air-canada-aeroplan"
+    ],
+    "content": {
+      "title": "Air Canada Aeroplan",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.air-canada-aeroplan",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-avianca-lifemiles",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-avianca-lifemiles@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.avianca-lifemiles"
+    ],
+    "content": {
+      "title": "avianca lifemiles",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.avianca-lifemiles",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-the-british-airways-club",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-the-british-airways-club@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "The British Airways Club",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.the-british-airways-club",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-cathay-asia-miles",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-cathay-asia-miles@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.cathay-asia-miles"
+    ],
+    "content": {
+      "title": "Cathay Asia Miles",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.cathay-asia-miles",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-etihad-guest",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-etihad-guest@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.etihad-guest"
+    ],
+    "content": {
+      "title": "Etihad Guest",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.etihad-guest",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-finnair-plus",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-finnair-plus@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.finnair-plus"
+    ],
+    "content": {
+      "title": "Finnair Plus",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.finnair-plus",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-air-france-klm-flying-blue",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-air-france-klm-flying-blue@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.air-france-klm-flying-blue"
+    ],
+    "content": {
+      "title": "Air France KLM Flying Blue",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.air-france-klm-flying-blue",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-qantas-frequent-flyer",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-qantas-frequent-flyer@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.qantas-frequent-flyer"
+    ],
+    "content": {
+      "title": "Qantas Frequent Flyer",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.qantas-frequent-flyer",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-qatar-privilege-club",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-qatar-privilege-club@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.qatar-privilege-club"
+    ],
+    "content": {
+      "title": "Qatar Airways Privilege Club",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.qatar-privilege-club",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-singapore-airlines-krisflyer",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-singapore-airlines-krisflyer@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.singapore-airlines-krisflyer"
+    ],
+    "content": {
+      "title": "Singapore Airlines KrisFlyer",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.singapore-airlines-krisflyer",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-tap-miles-go",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-tap-miles-go@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.tap-miles-go"
+    ],
+    "content": {
+      "title": "TAP Miles&Go",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.tap-miles-go",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-turkish-miles-smiles",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-turkish-miles-smiles@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.turkish-miles-smiles"
+    ],
+    "content": {
+      "title": "Turkish Airlines Miles&Smiles",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.turkish-miles-smiles",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-virgin-red",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-virgin-red@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.virgin-red"
+    ],
+    "content": {
+      "title": "Virgin Red",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.virgin-red",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-copa-connectmiles",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-copa-connectmiles@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.copa-connectmiles"
+    ],
+    "content": {
+      "title": "Copa Airlines ConnectMiles",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.copa-connectmiles",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 4,
+        "to": 3
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-emirates-skywards",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-emirates-skywards@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.emirates-skywards"
+    ],
+    "content": {
+      "title": "Emirates Skywards",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.emirates-skywards",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 4,
+        "to": 3
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-eva-infinity-mileagelands",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-eva-infinity-mileagelands@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.eva-infinity-mileagelands"
+    ],
+    "content": {
+      "title": "EVA Infinity MileageLands",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.eva-infinity-mileagelands",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 4,
+        "to": 3
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-jal-mileage-bank",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-jal-mileage-bank@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.jal-mileage-bank"
+    ],
+    "content": {
+      "title": "Japan Airlines Mileage Bank",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.jal-mileage-bank",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 4,
+        "to": 3
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-jetblue-trueblue",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-jetblue-trueblue@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.jetblue-trueblue"
+    ],
+    "content": {
+      "title": "JetBlue TrueBlue",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.jetblue-trueblue",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 5,
+        "to": 3
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-choice-privileges",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-choice-privileges@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.choice-privileges"
+    ],
+    "content": {
+      "title": "Choice Privileges",
+      "summary": "Capital One 官方转点文章公布的比例；只能转入美国的 Choice Privileges 会员账户。账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.choice-privileges",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；只能转入美国的 Choice Privileges 会员账户。账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-wyndham-rewards",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-wyndham-rewards@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.wyndham-rewards"
+    ],
+    "content": {
+      "title": "Wyndham Rewards",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.wyndham-rewards",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-i-prefer",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-i-prefer@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.i-prefer"
+    ],
+    "content": {
+      "title": "I Prefer Hotel Rewards",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.i-prefer",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 1,
+        "to": 2
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.programme.capital-one-miles.transfer-all-accor",
+    "revision": 1,
+    "revisionId": "rule.programme.capital-one-miles.transfer-all-accor@2026-11-11.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "transfer-relationship",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card",
+      "capital-one-us-venture-x-rewards-credit-card",
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "transfer",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles",
+      "programme.all-accor"
+    ],
+    "content": {
+      "title": "ALL Accor",
+      "summary": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。",
+      "howToUse": [
+        "转点前在银行转点页核对当前比例、最低数量和费用。",
+        "转点通常不可撤销，由你自己决定和确认；知识库不代办，也不代表你的账号已关联。"
+      ]
+    },
+    "terms": {
+      "relationship": "transfer-only",
+      "fromProgrammeId": "programme.capital-one-miles",
+      "toProgrammeId": "programme.all-accor",
+      "ratio": null,
+      "minimumPoints": 1000,
+      "incrementPoints": null,
+      "maximumPoints": null,
+      "estimatedTime": null,
+      "fees": null,
+      "final": true,
+      "appliesTo": "linked-products",
+      "grantsEliteStatus": false,
+      "accountLinked": null
+    },
+    "transferRate": {
+      "rate": {
+        "from": 2,
+        "to": 1
+      },
+      "condition": null,
+      "statement": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "capital-one-miles-transfer",
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-11",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]

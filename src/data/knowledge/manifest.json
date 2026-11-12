@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-11.thankyou-1",
+  "snapshotId": "cardybara-public-knowledge-2026-11-11.capital-one-1",
   "asOf": "2026-11-11",
   "locale": "zh-CN",
   "files": [
@@ -609,7 +609,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "转点伙伴和比例尚未核对。",
+        "转点增量、到账时间和费用 Capital One 官方页面没有写；伙伴和比例已按官方转点文章记录。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -625,7 +625,7 @@
       "changeNotes": [],
       "knowledgeGaps": [
         "Global Entry 的金额未在页面内容中确认。",
-        "转点伙伴和比例尚未核对。",
+        "转点增量、到账时间和费用 Capital One 官方页面没有写；伙伴和比例已按官方转点文章记录。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -654,7 +654,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "转点伙伴和比例尚未核对。",
+        "转点增量、到账时间和费用 Capital One 官方页面没有写；伙伴和比例已按官方转点文章记录。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -1085,7 +1085,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "转点伙伴和比例尚未核对；页面写明可以转到部分旅行计划。",
+        "Wells Fargo 未登录的官方页面没有列出转点伙伴，因此不记录伙伴；页面只写可转到部分旅行会员计划、数量不限、转后不可撤销，条款写默认1点换1单位（另有说明除外）。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null

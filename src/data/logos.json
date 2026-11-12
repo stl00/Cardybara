@@ -1681,6 +1681,42 @@
    "terms": "unverified",
    "logo": null,
    "source": null
+  },
+  {
+   "id": "finnair-plus",
+   "name": "Finnair Plus",
+   "category": "airline",
+   "programmeIds": [
+    "programme.finnair-plus"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-11",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
+  },
+  {
+   "id": "copa-connectmiles",
+   "name": "Copa Airlines ConnectMiles",
+   "category": "airline",
+   "programmeIds": [
+    "programme.copa-connectmiles"
+   ],
+   "titleTokens": [],
+   "textTokens": [],
+   "termsUrl": null,
+   "finding": "Not checked; no mark is shipped.",
+   "checkedAt": "2026-11-11",
+   "status": "unapproved",
+   "approval": null,
+   "terms": "unverified",
+   "logo": null,
+   "source": null
   }
  ]
 }

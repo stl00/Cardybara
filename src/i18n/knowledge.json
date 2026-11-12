@@ -140,7 +140,6 @@
     "其他消费的赚取比例和 Avis、Omni 等其他福利未录入。": "Other earning rates and benefits such as Avis and Omni are not recorded.",
     "AAdvantage Hotels 和 AAdvantage Cars": "AAdvantage Hotels and AAdvantage Cars bookings",
     "Capital One · Venture Rewards Credit Card 官方产品页": "Capital One · Venture Rewards Credit Card official product page",
-    "转点伙伴和比例尚未核对。": "Transfer partners and rates are not yet checked.",
     "Capital One Travel 酒店、度假屋和租车": "Hotels, vacation rentals and rental cars through Capital One Travel",
     "Capital One Entertainment": "Capital One Entertainment",
     "Capital One · Venture X Rewards Credit Card 官方产品页": "Capital One · Venture X Rewards Credit Card official product page",
@@ -238,7 +237,6 @@
     "餐饮、外卖和餐厅配送": "Dining, takeout and restaurant delivery",
     "超市、加油站和充电站": "Grocery stores, gas and EV charging stations",
     "Wells Fargo · Wells Fargo Autograph Journey Visa Card 官方产品页": "Wells Fargo · Wells Fargo Autograph Journey Visa Card official product page",
-    "转点伙伴和比例尚未核对；页面写明可以转到部分旅行计划。": "Transfer partners and rates are not yet checked; the page says points can transfer to select travel programmes.",
     "餐厅和其他旅行": "Restaurants and other travel",
     "Citi · Citi Custom Cash Card 官方产品页": "Citi · Citi Custom Cash Card official product page",
     "Citi 自2026年5月28日起停止受理新申请，已持卡者不受影响；资料来自页面内嵌数据，可见页面显示 Not Available。": "Citi stopped accepting applications on May 28, 2026, and existing cardmembers are not affected. Facts come from embedded page data; the visible page shows Not Available.",
@@ -516,7 +514,14 @@
     "Chase · Chase Freedom Rise Credit Card 官方产品页": "Chase · Chase Freedom Rise Credit Card official product page",
     "开户三个月内登记自动还款得25美元属于新开户优惠，未录入。每年升级 Freedom Unlimited 的评估和保障类福利未录入。": "The $25 for enrolling in automatic payments within three months of opening is a new-account offer and is not recorded. The yearly Freedom Unlimited upgrade review and the coverage benefits are not recorded.",
     "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。": "Citi's product page names this partner but states no rate, so no miles are computed. The minimum transfer is 1,000 points. The page does not state the increment, timing or fees. Grants no elite status.",
-    "ThankYou 转点比例、增量和到账时间官方产品页没有写；只列出部分伙伴和最低1,000点。": "The product page does not state ThankYou transfer rates, increments or timing; it names some partners and a 1,000-point minimum."
+    "ThankYou 转点比例、增量和到账时间官方产品页没有写；只列出部分伙伴和最低1,000点。": "The product page does not state ThankYou transfer rates, increments or timing; it names some partners and a 1,000-point minimum.",
+    "Capital One · 转点伙伴说明": "Capital One · Capital One transfer partners",
+    "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。": "Rate as published in Capital One's transfer partner article. You need at least 1,000 miles to transfer, and miles cannot be transferred back. The page does not state the increment, timing or fees. Grants no elite status.",
+    "Capital One 官方转点文章公布的比例；只能转入美国的 Choice Privileges 会员账户。账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。": "Rate as published in Capital One's transfer partner article. Miles transfer only to U.S.-based Choice Privileges accounts. You need at least 1,000 miles to transfer, and miles cannot be transferred back. The page does not state the increment, timing or fees. Grants no elite status.",
+    "Finnair Plus": "Finnair Plus",
+    "Copa Airlines ConnectMiles": "Copa Airlines ConnectMiles",
+    "转点增量、到账时间和费用 Capital One 官方页面没有写；伙伴和比例已按官方转点文章记录。": "Capital One's pages do not state the transfer increment, timing or fees; partners and rates are recorded from its transfer partner article.",
+    "Wells Fargo 未登录的官方页面没有列出转点伙伴，因此不记录伙伴；页面只写可转到部分旅行会员计划、数量不限、转后不可撤销，条款写默认1点换1单位（另有说明除外）。": "Wells Fargo's signed-out pages name no transfer partner, so none is recorded. They say points transfer to select travel loyalty programmes in any amount, that transfers are final, and that one point equals one partner unit unless stated otherwise."
   },
   "zh-TW": {
     "直订航班": "直訂航班",
@@ -659,7 +664,6 @@
     "其他消费的赚取比例和 Avis、Omni 等其他福利未录入。": "其他消費的賺取比例和 Avis、Omni 等其他福利未錄入。",
     "AAdvantage Hotels 和 AAdvantage Cars": "AAdvantage Hotels 和 AAdvantage Cars",
     "Capital One · Venture Rewards Credit Card 官方产品页": "Capital One · Venture Rewards Credit Card 官方產品頁",
-    "转点伙伴和比例尚未核对。": "轉點夥伴和比例尚未核對。",
     "Capital One Travel 酒店、度假屋和租车": "Capital One Travel 酒店、度假屋和租車",
     "Capital One Entertainment": "Capital One Entertainment",
     "Capital One · Venture X Rewards Credit Card 官方产品页": "Capital One · Venture X Rewards Credit Card 官方產品頁",
@@ -757,7 +761,6 @@
     "餐饮、外卖和餐厅配送": "餐飲、外賣和餐廳配送",
     "超市、加油站和充电站": "超市、加油站和充電站",
     "Wells Fargo · Wells Fargo Autograph Journey Visa Card 官方产品页": "Wells Fargo · Wells Fargo Autograph Journey Visa Card 官方產品頁",
-    "转点伙伴和比例尚未核对；页面写明可以转到部分旅行计划。": "轉點夥伴和比例尚未核對；頁面寫明可以轉到部分旅行計劃。",
     "餐厅和其他旅行": "餐廳和其他旅行",
     "Citi · Citi Custom Cash Card 官方产品页": "Citi · Citi Custom Cash Card 官方產品頁",
     "Citi 自2026年5月28日起停止受理新申请，已持卡者不受影响；资料来自页面内嵌数据，可见页面显示 Not Available。": "Citi 自2026年5月28日起停止受理新申請，已持卡者不受影響；資料來自頁面內嵌資料，可見頁面顯示 Not Available。",
@@ -1035,6 +1038,13 @@
     "Chase · Chase Freedom Rise Credit Card 官方产品页": "Chase · Chase Freedom Rise Credit Card 官方產品頁",
     "开户三个月内登记自动还款得25美元属于新开户优惠，未录入。每年升级 Freedom Unlimited 的评估和保障类福利未录入。": "開戶三個月內登記自動還款得25美元屬於新開戶優惠，未錄入。每年升級 Freedom Unlimited 的評估和保障類福利未錄入。",
     "Citi 产品页列出本伙伴，但没有写比例，因此不计算里程；最低转1,000点。增量、到账时间和费用页面没有写。不授予精英会籍。": "Citi 產品頁列出本夥伴，但沒有寫比例，因此不計算里程；最低轉1,000點。增量、到帳時間和費用頁面沒有寫。不授予精英會籍。",
-    "ThankYou 转点比例、增量和到账时间官方产品页没有写；只列出部分伙伴和最低1,000点。": "ThankYou 轉點比例、增量和到帳時間官方產品頁沒有寫；只列出部分夥伴和最低1,000點。"
+    "ThankYou 转点比例、增量和到账时间官方产品页没有写；只列出部分伙伴和最低1,000点。": "ThankYou 轉點比例、增量和到帳時間官方產品頁沒有寫；只列出部分夥伴和最低1,000點。",
+    "Capital One · 转点伙伴说明": "Capital One · 轉點夥伴說明",
+    "Capital One 官方转点文章公布的比例；账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。": "Capital One 官方轉點文章公布的比例；帳戶至少要有1,000英里才能轉，轉出後不能轉回。增量、到帳時間和費用頁面沒有寫。不授予精英會籍。",
+    "Capital One 官方转点文章公布的比例；只能转入美国的 Choice Privileges 会员账户。账户至少要有1,000英里才能转，转出后不能转回。增量、到账时间和费用页面没有写。不授予精英会籍。": "Capital One 官方轉點文章公布的比例；只能轉入美國的 Choice Privileges 會員帳戶。帳戶至少要有1,000英里才能轉，轉出後不能轉回。增量、到帳時間和費用頁面沒有寫。不授予精英會籍。",
+    "Finnair Plus": "Finnair Plus",
+    "Copa Airlines ConnectMiles": "Copa Airlines ConnectMiles",
+    "转点增量、到账时间和费用 Capital One 官方页面没有写；伙伴和比例已按官方转点文章记录。": "轉點增量、到帳時間和費用 Capital One 官方頁面沒有寫；夥伴和比例已按官方轉點文章記錄。",
+    "Wells Fargo 未登录的官方页面没有列出转点伙伴，因此不记录伙伴；页面只写可转到部分旅行会员计划、数量不限、转后不可撤销，条款写默认1点换1单位（另有说明除外）。": "Wells Fargo 未登入的官方頁面沒有列出轉點夥伴，因此不記錄夥伴；頁面只寫可轉到部分旅行會員計劃、數量不限、轉後不可撤銷，條款寫預設1點換1單位（另有說明除外）。"
   }
 }
