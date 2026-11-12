@@ -107,8 +107,13 @@ test('"most partners at 1:1" and a 4:3 stated for other cards are not applied wh
 test('a fee the agreement says may apply is not recorded as no fee',()=>{
  const united=transferRule(ur,'programme.united-mileageplus',csp)[0].terms;assert.equal(united.fees,null);assert.equal(united.feeStatement,'may-be-charged');
 });
-test('a card whose page names no partner gets no partner row',()=>{
- assert.equal(queryKnowledge({kind:'transfer-relationship',productId:csrBusiness}).count,0);
+test('a card whose page states transfers but names no partner gets the programme rows only, with no rate of its own',()=>{
+ // #201: the business card's page says points transfer and names no partner, so it is linked to the programme and
+ // reaches the programme-level rows; a rate or partner row stated for another card is still not applied to it.
+ const rows=queryKnowledge({kind:'transfer-relationship',productId:csrBusiness}).rules;
+ assert.equal(rows.length,13);
+ for(const r of rows){assert.equal(r.terms.appliesTo,'linked-products',r.id);assert.equal(r.transferRate.rate,null,r.id);}
+ assert.equal(transferRule(ur,'programme.world-of-hyatt',csrBusiness).length,0);
 });
 test('catalogue links decide which cards a programme rule reaches, and rates stay out of terms',()=>{
  assert.ok(transferRule(mrUs,'programme.delta-skymiles','amex-us-us-morgan-stanley-platinum-card').length);
