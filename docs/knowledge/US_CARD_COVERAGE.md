@@ -1,6 +1,6 @@
 # 美国常见卡片覆盖表
 
-2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这份名单。 名单共 50 项：49 张有资料，1 张因发卡行页面读不到数字而跳过。 2026-11-11 起第6批及以后按 #195 补充 friends beta 测试者常持有的 Chase 和 Amex US 卡（Chase 已在产品目录中但缺规则，Amex US 为新增产品），事实同样只来自发卡行页面。 2026-11-11 第10批按 #231 加入 Bilt Card 2.0 的三张卡（仅手动添加，不读取账户），事实只来自 Bilt 和 Cardless 的公开页面。 2026-11-12 第12批按 #244 补充目录中已有但缺规则的 Bank of America Unlimited Cash Rewards 和 Atmos Rewards Ascent；American Express Green Card 没有录入：2026-11-12 未登录读它的产品页（americanexpress.com/us/credit-cards/card/green/）三次，只拿到通用的信用卡列表页，没有读到这张卡自己的页面；这是页面没读到，不是页面没有公布年费和赚取比例。
+2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这份名单。 名单共 50 项：49 张有资料，1 张因发卡行页面读不到数字而跳过。 2026-11-11 起第6批及以后按 #195 补充 friends beta 测试者常持有的 Chase 和 Amex US 卡（Chase 已在产品目录中但缺规则，Amex US 为新增产品），事实同样只来自发卡行页面。 2026-11-11 第10批按 #231 加入 Bilt Card 2.0 的三张卡（仅手动添加，不读取账户），事实只来自 Bilt 和 Cardless 的公开页面。 2026-11-12 第12批按 #244 补充目录中已有但缺规则的 Bank of America Unlimited Cash Rewards 和 Atmos Rewards Ascent。
 
 “读取”指插件能否自动读取账户数据；这里的资料只是公开产品信息，不代表该银行已能采集或已验收。卡面暂不新增，发卡行图片的使用条款未确认。
 
@@ -39,14 +39,14 @@
 | 4 | Chase Southwest Rapid Rewards Plus | $99 | 3 | 2 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。 | https://creditcards.chase.com/travel-credit-cards/southwest/plus |
 | 4 | Chase Southwest Rapid Rewards Priority | $229 | 3 | 3 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、选座、登机组别和限时 Lyft 倍率未录入。 | https://creditcards.chase.com/travel-credit-cards/southwest/priority |
 | 4 | Chase Southwest Rapid Rewards Premier | $149 | 3 | 3 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。 | https://creditcards.chase.com/travel-credit-cards/southwest/premier |
-| 4 | Chase Marriott Bonvoy Boundless | $95 | 3 | 2 | Marriott Bonvoy | 已支持的银行，未验收 | 年度免费房晚未录入。 | https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless |
+| 4 | Chase Marriott Bonvoy Boundless | $95 | 3 | 3 | Marriott Bonvoy | 已支持的银行，未验收 | — | https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless |
 | 4 | Chase IHG One Rewards | $0 | 4 | 2 | IHG One Rewards | 已支持的银行，未验收 | Elite Night Credits、消费解锁的1万点奖励和 Gold Elite 未录入。 | https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/one-rewards |
-| 4 | Chase World of Hyatt | $95 | 3 | 1 | World of Hyatt | 已支持的银行，未验收 | 年度免费房晚、Tier Qualifying Night 和消费解锁的额外房晚未录入。 | https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card |
+| 4 | Chase World of Hyatt | $95 | 3 | 3 | World of Hyatt | 已支持的银行，未验收 | Tier Qualifying Night 未录入。 | https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card |
 | 4 | Chase Air Canada Aeroplan | $195 | 5 | 1 | Air Canada Aeroplan | 已支持的银行，未验收 | Aeroplan 25K 会籍、免费托运行李和 FLY15OFF 未录入。 | https://creditcards.chase.com/travel-credit-cards/aircanada/aeroplan |
 | 4 | Chase Ink Business Premier | $195 | 3 | 0 | — | 已支持的银行，未验收 | 限时 Lyft 倍率未录入。 | https://creditcards.chase.com/business-credit-cards/ink/premier |
 | 5 | Chase United Gateway | $0 | 4 | 1 | United MileagePlus | 已支持的银行，未验收 | 自然年消费满1万美元解锁的8倍机票、里程折扣和托运行李未录入。 | https://creditcards.chase.com/travel-credit-cards/united/united-gateway |
-| 5 | Chase IHG One Rewards Premier Select | $350 | 3 | 2 | IHG One Rewards | 已支持的银行，未验收 | 200美元航空抵扣、周年免费房晚、Global Entry、DashPass、Instacart、United TravelBank、Elite Night Credits 和 Diamond 条件未录入。 | https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select |
-| 5 | Chase IHG One Rewards Business | $200 | 4 | 2 | IHG One Rewards | 已支持的银行，未验收 | Platinum Elite、周年免费房晚、Expensify、Global Entry、DashPass、Instacart 和2027年起的 Diamond 条件未录入。 | https://creditcards.chase.com/business-credit-cards/IHG/business |
+| 5 | Chase IHG One Rewards Premier Select | $350 | 3 | 4 | IHG One Rewards | 已支持的银行，未验收 | 200美元航空抵扣、Global Entry、DashPass、Instacart、United TravelBank、Elite Night Credits 和 Diamond 条件未录入。 | https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select |
+| 5 | Chase IHG One Rewards Business | $200 | 4 | 4 | IHG One Rewards | 已支持的银行，未验收 | Platinum Elite、Expensify、Global Entry、DashPass、Instacart 和2027年起的 Diamond 条件未录入。 | https://creditcards.chase.com/business-credit-cards/IHG/business |
 | 5 | Chase World of Hyatt Business | $199 | 4 | 0 | World of Hyatt | 已支持的银行，未验收 | 100美元 Hyatt 抵扣、Discoverist 和 Tier Qualifying Night 未录入。 | https://creditcards.chase.com/business-credit-cards/world-of-hyatt/hyatt-business-card |
 | 5 | Chase Southwest Rapid Rewards Premier Business | $149 | 3 | 3 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、航班折扣、选座未录入。2027年1月1日起每消费1美元另得1 TQP。 | https://creditcards.chase.com/business-credit-cards/southwest/premier-business |
 | 5 | Chase Southwest Rapid Rewards Performance Business | $299 | 5 | 4 | Southwest Rapid Rewards | 已支持的银行，未验收 | 免费托运行李、选座未录入。2027年1月1日起每消费1美元另得1 TQP。 | https://creditcards.chase.com/business-credit-cards/southwest/performance-business |
@@ -84,4 +84,3 @@
 | 10 | Bilt Palladium | $495 | 4 | 5 | Bilt Rewards | 暂不支持 | Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。；保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。；开卡奖励按个人报价变化，未记录。；2027年1月1日前开户的账户在2027年后第一个开卡周年日改用每年600美元 Bilt Cash（不作 Legacy Election 时），个人适用哪一套未核实。 | https://www.bilt.com/card |
 | 12 | BOA Unlimited Cash Rewards | $0 | 1 | 1 | — | 已支持的银行，未验收 | 产品页未写外币交易费；BofA Rewards 加成比例和附属卡年费未确认。；开户奖励和免息期等限时优惠未录入；现金回馈是否过期未确认。 | https://www.bankofamerica.com/credit-cards/products/unlimited-cash-back-credit-card/ |
 | 12 | Atmos Rewards Ascent | $95 | 3 | 5 | Atmos Rewards | 已支持的银行，未验收 | 产品页未写外币交易费；附属卡年费未确认；本地交通（含网约车）是否计入2倍类别未确认。；开户奖励未录入；同行票的适用航线和舱位限制未录入。 | https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/ |
-| — | Amex Green | — | — | — | — | — | 未录入：2026-11-12 未登录读产品页只拿到通用的信用卡列表页，没有读到这张卡自己的页面。年费、赚取比例和福利是未知，不是页面没有公布；等能读到完整的公开页面再录入。 | — |
