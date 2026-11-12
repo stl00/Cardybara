@@ -15,10 +15,13 @@ concurrency:
   group: ci-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  verify:
-    name: Verify and package
+  # The jobs below run, side by side, exactly what `npm run check:release` followed by
+  # `npm run test:collector-chrome` runs in a row. tests/ci-coverage.test.mjs fails when a step of
+  # check:release is run by no job here, or when a job is missing from the final `Verify and package`.
+  checks:
+    name: Source checks and unit tests
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -30,8 +33,47 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm audit --omit=dev --audit-level=high
-      - run: npm run check:release
-      - run: npm run test:collector-chrome
+      - run: npm run check:release-source
+      - run: npm run check:fixtures
+      - run: npm run check:coupons
+      - run: npm run test:refresh
+  agent:
+    name: Agent checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        # One job per command of `npm run check:agent`; ci-part.mjs refuses to run when the count is not 4.
+        part: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: node scripts/ci-part.mjs check:agent ${{ matrix.part }}/4
+  package:
+    name: Build and package
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run build:release
+      - run: npm run check:release-package
+      - run: npm run check:dev-parity
       - name: Check tag matches release metadata
         if: startsWith(github.ref, 'refs/tags/')
         run: node -e 'if(process.env.GITHUB_REF_NAME !== "v"+JSON.parse(require("fs").readFileSync("release.json")).label) process.exit(1)'
@@ -41,14 +83,46 @@ jobs:
           path: release/
           if-no-files-found: error
           retention-days: 14
+  collector-chrome:
+    name: Collector in Chrome
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run test:collector-chrome
+  verify:
+    # The one status branch protection requires. It runs even when a part failed or was skipped, because a
+    # skipped required check would count as passing.
+    name: Verify and package
+    needs: [checks, agent, package, collector-chrome]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Every part passed
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "parts: $RESULTS"
+          for result in $RESULTS; do
+            if [ "$result" != success ]; then echo "a part ended as $result"; exit 1; fi
+          done
   e2e:
     name: E2E
-    needs: verify
+    needs: package
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       # The checkout supplies the test script and the synthetic bank page only; the extension under
-      # test is the exact ZIP the verify job uploaded, never rebuilt here. The full history is for the
+      # test is the exact ZIP the package job uploaded, never rebuilt here. The full history is for the
       # upgrade check, which builds the previous package from its release tag or commit.
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
