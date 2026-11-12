@@ -1,5 +1,5 @@
 {
-  "method": "2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这份名单。 名单共 50 项：49 张有资料，1 张因发卡行页面读不到数字而跳过。 2026-11-11 起第6批及以后按 #195 补充 friends beta 测试者常持有的 Chase 和 Amex US 卡（Chase 已在产品目录中但缺规则，Amex US 为新增产品），事实同样只来自发卡行页面。 2026-11-11 第10批按 #231 加入 Bilt Card 2.0 的三张卡（仅手动添加，不读取账户），事实只来自 Bilt 和 Cardless 的公开页面。 2026-11-12 第12批按 #244 补充目录中已有但缺规则的 Bank of America Unlimited Cash Rewards 和 Atmos Rewards Ascent；American Express Green Card 的发卡行产品页公开内容读不到年费和赚取比例，已跳过。",
+  "method": "2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这份名单。 名单共 50 项：49 张有资料，1 张因发卡行页面读不到数字而跳过。 2026-11-11 起第6批及以后按 #195 补充 friends beta 测试者常持有的 Chase 和 Amex US 卡（Chase 已在产品目录中但缺规则，Amex US 为新增产品），事实同样只来自发卡行页面。 2026-11-11 第10批按 #231 加入 Bilt Card 2.0 的三张卡（仅手动添加，不读取账户），事实只来自 Bilt 和 Cardless 的公开页面。 2026-11-12 第12批按 #244 补充目录中已有但缺规则的 Bank of America Unlimited Cash Rewards 和 Atmos Rewards Ascent；American Express Green Card 没有录入：2026-11-12 未登录读它的产品页（americanexpress.com/us/credit-cards/card/green/）三次，只拿到通用的信用卡列表页，没有读到这张卡自己的页面；这是页面没读到，不是页面没有公布年费和赚取比例。",
   "cards": [
     {
       "id": "chase-us-chase-sapphire-preferred-credit-card",
@@ -317,7 +317,7 @@
     {
       "id": "skip-amex-green",
       "name": "Amex Green",
-      "skip": "发卡行产品页的公开内容读不到年费和赚取比例，已跳过。"
+      "skip": "未录入：2026-11-12 未登录读产品页只拿到通用的信用卡列表页，没有读到这张卡自己的页面。年费、赚取比例和福利是未知，不是页面没有公布；等能读到完整的公开页面再录入。"
     }
   ]
 }
