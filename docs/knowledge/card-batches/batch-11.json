@@ -365,7 +365,13 @@
      "amount": 200,
      "programmeIds": [
       "programme.disney"
-     ]
+     ],
+     "spendThreshold": {
+      "amount": 2000,
+      "currency": "USD",
+      "period": "account-anniversary",
+      "scope": "category"
+     }
     },
     {
      "key": "park-tickets",
@@ -390,7 +396,13 @@
      "amount": 100,
      "programmeIds": [
       "programme.disney"
-     ]
+     ],
+     "spendThreshold": {
+      "amount": 200,
+      "currency": "USD",
+      "period": "account-anniversary",
+      "scope": "category"
+     }
     }
    ],
    "unknown": [

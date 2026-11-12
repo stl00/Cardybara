@@ -944,7 +944,12 @@
      "scenarios": [
       "travel",
       "airport"
-     ]
+     ],
+     "spendThreshold": {
+      "amount": 30000,
+      "currency": "USD",
+      "period": "calendar-year"
+     }
     }
    ],
    "unknown": [
@@ -1047,7 +1052,12 @@
      "scenarios": [
       "travel",
       "airport"
-     ]
+     ],
+     "spendThreshold": {
+      "amount": 30000,
+      "currency": "USD",
+      "period": "calendar-year"
+     }
     }
    ],
    "unknown": [

@@ -66064,6 +66064,103 @@
     }
   },
   {
+    "id": "rule.chase-us-british-airways-visa-signature-credit-card.travel-together",
+    "revision": 2,
+    "revisionId": "rule.chase-us-british-airways-visa-signature-credit-card.travel-together@2026-11-12.2",
+    "supersedes": "rule.chase-us-british-airways-visa-signature-credit-card.travel-together@2026-11-11.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-british-airways-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.the-british-airways-club"
+    ],
+    "content": {
+      "title": "消费满3万美元得 Travel Together Ticket",
+      "summary": "每个自然年消费满30,000美元获得，两年内有效：同行者同航班兑换，或单人奖励机票 Avios 五折。是否达标未核实。",
+      "sourceText": "Earn a Travel Together Ticket every calendar year you make $30,000 in purchases on your British Airways credit card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年消费满30,000美元获得，两年内有效：同行者同航班兑换，或单人奖励机票 Avios 五折。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null,
+      "spendThreshold": 30000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 30000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "每个自然年消费满30,000美元获得，两年内有效：同行者同航班兑换，或单人奖励机票 Avios 五折。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-british-airways-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Travel Together Ticket",
+      "summary": "A Travel Together Ticket every calendar year with $30,000 in purchases, valid for two years.",
+      "howToUse": [
+        "Track your calendar-year spend; redeem through ba.com."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-british-airways-visa-signature-credit-card",
+          "text": "Earn a Travel Together Ticket every calendar year you make $30,000 in purchases on your British Airways credit card."
+        },
+        {
+          "sourceId": "card-chase-us-british-airways-visa-signature-credit-card",
+          "text": "or use it for a 50% discount on the Avios price you pay when booking a solo reward flight"
+        }
+      ]
+    }
+  },
+  {
     "id": "rule.chase-us-aer-lingus-visa-signature-credit-card.fee-primary",
     "revision": 1,
     "revisionId": "rule.chase-us-aer-lingus-visa-signature-credit-card.fee-primary@2026-11-11.1",
@@ -66486,6 +66583,107 @@
     },
     "review": {
       "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Economy companion ticket each year",
+      "summary": "An economy companion ticket good for 12 months every calendar year you make $30,000 in purchases.",
+      "howToUse": [
+        "Track your calendar-year spend on the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-aer-lingus-visa-signature-credit-card",
+          "text": "you'll receive an economy companion ticket good for 12 months"
+        },
+        {
+          "sourceId": "card-chase-us-aer-lingus-visa-signature-credit-card",
+          "text": "Every calendar year you make purchases of $30,000"
+        },
+        {
+          "sourceId": "card-chase-us-aer-lingus-visa-signature-credit-card",
+          "text": "redeemed by a Cardmember for an economy companion ticket with a paid economy flight."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-aer-lingus-visa-signature-credit-card.companion-ticket",
+    "revision": 2,
+    "revisionId": "rule.chase-us-aer-lingus-visa-signature-credit-card.companion-ticket@2026-11-12.2",
+    "supersedes": "rule.chase-us-aer-lingus-visa-signature-credit-card.companion-ticket@2026-11-11.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-aer-lingus-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.aer-lingus-aerclub"
+    ],
+    "content": {
+      "title": "消费满3万美元得经济舱同行票",
+      "summary": "每个自然年消费满30,000美元，得一张经济舱同行票，须搭配一张付费 Aer Lingus 经济舱机票，12个月内有效。是否达标未核实。",
+      "sourceText": "you'll receive an economy companion ticket good for 12 months",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年消费满30,000美元，得一张经济舱同行票，须搭配一张付费 Aer Lingus 经济舱机票，12个月内有效。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null,
+      "spendThreshold": 30000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 30000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "每个自然年消费满30,000美元，得一张经济舱同行票，须搭配一张付费 Aer Lingus 经济舱机票，12个月内有效。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-aer-lingus-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
       "reviewAfter": "2027-02-09",
       "state": "reviewed-summary"
     },
@@ -73478,6 +73676,99 @@
     }
   },
   {
+    "id": "rule.chase-us-disney-inspire-visa-card.resort-stays",
+    "revision": 2,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.resort-stays@2026-11-12.2",
+    "supersedes": "rule.chase-us-disney-inspire-visa-card.resort-stays@2026-11-11.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney 度假酒店和邮轮消费满2,000美元得200 Rewards Dollars",
+      "summary": "每个账户年在美国 Disney 度假酒店和 Disney Cruise Line 消费满2,000美元，得200美元 Disney Rewards Dollars；Adventures by Disney、National Geographic Expeditions、海外 Disney 度假区和乐园，以及单独购买的乐园门票不计。是否达标未核实。",
+      "sourceText": "Earn $200 Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年在美国 Disney 度假酒店和 Disney Cruise Line 消费满2,000美元，得200美元 Disney Rewards Dollars；Adventures by Disney、National Geographic Expeditions、海外 Disney 度假区和乐园，以及单独购买的乐园门票不计。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "account-anniversary",
+      "amount": 200,
+      "currency": "USD",
+      "spendThreshold": 2000,
+      "spendScope": "category"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年在美国 Disney 度假酒店和 Disney Cruise Line 消费满2,000美元，得200美元 Disney Rewards Dollars；Adventures by Disney、National Geographic Expeditions、海外 Disney 度假区和乐园，以及单独购买的乐园门票不计。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Disney Rewards Dollars on resort stays",
+      "summary": "$200 Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings.",
+      "howToUse": [
+        "Book U.S. Disney Resort stays or Disney Cruise Line directly with Disney and pay with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Earn $200 Disney Rewards Dollars after spending $2,000 per anniversary year on U.S. Disney Resort stays and Disney Cruise Line bookings."
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Purchases made for Adventures by Disney, National Geographic Expeditions or international Disney Resorts or Parks will not qualify."
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "made directly with Disney (including through Disney operated websites, apps or call centers)"
+        }
+      ]
+    }
+  },
+  {
     "id": "rule.chase-us-disney-inspire-visa-card.park-tickets",
     "revision": 1,
     "revisionId": "rule.chase-us-disney-inspire-visa-card.park-tickets@2026-11-11.1",
@@ -73541,6 +73832,95 @@
     },
     "review": {
       "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$100 statement credit on park tickets",
+      "summary": "A $100 statement credit after spending $200 per anniversary year on U.S. Disney Theme Park Tickets.",
+      "howToUse": [
+        "Buy U.S. Disney Theme Park Tickets with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Earn a $100 Statement Credit after spending $200 per anniversary year on U.S. Disney Theme Park Tickets."
+        },
+        {
+          "sourceId": "card-chase-us-disney-inspire-visa-card",
+          "text": "Disney Theme Park tickets purchased as part of Disney Vacation Packages will not qualify."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.park-tickets",
+    "revision": 2,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.park-tickets@2026-11-12.2",
+    "supersedes": "rule.chase-us-disney-inspire-visa-card.park-tickets@2026-11-11.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "entertainment"
+    ],
+    "programmeIds": [
+      "programme.disney"
+    ],
+    "content": {
+      "title": "Disney 门票消费满200美元得100美元抵扣",
+      "summary": "每个账户年直接向 Disney 购买美国 Disney 主题乐园门票满200美元，得100美元账单抵扣；度假套餐内的门票不计。是否达标未核实。",
+      "sourceText": "Earn a $100 Statement Credit after spending $200 per anniversary year on U.S. Disney Theme Park Tickets.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户年直接向 Disney 购买美国 Disney 主题乐园门票满200美元，得100美元账单抵扣；度假套餐内的门票不计。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "account-anniversary",
+      "amount": 100,
+      "currency": "USD",
+      "spendThreshold": 200,
+      "spendScope": "category"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户年直接向 Disney 购买美国 Disney 主题乐园门票满200美元，得100美元账单抵扣；度假套餐内的门票不计。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
       "reviewAfter": "2027-02-09",
       "state": "reviewed-summary"
     },

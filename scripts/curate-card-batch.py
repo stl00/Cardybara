@@ -18,6 +18,7 @@ from pathlib import Path
 from opencc import OpenCC
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import i18n_catalog  # noqa: E402
+import spend_threshold  # noqa: E402
 
 root = Path(__file__).resolve().parents[1]
 base = root / 'src/data/knowledge'
@@ -133,7 +134,7 @@ def main():
         manifest['profileProductIds'].append(pid)
         manifest['profileMetadata'][pid] = {'checkedAt': checked, 'coverage': 'issuer-page-summary', 'market': market, 'communitySourceIds': [], 'changeNotes': [], 'knowledgeGaps': gaps, 'feeNotes': None}
 
-        def rule(key, kind, category, scenes, programme_ids, title, summary, quote, terms, validity=None, embedded=False, original=None, source=None):
+        def rule(key, kind, category, scenes, programme_ids, title, summary, quote, terms, validity=None, embedded=False, original=None, source=None, conditions=None):
             check(card, quote, embedded, source)
             cited = f'{source_id}-{source}' if source else source_id
             id = f'rule.{pid}.{key}'
@@ -143,7 +144,7 @@ def main():
                 'productIds': [pid], 'market': market, 'category': category, 'scenarioIds': scenes, 'programmeIds': programme_ids,
                 'content': {'title': title, 'summary': summary, 'sourceText': quote, 'howToUse': [steps[0], summary, steps[1]]},
                 'terms': terms, 'validity': valid,
-                'conditions': {'coverage': 'partial', 'all': [], 'unparsedText': summary},
+                'conditions': {'coverage': 'partial', 'all': conditions or [], 'unparsedText': summary},
                 'evidence': {'sourceIds': [cited], 'checkedAt': checked, 'verification': 'official-summary', 'supports': ['content.summary', 'content.sourceText', 'terms', 'validity'], 'fullTermsReviewed': False},
                 'review': {'checkedAt': checked, 'reviewAfter': review_after, 'state': 'reviewed-summary'},
                 'personalState': 'not-in-public-knowledge',
@@ -185,12 +186,16 @@ def main():
             if 'enrollment' in row:
                 terms['requiresEnrollment'] = row['enrollment']
             terms.update(row.get('terms', {}))
-            rule(row['key'], 'benefit', row.get('category', 'credit'), row.get('scenarios') or [row['scenario']], row.get('programmeIds', []), title, summary, row['quote'], terms, row.get('validity'), row.get('embedded', False), row.get('original'), row.get('source'))
+            # The spend a spend-unlock benefit needs (#246); its amount must be in one of the row's quotes.
+            spend_terms, conditions, problems = spend_threshold.read(row, spend_threshold.CURRENCY.get(product['region']))
+            missing.extend(f"{pid}.{row['key']}: {problem}" for problem in problems)
+            terms.update(spend_terms)
+            rule(row['key'], 'benefit', row.get('category', 'credit'), row.get('scenarios') or [row['scenario']], row.get('programmeIds', []), title, summary, row['quote'], terms, row.get('validity'), row.get('embedded', False), row.get('original'), row.get('source'), conditions)
 
     for key, value in tr['zh-TW'].items():
         tr['zh-TW'][key] = value.replace('托執行李', '托運行李').replace('髮卡', '發卡').replace('美元后', '美元後').replace('8周', '8週')
     if missing:
-        raise SystemExit('Quotes not found on the saved issuer pages:\n' + '\n'.join(missing))
+        raise SystemExit('The batch does not match the saved issuer pages or its own rules:\n' + '\n'.join(missing))
     manifest['snapshotId'] = f"cardybara-public-knowledge-{checked}.cards-{batch['batch']}"
     manifest['asOf'] = checked
     write(base / 'rules.json', rules)
