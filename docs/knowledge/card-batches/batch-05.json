@@ -539,12 +539,37 @@
             "programme.southwest-rapid-rewards"
           ],
           "quote": "6,000 anniversary points"
+        },
+        {
+          "key": "first-bag",
+          "zh": "首件托运行李免费",
+          "en": "Free first checked bag",
+          "noteZh": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+          "noteEn": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free. The primary Cardmember must include their Rapid Rewards number in the reservation. It does not apply to flights booked with a partner carrier, to authorized users and employee cards, or to Cardmembers already exempt from the first-bag charge. Whether you have used it is unverified.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "per-trip",
+          "programmeIds": [
+            "programme.southwest-rapid-rewards"
+          ],
+          "quote": "The primary Rapid Rewards® Credit Cardmember and up to eight Passengers traveling on the same reservation",
+          "original": {
+            "title": "Free first checked bag",
+            "summary": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free.",
+            "howToUse": [
+              "Include your Rapid Rewards number in the reservation; the benefit does not apply to flights booked with a partner carrier."
+            ],
+            "quotes": [
+              "the primary Cardmember must include their Rapid Rewards number",
+              "The first standard checked bag free is not available on flights booked with a partner carrier."
+            ]
+          }
         }
       ],
       "unknown": [
         {
-          "zh": "免费托运行李、航班折扣、选座未录入。2027年1月1日起每消费1美元另得1 TQP。",
-          "en": "Free checked bags, flight discounts and seat selection are not recorded. Starting January 1, 2027, you also earn 1 TQP for each $1 spent."
+          "zh": "航班折扣和选座未录入。2027年1月1日起每消费1美元另得1 TQP。",
+          "en": "Flight discounts and seat selection are not recorded. Starting January 1, 2027, you also earn 1 TQP for each $1 spent."
         }
       ]
     },
@@ -656,12 +681,37 @@
           "validity": {
             "effectiveThrough": "2026-12-31"
           }
+        },
+        {
+          "key": "first-bag",
+          "zh": "首件托运行李免费",
+          "en": "Free first checked bag",
+          "noteZh": "主卡持卡人及同一订单中的最多8名乘客，每人首件标准托运行李免费；主卡持卡人须在订单中填写 Rapid Rewards 号码。合作航司航班、授权用户和员工卡、已免首件行李费的持卡人不适用。是否已享受未核实。",
+          "noteEn": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free. The primary Cardmember must include their Rapid Rewards number in the reservation. It does not apply to flights booked with a partner carrier, to authorized users and employee cards, or to Cardmembers already exempt from the first-bag charge. Whether you have used it is unverified.",
+          "scenario": "airport",
+          "category": "membership",
+          "period": "per-trip",
+          "programmeIds": [
+            "programme.southwest-rapid-rewards"
+          ],
+          "quote": "up to eight Passengers traveling on the same reservation are each eligible to receive their first standard checked bag free",
+          "original": {
+            "title": "Free first checked bag",
+            "summary": "The primary Cardmember and up to eight passengers on the same reservation each get their first standard checked bag free.",
+            "howToUse": [
+              "Include your Rapid Rewards number in the reservation; the benefit does not apply to flights booked with a partner carrier."
+            ],
+            "quotes": [
+              "the primary Cardmember must include their Rapid Rewards number",
+              "The first standard checked bag free is not available on flights booked with a partner carrier."
+            ]
+          }
         }
       ],
       "unknown": [
         {
-          "zh": "免费托运行李、选座未录入。2027年1月1日起每消费1美元另得1 TQP。",
-          "en": "Free checked bags and seat selection are not recorded. Starting January 1, 2027, you also earn 1 TQP for each $1 spent."
+          "zh": "选座未录入。2027年1月1日起每消费1美元另得1 TQP。",
+          "en": "Seat selection is not recorded. Starting January 1, 2027, you also earn 1 TQP for each $1 spent."
         }
       ]
     },
