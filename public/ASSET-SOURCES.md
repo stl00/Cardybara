@@ -266,6 +266,8 @@ Some programmes show a related company's mark, and are labelled as that company:
 | Japan Airlines Mileage Bank | unverified | null | null | not located | Not checked; no mark is shipped. |
 | I Prefer Hotel Rewards | unverified | null | null | not located | Not checked; no mark is shipped. |
 | Amtrak Guest Rewards | unverified | null | null | not located | Not checked; no mark is shipped. |
+| Finnair Plus | unverified | null | null | not located | Not checked; no mark is shipped. |
+| Copa Airlines ConnectMiles | unverified | null | null | not located | Not checked; no mark is shipped. |
 | Citi ThankYou Points | unverified | null | null | not located | Not checked; no mark is shipped. |
 | American Airlines AAdvantage | unverified | null | null | not located | Not checked; no mark is shipped. |
 | Capital One Miles | unverified | null | null | not located | Not checked; no mark is shipped. |

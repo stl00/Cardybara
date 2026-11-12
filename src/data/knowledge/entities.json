@@ -554,6 +554,18 @@
       "name": "Amtrak Guest Rewards",
       "kind": "rail",
       "aliases": []
+    },
+    {
+      "id": "programme.finnair-plus",
+      "name": "Finnair Plus",
+      "kind": "airline",
+      "aliases": []
+    },
+    {
+      "id": "programme.copa-connectmiles",
+      "name": "Copa Airlines ConnectMiles",
+      "kind": "airline",
+      "aliases": []
     }
   ]
 }

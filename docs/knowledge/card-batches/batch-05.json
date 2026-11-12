@@ -780,8 +780,8 @@
       ],
       "unknown": [
         {
-          "zh": "转点伙伴和比例尚未核对；页面写明可以转到部分旅行计划。",
-          "en": "Transfer partners and rates are not yet checked; the page says points can transfer to select travel programmes."
+          "zh": "Wells Fargo 未登录的官方页面没有列出转点伙伴，因此不记录伙伴；页面只写可转到部分旅行会员计划、数量不限、转后不可撤销，条款写默认1点换1单位（另有说明除外）。",
+          "en": "Wells Fargo's signed-out pages name no transfer partner, so none is recorded. They say points transfer to select travel loyalty programmes in any amount, that transfers are final, and that one point equals one partner unit unless stated otherwise."
         }
       ]
     },

@@ -583,8 +583,8 @@
       ],
       "unknown": [
         {
-          "zh": "转点伙伴和比例尚未核对。",
-          "en": "Transfer partners and rates are not yet checked."
+          "zh": "转点增量、到账时间和费用 Capital One 官方页面没有写；伙伴和比例已按官方转点文章记录。",
+          "en": "Capital One's pages do not state the transfer increment, timing or fees; partners and rates are recorded from its transfer partner article."
         }
       ]
     },
@@ -691,8 +691,8 @@
           "en": "The Global Entry amount was not confirmed in the page content."
         },
         {
-          "zh": "转点伙伴和比例尚未核对。",
-          "en": "Transfer partners and rates are not yet checked."
+          "zh": "转点增量、到账时间和费用 Capital One 官方页面没有写；伙伴和比例已按官方转点文章记录。",
+          "en": "Capital One's pages do not state the transfer increment, timing or fees; partners and rates are recorded from its transfer partner article."
         }
       ]
     },
@@ -843,8 +843,8 @@
       ],
       "unknown": [
         {
-          "zh": "转点伙伴和比例尚未核对。",
-          "en": "Transfer partners and rates are not yet checked."
+          "zh": "转点增量、到账时间和费用 Capital One 官方页面没有写；伙伴和比例已按官方转点文章记录。",
+          "en": "Capital One's pages do not state the transfer increment, timing or fees; partners and rates are recorded from its transfer partner article."
         }
       ]
     },

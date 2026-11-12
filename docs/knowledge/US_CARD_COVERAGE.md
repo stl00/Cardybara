@@ -21,10 +21,10 @@
 | 2 | Citi Double Cash Card | $0 | 2 | 0 | Citi ThankYou Points | 已支持的银行，未验收 | — | https://www.citi.com/credit-cards/citi-double-cash-credit-card |
 | 2 | Citi / AAdvantage Platinum Select Card | $99 | 4 | 1 | American Airlines AAdvantage | 已支持的银行，未验收 | 首年优惠是否适用未核实。优先登机等其他福利未录入。 | https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard |
 | 2 | Citi / AAdvantage Executive Card | $695 | 2 | 6 | American Airlines AAdvantage | 已支持的银行，未验收 | 附属卡年费：页面写“最多3名175美元，之后每名175美元”，看不出前3名是合计还是每名，留作未知。；其他消费的赚取比例和 Avis、Omni 等其他福利未录入。 | https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard |
-| 2 | Venture Rewards Credit Card | $95 | 3 | 2 | Capital One Miles | 暂不支持 | 转点伙伴和比例尚未核对。 | https://www.capitalone.com/credit-cards/venture/ |
-| 2 | Venture X Rewards Credit Card | $395 | 4 | 3 | Capital One Miles | 暂不支持 | Global Entry 的金额未在页面内容中确认。；转点伙伴和比例尚未核对。 | https://www.capitalone.com/credit-cards/venture-x/ |
+| 2 | Venture Rewards Credit Card | $95 | 3 | 2 | Capital One Miles | 暂不支持 | 转点增量、到账时间和费用 Capital One 官方页面没有写；伙伴和比例已按官方转点文章记录。 | https://www.capitalone.com/credit-cards/venture/ |
+| 2 | Venture X Rewards Credit Card | $395 | 4 | 3 | Capital One Miles | 暂不支持 | Global Entry 的金额未在页面内容中确认。；转点增量、到账时间和费用 Capital One 官方页面没有写；伙伴和比例已按官方转点文章记录。 | https://www.capitalone.com/credit-cards/venture-x/ |
 | 2 | Savor Credit Card | $0 | 4 | 0 | — | 暂不支持 | — | https://www.capitalone.com/credit-cards/savor/ |
-| 2 | Venture X Business Card | $395 | 3 | 3 | Capital One Miles | 暂不支持 | 转点伙伴和比例尚未核对。 | https://www.capitalone.com/small-business/credit-cards/venture-x-business/ |
+| 2 | Venture X Business Card | $395 | 3 | 3 | Capital One Miles | 暂不支持 | 转点增量、到账时间和费用 Capital One 官方页面没有写；伙伴和比例已按官方转点文章记录。 | https://www.capitalone.com/small-business/credit-cards/venture-x-business/ |
 | 2 | Spark Cash Plus Card | $150 | 2 | 1 | — | 暂不支持 | — | https://www.capitalone.com/small-business/credit-cards/spark-cash-plus/ |
 | 3 | Delta SkyMiles Gold American Express Card | $150 | 4 | 3 | Delta SkyMiles | 已支持的银行，未验收 | 首年优惠年费是否适用取决于个人资格，未核实。Delta Stays 和免费行李的细节未录入。附加卡年费未确认。 | https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/ |
 | 3 | Delta SkyMiles Platinum American Express Card | $350 | 5 | 4 | Delta SkyMiles | 已支持的银行，未验收 | Companion Certificate、MQD、Delta Stays 和免费行李的细节未录入。 | https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-platinum-american-express-card/ |
@@ -53,7 +53,7 @@
 | 5 | Discover it Cash Back Credit Card | $0 | 2 | 0 | — | 暂不支持 | 季度上限：本页没有金额。Discover 的返现日历页写1,500美元，未确认对应当前季度，所以没有采用。首年 Cashback Match 这类新卡优惠不收录。 | https://www.discover.com/credit-cards/cash-back/it-card/ |
 | 5 | U.S. Bank Cash+ Visa Signature Card | $0 | 4 | 0 | — | 暂不支持 | — | https://www.usbank.com/credit-cards/cash-plus-visa-signature-credit-card.html |
 | 5 | U.S. Bank Altitude Go Visa Signature Card | $0 | 4 | 1 | — | 暂不支持 | — | https://www.usbank.com/credit-cards/altitude-go-visa-signature-credit-card.html |
-| 5 | Wells Fargo Autograph Journey Visa Card | $95 | 4 | 1 | — | 暂不支持 | 转点伙伴和比例尚未核对；页面写明可以转到部分旅行计划。 | https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/ |
+| 5 | Wells Fargo Autograph Journey Visa Card | $95 | 4 | 1 | — | 暂不支持 | Wells Fargo 未登录的官方页面没有列出转点伙伴，因此不记录伙伴；页面只写可转到部分旅行会员计划、数量不限、转后不可撤销，条款写默认1点换1单位（另有说明除外）。 | https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/ |
 | 5 | Citi Custom Cash | $0 | 2 | 0 | — | 已支持的银行，未验收 | Citi 自2026年5月28日起停止受理新申请，已持卡者不受影响；资料来自页面内嵌数据，可见页面显示 Not Available。 | https://www.citi.com/credit-cards/citi-custom-cash-credit-card |
 | — | BOA Premium Rewards | — | — | — | — | — | 发卡行页面的公开内容里读不到年费和赚取比例，已跳过。 | — |
 | 6 | Chase Prime Visa | $0 | 4 | 1 | — | 已支持的银行，未验收 | 页面只列出“Travel & Purchase Protection”，没有写保障内容，未录入。 | https://creditcards.chase.com/cash-back-credit-cards/amazon-prime-rewards |

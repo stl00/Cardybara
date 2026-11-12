@@ -598,14 +598,14 @@
     "id": "card-capital-one-us-venture-rewards-credit-card",
     "url": "https://www.capitalone.com/credit-cards/venture/",
     "title": "Capital One · Venture Rewards Credit Card 官方产品页",
-    "checkedAt": "2026-11-04",
+    "checkedAt": "2026-11-11",
     "authority": "official"
   },
   {
     "id": "card-capital-one-us-venture-x-rewards-credit-card",
     "url": "https://www.capitalone.com/credit-cards/venture-x/",
     "title": "Capital One · Venture X Rewards Credit Card 官方产品页",
-    "checkedAt": "2026-11-04",
+    "checkedAt": "2026-11-11",
     "authority": "official"
   },
   {
@@ -619,7 +619,7 @@
     "id": "card-capital-one-us-venture-x-business-card",
     "url": "https://www.capitalone.com/small-business/credit-cards/venture-x-business/",
     "title": "Capital One · Venture X Business Card 官方产品页",
-    "checkedAt": "2026-11-04",
+    "checkedAt": "2026-11-11",
     "authority": "official"
   },
   {
@@ -822,7 +822,7 @@
     "id": "card-wells-fargo-us-autograph-journey-visa-card",
     "url": "https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/",
     "title": "Wells Fargo · Wells Fargo Autograph Journey Visa Card 官方产品页",
-    "checkedAt": "2026-11-04",
+    "checkedAt": "2026-11-11",
     "authority": "official"
   },
   {
@@ -1158,6 +1158,13 @@
     "id": "card-chase-us-chase-freedom-rise-credit-card",
     "url": "https://creditcards.chase.com/cash-back-credit-cards/freedom/rise",
     "title": "Chase · Chase Freedom Rise Credit Card 官方产品页",
+    "checkedAt": "2026-11-11",
+    "authority": "official"
+  },
+  {
+    "id": "capital-one-miles-transfer",
+    "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+    "title": "Capital One · 转点伙伴说明",
     "checkedAt": "2026-11-11",
     "authority": "official"
   }
