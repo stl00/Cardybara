@@ -1,0 +1,96 @@
+name: Live assistant eval
+# Real-model eval of the assistant on a synthetic wallet (#40). It costs money and needs the model key, so it
+# never runs on pull requests or pushes: only on the schedule and by hand, on main, behind the protected
+# `live-evals` environment that holds the key. It stays off until the repository variable
+# LIVE_EVALS_ENABLED is "true" (owner step, see evals/README.md).
+on:
+  schedule:
+    # Daily. evals/live/config.json caps each run's spend; 31 runs stay under the monthly budget.
+    - cron: '43 9 * * *'
+  workflow_dispatch:
+    inputs:
+      accept_as_baseline:
+        description: Accept this run as the new baseline even if cases regressed
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: live-evals
+  cancel-in-progress: false
+jobs:
+  live-eval:
+    name: Live eval
+    if: vars.LIVE_EVALS_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    environment: live-evals
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read
+      issues: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Fetch the last good run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          # Only successful runs of this workflow on main upload a baseline, and a run succeeds only when it is good.
+          run=$(gh run list --repo "$REPO" --workflow live-evals.yml --branch main --status success --limit 1 --json databaseId --jq '.[0].databaseId // empty')
+          if [ -n "$run" ]; then gh run download "$run" --repo "$REPO" --name live-eval-baseline --dir baseline || echo "No baseline artifact on run $run; starting without one."; fi
+      - name: Run the pinned cases on the real model
+        id: eval
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          ACCEPT: ${{ inputs.accept_as_baseline }}
+        run: |
+          set +e
+          node scripts/live-eval.mjs --out=live-eval --baseline=baseline/report.json $([ "$ACCEPT" = "true" ] && echo --accept)
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+          [ -f live-eval/summary.md ] && cat live-eval/summary.md >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+      - name: Upload the report
+        if: steps.eval.outputs.code == '0' || steps.eval.outputs.code == '1'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: live-eval-report
+          path: live-eval/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Keep a good run as the next baseline
+        if: steps.eval.outputs.code == '0'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: live-eval-baseline
+          path: live-eval/report.json
+          if-no-files-found: error
+          retention-days: 90
+      - name: Open or update the regression issue
+        if: steps.eval.outputs.code == '0' || steps.eval.outputs.code == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          CODE: ${{ steps.eval.outputs.code }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create live-eval-regression --repo "$REPO" --color B60205 --description "The scheduled live assistant eval regressed" --force
+          issue=$(gh issue list --repo "$REPO" --state open --label live-eval-regression --limit 1 --json number --jq '.[0].number // empty')
+          { cat live-eval/summary.md; echo; echo "Run: $RUN_URL"; } > body.md
+          if [ "$CODE" = "1" ]; then
+            if [ -n "$issue" ]; then gh issue comment "$issue" --repo "$REPO" --body-file body.md
+            else gh issue create --repo "$REPO" --title "Live assistant eval regressed" --label live-eval-regression --label ai --body-file body.md; fi
+          elif [ -n "$issue" ]; then
+            gh issue comment "$issue" --repo "$REPO" --body-file body.md
+            gh issue close "$issue" --repo "$REPO" --reason completed
+          fi
+      - name: Fail on a regression or a run that could not be made
+        if: steps.eval.outputs.code != '0'
+        run: exit 1

@@ -1,0 +1,22 @@
+{
+ "schema": 1,
+ "model": "deepseek-flash",
+ "budgetUsd": 0.3,
+ "maxCases": 12,
+ "attempts": 3,
+ "passesNeeded": 2,
+ "cases": [
+  "dining",
+  "answers-before-asking",
+  "foreign-purchase",
+  "choice-english",
+  "hotel-colloquial",
+  "credits-unknown",
+  "injection",
+  "annual-fee",
+  "transfer-unknown-ratio",
+  "trip-christmas-hotel",
+  "trip-whole-question",
+  "follow-up"
+ ]
+}
