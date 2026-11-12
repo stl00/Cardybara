@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-12.chase-free-nights-1",
+  "snapshotId": "cardybara-public-knowledge-2026-11-12.chase-free-bags-1",
   "asOf": "2026-11-12",
   "locale": "zh-CN",
   "files": [
@@ -832,7 +832,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
+        "航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -847,7 +847,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "免费托运行李、选座、登机组别和限时 Lyft 倍率未录入。",
+        "选座、登机组别和限时 Lyft 倍率未录入。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -862,7 +862,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "免费托运行李、航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
+        "航班折扣、选座、登机组别和限时 Lyft 倍率未录入。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -921,7 +921,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "Aeroplan 25K 会籍、免费托运行李和 FLY15OFF 未录入。",
+        "Aeroplan 25K 会籍和 FLY15OFF 未录入。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -1011,7 +1011,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "免费托运行李、航班折扣、选座未录入。2027年1月1日起每消费1美元另得1 TQP。",
+        "航班折扣和选座未录入。2027年1月1日起每消费1美元另得1 TQP。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -1026,7 +1026,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "免费托运行李、选座未录入。2027年1月1日起每消费1美元另得1 TQP。",
+        "选座未录入。2027年1月1日起每消费1美元另得1 TQP。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
