@@ -31,6 +31,6 @@ Cloudflare Pages project `cardybara`. Preview first, production only after the o
 npm run build:site && npx --yes wrangler@4.155.0 pages deploy dist/site --project-name cardybara --branch preview
 ```
 
-or run the **Deploy product site** workflow by hand (`target: preview`). It needs `CLOUDFLARE_API_TOKEN` and
+or run the **Deploy product site** workflow by hand on main (`target: preview`; it refuses other branches). It needs `CLOUDFLARE_API_TOKEN` and
 `CLOUDFLARE_ACCOUNT_ID` in the `site` environment. `og:image` points at `https://cardybara.pages.dev/share/og.png`;
 change it if the site gets its own domain.

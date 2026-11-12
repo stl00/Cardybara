@@ -4,14 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>卡疲扒拉 Cardybara · 你的信用卡管家</title>
-<meta name="description" content="Cardybara（卡疲扒拉）是一个 Chrome 扩展：账单、积分、福利一屏看清，问一句就知道刷哪张卡。钱包数据只留在你的浏览器里。朋友内测中。">
+<meta name="description" content="Cardybara（卡疲扒拉）是一个 Chrome 扩展：账单、积分、福利一屏看清，问一句就知道刷哪张卡。钱包数据保存在你自己的 Chrome 里。朋友内测中。">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#FBF6EE" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1B1714" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cardybara 卡疲扒拉">
 <meta property="og:title" content="卡疲扒拉 Cardybara · 你的信用卡管家">
-<meta property="og:description" content="账单、积分、福利一屏看清，问一句就知道刷哪张卡。钱包数据只留在你的浏览器里。">
+<meta property="og:description" content="账单、积分、福利一屏看清，问一句就知道刷哪张卡。钱包数据保存在你自己的 Chrome 里。">
+<meta property="og:url" content="https://cardybara.pages.dev/">
 <meta property="og:image" content="https://cardybara.pages.dev/share/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -112,7 +113,7 @@ footer p{margin:6px 0}
  <div>
   <span class="pill"><b>Beta</b><span class="zh">朋友内测中 · Chase 和 American Express 美国</span><span class="en">Friends beta · Chase and American Express US</span></span>
   <h1><span class="zh">你的信用卡管家<br><span class="soft">问一句就知道刷哪张卡</span></span><span class="en">Your credit-card butler.<br><span class="soft">Ask which card to use.</span></span></h1>
-  <p class="lede"><span class="zh">账单、积分、福利一屏看清。卡疲扒拉是一个 Chrome 扩展：替你读银行页面上的余额和还款日，记着每张卡的福利，帮你算这笔消费刷哪张最划算。钱包数据只留在你的浏览器里。</span><span class="en">Statements, points and benefits on one screen. Cardybara is a Chrome extension that reads balances and due dates from your bank's pages, keeps track of every card's benefits, and works out which card to use for a purchase. Your wallet stays in your browser.</span></p>
+  <p class="lede"><span class="zh">账单、积分、福利一屏看清。卡疲扒拉是一个 Chrome 扩展：替你读银行页面上的余额和还款日，记着每张卡的福利，帮你算这笔消费刷哪张最划算。钱包数据保存在你自己的 Chrome 里，不上传。</span><span class="en">Statements, points and benefits on one screen. Cardybara is a Chrome extension that reads balances and due dates from your bank's pages, keeps track of every card's benefits, and works out which card to use for a purchase. Your wallet is kept in your own Chrome and not uploaded.</span></p>
   <div class="cta">
    <a class="btn primary" href="#beta"><span class="zh">加入内测</span><span class="en">Join the beta</span></a>
    <a class="btn ghost" href="#privacy"><span class="zh">数据去哪了？</span><span class="en">Where does my data go?</span></a>
@@ -166,7 +167,7 @@ footer p{margin:6px 0}
   </div>
   <div class="img"><img class="zh" loading="lazy" src="assets/shots/wallet-zh.webp" width="2560" height="1720" alt="卡片钱包页面（示例数据）"><img class="en" loading="lazy" src="assets/shots/wallet-en.webp" width="2560" height="1720" alt="Card wallet page (sample data)"></div>
  </div>
- <p class="note"><span class="zh">截图来自真实界面，使用虚构的示例钱包；金额、尾号和日期都是编的。</span><span class="en">Screenshots are of the real interface with a made-up sample wallet; amounts, card endings and dates are invented.</span></p>
+ <p class="note"><span class="zh">截图来自真实界面，使用虚构的示例钱包；金额、尾号和日期都是编的。助手截图里的回答是按钱包比较工具的结果写好的演示，不是模型实时生成的。</span><span class="en">Screenshots are of the real interface with a made-up sample wallet; amounts, card endings and dates are invented. The assistant's answer in its screenshot is a demo written from the wallet's comparison tool, not generated live by the model.</span></p>
 </section>
 
 <section id="privacy">
@@ -176,8 +177,8 @@ footer p{margin:6px 0}
    <li><span><span class="zh">钱包数据保存在这台电脑的 Chrome 里，不上传，也不同步。</span><span class="en">Your wallet stays in Chrome on this computer; it is not uploaded or synced.</span></span></li>
    <li><span><span class="zh">登录、密码和手机验证都在银行官网由你本人完成，钱包不读取也不保存它们。只读取：不付款、不转账、不兑换积分、不登记优惠，也不改银行设置。</span><span class="en">You sign in, enter passwords and confirm on your phone on the bank's own site; the wallet never reads or stores them. Read only: no payments, transfers, redemptions, offer enrolment or setting changes.</span></span></li>
    <li><span><span class="zh">用卡助手在 Cardybara 服务上运行：服务收到你的问题、这次对话的前文、持有的卡种、积分估值、每张卡是否填了年费日，以及助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单。服务不保存这些内容，只记录邀请码编号、时间、用量和状态。</span><span class="en">The assistant runs on the Cardybara service: it receives your question, the earlier turns of the conversation, the card products you hold, your point valuations, whether each card has an annual fee date, and the wallet lookups the assistant asks for, and passes them to an AI model; it does not receive card numbers, balances or statements. The service does not store any of it; it records only the invite code's id, time, usage and status.</span></span></li>
-   <li><span><span class="zh">AI 识别卡种默认关闭；开启后，未识别卡片的银行、地区和卡名（不含尾号和金额）经 Cardybara 服务发给 AI。</span><span class="en">AI card recognition is off by default; when on, an unrecognised card's bank, region and name (no tail or amounts) go through the Cardybara service to the AI.</span></span></li>
-   <li><span><span class="zh">没有广告，也没有使用统计。不输入邀请码也能正常使用钱包，只是没有聊天助手。</span><span class="en">No ads and no usage analytics. Without an invite code the wallet still works, just without the chat assistant.</span></span></li>
+   <li><span><span class="zh">AI 识别卡种默认关闭；开启后，或你在卡片详情里点“用 AI 推测卡种”时，未识别卡片的银行、地区和卡名（不含尾号和金额）经 Cardybara 服务发给 AI。</span><span class="en">AI card recognition is off by default; when you turn it on, or click “Ask AI for the card type” in card details, the unrecognised card's bank, region and name (no tail or amounts) go through the Cardybara service to the AI.</span></span></li>
+   <li><span><span class="zh">没有广告，也没有使用统计。不输入邀请码也能正常使用钱包，只是没有聊天助手和 AI 识别卡种。</span><span class="en">No ads and no usage analytics. Without an invite code the wallet still works, just without the chat assistant and AI card recognition.</span></span></li>
   </ul>
   <p class="fine"><span class="zh">这个网站本身也不用 cookie、统计或表单。卸载扩展会删除扩展里的数据；需要保留的话，先在“数据管理 → 导出备份”。</span><span class="en">This website itself uses no cookies, analytics or forms. Uninstalling the extension deletes its data; export a backup first (Data → Export backup) if you want to keep it.</span></p>
  </div>
@@ -188,7 +189,7 @@ footer p{margin:6px 0}
  <p class="sub"><span class="zh">现在是给朋友试用的测试版，邀请制。想试的话，直接问邀请你的人（或项目作者）要下载链接和邀请码。</span><span class="en">This is a friends beta, by invitation. If you'd like to try it, ask the person who invited you (or the author) for the download link and an invite code.</span></p>
  <ol class="steps">
   <li><span class="zh"><b>下载并加载扩展</b><br>从 GitHub Release 下载 zip，解压后在 <code>chrome://extensions</code> 打开开发者模式，加载解压的文件夹。</span><span class="en"><b>Download and load it</b><br>Download the zip from the GitHub release, unzip it, turn on Developer mode in <code>chrome://extensions</code> and load the unzipped folder.</span></li>
-  <li><span class="zh"><b>输入邀请码</b><br>设置 → AI 服务，粘贴邀请码。不输入也能用钱包，只是没有聊天助手。</span><span class="en"><b>Enter your invite code</b><br>Settings → AI service, paste the code. The wallet works without it, just without the chat assistant.</span></li>
+  <li><span class="zh"><b>输入邀请码</b><br>设置 → AI 服务，粘贴邀请码。不输入也能用钱包，只是没有聊天助手和 AI 识别卡种。</span><span class="en"><b>Enter your invite code</b><br>Settings → AI service, paste the code. The wallet works without it, just without the chat assistant and AI card recognition.</span></li>
   <li><span class="zh"><b>连接银行</b><br>点“连接银行”，在 Chase 或 Amex 美国官网自己登录，钱包读取余额、账单和积分。</span><span class="en"><b>Connect a bank</b><br>Click “Connect bank”, sign in yourself on the Chase or Amex US site, and the wallet reads balances, statements and points.</span></li>
  </ol>
  <div class="cta" style="margin-top:22px">

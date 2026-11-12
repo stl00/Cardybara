@@ -1,7 +1,7 @@
 name: Deploy product site
 # Deploys site/ (stl00/Cardybara#239) to Cloudflare Pages project `cardybara`. Manual only: it never runs on
-# pushes or pull requests. A preview deploy goes to a branch alias for the owner to review; production needs the
-# owner's go-ahead and runs from main only. Secrets CLOUDFLARE_API_TOKEN (Pages: Edit) and CLOUDFLARE_ACCOUNT_ID
+# pushes or pull requests, and only from main. A preview deploy goes to the `preview` alias for the owner to review; production needs the
+# owner's go-ahead. Secrets CLOUDFLARE_API_TOKEN (Pages: Edit) and CLOUDFLARE_ACCOUNT_ID
 # live in the protected `site` environment.
 on:
   workflow_dispatch:
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     environment: site
-    if: inputs.target == 'preview' || github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:

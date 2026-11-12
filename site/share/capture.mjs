@@ -4,7 +4,7 @@
 //
 // Runs the wallet from source (the same Vite config as `npm run dev`) on its own port, serves the synthetic
 // wallet in site/share/fixture/wallet.json as /data.json, and captures pages in a throwaway headless Chrome
-// profile into site/assets/shots/. Nothing here reads public/data.json, a real profile or a real bank.
+// profile into site/assets/shots/. The wallet is scoped to release.json's banks, like the beta package. Nothing here reads public/data.json, a real profile or a real bank.
 // The assistant shot uses a scripted model answered inside this script: it asks the wallet's own
 // choose_card tool, then writes its answer only from what that tool returned. No model or network is used.
 import {spawn} from 'node:child_process';
@@ -15,6 +15,7 @@ import {fileURLToPath} from 'node:url';
 import {createServer} from 'vite';
 import {findChrome} from '../../scripts/dev-collector/chrome-launcher.mjs';
 import {pipeCdp} from '../../scripts/e2e-chrome.mjs';
+import {releaseConfig,scopeSource,SCOPE_FILE} from '../../scripts/build-scope.mjs';
 
 const root=fileURLToPath(new URL('../../',import.meta.url));
 const out=join(root,'site/assets/shots');
@@ -25,7 +26,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 // The demo wallet is the only data the page can load.
 process.env.CARDYBARA_DEV_PORT=String(PORT);
 process.env.CARDYBARA_MODEL_CONFIG=join(root,'site/share/fixture/no-model.env');
-const server=await createServer({configFile:join(root,'vite.config.mjs'),root,logLevel:'warn',server:{port:PORT,strictPort:true,hmr:false},plugins:[{name:'site-demo-wallet',configureServer(s){s.middlewares.use((req,res,next)=>{if(req.url.split('?')[0]==='/data.json'){res.writeHead(200,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(fixture);return;}next();});}}]});
+const server=await createServer({configFile:join(root,'vite.config.mjs'),root,logLevel:'warn',server:{port:PORT,strictPort:true,hmr:false},plugins:[{name:'site-beta-scope',enforce:'pre',transform(code,id){return id.split('?')[0].endsWith('/extension-next/'+SCOPE_FILE)?{code:scopeSource(releaseConfig(new URL('../../',import.meta.url))),map:null}:null;}},{name:'site-demo-wallet',configureServer(s){s.middlewares.use((req,res,next)=>{if(req.url.split('?')[0]==='/data.json'){res.writeHead(200,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(fixture);return;}next();});}}]});
 await server.listen();
 const base=`http://127.0.0.1:${PORT}`;
 
