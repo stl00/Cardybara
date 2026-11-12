@@ -154,6 +154,6 @@
   "超市（自选类别）":[{"uses":["supermarket"],"condition":"chosen-category"}],
   "航空、酒店、邮轮和租车直接消费":[{"uses":["flight","hotel","car-rental","travel"],"channel":"direct"}],
   "Alaska Airlines 和 Hawaiian Airlines 消费":[{"merchants":["alaska","hawaiian"]}],
-  "加油站、充电站、有线电视、流媒体和本地交通":[{"uses":["gas","ev-charging","telecom","streaming","transit"]}]
+  "加油站、充电站、有线电视和流媒体":[{"uses":["gas","ev-charging","telecom","streaming"]}]
  }
 }

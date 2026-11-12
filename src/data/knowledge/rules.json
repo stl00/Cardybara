@@ -75729,11 +75729,11 @@
     "programmeIds": [],
     "content": {
       "title": "所有消费",
-      "summary": "所有消费1.5%现金回馈，无上限；账户保持开立时回馈不过期。",
+      "summary": "所有消费1.5%现金回馈，无上限。",
       "sourceText": "Earn unlimited 1.5% cash back on all purchases",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "所有消费1.5%现金回馈，无上限；账户保持开立时回馈不过期。",
+        "所有消费1.5%现金回馈，无上限。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
@@ -75752,7 +75752,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "所有消费1.5%现金回馈，无上限；账户保持开立时回馈不过期。"
+      "unparsedText": "所有消费1.5%现金回馈，无上限。"
     },
     "evidence": {
       "sourceIds": [
@@ -76015,19 +76015,19 @@
       "programme.atmos-rewards"
     ],
     "content": {
-      "title": "加油站、充电站、有线电视、流媒体和本地交通",
-      "summary": "合资格的加油站、电动车充电站、有线电视、流媒体和本地交通（含网约车）消费；类别范围以条款为准。",
+      "title": "加油站、充电站、有线电视和流媒体",
+      "summary": "合资格的加油站、电动车充电站、有线电视和流媒体消费；类别范围以条款为准。",
       "sourceText": "Earn unlimited 2 points for every $1 spent on eligible gas, EV charging station, cable, streaming services",
       "howToUse": [
         "先核对卡种、当前官方条款和适用条件。",
-        "合资格的加油站、电动车充电站、有线电视、流媒体和本地交通（含网约车）消费；类别范围以条款为准。",
+        "合资格的加油站、电动车充电站、有线电视和流媒体消费；类别范围以条款为准。",
         "个人资格、登记和剩余额度未核实；知识库不代办操作。"
       ]
     },
     "terms": {
       "multiplier": 2,
       "unit": "points-per-USD",
-      "spendCategory": "加油站、充电站、有线电视、流媒体和本地交通",
+      "spendCategory": "加油站、充电站、有线电视和流媒体",
       "spendCap": null,
       "creditedSpendMayNotEarn": null
     },
@@ -76039,7 +76039,7 @@
     "conditions": {
       "coverage": "partial",
       "all": [],
-      "unparsedText": "合资格的加油站、电动车充电站、有线电视、流媒体和本地交通（含网约车）消费；类别范围以条款为准。"
+      "unparsedText": "合资格的加油站、电动车充电站、有线电视和流媒体消费；类别范围以条款为准。"
     },
     "evidence": {
       "sourceIds": [

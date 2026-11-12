@@ -25,8 +25,8 @@
      "unit": "cashback-percent",
      "category": "general",
      "quote": "Earn unlimited 1.5% cash back on all purchases",
-     "noteZh": "所有消费1.5%现金回馈，无上限；账户保持开立时回馈不过期。",
-     "noteEn": "1.5% cash back on all purchases with no limit; cash rewards do not expire while the account stays open."
+     "noteZh": "所有消费1.5%现金回馈，无上限。",
+     "noteEn": "1.5% cash back on all purchases with no limit."
     }
    ],
    "credits": [
@@ -55,8 +55,8 @@
      "en": "The product page does not state a foreign transaction fee. The BofA Rewards bonus rate and the additional card fee are not confirmed."
     },
     {
-     "zh": "开户奖励和免息期等限时优惠未录入。",
-     "en": "The new-account bonus and intro APR offers are not recorded."
+     "zh": "开户奖励和免息期等限时优惠未录入；现金回馈是否过期未确认。",
+     "en": "The new-account bonus and intro APR offers are not recorded. Whether cash rewards expire is not confirmed."
     }
    ]
   },
@@ -91,14 +91,14 @@
      "quote": "Earn unlimited 3 points for every $1 spent on eligible Alaska Airlines and Hawaiian Airlines purchases."
     },
     {
-     "zh": "加油站、充电站、有线电视、流媒体和本地交通",
-     "en": "Gas, EV charging, cable, streaming and local transit",
+     "zh": "加油站、充电站、有线电视和流媒体",
+     "en": "Gas, EV charging, cable and streaming",
      "multiplier": 2,
      "unit": "points-per-USD",
      "category": "general",
      "quote": "Earn unlimited 2 points for every $1 spent on eligible gas, EV charging station, cable, streaming services",
-     "noteZh": "合资格的加油站、电动车充电站、有线电视、流媒体和本地交通（含网约车）消费；类别范围以条款为准。",
-     "noteEn": "Eligible gas, EV charging station, cable, streaming services and local transit purchases, including rideshare; category scope follows the terms."
+     "noteZh": "合资格的加油站、电动车充电站、有线电视和流媒体消费；类别范围以条款为准。",
+     "noteEn": "Eligible gas, EV charging station, cable and streaming services purchases; category scope follows the terms."
     },
     {
      "zh": "其他消费",
@@ -231,8 +231,8 @@
    ],
    "unknown": [
     {
-     "zh": "产品页未写外币交易费；附属卡年费未确认。",
-     "en": "The product page does not state a foreign transaction fee. The additional card fee is not confirmed."
+     "zh": "产品页未写外币交易费；附属卡年费未确认；本地交通（含网约车）是否计入2倍类别未确认。",
+     "en": "The product page does not state a foreign transaction fee. The additional card fee is not confirmed. Whether local transit, including rideshare, earns 2 points is not confirmed."
     },
     {
      "zh": "开户奖励未录入；同行票的适用航线和舱位限制未录入。",

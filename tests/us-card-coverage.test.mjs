@@ -66,4 +66,6 @@ test('batch 12 records what the Bank of America pages state and leaves the rest 
  const fare=find(ascent,'companion-fare');assert.equal(fare.category,'spend-unlock');assert.equal(fare.terms.period,'account-anniversary');assert.match(fare.original.quotes.map(q=>q.text).join(' '),/\$6,000/);
  assert.equal(product(ascent).transferProgrammeId,undefined,'the page names no transfer partners');
  assert.ok(selection.cards.find(c=>c.id==='skip-amex-green').skip,'Amex Green stays skipped until its page can be read');
+ // Claims with no quote behind them stay out: reward expiry on the cash card, local transit and rideshare on the 2x tier.
+ assert.doesNotMatch(JSON.stringify(find(cash,'earning-0')),/expire|过期/);assert.doesNotMatch(JSON.stringify(find(ascent,'earning-1')),/transit|rideshare|交通|网约车/);
 });

@@ -82,6 +82,6 @@
 | 10 | Bilt Blue | $0 | 4 | 1 | Bilt Rewards | 暂不支持 | Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。；保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。；开卡奖励按个人报价变化，未记录。 | https://www.bilt.com/card |
 | 10 | Bilt Obsidian | $95 | 7 | 3 | Bilt Rewards | 暂不支持 | Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。；保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。；开卡奖励按个人报价变化，未记录。；2027年1月1日前开户的账户在2027年后第一个开卡周年日改用每年100美元 Bilt Cash（不作 Legacy Election 时），个人适用哪一套未核实。 | https://www.bilt.com/card |
 | 10 | Bilt Palladium | $495 | 4 | 5 | Bilt Rewards | 暂不支持 | Bilt 合作餐厅的“最高”倍数随餐厅变化，没有记录为固定比例。；保障类福利（手机保护、购物保障等）的额度和条件未从保障指南核实，未记录。；开卡奖励按个人报价变化，未记录。；2027年1月1日前开户的账户在2027年后第一个开卡周年日改用每年600美元 Bilt Cash（不作 Legacy Election 时），个人适用哪一套未核实。 | https://www.bilt.com/card |
-| 12 | BOA Unlimited Cash Rewards | $0 | 1 | 1 | — | 已支持的银行，未验收 | 产品页未写外币交易费；BofA Rewards 加成比例和附属卡年费未确认。；开户奖励和免息期等限时优惠未录入。 | https://www.bankofamerica.com/credit-cards/products/unlimited-cash-back-credit-card/ |
-| 12 | Atmos Rewards Ascent | $95 | 3 | 5 | Atmos Rewards | 已支持的银行，未验收 | 产品页未写外币交易费；附属卡年费未确认。；开户奖励未录入；同行票的适用航线和舱位限制未录入。 | https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/ |
+| 12 | BOA Unlimited Cash Rewards | $0 | 1 | 1 | — | 已支持的银行，未验收 | 产品页未写外币交易费；BofA Rewards 加成比例和附属卡年费未确认。；开户奖励和免息期等限时优惠未录入；现金回馈是否过期未确认。 | https://www.bankofamerica.com/credit-cards/products/unlimited-cash-back-credit-card/ |
+| 12 | Atmos Rewards Ascent | $95 | 3 | 5 | Atmos Rewards | 已支持的银行，未验收 | 产品页未写外币交易费；附属卡年费未确认；本地交通（含网约车）是否计入2倍类别未确认。；开户奖励未录入；同行票的适用航线和舱位限制未录入。 | https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/ |
 | — | Amex Green | — | — | — | — | — | 发卡行产品页的公开内容读不到年费和赚取比例，已跳过。 | — |
