@@ -1,0 +1,39 @@
+name: Deploy product site
+# Deploys site/ (stl00/Cardybara#239) to Cloudflare Pages project `cardybara`. Manual only: it never runs on
+# pushes or pull requests. A preview deploy goes to a branch alias for the owner to review; production needs the
+# owner's go-ahead and runs from main only. Secrets CLOUDFLARE_API_TOKEN (Pages: Edit) and CLOUDFLARE_ACCOUNT_ID
+# live in the protected `site` environment.
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: preview (branch alias) or production
+        type: choice
+        options: [preview, production]
+        default: preview
+permissions:
+  contents: read
+concurrency:
+  group: site-deploy
+  cancel-in-progress: false
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment: site
+    if: inputs.target == 'preview' || github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: node scripts/build-site.mjs
+      - name: Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          TARGET: ${{ inputs.target }}
+        run: npx --yes wrangler@4.155.0 pages deploy dist/site --project-name cardybara --branch "$([ "$TARGET" = production ] && echo main || echo preview)" --commit-dirty=true
