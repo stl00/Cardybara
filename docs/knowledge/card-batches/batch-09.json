@@ -427,7 +427,12 @@
      "scenarios": [
       "travel",
       "airport"
-     ]
+     ],
+     "spendThreshold": {
+      "amount": 25000,
+      "currency": "USD",
+      "period": "calendar-year"
+     }
     },
     {
      "key": "better-together",
@@ -759,7 +764,12 @@
      "scenarios": [
       "travel",
       "airport"
-     ]
+     ],
+     "spendThreshold": {
+      "amount": 40000,
+      "currency": "USD",
+      "period": "calendar-year"
+     }
     },
     {
      "key": "pqp",
