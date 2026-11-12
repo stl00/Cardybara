@@ -1515,6 +1515,38 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "boa-us-bank-of-america-unlimited-cash-rewards": {
+      "checkedAt": "2026-11-12",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "BOA"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "产品页未写外币交易费；BofA Rewards 加成比例和附属卡年费未确认。",
+        "开户奖励和免息期等限时优惠未录入；现金回馈是否过期未确认。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "boa-us-atmos-rewards-ascent-visa-signature": {
+      "checkedAt": "2026-11-12",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "BOA"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "产品页未写外币交易费；附属卡年费未确认；本地交通（含网约车）是否计入2倍类别未确认。",
+        "开户奖励未录入；同行票的适用航线和舱位限制未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -1626,6 +1658,8 @@
     "chase-us-disney-visa-card",
     "chase-us-disney-premier-visa-card",
     "chase-us-disney-inspire-visa-card",
-    "chase-us-chase-freedom-rise-credit-card"
+    "chase-us-chase-freedom-rise-credit-card",
+    "boa-us-bank-of-america-unlimited-cash-rewards",
+    "boa-us-atmos-rewards-ascent-visa-signature"
   ]
 }

@@ -18,13 +18,15 @@ const RESORT='rule.chase-us-disney-inspire-visa-card.resort-stays',TICKETS='rule
 // #250: five more, read again on the same day. All count every purchase on the card.
 const SPARK='rule.capital-one-us-spark-cash-plus-card.fee-refund',EXPLORER='rule.chase-us-united-explorer-card.travel-credit',BOUNTIFUL='rule.chase-us-marriott-bonvoy-bountiful-credit-card.free-night';
 const UNITED_BIZ='rule.chase-us-united-business-card.economy-plus',CLUB_BIZ='rule.chase-us-united-club-business-card.economy-plus';
+// #244: made after #246, so the batch row stated the threshold from the start and the rule has one revision.
+const ASCENT='rule.boa-us-atmos-rewards-ascent-visa-signature.companion-fare';
 // #252: free nights added as first revisions that already carry the threshold; tests/chase-free-nights.test.mjs checks them.
 const FREE_NIGHTS=['chase-us-world-of-hyatt-credit-card','chase-us-ihg-one-rewards-premier-select-credit-card','chase-us-ihg-one-rewards-business-credit-card'].map(id=>`rule.${id}.spend-free-night`);
 const MORE={[SPARK]:[150000,'account-anniversary'],[EXPLORER]:[10000,'calendar-year'],[BOUNTIFUL]:[15000,'calendar-year'],[UNITED_BIZ]:[25000,'calendar-year'],[CLUB_BIZ]:[40000,'calendar-year']};
 
 test('the companion tickets and the Disney Inspire spend rewards expose their spend threshold',()=>{
  assert.equal(validateKnowledge().valid,true);
- assert.deepEqual(stated.map(s=>s.id).sort(),[AER,BA,RESORT,TICKETS,...Object.keys(MORE),...FREE_NIGHTS].sort());
+ assert.deepEqual(stated.map(s=>s.id).sort(),[AER,ASCENT,BA,RESORT,TICKETS,...Object.keys(MORE),...FREE_NIGHTS].sort());
  const want={[BA]:[30000,'calendar-year'],[AER]:[30000,'calendar-year'],[RESORT]:[2000,'account-anniversary'],[TICKETS]:[200,'account-anniversary'],...MORE};
  for(const [id,[amount,period]] of Object.entries(want)){
   const rule=getKnowledgeRule(id,{asOf:DAY});
@@ -37,6 +39,15 @@ test('the companion tickets and the Disney Inspire spend rewards expose their sp
   assert.equal(first.terms.spendThreshold,undefined,id);assert.deepEqual(second.content,first.content,id);assert.deepEqual(second.original,first.original,id);
   assert.equal(second.supersedes,first.revisionId,id);
  }
+});
+
+test('a rule made with its threshold states it in its first revision',()=>{
+ const rule=getKnowledgeRule(ASCENT,{asOf:DAY});
+ assert.equal(rule.revision,1);assert.equal(ruleRevisions(ASCENT).length,1);
+ assert.equal(rule.terms.spendThreshold,6000);assert.equal(rule.terms.period,'account-anniversary');assert.equal(rule.terms.spendScope,undefined);
+ assert.ok(rule.original.quotes.some(q=>q.text.includes('$6,000')));
+ // The prior anniversary year is not the calendar year, so the account's calendar-year spend does not prove it.
+ assert.deepEqual(rule.conditions.all,[]);
 });
 
 test('a calendar-year threshold on all purchases is a condition; a category threshold is not',()=>{

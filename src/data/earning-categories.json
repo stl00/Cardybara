@@ -152,6 +152,8 @@
   "Lyft（关联 Bilt 账户）":[{"merchants":["lyft"],"condition":"linked-account"}],
   "餐饮（自选类别，默认）":[{"uses":["dining"],"condition":"chosen-category"}],
   "超市（自选类别）":[{"uses":["supermarket"],"condition":"chosen-category"}],
-  "航空、酒店、邮轮和租车直接消费":[{"uses":["flight","hotel","car-rental","travel"],"channel":"direct"}]
+  "航空、酒店、邮轮和租车直接消费":[{"uses":["flight","hotel","car-rental","travel"],"channel":"direct"}],
+  "Alaska Airlines 和 Hawaiian Airlines 消费":[{"merchants":["alaska","hawaiian"]}],
+  "加油站、充电站、有线电视和流媒体":[{"uses":["gas","ev-charging","telecom","streaming"]}]
  }
 }

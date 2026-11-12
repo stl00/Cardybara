@@ -78452,5 +78452,925 @@
         }
       ]
     }
+  },
+  {
+    "id": "rule.boa-us-bank-of-america-unlimited-cash-rewards.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.boa-us-bank-of-america-unlimited-cash-rewards.fee-primary@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "boa-us-bank-of-america-unlimited-cash-rewards"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "BOA"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Enjoy no annual fee while earning unlimited cash back on all purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-boa-us-bank-of-america-unlimited-cash-rewards"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.boa-us-bank-of-america-unlimited-cash-rewards.earning-0",
+    "revision": 1,
+    "revisionId": "rule.boa-us-bank-of-america-unlimited-cash-rewards.earning-0@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "boa-us-bank-of-america-unlimited-cash-rewards"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "BOA"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "所有消费1.5%现金回馈，无上限。",
+      "sourceText": "Earn unlimited 1.5% cash back on all purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "所有消费1.5%现金回馈，无上限。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1.5,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "所有消费1.5%现金回馈，无上限。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-boa-us-bank-of-america-unlimited-cash-rewards"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.boa-us-bank-of-america-unlimited-cash-rewards.bofa-rewards-bonus",
+    "revision": 1,
+    "revisionId": "rule.boa-us-bank-of-america-unlimited-cash-rewards.bofa-rewards-bonus@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "boa-us-bank-of-america-unlimited-cash-rewards"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "BOA"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "BofA Rewards 计划的刷卡回馈加成",
+      "summary": "加入 BofA Rewards 计划后，每笔信用卡消费有回馈加成。加成比例和加入条件不在产品页上，未录入。",
+      "sourceText": "starting with a rewards bonus on every credit card purchase",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "加入 BofA Rewards 计划后，每笔信用卡消费有回馈加成。加成比例和加入条件不在产品页上，未录入。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "加入 BofA Rewards 计划后，每笔信用卡消费有回馈加成。加成比例和加入条件不在产品页上，未录入。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-boa-us-bank-of-america-unlimited-cash-rewards"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "BofA Rewards bonus",
+      "summary": "The BofA Rewards program starts with a rewards bonus on every credit card purchase.",
+      "howToUse": [
+        "Check your BofA Rewards enrollment and tier with Bank of America."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-boa-us-bank-of-america-unlimited-cash-rewards",
+          "text": "starting with a rewards bonus on every credit card purchase"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.boa-us-atmos-rewards-ascent-visa-signature.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.boa-us-atmos-rewards-ascent-visa-signature.fee-primary@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "boa-us-atmos-rewards-ascent-visa-signature"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "BOA"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$95 annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-boa-us-atmos-rewards-ascent-visa-signature"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.boa-us-atmos-rewards-ascent-visa-signature.earning-0",
+    "revision": 1,
+    "revisionId": "rule.boa-us-atmos-rewards-ascent-visa-signature.earning-0@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "boa-us-atmos-rewards-ascent-visa-signature"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "BOA"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.atmos-rewards"
+    ],
+    "content": {
+      "title": "Alaska Airlines 和 Hawaiian Airlines 消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 3 points for every $1 spent on eligible Alaska Airlines and Hawaiian Airlines purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "Alaska Airlines 和 Hawaiian Airlines 消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-boa-us-atmos-rewards-ascent-visa-signature"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.boa-us-atmos-rewards-ascent-visa-signature.earning-1",
+    "revision": 1,
+    "revisionId": "rule.boa-us-atmos-rewards-ascent-visa-signature.earning-1@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "boa-us-atmos-rewards-ascent-visa-signature"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "BOA"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.atmos-rewards"
+    ],
+    "content": {
+      "title": "加油站、充电站、有线电视和流媒体",
+      "summary": "合资格的加油站、电动车充电站、有线电视和流媒体消费；类别范围以条款为准。",
+      "sourceText": "Earn unlimited 2 points for every $1 spent on eligible gas, EV charging station, cable, streaming services",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "合资格的加油站、电动车充电站、有线电视和流媒体消费；类别范围以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "加油站、充电站、有线电视和流媒体",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "合资格的加油站、电动车充电站、有线电视和流媒体消费；类别范围以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-boa-us-atmos-rewards-ascent-visa-signature"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.boa-us-atmos-rewards-ascent-visa-signature.earning-2",
+    "revision": 1,
+    "revisionId": "rule.boa-us-atmos-rewards-ascent-visa-signature.earning-2@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "boa-us-atmos-rewards-ascent-visa-signature"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "BOA"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.atmos-rewards"
+    ],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 1 point for every $1 spent on all other purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-boa-us-atmos-rewards-ascent-visa-signature"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.boa-us-atmos-rewards-ascent-visa-signature.companion-fare",
+    "revision": 1,
+    "revisionId": "rule.boa-us-atmos-rewards-ascent-visa-signature.companion-fare@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "boa-us-atmos-rewards-ascent-visa-signature"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "BOA"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.atmos-rewards"
+    ],
+    "content": {
+      "title": "消费满6,000美元得99美元同行票",
+      "summary": "上一个账户周年年度消费满6,000美元，每个账户周年得一张99美元同行票，另付23美元起的税费。是否达标未核实。",
+      "sourceText": "Get a $99 Companion Fare (plus taxes and fees from $23) each account anniversary",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "上一个账户周年年度消费满6,000美元，每个账户周年得一张99美元同行票，另付23美元起的税费。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null,
+      "spendThreshold": 6000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "上一个账户周年年度消费满6,000美元，每个账户周年得一张99美元同行票，另付23美元起的税费。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-boa-us-atmos-rewards-ascent-visa-signature"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Annual Companion Fare",
+      "summary": "A $99 Companion Fare (plus taxes and fees from $23) each account anniversary after you spend $6,000 or more on purchases within the prior anniversary year.",
+      "howToUse": [
+        "Track your anniversary-year spend on the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-boa-us-atmos-rewards-ascent-visa-signature",
+          "text": "Get a $99 Companion Fare (plus taxes and fees from $23) each account anniversary"
+        },
+        {
+          "sourceId": "card-boa-us-atmos-rewards-ascent-visa-signature",
+          "text": "after you spend $6,000 or more on purchases within the prior anniversary year."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.boa-us-atmos-rewards-ascent-visa-signature.checked-bag",
+    "revision": 1,
+    "revisionId": "rule.boa-us-atmos-rewards-ascent-visa-signature.checked-bag@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "boa-us-atmos-rewards-ascent-visa-signature"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "BOA"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.atmos-rewards"
+    ],
+    "content": {
+      "title": "免费托运行李和优先登机",
+      "summary": "你和同一订单最多6名同行人；须用本卡支付 Alaska Airlines 或 Hawaiian Airlines 机票。",
+      "sourceText": "Free checked bag and preferred boarding for you and up to 6 guests on the same reservation",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "你和同一订单最多6名同行人；须用本卡支付 Alaska Airlines 或 Hawaiian Airlines 机票。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "你和同一订单最多6名同行人；须用本卡支付 Alaska Airlines 或 Hawaiian Airlines 机票。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-boa-us-atmos-rewards-ascent-visa-signature"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free checked bag and preferred boarding",
+      "summary": "Free checked bag and preferred boarding for you and up to 6 guests on the same reservation when you pay for your Alaska Airlines or Hawaiian Airlines flight with your card.",
+      "howToUse": [
+        "Pay for the flight with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-boa-us-atmos-rewards-ascent-visa-signature",
+          "text": "Free checked bag and preferred boarding for you and up to 6 guests on the same reservation"
+        },
+        {
+          "sourceId": "card-boa-us-atmos-rewards-ascent-visa-signature",
+          "text": "when you pay for your Alaska Airlines or Hawaiian Airlines flight with your card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.boa-us-atmos-rewards-ascent-visa-signature.lounge-discount",
+    "revision": 1,
+    "revisionId": "rule.boa-us-atmos-rewards-ascent-visa-signature.lounge-discount@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "boa-us-atmos-rewards-ascent-visa-signature"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "BOA"
+    },
+    "category": "promo",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.alaska-lounge"
+    ],
+    "content": {
+      "title": "Alaska Lounge+ 年度会籍减100美元",
+      "summary": "用本卡购买 Alaska Lounge+ 年度会籍时减100美元；这是购买折扣，不含免费进入休息室。",
+      "sourceText": "Get $100 off an annual Alaska Lounge+ Membership purchased with your card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "用本卡购买 Alaska Lounge+ 年度会籍时减100美元；这是购买折扣，不含免费进入休息室。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "promo",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用本卡购买 Alaska Lounge+ 年度会籍时减100美元；这是购买折扣，不含免费进入休息室。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-boa-us-atmos-rewards-ascent-visa-signature"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$100 off Alaska Lounge+",
+      "summary": "Get $100 off an annual Alaska Lounge+ Membership purchased with your card.",
+      "howToUse": [
+        "Buy the membership with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-boa-us-atmos-rewards-ascent-visa-signature",
+          "text": "Get $100 off an annual Alaska Lounge+ Membership purchased with your card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.boa-us-atmos-rewards-ascent-visa-signature.inflight",
+    "revision": 1,
+    "revisionId": "rule.boa-us-atmos-rewards-ascent-visa-signature.inflight@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "boa-us-atmos-rewards-ascent-visa-signature"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "BOA"
+    },
+    "category": "promo",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.atmos-rewards"
+    ],
+    "content": {
+      "title": "机上消费返20%",
+      "summary": "用本卡支付 Alaska Airlines 和 Hawaiian Airlines 机上消费返20%。",
+      "sourceText": "Enjoy 20% back on Alaska Airlines and Hawaiian Airlines inflight purchases when you pay with your card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "用本卡支付 Alaska Airlines 和 Hawaiian Airlines 机上消费返20%。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "promo",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用本卡支付 Alaska Airlines 和 Hawaiian Airlines 机上消费返20%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-boa-us-atmos-rewards-ascent-visa-signature"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "20% back inflight",
+      "summary": "Enjoy 20% back on Alaska Airlines and Hawaiian Airlines inflight purchases when you pay with your card.",
+      "howToUse": [
+        "Pay for inflight purchases with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-boa-us-atmos-rewards-ascent-visa-signature",
+          "text": "Enjoy 20% back on Alaska Airlines and Hawaiian Airlines inflight purchases when you pay with your card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.boa-us-atmos-rewards-ascent-visa-signature.relationship-bonus",
+    "revision": 1,
+    "revisionId": "rule.boa-us-atmos-rewards-ascent-visa-signature.relationship-bonus@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "boa-us-atmos-rewards-ascent-visa-signature"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "BOA"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [
+      "programme.atmos-rewards"
+    ],
+    "content": {
+      "title": "持有合资格 Bank of America 账户多得10%积分",
+      "summary": "持有合资格 Bank of America 账户时，刷卡所得积分多10%。哪些账户合资格不在已核对的文字里，未录入。",
+      "sourceText": "You can also earn a 10% rewards bonus on all points earned from card purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "持有合资格 Bank of America 账户时，刷卡所得积分多10%。哪些账户合资格不在已核对的文字里，未录入。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "持有合资格 Bank of America 账户时，刷卡所得积分多10%。哪些账户合资格不在已核对的文字里，未录入。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-boa-us-atmos-rewards-ascent-visa-signature"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "10% rewards bonus",
+      "summary": "You can also earn a 10% rewards bonus on all points earned from card purchases if you have an eligible Bank of America account.",
+      "howToUse": [
+        "Check with Bank of America whether your account is eligible."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-boa-us-atmos-rewards-ascent-visa-signature",
+          "text": "You can also earn a 10% rewards bonus on all points earned from card purchases"
+        },
+        {
+          "sourceId": "card-boa-us-atmos-rewards-ascent-visa-signature",
+          "text": "if you have an eligible Bank of America® account."
+        }
+      ]
+    }
   }
 ]

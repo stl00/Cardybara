@@ -57,3 +57,14 @@ test('new products ship card art only with a recorded issuer source',()=>{
  // Art for a new product must come from its issuer's own page; tests/card-art-sources.test.mjs checks the record.
  for(const card of cards.filter(c=>c.new)){const art=product(card.id).art;if(art!==null)assert.ok(art.verification==='issuer-asset'&&art.pageUrl&&art.checkedAt&&art.terms,card.id);}
 });
+test('batch 12 records what the Bank of America pages state and leaves the rest unknown',()=>{
+ const rules=productId=>queryKnowledge({productId,asOf:'2026-11-12'}).rules,find=(productId,key)=>rules(productId).find(r=>r.id===`rule.${productId}.${key}`);
+ const cash='boa-us-bank-of-america-unlimited-cash-rewards',ascent='boa-us-atmos-rewards-ascent-visa-signature';
+ assert.equal(find(cash,'fee-primary').terms.amount,0);assert.equal(find(cash,'earning-0').terms.multiplier,1.5);assert.equal(find(cash,'earning-0').terms.unit,'cashback-percent');
+ assert.equal(find(cash,'bofa-rewards-bonus').terms.amount,null,'the page gives no bonus rate');
+ assert.equal(find(ascent,'fee-primary').terms.amount,95);assert.deepEqual([0,1,2].map(i=>find(ascent,`earning-${i}`).terms.multiplier),[3,2,1]);
+ const fare=find(ascent,'companion-fare');assert.equal(fare.category,'spend-unlock');assert.equal(fare.terms.period,'account-anniversary');assert.equal(fare.terms.spendThreshold,6000);assert.match(fare.original.quotes.map(q=>q.text).join(' '),/\$6,000/);
+ assert.equal(product(ascent).transferProgrammeId,undefined,'the page names no transfer partners');
+ // Claims with no quote behind them stay out: reward expiry on the cash card, local transit and rideshare on the 2x tier.
+ assert.doesNotMatch(JSON.stringify(find(cash,'earning-0')),/expire|过期/);assert.doesNotMatch(JSON.stringify(find(ascent,'earning-1')),/transit|rideshare|交通|网约车/);
+});
