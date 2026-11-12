@@ -71708,6 +71708,79 @@
     "personalState": "not-in-public-knowledge"
   },
   {
+    "id": "rule.chase-us-disney-visa-card.earning-0",
+    "revision": 2,
+    "revisionId": "rule.chase-us-disney-visa-card.earning-0@2026-11-12.2",
+    "supersedes": "rule.chase-us-disney-visa-card.earning-0@2026-11-11.1",
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 1% in Disney Rewards Dollars on all card purchases with no limits to the amount you can earn.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null,
+      "rewardCurrency": {
+        "name": "Disney Rewards Dollars",
+        "cash": false,
+        "sourceText": "Earn 1% in Disney Rewards Dollars on all card purchases with no limits to the amount you can earn.",
+        "redemptionText": "Redeem toward most anything Disney at most Disney U.S. locations."
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-visa-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
     "id": "rule.chase-us-disney-visa-card.disney-shopping",
     "revision": 1,
     "revisionId": "rule.chase-us-disney-visa-card.disney-shopping@2026-11-11.1",
@@ -71930,6 +72003,79 @@
     "personalState": "not-in-public-knowledge"
   },
   {
+    "id": "rule.chase-us-disney-premier-visa-card.earning-0",
+    "revision": 2,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.earning-0@2026-11-12.2",
+    "supersedes": "rule.chase-us-disney-premier-visa-card.earning-0@2026-11-11.1",
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 5% on card purchases made directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null,
+      "rewardCurrency": {
+        "name": "Disney Rewards Dollars",
+        "cash": false,
+        "sourceText": "You will earn 1% in Disney Rewards Dollars for each $1 spent on all other Qualifying Purchases.",
+        "redemptionText": "Use toward Disney Theme Park Tickets, Resort stays, shopping, dining, Disney Cruise Line sailings and more in the U.S."
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
     "id": "rule.chase-us-disney-premier-visa-card.earning-1",
     "revision": 1,
     "revisionId": "rule.chase-us-disney-premier-visa-card.earning-1@2026-11-11.1",
@@ -71991,6 +72137,79 @@
     },
     "review": {
       "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.earning-1",
+    "revision": 2,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.earning-1@2026-11-12.2",
+    "supersedes": "rule.chase-us-disney-premier-visa-card.earning-1@2026-11-11.1",
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "加油站和美国大部分 Disney 场所",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 2% on card purchases at gas stations and most Disney U.S. locations.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "加油站和美国大部分 Disney 场所",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null,
+      "rewardCurrency": {
+        "name": "Disney Rewards Dollars",
+        "cash": false,
+        "sourceText": "You will earn 1% in Disney Rewards Dollars for each $1 spent on all other Qualifying Purchases.",
+        "redemptionText": "Use toward Disney Theme Park Tickets, Resort stays, shopping, dining, Disney Cruise Line sailings and more in the U.S."
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
       "reviewAfter": "2027-02-09",
       "state": "reviewed-summary"
     },
@@ -72064,6 +72283,79 @@
     "personalState": "not-in-public-knowledge"
   },
   {
+    "id": "rule.chase-us-disney-premier-visa-card.earning-2",
+    "revision": 2,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.earning-2@2026-11-12.2",
+    "supersedes": "rule.chase-us-disney-premier-visa-card.earning-2@2026-11-11.1",
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "超市和餐厅",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 2% on card purchases at grocery stores and restaurants.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "超市和餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null,
+      "rewardCurrency": {
+        "name": "Disney Rewards Dollars",
+        "cash": false,
+        "sourceText": "You will earn 1% in Disney Rewards Dollars for each $1 spent on all other Qualifying Purchases.",
+        "redemptionText": "Use toward Disney Theme Park Tickets, Resort stays, shopping, dining, Disney Cruise Line sailings and more in the U.S."
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
     "id": "rule.chase-us-disney-premier-visa-card.earning-3",
     "revision": 1,
     "revisionId": "rule.chase-us-disney-premier-visa-card.earning-3@2026-11-11.1",
@@ -72125,6 +72417,79 @@
     },
     "review": {
       "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.earning-3",
+    "revision": 2,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.earning-3@2026-11-12.2",
+    "supersedes": "rule.chase-us-disney-premier-visa-card.earning-3@2026-11-11.1",
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 1% on all other card purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null,
+      "rewardCurrency": {
+        "name": "Disney Rewards Dollars",
+        "cash": false,
+        "sourceText": "You will earn 1% in Disney Rewards Dollars for each $1 spent on all other Qualifying Purchases.",
+        "redemptionText": "Use toward Disney Theme Park Tickets, Resort stays, shopping, dining, Disney Cruise Line sailings and more in the U.S."
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-premier-visa-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
       "reviewAfter": "2027-02-09",
       "state": "reviewed-summary"
     },
@@ -72436,6 +72801,79 @@
     "personalState": "not-in-public-knowledge"
   },
   {
+    "id": "rule.chase-us-disney-inspire-visa-card.earning-0",
+    "revision": 2,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-0@2026-11-12.2",
+    "supersedes": "rule.chase-us-disney-inspire-visa-card.earning-0@2026-11-11.1",
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 10% on card purchases made directly at DisneyPlus.com, Hulu.com or Stream.ESPN.com.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 10,
+      "unit": "cashback-percent",
+      "spendCategory": "DisneyPlus.com、Hulu.com 和 Stream.ESPN.com 直接消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null,
+      "rewardCurrency": {
+        "name": "Disney Rewards Dollars",
+        "cash": false,
+        "sourceText": "There are no limits to the number of Disney Rewards Dollars you can earn.",
+        "redemptionText": "Use toward Disney Theme Park Tickets, Resort stays, shopping, dining, Disney Cruise Line sailings and more in the U.S."
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
     "id": "rule.chase-us-disney-inspire-visa-card.earning-1",
     "revision": 1,
     "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-1@2026-11-11.1",
@@ -72497,6 +72935,79 @@
     },
     "review": {
       "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.earning-1",
+    "revision": 2,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-1@2026-11-12.2",
+    "supersedes": "rule.chase-us-disney-inspire-visa-card.earning-1@2026-11-11.1",
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "加油站和美国大部分 Disney 场所",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 3% on card purchases at gas stations and most other U.S. Disney locations.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "cashback-percent",
+      "spendCategory": "加油站和美国大部分 Disney 场所",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null,
+      "rewardCurrency": {
+        "name": "Disney Rewards Dollars",
+        "cash": false,
+        "sourceText": "There are no limits to the number of Disney Rewards Dollars you can earn.",
+        "redemptionText": "Use toward Disney Theme Park Tickets, Resort stays, shopping, dining, Disney Cruise Line sailings and more in the U.S."
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
       "reviewAfter": "2027-02-09",
       "state": "reviewed-summary"
     },
@@ -72570,6 +73081,79 @@
     "personalState": "not-in-public-knowledge"
   },
   {
+    "id": "rule.chase-us-disney-inspire-visa-card.earning-2",
+    "revision": 2,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-2@2026-11-12.2",
+    "supersedes": "rule.chase-us-disney-inspire-visa-card.earning-2@2026-11-11.1",
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "超市和餐厅",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 2% on card purchases at grocery stores and restaurants.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "超市和餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null,
+      "rewardCurrency": {
+        "name": "Disney Rewards Dollars",
+        "cash": false,
+        "sourceText": "There are no limits to the number of Disney Rewards Dollars you can earn.",
+        "redemptionText": "Use toward Disney Theme Park Tickets, Resort stays, shopping, dining, Disney Cruise Line sailings and more in the U.S."
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
     "id": "rule.chase-us-disney-inspire-visa-card.earning-3",
     "revision": 1,
     "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-3@2026-11-11.1",
@@ -72631,6 +73215,79 @@
     },
     "review": {
       "checkedAt": "2026-11-11",
+      "reviewAfter": "2027-02-09",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.earning-3",
+    "revision": 2,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.earning-3@2026-11-12.2",
+    "supersedes": "rule.chase-us-disney-inspire-visa-card.earning-3@2026-11-11.1",
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+      "sourceText": "Earn 1% on all other card purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null,
+      "rewardCurrency": {
+        "name": "Disney Rewards Dollars",
+        "cash": false,
+        "sourceText": "There are no limits to the number of Disney Rewards Dollars you can earn.",
+        "redemptionText": "Use toward Disney Theme Park Tickets, Resort stays, shopping, dining, Disney Cruise Line sailings and more in the U.S."
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "以 Disney Rewards Dollars 计，主要用于美国 Disney 消费，也可通过 Pay Yourself Back 抵扣航空消费；不是现金。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-disney-inspire-visa-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
       "reviewAfter": "2027-02-09",
       "state": "reviewed-summary"
     },

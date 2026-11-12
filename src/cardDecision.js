@@ -67,7 +67,9 @@ function earnFor(rule,purchase,card,spend,baseRate){
   else reward=compute(spend,multiplier);
  }
  const rounded=reward==null?null:unit==='cashback-percent'?Math.round(reward*100)/100:Math.floor(reward);
- return {rate:multiplier,unit,reward:rounded,isCash:unit==='cashback-percent',cap,capExceeded,...(cap?{afterCapRate:after}:{})};
+ // A percent paid in a restricted reward currency (#245) is not cash back: it is named and never ranked as cash.
+ const named=rule.terms.rewardCurrency||null,nonCash=named?.cash===false;
+ return {rate:multiplier,unit,reward:rounded,isCash:unit==='cashback-percent'&&!nonCash,...(named?{rewardCurrency:named.name,nonCash}:{}),cap,capExceeded,...(cap?{afterCapRate:after}:{})};
 }
 // The user's merchant must appear in a listed name as a whole word, so "a" or "Ub" never matches.
 function merchantListed(merchant,names){
@@ -122,7 +124,7 @@ function evaluateCard(card,purchase,{day,events}){
  if(foreign)reasons.push('foreign-fee-unknown');
  if(chosen.rule.assessment.reviewDue)reasons.push('rule-due-for-review');
  if(counted&&counted.enrollment!=='not-required')reasons.push('credit-enrollment-unconfirmed');
- const programme=earn.isCash?null:programmeOf(chosen.rule,match.product);
+ const programme=earn.isCash?null:earn.rewardCurrency||programmeOf(chosen.rule,match.product);
  return {row:{
   card:card.name,cardRegion:card.region,currency:card.currency,foreign,
   earn:{...earn,programme,spendCategory:chosen.rule.terms.spendCategory,...(chosen.via?{via:chosen.via}:{})},
@@ -213,6 +215,7 @@ function resolvePurchase(raw,day){
 const ceil2=n=>Math.ceil(Math.round(n*1e6)/1e4)/100;
 const publicRow=({_baseRate,unclassified,...row})=>row;
 const POINT_VALUE_NOTE='Points were compared at pointValue.cents per point, in cents of pointValue.currency. Say which value was used for each programme: basis stated is the value the user said in this chat; user is the value the user set in settings; default is a published market valuation, not the user\'s view, so say it is the default market valuation and that the user can change it in settings. Never present a default as the user\'s value, and never use any other value.';
+const NON_CASH_NOTE='A row with earn.nonCash earns a restricted reward currency, named in earn.rewardCurrency, not cash back. Name that currency when you mention the card; never call it cash back, never add it to cash and never compare it with cash as if it were cash. It was ranked as cash only if a pointValue is shown for it.';
 const whoLeads=d=>d.lead?.row||null;
 /**
  * pointValues are the user's own values from settings. marketDefaults false leaves programmes the user has not valued
@@ -260,7 +263,8 @@ export function chooseCard(raw,{cards,events=[],day,pointValues=[],marketDefault
  const pointsAlternatives=[];
  for(const s of main.sorted.filter(s=>!s.row.earn.isCash&&s.row!==lead)){
   const credit=s.row.countedCredit?.value||0,points=s.row.earn.reward,gap=main.moneyBasis&&leadValue!=null?leadValue-credit:null;
-  pointsAlternatives.push({card:s.row.card,cardRegion:s.row.cardRegion,programme:s.row.earn.programme,rate:s.row.earn.rate,unit:s.row.earn.unit,points,...(gap!=null&&points>0?{breakEvenCentsPerPoint:round2(Math.max(gap,0)/points*100)}:{}),...(s.valued?{pointValue:s.pointValue,...(main.moneyBasis&&s.value!=null?{valueAtPointValue:s.value}:{})}:{})});
+  const nonCash=!!s.row.earn.nonCash;
+  pointsAlternatives.push({card:s.row.card,cardRegion:s.row.cardRegion,programme:s.row.earn.programme,rate:s.row.earn.rate,unit:s.row.earn.unit,points,...(nonCash?{nonCash,rewardCurrency:s.row.earn.rewardCurrency}:{}),...(gap!=null&&points>0&&!nonCash?{breakEvenCentsPerPoint:round2(Math.max(gap,0)/points*100)}:{}),...(s.valued?{pointValue:s.pointValue,...(main.moneyBasis&&s.value!=null?{valueAtPointValue:s.value}:{})}:{})});
  }
  // A points lead holds down to the value per point at which the next card would catch it.
  const leadPoints=main.lead?.valued&&main.moneyBasis&&lead.earn.reward>0?lead.earn.reward:null;
@@ -276,6 +280,7 @@ export function chooseCard(raw,{cards,events=[],day,pointValues=[],marketDefault
   tool:'choose_card',today:day,purchase,assumptions,choice,
   rows:main.sorted.slice(0,MAX_ROWS).map(s=>({...publicRow(s.row),...(s.valued?{valueAtPointValue:s.value,centsPerPoint:s.centsPerPoint,pointValue:s.pointValue,...(s.valuedRate!=null?{percentAtPointValue:round2(s.valuedRate)}:{})}:{})})),totalRows:main.sorted.length,
   ...(used.size?{pointValues:[...used.values()],pointValueNote:POINT_VALUE_NOTE}:{}),
+  ...(main.sorted.some(s=>s.row.earn.nonCash)?{nonCashNote:NON_CASH_NOTE}:{}),
   otherCurrencyCards:main.outside.map(r=>({card:r.card,cardRegion:r.cardRegion,currency:r.currency,rate:r.earn.rate,unit:r.earn.unit,reason:'different-billing-currency-so-not-compared'})),
   pointsAlternatives:pointsAlternatives.slice(0,MAX_ROWS),couldChange:couldChange.slice(0,20),excluded:main.excluded,unclassifiedRules:main.unclassified,
   limits:'Merchant coding, network acceptance, remaining caps and enrollment are not known. Foreign transaction fees are not recorded, so they are unknown and not zero. Offers are not included. Never a global best: this compares held cards on recorded rules.'
