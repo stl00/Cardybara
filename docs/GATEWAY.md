@@ -107,6 +107,60 @@ Hand a code to the tester privately; it is not stored anywhere and cannot be sho
 - Live: `npx wrangler@4.150.0 tail cardybara-gateway --format pretty`.
 - The provider's own usage page is the source of truth for money spent.
 
+## Metrics
+
+Besides the log line, the Worker writes one Workers Analytics Engine data point per `/v1/chat` turn and per `/v1/chat/completions` request (`gateway/src/metrics.js`), so quality is read with SQL. The binding `AGENT_METRICS` (dataset `cardybara_agent_metrics`) and `CF_VERSION_METADATA` are declared in `gateway/wrangler.jsonc`; without them (local runs, tests) nothing is written and nothing fails. A write is wrapped and not awaited, so it can neither fail nor slow a turn. A data point holds counts, durations, codes and release identity only: never a question, an answer, a card, a wallet summary or an invite code. Refused requests are written too (index `none` when no code was found).
+
+| Field | Meaning |
+| --- | --- |
+| `index1` | invite code id (never the code) |
+| `blob1` `route` | `agent` (`/v1/chat`) or `chat` (`/v1/chat/completions`) |
+| `blob2` `version_id` | Worker version id from the version metadata binding |
+| `blob3` `prompt_hash` | first 8 hex digits of the SHA-256 of the system prompt (`src/chatProtocol.js`); agent route only |
+| `blob4` `snapshot_id` | knowledge `snapshotId` from `src/data/knowledge/manifest.json`; agent route only |
+| `blob5` `model` | model name sent to the provider |
+| `blob6` `error` | error code, empty when none |
+| `blob7` `tool_counts` | `name:count,…` of tools the turn ran (names only); a `tool_request` lists the wallet calls it asked for |
+| `double1` `status` | HTTP status |
+| `double2` `model_calls` | model calls made by this request |
+| `double3` `rounds_replayed` | tool rounds of an earlier request replayed in this one |
+| `double4` `wallet_calls` | wallet calls this request asked the extension for (a `tool_request`) |
+| `double5` `prompt_tokens`, `double6` `completion_tokens` | provider usage, as in the log line |
+| `double7` `duration_ms` | whole request, including the streamed answer |
+| `double8` `repaired` | 1 when the answer needed the single repair |
+| `double9` `fallback` | 1 when code wrote the answer after a failed repair |
+| `double10` `model_answered` | 1 when the model's own answer was sent (answered and not `fallback`) |
+| `double11` `tool_request` | 1 when the turn ended asking for wallet tools |
+| `double12` `answered` | 1 when an answer was sent |
+| `double13` `public_tool_calls` | public-knowledge tool calls in an answered turn |
+| `double14` `wallet_results` | wallet tool results the extension sent with this request |
+
+Example queries against the SQL API (`POST https://api.cloudflare.com/client/v4/accounts/<account>/analytics_engine/sql`; the account id stays out of Git):
+
+```sql
+-- repair rate and fallback rate by version per day (answered agent turns)
+SELECT toDate(timestamp) AS day, blob2 AS version, SUM(_sample_interval) AS turns,
+  SUM(_sample_interval * double8) / SUM(_sample_interval) AS repair_rate,
+  SUM(_sample_interval * double9) / SUM(_sample_interval) AS fallback_rate
+FROM cardybara_agent_metrics WHERE blob1 = 'agent' AND double12 = 1 AND timestamp > NOW() - INTERVAL '14' DAY
+GROUP BY day, version ORDER BY day, version
+```
+
+```sql
+-- p95 duration by route
+SELECT blob1 AS route, quantileWeighted(0.95, double7, _sample_interval) AS p95_ms
+FROM cardybara_agent_metrics WHERE timestamp > NOW() - INTERVAL '7' DAY GROUP BY route
+```
+
+```sql
+-- tokens by invite code id per day
+SELECT toDate(timestamp) AS day, index1 AS code_id,
+  SUM(_sample_interval * (double5 + double6)) AS tokens
+FROM cardybara_agent_metrics WHERE timestamp > NOW() - INTERVAL '7' DAY GROUP BY day, code_id ORDER BY day, tokens DESC
+```
+
+The deploy and the first query against real data are owner steps; the SQL is not yet run against real data.
+
 ## Expected monthly cost
 
 - **Cloudflare:** Workers Paid, US$5 a month, because the assistant's knowledge tools need more CPU than the Free plan's 10 ms per request (Deploy, step 2). Requests, KV reads and Durable Object use of a friends beta stay within what that plan includes.
@@ -114,4 +168,4 @@ Hand a code to the tester privately; it is not stored anywhere and cannot be sho
 
 ## Privacy
 
-The assistant runs in the Worker: it receives the question, the trimmed history, the wallet summary (held products, regions, programmes, point-value overrides, fee date set or not; never an amount, tail, statement, payment data or hidden card) and, for a wallet tool it asked for, that tool's result only. These pass to the model provider and are not stored by the gateway; the gateway logs only the code id, time, token counts, counts of rounds and results, and status. Card-type recognition (bank, region and card name) passes through the proxy route the same way. Wallet tools never return balances or card numbers. Model-assisted bank parsing is off with the hosted service (`parserStatus` reports `hosted_no_parsing` and `completeBody` refuses it), so bank figures never go through the gateway; it stays available with an own key. The invite code lives only in the extension's `chrome.storage.local`, like an own key, and is sent only to the gateway.
+The assistant runs in the Worker: it receives the question, the trimmed history, the wallet summary (held products, regions, programmes, point-value overrides, fee date set or not; never an amount, tail, statement, payment data or hidden card) and, for a wallet tool it asked for, that tool's result only. These pass to the model provider and are not stored by the gateway; the gateway logs only the code id, time, token counts, counts of rounds and results, and status; the metrics data points (Metrics) add only counts, durations, codes and release identity. Card-type recognition (bank, region and card name) passes through the proxy route the same way. Wallet tools never return balances or card numbers. Model-assisted bank parsing is off with the hosted service (`parserStatus` reports `hosted_no_parsing` and `completeBody` refuses it), so bank figures never go through the gateway; it stays available with an own key. The invite code lives only in the extension's `chrome.storage.local`, like an own key, and is sent only to the gateway.
