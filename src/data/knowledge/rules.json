@@ -77133,5 +77133,768 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-boundless-credit-card.anniversary-free-night",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-boundless-credit-card.anniversary-free-night@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-marriott-bonvoy-boundless-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "hotel-service",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.marriott-bonvoy"
+    ],
+    "content": {
+      "title": "周年免费房晚",
+      "summary": "每年开户周年日后获得，可兑换门槛不超过35,000点的酒店一晚；周年日后最长8周到账，发放后12个月到期。可加 Marriott Bonvoy 积分，不能加现金；度假村费等杂费自付。是否已到账或已使用未核实。",
+      "sourceText": "you'll enjoy a Free Night Award every year after your account anniversary,",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年开户周年日后获得，可兑换门槛不超过35,000点的酒店一晚；周年日后最长8周到账，发放后12个月到期。可加 Marriott Bonvoy 积分，不能加现金；度假村费等杂费自付。是否已到账或已使用未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "hotel-service",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null,
+      "quantity": 1,
+      "awardPoints": 35000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年开户周年日后获得，可兑换门槛不超过35,000点的酒店一晚；周年日后最长8周到账，发放后12个月到期。可加 Marriott Bonvoy 积分，不能加现金；度假村费等杂费自付。是否已到账或已使用未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-boundless-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Anniversary Free Night Award",
+      "summary": "A Free Night Award every year after the account anniversary, valid for a one night hotel stay at a property with a redemption level up to 35,000 points.",
+      "howToUse": [
+        "Allow up to 8 weeks from the account anniversary date for the award to reach your Marriott Bonvoy account.",
+        "Use it within 12 months of issue; you can add Marriott Bonvoy points but not cash, and you pay any resort fees."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "you'll enjoy a Free Night Award every year after your account anniversary,"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "valid for a one night hotel stay at a property with a redemption level up to 35,000 points."
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "Please allow up to 8 weeks from your account anniversary date"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "Each Anniversary Free Night Award issued will have an expiration of 12 months."
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "Your Free Night Award may not be combined with cash when redeeming for your free night"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "but may be combined with Marriott Bonvoy points in accordance with the Marriott Bonvoy Terms and Conditions"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "and payment of mandatory resort fees at properties where resort fees are charged."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-world-of-hyatt-credit-card.anniversary-free-night",
+    "revision": 1,
+    "revisionId": "rule.chase-us-world-of-hyatt-credit-card.anniversary-free-night@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-world-of-hyatt-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "hotel-service",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.world-of-hyatt"
+    ],
+    "content": {
+      "title": "周年免费房晚（1–4类酒店）",
+      "summary": "每年持卡周年日后获得，可在 World of Hyatt 1至4类酒店住标准房一晚；周年日后最长10周发放，发放后12个月内使用，退房日须早于到期日。Miraval、Hyatt Zilara 和 Hyatt Ziva 不适用；仅主卡持卡人获得。是否已到账或已使用未核实。",
+      "sourceText": "Receive one free night at any Category 1–4 Hyatt hotel or resort every year after your cardmember anniversary.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年持卡周年日后获得，可在 World of Hyatt 1至4类酒店住标准房一晚；周年日后最长10周发放，发放后12个月内使用，退房日须早于到期日。Miraval、Hyatt Zilara 和 Hyatt Ziva 不适用；仅主卡持卡人获得。是否已到账或已使用未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "hotel-service",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null,
+      "quantity": 1
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年持卡周年日后获得，可在 World of Hyatt 1至4类酒店住标准房一晚；周年日后最长10周发放，发放后12个月内使用，退房日须早于到期日。Miraval、Hyatt Zilara 和 Hyatt Ziva 不适用；仅主卡持卡人获得。是否已到账或已使用未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-world-of-hyatt-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free night every cardmember anniversary",
+      "summary": "One free night at any Category 1–4 Hyatt hotel or resort every year after the cardmember anniversary.",
+      "howToUse": [
+        "Allow up to 10 weeks after your cardmember anniversary for the award to be issued.",
+        "Book through My Awards at worldofhyatt.com with a checkout date before the award expires, 12 months from issuance."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "Receive one free night at any Category 1–4 Hyatt hotel or resort every year after your cardmember anniversary."
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "Please allow up to 10 weeks after your cardmember anniversary each year for your Free Night Award to be issued to you."
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "This Free Night Award is good for one (1) night in any available standard room within 12 months from issuance"
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "This Free Night Award must be redeemed for a reservation with a checkout date before the expiration date of the award."
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "Not valid at properties in any other category or at Miraval, Hyatt Zilara or Hyatt Ziva resorts."
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "An authorized user will not receive this Free Night Award."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-world-of-hyatt-credit-card.spend-free-night",
+    "revision": 1,
+    "revisionId": "rule.chase-us-world-of-hyatt-credit-card.spend-free-night@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-world-of-hyatt-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.world-of-hyatt"
+    ],
+    "content": {
+      "title": "消费满15,000美元得额外免费房晚",
+      "summary": "每个自然年消费满15,000美元后获得一次，可在 World of Hyatt 1至4类酒店住标准房一晚；达标后最长8周发放，发放后12个月内使用。仅主卡持卡人获得。是否达标未核实。",
+      "sourceText": "Plus, an extra free night at any Category 1–4 Hyatt hotel or resort if you spend $15,000 in a calendar year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年消费满15,000美元后获得一次，可在 World of Hyatt 1至4类酒店住标准房一晚；达标后最长8周发放，发放后12个月内使用。仅主卡持卡人获得。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null,
+      "quantity": 1,
+      "spendThreshold": 15000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 15000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "每个自然年消费满15,000美元后获得一次，可在 World of Hyatt 1至4类酒店住标准房一晚；达标后最长8周发放，发放后12个月内使用。仅主卡持卡人获得。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-world-of-hyatt-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Extra free night after $15,000 in a calendar year",
+      "summary": "An extra free night at any Category 1–4 Hyatt hotel or resort if you spend $15,000 in a calendar year.",
+      "howToUse": [
+        "Track your calendar-year purchases; allow up to 8 weeks after qualifying for the award to be issued.",
+        "Use it within 12 months of issuance."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "Plus, an extra free night at any Category 1–4 Hyatt hotel or resort if you spend $15,000 in a calendar year."
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "Free Night Award after you spend $15,000 in purchases."
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "After qualifying, please allow up to 8 weeks for the Free Night Award to be issued to your World of Hyatt account"
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "This Free Night Award is good for one (1) night in any available standard room within 12 months of issuance"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-premier-select-credit-card.anniversary-free-night",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-premier-select-credit-card.anniversary-free-night@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ihg-one-rewards-premier-select-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "hotel-service",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "周年免费房晚",
+      "summary": "每年开户周年日后获得，可兑换积分价不超过60,000点的 IHG 酒店一晚（含一晚标准房和税）；可用 IHG One Rewards 积分补差价住更贵的酒店。须在发放后12个月内兑换并住完。是否已到账或已使用未核实。",
+      "sourceText": "Each year, after your card anniversary, you'll receive an Anniversary Free Night with a redemption cap of 60,000 points",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年开户周年日后获得，可兑换积分价不超过60,000点的 IHG 酒店一晚（含一晚标准房和税）；可用 IHG One Rewards 积分补差价住更贵的酒店。须在发放后12个月内兑换并住完。是否已到账或已使用未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "hotel-service",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null,
+      "quantity": 1,
+      "awardPoints": 60000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年开户周年日后获得，可兑换积分价不超过60,000点的 IHG 酒店一晚（含一晚标准房和税）；可用 IHG One Rewards 积分补差价住更贵的酒店。须在发放后12个月内兑换并住完。是否已到账或已使用未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ihg-one-rewards-premier-select-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Anniversary Free Night",
+      "summary": "Each year after the card anniversary, an Anniversary Free Night with a redemption cap of 60,000 points, good for a night at an IHG hotel.",
+      "howToUse": [
+        "It is available for redemption on your account anniversary date each year.",
+        "Redeem and complete the stay within 12 months of issue; you can add points for hotels above 60,000 points."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "Each year, after your card anniversary, you'll receive an Anniversary Free Night with a redemption cap of 60,000 points"
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "Anniversary Free Night will be available for redemption on your account anniversary date each year."
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "Your Anniversary Free Night will be valid at IHG® Hotels with a point redemption value of 60,000 points or less"
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "(covers one standard room night and tax only)"
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "You can use points from your IHG One Rewards account to redeem your Anniversary Night"
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "Anniversary Free Night must be redeemed, and stay must be completed, within 12 months from date of issue."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-premier-select-credit-card.spend-free-night",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-premier-select-credit-card.spend-free-night@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ihg-one-rewards-premier-select-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "消费满40,000美元得额外免费房晚",
+      "summary": "每个自然年（1月1日至12月31日）消费满40,000美元后获得，可兑换积分价不超过60,000点的 IHG 酒店一晚，可用积分补差价；达标后最长8周到账，须在发放后12个月内兑换并住完。仅主卡持卡人获得。是否达标未核实。",
+      "sourceText": "after spending $40,000 on purchases with your card each calendar year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年（1月1日至12月31日）消费满40,000美元后获得，可兑换积分价不超过60,000点的 IHG 酒店一晚，可用积分补差价；达标后最长8周到账，须在发放后12个月内兑换并住完。仅主卡持卡人获得。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null,
+      "quantity": 1,
+      "awardPoints": 60000,
+      "spendThreshold": 40000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 40000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "每个自然年（1月1日至12月31日）消费满40,000美元后获得，可兑换积分价不超过60,000点的 IHG 酒店一晚，可用积分补差价；达标后最长8周到账，须在发放后12个月内兑换并住完。仅主卡持卡人获得。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ihg-one-rewards-premier-select-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Additional free night after $40,000 in a calendar year",
+      "summary": "An additional free night with a current point redemption cap of 60,000 points after spending $40,000 on purchases with the card each calendar year.",
+      "howToUse": [
+        "Track your calendar-year purchases; allow up to 8 weeks after qualifying for the night to post to your IHG One Rewards account.",
+        "Redeem and complete the stay within 12 months of issue."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "after spending $40,000 on purchases with your card each calendar year."
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "Earn an additional Anniversary Free Night with a current point redemption cap of 60,000 points"
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "you, as the primary cardmember, will qualify for 1 Free Night."
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "Calendar year means January 1 through December 31 of that same year."
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "After qualifying, please allow up to 8 weeks for your Free Night to be posted to your IHG One Rewards account."
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "Free Night must be redeemed, and stay must be completed, within 12 months from date of issue."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-business-credit-card.anniversary-free-night",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-business-credit-card.anniversary-free-night@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ihg-one-rewards-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "hotel-service",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "周年免费房晚",
+      "summary": "每年开户周年日后获得，可兑换积分价不超过50,000点的 IHG 酒店一晚（含一晚标准房和税）；可用 IHG One Rewards 积分补差价住更贵的酒店。须在发放后12个月内兑换并住完。是否已到账或已使用未核实。",
+      "sourceText": "Each year, after your card anniversary, you'll receive an Anniversary Free Night with a redemption cap of 50,000 points",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年开户周年日后获得，可兑换积分价不超过50,000点的 IHG 酒店一晚（含一晚标准房和税）；可用 IHG One Rewards 积分补差价住更贵的酒店。须在发放后12个月内兑换并住完。是否已到账或已使用未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "hotel-service",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null,
+      "quantity": 1,
+      "awardPoints": 50000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年开户周年日后获得，可兑换积分价不超过50,000点的 IHG 酒店一晚（含一晚标准房和税）；可用 IHG One Rewards 积分补差价住更贵的酒店。须在发放后12个月内兑换并住完。是否已到账或已使用未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ihg-one-rewards-business-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Anniversary Free Night",
+      "summary": "Each year after the card anniversary, an Anniversary Free Night with a redemption cap of 50,000 points, good for a night at an IHG hotel.",
+      "howToUse": [
+        "It is available for redemption on your account anniversary date each year.",
+        "Redeem and complete the stay within 12 months of issue; you can add points for hotels above 50,000 points."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "Each year, after your card anniversary, you'll receive an Anniversary Free Night with a redemption cap of 50,000 points"
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "Anniversary Free Night will be available for redemption on your account anniversary date each year."
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "Your Anniversary Free Night will be valid at IHG® Hotels with a point redemption value of 50,000 points or less"
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "(covers one standard room night and tax only)"
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "You can use points from your IHG One Rewards account to redeem your Anniversary Night"
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "Anniversary Free Night must be redeemed, and stay must be completed, within 12 months from date of issue."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-business-credit-card.spend-free-night",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-business-credit-card.spend-free-night@2026-11-12.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ihg-one-rewards-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.ihg-one-rewards"
+    ],
+    "content": {
+      "title": "消费满60,000美元得额外免费房晚",
+      "summary": "每个自然年（1月1日至12月31日）消费满60,000美元后获得，可兑换积分价不超过50,000点的 IHG 酒店一晚，可用积分补差价；达标后最长8周到账，须在发放后12个月内兑换并住完。仅主卡持卡人获得。是否达标未核实。",
+      "sourceText": "after spending $60,000 on purchases with your card each calendar year.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个自然年（1月1日至12月31日）消费满60,000美元后获得，可兑换积分价不超过50,000点的 IHG 酒店一晚，可用积分补差价；达标后最长8周到账，须在发放后12个月内兑换并住完。仅主卡持卡人获得。是否达标未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null,
+      "quantity": 1,
+      "awardPoints": 50000,
+      "spendThreshold": 60000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [
+        {
+          "field": "account.eligibleCalendarYearSpend",
+          "op": "gte",
+          "value": 60000,
+          "currency": "USD",
+          "timeScope": "current-or-earned-year-needs-account-proof"
+        }
+      ],
+      "unparsedText": "每个自然年（1月1日至12月31日）消费满60,000美元后获得，可兑换积分价不超过50,000点的 IHG 酒店一晚，可用积分补差价；达标后最长8周到账，须在发放后12个月内兑换并住完。仅主卡持卡人获得。是否达标未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ihg-one-rewards-business-credit-card"
+      ],
+      "checkedAt": "2026-11-12",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-12",
+      "reviewAfter": "2027-02-10",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Additional free night after $60,000 in a calendar year",
+      "summary": "An additional free night with a current point redemption cap of 50,000 points after spending $60,000 on purchases with the card each calendar year.",
+      "howToUse": [
+        "Track your calendar-year purchases; allow up to 8 weeks after qualifying for the night to post to your IHG One Rewards account.",
+        "Redeem and complete the stay within 12 months of issue."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "after spending $60,000 on purchases with your card each calendar year."
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "Earn an additional Free Night with a current point redemption cap of 50,000 points"
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "you, as the primary cardmember, will qualify for 1 Free Night."
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "Calendar year means January 1 through December 31 of that same year."
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "After qualifying, please allow up to 8 weeks for your Free Night to be posted to your IHG One Rewards account."
+        },
+        {
+          "sourceId": "card-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "Free Night must be redeemed, and stay must be completed, within 12 months from date of issue."
+        }
+      ]
+    }
   }
 ]

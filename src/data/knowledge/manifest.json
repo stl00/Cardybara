@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-12.spend-thresholds-2",
+  "snapshotId": "cardybara-public-knowledge-2026-11-12.chase-free-nights-1",
   "asOf": "2026-11-12",
   "locale": "zh-CN",
   "files": [
@@ -877,7 +877,6 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "年度免费房晚未录入。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -907,7 +906,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "年度免费房晚、Tier Qualifying Night 和消费解锁的额外房晚未录入。",
+        "Tier Qualifying Night 未录入。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -967,7 +966,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "200美元航空抵扣、周年免费房晚、Global Entry、DashPass、Instacart、United TravelBank、Elite Night Credits 和 Diamond 条件未录入。",
+        "200美元航空抵扣、Global Entry、DashPass、Instacart、United TravelBank、Elite Night Credits 和 Diamond 条件未录入。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
@@ -982,7 +981,7 @@
       "communitySourceIds": [],
       "changeNotes": [],
       "knowledgeGaps": [
-        "Platinum Elite、周年免费房晚、Expensify、Global Entry、DashPass、Instacart 和2027年起的 Diamond 条件未录入。",
+        "Platinum Elite、Expensify、Global Entry、DashPass、Instacart 和2027年起的 Diamond 条件未录入。",
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null

@@ -148,12 +148,83 @@
             "programme.ihg-one-rewards"
           ],
           "quote": "with Platinum Elite Status, a benefit of this card"
+        },
+        {
+          "key": "anniversary-free-night",
+          "zh": "周年免费房晚",
+          "en": "Anniversary Free Night",
+          "noteZh": "每年开户周年日后获得，可兑换积分价不超过60,000点的 IHG 酒店一晚（含一晚标准房和税）；可用 IHG One Rewards 积分补差价住更贵的酒店。须在发放后12个月内兑换并住完。是否已到账或已使用未核实。",
+          "noteEn": "Given each year after the card anniversary, for one night at an IHG hotel priced at 60,000 points or less (one standard room night and tax). You can add IHG One Rewards points for hotels above that level. Redeem and complete the stay within 12 months of issue. Whether you have or used it is unverified.",
+          "scenario": "hotel-stay",
+          "category": "hotel-service",
+          "period": "account-anniversary",
+          "programmeIds": [
+            "programme.ihg-one-rewards"
+          ],
+          "terms": {
+            "quantity": 1,
+            "awardPoints": 60000
+          },
+          "quote": "Each year, after your card anniversary, you'll receive an Anniversary Free Night with a redemption cap of 60,000 points",
+          "original": {
+            "title": "Anniversary Free Night",
+            "summary": "Each year after the card anniversary, an Anniversary Free Night with a redemption cap of 60,000 points, good for a night at an IHG hotel.",
+            "howToUse": [
+              "It is available for redemption on your account anniversary date each year.",
+              "Redeem and complete the stay within 12 months of issue; you can add points for hotels above 60,000 points."
+            ],
+            "quotes": [
+              "Anniversary Free Night will be available for redemption on your account anniversary date each year.",
+              "Your Anniversary Free Night will be valid at IHG® Hotels with a point redemption value of 60,000 points or less",
+              "(covers one standard room night and tax only)",
+              "You can use points from your IHG One Rewards account to redeem your Anniversary Night",
+              "Anniversary Free Night must be redeemed, and stay must be completed, within 12 months from date of issue."
+            ]
+          }
+        },
+        {
+          "key": "spend-free-night",
+          "zh": "消费满40,000美元得额外免费房晚",
+          "en": "Additional free night after $40,000 in purchases",
+          "noteZh": "每个自然年（1月1日至12月31日）消费满40,000美元后获得，可兑换积分价不超过60,000点的 IHG 酒店一晚，可用积分补差价；达标后最长8周到账，须在发放后12个月内兑换并住完。仅主卡持卡人获得。是否达标未核实。",
+          "noteEn": "Earned after $40,000 in purchases each calendar year (January 1 to December 31), for one night at an IHG hotel priced at 60,000 points or less, with points added for hotels above that. It can take up to 8 weeks to post after you qualify; redeem and complete the stay within 12 months of issue. Only the primary cardmember gets it. Whether you reach it is unverified.",
+          "scenario": "hotel-stay",
+          "category": "spend-unlock",
+          "period": "calendar-year",
+          "programmeIds": [
+            "programme.ihg-one-rewards"
+          ],
+          "terms": {
+            "quantity": 1,
+            "awardPoints": 60000
+          },
+          "quote": "after spending $40,000 on purchases with your card each calendar year.",
+          "original": {
+            "title": "Additional free night after $40,000 in a calendar year",
+            "summary": "An additional free night with a current point redemption cap of 60,000 points after spending $40,000 on purchases with the card each calendar year.",
+            "howToUse": [
+              "Track your calendar-year purchases; allow up to 8 weeks after qualifying for the night to post to your IHG One Rewards account.",
+              "Redeem and complete the stay within 12 months of issue."
+            ],
+            "quotes": [
+              "Earn an additional Anniversary Free Night with a current point redemption cap of 60,000 points",
+              "you, as the primary cardmember, will qualify for 1 Free Night.",
+              "Calendar year means January 1 through December 31 of that same year.",
+              "After qualifying, please allow up to 8 weeks for your Free Night to be posted to your IHG One Rewards account.",
+              "Free Night must be redeemed, and stay must be completed, within 12 months from date of issue."
+            ]
+          },
+          "spendThreshold": {
+            "amount": 40000,
+            "currency": "USD",
+            "period": "calendar-year"
+          }
         }
       ],
       "unknown": [
         {
-          "zh": "200美元航空抵扣、周年免费房晚、Global Entry、DashPass、Instacart、United TravelBank、Elite Night Credits 和 Diamond 条件未录入。",
-          "en": "The $200 airline credit, anniversary free night, Global Entry, DashPass, Instacart, United TravelBank, Elite Night Credits and the Diamond condition are not recorded."
+          "zh": "200美元航空抵扣、Global Entry、DashPass、Instacart、United TravelBank、Elite Night Credits 和 Diamond 条件未录入。",
+          "en": "The $200 airline credit, Global Entry, DashPass, Instacart, United TravelBank, Elite Night Credits and the Diamond condition are not recorded."
         }
       ]
     },
@@ -243,12 +314,83 @@
           "validity": {
             "effectiveThrough": "2027-12-31"
           }
+        },
+        {
+          "key": "anniversary-free-night",
+          "zh": "周年免费房晚",
+          "en": "Anniversary Free Night",
+          "noteZh": "每年开户周年日后获得，可兑换积分价不超过50,000点的 IHG 酒店一晚（含一晚标准房和税）；可用 IHG One Rewards 积分补差价住更贵的酒店。须在发放后12个月内兑换并住完。是否已到账或已使用未核实。",
+          "noteEn": "Given each year after the card anniversary, for one night at an IHG hotel priced at 50,000 points or less (one standard room night and tax). You can add IHG One Rewards points for hotels above that level. Redeem and complete the stay within 12 months of issue. Whether you have or used it is unverified.",
+          "scenario": "hotel-stay",
+          "category": "hotel-service",
+          "period": "account-anniversary",
+          "programmeIds": [
+            "programme.ihg-one-rewards"
+          ],
+          "terms": {
+            "quantity": 1,
+            "awardPoints": 50000
+          },
+          "quote": "Each year, after your card anniversary, you'll receive an Anniversary Free Night with a redemption cap of 50,000 points",
+          "original": {
+            "title": "Anniversary Free Night",
+            "summary": "Each year after the card anniversary, an Anniversary Free Night with a redemption cap of 50,000 points, good for a night at an IHG hotel.",
+            "howToUse": [
+              "It is available for redemption on your account anniversary date each year.",
+              "Redeem and complete the stay within 12 months of issue; you can add points for hotels above 50,000 points."
+            ],
+            "quotes": [
+              "Anniversary Free Night will be available for redemption on your account anniversary date each year.",
+              "Your Anniversary Free Night will be valid at IHG® Hotels with a point redemption value of 50,000 points or less",
+              "(covers one standard room night and tax only)",
+              "You can use points from your IHG One Rewards account to redeem your Anniversary Night",
+              "Anniversary Free Night must be redeemed, and stay must be completed, within 12 months from date of issue."
+            ]
+          }
+        },
+        {
+          "key": "spend-free-night",
+          "zh": "消费满60,000美元得额外免费房晚",
+          "en": "Additional free night after $60,000 in purchases",
+          "noteZh": "每个自然年（1月1日至12月31日）消费满60,000美元后获得，可兑换积分价不超过50,000点的 IHG 酒店一晚，可用积分补差价；达标后最长8周到账，须在发放后12个月内兑换并住完。仅主卡持卡人获得。是否达标未核实。",
+          "noteEn": "Earned after $60,000 in purchases each calendar year (January 1 to December 31), for one night at an IHG hotel priced at 50,000 points or less, with points added for hotels above that. It can take up to 8 weeks to post after you qualify; redeem and complete the stay within 12 months of issue. Only the primary cardmember gets it. Whether you reach it is unverified.",
+          "scenario": "hotel-stay",
+          "category": "spend-unlock",
+          "period": "calendar-year",
+          "programmeIds": [
+            "programme.ihg-one-rewards"
+          ],
+          "terms": {
+            "quantity": 1,
+            "awardPoints": 50000
+          },
+          "quote": "after spending $60,000 on purchases with your card each calendar year.",
+          "original": {
+            "title": "Additional free night after $60,000 in a calendar year",
+            "summary": "An additional free night with a current point redemption cap of 50,000 points after spending $60,000 on purchases with the card each calendar year.",
+            "howToUse": [
+              "Track your calendar-year purchases; allow up to 8 weeks after qualifying for the night to post to your IHG One Rewards account.",
+              "Redeem and complete the stay within 12 months of issue."
+            ],
+            "quotes": [
+              "Earn an additional Free Night with a current point redemption cap of 50,000 points",
+              "you, as the primary cardmember, will qualify for 1 Free Night.",
+              "Calendar year means January 1 through December 31 of that same year.",
+              "After qualifying, please allow up to 8 weeks for your Free Night to be posted to your IHG One Rewards account.",
+              "Free Night must be redeemed, and stay must be completed, within 12 months from date of issue."
+            ]
+          },
+          "spendThreshold": {
+            "amount": 60000,
+            "currency": "USD",
+            "period": "calendar-year"
+          }
         }
       ],
       "unknown": [
         {
-          "zh": "Platinum Elite、周年免费房晚、Expensify、Global Entry、DashPass、Instacart 和2027年起的 Diamond 条件未录入。",
-          "en": "Platinum Elite, the anniversary free night, Expensify, Global Entry, DashPass, Instacart and the Diamond condition from 2027 are not recorded."
+          "zh": "Platinum Elite、Expensify、Global Entry、DashPass、Instacart 和2027年起的 Diamond 条件未录入。",
+          "en": "Platinum Elite, Expensify, Global Entry, DashPass, Instacart and the Diamond condition from 2027 are not recorded."
         }
       ]
     },

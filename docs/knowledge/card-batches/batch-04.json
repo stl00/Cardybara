@@ -561,14 +561,43 @@
             "programme.marriott-bonvoy"
           ],
           "quote": "with Silver Elite Status, a benefit of being a Marriott Bonvoy Boundless cardmember"
+        },
+        {
+          "key": "anniversary-free-night",
+          "zh": "周年免费房晚",
+          "en": "Anniversary Free Night",
+          "noteZh": "每年开户周年日后获得，可兑换门槛不超过35,000点的酒店一晚；周年日后最长8周到账，发放后12个月到期。可加 Marriott Bonvoy 积分，不能加现金；度假村费等杂费自付。是否已到账或已使用未核实。",
+          "noteEn": "Given each year after the account anniversary, for one night at a hotel with a redemption level up to 35,000 points. It can take up to 8 weeks to arrive and expires 12 months after issue. Marriott Bonvoy points can be added, cash cannot; resort fees and incidentals are yours to pay. Whether you have or used it is unverified.",
+          "scenario": "hotel-stay",
+          "category": "hotel-service",
+          "period": "account-anniversary",
+          "programmeIds": [
+            "programme.marriott-bonvoy"
+          ],
+          "terms": {
+            "quantity": 1,
+            "awardPoints": 35000
+          },
+          "quote": "you'll enjoy a Free Night Award every year after your account anniversary,",
+          "original": {
+            "title": "Anniversary Free Night Award",
+            "summary": "A Free Night Award every year after the account anniversary, valid for a one night hotel stay at a property with a redemption level up to 35,000 points.",
+            "howToUse": [
+              "Allow up to 8 weeks from the account anniversary date for the award to reach your Marriott Bonvoy account.",
+              "Use it within 12 months of issue; you can add Marriott Bonvoy points but not cash, and you pay any resort fees."
+            ],
+            "quotes": [
+              "valid for a one night hotel stay at a property with a redemption level up to 35,000 points.",
+              "Please allow up to 8 weeks from your account anniversary date",
+              "Each Anniversary Free Night Award issued will have an expiration of 12 months.",
+              "Your Free Night Award may not be combined with cash when redeeming for your free night",
+              "but may be combined with Marriott Bonvoy points in accordance with the Marriott Bonvoy Terms and Conditions",
+              "and payment of mandatory resort fees at properties where resort fees are charged."
+            ]
+          }
         }
       ],
-      "unknown": [
-        {
-          "zh": "年度免费房晚未录入。",
-          "en": "The annual free night is not recorded."
-        }
-      ]
+      "unknown": []
     },
     {
       "id": "chase-us-ihg-one-rewards-credit-card",
@@ -722,12 +751,79 @@
           ],
           "enrollment": true,
           "quote": "you will receive a $10 off discount each calendar quarter at checkout on one qualifying non-restaurant order on DoorDash"
+        },
+        {
+          "key": "anniversary-free-night",
+          "zh": "周年免费房晚（1–4类酒店）",
+          "en": "Anniversary free night (Category 1–4)",
+          "noteZh": "每年持卡周年日后获得，可在 World of Hyatt 1至4类酒店住标准房一晚；周年日后最长10周发放，发放后12个月内使用，退房日须早于到期日。Miraval、Hyatt Zilara 和 Hyatt Ziva 不适用；仅主卡持卡人获得。是否已到账或已使用未核实。",
+          "noteEn": "Given each year after the cardmember anniversary, for one night in a standard room at a Category 1–4 World of Hyatt hotel. It can take up to 10 weeks to be issued and is good for 12 months, with checkout before it expires. Not valid at Miraval, Hyatt Zilara or Hyatt Ziva; only the primary cardmember gets it. Whether you have or used it is unverified.",
+          "scenario": "hotel-stay",
+          "category": "hotel-service",
+          "period": "account-anniversary",
+          "programmeIds": [
+            "programme.world-of-hyatt"
+          ],
+          "terms": {
+            "quantity": 1
+          },
+          "quote": "Receive one free night at any Category 1–4 Hyatt hotel or resort every year after your cardmember anniversary.",
+          "original": {
+            "title": "Free night every cardmember anniversary",
+            "summary": "One free night at any Category 1–4 Hyatt hotel or resort every year after the cardmember anniversary.",
+            "howToUse": [
+              "Allow up to 10 weeks after your cardmember anniversary for the award to be issued.",
+              "Book through My Awards at worldofhyatt.com with a checkout date before the award expires, 12 months from issuance."
+            ],
+            "quotes": [
+              "Please allow up to 10 weeks after your cardmember anniversary each year for your Free Night Award to be issued to you.",
+              "This Free Night Award is good for one (1) night in any available standard room within 12 months from issuance",
+              "This Free Night Award must be redeemed for a reservation with a checkout date before the expiration date of the award.",
+              "Not valid at properties in any other category or at Miraval, Hyatt Zilara or Hyatt Ziva resorts.",
+              "An authorized user will not receive this Free Night Award."
+            ]
+          }
+        },
+        {
+          "key": "spend-free-night",
+          "zh": "消费满15,000美元得额外免费房晚",
+          "en": "Extra free night after $15,000 in purchases",
+          "noteZh": "每个自然年消费满15,000美元后获得一次，可在 World of Hyatt 1至4类酒店住标准房一晚；达标后最长8周发放，发放后12个月内使用。仅主卡持卡人获得。是否达标未核实。",
+          "noteEn": "Earned once each calendar year after $15,000 in purchases, for one night in a standard room at a Category 1–4 World of Hyatt hotel. It can take up to 8 weeks to be issued after you qualify and is good for 12 months. Only the primary cardmember gets it. Whether you reach it is unverified.",
+          "scenario": "hotel-stay",
+          "category": "spend-unlock",
+          "period": "calendar-year",
+          "programmeIds": [
+            "programme.world-of-hyatt"
+          ],
+          "terms": {
+            "quantity": 1
+          },
+          "quote": "Plus, an extra free night at any Category 1–4 Hyatt hotel or resort if you spend $15,000 in a calendar year.",
+          "original": {
+            "title": "Extra free night after $15,000 in a calendar year",
+            "summary": "An extra free night at any Category 1–4 Hyatt hotel or resort if you spend $15,000 in a calendar year.",
+            "howToUse": [
+              "Track your calendar-year purchases; allow up to 8 weeks after qualifying for the award to be issued.",
+              "Use it within 12 months of issuance."
+            ],
+            "quotes": [
+              "Free Night Award after you spend $15,000 in purchases.",
+              "After qualifying, please allow up to 8 weeks for the Free Night Award to be issued to your World of Hyatt account",
+              "This Free Night Award is good for one (1) night in any available standard room within 12 months of issuance"
+            ]
+          },
+          "spendThreshold": {
+            "amount": 15000,
+            "currency": "USD",
+            "period": "calendar-year"
+          }
         }
       ],
       "unknown": [
         {
-          "zh": "年度免费房晚、Tier Qualifying Night 和消费解锁的额外房晚未录入。",
-          "en": "The annual free night, tier qualifying nights and the spend-unlocked free night are not recorded."
+          "zh": "Tier Qualifying Night 未录入。",
+          "en": "Tier qualifying nights are not recorded."
         }
       ]
     },
