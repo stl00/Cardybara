@@ -171,6 +171,10 @@ def main():
                 taxonomy['rateUnits'].append(row['unit'])
             summary = txt(row.get('noteZh') or '公布赚取比例；类别范围和限额以条款为准。', row.get('noteEn') or 'Published earning rate; category scope and caps follow the terms.')
             terms = {'multiplier': row['multiplier'], 'unit': row['unit'], 'spendCategory': label, 'spendCap': row.get('cap'), 'creditedSpendMayNotEarn': None}
+            if row.get('rewardCurrency'):
+                # A percent paid in a restricted currency, not cash (#245): {'name': ..., 'cash': False, 'quote': ...}.
+                check(card, row['rewardCurrency']['quote'], row.get('embedded', False), row.get('source'))
+                terms['rewardCurrency'] = {'name': row['rewardCurrency']['name'], 'cash': bool(row['rewardCurrency'].get('cash', False)), 'sourceText': row['rewardCurrency']['quote']}
             if row.get('afterCap') is not None:
                 # The rate past the cap, when the page states it; otherwise the card's base rate applies.
                 terms['afterCapPercent'] = row['afterCap']

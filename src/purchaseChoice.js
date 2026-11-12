@@ -18,7 +18,7 @@ export function purchaseArgs({category,amount,merchant,currency}={}){
  return args;
 }
 
-const earnOf=row=>row?{rate:row.earn.rate,unit:row.earn.unit,reward:row.earn.reward??null,programme:row.earn.programme||null,isCash:!!row.earn.isCash}:null;
+const earnOf=row=>row?{rate:row.earn.rate,unit:row.earn.unit,reward:row.earn.reward??null,programme:row.earn.programme||null,isCash:!!row.earn.isCash,...(row.earn.nonCash?{nonCash:true,rewardCurrency:row.earn.rewardCurrency}:{})}:null;
 const round2=n=>Math.round(n*100)/100;
 /**
  * What a row returns per 100 of spend, as the engine valued it: cash at its rate, points at the value per point it
