@@ -1,0 +1,10 @@
+{
+ "id": "sc-hk-en-no-payment",
+ "provenance": "Synthetic text with invented values and names. Labels are assumed from public conventions, not captured from a bank page, until a real run confirms them.",
+ "billingRules": true,
+ "bank": "SC HK",
+ "locale": "en-HK",
+ "card": {"id": "fixture-sc-4", "bank": "SC HK", "tail": "1357", "currency": "HKD"},
+ "text": "Card ending in 1357\nCurrent Balance:\nHKD 98.76 DR\nBilled Balance:\nHKD 0.00\nNo payment due",
+ "expected": {"balance": 98.76, "statement": 0, "paymentStatus": "No payment due"}
+}
