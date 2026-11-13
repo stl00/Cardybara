@@ -41,7 +41,7 @@ import {tmpdir} from 'node:os';
 import {basename,dirname,join,normalize,isAbsolute,resolve,sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {findChrome} from './dev-collector/chrome-launcher.mjs';
-import {pipeCdp,startChrome} from './e2e-chrome.mjs';
+import {pipeCdp,pressUntil,startChrome} from './e2e-chrome.mjs';
 import {readZipEntry,zipEntryNames} from './read-zip.mjs';
 import {GATEWAY_ORIGIN} from '../extension-next/model-client.js';
 import {localGateway} from '../gateway/src/local.mjs';
@@ -855,7 +855,11 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate,q
  const editCard=async(fill)=>{
   await until('the edit-card button',()=>press('.ant-drawer-open button','编辑卡片信息'));
   await until('the edit-card form',()=>evaluate('wallet',`!!document.querySelector('.card-edit-modal .ant-form')`));
-  await fill();await modalOk('保存');
+  await fill();
+  // Save only once the form shows what was typed, and wait for the dialog to close rather than for the drawer:
+  // a click taken before the last value landed is dropped quietly and the dialog stays open (stl00/Cardybara#262).
+  const closed=async()=>!(await evaluate('wallet',`[...document.querySelectorAll('.card-edit-modal')].some(m=>m.offsetParent&&!m.closest('.ant-zoom-leave'))`));
+  if(!await pressUntil({press:()=>press('.ant-modal-footer button','保存'),done:closed,budgetMs:STEP_MS}))throw new StepError('timed out waiting for the edit-card dialog to close after saving');
  };
  const renamed='E2E Synthetic Card',next={month:1,day:31};
  await editCard(async()=>{await type('.card-edit-modal #name',renamed);await type('.card-edit-modal .fee-month input',String(next.month));await type('.card-edit-modal .fee-day input',String(next.day));});
