@@ -1,0 +1,10 @@
+{
+ "id": "sc-hk-zh-no-payment",
+ "provenance": "Synthetic text with invented values and names. Labels are assumed from public conventions, not captured from a bank page, until a real run confirms them.",
+ "billingRules": true,
+ "bank": "SC HK",
+ "locale": "zh-HK",
+ "card": {"id": "fixture-sc-3", "bank": "SC HK", "tail": "2468", "currency": "HKD"},
+ "text": "Dugong 信用卡 尾號 2468\n現時結欠\nHK$98.76\n月結單結欠\nHK$0.00\n暫時毋須付款",
+ "expected": {"balance": 98.76, "statement": 0, "paymentStatus": "暫時毋須付款"}
+}
