@@ -161,6 +161,19 @@ FROM cardybara_agent_metrics WHERE timestamp > NOW() - INTERVAL '7' DAY GROUP BY
 
 The deploy and the first query against real data are owner steps; the SQL is not yet run against real data.
 
+## Release (staged, by Worker version)
+
+`scripts/gateway-release.mjs` wraps wrangler so a new gateway build is tested as the exact Worker version that will take traffic, then ramped, instead of replacing the gateway in one step. It is an owner/ops tool: nothing in it runs in CI on pull requests, every step prints what it will run, and any step that acts on a version refuses to run without an explicit version id. Add `--dry-run` to print the steps and stop.
+
+1. `node scripts/gateway-release.mjs upload` uploads a new version at 0% traffic and prints its version id.
+2. `CARDYBARA_EVAL_INVITE=<code> node scripts/gateway-release.mjs eval <version> --out=dir [--baseline=report.json]` runs the pinned live eval (`scripts/live-eval.mjs --target=hosted`) through `POST /v1/chat`, with the `Cloudflare-Workers-Version-Overrides` header pinning the request to that version. Wallet tools run locally on the synthetic wallet, as in the extension. The invite code is read from the environment and never printed or written; use a code with low caps (`scripts/gateway-codes.mjs`). The report records the version id; a baseline from another version makes the run a new baseline candidate, not a regression by itself.
+3. `ramp <version> 10 --stable <current-version>`, then `ramp <version> 50 --stable <current-version>`, then `ramp <version> 100`.
+4. `rollback <current-version>` sends 100% of traffic back.
+
+At each step compare the new version with the stable one by `version_id` (see Metrics): repair rate (`double8`), fallback rate (`double9`) and error rate (`blob6` non-empty, or `double1` of 500 and above). Roll back when the new version's fallback or error rate is clearly above the stable version's over a comparable number of turns, or when the hosted eval has a case that passed on the stable version and fails now. `scripts/live-eval.mjs --target=hosted --dry-run` runs the hosted transport against an in-process gateway with a canned provider (no network, no code) and is covered by `tests/gateway-release.test.mjs`.
+
+Owner steps: issue an eval invite code with low caps, store it as a `live-evals` environment secret, and run the first real staged release.
+
 ## Expected monthly cost
 
 - **Cloudflare:** Workers Paid, US$5 a month, because the assistant's knowledge tools need more CPU than the Free plan's 10 ms per request (Deploy, step 2). Requests, KV reads and Durable Object use of a friends beta stay within what that plan includes.
