@@ -852,17 +852,18 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate,q
  note('the anniversary credit runs',expect.start,'to',expect.end);
 
  // 10c. Edit it: a new name and another fee date.
- const editCard=async(fill)=>{
+ const editCard=async(fill,expected)=>{
   await until('the edit-card button',()=>press('.ant-drawer-open button','编辑卡片信息'));
   await until('the edit-card form',()=>evaluate('wallet',`!!document.querySelector('.card-edit-modal .ant-form')`));
   await fill();
-  // Save only once the form shows what was typed, and wait for the dialog to close rather than for the drawer:
+  // Save only once the form shows what was typed (checked here), and wait for the dialog to close rather than for the drawer:
   // a click taken before the last value landed is dropped quietly and the dialog stays open (stl00/Cardybara#262).
+  for(const [selector,value] of Object.entries(expected))await until('the field '+selector+' to show what was typed',()=>evaluate('wallet',`(()=>{const el=[...document.querySelectorAll(${JSON.stringify(selector)})].at(-1);return !!el&&el.value===${JSON.stringify(value)};})()`));
   const closed=async()=>!(await evaluate('wallet',`[...document.querySelectorAll('.card-edit-modal')].some(m=>m.offsetParent&&!m.closest('.ant-zoom-leave'))`));
   if(!await pressUntil({press:()=>press('.ant-modal-footer button','保存'),done:closed,budgetMs:STEP_MS}))throw new StepError('timed out waiting for the edit-card dialog to close after saving');
  };
  const renamed='E2E Synthetic Card',next={month:1,day:31};
- await editCard(async()=>{await type('.card-edit-modal #name',renamed);await type('.card-edit-modal .fee-month input',String(next.month));await type('.card-edit-modal .fee-day input',String(next.day));});
+ await editCard(async()=>{await type('.card-edit-modal #name',renamed);await type('.card-edit-modal .fee-month input',String(next.month));await type('.card-edit-modal .fee-day input',String(next.day));},{'.card-edit-modal #name':renamed,'.card-edit-modal .fee-month input':String(next.month),'.card-edit-modal .fee-day input':String(next.day)});
  const after=anniversaryPeriod(next,day);
  await until('the edited name and card year',async()=>{const text=await drawerText();return text.includes(renamed)&&text.includes(after.start)&&text.includes(after.end);});
  // A manual card's name is edited in the registry the collector reads; its fee date is the user's overlay.
@@ -885,7 +886,7 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate,q
  note('corrected a detected card\'s type from the panel and set it back to automatic');
  const bankName=(await evaluate('wallet',`document.querySelector('.ant-drawer-open .card-edit-section .ant-descriptions-item-content')?.innerText||''`)).trim();
  if(!bankName)throw new StepError('the detected card shows no name');
- await editCard(async()=>{await type('.card-edit-modal #name','E2E Corrected Name');});
+ await editCard(async()=>{await type('.card-edit-modal #name','E2E Corrected Name');},{'.card-edit-modal #name':'E2E Corrected Name'});
  await until('the corrected name labelled as set by the user',async()=>{const text=await drawerText();return text.includes('E2E Corrected Name')&&JSON.parse(words('你设置的')).some(w=>text.includes(w));});
  const detectedId=(await edits()).find(e=>e.name==='E2E Corrected Name')?.cardId;
  if(!detectedId)throw new StepError('the correction on the detected card was not stored');
