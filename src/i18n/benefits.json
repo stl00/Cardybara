@@ -63,7 +63,13 @@
     "规则开始：{0}": "Rule starts: {0}",
     "官方未逐项列明；以登录后的转点页为准": "Not stated per partner; check the signed-in transfer page",
     "未核对；以登录后的转点页为准": "Not checked; see the signed-in transfer page",
-    "比例来自发卡行公开页面；没有列明或尚未核对的留空。个人账号关联未核实，不会执行转点。": "Rates come from public issuer pages; anything not stated or not yet checked stays blank. Account links are unverified and no transfers are performed."
+    "比例来自发卡行公开页面；没有列明或尚未核对的留空。个人账号关联未核实，不会执行转点。": "Rates come from public issuer pages; anything not stated or not yet checked stays blank. Account links are unverified and no transfers are performed.",
+    "需要设置年费日期": "Fee date needed",
+    "设置年费日期": "Set fee date",
+    "{0} 张卡年度福利需要年费日期": "{0} cards have card-year credits that need a fee date",
+    "没有年费日期就不会猜周期：设置后，这些福利会按持卡年度显示本期和截止日。": "Without a fee date no cycle is guessed. Once you set it, these credits show this card year and its end date.",
+    "公开上限 {0} · 按持卡年度计算，还没有周期": "Public limit {0} · counted per card year, no cycle yet",
+    "按持卡年度计算，还没有周期": "Counted per card year, no cycle yet"
   },
   "zh-TW": {
     "规则有效；账户状态待核实": "規則有效；帳戶狀態待核實",
@@ -129,6 +135,12 @@
     "规则开始：{0}": "規則開始：{0}",
     "官方未逐项列明；以登录后的转点页为准": "官方未逐項列明；以登入後的轉點頁為準",
     "未核对；以登录后的转点页为准": "未核對；以登入後的轉點頁為準",
-    "比例来自发卡行公开页面；没有列明或尚未核对的留空。个人账号关联未核实，不会执行转点。": "比例來自發卡行公開頁面；沒有列明或尚未核對的留空。個人帳號關聯未核實，不會執行轉點。"
+    "比例来自发卡行公开页面；没有列明或尚未核对的留空。个人账号关联未核实，不会执行转点。": "比例來自發卡行公開頁面；沒有列明或尚未核對的留空。個人帳號關聯未核實，不會執行轉點。",
+    "需要设置年费日期": "需要設定年費日期",
+    "设置年费日期": "設定年費日期",
+    "{0} 张卡年度福利需要年费日期": "{0} 張卡的年度福利需要年費日期",
+    "没有年费日期就不会猜周期：设置后，这些福利会按持卡年度显示本期和截止日。": "沒有年費日期就不會猜週期：設定後，這些福利會按持卡年度顯示本期和截止日。",
+    "公开上限 {0} · 按持卡年度计算，还没有周期": "公開上限 {0} · 按持卡年度計算，還沒有週期",
+    "按持卡年度计算，还没有周期": "按持卡年度計算，還沒有週期"
   }
 }
