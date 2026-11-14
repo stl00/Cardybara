@@ -69,3 +69,25 @@ async function kill(child){
  child.kill('SIGKILL');
  let timer;await Promise.race([exited,new Promise(r=>{timer=setTimeout(r,5000);})]);clearTimeout(timer);
 }
+
+/**
+ * Press a button and wait for what it should cause (stl00/Cardybara#262). A click that lands before the form
+ * has taken the last typed value is dropped without a trace (the dialog's validation returns quietly), so
+ * waiting longer for a result that will never come only ends in a timeout. The wait is on the dialog closing,
+ * and the press is repeated at a bounded interval while it has not; saving twice is harmless because the second
+ * click only ever finds the dialog still open. Resolves true when `done()` held, false when the budget ran out.
+ */
+export async function pressUntil({press,done,everyMs=3000,budgetMs=30000,pollMs=150,sleep=ms=>new Promise(r=>setTimeout(r,ms)),now=Date.now}){
+ const end=now()+budgetMs;
+ let pressedAt=-Infinity;
+ for(;;){
+  if(now()-pressedAt>=everyMs){
+   // A dialog that closed since the last look must not be pressed again.
+   if(await done())return true;
+   await press();pressedAt=now();
+  }
+  await sleep(pollMs);
+  if(await done())return true;
+  if(now()>end)return false;
+ }
+}
