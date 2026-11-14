@@ -18,6 +18,8 @@ export async function runLiveCase(c,{chat,turn=runAgentTurn}){
   for(const question of c.setupQuestions||[]){const setup=await turn({history,memory,question,context:caseContext,request});history=setup.messages;memory=setup.memory;}
   calls.length=0;
   const r=await turn({history,memory,question:c.question,context:caseContext,request});
+  // A hosted turn runs the agent in the Worker, so it hands back the calls it could see instead of model payloads.
+  if(Array.isArray(r.calls))calls.push(...r.calls);
   const checks={completed:!!r.answer.trim(),modelAnswered:!r.trace.some(t=>t.type==='fallback'),readOnly:calls.every(x=>READ_ONLY_TOOLS.includes(x.name)),bounded:r.tools.length<=16};
   if(c.expectTool)checks.expectedTool=calls.some(x=>x.name===c.expectTool);
   // Either tool carries these terms, so either is a correct choice.
