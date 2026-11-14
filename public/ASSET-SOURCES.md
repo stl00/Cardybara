@@ -268,7 +268,7 @@ Some programmes show a related company's mark, and are labelled as that company:
 | Amtrak Guest Rewards | unverified | null | null | not located | Not checked; no mark is shipped. |
 | Finnair Plus | unverified | null | null | not located | Not checked; no mark is shipped. |
 | Copa Airlines ConnectMiles | unverified | null | null | not located | Not checked; no mark is shipped. |
-| Citi ThankYou Points | unverified | null | null | not located | Not checked; no mark is shipped. |
+| Citi ThankYou Points | requires-permission | null | null | https://www.citigroup.com/global/terms | Citigroup's site terms (checked 2026-11-13) say site design, text and images may not be copied, displayed or distributed without prior written consent, except as the Copyright Act permits; they name Citi and the Citi Arc design as service marks. No Citi brand or press resource and no ThankYou Points mark outside card pages was located. A candidate for the Citi issuer mark exists (the favicon on citi.com), but nothing grants this use, so no mark is shipped. Owner decision needed (#221). |
 | American Airlines AAdvantage | unverified | null | null | not located | Not checked; no mark is shipped. |
 | Capital One Miles | unverified | null | null | not located | Not checked; no mark is shipped. |
 
