@@ -116,7 +116,11 @@ jobs:
             if [ "$result" != success ]; then echo "a part ended as $result"; exit 1; fi
           done
   e2e:
-    name: E2E
+    name: E2E ${{ matrix.n }}
+    strategy:
+      fail-fast: false
+      matrix:
+        n: [1,2,3,4,5,6,7,8,9,10]
     needs: package
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -189,7 +193,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: e2e-output
+          name: e2e-output-${{ matrix.n }}
           path: e2e-output/
           if-no-files-found: ignore
           retention-days: 7
