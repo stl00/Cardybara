@@ -6,13 +6,12 @@ import EllipsisOutlined from '@ant-design/icons/es/icons/EllipsisOutlined';
 import SearchOutlined from '@ant-design/icons/es/icons/SearchOutlined';
 import {t,ruleField,useI18n} from './i18n';
 import {profileForCard,benefitPeriod,benefitSources} from './benefitRules';
-import {creditTasks,taskStatus,reminderTasks,creditCalendar,walletDay,activeTasks,dismissKey,dismissedCredits} from './personalBenefits';
+import {creditTasks,taskStatus,reminderTasks,creditCalendar,walletDay,activeTasks,feeDateNeededRows,dismissKey,dismissedCredits} from './personalBenefits';
 import {readBenefitEvents,appendBenefitEvent} from './personalStore';
 import {creditView,isDone,ENDING_SOON_DAYS,SHORT_LIST,COMPACT_LIST} from './creditView';
 import {creditCategoryLabel} from './creditCategories';
 import {CardIdentity} from './Identity';
 import ItemLogo from './ItemLogo';
-import {FeeDateHint} from './CardEditor.jsx';
 const {Text,Paragraph,Title}=Typography;
 const Personal=createContext(null);
 function broadcast(){if(typeof BroadcastChannel!=='undefined'){const c=new BroadcastChannel('cardybara-personal');c.postMessage('changed');c.close();}}
@@ -30,14 +29,15 @@ function endText(days){
  if(days===1)return t('明天截止');
  return t('还有 {0} 天',[days]);
 }
-export function CreditManager({cards,compact=false,hidden=false}){
+export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
  useI18n();const {events,ready,error,mark,day}=useContext(Personal),{message}=App.useApp();const [filter,setFilter]=useState('todo'),[busy,setBusy]=useState(''),[expanded,setExpanded]=useState(false),[editingUsage,setEditingUsage]=useState(null),[month,setMonth]=useState(''),[category,setCategory]=useState('all'),[query,setQuery]=useState('');
  const chosen=month&&month!==day.slice(0,7)?new Date(Date.UTC(Number(month.slice(0,4)),Number(month.slice(5,7)),0)).toISOString().slice(0,10):day;
  const nameOf=id=>cards.find(c=>c.id===id)?.name||'';
  const textOf=task=>[task.title,ruleField(task.title,task,'title'),task.condition,ruleField(task.condition,task,'summary'),nameOf(task.cardId),...(task.categories||[]).flatMap(id=>[creditCategoryLabel(id),t(creditCategoryLabel(id))])].join(' ');
  const tasks=creditTasks(cards,chosen),due=chosen===day?reminderTasks(tasks,events,day):[];
  const view=creditView(tasks,events,chosen,{state:filter,category:compact?'all':category,query:compact?'':query,textOf,live:chosen===day});
- const singleCard=cards.length===1,limit=expanded||view.filtered?Infinity:compact?COMPACT_LIST:SHORT_LIST,rows=view.rows.slice(0,limit),more=view.rows.length-rows.length;
+ const needFee=chosen===day&&filter!=='done'?activeTasks(feeDateNeededRows(cards,day),events).filter(r=>!query.trim()||textOf(r).toLowerCase().includes(query.trim().toLowerCase())):[],needFeeCards=[...new Set(needFee.map(r=>r.cardId))];
+ const singleCard=cards.length===1,limit=expanded||view.filtered?Infinity:compact?COMPACT_LIST:SHORT_LIST,rows=view.rows.slice(0,limit),more=view.rows.length-rows.length,feeRows=needFee.slice(0,limit),feeMore=needFee.length-feeRows.length;
  const latest=task=>events.filter(e=>e.key===task.key).sort((a,b)=>b.at.localeCompare(a.at)||b.id.localeCompare(a.id))[0];
  const change=async(task,status)=>{const previous=taskStatus(task,events),previousEvent=latest(task);setBusy(task.key);try{await mark(task.key,status,task.revisionId);message.open({key:'credit-change',type:'success',duration:6,content:<Space><span><ItemLogo ruleId={task.ruleId}/>{ruleField(task.title,task,'title')}</span> · {t('已更新')}<Button type="link" size="small" onClick={()=>mark(task.key,previous,task.revisionId,previousEvent?.usage?{usage:previousEvent.usage}:{}).then(()=>message.destroy('credit-change')).catch(()=>message.error(t('保存失败，刚才的标记没有生效。')))}>{t('撤销')}</Button></Space>})}catch{message.error(t('保存失败，刚才的标记没有生效。'))}finally{setBusy('')}};
  const dismissedList=dismissedCredits(cards,events),showDismissed=!compact||singleCard;
@@ -57,10 +57,11 @@ export function CreditManager({cards,compact=false,hidden=false}){
     <Dropdown disabled={!ready||!!busy} trigger={['click']} menu={{items:others,onClick:({key})=>key==='amount'?setEditingUsage(task):key==='dismiss'?setDismissed(task,'dismissed'):change(task,key)}}><Button size="small" aria-label={t('更多操作')} icon={<EllipsisOutlined/>}/></Dropdown></Space>
   </Flex>{!compact&&<Collapse ghost size="small" items={[{key:'terms',label:t('使用条件与来源'),children:<><Paragraph>{ruleField(task.condition,task,'summary')}</Paragraph><Sources ids={task.sourceIds}/></>}]}/>}</div>;
  };
+ const feeRow=r=>{const card=cards.find(c=>c.id===r.cardId);return <div key={r.key} className="credit-row credit-row-needs-fee"><Flex justify="space-between" align="start" gap={12} wrap><div className="credit-row-main"><Flex wrap align="center" gap={6}><ItemLogo ruleId={r.ruleId}/><Text strong>{ruleField(r.title,r,'title')}</Text><Tag color="processing">{t('需要设置年费日期')}</Tag></Flex>{!singleCard&&<div className="credit-row-card"><CardIdentity card={card}/></div>}<Text type="secondary" className="credit-row-facts">{r.limit!=null?t('公开上限 {0} · 按持卡年度计算，还没有周期',[cash(r.limit,r.currency)]):t('按持卡年度计算，还没有周期')}</Text></div><Button size="small" type="primary" className="fee-date-row-set" disabled={!card||!onSetFeeDate} onClick={()=>onSetFeeDate(card)}>{t('设置年费日期')}</Button></Flex></div>;};
  const headline=view.open.length?(view.ending.length?t('{0} 项 {1} 天内截止，共 {2} 项待处理',[view.ending.length,ENDING_SOON_DAYS,view.open.length]):t('{0} 项待处理',[view.open.length])):null;
- return <Card className="credit-manager" title={t(compact&&!singleCard&&view.ending.length?'快到期的福利':'本期 Credit')} style={{marginBottom:20}} extra={compact?(singleCard?(view.rows.length>COMPACT_LIST&&<Button type="link" onClick={()=>setExpanded(!expanded)}>{expanded?t('收起'):t('查看本卡全部')}</Button>):<Button type="link" onClick={()=>location.hash='credits'}>{t('查看全部')}</Button>):<Button onClick={calendar}>{t('添加本期日历提醒')}</Button>}>
+ return <Card className="credit-manager" title={t(compact&&!singleCard&&view.ending.length?'快到期的福利':'本期 Credit')} style={{marginBottom:20}} extra={compact?(singleCard?(view.rows.length+needFee.length>COMPACT_LIST&&<Button type="link" onClick={()=>setExpanded(!expanded)}>{expanded?t('收起'):t('查看本卡全部')}</Button>):<Button type="link" onClick={()=>location.hash='credits'}>{t('查看全部')}</Button>):<Button onClick={calendar}>{t('添加本期日历提醒')}</Button>}>
  {error&&<Alert type="error" showIcon title={error}/>}
- {!singleCard&&!compact&&<FeeDateHint cards={cards}/>}
+ {needFeeCards.length>0&&<Alert className="fee-date-hint" type="info" showIcon style={{marginBottom:16}} title={t('{0} 张卡年度福利需要年费日期',[needFeeCards.length])} description={compact?null:t('没有年费日期就不会猜周期：设置后，这些福利会按持卡年度显示本期和截止日。')}/>}
  {headline&&<Paragraph type="secondary">{headline} · {t('用完点一下；默认是待确认，不会替你猜已用或未用。')}</Paragraph>}
  {!!due.length&&<Alert type="warning" showIcon title={t('{0} 项临近本期截止，仍待你确认',[due.length])} style={{marginBottom:16}}/>}
  {!compact&&<div className="credit-filters">
@@ -70,9 +71,10 @@ export function CreditManager({cards,compact=false,hidden=false}){
   {view.categories.length>0&&<Flex wrap gap={6} className="credit-categories" role="group" aria-label={t('按用途筛选')}><Tag.CheckableTag checked={view.category==='all'} onChange={()=>setCategory('all')}>{t('全部用途')} {view.pool.length}</Tag.CheckableTag>{view.categories.map(c=><Tag.CheckableTag key={c.id} checked={view.category===c.id} onChange={()=>setCategory(view.category===c.id?'all':c.id)}><ItemLogo category={c.id} size={13}/>{t(c.label)} {c.count}</Tag.CheckableTag>)}</Flex>}
  </div>}
  {rows.map(row)}
- {more>0&&!(compact&&singleCard)&&<Flex justify="center"><Button type="link" onClick={()=>compact&&!singleCard?location.hash='credits':setExpanded(true)}>{t('查看其余 {0} 项',[more])}</Button></Flex>}
+ {feeRows.map(feeRow)}
+ {more+feeMore>0&&!(compact&&singleCard)&&<Flex justify="center"><Button type="link" onClick={()=>compact&&!singleCard?location.hash='credits':setExpanded(true)}>{t('查看其余 {0} 项',[more+feeMore])}</Button></Flex>}
  {!compact&&expanded&&!view.filtered&&view.rows.length>SHORT_LIST&&<Flex justify="center"><Button type="link" onClick={()=>setExpanded(false)}>{t('收起')}</Button></Flex>}
- {!rows.length&&<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={!ready?t('正在读取你的福利标记…'):view.filtered?t('没有匹配的福利，请调整筛选条件'):t('本期已处理，或没有可确定周期的 Credit')}/>}
+ {!rows.length&&!feeRows.length&&<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={!ready?t('正在读取你的福利标记…'):view.filtered?t('没有匹配的福利，请调整筛选条件'):t('本期已处理，或没有可确定周期的 Credit')}/>}
  {showDismissed&&dismissedList.length>0&&<Collapse ghost size="small" className="credit-dismissed" items={[{key:'dismissed',label:t('不再提醒的 Credit（{0}）',[dismissedList.length]),children:<>
   <Paragraph type="secondary">{t('这些 Credit 不会出现在钱包提醒、待处理和清单里；已经加进日历的提醒需要在日历里自己删除。恢复后回到原来的状态，之前的标记都还在。')}</Paragraph>
   {dismissedList.map(d=><Flex key={d.key} justify="space-between" align="center" gap={12} wrap className="credit-dismissed-row"><Flex wrap align="center" gap={6}><ItemLogo ruleId={d.ruleId}/><Text>{ruleField(d.title,d,'title')}</Text>{!singleCard&&<CardIdentity card={cards.find(c=>c.id===d.cardId)}/>}</Flex><Button size="small" loading={busy===d.key} disabled={!ready||!!busy} onClick={()=>setDismissed(d,'restored')}>{t('恢复')}</Button></Flex>)}

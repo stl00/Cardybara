@@ -1,5 +1,6 @@
 import {profileForCard,benefitPeriod} from './benefitRules.js';
 import {creditCategoriesForRuleId} from './creditCategories.js';
+import {cleanFeeDate} from './feeDate.js';
 export const PERSONAL_SCHEMA=1;
 const statuses=new Set(['unknown','unused','partial','used','skipped','dismissed','restored']);
 // "Stop reminding" lasts across cycles, so it is keyed by card and rule, not by one cycle. Restoring
@@ -35,6 +36,23 @@ export function creditTasks(cards,asOf=walletDay()){
   rows.push({key:JSON.stringify([card.id,b.knowledgeRuleId,period.start,period.end]),cardId:card.id,ruleId:b.knowledgeRuleId,revisionId:b.revisionId,title:b.title,condition:b.condition,sourceIds:b.sourceIds,limit:b.quantity?limit*b.quantity:limit,currency:b.currency||card.currency,period,requiresEnrollment:b.requiresEnrollment??null,categories:creditCategoriesForRuleId(b.knowledgeRuleId),...(b.original?{original:structuredClone(b.original)}:{}),...(b.translations?{translations:structuredClone(b.translations)}:{}),...(b.coupon?{coupon:structuredClone(b.coupon)}:{})});
  }
  return rows.sort((a,b)=>a.period.end.localeCompare(b.period.end)||a.cardId.localeCompare(b.cardId));
+}
+/**
+ * Card-year credits of cards with no usable fee date. Without the date there is no cycle, and none is guessed
+ * (no calendar-year fallback), so they are not tasks; they stay in the list as a row that asks for the date.
+ * Setting it turns each row into a normal cycle task (see creditTasks), whose key then carries the cycle.
+ */
+export function feeDateNeededRows(cards,asOf=walletDay()){
+ const rows=[];
+ for(const card of cards){
+  if(cleanFeeDate(card.feeDate))continue;
+  for(const b of profileForCard(card)?.benefits||[]){
+   if(!['credit','promo'].includes(b.category)||b.period!=='account-anniversary'||b.validFrom&&b.validFrom>asOf||b.validThrough&&b.validThrough<asOf||b.applicability)continue;
+   const limit=b.monthlyAmounts?.[Number(asOf.slice(5,7))-1]??b.amount,known=Number.isFinite(limit)&&limit>0;
+   rows.push({state:'needs-fee-date',key:JSON.stringify([card.id,b.knowledgeRuleId,'needs-fee-date']),cardId:card.id,ruleId:b.knowledgeRuleId,revisionId:b.revisionId,title:b.title,condition:b.condition,sourceIds:b.sourceIds,limit:known?(b.quantity?limit*b.quantity:limit):null,currency:b.currency||card.currency,categories:creditCategoriesForRuleId(b.knowledgeRuleId),...(b.original?{original:structuredClone(b.original)}:{}),...(b.translations?{translations:structuredClone(b.translations)}:{})});
+  }
+ }
+ return rows.sort((a,b)=>a.cardId.localeCompare(b.cardId)||a.ruleId.localeCompare(b.ruleId));
 }
 export function taskStatus(task,events){const latest=events.filter(e=>e.key===task.key).sort((a,b)=>Date.parse(b.at)-Date.parse(a.at)||b.id.localeCompare(a.id))[0];return latest?.revisionId===task.revisionId?latest?.status||'unknown':'unknown';}
 export function validatePersonalEvent(e){
