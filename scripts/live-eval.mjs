@@ -3,6 +3,10 @@
 //
 //   node scripts/live-eval.mjs --out=dir [--baseline=report.json] [--accept]   real model, API cost
 //   node scripts/live-eval.mjs --out=dir --dry-run [--fail=id,id]              no network, no key
+//   node scripts/live-eval.mjs --target=hosted --version=<id> --out=dir        the deployed Worker, pinned to one version
+//        [--url=<gateway>]; the invite code comes from CARDYBARA_EVAL_INVITE (a code with low caps; never printed)
+//   node scripts/live-eval.mjs --target=hosted --dry-run --out=dir             the hosted transport on an in-process gateway
+//                                                                              with a canned provider: no network, no code
 //
 // The key comes only from the DEEPSEEK_API_KEY environment variable and is never written anywhere. The report
 // holds case ids, check outcomes, tool names, token counts and spend: no questions, answers or model text.
@@ -72,7 +76,7 @@ export function compare(results,baseline){
 export function summary(report){
  const failedChecks=c=>[...new Set(c.tries.filter(t=>!t.passed).flatMap(t=>[...Object.entries(t.checks).filter(([,ok])=>!ok).map(([k])=>k),...(t.error?[t.error]:[])]))].join(', ');
  const line=id=>{const c=report.cases.find(x=>x.id===id);return `- \`${id}\`: ${c.passes} of ${c.tries.length} attempts passed${failedChecks(c)?'; failed checks: '+failedChecks(c):''}`;};
- const out=[`**Live assistant eval: ${report.status}**`,'',`Model \`${report.model}\`, commit \`${report.commit||'unknown'}\`, ${report.cases.filter(c=>c.status==='pass').length} of ${report.cases.length} cases passing, spend $${report.spend.usd.toFixed(4)} of a $${report.budgetUsd} cap.`,`Compared with: ${report.baseline?`last good run at \`${report.baseline.commit||'unknown'}\` (${report.baseline.createdAt})`:'no earlier good run'}.`];
+ const out=[`**Live assistant eval: ${report.status}**`,'',`Model \`${report.model}\`${report.target==='hosted'?`, hosted Worker version \`${report.version}\``:''}, commit \`${report.commit||'unknown'}\`, ${report.cases.filter(c=>c.status==='pass').length} of ${report.cases.length} cases passing, spend $${report.spend.usd.toFixed(4)} of a $${report.budgetUsd} cap.`,`Compared with: ${report.newBaselineCandidate?'a report of another Worker version, so this run is a new baseline candidate, not a regression check':report.baseline?`last good run at \`${report.baseline.commit||'unknown'}\` (${report.baseline.createdAt})`:'no earlier good run'}.`];
  if(report.regressions.length)out.push('','Passed in the last good run and fail now:',...report.regressions.map(line));
  if(report.failing.length)out.push('','Failing, and not passing in the last good run either:',...report.failing.map(line));
  if(report.fixed.length)out.push('','Passing again: '+report.fixed.map(id=>'`'+id+'`').join(', '));
@@ -83,9 +87,13 @@ export function summary(report){
 }
 
 /** Build the report. `accept` makes this run the baseline whatever it shows (the owner's manual override). */
-export function buildReport({config,run,baseline,spend,accept=false,dryRun=false,commit=null,now=new Date()}){
+export function buildReport({config,run,baseline,spend,accept=false,dryRun=false,commit=null,now=new Date(),target='own-key',version=null}){
+ // A hosted report is about one Worker version. Another version's report is not a standard to regress from: this run
+ // becomes a baseline candidate on its own terms.
+ const newVersion=target==='hosted'&&!!baseline&&baseline.version!==version;
+ if(newVersion)baseline=null;
  const c=compare(run.results,baseline),status=c.regressions.length&&!accept?'regression':'good';
- return {schema:1,kind:'live-eval',status,accepted:accept&&c.regressions.length>0,mode:dryRun?'dry-run':'live',syntheticWallet:true,model:config.model,commit,createdAt:now.toISOString(),budgetUsd:config.budgetUsd,attempts:config.attempts,passesNeeded:config.passesNeeded,
+ return {schema:1,kind:'live-eval',status,accepted:accept&&c.regressions.length>0,mode:dryRun?'dry-run':'live',target,...(target==='hosted'?{version}:{}),...(newVersion?{newBaselineCandidate:true}:{}),syntheticWallet:true,model:config.model,commit,createdAt:now.toISOString(),budgetUsd:config.budgetUsd,attempts:config.attempts,passesNeeded:config.passesNeeded,
   baseline:baseline?{commit:baseline.commit||null,createdAt:baseline.createdAt||null}:null,
   spend:{usd:+spend.spent().toFixed(5),...spend.usage},...(run.stopped?{stopped:run.stopped}:{}),
   regressions:c.regressions,failing:c.failing,fixed:c.fixed,notRun:c.notRun,cases:c.cases};
@@ -93,15 +101,38 @@ export function buildReport({config,run,baseline,spend,accept=false,dryRun=false
 
 async function main(){
  const arg=name=>process.argv.find(a=>a.startsWith(`--${name}=`))?.slice(name.length+3),flag=name=>process.argv.includes('--'+name);
- const out=resolve(arg('out')||resolve(root,'.debug/live-eval')),dryRun=flag('dry-run');
+ const out=resolve(arg('out')||resolve(root,'.debug/live-eval')),dryRun=flag('dry-run'),target=arg('target')||'own-key';
+ if(!['own-key','hosted'].includes(target))throw Error('--target must be own-key or hosted');
+ const DRY_VERSION='00000000-0000-4000-8000-000000000000',version=target==='hosted'?(arg('version')||(dryRun?DRY_VERSION:null)):null;
+ if(target==='hosted'&&!version)throw Error('--target=hosted needs --version=<Worker version id>');
  const config=JSON.parse(await readFile(resolve(root,'evals/live/config.json'),'utf8'));
  const {liveCases}=await import('../evals/fixtures.mjs'),{meter,priceFor}=await import('../evals/multiturn/live.mjs');
  const cases=selectCases(config,liveCases),spend=meter({price:priceFor(config.model),budget:config.budgetUsd});
  let baseline=null;
  if(arg('baseline')){try{baseline=JSON.parse(await readFile(resolve(arg('baseline')),'utf8'));}catch(error){if(error.code!=='ENOENT')throw error;}
-  if(baseline&&(baseline.kind!=='live-eval'||baseline.status!=='good'||baseline.mode!==(dryRun?'dry-run':'live')))throw Error('baseline is not a good live-eval report of this mode');}
+  if(baseline&&(baseline.kind!=='live-eval'||baseline.status!=='good'||baseline.mode!==(dryRun?'dry-run':'live')||(baseline.target||'own-key')!==target))throw Error('baseline is not a good live-eval report of this mode');}
  let runCase;
- if(dryRun){
+ if(target==='hosted'){
+  const {hostedPost,hostedTurn,PRODUCTION_URL,EVAL_ORIGIN}=await import('../evals/hosted-turn.mjs'),failing=new Set((arg('fail')||'').split(',').filter(Boolean));
+  let fetchImpl=fetch,base=arg('url')||PRODUCTION_URL,invite=process.env.CARDYBARA_EVAL_INVITE;
+  if(dryRun){
+   // The real transport and the real Worker code on in-memory bindings; the provider is canned. Only "an answer arrived" is judged.
+   const {localGateway}=await import('../gateway/src/local.mjs'),{providerResponse}=await import('../tests/helpers/agent-target.mjs'),{context}=await import('../evals/fixtures.mjs');
+   const g=localGateway({vars:{ALLOWED_ORIGINS:EVAL_ORIGIN,DAILY_REQUESTS_PER_CODE:'1000000',DAILY_TOKENS_PER_CODE:'1000000000',MONTHLY_BUDGET_USD:'1000000'},now:()=>Date.parse(context.day+'T12:00:00Z'),
+    fetch:async(url,init)=>providerResponse({content:'Mock provider reply.'},{stream:JSON.parse(init.body).stream,signal:init.signal})});
+   invite='cdy_'+'dry-run-only-'.padEnd(43,'0');await g.addInvite(invite,{id:'live-eval-dry-run'});
+   fetchImpl=(url,init)=>g.handle(new Request(url,init));base='https://gateway.test';
+   const turn=hostedTurn({post:hostedPost({base,invite,version,fetch:fetchImpl})});
+   runCase=async c=>{spend.record({prompt_tokens:1000,completion_tokens:100});const r=await turn({history:[],memory:{},question:c.question,context});return {checks:{completed:!!r.answer.trim()&&!failing.has(c.id)},detail:{toolNames:[],ms:0}};};
+  }else{
+   if(!invite)throw Error('CARDYBARA_EVAL_INVITE is not set');
+   const {runLiveCase}=await import('../evals/live-case.mjs'),post=hostedPost({base,invite,version,fetch:fetchImpl});
+   // The gateway reports no usage here, so every request of a turn is charged its worst case (twice, for the repair): the cap holds.
+   const metered=async(body,options)=>{spend.unmetered();spend.unmetered();return post(body,options);};
+   const turn=hostedTurn({post:metered});
+   runCase=c=>runLiveCase(c,{chat:async()=>{throw Error('unused');},turn});
+  }
+ }else if(dryRun){
   // Same path with no model: every case passes unless named in --fail, and each attempt is charged one small call.
   const failing=new Set((arg('fail')||'').split(',').filter(Boolean));
   runCase=async c=>{spend.record({prompt_tokens:1000,completion_tokens:100});return {checks:{completed:!failing.has(c.id)},detail:{toolNames:[],ms:0}};};
@@ -114,11 +145,13 @@ async function main(){
   runCase=c=>runLiveCase(c,{chat});
  }
  const run=await runLiveEval({config,cases,runCase,spend,log:console.log});
- const report=buildReport({config,run,baseline,spend,accept:flag('accept'),dryRun,commit:process.env.GITHUB_SHA||null});
+ const report=buildReport({config,run,baseline,spend,accept:flag('accept'),dryRun,commit:process.env.GITHUB_SHA||null,target,version});
  await mkdir(out,{recursive:true});
  await writeFile(resolve(out,'report.json'),JSON.stringify(report,null,2)+'\n');
  await writeFile(resolve(out,'summary.md'),summary(report));
  console.log(JSON.stringify({status:report.status,usd:report.spend.usd,regressions:report.regressions,failing:report.failing,notRun:report.notRun,report:resolve(out,'report.json')}));
  if(report.status!=='good')process.exitCode=1;
+ // The in-process gateway of the hosted dry run leaves provider timers behind; the report is written, so end here.
+ if(target==='hosted'&&dryRun)process.exit(process.exitCode||0);
 }
 if(import.meta.url===pathToFileURL(process.argv[1]||'').href)main().catch(error=>{console.error('live eval could not run: '+error.message);process.exitCode=2;});
