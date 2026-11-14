@@ -75,6 +75,10 @@ function typoFixes(text,asOf){
  return [...new Set(tokens(text).filter(t=>/^[a-z]{6,}$/.test(t)).flatMap(t=>{if(!c.typos.has(t))c.typos.set(t,wordStats(t,hasTerm(t),asOf).df?[]:c.vocab.filter(w=>oneEdit(t,w)));return c.typos.get(t);}))];
 }
 // Words that say what kind of benefit is wanted (yearly, perks, membership, 优惠) but not what it is about.
+// Words that say what kind of benefit is wanted (covered, 保障, discount, cash back, points) but not what it is about: like WEAK, they are not evidence of a match.
+const KIND_WORDS=new Set(['covered','coverage','cover','covers','保障','discount','discounts','折扣','cash','back','返现','返現','回贈','回赠','积分','積分','points','products']);
+// A rule must match on a concept named in its own text, a partner, or a word found in few rules and not a WEAK or kind word, to count as grounded (#266).
+const STRONG_WEIGHT=0.3;
 const WEAK=new Set(['membership','年度','每年','annual','yearly','perks','perk','privileges','会员','优惠','福利','待遇','礼遇','好处']);
 // What is left of a question without those words and question fillers: the thing it asks about.
 const ZH_FILLER=/我的|我|你|您|有没有|有沒有|有冇|有哪些|有什么|有什麼|有啥|有咩|什么|什麼|哪些|哪张|哪張|怎么|怎麼|如何|多少|可以|能够|能夠|告诉|告訴|看看|列出|所有|全部|今年|每月|[有啥咩乜吗嗎呢的了吧啊呀能会會是都还還和与與跟在用张張卡哪些么麼几幾个個一这這那请請帮幫下查]/g;
@@ -109,10 +113,10 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
   const matchedPartners=requestedPartners.filter(id=>norm(title+' '+body+' '+programmes).includes(id));
   if(requestedPartners.length&&!matchedPartners.length)continue;
   // specific: the rule matched on a concept, a partner or an uncommon word, not on common words alone.
-  let score=0,specific=false;const matched=[];
-  for(const [key,re,scenarios,ruleRe] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||(ruleRe||re).test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant){score+=key==='membership'?5:CONCEPT;matched.push(key);specific=true;}}
-  for(const [term,has,stats] of matchers){const points=has(title)?5:has(programmes)?6:has(body)?1:0;if(!points)continue;score+=points*stats.weight;matched.push(term);if(!stats.common)specific=true;}
-  if(matchedPartners.length){score+=12;matched.push(...matchedPartners);specific=true;}
+  let score=0,specific=false,strong=false;const matched=[];
+  for(const [key,re,scenarios,ruleRe] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||(ruleRe||re).test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant){score+=key==='membership'?5:CONCEPT;matched.push(key);specific=true;if(key!=='membership'&&(ruleRe||re).test(title+' '+body))strong=true;}}
+  for(const [term,has,stats] of matchers){const points=has(title)?5:has(programmes)?6:has(body)?1:0;if(!points)continue;score+=points*stats.weight;matched.push(term);if(!stats.common){specific=true;if(stats.weight>=STRONG_WEIGHT&&!WEAK.has(term)&&!KIND_WORDS.has(term))strong=true;}}
+  if(matchedPartners.length){score+=12;matched.push(...matchedPartners);specific=true;strong=true;}
   if(!specific)score=0;
   const wordScore=score,inFilter=(!filters.scenarioId||r.scenarioIds.includes(filters.scenarioId))&&(!filters.category||r.category===filters.category),filtered=!!(filters.scenarioId||filters.category);
   // Outside the scenario or category, a rule needs a real word match (a concept or two title words) to compete,
@@ -127,7 +131,7 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
   if(filtered&&inFilter)score+=FILTER_BONUS;
   else if(filters.programme&&!filters.scenarioId&&!filters.category)score+=4;
   if(!score&&!generic)continue;
-  ranked.push({...r,retrieval:{score,matched:[...new Set(matched)],lexical,inFilter:filtered&&inFilter}});
+  ranked.push({...r,retrieval:{score,matched:[...new Set(matched)],lexical,inFilter:filtered&&inFilter,strong}});
  }
  // Only words like 年度 or perks matched, with no scenario, partner or filter: the thing asked about (量子传送舱) is in no
  // rule, and rules that merely mention a year are not an answer.
@@ -137,6 +141,9 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
  // Also when nothing matched at all: a question naming something no rule mentions gets the same answer, not suggestions.
  const thing=!generic&&!topical&&ranked.every(r=>r.retrieval.matched.every(m=>WEAK.has(m)||commonTerms.has(m)))&&askedThing(question);
  if(thing)return {rules:[],total:0,wordMatches:0,truncated:false,unknownSubject:{named:thing},method:'structured-filter+multilingual-idf-ranking',asOf};
+ // Unfiltered question where no candidate is grounded: abstain like an unknown subject instead of listing rules that share only generic words (membership, 优惠, 保障).
+ const ungrounded=!generic&&!filters.scenarioId&&!filters.category&&!filters.programme&&ranked.length&&!ranked.some(r=>r.retrieval.strong)&&askedThing(question);
+ if(ungrounded)return {rules:[],total:0,wordMatches:0,truncated:false,unknownSubject:{named:ungrounded},method:'structured-filter+multilingual-idf-ranking',asOf};
  // On equal scores, a rule inside the chosen scenario or category comes first.
  ranked.sort((a,b)=>b.retrieval.score-a.retrieval.score||b.retrieval.inFilter-a.retrieval.inFilter||a.id.localeCompare(b.id));
  const limit=Math.max(1,Math.min(24,filters.limit||12));

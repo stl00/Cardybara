@@ -18,7 +18,7 @@ Questions marked `ambiguous` are reported but not scored. `absent` questions hav
 
 ## Held-out set
 
-`holdout.json` has 115 more questions written the same way: 106 scored and 9 absent. v1 had 53 (50 scored), and v2 added 62 on 2026-11-09 for #147, written before any ranker was run on them. Numbers in the Progress table and the live-run sections use v1; the rubric analysis below uses v2. They use two portfolios the development set does not have (US business, US hotel and airline co-brands), plus two of its portfolios with new wording. Rule: **never look at held-out failures when changing the vocabulary, tool prompts or knowledge tags.** Tune on `golden.json` only, then report both sets. `npm run eval:benefit-recall` runs both. The held-out report goes to `evals/latest-benefit-recall-holdout.json`.
+`holdout.json` has 115 more questions written the same way: 106 scored and 9 absent. v1 had 53 (50 scored), and v2 added 62 on 2026-11-09 for #147, written before any ranker was run on them. Numbers in the Progress table and the live-run sections use v1; the rubric analysis below uses v2. They use two portfolios the development set does not have (US business, US hotel and airline co-brands), plus two of its portfolios with new wording. The separate frozen no-answer set `noanswer.json` is described under "No-answer set and abstain rule". Rule: **never look at held-out failures when changing the vocabulary, tool prompts or knowledge tags.** Tune on `golden.json` only, then report both sets. `npm run eval:benefit-recall` runs both. The held-out report goes to `evals/latest-benefit-recall-holdout.json`.
 
 ## Modes
 
@@ -296,6 +296,28 @@ After the source-text migration (#148) put English originals into every rule, a 
 - **`outsideMin` is the main sensitive weight:** span 10 points of C precision and 38 points (3 questions) of C noise.
 - **`concept` and `title` now cross the "sensitive" line, but only just:** span about 1.2 points of all-card recall and 1.7–2.2 points of C precision.
 - **Nothing to tune:** the lab's constrained one-at-a-time tuner finds no setting that beats the current values.
+
+## No-answer set and abstain rule (#266, 2026-11-13)
+
+**The set.** `noanswer.json` (`benefit-recall-noanswer-v1`) has 52 questions the knowledge base cannot answer for the held cards: 18 English, 17 Simplified and 17 Traditional Chinese, over the nine synthetic portfolios of the two other sets. Every question is type `absent`, so the right answer is no results. It is **frozen**: written from the rule list before any ranker ran on it, never used for tuning. Change it only by adding a v2 file. Run it with `node scripts/eval-benefit-recall.mjs --golden=evals/benefit-recall/noanswer.json --out=evals/latest-benefit-recall-noanswer.json` (it is not part of `npm run eval:benefit-recall`). One question is 1.9 points.
+
+Order of events, for honesty: the set was committed, then run once for the baseline (aggregates only). The retriever was then changed using the dev set only. Because dev had just 8 unanswerable questions, 30 more were added to dev (`p2-absent-*`, 38 in total) on topics not in the frozen set, then tuned on. The frozen set was run once more at the end. Its failures were never inspected.
+
+No-answer noise (share of unanswerable questions that return an unrelated rule):
+
+| Set (n) | A before | A after | B before | B after | C before | C after |
+| --- | --- | --- | --- | --- | --- | --- |
+| New frozen set (52) | 52% | **40%** | 40% | 27% | 50% | 38% |
+| Dev (38; 8 before this change) | 76% | 39% | 55% | 34% | 58% | 50% |
+| Held-out (9) | 44% | 22% | 44% | 22% | 0% | 0% |
+
+By language on the frozen set, A / B / C after: en 67 / 56 / 61, zh-Hans 35 / 18 / 35, zh-Hant 18 / 6 / 18. English is the weak side: English glossary expansion and common words such as "free" or "airport" keep matching.
+
+**The change** (`src/benefitSearch.js`). A candidate rule is *grounded* when it matches on a partner, a concept that appears in its own text, or a word found in few rules that is neither a `WEAK` word nor a kind-of-benefit word (covered, 保障, discount, 折扣, cash back, points). When the question has no scenario, category or programme filter, names some specific thing, and no candidate is grounded, the search returns no rules and `unknownSubject`, as it already did for a thing no rule mentions. A question made only of kind words ("what member perks do I have") is not affected. Filtered calls are not affected.
+
+Recall (A / B / C, %): dev after 98.2 / 99.6 / 100 (before 98.2 / 99.8 / 100); held-out A 94.3 → 93.8, B 98.9 → 98.9, C 100 → 100. Held-out recall@12 in mode A dropped 0.5 point (limit 1). Bigger word lists (free, 免费, 费用, fee, 保险) cut dev noise further but cost 1 to 1.4 points of held-out recall, so they were left out.
+
+**Result against the target.** Mode A noise on the frozen set is 40%, not the 20% target. The remaining noise is mostly rules that match on a concept (hotel, dining, airport) while the question's real subject (concierge, parking, shuttle, supermarket) matches nothing. A fix needs the search to notice that a distinctive word of the question matched no rule, and that is hard to do across English and Chinese bigrams. That is the next step and is not done here. Dev noise (39%) did not reach 20% either.
 
 ## Findings
 
