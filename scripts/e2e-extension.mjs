@@ -855,10 +855,17 @@ async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate,q
  const editCard=async(fill,expected)=>{
   await until('the edit-card button',()=>press('.ant-drawer-open button','编辑卡片信息'));
   await until('the edit-card form',()=>evaluate('wallet',`!!document.querySelector('.card-edit-modal .ant-form')`));
-  await fill();
-  // Save only once the form shows what was typed (checked here), and wait for the dialog to close rather than for the drawer:
-  // a click taken before the last value landed is dropped quietly and the dialog stays open (stl00/Cardybara#262).
-  for(const [selector,value] of Object.entries(expected))await until('the field '+selector+' to show what was typed',()=>evaluate('wallet',`(()=>{const el=[...document.querySelectorAll(${JSON.stringify(selector)})].at(-1);return !!el&&el.value===${JSON.stringify(value)};})()`));
+  // Save only once the form shows what was typed. The form can still be initialising when the first keys land and
+  // drop them, so type again (bounded) until every field holds its value, then press save.
+  const shows=()=>evaluate('wallet',`(()=>{const want=${JSON.stringify(expected)};return Object.entries(want).every(([sel,v])=>{const el=[...document.querySelectorAll(sel)].at(-1);return !!el&&el.value===v;});})()`);
+  let typed=false;
+  for(let attempt=1;attempt<=3&&!typed;attempt++){
+   await fill();
+   const until3=Date.now()+3000;
+   while(!(typed=await shows())&&Date.now()<until3)await new Promise(r=>setTimeout(r,100));
+   if(!typed)note('the edit-card form did not show what was typed, attempt',attempt);
+  }
+  if(!typed)throw new StepError('the edit-card form never showed what was typed: '+JSON.stringify(expected));
   const closed=async()=>!(await evaluate('wallet',`[...document.querySelectorAll('.card-edit-modal')].some(m=>m.offsetParent&&!m.closest('.ant-zoom-leave'))`));
   if(!await pressUntil({press:()=>press('.ant-modal-footer button','保存'),done:closed,budgetMs:STEP_MS}))throw new StepError('timed out waiting for the edit-card dialog to close after saving');
  };
