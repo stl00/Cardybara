@@ -25,6 +25,7 @@ export function answerLanguage(question){
  if(!/[㐀-鿿]/.test(question))return 'en';
  return /[還沒飯聖誕麼額週裡這個訂帳餘標確認請幫們東國開買費點會樣嗎啟應當從對於時間過]/.test(question)?'zh-TW':'zh-CN';
 }
+const NEXT_ELIGIBLE={'zh-CN':'下次可用','zh-TW':'下次可用',en:'next eligible'},RESETS={'zh-CN':'下个周期开始','zh-TW':'下個週期開始',en:'resets'},SET_FEE_DATE={'zh-CN':'请先在卡片上设置年费日','zh-TW':'請先在卡片上設定年費日',en:'set the fee date on the card to track it'};
 const GROUPS=['markedUnused','unknownStatus','markedUsed','noFixedCycle','cycleUnknown','outsideDates','dismissedByUser'];
 export function renderCreditAnswer(result,question){
  const lang=answerLanguage(question),w=WORDS[lang],lines=[];
@@ -36,7 +37,7 @@ export function renderCreditAnswer(result,question){
   lines.push('','**'+w[group]+'**');
   for(const i of result.groups[group]){
    const reason=i.reason?REASONS[i.reason]?.[lang]||i.reason:null;
-   const parts=[i.publicLimit==null?null:`${w.limit} ${i.currency} ${i.publicLimit}`,i.cycle?`${w.until} ${i.cycle.end}`:null,reason?`${w.reason}: ${reason}`:null].filter(Boolean);
+   const parts=[i.publicLimit==null?null:`${w.limit} ${i.currency} ${i.publicLimit}`,i.cycle?`${w.until} ${i.cycle.end}`:null,i.resetsOn?`${RESETS[lang]} ${i.resetsOn}`:null,i.fourYear?.nextEligible?`${NEXT_ELIGIBLE[lang]} ${i.fourYear.nextEligible}`:null,reason?`${w.reason}: ${reason}`:null,i.needsFeeDate?SET_FEE_DATE[lang]:null].filter(Boolean);
    lines.push(`- ${i.card} · ${titleOf(i)}${parts.length?' ('+parts.join('; ')+')':''}`);
   }
  }

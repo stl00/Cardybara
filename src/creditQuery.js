@@ -2,7 +2,7 @@
 import {queryKnowledge,knowledgeSources,ruleText} from './knowledge.js';
 import {benefitPeriod,profileForCard} from './benefitRules.js';
 import {matchCardProduct} from './productCatalog.js';
-import {taskStatus,dismissedKeys,dismissKey} from './personalBenefits.js';
+import {taskStatus,dismissedKeys,dismissKey,offCycleStatus} from './personalBenefits.js';
 import {resolveTripDates,addDays,isRealDate} from './tripDates.js';
 import {CREDIT_CATEGORIES,creditCategoriesForRule} from './creditCategories.js';
 import {creditApplicability} from './creditApplicability.js';
@@ -72,6 +72,15 @@ function describe(card,row,destination,asOf,use,brief,purchase){
   reviewDue:rule.assessment.reviewDue,...(brief?{}:{sources:knowledgeSources(rule.evidence.sourceIds).map(s=>({title:s.title,url:s.url}))})
  };
 }
+/** What the user's own data says when a credit has no computable cycle: a missing fee date to ask for, or a four-year last-use date. */
+function unknownCycleFacts(period,card,ruleId,events){
+ if(period==='account-anniversary')return {needsFeeDate:true,nextStep:'The card has no annual fee date. Ask the user to set it on the card; do not guess the card year or fall back to the calendar year.'};
+ if(period==='rolling-four-years'){
+  const status=offCycleStatus({state:'four-year',key:JSON.stringify([card.id,ruleId,'four-year'])},events);
+  return {fourYear:status.status==='used'?{lastUsedOn:status.usedOn,nextEligible:status.nextEligible}:{lastUsedOn:null,nextEligible:null},nextStep:status.status==='used'?'Next eligible is four years after the recorded last-use date.':'No last-use date is recorded, so the next eligible date is unknown. Ask the user for the date they last used it; do not guess it.'};
+ }
+ return {};
+}
 function latestUsage(key,revisionId,events){
  const event=events.filter(e=>e.key===key).sort((a,b)=>Date.parse(b.at)-Date.parse(a.at)||b.id.localeCompare(a.id))[0];
  return event?.revisionId===revisionId?event.usage||null:null;
@@ -121,12 +130,12 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
     if(!row.period){
      const period=row.rule.terms.period;
      if(NO_FIXED_CYCLE.has(period))groups.noFixedCycle.push({...item,cycle:null,status:'unknown'});
-     else groups.cycleUnknown.push({...item,reason:UNKNOWN_CYCLE_REASON[period]||'cycle-dates-unknown',cycle:null,status:'unknown'});
+     else groups.cycleUnknown.push({...item,reason:UNKNOWN_CYCLE_REASON[period]||'cycle-dates-unknown',cycle:null,status:'unknown',...unknownCycleFacts(period,card,id,events)});
      continue;
     }
     const {task,status}=statusOf(row.period),endsWithinDates=row.period.end<=window.end;
     if(endsWithinDates)boundaries.add(addDays(row.period.end,1));
-    const entry={...item,cycle:{start:row.period.start,end:row.period.end},datesInCycle:row.overlap,status,...(endsWithinDates?{cycleEndsWithinDates:true,nextCycleStarts:addDays(row.period.end,1)}:{})};
+    const entry={...item,cycle:{start:row.period.start,end:row.period.end},resetsOn:addDays(row.period.end,1),datesInCycle:row.overlap,status,...(endsWithinDates?{cycleEndsWithinDates:true,nextCycleStarts:addDays(row.period.end,1)}:{})};
     if(['used','skipped'].includes(status))groups.markedUsed.push(entry);
     else if(status==='unknown')groups.unknownStatus.push(entry);
     else{
