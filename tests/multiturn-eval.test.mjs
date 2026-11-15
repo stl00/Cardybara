@@ -121,3 +121,14 @@ test('spend: unknown models have no price, and calls without usage are charged t
  n.record({prompt_tokens:10000,prompt_cache_hit_tokens:8000,prompt_cache_miss_tokens:2000,completion_tokens:500});
  assert.equal(+n.spent().toFixed(6),+((8000*0.006+2000*0.3+500*1.2)/1e6).toFixed(6));
 });
+
+test('long-range "the second one from the first list" keeps the first list once its turns are trimmed (#267)',async()=>{
+ for(const lang of ['zh-Hans','zh-Hant','en']){
+  const d=dialogues.find(x=>x.id==='long-sr-ord-'+lang),{sent,memory}=await replay(d);
+  assert.ok(sent.messages.filter(m=>m.role==='user').length-1<d.turns.length,'the opening turn is trimmed from the chat');
+  assert.equal(memory.topics.earlier[0].turn,0,'the list from the first turn is kept in state');
+  const r=resolvable(d.target,contextSources(sent));
+  assert.deepEqual(r.missing,[],lang);
+  assert.match(contextSources(sent)[0],/earlierLists/);
+ }
+});

@@ -239,3 +239,25 @@ test('two cards focused in one turn: the later one stays the more recent',()=>{
  const listed=topicContext(t,{completed:1,shownFrom:0}).recentCards.map(c=>c.card+'/'+c.region);
  assert.deepEqual(listed,['Sapphire Reserve/US','The Platinum Card/HK'],'same first turn: in the order discussed');
 });
+
+test('a list replaced by a later turn is kept as an earlier list, first one and latest few, and validated (#267)',async()=>{
+ const {reduceToolResult,validateState,topicContext,keepHeldTopics}=await import('../src/conversationState.js');
+ const {dialogues}=await import('../evals/multiturn/dialogues.mjs'),{evalContext}=await import('../evals/multiturn/harness.mjs');
+ const {runAgentTurn}=await import('./helpers/agent-target.mjs'),{replay}=await import('../evals/multiturn/harness.mjs');
+ const {memory}=await replay(dialogues.find(d=>d.id==='long-sr-ord-en'));
+ const earlier=memory.topics.earlier;
+ assert.ok(earlier.length>=1&&earlier.length<=3);
+ assert.ok(earlier[0].items.length>=3,'the first list keeps its items in order');
+ assert.deepEqual(validateState(memory),memory,'round-trips validation');
+ assert.throws(()=>validateState({topics:{items:[],cards:[],earlier:[{turn:0,items:[{rule:'rule.not-real'}]}]}}),/invalid_memory/);
+ assert.throws(()=>validateState({topics:{items:[],cards:[],earlier:[{turn:0,items:[]}]}}),/invalid_memory/);
+ // Rendered only for turns no longer shown.
+ const shown=topicContext(memory.topics,{completed:memory.turns.completed,shownFrom:0});
+ assert.equal(shown.earlierLists,undefined);
+ const gone=topicContext(memory.topics,{completed:memory.turns.completed,shownFrom:memory.turns.completed});
+ assert.equal(gone.earlierLists[0].turn,1);
+ assert.deepEqual(gone.earlierLists[0].items.map(i=>i.n),gone.earlierLists[0].items.map((_,i)=>i+1));
+ // A card no longer held leaves the earlier lists too.
+ const none=keepHeldTopics(memory,[]);
+ assert.deepEqual(none.topics.earlier??[],[]);
+});
