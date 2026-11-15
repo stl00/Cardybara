@@ -18,6 +18,7 @@ import {validateState} from '../../src/conversationState.js';
 import {validateToolCall} from '../../src/walletAgent.js';
 import {WALLET_TOOLS,validateWalletSummary,summaryCards,summaryContext} from '../../src/walletSummary.js';
 import {trimHistory,validateHistory,validToolResult,sseEvents,MAX_ROUNDS} from '../../src/cloudProtocol.js';
+import {withoutDisabledTools,unavailableText} from './switches.js';
 import {Refusal,readJson,reserve,callProvider,sanitizeBody,worstCase,actualCost,readLimited,ERRORS} from './gateway.js';
 
 const REMOTE=new Set(WALLET_TOOLS);
@@ -71,7 +72,10 @@ async function modelCall(ctx,turn,payload,signal,{repair},emit){
  const request=chatRequest(payload);
  request.messages[0]={role:'system',content:request.messages[0].content+' '+summaryContext(turn.summary)};
  // A repair is checked before anyone sees it, so it is not streamed.
- const forwarded=sanitizeBody({messages:request.messages,tools:request.tools,tool_choice:request.toolChoice,max_tokens:request.maxTokens,temperature:request.temperature,stream:!repair},ctx.config);
+ const switches=await ctx.switches();
+ // disabledTools removes a tool from the list the model sees; forceModel replaces the model (both from KV, switches.js).
+ const asked=withoutDisabledTools({messages:request.messages,tools:request.tools,tool_choice:request.toolChoice},switches.disabledTools);
+ const forwarded=sanitizeBody({...asked,max_tokens:request.maxTokens,temperature:request.temperature,stream:!repair},{...ctx.config,forceModel:switches.forceModel});
  const settle=await reserve(ctx,worstCase(forwarded,ctx.config));
  ctx.record.model_calls=(ctx.record.model_calls||0)+1;ctx.metrics.model=forwarded.model;
  const response=await callProvider(ctx,forwarded,settle,signal);
@@ -133,6 +137,12 @@ export async function agentRoute(ctx){
  if(turn.rounds.length){
   if(!(turn.turn.exp>ctx.now()&&turn.turn.exp<=ctx.now()+TURN_TTL_MS))throw new Refusal('turn_expired');
   if(!sameText(turn.turn.sig,await signRounds(ctx,turn,turn.rounds.map(r=>r.message),turn.turn.exp)))throw new Refusal('turn_invalid');
+ }
+ // The assistantOff switch: a localized "temporarily unavailable" answer, no model call, nothing charged. It is not
+ // an answered turn (metrics.js counts answered turns only).
+ if((await ctx.switches()).assistantOff){
+  const done={type:'done',answer:unavailableText(turn.summary.language),memory:turn.memory,history:trimHistory(turn.history),tools:[],trace:[],context:null};
+  return new Response('data: '+JSON.stringify(done)+'\n\n',{status:200,headers:{'Content-Type':'text/event-stream; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...ctx.cors}});
  }
  // Release identity for the metrics data point: which prompt and which knowledge snapshot answered.
  ctx.metrics.promptHash=await shortHash(SYSTEM);ctx.metrics.snapshotId=manifest.snapshotId;

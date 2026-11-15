@@ -161,6 +161,54 @@ FROM cardybara_agent_metrics WHERE timestamp > NOW() - INTERVAL '7' DAY GROUP BY
 
 The deploy and the first query against real data are owner steps; the SQL is not yet run against real data.
 
+## Alerts and switches
+
+### Hourly alert check
+
+A Cron Trigger (`7 * * * *` in `gateway/wrangler.jsonc`) runs the Worker's `scheduled` handler (`gateway/src/alerts.js`). It is a handler of the gateway Worker, not a second Worker: it needs the `UsageLedger` and KV bindings directly (a second Worker would need cross-script Durable Object bindings), and it reports the version id of the code it runs with.
+
+Each run reads the last hour and the 7 days before it from the metrics dataset through the Analytics Engine SQL API (sampling corrected with `_sample_interval`), and the month-to-date spend from `UsageLedger`. A turn is an agent request that ended with an answer or an error code; a request that only asked the extension for wallet tools is not counted.
+
+| Signal | Breach when | Needs |
+| --- | --- | --- |
+| `budget` | month-to-date spend is at least 80% of the monthly budget (the KV `monthlyBudgetUsd` or `MONTHLY_BUDGET_USD`) | the ledger |
+| `errors` | error rate over the last hour is at least 5% | at least 20 turns in the hour |
+| `repair` | repair rate of the last hour is at least double its mean over the 7 days before (and at least 5%, so a mean of zero does not make one repair an incident) | at least 20 turns in the hour |
+| `fallback` | the same for the fallback rate | at least 20 turns in the hour |
+
+Defaults are in code (`DEFAULT_THRESHOLDS`); KV `settings.alerts` overrides each one: `{"alerts":{"budgetPercent":80,"errorPercent":5,"rateMultiple":2,"minRatePercent":5,"minTurns":20}}`. A value that is not a positive number is ignored and logged.
+
+### Incident flow
+
+- A breach opens one GitHub issue per signal, titled `Assistant alert: <signal>`, labelled `agent-incident` and `P1`. The body holds the aggregates that tripped it, the checked time, the Worker version id and a link to this section. Never a code id, a question or per-turn data. If an incident for the signal is already open, the check comments on it instead of opening another (once per hourly check while the breach lasts).
+- The next check where the signal is healthy comments "Healthy again" and closes the issue. A signal that cannot be judged (fewer than 20 turns, or the source could not be read) neither opens nor closes anything.
+- What to do: `budget` is the spend guard (raise the cap with `set-caps --yes` only if the spend is expected; `assistantOff` below stops the assistant at once); `errors` and `fallback` after a release: compare by `version_id` (Metrics) and roll back (Release); `repair` points at a prompt or model change.
+- The Worker sends no push notification, and nothing is rolled back automatically.
+
+Owner steps (none run by code): create a fine-grained GitHub token with Issues: write on this repository only and a Cloudflare API token that can read Account Analytics, then `npx wrangler@4.150.0 secret put GITHUB_TOKEN --config gateway/wrangler.jsonc` (and `ANALYTICS_SQL_TOKEN`, `CF_ACCOUNT_ID`), and create the labels `agent-incident` and `P1` if missing. Optional var `GITHUB_REPO` (default `stl00/Cardybara`). Without the secrets the check logs what is missing (`github_token_missing`, `sql_token_missing`) and does nothing; without the SQL ones it still checks the budget. The SQL has not yet run against real data.
+
+### KV switches
+
+Stored in the KV key `settings` beside the caps, read on each request through a 30-second cache (a change takes up to about a minute in KV plus 30 seconds here):
+
+| Switch | Effect |
+| --- | --- |
+| `disabledTools` (list of tool names) | the tools are removed from the list the model sees; a tool the model still names is rejected by the agent loop |
+| `forceModel` (a name in `ALLOWED_MODELS`) | every model call uses this model whatever the client asked |
+| `assistantOff` (`true`) | `/v1/chat` answers "temporarily unavailable" in the wallet's language (zh-CN, zh-TW, en-US) with no model call and no charge; it is not counted as an answered turn |
+
+An invalid value (wrong type, a model not in `ALLOWED_MODELS`, a tool name that is not `a-z0-9_`) is ignored, never applied, and logged as `{"switch":"<key>","ignored":"invalid_value"}` without the value.
+
+```sh
+node scripts/gateway-codes.mjs switches
+node scripts/gateway-codes.mjs set-switch disabledTools find_benefits,get_card_rules
+node scripts/gateway-codes.mjs set-switch forceModel deepseek-flash
+node scripts/gateway-codes.mjs set-switch assistantOff on        # off to turn it back
+node scripts/gateway-codes.mjs clear-switch disabledTools
+```
+
+`set-switch` checks the same rules as the gateway and refuses an invalid value; `forceModel` is checked against `ALLOWED_MODELS` in `gateway/wrangler.jsonc`.
+
 ## Release (staged, by Worker version)
 
 `scripts/gateway-release.mjs` wraps wrangler so a new gateway build is tested as the exact Worker version that will take traffic, then ramped, instead of replacing the gateway in one step. It is an owner/ops tool: nothing in it runs in CI on pull requests, every step prints what it will run, and any step that acts on a version refuses to run without an explicit version id. Add `--dry-run` to print the steps and stop.

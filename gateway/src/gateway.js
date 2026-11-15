@@ -17,6 +17,7 @@
 // A failed load stays cached on purpose: a module whose evaluation threw cannot be evaluated again (the bundler's lazy
 // init and native ESM both keep the failure), so every /v1/chat then answers agent_unavailable until a redeploy.
 import {writeMetrics} from './metrics.js';
+import {readSwitches} from './switches.js';
 let agent=null;
 const agentRoute=ctx=>(agent||=import('./agent.js')).then(m=>m.agentRoute(ctx),()=>{throw new Refusal('agent_unavailable');});
 
@@ -64,7 +65,7 @@ export function readConfig(env){
 // Global caps the owner can change without a deploy: the KV key `settings` holds
 // {dailyRequests, dailyTokens, monthlyBudgetUsd}; each present, valid value replaces the var of the same cap.
 export const SETTINGS_KEY='settings';
-async function withSettings(base,env){
+export async function withSettings(base,env){
  const c={...base};
  let s=null;try{s=await env.INVITES.get(SETTINGS_KEY,{type:'json'});}catch{}
  if(plain(s)){
@@ -121,7 +122,8 @@ const plain=v=>!!v&&typeof v==='object'&&!Array.isArray(v);
 export function sanitizeBody(body,c){
  if(!plain(body))throw Error('bad_request');
  const out={};
- const model=body.model??c.models[0];
+ // The forceModel switch (switches.js) is already checked against ALLOWED_MODELS and replaces what the client asked for.
+ const model=c.forceModel||(body.model??c.models[0]);
  if(typeof model!=='string'||!c.models.includes(model))throw Error('model_not_allowed');
  out.model=model;
  if(!Array.isArray(body.messages)||!body.messages.length||body.messages.length>200)throw Error('bad_request');
@@ -163,7 +165,7 @@ export const actualCost=(usage,c)=>{
 };
 
 const ledger=env=>env.USAGE.get(env.USAGE.idFromName('global'));
-async function callLedger(env,op,args){
+export async function callLedger(env,op,args){
  const response=await ledger(env).fetch('https://ledger.internal/'+op,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(args)});
  if(!response.ok)throw Error('gateway_busy');
  return response.json();
@@ -256,7 +258,7 @@ async function inviteRoute(ctx){return respond(200,{status:'active'},ctx.cors);}
 /** The model proxy: one completion, as JSON or as server-sent events when the client asks to stream. */
 async function completionRoute(ctx){
  let forwarded;
- try{forwarded=sanitizeBody(await readJson(ctx),ctx.config);}catch(e){throw e instanceof Refusal?e:new Refusal(ERRORS[e.message]?e.message:'bad_request');}
+ try{forwarded=sanitizeBody(await readJson(ctx),{...ctx.config,forceModel:(await ctx.switches()).forceModel});}catch(e){throw e instanceof Refusal?e:new Refusal(ERRORS[e.message]?e.message:'bad_request');}
  ctx.metrics.model=forwarded.model;
  const settle=await reserve(ctx,worstCase(forwarded,ctx.config));
  const response=await callProvider(ctx,forwarded,settle);
@@ -322,11 +324,13 @@ export async function handle(request,env,deps={}){
  const cors=allowed?{'Access-Control-Allow-Origin':origin,'Vary':'Origin'}:{'Vary':'Origin'};
  const route=ROUTE_TABLE.find(r=>r.path===url.pathname);
  const record={at:new Date(now()).toISOString(),route:route?.name||'other',code:null,status:0};
- let deferred=null;
+ let deferred=null,switchesRead=null;
  const ctx={request,env,config,cors,record,url,now,// Called as a plain function: Workers' fetch throws "Illegal invocation" when called as a method of another object.
   upstream:deps.fetch||((...a)=>globalThis.fetch(...a)),invite:null,deferLog:p=>{deferred=p;},
   // Tests only: sees each agent model call's payload before it becomes a provider request. The Worker never sets it.
   observe:deps.observe||null,
+  // The KV switches, read once per request through a short cache (switches.js).
+  switches:()=>(switchesRead||=readSwitches({env,config,now,log})),
   // What the metrics data point needs beyond the log record (model, prompt hash, repair, tool counts); never logged.
   metrics:{}};
  const started=now();
@@ -365,7 +369,7 @@ export class UsageLedger{
  async fetch(request){
   const op=new URL(request.url).pathname.slice(1);let args;
   try{args=await request.json();}catch{return new Response('bad',{status:400});}
-  if(op!=='reserve'&&op!=='settle')return new Response('bad',{status:404});
+  if(op!=='reserve'&&op!=='settle'&&op!=='month')return new Response('bad',{status:404});
   try{return Response.json(await this.run(()=>this[op](args)));}catch{return new Response('bad',{status:500});}
  }
  async reserve({code,day,month,tokens,micros,maxRequests,maxTokens,maxMicros}){
@@ -388,6 +392,8 @@ export class UsageLedger{
    for(let i=0;i<old.length;i+=128)await this.storage.delete(old.slice(i,i+128));
   }
  }
+ /** Month-to-date spend in micro-USD (settled use plus open reservations' worst case), for the hourly alert check. */
+ async month({month}){const m=(await this.storage.get('m:'+month))||{micros:0};return {micros:m.micros};}
  /** Replaces a reservation's worst case with what was actually spent. */
  async settle({id,tokens,micros,keep}){
   const r=await this.storage.get('r:'+id);if(!r)return {ok:false};
