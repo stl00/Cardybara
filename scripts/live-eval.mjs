@@ -1,7 +1,7 @@
 // Scheduled live assistant eval (stl00/Cardybara#40). Runs a pinned, capped set of the development live cases on
 // the real model, judges each case over repeated attempts, and compares the result with the last good run.
 //
-//   node scripts/live-eval.mjs --out=dir [--baseline=report.json] [--accept]   real model, API cost
+//   node scripts/live-eval.mjs --out=dir [--transcripts=dir] [--baseline=report.json] [--accept]   real model, API cost
 //   node scripts/live-eval.mjs --out=dir --dry-run [--fail=id,id]              no network, no key
 //   node scripts/live-eval.mjs --target=hosted --version=<id> --out=dir        the deployed Worker, pinned to one version
 //        [--url=<gateway>]; the invite code comes from CARDYBARA_EVAL_INVITE (a code with low caps; never printed)
@@ -9,7 +9,9 @@
 //                                                                              with a canned provider: no network, no code
 //
 // The key comes only from the DEEPSEEK_API_KEY environment variable and is never written anywhere. The report
-// holds case ids, check outcomes, tool names, token counts and spend: no questions, answers or model text.
+// holds case ids, check outcomes, tool names, token counts and spend: no questions, answers or model text. The answer
+// text and tool calls of failing tries go to transcripts.json in --transcripts (default <out>-transcripts), a separate
+// artifact, scrubbed and capped, and only for the synthetic wallet.
 // Exit 0: good run (it becomes the next baseline). Exit 1: regression. Exit 2: the run could not be made.
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
@@ -40,7 +42,7 @@ export function verdict(passes,fails,{attempts,passesNeeded}){
  * `spend` is the meter from evals/multiturn/live.mjs. A case the budget cut short is `not_run`, never a failure.
  */
 export async function runLiveEval({config,cases,runCase,spend,log=()=>{}}){
- const results=[];let stopped=null;
+ const results=[],transcripts=[];let stopped=null;
  for(const c of cases){
   const tries=[];let passes=0,fails=0,decided=null;
   while(!decided&&tries.length<config.attempts){
@@ -48,6 +50,7 @@ export async function runLiveEval({config,cases,runCase,spend,log=()=>{}}){
    const before=spend.spent(),r=await runCase(c),passed=Object.values(r.checks).every(Boolean);
    passed?passes++:fails++;
    tries.push({passed,checks:r.checks,toolNames:r.detail?.toolNames||[],...(r.detail?.error?{error:r.detail.error}:{}),...(r.detail?.codes?{codes:r.detail.codes}:{}),ms:r.detail?.ms??null,usd:+(spend.spent()-before).toFixed(5)});
+   if(!passed&&r.detail?.transcript)transcripts.push({id:c.id,attempt:tries.length,failedChecks:Object.entries(r.checks).filter(([,ok])=>!ok).map(([k])=>k),...(r.detail.error?{error:r.detail.error}:{}),...(r.detail.codes?{codes:r.detail.codes}:{}),transcript:r.detail.transcript});
    decided=verdict(passes,fails,config);
   }
   results.push({id:c.id,status:decided||'not_run',passes,fails,tries});
@@ -55,7 +58,7 @@ export async function runLiveEval({config,cases,runCase,spend,log=()=>{}}){
   if(stopped)break;
  }
  for(const c of cases.slice(results.length))results.push({id:c.id,status:'not_run',passes:0,fails:0,tries:[]});
- return {results,stopped};
+ return {results,stopped,transcripts};
 }
 
 /**
@@ -73,6 +76,28 @@ export function compare(results,baseline){
  return {cases,regressions,failing,fixed,notRun};
 }
 
+export const TRANSCRIPT_CAP=4000;
+const SECRET_SHAPES=[/\b(?:sk|pk|rk)-[A-Za-z0-9_-]{8,}/g,/\bcdy_[A-Za-z0-9_-]{8,}/g,/\b(?:gh[pousr]_|github_pat_)[A-Za-z0-9_]{12,}/g,/\bBearer\s+[A-Za-z0-9._~+\/=-]{8,}/gi,/\beyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]*/g,/[A-Za-z0-9_+\/=-]{40,}/g];
+/** Replace anything that looks like a key or token, and any literal secret the run held. */
+export function scrub(text,secrets=[]){
+ let out=String(text);
+ for(const s of secrets.filter(x=>typeof x==='string'&&x.length>=8))out=out.split(s).join('[redacted]');
+ for(const re of SECRET_SHAPES)out=out.replace(re,'[redacted]');
+ return out;
+}
+const scrubValue=(v,secrets)=>typeof v==='string'?scrub(v,secrets):Array.isArray(v)?v.map(x=>scrubValue(x,secrets)):v&&typeof v==='object'?Object.fromEntries(Object.entries(v).map(([k,x])=>[k,scrubValue(x,secrets)])):v;
+
+/**
+ * The text of failing tries, for the separate `live-eval-transcripts` artifact. Refuses a run that did not use the
+ * synthetic wallet. Each answer is capped and scrubbed; passing tries contribute nothing.
+ */
+export function buildTranscripts({report,run,secrets=[]}){
+ if(report.syntheticWallet!==true)throw Error('transcripts are kept only for the synthetic wallet');
+ const tries=(run.transcripts||[]).map(t=>({id:t.id,attempt:t.attempt,failedChecks:t.failedChecks,...(t.error?{error:t.error}:{}),...(t.codes?{codes:t.codes}:{}),
+  answer:scrub(t.transcript.answer||'',secrets).slice(0,TRANSCRIPT_CAP),answerTruncated:(t.transcript.answer||'').length>TRANSCRIPT_CAP,toolCalls:scrubValue(t.transcript.toolCalls||[],secrets)}));
+ return {schema:1,kind:'live-eval-transcripts',syntheticWallet:true,model:report.model,commit:report.commit,createdAt:report.createdAt,tries};
+}
+
 export function summary(report){
  const failedChecks=c=>[...new Set(c.tries.filter(t=>!t.passed).flatMap(t=>[...Object.entries(t.checks).filter(([,ok])=>!ok).map(([k])=>k),...(t.error?[t.error]:[])]))].join(', ');
  const line=id=>{const c=report.cases.find(x=>x.id===id);return `- \`${id}\`: ${c.passes} of ${c.tries.length} attempts passed${failedChecks(c)?'; failed checks: '+failedChecks(c):''}`;};
@@ -82,7 +107,7 @@ export function summary(report){
  if(report.fixed.length)out.push('','Passing again: '+report.fixed.map(id=>'`'+id+'`').join(', '));
  if(report.notRun.length)out.push('',`Not run${report.stopped?' (budget reached)':''}: `+report.notRun.map(id=>'`'+id+'`').join(', '));
  if(report.accepted)out.push('','This run was accepted as the new baseline by hand.');
- out.push('','Synthetic wallet only. The report holds check outcomes and tool names, no model text.');
+ out.push('','Synthetic wallet only. The report holds check outcomes and tool names, no model text. Failing tries keep their answer text in the separate `live-eval-transcripts` artifact (14 days).');
  return out.join('\n')+'\n';
 }
 
@@ -123,7 +148,7 @@ async function main(){
    invite='cdy_'+'dry-run-only-'.padEnd(43,'0');await g.addInvite(invite,{id:'live-eval-dry-run'});
    fetchImpl=(url,init)=>g.handle(new Request(url,init));base='https://gateway.test';
    const turn=hostedTurn({post:hostedPost({base,invite,version,fetch:fetchImpl})});
-   runCase=async c=>{spend.record({prompt_tokens:1000,completion_tokens:100});const r=await turn({history:[],memory:{},question:c.question,context});return {checks:{completed:!!r.answer.trim()&&!failing.has(c.id)},detail:{toolNames:[],ms:0}};};
+   runCase=async c=>{spend.record({prompt_tokens:1000,completion_tokens:100});const r=await turn({history:[],memory:{},question:c.question,context});return {checks:{completed:!!r.answer.trim()&&!failing.has(c.id)},detail:{toolNames:[],ms:0,transcript:{answer:r.answer,toolCalls:[]}}};};
   }else{
    if(!invite)throw Error('CARDYBARA_EVAL_INVITE is not set');
    const {runLiveCase}=await import('../evals/live-case.mjs'),post=hostedPost({base,invite,version,fetch:fetchImpl});
@@ -135,7 +160,7 @@ async function main(){
  }else if(dryRun){
   // Same path with no model: every case passes unless named in --fail, and each attempt is charged one small call.
   const failing=new Set((arg('fail')||'').split(',').filter(Boolean));
-  runCase=async c=>{spend.record({prompt_tokens:1000,completion_tokens:100});return {checks:{completed:!failing.has(c.id)},detail:{toolNames:[],ms:0}};};
+  runCase=async c=>{spend.record({prompt_tokens:1000,completion_tokens:100});return {checks:{completed:!failing.has(c.id)},detail:{toolNames:[],ms:0,transcript:{answer:'Dry run: no model was asked.',toolCalls:[]}}};};
  }else{
   const key=process.env.DEEPSEEK_API_KEY;if(!key)throw Error('DEEPSEEK_API_KEY is not set');
   // The model is pinned by the config, whatever the environment says.
@@ -149,6 +174,9 @@ async function main(){
  await mkdir(out,{recursive:true});
  await writeFile(resolve(out,'report.json'),JSON.stringify(report,null,2)+'\n');
  await writeFile(resolve(out,'summary.md'),summary(report));
+ const transcriptsDir=resolve(arg('transcripts')||out+'-transcripts');
+ await mkdir(transcriptsDir,{recursive:true});
+ await writeFile(resolve(transcriptsDir,'transcripts.json'),JSON.stringify(buildTranscripts({report,run,secrets:[process.env.DEEPSEEK_API_KEY,process.env.CARDYBARA_EVAL_INVITE]}),null,2)+'\n');
  console.log(JSON.stringify({status:report.status,usd:report.spend.usd,regressions:report.regressions,failing:report.failing,notRun:report.notRun,report:resolve(out,'report.json')}));
  if(report.status!=='good')process.exitCode=1;
  // The in-process gateway of the hosted dry run leaves provider timers behind; the report is written, so end here.
