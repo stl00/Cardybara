@@ -167,6 +167,7 @@ Long range moved beyond run-to-run noise (it held at 2/20 over four earlier runs
 - **Comparison.** A good run uploads its report as the `live-eval-baseline` artifact. The next run downloads the latest one and reports a regression for each case that passed there and fails now. A case the budget cut short keeps its baseline status. A case that has never passed is listed but is not a regression.
 - **Regression.** The run fails and opens one issue labelled `live-eval-regression`, or comments on the open one. The next good run comments and closes it. If a case changed on purpose, run the workflow by hand with `accept_as_baseline`.
 - **Report.** Case ids, check outcomes, tool names, token counts and spend, on the synthetic wallet. No questions, answers, model text or key.
+- **Transcripts (#268).** For each failing try the run also writes `transcripts.json` to a separate directory, uploaded as the `live-eval-transcripts` artifact (14 days; the repository is public, so the artifact is downloadable). It holds the final answer text (capped at 4,000 characters), the tool calls with arguments, the failed checks and grounding codes. It is written only when the report says the run used the synthetic wallet, and text that looks like a key or token is replaced with `[redacted]`. Passing tries add nothing, and the report and baseline stay text-free.
 
 `node scripts/live-eval.mjs --dry-run --out=.debug/live-eval [--fail=id]` exercises the same path with no model and no key.
 

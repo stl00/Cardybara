@@ -7,7 +7,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
-import {selectCases,verdict,runLiveEval,compare,buildReport,summary} from '../scripts/live-eval.mjs';
+import {selectCases,verdict,runLiveEval,compare,buildReport,summary,buildTranscripts,scrub,TRANSCRIPT_CAP} from '../scripts/live-eval.mjs';
 import {runLiveCase} from '../evals/live-case.mjs';
 import {liveCases} from '../evals/fixtures.mjs';
 import {meter,priceFor} from '../evals/multiturn/live.mjs';
@@ -84,6 +84,45 @@ test('facts are checked by code and the report holds no model text',async()=>{
  const report=buildReport({config,run,baseline:null,spend:freeSpend()});
  const text=JSON.stringify(report)+summary(report);
  assert.equal(report.cases[0].status,'pass');assert.equal(text.includes(secret),false);assert.equal(text.includes(c.question),false);assert.equal(report.syntheticWallet,true);assert.equal(report.model,config.model);
+});
+
+test('failing tries keep their answer text and failure codes in the transcripts, never in the report',async()=>{
+ const c=liveCases.find(x=>x.id==='dining'),words='WRONG-ANSWER-TEXT',key='sk-'+'a1b2c3d4e5f6a7b8c9d0';
+ const chat=async()=>({content:words+' '+key+' '+'word '.repeat(1000),tool_calls:[{function:{name:'find_benefits',arguments:JSON.stringify({q:'Bearer abcdefghijklmnop'})}}]});
+ const turn=async({request})=>{await request({});throw Object.assign(Error('answer_not_grounded'),{codes:['unsupported_number']});};
+ const pass=async()=>({content:'PASSING-TEXT',tool_calls:[{function:{name:'choose_card',arguments:JSON.stringify(c.expectedArgs)}}]});
+ const okTurn=async({request})=>{await request({});return {answer:'PASSING-TEXT',trace:[],tools:[],memory:{},messages:[],context:{}};};
+ const other=liveCases.find(x=>x.id!==c.id);
+ const run=await runLiveEval({config:{attempts:2,passesNeeded:2,budgetUsd:1},cases:[c,other],spend:freeSpend(),runCase:x=>x.id===c.id?runLiveCase(x,{chat,turn}):runLiveCase(x,{chat:pass,turn:okTurn})});
+ const report=buildReport({config,run,baseline:null,spend:freeSpend()});
+ const t=buildTranscripts({report,run});
+ assert.equal(t.kind,'live-eval-transcripts');assert.equal(t.tries[0].id,c.id);assert.equal(t.tries[0].error,'answer_not_grounded');assert.deepEqual(t.tries[0].codes,['unsupported_number']);
+ assert.match(t.tries[0].answer,/^WRONG-ANSWER-TEXT/);assert.equal(t.tries[0].answer.length,TRANSCRIPT_CAP);assert.equal(t.tries[0].answerTruncated,true);
+ assert.deepEqual(t.tries[0].toolCalls[0].name,'find_benefits');
+ const kept=JSON.stringify(t);assert.equal(kept.includes(key),false);assert.equal(kept.includes('abcdefghijklmnop'),false);assert.equal(kept.includes('PASSING-TEXT'),false,'passing tries add nothing');
+ const text=JSON.stringify(report)+summary(report);assert.equal(text.includes(words),false);
+ assert.equal(JSON.stringify(report).includes('transcript'),false,'the baseline stays text-free');
+ assert.throws(()=>buildTranscripts({report:{...report,syntheticWallet:false},run}),/synthetic wallet/);
+ assert.equal(scrub('literal-secret-value here',['literal-secret-value']),'[redacted] here');
+});
+
+test('the command writes transcripts for failing tries to a separate directory',()=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'live-eval-')),env={...process.env,NODE_NO_WARNINGS:'1'};delete env.DEEPSEEK_API_KEY;
+ try{
+  const r=spawnSync(process.execPath,['scripts/live-eval.mjs','--dry-run','--out='+path.join(dir,'out'),'--transcripts='+path.join(dir,'tx'),'--fail='+config.cases[0]],{cwd:root,env,encoding:'utf8'});
+  assert.equal(r.status,0,r.stderr);
+  const t=JSON.parse(fs.readFileSync(path.join(dir,'tx','transcripts.json'),'utf8'));
+  assert.deepEqual([...new Set(t.tries.map(x=>x.id))],[config.cases[0]]);assert.deepEqual(t.tries[0].failedChecks,['completed']);
+  assert.deepEqual(fs.readdirSync(path.join(dir,'out')).sort(),['report.json','summary.md']);
+ }finally{fs.rmSync(dir,{recursive:true,force:true});}
+});
+
+test('the workflow uploads the transcripts as their own short-lived artifact',()=>{
+ const yml=fs.readFileSync(path.join(root,'.github/workflows/live-evals.yml'),'utf8');
+ const step=yml.slice(yml.indexOf('name: Upload the transcripts'),yml.indexOf('name: Keep a good run'));
+ assert.match(step,/name: live-eval-transcripts/);assert.match(step,/path: live-eval-transcripts\//);assert.match(step,/retention-days: 14/);
+ assert.match(yml,/--transcripts=live-eval-transcripts/);
+ assert.match(yml,/name: live-eval-report\n\s+path: live-eval\//);
 });
 
 test('the command exits 0 on a good run, 1 on a regression and 2 without a key',()=>{
