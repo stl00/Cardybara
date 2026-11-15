@@ -25,7 +25,7 @@ import {cardProducts,matchCardProduct} from './productCatalog.js';
 export const STATE_CHANNELS=['lastPurchase','trip','topics','turns'];
 export const MAX_TURNS=10000;
 const isTurn=n=>Number.isInteger(n)&&n>=0&&n<=MAX_TURNS;
-export const TOPIC_ITEMS=12,TOPIC_CARDS=6;
+export const TOPIC_ITEMS=12,TOPIC_CARDS=6,TOPIC_EARLIER=3;
 
 const TRIP_PRECISIONS=['days','part-of-month','month','holiday'];
 // Dates reach memory only after code resolved them; free text never does.
@@ -51,15 +51,21 @@ const knownRules=new Map();
 // Only hits are cached: a miss can come from client memory, and must not grow the cache.
 const knownRule=id=>{if(knownRules.has(id))return knownRules.get(id);const rule=ruleRevisions(id).filter(r=>r.status==='published').at(-1)||null;if(rule)knownRules.set(id,rule);return rule;};
 const isRule=id=>typeof id==='string'&&/^rule\.[a-z0-9.-]{1,160}$/.test(id)&&!!knownRule(id);
+const validItem=item=>item&&typeof item==='object'&&!Array.isArray(item)&&Object.keys(item).length&&!Object.keys(item).some(k=>!['rule','card'].includes(k))&&!(item.rule!==undefined&&!isRule(item.rule))&&!(item.card!==undefined&&!isProduct(item.card));
+const cleanItem=i=>({...(i.rule?{rule:i.rule}:{}),...(i.card?{card:i.card}:{})});
 function validateTopics(raw){
- if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!['items','cards'].includes(k)))throw Error('invalid_memory');
+ if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!['items','cards','itemsTurn','earlier'].includes(k)))throw Error('invalid_memory');
+ if(raw.itemsTurn!==undefined&&!isTurn(raw.itemsTurn))throw Error('invalid_memory');
+ // Lists that lastResults has since replaced, kept so "the first list" still has an answer after its turns leave the chat.
+ const earlier=raw.earlier??[];
+ if(!Array.isArray(earlier)||earlier.length>TOPIC_EARLIER||earlier.some(l=>!l||typeof l!=='object'||Array.isArray(l)||Object.keys(l).some(k=>!['turn','items'].includes(k))||!isTurn(l.turn)||!Array.isArray(l.items)||!l.items.length||l.items.length>TOPIC_ITEMS||!l.items.every(validItem)))throw Error('invalid_memory');
  const items=raw.items??[],cards=raw.cards??[];
  if(!Array.isArray(items)||items.length>TOPIC_ITEMS||!Array.isArray(cards)||cards.length>TOPIC_CARDS)throw Error('invalid_memory');
  // A bare product id is the shape before turns were recorded; it reads as a card from the first turn.
  const entries=cards.map(c=>typeof c==='string'?{card:c,first:0,last:0}:c);
  if(entries.some(c=>!c||typeof c!=='object'||Array.isArray(c)||Object.keys(c).some(k=>!['card','first','last'].includes(k))||!isProduct(c.card)||!isTurn(c.first)||!isTurn(c.last)||c.first>c.last)||new Set(entries.map(c=>c.card)).size!==entries.length)throw Error('invalid_memory');
  for(const item of items)if(!item||typeof item!=='object'||Array.isArray(item)||!Object.keys(item).length||Object.keys(item).some(k=>!['rule','card'].includes(k))||item.rule!==undefined&&!isRule(item.rule)||item.card!==undefined&&!isProduct(item.card))throw Error('invalid_memory');
- return {items:items.map(i=>({...(i.rule?{rule:i.rule}:{}),...(i.card?{card:i.card}:{})})),cards:entries.map(c=>({card:c.card,first:c.first,last:c.last}))};
+ return {items:items.map(cleanItem),cards:entries.map(c=>({card:c.card,first:c.first,last:c.last})),...(raw.itemsTurn?{itemsTurn:raw.itemsTurn}:{}),...(earlier.length?{earlier:earlier.map(l=>({turn:l.turn,items:l.items.map(cleanItem)}))}:{})};
 }
 function validateTurns(raw){
  if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!['completed','shownFrom'].includes(k))||!isTurn(raw.completed)||!isTurn(raw.shownFrom)||raw.shownFrom>raw.completed)throw Error('invalid_memory');
@@ -76,9 +82,11 @@ export function keepHeldTopics(memory,cards){
  const topics=memory?.topics;if(!topics||typeof topics!=='object')return memory;
  const held=new Set((cards||[]).map(productOf).filter(Boolean));
  const heldRule=rule=>{const products=knownRule(rule)?.productIds||[];return !products.length||products.some(id=>held.has(id));};
- const items=Array.isArray(topics.items)?topics.items.filter(i=>(!i?.card||held.has(i.card))&&(!i?.rule||heldRule(i.rule))):topics.items;
+ const keepItem=i=>(!i?.card||held.has(i.card))&&(!i?.rule||heldRule(i.rule));
+ const items=Array.isArray(topics.items)?topics.items.filter(keepItem):topics.items;
+ const earlier=Array.isArray(topics.earlier)?topics.earlier.map(l=>({...l,items:Array.isArray(l?.items)?l.items.filter(keepItem):l?.items})).filter(l=>!Array.isArray(l.items)||l.items.length):topics.earlier;
  const focus=Array.isArray(topics.cards)?topics.cards.filter(c=>held.has(typeof c==='string'?c:c?.card)):topics.cards;
- return {...memory,topics:{...topics,items,cards:focus}};
+ return {...memory,topics:{...topics,items,cards:focus,...(earlier!==undefined?{earlier}:{})}};
 }
 const normalizedName=s=>String(s).normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
 /** The items a tool result adds to the topic index, in the order returned. */
@@ -109,8 +117,12 @@ export function topicContext(topics,turns){
  const shownFrom=turns?.shownFrom||0;
  const product=id=>{const p=productById.get(id);return {card:p.name,region:p.region};};
  const programme=id=>id&&knowledgeEntities.programmes.find(p=>p.id===id)?.name||null;
+ const listed=item=>{const rule=item.rule&&knownRule(item.rule),to=programme(rule?.terms?.toProgrammeId);return {...(rule?{title:rule.content.title}:{}),...(item.card?product(item.card):{}),...(to?{programme:to}:{})};};
+ // A list from a turn no longer shown is the only place its order survives; lists still in the chat are read there.
+ const gone=(topics.earlier||[]).filter(l=>l.turn<shownFrom);
  return {
-  lastResults:topics.items.map((item,i)=>{const rule=item.rule&&knownRule(item.rule),to=programme(rule?.terms?.toProgrammeId);return {n:i+1,...(rule?{title:rule.content.title}:{}),...(item.card?product(item.card):{}),...(to?{programme:to}:{})};}),
+  ...(gone.length?{earlierLists:gone.map(l=>({turn:l.turn+1,items:l.items.map((item,i)=>({n:i+1,...listed(item)}))}))}:{}),
+  lastResults:topics.items.map((item,i)=>({n:i+1,...listed(item)})),
   // Storage is most recent first, so within one turn the reverse of storage order is the order discussed.
   recentCards:topics.cards.map((c,i)=>({...c,i})).toSorted((a,b)=>a.first-b.first||b.i-a.i).map(c=>({...product(c.card),firstTurn:c.first+1,lastTurn:c.last+1,...(c.last<shownFrom?{onlyInDroppedTurns:true}:{})}))
  };
@@ -153,6 +165,10 @@ const reducers={
   const returned=[...new Set(items.map(i=>i.card).filter(Boolean))];
   if(name!=='list_cards'&&returned.length===1)focus.push(returned[0]);
   const nextItems=appendItems?(items.length?[...before.items,...items]:before.items):items;
+  // The first tool of a turn replaces the list: the list it replaces is kept (the first one and the latest few), not dropped.
+  const replaced=nextItems!==before.items&&!appendItems&&before.items.length,itemsTurn=nextItems===before.items?before.itemsTurn:turn;
+  const kept=before.earlier||[],pushed=replaced?[...kept,{turn:before.itemsTurn??0,items:before.items}]:kept;
+  const earlier=pushed.length>TOPIC_EARLIER?[pushed[0],...pushed.slice(-(TOPIC_EARLIER-1))]:pushed;
   // A focused card keeps the turn it was first discussed in and moves its last turn on; the least recently
   // discussed card leaves first when the list is full.
   // Stored most recent first: the cards this event focused (the later one first), then the rest in their order.
@@ -163,7 +179,7 @@ const reducers={
   const sameCards=nextCards.length===before.cards.length&&nextCards.every((c,i)=>{const b=before.cards[i];return b.card===c.card&&b.first===c.first&&b.last===c.last;});
   // Same list object only when appending nothing; then, with the same cards, the channel is unchanged.
   if(nextItems===before.items&&sameCards)return previous;
-  return {items:nextItems.slice(0,TOPIC_ITEMS),cards:nextCards};
+  return {items:nextItems.slice(0,TOPIC_ITEMS),cards:nextCards,...(itemsTurn?{itemsTurn}:{}),...(earlier.length?{earlier}:{})};
  },
 };
 
