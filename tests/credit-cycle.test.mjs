@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {CYCLE_LABELS,CYCLE_ORDER,cycleGroup,cycleGroupLabel,cycleLabel,nextResetDay} from '../src/creditCycle.js';
+import {cycleFacts,CYCLE_LABELS,CYCLE_ORDER,cycleGroup,cycleGroupLabel,cycleLabel,nextResetDay} from '../src/creditCycle.js';
 import {benefitPeriod} from '../src/benefitRules.js';
 import {creditView} from '../src/creditView.js';
 import {creditTasks} from '../src/personalBenefits.js';
@@ -28,7 +28,7 @@ test('the seven cycles of the issue map to their own labels',()=>{
 test('every cycle label has an English and a Traditional Chinese translation',()=>{
  const merged={'en-US':{},'zh-TW':{}};
  for(const f of Object.values(catalogFiles))for(const l of Object.keys(merged))Object.assign(merged[l],f[l]);
- const keys=[...new Set(Object.values(CYCLE_LABELS)),'全部周期','按周期筛选','公开上限 {0} · 本期至 {1} · {2} 开始下一周期'];
+ const keys=[...new Set(Object.values(CYCLE_LABELS)),'全部周期','按周期筛选','公开上限 {0} · 本期至 {1} · {2} 开始下一周期','公开上限 {0} · 本期至 {1}'];
  for(const l of Object.keys(merged))for(const k of keys)assert.ok(merged[l][k],`${l} is missing ${k}`);
  assert.match(merged['en-US']['公开上限 {0} · 本期至 {1} · {2} 开始下一周期'],/\{2\}/);
 });
@@ -76,4 +76,16 @@ test('real credit tasks carry their cycle and the view can filter and group by i
  assert.ok(only.rows.every(r=>cycleGroup(r.task.cycle)===pick.id));
  assert.equal(creditView(tasks,[],asOf,{cycle:'rolling-four-years'}).cycle,'all','an absent cycle falls back to all');
  assert.equal(view.filtered,false);
+});
+test('row facts: a recurring cycle shows its next start, a one-off or promotion row does not',()=>{
+ const period={start:'2026-11-01',end:'2026-11-30'};
+ assert.deepEqual(cycleFacts({cycle:'calendar-month',period}),{label:'每月',next:'2026-12-01'});
+ for(const cycle of ['promotion-period','fixed-date','per-trip','rolling-four-years','ongoing'])assert.equal(cycleFacts({cycle,period:{start:'2026-10-03',end:'2026-12-17'}}).next,null,cycle);
+ assert.equal(cycleFacts({cycle:'promotion-period',period}).label,'一次性');
+ assert.deepEqual(cycleFacts({cycle:null,period}),{label:null,next:null});
+});
+test('PersonalWallet renders the cycle row from cycleFacts and hides the next-start text without one',()=>{
+ const src=readFileSync(new URL('../src/PersonalWallet.jsx',import.meta.url),'utf8');
+ assert.match(src,/facts=cycleFacts\(task\)/);assert.match(src,/facts\.next\?t\('公开上限 \{0\} · 本期至 \{1\} · \{2\} 开始下一周期'/);
+ assert.match(src,/facts\.label&&<Tag>/);assert.ok(!/nextResetDay/.test(src),'the row must not call nextResetDay directly');
 });

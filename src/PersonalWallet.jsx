@@ -10,7 +10,7 @@ import {creditTasks,taskStatus,reminderTasks,creditCalendar,walletDay,activeTask
 import {readBenefitEvents,appendBenefitEvent} from './personalStore';
 import {creditView,isDone,ENDING_SOON_DAYS,SHORT_LIST,COMPACT_LIST} from './creditView';
 import {creditCategoryLabel} from './creditCategories';
-import {cycleLabel,nextResetDay} from './creditCycle';
+import {cycleLabel,cycleFacts} from './creditCycle';
 import {CardIdentity} from './Identity';
 import ItemLogo from './ItemLogo';
 const {Text,Paragraph,Title}=Typography;
@@ -49,12 +49,12 @@ export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
  const setDismissed=async({cardId,ruleId,title},status)=>{const key=dismissKey(cardId,ruleId),undo=status==='dismissed'?'restored':'dismissed';setBusy(key);try{await mark(key,status,null);message.open({key:'credit-change',type:'success',duration:6,content:<Space><span><ItemLogo ruleId={ruleId}/>{t(title)}</span> · {status==='dismissed'?(showDismissed?t('不再提醒，可在「不再提醒的 Credit」里恢复'):t('不再提醒，可在 Credit 页面恢复')):t('已恢复提醒')}<Button type="link" size="small" onClick={()=>mark(key,undo,null).then(()=>message.destroy('credit-change')).catch(()=>message.error(t('保存失败，刚才的标记没有生效。')))}>{t('撤销')}</Button></Space>})}catch{message.error(t('保存失败，刚才的标记没有生效。'))}finally{setBusy('')}};
  const calendar=()=>{const url=URL.createObjectURL(new Blob([creditCalendar(tasks,events)],{type:'text/calendar;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='cardybara-credit-reminders.ics';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
  const row=({task,status,days,endingSoon})=>{
-  const usage=latest(task),currentUsage=usage?.revisionId===task.revisionId?usage.usage:null,card=cards.find(c=>c.id===task.cardId),done=isDone(status),past=chosen!==day;
+  const usage=latest(task),currentUsage=usage?.revisionId===task.revisionId?usage.usage:null,card=cards.find(c=>c.id===task.cardId),done=isDone(status),past=chosen!==day,facts=cycleFacts(task);
   const others=[{key:'amount',label:t(currentUsage?'修改金额':'记金额')},...(status!=='skipped'?[{key:'skipped',label:t('本期不用')}]:[]),...(!['unused','used','partial'].includes(status)?[{key:'unused',label:t('确认未用')}]:[]),{type:'divider'},{key:'dismiss',label:t('不再提醒')}];
   return <div key={task.key} className="credit-row"><Flex justify="space-between" align="start" gap={12} wrap>
-   <div className="credit-row-main"><Flex wrap align="center" gap={6}><ItemLogo ruleId={task.ruleId}/><Text strong>{ruleField(task.title,task,'title')}</Text>{cycleLabel(task.cycle)&&<Tag>{t(cycleLabel(task.cycle))}</Tag>}<Tag>{t(({unknown:'待确认',unused:'尚未使用',partial:'已用一部分',used:'已用完',skipped:'本期不适用'})[status])}</Tag>{!done&&!past&&<Tag color={endingSoon?'warning':'default'}>{endText(days)}</Tag>}{task.requiresEnrollment!==false&&<Tag color="warning">{t('需核对登记')}</Tag>}</Flex>
+   <div className="credit-row-main"><Flex wrap align="center" gap={6}><ItemLogo ruleId={task.ruleId}/><Text strong>{ruleField(task.title,task,'title')}</Text>{facts.label&&<Tag>{t(facts.label)}</Tag>}<Tag>{t(({unknown:'待确认',unused:'尚未使用',partial:'已用一部分',used:'已用完',skipped:'本期不适用'})[status])}</Tag>{!done&&!past&&<Tag color={endingSoon?'warning':'default'}>{endText(days)}</Tag>}{task.requiresEnrollment!==false&&<Tag color="warning">{t('需核对登记')}</Tag>}</Flex>
     {!singleCard&&<div className="credit-row-card"><CardIdentity card={card}/></div>}
-    <Text type="secondary" className="credit-row-facts">{t('公开上限 {0} · 本期至 {1} · {2} 开始下一周期',[cash(task.limit,task.currency),task.period.end,nextResetDay(task)])}</Text>
+    <Text type="secondary" className="credit-row-facts">{facts.next?t('公开上限 {0} · 本期至 {1} · {2} 开始下一周期',[cash(task.limit,task.currency),task.period.end,facts.next]):t('公开上限 {0} · 本期至 {1}',[cash(task.limit,task.currency),task.period.end])}</Text>
     {currentUsage&&<Paragraph type="secondary" style={{fontSize:12,margin:'6px 0 0'}}>{t('累计已用 {0} · 实际价值 {1}',[hidden?'••••':cash(currentUsage.amount,currentUsage.currency),hidden?'••••':currentUsage.value==null?t('尚未估值'):cash(currentUsage.value,currentUsage.currency)])}</Paragraph>}
    </div>
    <Space wrap size={8}><Button size="small" loading={busy===task.key} disabled={!ready||busy===dismissKey(task.cardId,task.ruleId)} type={done?'default':'primary'} onClick={()=>currentUsage&&!done?setEditingUsage({...task,fillFull:true}):change(task,done?'unknown':'used')}>{done?t('撤销'):t('已用完')}</Button>

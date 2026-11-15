@@ -32,3 +32,7 @@ export const cycleLabel=period=>CYCLE_LABELS[period]??null;
 const addDay=day=>new Date(Date.parse(day+'T00:00:00Z')+86400000).toISOString().slice(0,10);
 /** The day the next cycle starts for a credit task: the day after this cycle ends. Feb 29 fee dates are already settled by the task's own period. */
 export const nextResetDay=task=>task?.period?.end?addDay(task.period.end):null;
+/** Cycles that repeat on a boundary of their own, so the day after period.end really is when the next one starts. */
+export const RECURRING=['calendar-month','calendar-quarter','calendar-half-year','calendar-year','account-anniversary'];
+/** What a credit row says about its cycle: the tag label and the next start day. A one-off, promotion or any period that is not a natural boundary gets no next day. */
+export const cycleFacts=task=>({label:cycleLabel(task?.cycle),next:RECURRING.includes(task?.cycle)?nextResetDay(task):null});
