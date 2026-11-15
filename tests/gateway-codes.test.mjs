@@ -27,7 +27,7 @@ test('issue prints a new code once, stores only its digest, and the gateway acce
 });
 test('set-caps writes the global caps the gateway reads from KV, and raising one needs --yes',async()=>{
  const g=localGateway({vars:{ALLOWED_ORIGINS:ORIGIN}}),kv=g.env.INVITES;
- const defaults=deployedDefaults();assert.deepEqual(defaults,{dailyRequests:200,dailyTokens:300000,monthlyBudgetUsd:10});
+ const defaults=deployedDefaults();assert.deepEqual(defaults,{dailyRequests:200,dailyTokens:300000,monthlyBudgetUsd:10,models:['deepseek-flash']});
  await assert.rejects(()=>command(kv,['set-caps','--monthly-usd','1000'],{defaults}),/raises monthlyBudgetUsd from 10 to 1000.*--yes/);
  assert.equal(await kv.get('settings'),null,'nothing written without --yes');
  await command(kv,['set-caps','--monthly-usd','1000','--yes'],{defaults});assert.equal(JSON.parse(await kv.get('settings')).monthlyBudgetUsd,1000);
