@@ -12,6 +12,7 @@ import {creditView,isDone,ENDING_SOON_DAYS,SHORT_LIST,COMPACT_LIST} from './cred
 import {creditCategoryLabel} from './creditCategories';
 import {cycleLabel,cycleFacts} from './creditCycle';
 import {CardIdentity} from './Identity';
+import LedgerCard from './LedgerCard';
 import ItemLogo from './ItemLogo';
 const {Text,Paragraph,Title}=Typography;
 const Personal=createContext(null);
@@ -99,9 +100,9 @@ export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
 }
 export const usePersonalMarks=()=>useContext(Personal);
 export function PortfolioSummary({cards,hidden}){const {events}=useContext(Personal);return <PortfolioMetrics cards={cards} benefitEvents={events} hidden={hidden}/>;}
-export function CardBenefitDetails({card,hidden=false}){
- useI18n();const {events}=useContext(Personal),p=profileForCard(card);if(!p)return <FeeTracker card={card} benefitEvents={events} hidden={hidden}/>;
- return <><FeeTracker card={card} benefitEvents={events} hidden={hidden}/><Title level={4}>{t('这张卡能用什么')}</Title><CreditManager cards={[card]} compact hidden={hidden}/><Collapse items={[{key:'all',label:t('查看全部福利与会籍'),children:<Space orientation="vertical" size={20} style={{width:'100%'}}>{p.benefits.map(b=><div key={b.id}><ItemLogo ruleId={b.knowledgeRuleId}/><Text strong>{ruleField(b.title,b,'title')}</Text><Paragraph type="secondary" style={{marginTop:5}}>{ruleField(b.condition,b,'summary')}</Paragraph><Sources ids={b.sourceIds}/></div>)}</Space>},{key:'fees',label:t('年费与资料备注'),children:<><Paragraph>{t('公布主卡年费：{0}',[p.fees.primaryAnnual==null?t('未核实'):cash(p.fees.primaryAnnual,p.fees.currency)])}</Paragraph>{p.knowledgeGaps?.map(g=><Paragraph key={g}>{t(g)}</Paragraph>)}{p.changeNotes.map(n=><Paragraph key={n.text}>{t(n.text)}</Paragraph>)}<Sources ids={p.fees.sourceIds}/></>} ]}/></>;
+export function CardBenefitDetails({card,hidden=false,onSetFeeDate}){
+ useI18n();const {events,day}=useContext(Personal),p=profileForCard(card);if(!p)return <FeeTracker card={card} benefitEvents={events} hidden={hidden}/>;
+ return <><FeeTracker card={card} benefitEvents={events} hidden={hidden}/><LedgerCard card={card} events={events} day={day} hidden={hidden} onSetFeeDate={onSetFeeDate?()=>onSetFeeDate(card):undefined}/><Title level={4}>{t('这张卡能用什么')}</Title><CreditManager cards={[card]} compact hidden={hidden}/><Collapse items={[{key:'all',label:t('查看全部福利与会籍'),children:<Space orientation="vertical" size={20} style={{width:'100%'}}>{p.benefits.map(b=><div key={b.id}><ItemLogo ruleId={b.knowledgeRuleId}/><Text strong>{ruleField(b.title,b,'title')}</Text><Paragraph type="secondary" style={{marginTop:5}}>{ruleField(b.condition,b,'summary')}</Paragraph><Sources ids={b.sourceIds}/></div>)}</Space>},{key:'fees',label:t('年费与资料备注'),children:<><Paragraph>{t('公布主卡年费：{0}',[p.fees.primaryAnnual==null?t('未核实'):cash(p.fees.primaryAnnual,p.fees.currency)])}</Paragraph>{p.knowledgeGaps?.map(g=><Paragraph key={g}>{t(g)}</Paragraph>)}{p.changeNotes.map(n=><Paragraph key={n.text}>{t(n.text)}</Paragraph>)}<Sources ids={p.fees.sourceIds}/></>} ]}/></>;
 }
 export function WalletAdvisor({cards}){
  const {events,day}=useContext(Personal);return <ChatAdvisor cards={cards} events={events} day={day}/>;
