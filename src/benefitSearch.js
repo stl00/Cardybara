@@ -88,6 +88,14 @@ const askedThing=question=>{
  const latin=(text.match(/[a-z][a-z-]{2,}/g)||[]).filter(w=>!WEAK.has(w)&&!EN_STOP.has(w)&&!STOP.has(w)&&!['do','does','give','offer','offers','get','what','which','any'].includes(w));
  return han.length>=2||latin.length?[han,...latin].filter(Boolean).join(' '):null;
 };
+// English words of four letters or more that no active rule contains in any language: the thing asked about (parking, shuttle) is
+// missing from the knowledge base, even when another word of the question (hotel, airport, free) matches (#266).
+// Words that only say how the benefit is wanted (free, reimbursed, tickets) are left out of the test, and also do not
+// count as a real word match below. Chinese is not tested: a missing character pair is as often a colloquial
+// wording (省钱, 馆子) as a missing subject, and on the development set it cost recall without cutting noise.
+const QUESTION_WORDS=new Set(['give','gives','offer','offers','free','money','charge','charges','paid','pays','reimbursed','reimburse','refund','refunds','rebate','rebates','buying','buy','using','tickets','ticket','service','services','something','anything','there','insurance','office','passes','pass','car','购票','保险']);
+const absentWords=(question,asOf)=>(toSimplified(norm(question)).replace(/[^\p{L}\p{N}\s]/gu,' ').match(/[a-z][a-z]{3,}/g)||[])
+ .filter(w=>!WEAK.has(w)&&!KIND_WORDS.has(w)&&!EN_STOP.has(w)&&!STOP.has(w)&&!QUESTION_WORDS.has(w)&&!wordStats(w,hasTerm(w),asOf).df&&!typoFixes(w,asOf).length);
 export function searchBenefitKnowledge(question,cards,asOf,filters={}){
  // A product the wallet doesn't hold has no benefits here; the rest of the words must not pull in other cards' rules.
  const unheld=unheldProduct(question,cards,asOf);
@@ -113,9 +121,9 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
   const matchedPartners=requestedPartners.filter(id=>norm(title+' '+body+' '+programmes).includes(id));
   if(requestedPartners.length&&!matchedPartners.length)continue;
   // specific: the rule matched on a concept, a partner or an uncommon word, not on common words alone.
-  let score=0,specific=false,strong=false;const matched=[];
+  let score=0,specific=false,strong=false,worded=false;const matched=[];
   for(const [key,re,scenarios,ruleRe] of signals){const relevant=scenarios.some(id=>r.scenarioIds.includes(id))||(ruleRe||re).test(title+' '+body)||(key==='membership'&&r.category==='membership');if(relevant){score+=key==='membership'?5:CONCEPT;matched.push(key);specific=true;if(key!=='membership'&&(ruleRe||re).test(title+' '+body))strong=true;}}
-  for(const [term,has,stats] of matchers){const points=has(title)?5:has(programmes)?6:has(body)?1:0;if(!points)continue;score+=points*stats.weight;matched.push(term);if(!stats.common){specific=true;if(stats.weight>=STRONG_WEIGHT&&!WEAK.has(term)&&!KIND_WORDS.has(term))strong=true;}}
+  for(const [term,has,stats] of matchers){const points=has(title)?5:has(programmes)?6:has(body)?1:0;if(!points)continue;score+=points*stats.weight;matched.push(term);if(!stats.common){specific=true;if(stats.weight>=STRONG_WEIGHT&&!WEAK.has(term)&&!KIND_WORDS.has(term)){strong=true;if(!QUESTION_WORDS.has(term)&&!concepts.some(([,re])=>re.test(term))&&!/^[\u3400-\u9fff]/.test(term))worded=true;}}}
   if(matchedPartners.length){score+=12;matched.push(...matchedPartners);specific=true;strong=true;}
   if(!specific)score=0;
   const wordScore=score,inFilter=(!filters.scenarioId||r.scenarioIds.includes(filters.scenarioId))&&(!filters.category||r.category===filters.category),filtered=!!(filters.scenarioId||filters.category);
@@ -131,7 +139,7 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
   if(filtered&&inFilter)score+=FILTER_BONUS;
   else if(filters.programme&&!filters.scenarioId&&!filters.category)score+=4;
   if(!score&&!generic)continue;
-  ranked.push({...r,retrieval:{score,matched:[...new Set(matched)],lexical,inFilter:filtered&&inFilter,strong}});
+  ranked.push({...r,retrieval:{score,matched:[...new Set(matched)],lexical,inFilter:filtered&&inFilter,strong,worded}});
  }
  // Only words like 年度 or perks matched, with no scenario, partner or filter: the thing asked about (量子传送舱) is in no
  // rule, and rules that merely mention a year are not an answer.
@@ -144,6 +152,10 @@ export function searchBenefitKnowledge(question,cards,asOf,filters={}){
  // Unfiltered question where no candidate is grounded: abstain like an unknown subject instead of listing rules that share only generic words (membership, 优惠, 保障).
  const ungrounded=!generic&&!filters.scenarioId&&!filters.category&&!filters.programme&&ranked.length&&!ranked.some(r=>r.retrieval.strong)&&askedThing(question);
  if(ungrounded)return {rules:[],total:0,wordMatches:0,truncated:false,unknownSubject:{named:ungrounded},method:'structured-filter+multilingual-idf-ranking',asOf};
+ // Unfiltered question that names an English word no rule contains, with no partner, glossary word or other real word
+ // match behind it (worded: an uncommon word that is not a concept, kind or question word): abstain the same way.
+ const missing=!generic&&!filters.scenarioId&&!filters.category&&!filters.programme&&!requestedPartners.length&&asked===askedText(question)&&!ranked.some(r=>r.retrieval.worded)?absentWords(question,asOf):[];
+ if(missing.length)return {rules:[],total:0,wordMatches:0,truncated:false,unknownSubject:{named:missing.join(' ')},method:'structured-filter+multilingual-idf-ranking',asOf};
  // On equal scores, a rule inside the chosen scenario or category comes first.
  ranked.sort((a,b)=>b.retrieval.score-a.retrieval.score||b.retrieval.inFilter-a.retrieval.inFilter||a.id.localeCompare(b.id));
  const limit=Math.max(1,Math.min(24,filters.limit||12));

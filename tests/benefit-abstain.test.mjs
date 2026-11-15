@@ -14,6 +14,14 @@ test('generic words alone do not return unrelated rules', () => {
  }
 });
 
+test('an English subject word no rule contains abstains even when a concept matches', () => {
+ for(const [question,portfolio] of [['Is airport parking free with my card?','us-premium'],['Is there a free hotel shuttle to the airport?','us-cobrand']]){
+  const r=search(question,portfolio);
+  assert.equal(r.rules.length,0,question);assert.ok(r.unknownSubject,question);
+ }
+ assert.ok(search('Is airport parking free with my card?','us-premium',{scenarioId:'airport'}).rules.length>0);
+});
+
 test('a question with a filter or a real match still searches', () => {
  assert.ok(search('airport lounge Priority Pass','us-premium').rules.length>0);
  assert.equal(search('我有哪些会员优惠','us-premium').unknownSubject,undefined);
