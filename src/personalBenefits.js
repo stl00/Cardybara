@@ -54,11 +54,52 @@ export function feeDateNeededRows(cards,asOf=walletDay()){
  }
  return rows.sort((a,b)=>a.cardId.localeCompare(b.cardId)||a.ruleId.localeCompare(b.ruleId));
 }
+
+const isRealDate=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v+'T00:00:00Z'))&&new Date(v+'T00:00:00Z').toISOString().slice(0,10)===v;
+export const OFF_CYCLE_KEYS=['four-year','one-off'];
+const CYCLE_PERIODS=new Set(['calendar-year','calendar-quarter','calendar-half-year','calendar-month','account-anniversary']);
+const ONE_OFF_PERIODS=new Set(['per-trip','per-stay','activation-based','fixed-date','promotion-period']);
+/** Date four years after a day (same month and day; every date that can be used on Feb 29 has a Feb 29 four years on). */
+export const nextFourYears=day=>{const d=new Date(day+'T00:00:00Z');d.setUTCFullYear(d.getUTCFullYear()+4);return d.toISOString().slice(0,10);};
+/**
+ * Credit and promo rules that are not a calendar or card-year cycle task and not a needs-fee-date row. Each is exactly one of:
+ * four-year (marked with the date used; next date = +4 years), one-off (explicit row, mark used / not relevant),
+ * ongoing (a perk to read, no cycle, no marks). A cycle rule with no positive public limit also lands in ongoing, never nowhere.
+ */
+export function offCycleRows(cards,asOf=walletDay()){
+ const rows=[];
+ for(const card of cards)for(const b of profileForCard(card)?.benefits||[]){
+  if(!['credit','promo'].includes(b.category)||b.validFrom&&b.validFrom>asOf||b.validThrough&&b.validThrough<asOf||b.applicability)continue;
+  const limit=b.monthlyAmounts?.[Number(asOf.slice(5,7))-1]??b.amount,hasLimit=Number.isFinite(limit)&&limit>0;
+  if(CYCLE_PERIODS.has(b.period)){
+   if(b.period==='account-anniversary'&&!cleanFeeDate(card.feeDate))continue; // needs-fee-date row
+   if(hasLimit&&benefitPeriod(b,asOf,{feeDate:card.feeDate}))continue; // cycle task
+  }
+  const kind=b.period==='rolling-four-years'?'four-year':ONE_OFF_PERIODS.has(b.period)?'one-off':'ongoing';
+  rows.push({state:kind,key:kind==='ongoing'?dismissKey(card.id,b.knowledgeRuleId):JSON.stringify([card.id,b.knowledgeRuleId,kind]),cardId:card.id,ruleId:b.knowledgeRuleId,revisionId:b.revisionId,title:b.title,condition:b.condition,sourceIds:b.sourceIds,limit:hasLimit?(b.quantity?limit*b.quantity:limit):null,currency:b.currency||card.currency,period:b.period||null,categories:creditCategoriesForRuleId(b.knowledgeRuleId),...(b.original?{original:structuredClone(b.original)}:{}),...(b.translations?{translations:structuredClone(b.translations)}:{})});
+ }
+ return rows.sort((a,b)=>a.cardId.localeCompare(b.cardId)||a.ruleId.localeCompare(b.ruleId));
+}
+/** Status of an off-cycle row: four-year -> {status:'available'|'used', usedOn, nextEligible}; one-off -> unknown|used|skipped; ongoing -> null. */
+export function offCycleStatus(row,events){
+ if(row.state==='ongoing')return null;
+ const latest=events.filter(e=>e.key===row.key).sort((a,b)=>Date.parse(b.at)-Date.parse(a.at)||b.id.localeCompare(a.id))[0];
+ if(row.state==='four-year'){const used=latest?.status==='used'&&latest.usedOn;return used?{status:'used',usedOn:latest.usedOn,nextEligible:nextFourYears(latest.usedOn)}:{status:'available',usedOn:null,nextEligible:null};}
+ return {status:latest&&(!latest.revisionId||latest.revisionId===row.revisionId)?latest.status:'unknown'};
+}
 export function taskStatus(task,events){const latest=events.filter(e=>e.key===task.key).sort((a,b)=>Date.parse(b.at)-Date.parse(a.at)||b.id.localeCompare(a.id))[0];return latest?.revisionId===task.revisionId?latest?.status||'unknown':'unknown';}
 export function validatePersonalEvent(e){
  if(!e||e.schema!==1||typeof e.id!=='string'||e.id.length>100||typeof e.key!=='string'||e.key.length>600||!statuses.has(e.status)||typeof e.at!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(e.at)||!Number.isFinite(Date.parse(e.at))||Date.parse(e.at)>Date.now()+300000)throw Error('invalid_personal_event');
  const key=JSON.parse(e.key);
  if(DISMISSAL.has(e.status)){if(!Array.isArray(key)||key.length!==2||key.some(x=>typeof x!=='string'||!x)||!key[1].startsWith('rule.')||e.usage!=null||e.revisionId!=null)throw Error('invalid_personal_dismissal');return {schema:1,id:e.id,key:e.key,status:e.status,at:e.at,revisionId:null};}
+ if(Array.isArray(key)&&key.length===3){
+  const [card,rule,kind]=key,ok=[card,rule,kind].every(x=>typeof x==='string'&&x)&&rule.startsWith('rule.')&&OFF_CYCLE_KEYS.includes(kind);
+  if(!ok||e.usage!=null||(e.revisionId!=null&&(typeof e.revisionId!=='string'||!e.revisionId.startsWith(rule+'@'))))throw Error('invalid_personal_key');
+  const allowed=kind==='four-year'?['used','unknown','unused']:['used','skipped','unknown'];
+  if(!allowed.includes(e.status))throw Error('invalid_personal_key');
+  if(kind==='four-year'&&e.status==='used'){if(!isRealDate(e.usedOn)||e.usedOn>walletDay())throw Error('invalid_used_on');}else if(e.usedOn!=null)throw Error('invalid_used_on');
+  return {schema:1,id:e.id,key:e.key,status:e.status,at:e.at,...(e.usedOn?{usedOn:e.usedOn}:{}),revisionId:typeof e.revisionId==='string'&&e.revisionId.length<300?e.revisionId:null};
+ }
  if(!Array.isArray(key)||key.length!==4||key.some(x=>typeof x!=='string')||!key[1].startsWith('rule.')||!/^\d{4}-\d{2}-\d{2}$/.test(key[2])||!/^\d{4}-\d{2}-\d{2}$/.test(key[3])||key[2]>key[3])throw Error('invalid_personal_key');
  if(e.revisionId!=null&&(typeof e.revisionId!=='string'||!e.revisionId.startsWith(key[1]+'@')))throw Error('invalid_personal_revision');
  let usage;if(e.usage!=null){const u=e.usage;if(!['used','partial'].includes(e.status)||!u||!Number.isFinite(u.amount)||u.amount<0||!Number.isFinite(u.limit)||u.limit<=0||u.amount>u.limit||!(u.value===null||Number.isFinite(u.value)&&u.value>=0&&u.value<=u.amount)||!['USD','HKD','CAD','CNY','GBP'].includes(u.currency)||typeof u.title!=='string'||u.title.length>200||typeof u.date!=='string'||u.date<key[2]||u.date>key[3]||!/^\d{4}-\d{2}-\d{2}$/.test(u.date)||new Date(u.date+'T00:00:00Z').toISOString().slice(0,10)!==u.date||u.date>walletDay())throw Error('invalid_credit_usage');usage={amount:u.amount,value:u.value,limit:u.limit,currency:u.currency,title:u.title,date:u.date};}
