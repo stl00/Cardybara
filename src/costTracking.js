@@ -21,7 +21,7 @@ export function checkFeeOverlap(events,event){if(event.kind!=='fee'||event.value
 export function actualCost(cycle){const v=cycle?.value;return v&&v.charged!=null&&v.refund!=null?Math.round((v.charged-v.refund)*100)/100:null;}
 export function creditValueForCycle(cycle,benefitEvents){
  if(!cycle)return {value:0,count:0,unvalued:0};const rows=new Map();for(const e of benefitEvents){const prev=rows.get(e.key);if(!prev||e.at>prev.at||e.at===prev.at&&e.id>prev.id)rows.set(e.key,e);}
- let value=0,count=0,unvalued=0;for(const e of rows.values()){const [card]=JSON.parse(e.key);if(card!==cycle.cardId||!['used','partial'].includes(e.status))continue;const u=e.usage;if(!u){unvalued++;continue;}if(u.date<cycle.value.start||u.date>cycle.value.end)continue;if(u.currency!==cycle.value.currency||u.value==null){unvalued++;continue;}value+=u.value;count++;}return {value:Math.round(value*100)/100,count,unvalued};
+ let value=0,count=0,unvalued=0;for(const e of rows.values()){const parts=JSON.parse(e.key),[card]=parts;if(['four-year','one-off'].includes(parts[parts.length-1])||card!==cycle.cardId||!['used','partial'].includes(e.status))continue;const u=e.usage;if(!u){unvalued++;continue;}if(u.date<cycle.value.start||u.date>cycle.value.end)continue;if(u.currency!==cycle.value.currency||u.value==null){unvalued++;continue;}value+=u.value;count++;}return {value:Math.round(value*100)/100,count,unvalued};
 }
 export function portfolioMetrics(cards,costEvents,benefitEvents,asOf){
  const groups=new Map(),accounts=new Map(latestCosts(costEvents).filter(e=>e.kind==='account').map(e=>[e.cardId,e.value])),limits=new Map();
