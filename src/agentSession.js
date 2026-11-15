@@ -3,7 +3,7 @@ import {heldCards} from './heldCards.js';
 import {prepareAgentContext,statedPointValues} from './agentContext.js';
 import {validateState,reduceToolResult,diffState,endTurn,keepHeldTopics} from './conversationState.js';
 import {answerGrounding} from './answerGrounding.js';
-import {planResults} from './creditClaims.js';
+import {planResults,ledgerResults} from './creditClaims.js';
 import {renderCreditAnswers} from './creditAnswer.js';
 import {renderChoiceAnswer} from './decisionAnswer.js';
 import {creditNamesForCards} from './creditQuery.js';
@@ -45,7 +45,7 @@ export async function runAgentTurn({history,question,context,request,memory={},o
     grade=answerGrounding(message.content,evidence,{contextText:groundingContext(),creditNames});trace.push({type:'repair',passed:grade.passed,codes:grade.issues.map(i=>i.code)});if(!grade.passed){
      // Credit facts are already computed, so code can state them plainly rather than refuse the question.
      const choice=evidence.findLast(x=>x?.tool==='choose_card'&&x.choice);
-     const plans=planResults(evidence);
+     const plans=[...planResults(evidence),...ledgerResults(evidence)];
      if(!plans.length&&!choice)throw Object.assign(Error('answer_not_grounded'),{codes:grade.issues.map(i=>i.code)});
      // Say so when the turn asked for more than these lookups can answer.
      const onlyTool=choice?'choose_card':'query_credits',partial=tools.some(name=>name!==onlyTool)||evidence.some(x=>x?.needsDates);

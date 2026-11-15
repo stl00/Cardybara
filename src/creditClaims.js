@@ -21,6 +21,8 @@ const cardAnchors=item=>norm(item.card).split(/[^a-z0-9]+/).filter(w=>w.length>=
 const escaped=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 const mentions=(text,anchors)=>anchors.some(a=>/^[\x00-\x7f]+$/.test(a)?new RegExp('(?<![a-z0-9])'+escaped(a)+'(?![a-z0-9])').test(text):text.includes(a));
 export const planResults=evidence=>evidence.filter(x=>x?.tool==='query_credits'&&x.groups);
+// A ledger result (#288) also has a code-written fallback, but no groups for the status checks.
+export const ledgerResults=evidence=>evidence.filter(x=>x?.tool==='query_credits'&&x.mode==='ledger');
 function statusItems(evidence){
  const plans=planResults(evidence);
  // A card decision carries the same marks for the credits it considered.

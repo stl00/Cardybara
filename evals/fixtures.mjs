@@ -213,6 +213,20 @@ export const cycleCases=[
  {id:'cycle-global-entry-used-en',question:'When can I use my Sapphire Reserve Global Entry credit again?',args:{cardName:'Sapphire Reserve'},events:[fourYearMark(CSR,GE,'2023-05-10')],check:r=>{const i=titled(r,'cycleUnknown','Global Entry')[0];return i?.fourYear.lastUsedOn==='2023-05-10'&&i.fourYear.nextEligible==='2027-05-10';},answer:/next eligible 2027-05-10/},
  {id:'cycle-global-entry-used-hant',question:'我的 Sapphire Reserve 的 Global Entry credit 什麼時候可以再用？',args:{cardName:'Sapphire Reserve'},events:[fourYearMark(CSR,GE,'2023-05-10')],check:r=>titled(r,'cycleUnknown','Global Entry')[0]?.fourYear.nextEligible==='2027-05-10',answer:/下次可用 2027-05-10/},
 ];
+// #288: how much a card's credits returned this year, from the per-card ledger. Synthetic Sapphire Reserve (fee date Aug 1)
+// read on the context day 2026-10-29. Hand-worked: card year 2026-08-01..2027-07-31 used 300 (travel) + 10 (Lyft Sep) + 4 (Lyft Oct, partial) = 314;
+// not captured (ended, no mark) Lyft Aug 10 + retail Aug-Sep 40 + Peloton Aug-Sep 20 = 70. Calendar 2026 adds Jan-Jul/Aug cycles: Lyft 8x10, retail 9x20, Peloton 9x10, StubHub H1 150, dining H1 150 = 650.
+const RESERVE='rule.chase-us-sapphire-reserve.',reserveFee={[CSR]:{month:8,day:1}};
+const reserveMarks=[creditMark(CSR,RESERVE+'travel','2026-08-01','2027-07-31','used'),creditMark(CSR,RESERVE+'lyft','2026-09-01','2026-09-30','used'),creditMark(CSR,RESERVE+'lyft','2026-10-01','2026-10-31','partial',{usage:{amount:4,limit:10,currency:'USD'}})];
+const returned=(r,part)=>r.mode==='ledger'&&r.cards.length===1&&Object.entries(part).every(([k,v])=>r.cards[0].returned?.[k]===v);
+export const ledgerCases=[
+ {id:'ledger-card-year-hans',question:'我的 Sapphire Reserve 这个卡年 credit 返还了多少？',args:{cardName:'Sapphire Reserve',yearBasis:'card-year'},feeDates:reserveFee,events:reserveMarks,check:r=>returned(r,{used:314,notCaptured:70,unused:0})&&r.cards[0].period.start==='2026-08-01'&&r.cards[0].period.end==='2027-07-31',answer:/未记录（周期已结束但没有标记，不代表用过）: USD 70/},
+ {id:'ledger-calendar-year-hant',question:'我的 Sapphire Reserve 今年（日曆年）的 credit 返還了多少？',args:{cardName:'Sapphire Reserve',yearBasis:'calendar-year'},feeDates:reserveFee,events:reserveMarks,check:r=>returned(r,{used:314,notCaptured:650})&&r.cards[0].period.start==='2026-01-01',answer:/未記錄（週期已結束但沒有標記，不代表用過）: USD 650/},
+ {id:'ledger-card-year-en',question:'How much have my Sapphire Reserve credits returned this card year?',args:{cardName:'Sapphire Reserve',yearBasis:'card-year'},feeDates:reserveFee,events:reserveMarks,check:r=>returned(r,{used:314,available:2030,open:1646}),answer:/marked used: USD 314/},
+ // No marks at all: nothing is used, and the ended cycles are not captured rather than used or missed.
+ {id:'ledger-no-marks-not-used-en',question:'How much did my Sapphire Reserve credits return in the calendar year?',args:{cardName:'Sapphire Reserve',yearBasis:'calendar-year'},events:[],check:r=>returned(r,{used:0,unused:0,skipped:0})&&r.cards[0].returned.notCaptured>0&&r.cards[0].needsFeeDate===true,answer:/not captured \(cycle ended with no mark; not the same as used\)/},
+ {id:'ledger-card-year-no-fee-date-hans',question:'我的 Sapphire Reserve 这个卡年 credit 返还了多少？',args:{cardName:'Sapphire Reserve',yearBasis:'card-year'},events:reserveMarks,check:r=>r.cards.length===1&&r.cards[0].needsFeeDate===true&&r.cards[0].returned===null&&r.cards[0].period===null&&/Ask the user to set/.test(r.cards[0].nextStep),answer:/请先在卡片上设置年费日/}
+];
 export const liveCases=[
  {id:'dining',question:'在美国餐厅消费100美元用哪张卡？请简短回答并保留来源。',expectTool:'choose_card',answerPatterns:['Gold'],expectedArgs:{category:'dining',country:'US',currency:'USD',amount:100}},
  {id:'answers-before-asking',question:'我在餐厅花100，要刷哪张？',expectTool:'choose_card',answersFirst:true},
