@@ -2,7 +2,7 @@
  "schema": 1,
  "model": "deepseek-flash",
  "budgetUsd": 0.3,
- "maxCases": 12,
+ "maxCases": 14,
  "attempts": 3,
  "passesNeeded": 2,
  "cases": [
@@ -17,6 +17,8 @@
   "transfer-unknown-ratio",
   "trip-christmas-hotel",
   "trip-whole-question",
-  "follow-up"
+  "follow-up",
+  "cycle-card-year-no-fee-date",
+  "cycle-global-entry-next-eligible"
  ]
 }
