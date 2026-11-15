@@ -337,6 +337,35 @@ Pass condition, fixed before the live run: frozen-set mode A noise at most 20%, 
 
 **Frozen set, still noisy in mode A without the judge** (19 of 52, 36.5%): n-en-gas, n-en-pet, n-en-mortgage, n-en-ski, n-en-carwash, n-en-payroll, n-en-laptop, n-en-cowork, n-en-fx, n-en-concert, n-hans-pet, n-hans-gas, n-hans-car, n-hans-medical, n-hans-office, n-hans-insurance, n-hant-renovation, n-hant-cruise, n-hant-company. Mode C on the frozen set: 38%. These ids were listed after the judge prompt was fixed and are not to be used to change it.
 
+### Gated answer judge (#291, 2026-11-15): gate built and chosen on dev; offline re-score and live run still to do
+
+**Why a gate.** The first live run (judge on every result) took frozen no-answer noise to 0% but cost 3.8 points of held-out and 7.4 of dev recall@12, because the judge sometimes rejects a question the search had answered well. The judge is now asked only when the deterministic search is weak.
+
+**The gate** (`isWeakMatch` and `gatedJudge` in `src/benefitAnswerJudge.js`, constant `JUDGE_GATE`; no model involved). A result is weak when the best rule score is below `topScoreBelow` (15) and no returned rule is `worded` (a rule matched on an uncommon word of the question that is not a concept, kind or question word; the field `searchBenefitKnowledge` already sets). Strong result: returned as today, the model is never called. Weak result: the judge reads the top 5; none answers gives an empty result, otherwise the list is kept whole. Unreadable output keeps the rules. Both numbers are parameters, so a later run can move them without code changes (`--top-score=N`, `--worded=0|1`, `--gate=off` for the old judge-on-everything behaviour).
+
+**How it was chosen: development set only.** Each policy is scored on the 21 dev questions that are noisy in mode A and the 137 scored dev questions that return rules (a present question inside the gate is exposed to the judge's mistakes; one outside it cannot lose recall):
+
+| policy (weak when) | dev noisy covered | dev present exposed | share of dev questions judged |
+| --- | --- | --- | --- |
+| always (#289 as run) | 21 / 21 | 137 / 137 (100%) | 77% |
+| no worded match | 19 / 21 | 68 / 137 (50%) | 43% |
+| top score < 15 | 20 / 21 | 55 / 137 (40%) | 37% |
+| top score < 12 | 15 / 21 | 37 / 137 (27%) | 26% |
+| no worded match and top score < 20 | 19 / 21 | 42 / 137 (31%) | 30% |
+| **no worded match and top score < 15 (chosen)** | **19 / 21** | **34 / 137 (25%)** | **26%** |
+| no worded match and top score < 10 | 11 / 21 | 15 / 137 (11%) | 13% |
+| at most 1 strong rule in the top 5 | 8 / 21 | 28 / 137 (20%) | 17% |
+
+The chosen row keeps 90% of the dev noise reachable while cutting exposure from 100% to 25% of present questions. Honesty note: before the table was built, aggregate distributions of the same signals (histograms and score quantiles, not per-question verdicts) were printed for the held-out and frozen sets as well; the choice rests on the dev table above and no ids from the frozen set were looked at. The judge prompt is unchanged.
+
+**What the gate does on the other sets (no model, from `--dry-run`).** The judge would be asked on 26.1% of dev, 17.4% of held-out and 21.2% of frozen questions (85 calls instead of 281, dry-run cost ceiling about $0.016 instead of $0.05).
+
+**Not done yet (both need the owner).**
+1. Offline re-score from the stored verdicts of run 43762730684. The script supports it: download the `live-measure-judge` artifact (ids, counts and yes/no only) and run `node scripts/eval-benefit-judge.mjs --from-report=live-measure/benefit-judge.json`. No model, no key, no spend. A question the gate asks about but the stored run has no verdict for is counted as unknown (keeps its rules) and listed. Paste the resulting table here; the pass condition from #291 is frozen noise at most 20%, held-out recall@12 within 1 point of 93.8%, dev within 2 points of 98.2%. If it fails, try another row of the table above with `--top-score` / `--worded` before touching anything else.
+2. A confirmation live run needs a fresh owner approval (cap 0.20 USD): trigger the `Live one-off measurement` workflow with `judge`; it now runs the gated judge by default.
+
+**Not wired into the assistant.** `runWalletTool` is synchronous and shared by the local chat, the cloud chat and the evals, so calling the judge from `find_benefits` needs an async path through `src/agentSession.js` and `src/cloudChat.js` and a place for the model client. That waits for step 1 to pass, so no user-visible behaviour changes yet.
+
 ## Findings
 
 1. **Query rewrite is needed.** Raw questions reach 69% recall, and a fifth of them return nothing. A good rewrite with filters reaches 99%. Most of that gain comes from the structured filters (B→C is +18 points), not from cleaner wording.

@@ -31,3 +31,19 @@ export async function judgeTopRules(question,rules,complete,{top=JUDGE_TOP}={}){
  if(picked==null)return {rules,judged:false,unreadable:true};
  return {rules:picked.length?rules:[],judged:true,answers:picked.length>0};
 }
+
+// Gate (#291): the judge alone cut no-answer noise to 0% but cost recall on questions the search already answered well, so
+// it is only asked when the deterministic search is weak. Weak means no returned rule is `worded` (an uncommon, non-concept
+// word of the question matched) and the best score is below a threshold. Both signals come from searchBenefitKnowledge's
+// retrieval fields; no model is involved. Chosen on the development set only (see evals/benefit-recall/README.md).
+export const JUDGE_GATE={topScoreBelow:15,requireNoWorded:true};
+export function isWeakMatch(rules,gate=JUDGE_GATE){
+ if(!rules?.length)return false;
+ const top=Math.max(...rules.map(r=>r.retrieval?.score??0));
+ return top<gate.topScoreBelow&&(!gate.requireNoWorded||!rules.some(r=>r.retrieval?.worded));
+}
+// Strong match: results come back untouched and `complete` is never called. Weak match: judgeTopRules decides.
+export async function gatedJudge(question,rules,complete,{gate=JUDGE_GATE,top=JUDGE_TOP}={}){
+ if(!isWeakMatch(rules,gate))return {rules,judged:false,gated:'strong'};
+ return {...await judgeTopRules(question,rules,complete,{top}),gated:'weak'};
+}
