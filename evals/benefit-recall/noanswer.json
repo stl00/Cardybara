@@ -1,0 +1,851 @@
+{
+ "schema": 1,
+ "dataset": "benefit-recall-noanswer-v1",
+ "asOf": "2026-11-09",
+ "about": "Frozen no-answer set (#266, 2026-11-13). Every question has no relevant rule in its portfolio in the knowledge base on asOf, so the right answer is no results. Written from the knowledge base's rule list and the portfolios before any ranker was run on these questions. Never used to tune vocabulary, regexes, thresholds or tool prompts: do not edit questions after results were seen; add a v2 file instead. Same format as holdout.json; every question is type absent.",
+ "portfolios": {
+  "us-premium": {
+   "CSR": "chase-us-sapphire-reserve",
+   "PLAT": "amex-us-us-the-platinum-card",
+   "GOLD": "amex-us-us-american-express-gold-card",
+   "ASP": "amex-us-us-hilton-honors-aspire-card"
+  },
+  "hk": {
+   "AHP": "amex-hk-hk-the-platinum-card",
+   "EM": "hsbc-hk-hk-hsbc-everymile-card",
+   "RED": "hsbc-hk-hk-red-credit-card",
+   "CX": "sc-hk-hk-cathay-mastercard",
+   "PREM": "hsbc-hk-hk-premier-credit-card",
+   "EXP": "amex-hk-hk-american-express-explorer-credit-card",
+   "PULSE": "hsbc-hk-hk-pulse-dual-currency-diamond"
+  },
+  "us-cobrand": {
+   "UQ": "chase-us-united-quest",
+   "DR": "amex-us-us-delta-skymiles-reserve-card",
+   "MB": "amex-us-us-marriott-bonvoy-brilliant-card",
+   "IHG": "chase-us-ihg-premier",
+   "AAE": "citi-us-citi-aadvantage-executive-card",
+   "SWP": "chase-us-southwest-rapid-rewards-priority-credit-card"
+  },
+  "us-everyday": {
+   "CSP": "chase-us-chase-sapphire-preferred-credit-card",
+   "FU": "chase-us-freedom-unlimited",
+   "VX": "capital-one-us-venture-x-rewards-credit-card",
+   "CSE": "citi-us-citi-strata-elite-card",
+   "BOA": "boa-us-customized-cash-rewards-visa-signature",
+   "BCE": "amex-us-us-blue-cash-everyday",
+   "FF": "chase-us-chase-freedom-flex-credit-card"
+  },
+  "dev-business": {
+   "BP": "amex-us-us-business-platinum-card",
+   "BG": "amex-us-us-business-gold-card",
+   "CSRB": "chase-us-sapphire-reserve-for-business-credit-card",
+   "AC": "chase-us-air-canada-aeroplan-card",
+   "BOUND": "chase-us-marriott-bonvoy-boundless-credit-card",
+   "WF": "wells-fargo-us-autograph-journey-visa-card",
+   "INKCASH": "chase-us-ink-business-cash-credit-card"
+  },
+  "us-business": {
+   "BP": "amex-us-us-business-platinum-card",
+   "BG": "amex-us-us-business-gold-card",
+   "CSRB": "chase-us-sapphire-reserve-for-business-credit-card",
+   "VXB": "capital-one-us-venture-x-business-card",
+   "DGB": "amex-us-us-delta-skymiles-gold-business-card",
+   "HB": "amex-us-us-hilton-honors-business-card",
+   "IHGB": "chase-us-ihg-one-rewards-business-credit-card"
+  },
+  "us-travel": {
+   "BEVY": "amex-us-us-marriott-bonvoy-bevy-card",
+   "BOUND": "chase-us-marriott-bonvoy-boundless-credit-card",
+   "IHGS": "chase-us-ihg-one-rewards-premier-select-credit-card",
+   "IHG1": "chase-us-ihg-one-rewards-credit-card",
+   "ATMOS": "boa-us-atmos-rewards-summit-visa-infinite",
+   "AAP": "citi-us-citi-aadvantage-platinum-select-card",
+   "UEX": "chase-us-united-explorer-card",
+   "AC": "chase-us-air-canada-aeroplan-card"
+  },
+  "us-airline": {
+   "DG": "amex-us-us-delta-skymiles-gold-card",
+   "DP": "amex-us-us-delta-skymiles-platinum-card",
+   "UCLUB": "chase-us-united-club-card",
+   "UGW": "chase-us-united-gateway-card",
+   "SWPLUS": "chase-us-southwest-rapid-rewards-plus-credit-card",
+   "SWPERF": "chase-us-southwest-rapid-rewards-performance-business-credit-card",
+   "WF": "wells-fargo-us-autograph-journey-visa-card",
+   "CAP1": "capital-one-us-venture-rewards-credit-card"
+  },
+  "us-mixed": {
+   "MS": "amex-us-us-morgan-stanley-platinum-card",
+   "CSPREM": "citi-us-citi-strata-premier-card",
+   "ALTGO": "us-bank-us-altitude-go-visa-signature-card",
+   "INKCASH": "chase-us-ink-business-cash-credit-card",
+   "SPARK": "capital-one-us-spark-cash-plus-card",
+   "HKEASY": "hsbc-hk-hk-easy-credit-card",
+   "HKVS": "hsbc-hk-hk-hsbc-visa-signature-card",
+   "BG": "amex-us-us-business-gold-card"
+  }
+ },
+ "questions": [
+  {
+   "id": "n-en-gas",
+   "portfolio": "us-premium",
+   "lang": "en",
+   "type": "absent",
+   "question": "Do I get cash back at gas stations?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no fuel benefit.",
+   "rewrite": [
+    {
+     "query": "gas station fuel cash back"
+    }
+   ]
+  },
+  {
+   "id": "n-en-pet",
+   "portfolio": "us-premium",
+   "lang": "en",
+   "type": "absent",
+   "question": "Is pet insurance included with any of my cards?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no pet cover.",
+   "rewrite": [
+    {
+     "query": "pet insurance",
+     "category": "protection"
+    }
+   ]
+  },
+  {
+   "id": "n-en-phone",
+   "portfolio": "hk",
+   "lang": "en",
+   "type": "absent",
+   "question": "Do my cards cover cell phone damage?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no phone cover.",
+   "rewrite": [
+    {
+     "query": "cell phone damage",
+     "category": "protection"
+    }
+   ],
+   "acceptable": [
+    "EM:travel-insurance",
+    "EXP:travel-insurance"
+   ]
+  },
+  {
+   "id": "n-en-mortgage",
+   "portfolio": "hk",
+   "lang": "en",
+   "type": "absent",
+   "question": "Can I earn extra points on my mortgage payments?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no mortgage rule.",
+   "rewrite": [
+    {
+     "query": "mortgage payment points"
+    }
+   ]
+  },
+  {
+   "id": "n-en-cruise",
+   "portfolio": "us-cobrand",
+   "lang": "en",
+   "type": "absent",
+   "question": "Does any card give me a cruise credit?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no cruise rule.",
+   "rewrite": [
+    {
+     "query": "cruise credit",
+     "scenarioId": "travel"
+    }
+   ]
+  },
+  {
+   "id": "n-en-ski",
+   "portfolio": "us-cobrand",
+   "lang": "en",
+   "type": "absent",
+   "question": "Do any of my cards pay for ski lift tickets or golf?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no ski or golf rule.",
+   "rewrite": [
+    {
+     "query": "ski golf",
+     "scenarioId": "entertainment"
+    }
+   ]
+  },
+  {
+   "id": "n-en-rental",
+   "portfolio": "us-everyday",
+   "lang": "en",
+   "type": "absent",
+   "question": "Which card covers rental car collision damage?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no protection rule for these cards.",
+   "rewrite": [
+    {
+     "query": "rental car collision damage",
+     "category": "protection"
+    }
+   ]
+  },
+  {
+   "id": "n-en-carwash",
+   "portfolio": "us-everyday",
+   "lang": "en",
+   "type": "absent",
+   "question": "Do I get free car washes or oil changes?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no car care rule.",
+   "rewrite": [
+    {
+     "query": "car wash oil change",
+     "scenarioId": "ground-transport"
+    }
+   ]
+  },
+  {
+   "id": "n-en-furniture",
+   "portfolio": "dev-business",
+   "lang": "en",
+   "type": "absent",
+   "question": "Is there a credit for buying office furniture?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no furniture rule.",
+   "rewrite": [
+    {
+     "query": "office furniture",
+     "category": "credit"
+    }
+   ]
+  },
+  {
+   "id": "n-en-payroll",
+   "portfolio": "dev-business",
+   "lang": "en",
+   "type": "absent",
+   "question": "Does any card refund my payroll processing fees?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no payroll rule.",
+   "rewrite": [
+    {
+     "query": "payroll processing fees"
+    }
+   ]
+  },
+  {
+   "id": "n-en-laptop",
+   "portfolio": "us-business",
+   "lang": "en",
+   "type": "absent",
+   "question": "Is there coverage if my business laptop gets stolen?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no protection rule for these cards.",
+   "rewrite": [
+    {
+     "query": "laptop theft",
+     "category": "protection"
+    }
+   ]
+  },
+  {
+   "id": "n-en-cowork",
+   "portfolio": "us-business",
+   "lang": "en",
+   "type": "absent",
+   "question": "Do I get free meeting room or coworking space access?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no coworking rule.",
+   "rewrite": [
+    {
+     "query": "coworking meeting room"
+    }
+   ]
+  },
+  {
+   "id": "n-en-spa",
+   "portfolio": "us-travel",
+   "lang": "en",
+   "type": "absent",
+   "question": "Is there a spa or massage credit on my cards?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no spa rule.",
+   "rewrite": [
+    {
+     "query": "spa massage credit",
+     "category": "credit"
+    }
+   ]
+  },
+  {
+   "id": "n-en-fx",
+   "portfolio": "us-travel",
+   "lang": "en",
+   "type": "absent",
+   "question": "Do my cards waive foreign transaction fees?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no fee-waiver benefit rule for these cards.",
+   "rewrite": [
+    {
+     "query": "foreign transaction fee waiver"
+    }
+   ]
+  },
+  {
+   "id": "n-en-hyatt",
+   "portfolio": "us-airline",
+   "lang": "en",
+   "type": "absent",
+   "question": "Do any of my cards give me Hyatt elite status?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no Hyatt rule in this portfolio.",
+   "rewrite": [
+    {
+     "query": "Hyatt elite status",
+     "programme": "Hyatt"
+    }
+   ]
+  },
+  {
+   "id": "n-en-concert",
+   "portfolio": "us-airline",
+   "lang": "en",
+   "type": "absent",
+   "question": "Do I get free concert or sports event tickets?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no event ticket rule.",
+   "rewrite": [
+    {
+     "query": "concert sports tickets",
+     "scenarioId": "entertainment"
+    }
+   ]
+  },
+  {
+   "id": "n-en-ev",
+   "portfolio": "us-mixed",
+   "lang": "en",
+   "type": "absent",
+   "question": "Is there a credit for electric vehicle charging?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no EV rule.",
+   "rewrite": [
+    {
+     "query": "electric vehicle charging"
+    }
+   ]
+  },
+  {
+   "id": "n-en-streaming",
+   "portfolio": "hk",
+   "lang": "en",
+   "type": "absent",
+   "question": "Do my cards give me a streaming subscription credit?",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: no streaming rule in this portfolio.",
+   "rewrite": [
+    {
+     "query": "streaming subscription credit",
+     "scenarioId": "entertainment"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-pet",
+   "portfolio": "us-premium",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "买宠物保险有优惠吗？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无宠物保险规则。",
+   "rewrite": [
+    {
+     "query": "宠物保险",
+     "category": "protection"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-gas",
+   "portfolio": "hk",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "加油站消费有返现吗？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无加油规则。",
+   "rewrite": [
+    {
+     "query": "加油站 返现"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-car",
+   "portfolio": "us-cobrand",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "买新车有没有额外的积分奖励？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无购车规则。",
+   "rewrite": [
+    {
+     "query": "买车 积分"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-medical",
+   "portfolio": "us-everyday",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "有没有免费的体检或者看牙福利？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无医疗规则。",
+   "rewrite": [
+    {
+     "query": "体检 看牙"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-tax",
+   "portfolio": "dev-business",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "报税服务费能抵扣吗？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无报税规则。",
+   "rewrite": [
+    {
+     "query": "报税 抵扣",
+     "category": "credit"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-office",
+   "portfolio": "us-business",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "租用办公室或共享办公位有折扣吗？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无办公空间规则。",
+   "rewrite": [
+    {
+     "query": "共享办公 折扣"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-cruise",
+   "portfolio": "us-airline",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "邮轮出行有什么额外权益？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无邮轮规则。",
+   "rewrite": [
+    {
+     "query": "邮轮",
+     "scenarioId": "travel"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-uber",
+   "portfolio": "us-travel",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "Uber 打车有抵扣吗？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 此组合无 Uber 规则。",
+   "rewrite": [
+    {
+     "query": "Uber 打车",
+     "programme": "Uber"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-tuition",
+   "portfolio": "us-mixed",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "给孩子交学费能获得积分吗？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无学费规则。",
+   "rewrite": [
+    {
+     "query": "学费 积分"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-crypto",
+   "portfolio": "us-premium",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "买黄金或者加密货币有返现吗？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无投资购买规则。",
+   "rewrite": [
+    {
+     "query": "黄金 加密货币 返现"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-insurance",
+   "portfolio": "hk",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "保险费用刷卡能免手续费吗？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无保费规则。",
+   "rewrite": [
+    {
+     "query": "保险费 手续费"
+    }
+   ],
+   "acceptable": [
+    "EM:travel-insurance",
+    "EXP:travel-insurance"
+   ]
+  },
+  {
+   "id": "n-hans-mortgage",
+   "portfolio": "us-cobrand",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "可以用积分抵房贷吗？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无房贷规则。",
+   "rewrite": [
+    {
+     "query": "房贷 积分"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-salon",
+   "portfolio": "us-everyday",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "去美容院做头发有折扣吗？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无美容规则。",
+   "rewrite": [
+    {
+     "query": "美容 美发 折扣"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-legal",
+   "portfolio": "dev-business",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "有没有律师咨询或者法律服务的福利？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无法律服务规则。",
+   "rewrite": [
+    {
+     "query": "律师 法律服务"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-usedcar",
+   "portfolio": "us-business",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "买二手车有没有保障？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无购车保障规则。",
+   "rewrite": [
+    {
+     "query": "二手车 保障",
+     "category": "protection"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-ski",
+   "portfolio": "us-travel",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "滑雪装备有抵扣吗？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 无滑雪规则。",
+   "rewrite": [
+    {
+     "query": "滑雪装备 抵扣",
+     "category": "credit"
+    }
+   ]
+  },
+  {
+   "id": "n-hans-streaming",
+   "portfolio": "us-cobrand",
+   "lang": "zh-Hans",
+   "type": "absent",
+   "question": "有没有流媒体订阅抵扣？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 此组合无流媒体规则。",
+   "rewrite": [
+    {
+     "query": "流媒体 订阅 抵扣",
+     "scenarioId": "entertainment"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-ev",
+   "portfolio": "hk",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "電動車充電有冇優惠？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無電動車規則。",
+   "rewrite": [
+    {
+     "query": "電動車 充電"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-pet",
+   "portfolio": "us-premium",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "寵物醫生有冇折扣？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無寵物規則。",
+   "rewrite": [
+    {
+     "query": "寵物醫生 折扣"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-mortgage",
+   "portfolio": "us-cobrand",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "供樓可以賺里數嗎？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無按揭規則。",
+   "rewrite": [
+    {
+     "query": "供樓 里數"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-peloton",
+   "portfolio": "us-everyday",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "有冇 Peloton 會員抵扣？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 此組合無 Peloton 規則。",
+   "rewrite": [
+    {
+     "query": "Peloton 會員 抵扣",
+     "scenarioId": "fitness"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-accountant",
+   "portfolio": "dev-business",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "請會計師有冇優惠？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無會計規則。",
+   "rewrite": [
+    {
+     "query": "會計師 優惠"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-renovation",
+   "portfolio": "us-business",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "公司裝修有冇回贈？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無裝修規則。",
+   "rewrite": [
+    {
+     "query": "裝修 回贈"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-cruise",
+   "portfolio": "us-travel",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "郵輪旅行有冇額外保障？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無郵輪規則。",
+   "rewrite": [
+    {
+     "query": "郵輪 保障",
+     "category": "protection"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-train",
+   "portfolio": "us-airline",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "搭火車有冇優惠？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無鐵路規則。",
+   "rewrite": [
+    {
+     "query": "火車 優惠",
+     "scenarioId": "travel"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-tuition",
+   "portfolio": "us-mixed",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "學費可以賺積分嗎？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無學費規則。",
+   "rewrite": [
+    {
+     "query": "學費 積分"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-doctor",
+   "portfolio": "hk",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "睇醫生有冇優惠？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無醫療規則。",
+   "rewrite": [
+    {
+     "query": "睇醫生 優惠"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-gold",
+   "portfolio": "hk",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "買黃金有冇回贈？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無黃金規則。",
+   "rewrite": [
+    {
+     "query": "黃金 回贈"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-parking",
+   "portfolio": "us-premium",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "有冇免費泊車服務？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無泊車規則。",
+   "rewrite": [
+    {
+     "query": "泊車",
+     "scenarioId": "ground-transport"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-tax",
+   "portfolio": "us-cobrand",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "報稅有冇優惠？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無報稅規則。",
+   "rewrite": [
+    {
+     "query": "報稅 優惠"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-ring",
+   "portfolio": "us-everyday",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "買結婚戒指有冇分期免息？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無分期規則。",
+   "rewrite": [
+    {
+     "query": "結婚戒指 分期"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-company",
+   "portfolio": "dev-business",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "公司註冊費可以報銷嗎？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無註冊費規則。",
+   "rewrite": [
+    {
+     "query": "公司註冊費 報銷",
+     "category": "credit"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-ski",
+   "portfolio": "us-travel",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "去日本滑雪有冇雪具租借優惠？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 無滑雪規則。",
+   "rewrite": [
+    {
+     "query": "滑雪 租借"
+    }
+   ]
+  },
+  {
+   "id": "n-hant-netflix",
+   "portfolio": "us-airline",
+   "lang": "zh-Hant",
+   "type": "absent",
+   "question": "Netflix 有冇回贈？",
+   "expected": [],
+   "rationale": "No rule in the knowledge base answers this for these cards: 此組合無串流規則。",
+   "rewrite": [
+    {
+     "query": "Netflix 回贈",
+     "scenarioId": "entertainment"
+    }
+   ]
+  }
+ ]
+}
