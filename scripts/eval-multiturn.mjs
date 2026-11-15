@@ -3,11 +3,13 @@
 //     (a) Is the entity the last question refers to still identifiable in what the model receives?
 //   node scripts/eval-multiturn.mjs --live --budget-usd=0.45 [--limit=n] [--case=id]   real model, API cost; ask the owner first.
 //     Stops before a dialogue that could pass the budget. Dialogues run round-robin by kind, so a stopped run still covers every kind.
-//   node scripts/eval-multiturn.mjs --live --dry-run        same path with a scripted model, no network
+//   --summary=path writes a Markdown summary; --public drops call arguments from the saved report (the weekly workflow uses both).
+//   node scripts/eval-multiturn.mjs --live --dry-run       same path with a scripted model, no network
 //     (b) Does the model call the expected tool with the expected key arguments?
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {summaryMarkdown,publicReport} from '../evals/multiturn/summary.mjs';
 import {dialogues} from '../evals/multiturn/dialogues.mjs';
 import {interleaved,scoreLive,passedLive,priceFor,meter} from '../evals/multiturn/live.mjs';
 import {replay,contextSources,resolvable,strictTarget,checkLabels,selectCards,evalContext} from '../evals/multiturn/harness.mjs';
@@ -40,7 +42,10 @@ if(rescore){
 let env=null,chatAgent=null,spend=null;
 if(live&&!dryRun){
  const envFile=process.env.CARDYBARA_MODEL_CONFIG;
- env={};for(const line of (await readFile(envFile?resolve(envFile):resolve(root,'.env.local'),'utf8')).split('\n')){const m=line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);if(m)env[m[1]]=m[2].replace(/^(['"])(.*)\1$/,'$2');}
+ env={};
+ // No config file (CI): the key comes from the DEEPSEEK_API_KEY environment variable only.
+ let text;try{text=await readFile(envFile?resolve(envFile):resolve(root,'.env.local'),'utf8');}catch(error){if(error.code!=='ENOENT'||envFile||!process.env.DEEPSEEK_API_KEY)throw error;text='DEEPSEEK_API_KEY='+process.env.DEEPSEEK_API_KEY+(process.env.DEEPSEEK_MODEL?'\nDEEPSEEK_MODEL='+process.env.DEEPSEEK_MODEL:'');}
+ for(const line of text.split('\n')){const m=line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);if(m)env[m[1]]=m[2].replace(/^(['"])(.*)\1$/,'$2');}
  ({chatAgent}=await import('./chat-agent.mjs'));
  report.model=env.DEEPSEEK_MODEL||'deepseek-flash';
  spend=meter({price:priceFor(report.model),budget});
@@ -87,7 +92,8 @@ if(!live)report.summary.notToolReady=report.cases.filter(c=>c.resolvable&&!c.too
 if(!live)report.summary.unresolved=report.cases.filter(c=>!c.resolvable).map(c=>`${c.id} (${c.missing.join('+')}${c.droppedTurns?`, ${c.droppedTurns} turns dropped`:''})`);
 report.fixtureErrors=fixtureErrors;
 if(spend)report.usage={...spend.usage,usd:+spend.spent().toFixed(4),budgetUsd:budget,prices:priceFor(report.model)};
-await mkdir(resolve(output,'..'),{recursive:true});await writeFile(output,JSON.stringify(report,null,2)+'\n');
+await mkdir(resolve(output,'..'),{recursive:true});await writeFile(output,JSON.stringify(process.argv.includes('--public')?publicReport(report):report,null,2)+'\n');
+if(arg('summary')){await mkdir(resolve(arg('summary'),'..'),{recursive:true});await writeFile(resolve(arg('summary')),summaryMarkdown(report));}
 console.log(JSON.stringify({mode:report.mode,...report.summary,...(report.stopped?{stopped:report.stopped}:{}),...(report.usage?{usd:report.usage.usd}:{}),fixtureErrors,report:output},null,1));
 const min=arg('min');
 if(fixtureErrors.length||min&&report.summary.rate<Number(min))process.exitCode=1;
