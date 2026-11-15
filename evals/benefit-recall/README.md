@@ -301,7 +301,7 @@ After the source-text migration (#148) put English originals into every rule, a 
 
 **The set.** `noanswer.json` (`benefit-recall-noanswer-v1`) has 52 questions the knowledge base cannot answer for the held cards: 18 English, 17 Simplified and 17 Traditional Chinese, over the nine synthetic portfolios of the two other sets. Every question is type `absent`, so the right answer is no results. It is **frozen**: written from the rule list before any ranker ran on it, never used for tuning. Change it only by adding a v2 file. Run it with `node scripts/eval-benefit-recall.mjs --golden=evals/benefit-recall/noanswer.json --out=evals/latest-benefit-recall-noanswer.json` (it is not part of `npm run eval:benefit-recall`). One question is 1.9 points.
 
-Order of events, for honesty: the set was committed, then run once for the baseline (aggregates only). The retriever was then changed using the dev set only. Because dev had just 8 unanswerable questions, 30 more were added to dev (`p2-absent-*`, 38 in total) on topics not in the frozen set, then tuned on. The frozen set was run once more at the end. Its failures were never inspected.
+Order of events, for honesty: the set was committed, then run once for the baseline (aggregates only). The retriever was then changed using the dev set only. Because dev had just 8 unanswerable questions, 30 more were added to dev (`p2-absent-*`, 38 in total) on topics not in the frozen set, then tuned on. The frozen set was run once more at the end. Its failures were never inspected. Leakage risk, stated plainly: the 30 `p2-absent-*` questions were written after the baseline run on the frozen set, and although the topics were chosen to avoid the frozen set, some themes overlap it (wine, parking, concierge, passport). Treat the frozen-set drop from 52% to 40% as possibly slightly optimistic; the dev set cannot show it either way.
 
 No-answer noise (share of unanswerable questions that return an unrelated rule):
 
@@ -317,7 +317,7 @@ By language on the frozen set, A / B / C after: en 67 / 56 / 61, zh-Hans 35 / 18
 
 Recall (A / B / C, %): dev after 98.2 / 99.6 / 100 (before 98.2 / 99.8 / 100); held-out A 94.3 → 93.8, B 98.9 → 98.9, C 100 → 100. Held-out recall@12 in mode A dropped 0.5 point (limit 1). Bigger word lists (free, 免费, 费用, fee, 保险) cut dev noise further but cost 1 to 1.4 points of held-out recall, so they were left out.
 
-**Result against the target.** Mode A noise on the frozen set is 40%, not the 20% target. The remaining noise is mostly rules that match on a concept (hotel, dining, airport) while the question's real subject (concierge, parking, shuttle, supermarket) matches nothing. A fix needs the search to notice that a distinctive word of the question matched no rule, and that is hard to do across English and Chinese bigrams. That is the next step and is not done here. Dev noise (39%) did not reach 20% either.
+**Result against the target.** Mode A noise on the frozen set is 40%, not the 20% target. The remaining noise is mostly rules that match on a concept (hotel, dining, airport) while the question's real subject (concierge, parking, shuttle, supermarket) matches nothing. A fix needs the search to notice that a distinctive word of the question matched no rule, and that is hard to do across English and Chinese bigrams. That is the next step and is not done here: it is tracked in issue #280 (split from #266), whose target is the same 20% on this frozen set. Dev noise (39%) did not reach 20% either.
 
 ## Findings
 

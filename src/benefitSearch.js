@@ -74,11 +74,11 @@ function typoFixes(text,asOf){
  const c=corpus(asOf);
  return [...new Set(tokens(text).filter(t=>/^[a-z]{6,}$/.test(t)).flatMap(t=>{if(!c.typos.has(t))c.typos.set(t,wordStats(t,hasTerm(t),asOf).df?[]:c.vocab.filter(w=>oneEdit(t,w)));return c.typos.get(t);}))];
 }
-// Words that say what kind of benefit is wanted (yearly, perks, membership, 优惠) but not what it is about.
 // Words that say what kind of benefit is wanted (covered, 保障, discount, cash back, points) but not what it is about: like WEAK, they are not evidence of a match.
 const KIND_WORDS=new Set(['covered','coverage','cover','covers','保障','discount','discounts','折扣','cash','back','返现','返現','回贈','回赠','积分','積分','points','products']);
 // A rule must match on a concept named in its own text, a partner, or a word found in few rules and not a WEAK or kind word, to count as grounded (#266).
 const STRONG_WEIGHT=0.3;
+// Words that say what kind of benefit is wanted (yearly, perks, membership, 优惠) but not what it is about.
 const WEAK=new Set(['membership','年度','每年','annual','yearly','perks','perk','privileges','会员','优惠','福利','待遇','礼遇','好处']);
 // What is left of a question without those words and question fillers: the thing it asks about.
 const ZH_FILLER=/我的|我|你|您|有没有|有沒有|有冇|有哪些|有什么|有什麼|有啥|有咩|什么|什麼|哪些|哪张|哪張|怎么|怎麼|如何|多少|可以|能够|能夠|告诉|告訴|看看|列出|所有|全部|今年|每月|[有啥咩乜吗嗎呢的了吧啊呀能会會是都还還和与與跟在用张張卡哪些么麼几幾个個一这這那请請帮幫下查]/g;
