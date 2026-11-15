@@ -10,6 +10,7 @@ import {creditTasks,taskStatus,reminderTasks,creditCalendar,walletDay,activeTask
 import {readBenefitEvents,appendBenefitEvent} from './personalStore';
 import {creditView,isDone,ENDING_SOON_DAYS,SHORT_LIST,COMPACT_LIST} from './creditView';
 import {creditCategoryLabel} from './creditCategories';
+import {cycleLabel,nextResetDay} from './creditCycle';
 import {CardIdentity} from './Identity';
 import ItemLogo from './ItemLogo';
 const {Text,Paragraph,Title}=Typography;
@@ -30,12 +31,12 @@ function endText(days){
  return t('还有 {0} 天',[days]);
 }
 export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
- useI18n();const {events,ready,error,mark,day}=useContext(Personal),{message}=App.useApp();const [filter,setFilter]=useState('todo'),[busy,setBusy]=useState(''),[expanded,setExpanded]=useState(false),[editingUsage,setEditingUsage]=useState(null),[month,setMonth]=useState(''),[category,setCategory]=useState('all'),[query,setQuery]=useState(''),[dating,setDating]=useState(null),[dateValue,setDateValue]=useState('');
+ useI18n();const {events,ready,error,mark,day}=useContext(Personal),{message}=App.useApp();const [filter,setFilter]=useState('todo'),[busy,setBusy]=useState(''),[expanded,setExpanded]=useState(false),[editingUsage,setEditingUsage]=useState(null),[month,setMonth]=useState(''),[category,setCategory]=useState('all'),[cycle,setCycle]=useState('all'),[query,setQuery]=useState(''),[dating,setDating]=useState(null),[dateValue,setDateValue]=useState('');
  const chosen=month&&month!==day.slice(0,7)?new Date(Date.UTC(Number(month.slice(0,4)),Number(month.slice(5,7)),0)).toISOString().slice(0,10):day;
  const nameOf=id=>cards.find(c=>c.id===id)?.name||'';
  const textOf=task=>[task.title,ruleField(task.title,task,'title'),task.condition,ruleField(task.condition,task,'summary'),nameOf(task.cardId),...(task.categories||[]).flatMap(id=>[creditCategoryLabel(id),t(creditCategoryLabel(id))])].join(' ');
  const tasks=creditTasks(cards,chosen),due=chosen===day?reminderTasks(tasks,events,day):[];
- const view=creditView(tasks,events,chosen,{state:filter,category:compact?'all':category,query:compact?'':query,textOf,live:chosen===day});
+ const view=creditView(tasks,events,chosen,{state:filter,category:compact?'all':category,cycle:compact?'all':cycle,query:compact?'':query,textOf,live:chosen===day});
  const needFee=chosen===day&&filter!=='done'?activeTasks(feeDateNeededRows(cards,day),events).filter(r=>!query.trim()||textOf(r).toLowerCase().includes(query.trim().toLowerCase())):[],needFeeCount=needFee.length;
  const matchQuery=r=>!query.trim()||textOf(r).toLowerCase().includes(query.trim().toLowerCase());
  const offAll=chosen===day&&!compact?activeTasks(offCycleRows(cards,day),events).filter(matchQuery):[];
@@ -51,9 +52,9 @@ export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
   const usage=latest(task),currentUsage=usage?.revisionId===task.revisionId?usage.usage:null,card=cards.find(c=>c.id===task.cardId),done=isDone(status),past=chosen!==day;
   const others=[{key:'amount',label:t(currentUsage?'修改金额':'记金额')},...(status!=='skipped'?[{key:'skipped',label:t('本期不用')}]:[]),...(!['unused','used','partial'].includes(status)?[{key:'unused',label:t('确认未用')}]:[]),{type:'divider'},{key:'dismiss',label:t('不再提醒')}];
   return <div key={task.key} className="credit-row"><Flex justify="space-between" align="start" gap={12} wrap>
-   <div className="credit-row-main"><Flex wrap align="center" gap={6}><ItemLogo ruleId={task.ruleId}/><Text strong>{ruleField(task.title,task,'title')}</Text><Tag>{t(({unknown:'待确认',unused:'尚未使用',partial:'已用一部分',used:'已用完',skipped:'本期不适用'})[status])}</Tag>{!done&&!past&&<Tag color={endingSoon?'warning':'default'}>{endText(days)}</Tag>}{task.requiresEnrollment!==false&&<Tag color="warning">{t('需核对登记')}</Tag>}</Flex>
+   <div className="credit-row-main"><Flex wrap align="center" gap={6}><ItemLogo ruleId={task.ruleId}/><Text strong>{ruleField(task.title,task,'title')}</Text>{cycleLabel(task.cycle)&&<Tag>{t(cycleLabel(task.cycle))}</Tag>}<Tag>{t(({unknown:'待确认',unused:'尚未使用',partial:'已用一部分',used:'已用完',skipped:'本期不适用'})[status])}</Tag>{!done&&!past&&<Tag color={endingSoon?'warning':'default'}>{endText(days)}</Tag>}{task.requiresEnrollment!==false&&<Tag color="warning">{t('需核对登记')}</Tag>}</Flex>
     {!singleCard&&<div className="credit-row-card"><CardIdentity card={card}/></div>}
-    <Text type="secondary" className="credit-row-facts">{t('公开上限 {0} · 本期至 {1}',[cash(task.limit,task.currency),task.period.end])}</Text>
+    <Text type="secondary" className="credit-row-facts">{t('公开上限 {0} · 本期至 {1} · {2} 开始下一周期',[cash(task.limit,task.currency),task.period.end,nextResetDay(task)])}</Text>
     {currentUsage&&<Paragraph type="secondary" style={{fontSize:12,margin:'6px 0 0'}}>{t('累计已用 {0} · 实际价值 {1}',[hidden?'••••':cash(currentUsage.amount,currentUsage.currency),hidden?'••••':currentUsage.value==null?t('尚未估值'):cash(currentUsage.value,currentUsage.currency)])}</Paragraph>}
    </div>
    <Space wrap size={8}><Button size="small" loading={busy===task.key} disabled={!ready||busy===dismissKey(task.cardId,task.ruleId)} type={done?'default':'primary'} onClick={()=>currentUsage&&!done?setEditingUsage({...task,fillFull:true}):change(task,done?'unknown':'used')}>{done?t('撤销'):t('已用完')}</Button>
@@ -64,7 +65,7 @@ export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
 
  const PERIOD_LABEL={'per-trip':'按次使用','per-stay':'按住宿次数','activation-based':'需要先激活','fixed-date':'限定日期','promotion-period':'促销期内'};
  const offMark=async(r,status,extra={})=>{setBusy(r.key);try{await mark(r.key,status,r.revisionId,extra);setDating(null)}catch{message.error(t('保存失败，刚才的标记没有生效。'))}finally{setBusy('')}};
- const offRow=({r,st})=>{const card=cards.find(c=>c.id===r.cardId),four=r.state==='four-year',used=st.status==='used';return <div key={r.key} className="credit-row credit-row-off-cycle"><Flex justify="space-between" align="start" gap={12} wrap><div className="credit-row-main"><Flex wrap align="center" gap={6}><ItemLogo ruleId={r.ruleId}/><Text strong>{ruleField(r.title,r,'title')}</Text>{four?<Tag color={used?'default':'success'}>{used?t('已使用'):t('可再次申请')}</Tag>:<Tag>{t(PERIOD_LABEL[r.period])}</Tag>}{!four&&st.status==='skipped'&&<Tag>{t('不相关')}</Tag>}{!four&&used&&<Tag>{t('已使用')}</Tag>}</Flex>{!singleCard&&<div className="credit-row-card"><CardIdentity card={card}/></div>}
+ const offRow=({r,st})=>{const card=cards.find(c=>c.id===r.cardId),four=r.state==='four-year',used=st.status==='used';return <div key={r.key} className="credit-row credit-row-off-cycle"><Flex justify="space-between" align="start" gap={12} wrap><div className="credit-row-main"><Flex wrap align="center" gap={6}><ItemLogo ruleId={r.ruleId}/><Text strong>{ruleField(r.title,r,'title')}</Text>{four?<><Tag>{t(cycleLabel('rolling-four-years'))}</Tag><Tag color={used?'default':'success'}>{used?t('已使用'):t('可再次申请')}</Tag></>:<Tag>{t(PERIOD_LABEL[r.period])}</Tag>}{!four&&st.status==='skipped'&&<Tag>{t('不相关')}</Tag>}{!four&&used&&<Tag>{t('已使用')}</Tag>}</Flex>{!singleCard&&<div className="credit-row-card"><CardIdentity card={card}/></div>}
   <Text type="secondary" className="credit-row-facts">{four?(used?t('下次可申请 {0}（上次 {1}）',[st.nextEligible,st.usedOn]):t('每四年一次，没有固定截止日')):t('一次性权益：{0}。用过或与你无关就标记一下。',[t(PERIOD_LABEL[r.period])])}{r.limit!=null&&` · ${t('公开上限 {0}',[cash(r.limit,r.currency)])}`}</Text>
   {dating===r.key&&<Flex gap={8} wrap align="center" style={{marginTop:8}}><label>{t('上次使用日期')} <Input type="date" size="small" style={{width:150}} max={day} value={dateValue} onChange={e=>setDateValue(e.target.value)}/></label><Button size="small" type="primary" disabled={!dateValue||dateValue>day} loading={busy===r.key} onClick={()=>offMark(r,'used',{usedOn:dateValue})}>{t('保存')}</Button><Button size="small" onClick={()=>setDating(null)}>{t('取消')}</Button></Flex>}</div>
   <Space wrap size={8}>{four?<><Button size="small" type={used?'default':'primary'} disabled={!ready||!!busy} onClick={()=>{setDating(r.key);setDateValue(st.usedOn||'')}}>{t('记录使用日期')}</Button>{used&&<Button size="small" disabled={!ready||!!busy} onClick={()=>offMark(r,'unknown')}>{t('撤销')}</Button>}</>:<><Button size="small" type={st.status==='used'?'default':'primary'} loading={busy===r.key} disabled={!ready} onClick={()=>offMark(r,st.status==='used'?'unknown':'used')}>{st.status==='used'?t('撤销'):t('已用完')}</Button><Button size="small" disabled={!ready||!!busy} onClick={()=>offMark(r,st.status==='skipped'?'unknown':'skipped')}>{st.status==='skipped'?t('撤销'):t('不相关')}</Button></>}</Space></Flex></div>;};
@@ -78,6 +79,7 @@ export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
   <Input size="middle" className="credit-search" allowClear prefix={<SearchOutlined/>} placeholder={t('搜索福利、商户或卡片')} aria-label={t('搜索福利')} value={query} onChange={e=>setQuery(e.target.value)}/>
   <Select aria-label={t('筛选 Credit')} value={filter} onChange={setFilter} options={[{value:'todo',label:t('待处理 {0}',[view.open.length])},{value:'done',label:t('已处理')},{value:'all',label:t('全部')}]}/>
   <Input type="month" aria-label={t('查看福利月份')} value={month||day.slice(0,7)} max={day.slice(0,7)} style={{width:155}} onChange={e=>{if(!e.target.value||e.target.value<=day.slice(0,7))setMonth(e.target.value)}}/>
+  {view.cycles.length>1&&<Flex wrap gap={6} className="credit-cycles" role="group" aria-label={t('按周期筛选')}><Tag.CheckableTag checked={view.cycle==='all'} onChange={()=>setCycle('all')}>{t('全部周期')} {view.pool.length}</Tag.CheckableTag>{view.cycles.map(c=><Tag.CheckableTag key={c.id} checked={view.cycle===c.id} onChange={()=>setCycle(view.cycle===c.id?'all':c.id)}>{t(c.label)} {c.count}</Tag.CheckableTag>)}</Flex>}
   {view.categories.length>0&&<Flex wrap gap={6} className="credit-categories" role="group" aria-label={t('按用途筛选')}><Tag.CheckableTag checked={view.category==='all'} onChange={()=>setCategory('all')}>{t('全部用途')} {view.pool.length}</Tag.CheckableTag>{view.categories.map(c=><Tag.CheckableTag key={c.id} checked={view.category===c.id} onChange={()=>setCategory(view.category===c.id?'all':c.id)}><ItemLogo category={c.id} size={13}/>{t(c.label)} {c.count}</Tag.CheckableTag>)}</Flex>}
  </div>}
  {rows.map(row)}

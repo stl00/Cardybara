@@ -37,7 +37,6 @@
     "{0} 项临近本期截止，仍待你确认": "{0} credits are near their cycle end and still need confirmation",
     "待处理 {0}": "To review {0}",
     "标记由你记录，可撤销；新周期重新确认。": "Your marks are reversible. Each new cycle starts unconfirmed.",
-    "公开上限 {0} · 本期至 {1}": "Published limit {0} · Cycle ends {1}",
     "需核对登记": "Check enrollment",
     "已用完": "Fully used",
     "确认未用": "Mark unused",
@@ -121,7 +120,19 @@
     "没有匹配的卡种": "No matching card type",
     "添加卡片：选择卡种": "Add a card: choose its type",
     "更换": "Change",
-    "从列表选择": "Choose from the list"
+    "从列表选择": "Choose from the list",
+    "公开上限 {0} · 本期至 {1} · {2} 开始下一周期": "Published limit {0} · Cycle ends {1} · Next cycle starts {2}",
+    "每季度": "Quarterly",
+    "每个日历年": "Calendar year",
+    "每个持卡年度": "Card year",
+    "每四年": "Every four years",
+    "一次性": "One-off",
+    "按获得年度": "By earning year",
+    "按事件触发": "Event-based",
+    "随年费": "With annual fee",
+    "长期权益": "Ongoing perk",
+    "全部周期": "All cycles",
+    "按周期筛选": "Filter by cycle"
   },
   "zh-TW": {
     "{0} 产品卡面": "{0} 產品卡面",
@@ -161,7 +172,6 @@
     "{0} 项临近本期截止，仍待你确认": "{0} 項臨近本期截止，仍待你確認",
     "待处理 {0}": "待處理 {0}",
     "标记由你记录，可撤销；新周期重新确认。": "標記由你記錄，可撤銷；新週期重新確認。",
-    "公开上限 {0} · 本期至 {1}": "公開上限 {0} · 本期至 {1}",
     "需核对登记": "需核對登記",
     "已用完": "已用完",
     "确认未用": "確認未用",
@@ -245,6 +255,18 @@
     "没有匹配的卡种": "沒有相符的卡種",
     "添加卡片：选择卡种": "新增卡片：選擇卡種",
     "更换": "更換",
-    "从列表选择": "從列表選擇"
+    "从列表选择": "從列表選擇",
+    "公开上限 {0} · 本期至 {1} · {2} 开始下一周期": "公開上限 {0} · 本期至 {1} · {2} 開始下一週期",
+    "每季度": "每季",
+    "每个日历年": "每個曆年",
+    "每个持卡年度": "每個持卡年度",
+    "每四年": "每四年",
+    "一次性": "一次性",
+    "按获得年度": "按獲得年度",
+    "按事件触发": "按事件觸發",
+    "随年费": "隨年費",
+    "长期权益": "長期權益",
+    "全部周期": "全部週期",
+    "按周期筛选": "按週期篩選"
   }
 }
