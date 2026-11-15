@@ -5,7 +5,7 @@ import {creditLedger} from './creditLedger';
 const {Text,Paragraph}=Typography;
 const cash=(n,c)=>`${({USD:'US$',HKD:'HK$',CAD:'CA$'})[c]||c} ${n.toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:2})}`;
 /** One card's credit ledger for the card year or the calendar year, from the user's own marks. Amounts hide in hidden mode. */
-export default function CreditLedger({card,events,day,hidden=false,onSetFeeDate}){
+export default function LedgerCard({card,events,day,hidden=false,onSetFeeDate}){
  useI18n();
  const [basis,setBasis]=useState(card.feeDate?'card-year':'calendar-year');
  const [l]=creditLedger([card],events,day,{basis});
