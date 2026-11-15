@@ -69,7 +69,22 @@
     "{0} 项年度福利需要年费日期": "{0} card-year credits need a fee date",
     "没有年费日期就不会猜周期：设置后，这些福利会按持卡年度显示本期和截止日。": "Without a fee date no cycle is guessed. Once you set it, these credits show this card year and its end date.",
     "公开上限 {0} · 按持卡年度计算，还没有周期": "Public limit {0} · counted per card year, no cycle yet",
-    "按持卡年度计算，还没有周期": "Counted per card year, no cycle yet"
+    "按持卡年度计算，还没有周期": "Counted per card year, no cycle yet",
+    "可再次申请": "Available again",
+    "记录使用日期": "Record date used",
+    "上次使用日期": "Date last used",
+    "下次可申请 {0}（上次 {1}）": "Next eligible {0} (last used {1})",
+    "每四年一次，没有固定截止日": "Once every four years, no fixed end date",
+    "按次使用": "Per trip",
+    "按住宿次数": "Per stay",
+    "需要先激活": "Needs activation first",
+    "限定日期": "Fixed dates",
+    "促销期内": "Promotion period",
+    "一次性权益：{0}。用过或与你无关就标记一下。": "One-off perk: {0}. Mark it when used or not relevant.",
+    "长期权益（{0}）": "Ongoing perks ({0})",
+    "没有固定周期，作为长期权益查看": "No fixed cycle; read it as an ongoing perk",
+    "已使用": "Used",
+    "不相关": "Not relevant"
   },
   "zh-TW": {
     "规则有效；账户状态待核实": "規則有效；帳戶狀態待核實",
@@ -141,6 +156,21 @@
     "{0} 项年度福利需要年费日期": "{0} 項年度福利需要年費日期",
     "没有年费日期就不会猜周期：设置后，这些福利会按持卡年度显示本期和截止日。": "沒有年費日期就不會猜週期：設定後，這些福利會按持卡年度顯示本期和截止日。",
     "公开上限 {0} · 按持卡年度计算，还没有周期": "公開上限 {0} · 按持卡年度計算，還沒有週期",
-    "按持卡年度计算，还没有周期": "按持卡年度計算，還沒有週期"
+    "按持卡年度计算，还没有周期": "按持卡年度計算，還沒有週期",
+    "可再次申请": "可再次申請",
+    "记录使用日期": "記錄使用日期",
+    "上次使用日期": "上次使用日期",
+    "下次可申请 {0}（上次 {1}）": "下次可申請 {0}（上次 {1}）",
+    "每四年一次，没有固定截止日": "每四年一次，沒有固定截止日",
+    "按次使用": "按次使用",
+    "按住宿次数": "按住宿次數",
+    "需要先激活": "需要先啟用",
+    "限定日期": "限定日期",
+    "促销期内": "促銷期內",
+    "一次性权益：{0}。用过或与你无关就标记一下。": "一次性權益：{0}。用過或與你無關就標記一下。",
+    "长期权益（{0}）": "長期權益（{0}）",
+    "没有固定周期，作为长期权益查看": "沒有固定週期，作為長期權益查看",
+    "已使用": "已使用",
+    "不相关": "不相關"
   }
 }

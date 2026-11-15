@@ -23,6 +23,10 @@ test('partial credits preserve explicit actual value, snapshots and prior period
  const unvalued={...e,usage:{...usage,value:null}};assert.equal(creditValueForCycle(cycle,[unvalued]).unvalued,1);const zero={...e,usage:{...usage,value:0}};assert.equal(creditValueForCycle(cycle,[zero]).count,1);assert.equal(creditValueForCycle(cycle,[zero]).value,0);
  assert.throws(()=>validatePersonalEvent({...e,usage:{...usage,value:8}}));assert.throws(()=>validatePersonalEvent({...e,usage:{...usage,date:'2026-09-01'}}));
 });
+test('four-year and one-off used marks do not count as unvalued credits',()=>{
+ const cycle=evt('gold',fee),mk=(kind,id)=>({schema:1,id,key:JSON.stringify(['gold','rule.x',kind]),status:'used',at:'2026-10-10T12:00:00.000Z',revisionId:null});
+ const base=creditValueForCycle(cycle,[]);assert.deepEqual(creditValueForCycle(cycle,[mk('four-year','a'),mk('one-off','b')]),base);
+});
 test('fee ledger persists corrections, rejects overlaps, supports tombstones and idempotent import',async()=>{
  const first=await appendCostEvent('fee','test-card',fee);assert.equal(actualCost(feeCycles(await readCostEvents(),'test-card')[0]),275);
  await appendCostEvent('fee','test-card',{...fee,refund:100});assert.equal(actualCost(feeCycles(await readCostEvents(),'test-card')[0]),225);
