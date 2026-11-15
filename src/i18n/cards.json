@@ -133,7 +133,19 @@
     "随年费": "With annual fee",
     "长期权益": "Ongoing perk",
     "全部周期": "All cycles",
-    "按周期筛选": "Filter by cycle"
+    "按周期筛选": "Filter by cycle",
+    "Credit 账本": "Credit ledger",
+    "持卡年度": "Card year",
+    "日历年": "Calendar year",
+    "本期可用 Credit": "Credit available",
+    "你标记已用": "Marked used by you",
+    "未记录（周期已结束）": "Not captured (cycle ended)",
+    "周期未结束": "Cycle still open",
+    "标记未用 / 不适用": "Marked unused / not relevant",
+    "公布年费": "Published annual fee",
+    "已用减年费": "Used minus annual fee",
+    "{0} 项持卡年度 Credit 没有年费日，未计入。": "{0} card-year credits are left out: no annual fee date.",
+    "“已用”只来自你自己的标记；周期结束仍没标记的算“未记录”，不当作已用，也不当作错过。年费为公布标准年费，不是实际扣款。": "\"Used\" comes only from your own marks. A cycle that ended with no mark is \"not captured\": not counted as used and not counted as missed. The fee is the published standard fee, not an actual charge."
   },
   "zh-TW": {
     "{0} 产品卡面": "{0} 產品卡面",
@@ -269,6 +281,18 @@
     "随年费": "隨年費",
     "长期权益": "長期權益",
     "全部周期": "全部週期",
-    "按周期筛选": "按週期篩選"
+    "按周期筛选": "按週期篩選",
+    "Credit 账本": "Credit 帳本",
+    "持卡年度": "持卡年度",
+    "日历年": "曆年",
+    "本期可用 Credit": "本期可用 Credit",
+    "你标记已用": "你標記已用",
+    "未记录（周期已结束）": "未記錄（週期已結束）",
+    "周期未结束": "週期未結束",
+    "标记未用 / 不适用": "標記未用 / 不適用",
+    "公布年费": "公布年費",
+    "已用减年费": "已用減年費",
+    "{0} 项持卡年度 Credit 没有年费日，未计入。": "{0} 項持卡年度 Credit 沒有年費日，未計入。",
+    "“已用”只来自你自己的标记；周期结束仍没标记的算“未记录”，不当作已用，也不当作错过。年费为公布标准年费，不是实际扣款。": "「已用」只來自你自己的標記；週期結束仍沒標記的算「未記錄」，不當作已用，也不當作錯過。年費為公布標準年費，不是實際扣款。"
   }
 }
