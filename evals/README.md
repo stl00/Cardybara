@@ -178,3 +178,12 @@ Owner steps before the first run (the workflow is skipped until all are done):
 3. Repository settings → Variables → `LIVE_EVALS_ENABLED` = `true`.
 
 Not yet measured: the real cost of one case. The first runs may stop at the cap with cases `not_run`; raise `budgetUsd` or trim `cases` from what the report shows.
+
+## Weekly live multi-turn eval (#269)
+
+`.github/workflows/live-multiturn.yml` runs `node scripts/eval-multiturn.mjs --live --budget-usd=0.50 --public` every Monday and on manual dispatch, on `main` only, never on a pull request, behind the same `live-evals` environment and `LIVE_EVALS_ENABLED` switch as the daily eval (the owner steps above cover both). The script's `--budget-usd` is the cap: it stops before a dialogue that could pass it, and dialogues run round-robin by kind so a stopped run still covers every kind. About 4 runs a month at the cap add about 2 USD to the 10 USD monthly budget.
+
+- **Job summary.** Strict pass rate (expected tool, key arguments, answer completed) overall, by reference kind (`long-range` is the 很早之前 kind) and by language, plus the referent-resolved counts and spend. Targets from #256: follow-ups at least 90%, much earlier turns at least 70%.
+- **Report.** Uploaded as `live-multiturn-report` (90 days). `--public` drops call arguments, so it holds case ids, check outcomes, tool names and spend on the synthetic wallet.
+- **No regression issue yet.** Gather two weeks of numbers first.
+- **Dry run.** `node scripts/eval-multiturn.mjs --live --dry-run --budget-usd=0.50 --public --out=.debug/mt.json --summary=.debug/mt.md` prints the same summary with a scripted model and no key. In CI the key comes from the `DEEPSEEK_API_KEY` environment variable when no `.env.local` exists.
