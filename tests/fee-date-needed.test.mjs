@@ -48,3 +48,14 @@ test('setting the fee date turns the rows into cycle tasks and keeps stop-remind
  assert.equal(taskStatus(again,marked),'used');
  assert.equal(activeTasks(creditTasks([dated],DAY),dismissed).some(x=>x.ruleId===rows[0].ruleId),false);
 });
+
+test('the headline counts credits (rows), not cards, and has all three languages',async()=>{
+ const {readFileSync}=await import('node:fs');
+ const src=readFileSync(new URL('../src/PersonalWallet.jsx',import.meta.url),'utf8');
+ assert.match(src,/t\('\{0\} 项年度福利需要年费日期',\[needFeeCount\]\)/);
+ assert.match(src,/needFeeCount=needFee\.length/);
+ const key='{0} 项年度福利需要年费日期',b=JSON.parse(readFileSync(new URL('../src/i18n/benefits.json',import.meta.url),'utf8'));
+ assert.equal(b['en-US'][key],'{0} card-year credits need a fee date');
+ assert.ok(b['zh-TW'][key]);
+ assert.ok(!JSON.stringify(b).includes('张卡年度福利'));
+});

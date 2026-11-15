@@ -36,7 +36,7 @@ export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
  const textOf=task=>[task.title,ruleField(task.title,task,'title'),task.condition,ruleField(task.condition,task,'summary'),nameOf(task.cardId),...(task.categories||[]).flatMap(id=>[creditCategoryLabel(id),t(creditCategoryLabel(id))])].join(' ');
  const tasks=creditTasks(cards,chosen),due=chosen===day?reminderTasks(tasks,events,day):[];
  const view=creditView(tasks,events,chosen,{state:filter,category:compact?'all':category,query:compact?'':query,textOf,live:chosen===day});
- const needFee=chosen===day&&filter!=='done'?activeTasks(feeDateNeededRows(cards,day),events).filter(r=>!query.trim()||textOf(r).toLowerCase().includes(query.trim().toLowerCase())):[],needFeeCards=[...new Set(needFee.map(r=>r.cardId))];
+ const needFee=chosen===day&&filter!=='done'?activeTasks(feeDateNeededRows(cards,day),events).filter(r=>!query.trim()||textOf(r).toLowerCase().includes(query.trim().toLowerCase())):[],needFeeCount=needFee.length;
  const singleCard=cards.length===1,limit=expanded||view.filtered?Infinity:compact?COMPACT_LIST:SHORT_LIST,rows=view.rows.slice(0,limit),more=view.rows.length-rows.length,feeRows=needFee.slice(0,limit),feeMore=needFee.length-feeRows.length;
  const latest=task=>events.filter(e=>e.key===task.key).sort((a,b)=>b.at.localeCompare(a.at)||b.id.localeCompare(a.id))[0];
  const change=async(task,status)=>{const previous=taskStatus(task,events),previousEvent=latest(task);setBusy(task.key);try{await mark(task.key,status,task.revisionId);message.open({key:'credit-change',type:'success',duration:6,content:<Space><span><ItemLogo ruleId={task.ruleId}/>{ruleField(task.title,task,'title')}</span> · {t('已更新')}<Button type="link" size="small" onClick={()=>mark(task.key,previous,task.revisionId,previousEvent?.usage?{usage:previousEvent.usage}:{}).then(()=>message.destroy('credit-change')).catch(()=>message.error(t('保存失败，刚才的标记没有生效。')))}>{t('撤销')}</Button></Space>})}catch{message.error(t('保存失败，刚才的标记没有生效。'))}finally{setBusy('')}};
@@ -61,7 +61,7 @@ export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
  const headline=view.open.length?(view.ending.length?t('{0} 项 {1} 天内截止，共 {2} 项待处理',[view.ending.length,ENDING_SOON_DAYS,view.open.length]):t('{0} 项待处理',[view.open.length])):null;
  return <Card className="credit-manager" title={t(compact&&!singleCard&&view.ending.length?'快到期的福利':'本期 Credit')} style={{marginBottom:20}} extra={compact?(singleCard?(view.rows.length+needFee.length>COMPACT_LIST&&<Button type="link" onClick={()=>setExpanded(!expanded)}>{expanded?t('收起'):t('查看本卡全部')}</Button>):<Button type="link" onClick={()=>location.hash='credits'}>{t('查看全部')}</Button>):<Button onClick={calendar}>{t('添加本期日历提醒')}</Button>}>
  {error&&<Alert type="error" showIcon title={error}/>}
- {needFeeCards.length>0&&<Alert className="fee-date-hint" type="info" showIcon style={{marginBottom:16}} title={t('{0} 张卡年度福利需要年费日期',[needFeeCards.length])} description={compact?null:t('没有年费日期就不会猜周期：设置后，这些福利会按持卡年度显示本期和截止日。')}/>}
+ {needFeeCount>0&&<Alert className="fee-date-hint" type="info" showIcon style={{marginBottom:16}} title={t('{0} 项年度福利需要年费日期',[needFeeCount])} description={compact?null:t('没有年费日期就不会猜周期：设置后，这些福利会按持卡年度显示本期和截止日。')}/>}
  {headline&&<Paragraph type="secondary">{headline} · {t('用完点一下；默认是待确认，不会替你猜已用或未用。')}</Paragraph>}
  {!!due.length&&<Alert type="warning" showIcon title={t('{0} 项临近本期截止，仍待你确认',[due.length])} style={{marginBottom:16}}/>}
  {!compact&&<div className="credit-filters">
