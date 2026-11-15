@@ -196,6 +196,23 @@ export const tripCases=[
  {id:'trip-whole-hant',airline:'達美',when:'聖誕節',expectedWindow:{start:'2026-12-01',end:'2026-12-31'}},
  {id:'trip-whole-en',airline:'Delta',when:'Dec 20-27',expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
 ];
+// #277: cycle questions the credit tool must answer from the user's own data. Each case is a tool result plus the code-written fallback answer in the question's language.
+const GE='rule.chase-us-sapphire-reserve.global-entry';
+const fourYearMark=(productId,ruleId,usedOn)=>({schema:1,id:[ruleId,usedOn,'used'].join('-'),key:JSON.stringify([cardFor(productId).id,ruleId,'four-year']),status:'used',usedOn,at:'2026-10-20T00:00:00.000Z',revisionId:null});
+const titled=(r,group,part)=>(r.groups[group]||[]).filter(i=>i.title.includes(part));
+export const cycleCases=[
+ {id:'cycle-month-left-en',question:'What credits do I have left this month on my Gold?',args:{cardName:'American Express Gold'},check:r=>{const i=titled(r,'unknownStatus','每月餐饮')[0];return i?.periodType==='calendar-month'&&i.cycle.end==='2026-10-31'&&i.resetsOn==='2026-11-01'&&i.status==='unknown';},answer:/resets 2026-11-01/},
+ {id:'cycle-month-left-hans',question:'我的白金卡本月还剩哪些 credit？',args:{cardName:'Morgan Stanley Platinum'},check:r=>{const i=titled(r,'unknownStatus','Uber Cash')[0];return i?.cycle.start==='2026-10-01'&&i.cycle.end==='2026-10-31'&&i.resetsOn==='2026-11-01';},answer:/下个周期开始 2026-11-01/},
+ {id:'cycle-quarter-left-hant',question:'我的白金卡這一季還剩哪些 credit？',args:{cardName:'Morgan Stanley Platinum'},check:r=>{const i=titled(r,'unknownStatus','lululemon')[0];return i?.periodType==='calendar-quarter'&&i.cycle.start==='2026-10-01'&&i.cycle.end==='2026-12-31'&&i.resetsOn==='2027-01-01';},answer:/下個週期開始 2027-01-01/},
+ {id:'cycle-quarter-left-en',question:'Which quarterly credits are left this quarter on my Hilton Aspire?',args:{cardName:'Hilton Honors Aspire'},check:r=>{const i=titled(r,'unknownStatus','机票')[0];return i?.periodType==='calendar-quarter'&&i.cycle.end==='2026-12-31'&&i.resetsOn==='2027-01-01';},answer:/resets 2027-01-01/},
+ {id:'cycle-card-year-with-fee-date-hans',question:'我的 Sapphire Reserve 这个卡年还剩哪些 credit？',args:{cardName:'Sapphire Reserve'},feeDates:{[CSR]:{month:3,day:15}},check:r=>{const i=titled(r,'unknownStatus','旅行消费')[0];return i?.periodType==='account-anniversary'&&i.cycle.start==='2026-03-15'&&i.cycle.end==='2027-03-14'&&i.resetsOn==='2027-03-15'&&!i.needsFeeDate;},answer:/下个周期开始 2027-03-15/},
+ {id:'cycle-card-year-no-fee-date-en',question:'What is left on my Sapphire Reserve card-year credit?',args:{cardName:'Sapphire Reserve'},check:r=>{const i=titled(r,'cycleUnknown','旅行消费')[0];return i?.needsFeeDate===true&&i.cycle===null&&i.reason==='anniversary-date-unknown'&&/Ask the user to set/.test(i.nextStep)&&!titled(r,'unknownStatus','旅行消费').length;},answer:/set the fee date on the card/},
+ {id:'cycle-card-year-no-fee-date-hant',question:'我的 Sapphire Reserve 卡年度的 credit 還剩多少？',args:{cardName:'Sapphire Reserve'},check:r=>{const i=titled(r,'cycleUnknown','旅行消费')[0];return i?.needsFeeDate===true&&i.cycle===null&&!('resetsOn' in i);},answer:/請先在卡片上設定年費日/},
+ {id:'cycle-card-year-no-fee-date-hans',question:'我的 Sapphire Reserve 卡年 credit 还剩多少？',args:{cardName:'Sapphire Reserve'},check:r=>{const i=titled(r,'cycleUnknown','旅行消费')[0];return i?.needsFeeDate===true&&i.publicLimit===300;},answer:/请先在卡片上设置年费日/},
+ {id:'cycle-global-entry-no-record-hans',question:'我的 Sapphire Reserve 的 Global Entry credit 什么时候能再用？',args:{cardName:'Sapphire Reserve'},check:r=>{const i=titled(r,'cycleUnknown','Global Entry')[0];return i?.reason==='last-use-date-unknown'&&i.fourYear.lastUsedOn===null&&i.fourYear.nextEligible===null&&/Ask the user/.test(i.nextStep);},answer:/上次使用日期未知/},
+ {id:'cycle-global-entry-used-en',question:'When can I use my Sapphire Reserve Global Entry credit again?',args:{cardName:'Sapphire Reserve'},events:[fourYearMark(CSR,GE,'2023-05-10')],check:r=>{const i=titled(r,'cycleUnknown','Global Entry')[0];return i?.fourYear.lastUsedOn==='2023-05-10'&&i.fourYear.nextEligible==='2027-05-10';},answer:/next eligible 2027-05-10/},
+ {id:'cycle-global-entry-used-hant',question:'我的 Sapphire Reserve 的 Global Entry credit 什麼時候可以再用？',args:{cardName:'Sapphire Reserve'},events:[fourYearMark(CSR,GE,'2023-05-10')],check:r=>titled(r,'cycleUnknown','Global Entry')[0]?.fourYear.nextEligible==='2027-05-10',answer:/下次可用 2027-05-10/},
+];
 export const liveCases=[
  {id:'dining',question:'在美国餐厅消费100美元用哪张卡？请简短回答并保留来源。',expectTool:'choose_card',answerPatterns:['Gold'],expectedArgs:{category:'dining',country:'US',currency:'USD',amount:100}},
  {id:'answers-before-asking',question:'我在餐厅花100，要刷哪张？',expectTool:'choose_card',answersFirst:true},
@@ -222,6 +239,8 @@ export const liveCases=[
  {id:'trip-whole-question',question:'12月20日到27日坐达美飞东京，住凯悦，怎么付最好？有什么保障？',expectAllTools:['plan_flight','query_credits','find_protections'],expectedArgs:{use:'hotel'},expectTool:'query_credits',sameDateWords:true,expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
  {id:'trip-whole-traditional',question:'聖誕節搭國泰飛東京，住凱悅，怎麼付比較好？有什麼保障？',expectAllTools:['plan_flight','query_credits','find_protections'],sameDateWords:true},
  {id:'trip-whole-english',question:'Flying Delta to Tokyo Dec 20-27 and staying at a Hyatt — how should I pay and what covers me?',expectAllTools:['plan_flight','query_credits','find_protections'],sameDateWords:true,answerPatterns:['2026']},
+ {id:'cycle-card-year-no-fee-date',question:'我的 Sapphire Reserve 卡年度旅行 credit 还剩多少？不要猜我的年费日。简短回答。',expectTool:'query_credits',answerPatterns:['年费日|年費日|fee date']},
+ {id:'cycle-global-entry-next-eligible',events:[fourYearMark(CSR,GE,'2023-05-10')],question:'When can I use my Sapphire Reserve Global Entry credit again? Short answer.',expectTool:'query_credits',answerPatterns:['2027-05-10|May 10, 2027|10 May 2027']},
  {id:'credits-by-card',question:'我的 Sapphire Reserve 本期有哪些 credit？没标记的不要当成没用。',expectTool:'query_credits'},
  {id:'follow-up',question:'那换成加拿大，100加元的餐厅呢？简短回答。',memory:{lastPurchase:{category:'dining',country:'US',currency:'USD',amount:100}},expectTool:'choose_card',expectedArgs:{category:'dining',country:'CA',currency:'CAD',amount:100}}
 ];

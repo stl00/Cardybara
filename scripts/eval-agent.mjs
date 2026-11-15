@@ -2,12 +2,13 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {performance} from 'node:perf_hooks';
-import {context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,planGroundingCases,decisionCases,actionClaimCases,actionClaimControls,tripCases} from '../evals/fixtures.mjs';
+import {context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,cycleCases,planGroundingCases,decisionCases,actionClaimCases,actionClaimControls,tripCases} from '../evals/fixtures.mjs';
 import {searchBenefitKnowledge} from '../src/benefitSearch.js';
 import {queryKnowledge} from '../src/knowledge.js';
 import {matchCardProduct} from '../src/productCatalog.js';
 import {chooseCard} from '../src/cardDecision.js';
 import {prepareAgentContext} from '../src/agentContext.js';
+import {renderCreditAnswer} from '../src/creditAnswer.js';
 import {answerGrounding} from '../src/answerGrounding.js';
 // CARDYBARA_AGENT=cloud runs every case through the hosted agent (tests/helpers/agent-target.mjs).
 import {AGENT_TARGET} from '../tests/helpers/agent-target.mjs';
@@ -41,6 +42,11 @@ if(!live){
  for(const c of planCases){
   const result=runWalletTool({id:c.id,function:{name:'query_credits',arguments:JSON.stringify({use:c.use||'hotel',...(c.when?{when:c.when}:{})})}},{...referenceContext,events:c.events||[]});
   check(c.id,{expected:c.check(result)});
+ }
+ for(const c of cycleCases){
+  const cards=referenceContext.cards.map(card=>c.feeDates?.[card.productId]?{...card,feeDate:c.feeDates[card.productId]}:card);
+  const result=runWalletTool({id:c.id,function:{name:'query_credits',arguments:JSON.stringify(c.args)}},{...referenceContext,cards,events:c.events||[]});
+  check(c.id,{expected:c.check(result),answerInLanguage:c.answer.test(renderCreditAnswer(result,c.question))});
  }
  for(const c of tripCases){
   const run=(name,args)=>runWalletTool({id:c.id,function:{name,arguments:JSON.stringify(args)}},referenceContext);
