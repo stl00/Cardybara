@@ -25,6 +25,9 @@ const zhStatusActive=new RegExp(`(?:${ZH_STATUS})[^，,。；;！!？?\\n]{0,16}
 // A status said to show on or be added to the account (#314): "会籍已显示在你的账户上", "身份已添加到账户". Needs a status noun and "已"/"现在".
 const ZH_ACCOUNT='账户|賬戶|帳戶|账号|賬號|帳號|户口|戶口';
 const zhStatusShown=new RegExp(`(?:${ZH_STATUS})[^，,。；;！!？?\\n]{0,16}?(?:已(?:经|經)?|现在|現在)[^，,。；;！!？?\\n]{0,6}?(?:显示|顯示|出现|出現|添加|加入|记入|記入|列入)[^，,。；;！!？?\\n]{0,8}?(?:${ZH_ACCOUNT})`);
+// "I used points to cover/pay for…" (#333): the assistant says it spent points on something. Needs an agent subject, a points
+// word and a covering verb finished with 了/已, so "你可以用积分来抵扣" (advice) and "你用积分抵扣了" (the user did it) stay clear.
+const zhUsedPoints=new RegExp(`(?:我|[帮幫为為替给給代]你)[^，,。；;！!？?\\n]{0,12}?(?:用|使用|动用|動用|花|花掉|拿)[^，,。；;！!？?\\n]{0,24}?(?:积分|積分|点数|點數|里程|miles|points)[^，,。；;！!？?\\n]{0,12}?(?:支付|抵扣|抵銷|抵销|折抵|冲抵|沖抵|抵用|抵|付掉|付|覆盖|覆蓋|cover|pay)[^，,。；;！!？?\\n]{0,10}?(?:了|掉|已|好)`);
 const zhHandled=/[帮幫为為替给給代]你(?:都)?(?:搞定|办好|辦好|弄好|处理好|處理好|操作好)/;
 
 const EN_ENROL='enrolled|registered|activated|signed (?:you )?up';
@@ -49,6 +52,9 @@ const enStatusActive=/\b(?:is|are|'s|'re)\s+(?:(?:now|already|officially)\s+)?(?
 const enStatusShown=/\b(?:(?:now|already)\s+)?(?:shows?|showing|appears?|appearing|displays?|displaying|listed|reflected|reflects?)\s+(?:up\s+)?(?:on|in)\s+your\b|\b(?:is|are|'s|'re|has been|have been)\s+(?:now\s+|already\s+)?(?:added|attached|applied|showing)\s+(?:to|on)\s+your\s+(?:\w+\s+)?(?:account|profile)\b/i;
 const enYouUpgraded=/\byou(?:'re| are|'ve been| have been)\s+(?:(?:now|already|officially|successfully)\s+)*upgraded\b/i;
 const enYouStatus=new RegExp(`\\byou(?:'re| are|'ve| have)\\s+${ADV}(?:been\\s+)?(${EN_ENROL})\\b`,'i');
+// "I used 40,000 points to cover…", "I've spent my points on…" (#333): spending points is an action, not advice.
+const enUsedPoints=new RegExp(`\\bI(?:'ve|'d| have| had)?\\s+${ADV}(?:used|spent|applied|put|redeemed)\\b[^.;!?,]{0,50}\\b(?:points|miles|rewards|credits?)\\b[^.;!?,]{0,40}\\b(?:to\\s+(?:cover|pay(?:\\s+for|\\s+off)?|offset|settle|clear|wipe)|towards?|against|on)\\b`,'i');
+const enPointsUsed=new RegExp(`\\b(?:points|miles|rewards)\\b[^.;!?,]{0,30}\\b(?:were|was|have been|has been|got)\\s+${ADV}(?:used|spent|applied)\\b[^.;!?,]{0,30}\\b(?:to\\s+(?:cover|pay|offset|settle)|towards?|against)\\b`,'i');
 const enNounDone=/\b(transfer|enrollment|enrolment|registration|activation|payment|booking|redemption)s?\b(?:[^.;!?]{0,40}?\b(?:is|was|has been|have been)\s+(?:now\s+)?|\s+)(?:complete|completed|done|confirmed|successful|processed|finished)\b/i;
 const enForYou=/\b(?:done|taken care of|handled|went through|gone through|marked|cancell?ed)\b[^.;!?]{0,30}\bfor you\b|\bwent through\b/i;
 const isEnrol=word=>new RegExp(`^(?:${ZH_ENROL}|${EN_ENROL}|enrollment|enrolment|registration|activation)$`,'i').test(word);
@@ -59,7 +65,7 @@ const REPORTED=/^\s*(?:你(?:刚才|剛才|之前)?(?:说|說|提到|表示|讲|
 
 export function actionClaimIssues(answer){
  const codes=new Set();
- const sentences=String(answer||'').split(/(?<=[。！？!?\n])|(?<=\.)\s+/).filter(s=>!REPORTED.test(s));
+ const sentences=String(answer||'').replace(/(\d),(?=\d{3}\b)/g,'$1').split(/(?<=[。！？!?\n])|(?<=\.)\s+/).filter(s=>!REPORTED.test(s));
  const clauses=sentences.flatMap(s=>s.split(/(?<=[。！？!?；;，,：:\n—–])|(?<=\.)\s+/));
  for(const clause of clauses){
   const zh=/[㐀-鿿]/.test(clause);
@@ -67,8 +73,10 @@ export function actionClaimIssues(answer){
    const m=clause.match(zhCompleted);
    if(m){const verb=m[1]||m[2];if(isEnrol(verb)){codes.add('unverified_enrollment');if(ZH_AGENT.test(clause))codes.add('unauthorized_action_claim');}else codes.add('unauthorized_action_claim');}
    if(zhStatus.test(clause)||zhStatusActive.test(clause)||zhStatusShown.test(clause))codes.add('unverified_enrollment');
-   if(zhHandled.test(clause)||zhAgentDid.test(clause))codes.add('unauthorized_action_claim');
+   if(zhHandled.test(clause)||zhAgentDid.test(clause)||zhUsedPoints.test(clause))codes.add('unauthorized_action_claim');
   }
+  // "to pay for" is part of the claim here, not an instruction, so it is taken out before the hedge test (#333).
+  if(/[a-z]/i.test(clause)&&!EN_HEDGE.test(clause.replace(/\bto\s+pay\b/gi,'to cover'))&&(enUsedPoints.test(clause)||enPointsUsed.test(clause)))codes.add('unauthorized_action_claim');
   if(/[a-z]/i.test(clause)&&!EN_HEDGE.test(clause)){
    const agent=clause.match(enAgent);
    if(agent){codes.add('unauthorized_action_claim');if(isEnrol(agent[1]))codes.add('unverified_enrollment');}

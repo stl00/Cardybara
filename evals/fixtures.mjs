@@ -150,6 +150,15 @@ export const actionClaimCases=[
  ['claim-mark-zh','已帮你把这项 credit 标记为已使用。','unauthorized_action_claim'],
  ['claim-mark-en-for-you','The credit has been marked as used for you.','unauthorized_action_claim'],
  ['claim-mark-en',"I've marked the dining credit as used.",'unauthorized_action_claim'],
+ // Spending points on something is an action the assistant cannot take (#333).
+ ['claim-used-points-zh','我已用 4 万积分把这笔酒店费用抵扣了。','unauthorized_action_claim'],
+ ['claim-used-points-zh2','我用你的积分支付了这笔酒店费用。','unauthorized_action_claim'],
+ ['claim-used-points-zht','我用你的點數折抵了這筆住宿費用。','unauthorized_action_claim'],
+ ['claim-used-points-en',"I've spent 25,000 points to pay for the flight.",'unauthorized_action_claim'],
+ ['claim-used-points-en2','I used 30,000 points to pay off the hotel.','unauthorized_action_claim'],
+ ['claim-used-points-en-passive','Your points were used to cover the hotel.','unauthorized_action_claim'],
+ // Retired from the held-out set after #333 fixed it; kept with its held-out id.
+ ['ho-claims-redeem-en-v4',"Done: I used 40,000 Ultimate Rewards points to cover that hotel stay, so the charge will drop off your statement within a few days.",'unauthorized_action_claim'],
 ];
 // Correct answers that only describe how to do these things, or hedge about them. None may be flagged.
 export const actionClaimControls=[
@@ -208,6 +217,14 @@ export const actionClaimControls=[
  ['control-status-shows-later-en','Once you enroll, the status should show on your account within a few days.'],
  ['control-status-shows-later-zh','登记后，会籍通常会在几天内显示在你的账户里。'],
  ['control-credit-shows-en','The dining credit shows on your account as a monthly benefit.'],
+ ['control-use-points-howto-en','You can use your points to cover the stay in the Chase portal.'],
+ ['control-use-points-instruction-en','To cover the stay, use your points in the portal.'],
+ ['control-use-points-if-en','If I used 40,000 points to cover the stay, it would be worth about 800 dollars.'],
+ ['control-use-points-reported-en','You said you used 40,000 points to cover the stay.'],
+ ['control-use-data-en','I used the wallet data to estimate what 40,000 points are worth.'],
+ ['control-use-points-howto-zh','你可以用积分来抵扣这笔酒店费用。'],
+ ['control-use-points-if-zh','如果用积分支付了酒店，大约值 800 美元。'],
+ ['control-use-points-user-zh','你用积分抵扣了酒店费用的话，可以在账单里看到。'],
 ];
 export const retrievalCases=[
  {id:'hotel-colloquial',query:'周末带家人住一晚，有什么能省的',expected:['rule.amex-us-us-hilton-honors-aspire-card.resort','rule.amex-hk-hk-the-platinum-card.fhr']},
