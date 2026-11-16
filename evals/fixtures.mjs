@@ -25,6 +25,18 @@ const markedUnused=[creditMark(GOLD,GOLD_DINING,'2026-10-01','2026-10-31','unuse
 export const decisionIds={GOLD,GOLD_DINING};
 const usDining={category:'dining',amount:100,currency:'USD',country:'US'};
 export const decisionCases=[
+ // Retired from the held-out set (#313). Written for the old policy (points never priced unless the user gave a value);
+ // the 2026-11-11 owner decision (#193, #202) prices them at a default market valuation. Their checks are kept as written
+ // and pinned to marketDefaults:false, where they still test the comparison mechanics; the cases below them check the defaults.
+ {id:'ho-choice-supermarket-cash-back',marketDefaults:false,args:{category:'supermarket',amount:200,currency:'USD',country:'US'},check:r=>r.choice?.card==='Blue Cash Everyday'&&r.choice.value===6},
+ {id:'ho-choice-flight-points-unpriced',marketDefaults:false,args:{category:'flight',amount:100,currency:'USD',country:'US'},check:r=>r.choice?.valuedPoints===false&&r.pointsAlternatives?.some(p=>p.card==='Morgan Stanley Platinum Card')},
+ {id:'ho-choice-flight-points-priced',marketDefaults:false,args:{category:'flight',amount:100,currency:'USD',country:'US',pointValues:{MR:1}},check:r=>r.choice?.card==='Morgan Stanley Platinum Card'&&r.choice.value===5&&r.choice.valuedPoints===true},
+ // #313: the same purchases under the defaults. Gold's 4x MR at 1.5 cents beats 3% cash at a US supermarket.
+ {id:'choice-supermarket-points-at-the-default',args:{category:'supermarket',amount:200,currency:'USD',country:'US'},check:r=>r.choice?.card==='American Express Gold Card'&&r.choice.value===12&&r.choice.pointValue?.basis==='default'&&r.rows.find(x=>x.card==='Blue Cash Everyday')?.earn?.reward===6},
+ // No value given: the flight is ranked at the default MR value, labelled as a default.
+ {id:'choice-flight-priced-at-the-default',args:{category:'flight',amount:100,currency:'USD',country:'US'},check:r=>r.choice?.card==='Morgan Stanley Platinum Card'&&r.choice.value===7.5&&r.choice.pointValue?.basis==='default'},
+ // A value stated for one programme does not switch off the defaults of the others: MR stated at 1 cent, UR at its default 1.5.
+ {id:'choice-stated-value-for-one-programme-keeps-other-defaults',args:{category:'flight',amount:100,currency:'USD',country:'US',pointValues:{MR:1}},check:r=>r.choice?.card==='Sapphire Reserve'&&r.choice.value===6&&r.choice.pointValue?.basis==='default'&&r.rows.find(x=>x.card==='Morgan Stanley Platinum Card')?.pointValue?.basis==='stated'},
  // #193: points count at the default market valuation, so Gold's 4x MR (1.5 cents) beats 3% cash on dining.
  {id:'choice-category-beats-flat-cash',args:usDining,check:r=>r.choice.card==='American Express Gold Card'&&r.choice.value===6&&r.choice.pointValue?.basis==='default'&&r.choice.certainty==='conditional'},
  {id:'choice-flat-cash-without-a-category',args:{category:'other',amount:100,currency:'USD',country:'US'},check:r=>r.choice.card==='Freedom Unlimited'&&r.choice.value===1.5&&r.choice.certainty==='confirmed'},

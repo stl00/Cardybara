@@ -31,7 +31,8 @@ if(!live){
  }
  report.retrieval={cases:n,hitAt12:hits/n,meanReciprocalRank:rr/n,sharedQueries:{count:shared,beforeHitAt12:baseline/shared,afterHitAt12:sharedHits/shared},note:'Development-set expected-record hit@12, not exhaustive recall or held-out generalization.'};
  for(const c of decisionCases){
-  const r=chooseCard(c.args,{...referenceContext,events:c.events||[]});
+  // A case about the comparison mechanics pins marketDefaults:false, so it does not depend on the default valuation table.
+  const r=chooseCard(c.args,{...referenceContext,events:c.events||[],...(c.marketDefaults===false?{marketDefaults:false}:{})});
   check(c.id,{expected:c.check(r)},{choice:r.choice?.kind,certainty:r.choice?.certainty||null});
  }
  for(const c of publicRuleCases){
