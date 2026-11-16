@@ -132,3 +132,87 @@ test('long-range "the second one from the first list" keeps the first list once 
   assert.match(contextSources(sent)[0],/earlierLists/);
  }
 });
+
+// ---- live run 2026-11-16 failures (#357) ----
+import {runWalletTool} from '../src/walletAgent.js';
+import {answerGrounding,separateLinks,statedOrdinals} from '../src/answerGrounding.js';
+import {SYSTEM} from '../src/chatProtocol.js';
+import {evalContext} from '../evals/multiturn/harness.mjs';
+const tool=(name,args)=>runWalletTool({id:'t',type:'function',function:{name,arguments:JSON.stringify(args)}},evalContext);
+const byId=id=>dialogues.find(d=>d.id===id);
+// A scripted model: the expected call, then the given answer. Replays the real loop, tools and answer checks.
+const scripted=(d,answer,calls=[[d.expect.tool,d.expect.args]])=>{let step=0;return async()=>{const c=calls[step++];return {message:c?{role:'assistant',content:'',tool_calls:[{id:'s'+step,type:'function',function:{name:c[0],arguments:JSON.stringify(c[1])}}]}:{role:'assistant',content:answer}};};};
+const HK_PAGE='https://www.americanexpress.com/hk/en/credit-cards/platinum-card/';
+
+test('transfer questions on US and HK cards expect convert_points, the tool the assistant is told to use (#170, #357)',()=>{
+ for(const id of ['pron-gold-transfer-en','ell-amex-transfer-en','long-gold-hant','same-asia-miles-hk-hans'])assert.equal(byId(id).expect.tool,'convert_points',id);
+ assert.match(SYSTEM,/convert_points for where points can transfer/);
+ const expect=byId('pron-gold-transfer-en').expect,call=partner=>({name:'convert_points',args:{cardName:'Amex Gold',partner}});
+ assert.equal(argumentsMatch(expect,{name:'convert_points',args:{cardName:'Gold Card',partner:'Asia Miles'}}),true);
+ assert.equal(argumentsMatch(expect,{name:'convert_points',args:{cardName:'Gold Card',partner:'Cathay'}}),true,'an alias that reaches Cathay Asia Miles');
+ assert.equal(argumentsMatch(expect,{name:'convert_points',args:{cardName:'Gold Card',partner:'Aeroplan'}}),false);
+ assert.equal(argumentsMatch(expect,{name:'convert_points',args:{cardName:'Gold Card'}}),false,'the named partner is required');
+ assert.equal(argumentsMatch(expect,call('Asia Miles')),false,'"Amex Gold" is not a cardName the tool can select');
+ assert.equal(argumentsMatch(byId('long-gold-hant').expect,{name:'convert_points',args:{cardName:'Gold Card',partner:'Aeroplan'}}),false,'Air Canada Aeroplan is not ANA');
+ assert.equal(argumentsMatch(expect,{name:'get_card_rules',args:{kind:'transfer-relationship',cardName:'Gold Card',programme:'Asia Miles'}}),false);
+});
+
+test('Amex CA transfers: convert_points has no rate rule, so it points to the recorded relationships (#357)',()=>{
+ const ca=tool('convert_points',{cardName:'Platinum Card',region:'CA',partner:'Hilton'});
+ assert.deepEqual(ca.transferRelationshipHint.cards,[{name:'Platinum Card',region:'CA'}]);
+ assert.match(ca.transferRelationshipHint.note,/get_card_rules with kind transfer-relationship/);
+ assert.equal(ca.withoutRecordNote,undefined,'"no transfer record" would be wrong for this card');
+ assert.equal(ca.partnerNote,undefined);
+ // Only a relationship to the partner asked about counts.
+ const mars=tool('convert_points',{cardName:'Platinum Card',region:'CA',partner:'Mars Miles'});
+ assert.equal(mars.transferRelationshipHint,undefined);assert.ok(mars.partnerNote);
+ assert.ok(tool('get_card_rules',{kind:'transfer-relationship',cardName:'Platinum Card',region:'CA',programme:'Hilton'}).totalMatches>0);
+ // Cards with no relationship either keep the plain note; cards with rate rules get no hint.
+ const all=tool('convert_points',{});
+ assert.deepEqual(all.transferRelationshipHint.cards,[{name:'Platinum Card',region:'CA'}]);
+ assert.match(all.withoutRecordNote,/No transfer rule lists these cards/);
+ assert.equal(tool('convert_points',{cardName:'Gold Card',partner:'Asia Miles'}).transferRelationshipHint,undefined);
+ for(const id of ['pron-caplat-hilton-hans','long-caplat-hans','ell-transfer-ca-hans','ord-caplat-6-hans'])assert.equal(byId(id).expect.tool,'get_card_rules',id);
+ assert.match(SYSTEM,/if it returns transferRelationshipHint, call get_card_rules/);
+});
+
+test('"that card" after a recommendation is the recommended card (#202 changed the pick, #357)',()=>{
+ const d=byId('pron-choice-card-fee-en'),[name,args]=d.turns[0].calls[0];
+ assert.equal(tool(name,args).choice.card,'American Express Gold Card');
+ assert.equal(d.expect.args.cardName,'Gold Card');
+ assert.equal(d.target.card,GOLD);
+});
+
+test('"the card I asked about first" is the first recentCards entry even when its turns are trimmed (#357)',async()=>{
+ const {sent}=await replay(byId('long-sr-fee-en'));
+ assert.match(contextSources(sent)[0],/"recentCards":\[\{"card":"Sapphire Reserve","region":"US","firstTurn":1,"lastTurn":1,"onlyInDroppedTurns":true\}/);
+ assert.match(SYSTEM+sent.messages[0].content,/"the card I asked about first" or "the one from the start" is the recentCards entry with the lowest firstTurn, even when it is onlyInDroppedTurns/);
+});
+
+test('a source link written straight before Chinese punctuation is the same grounded link (#357)',async()=>{
+ assert.equal(separateLinks(`來源：${HK_PAGE}）`),`來源：${HK_PAGE} ）`);
+ assert.equal(separateLinks(`[來源](${HK_PAGE})。`),`[來源](${HK_PAGE})。`,'a markdown link already ends at its bracket');
+ assert.equal(separateLinks('see https://example.com/a?b=1 now'),'see https://example.com/a?b=1 now');
+ for(const [id,answer] of [
+  ['pron-hkplat-lounge-hant',`有，香港白金卡有 Global Lounge Collection，入場同攜客條件以條款為準（來源：${HK_PAGE}）`],
+  ['same-marriott-hk-hant',`香港白金卡嘅 Marriott Gold 會籍要登記，詳情：${HK_PAGE}。以官方條款為準`],
+ ]){
+  const d=byId(id),{finalResult}=await replay(d,{finalRequest:scripted(d,answer)});
+  assert.ok(!finalResult.trace.some(t=>t.type==='repair'),id+': grounded on the first answer');
+  assert.match(finalResult.answer,new RegExp(HK_PAGE.replace(/[.?/]/g,'\\$&')+' [）。]'),id);
+ }
+ // A link no tool returned is still not grounded, however it is punctuated.
+ const d=byId('pron-hkplat-lounge-hant');
+ await assert.rejects(()=>replay(d,{finalRequest:scripted(d,'來源：https://invented.example/hk）')}),/answer_not_grounded/);
+ assert.equal(answerGrounding('來源：https://www.americanexpress.com/hk/en/credit-cards/platinum-card/evil）',[tool(d.expect.tool,d.expect.args)]).passed,false);
+});
+
+test('an ordinal the user said in words may be echoed as a digit, and only that one (#357)',async()=>{
+ assert.deepEqual(statedOrdinals('第四個點登記？'),[4]);
+ assert.deepEqual(statedOrdinals('第十一个呢，第二十三个呢'),[11,23]);
+ assert.deepEqual(statedOrdinals('How do I use the second one from the very first list?'),[2,1]);
+ assert.deepEqual(statedOrdinals('三百美元够吗'),[]);
+ const d=byId('ord-hkplat-4-hant'),{finalResult}=await replay(d,{finalRequest:scripted(d,'第4項係 Radisson Premium 會籍：要先登記並關聯 Radisson 賬戶，以條款為準。')});
+ assert.ok(!finalResult.trace.some(t=>t.type==='repair'));
+ await assert.rejects(()=>replay(d,{finalRequest:scripted(d,'第5項係 Radisson Premium 會籍，要先登記。')}),/answer_not_grounded/,'a position the user did not say is not grounded');
+});

@@ -4,7 +4,7 @@ import {chooseCard,pointValueFor,PURCHASE_CATEGORIES,PURCHASE_CHANNELS,POINT_VAL
 import {matchCardProduct} from './productCatalog.js';
 import {knowledgeSources,queryKnowledge,knowledgeEntities,ruleText,COVERAGE_TYPES} from './knowledge.js';
 import {queryCredits,queryCreditLedger,CREDIT_USES,LEDGER_BASIS_CHOICES} from './creditQuery.js';
-import {transferOptions,pointsToReach,transferProgrammes} from './transferRoutes.js';
+import {transferOptions,pointsToReach,transferProgrammes,partnerMatches} from './transferRoutes.js';
 import {valuationFor,resolvePointValue} from './pointValues.js';
 import {cardProgramme,poolingRules,poolingExplanation,pointsReach} from './pointsPooling.js';
 import {redemptionOptions,heldProductIdsOf} from './redemptionOptions.js';
@@ -110,9 +110,15 @@ export function runWalletTool(call,{cards,events,day,trip,language,pointValues=[
  if(name==='convert_points'){
   const selected=selectedCards(cards,args),found=transferOptions(selected,args,{asOf:day,held:cards});
   const programmes=found.programmes.map(g=>({...g,partners:g.partners.map(({sourceIds,...row})=>({...row,sources:knowledgeSources(sourceIds)}))}));
+  // A card with no rate rule can still have recorded transfer partners without rates, read by get_card_rules (Amex CA,
+  // #357). "No transfer record" would then be wrong, so point to that read instead.
+  const relationshipProducts=new Set(queryKnowledge({kind:'transfer-relationship',asOf:day}).rules.filter(r=>partnerMatches(r.terms.toProgrammeId,args.partner)).flatMap(r=>r.productIds));
+  const withRelationships=found.cardsWithoutTransferRecord.filter(w=>selected.some(c=>c.name===w.name&&c.region===w.region&&relationshipProducts.has(matchCardProduct(c).product?.id)));
+  const relationshipHint=withRelationships.length?{transferRelationshipHint:{cards:withRelationships,note:'No rate rule lists these cards, but their transfer partners are recorded without rates. Before answering, call get_card_rules with kind transfer-relationship and each card\'s cardName and region (and programme, in English, if the user named one). Give no rate for them.'}}:{};
+  const withoutRecord=found.cardsWithoutTransferRecord.length>withRelationships.length;
   return {kind:'transfer-options',coverage:'Published transfer rules only. Rates and minimums are public terms, not proof that an account is linked or that a transfer will succeed. No award availability or point valuation.',asOf:day,scope:{region:args.region||null,cardName:args.cardName||null,partner:args.partner||null,points:args.points??null},matchedCards:selected.map(c=>c.name),...found,programmes,
-   ...(found.cardsWithoutTransferCard?{withoutTransferCardNote:'These cards earn the programme\'s points but no held card of the programme transfers them to partners, so no rate reaches them now. That is not proof the card can never transfer; points_accounts explains how the programme pools.'}:{}),...(found.cardsWithoutTransferRecord.length?{withoutRecordNote:'No transfer rule lists these cards. That is not proof they cannot transfer: say no transfer record is held for them and give no rate.'}:{}),
-   ...(found.partnerFound?{}:{partnerNote:'No transfer rule of the held cards reaches this partner. Say so; do not offer other partners as if they were it.'})};
+   ...(found.cardsWithoutTransferCard?{withoutTransferCardNote:'These cards earn the programme\'s points but no held card of the programme transfers them to partners, so no rate reaches them now. That is not proof the card can never transfer; points_accounts explains how the programme pools.'}:{}),...(withoutRecord?{withoutRecordNote:'No transfer rule lists these cards. That is not proof they cannot transfer: say no transfer record is held for them and give no rate.'}:{}),...relationshipHint,
+   ...(found.partnerFound||withRelationships.length?{}:{partnerNote:'No transfer rule of the held cards reaches this partner. Say so; do not offer other partners as if they were it.'})};
  }
  if(name==='plan_flight'){
   // Every step from code (#82): the transfer path and its maths from verified rules, credits from query_credits,

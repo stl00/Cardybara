@@ -77,7 +77,9 @@ for(const d of rescore?[]:selected){
   const {finalResult}=await replay(d,{finalRequest:async(p,s)=>{const r=await finalRequest(p,s);calls.push(...toolCallsOf(r.message));return r;}});
   const checks=scoreLive(d,calls,!!finalResult?.answer?.trim());
   report.cases.push({id:d.id,lang:d.lang,kind:d.kind,passed:passedLive(checks),checks,asked:!calls.length,ms:Date.now()-start,calls});
- }catch(error){report.cases.push({id:d.id,lang:d.lang,kind:d.kind,passed:false,checks:scoreLive(d,calls,false),error:error.message==='answer_not_grounded'?'answer_not_grounded':'model_or_execution_failed',...(dryRun?{detail:error.message}:{}),ms:Date.now()-start,calls});}
+ }catch(error){report.cases.push({id:d.id,lang:d.lang,kind:d.kind,passed:false,checks:scoreLive(d,calls,false),error:error.message==='answer_not_grounded'?'answer_not_grounded':'model_or_execution_failed',
+  // Which checks an answer failed, as fixed codes (no model text), so a weekly run says why it was not grounded (#357).
+  ...(error.message==='answer_not_grounded'?{groundingCodes:[...new Set(error.codes||[])]}:{}),...(dryRun?{detail:error.message}:{}),ms:Date.now()-start,calls});}
  if(spend)report.cases.at(-1).usd=+(spend.spent()-spentBefore).toFixed(5);
  console.log(d.id+': '+(report.cases.at(-1).passed?'PASS':'FAIL')+(spend?' $'+spend.spent().toFixed(4):''));
 }

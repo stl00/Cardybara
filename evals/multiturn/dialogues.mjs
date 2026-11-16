@@ -6,12 +6,14 @@
 //
 // kind: pronoun (这张/它/it), ordinal (第二个/the second one), ellipsis (那 Amex 呢), topic-return (switch, then back),
 // long-range (referent more than six turns back), same-name (same product name in another region).
+// Transfer partners and rates are convert_points (#170); get_card_rules transfer-relationship is expected only where no
+// rate rule lists the card (Amex CA), which convert_points points to with transferRelationshipHint (#357).
 const T=(user,calls,answer)=>({user,calls,answer});
 const fb=(query,extra={})=>['find_benefits',{query,...extra}];
 const rules=(kind,extra={})=>['get_card_rules',{kind,...extra}];
 const credits=(args={})=>['query_credits',args];
 const choose=args=>['choose_card',args];
-const SR='chase-us-sapphire-reserve',FU='chase-us-freedom-unlimited',GOLD='amex-us-us-american-express-gold-card',MS='amex-us-us-morgan-stanley-platinum-card',ASPIRE='amex-us-us-hilton-honors-aspire-card',PLAT_US='amex-us-us-the-platinum-card',PLAT_HK='amex-hk-hk-the-platinum-card',PLAT_CA='amex-ca-ca-platinum-card',RED='hsbc-hk-hk-red-credit-card',CATHAY='sc-hk-hk-cathay-mastercard';
+const SR='chase-us-sapphire-reserve',GOLD='amex-us-us-american-express-gold-card',MS='amex-us-us-morgan-stanley-platinum-card',ASPIRE='amex-us-us-hilton-honors-aspire-card',PLAT_US='amex-us-us-the-platinum-card',PLAT_HK='amex-hk-hk-the-platinum-card',PLAT_CA='amex-ca-ca-platinum-card',RED='hsbc-hk-hk-red-credit-card',CATHAY='sc-hk-hk-cathay-mastercard';
 
 // Earlier answers reused across dialogues.
 const srLoungesHans=T('我的 Sapphire Reserve 有哪些休息室权益？',[fb('休息室',{cardName:'Sapphire Reserve'})],'Chase Sapphire Reserve 和休息室相关的公开权益有：\n1. 加拿大航空休息室\n2. Priority Pass 休息室\n3. Chase Sapphire 休息室\n另外还有 Global Entry／TSA／NEXUS 抵扣。准入凭证和携客条件以条款为准。');
@@ -71,13 +73,13 @@ export const dialogues=[
  // ---- pronoun ----
  {id:'pron-aspire-fee-hans',lang:'zh-Hans',kind:'pronoun',turns:[aspireHotelHans],question:'这张卡年费多少？',expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'Aspire'}},target:{card:ASPIRE}},
  {id:'pron-gold-fee-hans',lang:'zh-Hans',kind:'pronoun',turns:[goldDiningHans],question:'它的年费呢？',expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'Gold Card'}},target:{card:GOLD}},
- {id:'pron-gold-transfer-en',lang:'en',kind:'pronoun',turns:[goldDiningEn],question:'Can its points go to Asia Miles?',expect:{tool:'get_card_rules',args:{kind:'transfer-relationship',cardName:'Gold Card',programme:'Asia Miles'}},target:{card:GOLD}},
+ {id:'pron-gold-transfer-en',lang:'en',kind:'pronoun',turns:[goldDiningEn],question:'Can its points go to Asia Miles?',expect:{tool:'convert_points',args:{cardName:'Gold Card',partner:'Asia Miles'}},target:{card:GOLD}},
  {id:'pron-hkplat-lounge-hant',lang:'zh-Hant',kind:'pronoun',turns:[hkPlatHotelHant],question:'呢張卡有冇貴賓室？',expect:{tool:'find_benefits',args:{query:'貴賓室',cardName:'The Platinum Card',region:'HK'}},target:{card:PLAT_HK}},
  {id:'pron-ms-credits-hans',lang:'zh-Hans',kind:'pronoun',turns:[msPerksHans],question:'这张卡的抵扣我这期用了哪些？',expect:{tool:'query_credits',args:{cardName:'Morgan Stanley'}},target:{card:MS}},
  {id:'pron-sr-fee-en',lang:'en',kind:'pronoun',turns:[srLoungesEn],question:'What is the annual fee on that card?',expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'Sapphire Reserve'}},target:{card:SR}},
  {id:'pron-cathay-fee-hans',lang:'zh-Hans',kind:'pronoun',turns:[cathayLinkHans],question:'那这张卡年费是多少？',expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'Cathay'}},target:{card:CATHAY}},
  {id:'pron-red-benefits-hant',lang:'zh-Hant',kind:'pronoun',turns:[redFeeHant],question:'佢有咩其他優惠？',expect:{tool:'find_benefits',args:{query:'權益',cardName:'Red Credit Card'}},target:{card:RED}},
- {id:'pron-choice-card-fee-en',lang:'en',kind:'pronoun',turns:[diningChoiceEn],question:'Does that card have an annual fee?',expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'Freedom Unlimited'}},target:{card:FU}},
+ {id:'pron-choice-card-fee-en',lang:'en',kind:'pronoun',turns:[diningChoiceEn],question:'Does that card have an annual fee?',expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'Gold Card'}},target:{card:GOLD}},
  {id:'pron-caplat-hilton-hans',lang:'zh-Hans',kind:'pronoun',turns:[caPlatTransferHans],question:'它转 Hilton 的规则再详细说说',expect:{tool:'get_card_rules',args:{kind:'transfer-relationship',cardName:'Platinum Card',region:'CA',programme:'Hilton'}},target:{card:PLAT_CA}},
 
  // ---- ordinal ----
@@ -95,7 +97,7 @@ export const dialogues=[
  {id:'ord-hotelcredits-hans',lang:'zh-Hans',kind:'ordinal',turns:[hotelCreditsHans],question:'第一个要怎么订才算？',expect:{tool:'find_benefits',args:{query:'The Edit',cardName:'Sapphire Reserve'}},target:{card:SR,item:['The Edit 酒店抵扣','The Edit']}},
 
  // ---- ellipsis ----
- {id:'ell-amex-transfer-en',lang:'en',kind:'ellipsis',turns:[srTransferEn],question:'What about the Amex Gold?',expect:{tool:'get_card_rules',args:{kind:'transfer-relationship',cardName:'Gold Card'}},target:{item:['transfer']}},
+ {id:'ell-amex-transfer-en',lang:'en',kind:'ellipsis',turns:[srTransferEn],question:'What about the Amex Gold?',expect:{tool:'convert_points',args:{cardName:'Gold Card'}},target:{item:['transfer']}},
  {id:'ell-hk-fee-hans',lang:'zh-Hans',kind:'ellipsis',turns:[T('加拿大白金卡公布年费是多少？',[rules('fee',{cardName:'Platinum Card',region:'CA'})],'加拿大美国运通白金卡的公布主卡年费和附属卡年费都有记录。公布年费不代表你实际被收取的金额。')],question:'那香港的呢？',regionInQuestion:true,expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'The Platinum Card',region:'HK'}},target:{card:PLAT_HK,item:['年费','annual fee']}},
  {id:'ell-ms-dining-hans',lang:'zh-Hans',kind:'ellipsis',turns:[goldDiningHans],question:'那摩根士丹利那张呢？',expect:{tool:'find_benefits',args:{query:'餐饮',cardName:'Morgan Stanley'}},target:{item:['餐饮','dining']}},
  {id:'ell-lounge-hk-hant',lang:'zh-Hant',kind:'ellipsis',turns:[srLoungesHant],question:'咁香港白金卡呢？',regionInQuestion:true,expect:{tool:'find_benefits',args:{query:'貴賓室',cardName:'The Platinum Card',region:'HK'}},target:{item:['休息室','貴賓室','lounge']}},
@@ -125,14 +127,14 @@ export const dialogues=[
  {id:'long-hkplat-hans',lang:'zh-Hans',kind:'long-range',turns:[hkPlatHotelHans,...middle['zh-Hans']],question:'一开始说的那张香港卡，Accor 那个怎么登记？',regionInQuestion:true,expect:{tool:'find_benefits',args:{query:'Accor',cardName:'The Platinum Card',region:'HK'}},target:{card:PLAT_HK}},
  {id:'long-aspire-en',lang:'en',kind:'long-range',turns:[aspireHotelEn,...middle.en],question:'For the hotel card from the start, what is the annual fee?',expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'Aspire'}},target:{card:ASPIRE}},
  {id:'long-caplat-hans',lang:'zh-Hans',kind:'long-range',turns:[caPlatTransferHans,...middle['zh-Hans']],question:'最开始那张卡转 Etihad 有什么条件？',expect:{tool:'get_card_rules',args:{kind:'transfer-relationship',cardName:'Platinum Card',region:'CA',programme:'Etihad'}},target:{card:PLAT_CA}},
- {id:'long-gold-hant',lang:'zh-Hant',kind:'long-range',turns:[goldTransferHant,...middle['zh-Hant']],question:'最早問嗰張卡，可唔可以轉 ANA？',expect:{tool:'get_card_rules',args:{kind:'transfer-relationship',cardName:'Gold Card',programme:'ANA'}},target:{card:GOLD}},
+ {id:'long-gold-hant',lang:'zh-Hant',kind:'long-range',turns:[goldTransferHant,...middle['zh-Hant']],question:'最早問嗰張卡，可唔可以轉 ANA？',expect:{tool:'convert_points',args:{cardName:'Gold Card',partner:'ANA'}},target:{card:GOLD}},
 
  // ---- same product name in different regions ----
  {id:'same-hk-after-us-hans',lang:'zh-Hans',kind:'same-name',turns:[hkPlatHotelHans,T('美国那张白金卡呢？',[fb('酒店',{cardName:'The Platinum Card',region:'US'})],'美国 The Platinum Card 在知识库里没有找到酒店权益记录，这不代表它没有，只是还没收录。')],question:'回到有酒店礼遇的那张，Hilton 会籍怎么拿？',expect:{tool:'find_benefits',args:{query:'Hilton Gold',cardName:'The Platinum Card',region:'HK'}},target:{card:PLAT_HK}},
  {id:'same-hk-fee-hant',lang:'zh-Hant',kind:'same-name',turns:[hkPlatHotelHant],question:'呢張年費幾多？',expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'The Platinum Card',region:'HK'}},target:{card:PLAT_HK}},
  {id:'same-ca-hilton-en',lang:'en',kind:'same-name',turns:[T('Which of my cards can transfer to Hilton?',[rules('transfer-relationship',{programme:'Hilton'})],'Only your Canadian Amex Platinum has a recorded transfer relationship to Hilton Honors. The ratio is not recorded.')],question:'What is the annual fee on that one?',expect:{tool:'get_card_rules',args:{kind:'fee',cardName:'Platinum Card',region:'CA'}},target:{card:PLAT_CA}},
  {id:'same-ca-hilton-hans',lang:'zh-Hans',kind:'same-name',turns:[T('哪张卡能转点到 Hilton？',[rules('transfer-relationship',{programme:'Hilton'})],'只有你的加拿大运通白金卡有到 Hilton Honors 的转点记录，比例没有记录。')],question:'那张卡还有什么旅行权益？',expect:{tool:'find_benefits',args:{query:'旅行',cardName:'Platinum Card',region:'CA'}},target:{card:PLAT_CA}},
- {id:'same-asia-miles-hk-hans',lang:'zh-Hans',kind:'same-name',turns:[T('哪些卡能转 Asia Miles？',[rules('transfer-relationship',{programme:'Asia Miles'})],'能转 Cathay Asia Miles 的有四张：加拿大白金卡、香港白金卡、美国运通金卡和 Morgan Stanley 白金卡。比例都没有记录。')],question:'香港那张还能转哪些？',regionInQuestion:true,expect:{tool:'get_card_rules',args:{kind:'transfer-relationship',cardName:'The Platinum Card',region:'HK'}},target:{card:PLAT_HK}},
+ {id:'same-asia-miles-hk-hans',lang:'zh-Hans',kind:'same-name',turns:[T('哪些卡能转 Asia Miles？',[rules('transfer-relationship',{programme:'Asia Miles'})],'能转 Cathay Asia Miles 的有四张：加拿大白金卡、香港白金卡、美国运通金卡和 Morgan Stanley 白金卡。比例都没有记录。')],question:'香港那张还能转哪些？',regionInQuestion:true,expect:{tool:'convert_points',args:{cardName:'The Platinum Card',region:'HK'}},target:{card:PLAT_HK}},
  {id:'same-marriott-ca-en',lang:'en',kind:'same-name',turns:[muMarriottEn],question:'How do I enrol on the Canadian one?',regionInQuestion:true,expect:{tool:'find_benefits',args:{query:'Marriott Gold',cardName:'Platinum Card',region:'CA'}},target:{card:PLAT_CA}},
  {id:'same-marriott-hk-hant',lang:'zh-Hant',kind:'same-name',turns:[muMarriottHant],question:'香港嗰張點登記？',regionInQuestion:true,expect:{tool:'find_benefits',args:{query:'Marriott Gold',cardName:'The Platinum Card',region:'HK'}},target:{card:PLAT_HK}},
  {id:'same-lounge-hk-vs-ms-hans',lang:'zh-Hans',kind:'same-name',turns:[T('哪些卡有 Global Lounge Collection？',[fb('Global Lounge Collection')],'Global Lounge Collection 出现在两张卡上：香港白金卡和 Morgan Stanley 白金卡。')],question:'美国那张的条件是什么？',regionInQuestion:true,expect:{tool:'find_benefits',args:{query:'Global Lounge Collection',cardName:'Morgan Stanley'}},target:{card:MS}},

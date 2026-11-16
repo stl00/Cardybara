@@ -1,6 +1,26 @@
 import {actionClaimIssues} from './actionClaims.js';
 import {creditClaimIssues,planCoverageIssues,choiceIssues,flightPlanIssues} from './creditClaims.js';
 const cleanUrl=url=>url.replace(/[.,，。；;]+$/,'').replace(/\/$/,'');
+/**
+ * A bare link written straight before Chinese text or full-width punctuation ("…/platinum-card/）" or "…/card/。詳情")
+ * would be read as one link running into that text, both by the checker and by the chat's link renderer (#357). A
+ * space is put where the link's ASCII ends, so the checker and the renderer see the same, real address. Nothing is
+ * removed, and a link that was not grounded stays not grounded.
+ */
+export const separateLinks=text=>text.replace(/(https?:\/\/[^\s)\]"<>\u{80}-\u{10FFFF}]+)(?=[^\s)\]"<>\x00-\x7f])/gu,'$1 ');
+const CJK_DIGITS={零:0,〇:0,一:1,二:2,两:2,兩:2,三:3,四:4,五:5,六:6,七:7,八:8,九:9};
+const cjkNumber=s=>{if(!s.includes('十'))return s.length===1?CJK_DIGITS[s]:null;const [tens,ones]=s.split('十');return (tens?CJK_DIGITS[tens]??NaN:1)*10+(ones?CJK_DIGITS[ones]??NaN:0);};
+const ORDINAL_WORDS=['first','second','third','fourth','fifth','sixth','seventh','eighth','ninth','tenth','eleventh','twelfth','thirteenth','fourteenth','fifteenth','sixteenth','seventeenth','eighteenth','nineteenth','twentieth'];
+/**
+ * The positions a question names in words ("第四個", "the fifth one"), as digits. Repeating the user's own ordinal
+ * as "第4項" is not a new fact (#357), just as repeating a stated amount is not.
+ */
+export function statedOrdinals(question){
+ const out=[];
+ for(const [,n] of question.matchAll(/第\s*([零〇一二两兩三四五六七八九十]{1,3})/g)){const v=cjkNumber(n);if(Number.isInteger(v)&&v>0)out.push(v);}
+ for(const [w] of question.toLowerCase().matchAll(/\b[a-z]+(?:st|nd|rd|th)\b/g)){const i=ORDINAL_WORDS.indexOf(w);if(i>=0)out.push(i+1);}
+ return [...new Set(out)];
+}
 export function answerGrounding(answer,evidence=[],{contextText='',creditNames=[]}={}){
  const urls=new Set(),numbers=new Set(),ratios=new Set();
  const ratioKey=(from,to)=>String(to/from);
