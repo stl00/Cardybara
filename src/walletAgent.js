@@ -52,7 +52,7 @@ function protectionRecords(selected,{type,types,day,language}){
 }
 // #184: a travel booking also shows which compared card lists trip protections. Facts beside the choice, never scored:
 // insurance has no cash value here, so the ranking is computed first and left as it is.
-const BOOKING_PROTECTIONS={flight:['trip-cancellation','trip-delay','baggage-delay','travel-insurance','emergency-evacuation'],hotel:['trip-cancellation','trip-delay','travel-insurance'],'vacation-rental':['trip-cancellation','trip-delay','travel-insurance'],travel:['trip-cancellation','trip-delay','baggage-delay','travel-insurance','emergency-evacuation'],'car-rental':['rental-car']};
+const BOOKING_PROTECTIONS={flight:['trip-cancellation','trip-delay','baggage-delay','lost-luggage','travel-insurance','emergency-evacuation'],hotel:['trip-cancellation','trip-delay','travel-insurance'],'vacation-rental':['trip-cancellation','trip-delay','travel-insurance'],travel:['trip-cancellation','trip-delay','baggage-delay','lost-luggage','travel-insurance','emergency-evacuation'],'car-rental':['rental-car']};
 export function withBookingProtections(result,{cards,day,language}){
  const types=BOOKING_PROTECTIONS[result?.purchase?.category];
  if(!types||!result.rows?.length)return result;
