@@ -1,4 +1,5 @@
 import {profileForCard} from './benefitRules.js';
+const OFF_CYCLE=['four-year','one-off'];
 export const dateOK=s=>typeof s==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(s)&&Number.isFinite(Date.parse(s+'T00:00:00Z'))&&new Date(s+'T00:00:00Z').toISOString().slice(0,10)===s;
 export const moneyOK=n=>n===null||Number.isFinite(n)&&n>=0&&n<=1e9;
 export function annualEnd(start){if(!dateOK(start))return '';const [y,m,d]=start.split('-').map(Number),last=new Date(Date.UTC(y+1,m,0)).getUTCDate(),next=new Date(Date.UTC(y+1,m-1,Math.min(d,last)));return new Date(next-86400000).toISOString().slice(0,10);}
@@ -21,7 +22,7 @@ export function checkFeeOverlap(events,event){if(event.kind!=='fee'||event.value
 export function actualCost(cycle){const v=cycle?.value;return v&&v.charged!=null&&v.refund!=null?Math.round((v.charged-v.refund)*100)/100:null;}
 export function creditValueForCycle(cycle,benefitEvents){
  if(!cycle)return {value:0,count:0,unvalued:0};const rows=new Map();for(const e of benefitEvents){const prev=rows.get(e.key);if(!prev||e.at>prev.at||e.at===prev.at&&e.id>prev.id)rows.set(e.key,e);}
- let value=0,count=0,unvalued=0;for(const e of rows.values()){const parts=JSON.parse(e.key),[card]=parts;if(['four-year','one-off'].includes(parts[parts.length-1])||card!==cycle.cardId||!['used','partial'].includes(e.status))continue;const u=e.usage;if(!u){unvalued++;continue;}if(u.date<cycle.value.start||u.date>cycle.value.end)continue;if(u.currency!==cycle.value.currency||u.value==null){unvalued++;continue;}value+=u.value;count++;}return {value:Math.round(value*100)/100,count,unvalued};
+ let value=0,count=0,unvalued=0;for(const e of rows.values()){const parts=JSON.parse(e.key),[card]=parts;if(card!==cycle.cardId||!['used','partial'].includes(e.status))continue;const off=OFF_CYCLE.includes(parts[parts.length-1]);if(off){const day=parts[parts.length-1]==='four-year'?e.usedOn:String(e.at||'').slice(0,10);if(e.status!=='used'||!day||day<cycle.value.start||day>cycle.value.end)continue;}const u=e.usage;if(!u){unvalued++;continue;}if(!off&&(u.date<cycle.value.start||u.date>cycle.value.end))continue;if(u.currency!==cycle.value.currency||u.value==null){unvalued++;continue;}value+=u.value;count++;}return {value:Math.round(value*100)/100,count,unvalued};
 }
 export function portfolioMetrics(cards,costEvents,benefitEvents,asOf){
  const groups=new Map(),accounts=new Map(latestCosts(costEvents).filter(e=>e.kind==='account').map(e=>[e.cardId,e.value])),limits=new Map();
