@@ -47,3 +47,27 @@ test('a live run needs a budget, and the dry run prints the summary by reference
   for(const c of report.cases){assert.equal(c.calls,undefined,'call arguments are not published');assert.ok(Array.isArray(c.toolCalls));}
  }finally{fs.rmSync(dir,{recursive:true,force:true});}
 });
+
+test('a missed weekly run is reported: freshness decision, issue open/update/close, and the daily workflow wiring (#353)',async()=>{
+ const {freshness,check}=await import('../scripts/check-live-multiturn-fresh.mjs');
+ const now=Date.parse('2026-11-24T12:00:00Z'),day=864e5,at=d=>new Date(now-d*day).toISOString();
+ assert.equal(freshness({runs:[{created_at:at(3),conclusion:'success'}],workflowCreatedAt:at(30),now}).stale,false);
+ assert.equal(freshness({runs:[{created_at:at(9),conclusion:'success'}],workflowCreatedAt:at(30),now}).stale,true);
+ assert.equal(freshness({runs:[{created_at:at(1),conclusion:'skipped'},{created_at:at(9),conclusion:'failure'}],workflowCreatedAt:at(30),now}).stale,true,'skipped runs do not count');
+ assert.equal(freshness({runs:[],workflowCreatedAt:at(2),now}).stale,false,'a new workflow gets its first week');
+ const never=freshness({runs:[],workflowCreatedAt:at(9),now});assert.equal(never.stale,true);assert.equal(never.reason,'never-ran');
+ const calls=[],fake=(runs,open)=>a=>{calls.push(a.join(' '));
+  if(a[1]&&a[1].endsWith('/runs?per_page=10'))return JSON.stringify({workflow_runs:runs});
+  if(a[0]==='api')return JSON.stringify({created_at:at(30)});
+  if(a[0]==='issue'&&a[1]==='list')return JSON.stringify(open?[{number:7}]:[]);
+  return '';};
+ const go=(runs,open,extra={})=>{calls.length=0;return check({repo:'o/r',now,log(){},run:fake(runs,open),...extra});};
+ assert.equal(go([],false).action,'create');assert.ok(calls.some(c=>c.startsWith('issue create')));
+ assert.equal(go([],true).action,'comment');assert.ok(calls.some(c=>c.startsWith('issue comment 7')));
+ assert.equal(go([{created_at:at(1),conclusion:'success'}],true).action,'close');assert.ok(calls.some(c=>c.startsWith('issue close 7')));
+ assert.equal(go([{created_at:at(1),conclusion:'success'}],false).action,'none');
+ assert.equal(go([],false,{dryRun:true}).action,'create');assert.ok(!calls.some(c=>/^(issue (create|comment|close)|label)/.test(c)),'a dry run changes nothing');
+ const daily=fs.readFileSync(path.join(root,'.github/workflows/live-evals.yml'),'utf8');
+ assert.match(daily,/multiturn-fresh:[\s\S]*?github\.event_name == 'schedule'[\s\S]*?check-live-multiturn-fresh\.mjs --max-days=8/);
+ assert.doesNotMatch(daily.slice(daily.indexOf('multiturn-fresh:'),daily.indexOf('  live-eval:')),/secrets\.|environment:/,'the check holds no model key');
+});
