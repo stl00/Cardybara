@@ -92635,5 +92635,1613 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-journey-visa-card.trip-cancellation",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-journey-visa-card.trip-cancellation@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-autograph-journey-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行程取消与中断保障",
+      "summary": "产品页列出行程取消与中断保障，并称该保障为次要保障（secondary）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出行程取消与中断保障，并称该保障为次要保障（secondary）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption",
+      "summary": "The product page lists trip cancellation and interruption and says the coverage is secondary. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-autograph-journey-visa-card",
+          "text": "Trip Cancellation and Interruption Protection"
+        },
+        {
+          "sourceId": "card-wells-fargo-us-autograph-journey-visa-card",
+          "text": "Coverage provided by this benefit is secondary."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": "secondary",
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出行程取消与中断保障，并称该保障为次要保障（secondary）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-journey-visa-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-journey-visa-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-journey-visa-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-autograph-journey-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失或损坏保障",
+      "summary": "产品页列出行李遗失或损坏保障，并称该保障为次要保障（secondary）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出行李遗失或损坏保障，并称该保障为次要保障（secondary）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost or Damaged Luggage",
+      "summary": "The product page lists lost or damaged luggage and says the coverage is secondary. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-autograph-journey-visa-card",
+          "text": "Lost Baggage Reimbursement"
+        },
+        {
+          "sourceId": "card-wells-fargo-us-autograph-journey-visa-card",
+          "text": "Coverage provided by this benefit is secondary."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": "secondary",
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出行李遗失或损坏保障，并称该保障为次要保障（secondary）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-journey-visa-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-journey-visa-card.rental",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-journey-visa-card.rental@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-autograph-journey-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车保险",
+      "summary": "产品页列出租车保险，并称该保障为次要保障（secondary）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出租车保险，并称该保障为次要保障（secondary）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Coverage",
+      "summary": "The product page lists car rental coverage and says the coverage is secondary. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-autograph-journey-visa-card",
+          "text": "Auto Rental Collision Damage Waiver"
+        },
+        {
+          "sourceId": "card-wells-fargo-us-autograph-journey-visa-card",
+          "text": "Coverage provided by this benefit is secondary."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "secondary",
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出租车保险，并称该保障为次要保障（secondary）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-journey-visa-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-journey-visa-card.roadside",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-journey-visa-card.roadside@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-autograph-journey-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "道路救援",
+      "summary": "产品页列出道路救援（Roadside Dispatch），称需要拖车时可用。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出道路救援（Roadside Dispatch），称需要拖车时可用。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Roadside Dispatch",
+      "summary": "The product page lists Roadside Dispatch, available when a tow is needed. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-autograph-journey-visa-card",
+          "text": "Roadside Dispatch"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "roadside",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出道路救援（Roadside Dispatch），称需要拖车时可用。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-journey-visa-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-blue-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-blue-card.purchase-protection@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "产品页列出购物保障（Purchase Assurance）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出购物保障（Purchase Assurance）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Assurance",
+      "summary": "The product page lists Purchase Assurance. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-blue-card",
+          "text": "Purchase Assurance"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出购物保障（Purchase Assurance）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-blue-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-blue-card.rental",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-blue-card.rental@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车保险",
+      "summary": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Coverage",
+      "summary": "The product page lists car rental coverage. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-blue-card",
+          "text": "MasterRental Coverage"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-blue-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.trip-cancellation",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.trip-cancellation@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行程取消与中断保障",
+      "summary": "产品页列出行程取消与中断（Trip Cancellation and Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出行程取消与中断（Trip Cancellation and Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption",
+      "summary": "The product page lists trip cancellation and interruption protection. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card",
+          "text": "Trip Cancellation and Interruption Protection"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出行程取消与中断（Trip Cancellation and Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.trip-delay@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "产品页列出旅行延误（Trip Delay Reimbursement）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出旅行延误（Trip Delay Reimbursement）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay",
+      "summary": "The product page lists trip delay reimbursement. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card",
+          "text": "Trip Delay Reimbursement"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出旅行延误（Trip Delay Reimbursement）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失或损坏保障",
+      "summary": "产品页列出行李遗失或损坏保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出行李遗失或损坏保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost or Damaged Luggage",
+      "summary": "The product page lists lost or damaged luggage protection. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card",
+          "text": "Lost or Damaged Luggage Insurance"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出行李遗失或损坏保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.extended-warranty@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页列出延长保修（Extended Warranty）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出延长保修（Extended Warranty）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The product page lists extended warranty. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card",
+          "text": "Extended Warranty"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出延长保修（Extended Warranty）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.purchase-protection@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "产品页列出购物保障（Purchase Assurance）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出购物保障（Purchase Assurance）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Assurance",
+      "summary": "The product page lists Purchase Assurance. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card",
+          "text": "Purchase Assurance"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出购物保障（Purchase Assurance）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.rental",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.rental@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车保险",
+      "summary": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Coverage",
+      "summary": "The product page lists car rental coverage. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card",
+          "text": "MasterRental Coverage"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.trip-cancellation",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.trip-cancellation@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行程取消与中断保障",
+      "summary": "产品页列出行程取消与中断（Trip Cancellation and Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出行程取消与中断（Trip Cancellation and Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption",
+      "summary": "The product page lists trip cancellation and interruption protection. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card",
+          "text": "Trip Cancellation and Interruption Protection"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出行程取消与中断（Trip Cancellation and Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.trip-delay@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "产品页列出旅行延误（Trip Delay Reimbursement）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出旅行延误（Trip Delay Reimbursement）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay",
+      "summary": "The product page lists trip delay reimbursement. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card",
+          "text": "Trip Delay Reimbursement"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出旅行延误（Trip Delay Reimbursement）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失或损坏保障",
+      "summary": "产品页列出行李遗失或损坏保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出行李遗失或损坏保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost or Damaged Luggage",
+      "summary": "The product page lists lost or damaged luggage protection. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card",
+          "text": "Lost or Damaged Luggage Insurance"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出行李遗失或损坏保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.extended-warranty@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页列出延长保修（Extended Warranty）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出延长保修（Extended Warranty）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The product page lists extended warranty. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card",
+          "text": "Extended Warranty"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出延长保修（Extended Warranty）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.purchase-protection@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "产品页列出购物保障（Purchase Assurance）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出购物保障（Purchase Assurance）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Assurance",
+      "summary": "The product page lists Purchase Assurance. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card",
+          "text": "Purchase Assurance"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出购物保障（Purchase Assurance）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.rental",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.rental@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车保险",
+      "summary": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Coverage",
+      "summary": "The product page lists car rental coverage. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card",
+          "text": "MasterRental Coverage"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.baggage-delay",
+    "revision": 1,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.baggage-delay@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李延误保障",
+      "summary": "产品页列出行李延误（Baggage Delay Insurance）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出行李延误（Baggage Delay Insurance）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Delay",
+      "summary": "The product page lists baggage delay insurance. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card",
+          "text": "Baggage Delay Insurance"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "baggage-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出行李延误（Baggage Delay Insurance）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]

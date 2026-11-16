@@ -192,3 +192,21 @@ test('zh-TW knowledge text keeps 租車 and does not turn it into 計程車 (#34
  }
  assert.ok(checked>=1);
 });
+
+// #344: Wells Fargo and Bilt pages that name protections; BofA, U.S. Bank and Discover pages name none.
+test('a wallet holding Autograph Journey and Bilt Obsidian gets their recorded protections with sources; pages naming none stay not_found (#344)',()=>{
+ const held=[{id:'wf',name:'Wells Fargo Autograph Journey Visa Card',bank:'Wells Fargo',region:'US',currency:'USD'},{id:'bo',name:'Bilt Obsidian Card',bank:'Bilt',region:'US',currency:'USD'},{id:'bb',name:'Bank of America Unlimited Cash Rewards',bank:'Bank of America',region:'US',currency:'USD'}];
+ const ctx={cards:held,events:[],day:'2026-11-16',language:'en'};
+ const all=runWalletTool(call('find_protections',{}),ctx);
+ const card=name=>all.cards.find(c=>c.name===name);
+ assert.deepEqual(card('Wells Fargo Autograph Journey Visa Card').coverageTypes.sort(),['lost-luggage','rental-car','roadside','trip-cancellation']);
+ assert.deepEqual(card('Bilt Obsidian Card').coverageTypes.sort(),['extended-warranty','lost-luggage','purchase-protection','rental-car','trip-cancellation','trip-delay']);
+ assert.equal(card('Bank of America Unlimited Cash Rewards').status,'not_found');
+ assert.ok(all.rules.length>=10&&all.rules.every(r=>r.sources.length&&r.sources.every(s=>/^https:\/\/(www\.bilt\.com|creditcards\.wellsfargo\.com)\//.test(s.url))));
+ const rental=runWalletTool(call('find_protections',{type:'rental-car'}),ctx);
+ assert.deepEqual(rental.rules.map(r=>r.basis).sort(),['not-stated','secondary']);
+ const n=id=>queryKnowledge({productId:id,category:'protection'}).count;
+ assert.equal(n('bilt-us-bilt-blue-card'),2);assert.equal(n('bilt-us-bilt-palladium-card'),7);
+ for(const id of ['boa-us-atmos-rewards-summit-visa-infinite','boa-us-atmos-rewards-ascent-visa-signature','boa-us-bank-of-america-unlimited-cash-rewards','boa-us-customized-cash-rewards-visa-signature','us-bank-us-altitude-go-visa-signature-card','us-bank-us-cash-plus-visa-signature-card','discover-us-discover-it-cash-back-credit-card'])assert.equal(n(id),0,id);
+ assert.ok(queryKnowledge({kind:'benefit',category:'protection'}).rules.filter(r=>/wells-fargo|bilt/.test(r.productIds[0])).every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt==='2026-11-16'));
+});
