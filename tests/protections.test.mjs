@@ -162,3 +162,22 @@ test('Amex Gold protections carry the terms its product page states and the othe
  const plat=queryKnowledge({productId:'amex-us-us-the-platinum-card',category:'protection'}).rules;
  assert.equal(plat.length,3);assert.ok(plat.every(r=>r.terms.coverage.basis===null&&r.revision===1));
 });
+
+// #343: Capital One and Citi US pages that name protections; a page that names none records nothing.
+test('a wallet holding a Strata card and a Venture card gets their recorded protections with sources, others stay not_found (#343)',()=>{
+ const held=[{id:'el',name:'Citi Strata Elite Card',bank:'Citi US',region:'US',currency:'USD'},{id:'v',name:'Venture Rewards Credit Card',bank:'Capital One',region:'US',currency:'USD'},{id:'vx',name:'Venture X Rewards Credit Card',bank:'Capital One',region:'US',currency:'USD'}];
+ const ctx={cards:held,events:[],day:'2026-11-16',language:'en'};
+ const all=runWalletTool(call('find_protections',{}),ctx);
+ const card=name=>all.cards.find(c=>c.name===name);
+ assert.deepEqual(card('Citi Strata Elite Card').coverageTypes.sort(),['extended-warranty','lost-luggage','purchase-protection','rental-car','trip-cancellation','trip-delay']);
+ assert.deepEqual(card('Venture Rewards Credit Card').coverageTypes.sort(),['extended-warranty','rental-car']);
+ // Venture X's page names only cell phone cover, which needs #323, so nothing is recorded.
+ assert.equal(card('Venture X Rewards Credit Card').status,'not_found');
+ assert.ok(all.rules.every(r=>r.sources.length&&r.sources.every(s=>/^https:\/\/www\.(citi|capitalone)\.com\//.test(s.url))));
+ const rental=runWalletTool(call('find_protections',{type:'rental-car'}),ctx);
+ assert.equal(rental.rules.length,2);assert.ok(rental.rules.every(r=>r.basis==='not-stated'));
+ // Double Cash says secondary; Custom Cash and Platinum Select pages name none.
+ assert.equal(queryKnowledge({productId:'citi-us-citi-double-cash-card',category:'protection'}).rules[0].terms.coverage.basis,'secondary');
+ for(const id of ['citi-us-citi-custom-cash-card','citi-us-citi-aadvantage-platinum-select-card','capital-one-us-venture-x-rewards-credit-card'])assert.equal(queryKnowledge({productId:id,category:'protection'}).count,0,id);
+ assert.ok(queryKnowledge({kind:'benefit',category:'protection'}).rules.filter(r=>/capital-one|citi-us/.test(r.productIds[0])).every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt==='2026-11-16'));
+});

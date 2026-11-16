@@ -90871,5 +90871,1769 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.trip-cancellation",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.trip-cancellation@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行程取消与中断保障",
+      "summary": "产品页列出行程取消与中断（Trip Cancellation / Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出行程取消与中断（Trip Cancellation / Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption",
+      "summary": "The product page lists trip cancellation and trip interruption protection. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-elite-card",
+          "text": "Enhanced Trip Cancellation and Trip Interruption Protection"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出行程取消与中断（Trip Cancellation / Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.trip-delay@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "产品页列出旅行延误（Trip Delay）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出旅行延误（Trip Delay）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay",
+      "summary": "The product page lists trip delay protection. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-elite-card",
+          "text": "Help stay protected with travel insurances, including Trip Delay Protection,"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出旅行延误（Trip Delay）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失或损坏保障",
+      "summary": "产品页列出行李遗失或损坏（Lost / Damaged Luggage）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出行李遗失或损坏（Lost / Damaged Luggage）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost or Damaged Luggage",
+      "summary": "The product page lists lost or damaged luggage protection. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-elite-card",
+          "text": "Lost or Damaged Luggage"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出行李遗失或损坏（Lost / Damaged Luggage）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.rental",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.rental@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车保险",
+      "summary": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Coverage",
+      "summary": "The product page lists car rental coverage. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-elite-card",
+          "text": "MasterRental Coverage (Car Rental)"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.extended-warranty@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The product page says eligible items bought with the card get additional warranty protection. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-elite-card",
+          "text": "Extended Warranty and Purchase Assurance Plus"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-elite-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-elite-card.purchase-protection@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-elite-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "产品页列出 Purchase Assurance Plus 购物保障名称。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出 Purchase Assurance Plus 购物保障名称。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Assurance Plus",
+      "summary": "The product page names Purchase Assurance Plus. It states no limit or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-elite-card",
+          "text": "Extended Warranty and Purchase Assurance Plus"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出 Purchase Assurance Plus 购物保障名称。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-elite-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-premier-card.trip-cancellation",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-premier-card.trip-cancellation@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-premier-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行程取消与中断保障",
+      "summary": "产品页列出行程取消与中断（Trip Cancellation / Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出行程取消与中断（Trip Cancellation / Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption",
+      "summary": "The product page lists trip cancellation and trip interruption protection. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-premier-card",
+          "text": "Trip Cancellation and Trip Interruption (Common Carrier)"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出行程取消与中断（Trip Cancellation / Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-premier-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-premier-card.trip-delay@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-premier-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "产品页列出旅行延误（Trip Delay）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出旅行延误（Trip Delay）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay",
+      "summary": "The product page lists trip delay protection. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-premier-card",
+          "text": "Trip Delay"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出旅行延误（Trip Delay）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-premier-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-premier-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-premier-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失或损坏保障",
+      "summary": "产品页列出行李遗失或损坏（Lost / Damaged Luggage）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出行李遗失或损坏（Lost / Damaged Luggage）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost or Damaged Luggage",
+      "summary": "The product page lists lost or damaged luggage protection. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-premier-card",
+          "text": "Lost or Damaged Luggage"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出行李遗失或损坏（Lost / Damaged Luggage）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-premier-card.rental",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-premier-card.rental@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-premier-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车保险",
+      "summary": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Coverage",
+      "summary": "The product page lists car rental coverage. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-premier-card",
+          "text": "MasterRental Coverage (Car Rental)"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-premier-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-executive-card.trip-cancellation",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-executive-card.trip-cancellation@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-executive-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行程取消与中断保障",
+      "summary": "产品页列出行程取消与中断（Trip Cancellation / Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出行程取消与中断（Trip Cancellation / Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption",
+      "summary": "The product page lists trip cancellation and trip interruption protection. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-executive-card",
+          "text": "Help stay protected with travel insurances, including Trip Cancellation & Interruption Protection"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出行程取消与中断（Trip Cancellation / Interruption）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-executive-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-executive-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-executive-card.trip-delay@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-executive-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "产品页列出旅行延误（Trip Delay）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出旅行延误（Trip Delay）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay",
+      "summary": "The product page lists trip delay protection. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-executive-card",
+          "text": "Travel Protection Benefits: Trip Delay Protection, Trip Cancellation & Interruption Protection,"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出旅行延误（Trip Delay）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-executive-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-executive-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-executive-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-executive-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失或损坏保障",
+      "summary": "产品页列出行李遗失或损坏（Lost / Damaged Luggage）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出行李遗失或损坏（Lost / Damaged Luggage）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost or Damaged Luggage",
+      "summary": "The product page lists lost or damaged luggage protection. It names the benefit without limits or conditions.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-executive-card",
+          "text": "Worldwide Car Rental Insurance and Lost Baggage Protection"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出行李遗失或损坏（Lost / Damaged Luggage）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-executive-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-executive-card.rental",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-executive-card.rental@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-executive-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车保险",
+      "summary": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Coverage",
+      "summary": "The product page lists car rental coverage. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-executive-card",
+          "text": "Worldwide Car Rental Insurance and Lost Baggage Protection"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-executive-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-rewards-credit-card.rental",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-rewards-credit-card.rental@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车保险",
+      "summary": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Coverage",
+      "summary": "The product page lists car rental coverage. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-rewards-credit-card",
+          "text": "Rent an eligible vehicle with your credit card and you can be covered for damage due to collision or theft."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页列出租车保险；页面未写明属于主要还是次要保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-rewards-credit-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-rewards-credit-card.extended-warranty@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The product page says eligible items bought with the card get additional warranty protection. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-rewards-credit-card",
+          "text": "You'll get additional warranty protection at no charge on eligible items that are purchased with your credit card."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-savor-credit-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savor-credit-card.extended-warranty@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-savor-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The product page says eligible items bought with the card get additional warranty protection. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-savor-credit-card",
+          "text": "You'll get additional warranty protection at no charge on eligible items that are purchased with your credit card."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savor-credit-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-business-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-x-business-card.extended-warranty@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-x-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The product page says eligible items bought with the card get additional warranty protection. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-x-business-card",
+          "text": "Get free additional warranty and protection on eligible items you purchase with your card."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-business-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-cash-plus-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-cash-plus-card.extended-warranty@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-cash-plus-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The product page says eligible items bought with the card get additional warranty protection. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-cash-plus-card",
+          "text": "Get free additional warranty and protection on eligible items that you purchase with your card."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页称符合资格的商品用该卡购买可获额外保修。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-cash-plus-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-cash-plus-card.roadside",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-cash-plus-card.roadside@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-cash-plus-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "道路救援",
+      "summary": "产品页称商业卡提供汽车相关紧急情况的协助服务（如搭电、换胎、拖车）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页称商业卡提供汽车相关紧急情况的协助服务（如搭电、换胎、拖车）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Auto-related emergency services",
+      "summary": "The product page says the business cards offer services to help during auto-related emergencies, with jump-starting, tire changing and towing as examples. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-cash-plus-card",
+          "text": "Our business cards offer services to help you during auto-related emergencies"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "roadside",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页称商业卡提供汽车相关紧急情况的协助服务（如搭电、换胎、拖车）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-cash-plus-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-double-cash-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-double-cash-card.extended-warranty@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-double-cash-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页称延长保修为次要保障（secondary coverage only）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "产品页称延长保修为次要保障（secondary coverage only）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The product page says the extended warranty policy provides secondary coverage only. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-double-cash-card",
+          "text": "Policy provides secondary coverage only."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": "secondary",
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页称延长保修为次要保障（secondary coverage only）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-double-cash-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]
