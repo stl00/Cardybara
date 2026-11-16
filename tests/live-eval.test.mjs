@@ -193,5 +193,7 @@ test('coverage-no-record accepts a hedged no-record answer and still rejects a f
  }
  assert.equal((await run('Blue Cash Everyday 没有保障。我的记录里没有找到，详见发卡行。')).avoidsWrongTotals,false,'a flat claim fails');
  assert.equal((await run('Blue Cash Everyday 不在保障范围内，请看 guide to benefits。')).avoidsWrongTotals,false);
+ assert.equal((await run('我的记录里没有找到，详见发卡行。这不代表X，但没有保障。')).avoidsWrongTotals,false,'a comma-joined flat claim after a denial fails');
+ assert.equal((await run('我的记录里没有找到，详见发卡行。This does not mean X, but it is not covered.')).avoidsWrongTotals,false);
  assert.equal((await run('这张卡航班延误有保障。')).coversNamedProgrammes,false,'no "no record" wording and no pointer fails');
 });

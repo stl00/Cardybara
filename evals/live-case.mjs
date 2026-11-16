@@ -42,7 +42,7 @@ export async function runLiveCase(c,{chat,turn=runAgentTurn}){
   if(c.answerPatterns)checks.coversNamedProgrammes=c.answerPatterns.every(pattern=>new RegExp(pattern,'i').test(r.answer));
   // Wording that would misstate the tool's totals, such as adding the not-captured amount to the used one.
   // A case can set stripDenials when the forbidden wording is a claim: a clause that denies it ("不代表它一定没有保障", "does not mean it is not covered") is the answer we want, so it is removed before matching. An outright claim still fails.
-  const claimed=c.stripDenials?r.answer.replace(/(?:并?不(?:代表|意味着|等于|能说)|不是说|not necessarily|does not mean|doesn't mean|doesn’t mean)[^。\n.；;]*/gi,''):r.answer;
+  const claimed=c.stripDenials?r.answer.replace(/(?:并?不(?:代表|意味着|等于|能说)|不是说|not necessarily|does not mean|doesn't mean|doesn’t mean)[^。\n.；;，,]*/gi,''):r.answer;
   if(c.forbidAnswerPatterns)checks.avoidsWrongTotals=!c.forbidAnswerPatterns.some(pattern=>new RegExp(pattern,'i').test(claimed));
   if(c.answersFirst)checks.answersBeforeAsking=calls.some(x=>x.name==='choose_card');
   return {checks,detail:{ms:Math.round(performance.now()-start),toolNames:calls.map(x=>x.name),answerChars:r.answer.length,trace:r.trace,context:r.context,transcript:{answer:r.answer,toolCalls:calls.map(x=>({name:x.name,args:x.args}))}}};
