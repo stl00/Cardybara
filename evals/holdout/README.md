@@ -74,3 +74,13 @@ One replacement case of the same kind was written before the code was run agains
 - `ho-claims-redeem-zht-v5`: a Traditional Chinese claim that Chase points were used to wipe out a flight charge ("拿去沖掉這張機票的帳單"). **Failed**: not caught, because 沖掉 is not a recognised redemption verb and "拿去" is not a recognised "used" verb. Open gap; a follow-up issue is linked from the PR.
 
 One offline run on the branch: 26 of 27 passed (96%, gate at 80%). The one failure is `ho-claims-redeem-zht-v5`. Live model: `not_run`.
+
+## Rotation · 2026-11-16 (#336)
+
+`ho-claims-redeem-zht-v5` was fixed as a class in `src/actionClaims.js` and retired into `evals/fixtures.mjs` (listed under `retired` in `manifest.json`). The fix: 沖 / 冲 / 沖銷 / 冲销 are covering verbs, and a new "agent subject + 把 + points + 拿去 / 用來 / 拿 / 用 + covering verb + 了 / 掉 / 已 / 好" pattern catches the object-first order. Development cases (Simplified and Traditional) and controls (advice with 你可以, conditional 如果, reported 你说, and the user's own action 你把…) are in `evals/fixtures.mjs`.
+
+One replacement case of the same kind was written before the code was run against it:
+
+- `ho-claims-redeem-en-v6`: an English claim that Membership Rewards points were "put towards" an airfare and the balance cleared. Passed. Weak held-out evidence: the English "put … towards" wording was already covered by the #333 fix, so the pass says little about unseen phrasings.
+
+One offline run on the branch: 27 of 27 passed (gate at 80%). Live model: `not_run`.
