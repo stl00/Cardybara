@@ -19,6 +19,7 @@ Every change follows the same path. Do not skip steps or merge them together.
 7. **CI** — `Verify and package` must be green. Only a CI artifact can be a release candidate; a local `build:release` is for checks. Never hand-copy files into an installed extension directory.
 8. **Review and merge** — an independent review agent that did not write the change reviews the PR. Claude squash-merges once CI is green and review findings are resolved (owner authorized 2026-11-03). After review is resolved, turn on GitHub auto-merge (`gh pr merge --squash --auto`) instead of waiting or asking the owner to watch CI (owner authorized 2026-11-04). If a PR falls behind `main`, update it, and re-review only when the update changes behaviour. Merging to `main` is integration, not a release or bank acceptance. Never force-push shared branches or bypass branch protection.
 9. **Release** — bump `release.json`, tag `v<label>`; CI creates a draft prerelease from the verified artifact. Promote only after the exact-artifact acceptance in `docs/RELEASE.md` passes. Tags, releases and store submissions always need the owner's go-ahead.
+   The **web channel** (the PWA, #373) is the exception: a green `main` deploys itself to Cloudflare Pages with no tag and no owner step (owner decision 2026-11-16). See "One source, two channels" below.
 
 ## Operating model
 
@@ -41,7 +42,24 @@ Each workstream runs in its own session and git worktree, with one writer per ar
 
 **Claude decides alone:** issues, branches, code, PRs, CI fixes, and merges to `main` as above. Choose reversible defaults by convention and report them afterwards.
 
-**Only the owner:** tags, public releases, store submission, bank logins and device confirmations, and any new authorization or external service. When a decision is needed, ask one or two questions at a time, each with a recommendation and a one-line reason.
+**Only the owner:** tags, public extension releases, store submission, bank logins and device confirmations, and any new authorization or external service. When a decision is needed, ask one or two questions at a time, each with a recommendation and a one-line reason.
+
+## One source, two channels
+
+The wallet in `src/` is one codebase shipped to two channels (owner decision 2026-11-16, #373). **Target state, being built in #374 (web build and CD) and #375 (platform adapter); until they merge there is no web build or web deploy, and `chrome.*` is still called from a few files in `src/`.**
+
+| Channel | Artifact | Ships when | Gate |
+| --- | --- | --- | --- |
+| Extension | CI ZIP | owner tags `v<label>` | exact-artifact acceptance in `docs/RELEASE.md` |
+| Web (PWA) | `dist/web` | every `main` commit whose build, web checks and mobile E2E jobs are all green | the deploy job `needs:` those jobs on the same commit |
+
+- **Where it deploys:** its own Pages project `cardybara-app`, its own workflow and a protected `web` environment. The product site (`site/`, `.github/workflows/site.yml`, project `cardybara`) is unchanged: manual only, production needs the owner's go-ahead. Creating the free `cardybara-app` project and `web` environment falls under the owner's standing Cloudflare operations authorization; a paid plan still needs the owner.
+- **PR previews:** only for PRs from branches of this repository, triggered by `pull_request`. Never use `pull_request_target`; fork PRs get no deploy. The token has Pages: Edit only and lives in the `web` environment.
+- **Platform adapter:** shared code never calls a platform API directly. Storage, notifications, bank collection and the assistant transport go through `src/platform/` (`extension.js`, `web.js`); a capability a channel lacks (bank collection on the web) is absent, not faked. A new `chrome.*` API call outside `src/platform/extension.js` is a review finding.
+- **Versions:** both artifacts are built and tested from the same commit. The extension is identified by its `release.json` label; the web build by its commit SHA, which its About page shows instead of the extension's label (#379).
+- **Web red lines,** enforced by the `dist/web` check script; a PR that breaks one cannot merge: the web wallet is manual entry only, with no automatic import of any kind (owner 2026-11-16); wallet data never leaves the browser (web push stores only a subscription and fire times, #380); no analytics, cookies or third-party requests; CSP `connect-src` allows only the gateway; the static wallet needs no invite code.
+- **Older cached builds keep running:** gateway routes stay backward compatible (change a shape under a new path such as `/v2/...`). Stored wallet data carries a format version; a change to it ships with a migration and its test, and a build that finds a newer version than it knows reads without writing and tells the user to reload. A deploy that changed the data format is fixed forward, never rolled back. A new service worker must take over from the previous one's cache.
+- **Rollback:** for any other bad deploy, redeploy the previous green commit.
 
 ## Commands
 

@@ -71,3 +71,11 @@ test('a card discovered on a bank page keeps bank and region through the wallet 
  assert.deepEqual(cards.map(c=>matchCardProduct(c).product?.id),['hsbc-hk-hk-red-credit-card','amex-us-us-american-express-gold-card']);
  assert.ok(cards.every(c=>matchCardProduct(c).product.art?.file),'and the matched products have art');
 });
+test('every current Citi US card on the public card list matches its own product by full name',()=>{
+ const want={'Citi Strata® Card':'citi-us-citi-strata-card','Citi Strata Card':'citi-us-citi-strata-card','Citi Rewards+':'citi-us-citi-strata-card','Citi Strata Premier® Card':'citi-us-citi-strata-premier-card','Citi Strata Elite® Card':'citi-us-citi-strata-elite-card',
+ 'Citi® / AAdvantage® Globe™ card':'citi-us-citi-aadvantage-globe-card','AAdvantage® MileUp® card':'citi-us-aadvantage-mileup-card','Citi® Diamond Preferred® Credit Card':'citi-us-citi-diamond-preferred-card','Citi Simplicity® Credit Card':'citi-us-citi-simplicity-card',
+ 'Costco Anywhere Visa® Card by Citi':'citi-us-costco-anywhere-visa-card-by-citi','Costco Anywhere Visa® Business Card by Citi':'citi-us-costco-anywhere-visa-business-card-by-citi','Citi® / AAdvantage Business™ card':'citi-us-citi-aadvantage-business-card','AT&T Points Plus® Card from Citi':'citi-us-at-t-points-plus-card-from-citi','Citi® Secured Mastercard®':'citi-us-citi-secured-mastercard',
+ 'Citi® / AAdvantage® Platinum Select® card':'citi-us-citi-aadvantage-platinum-select-card','Citi® / AAdvantage® Executive card':'citi-us-citi-aadvantage-executive-card','Citi Double Cash® Card':'citi-us-citi-double-cash-card','Citi Custom Cash® Card':'citi-us-citi-custom-cash-card'};
+ for(const [n,p] of Object.entries(want))assert.equal(id('Citi US','US',n),p,n);
+ for(const p of cardProducts.filter(p=>p.bank==='Citi US'))assert.ok(p.sourceUrl.startsWith('https://www.citi.com/credit-cards/')&&p.checkedAt,p.id);
+});

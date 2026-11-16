@@ -77,11 +77,13 @@ export async function withSettings(base,env){
  return c;
 }
 
-// Exact extension origins only. "chrome-extension://*" admits any extension (for unpacked builds whose id
-// varies) but never a web page.
+// Extension origins: exact id, or "chrome-extension://*" for unpacked builds whose id varies (never a web page).
+// Web origins (hosted wallet): only an exact, listed https:// origin; no wildcards, no http://.
 export function originAllowed(origin,origins){
- if(!origin||!/^chrome-extension:\/\/[a-p]{32}$/.test(origin))return false;
- return origins.includes(origin)||origins.includes('chrome-extension://*');
+ if(!origin)return false;
+ if(/^chrome-extension:\/\/[a-p]{32}$/.test(origin))return origins.includes(origin)||origins.includes('chrome-extension://*');
+ if(/^https:\/\/[a-z0-9]([a-z0-9.-]*[a-z0-9])?(:\d{1,5})?$/.test(origin))return origins.includes(origin);
+ return false;
 }
 
 const encoder=new TextEncoder();
