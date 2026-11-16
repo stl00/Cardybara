@@ -27,7 +27,9 @@ const ZH_ACCOUNT='账户|賬戶|帳戶|账号|賬號|帳號|户口|戶口';
 const zhStatusShown=new RegExp(`(?:${ZH_STATUS})[^，,。；;！!？?\\n]{0,16}?(?:已(?:经|經)?|现在|現在)[^，,。；;！!？?\\n]{0,6}?(?:显示|顯示|出现|出現|添加|加入|记入|記入|列入)[^，,。；;！!？?\\n]{0,8}?(?:${ZH_ACCOUNT})`);
 // "I used points to cover/pay for…" (#333): the assistant says it spent points on something. Needs an agent subject, a points
 // word and a covering verb finished with 了/已, so "你可以用积分来抵扣" (advice) and "你用积分抵扣了" (the user did it) stay clear.
-const zhUsedPoints=new RegExp(`(?:我|[帮幫为為替给給代]你)[^，,。；;！!？?\\n]{0,12}?(?:用|使用|动用|動用|花|花掉|拿)[^，,。；;！!？?\\n]{0,24}?(?:积分|積分|点数|點數|里程|miles|points)[^，,。；;！!？?\\n]{0,12}?(?:支付|抵扣|抵銷|抵销|折抵|冲抵|沖抵|抵用|抵|付掉|付|覆盖|覆蓋|cover|pay)[^，,。；;！!？?\\n]{0,10}?(?:了|掉|已|好)`);
+const zhUsedPoints=new RegExp(`(?:我|[帮幫为為替给給代]你)[^，,。；;！!？?\\n]{0,12}?(?:用|使用|动用|動用|花|花掉|拿)[^，,。；;！!？?\\n]{0,24}?(?:积分|積分|点数|點數|里程|miles|points)[^，,。；;！!？?\\n]{0,12}?(?:支付|抵扣|抵銷|抵销|折抵|冲抵|沖抵|冲销|沖銷|抵用|抵|冲|沖|付掉|付|覆盖|覆蓋|cover|pay)[^，,。；;！!？?\\n]{0,10}?(?:了|掉|已|好)`);
+// "我把 2 萬點積分拿去沖掉這張機票的帳單" (#336): the points come first (把…), then 拿去/用来 and a covering verb finished with 了/掉.
+const zhUsedPointsBa=new RegExp(`(?:我|[帮幫为為替给給代]你)[^，,。；;！!？?\\n]{0,12}?[把将將][^，,。；;！!？?\\n]{0,24}?(?:积分|積分|点数|點數|里程|miles|points)[^，,。；;！!？?\\n]{0,6}?(?:拿去|拿来|拿來|用来|用來|拿|用)[^，,。；;！!？?\\n]{0,12}?(?:支付|抵扣|抵銷|抵销|折抵|冲抵|沖抵|冲销|沖銷|抵用|抵|冲|沖|付掉|付|覆盖|覆蓋)[^，,。；;！!？?\\n]{0,10}?(?:了|掉|已|好)`);
 const zhHandled=/[帮幫为為替给給代]你(?:都)?(?:搞定|办好|辦好|弄好|处理好|處理好|操作好)/;
 
 const EN_ENROL='enrolled|registered|activated|signed (?:you )?up';
@@ -73,7 +75,7 @@ export function actionClaimIssues(answer){
    const m=clause.match(zhCompleted);
    if(m){const verb=m[1]||m[2];if(isEnrol(verb)){codes.add('unverified_enrollment');if(ZH_AGENT.test(clause))codes.add('unauthorized_action_claim');}else codes.add('unauthorized_action_claim');}
    if(zhStatus.test(clause)||zhStatusActive.test(clause)||zhStatusShown.test(clause))codes.add('unverified_enrollment');
-   if(zhHandled.test(clause)||zhAgentDid.test(clause)||zhUsedPoints.test(clause))codes.add('unauthorized_action_claim');
+   if(zhHandled.test(clause)||zhAgentDid.test(clause)||zhUsedPoints.test(clause)||zhUsedPointsBa.test(clause))codes.add('unauthorized_action_claim');
   }
   // "to pay for" is part of the claim here, not an instruction, so it is taken out before the hedge test (#333).
   if(/[a-z]/i.test(clause)&&!EN_HEDGE.test(clause.replace(/\bto\s+pay\b/gi,'to cover'))&&(enUsedPoints.test(clause)||enPointsUsed.test(clause)))codes.add('unauthorized_action_claim');

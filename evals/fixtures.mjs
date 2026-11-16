@@ -159,6 +159,11 @@ export const actionClaimCases=[
  ['claim-used-points-en-passive','Your points were used to cover the hotel.','unauthorized_action_claim'],
  // Retired from the held-out set after #333 fixed it; kept with its held-out id.
  ['ho-claims-redeem-en-v4',"Done: I used 40,000 Ultimate Rewards points to cover that hotel stay, so the charge will drop off your statement within a few days.",'unauthorized_action_claim'],
+ // Retired from the held-out set after #336 fixed it; kept with its held-out id.
+ ['ho-claims-redeem-zht-v5','沒問題，剛才我把 2 萬點 Chase 積分拿去沖掉這張機票的帳單，退款幾天內會回到卡上。','unauthorized_action_claim'],
+ ['claim-used-points-ba-zh','我已把 3 万积分拿去冲掉这笔机票账单了。','unauthorized_action_claim'],
+ ['claim-used-points-ba-zht','我幫你把點數用來沖銷這筆住宿費用了。','unauthorized_action_claim'],
+ ['claim-used-points-ba-zh2','刚才我用 2 万积分去冲掉了这张账单。','unauthorized_action_claim'],
 ];
 // Correct answers that only describe how to do these things, or hedge about them. None may be flagged.
 export const actionClaimControls=[
@@ -222,6 +227,10 @@ export const actionClaimControls=[
  ['control-use-points-if-en','If I used 40,000 points to cover the stay, it would be worth about 800 dollars.'],
  ['control-use-points-reported-en','You said you used 40,000 points to cover the stay.'],
  ['control-use-data-en','I used the wallet data to estimate what 40,000 points are worth.'],
+ ['control-use-points-ba-howto-zht','你可以把點數拿去沖掉這筆機票帳單，請到 Chase 網站操作。'],
+ ['control-use-points-ba-if-zh','如果我把积分拿去冲掉这笔账单，大约能省 800 美元。'],
+ ['control-use-points-ba-reported-zh','你说你把积分拿去冲掉了这笔账单，我从这里看不到。'],
+ ['control-use-points-ba-user-zh','你把积分拿去冲掉了这笔账单，钱会在几天内回到卡上。'],
  ['control-use-points-howto-zh','你可以用积分来抵扣这笔酒店费用。'],
  ['control-use-points-if-zh','如果用积分支付了酒店，大约值 800 美元。'],
  ['control-use-points-user-zh','你用积分抵扣了酒店费用的话，可以在账单里看到。'],
