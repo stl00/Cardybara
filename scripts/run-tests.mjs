@@ -12,8 +12,6 @@ export const SEPARATE = {
   // Drive a real Chrome; CI runs them in their own step.
   'tests/dev-collector-chrome.test.mjs': 'test:collector-chrome',
   'tests/popup-layout.test.mjs': 'test:collector-chrome',
-  // Loads the built dist/web in Chrome; runs after build:web.
-  'tests/web-app.test.mjs': 'test:web',
   // Agent model plumbing and multi-turn evals run with the agent evals.
   'tests/model-client.test.mjs': 'check:agent',
   'tests/agent-scripted-model.test.mjs': 'check:agent',
