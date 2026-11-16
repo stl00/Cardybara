@@ -12,6 +12,7 @@ import {loadPointValues} from './PointValueSettings.jsx';
 import {requestAdvisor} from './advisorTransport';
 import {isModelReady,hostedReady} from '../extension-next/model-client.js';
 import {extensionChat} from './extensionChat.js';
+import {turnJudge} from './judgeClient.js';
 import {runCloudTurn} from './cloudChat.js';
 const {Text}=Typography;
 let session={history:[],turns:[]};
@@ -39,7 +40,7 @@ export default function ChatAdvisor({cards,events,day}){
   setTurns([...session.turns,{role:'user',content:q}]);
   // Earlier answers may name a card the user has hidden or unhidden since (#198): the model then starts from this question.
   const held=cards.map(c=>c.id).sort().join('|'),fresh=session.held!==undefined&&session.held!==held;
-  const turn={history:fresh?[]:session.history,memory:fresh?{}:session.memory||{},question:q,context:{cards,events,day,language,pointValues:loadPointValues()},signal:controller.current.signal,onProgress:p=>{if(mounted.current)setProgress(s[p.name]||s[p.phase]||s.thinking)}};
+  const turn={history:fresh?[]:session.history,memory:fresh?{}:session.memory||{},question:q,context:{cards,events,day,language,pointValues:loadPointValues(),...(location.protocol==='chrome-extension:'?{judge:turnJudge(q)}:{})},signal:controller.current.signal,onProgress:p=>{if(mounted.current)setProgress(s[p.name]||s[p.phase]||s.thinking)}};
   // The hosted agent streams its draft; a new model call (after a tool, or a checked rewrite) starts it again, and only the final checked answer is kept.
   const cloud=location.protocol==='chrome-extension:'&&await hostedReady();
   try{const result=cloud?await runCloudTurn({...turn,onDelta:text=>{if(mounted.current)setDraft(d=>text===null?'':(d+text).slice(0,20000))}}):await runAgentTurn({...turn,request:async(payload,signal)=>{const bounded=AbortSignal.any([signal,AbortSignal.timeout(50000)]);return location.protocol==='chrome-extension:'?extensionChat(payload,bounded):requestAdvisor('',payload,bounded);}});

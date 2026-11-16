@@ -2,7 +2,7 @@
 // sends the question, the trimmed history and the wallet summary, renders the streamed answer, and runs the wallet
 // tools the agent asks for here, posting back only their results. Nothing else from the wallet leaves the browser.
 import {postAgent,hostedError} from '../extension-next/model-client.js';
-import {runWalletTool} from './walletAgent.js';
+import {runWalletToolAsync} from './walletAgent.js';
 import {heldCards} from './heldCards.js';
 import {validateState} from './conversationState.js';
 import {buildWalletSummary,assistantCardName,WALLET_TOOLS} from './walletSummary.js';
@@ -50,7 +50,7 @@ export async function runCloudTurn({history=[],memory={},question,context,signal
   for(const call of calls){
    signal?.throwIfAborted();
    onProgress({phase:'tool',name:call.function.name});
-   try{results[call.id]=runWalletTool(call,{...local,trip});}catch{throw Error('model_failed');}
+   try{results[call.id]=await runWalletToolAsync(call,{...local,trip,signal});}catch{throw Error('model_failed');}
   }
   const before=rounds||[];
   rounds=sent.map((message,i)=>({message,results:i<before.length?before[i].results:i===sent.length-1?results:{}}));
