@@ -1,7 +1,7 @@
 {
  "dataset": "wallet-agent-holdout-v1",
  "frozenAt": "2026-11-09",
- "sha256": "4c63e87fbc9e94aaf535c42c20af8302583169267f2ef813ebedbce013548763",
+ "sha256": "2d4a8c2aeb76d1aa828677c17ac081c48c1c940458050c72ce01a51a0ddb1a7b",
  "caseCount": 27,
  "minPassRate": 0.8,
  "mode": "offline",
