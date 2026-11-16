@@ -79,3 +79,33 @@ test('a yearless bank date reminds on the date its read day implies',()=>{
  assert.deepEqual(billReminders([c],[],on,'2026-12-30').map(r=>[r.id,r.days]),[[`bill:${JSON.stringify(['y','date','2027-01-02'])}`,3]]);
  assert.deepEqual(billReminders([c],[],on,'2026-12-29'),[],'outside the lead time');
 });
+
+test('a four-year credit reminds once, on used date + 4 years, and respects dismissal, unmarked rows and held cards',async()=>{
+ const {offCycleRows,creditCalendar,dismissKey}=await import('../src/personalBenefits.js');
+ const cards=fixture.filter(c=>c.id==='ca-platinum'),row=offCycleRows(cards,'2026-11-05').find(r=>r.state==='four-year');
+ assert.ok(row,'synthetic card has a four-year credit');
+ const mark=(usedOn,id='m1')=>({id,key:row.key,status:'used',usedOn,revisionId:row.revisionId,at:'2026-11-01T00:00:00.000Z'});
+ const reuse=(events,day,list=cards,settings=on)=>pendingNotifications({cards:list,marks:[],events,settings,sent:[],asOf:day}).filter(i=>i.type==='reuse');
+ const used=[mark('2022-03-10')];
+ assert.equal(reuse(used,'2026-03-09').length,0,'none before');
+ const hit=reuse(used,'2026-03-10');assert.equal(hit.length,1);assert.equal(hit[0].name,cards[0].name);assert.equal(hit[0].title,row.title);
+ assert.equal(reuse(used,'2026-03-11').length,0,'only on the day');
+ assert.equal(reuse([mark('2024-02-29')],'2028-02-29').length,1,'leap day lands on the next Feb 29');
+ assert.equal(reuse([mark('2024-02-29')],'2028-02-28').length,0);
+ assert.equal(reuse([],'2026-03-10').length,0,'unmarked: next date unknown, never guessed');
+ assert.equal(reuse([{...mark('2022-03-10'),status:'unknown',usedOn:undefined}],'2026-03-10').length,0);
+ const dismissed=[...used,{id:'d1',key:dismissKey(row.cardId,row.ruleId),status:'dismissed',revisionId:null,at:'2026-11-02T00:00:00.000Z'}];
+ assert.equal(reuse(dismissed,'2026-03-10').length,0,'stop reminding');
+ assert.equal(reuse(used,'2026-03-10',[]).length,0,'card not held');
+ assert.equal(reuse(used,'2026-03-10',cards,{...on,credits:false}).length,0,'credit reminders off');
+ assert.equal(reuse(used,'2026-03-10',cards,{...on,enabled:false}).length,0,'reminders off');
+ assert.equal(pendingNotifications({cards,marks:[],events:used,settings:on,sent:[{id:hit[0].id,day:'2026-03-10'}],asOf:'2026-03-10'}).filter(i=>i.type==='reuse').length,0,'sent once stays sent');
+ // .ics: one all-day event on the same date; none unmarked, dismissed, or already past.
+ const ics=(events,now)=>creditCalendar([],events,3,{now:new Date(now),offCycle:offCycleRows(cards,'2026-03-01')}).replace(/\r\n /g,'');
+ const cal=ics(used,'2026-03-01T15:00:00Z');
+ assert.equal(cal.split('DTSTART;VALUE=DATE:20260310').length-1,1);assert.match(cal,/DTEND;VALUE=DATE:20260311/);assert.match(cal,/can be used again/);
+ assert.equal(cal.split('BEGIN:VEVENT').length-1,1);
+ assert.ok(!ics([],'2026-03-01T15:00:00Z').includes('can be used again'));
+ assert.ok(!ics(dismissed,'2026-03-01T15:00:00Z').includes('can be used again'));
+ assert.ok(!ics(used,'2026-03-12T15:00:00Z').includes('can be used again'));
+});

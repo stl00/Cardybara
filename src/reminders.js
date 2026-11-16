@@ -1,5 +1,5 @@
 import {paymentView} from './paymentStates.js';
-import {activeTasks,creditTasks,taskStatus} from './personalBenefits.js';
+import {activeTasks,creditTasks,taskStatus,offCycleRows,fourYearReuse} from './personalBenefits.js';
 import {nextFeeDay} from './feeDate.js';
 import {profileForCard} from './benefitRules.js';
 import {REMINDER_LOG_KEY,REMINDER_SCHEDULE_KEY,SCHEDULE_SCHEMA,SINGLE_LIMIT,pruneSent,readLog,reminderDay} from '../extension-next/reminder-core.js';
@@ -39,6 +39,16 @@ export function creditReminders(cards,events,settings,asOf){
  }));
 }
 /**
+ * A four-year credit marked used with a date reminds once, on the day it can be used again (used date + 4 years).
+ * Nothing before that day, nothing for an unmarked row, and nothing for a dismissed credit or a card not held.
+ * Page only: the worker's plan still needs a "can be used again" wording in extension-next/reminder-core.js.
+ */
+export function reuseReminders(cards,events,settings,asOf){
+ return fourYearReuse(offCycleRows(cards,asOf),events).filter(r=>r.nextEligible===asOf).map(({row,nextEligible})=>({
+  id:`reuse:${row.key}:${nextEligible}`,kind:'reuse',title:row.title,...(row.original?{original:row.original}:{}),...(row.translations?{translations:row.translations}:{}),ruleId:row.ruleId,name:cards.find(c=>c.id===row.cardId)?.name||'',days:0,
+ }));
+}
+/**
  * Only a fee date the user set reminds, once per card year. A card whose published annual fee is zero has
  * nothing to remind about; an unknown fee still reminds, because the user set the date for a reason.
  */
@@ -55,12 +65,12 @@ const ofKind=(list,...kinds)=>list.filter(r=>kinds.includes(r.kind));
 export function pendingNotifications({cards,marks,events,settings,sent,asOf}){
  if(!settings.enabled)return [];
  const seen=new Set(sent.map(r=>r.id));
- const fresh=[...(settings.bills?billReminders(cards,marks,settings,asOf):[]),...(settings.fees?feeReminders(cards,settings,asOf):[]),...(settings.credits?creditReminders(cards,events,settings,asOf):[])].filter(r=>!seen.has(r.id));
+ const fresh=[...(settings.bills?billReminders(cards,marks,settings,asOf):[]),...(settings.fees?feeReminders(cards,settings,asOf):[]),...(settings.credits?[...creditReminders(cards,events,settings,asOf),...reuseReminders(cards,events,settings,asOf)]:[])].filter(r=>!seen.has(r.id));
  const out=[];
- for(const [group,rows] of [['bills',ofKind(fresh,'overdue','bill','fee')],['credits',ofKind(fresh,'credit')]]){
+ for(const [group,rows] of [['bills',ofKind(fresh,'overdue','bill','fee')],['credits',ofKind(fresh,'credit','reuse')]]){
   if(!rows.length)continue;
   if(rows.length>SINGLE_LIMIT)out.push({type:group==='bills'?'bill-summary':'credit-summary',count:rows.length,ids:rows.map(r=>r.id),tag:`cardybara-${group}-${asOf}-${sent.length}`});
-  else for(const r of rows)out.push({type:r.kind,...r,ids:[r.id],tag:r.id,...(r.kind==='credit'||settings.showAmounts?{}:{statement:undefined,currency:undefined})});
+  else for(const r of rows)out.push({type:r.kind,...r,ids:[r.id],tag:r.id,...(r.kind==='credit'||r.kind==='reuse'||settings.showAmounts?{}:{statement:undefined,currency:undefined})});
  }
  return out;
 }
