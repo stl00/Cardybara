@@ -1,4 +1,4 @@
-import {runWalletTool,validateToolCall} from './walletAgent.js';
+import {runWalletToolAsync,validateToolCall} from './walletAgent.js';
 import {heldCards} from './heldCards.js';
 import {prepareAgentContext,statedPointValues} from './agentContext.js';
 import {validateState,reduceToolResult,diffState,endTurn,keepHeldTopics} from './conversationState.js';
@@ -79,7 +79,7 @@ export async function runAgentTurn({history,question,context,request,memory={},o
    signal?.throwIfAborted();
    const isRemote=!!remoteTools?.has(call.function.name);
    if(isRemote)validateToolCall(call);
-   const start=Date.now(),result=isRemote?replayed.results[call.id]:runWalletTool(call,{...context,trip:state.trip}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
+   const start=Date.now(),result=isRemote?replayed.results[call.id]:await runWalletToolAsync(call,{...context,trip:state.trip,signal}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
    // A flight plan's credits and transfer rows are checked exactly as query_credits and convert_points results are.
    if(call.function.name==='plan_flight')evidence.push(result.credits,result.transfers);
    // Each tool result updates the state through the reducers; the trace records what changed, channel by channel.
