@@ -123,3 +123,24 @@ test('a wallet holding Platinum and a Delta card gets Platinum protections with 
  assert.equal(rental.rules.length,2);assert.ok(rental.rules.every(r=>r.basis==='not-stated'&&r.requiresCardPayment!==true));
  assert.equal(queryKnowledge({productId:'amex-us-us-business-platinum-card',category:'protection'}).count,0);
 });
+
+// #316: Lost Luggage Reimbursement on Chase personal cards, and the pages that showed no protection text.
+test('lost luggage reimbursement is a coverage type recorded from the pages that state it (#316)',()=>{
+ assert.ok(COVERAGE_TYPES.includes('lost-luggage'));
+ assert.deepEqual(validateKnowledge().errors,[]);
+ const held=[{id:'sw',name:'Southwest Rapid Rewards Plus Credit Card',bank:'Chase',region:'US',currency:'USD'},{id:'ihg',name:'IHG One Rewards Credit Card',bank:'Chase',region:'US',currency:'USD'}];
+ const ctx={cards:held,events:[],day:'2026-11-16',language:'en'};
+ const lost=runWalletTool(call('find_protections',{type:'lost-luggage'}),ctx);
+ assert.equal(lost.rules.length,1);
+ assert.equal(lost.rules[0].basis,'not-stated');
+ assert.ok(lost.rules[0].sources.every(s=>s.url.startsWith('https://creditcards.chase.com/')));
+ // IHG One's page showed no lost luggage text on 2026-11-16, so its other recorded protections stay and this one is absent.
+ assert.equal(lost.cards.find(c=>c.name==='IHG One Rewards Credit Card').status,'not_found');
+ for(const id of ['southwest-rapid-rewards-plus-credit-card','marriott-bonvoy-bold-credit-card','world-of-hyatt-credit-card','united-club-card','british-airways-visa-signature-credit-card','aer-lingus-visa-signature-credit-card']){
+  const r=queryKnowledge({productId:'chase-us-'+id,category:'protection'}).rules.find(r=>r.terms.coverage.type==='lost-luggage');
+  assert.ok(r,id);assert.equal(r.evidence.checkedAt,'2026-11-16');assert.equal(r.evidence.verification,'official-summary');
+ }
+ // Pages that showed only a heading record nothing, never a sibling's protections.
+ for(const id of ['united-explorer-card','united-quest','ihg-premier','iberia-visa-signature-credit-card','disney-inspire-visa-card','prime-visa'])
+  assert.equal(queryKnowledge({productId:'chase-us-'+id,category:'protection'}).count,0,id);
+});

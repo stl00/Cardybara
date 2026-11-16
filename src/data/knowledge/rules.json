@@ -89375,5 +89375,965 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-plus-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失赔偿",
+      "summary": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost Luggage Reimbursement",
+      "summary": "Reimburses the cost to repair or replace checked or carry-on baggage that is lost, damaged or stolen during a covered trip, up to $3,000 per covered traveler. For New York residents it is also limited to $2,000 per bag and $10,000 for all covered travelers per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-plus-credit-card",
+          "text": "Provides reimbursement up to $3,000 per covered traveler"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-plus-credit-card",
+          "text": "for the cost to repair or replace checked or carry-on baggage"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-plus-credit-card",
+          "text": "that is lost, damaged or stolen during a covered trip."
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-plus-credit-card",
+          "text": "additionally limited to $2,000 per bag and $10,000 for all covered travelers per trip."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-plus-credit-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-priority-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失赔偿",
+      "summary": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost Luggage Reimbursement",
+      "summary": "Reimburses the cost to repair or replace checked or carry-on baggage that is lost, damaged or stolen during a covered trip, up to $3,000 per covered traveler. For New York residents it is also limited to $2,000 per bag and $10,000 for all covered travelers per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-priority-credit-card",
+          "text": "Provides reimbursement up to $3,000 per covered traveler"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-priority-credit-card",
+          "text": "for the cost to repair or replace checked or carry-on baggage"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-priority-credit-card",
+          "text": "that is lost, damaged or stolen during a covered trip."
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-priority-credit-card",
+          "text": "additionally limited to $2,000 per bag and $10,000 for all covered travelers per trip."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-priority-credit-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失赔偿",
+      "summary": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost Luggage Reimbursement",
+      "summary": "Reimburses the cost to repair or replace checked or carry-on baggage that is lost, damaged or stolen during a covered trip, up to $3,000 per covered traveler. For New York residents it is also limited to $2,000 per bag and $10,000 for all covered travelers per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-credit-card",
+          "text": "Provides reimbursement up to $3,000 per covered traveler"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-credit-card",
+          "text": "for the cost to repair or replace checked or carry-on baggage"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-credit-card",
+          "text": "that is lost, damaged or stolen during a covered trip."
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-credit-card",
+          "text": "additionally limited to $2,000 per bag and $10,000 for all covered travelers per trip."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bold-credit-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bold-credit-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bold-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失赔偿",
+      "summary": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost Luggage Reimbursement",
+      "summary": "Reimburses the cost to repair or replace checked or carry-on baggage that is lost, damaged or stolen during a covered trip, up to $3,000 per covered traveler. For New York residents it is also limited to $2,000 per bag and $10,000 for all covered travelers per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bold-credit-card",
+          "text": "Provides reimbursement up to $3,000 per covered traveler"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bold-credit-card",
+          "text": "for the cost to repair or replace checked or carry-on baggage"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bold-credit-card",
+          "text": "that is lost, damaged or stolen during a covered trip."
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bold-credit-card",
+          "text": "additionally limited to $2,000 per bag and $10,000 for all covered travelers per trip."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bold-credit-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-boundless-credit-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-boundless-credit-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-marriott-bonvoy-boundless-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失赔偿",
+      "summary": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost Luggage Reimbursement",
+      "summary": "Reimburses the cost to repair or replace checked or carry-on baggage that is lost, damaged or stolen during a covered trip, up to $3,000 per covered traveler. For New York residents it is also limited to $2,000 per bag and $10,000 for all covered travelers per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "Provides reimbursement up to $3,000 per covered traveler"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "for the cost to repair or replace checked or carry-on baggage"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "that is lost, damaged or stolen during a covered trip."
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "additionally limited to $2,000 per bag and $10,000 for all covered travelers per trip."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-boundless-credit-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bountiful-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失赔偿",
+      "summary": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost Luggage Reimbursement",
+      "summary": "Reimburses the cost to repair or replace checked or carry-on baggage that is lost, damaged or stolen during a covered trip, up to $3,000 per covered traveler. For New York residents it is also limited to $2,000 per bag and $10,000 for all covered travelers per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "Provides reimbursement up to $3,000 per covered traveler"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "for the cost to repair or replace checked or carry-on baggage"
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "that is lost, damaged or stolen during a covered trip."
+        },
+        {
+          "sourceId": "card-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "additionally limited to $2,000 per bag and $10,000 for all covered travelers per trip."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-marriott-bonvoy-bountiful-credit-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-world-of-hyatt-credit-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.chase-us-world-of-hyatt-credit-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-world-of-hyatt-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失赔偿",
+      "summary": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost Luggage Reimbursement",
+      "summary": "Reimburses the cost to repair or replace checked or carry-on baggage that is lost, damaged or stolen during a covered trip, up to $3,000 per covered traveler. For New York residents it is also limited to $2,000 per bag and $10,000 for all covered travelers per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "Provides reimbursement up to $3,000 per covered traveler"
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "for the cost to repair or replace checked or carry-on baggage"
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "that is lost, damaged or stolen during a covered trip."
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-credit-card",
+          "text": "additionally limited to $2,000 per bag and $10,000 for all covered travelers per trip."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-world-of-hyatt-credit-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失赔偿",
+      "summary": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost Luggage Reimbursement",
+      "summary": "Reimburses the cost to repair or replace checked or carry-on baggage that is lost, damaged or stolen during a covered trip, up to $3,000 per covered traveler. For New York residents it is also limited to $2,000 per bag and $10,000 for all covered travelers per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-card",
+          "text": "Provides reimbursement up to $3,000 per covered traveler"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-card",
+          "text": "for the cost to repair or replace checked or carry-on baggage"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-card",
+          "text": "that is lost, damaged or stolen during a covered trip."
+        },
+        {
+          "sourceId": "card-chase-us-united-club-card",
+          "text": "additionally limited to $2,000 per bag and $10,000 for all covered travelers per trip."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-british-airways-visa-signature-credit-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.chase-us-british-airways-visa-signature-credit-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-british-airways-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失赔偿",
+      "summary": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost Luggage Reimbursement",
+      "summary": "Reimburses the cost to repair or replace checked or carry-on baggage that is lost, damaged or stolen during a covered trip, up to $3,000 per covered traveler. For New York residents it is also limited to $2,000 per bag and $10,000 for all covered travelers per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-british-airways-visa-signature-credit-card",
+          "text": "Provides reimbursement up to $3,000 per covered traveler"
+        },
+        {
+          "sourceId": "card-chase-us-british-airways-visa-signature-credit-card",
+          "text": "for the cost to repair or replace checked or carry-on baggage"
+        },
+        {
+          "sourceId": "card-chase-us-british-airways-visa-signature-credit-card",
+          "text": "that is lost, damaged or stolen during a covered trip."
+        },
+        {
+          "sourceId": "card-chase-us-british-airways-visa-signature-credit-card",
+          "text": "additionally limited to $2,000 per bag and $10,000 for all covered travelers per trip."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-british-airways-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-aer-lingus-visa-signature-credit-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.chase-us-aer-lingus-visa-signature-credit-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-aer-lingus-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失赔偿",
+      "summary": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Lost Luggage Reimbursement",
+      "summary": "Reimburses the cost to repair or replace checked or carry-on baggage that is lost, damaged or stolen during a covered trip, up to $3,000 per covered traveler. For New York residents it is also limited to $2,000 per bag and $10,000 for all covered travelers per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-aer-lingus-visa-signature-credit-card",
+          "text": "Provides reimbursement up to $3,000 per covered traveler"
+        },
+        {
+          "sourceId": "card-chase-us-aer-lingus-visa-signature-credit-card",
+          "text": "for the cost to repair or replace checked or carry-on baggage"
+        },
+        {
+          "sourceId": "card-chase-us-aer-lingus-visa-signature-credit-card",
+          "text": "that is lost, damaged or stolen during a covered trip."
+        },
+        {
+          "sourceId": "card-chase-us-aer-lingus-visa-signature-credit-card",
+          "text": "additionally limited to $2,000 per bag and $10,000 for all covered travelers per trip."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "受保旅行中托运或随身行李遗失、损坏或被盗时，可获报销维修或更换费用，每位受保旅客最高 $3,000。纽约州居民另限每件行李 $2,000、每次旅行全体受保旅客合计 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-aer-lingus-visa-signature-credit-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]
