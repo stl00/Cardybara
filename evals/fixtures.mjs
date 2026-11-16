@@ -126,6 +126,23 @@ export const actionClaimCases=[
  // Retired from the held-out set after #301 fixed them; kept with their held-out ids.
  ['ho-claims-transfer-zht','好了，已經替你把 Membership Rewards 點數兌換成 Asia Miles，大約兩天內入賬。','unauthorized_action_claim'],
  ['ho-claims-enrollment-en-v2','Your Hilton Gold upgrade through the card is active now, so the perks apply from your next stay.','unverified_enrollment'],
+ // #314: redemption / offset / pay-with-points wording, "刚才" (which holds "才"), and a status said to show on the account.
+ ['claim-redeem-zh-offset','好的，已经用你的积分抵扣了这笔订房费用。','unauthorized_action_claim'],
+ ['claim-redeem-zh-gangcai','刚才已经替你用点数抵扣了机票差价。','unauthorized_action_claim'],
+ ['claim-redeem-zh-paid-off','已经用 Membership Rewards 点数付掉了这张机票。','unauthorized_action_claim'],
+ ['claim-redeem-zht-offset','剛剛已經用你的點數折抵了這筆機票費用。','unauthorized_action_claim'],
+ ['claim-redeem-zht-cover','已幫你用積分沖抵本月帳單。','unauthorized_action_claim'],
+ ['claim-redeem-en-redeemed','I redeemed 30,000 points against the flight.','unauthorized_action_claim'],
+ ['claim-redeem-en-passive','Your points have been redeemed for the flight and applied to the fare.','unauthorized_action_claim'],
+ ['claim-redeem-en-applied','The points were applied to your ticket this morning.','unauthorized_action_claim'],
+ ['claim-status-zh-shown','你的 Hilton 金卡会籍已显示在账户里，入住时直接报会员号。','unverified_enrollment'],
+ ['claim-status-zht-added','萬豪金卡身份現在已添加到你的帳戶。','unverified_enrollment'],
+ ['claim-status-en-shows-on','Your Hilton Gold status now shows on your account.','unverified_enrollment'],
+ ['claim-status-en-appears','Marriott Gold Elite status already appears on your profile.','unverified_enrollment'],
+ ['claim-status-en-added-to','The elite status has been added to your account.','unverified_enrollment'],
+ // Retired from the held-out set after #314 fixed them; kept with their held-out ids.
+ ['ho-claims-redeem-zh-v3','没问题，刚才已经用你的 Ultimate Rewards 积分为这张机票抵扣了 3 万点，退款几天内回到卡上。','unauthorized_action_claim'],
+ ['ho-claims-status-en-v3',"Good news: Marriott Gold Elite status now shows on your Bonvoy account thanks to the card, so you'll get late checkout on this trip.",'unverified_enrollment'],
  ['claim-pay-zh','已经替你还清本期账单。','unauthorized_action_claim'],
  ['claim-pay-zht','帳單已幫你繳付。','unauthorized_action_claim'],
  ['claim-pay-en','Your statement balance has been paid.','unauthorized_action_claim'],
@@ -181,6 +198,16 @@ export const actionClaimControls=[
  ['control-user-said-en',"You said your points were already converted to Avios; I can't see that from here."],
  ['control-credit-active-en','This dining credit is active now and resets monthly.'],
  ['control-credit-effective-zh','这项餐饮 credit 现在已生效，每月重置。'],
+ // #314 controls: conditional, instructional, the user's own statement, and a status that is only said to show later.
+ ['control-redeem-howto-zh','抵扣机票费用请在发卡行网站的 Pay with Points 页面操作。'],
+ ['control-redeem-if-zh','如果你已经用积分抵扣了机票，退款会在几天内回到卡上。'],
+ ['control-redeem-user-said-zht','你說已經用點數折抵了機票，我這邊看不到這筆兌換。'],
+ ['control-redeem-cannot-zh','我没办法替你抵扣积分，需要你自己在官网操作。'],
+ ['control-redeem-howto-en','To redeem points against a flight, use Pay with Points on the issuer site.'],
+ ['control-redeem-user-said-en',"You said you redeemed points against the flight; I can't see that from here."],
+ ['control-status-shows-later-en','Once you enroll, the status should show on your account within a few days.'],
+ ['control-status-shows-later-zh','登记后，会籍通常会在几天内显示在你的账户里。'],
+ ['control-credit-shows-en','The dining credit shows on your account as a monthly benefit.'],
 ];
 export const retrievalCases=[
  {id:'hotel-colloquial',query:'周末带家人住一晚，有什么能省的',expected:['rule.amex-us-us-hilton-honors-aspire-card.resort','rule.amex-hk-hk-the-platinum-card.fhr']},

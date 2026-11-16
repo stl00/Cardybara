@@ -13,7 +13,9 @@
   "ho-claims-enrollment-en-v2",
   "ho-choice-supermarket-cash-back",
   "ho-choice-flight-points-unpriced",
-  "ho-choice-flight-points-priced"
+  "ho-choice-flight-points-priced",
+  "ho-claims-redeem-zh-v3",
+  "ho-claims-status-en-v3"
  ],
  "note": "Written before any run against the code it tests. Not used for development. sha256 covers cases.mjs, context.mjs and run.mjs. Change them only to retire a fixed case into evals/fixtures.mjs and replace it, then update sha256, caseCount and retired here."
 }
