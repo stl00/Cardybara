@@ -9,8 +9,7 @@
   "dining",
   "answers-before-asking",
   "foreign-purchase",
-  "choice-english",
-  "hotel-colloquial",
+   "hotel-colloquial",
   "credits-unknown",
   "injection",
   "annual-fee",
@@ -19,6 +18,7 @@
   "trip-whole-question",
   "follow-up",
   "cycle-card-year-no-fee-date",
-  "cycle-global-entry-next-eligible"
+  "cycle-global-entry-next-eligible",
+ "ledger-card-year"
  ]
 }

@@ -8,7 +8,8 @@ import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {selectCases,verdict,runLiveEval,compare,buildReport,summary,buildTranscripts,scrub,TRANSCRIPT_CAP} from '../scripts/live-eval.mjs';
-import {runLiveCase} from '../evals/live-case.mjs';
+import {runLiveCase,caseWallet} from '../evals/live-case.mjs';
+import {runWalletTool} from '../src/walletAgent.js';
 import {liveCases} from '../evals/fixtures.mjs';
 import {meter,priceFor} from '../evals/multiturn/live.mjs';
 
@@ -153,4 +154,25 @@ test('the workflow runs only on a schedule or by hand, behind the protected envi
  for(const uses of yml.match(/uses: .+/g))assert.match(uses,/@[0-9a-f]{40} /,'actions are pinned by commit: '+uses);
  // The key must not reach CI, where pull requests run.
  assert.doesNotMatch(fs.readFileSync(path.join(root,'.github/workflows/ci.yml'),'utf8'),/DEEPSEEK_API_KEY/);
+});
+
+test('the live ledger case sends its fee date and marks, and its totals are the tool\'s own',async()=>{
+ const c=liveCases.find(x=>x.id==='ledger-card-year');
+ assert.ok(config.cases.includes(c.id),'the daily sample lists the ledger case');
+ let sent=null;
+ const chat=async()=>({content:'',tool_calls:[{function:{name:'query_credits',arguments:JSON.stringify({cardName:'Sapphire Reserve',yearBasis:'card-year'})}}]});
+ const turn=answer=>async({context,request})=>{sent=context;await request({});return {answer,trace:[],tools:[],memory:{},messages:[],context:{}};};
+ const good=await runLiveCase(c,{chat,turn:turn('已标记用掉 USD 314；未记录 USD 70。')});
+ assert.ok(Object.values(good.checks).every(Boolean),JSON.stringify(good.checks));
+ const reserve=sent.cards.find(x=>x.productId===Object.keys(c.feeDates)[0]);
+ assert.deepEqual(reserve.feeDate,{month:8,day:1});
+ assert.equal(sent.cards.filter(x=>x.feeDate).length,1,'only the named card gets a fee date');
+ assert.deepEqual(sent.events,c.events);assert.equal(sent.events.length,3);
+ // Counting the uncaptured cycles as used is caught, as is a missing total.
+ assert.equal((await runLiveCase(c,{chat,turn:turn('共返还 USD 384，其中未记录 USD 70，已用 314。')})).checks.avoidsWrongTotals,false);
+ assert.equal((await runLiveCase(c,{chat,turn:turn('已用 USD 314。')})).checks.coversNamedProgrammes,false);
+ assert.equal((await runLiveCase(c,{chat:async()=>({content:'',tool_calls:[{function:{name:'query_credits',arguments:JSON.stringify({cardName:'Sapphire Reserve'})}}]}),turn:turn('已标记用掉 USD 314；未记录 USD 70。')})).checks.expectedArguments,false,'without yearBasis');
+ // The expected totals are what the tool returns for that wallet.
+ const r=runWalletTool({id:'x',function:{name:'query_credits',arguments:JSON.stringify({cardName:'Sapphire Reserve',yearBasis:'card-year'})}},caseWallet(c));
+ assert.equal(r.cards[0].returned.used,314);assert.equal(r.cards[0].returned.notCaptured,70);
 });

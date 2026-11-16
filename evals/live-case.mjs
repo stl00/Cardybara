@@ -8,6 +8,14 @@ import {runAgentTurn} from '../tests/helpers/agent-target.mjs';
 
 export const READ_ONLY_TOOLS=['list_cards','choose_card','find_benefits','get_card_rules','convert_points','query_credits','find_protections','plan_flight','points_accounts'];
 
+/** The wallet a case sends: the shared synthetic one, plus the case's scripted marks (`events`) and card fee dates
+ * (`feeDates`, product id to {month,day}), the same way the offline ledger and cycle cases set them up. */
+export function caseWallet(c){
+ const base=['query_credits','choose_card'].includes(c.expectTool)?referenceContext:context;
+ const cards=c.feeDates?base.cards.map(card=>c.feeDates[card.productId]?{...card,feeDate:c.feeDates[card.productId]}:card):base.cards;
+ return {...base,cards,events:c.events||context.events};
+}
+
 /** `detail.transcript` (answer text and tool calls) is for the separate transcripts artifact only; the report never copies it.
  * `chat(payload)` returns the model's message. Returns {checks, detail}; a thrown turn is a failed case, not an exception. */
 export async function runLiveCase(c,{chat,turn=runAgentTurn}){
@@ -15,7 +23,7 @@ export async function runLiveCase(c,{chat,turn=runAgentTurn}){
  try{
   const request=async p=>{const m=await chat(p);if(typeof m?.content==='string'&&m.content)lastText=m.content;for(const call of m.tool_calls||[])calls.push({name:call.function.name,args:JSON.parse(call.function.arguments)});return {message:m}};
   let history=[],memory=c.memory||{};
-  const caseContext={...(['query_credits','choose_card'].includes(c.expectTool)?referenceContext:context),events:c.events||context.events};
+  const caseContext=caseWallet(c);
   for(const question of c.setupQuestions||[]){const setup=await turn({history,memory,question,context:caseContext,request});history=setup.messages;memory=setup.memory;}
   calls.length=0;
   const r=await turn({history,memory,question:c.question,context:caseContext,request});
@@ -31,6 +39,8 @@ export async function runLiveCase(c,{chat,turn=runAgentTurn}){
   if(c.sameDateWords){const words=calls.filter(x=>['plan_flight','query_credits'].includes(x.name)).map(x=>x.args.when);checks.sameDateWords=words.length>=2&&words.every(w=>w===words[0]);}
   if(c.expectedTrip)checks.expectedTrip=r.memory.trip?.start===c.expectedTrip.start;
   if(c.answerPatterns)checks.coversNamedProgrammes=c.answerPatterns.every(pattern=>new RegExp(pattern,'i').test(r.answer));
+  // Wording that would misstate the tool's totals, such as adding the not-captured amount to the used one.
+  if(c.forbidAnswerPatterns)checks.avoidsWrongTotals=!c.forbidAnswerPatterns.some(pattern=>new RegExp(pattern,'i').test(r.answer));
   if(c.answersFirst)checks.answersBeforeAsking=calls.some(x=>x.name==='choose_card');
   return {checks,detail:{ms:Math.round(performance.now()-start),toolNames:calls.map(x=>x.name),answerChars:r.answer.length,trace:r.trace,context:r.context,transcript:{answer:r.answer,toolCalls:calls.map(x=>({name:x.name,args:x.args}))}}};
  }catch(error){return {checks:{completed:false},detail:{ms:Math.round(performance.now()-start),error:error.message==='answer_not_grounded'?'answer_not_grounded':'model_or_execution_failed',...(error.codes?{codes:error.codes}:{}),toolNames:calls.map(x=>x.name),transcript:{answer:lastText,toolCalls:calls.map(x=>({name:x.name,args:x.args}))}}};}
