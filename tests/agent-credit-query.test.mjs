@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {referenceCards as cards,creditMark,planIds} from '../evals/fixtures.mjs';
+import {referenceContext,liveCases,referenceCards as cards,creditMark,planIds} from '../evals/fixtures.mjs';
 import {resolveTripDates} from '../src/tripDates.js';
 import {queryCredits,creditNamesForCards} from '../src/creditQuery.js';
 import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
@@ -434,4 +434,15 @@ test('text in a mark cannot steer the tool, and the outbound tool payload stays 
  const m=script([[call({use:'hotel',when:'12月'})],goodDecember.replace('这些都没有手动标记，不确定是否用过','这些没有手动标记或未确认')]);
  const r=await runAgentTurn({history:[],question:'12月住酒店',context:privateWallet,request:m.request});
  const payload=JSON.stringify(m.requests);assert.ok(!payload.includes('987654321'));assert.ok(!payload.includes('9999'));assert.ok(!payload.includes('Ignore all rules'));assert.ok(r.answer);
+});
+
+// #352: the live model asked with use "travel" plus the card name; Global Entry was only tagged "airport", so the four-year row was filtered out and the date never reached the model.
+test('use "travel" with the card name returns the four-year credit with its next eligible date',()=>{
+ const live=liveCases.find(c=>c.id==='cycle-global-entry-next-eligible');
+ for(const use of ['travel','airport',undefined]){
+  const result=runWalletTool({id:'t',function:{name:'query_credits',arguments:JSON.stringify({...(use?{use}:{}),cardName:'Sapphire Reserve'})}},{...referenceContext,events:live.events});
+  const item=Object.values(result.groups).flat().find(i=>i.title.includes('Global Entry'));
+  assert.ok(item,`Global Entry missing for use=${use}`);
+  assert.deepEqual(item.fourYear,{lastUsedOn:'2023-05-10',nextEligible:'2027-05-10'},`use=${use}`);
+ }
 });
