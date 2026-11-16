@@ -107,3 +107,19 @@ test('a wallet holding an Ink card and a co-brand business card gets the newly r
  assert.deepEqual(pref,['extended-warranty','purchase-protection','rental-car','roadside','trip-cancellation']);
  assert.equal(queryKnowledge({productId:'chase-us-ihg-one-rewards-business-credit-card',category:'protection'}).count,0);
 });
+
+// #306: Amex US pages that name protections; most Amex pages return no benefit text signed out.
+test('a wallet holding Platinum and a Delta card gets Platinum protections with sources and Delta stays not_found (#306)',()=>{
+ const held=[{id:'plat',name:'The Platinum Card',bank:'Amex US',region:'US',currency:'USD'},{id:'dg',name:'Delta SkyMiles Gold Card',bank:'Amex US',region:'US',currency:'USD'},{id:'gold',name:'American Express Gold Card',bank:'Amex US',region:'US',currency:'USD'}];
+ const ctx={cards:held,events:[],day:'2026-11-15',language:'en'};
+ const all=runWalletTool(call('find_protections',{}),ctx);
+ const card=name=>all.cards.find(c=>c.name===name);
+ assert.deepEqual(card('The Platinum Card').coverageTypes.sort(),['rental-car','trip-cancellation','trip-delay']);
+ assert.deepEqual(card('American Express Gold Card').coverageTypes.sort(),['rental-car','trip-delay']);
+ assert.equal(card('Delta SkyMiles Gold Card').status,'not_found');
+ assert.ok(all.rules.every(r=>r.sources.length&&r.sources.every(s=>s.url.startsWith('https://www.americanexpress.com/'))));
+ // A heading on the page is not terms: no basis, payment condition or exclusions are claimed.
+ const rental=runWalletTool(call('find_protections',{type:'rental-car'}),ctx);
+ assert.equal(rental.rules.length,2);assert.ok(rental.rules.every(r=>r.basis==='not-stated'&&r.requiresCardPayment!==true));
+ assert.equal(queryKnowledge({productId:'amex-us-us-business-platinum-card',category:'protection'}).count,0);
+});
