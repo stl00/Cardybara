@@ -27,21 +27,21 @@ const pick=l=>({available:l.available,used:l.used,unused:l.unused,skipped:l.skip
 
 test('card year: Platinum 2026-03-15..2027-03-14 matches the hand-computed totals',()=>{
  // Credits: Uber Cash 12x15=180, Uber One 120, airline 200 (the 2027 cycle), CLEAR 219 (2027), Resy 4x100, digital 12x25=300,
- // lululemon 4x75=300, Walmart+ 12x12.95=155.40 -> 1874.40. Used: 45+10+100. Unused: 5 (rest of July) + 15 (Sep). Skipped 15.
+ // lululemon 4x75=300, Walmart+ 12x12.95=155.40, hotel 2x300 (calendar halves, #340) -> 2474.40. Used: 45+10+100. Unused: 5 (rest of July) + 15 (Sep). Skipped 15.
  // Not captured (ended, no mark): Uber Oct 15, Resy Q3 100, digital Apr-Oct 175, lululemon 2 quarters 150, Walmart 7x12.95=90.65 -> 530.65.
  const l=by(creditLedger([plat,csr],events,asOf,{basis:'card-year'}),'plat');
  assert.deepEqual(l.period,{start:'2026-03-15',end:'2027-03-14'});
- assert.deepEqual(pick(l),{available:1874.4,used:155,unused:20,skipped:15,notCaptured:530.65,open:1153.75});
+ assert.deepEqual(pick(l),{available:2474.4,used:155,unused:20,skipped:15,notCaptured:530.65,open:1753.75});
  assert.equal(l.credits.find(c=>c.ruleId.endsWith('.uber-cash')).cycles,12,'a monthly credit counts all 12 cycles');
  assert.equal(l.credits.find(c=>c.ruleId.endsWith('.resy')).cycles,4);
- assert.equal(l.annualFee,895);assert.deepEqual(l.netOfFee,{used:-740,available:979.4});
+ assert.equal(l.annualFee,895);assert.deepEqual(l.netOfFee,{used:-740,available:1579.4});
 });
 test('calendar year: the same Platinum over 2026 matches the hand-computed totals',()=>{
  // Same marks over Jan-Dec 2026. Uber Cash adds Jan-Mar 45 not captured; airline 2026 cycle is the used 200.
- // Used 45+10+100+200=355. Not captured: Uber 15+45, Resy Q1+Q3 200, digital Jan-Oct 250, lululemon Q1-Q3 225, Walmart 10x12.95=129.50 -> 864.50.
+ // Used 45+10+100+200=355. Not captured: Uber 15+45, Resy Q1+Q3 200, digital Jan-Oct 250, lululemon Q1-Q3 225, Walmart 10x12.95=129.50, hotel H1 300 (ended, no mark) -> 1164.50; hotel H2 300 stays open.
  const l=by(creditLedger([plat,csr],events,asOf,{basis:'calendar-year'}),'plat');
  assert.deepEqual(l.period,{start:'2026-01-01',end:'2026-12-31'});
- assert.deepEqual(pick(l),{available:1874.4,used:355,unused:20,skipped:15,notCaptured:864.5,open:619.9});
+ assert.deepEqual(pick(l),{available:2474.4,used:355,unused:20,skipped:15,notCaptured:1164.5,open:919.9});
 });
 test('Sapphire Reserve totals for both bases, including a credit that starts mid-year',()=>{
  // Card year 2026-08-01..2027-07-31: travel 300 used; Lyft 12x10 (Sep, Oct used); DoorDash 10 monthly 15 (from Oct 2026), retail 12x20;
