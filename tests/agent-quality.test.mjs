@@ -76,3 +76,10 @@ test('grounding catches completed transfer and enrolment claims in any wording, 
  for(const answer of ['你已经登记好了。','會籍已完成登記。',"You're now enrolled.","You've been registered for the benefit.",'Enrollment is complete.'])assert.ok(codes(answer).includes('unverified_enrollment'),answer);
  for(const answer of ['你可以在 App 里登记。','轉點請到官網操作。','If you are enrolled, the credit posts automatically.','To transfer, go to the rewards site.',"I can't enroll you."])assert.deepEqual(codes(answer).filter(c=>['unauthorized_action_claim','unverified_enrollment'].includes(c)),[],answer);
 });
+// #301: a conversion with a long object before the verb, and a status said to be in effect or upgraded.
+test('grounding catches converted points and a status claimed active or upgraded, but not a restated user claim',()=>{
+ const codes=answer=>answerGrounding(answer,[]).issues.map(i=>i.code);
+ for(const answer of ['已經替你把 Membership Rewards 點數兌換成 Avios。','已经替你将积分兑换为里程。','Your points got converted to Hyatt.'])assert.ok(codes(answer).includes('unauthorized_action_claim'),answer);
+ for(const answer of ['你的会籍已生效。','會籍已升級為金卡。','Your Gold status is active now.',"You're now upgraded to Gold."])assert.ok(codes(answer).includes('unverified_enrollment'),answer);
+ for(const answer of ['若會籍已經生效，入住時會自動享有禮遇。','你说积分已经兑换了，我无法确认。','You said your points were converted; I cannot see that.','This credit is active now.'])assert.deepEqual(codes(answer).filter(c=>['unauthorized_action_claim','unverified_enrollment'].includes(c)),[],answer);
+});

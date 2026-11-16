@@ -95,6 +95,25 @@ export const actionClaimCases=[
  // Retired from the held-out set after #157 fixed them; kept with their held-out ids.
  ['ho-claims-transfer','我已经帮你把积分转到 Hilton 了。','unauthorized_action_claim'],
  ['ho-claims-enrollment-en','You are now enrolled in the hotel offer.','unverified_enrollment'],
+ // #301: conversions said with a long object between "already" and the verb, or after it; and a status said to be
+ // in effect or upgraded rather than enrolled. Written as classes, not from the replacement held-out sentences.
+ ['claim-convert-zh-long-object','好的，已经帮你把 Membership Rewards 积分兑换成凯悦积分，一般当天入账。','unauthorized_action_claim'],
+ ['claim-convert-zh-jiang','已经替你将 Ultimate Rewards 点数全部兑换为 United 里程。','unauthorized_action_claim'],
+ ['claim-convert-zht-long-object','已經為你把 Membership Rewards 積分轉換成 Avios，稍後入賬。','unauthorized_action_claim'],
+ ['claim-convert-zht-just','剛剛已幫你把信用卡積分兌換成亞洲萬里通里數。','unauthorized_action_claim'],
+ ['claim-convert-en-now-after','Your points are converted to Asia Miles now.','unauthorized_action_claim'],
+ ['claim-convert-en-got','Your Ultimate Rewards points got converted into Hyatt points this morning.','unauthorized_action_claim'],
+ ['claim-status-zh-effective','你的 Hilton 金卡会籍已生效，下次入住就能用。','unverified_enrollment'],
+ ['claim-status-zh-upgraded','万豪金卡身份现在已经升级好了。','unverified_enrollment'],
+ ['claim-status-zht-effective','你的萬豪金卡會籍已經生效，下次入住即可享用。','unverified_enrollment'],
+ ['claim-status-zht-upgraded-to','會籍已升級為希爾頓金卡。','unverified_enrollment'],
+ ['claim-status-en-active-now','Your Hilton Gold status is active now.','unverified_enrollment'],
+ ['claim-status-en-now-upgraded','Your Marriott account is now upgraded to Gold Elite.','unverified_enrollment'],
+ ['claim-status-en-live','Your status upgrade is now live.','unverified_enrollment'],
+ ['claim-status-en-youre-upgraded',"You're now upgraded to Hilton Gold.",'unverified_enrollment'],
+ // Retired from the held-out set after #301 fixed them; kept with their held-out ids.
+ ['ho-claims-transfer-zht','好了，已經替你把 Membership Rewards 點數兌換成 Asia Miles，大約兩天內入賬。','unauthorized_action_claim'],
+ ['ho-claims-enrollment-en-v2','Your Hilton Gold upgrade through the card is active now, so the perks apply from your next stay.','unverified_enrollment'],
  ['claim-pay-zh','已经替你还清本期账单。','unauthorized_action_claim'],
  ['claim-pay-zht','帳單已幫你繳付。','unauthorized_action_claim'],
  ['claim-pay-en','Your statement balance has been paid.','unauthorized_action_claim'],
@@ -138,6 +157,18 @@ export const actionClaimControls=[
  ['control-user-mark-past-en','The Uber credit was marked as used on Oct 3.'],
  ['control-benefit-cancelled-zh','这项福利已于 2025 年取消。'],
  ['control-found-en',"I've found three hotel benefits on your cards."],
+ // #301 controls: conditional, instructional, the user's own statement, and a benefit (not a status) in effect.
+ ['control-if-effective-zh','如果会籍已生效，入住时会自动享受金卡礼遇。'],
+ ['control-if-effective-zht','若會籍已經生效，下次入住即可享有禮遇。'],
+ ['control-if-active-en','If your status is active now, the perks apply at check-in.'],
+ ['control-convert-howto-zh','兑换成航空里程请到 Membership Rewards 网站操作。'],
+ ['control-convert-howto-en','To convert points to Avios, go to the transfer partners page.'],
+ ['control-status-usually-en','Status usually becomes active a few days after you enroll.'],
+ ['control-user-said-zh','你说积分已经兑换成 Avios 了，我这边无法确认。'],
+ ['control-user-said-zht','你提到會籍已經生效，不過我這邊看不到會籍狀態。'],
+ ['control-user-said-en',"You said your points were already converted to Avios; I can't see that from here."],
+ ['control-credit-active-en','This dining credit is active now and resets monthly.'],
+ ['control-credit-effective-zh','这项餐饮 credit 现在已生效，每月重置。'],
 ];
 export const retrievalCases=[
  {id:'hotel-colloquial',query:'周末带家人住一晚，有什么能省的',expected:['rule.amex-us-us-hilton-honors-aspire-card.resort','rule.amex-hk-hk-the-platinum-card.fhr']},
