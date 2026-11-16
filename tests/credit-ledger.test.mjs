@@ -94,3 +94,36 @@ test('it is pure: marks are not changed and an unknown card or empty wallet give
  assert.deepEqual(creditLedger([],[],asOf),[]);assert.deepEqual(creditLedger([{id:'x',name:'Unknown Card',bank:'Nowhere',region:'US'}],[],asOf),[]);
  assert.throws(()=>creditLedger([plat],[],asOf,{basis:'fiscal'}),/invalid_ledger_basis/);
 });
+// Off-cycle credits (four-year, one-off): counted only in the window where the user used them, on a separate line.
+const geRule=profile=>profile.benefits.find(b=>b.knowledgeRuleId==='rule.chase-us-sapphire-reserve.global-entry');
+const geProfile=benefitProfiles.find(p=>geRule(p)),ge=geRule(geProfile);
+const hyatt={id:'hy',name:'World of Hyatt Credit Card',bank:'Chase',region:'US',currency:'USD',feeDate:{month:8,day:1}};
+const hyProfile=benefitProfiles.find(p=>p.benefits.some(b=>b.knowledgeRuleId==='rule.chase-us-world-of-hyatt-credit-card.doordash-promo')),promo=hyProfile.benefits.find(b=>b.knowledgeRuleId.endsWith('.doordash-promo'));
+const fourYear=(usedOn,status='used',id='g'+(++n))=>({id,key:JSON.stringify([csr.id,ge.knowledgeRuleId,'four-year']),status,at:'2026-11-10T00:00:00.000Z',...(usedOn?{usedOn}:{}),revisionId:ge.revisionId});
+const oneOff=(at,status='used')=>({id:'o'+(++n),key:JSON.stringify([hyatt.id,promo.knowledgeRuleId,'one-off']),status,at,revisionId:promo.revisionId});
+const off=(card,evs,day,basis)=>creditLedger([card],evs,day,{basis})[0].offCycle;
+test('a four-year credit used inside the card year counts once there and not in the next card year',()=>{
+ // Global Entry public limit 120, used 2026-09-10: inside card year 2026-08-01..2027-07-31 and calendar 2026.
+ assert.deepEqual(off(csr,[fourYear('2026-09-10')],asOf,'card-year'),{available:120,used:120,count:1,credits:[{ruleId:ge.knowledgeRuleId,title:ge.title,kind:'four-year',usedOn:'2026-09-10'}]});
+ assert.equal(off(csr,[fourYear('2026-09-10')],asOf,'calendar-year').used,120);
+ assert.equal(off(csr,[fourYear('2026-09-10')],'2027-11-20','card-year').count,0,'next card year');
+ assert.equal(off(csr,[fourYear('2026-09-10')],'2027-11-20','calendar-year').count,0,'next calendar year');
+});
+test('a four-year credit used outside the window, unmarked or marked not used does not count',()=>{
+ assert.equal(off(csr,[fourYear('2026-05-01')],asOf,'card-year').count,0,'before the card year');
+ assert.equal(off(csr,[fourYear('2026-05-01')],asOf,'calendar-year').used,120,'but inside the calendar year');
+ assert.equal(off(csr,[],asOf,'card-year').available,0);
+ assert.equal(off(csr,[fourYear(null,'unknown')],asOf,'card-year').count,0);
+ assert.equal(off(csr,[fourYear('2026-09-10'),{...fourYear(null,'unknown','later'),at:'2026-11-12T00:00:00.000Z'}],asOf,'card-year').count,0,'the latest mark wins');
+});
+test('off-cycle credits stay out of the cycle totals',()=>{
+ const base=creditLedger([csr],events,asOf,{basis:'card-year'})[0],withGe=creditLedger([csr],[...events,fourYear('2026-09-10')],asOf,{basis:'card-year'})[0];
+ assert.deepEqual(pick(withGe),pick(base));assert.equal(withGe.offCycle.used,120);
+});
+test('a one-off credit marked used inside the window counts once; skipped or outside does not',()=>{
+ assert.deepEqual(off(hyatt,[oneOff('2026-09-05T10:00:00.000Z')],asOf,'card-year').used,10);
+ assert.equal(off(hyatt,[oneOff('2026-09-05T10:00:00.000Z')],asOf,'card-year').count,1);
+ assert.equal(off(hyatt,[oneOff('2026-05-05T10:00:00.000Z')],asOf,'card-year').count,0);
+ assert.equal(off(hyatt,[oneOff('2026-09-05T10:00:00.000Z','skipped')],asOf,'card-year').count,0);
+ assert.equal(off(hyatt,[],asOf,'card-year').count,0);
+});

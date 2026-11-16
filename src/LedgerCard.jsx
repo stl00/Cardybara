@@ -18,6 +18,7 @@ export default function LedgerCard({card,events,day,hidden=false,onSetFeeDate}){
   {key:'captured',label:t('未记录（周期已结束）'),children:show(l.notCaptured)},
   {key:'open',label:t('周期未结束'),children:show(l.open)},
   ...(l.unused||l.skipped?[{key:'other',label:t('标记未用 / 不适用'),children:`${show(l.unused)} / ${show(l.skipped)}`}]:[]),
+  ...(l.offCycle.count?[{key:'offCycle',label:t('四年期 / 一次性 Credit（本期已用）'),children:`${show(l.offCycle.used)} · ${l.offCycle.credits.map(c=>c.title).join(' / ')}`}]:[]),
   {key:'fee',label:t('公布年费'),children:show(l.annualFee)},
   {key:'net',label:t('已用减年费'),children:show(l.netOfFee.used)}
  ];

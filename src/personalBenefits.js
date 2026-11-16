@@ -58,7 +58,7 @@ export function feeDateNeededRows(cards,asOf=walletDay()){
 const isRealDate=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v+'T00:00:00Z'))&&new Date(v+'T00:00:00Z').toISOString().slice(0,10)===v;
 export const OFF_CYCLE_KEYS=['four-year','one-off'];
 const CYCLE_PERIODS=new Set(['calendar-year','calendar-quarter','calendar-half-year','calendar-month','account-anniversary']);
-const ONE_OFF_PERIODS=new Set(['per-trip','per-stay','activation-based','fixed-date','promotion-period']);
+export const ONE_OFF_PERIODS=new Set(['per-trip','per-stay','activation-based','fixed-date','promotion-period']);
 /** Date four years after a day (same month and day; every date that can be used on Feb 29 has a Feb 29 four years on). */
 export const nextFourYears=day=>{const d=new Date(day+'T00:00:00Z');d.setUTCFullYear(d.getUTCFullYear()+4);return d.toISOString().slice(0,10);};
 /**
