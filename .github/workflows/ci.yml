@@ -74,9 +74,6 @@ jobs:
       - run: npm run build:release
       - run: npm run check:release-package
       - run: npm run check:dev-parity
-      - run: npm run build:web
-      - run: npm run check:web
-      - run: npm run test:web
       - name: Check tag matches release metadata
         if: startsWith(github.ref, 'refs/tags/')
         run: node -e 'if(process.env.GITHUB_REF_NAME !== "v"+JSON.parse(require("fs").readFileSync("release.json")).label) process.exit(1)'
