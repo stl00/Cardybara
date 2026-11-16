@@ -69,3 +69,21 @@ test('coverage fields must be grounded in the rule\'s own quotes',()=>{
  // Every protection benefit in the knowledge base carries coverage fields.
  for(const r of queryKnowledge({kind:'benefit',category:'protection'}).rules)assert.ok(r.terms.coverage,r.id);
 });
+
+// #304: Chase personal cards that state protections on their public product page.
+test('a wallet holding two Chase airline and hotel cards gets the newly recorded protections with sources (#304)',()=>{
+ const held=[{id:'ugw',name:'United Gateway Card',bank:'Chase',region:'US',currency:'USD'},{id:'bold',name:'Marriott Bonvoy Bold Credit Card',bank:'Chase',region:'US',currency:'USD'}];
+ const ctx={cards:held,events:[],day:'2026-11-15',language:'en'};
+ const all=runWalletTool(call('find_protections',{}),ctx);
+ const types=name=>all.cards.find(c=>c.name===name).coverageTypes;
+ assert.deepEqual(types('United Gateway Card').sort(),['extended-warranty','purchase-protection','rental-car','trip-cancellation']);
+ assert.deepEqual(types('Marriott Bonvoy Bold Credit Card').sort(),['baggage-delay','purchase-protection','trip-delay']);
+ assert.ok(all.rules.every(r=>r.sources.length&&r.sources.every(s=>s.url.startsWith('https://creditcards.chase.com/'))));
+ // Gateway's page says secondary in the U.S., and Bold's page says nothing about rental cover, so it stays absent.
+ const rental=runWalletTool(call('find_protections',{type:'rental-car'}),ctx);
+ assert.equal(rental.rules.length,1);assert.equal(rental.rules[0].basis,'secondary');assert.equal(rental.rules[0].requiresCardPayment,true);
+ assert.equal(rental.cards.find(c=>c.name==='Marriott Bonvoy Bold Credit Card').status,'not_found');
+ // A page that showed only a heading records nothing, never a sibling's protections.
+ assert.equal(queryKnowledge({productId:'chase-us-united-explorer-card',category:'protection'}).count,0);
+ assert.equal(queryKnowledge({productId:'chase-us-united-gateway-card',category:'protection'}).rules.every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt==='2026-11-15'),true);
+});
