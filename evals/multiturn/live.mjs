@@ -1,6 +1,7 @@
 // Scoring and spend control for the live multi-turn eval. No network and no configuration here.
 import {knowledgeEntities} from '../../src/knowledge.js';
-import {selectCards} from './harness.mjs';
+import {runWalletTool} from '../../src/walletAgent.js';
+import {selectCards,evalContext} from './harness.mjs';
 
 /** Round-robin by kind, so the first n dialogues cover every kind. */
 export const interleaved=list=>{const byKind=[...new Set(list.map(d=>d.kind))].map(k=>list.filter(d=>d.kind===k)),out=[];for(let i=0;out.length<list.length;i++)for(const group of byKind)if(group[i])out.push(group[i]);return out;};
@@ -15,13 +16,16 @@ export function targetProgramme(value){
  if(found.length!==1)throw Error('ambiguous_expected_programme: '+value);
  return found[0];
 }
+/** What a convert_points partner argument reaches, by name or alias in any language, across every held card. */
+export const partnersReached=text=>{const r=runWalletTool({id:'partner',type:'function',function:{name:'convert_points',arguments:JSON.stringify({partner:String(text)})}},evalContext);return [...new Set(r.programmes.flatMap(g=>g.partners.map(p=>p.partner)))];};
 
-/** An argument matches if it is the expected value; a card name if it selects the same held cards; a programme if it reaches the expected one. */
+/** An argument matches if it is the expected value; a card name if it selects the same held cards; a programme or partner if it reaches the expected one. */
 export function argumentsMatch(expect,call){
  if(call.name!==expect.tool)return false;
  return Object.entries(expect.args).every(([k,v])=>{
   if(k==='query')return typeof call.args.query==='string'&&call.args.query.trim().length>0;
   if(k==='cardName'||k==='region'){const want=selectCards(expect.args).map(c=>c.id).sort().join(),got=selectCards(call.args).map(c=>c.id).sort().join();return want===got;}
+  if(k==='partner')return typeof call.args.partner==='string'&&call.args.partner.trim().length>0&&partnersReached(call.args.partner).includes(targetProgramme(v));
   if(k==='programme')return typeof call.args.programme==='string'&&call.args.programme.trim().length>0&&programmesReached(call.args.programme).includes(targetProgramme(v));
   return call.args[k]===v;
  });

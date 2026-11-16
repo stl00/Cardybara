@@ -72,7 +72,8 @@ export function readingsFor(transferProgramme,accounts,cards=[]){
  return (accounts?.current||[]).filter(r=>r.bank===transferProgramme.bank&&r.region===transferProgramme.region&&r.unit!=='USD'&&canonicalProgramme(r.label||'')===transferProgramme.reading&&Number.isFinite(r.amount)).map(r=>{const card=cards.find(c=>c.id===r.card)||null,match=card?matchCardProduct(card):null;return {...r,key:[r.id,r.card||'',r.label,r.historical?'historical':'current'].join('|'),usable:Number.isSafeInteger(r.amount),cardRecord:card,productId:match?.status==='matched'?match.product.id:null};});
 }
 const nameKey=s=>String(s??'').normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
-const partnerMatches=(partnerId,named)=>{if(!named)return true;const p=programme(partnerId),n=nameKey(named);return !!n&&[p?.name,...(p?.aliases||[])].some(x=>x&&nameKey(x).includes(n));};
+/** Whether a partner programme is the one named, by name or alias in any language. */
+export const partnerMatches=(partnerId,named)=>{if(!named)return true;const p=programme(partnerId),n=nameKey(named);return !!n&&[p?.name,...(p?.aliases||[])].some(x=>x&&nameKey(x).includes(n));};
 const ROW_LIMIT=40;
 /** The assistant's answer to "where can my points go and how many is that?" for held cards (#72).
  * A card belongs to a programme when a transfer rule lists its product, or when the pooling rule (#192) makes it a member:

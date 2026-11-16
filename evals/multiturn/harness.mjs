@@ -126,7 +126,7 @@ export function contextSources(sent){
 
 // A wording is tool-ready if using it as the expected call's query (or transfer programme) returns the record.
 function retrieves(d,wording,title){
- const tool=d.expect.tool,args=tool==='find_benefits'?{...d.expect.args,query:wording}:tool==='get_card_rules'&&d.expect.args.kind==='transfer-relationship'?{...d.expect.args,programme:wording}:null;
+ const tool=d.expect.tool,args=tool==='find_benefits'?{...d.expect.args,query:wording}:tool==='get_card_rules'&&d.expect.args.kind==='transfer-relationship'?{...d.expect.args,programme:wording}:tool==='convert_points'?{...d.expect.args,partner:wording}:null;
  if(!args)return false;
  try{return JSON.stringify(runWalletTool(toolCall(tool,args,'strict'),evalContext)).includes(title);}catch{return false;}
 }
@@ -150,6 +150,9 @@ export function checkLabels(d){
  }
  if(d.expect.args.cardName&&selectCards(d.expect.args).length!==1)issues.push('expected cardName/region does not select exactly one card');
  if(['find_benefits','get_card_rules'].includes(d.expect.tool)&&!result.totalMatches)issues.push('expected call returns nothing');
+ // A transfer read must reach a partner for the card, and the named partner when one is expected.
+ if(d.expect.tool==='convert_points'&&!result.totalPartners)issues.push('expected call returns no partner');
+ if(d.expect.tool==='convert_points'&&d.expect.args.partner&&!result.programmes.some(g=>g.partners.some(p=>p.partner.toLowerCase().includes(d.expect.args.partner.toLowerCase()))))issues.push('expected call does not reach '+d.expect.args.partner);
  if(d.expect.tool==='query_credits'&&!Object.values(result.groups||{}).some(g=>g.length))issues.push('expected call returns no credits');
  const titleOf=t.ordinal?t.ordinal.list[t.ordinal.index-1][0]:t.item?.[0];
  if(titleOf&&d.expect.tool!=='choose_card'&&!JSON.stringify(result).includes(titleOf))issues.push('expected call does not return '+titleOf);
