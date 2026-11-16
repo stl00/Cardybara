@@ -19,8 +19,18 @@ export function discoverVisibleCards(bank,locales){
  // SC HK's details page prints the full card number. Only its last four digits leave this function.
  if(bank==='SC HK'&&typeof location!=='undefined'&&/\/card_details\.htm$/.test(location.pathname)){const cell=label=>{for(const r of document.querySelectorAll('tr')){const c=[...r.cells],i=c.findIndex(x=>(x.innerText||'').trim()===label);if(i>=0&&c[i+1])return (c[i+1].innerText||'').trim();}return '';};const digits=(cell('Card Number:').match(/\d(?:[\d\s.\u2013-]*\d){7,}/)?.[0]||'').replace(/\D/g,''),name=cell('Card Type:').replace(/^Credit Card Account\s+/i,'').replace(/\d/g,'').trim().slice(0,100);return digits.length>=12?{status:'found',cards:[{tail:digits.slice(-4),name}]}:{status:'no_data',cards:[]};}
  // Citi lists each card's account details link as "Name-tail". Other accounts link elsewhere.
+ // Citi cuts long product names to about ten characters and "...". If the link, or something inside it, carries the
+ // full name (title, aria-label, image alt) that starts with the same words, use it. Otherwise the cut text stays.
+ const fullCitiName=(a,shown)=>{
+  if(!/(?:\.{3}|\u2026)$/.test(shown))return shown;
+  const norm=v=>String(v||'').replace(/[®™℠]/g,'').normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,''),prefix=norm(shown.replace(/(?:\.{3}|\u2026)$/,''));
+  if(!prefix)return shown;
+  const sources=[a,...(a.querySelectorAll?[...a.querySelectorAll('[title],[aria-label],img[alt]')]:[])].flatMap(e=>[e.getAttribute?.('title'),e.getAttribute?.('aria-label'),e.tagName==='IMG'?e.getAttribute?.('alt'):'']);
+  const full=sources.map(v=>String(v||'').replace(/\s*-\s*\d{4,5}$/,'').replace(/\s+/g,' ').trim()).find(v=>v&&!/(?:\.{3}|\u2026)$/.test(v)&&v.length<=100&&!/\d{4}/.test(v)&&norm(v).startsWith(prefix)&&norm(v).length>prefix.length);
+  return full||shown;
+ };
  const citiLinks=bank==='Citi US'?[...document.querySelectorAll('a[href*="accountdetails"]')].filter(a=>/\/accountdetails(?:\?|$)/.test(a.href||'')):[];
- if(citiLinks.length){const cards=citiLinks.flatMap(a=>{const text=(a.innerText||a.textContent||'').trim(),tail=text.match(/-\s*(\d{4,5})$/)?.[1];return tail&&text.length<=120&&!NEVER_A_CARD.test(text)&&!/(?:\d[ -]?){9,}/.test(text)?[{tail,name:text.replace(/\s*-\s*\d{4,5}$/,'').slice(0,100)}]:[];});return {status:cards.length?'found':'no_data',cards};}
+ if(citiLinks.length){const cards=citiLinks.flatMap(a=>{const text=(a.innerText||a.textContent||'').trim(),tail=text.match(/-\s*(\d{4,5})$/)?.[1];return tail&&text.length<=120&&!NEVER_A_CARD.test(text)&&!/(?:\d[ -]?){9,}/.test(text)?[{tail,name:fullCitiName(a,text.replace(/\s*-\s*\d{4,5}$/,'')).slice(0,100)}]:[];});return {status:cards.length?'found':'no_data',cards};}
  // BOA lists cards as links under the group headed "Credit cards", separate from deposit accounts.
  const boaGroup=bank==='BOA'?[...document.querySelectorAll('[id^="account-card-container-"]')].find(g=>/^credit cards?$/i.test((g.querySelector?.('h3')?.innerText||'').trim())):null;
  if(boaGroup){const cards=[...boaGroup.querySelectorAll('a')].filter(a=>visible(a)&&/\/myaccounts\/brain\/redirect\.go\?(?:.*&)?target=acctDetails(?:&|$)/.test(a.href||'')).flatMap(a=>{const text=(a.innerText||'').trim(),tail=text.match(/\s-\s(\d{4,5})$/)?.[1];return tail&&text.length<=120&&!/(?:\d[ -]?){9,}/.test(text)?[{tail,name:text.replace(/\s-\s\d{4,5}$/,'').slice(0,100)}]:[];});return {status:cards.length?'found':'no_data',cards};}
