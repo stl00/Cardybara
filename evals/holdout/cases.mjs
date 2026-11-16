@@ -3,6 +3,9 @@
 // evals/fixtures.mjs; ho-unheld-cobrand-en, ho-claims-transfer-zht and ho-claims-enrollment-en-v2 replace them, written before any run.
 // Rotation (#301): ho-claims-transfer-zht and ho-claims-enrollment-en-v2 were fixed and moved to evals/fixtures.mjs;
 // ho-claims-redeem-zh-v3 and ho-claims-status-en-v3 replace them, written before any run.
+// Rotation (#313): ho-choice-supermarket-cash-back, ho-choice-flight-points-unpriced and ho-choice-flight-points-priced
+// expected unpriced points, which the 2026-11-11 owner decision (#193) changed; they moved to evals/fixtures.mjs.
+// ho-choice-cash-beats-low-stated-value, ho-choice-hotel-default-value and ho-choice-flight-stated-values replace them, written before any run.
 // Never tune against these. A case that fails and is then fixed moves to evals/fixtures.mjs and is replaced here;
 // any edit to this file, run.mjs or context.mjs must update evals/holdout/manifest.json, which a test checks.
 // Synthetic public products only: no account snapshot, balance, tail digits or personal ledger.
@@ -26,15 +29,17 @@ export const retrievalCases=[
 ];
 const usd=(category,amount)=>({category,amount,currency:'USD',country:'US'});
 export const decisionCases=[
- // Blue Cash Everyday earns 3% at US supermarkets; the flat and grocery-tier cash cards earn less.
- {id:'ho-choice-supermarket-cash-back',args:usd('supermarket',200),check:r=>r.choice?.card==='Blue Cash Everyday'&&r.choice.value===6},
+ // Blue Cash Everyday earns 3% at US supermarkets. Gold earns 4x MR there, but at a stated 0.7 cents that is 2.8%, so cash wins.
+ {id:'ho-choice-cash-beats-low-stated-value',args:{...usd('supermarket',150),pointValues:{MR:0.7}},check:r=>r.choice?.card==='Blue Cash Everyday'&&r.choice.value===4.5&&!r.choice.valuedPoints},
  // US gas: 3% on Blue Cash Everyday, or on Customized Cash only if gas is the chosen category.
  {id:'ho-choice-gas',args:usd('gas',50),check:r=>['Blue Cash Everyday','Customized Cash Rewards Visa Signature'].includes(r.choice?.card)&&r.choice.value>=1.5},
  // Online retail cap: 3% on the first 6,000 USD a year at Blue Cash Everyday, then 1%.
  {id:'ho-choice-online-retail-cap',args:usd('online-retail',7000),check:r=>row(r,'Blue Cash Everyday')?.earn?.capExceeded===true&&row(r,'Blue Cash Everyday')?.earn?.reward===190},
- // Flights booked direct: 5x MR on the Platinum card. Without a stated value points are shown, not ranked.
- {id:'ho-choice-flight-points-unpriced',args:usd('flight',100),check:r=>r.choice?.valuedPoints===false&&r.pointsAlternatives?.some(p=>p.card==='Morgan Stanley Platinum Card')},
- {id:'ho-choice-flight-points-priced',args:{...usd('flight',100),pointValues:{MR:1}},check:r=>r.choice?.card==='Morgan Stanley Platinum Card'&&r.choice.value===5&&r.choice.valuedPoints===true},
+ // Hotels booked direct: 4x UR on Sapphire Reserve. With no value given, UR is priced at the default market value
+ // (1.5 cents), labelled as a default, not as the user's own value.
+ {id:'ho-choice-hotel-default-value',args:usd('hotel',300),check:r=>r.choice?.card==='Sapphire Reserve'&&r.choice.value===18&&r.choice.valuedPoints===true&&r.choice.pointValue?.basis==='default'&&!!r.pointValueNote},
+ // Flights booked direct: 5x MR on the Platinum card, 4x UR on Sapphire Reserve. Both values stated at 1 cent: Platinum leads.
+ {id:'ho-choice-flight-stated-values',args:{...usd('flight',200),pointValues:{MR:1,UR:1}},check:r=>r.choice?.card==='Morgan Stanley Platinum Card'&&r.choice.value===10&&r.choice.pointValue?.basis==='stated'},
  // A marked-unused dining credit at a dining merchant it covers is used before earn.
  {id:'ho-choice-marked-credit-wins',args:{category:'dining',merchant:'Grubhub',amount:20,currency:'USD',country:'US'},events:[creditMark(GOLD,GOLD_DINING,'2026-10-01','2026-10-31','unused')],check:r=>r.choice?.card==='American Express Gold Card'},
 ];
