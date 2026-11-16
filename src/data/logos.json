@@ -1514,13 +1514,14 @@
    "titleTokens": [],
    "textTokens": [],
    "termsUrl": "https://www.citigroup.com/global/terms",
-   "finding": "Citigroup's site terms (checked 2026-11-13) say site design, text and images may not be copied, displayed or distributed without prior written consent, except as the Copyright Act permits; they name Citi and the Citi Arc design as service marks. No Citi brand or press resource and no ThankYou Points mark outside card pages was located. A candidate for the Citi issuer mark exists (the favicon on citi.com), but nothing grants this use, so no mark is shipped. Owner decision needed (#221).",
-   "checkedAt": "2026-11-13",
-   "status": "unapproved",
-   "approval": null,
+   "finding": "Citigroup's site terms (checked 2026-11-13) say site design, text and images may not be copied, displayed or distributed without prior written consent, except as the Copyright Act permits; they name Citi and the Citi Arc design as service marks. No ThankYou Points mark outside card pages was located, so the programme shows the Citi issuer mark (the favicon of citi.com), labelled Citi. Showing it is the owner's decision of 2026-11-16 (#363), not permission from Citi.",
+   "checkedAt": "2026-11-16",
+   "logoLabel": "Citi",
+   "status": "approved",
+   "approval": "owner-decision-2026-11-16",
    "terms": "requires-permission",
-   "logo": null,
-   "source": null
+   "logo": "brand/banks/citi.png",
+   "source": "bundled: public/brand/banks/sources.json"
   },
   {
    "id": "aadvantage",
