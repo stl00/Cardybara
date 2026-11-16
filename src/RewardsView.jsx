@@ -73,7 +73,7 @@ function IssuerRedemptions({programme,points,heldProductIds,hidden}){
    const value=v.status==='computed'?(hidden?'••••':usd(v.cents)):v.status==='varies'?t('不固定'):v.status==='needs-card'?t('需要持有指定的卡'):v.status==='no-points'?'—':t('未知');
    return <Flex key={r.id} justify="space-between" gap={12} wrap><div><ItemLogo programme={programme.id} size={14}/> {t(kindLabels[r.kind]||r.kind)}{r.conditionText?<div><Text type="secondary">{r.conditionText}{v.status==='needs-card'&&r.productIds?.length?` ${cardNames(r.productIds)}`:''}</Text></div>:null}{sources.length?<div><Space wrap size={[12,4]}>{sources.map(s=><Link key={s.id} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></div>:null}</div><Text strong={v.status==='computed'}>{value}</Text></Flex>;})}</Space>}</div>;
 }
-function ProgrammePanel({programme,accounts,cards,count,hidden}){
+export function ProgrammePanel({programme,accounts,cards,count,hidden}){
  const rule=poolingRule(programme.id),readings=poolReadings(programme,accounts,cards,rule),[selected,setSelected]=useState(null),[manual,setManual]=useState(null);
  const reading=selected===NO_CARD?null:readings.find(r=>r.key===selected)||readings[0]||null,points=manual??(reading?.usable?reading.amount:null),all=transferRoutes(programme.id);
  // The pooling rule (#192) decides which held cards' partners a reading reaches: its own, or every transfer card of the pool.
