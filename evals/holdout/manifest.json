@@ -1,14 +1,16 @@
 {
  "dataset": "wallet-agent-holdout-v1",
  "frozenAt": "2026-11-09",
- "sha256": "67772ee4f734ebd27bf11f39378d3510932baf8ab64f26a7a536a56ac76a839f",
+ "sha256": "8c3338259c34f94258ae609c8447afd697d24736a8f828da69cdfbf030f3f1c2",
  "caseCount": 27,
  "minPassRate": 0.8,
  "mode": "offline",
  "retired": [
   "ho-nonsense-empty",
   "ho-claims-transfer",
-  "ho-claims-enrollment-en"
+  "ho-claims-enrollment-en",
+  "ho-claims-transfer-zht",
+  "ho-claims-enrollment-en-v2"
  ],
  "note": "Written before any run against the code it tests. Not used for development. sha256 covers cases.mjs, context.mjs and run.mjs. Change them only to retire a fixed case into evals/fixtures.mjs and replace it, then update sha256, caseCount and retired here."
 }
