@@ -54,6 +54,16 @@ test('CORS: only allowed extension origins, and preflight answers only for them'
  assert.equal((await g.handle(new Request('https://gateway.test'+ROUTES.chat,{method:'OPTIONS',headers:{Origin:'https://evil.example'}}))).status,403);
  assert.equal(originAllowed('chrome-extension://'+'c'.repeat(32),['chrome-extension://*']),true);
  assert.equal(originAllowed('https://evil.example',['chrome-extension://*']),false);
+ // Hosted wallet: exact https origins only.
+ const W='https://wallet.example.com';
+ assert.equal(originAllowed(W,[W]),true);
+ assert.equal(originAllowed('https://other.example.com',[W]),false);
+ assert.equal(originAllowed('http://wallet.example.com',['http://wallet.example.com']),false);
+ assert.equal(originAllowed('https://wallet.example.com',['https://*']),false);
+ assert.equal(originAllowed('https://wallet.example.com',['https://*.example.com']),false);
+ assert.equal(originAllowed('https://wallet.example.com/',[W+'/']),false);
+ assert.equal(originAllowed('chrome-extension://'+'c'.repeat(32),[W]),false);
+ assert.equal(originAllowed('chrome-extension://'+'c'.repeat(32),['chrome-extension://'+'c'.repeat(32),W]),true);
  // No origin list means no client at all.
  const closed=setup({vars:{ALLOWED_ORIGINS:''}});await closed.addInvite(CODE,{id:'t01'});
  assert.equal((await closed.handle(post(ROUTES.chat))).status,403);
