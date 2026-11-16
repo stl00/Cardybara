@@ -6,10 +6,11 @@ The standalone build has no ordinary-website bridge content script and no requir
 
 ## Channels
 
-One source ships to two channels (owner decision 2026-11-16, #373; summary in `CLAUDE.md`, "One source, two channels").
+One source ships to two channels (owner decision 2026-11-16, #373). The rules, including where the web build deploys, PR previews, red lines and data-format versions, are in `CLAUDE.md`, "One source, two channels". Target state: the web build and its deploy arrive with #374 and #375.
 
 - **Extension:** the gated flow below. Nothing reaches a tester before a tag and the owner's exact-artifact acceptance.
-- **Web (PWA):** continuous deployment. CI builds `dist/web` on every PR and deploys a preview; when `main` is green, CI deploys it to the production Pages project. No tag, release note bump or owner step. A bad deploy is rolled back by redeploying the previous green commit. The web build is manual entry only and has no bank access, so the bank acceptance below does not apply to it; its gate is CI (build, web checks, mobile E2E). The gateway it calls stays backward compatible with older cached builds.
+- **Web (PWA):** continuous deployment to the Pages project `cardybara-app`. A PR from a branch of this repository gets a preview; a `main` commit deploys to production once its build, web checks and mobile E2E jobs are green on that commit. No tag, release note bump or owner step. A bad deploy is rolled back by redeploying the previous green commit, except one that changed the stored data format, which is fixed forward. The web build is manual entry only and has no bank access, so the bank acceptance below does not apply to it.
+- **Product site** (`site/`, project `cardybara`): unchanged, manual deploy, production needs the owner's go-ahead.
 
 ## Friends beta (scoped build)
 

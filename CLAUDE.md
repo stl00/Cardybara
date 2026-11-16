@@ -46,17 +46,20 @@ Each workstream runs in its own session and git worktree, with one writer per ar
 
 ## One source, two channels
 
-The wallet in `src/` is one codebase shipped to two channels (owner decision 2026-11-16, #373):
+The wallet in `src/` is one codebase shipped to two channels (owner decision 2026-11-16, #373). **Target state, being built in #374 (web build and CD) and #375 (platform adapter); until they merge there is no web build or web deploy, and `chrome.*` is still called from a few files in `src/`.**
 
 | Channel | Artifact | Ships when | Gate |
 | --- | --- | --- | --- |
 | Extension | CI ZIP | owner tags `v<label>` | exact-artifact acceptance in `docs/RELEASE.md` |
-| Web (PWA) | `dist/web` | every green `main` | CI checks; each PR gets a preview URL; roll back by redeploying the previous commit |
+| Web (PWA) | `dist/web` | every `main` commit whose build, web checks and mobile E2E jobs are all green | the deploy job `needs:` those jobs on the same commit |
 
-- Shared code never touches a platform directly. Storage, notifications, bank collection and the assistant transport go through the platform adapter in `src/platform/` (`extension.js`, `web.js`); a capability a channel lacks (bank collection on the web) is absent, not faked. A new `chrome.*` call outside `src/platform/extension.js` is a review finding.
-- One commit, one version, both artifacts: CI builds and tests both on every PR.
-- The web wallet is manual entry only: no automatic import of any kind (owner 2026-11-16).
-- Because web users can run an older cached build: gateway routes stay backward compatible (change the shape under a new path such as `/v2/...`), and any change to stored wallet data ships with a migration and its test.
+- **Where it deploys:** its own Pages project `cardybara-app`, its own workflow and a protected `web` environment. The product site (`site/`, `.github/workflows/site.yml`, project `cardybara`) is unchanged: manual only, production needs the owner's go-ahead. Creating the free `cardybara-app` project and `web` environment falls under the owner's standing Cloudflare operations authorization; a paid plan still needs the owner.
+- **PR previews:** only for PRs from branches of this repository, triggered by `pull_request`. Never use `pull_request_target`; fork PRs get no deploy. The token has Pages: Edit only and lives in the `web` environment.
+- **Platform adapter:** shared code never calls a platform API directly. Storage, notifications, bank collection and the assistant transport go through `src/platform/` (`extension.js`, `web.js`); a capability a channel lacks (bank collection on the web) is absent, not faked. A new `chrome.*` API call outside `src/platform/extension.js` is a review finding.
+- **Versions:** both artifacts are built and tested from the same commit. The extension is identified by its `release.json` label; the web build by its commit SHA, which its About page shows instead of the extension's label (#379).
+- **Web red lines,** enforced by the `dist/web` check script; a PR that breaks one cannot merge: the web wallet is manual entry only, with no automatic import of any kind (owner 2026-11-16); wallet data never leaves the browser (web push stores only a subscription and fire times, #380); no analytics, cookies or third-party requests; CSP `connect-src` allows only the gateway; the static wallet needs no invite code.
+- **Older cached builds keep running:** gateway routes stay backward compatible (change a shape under a new path such as `/v2/...`). Stored wallet data carries a format version; a change to it ships with a migration and its test, and a build that finds a newer version than it knows reads without writing and tells the user to reload. A deploy that changed the data format is fixed forward, never rolled back. A new service worker must take over from the previous one's cache.
+- **Rollback:** for any other bad deploy, redeploy the previous green commit.
 
 ## Commands
 
