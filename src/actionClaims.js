@@ -7,13 +7,13 @@
 
 // Verbs for the actions, and the subset that changes the user's enrolment or activation status.
 const ZH_ENROL='登记|登記|注册|註冊|报名|報名|激活|启用|啟用|开通|開通|绑定|綁定|关联|關聯';
-const ZH_ACTION='转点|轉點|转分|轉分|转[到入出移换好]|轉[到入出移換好]|转过去|轉過去|兑换|兌換|换成|換成|付款|支付|缴付|繳付|缴清|繳清|还清|還清|还款|還款|转账|转帐|轉帳|轉賬|预订|預訂|订好|訂好|领取|領取|申请|申請';
+const ZH_ACTION='转点|轉點|转分|轉分|转[到入出移换好]|轉[到入出移換好]|转过去|轉過去|兑换|兌換|换成|換成|付款|支付|缴付|繳付|缴清|繳清|还清|還清|还款|還款|转账|转帐|轉帳|轉賬|预订|預訂|订好|訂好|领取|領取|申请|申請|抵扣|抵銷|抵销|折抵|冲抵|沖抵|抵用|兑付|兌付|核销|核銷|付掉';
 // Marking a credit is something the user does in the wallet (query_credits returns those marks), and a benefit can be
 // cancelled by its issuer: these count only when the assistant says it did them.
 const ZH_AGENT_ONLY='标记|標記|取消';
 const ZH_DONE='完成|成功|完毕|完畢|好了|妥了|搞定|到账|到賬';
 const ZH_AGENT=/我|[帮幫为為替给給代]你/;
-const ZH_HEDGE=/如果|若|假如|假设|假設|一旦|是否|有没有|有沒有|[吗嗎呢][？?。！!]?$|[？?]|[成功完]后|[成功完]後|之后|之後|以后|以後|之前|以前|才|需要|必须|必須|须|須|要先|请|請|可以|可|能否|无法|無法|不能|没办法|沒辦法|不会|不會|未|没有|沒有|没|沒|不代表|无法确认|確認一下|确认一下|的话|的話|记得|記得|建议|建議|[将將](?=[会會于於在要可能])|即将|即將|会自动|會自動/;
+const ZH_HEDGE=/如果|若|假如|假设|假設|一旦|是否|有没有|有沒有|[吗嗎呢][？?。！!]?$|[？?]|[成功完]后|[成功完]後|之后|之後|以后|以後|之前|以前|(?<![刚剛])才|需要|必须|必須|须|須|要先|请|請|可以|可|能否|无法|無法|不能|没办法|沒辦法|不会|不會|未|没有|沒有|没|沒|不代表|无法确认|確認一下|确认一下|的话|的話|记得|記得|建议|建議|[将將](?=[会會于於在要可能])|即将|即將|会自动|會自動/;
 // The gap allows a long object before the verb ("已經替你把 Membership Rewards 點數兌換成…", #301).
 const zhCompleted=new RegExp(`已(?:经|經)?[^，,。；;！!？?\\n]{0,40}?(${ZH_ENROL}|${ZH_ACTION})(?!的)|(${ZH_ENROL}|${ZH_ACTION})已?(?:${ZH_DONE})`);
 const zhAgentDid=new RegExp(`(?:我|[帮幫为為替给給代]你)[^，,。；;！!？?\\n]{0,16}?(?:${ZH_AGENT_ONLY})`);
@@ -22,6 +22,9 @@ const zhStatus=/(?:已经|已經|已|现在|現在)(?:是|成为|成為)[^，,�
 // "已生效" because its dates say so, which the wallet knows.
 const ZH_STATUS='会籍|會籍|会员|會員|等级|等級|级别|級別|身份|状态|狀態|升级|升級';
 const zhStatusActive=new RegExp(`(?:${ZH_STATUS})[^，,。；;！!？?\\n]{0,16}?(?:已(?:经|經)?|现在|現在)(?:正式|成功)?(?:生效|升级|升級|啟用|启用)(?!的)|(?:已(?:经|經)?|现在|現在)(?:成功)?(?:升级|升級)(?:为|為|到|成)`);
+// A status said to show on or be added to the account (#314): "会籍已显示在你的账户上", "身份已添加到账户". Needs a status noun and "已"/"现在".
+const ZH_ACCOUNT='账户|賬戶|帳戶|账号|賬號|帳號|户口|戶口';
+const zhStatusShown=new RegExp(`(?:${ZH_STATUS})[^，,。；;！!？?\\n]{0,16}?(?:已(?:经|經)?|现在|現在)[^，,。；;！!？?\\n]{0,6}?(?:显示|顯示|出现|出現|添加|加入|记入|記入|列入)[^，,。；;！!？?\\n]{0,8}?(?:${ZH_ACCOUNT})`);
 const zhHandled=/[帮幫为為替给給代]你(?:都)?(?:搞定|办好|辦好|弄好|处理好|處理好|操作好)/;
 
 const EN_ENROL='enrolled|registered|activated|signed (?:you )?up';
@@ -42,6 +45,8 @@ const enGot=new RegExp(`\\bgot\\s+${ADV}(${EN_ENROL}|transferred|moved|converted
 // "active now" because its dates say so.
 const EN_STATUS=/\b(?:status|upgrade|membership|tier|elite|enrol(?:l)?ment|registration)\b/i;
 const enStatusActive=/\b(?:is|are|'s|'re)\s+(?:(?:now|already|officially)\s+)?(?:active|live|in effect|upgraded)\s+now\b|\b(?:is|are|'s|'re)\s+(?:now|already|officially)\s+(?:active|live|in effect|upgraded)\b|\b(?:now|already)\s+upgraded\b/i;
+// A status said to show on, appear on or be added to the account (#314). Needs a status noun, as above.
+const enStatusShown=/\b(?:(?:now|already)\s+)?(?:shows?|showing|appears?|appearing|displays?|displaying|listed|reflected|reflects?)\s+(?:up\s+)?(?:on|in)\s+your\b|\b(?:is|are|'s|'re|has been|have been)\s+(?:now\s+|already\s+)?(?:added|attached|applied|showing)\s+(?:to|on)\s+your\s+(?:\w+\s+)?(?:account|profile)\b/i;
 const enYouUpgraded=/\byou(?:'re| are|'ve been| have been)\s+(?:(?:now|already|officially|successfully)\s+)*upgraded\b/i;
 const enYouStatus=new RegExp(`\\byou(?:'re| are|'ve| have)\\s+${ADV}(?:been\\s+)?(${EN_ENROL})\\b`,'i');
 const enNounDone=/\b(transfer|enrollment|enrolment|registration|activation|payment|booking|redemption)s?\b(?:[^.;!?]{0,40}?\b(?:is|was|has been|have been)\s+(?:now\s+)?|\s+)(?:complete|completed|done|confirmed|successful|processed|finished)\b/i;
@@ -61,14 +66,14 @@ export function actionClaimIssues(answer){
   if(zh&&!ZH_HEDGE.test(clause)){
    const m=clause.match(zhCompleted);
    if(m){const verb=m[1]||m[2];if(isEnrol(verb)){codes.add('unverified_enrollment');if(ZH_AGENT.test(clause))codes.add('unauthorized_action_claim');}else codes.add('unauthorized_action_claim');}
-   if(zhStatus.test(clause)||zhStatusActive.test(clause))codes.add('unverified_enrollment');
+   if(zhStatus.test(clause)||zhStatusActive.test(clause)||zhStatusShown.test(clause))codes.add('unverified_enrollment');
    if(zhHandled.test(clause)||zhAgentDid.test(clause))codes.add('unauthorized_action_claim');
   }
   if(/[a-z]/i.test(clause)&&!EN_HEDGE.test(clause)){
    const agent=clause.match(enAgent);
    if(agent){codes.add('unauthorized_action_claim');if(isEnrol(agent[1]))codes.add('unverified_enrollment');}
    for(const re of [enPerfectPassive,enPastPassive,enNowState,enStateNow,enGot]){const m=clause.match(re);if(m)codes.add(isEnrol(m[1])?'unverified_enrollment':'unauthorized_action_claim');}
-   if(enYouStatus.test(clause)||enYouUpgraded.test(clause)||(EN_STATUS.test(clause)&&enStatusActive.test(clause)))codes.add('unverified_enrollment');
+   if(enYouStatus.test(clause)||enYouUpgraded.test(clause)||(EN_STATUS.test(clause)&&(enStatusActive.test(clause)||enStatusShown.test(clause))))codes.add('unverified_enrollment');
    const noun=clause.match(enNounDone);if(noun)codes.add(isEnrol(noun[1])?'unverified_enrollment':'unauthorized_action_claim');
    if(enForYou.test(clause))codes.add('unauthorized_action_claim');
   }
