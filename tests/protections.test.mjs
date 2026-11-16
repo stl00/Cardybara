@@ -87,3 +87,23 @@ test('a wallet holding two Chase airline and hotel cards gets the newly recorded
  assert.equal(queryKnowledge({productId:'chase-us-united-explorer-card',category:'protection'}).count,0);
  assert.equal(queryKnowledge({productId:'chase-us-united-gateway-card',category:'protection'}).rules.every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt==='2026-11-15'),true);
 });
+
+// #305: Chase business cards that state protections on their public product page.
+test('a wallet holding an Ink card and a co-brand business card gets the newly recorded protections with sources (#305)',()=>{
+ const held=[{id:'cash',name:'Ink Business Cash Credit Card',bank:'Chase',region:'US',currency:'USD'},{id:'ucb',name:'United Club Business Card',bank:'Chase',region:'US',currency:'USD'}];
+ const ctx={cards:held,events:[],day:'2026-11-15',language:'en'};
+ const all=runWalletTool(call('find_protections',{}),ctx);
+ const types=name=>all.cards.find(c=>c.name===name).coverageTypes;
+ assert.deepEqual(types('Ink Business Cash Credit Card').sort(),['extended-warranty','purchase-protection','rental-car','roadside']);
+ assert.deepEqual(types('United Club Business Card').sort(),['baggage-delay','extended-warranty','rental-car','return-protection','purchase-protection','trip-cancellation','trip-delay'].sort());
+ assert.ok(all.rules.every(r=>r.sources.length&&r.sources.every(s=>s.url.startsWith('https://creditcards.chase.com/'))));
+ // Rental cover is primary only for business rentals, and the scope travels with it.
+ const rental=runWalletTool(call('find_protections',{type:'rental-car'}),ctx);
+ assert.equal(rental.rules.length,2);assert.ok(rental.rules.every(r=>r.basis==='primary'&&r.requiresCardPayment===true));
+ // The Ink Cash page states no trip cover, so it stays absent rather than copied from a sibling.
+ assert.equal(runWalletTool(call('find_protections',{type:'trip-cancellation'}),ctx).cards.find(c=>c.name==='Ink Business Cash Credit Card').status,'not_found');
+ // Ink Business Preferred keeps its earlier rental rule and gains the others; an unreadable page records nothing.
+ const pref=queryKnowledge({productId:'chase-us-ink-business-preferred-credit-card',category:'protection'}).rules.map(r=>r.terms.coverage.type).sort();
+ assert.deepEqual(pref,['extended-warranty','purchase-protection','rental-car','roadside','trip-cancellation']);
+ assert.equal(queryKnowledge({productId:'chase-us-ihg-one-rewards-business-credit-card',category:'protection'}).count,0);
+});

@@ -84722,5 +84722,4238 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-cash-credit-card.rental",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-cash-credit-card.rental@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-cash-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Auto Rental Coverage",
+      "summary": "Primary when renting for business purposes: reimbursement up to $60,000 for theft and collision damage on most rental vehicles with an MSRP of $125,000 or less, when you decline the rental company's collision insurance and charge the entire rental to the card.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-cash-credit-card",
+          "text": "Coverage is primary when renting for business purposes"
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-cash-credit-card",
+          "text": "provides reimbursement up to $60,000 for theft and collision damage"
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-cash-credit-card",
+          "text": "Decline the rental company's collision insurance and charge the entire rental cost to your card."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "primary",
+        "basisScope": "when renting for business purposes",
+        "requiresCardPayment": true,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-cash-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-cash-credit-card.roadside",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-cash-credit-card.roadside@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-cash-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "道路救援",
+      "summary": "遇到道路紧急情况时，致电服务商派遣救援；道路救援服务费在派遣时记入本卡。官网摘要没写次数或费用上限。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "遇到道路紧急情况时，致电服务商派遣救援；道路救援服务费在派遣时记入本卡。官网摘要没写次数或费用上限。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Roadside Assistance",
+      "summary": "Call the service provider to dispatch help in a roadside emergency; roadside service fees are billed to the card at dispatch. The summary does not state a limit.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-cash-credit-card",
+          "text": "Roadside service fees will be billed to your card at time of dispatch."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "roadside",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "遇到道路紧急情况时，致电服务商派遣救援；道路救援服务费在派遣时记入本卡。官网摘要没写次数或费用上限。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-cash-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-cash-credit-card.purchase",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-cash-credit-card.purchase@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-cash-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保护",
+      "summary": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "Covers eligible new purchases against damage or theft for 120 days from the date of purchase, up to $10,000 per item. For New York residents the coverage period is 90 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-cash-credit-card",
+          "text": "Covers your eligible new purchases for 120 days from the date of purchase against damage or theft up to $10,000 per item."
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-cash-credit-card",
+          "text": "coverage period is 90 days from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-cash-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-cash-credit-card.warranty",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-cash-credit-card.warranty@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-cash-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "Extends the manufacturer's U.S. warranty by an additional year. Applies to eligible warranties of three years or less, up to four years from the date of purchase.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-cash-credit-card",
+          "text": "Extends the time period of the manufacturer's U.S. warranty by an additional year"
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-cash-credit-card",
+          "text": "on eligible warranties of three years or less, up to four years from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-cash-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-unlimited-credit-card.rental",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-unlimited-credit-card.rental@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-unlimited-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Auto Rental Coverage",
+      "summary": "Primary when renting for business purposes: reimbursement up to $60,000 for theft and collision damage on most rental vehicles with an MSRP of $125,000 or less, when you decline the rental company's collision insurance and charge the entire rental to the card.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-unlimited-credit-card",
+          "text": "Coverage is primary when renting for business purposes"
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-unlimited-credit-card",
+          "text": "provides reimbursement up to $60,000 for theft and collision damage"
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-unlimited-credit-card",
+          "text": "Decline the rental company's collision insurance and charge the entire rental cost to your card."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "primary",
+        "basisScope": "when renting for business purposes",
+        "requiresCardPayment": true,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-unlimited-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-unlimited-credit-card.roadside",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-unlimited-credit-card.roadside@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-unlimited-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "道路救援",
+      "summary": "遇到道路紧急情况时，致电服务商派遣救援；道路救援服务费在派遣时记入本卡。官网摘要没写次数或费用上限。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "遇到道路紧急情况时，致电服务商派遣救援；道路救援服务费在派遣时记入本卡。官网摘要没写次数或费用上限。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Roadside Assistance",
+      "summary": "Call the service provider to dispatch help in a roadside emergency; roadside service fees are billed to the card at dispatch. The summary does not state a limit.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-unlimited-credit-card",
+          "text": "Roadside service fees will be billed to your card at time of dispatch."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "roadside",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "遇到道路紧急情况时，致电服务商派遣救援；道路救援服务费在派遣时记入本卡。官网摘要没写次数或费用上限。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-unlimited-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-unlimited-credit-card.purchase",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-unlimited-credit-card.purchase@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-unlimited-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保护",
+      "summary": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "Covers eligible new purchases against damage or theft for 120 days from the date of purchase, up to $10,000 per item. For New York residents the coverage period is 90 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-unlimited-credit-card",
+          "text": "Covers your eligible new purchases for 120 days from the date of purchase against damage or theft up to $10,000 per item."
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-unlimited-credit-card",
+          "text": "coverage period is 90 days from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-unlimited-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-unlimited-credit-card.warranty",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-unlimited-credit-card.warranty@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-unlimited-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "Extends the manufacturer's U.S. warranty by an additional year. Applies to eligible warranties of three years or less, up to four years from the date of purchase.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-unlimited-credit-card",
+          "text": "Extends the time period of the manufacturer's U.S. warranty by an additional year"
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-unlimited-credit-card",
+          "text": "on eligible warranties of three years or less, up to four years from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-unlimited-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-premier-credit-card.rental",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-premier-credit-card.rental@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Auto Rental Coverage",
+      "summary": "Primary when renting for business purposes: reimbursement up to $60,000 for theft and collision damage on most rental vehicles with an MSRP of $125,000 or less, when you decline the rental company's collision insurance and charge the entire rental to the card.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-premier-credit-card",
+          "text": "Coverage is primary when renting for business purposes"
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-premier-credit-card",
+          "text": "provides reimbursement up to $60,000 for theft and collision damage"
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-premier-credit-card",
+          "text": "Decline the rental company's collision insurance and charge the entire rental cost to your card."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "primary",
+        "basisScope": "when renting for business purposes",
+        "requiresCardPayment": true,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-premier-credit-card.roadside",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-premier-credit-card.roadside@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "道路救援",
+      "summary": "遇到道路紧急情况时，致电服务商派遣救援；道路救援服务费在派遣时记入本卡。官网摘要没写次数或费用上限。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "遇到道路紧急情况时，致电服务商派遣救援；道路救援服务费在派遣时记入本卡。官网摘要没写次数或费用上限。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Roadside Assistance",
+      "summary": "Call the service provider to dispatch help in a roadside emergency; roadside service fees are billed to the card at dispatch. The summary does not state a limit.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-premier-credit-card",
+          "text": "Roadside service fees will be billed to your card at time of dispatch."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "roadside",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "遇到道路紧急情况时，致电服务商派遣救援；道路救援服务费在派遣时记入本卡。官网摘要没写次数或费用上限。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-premier-credit-card.purchase",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-premier-credit-card.purchase@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保护",
+      "summary": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "Covers eligible new purchases against damage or theft for 120 days from the date of purchase, up to $10,000 per item. For New York residents the coverage period is 90 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-premier-credit-card",
+          "text": "Covers your eligible new purchases for 120 days from the date of purchase against damage or theft up to $10,000 per item."
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-premier-credit-card",
+          "text": "coverage period is 90 days from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-premier-credit-card.warranty",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-premier-credit-card.warranty@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "Extends the manufacturer's U.S. warranty by an additional year. Applies to eligible warranties of three years or less, up to four years from the date of purchase.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-premier-credit-card",
+          "text": "Extends the time period of the manufacturer's U.S. warranty by an additional year"
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-premier-credit-card",
+          "text": "on eligible warranties of three years or less, up to four years from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-premier-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-preferred-credit-card.trip-cancel",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-preferred-credit-card.trip-cancel@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行取消／中断保障",
+      "summary": "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $5,000、每次旅行最高 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $5,000、每次旅行最高 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption Insurance",
+      "summary": "Reimbursement when a trip is canceled or cut short by a covered situation, up to $5,000 per covered traveler and $10,000 per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-preferred-credit-card",
+          "text": "if your trip is canceled or cut short by sickness, severe weather or other covered situations"
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-preferred-credit-card",
+          "text": "you can be reimbursed up to $5,000 per covered traveler and $10,000 per trip"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $5,000、每次旅行最高 $10,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-preferred-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-preferred-credit-card.roadside",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-preferred-credit-card.roadside@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "道路救援",
+      "summary": "遇到道路紧急情况时，致电服务商派遣救援；道路救援服务费在派遣时记入本卡。官网摘要没写次数或费用上限。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "遇到道路紧急情况时，致电服务商派遣救援；道路救援服务费在派遣时记入本卡。官网摘要没写次数或费用上限。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Roadside Assistance",
+      "summary": "Call the service provider to dispatch help in a roadside emergency; roadside service fees are billed to the card at dispatch. The summary does not state a limit.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-preferred-credit-card",
+          "text": "Roadside service fees will be billed to your card at time of dispatch."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "roadside",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "遇到道路紧急情况时，致电服务商派遣救援；道路救援服务费在派遣时记入本卡。官网摘要没写次数或费用上限。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-preferred-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-preferred-credit-card.purchase",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-preferred-credit-card.purchase@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保护",
+      "summary": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "Covers eligible new purchases against damage or theft for 120 days from the date of purchase, up to $10,000 per item. For New York residents the coverage period is 90 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-preferred-credit-card",
+          "text": "Covers your eligible new purchases for 120 days from the date of purchase against damage or theft up to $10,000 per item."
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-preferred-credit-card",
+          "text": "coverage period is 90 days from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-preferred-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-preferred-credit-card.warranty",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-preferred-credit-card.warranty@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "Extends the manufacturer's U.S. warranty by an additional year. Applies to eligible warranties of three years or less, up to four years from the date of purchase.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-ink-business-preferred-credit-card",
+          "text": "Extends the time period of the manufacturer's U.S. warranty by an additional year"
+        },
+        {
+          "sourceId": "card-chase-us-ink-business-preferred-credit-card",
+          "text": "on eligible warranties of three years or less, up to four years from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-ink-business-preferred-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve-for-business-credit-card.rental",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve-for-business-credit-card.rental@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve-for-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $75,000；纽约州居民在美国境内为个人汽车保险的次要保障。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $75,000；纽约州居民在美国境内为个人汽车保险的次要保障。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Auto Rental Coverage",
+      "summary": "Primary when renting for business purposes: reimbursement up to $75,000 for theft and collision damage; for New York residents inside the United States it is secondary to personal automobile insurance.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "Coverage is primary when renting for business purposes"
+        },
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "provides reimbursement up to $75,000 for theft and collision damage"
+        },
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "inside the United States coverage is secondary to your personal automobile insurance."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "primary",
+        "basisScope": "when renting for business purposes",
+        "requiresCardPayment": null,
+        "exclusions": [
+          "inside the United States coverage is secondary to your personal automobile insurance"
+        ]
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $75,000；纽约州居民在美国境内为个人汽车保险的次要保障。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-sapphire-reserve-for-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve-for-business-credit-card.baggage-delay",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve-for-business-credit-card.baggage-delay@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve-for-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李延误保障",
+      "summary": "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 5 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 5 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Delay Insurance",
+      "summary": "Reimburses essential purchases when baggage is delayed over 6 hours, up to $100 a day for up to 5 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "Reimburses you up to $100 a day for up to 5 days for essential purchases"
+        },
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "when baggage is delayed over 6 hours."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "baggage-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 5 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-sapphire-reserve-for-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve-for-business-credit-card.evacuation",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve-for-business-credit-card.evacuation@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve-for-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "紧急撤离与转运保障",
+      "summary": "在距家 100 英里或以上的旅途中因伤病需要时，医疗服务和转运最高保障 $100,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "在距家 100 英里或以上的旅途中因伤病需要时，医疗服务和转运最高保障 $100,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Emergency Evacuation and Transportation",
+      "summary": "Medical services and transportation covered up to $100,000 for an injury or illness on a trip 100 miles or more from home.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "you can be covered for medical services and transportation up to $100,000"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "emergency-evacuation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在距家 100 英里或以上的旅途中因伤病需要时，医疗服务和转运最高保障 $100,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-sapphire-reserve-for-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve-for-business-credit-card.roadside",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve-for-business-credit-card.roadside@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve-for-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "道路救援",
+      "summary": "道路紧急情况每次事故最高 $50，每年 4 次。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "道路紧急情况每次事故最高 $50，每年 4 次。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Roadside Assistance",
+      "summary": "Roadside emergencies are covered up to $50 per incident, 4 times a year.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "You're covered up to $50 per incident 4 times a year."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "roadside",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "道路紧急情况每次事故最高 $50，每年 4 次。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-sapphire-reserve-for-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve-for-business-credit-card.trip-cancel",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve-for-business-credit-card.trip-cancel@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve-for-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行取消／中断保障",
+      "summary": "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $10,000、每次旅行最高 $20,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $10,000、每次旅行最高 $20,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption Insurance",
+      "summary": "Reimbursement when a trip is canceled or cut short by a covered situation, up to $10,000 per covered traveler and $20,000 per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "if your trip is canceled or cut short by sickness, severe weather or other covered situations"
+        },
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "you can be reimbursed up to $10,000 per covered traveler and $20,000 per trip"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $10,000、每次旅行最高 $20,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-sapphire-reserve-for-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve-for-business-credit-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve-for-business-credit-card.trip-delay@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve-for-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "公共承运人行程延误超过 6 小时或需要过夜时，报销未获补偿的餐饮、住宿等费用，每位受保旅客最高 $500。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "公共承运人行程延误超过 6 小时或需要过夜时，报销未获补偿的餐饮、住宿等费用，每位受保旅客最高 $500。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay Reimbursement",
+      "summary": "Covers unreimbursed expenses such as meals and lodging when common carrier travel is delayed more than 6 hours or requires an overnight stay, up to $500 per covered traveler.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "If your common carrier travel is delayed more than 6 hours or requires an overnight stay"
+        },
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "unreimbursed expenses, such as meals and lodging, up to $500 per covered traveler"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公共承运人行程延误超过 6 小时或需要过夜时，报销未获补偿的餐饮、住宿等费用，每位受保旅客最高 $500。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-sapphire-reserve-for-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve-for-business-credit-card.purchase",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve-for-business-credit-card.purchase@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve-for-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保护",
+      "summary": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "Covers eligible new purchases against damage or theft for 120 days from the date of purchase, up to $10,000 per item. For New York residents the coverage period is 90 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "Covers your eligible new purchases for 120 days from the date of purchase against damage or theft up to $10,000 per item."
+        },
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "coverage period is 90 days from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-sapphire-reserve-for-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve-for-business-credit-card.return",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve-for-business-credit-card.return@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve-for-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "退货保护",
+      "summary": "商店不接受的合资格商品，购买后 90 天内可获报销，每件最高 $500，每 12 个月最高 $1,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "商店不接受的合资格商品，购买后 90 天内可获报销，每件最高 $500，每 12 个月最高 $1,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Return Protection",
+      "summary": "Reimbursement for eligible items the store won't accept within 90 days of purchase, up to $500 per item and $1,000 per 12-month period.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "You can be reimbursed for eligible items that the store won't accept within 90 days of purchase"
+        },
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "up to $500 per item, $1,000 per 12-month period"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "return-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "商店不接受的合资格商品，购买后 90 天内可获报销，每件最高 $500，每 12 个月最高 $1,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-sapphire-reserve-for-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve-for-business-credit-card.warranty",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve-for-business-credit-card.warranty@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-sapphire-reserve-for-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "Extends the manufacturer's U.S. warranty by an additional year. Applies to eligible warranties of three years or less, up to four years from the date of purchase.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "Extends the time period of the manufacturer's U.S. warranty by an additional year"
+        },
+        {
+          "sourceId": "card-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "on eligible warranties of three years or less, up to four years from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-sapphire-reserve-for-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-world-of-hyatt-business-credit-card.rental",
+    "revision": 1,
+    "revisionId": "rule.chase-us-world-of-hyatt-business-credit-card.rental@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-world-of-hyatt-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Auto Rental Coverage",
+      "summary": "Primary when renting for business purposes: reimbursement up to $60,000 for theft and collision damage on most rental vehicles with an MSRP of $125,000 or less, when you decline the rental company's collision insurance and charge the entire rental to the card.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-business-credit-card",
+          "text": "Coverage is primary when renting for business purposes"
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-business-credit-card",
+          "text": "provides reimbursement up to $60,000 for theft and collision damage"
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-business-credit-card",
+          "text": "Decline the rental company's collision insurance and charge the entire rental cost to your card."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "primary",
+        "basisScope": "when renting for business purposes",
+        "requiresCardPayment": true,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-world-of-hyatt-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-world-of-hyatt-business-credit-card.trip-cancel",
+    "revision": 1,
+    "revisionId": "rule.chase-us-world-of-hyatt-business-credit-card.trip-cancel@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-world-of-hyatt-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行取消／中断保障",
+      "summary": "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $1,500、每次旅行最高 $6,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $1,500、每次旅行最高 $6,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption Insurance",
+      "summary": "Reimbursement when a trip is canceled or cut short by a covered situation, up to $1,500 per covered traveler and $6,000 per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-business-credit-card",
+          "text": "if your trip is canceled or cut short by sickness, severe weather or other covered situations"
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-business-credit-card",
+          "text": "you can be reimbursed up to $1,500 per covered traveler and $6,000 per trip"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $1,500、每次旅行最高 $6,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-world-of-hyatt-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-world-of-hyatt-business-credit-card.purchase",
+    "revision": 1,
+    "revisionId": "rule.chase-us-world-of-hyatt-business-credit-card.purchase@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-world-of-hyatt-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保护",
+      "summary": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "Covers eligible new purchases against damage or theft for 120 days from the date of purchase, up to $10,000 per item. For New York residents the coverage period is 90 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-business-credit-card",
+          "text": "Covers your eligible new purchases for 120 days from the date of purchase against damage or theft up to $10,000 per item."
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-business-credit-card",
+          "text": "coverage period is 90 days from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-world-of-hyatt-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-world-of-hyatt-business-credit-card.warranty",
+    "revision": 1,
+    "revisionId": "rule.chase-us-world-of-hyatt-business-credit-card.warranty@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-world-of-hyatt-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "Extends the manufacturer's U.S. warranty by an additional year. Applies to eligible warranties of three years or less, up to four years from the date of purchase.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-business-credit-card",
+          "text": "Extends the time period of the manufacturer's U.S. warranty by an additional year"
+        },
+        {
+          "sourceId": "card-chase-us-world-of-hyatt-business-credit-card",
+          "text": "on eligible warranties of three years or less, up to four years from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-world-of-hyatt-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-business-credit-card.baggage-delay",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-business-credit-card.baggage-delay@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李延误保障",
+      "summary": "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 3 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 3 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Delay Insurance",
+      "summary": "Reimburses essential purchases when baggage is delayed over 6 hours, up to $100 a day for up to 3 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+          "text": "Reimburses you up to $100 a day for up to 3 days for essential purchases"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+          "text": "when baggage is delayed over 6 hours."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "baggage-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 3 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-premier-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-business-credit-card.purchase",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-business-credit-card.purchase@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保护",
+      "summary": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "Covers eligible new purchases against damage or theft for 120 days from the date of purchase, up to $10,000 per item. For New York residents the coverage period is 90 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+          "text": "Covers your eligible new purchases for 120 days from the date of purchase against damage or theft up to $10,000 per item."
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+          "text": "coverage period is 90 days from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-premier-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-business-credit-card.warranty",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-business-credit-card.warranty@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "Extends the manufacturer's U.S. warranty by an additional year. Applies to eligible warranties of three years or less, up to four years from the date of purchase.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+          "text": "Extends the time period of the manufacturer's U.S. warranty by an additional year"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+          "text": "on eligible warranties of three years or less, up to four years from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-premier-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-performance-business-credit-card.baggage-delay",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-performance-business-credit-card.baggage-delay@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-performance-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李延误保障",
+      "summary": "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 3 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 3 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Delay Insurance",
+      "summary": "Reimburses essential purchases when baggage is delayed over 6 hours, up to $100 a day for up to 3 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "Reimburses you up to $100 a day for up to 3 days for essential purchases"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "when baggage is delayed over 6 hours."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "baggage-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 3 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-performance-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-performance-business-credit-card.purchase",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-performance-business-credit-card.purchase@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-performance-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保护",
+      "summary": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "Covers eligible new purchases against damage or theft for 120 days from the date of purchase, up to $10,000 per item. For New York residents the coverage period is 90 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "Covers your eligible new purchases for 120 days from the date of purchase against damage or theft up to $10,000 per item."
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "coverage period is 90 days from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-performance-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-performance-business-credit-card.warranty",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-performance-business-credit-card.warranty@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-performance-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "Extends the manufacturer's U.S. warranty by an additional year. Applies to eligible warranties of three years or less, up to four years from the date of purchase.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "Extends the time period of the manufacturer's U.S. warranty by an additional year"
+        },
+        {
+          "sourceId": "card-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "on eligible warranties of three years or less, up to four years from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-southwest-rapid-rewards-performance-business-credit-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.rental",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.rental@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Auto Rental Coverage",
+      "summary": "Primary when renting for business purposes: reimbursement up to $60,000 for theft and collision damage on most rental vehicles with an MSRP of $125,000 or less.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Coverage is primary when renting for business purposes"
+        },
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "provides reimbursement up to $60,000 for theft and collision damage"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "primary",
+        "basisScope": "when renting for business purposes",
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.baggage-delay",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.baggage-delay@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李延误保障",
+      "summary": "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 3 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 3 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Delay Insurance",
+      "summary": "Reimburses essential purchases when baggage is delayed over 6 hours, up to $100 a day for up to 3 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Reimburses you up to $100 a day for up to 3 days for essential purchases"
+        },
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "when baggage is delayed over 6 hours."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "baggage-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 3 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.trip-cancel",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.trip-cancel@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行取消／中断保障",
+      "summary": "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $1,500、每次旅行最高 $6,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $1,500、每次旅行最高 $6,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption Insurance",
+      "summary": "Reimbursement when a trip is canceled or cut short by a covered situation, up to $1,500 per covered traveler and $6,000 per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "if your trip is canceled or cut short by sickness, severe weather or other covered situations"
+        },
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "you can be reimbursed up to $1,500 per covered traveler and $6,000 per trip"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $1,500、每次旅行最高 $6,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.trip-delay@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "公共承运人行程延误超过 12 小时或需要过夜时，报销未获补偿的餐饮、住宿等费用，每位受保旅客最高 $500。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "公共承运人行程延误超过 12 小时或需要过夜时，报销未获补偿的餐饮、住宿等费用，每位受保旅客最高 $500。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay Reimbursement",
+      "summary": "Covers unreimbursed expenses such as meals and lodging when common carrier travel is delayed more than 12 hours or requires an overnight stay, up to $500 per covered traveler.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "If your common carrier travel is delayed more than 12 hours or requires an overnight stay"
+        },
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "unreimbursed expenses, such as meals and lodging, up to $500 per covered traveler"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公共承运人行程延误超过 12 小时或需要过夜时，报销未获补偿的餐饮、住宿等费用，每位受保旅客最高 $500。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.purchase",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.purchase@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保护",
+      "summary": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "Covers eligible new purchases against damage or theft for 120 days from the date of purchase, up to $10,000 per item. For New York residents the coverage period is 90 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Covers your eligible new purchases for 120 days from the date of purchase against damage or theft up to $10,000 per item."
+        },
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "coverage period is 90 days from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.warranty",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.warranty@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "Extends the manufacturer's U.S. warranty by an additional year. Applies to eligible warranties of three years or less, up to four years from the date of purchase.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "Extends the time period of the manufacturer's U.S. warranty by an additional year"
+        },
+        {
+          "sourceId": "card-chase-us-united-business-card",
+          "text": "on eligible warranties of three years or less, up to four years from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-business-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.trip-cancel",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.trip-cancel@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行取消／中断保障",
+      "summary": "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $10,000、每次旅行最高 $20,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $10,000、每次旅行最高 $20,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption Insurance",
+      "summary": "Reimbursement when a trip is canceled or cut short by a covered situation, up to $10,000 per covered traveler and $20,000 per trip.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "if your trip is canceled or cut short by sickness, severe weather or other covered situations"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "you can be reimbursed up to $10,000 per covered traveler and $20,000 per trip"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "旅行因疾病、恶劣天气等承保情形取消或中断时可获报销，每位受保旅客最高 $10,000、每次旅行最高 $20,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.baggage-delay",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.baggage-delay@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李延误保障",
+      "summary": "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 3 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 3 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Delay Insurance",
+      "summary": "Reimburses essential purchases when baggage is delayed over 6 hours, up to $100 a day for up to 3 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Reimburses you up to $100 a day for up to 3 days for essential purchases"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "when baggage is delayed over 6 hours."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "baggage-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "行李延误超过 6 小时，可报销必需品的购买费用，每天最高 $100，最多 3 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.trip-delay@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "公共承运人行程延误超过 12 小时或需要过夜时，报销未获补偿的餐饮、住宿等费用，每位受保旅客最高 $500。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "公共承运人行程延误超过 12 小时或需要过夜时，报销未获补偿的餐饮、住宿等费用，每位受保旅客最高 $500。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay Reimbursement",
+      "summary": "Covers unreimbursed expenses such as meals and lodging when common carrier travel is delayed more than 12 hours or requires an overnight stay, up to $500 per covered traveler.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "If your common carrier travel is delayed more than 12 hours or requires an overnight stay"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "unreimbursed expenses, such as meals and lodging, up to $500 per covered traveler"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公共承运人行程延误超过 12 小时或需要过夜时，报销未获补偿的餐饮、住宿等费用，每位受保旅客最高 $500。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.rental",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.rental@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Auto Rental Coverage",
+      "summary": "Primary when renting for business purposes: reimbursement up to $60,000 for theft and collision damage on most rental vehicles with an MSRP of $125,000 or less, when you decline the rental company's collision insurance and charge the entire rental to the card.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Coverage is primary when renting for business purposes"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "provides reimbursement up to $60,000 for theft and collision damage"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Decline the rental company's collision insurance and charge the entire rental cost to your card."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "primary",
+        "basisScope": "when renting for business purposes",
+        "requiresCardPayment": true,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "因公租车时为主要（primary）保障，被盗和碰撞损失最高赔付 $60,000，适用于多数 MSRP 不超过 $125,000 的租赁车辆；拒绝租车公司的碰撞险并用本卡支付全部租金。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.purchase",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.purchase@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保护",
+      "summary": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "Covers eligible new purchases against damage or theft for 120 days from the date of purchase, up to $10,000 per item. For New York residents the coverage period is 90 days.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Covers your eligible new purchases for 120 days from the date of purchase against damage or theft up to $10,000 per item."
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "coverage period is 90 days from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "新购的合资格商品自购买日起 120 天内因损坏或被盗可获赔，每件最高 $10,000。纽约州居民的保障期为 90 天。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.return",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.return@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "退货保护",
+      "summary": "商店不接受的合资格商品，购买后 90 天内可获报销，每件最高 $500，每 12 个月最高 $1,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "商店不接受的合资格商品，购买后 90 天内可获报销，每件最高 $500，每 12 个月最高 $1,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Return Protection",
+      "summary": "Reimbursement for eligible items the store won't accept within 90 days of purchase, up to $500 per item and $1,000 per 12-month period.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "You can be reimbursed for eligible items that the store won't accept within 90 days of purchase"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "up to $500 per item, $1,000 per 12-month period"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "return-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "商店不接受的合资格商品，购买后 90 天内可获报销，每件最高 $500，每 12 个月最高 $1,000。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.warranty",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.warranty@2026-11-15.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。",
+        "该条目仅为保障摘要；核对完整保障指南、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "Extends the manufacturer's U.S. warranty by an additional year. Applies to eligible warranties of three years or less, up to four years from the date of purchase.",
+      "howToUse": [
+        "This is a summary of the coverage; the Guide to Benefits controls. Check eligibility, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "Extends the time period of the manufacturer's U.S. warranty by an additional year"
+        },
+        {
+          "sourceId": "card-chase-us-united-club-business-card",
+          "text": "on eligible warranties of three years or less, up to four years from the date of purchase"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在制造商美国保修期的基础上再延长一年。适用于三年以内的合资格保修，自购买日起最长四年。保障摘要；付款、事故、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-chase-us-united-club-business-card"
+      ],
+      "checkedAt": "2026-11-15",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-15",
+      "reviewAfter": "2027-02-13",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]
