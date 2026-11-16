@@ -90613,5 +90613,263 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-the-platinum-card.hotel-credit",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-the-platinum-card.hotel-credit@2026-11-16.2",
+    "supersedes": "rule.amex-us-us-the-platinum-card.hotel-credit@2026-11-04.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-the-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [
+      "programme.fine-hotels-resorts",
+      "programme.the-hotel-collection"
+    ],
+    "content": {
+      "title": "FHR 或 THC 预付酒店抵扣",
+      "summary": "半年一次、每次最多300美元，全年最多600美元，须通过 Amex Travel 预付；页面写明每个日历年最多600美元、每半年最多300美元。THC 须至少住两晚；2027年1月1日起 FHR 也须至少住两晚。",
+      "sourceText": "Get up to $300 in statement credits semi-annually on prepaid Fine Hotels + Resorts program or The Hotel Collection bookings",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "半年一次、每次最多300美元，全年最多600美元，须通过 Amex Travel 预付；页面写明每个日历年最多600美元、每半年最多300美元。THC 须至少住两晚；2027年1月1日起 FHR 也须至少住两晚。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$600 Hotel Credit",
+      "summary": "Up to $300 semi-annually on prepaid Fine Hotels + Resorts or The Hotel Collection bookings through American Express Travel; The Hotel Collection needs two nights, and from January 1, 2027 so does Fine Hotels + Resorts.",
+      "howToUse": [
+        "Prepay the booking through American Express Travel with the Platinum Card.",
+        "The Hotel Collection requires two nights; from January 1, 2027 Fine Hotels + Resorts also requires two nights."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card",
+          "text": "Get up to $300 in statement credits semi-annually on prepaid Fine Hotels + Resorts program or The Hotel Collection bookings"
+        },
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card",
+          "text": "Effective January 1, 2027, Fine Hotels + Resorts bookings will require a minimum two-night stay to be eligible for the $600 Hotel Credit."
+        }
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-half-year",
+      "amount": 300,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "半年一次、每次最多300美元，全年最多600美元，须通过 Amex Travel 预付；页面写明每个日历年最多600美元、每半年最多300美元。THC 须至少住两晚；2027年1月1日起 FHR 也须至少住两晚。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-the-platinum-card",
+        "card-amex-us-hotel-credit-how-to"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-rewards-credit-card.trusted-traveler",
+    "revision": 2,
+    "revisionId": "rule.capital-one-us-venture-rewards-credit-card.trusted-traveler@2026-11-16.2",
+    "supersedes": "rule.capital-one-us-venture-rewards-credit-card.trusted-traveler@2026-11-04.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Global Entry 或 TSA PreCheck 申请费抵扣",
+      "summary": "最多120美元；每个账户每四年一次。",
+      "sourceText": "Receive up to a $120 statement credit when you use your Venture Rewards card to apply for Global Entry or TSA PreCheck",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "最多120美元；每个账户每四年一次。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry or TSA PreCheck credit",
+      "summary": "Up to a $120 credit for Global Entry or TSA PreCheck.",
+      "howToUse": [
+        "Pay the application fee with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-rewards-credit-card",
+          "text": "Receive up to a $120 credit for Global Entry or TSA PreCheck"
+        }
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "rolling-four-years",
+      "amount": 120,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "最多120美元；每个账户每四年一次。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-rewards-credit-card",
+        "card-capital-one-us-venture-tsa-help"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-x-rewards-credit-card.travel",
+    "revision": 2,
+    "revisionId": "rule.capital-one-us-venture-x-rewards-credit-card.travel@2026-11-16.2",
+    "supersedes": "rule.capital-one-us-venture-x-rewards-credit-card.travel@2026-11-04.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-x-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Travel 年度额度",
+      "summary": "每年300美元，须通过 Capital One Travel 消费；每笔年度额度在下一个开户周年日失效。",
+      "sourceText": "Receive a $300 annual Capital One Travel credit",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年300美元，须通过 Capital One Travel 消费；每笔年度额度在下一个开户周年日失效。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$300 Capital One Travel credit",
+      "summary": "Each year, a $300 credit for purchases made through Capital One Travel; each credit expires on the next account open date anniversary.",
+      "howToUse": [
+        "Book through Capital One Travel with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-x-rewards-credit-card",
+          "text": "Annually, eligible Venture X primary account holders will receive a $300 Capital One Travel credit (“Credit”) to use toward purchases made through Capital One Travel."
+        },
+        {
+          "sourceId": "card-capital-one-us-venture-x-rewards-credit-card",
+          "text": "Each annual Credit will expire on the next account open date anniversary."
+        }
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 300,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年300美元，须通过 Capital One Travel 消费；每笔年度额度在下一个开户周年日失效。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-x-rewards-credit-card",
+        "card-capital-one-travel-consumer-benefits"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]

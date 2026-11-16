@@ -1188,5 +1188,26 @@
     "title": "American Express · American Express Gold Card 官方产品页",
     "checkedAt": "2026-11-16",
     "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-venture-tsa-help",
+    "title": "Capital One · TSA PreCheck / Global Entry 福利说明",
+    "url": "https://www.capitalone.com/help-center/credit-cards/tsa-precheck-global-entry-benefits/",
+    "checkedAt": "2026-11-16",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-travel-consumer-benefits",
+    "title": "Capital One · Capital One Travel 持卡人福利",
+    "url": "https://www.capitalone.com/travel/consumer-travel-benefits/",
+    "checkedAt": "2026-11-16",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-hotel-credit-how-to",
+    "title": "American Express · 酒店抵扣使用说明",
+    "url": "https://www.americanexpress.com/en-us/travel/benefits/how-to-use-hotel-credit/",
+    "checkedAt": "2026-11-16",
+    "authority": "official"
   }
 ]
