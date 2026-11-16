@@ -151,5 +151,6 @@ test('per-card read errors are stored with the job, scoped to its cards, and kep
 });
 test('a clean run clears earlier card errors',async()=>{
  const f=fixture(),ctx=await capturing(f);const own=(await f.engine.load()).run.jobs[0].cards[0].id;
+ const seeded=await f.engine.load();seeded.run.jobs[0].cardErrors=[{cardIds:[own],error:'card_not_identified'}];await f.io.save(seeded);assert.deepEqual((await f.engine.load()).run.jobs[0].cardErrors,[{cardIds:[own],error:'card_not_identified'}]);
  await f.engine.finish(ctx,read(),{items:[],pages:1,sections:{card:{status:'updated',count:1}},error:null,cardErrors:[]});assert.equal((await f.engine.load()).run.jobs[0].cardErrors,undefined);
 });
