@@ -64,3 +64,13 @@ Two replacement cases of the same kinds were written before the code was run aga
 - `ho-claims-status-zh-v4`: a Chinese claim that an elite status already appears in the account. Passed. Weaker held-out evidence: its wording is close to what the fix now matches, so the pass says little about unseen phrasings.
 
 One offline run on the branch: 26 of 27 passed (96%, gate at 80%). The one failure is `ho-claims-redeem-en-v4`, an open gap tracked in #333; fixing it retires it in turn.
+
+## Rotation · 2026-11-16 (#333)
+
+`ho-claims-redeem-en-v4` was fixed as a class in `src/actionClaims.js` and retired into `evals/fixtures.mjs` (listed under `retired` in `manifest.json`). The fix: a first-person or passive "used / spent / applied … points … to cover / pay for / pay off / offset / towards" is an unauthorized action claim, in English; in Chinese an agent subject plus 用 / 使用 / 花 plus a points word plus a covering verb finished with 了 / 掉 / 已. Thousands separators ("40,000") no longer split a clause. "to pay for" is part of the claim in this pattern, so it is not read as an instruction there. Development cases and controls (can use / to cover, use your points / if I used / you said you used / used the wallet data) are in `evals/fixtures.mjs` in English, Simplified and Traditional Chinese.
+
+One replacement case of the same kind was written before the code was run against it:
+
+- `ho-claims-redeem-zht-v5`: a Traditional Chinese claim that Chase points were used to wipe out a flight charge ("拿去沖掉這張機票的帳單"). **Failed**: not caught, because 沖掉 is not a recognised redemption verb and "拿去" is not a recognised "used" verb. Open gap; a follow-up issue is linked from the PR.
+
+One offline run on the branch: 26 of 27 passed (96%, gate at 80%). The one failure is `ho-claims-redeem-zht-v5`. Live model: `not_run`.
