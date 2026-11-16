@@ -19,6 +19,7 @@ Every change follows the same path. Do not skip steps or merge them together.
 7. **CI** — `Verify and package` must be green. Only a CI artifact can be a release candidate; a local `build:release` is for checks. Never hand-copy files into an installed extension directory.
 8. **Review and merge** — an independent review agent that did not write the change reviews the PR. Claude squash-merges once CI is green and review findings are resolved (owner authorized 2026-11-03). After review is resolved, turn on GitHub auto-merge (`gh pr merge --squash --auto`) instead of waiting or asking the owner to watch CI (owner authorized 2026-11-04). If a PR falls behind `main`, update it, and re-review only when the update changes behaviour. Merging to `main` is integration, not a release or bank acceptance. Never force-push shared branches or bypass branch protection.
 9. **Release** — bump `release.json`, tag `v<label>`; CI creates a draft prerelease from the verified artifact. Promote only after the exact-artifact acceptance in `docs/RELEASE.md` passes. Tags, releases and store submissions always need the owner's go-ahead.
+   The **web channel** (the PWA, #373) is the exception: a green `main` deploys itself to Cloudflare Pages with no tag and no owner step (owner decision 2026-11-16). See "One source, two channels" below.
 
 ## Operating model
 
@@ -41,7 +42,21 @@ Each workstream runs in its own session and git worktree, with one writer per ar
 
 **Claude decides alone:** issues, branches, code, PRs, CI fixes, and merges to `main` as above. Choose reversible defaults by convention and report them afterwards.
 
-**Only the owner:** tags, public releases, store submission, bank logins and device confirmations, and any new authorization or external service. When a decision is needed, ask one or two questions at a time, each with a recommendation and a one-line reason.
+**Only the owner:** tags, public extension releases, store submission, bank logins and device confirmations, and any new authorization or external service. When a decision is needed, ask one or two questions at a time, each with a recommendation and a one-line reason.
+
+## One source, two channels
+
+The wallet in `src/` is one codebase shipped to two channels (owner decision 2026-11-16, #373):
+
+| Channel | Artifact | Ships when | Gate |
+| --- | --- | --- | --- |
+| Extension | CI ZIP | owner tags `v<label>` | exact-artifact acceptance in `docs/RELEASE.md` |
+| Web (PWA) | `dist/web` | every green `main` | CI checks; each PR gets a preview URL; roll back by redeploying the previous commit |
+
+- Shared code never touches a platform directly. Storage, notifications, bank collection and the assistant transport go through the platform adapter in `src/platform/` (`extension.js`, `web.js`); a capability a channel lacks (bank collection on the web) is absent, not faked. A new `chrome.*` call outside `src/platform/extension.js` is a review finding.
+- One commit, one version, both artifacts: CI builds and tests both on every PR.
+- The web wallet is manual entry only: no automatic import of any kind (owner 2026-11-16).
+- Because web users can run an older cached build: gateway routes stay backward compatible (change the shape under a new path such as `/v2/...`), and any change to stored wallet data ships with a migration and its test.
 
 ## Commands
 
