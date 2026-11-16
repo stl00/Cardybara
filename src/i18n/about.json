@@ -59,7 +59,12 @@
     "Chase 和大部分 American Express 美国卡种显示发卡机构公开的卡面图片。": "Chase cards and most American Express US cards show the issuer's published card image.",
     "总览里的“这笔消费，用哪张卡？”：选消费类别，直接给出建议用的卡和其他选择，按你的持卡规则和积分估值计算，不含限时优惠。": "“Which card for this purchase?” on the overview: pick a category and it shows the card to use and the other choices, from your cards' rules and your point valuations, without limited-time offers.",
     "需要邀请码：在设置的“AI 服务”里输入邀请你的人给的邀请码。不输入也能正常使用钱包，只是没有聊天助手和 AI 识别卡种。": "Needs an invite code: in Settings → AI service, enter the code from the person who invited you. Without it the wallet works, just without the chat assistant and AI card recognition.",
-    "AI 识别卡种默认关闭；开启后，或你在卡片详情里点“用 AI 推测卡种”时，会把未识别卡片的银行、地区和卡名（不含尾号和金额）经 Cardybara 服务发给 AI。": "AI card recognition is off by default; when you turn it on, or click “Ask AI for the card type” in card details, the unrecognised card's bank, region and name (no tail or amounts) go through the Cardybara service to the AI."
+    "AI 识别卡种默认关闭；开启后，或你在卡片详情里点“用 AI 推测卡种”时，会把未识别卡片的银行、地区和卡名（不含尾号和金额）经 Cardybara 服务发给 AI。": "AI card recognition is off by default; when you turn it on, or click “Ask AI for the card type” in card details, the unrecognised card's bank, region and name (no tail or amounts) go through the Cardybara service to the AI.",
+    "网页版：钱包数据只保存在你输入它的那个浏览器里，不上传，也不同步到其他设备。": "Web version: your wallet data stays in the browser where you entered it; it is not uploaded or synced to other devices.",
+    "网页版唯一上传的是你向用卡助手提的问题，附带的内容和上面一样（对话前文、持有的卡种、积分估值、是否填了年费日、助手请求的钱包查询结果），不含卡号、余额或账单。": "The only thing the web version uploads is the questions you ask the assistant, with the same content as above (earlier turns, the card products you hold, point valuations, whether an annual fee date is filled in, and the wallet lookups the assistant asks for); never card numbers, balances or statements.",
+    "网页版里的卡片和金额都由你手动填写；读取银行只在桌面版 Chrome 扩展里提供。": "In the web version you enter cards and amounts by hand; reading banks is only available in the desktop Chrome extension.",
+    "浏览器可能清除没有添加到主屏幕的网站的数据，请经常在“数据管理”里导出备份。": "A browser may clear the data of a site that is not on the Home Screen, so export a backup often (Data → Export backup).",
+    "网页版开启提醒后，服务只保存这台设备的推送订阅、提醒时间和一个类型代码，不含任何卡片信息；关闭提醒或 60 天没有更新后删除。通知文字在你的手机上生成。": "With reminders on in the web version, the service keeps only this device's push subscription, the reminder times and a kind code, nothing about your cards; it is deleted when you turn reminders off or after 60 days without an update. The notification text is written on your phone."
   },
   "zh-TW": {
     "版本 {0}": "版本 {0}",
@@ -121,6 +126,11 @@
     "Chase 和大部分 American Express 美国卡种显示发卡机构公开的卡面图片。": "Chase 和大部分 American Express 美國卡種顯示發卡機構公開的卡面圖片。",
     "总览里的“这笔消费，用哪张卡？”：选消费类别，直接给出建议用的卡和其他选择，按你的持卡规则和积分估值计算，不含限时优惠。": "總覽裡的「這筆消費，用哪張卡？」：選消費類別，直接給出建議用的卡和其他選擇，按你的持卡規則和積分估值計算，不含限時優惠。",
     "需要邀请码：在设置的“AI 服务”里输入邀请你的人给的邀请码。不输入也能正常使用钱包，只是没有聊天助手和 AI 识别卡种。": "需要邀請碼：在設定的「AI 服務」裡輸入邀請你的人給的邀請碼。不輸入也能正常使用錢包，只是沒有聊天助手和 AI 識別卡種。",
-    "AI 识别卡种默认关闭；开启后，或你在卡片详情里点“用 AI 推测卡种”时，会把未识别卡片的银行、地区和卡名（不含尾号和金额）经 Cardybara 服务发给 AI。": "AI 識別卡種預設關閉；開啟後，或你在卡片詳情裡點「用 AI 推測卡種」時，會把未識別卡片的銀行、地區和卡名（不含尾號和金額）經 Cardybara 服務傳給 AI。"
+    "AI 识别卡种默认关闭；开启后，或你在卡片详情里点“用 AI 推测卡种”时，会把未识别卡片的银行、地区和卡名（不含尾号和金额）经 Cardybara 服务发给 AI。": "AI 識別卡種預設關閉；開啟後，或你在卡片詳情裡點「用 AI 推測卡種」時，會把未識別卡片的銀行、地區和卡名（不含尾號和金額）經 Cardybara 服務傳給 AI。",
+    "网页版：钱包数据只保存在你输入它的那个浏览器里，不上传，也不同步到其他设备。": "網頁版：錢包資料只儲存在你輸入它的那個瀏覽器裡，不上傳，也不同步到其他裝置。",
+    "网页版唯一上传的是你向用卡助手提的问题，附带的内容和上面一样（对话前文、持有的卡种、积分估值、是否填了年费日、助手请求的钱包查询结果），不含卡号、余额或账单。": "網頁版唯一上傳的是你向用卡助手提的問題，附帶的內容和上面一樣（對話前文、持有的卡種、積分估值、是否填了年費日、助手要求的錢包查詢結果），不含卡號、餘額或帳單。",
+    "网页版里的卡片和金额都由你手动填写；读取银行只在桌面版 Chrome 扩展里提供。": "網頁版裡的卡片和金額都由你手動填寫；讀取銀行只在桌面版 Chrome 擴充功能裡提供。",
+    "浏览器可能清除没有添加到主屏幕的网站的数据，请经常在“数据管理”里导出备份。": "瀏覽器可能清除沒有加到主畫面的網站的資料，請經常在「資料管理」裡匯出備份。",
+    "网页版开启提醒后，服务只保存这台设备的推送订阅、提醒时间和一个类型代码，不含任何卡片信息；关闭提醒或 60 天没有更新后删除。通知文字在你的手机上生成。": "網頁版開啟提醒後，服務只保存這台裝置的推播訂閱、提醒時間和一個類型代碼，不含任何卡片資訊；關閉提醒或 60 天沒有更新後刪除。通知文字在你的手機上產生。"
   }
 }
