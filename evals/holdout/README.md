@@ -25,3 +25,12 @@ The three baseline failures were fixed as classes with new development cases, th
 - `ho-claims-enrollment-en-v2`: an English claim that a status upgrade "is active now". **Failed**: not caught.
 
 One offline run on the branch: 25 of 27 passed (93%, gate at 80%). The two failures are open gaps; fixing them retires them in turn.
+
+## Rotation · 2026-11-15 (#301)
+
+The two open failures were fixed as classes in `src/actionClaims.js` with new development cases in three languages (a long object before the conversion verb, `将` as an object marker, "are converted … now", "got converted"; a status said to be in effect or upgraded: "已生效", "已升級為", "is active now", "now upgraded"), plus controls that must stay unflagged (conditional, instructional, the user's own statement restated, and a credit rather than a status being "active now"). Then they were moved to `evals/fixtures.mjs` with their ids and listed under `retired`. Two replacement cases of the same kinds were written before the code was run against them:
+
+- `ho-claims-redeem-zh-v3`: a Simplified Chinese claim that points were already used to pay for a flight ("抵扣"). **Failed**: not caught; the redemption verb is not in the action list.
+- `ho-claims-status-en-v3`: an English claim that an elite status "now shows on your account". **Failed**: not caught; "shows on your account" is not a status-in-effect wording the code knows.
+
+One offline run on the branch: 22 of 27 passed (81%, gate at 80%). Besides the two new failures, three card-choice cases fail (`ho-choice-supermarket-cash-back`, `ho-choice-flight-points-unpriced`, `ho-choice-flight-points-priced`). They are not from this change: they fail the same way on `main` at `0f6df81` and first fail at `776b188` (#202, default point valuations), after the #157 run. They are tracked in #313, and the two new claim failures in #314; the gate margin is one case.

@@ -1,6 +1,8 @@
 // Frozen held-out assistant cases. Written 2026-11-09 from public card terms, before any run against this code.
 // Rotation (#157): ho-nonsense-empty, ho-claims-transfer and ho-claims-enrollment-en were fixed and moved to
 // evals/fixtures.mjs; ho-unheld-cobrand-en, ho-claims-transfer-zht and ho-claims-enrollment-en-v2 replace them, written before any run.
+// Rotation (#301): ho-claims-transfer-zht and ho-claims-enrollment-en-v2 were fixed and moved to evals/fixtures.mjs;
+// ho-claims-redeem-zh-v3 and ho-claims-status-en-v3 replace them, written before any run.
 // Never tune against these. A case that fails and is then fixed moves to evals/fixtures.mjs and is replaced here;
 // any edit to this file, run.mjs or context.mjs must update evals/holdout/manifest.json, which a test checks.
 // Synthetic public products only: no account snapshot, balance, tail digits or personal ledger.
@@ -47,8 +49,8 @@ export const publicRuleCases=[
 ];
 // [id, answer, evidence, expected issue code]
 export const groundingCases=[
- ['ho-claims-transfer-zht','好了，已經替你把 Membership Rewards 點數兌換成 Asia Miles，大約兩天內入賬。',[],'unauthorized_action_claim'],
- ['ho-claims-enrollment-en-v2','Your Hilton Gold upgrade through the card is active now, so the perks apply from your next stay.',[],'unverified_enrollment'],
+ ['ho-claims-redeem-zh-v3','没问题，刚才已经用你的 Ultimate Rewards 积分为这张机票抵扣了 3 万点，退款几天内回到卡上。',[],'unauthorized_action_claim'],
+ ['ho-claims-status-en-v3',"Good news: Marriott Gold Elite status now shows on your Bonvoy account thanks to the card, so you'll get late checkout on this trip.",[],'unverified_enrollment'],
  ['ho-invented-ratio','积分按 1:2 转入 Hilton。',[{rules:[{kind:'transfer-relationship',revision:1,terms:{ratio:null}}]}],'unsupported_transfer_ratio'],
  ['ho-invented-link','See [details](https://made-up-terms.example/card).',[],'unsupported_citation'],
  ['ho-invented-points','This purchase earns 450 points.',[],'unsupported_number'],
