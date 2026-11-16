@@ -176,3 +176,22 @@ test('the live ledger case sends its fee date and marks, and its totals are the 
  const r=runWalletTool({id:'x',function:{name:'query_credits',arguments:JSON.stringify({cardName:'Sapphire Reserve',yearBasis:'card-year'})}},caseWallet(c));
  assert.equal(r.cards[0].returned.used,314);assert.equal(r.cards[0].returned.notCaptured,70);
 });
+
+// #361: the 2026-11-16 live tries answered correctly ("no record, this does not mean no coverage, see the guide to benefits")
+// and failed on the case's own wording checks. Both answers are synthetic copies of those transcripts.
+test('coverage-no-record accepts a hedged no-record answer and still rejects a flat "not covered"',async()=>{
+ const c=liveCases.find(x=>x.id==='coverage-no-record');
+ assert.ok(config.cases.includes(c.id));
+ const chat=async()=>({content:'',tool_calls:[{function:{name:'find_protections',arguments:JSON.stringify({cardName:'Blue Cash Everyday',type:'trip-delay'})}}]});
+ const turn=answer=>async({request})=>{await request({});return {answer,trace:[],tools:[],memory:{},messages:[],context:{}};};
+ const run=async answer=>(await runLiveCase(c,{chat,turn:turn(answer)})).checks;
+ for(const answer of[
+  '我的记录里没有 Blue Cash Everyday 的航班延误保障资料（not found），所以无法确认。这不代表它一定没有保障，具体以该卡的 guide to benefits 为准；这不是保险建议。',
+  '我的记录里没有找到 Blue Cash Everyday 的航班延误保障条目（not found）。这不代表它一定没有保障，具体以该卡的 guide to benefits 为准；以上不是保险建议。']){
+  const checks=await run(answer);
+  assert.ok(Object.values(checks).every(Boolean),JSON.stringify(checks));
+ }
+ assert.equal((await run('Blue Cash Everyday 没有保障。我的记录里没有找到，详见发卡行。')).avoidsWrongTotals,false,'a flat claim fails');
+ assert.equal((await run('Blue Cash Everyday 不在保障范围内，请看 guide to benefits。')).avoidsWrongTotals,false);
+ assert.equal((await run('这张卡航班延误有保障。')).coversNamedProgrammes,false,'no "no record" wording and no pointer fails');
+});
