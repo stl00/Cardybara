@@ -37,6 +37,8 @@ tr = i18n_catalog.load(root)
 def txt(zh, en):
     tr['en-US'].setdefault(zh, en)
     tr['zh-TW'].setdefault(zh, batch_script.traditional(zh))
+    # OpenCC mis-segments 列出租车 as 列計程車 (taxi); force the right zh-TW text.
+    tr['zh-TW'][zh] = tr['zh-TW'][zh].replace('官網產品頁列計程車', '官網產品頁列出租車')
     return zh
 
 
