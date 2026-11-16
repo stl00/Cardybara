@@ -181,3 +181,14 @@ test('a wallet holding a Strata card and a Venture card gets their recorded prot
  for(const id of ['citi-us-citi-custom-cash-card','citi-us-citi-aadvantage-platinum-select-card','capital-one-us-venture-x-rewards-credit-card'])assert.equal(queryKnowledge({productId:id,category:'protection'}).count,0,id);
  assert.ok(queryKnowledge({kind:'benefit',category:'protection'}).rules.filter(r=>/capital-one|citi-us/.test(r.productIds[0])).every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt==='2026-11-16'));
 });
+
+// #343: OpenCC reads 列出租车 as 列 + 出租车 (taxi); zh-TW must say 租車, never 計程車, there.
+test('zh-TW knowledge text keeps 租車 and does not turn it into 計程車 (#343)',()=>{
+ const zhTW=JSON.parse(readFileSync(new URL('../src/i18n/knowledge.json',import.meta.url)))['zh-TW'];
+ let checked=0;
+ for(const [zh,tw] of Object.entries(zhTW)){
+  if(/列出租车/.test(zh)){checked++;assert.ok(!tw.includes('計程車'),zh);assert.ok(tw.includes('列出租車'),zh);}
+  if(tw.includes('計程車'))assert.match(zh,/(?<!列)出租车/,zh);
+ }
+ assert.ok(checked>=1);
+});
