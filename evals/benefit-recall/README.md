@@ -382,6 +382,62 @@ Open choices for the owner: (a) accept 1.9 points of held-out recall (about 2 qu
 
 **Not wired into the assistant.** `runWalletTool` is synchronous and shared by the local chat, the cloud chat and the evals, so calling the judge from `find_benefits` needs an async path through `src/agentSession.js` and `src/cloudChat.js` and a place for the model client. That waits for step 1 to pass, so no user-visible behaviour changes yet.
 
+## Live re-measure after soft filters and routing (#290, 2026-11-15)
+
+One live run of `npm run eval:benefit-recall:live` from the `Live one-off measurement` workflow (run 43762741146, commit 7f8f822 on main after #145 and #180), owner-approved with a 0.50 USD cap. Model `deepseek-flash`, production system prompt and tools, synthetic portfolios only. 335 calls, 2.26M prompt tokens (95% cached), 31k output tokens: **about $0.083 at the assumed peak prices**. Model errors 0, failed requests 0, not run 0. Report: CI artifact `live-measure-recall` (`recall.json`: ids, tool names, `find_benefits` arguments and counts only). Everything below is read from that report. The same-ids and misfill numbers were computed offline from its stored calls, with no model and no spend; re-scoring the stored calls with the current search reproduces the live recall of every searching question exactly (121/121 dev, 96/96 held-out).
+
+**Which sets.** The sets have grown since the last live run. Dev is now 137 scored: the 120 of 2026-11-09 plus 17 scored questions of the `dev-business` portfolio from #162. Held-out is v2, 106 scored: v1's 50 plus 56 from #147. The run used the current files. To compare with the "before" column, the same report is also read on the old question ids: the 120 scored questions of `golden.json` at f919fad and the 50 scored questions of `holdout.json` v1 at cd6ca84.
+
+**The "before" column is not a new run.** It is the after-#140 live run of 2026-11-09 ("Real model, after step 3" above), reused as recorded. The #140 code was not run again, and that run's per-question report was not kept, so before-side numbers it did not record are `not_run`. Before-side recall counts `find_benefits` only, because crediting `query_credits` items came with step 4.
+
+| Recall@12 | before (after #140, 2026-11-09) | now, same question ids: find_benefits / + credits | now, current sets: find_benefits / + credits |
+| --- | --- | --- | --- |
+| Dev | 74.6 (n=120) | 82.8 / **84.8** (n=120) | 84.5 / **86.4** (n=137) |
+| Held-out | 69.5 (v1, n=50) | 81.0 / **83.0** (v1, n=50) | 88.7 / **89.6** (v2, n=106) |
+
+On the same questions the gain is +10.2 points on dev and +13.5 on held-out (+ credits against find_benefits only before; find_benefits alone, +8.2 and +11.5). Held-out v2 (89.6) is higher than v1 (83.0) on the same run, so the 56 newer questions are easier for this model; that difference is not a code effect. Read held-out live numbers as ±5–10 between runs (step 4).
+
+By language, find_benefits / + credits:
+
+| | en | zh-Hans | zh-Hant |
+| --- | --- | --- | --- |
+| Dev before (n=38 / 55 / 27) | 59.9 | 81.5 | 81.5 |
+| Dev now, same 120 ids (n=38 / 55 / 27) | 77.0 / 80.9 | 86.9 / 88.7 | 82.5 / 82.5 |
+| Dev now, 137 (n=46 / 60 / 31) | 79.9 / 83.2 | 88.0 / 89.7 | 84.7 / 84.7 |
+| Held-out before, v1 (n=21 / 18 / 11) | 71.4 | 70.8 | 63.6 |
+| Held-out now, same v1 ids (n=21 / 18 / 11) | 83.3 / 83.3 | 83.3 / 83.3 | 72.7 / 81.8 |
+| Held-out now, v2 (n=44 / 37 / 25) | 87.5 / 87.5 | 91.9 / 91.9 | 86.0 / 90.0 |
+
+English on dev, the weak side after step 3, gained the most (+17 on the same ids). Held-out zh-Hant v1 has 11 questions; one question is 9 points.
+
+**How the model filled the calls** (current sets, dev / held-out):
+
+| | before (after #140) | now |
+| --- | --- | --- |
+| Called `find_benefits` | 84% / 86% | **88.3% (121/137) / 90.6% (96/106)** |
+| No search at all | 16% / 14% | 11.7% (16) / 9.4% (10) |
+| Set a scenario or category, when searching | 96% / 95% | 92.6% / 90.6% |
+| Set a scenario, when searching | not_run | 57.9% (70/121) / 55.2% (53/96) |
+| Set a category, when searching | not_run | 64.5% (78/121) / 65.6% (63/96) |
+| **Scenario misfill**, share of questions that set one | not_run | **7.1% (5/70) / 3.8% (2/53)** |
+| **Category misfill**, share of questions that set one | not_run | **15.4% (12/78) / 22.2% (14/63)** |
+| Scenario or category misfilled, share of searching questions | not_run | 11.6% (14/121) / 16.7% (16/96) |
+| The model's filter cost recall (re-scored without it) | 11 of 101 / 7 of 43 (hard filters) | **3 of 121 / 0 of 96** (it helped 1 and 4) |
+| Wrote Chinese query words | 100% / 100% | 100% / 100% |
+| Forbidden hits · model errors | 2 questions (step 4) · not_run | 0% / 0% · 0 |
+| Precision (find_benefits) | not_run | 52.4% / 45.4% |
+
+A misfill is a scenario (or category) that none of the question's expected rules carries; with several calls, it counts only when every call that set one misses. By language (dev / held-out): scenario misfill en 1/23 / 1/24, zh-Hans 4/31 / 0/18, zh-Hant 0/16 / 1/11; category misfill en 4/29 / 4/24, zh-Hans 6/34 / 7/26, zh-Hant 2/15 / 3/13; called `find_benefits` en 87.0% / 88.6%, zh-Hans 90.0% / 91.9%, zh-Hant 87.1% / 92.0%.
+
+The model still picks a neighbouring scenario or category, category more often than scenario, but with soft filters that rarely costs recall: dropping the model's scenario and category would recover recall on 3 dev questions and lose it on 1; on held-out it would recover none and lose 4.
+
+**Where the remaining misses are.**
+- **No search, dev (16):** 10 questions called `find_protections` instead (rental car, trip delay, travel insurance, purchase and evacuation protection), and every one of them expects only `protection` rules. That is the dedicated tool for those questions, so this is a scoring gap like `query_credits` was before step 4, not a misroute; the eval scores them 0. Of the rest, 3 went to `query_credits` (credited where the items map back), 1 stopped at `list_cards`, 1 called no tool and 1 went to the points tools. Held-out (10, aggregate only): 4 called `find_protections`.
+- **Ceiling if protection answers were credited:** at most +7.3 points on dev (10/137) and +3.8 on held-out (4/106), depending on whether `find_protections` returned the expected cards.
+- **Searched but missed:** the report's `worst` list, for example a rideshare typo whose model query found other rules, and a chauffeur question filed under `airport`.
+
+**Decision for #131: it can close.** Its steps (held-out set, data fixes, vocabulary, tool contract) are merged, and the two follow-ups the 2026-11-09 live run named, (a) soft filters (#145) and (b) credit routing (#180), are now measured live: on the same questions recall rose from 74.6 to 84.8 on dev and from 69.5 to 83.0 on held-out, and the model's filters went from costing recall on 18 searching questions to 3. Held-out v2 is 89.6, less than one question below the 90% figure quoted in #290's status comment and well inside run-to-run noise. What is left of the live gap is mostly scoring and routing outside `find_benefits`, not retrieval. **Next step**, as a new issue rather than under #131: credit `find_protections` answers in the live recall eval the way step 4 credits `query_credits` items (map each returned protection to its rule by card and coverage type, at most 12, precision reported), then re-score this run's stored calls offline before any new live run. Category misfills (15–22%) are the next thing to watch after that; today they cost almost no recall.
+
 ## Findings
 
 1. **Query rewrite is needed.** Raw questions reach 69% recall, and a fifth of them return nothing. A good rewrite with filters reaches 99%. Most of that gain comes from the structured filters (B→C is +18 points), not from cleaner wording.
