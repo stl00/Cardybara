@@ -354,6 +354,8 @@ export const liveCases=[
  // #300: the card-year ledger question, run live on the same synthetic Reserve as ledger-card-year-hans (used 314, not captured 70).
  // The answer must carry the tool's two totals and never the 384 that adding the uncaptured cycles to the used ones would give.
  {id:'ledger-card-year',feeDates:reserveFee,events:reserveMarks,question:'我的 Sapphire Reserve 这个卡年 credit 返还了多少？已标记用掉的和没有记录的分开说。简短回答。',expectTool:'query_credits',expectedArgs:{yearBasis:'card-year'},answerPatterns:['(?<!\\d)314(?!\\d)','(?<!\\d)70(?!\\d)'],forbidAnswerPatterns:['(?<!\\d)384(?!\\d)']},
+ // #345: a held card with no protection record. The answer says no record was found and points to the issuer's guide; it never says "not covered".
+ {id:'coverage-no-record',heldProductIds:['amex-us-us-blue-cash-everyday'],question:'我的 Blue Cash Everyday 航班延误有保障吗？简短回答。',expectTool:'find_protections',answerPatterns:['没有[^。\\n]{0,12}记录|未找到|没有找到','保障指南|发卡行|發卡行|guide to benefits'],forbidAnswerPatterns:['没有[^。\\n]{0,6}保障|不[^。\\n]{0,2}保障|不在[^。\\n]{0,4}保障|未[^。\\n]{0,2}覆盖|不承保|not covered|no coverage']},
  {id:'credits-by-card',question:'我的 Sapphire Reserve 本期有哪些 credit？没标记的不要当成没用。',expectTool:'query_credits'},
  {id:'follow-up',question:'那换成加拿大，100加元的餐厅呢？简短回答。',memory:{lastPurchase:{category:'dining',country:'US',currency:'USD',amount:100}},expectTool:'choose_card',expectedArgs:{category:'dining',country:'CA',currency:'CAD',amount:100}}
 ];
