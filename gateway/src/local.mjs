@@ -2,9 +2,26 @@
 // packaged-extension E2E run the gateway's own code in Node. Never imported by the Worker itself.
 import {handle,UsageLedger,inviteKey} from './gateway.js';
 
-export function memoryKV(){
- const data=new Map();
- return {data,async get(key,options){const v=data.get(key);if(v==null)return null;return options?.type==='json'||options==='json'?JSON.parse(v):v;},async put(key,value){data.set(key,String(value));},async delete(key){data.delete(key);},async list(prefix=''){return [...data.keys()].filter(k=>k.startsWith(prefix));}};
+export function memoryKV({now=Date.now}={}){
+ const data=new Map(),meta=new Map(),expires=new Map();
+ const live=key=>{const e=expires.get(key);if(e!=null&&e<=now()/1000){data.delete(key);meta.delete(key);expires.delete(key);}return data.has(key);};
+ const read=(key,options)=>{if(!live(key))return null;const v=data.get(key);return options?.type==='json'||options==='json'?JSON.parse(v):v;};
+ return {data,meta,
+  async get(key,options){return read(key,options);},
+  async getWithMetadata(key,options){return {value:read(key,options),metadata:live(key)?meta.get(key)??null:null};},
+  async put(key,value,options={}){
+   data.set(key,String(value));meta.delete(key);expires.delete(key);
+   if(options.metadata!==undefined)meta.set(key,structuredClone(options.metadata));
+   if(Number.isInteger(options.expiration))expires.set(key,options.expiration);else if(Number.isInteger(options.expirationTtl))expires.set(key,Math.floor(now()/1000)+options.expirationTtl);
+  },
+  async delete(key){data.delete(key);meta.delete(key);expires.delete(key);},
+  // A string prefix gives the key names (the tests' own helper); an options object gives KV's {keys,list_complete,cursor}.
+  async list(arg=''){
+   const prefix=typeof arg==='string'?arg:arg.prefix||'';
+   const names=[...data.keys()].filter(k=>k.startsWith(prefix)&&live(k));
+   if(typeof arg==='string')return names;
+   return {keys:names.map(name=>({name,...(meta.has(name)?{metadata:structuredClone(meta.get(name))}:{})})),list_complete:true};
+  }};
 }
 // Storage that yields between every call, the way real storage I/O does, so a ledger without its queue
 // would interleave under parallel requests.
@@ -29,6 +46,6 @@ export async function addInvite(kv,code,record){
 /** A gateway on in-memory bindings. vars override the defaults; fetch is the upstream provider. */
 export function localGateway({vars={},fetch,log=()=>{},now,observe}={}){
  // A rate limiter that always allows; tests pass their own, or null to check the gateway refuses to run without one.
- const env={PROVIDER_KEY:'synthetic-provider-key-not-real',ALLOWED_MODELS:'deepseek-flash',RATE_LIMITER:{limit:async()=>({success:true})},...vars,INVITES:memoryKV(),USAGE:memoryDurableObject()};
+ const env={PROVIDER_KEY:'synthetic-provider-key-not-real',ALLOWED_MODELS:'deepseek-flash',RATE_LIMITER:{limit:async()=>({success:true})},...vars,INVITES:memoryKV({now:now||Date.now}),USAGE:memoryDurableObject()};
  return {env,handle:request=>handle(request,env,{fetch,log,now,observe}),addInvite:(code,record)=>addInvite(env.INVITES,code,record)};
 }
