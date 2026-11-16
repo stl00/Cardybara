@@ -4,6 +4,7 @@ import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
 import {confirmedOtherProgramme,requiredReward} from '../extension-next/mvp.js';
 import {readZipEntry} from './read-zip.mjs';
+import {openRegressionIssueCount} from './live-eval-evidence.mjs';
 const HOLDOUT=JSON.parse(readFileSync(new URL('../evals/holdout/manifest.json',import.meta.url),'utf8'));
 export const REQUIRED_CASES=['install','coldStart','manualAdd','bankDiscovery','bankReadback','restartPersistence','exportRecovery','cancel','expiredSession','upgradePersistence'];
 export const REQUIRED_BANKS=['Amex US','Amex HK','Chase','BOA','HSBC HK','SC HK','Citi US'];
@@ -35,7 +36,7 @@ export function candidateSourceCommit(cwd=process.cwd()){
  try{return execFileSync('git',['rev-parse','--verify','--quiet',`v${label}^{commit}`],{cwd,encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim();}
  catch{throw Error(`Release tag v${label} not found in this checkout`);}
 }
-export function validateAcceptance(report,{sha256,runtimeBuild,sourceCommit,banks=REQUIRED_BANKS,now=Date.now()}){
+export function validateAcceptance(report,{sha256,runtimeBuild,sourceCommit,banks=REQUIRED_BANKS,openRegressionIssues,now=Date.now()}){
  const errors=[];const need=(ok,why)=>{if(!ok)errors.push(why);};
  need(report?.schema===1,'invalid schema');need(report?.artifactSha256===sha256,'artifact changed or not tested');
  need(typeof runtimeBuild==='string'&&runtimeBuild!==''&&report?.runtimeBuild===runtimeBuild,'executing worker build not verified');
@@ -50,6 +51,13 @@ export function validateAcceptance(report,{sha256,runtimeBuild,sourceCommit,bank
  need(typeof sourceCommit==='string'&&/^[0-9a-f]{40}$/.test(sourceCommit)&&h?.sourceCommit===sourceCommit,'held-out assistant eval: not run on the candidate source');
  const ran=Date.parse(h?.ranAt);need(Number.isFinite(ran)&&ran<=now+60000&&now-ran<7*86400000,'held-out assistant eval: run date missing or stale');
  need(h?.mode==='offline'&&Number.isInteger(h?.passed)&&h?.total===HOLDOUT.caseCount&&h.passed>=0&&h.passed<=h.total&&Array.isArray(h.failed)&&h.failed.length===h.total-h.passed&&h.passed/h.total>=HOLDOUT.minPassRate,'held-out assistant eval: below the pass rate');
+ // The daily live eval on the real model must have succeeded on the tagged commit, recently, with no regression issue open (#302).
+ const l=report?.liveEval;
+ need(Number.isSafeInteger(Number(l?.runId))&&Number(l?.runId)>0,'live assistant eval: run missing');
+ need(l?.conclusion==='success','live assistant eval: run did not succeed');
+ need(typeof sourceCommit==='string'&&/^[0-9a-f]{40}$/.test(sourceCommit)&&l?.headSha===sourceCommit,'live assistant eval: not run on the candidate source');
+ const liveAt=Date.parse(l?.finishedAt);need(Number.isFinite(liveAt)&&liveAt<=now+60000&&now-liveAt<7*86400000,'live assistant eval: run date missing or stale');
+ need(openRegressionIssues===0,'live assistant eval: a live-eval-regression issue is open or could not be checked');
  for(const name of REQUIRED_CASES){const c=report?.cases?.[name];need(c?.status==='passed'&&c?.mode==='real-chrome'&&typeof c?.evidence==='string'&&c.evidence.trim().length>5,`${name}: real Chrome evidence required`);}
  for(const bank of banks){
   const b=report?.banks?.[bank];need(b?.status==='passed'&&Number.isInteger(b?.cardCount)&&b.cardCount>0&&b.runtimeBuild===runtimeBuild,`${bank}: real bank acceptance missing`);
@@ -67,9 +75,11 @@ export function validateAcceptance(report,{sha256,runtimeBuild,sourceCommit,bank
  }
  return {passed:errors.length===0,errors};
 }
+// Unknown (gh failed) stays undefined, which the gate treats as not clear.
+function regressionIssues(){try{return openRegressionIssueCount();}catch{return undefined;}}
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  const [zip,evidence,build]=process.argv.slice(2);if(!zip||!evidence||!build){console.error('Usage: node scripts/acceptance.mjs CANDIDATE.zip PRIVATE-ACCEPTANCE.json RUNTIME-BUILD');process.exit(1);}
- const bytes=readFileSync(zip),result=validateAcceptance(JSON.parse(readFileSync(evidence,'utf8')),{sha256:createHash('sha256').update(bytes).digest('hex'),runtimeBuild:build,sourceCommit:candidateSourceCommit(),banks:artifactBanks(bytes)});
+ const bytes=readFileSync(zip),result=validateAcceptance(JSON.parse(readFileSync(evidence,'utf8')),{sha256:createHash('sha256').update(bytes).digest('hex'),runtimeBuild:build,sourceCommit:candidateSourceCommit(),banks:artifactBanks(bytes),openRegressionIssues:regressionIssues()});
  if(artifactBuildId(bytes)!==build){result.passed=false;result.errors.push('runtime build is not the build in this artifact');}
  console.log(JSON.stringify(result,null,2));if(!result.passed)process.exitCode=1;
 }

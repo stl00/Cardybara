@@ -34,3 +34,19 @@ The two open failures were fixed as classes in `src/actionClaims.js` with new de
 - `ho-claims-status-en-v3`: an English claim that an elite status "now shows on your account". **Failed**: not caught; "shows on your account" is not a status-in-effect wording the code knows.
 
 One offline run on the branch: 22 of 27 passed (81%, gate at 80%). Besides the two new failures, three card-choice cases fail (`ho-choice-supermarket-cash-back`, `ho-choice-flight-points-unpriced`, `ho-choice-flight-points-priced`). They are not from this change: they fail the same way on `main` at `0f6df81` and first fail at `776b188` (#202, default point valuations), after the #157 run. They are tracked in #313, and the two new claim failures in #314; the gate margin is one case.
+
+## Rotation · 2026-11-15 (#313)
+
+The three card-choice failures were not code regressions. Their expectations were written for the old policy, where points were never priced unless the user gave a value. The owner changed that on 2026-11-11 (#193, #202): points are priced at a default market valuation unless the user states or sets their own. Each case passes on `main` with `marketDefaults:false` and fails with the defaults:
+
+- `ho-choice-supermarket-cash-back`: Gold's 4x MR at the default 1.5 cents (6%) now beats Blue Cash Everyday's 3%.
+- `ho-choice-flight-points-unpriced`: with no value given, MR is priced at the default, so the flight is ranked rather than shown as unpriced points.
+- `ho-choice-flight-points-priced`: MR is stated at 1 cent, but UR keeps its default 1.5 cents, so Sapphire Reserve's 4x (6%) beats the Platinum card's 5x at 1 cent (5%).
+
+No expectation was edited. The cases moved to `evals/fixtures.mjs` with their ids and checks as written, pinned to `marketDefaults:false` (the development eval now honours that flag per case), where they still test the comparison mechanics; three development cases next to them check the same purchases under the defaults. Their ids are listed under `retired`. Three replacement cases of the same kinds, under the current policy, were written and the manifest hash updated before the code was run against them:
+
+- `ho-choice-cash-beats-low-stated-value`: US supermarket with MR stated at 0.7 cents, so 3% cash beats Gold's 2.8%. Passed.
+- `ho-choice-hotel-default-value`: a US hotel booked direct with no value given, ranked at UR's default and labelled as a default. Passed.
+- `ho-choice-flight-stated-values`: a US flight with MR and UR both stated at 1 cent, so the Platinum card's 5x leads. Passed. Weaker evidence than the other two: the diagnosis for this issue had already shown the flight rows of these cards at other values.
+
+One offline run on the branch: 25 of 27 passed (93%, gate at 80%). The two failures are the open claim cases tracked in #314.
