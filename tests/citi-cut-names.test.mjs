@@ -10,7 +10,7 @@ test('a cut-off name that fits one product is matched, with "...", the ellipsis 
  for(const n of ['Citi® / AAdvantage® Exec…','Citi AAdvantage Exec...'])assert.equal(citi(n).product?.id,'citi-us-citi-aadvantage-executive-card',n);
 });
 test('a cut-off name that fits several products is ambiguous and offers them, never picked',()=>{
- for(const n of ['Citi Strat...','Citi Strat…']){const m=citi(n);assert.equal(m.status,'ambiguous',n);assert.equal(m.product,undefined);assert.deepEqual([...m.candidates].sort(),['citi-us-citi-strata-elite-card','citi-us-citi-strata-premier-card'],n);}
+ for(const n of ['Citi Strat...','Citi Strat…']){const m=citi(n);assert.equal(m.status,'ambiguous',n);assert.equal(m.product,undefined);assert.deepEqual([...m.candidates].sort(),['citi-us-citi-strata-card','citi-us-citi-strata-elite-card','citi-us-citi-strata-premier-card'],n);}
  const m=citi('Citi / AAdv...');assert.equal(m.status,'ambiguous');assert.ok(m.candidates.includes('citi-us-citi-aadvantage-executive-card')&&m.candidates.includes('citi-us-citi-aadvantage-platinum-select-card'));
 });
 test('a cut-off name that fits nothing, is too short, or belongs to another bank stays unknown',()=>{
