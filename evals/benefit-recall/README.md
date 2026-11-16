@@ -337,7 +337,7 @@ Pass condition, fixed before the live run: frozen-set mode A noise at most 20%, 
 
 **Frozen set, still noisy in mode A without the judge** (19 of 52, 36.5%): n-en-gas, n-en-pet, n-en-mortgage, n-en-ski, n-en-carwash, n-en-payroll, n-en-laptop, n-en-cowork, n-en-fx, n-en-concert, n-hans-pet, n-hans-gas, n-hans-car, n-hans-medical, n-hans-office, n-hans-insurance, n-hant-renovation, n-hant-cruise, n-hant-company. Mode C on the frozen set: 38%. These ids were listed after the judge prompt was fixed and are not to be used to change it.
 
-### Gated answer judge (#291, 2026-11-15): gate built and chosen on dev; offline re-score and live run still to do
+### Gated answer judge (#291, 2026-11-15): gate built and chosen on dev; offline re-score done and does not pass; live run not done
 
 **Why a gate.** The first live run (judge on every result) took frozen no-answer noise to 0% but cost 3.8 points of held-out and 7.4 of dev recall@12, because the judge sometimes rejects a question the search had answered well. The judge is now asked only when the deterministic search is weak.
 
@@ -363,6 +363,22 @@ The chosen row keeps 90% of the dev noise reachable while cutting exposure from 
 **Not done yet (both need the owner).**
 1. Offline re-score from the stored verdicts of run 43762730684. The script supports it: download the `live-measure-judge` artifact (ids, counts and yes/no only) and run `node scripts/eval-benefit-judge.mjs --from-report=live-measure/benefit-judge.json`. No model, no key, no spend. A question the gate asks about but the stored run has no verdict for is counted as unknown (keeps its rules) and listed. Paste the resulting table here; the pass condition from #291 is frozen noise at most 20%, held-out recall@12 within 1 point of 93.8%, dev within 2 points of 98.2%. If it fails, try another row of the table above with `--top-score` / `--worded` before touching anything else.
 2. A confirmation live run needs a fresh owner approval (cap 0.20 USD): trigger the `Live one-off measurement` workflow with `judge`; it now runs the gated judge by default.
+
+**Offline re-score on the stored verdicts of run 43762730684 (2026-11-15, no model, no spend, `unknown` = 0 so every gated question had a stored verdict).** Pass condition from #291: frozen noise at most 20%, held-out recall@12 within 1 point of 93.8% (at least 92.8), dev within 2 points of 98.2% (at least 96.2).
+
+| policy (weak when) | dev recall@12 | dev noise | held-out recall@12 | held-out noise (n=9) | frozen noise | judge asked (dev / held-out / frozen) | passes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| no judge | 98.2 | 30.9 | 93.8 | 22.2 | 36.5 | 0 | - |
+| always (live run as stored) | 90.8 | 0.0 | 90.0 | 11.1 | 0.0 | 76.8 / 89.6 / 36.5 | no |
+| **chosen: no worded match and top score < 15** | 97.5 | 2.9 | **91.9** | 22.2 | 15.4 | 26.1 / 17.4 / 21.2 | frozen yes, dev yes, **held-out no (-1.9)** |
+| no worded match and top score < 20 | 97.5 | 2.9 | 91.9 | 11.1 | 15.4 | 30.0 / 25.2 / 21.2 | held-out no |
+| no worded match and top score < 12 | 97.5 | 10.3 | 91.9 | 22.2 | 17.3 | 17.4 / 13.9 / 19.2 | held-out no |
+| no worded match and top score < 10 | 97.5 | 14.7 | 91.9 | 22.2 | 17.3 | 13.0 / 12.2 / 19.2 | held-out no |
+| top score < 15 only | 93.9 | 1.5 | 91.9 | 22.2 | 1.9 | 36.7 / 33.9 / 34.6 | dev no, held-out no |
+
+**Verdict: the chosen gate does not pass.** Noise on the frozen set (15.4%) and dev recall (97.5, -0.7) are fine and the judge is asked on only about a fifth of questions, but held-out recall@12 is 91.9, 1.9 points below no-judge, 0.9 short of the limit. Every gated policy tried lands on the same 91.9, so the loss comes from the same held-out questions that the judge rejects inside the gate, not from where the threshold sits; moving `--top-score` or `--worded` does not fix it. The rows other than the chosen one are reported for transparency only: picking one of them because of its held-out number would be tuning on the held-out set, so none was adopted. The judge stays out of the assistant.
+
+Open choices for the owner: (a) accept 1.9 points of held-out recall (about 2 questions of the 100-odd scored) for 15% frozen noise, (b) keep the judge out and look for another signal, or (c) improve the judge prompt using dev only and re-measure, which needs a fresh live run (cap 0.20 USD). No live run was done here.
 
 **Not wired into the assistant.** `runWalletTool` is synchronous and shared by the local chat, the cloud chat and the evals, so calling the judge from `find_benefits` needs an async path through `src/agentSession.js` and `src/cloudChat.js` and a place for the model client. That waits for step 1 to pass, so no user-visible behaviour changes yet.
 
