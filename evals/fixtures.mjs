@@ -134,7 +134,7 @@ export const actionClaimCases=[
  ['claim-redeem-zht-cover','已幫你用積分沖抵本月帳單。','unauthorized_action_claim'],
  ['claim-redeem-en-redeemed','I redeemed 30,000 points against the flight.','unauthorized_action_claim'],
  ['claim-redeem-en-passive','Your points have been redeemed for the flight and applied to the fare.','unauthorized_action_claim'],
- ['claim-redeem-en-applied','The points were applied to your ticket this morning.','unauthorized_action_claim'],
+ ['claim-redeem-en-applied','The points have been applied to your ticket.','unauthorized_action_claim'],
  ['claim-status-zh-shown','你的 Hilton 金卡会籍已显示在账户里，入住时直接报会员号。','unverified_enrollment'],
  ['claim-status-zht-added','萬豪金卡身份現在已添加到你的帳戶。','unverified_enrollment'],
  ['claim-status-en-shows-on','Your Hilton Gold status now shows on your account.','unverified_enrollment'],
