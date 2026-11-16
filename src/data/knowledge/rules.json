@@ -90335,5 +90335,283 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-american-express-gold-card.trip-delay",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-american-express-gold-card.trip-delay@2026-11-16.2",
+    "supersedes": "rule.amex-us-us-american-express-gold-card.trip-delay@2026-11-15.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-american-express-gold-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "往返行程全额用符合资格的卡支付、因承保原因延误超过 12 小时时，可报销同一张卡支付的部分额外费用，每次旅行最高 $300，每张符合资格的卡每连续 12 个月最多 2 次理赔；承保方为 New Hampshire Insurance Company（AIG 旗下）。保障摘要；除外责任、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "往返行程全额用符合资格的卡支付、因承保原因延误超过 12 小时时，可报销同一张卡支付的部分额外费用，每次旅行最高 $300，每张符合资格的卡每连续 12 个月最多 2 次理赔；承保方为 New Hampshire Insurance Company（AIG 旗下）。保障摘要；除外责任、地域和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay Insurance",
+      "summary": "When a round-trip is paid for entirely with the Eligible Card and a covered reason delays the trip more than 12 hours, it can reimburse certain additional expenses bought on the same card, up to $300 per trip, with at most 2 claims per Eligible Card per 12 consecutive months. Underwritten by New Hampshire Insurance Company, an AIG Company.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-american-express-gold-card",
+          "text": "If a round-trip is paid for entirely with your Eligible Card and a covered reason delays your trip more than 12 hours,"
+        },
+        {
+          "sourceId": "card-amex-us-us-american-express-gold-card",
+          "text": "up to $300 per trip, maximum 2 claims per Eligible Card per 12 consecutive month period."
+        },
+        {
+          "sourceId": "card-amex-us-us-american-express-gold-card",
+          "text": "Coverage is provided by New Hampshire Insurance Company, an AIG Company."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "往返行程全额用符合资格的卡支付、因承保原因延误超过 12 小时时，可报销同一张卡支付的部分额外费用，每次旅行最高 $300，每张符合资格的卡每连续 12 个月最多 2 次理赔；承保方为 New Hampshire Insurance Company（AIG 旗下）。保障摘要；除外责任、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-american-express-gold-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-american-express-gold-card.rental",
+    "revision": 2,
+    "revisionId": "rule.amex-us-us-american-express-gold-card.rental@2026-11-16.2",
+    "supersedes": "rule.amex-us-us-american-express-gold-card.rental@2026-11-15.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-american-express-gold-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "用符合资格的卡预订并支付全部租金、并在租车柜台拒绝 CDW 时，可保障承保地区内租赁车辆的损坏或被盗；属次要保障，不含责任险；澳大利亚、意大利和新西兰租的车不在保障内。保障摘要；除外责任、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "用符合资格的卡预订并支付全部租金、并在租车柜台拒绝 CDW 时，可保障承保地区内租赁车辆的损坏或被盗；属次要保障，不含责任险；澳大利亚、意大利和新西兰租的车不在保障内。保障摘要；除外责任、地域和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Loss and Damage Insurance",
+      "summary": "When you use the Eligible Card to reserve and pay for the entire rental and decline the collision damage waiver at the counter, it covers damage to or theft of a rental vehicle in a covered territory. It is secondary coverage and does not include liability. Vehicles rented in Australia, Italy and New Zealand are not covered.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-american-express-gold-card",
+          "text": "When you use your Eligible Card to reserve and pay for the Entire Rental and decline the collision damage waiver (CDW)"
+        },
+        {
+          "sourceId": "card-amex-us-us-american-express-gold-card",
+          "text": "This product provides secondary coverage and does not include liability coverage."
+        },
+        {
+          "sourceId": "card-amex-us-us-american-express-gold-card",
+          "text": "Coverage is not available for vehicles rented in Australia, Italy, and New Zealand."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "secondary",
+        "requiresCardPayment": null,
+        "exclusions": [
+          "Coverage is not available for vehicles rented in Australia, Italy, and New Zealand."
+        ]
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用符合资格的卡预订并支付全部租金、并在租车柜台拒绝 CDW 时，可保障承保地区内租赁车辆的损坏或被盗；属次要保障，不含责任险；澳大利亚、意大利和新西兰租的车不在保障内。保障摘要；除外责任、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-american-express-gold-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-american-express-gold-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-american-express-gold-card.lost-luggage@2026-11-16.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-american-express-gold-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李遗失赔偿",
+      "summary": "用符合资格的卡支付全部公共交通（飞机、火车、轮船、巴士）车票后，随身或托运行李遗失、损坏或被盗可获赔，随身行李最高 $1,250、托运行李最高 $500，在承运人赔付之外补充；纽约州另有每次旅行全体受保人合计 $10,000 的上限。保障摘要；除外责任、地域和理赔条件须查完整保障指南。",
+      "howToUse": [
+        "用符合资格的卡支付全部公共交通（飞机、火车、轮船、巴士）车票后，随身或托运行李遗失、损坏或被盗可获赔，随身行李最高 $1,250、托运行李最高 $500，在承运人赔付之外补充；纽约州另有每次旅行全体受保人合计 $10,000 的上限。保障摘要；除外责任、地域和理赔条件须查完整保障指南。",
+        "该条目仅为官网产品页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Insurance Plan",
+      "summary": "When the entire fare of a common carrier ticket (plane, train, ship or bus) is bought on an Eligible Card, lost, damaged or stolen baggage is covered up to $1,250 for carry-on and $500 for checked baggage, in excess of what the carrier provides. In New York there is a $10,000 aggregate limit for all covered persons per trip.",
+      "howToUse": [
+        "This is a summary of the official product page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-american-express-gold-card",
+          "text": "when you purchase the Entire Fare for a Common Carrier Vehicle ticket"
+        },
+        {
+          "sourceId": "card-amex-us-us-american-express-gold-card",
+          "text": "up to $1,250 for carry-on Baggage and up to $500 for checked Baggage."
+        },
+        {
+          "sourceId": "card-amex-us-us-american-express-gold-card",
+          "text": "there is a $10,000 aggregate maximum limit for all Covered Persons per Covered Trip."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用符合资格的卡支付全部公共交通（飞机、火车、轮船、巴士）车票后，随身或托运行李遗失、损坏或被盗可获赔，随身行李最高 $1,250、托运行李最高 $500，在承运人赔付之外补充；纽约州另有每次旅行全体受保人合计 $10,000 的上限。保障摘要；除外责任、地域和理赔条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-american-express-gold-card"
+      ],
+      "checkedAt": "2026-11-16",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-16",
+      "reviewAfter": "2027-02-14",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]

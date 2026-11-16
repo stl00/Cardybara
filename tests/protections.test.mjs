@@ -111,16 +111,18 @@ test('a wallet holding an Ink card and a co-brand business card gets the newly r
 // #306: Amex US pages that name protections; most Amex pages return no benefit text signed out.
 test('a wallet holding Platinum and a Delta card gets Platinum protections with sources and Delta stays not_found (#306)',()=>{
  const held=[{id:'plat',name:'The Platinum Card',bank:'Amex US',region:'US',currency:'USD'},{id:'dg',name:'Delta SkyMiles Gold Card',bank:'Amex US',region:'US',currency:'USD'},{id:'gold',name:'American Express Gold Card',bank:'Amex US',region:'US',currency:'USD'}];
- const ctx={cards:held,events:[],day:'2026-11-15',language:'en'};
+ const ctx={cards:held,events:[],day:'2026-11-16',language:'en'};
  const all=runWalletTool(call('find_protections',{}),ctx);
  const card=name=>all.cards.find(c=>c.name===name);
  assert.deepEqual(card('The Platinum Card').coverageTypes.sort(),['rental-car','trip-cancellation','trip-delay']);
- assert.deepEqual(card('American Express Gold Card').coverageTypes.sort(),['rental-car','trip-delay']);
+ assert.deepEqual(card('American Express Gold Card').coverageTypes.sort(),['lost-luggage','rental-car','trip-delay']);
  assert.equal(card('Delta SkyMiles Gold Card').status,'not_found');
  assert.ok(all.rules.every(r=>r.sources.length&&r.sources.every(s=>s.url.startsWith('https://www.americanexpress.com/'))));
  // A heading on the page is not terms: no basis, payment condition or exclusions are claimed.
  const rental=runWalletTool(call('find_protections',{type:'rental-car'}),ctx);
- assert.equal(rental.rules.length,2);assert.ok(rental.rules.every(r=>r.basis==='not-stated'&&r.requiresCardPayment!==true));
+ assert.equal(rental.rules.length,2);assert.ok(rental.rules.every(r=>r.requiresCardPayment!==true));
+ // Platinum's page shows only the heading, so no basis; Gold's page states it is secondary (#326).
+ assert.deepEqual(rental.rules.map(r=>r.basis).sort(),['not-stated','secondary']);
  assert.equal(queryKnowledge({productId:'amex-us-us-business-platinum-card',category:'protection'}).count,0);
 });
 
@@ -143,4 +145,20 @@ test('lost luggage reimbursement is a coverage type recorded from the pages that
  // Pages that showed only a heading record nothing, never a sibling's protections.
  for(const id of ['united-explorer-card','united-quest','ihg-premier','iberia-visa-signature-credit-card','disney-inspire-visa-card','prime-visa'])
   assert.equal(queryKnowledge({productId:'chase-us-'+id,category:'protection'}).count,0,id);
+});
+
+// #326: the Gold page text read on 2026-11-16 states limits, so Gold's rules are revision 2; pages that still show no text stay unrecorded.
+test('Amex Gold protections carry the terms its product page states and the others stay unknown (#326)',()=>{
+ assert.deepEqual(validateKnowledge().errors,[]);
+ const rules=queryKnowledge({productId:'amex-us-us-american-express-gold-card',category:'protection'}).rules;
+ const by=t=>rules.find(r=>r.terms.coverage.type===t);
+ assert.equal(rules.length,3);
+ assert.equal(by('rental-car').revision,2);assert.equal(by('rental-car').terms.coverage.basis,'secondary');
+ assert.deepEqual(by('rental-car').terms.coverage.exclusions,['Coverage is not available for vehicles rented in Australia, Italy, and New Zealand.']);
+ assert.equal(by('trip-delay').revision,2);assert.match(by('trip-delay').original.summary,/12 hours.*\$300 per trip/);
+ const bag=by('lost-luggage');assert.equal(bag.revision,1);assert.match(bag.original.summary,/\$1,250 for carry-on and \$500 for checked/);
+ assert.ok(rules.every(r=>r.evidence.checkedAt==='2026-11-16'&&r.evidence.verification==='official-summary'&&r.evidence.fullTermsReviewed===false));
+ // Platinum's page still shows only headings: nothing beyond the type is claimed.
+ const plat=queryKnowledge({productId:'amex-us-us-the-platinum-card',category:'protection'}).rules;
+ assert.equal(plat.length,3);assert.ok(plat.every(r=>r.terms.coverage.basis===null&&r.revision===1));
 });
