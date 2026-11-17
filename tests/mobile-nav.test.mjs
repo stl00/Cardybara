@@ -35,7 +35,7 @@ const shots = process.env.CARDYBARA_SHOTS ? resolve(process.env.CARDYBARA_SHOTS)
 const PAGES = ['overview', 'wallet', 'advisor', 'credits', 'rewards', 'settings', 'release'];
 
 // Same Chrome rule as the first-run test: skip with the reason when Chrome cannot start, never on GitHub Actions.
-const drawerOpen = `(()=>{const d=document.querySelector('.more-drawer');if(!d)return false;const r=d.getBoundingClientRect(),s=getComputedStyle(d);return r.width>0&&s.visibility!=='hidden'&&!!d.querySelector('[data-nav-key],[data-action]')})()`;
+const drawerOpen = `(()=>{const d=document.querySelector('.more-drawer');if(!d)return false;const sec=d.querySelector('.ant-drawer-section')||d,r=sec.getBoundingClientRect(),root=d.closest('.ant-drawer')||d;return (root.classList.contains('ant-drawer-open')||!root.classList.contains('ant-drawer'))&&r.width>0&&r.top<innerHeight&&getComputedStyle(sec).visibility!=='hidden'&&!!d.querySelector('[data-nav-key],[data-action]')})()`;
 const chrome = await findChrome().then(() => { ensureBuild(); return withPhone(async c => {
   await c.goto('/');
   await c.pause(500);
@@ -124,7 +124,7 @@ for (const lang of LANGS) {
         await openMore(c);
         await shot(c, `${lang}-375-more-from-${from}`);
         const entries = await c.evaluate(`[...document.querySelectorAll('.more-drawer [data-nav-key],.more-drawer [data-action]')].map(e=>e.dataset.navKey?'nav:'+e.dataset.navKey:'action:'+e.dataset.action)`);
-        for (const need of ['nav:rewards', 'action:export', 'action:import', 'action:language', 'action:settings']) assert.ok(entries.includes(need), `${lang}: the drawer offers ${need} (has ${entries})`);
+        for (const need of ['nav:rewards', 'nav:catalog', 'action:export', 'action:import', 'action:language']) assert.ok(entries.includes(need), `${lang}: the drawer offers ${need} (has ${entries})`);
         // Pages and Settings are tapped; export and import would open a download or a file chooser, so for those the second tap is shown to be possible.
         for (const sel of ['.more-drawer [data-nav-key="rewards"]', '.more-drawer [data-action="settings"],.more-drawer [data-nav-key="settings"]']) {
           if (!(await c.evaluate(drawerOpen))) await openMore(c);
@@ -136,6 +136,7 @@ for (const lang of LANGS) {
           if (await c.evaluate(drawerOpen)) await c.pause(300);
         }
         if (!(await c.evaluate(drawerOpen))) await openMore(c);
+        assert.ok(entries.includes('action:settings') || entries.includes('nav:settings'), `${lang}: the drawer offers Settings (has ${entries})`);
         const others = await rects(c, '.more-drawer [data-action="export"],.more-drawer [data-action="import"],.more-drawer [data-action="language"]');
         assert.equal(others.length, 3, `${lang}: export, import and language are visible in the open drawer`);
       }
@@ -146,15 +147,18 @@ for (const lang of LANGS) {
     await phone(lang, async c => {
       await c.goto('/');
       const small = a => a.filter(r => r.w < 43.5 || r.h < 43.5).map(r => `${Math.round(r.w)}x${Math.round(r.h)}`);
-      assert.deepEqual(small(await rects(c, '.mobile-tabbar [data-nav-key]')), [], `${lang}: tab bar targets under 44 px`);
+      const tabs = await rects(c, '.mobile-tabbar [data-nav-key]');
+      assert.equal(tabs.length, 5, `${lang}: five tab targets`);
+      assert.deepEqual(small(tabs), [], `${lang}: tab bar targets under 44 px`);
       if (!ready[499]) return;
       await openMore(c);
-      assert.deepEqual(small(await rects(c, '.more-drawer [data-nav-key],.more-drawer [data-action]')), [], `${lang}: drawer targets under 44 px`);
-      assert.ok((await rects(c, '.mobile-tabbar [data-nav-key]')).length >= 0);
+      const targets = await rects(c, '.more-drawer [data-nav-key],.more-drawer [data-action]');
+      assert.ok(targets.length >= 5, `${lang}: drawer targets found (${targets.length})`);
+      assert.deepEqual(small(targets), [], `${lang}: drawer targets under 44 px`);
     });
   });
 
-  test(`${lang} 375 px: tab bar, pet, chat composer and drawer do not overlap`, opts(498, 501), async () => {
+  test(`${lang} 375 px: tab bar, pet, chat composer and drawer do not overlap`, opts(498), async () => {
     await phone(lang, async c => {
       await c.goto('/');
       for (const key of PAGES) {
@@ -164,17 +168,24 @@ for (const lang of LANGS) {
         assert.ok(bar, `${lang} ${key}: tab bar`);
         const others = {pet: await rects(c, '.capy-companion,.capy-restore'), composer: await rects(c, '.chat-composer-area')};
         for (const [name, list] of Object.entries(others)) for (const r of list) assert.ok(!hit(bar, r), `${lang} ${key}: ${name} overlaps the tab bar`);
+        // The pet is checked from #501 on: it must exist on overview, and the assistant page hides it.
+        if (ready[501]) assert.equal(others.pet.length, key === 'advisor' ? 0 : 1, `${lang} ${key}: pet count`);
+        if (!ready[501]) others.pet.length = 0;
         for (const p of others.pet) for (const m of others.composer) assert.ok(!hit(p, m), `${lang} ${key}: pet overlaps the chat composer`);
         if (key === 'advisor') assert.equal(others.composer.length, 1, `${lang}: the advisor shows its composer`);
         if (key === 'advisor') await shot(c, `${lang}-375-advisor-overlap`);
       }
       if (!ready[499]) return;
-      await goPage(c, 'overview');
-      await openMore(c);
-      const drawer = (await rects(c, '.more-drawer .ant-drawer-section')).concat(await rects(c, '.more-drawer.ant-drawer-section'))[0];
-      assert.ok(drawer, `${lang}: the drawer panel is measurable`);
-      for (const p of await rects(c, '.capy-companion,.capy-restore')) assert.ok(!hit(drawer, p), `${lang}: pet overlaps the open drawer`);
-      for (const m of await rects(c, '.chat-composer-area')) assert.ok(!hit(drawer, m), `${lang}: composer overlaps the open drawer`);
+      for (const from of ['overview', 'advisor']) {
+        await goPage(c, from);
+        await openMore(c);
+        const drawer = (await rects(c, '.more-drawer .ant-drawer-section')).concat(await rects(c, '.more-drawer.ant-drawer-section'))[0];
+        assert.ok(drawer, `${lang}: the drawer panel is measurable`);
+        if (ready[501]) for (const p of await rects(c, '.capy-companion,.capy-restore')) assert.ok(!hit(drawer, p), `${lang} ${from}: pet overlaps the open drawer`);
+        for (const m of await rects(c, '.chat-composer-area')) assert.ok(!hit(drawer, m), `${lang} ${from}: composer overlaps the open drawer`);
+        await c.tap('.more-drawer .ant-drawer-mask, .ant-drawer-mask').catch(() => {});
+        await c.pause(400);
+      }
     });
   });
 
@@ -203,9 +214,8 @@ for (const lang of LANGS) {
       assert.ok(a.sw <= DESKTOP.width, `${lang}: horizontal scroll at 1280 px`);
       await shot(c, `${lang}-1280-overview`);
       if (!ready[497]) return;
-      const nav = await import('../src/navigation.js');
-      const expected = [...nav.primary, ...nav.more].map(i => i.key).filter(k => k !== 'connections');
-      assert.deepEqual(a.keys.filter(k => expected.includes(k)), expected, `${lang}: sider order equals primary + more`);
+      // #497's own unit test pins the config; here only what the user sees: the four primary pages lead the sider.
+      assert.deepEqual(a.keys.slice(0, 4), ['overview', 'wallet', 'advisor', 'credits'], `${lang}: sider starts with the primary pages (has ${a.keys})`);
     });
   });
 }
