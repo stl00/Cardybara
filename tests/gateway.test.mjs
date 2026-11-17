@@ -310,7 +310,11 @@ test('caps can be changed in KV without a deploy; bad values are ignored',async(
  assert.equal((await h.handle(post(ROUTES.chat))).status,200);assert.equal((await h.handle(post(ROUTES.chat))).status,429);
 });
 test('the router lists each route once per method; the agent route sits beside the proxy',()=>{
- assert.deepEqual(ROUTE_TABLE.map(r=>[r.path,r.method]),[[ROUTES.invite,'POST'],[ROUTES.agent,'POST'],[ROUTES.chat,'POST'],[ROUTES.push,'PUT'],[ROUTES.push,'DELETE'],[ROUTES.pushKey,'GET']]);
+ // The /v1 routes are unchanged (older builds keep working); the account routes (#412) are all under /v2/account.
+ const v1=ROUTE_TABLE.filter(r=>r.path.startsWith('/v1/')),v2=ROUTE_TABLE.filter(r=>!r.path.startsWith('/v1/'));
+ assert.deepEqual(v1.map(r=>[r.path,r.method]),[[ROUTES.invite,'POST'],[ROUTES.agent,'POST'],[ROUTES.chat,'POST'],[ROUTES.push,'PUT'],[ROUTES.push,'DELETE'],[ROUTES.pushKey,'GET']]);
+ assert.ok(v2.length&&v2.every(r=>r.path===ROUTES.account||r.path.startsWith(ROUTES.account+'/')));
+ assert.equal(new Set(ROUTE_TABLE.map(r=>r.path+' '+r.method)).size,ROUTE_TABLE.length);
  assert.ok(ROUTE_TABLE.every(r=>!('auth' in r)),'no route needs a credential');
 });
 

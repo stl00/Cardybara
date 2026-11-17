@@ -4644,6 +4644,146 @@
       "checkedAt": "2026-11-16",
       "verification": "issuer-listed",
       "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-active-cash-card",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo Active Cash® Card",
+      "aliases": [
+        "Wells Fargo Active Cash® Card",
+        "Wells Fargo Active Cash Card",
+        "Active Cash® Card",
+        "Active Cash Card",
+        "Active Cash",
+        "Wells Fargo Active Cash"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.wellsfargo.com/active-cash-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-autograph-card",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo Autograph® Card",
+      "aliases": [
+        "Wells Fargo Autograph® Card",
+        "Wells Fargo Autograph Card",
+        "Autograph® Card",
+        "Autograph Card",
+        "Autograph",
+        "Wells Fargo Autograph"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.wellsfargo.com/autograph-visa-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-reflect-card",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo Reflect® Card",
+      "aliases": [
+        "Wells Fargo Reflect® Card",
+        "Wells Fargo Reflect Card",
+        "Reflect® Card",
+        "Reflect Card",
+        "Reflect",
+        "Wells Fargo Reflect"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://creditcards.wellsfargo.com/reflect-visa-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-one-key-card",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo One Key® Card",
+      "aliases": [
+        "Wells Fargo One Key® Card",
+        "Wells Fargo One Key Card",
+        "One Key® Card",
+        "One Key Card",
+        "One Key",
+        "Wells Fargo One Key"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.wellsfargo.com/one-key-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-choice-privileges-mastercard",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo Choice Privileges® Mastercard®",
+      "aliases": [
+        "Wells Fargo Choice Privileges® Mastercard®",
+        "Wells Fargo Choice Privileges Mastercard",
+        "Choice Privileges® Mastercard®",
+        "Choice Privileges Mastercard",
+        "Choice Privileges",
+        "Wells Fargo Choice Privileges"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.wellsfargo.com/choice-hotel-privileges-mastercard/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-choice-privileges-select-mastercard",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo Choice Privileges® Select Mastercard®",
+      "aliases": [
+        "Wells Fargo Choice Privileges® Select Mastercard®",
+        "Wells Fargo Choice Privileges Select Mastercard",
+        "Choice Privileges® Select Mastercard®",
+        "Choice Privileges Select Mastercard",
+        "Choice Privileges Select",
+        "Wells Fargo Choice Privileges Select"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.wellsfargo.com/choice-hotels-privileges-select-mastercard/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-signify-business-cash-card",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo Signify Business Cash® Card",
+      "aliases": [
+        "Wells Fargo Signify Business Cash® Card",
+        "Wells Fargo Signify Business Cash Card",
+        "Signify Business Cash® Card",
+        "Signify Business Cash Card",
+        "Signify Business Cash",
+        "Wells Fargo Signify Business Cash"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.wellsfargo.com/business-credit-cards/signify-business-cash-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
     }
   ]
 }

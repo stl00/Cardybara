@@ -243,11 +243,65 @@ The hosted web wallet's reminders (#373, #380) are Web Push. The ui side (servic
 - **Log line:** route `push`, status and `times` (the count of fire times); the endpoint, keys and device id are never logged. The cron logs counts only (`due`, `sent`, `gone`, `failed`, `expired`).
 - **Free tier at 100 devices:** the cron is 96 invocations a day and 96 KV list calls (free limit 1,000 a day). KV reads are the due devices only (about 100 a day if each fires once; free limit 100,000). Writes are one per wallet update plus one per send (a few hundred a day at most; free limit 1,000), and the gateway already runs on Workers Paid, which includes millions of each. No new paid product.
 
+## Accounts (`/v2/account`)
+
+Email and password accounts and one server copy of the wallet document per user (#412, epic #410). Code: `gateway/src/accounts.js`; schema: `gateway/migrations/0001_accounts.sql`; tests: `tests/gateway-accounts.test.mjs`. Per-user access, document schema, export and the log-capture test are #413 ("Who can see what" below). The `/v1` routes are unchanged.
+
+- **Routes** (JSON bodies, checked key by key; anything else is `400 bad_request`; the session is `Authorization: Bearer cbs_…`, never a cookie):
+
+  | Route | Body | Answer |
+  | --- | --- | --- |
+  | `POST /v2/account/signup` | `{email, password}` | `202 {status:"code_sent"}` always; mails a 6-digit code. An email that already has a verified account gets a notice mail instead (no code), so the answer never tells whether an account exists |
+  | `POST /v2/account/verify` | `{email, code}` | `200 {token, expiresAt}`: email verified, signed in |
+  | `POST /v2/account/session` | `{email, password}` | sign in: `200 {token, expiresAt}`; unknown email and wrong password are both `401 invalid_credentials`; right password, unverified email `403 email_unverified` |
+  | `DELETE /v2/account/session` | bearer | `200`: this session signed out |
+  | `POST /v2/account/password/forgot` | `{email}` | `202` always; a reset code is mailed only if the account exists |
+  | `POST /v2/account/password/reset` | `{email, code, password}` | `200 {token, expiresAt}`: new password, **every** older session revoked |
+  | `POST /v2/account/password` | bearer, `{currentPassword, newPassword}` | `200`: every other session revoked, this one kept |
+  | `GET /v2/account/wallet` | bearer | `200 {revision, formatVersion, document, updatedAt}`; revision 0 and `document: null` before the first write |
+  | `PUT /v2/account/wallet` | bearer, `{baseRevision, formatVersion, document}` | `200 {revision, size}` if `baseRevision` is the stored revision (0 for none); otherwise `409 {error:{code:"stale_revision", revision}}`; over `WALLET_MAX_BYTES` (default 512 KiB) `413 too_large`; a document outside the schema `422 invalid_document` |
+  | `GET /v2/account/export` | bearer | `200 {account, credentials, wallet, sessions, pendingEmailCodes}`: everything the server holds for this user (the password hash is named, not shown) |
+  | `DELETE /v2/account` | bearer, `{password}` | `200`: every row of the user in every table deleted |
+
+- **Passwords:** at least 10 characters, PBKDF2-SHA256 through WebCrypto with a random 16-byte salt per user and 100,000 iterations (the most Workers' WebCrypto allows; the count is stored per user so a later raise can rehash on sign-in). An unknown email still spends one hash so its answer takes as long as a wrong password.
+- **Email codes:** 6 digits, uniform; stored only as an HMAC keyed by the secret `ACCOUNT_SECRET`; 10 minutes; one use; deleted after 5 wrong tries (`code_invalid`, `code_expired`).
+- **Sessions:** 32 random bytes; only their SHA-256 is stored; 30 days.
+- **Limits:** every route goes through `RATE_LIMITER` per client like the `/v1` routes. Per email (keyed by an HMAC of the email in `auth_limits`, the same for emails with no account): 5 failed sign-ins within 15 minutes lock sign-in for 15 minutes, even with the right password (`429 account_locked` with `Retry-After`); at most 5 code mails an hour (`429 too_many_codes`).
+- **Tables:** `users` (id, email, verified, password hash, salt, iterations), `email_codes`, `sessions`, `wallets` (`user_id`, `revision`, `document` JSON, `format_version`, `size`, `updated_at`), `auth_limits`. Deleting an account empties all five for the user (tested).
+- **Log line:** route (`account_*`), status, error code, `user` (first 16 hex of an HMAC of the session's user id) and `size` (blob bytes). No email, password, code, token or wallet content (tested with a capture of every line).
+- **Until configured** the account routes answer `503 account_unavailable`: they need the D1 binding `DB`, the `send_email` binding `EMAIL`, the var `ACCOUNT_EMAIL_FROM` and the secret `ACCOUNT_SECRET` (at least 16 characters). The top-level environment in `gateway/wrangler.jsonc` has none of them yet, so deploying this code changes nothing for existing builds.
+
+### Who can see what (#413)
+
+- **Per-user access:** every `/v2/account` handler takes the user from the bearer session (`session()` in `accounts.js`); no route reads a user id from the body, path or query, and a body key it does not know is `400 bad_request`. User A's session cannot read, overwrite or delete user B's blob (tested).
+- **What is stored:** the wallet document only, checked against `gateway/src/walletSchema.js`: the nine sections of #411 (`cards`, `cardEdits`, `productChoices`, `paymentStates`, `pointValues`, `reminders`, `favorites`, `benefitEvents`, `costEvents`), JSON values only, strings up to 4,000 characters, depth 8, and no key such as `evidence`, `rawText`, `html` or `screenshot` at any depth. Anything else is `422 invalid_document` and nothing is stored. The per-section item shapes are tightened when #411 fixes them.
+- **Who can read D1:** the server copy is readable, not encrypted against the operator. The only people who can read the `wallets` table are those who can open the owner's Cloudflare account (dashboard, `wrangler d1 execute`, API token). Claude does not read user rows; it reads them only when the owner asks for a named issue, and then takes the least needed and keeps it out of Git and issues. Counts and sizes for operations come from the log line and Analytics Engine, not from rows.
+- **Logs and observability:** route, status, error code, user id hash and blob size only; Workers observability sees the same line, never a request body.
+- **Export and delete:** `GET /v2/account/export` and `DELETE /v2/account` (above) cover all five tables; delete is tested to leave 0 rows in each.
+
+### Run accounts locally
+
+`node --test tests/gateway-accounts.test.mjs` runs every case on the gateway's own code with an in-memory D1 (`memoryD1` in `gateway/src/local.mjs`, which applies the real migration file) and a mail stand-in that keeps the messages (`memoryMail`). Under wrangler (Node 22): `npx wrangler@4.150.0 d1 migrations apply cardybara-accounts --local --env local --config gateway/wrangler.jsonc`, then `wrangler dev --env local` as in "Run it locally"; the local env has a local D1 and an `EMAIL` binding. **Not yet run under `wrangler dev` or workerd** (this machine has Node 21); in particular how local `wrangler dev` handles `send_email` for Email Sending is not verified.
+
+### To deploy accounts (not done; needs the orchestrator, and the owner where marked)
+
+1. Create the D1 database (included usage only, no paid plan): `npx wrangler@4.150.0 d1 create cardybara-accounts`. Add to the top level of `gateway/wrangler.jsonc`: `"d1_databases": [{"binding": "DB", "database_name": "cardybara-accounts", "database_id": "<id from create>", "migrations_dir": "migrations"}]` (the id is not a secret). Apply the schema: `npx wrangler@4.150.0 d1 migrations apply cardybara-accounts --remote --config gateway/wrangler.jsonc`.
+2. Email Sending: onboard the sender domain (DNS records Cloudflare gives for SPF/DKIM) and pick the sender, then add `"send_email": [{"name": "EMAIL"}]` and the var `ACCOUNT_EMAIL_FROM` (for example `Cardybara <no-reply@…>` on that domain). Which domain to send from is the owner's choice (#410 approved the service, not a domain).
+3. Secret `ACCOUNT_SECRET`: `openssl rand -base64 32 | npx wrangler@4.150.0 secret put ACCOUNT_SECRET --config gateway/wrangler.jsonc`, never printed or committed. Rotating it voids open email codes and restarts the per-email counters; passwords and sessions are not affected.
+4. Add the web wallet's exact `https://` origin to `ALLOWED_ORIGINS` if not there yet (#378), deploy, and check `POST /v2/account/signup` with a test mailbox.
+
+### Price and limits (checked 2026-11-16 on Cloudflare's public pages)
+
+- **Email Sending** ([pricing](https://developers.cloudflare.com/email-service/platform/pricing/), page updated 2026-06-09): outbound mail to arbitrary recipients needs Workers Paid (not available on Free); 3,000 emails a month included per account, then US$0.35 per 1,000. Mail to verified destination addresses is free and not counted. [Limits](https://developers.cloudflare.com/email-service/platform/limits/) (page updated 2026-10-30): 25 MiB per message, 50 recipients; the daily sending quota is not published (new accounts start low and it grows with sending history) — unknown for this account. The gateway already runs on Workers Paid, so no new plan; at most 5 code mails per email per hour keeps one address from using the quota up, but the account-wide monthly total is bounded only by the per-client `RATE_LIMITER`.
+- **D1** ([pricing](https://developers.cloudflare.com/d1/platform/pricing/), page updated 2026-10-30): Workers Paid includes 25 billion rows read and 50 million rows written a month and 5 GB storage (overage US$0.001 per million rows read, US$1.00 per million rows written, US$0.75 per GB-month). A friends beta (a few hundred users, a wallet of up to 512 KiB each, a few writes per sign-in or sync) stays far inside that.
+
 ## Expected monthly cost
 
-- **Cloudflare:** Workers Paid, US$5 a month, because the assistant's knowledge tools need more CPU than the Free plan's 10 ms per request (Deploy, step 2). Requests, KV reads and Durable Object use of a friends beta stay within what that plan includes.
+- **Cloudflare:** Workers Paid, US$5 a month, because the assistant's knowledge tools need more CPU than the Free plan's 10 ms per request (Deploy, step 2). Requests, KV reads and Durable Object use of a friends beta stay within what that plan includes. Accounts (once deployed) add D1 and Email Sending, both within what Workers Paid includes for a beta (3,000 emails a month; Accounts, "Price and limits").
 - **Model:** bounded by the monthly budget (default US$10; `set-caps --monthly-usd` changes it), the gateway's ceiling, with the provider-side spend limit on a dedicated key as the backstop. One client's daily cap (default 300,000 tokens, at most about US$0.70 a day at the example prices) limits how fast one network address can drain it; someone with many addresses is held by the daily budget (default monthly / 30, about US$0.33 a day), so the month cannot be burned in a day; the budgets, not the per-client cap, are the ceiling (`assistantOff` or `set-caps --monthly-usd 0` stop it at once). A chat question is usually 2–4 completions, each one a request against the daily cap (200 requests are about 60 questions); with the tool list each completion sends several thousand input tokens. As a rough guide, at US$0.6 input / US$2.4 output per million tokens, a question of about 20,000 input and 1,000 output tokens costs about US$0.015, so US$10 covers roughly 650 questions a month. Check the provider's current prices and set `PRICE_*` to match.
 
 ## Privacy
 
 The assistant runs in the Worker: it receives the question, the trimmed history, the wallet summary (held products, regions, programmes, point-value overrides, fee date set or not; never an amount, tail, statement, payment data or hidden card) and, for a wallet tool it asked for, that tool's result only. These pass to the model provider and are not stored by the gateway; the gateway logs only the time, route, token counts, counts of rounds and results, and status; to enforce the per-client daily cap it keeps a salted hash of the network address (never the address) for that UTC day only, deleted after midnight UTC; the metrics data points (Metrics) add only counts, durations, codes and release identity. Card-type recognition (bank, region and card name) passes through the proxy route the same way. Wallet tools never return balances or card numbers. Model-assisted bank parsing is off with the hosted service (`parserStatus` reports `hosted_no_parsing` and `completeBody` refuses it), so bank figures never go through the gateway; it stays available with an own key. There is no invite code; the extension sends the gateway no credential.
+
+Accounts (`/v2/account`, once deployed): the server holds the email, a slow password hash, hashed codes and sessions, and, for a user who turns sync on, a readable copy of the wallet document (owner decision 2026-11-16, #410); D1 encrypts it at rest. Deleting the account deletes all of it. The log line keeps route, status and error code only.

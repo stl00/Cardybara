@@ -114,3 +114,10 @@ test('the remaining Discover public cards match by full name and short name (#36
  assert.equal(seen.size,full.length,'each card reaches its own product');
  for(const [n,id] of [['Discover it Cash Back Credit Card','discover-us-discover-it-cash-back-credit-card'],['Discover it','discover-us-discover-it-cash-back-credit-card']])assert.equal(matchCardProduct({bank:'Discover',region:'US',name:n}).product?.id,id,n);
 });
+test('the remaining Wells Fargo public cards match by full name and short name (#370)',()=>{
+ const full=['Wells Fargo Active Cash® Card','Wells Fargo Autograph® Card','Wells Fargo Reflect® Card','Wells Fargo One Key® Card','Wells Fargo Choice Privileges® Mastercard®','Wells Fargo Choice Privileges® Select Mastercard®','Wells Fargo Signify Business Cash® Card'];
+ const seen=new Set();
+ for(const name of full){for(const n of [name,name.replace(/[®™]/g,''),name.replace('Wells Fargo ','')]){const m=matchCardProduct({bank:'Wells Fargo',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,name,n);seen.add(m.product.id);}}
+ assert.equal(seen.size,full.length,'each card reaches its own product');
+ assert.equal(matchCardProduct({bank:'Wells Fargo',region:'US',name:'Autograph Journey'}).product?.id,'wells-fargo-us-autograph-journey-visa-card','the existing card is not taken by Autograph');
+});
