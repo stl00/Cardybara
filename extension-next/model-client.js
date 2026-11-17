@@ -30,7 +30,9 @@ export const maskKey=key=>key.slice(0,3)+'…'+key.slice(-4);
  * rewritten without it: the code is not needed and is not kept.
  */
 async function readKey(){
- const store=local();if(!store)return null;
+ const store=local();
+ // The web wallet (#389) has no extension storage: the hosted service is always on, and there is no own-key mode.
+ if(!store)return gatewayConfigured?{provider:HOSTED,enabled:true,default:true}:null;
  const saved=(await store.get(KEY_STORE))[KEY_STORE];
  if(saved&&PROVIDERS[saved.provider]?.hosted){
   const hosted={provider:HOSTED,enabled:saved.enabled!==false,...(saved.savedAt?{savedAt:saved.savedAt}:{})};
@@ -61,7 +63,7 @@ export async function saveKey({provider,key}){
  return keyStatus();
 }
 export async function setModelEnabled(enabled){
- const saved=await readKey();if(!saved)throw Error('model_not_ready');
+ const saved=await readKey();if(!saved||!local())throw Error('model_not_ready');
  const {default:_,...record}=saved;
  await local().set({[KEY_STORE]:{...record,enabled:!!enabled}});return keyStatus();
 }

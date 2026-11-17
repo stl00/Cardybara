@@ -4,6 +4,7 @@
 import {existsSync, readdirSync, readFileSync} from 'node:fs';
 import {extname, join} from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
+import {webGatewayOrigin} from './web-build.mjs';
 
 const SHIPPED = new Set(['.html', '.js', '.css', '.svg', '.png', '.jpg', '.jpeg', '.webp', '.ico', '.webmanifest']);
 const NAMESPACES = /^https?:\/\/www\.w3\.org\//;
@@ -104,7 +105,7 @@ export function checkWeb(dir, {gateway = null} = {}) {
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const dir = fileURLToPath(new URL('../dist/web', import.meta.url));
-  const problems = checkWeb(dir, {gateway: process.env.CARDYBARA_GATEWAY_ORIGIN?.replace(/\/$/, '') || null});
+  const problems = checkWeb(dir, {gateway: webGatewayOrigin()});
   if (problems.length) { console.error('dist/web check failed:\n' + problems.map(p => '  ' + p).join('\n')); process.exit(1); }
   console.log(`dist/web ok: ${walk(dir).length} files`);
 }
