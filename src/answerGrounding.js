@@ -27,7 +27,9 @@ export function answerGrounding(answer,evidence=[],{contextText='',creditNames=[
  // A citation is grounded only by a source record's url field. A link inside other text, such as a card name read
  // from a bank page or the model's own tool arguments, is data that could carry an injected destination.
  // Search suggestions are counts of records, not facts an answer may cite.
- const scan=(value,key)=>{if(Array.isArray(value)){numbers.add(value.length);value.forEach(v=>scan(v,key))}else if(value&&typeof value==='object'){Object.entries(value).forEach(([k,v])=>k==='suggestions'||scan(v,k))}else if(typeof value==='number'&&Number.isFinite(value))numbers.add(value);else if(typeof value==='string'){if(key==='url'&&/^https:\/\/[^\s)\]"<>]+$/.test(value.trim()))urls.add(cleanUrl(value.trim()));for(const n of value.replace(/https:\/\/[^\s)\]"<>]+/g,'').match(/\d+(?:,\d{3})*(?:\.\d+)?/g)||[])numbers.add(Number(n.replaceAll(',','')))}};
+ // An earn unit such as points-per-USD or HKD-per-mile is a rate per one unit, so restating it ("每 1 美元 4 点",
+ // "每 HK$4 1 里") repeats evidence (#260): the 1 is in the unit, not a new number.
+ const scan=(value,key)=>{if(Array.isArray(value)){numbers.add(value.length);value.forEach(v=>scan(v,key))}else if(value&&typeof value==='object'){Object.entries(value).forEach(([k,v])=>k==='suggestions'||scan(v,k))}else if(typeof value==='number'&&Number.isFinite(value))numbers.add(value);else if(typeof value==='string'){if(key==='unit'&&/-per-/.test(value))numbers.add(1);if(key==='url'&&/^https:\/\/[^\s)\]"<>]+$/.test(value.trim()))urls.add(cleanUrl(value.trim()));for(const n of value.replace(/https:\/\/[^\s)\]"<>]+/g,'').match(/\d+(?:,\d{3})*(?:\.\d+)?/g)||[])numbers.add(Number(n.replaceAll(',','')))}};
  evidence.forEach(v=>scan(v));
  // Rates come only from a rule's own ratio or convert_points rows, each a rule that lists the card; a programme-wide phrase is not one.
  for(const v of evidence)if(v?.kind==='transfer-options')for(const g of v.programmes||[])for(const p of g.partners||[])if(p.ratio?.from>0&&Number.isFinite(p.ratio.to))ratios.add(ratioKey(p.ratio.from,p.ratio.to));

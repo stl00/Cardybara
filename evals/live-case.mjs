@@ -17,12 +17,19 @@ export function caseWallet(c){
  return {...base,cards,events:c.events||context.events};
 }
 
+/** What a failing try needs for diagnosis (#260): the answer checker's codes per stage, and every model reply of the turn,
+ * because a fallback replaces the model's own text with code-written text and the shown answer alone hides why. */
+function diagnosis(trace,texts){
+ const graded=(trace||[]).filter(t=>['grounding','repair','fallback'].includes(t.type)).map(t=>({type:t.type,...(t.passed!==undefined?{passed:t.passed}:{}),codes:t.codes||[]}));
+ return {...(graded.length?{graded}:{}),...(texts.length?{modelTexts:texts.slice(-4)}:{})};
+}
+
 /** `detail.transcript` (answer text and tool calls) is for the separate transcripts artifact only; the report never copies it.
  * `chat(payload)` returns the model's message. Returns {checks, detail}; a thrown turn is a failed case, not an exception. */
 export async function runLiveCase(c,{chat,turn=runAgentTurn}){
- const start=performance.now(),calls=[];let lastText='';
+ const start=performance.now(),calls=[],texts=[];let lastText='';
  try{
-  const request=async p=>{const m=await chat(p);if(typeof m?.content==='string'&&m.content)lastText=m.content;for(const call of m.tool_calls||[])calls.push({name:call.function.name,args:JSON.parse(call.function.arguments)});return {message:m}};
+  const request=async p=>{const m=await chat(p);if(typeof m?.content==='string'&&m.content){lastText=m.content;texts.push(m.content);}for(const call of m.tool_calls||[])calls.push({name:call.function.name,args:JSON.parse(call.function.arguments)});return {message:m}};
   let history=[],memory=c.memory||{};
   const caseContext=caseWallet(c);
   for(const question of c.setupQuestions||[]){const setup=await turn({history,memory,question,context:caseContext,request});history=setup.messages;memory=setup.memory;}
@@ -45,6 +52,6 @@ export async function runLiveCase(c,{chat,turn=runAgentTurn}){
   const claimed=c.stripDenials?r.answer.replace(/(?:并?不(?:代表|意味着|等于|能说)|不是说|not necessarily|does not mean|doesn't mean|doesn’t mean)[^。\n.；;，,]*/gi,''):r.answer;
   if(c.forbidAnswerPatterns)checks.avoidsWrongTotals=!c.forbidAnswerPatterns.some(pattern=>new RegExp(pattern,'i').test(claimed));
   if(c.answersFirst)checks.answersBeforeAsking=calls.some(x=>x.name==='choose_card');
-  return {checks,detail:{ms:Math.round(performance.now()-start),toolNames:calls.map(x=>x.name),answerChars:r.answer.length,trace:r.trace,context:r.context,transcript:{answer:r.answer,toolCalls:calls.map(x=>({name:x.name,args:x.args}))}}};
- }catch(error){return {checks:{completed:false},detail:{ms:Math.round(performance.now()-start),error:error.message==='answer_not_grounded'?'answer_not_grounded':'model_or_execution_failed',...(error.codes?{codes:error.codes}:{}),toolNames:calls.map(x=>x.name),transcript:{answer:lastText,toolCalls:calls.map(x=>({name:x.name,args:x.args}))}}};}
+  return {checks,detail:{ms:Math.round(performance.now()-start),toolNames:calls.map(x=>x.name),answerChars:r.answer.length,trace:r.trace,context:r.context,transcript:{answer:r.answer,toolCalls:calls.map(x=>({name:x.name,args:x.args})),...diagnosis(r.trace,texts)}}};
+ }catch(error){return {checks:{completed:false},detail:{ms:Math.round(performance.now()-start),error:error.message==='answer_not_grounded'?'answer_not_grounded':'model_or_execution_failed',...(error.codes?{codes:error.codes}:{}),toolNames:calls.map(x=>x.name),transcript:{answer:lastText,toolCalls:calls.map(x=>({name:x.name,args:x.args})),...diagnosis([],texts)}}};}
 }
