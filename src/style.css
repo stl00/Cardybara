@@ -157,3 +157,20 @@ body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-ri
 .wrap-button{height:auto;max-width:100%;white-space:normal;text-align:start;padding-block:8px}
 /* The capybara mark as a menu and tab icon. */
 .capy-mark{display:inline-flex;align-items:center;justify-content:center;line-height:0}.capy-mark img{display:block;flex:none}.ant-menu .capy-mark{width:1em}.ant-menu .capy-mark img{width:1.25em;height:1.25em;margin:0 -.125em}
+
+/* Phone navigation: no sider below 768 px; a bottom tab bar with the assistant raised in the centre. */
+.main-layout.is-phone{margin-left:0;padding-bottom:calc(56px + env(safe-area-inset-bottom))}
+.main-layout.is-phone.advisor-layout{box-sizing:border-box}
+.mobile-tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;align-items:stretch;height:calc(56px + env(safe-area-inset-bottom));padding:0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);box-sizing:border-box;background:var(--ant-color-bg-container);border-top:1px solid var(--ant-color-border-secondary)}
+.mobile-tab{flex:1 1 0;min-width:44px;min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;margin:0;padding:4px 2px;border:0;background:none;color:var(--ant-color-text-secondary);font:inherit;font-size:11px;line-height:1.2;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.mobile-tab-icon{display:flex;font-size:22px;line-height:1}
+.mobile-tab-label{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mobile-tab.is-active{color:var(--ant-color-primary)}
+.mobile-tab:focus-visible{outline:2px solid var(--ant-color-primary);outline-offset:-4px;border-radius:8px}
+.mobile-tab-centre{justify-content:flex-end;padding-bottom:5px}
+.mobile-tab-bubble{width:52px;height:52px;margin-top:-24px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--ant-color-bg-container);border:1px solid var(--ant-color-border-secondary);box-shadow:var(--ant-box-shadow-tertiary)}
+.mobile-tab-centre.is-active .mobile-tab-bubble{border:2px solid var(--ant-color-primary)}
+.is-phone.advisor-layout .chat-composer-area{padding-bottom:24px}
+.ask-card{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;margin:0 0 20px;padding:12px 16px;border:1px solid var(--ant-color-border-secondary);border-radius:var(--ant-border-radius-lg);background:var(--ant-color-bg-container);color:var(--ant-color-text);font:inherit;font-size:16px;font-weight:500;text-align:start;cursor:pointer}
+.ask-card:hover{border-color:var(--ant-color-primary)}.ask-card:focus-visible{outline:2px solid var(--ant-color-primary);outline-offset:2px}
+.ask-card-text{flex:1;min-width:0}.ask-card-arrow{color:var(--ant-color-text-tertiary)}

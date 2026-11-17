@@ -205,7 +205,9 @@
     "nav|积分": "Points",
     "nav|银行": "Banks",
     "nav|卡片库": "Catalogue",
-    "nav|福利库": "Library"
+    "nav|福利库": "Library",
+    "问问卡疲扒拉：这笔用哪张卡？": "Ask Cardybara: which card for this purchase?",
+    "主导航": "Main navigation"
   },
   "zh-TW": {
     "待更新": "待更新",
@@ -413,6 +415,8 @@
     "nav|积分": "積分",
     "nav|银行": "銀行",
     "nav|卡片库": "卡片庫",
-    "nav|福利库": "福利庫"
+    "nav|福利库": "福利庫",
+    "问问卡疲扒拉：这笔用哪张卡？": "問問卡疲扒拉：這筆用哪張卡？",
+    "主导航": "主導覽"
   }
 }
