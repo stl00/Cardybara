@@ -10,7 +10,7 @@ import SettingOutlined from '@ant-design/icons/es/icons/SettingOutlined';
 
 // The assistant is the capybara, drawn with the brand mark rather than an antd glyph.
 export function CapybaraMark({size = 18, className = ''}) {
-  return <span role="img" aria-hidden="true" className={`anticon capy-mark ${className}`.trim()}><img src="/brand/zen.svg" alt="" width={size} height={size}/></span>;
+  return <span aria-hidden="true" className={`anticon capy-mark ${className}`.trim()}><img src="/brand/zen.svg" alt="" width={size} height={size}/></span>;
 }
 
 const ICONS = {

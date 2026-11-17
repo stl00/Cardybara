@@ -156,4 +156,4 @@ body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-ri
 .ant-input-password-icon{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;margin-inline-end:-11px}
 .wrap-button{height:auto;max-width:100%;white-space:normal;text-align:start;padding-block:8px}
 /* The capybara mark as a menu and tab icon. */
-.capy-mark{display:inline-flex;align-items:center;justify-content:center;line-height:0}.capy-mark img{display:block;flex:none}.ant-menu .capy-mark{width:14px;min-width:14px}
+.capy-mark{display:inline-flex;align-items:center;justify-content:center;line-height:0}.capy-mark img{display:block;flex:none}.ant-menu .capy-mark{width:1em}.ant-menu .capy-mark img{width:1.25em;height:1.25em;margin:0 -.125em}
