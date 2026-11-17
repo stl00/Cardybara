@@ -184,7 +184,7 @@
    "checkedAt": "2026-11-16",
    "textEn": "You must redeem points worth at least $1 to Use Points for a Statement Credit. The value of points varies according to how you choose to use them.",
    "textZh": "账单抵扣最低需兑换价值 1 美元；条款只说价值因兑换方式而异，没有写每点价值。",
-   "unknownReason": "The terms state a $1 minimum but no rate; the Amex pages that may state one could not be fetched (fetch failed), and search-result summaries are not accepted as evidence."
+   "unknownReason": "The terms state a $1 minimum but no rate. Tried on 2026-11-17 by public WebFetch, all failed with a header-overflow parse error and no page content: americanexpress.com/us/rewards/membership-rewards/, /us/rewards/membership-rewards/use-points/, /en-us/rewards/membership-rewards/, /en-us/benefits/rewards/membership-rewards/, /en-us/credit-cards/credit-intel/american-express-points-value/. Search-result summaries are not accepted as evidence."
   },
   {
    "id": "mr-gift-cards",
@@ -199,7 +199,7 @@
    "checkedAt": "2026-11-16",
    "textEn": "Use points for gift cards: you can use points to get gift cards from a variety of merchants. You must have at least 1,000 points in your account for American Express Gift Cards.",
    "textZh": "可用积分换多家商户礼品卡；条款没有写每点价值，具体按目录。",
-   "unknownReason": "The terms give no rate; the catalogue page returned no content to a public fetch."
+   "unknownReason": "The terms give no rate. Tried on 2026-11-17 by public WebFetch, all failed with a header-overflow parse error and no page content: americanexpress.com/us/rewards/membership-rewards/, /us/rewards/membership-rewards/use-points/, /en-us/rewards/membership-rewards/, /en-us/benefits/rewards/membership-rewards/, /en-us/credit-cards/credit-intel/american-express-points-value/. Search-result summaries are not accepted as evidence."
   },
   {
    "id": "mr-pay-with-points",
@@ -214,7 +214,7 @@
    "checkedAt": "2026-11-16",
    "textEn": "You can use Pay with Points at checkout towards purchases with your Card at participating brands, or through American Express Travel.",
    "textZh": "可在合作商户结账或通过 Amex Travel 使用 Pay with Points；条款没有写每点价值。",
-   "unknownReason": "The terms give no rate; the Pay with Points page returned no content to a public fetch."
+   "unknownReason": "The terms give no rate. Tried on 2026-11-17 by public WebFetch, all failed with a header-overflow parse error and no page content: americanexpress.com/us/rewards/membership-rewards/, /us/rewards/membership-rewards/use-points/, /en-us/rewards/membership-rewards/, /en-us/benefits/rewards/membership-rewards/, /en-us/credit-cards/credit-intel/american-express-points-value/. Search-result summaries are not accepted as evidence."
   },
   {
    "id": "mr-amex-travel",
@@ -229,7 +229,7 @@
    "checkedAt": "2026-11-16",
    "textEn": "The value of points varies according to how you choose to use them.",
    "textZh": "通过 Amex Travel 兑换：条款只说价值因兑换方式而异。",
-   "unknownReason": "The terms give no rate; the pages that may state one could not be read."
+   "unknownReason": "The terms give no rate. Tried on 2026-11-17 by public WebFetch, all failed with a header-overflow parse error and no page content: americanexpress.com/us/rewards/membership-rewards/, /us/rewards/membership-rewards/use-points/, /en-us/rewards/membership-rewards/, /en-us/benefits/rewards/membership-rewards/, /en-us/credit-cards/credit-intel/american-express-points-value/. Search-result summaries are not accepted as evidence."
   }
  ]
 }
