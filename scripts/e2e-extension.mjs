@@ -575,7 +575,9 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
     await until('the '+what+' to be saved and ready',async()=>{
      const t=await pageText('wallet');
      for(const zh of ['没有获得访问服务商的权限，密钥未保存。','服务商拒绝了这个密钥，请检查是否复制完整或已过期。'])if(JSON.parse(words(zh)).some(w=>t.includes(w)))throw new StepError(`the ${what} was not saved: `+zh);
-     return JSON.parse(words('已就绪')).some(w=>t.includes(w));
+     // The hosted service already shows ready before anything is saved, so wait for the own key to be in storage.
+     const saved=await evaluate('worker',`chrome.storage.local.get('cardybara-model-key').then(r=>r['cardybara-model-key']?.provider||null)`);
+     return saved==='deepseek'&&JSON.parse(words('已就绪')).some(w=>t.includes(w));
     });
     const stored=await evaluate('worker',`chrome.storage.local.get('cardybara-model-key').then(r=>r['cardybara-model-key']||null)`);
     if(stored?.key!==chatKey||stored?.provider!=='deepseek')throw new StepError(`the saved ${what} is not the one pasted`);
