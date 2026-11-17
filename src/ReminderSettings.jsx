@@ -3,8 +3,10 @@ import {Alert,App,Button,Card,Checkbox,Flex,Select,Switch,Typography} from 'antd
 import {t,ruleField,useI18n} from './i18n';
 import {usePersonalMarks} from './PersonalWallet.jsx';
 import {PAYMENT_MARKS_CHANGE,loadPaymentMarks} from './PaymentAssistant.jsx';
+import {pushTimes,debounce} from './webPush.js';
 import {LEAD_DAYS,REMINDER_SENT_KEY,REMINDER_SETTINGS_KEY,SCHEDULE_DAYS,normalizeSettings,pendingNotifications,pruneSent,publishSchedule,readSent,readSettings} from './reminders.js';
 import {PAYMENT_MARKS_KEY} from './paymentStates.js';
+import {PUSH_GENERIC_KEY,REMINDER_SCHEDULE_KEY} from './pushMirror.js';
 import {reminderText} from '../extension-next/reminder-core.js';
 import platform from './platform';
 const {Paragraph,Text}=Typography;
@@ -41,6 +43,16 @@ function pageCheck(cards,events,day){
  try{for(const item of items){const [title,body]=message(item);show(title,body,item.tag);shown.push(...item.ids.map(id=>({id,day})));}}
  finally{localStorage.setItem(REMINDER_SENT_KEY,JSON.stringify(pruneSent([...sent,...shown],day)));}
 }
+// Web Push (web build only): keep the plan the service worker reads, and send the gateway the fire times, debounced.
+const pushSend=debounce(async(push,times)=>{try{if(times)await push.sync(times);else await push.forget();}catch{/* the next change or load sends again */}});
+async function syncPush({push,cards,marks,events,day}){
+ const settings=readSettings(localStorage),active=push.active();
+ if(!settings.enabled||!allowed()){if(active){pushSend.cancel();await push.disable().catch(()=>{});await push.area().remove(REMINDER_SCHEDULE_KEY).catch(()=>{});}return;}
+ if(!active)return;
+ const schedule=await publishSchedule({area:push.area(),storage:localStorage,granted:true,cards,marks,events,asOf:day,phrases:phrases(),translate:(key,item)=>item?ruleField(key,item,'title'):t(key)});
+ await push.area().set({[PUSH_GENERIC_KEY]:{title:t('账单提醒'),body:t('打开钱包，看看有什么快到期。')}});
+ pushSend(push,cards.length?pushTimes(schedule,Date.now()):null);
+}
 /** Waits for the user's marks, so a used credit never fires. In the extension the worker does the firing, so nothing is shown from here twice. */
 export function ReminderRunner({cards}){
  const {events,ready,day}=usePersonalMarks(),{language}=useI18n(),latestCards=useRef(cards),publishing=useRef(Promise.resolve());latestCards.current=cards;
@@ -48,7 +60,12 @@ export function ReminderRunner({cards}){
  useEffect(()=>{
   const check=()=>{
    try{
-    if(!worker()){if(ready)pageCheck(latestCards.current,events,day);return;}
+    if(!worker()){
+     if(ready)pageCheck(latestCards.current,events,day);
+     const push=platform.notifications.push;
+     if(push&&ready)publishing.current=publishing.current.then(()=>syncPush({push,cards:latestCards.current,marks:loadPaymentMarks(),events,day})).catch(()=>{});
+     return;
+    }
     const off=!readSettings(localStorage).enabled;
     if(!ready&&!off)return;
     publishing.current=publishing.current.then(async()=>publishSchedule({area:platform.notifications.area(),storage:localStorage,granted:await platform.notifications.contains(),cards:latestCards.current,marks:loadPaymentMarks(),events,asOf:day,phrases:phrases(),translate:(key,item)=>item?ruleField(key,item,'title'):t(key)})).catch(()=>{});
@@ -66,9 +83,15 @@ export default function ReminderSettings(){
  useI18n();const {message:toast}=App.useApp();
  const [settings,setSettings]=useState(()=>{try{return readSettings(localStorage)}catch{return normalizeSettings(null)}}),[denied,setDenied]=useState(false),[busy,setBusy]=useState(false);
  const update=patch=>{const next=normalizeSettings({...settings,...patch});try{saveSettings(next);setSettings(next)}catch{toast.error(t('保存失败，刚才的设置没有生效。'))}};
+ const push=platform.notifications.push,support=push?.support()??'unsupported',[pushOn,setPushOn]=useState(()=>!!push?.active());
+ const turnOnPush=async()=>{
+  setDenied(false);setBusy(true);
+  try{if(!await askPermission()){setDenied(true);return;}await push.enable();update({enabled:true});setPushOn(true);window.dispatchEvent(new Event(CHANGE));}catch{setDenied(true)}finally{setBusy(false)}
+ };
+ const turnOffPush=async()=>{setBusy(true);try{await push.disable();}catch{/* the subscription is gone either way */}setPushOn(false);setBusy(false);};
  const toggle=async on=>{
   setDenied(false);
-  if(!on){update({enabled:false});await dropPermission();return;}
+  if(!on){update({enabled:false});await dropPermission();if(push?.active()){await push.disable().catch(()=>{});setPushOn(false);}return;}
   setBusy(true);
   try{if(await askPermission())update({enabled:true});else setDenied(true);}catch{setDenied(true)}finally{setBusy(false)}
  };
@@ -77,7 +100,12 @@ export default function ReminderSettings(){
  return <Card title={t('账单和福利提醒')} style={{marginBottom:20}}>
   <Flex align="center" gap={12} wrap><Switch aria-label={t('开启提醒')} checked={settings.enabled} loading={busy} disabled={!supported()} onChange={toggle}/><Text strong>{t('开启浏览器通知')}</Text></Flex>
   <Paragraph type="secondary" style={{marginTop:12}}>{worker()?t('默认关闭。开启时 Chrome 会请求通知权限，关闭后不再提醒。钱包页面关闭时也会提醒，但 Chrome 需要在运行；Chrome 没运行时到点的提醒，下次启动后补发，已经过时的不再发。提醒按你上次打开钱包时的数据，安排接下来 {0} 天：在银行付款后，到钱包标记已处理才会停止。',[SCHEDULE_DAYS]):platform.kind==='web'?t('默认关闭。开启时浏览器会请求通知权限，关闭后不再提醒。只在打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。'):t('默认关闭。开启时 Chrome 会请求通知权限，关闭后不再提醒。只在 Chrome 中打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。')}</Paragraph>
-  {!supported()&&<Alert type="info" showIcon title={t('这个浏览器不支持通知。')} style={{marginBottom:12}}/>}
+  {support==='install'&&<Alert type="info" showIcon title={t('在 iPhone 或 iPad 上，要先把 Cardybara 添加到主屏幕（iOS 16.4 或更高），才能收到钱包关闭时的提醒。')} description={t('在 Safari 点“分享”，选“添加到主屏幕”，再从主屏幕图标打开钱包，回到这里开启。')} style={{marginBottom:12}}/>}
+  {support==='ready'&&<div style={{marginBottom:12}}>
+   {pushOn?<Flex align="center" gap={12} wrap><Text>{t('钱包关闭时也会提醒（Web Push）。')}</Text><Button size="small" loading={busy} onClick={turnOffPush}>{t('关闭后台提醒')}</Button></Flex>
+   :<><Button type="primary" loading={busy} onClick={turnOnPush}>{t('开启钱包关闭时的提醒')}</Button><Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{t('只把提醒的时间发给 Cardybara 服务器，不含卡名、尾号、金额；提醒的文字由本机生成。')}</Paragraph></>}
+  </div>}
+  {!supported()&&support!=='install'&&<Alert type="info" showIcon title={t('这个浏览器不支持通知。')} style={{marginBottom:12}}/>}
   {denied&&<Alert type="warning" showIcon title={platform.kind==='web'?t('没有获得通知权限，提醒保持关闭。可以在浏览器的网站设置里修改后再试。'):t('没有获得通知权限，提醒保持关闭。可以在 Chrome 的网站设置里修改后再试。')} style={{marginBottom:12}}/>}
   {lost&&<Alert type="warning" showIcon title={t('通知权限已被关闭，目前不会提醒。')} style={{marginBottom:12}}/>}
   {settings.enabled&&<Flex vertical gap={12}>
