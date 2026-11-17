@@ -10,10 +10,13 @@ patterns=[rb'gh[pousr]_[A-Za-z0-9]{25,}',rb'github_pat_[A-Za-z0-9_]{30,}',rb'sk-
 def inspect(name,b):
  if any(re.search(p,b) for p in patterns):raise SystemExit('Credential-like value: '+name)
  if re.search(rb'/' + rb'Users/[A-Za-z0-9_.-]+/',b):raise SystemExit('Personal workspace/extension identifier: '+name)
+# Tracked example env files: the root one, and gateway/.env.example (Plaid CLI template; key names only, values empty).
+ENV_EXAMPLES={'.env.example','gateway/.env.example'}
 paths=subprocess.check_output(['git','ls-files','-z'],cwd=r).decode().split('\0');paths=[p for p in paths if p]
 if not paths:raise SystemExit('Source must be staged or committed before audit')
 for n in paths:
- if n=='public/data.json' or n.startswith(('dist/','release/','.openai/')) or n.endswith(('.zip','.bundle','.png.log')) or (Path(n).name.startswith('.env') and n!='.env.example'):raise SystemExit('Private/generated path tracked: '+n)
+ if n=='public/data.json' or n.startswith(('dist/','release/','.openai/')) or n.endswith(('.zip','.bundle','.png.log')) or (Path(n).name.startswith('.env') and n not in ENV_EXAMPLES):raise SystemExit('Private/generated path tracked: '+n)
+ if n in ENV_EXAMPLES and n!='.env.example' and re.search(rb'^(?!PROVIDER_KEY=synthetic-)[A-Z_]*(KEY|SECRET|CLIENT_ID)=\S',(r/n).read_bytes(),re.M):raise SystemExit('Example env file holds a value: '+n)
  inspect(n,(r/n).read_bytes())
 # Shared extension code never imports the dev build, or its features could reach the release package.
 for n in paths:

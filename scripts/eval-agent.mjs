@@ -16,6 +16,7 @@ import {runWalletTool} from '../src/walletAgent.js';
 import {chatAgent} from './chat-agent.mjs';
 import {runLiveCase} from '../evals/live-case.mjs';
 import {coverageCases,runCoverageCase,FAULTS} from '../evals/coverage-case.mjs';
+import {pointsCases,runPointsCase,POINTS_FAULTS} from '../evals/points-case.mjs';
 import {redemptionCases,runRedemptionCase,ungatedTurn,REDEMPTION_FAULTS} from '../evals/redemption-case.mjs';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url))),live=process.argv.includes('--live');
 const outputArg=process.argv.find(a=>a.startsWith('--out=')),output=resolve(outputArg?.slice(6)||resolve(root,'evals/latest-'+(live?'live':'offline')+(AGENT_TARGET==='cloud'?'-cloud':'')+'.json'));
@@ -78,6 +79,11 @@ if(!live){
  if(!fault)for(const f of REDEMPTION_FAULTS){const results=[];for(const c of redemptionCases)results.push(await runRedemptionCase(c,{fault:f,turn:ungatedTurn}));
   const applicable=f==='no-tool'?results:results.filter((r,i)=>redemptionCases[i].fault===f);
   check('redemption-control-'+f,{caught:applicable.length>0&&applicable.every(r=>Object.values(r.checks).some(v=>!v))});}
+ // #481: the points live cases (points_accounts, convert_points) run offline against the scripted model; each control shows a fault is caught.
+ for(const c of pointsCases){const r=await runPointsCase(c);check(c.id,r.checks,r.detail);}
+ if(!fault)for(const f of POINTS_FAULTS){const results=[];for(const c of pointsCases)results.push(await runPointsCase(c,{fault:f}));
+  const applicable=f==='rounded-up'?results.filter((r,i)=>pointsCases[i].id==='convert-stated-points'):f==='no-combine'?results.filter((r,i)=>pointsCases[i].id!=='convert-stated-points'):results;
+  check('points-control-'+f,{caught:applicable.length>0&&applicable.every(r=>Object.values(r.checks).some(v=>!v))});}
  const planEvidence=[runWalletTool({id:'grounding',function:{name:'query_credits',arguments:JSON.stringify({use:'hotel',when:'12月'})}},referenceContext)];
  for(const [id,answer,code] of planGroundingCases)check(id,{caught:answerGrounding(answer,planEvidence).issues.some(i=>i.code===code)});
  const old=Array.from({length:30},(_,i)=>[{role:'user',content:'question '+i},{role:'assistant',content:'reply '.repeat(1000)}]).flat();const prep=prepareAgentContext(old,{lastPurchase:{category:'dining',country:'US',currency:'USD',amount:100}});check('bounded-context',{bounded:prep.chars<=22000,keepsLatest:prep.messages.some(x=>x.content==='question 29'),memory:prep.memory.lastPurchase.amount===100});

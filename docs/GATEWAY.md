@@ -162,6 +162,26 @@ SELECT toDate(timestamp) AS day, blob1 AS route,
 FROM cardybara_agent_metrics WHERE timestamp > NOW() - INTERVAL '7' DAY GROUP BY day, route ORDER BY day, tokens DESC
 ```
 
+### Baseline report
+
+`scripts/assistant-baseline.mjs` turns raw data points into per-week answer-success, repair and fallback rate, p50/p95 duration, tokens and USD per answered turn, and into **proposed** targets for the owner's table in #256 (#478). It reads a file or stdin, holds no token and makes no network call; the owner/ops step is to run the query and save its JSON. This query returns one row per agent-route data point (tool requests and errors included, because they cost tokens), each carrying its sampling weight `_sample_interval`; the script applies that weight to every count, rate, quantile and cost:
+
+```sql
+SELECT timestamp, _sample_interval, double12 AS answered, double8 AS repaired, double9 AS fallback, blob6 AS error,
+  double5 AS prompt_tokens, double6 AS completion_tokens, double7 AS duration_ms
+FROM cardybara_agent_metrics WHERE blob1 = 'agent' AND timestamp > NOW() - INTERVAL '35' DAY
+ORDER BY timestamp LIMIT 100000 FORMAT JSON
+```
+
+```sh
+node scripts/assistant-baseline.mjs rows.json [--min-turns 20] [--turns-per-conversation 3] [--input-usd-per-mtok 0.6 --output-usd-per-mtok 2.4] [--json]
+```
+
+- A turn is an agent request that ended with an answer or an error code (as in the alert check). Answer success = answered / turns; repair and fallback rate are over answered turns; p50/p95 are over answered turns.
+- Tokens and USD per answered turn count every agent request in the week (a `tool_request` and a failed request spend tokens too), divided by answered turns. Prices default to the gateway's `PRICE_*` defaults (0.6 / 2.4 USD per million input / output tokens), and `docs/GATEWAY.md` "Price and limits" is where they are checked against the provider.
+- The data point has no conversation id by design, so **cost per conversation** is a proxy: USD per answered turn times `--turns-per-conversation` (default 3, an assumption to replace with the owner's figure). The output states it.
+- A week with fewer than `--min-turns` turns (default 20) is listed but not used. Proposals pool the weeks that qualify: success floor (the lower of 95% and observed minus 2 points), repair and fallback ceilings (double the observed rate, at least 5%, as the alert check), p95 ceiling (1.5 times observed) and a USD-per-conversation ceiling (1.5 times observed, with the conversations the monthly budget then covers). They are proposals; the owner sets the real targets in #256.
+
 Deployed with the binding on 2026-11-16 (code version `95179795`; setting `CF_ACCOUNT_ID` made version `1e8803f6` with the same code; #371). The three queries above were run that day against the live dataset after one synthetic turn (a throwaway invite code `m371`, revoked afterwards, and a made-up one-card wallet): each returned one row, and the full data point held only the code id, route, version, prompt hash, snapshot id, model, `list_cards:1` and counts, no question, answer or wallet value. The SQL API answers within about a minute of a write; a new dataset appears in `SHOW TABLES` with its first point.
 
 ## Alerts and switches
@@ -316,6 +336,30 @@ WebAuthn sign-in for an existing account, as a second way in beside email and pa
 - **Email Sending** ([pricing](https://developers.cloudflare.com/email-service/platform/pricing/), page updated 2026-06-09): outbound mail to arbitrary recipients needs Workers Paid (not available on Free); 3,000 emails a month included per account, then US$0.35 per 1,000. Mail to verified destination addresses is free and not counted. [Limits](https://developers.cloudflare.com/email-service/platform/limits/) (page updated 2026-10-30): 25 MiB per message, 50 recipients; the daily sending quota is not published (new accounts start low and it grows with sending history) — unknown for this account. The gateway already runs on Workers Paid, so no new plan; at most 5 code mails per email per hour keeps one address from using the quota up, but the account-wide monthly total is bounded only by the per-client `RATE_LIMITER`.
 - **D1** ([pricing](https://developers.cloudflare.com/d1/platform/pricing/), page updated 2026-10-30): Workers Paid includes 25 billion rows read and 50 million rows written a month and 5 GB storage (overage US$0.001 per million rows read, US$1.00 per million rows written, US$0.75 per GB-month). A friends beta (a few hundred users, a wallet of up to 512 KiB each, a few writes per sign-in or sync) stays far inside that.
 
+## Plaid-linked credit cards (`/v2/plaid`)
+
+US credit cards connected through Plaid (plan, decisions and owner tasks: `PLAID_PLAN.md`). Code: `gateway/src/plaid.js` (routes, sync, webhooks) and `gateway/src/plaidPage.js` (the hosted Link page); schema: `gateway/migrations/0003_plaid.sql` (apply after 0002 with the same `wrangler d1 migrations apply`); tests: `tests/gateway-plaid.test.mjs` (a fake Plaid API, real ES256-signed webhooks), `tests/plaid-wallet.test.mjs` and `tests/plaid-panel.test.mjs` (wallet side). In the extension and the PWA (owner 2026-11-17), for any signed-in account: the extension opens the Link page in a tab; the PWA goes there in its own window, and the page sends it back to `<PWA origin>/#settings` when Link is done. The origin to go back to rides in the fragment (`&r=`, set by the server from the request's admitted `Origin`), and the page follows it only when it is exactly one of the listed web origins in `ALLOWED_ORIGINS`, which the server embeds in the page: no open redirect.
+
+| Route | Caller | Body | Answer |
+| --- | --- | --- | --- |
+| `POST /v2/plaid/link` | wallet (extension or PWA), bearer | `{}` or `{itemId}` (repair a broken login) | `200 {url, expiresAt, mode}`: `url` is this Worker's Link page with a one-time handle in the fragment (`#s=pls_…`, 1 hour) |
+| `GET /v2/plaid/link` | browser tab or the PWA's window (public) | none | the Link page (HTML, strict CSP: scripts only by nonce and from `cdn.plaid.com`); also the OAuth redirect URI |
+| `POST /v2/plaid/link/token` | the Link page, same origin | `{handle}` | `200 {linkToken, mode}`, the same token every time (OAuth return) |
+| `POST /v2/plaid/link/complete` | the Link page, same origin | `{handle, publicToken, metadata}` | `200 {status: linked\|repaired\|duplicate, itemId, sync}`; the handle is spent |
+| `POST /v2/plaid/link/exit` | the Link page, same origin | `{handle, error, linkSessionId, status}` | `200`; recorded on the log line only |
+| `GET /v2/plaid/cards` | wallet, bearer | none | `200 {items, cards}`: each credit card's balance, limit, statement balance and date, minimum, due date, APRs, last payment |
+| `GET /v2/plaid/transactions` | wallet, bearer | none | `200 {transactions, truncated}`: newest 2,000 |
+| `POST /v2/plaid/refresh` | wallet, bearer | `{}` or `{itemId}` | the user's "Sync": `/transactions/sync` then `/liabilities/get` per Item (once a minute per Item at most), then the cards |
+| `DELETE /v2/plaid/item` | wallet, bearer | `{itemId}` | `/item/remove` at Plaid, then every row of the Item |
+| `POST /v2/plaid/webhook` | Plaid (public) | Plaid's JSON | `200` once the `Plaid-Verification` JWT checks out (ES256 only, key by `kid` from `/webhook_verification_key/get`, at most 5 minutes old, SHA-256 of the raw body); `401 webhook_invalid` otherwise. `SYNC_UPDATES_AVAILABLE` runs `/transactions/sync`, `LIABILITIES DEFAULT_UPDATE` runs `/liabilities/get`, `ITEM` webhooks set the Item's status; the work runs after the answer (`waitUntil`) |
+
+- **Link:** `products: ["transactions"]`, `additional_consented_products: ["liabilities"]`, US only, credit-card accounts only (`account_filters`), 365 days of history, `webhook` set to this Worker's `/v2/plaid/webhook` when it is https (`PLAID_WEBHOOK_URL` overrides), `redirect_uri` only when `PLAID_REDIRECT_URI` is set. Before an exchange, a Link at an institution where the user already has an Item with an overlapping account (mask and subtype) is answered `duplicate` and not exchanged.
+- **Secrets and environment:** `PLAID_CLIENT_ID`, `PLAID_SECRET`, `PLAID_ENV` (`sandbox` or `production`; the one source of the API host) and `PLAID_TOKEN_KEY` (32+ characters; keys the AES-GCM encryption of access tokens; `LOCAL_DEV=1` falls back to a fixed key). Without them, or without working accounts, every `/v2/plaid` route answers `503 plaid_unavailable`.
+- **Tables:** `plaid_items` (Item id, user, encrypted access token, institution, the duplicate-check keys, sync cursor, status, last accounts and liabilities snapshot), `plaid_transactions` (allow-listed fields only), `plaid_link_sessions` (handle hash, user, link_token, expiry). Account deletion calls `/item/remove` for each Item, then empties all three (tested); the export lists them, naming the token without showing it.
+- **Plan cap:** when the Plaid plan's connection slots are used up (`TRIAL_CONNECTION_LIMIT`, `CREDITS_EXHAUSTED`, `ADDITION_LIMIT`; the personal free trial has 20), `POST /v2/plaid/link` and the exchange answer `429 plaid_limit` without retrying, the Link page says so, and the wallet keeps the linked cards and Sync but disables Add. Without the Plaid secrets every route answers `503 plaid_unavailable` and the wallet panel only says the service is not set up.
+- **Log line:** route (`plaid_*`), status, error code, user hash, Plaid `request_id`s with their error codes, the Link `link_session_id`, and the webhook type and code. Never a token, secret, amount or merchant (tested).
+- **Locally:** `wrangler dev --env local` reads `PLAID_CLIENT_ID`, `PLAID_SECRET` and `PLAID_ENV` from `gateway/.env` (built by `cd gateway && plaid keys write --env sandbox --gitignore` from `gateway/.env.example`; wrangler ignores `.env` while `gateway/.dev.vars` exists). No webhooks reach a local run; the wallet's Sync button pulls. A PWA built against the local gateway and served by `npm run preview` (`http://127.0.0.1:8766`) is admitted because the local env lists that exact origin and `LOCAL_DEV=1` allows an exact `http://127.0.0.1`/`localhost` origin; production admits only `https://`.
+
 ## Expected monthly cost
 
 - **Cloudflare:** Workers Paid, US$5 a month, because the assistant's knowledge tools need more CPU than the Free plan's 10 ms per request (Deploy, step 2). Requests, KV reads and Durable Object use of a friends beta stay within what that plan includes. Accounts (once deployed) add D1 and Email Sending, both within what Workers Paid includes for a beta (3,000 emails a month; Accounts, "Price and limits").
@@ -324,5 +368,7 @@ WebAuthn sign-in for an existing account, as a second way in beside email and pa
 ## Privacy
 
 The assistant runs in the Worker: it receives the question, the trimmed history, the wallet summary (held products, regions, programmes, point-value overrides, fee date set or not; never an amount, tail, statement, payment data or hidden card) and, for a wallet tool it asked for, that tool's result only. These pass to the model provider and are not stored by the gateway; the gateway logs only the time, route, token counts, counts of rounds and results, and status; to enforce the per-client daily cap it keeps a salted hash of the network address (never the address) for that UTC day only, deleted after midnight UTC; the metrics data points (Metrics) add only counts, durations, codes and release identity. Card-type recognition (bank, region and card name) passes through the proxy route the same way. Wallet tools never return balances or card numbers. Model-assisted bank parsing is off with the hosted service (`parserStatus` reports `hosted_no_parsing` and `completeBody` refuses it), so bank figures never go through the gateway; it stays available with an own key. There is no invite code; the extension sends the gateway no credential.
+
+Plaid-linked cards (`/v2/plaid`, extension and PWA, opt-in): unlike bank-page reading, these figures do reach the gateway and are stored in D1 for the user (see the section above and `PRIVACY.md`).
 
 Accounts (`/v2/account`, once deployed): the server holds the email, a slow password hash, hashed codes and sessions, and, for a user who turns sync on, a readable copy of the wallet document (owner decision 2026-11-16, #410); D1 encrypts it at rest. Deleting the account deletes all of it. The log line keeps route, status and error code only.

@@ -148,6 +148,10 @@ jobs:
         run: node scripts/e2e-extension.mjs package-under-test --cards --out e2e-output/cards
       - name: A card that is never saved must fail the cards check
         run: node scripts/e2e-extension.mjs package-under-test --cards --negative-controls --out e2e-output/cards-negative
+      - name: Citi US connects, signs in and reads both cards on the synthetic page
+        run: node scripts/e2e-extension.mjs package-under-test --citi --out e2e-output/citi
+      - name: A package without the online.citi.com host permission must fail the Citi check
+        run: node scripts/e2e-extension.mjs package-under-test --citi --negative-controls --out e2e-output/citi-negative
       # Extended set: nightly, on manual runs and on every release tag (the draft release waits for it).
       - name: Browser restart keeps the records
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')

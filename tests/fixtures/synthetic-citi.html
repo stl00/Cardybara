@@ -5,9 +5,11 @@
 const cards=[{name:'Wallaby Traveler Card',tail:'2345',balance:'$1,234.56',available:'$8,765.44',limit:'$10,000.00',last:'$321.00',min:'$35.00',due:'Dec 19, 2030',close:'Nov 25, 2030'},{name:'Dingo Card',tail:'6789',balance:'-$7.20',available:'$4,932.11',limit:'$5,000.00',last:'$0.00',min:'$0.00',due:'Dec 20, 2030',close:'Nov 26, 2030'}];
 const root=document.getElementById('root'),q=new URLSearchParams(location.search),path=location.pathname;
 const menu='<nav>'+cards.map(c=>'<a href="/accountdetails?accountId='+c.tail+'x" style="position:absolute;left:-9999px">'+c.name.slice(0,9)+'...-'+c.tail+'</a>').join('')+'<a href="/accountactivity/abc">Other-0001</a><a href="/payments/pay?accountId=1">Make a Payment-2345</a></nav>';
+// The real bank signs in on www and carries the session to online; the synthetic page carries it in a query.
+if(q.get('synthetic-signed-in')==='1')sessionStorage.setItem('synthetic-signed-in','1');
 if(sessionStorage.getItem('synthetic-signed-in')!=='1'){
  root.innerHTML='<h1>Synthetic sign in</h1><form><input type="password" aria-label="Synthetic password" autocomplete="off"><button type="button" id="sign-in">Sign in</button></form>';
- document.getElementById('sign-in').onclick=()=>{sessionStorage.setItem('synthetic-signed-in','1');location.href='/US/ag/dashboard/summary';};
+ document.getElementById('sign-in').onclick=()=>{sessionStorage.setItem('synthetic-signed-in','1');location.href=location.hostname==='www.citi.com'?'https://online.citi.com/US/ag/dashboard/summary?synthetic-signed-in=1':'/US/ag/dashboard/summary';};
 }else if(path==='/accountdetails'){sessionStorage.setItem('synthetic-citi-card',q.get('accountId'));location.replace('/US/ag/dashboard/credit-card');
 }else if(path==='/US/ag/dashboard/credit-card'){const c=cards.find(x=>x.tail+'x'===sessionStorage.getItem('synthetic-citi-card'));
  root.innerHTML=menu+'<div style="white-space:pre-line">'+[c.name+' - '+c.tail,'Current Balance',c.balance,'Pending Balance $0.00','Statement closing '+c.close,'Available Credit',c.available,'Credit Limit:',c.limit,'Payment due on '+c.due,'Last Statement Balance',c.last,'Minimum Payment Due',c.min].join('\n')+'</div><a href="/payments/pay">Make Payment</a><div>Synthetic merchant 40012 $9.99</div>';

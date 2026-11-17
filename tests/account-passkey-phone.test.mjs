@@ -19,7 +19,7 @@ import {localGateway, memoryD1, memoryMail} from '../gateway/src/local.mjs';
 import {GUIDE_KEY} from '../src/webFirstLaunch.js';
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
-const MIGRATION = ['0001_accounts', '0002_passkeys'].map(f => readFileSync(join(root, 'gateway/migrations', f + '.sql'), 'utf8')).join('\n');
+const MIGRATION = ['0001_accounts', '0002_passkeys', '0003_plaid'].map(f => readFileSync(join(root, 'gateway/migrations', f + '.sql'), 'utf8')).join('\n');
 const newest = dir => readdirSync(dir, {withFileTypes: true}).reduce((m, e) => Math.max(m, e.isDirectory() ? newest(join(dir, e.name)) : statSync(join(dir, e.name)).mtimeMs), 0);
 function ensureBuild() {
   const index = join(WEB_DIR, 'index.html');
