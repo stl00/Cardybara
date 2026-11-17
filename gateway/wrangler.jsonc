@@ -47,8 +47,8 @@
   // docs/GATEWAY.md). Release identity comes from the version metadata binding. The gateway runs without either.
   "analytics_engine_datasets": [{"binding": "AGENT_METRICS", "dataset": "cardybara_agent_metrics"}],
   "version_metadata": {"binding": "CF_VERSION_METADATA"},
-  // Hourly alert check (gateway/src/alerts.js, docs/GATEWAY.md "Alerts and switches"). It needs the secrets GITHUB_TOKEN,
-  // ANALYTICS_SQL_TOKEN and CF_ACCOUNT_ID (owner steps); without them it logs what is missing and does nothing.
+  // Hourly alert check (gateway/src/alerts.js, docs/GATEWAY.md "Alerts and switches"). It needs the secrets GITHUB_TOKEN and
+  // ANALYTICS_SQL_TOKEN (owner: scripts/gateway-set-alert-secrets.sh) and CF_ACCOUNT_ID; without them it logs what is missing.
   "triggers": {"crons": ["7 * * * *", "*/15 * * * *"]},
   "observability": {"enabled": true, "logs": {"enabled": true, "invocation_logs": false}},
   "env": {
