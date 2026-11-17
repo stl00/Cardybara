@@ -4,6 +4,7 @@ import {CARD_PRODUCT_KEY,readCardProductChoices,mergeCardProductChoices} from '.
 import {PAYMENT_MARKS_KEY,readPaymentMarks,mergePaymentMarks} from './paymentStates.js';
 import {POINT_VALUES_KEY,readPointValueOverrides,storedPointValues,mergePointValues} from './pointValues.js';
 import {REMINDER_SETTINGS_KEY,readSettings,normalizeSettings} from './reminders.js';
+import {MERGE_DECLINED_KEY,MERGE_STATE_KEY,readDeclined,mergeDeclinedPairs} from './cardMergeFlow.js';
 import {validateCostBackup} from './costStore.js';
 import {LIVE_KEY} from './live.js';
 import {readBankReadings,storeBankReadings,mergeBankReadings,cleanReadings,emptyReadings} from './bankReadings.js';
@@ -17,7 +18,7 @@ export const FAVORITES_KEY='cardybara-favorites',IMPORT_KEY='cardybara-import';
 /** Storage key (localStorage) or database (IndexedDB) -> the document section that carries it. */
 export const DOCUMENT_STORAGE={
  [WALLET_CARDS_KEY]:'walletCards',[WALLET_REMOVED_KEY]:'walletCards',
- [CARD_EDITS_KEY]:'cardEdits',[CARD_PRODUCT_KEY]:'cardProducts',[PAYMENT_MARKS_KEY]:'paymentMarks',
+ [MERGE_DECLINED_KEY]:'cardMerges',[CARD_EDITS_KEY]:'cardEdits',[CARD_PRODUCT_KEY]:'cardProducts',[PAYMENT_MARKS_KEY]:'paymentMarks',
  [POINT_VALUES_KEY]:'pointValues',[REMINDER_SETTINGS_KEY]:'reminderSettings',[FAVORITES_KEY]:'favorites',
  [IMPORT_KEY]:'snapshot rows (top level)',
  [LIVE_KEY]:'bankReadings (numeric fields and read times only, bankReadings.js)',
@@ -44,9 +45,10 @@ export const DEVICE_ONLY={
  'cardybara-push-mirror':'reminder plan for this browser\'s service worker (IndexedDB)',
  'cardybara-web-push-v1':'push subscription state of this browser',
  'cardybara-sync-v1':'sync switch, server revision and last synced copy of this device (walletSync.js)',
+ 'cardybara-card-merge-state-v1':'undo records and sync-cycle counter of card merges (cardMergeFlow.js); an undo lasts one sync cycle on this device',
  'cardybara-account-session-v1':'account session token of this device, never exported',
 };
-const SECTIONS=['walletCards','cardEdits','cardProducts','paymentMarks','pointValues','reminderSettings','favorites','personalBenefits','costLedger','bankReadings'];
+const SECTIONS=['walletCards','cardEdits','cardProducts','paymentMarks','pointValues','reminderSettings','favorites','personalBenefits','costLedger','bankReadings','cardMerges'];
 const MAX_FAVORITES=200,MAX_REMOVED=200,MAX_CARDS=40;
 
 // formatVersion 0 is a backup from before the field existed: bank snapshot rows plus some of the sections.
@@ -55,7 +57,7 @@ const MIGRATIONS={0:doc=>({...doc,formatVersion:1})};
 const EMPTY={
  walletCards:()=>({cards:[],removed:[]}),cardEdits:()=>({schema:1,edits:[]}),cardProducts:()=>({schema:1,choices:[]}),
  paymentMarks:()=>({schema:1,marks:[]}),pointValues:()=>storedPointValues([]),reminderSettings:()=>normalizeSettings(null),
- favorites:()=>[],personalBenefits:()=>({schema:1,events:[]}),costLedger:()=>({schema:1,events:[]}),bankReadings:emptyReadings,
+ favorites:()=>[],personalBenefits:()=>({schema:1,events:[]}),costLedger:()=>({schema:1,events:[]}),bankReadings:emptyReadings,cardMerges:()=>({schema:1,declined:[]}),
 };
 const plain=v=>v&&typeof v==='object'&&!Array.isArray(v);
 
@@ -108,6 +110,7 @@ export async function readWalletDocument({storage,readBenefitEvents,readCostEven
   personalBenefits:{schema:1,events:await readBenefitEvents()},
   costLedger:{schema:1,events:await readCostEvents()},
   bankReadings:readBankReadings(storage),
+  cardMerges:{schema:1,declined:readDeclined(storage)},
  };
 }
 
@@ -123,6 +126,7 @@ export async function writeWalletDocument(raw,{storage,importBenefitEvents,impor
  validateRegistry(doc.walletCards);
  if(!stringList(doc.favorites,MAX_FAVORITES))throw Error('invalid_favorites');
  validateCostBackup(doc.costLedger);
+ const declined=mergeDeclinedPairs(readDeclined(storage),doc.cardMerges);
  const registry=mergeWalletCards({cards:parse(storage,WALLET_CARDS_KEY,[]),connections:[]},doc.walletCards.cards).cards;
  const edits=mergeCardEdits(readCardEdits(storage),doc.cardEdits);
  const choices=mergeCardProductChoices(readCardProductChoices(storage),doc.cardProducts);
@@ -140,7 +144,7 @@ export async function writeWalletDocument(raw,{storage,importBenefitEvents,impor
  await importCostEvents(doc.costLedger);
  const set=(key,value)=>storage.setItem(key,JSON.stringify(value));
  if(snap)set(IMPORT_KEY,snap);
- set(WALLET_CARDS_KEY,registry);set(WALLET_REMOVED_KEY,removed);set(CARD_EDITS_KEY,edits);set(CARD_PRODUCT_KEY,choices);
+ set(WALLET_CARDS_KEY,registry);set(WALLET_REMOVED_KEY,removed);set(CARD_EDITS_KEY,edits);set(CARD_PRODUCT_KEY,choices);set(MERGE_DECLINED_KEY,{schema:1,declined});
  set(PAYMENT_MARKS_KEY,marks);set(POINT_VALUES_KEY,storedPointValues(values));if(carriesSettings)set(REMINDER_SETTINGS_KEY,settings);set(FAVORITES_KEY,favorites);
  // Readings a backup carries only add to or update this device's (the later reading of each field wins).
  storeBankReadings(storage,mergeBankReadings(readBankReadings(storage),doc.bankReadings));
@@ -162,11 +166,12 @@ export async function replaceWalletDocument(raw,{storage,importBenefitEvents,imp
  validateCostBackup(doc.costLedger);
  const edits=mergeCardEdits([],doc.cardEdits),choices=mergeCardProductChoices([],doc.cardProducts);
  const marks=mergePaymentMarks([],doc.paymentMarks),values=mergePointValues([],doc.pointValues);
+ const declined=mergeDeclinedPairs([],doc.cardMerges);
  await importBenefitEvents(doc.personalBenefits);
  await importCostEvents(doc.costLedger);
  const set=(key,value)=>storage.setItem(key,JSON.stringify(value));
  if(snap)set(IMPORT_KEY,snap);
- set(WALLET_CARDS_KEY,doc.walletCards.cards);set(WALLET_REMOVED_KEY,doc.walletCards.removed);set(CARD_EDITS_KEY,edits);set(CARD_PRODUCT_KEY,choices);
+ set(WALLET_CARDS_KEY,doc.walletCards.cards);set(WALLET_REMOVED_KEY,doc.walletCards.removed);set(CARD_EDITS_KEY,edits);set(CARD_PRODUCT_KEY,choices);set(MERGE_DECLINED_KEY,{schema:1,declined});
  set(PAYMENT_MARKS_KEY,marks);set(POINT_VALUES_KEY,storedPointValues(values));set(REMINDER_SETTINGS_KEY,normalizeSettings(doc.reminderSettings));set(FAVORITES_KEY,doc.favorites);
  storeBankReadings(storage,cleanReadings(doc.bankReadings),{replace:true});
  return doc;
