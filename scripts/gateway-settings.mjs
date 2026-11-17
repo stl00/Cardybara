@@ -3,7 +3,7 @@
 // any more (owner decision 2026-11-16); this was scripts/gateway-codes.mjs.
 //
 //   node scripts/gateway-settings.mjs caps                      # show the caps in KV
-//   node scripts/gateway-settings.mjs set-caps [--daily-requests N] [--daily-tokens N] [--monthly-usd X] [--yes]
+//   node scripts/gateway-settings.mjs set-caps [--daily-requests N] [--daily-tokens N] [--monthly-usd X] [--daily-usd X] [--yes]
 //                                  (daily caps are per client; raising any cap above its current value needs --yes)
 //   node scripts/gateway-settings.mjs switches                  # show the KV switches
 //   node scripts/gateway-settings.mjs set-switch disabledTools <tool,tool>|forceModel <model>|assistantOff on|off
@@ -51,13 +51,17 @@ export async function command(kv,argv,{defaults={}}={}){
  if(op==='caps'){const raw=await kv.get(SETTINGS);return [raw?raw.trim():'No caps in KV; the deployed vars apply.'];}
  if(op==='set-caps'){
   const next={...JSON.parse(await kv.get(SETTINGS)||'{}')};
-  const r=whole(take('--daily-requests'),'--daily-requests'),t=whole(take('--daily-tokens'),'--daily-tokens'),m=take('--monthly-usd');
+  const r=whole(take('--daily-requests'),'--daily-requests'),t=whole(take('--daily-tokens'),'--daily-tokens'),m=take('--monthly-usd'),dd=take('--daily-usd');
   if(r!=null)next.dailyRequests=r;if(t!=null)next.dailyTokens=t;
-  if(m!=null){const usd=Number(m);if(!(usd>=0)||!Number.isFinite(usd))throw Error('--monthly-usd must be a number of dollars');next.monthlyBudgetUsd=usd;}
-  if(r==null&&t==null&&m==null)throw Error('set-caps needs --daily-requests, --daily-tokens or --monthly-usd');
+  const dollars=(v,flag)=>{const usd=Number(v);if(!(usd>=0)||!Number.isFinite(usd))throw Error(flag+' must be a number of dollars');return usd;};
+  if(m!=null)next.monthlyBudgetUsd=dollars(m,'--monthly-usd');
+  if(dd!=null)next.dailyBudgetUsd=dollars(dd,'--daily-usd');
+  if(r==null&&t==null&&m==null&&dd==null)throw Error('set-caps needs --daily-requests, --daily-tokens, --monthly-usd or --daily-usd');
   // A typo can multiply spend, so raising a cap above what applies now must be confirmed.
   const yes=args.includes('--yes'),before={...defaults,...JSON.parse(await kv.get(SETTINGS)||'{}')};
-  const raised=['dailyRequests','dailyTokens','monthlyBudgetUsd'].filter(k=>next[k]!=null&&before[k]!=null&&next[k]>before[k]);
+  // An unset daily budget is the monthly one / 30.
+  if(before.dailyBudgetUsd==null&&before.monthlyBudgetUsd!=null)before.dailyBudgetUsd=before.monthlyBudgetUsd/30;
+  const raised=['dailyRequests','dailyTokens','monthlyBudgetUsd','dailyBudgetUsd'].filter(k=>next[k]!=null&&before[k]!=null&&next[k]>before[k]);
   if(raised.length&&!yes)throw Error('This raises '+raised.map(k=>`${k} from ${before[k]} to ${next[k]}`).join(', ')+'. Run again with --yes to confirm.');
   await kv.put(SETTINGS,JSON.stringify(next));
   return ['Caps now: '+JSON.stringify(next)];
@@ -85,7 +89,7 @@ export async function command(kv,argv,{defaults={}}={}){
   await kv.put(SETTINGS,JSON.stringify(next));
   return [name+' cleared.'];
  }
- throw Error('usage: gateway-settings.mjs caps | set-caps [--daily-requests N] [--daily-tokens N] [--monthly-usd X] | switches | set-switch <name> <value> | clear-switch <name>');
+ throw Error('usage: gateway-settings.mjs caps | set-caps [--daily-requests N] [--daily-tokens N] [--monthly-usd X] [--daily-usd X] | switches | set-switch <name> <value> | clear-switch <name>');
 }
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){

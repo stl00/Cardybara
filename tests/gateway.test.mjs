@@ -110,26 +110,31 @@ test('only allow-listed models and fields are forwarded, with the owner key and 
  // The reply carries only the completion fields.
  const out=await r.json();assert.equal(out.choices[0].message.content,'synthetic answer');assert.equal(out.system_fingerprint,undefined);
  // A missing max_tokens is bounded by the gateway's cap.
- await g.handle(post(ROUTES.chat,{body:{messages:[{role:'user',content:'q'}]}}));assert.equal(g.upstream[1].body.max_tokens,8192);assert.equal(g.upstream[1].body.model,'deepseek-flash');
+ await g.handle(post(ROUTES.chat,{body:{messages:[{role:'user',content:'q'}]}}));assert.equal(g.upstream[1].body.max_tokens,600,'a missing max_tokens is the proxy\'s own cap');assert.equal(g.upstream[1].body.model,'deepseek-flash');
  assert.equal(sanitizeBody({messages:[{role:'user',content:'q'}],max_tokens:10},readConfig({ALLOWED_MODELS:'a,b'})).model,'a','a missing model defaults to the first allowed one');
 });
 
-test('the per-client daily request cap holds under parallel requests and answers client_daily_limit',async()=>{
+test('the per-client daily request cap holds under parallel requests and answers the legacy daily_requests code',async()=>{
  const g=setup({vars:{DAILY_REQUESTS_PER_CLIENT:'5'}});
  const results=await Promise.all(Array.from({length:20},()=>g.handle(post(ROUTES.chat))));
  const statuses=results.map(r=>r.status);
  assert.equal(statuses.filter(s=>s===200).length,5);assert.equal(statuses.filter(s=>s===429).length,15);
- assert.equal(g.upstream.length,5);assert.equal(await errorOf(results.find(r=>r.status===429)),'client_daily_limit');
- assert.ok(g.logs.map(l=>JSON.parse(l)).filter(l=>l.error==='client_daily_limit').every(l=>l.limit==='requests'));
+ assert.equal(g.upstream.length,5);assert.equal(await errorOf(results.find(r=>r.status===429)),'daily_requests','a code older builds know');
+ assert.ok(g.logs.map(l=>JSON.parse(l)).filter(l=>l.error==='daily_requests').every(l=>l.limit==='client_requests'));
  // Sending a code does not get around the cap.
- assert.equal(await errorOf(await g.handle(post(ROUTES.chat,{code:CODE}))),'client_daily_limit');
+ assert.equal(await errorOf(await g.handle(post(ROUTES.chat,{code:CODE}))),'daily_requests');
  // Another address has its own count; the next day starts again.
  assert.equal((await g.handle(post(ROUTES.chat,{ip:OTHER_IP}))).status,200);
- // The /64 of an IPv6 address is one client.
+ // The /48 of an IPv6 address is one client: another /64 in it does not get a fresh allowance.
  const v6=setup({vars:{DAILY_REQUESTS_PER_CLIENT:'1'}});
  assert.equal((await v6.handle(post(ROUTES.chat,{ip:'2001:db8:1:2::1'}))).status,200);
  assert.equal((await v6.handle(post(ROUTES.chat,{ip:'2001:db8:1:2::ffff'}))).status,429);
- assert.equal((await v6.handle(post(ROUTES.chat,{ip:'2001:db8:1:3::1'}))).status,200);
+ assert.equal((await v6.handle(post(ROUTES.chat,{ip:'2001:db8:1:3::1'}))).status,429,'same /48');
+ assert.equal((await v6.handle(post(ROUTES.chat,{ip:'2001:db8:2::1'}))).status,200);
+ // An IPv4-mapped IPv6 address is the same client as its IPv4 address.
+ const v4=setup({vars:{DAILY_REQUESTS_PER_CLIENT:'1'}});
+ assert.equal((await v4.handle(post(ROUTES.chat,{ip:'203.0.113.50'}))).status,200);
+ assert.equal((await v4.handle(post(ROUTES.chat,{ip:'::ffff:203.0.113.50'}))).status,429);
  let at=Date.parse('2026-11-11T23:59:00Z');const later=setup({vars:{DAILY_REQUESTS_PER_CLIENT:'1'}, now:()=>at});
  assert.equal((await later.handle(post(ROUTES.chat))).status,200);assert.equal((await later.handle(post(ROUTES.chat))).status,429);
  at+=120000;assert.equal((await later.handle(post(ROUTES.chat))).status,200);
@@ -152,19 +157,49 @@ test('the client id is a salted, daily hash: the address is never stored in the 
 test('token and monthly budget caps reserve the worst case up front and settle to actual use',async()=>{
  // Worst case for one request is its bytes plus max_tokens; actual use is 15 tokens.
  const g=setup({vars:{DAILY_TOKENS_PER_CLIENT:'2000'}});
- const parallel=await Promise.all(Array.from({length:10},()=>g.handle(post(ROUTES.chat,{body:chatBody({max_tokens:900})}))));
+ const parallel=await Promise.all(Array.from({length:10},()=>g.handle(post(ROUTES.chat,{body:chatBody({max_tokens:500})}))));
  assert.ok(parallel.filter(r=>r.status===200).length<=2,'parallel requests cannot overrun the token cap');
- assert.equal(await errorOf(parallel.find(r=>r.status===429)),'client_daily_limit');
+ assert.equal(await errorOf(parallel.find(r=>r.status===429)),'daily_tokens');
  const day=[...g.ledger().entries()].find(([k])=>k.startsWith('d:'))[1];
  assert.equal(day.tokens,15*parallel.filter(r=>r.status===200).length,'settled to actual tokens');
  assert.equal([...g.ledger().keys()].filter(k=>k.startsWith('r:')).length,0,'no open reservations');
  // The monthly budget is global across clients.
- const b=setup({vars:{MONTHLY_BUDGET_USD:'0.001',PRICE_INPUT_USD_PER_MTOK:'1',PRICE_OUTPUT_USD_PER_MTOK:'1'}});
+ const b=setup({vars:{MONTHLY_BUDGET_USD:'0.001',DAILY_BUDGET_USD:'1',PRICE_INPUT_USD_PER_MTOK:'1',PRICE_OUTPUT_USD_PER_MTOK:'1'}});
  const small=chatBody({max_tokens:100});
  const results=await Promise.all([...Array(4)].map((_,i)=>b.handle(post(ROUTES.chat,{ip:i%2?OTHER_IP:IP,body:small}))));
  assert.ok(results.filter(r=>r.status===200).length>=1);
  const over=results.find(r=>r.status===429);assert.ok(over,'the budget stops some of them');assert.equal(await errorOf(over),'monthly_budget');
  const month=b.ledger().get('m:'+new Date().toISOString().slice(0,7));assert.ok(month.micros<=1000);
+});
+
+test('a global daily budget (monthly / 30 by default) stops all clients together; clients see monthly_budget',async()=>{
+ // Each request's worst case is about 300 micro-USD at these prices; the month allows 3000, the default day 100.
+ const vars={MONTHLY_BUDGET_USD:'0.003',PRICE_INPUT_USD_PER_MTOK:'1',PRICE_OUTPUT_USD_PER_MTOK:'1'};
+ assert.equal(readConfig(vars).dailyBudgetMicros,undefined,'unset: worked out from the monthly budget');
+ const {withSettings}=await import('../gateway/src/gateway.js');
+ assert.equal((await withSettings(readConfig(vars),{})).dailyBudgetMicros,100);
+ const g=setup({vars:{...vars,DAILY_BUDGET_USD:'0.0009'}});
+ const small=chatBody({max_tokens:100}),statuses=[];
+ // In parallel, so every worst case is reserved at once (settling would bring each down to its actual 15 tokens).
+ for(const r of await Promise.all(['203.0.113.1','203.0.113.2','203.0.113.3','203.0.113.4'].map(ip=>g.handle(post(ROUTES.chat,{ip,body:small})))))statuses.push(r.status===429?await errorOf(r):r.status);
+ assert.ok(statuses.filter(s=>s===200).length>=1,'some get through');assert.ok(statuses.includes('monthly_budget'),'many addresses still meet the daily budget: '+statuses);
+ const refused=g.logs.map(l=>JSON.parse(l)).filter(l=>l.error);assert.ok(refused.every(l=>l.limit==='daily_budget'),'the log says it was the daily budget');
+ assert.ok(g.ledger().get('g:'+new Date().toISOString().slice(0,10)).micros<=900);
+ // The default: monthly / 30, here 100 micro-USD, below one request's worst case.
+ const d=setup({vars});assert.equal(await errorOf(await d.handle(post(ROUTES.chat,{body:small}))),'monthly_budget');
+ // KV can set it too.
+ const k=setup({vars});await k.env.INVITES.put(SETTINGS_KEY,JSON.stringify({dailyBudgetUsd:1}));assert.equal((await k.handle(post(ROUTES.chat,{body:small}))).status,200);
+ assert.equal(readConfig({DAILY_BUDGET_USD:'lots'}).ready,false,'a malformed daily budget fails closed');
+});
+
+test('/v1/chat/completions takes only what card-type suggestion needs: max_tokens ≤ 600, ≤ 4 messages, bounded length',async()=>{
+ const g=setup();
+ for(const bad of [{max_tokens:601},{max_tokens:8192},{messages:Array.from({length:5},()=>({role:'user',content:'x'}))},{messages:[{role:'user',content:'x'.repeat(32001)}]},{messages:[{role:'system',content:'x'.repeat(20000)},{role:'user',content:'y'.repeat(12001)}]}])
+  assert.equal(await errorOf(await g.handle(post(ROUTES.chat,{body:chatBody(bad)}))),'bad_request',JSON.stringify(bad).slice(0,60));
+ assert.equal(g.upstream.length,0);
+ assert.equal((await g.handle(post(ROUTES.chat,{body:chatBody({max_tokens:600,messages:[{role:'system',content:'s'.repeat(9000)},{role:'user',content:'u'}],response_format:{type:'json_object'}})}))).status,200);
+ // The agent route keeps the gateway's own cap: it is not the proxy.
+ assert.equal(readConfig({}).maxOutputTokens,8192);
 });
 
 test('provider failures pass through as codes only, release the reservation, and never leak provider text',async()=>{
@@ -197,6 +232,28 @@ test('without the provider key, bindings or valid numbers the gateway fails clos
   const g=setup({vars});
   const r=await g.handle(post(ROUTES.chat));assert.equal(r.status,503,JSON.stringify(vars));assert.equal(await errorOf(r),'gateway_not_configured');assert.equal(g.upstream.length,0);
  }
+ // Without the usage ledger nothing can be capped, so nothing runs.
+ const noLedger=setup();delete noLedger.env.USAGE;
+ const r=await noLedger.handle(post(ROUTES.chat));assert.equal(r.status,503);assert.equal(await errorOf(r),'gateway_not_configured');assert.equal(noLedger.upstream.length,0);
+});
+
+test('production needs CLIENT_SALT and a client address; only LOCAL_DEV goes without',async()=>{
+ const SALT='synthetic-client-salt-0123456789';
+ // No salt in production: fail closed, with no fallback to the provider key.
+ const unsalted=setup({vars:{LOCAL_DEV:''}});
+ assert.equal(await errorOf(await unsalted.handle(post(ROUTES.chat))),'gateway_not_configured');
+ assert.equal(readConfig({...unsalted.env,CLIENT_SALT:'short'}).ready,false,'a salt under 16 characters is not one');
+ const prod=setup({vars:{LOCAL_DEV:'',CLIENT_SALT:SALT}});
+ assert.equal((await prod.handle(post(ROUTES.chat))).status,200);
+ // No CF-Connecting-IP: every caller would share one bucket, so production refuses before anything else.
+ const r=await prod.handle(post(ROUTES.chat,{ip:null}));assert.equal(r.status,400);assert.equal(await errorOf(r),'bad_request');
+ assert.equal(JSON.parse(prod.logs.at(-1)).reason,'no_client_address');assert.equal(prod.upstream.length,1);
+ // A local run may go without both.
+ const local=setup({vars:{LOCAL_DEV:'1'}});assert.equal((await local.handle(post(ROUTES.chat,{ip:null}))).status,200);
+ // The salt keys the id; the provider key is not used when a salt is set.
+ const day='2026-11-16';
+ assert.notEqual(await clientId(post(ROUTES.chat),{CLIENT_SALT:SALT,PROVIDER_KEY:'a'.repeat(20)},day),await clientId(post(ROUTES.chat),{LOCAL_DEV:'1',PROVIDER_KEY:'a'.repeat(20)},day));
+ assert.equal(await clientId(post(ROUTES.chat),{CLIENT_SALT:SALT,PROVIDER_KEY:'a'.repeat(20)},day),await clientId(post(ROUTES.chat),{CLIENT_SALT:SALT,PROVIDER_KEY:'b'.repeat(20)},day));
 });
 
 test('logs carry time, route, tokens and status — never bodies, codes, addresses, client ids or keys',async()=>{
@@ -215,7 +272,7 @@ test('logs carry time, route, tokens and status — never bodies, codes, address
  const first=JSON.parse(g.logs[0]);
  assert.deepEqual(Object.keys(first).sort(),['at','completion_tokens','prompt_tokens','route','status']);
  assert.equal(first.status,200);assert.equal(first.prompt_tokens,10);assert.equal(first.completion_tokens,5);
- assert.equal(JSON.parse(g.logs[1]).status,200);assert.equal(JSON.parse(g.logs.at(-1)).error,'client_daily_limit');
+ assert.equal(JSON.parse(g.logs[1]).status,200);assert.equal(JSON.parse(g.logs.at(-1)).error,'daily_requests');assert.equal(JSON.parse(g.logs.at(-1)).limit,'client_requests');
  // The Worker source has no other logging call.
  const source=readFileSync(new URL('../gateway/src/gateway.js',import.meta.url),'utf8');
  assert.equal((source.match(/console\.\w+/g)||[]).length,1);
@@ -284,6 +341,8 @@ test('the first request of a day prunes earlier days\' client counters and reser
  // The next day: yesterday's client ids are gone even though yesterday's open reservation may still settle.
  at=Date.parse('2026-11-02T00:05:00Z');await g.handle(post(ROUTES.chat,{ip:OTHER_IP}));
  assert.ok(!store.has(first),'a client id is kept for its own day only');assert.ok(store.has('r:stale'));
+ assert.deepEqual(store.get('r:stale'),{mk:'m:2026-11',tokens:1,micros:1,day:'2026-11-01'},'the open reservation keeps only what the month needs: no client id');
+ assert.ok(!JSON.stringify([...store.entries()]).includes(first.slice(13)),'the client id is nowhere in the ledger');
  assert.ok([...store.keys()].some(k=>k.startsWith('d:2026-11-02:')));
  at=Date.parse('2026-11-05T12:00:00Z');await g.handle(post(ROUTES.chat));
  assert.ok(!store.has('r:stale'));assert.ok(store.has('m:2026-11'));
@@ -292,14 +351,22 @@ test('the first request of a day prunes earlier days\' client counters and reser
 
 test('a reservation settled after midnight does not bring back the pruned day, and the ledger alarm prunes with no traffic',async()=>{
  const {UsageLedger}=await import('../gateway/src/gateway.js');const {memoryStorage}=await import('../gateway/src/local.mjs');
- const storage=memoryStorage();let alarm=null;storage.setAlarm=async t=>{alarm=t;};
- const ledger=new UsageLedger({storage});
- const r=await ledger.reserve({code:'cA',day:'2026-11-01',month:'2026-11',tokens:10,micros:10,maxRequests:5,maxTokens:100,maxMicros:100});assert.equal(r.ok,true);
+ const storage=memoryStorage();let alarm=null,at=Date.parse('2026-11-01T10:00:00Z');storage.setAlarm=async t=>{alarm=t;};
+ const ledger=new UsageLedger({storage,now:()=>at});
+ const r=await ledger.reserve({code:'cA',day:'2026-11-01',month:'2026-11',tokens:10,micros:10,maxRequests:5,maxTokens:100,maxMicros:100,maxDayMicros:100});assert.equal(r.ok,true);
+ await ledger.push({code:'cA',day:'2026-11-01',action:'put',device:'D'.repeat(22),exp:Math.floor(at/1000)+86400*60,now:Math.floor(at/1000),maxWrites:5,maxDevices:5});
  assert.equal(alarm,Date.parse('2026-11-02T00:01:00Z'),'an alarm just after the next UTC midnight');
- await ledger.prune('2026-11-02');assert.equal(storage.data.has('d:2026-11-01:cA'),false);
+ assert.ok(storage.data.has('d:2026-11-01:cA')&&storage.data.has('p:2026-11-01:cA'));
+ // The alarm fires after midnight with no request: the previous day's client keys go, and the next alarm is set.
+ at=Date.parse('2026-11-02T00:01:00Z');await ledger.alarm();
+ assert.equal(storage.data.has('d:2026-11-01:cA'),false);assert.equal(storage.data.has('p:2026-11-01:cA'),false);
+ assert.equal(storage.data.get('pruned'),'2026-11-02');assert.equal(alarm,Date.parse('2026-11-03T00:01:00Z'),'the next alarm');
+ assert.equal(storage.data.get('r:'+r.id).dk,undefined,'the open reservation lost its client key');
+ assert.ok(storage.data.has('v:'+'D'.repeat(22)),'a live push device keeps its place');
  await ledger.settle({id:r.id,tokens:3,micros:3});
- assert.equal(storage.data.has('d:2026-11-01:cA'),false,'not written back');assert.equal(storage.data.get('m:2026-11').micros,3);
- assert.equal(typeof ledger.alarm,'function');
+ assert.equal(storage.data.has('d:2026-11-01:cA'),false,'not written back');assert.equal(storage.data.get('m:2026-11').micros,3);assert.equal(storage.data.get('g:2026-11-01').micros,3);
+ // A device whose KV record expired gives its place back at the next prune.
+ at=Date.parse('2027-02-01T00:01:00Z');await ledger.alarm();assert.equal(storage.data.has('v:'+'D'.repeat(22)),false);assert.equal(storage.data.get('devices'),0);
 });
 
 test('the Worker main module exports only what Workers accepts: the fetch handler and the Durable Object class',async()=>{
@@ -314,11 +381,12 @@ test('without an injected fetch the gateway calls the global fetch unbound, as W
  assert.ok(self===undefined||self===globalThis,'fetch was called as a method of another object');
 });
 
-test('client keys (hashed before use): an IPv4 address, or the /64 of an IPv6 address',()=>{
+test('client keys (hashed before use): an IPv4 address (also when IPv4-mapped), or the /48 of an IPv6 address',()=>{
  const key=ip=>clientKey(new Request('https://g.test',{headers:ip?{'CF-Connecting-IP':ip}:{}}));
  assert.equal(key('203.0.113.9'),'203.0.113.9');
- assert.equal(key('2001:db8:1:2:aaaa:bbbb:cccc:dddd'),'2001:db8:1:2::/64');assert.equal(key('2001:db8:1:2::9'),'2001:db8:1:2::/64');
- assert.equal(key('2001:db8::1'),'2001:db8:0:0::/64');assert.equal(key(null),'unknown');
+ assert.equal(key('2001:db8:1:2:aaaa:bbbb:cccc:dddd'),'2001:db8:1::/48');assert.equal(key('2001:db8:1:ffff::9'),'2001:db8:1::/48');
+ assert.equal(key('2001:db8::1'),'2001:db8:0::/48');assert.equal(key(null),'unknown');
+ for(const mapped of ['::ffff:203.0.113.9','::FFFF:203.0.113.9','0:0:0:0:0:ffff:203.0.113.9','::ffff:cb00:7109'])assert.equal(key(mapped),'203.0.113.9',mapped);
 });
 test('a long stream may exceed the JSON reply cap, within what max_tokens allows',async()=>{
  const g=setup({vars:{MAX_BODY_BYTES:'1024'}});const waits=[];

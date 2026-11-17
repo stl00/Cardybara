@@ -25,6 +25,9 @@ test('set-caps writes the caps the gateway reads from KV, and raising one needs 
  await command(kv,['set-caps','--daily-requests','1','--monthly-usd','2.5']);
  assert.deepEqual(JSON.parse(await kv.get('settings')),{dailyRequests:1,monthlyBudgetUsd:2.5});
  await command(kv,['set-caps','--daily-tokens','1000']);assert.deepEqual(JSON.parse(await kv.get('settings')),{dailyRequests:1,monthlyBudgetUsd:2.5,dailyTokens:1000});
+ // The daily budget: raising it above monthly / 30 needs --yes too.
+ await assert.rejects(()=>command(kv,['set-caps','--daily-usd','5'],{defaults}),/raises dailyBudgetUsd/);
+ await command(kv,['set-caps','--daily-usd','0.05'],{defaults});assert.equal(JSON.parse(await kv.get('settings')).dailyBudgetUsd,0.05);
  for(const bad of [['set-caps'],['set-caps','--daily-requests','-1'],['set-caps','--monthly-usd','lots'],['set-caps','--daily-requests']])await assert.rejects(()=>command(kv,bad),Error,bad.join(' '));
 });
 test('the API backend talks only to the KV namespace it was given',async()=>{

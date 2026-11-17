@@ -109,7 +109,15 @@ export async function vapidHeader(env,audience,nowMs){
  * Sends the pushes that are due. Never throws and never logs an endpoint: the log line has counts only.
  * deps: {fetch, now, log}. Returns the counts.
  */
-export async function sendDuePushes(env,{fetch=(...a)=>globalThis.fetch(...a),now=Date.now,log=l=>console.log(l)}={}){
+// The KV key holding the last device the cron reached when more were due than one run takes (outside `push:`).
+export const CURSOR_KEY='pushcursor';
+// A push service answering one of these will never take this subscription: the device is deleted at once.
+const GONE=new Set([400,403,404,410]);
+/** Frees the device's place under the gateway's device cap (gateway.js `UsageLedger.forget`). Never throws. */
+async function forgetPlace(env,device){
+ try{await env.USAGE?.get(env.USAGE.idFromName('global')).fetch('https://ledger.internal/forget',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({device})});}catch{}
+}
+export async function sendDuePushes(env,{fetch=(...a)=>globalThis.fetch(...a),now=Date.now,log=l=>console.log(l),perRun=MAX_DEVICES_PER_RUN}={}){
  const counts={due:0,sent:0,gone:0,failed:0,expired:0};
  const say=o=>log(JSON.stringify({push:o}));
  if(!pushConfigured(env)){return {skipped:true};}
@@ -120,12 +128,21 @@ export async function sendDuePushes(env,{fetch=(...a)=>globalThis.fetch(...a),no
    for(const k of page.keys)if(Number.isInteger(k.metadata?.next)&&k.metadata.next<=nowSec)due.push({name:k.name,next:k.metadata.next,exp:k.metadata.exp});
    cursor=page.list_complete?undefined:page.cursor;
   }while(cursor);
-  due.sort((a,b)=>a.next-b.next);
+  // Round robin by device id, starting after where the last full run stopped: a device cannot jump the queue by
+  // claiming an old fire time, and when more are due than one run takes, every one is reached within a few runs.
+  due.sort((a,b)=>a.name<b.name?-1:a.name>b.name?1:0);
   counts.due=due.length;
+  let batch=due;
+  if(due.length>perRun){
+   let after=null;try{after=await env.INVITES.get(CURSOR_KEY);}catch{}
+   const start=after?Math.max(0,due.findIndex(d=>d.name>after)):0;
+   batch=[...due.slice(start),...due.slice(0,start)].slice(0,perRun);
+   await env.INVITES.put(CURSOR_KEY,batch.at(-1).name).catch(()=>{});
+  }
   const headers=new Map();
-  for(const {name,exp} of due.slice(0,MAX_DEVICES_PER_RUN)){
+  for(const {name,exp} of batch){
    let record=null;try{record=await env.INVITES.get(name,{type:'json'});}catch{}
-   if(!plain(record)||!validEndpoint(record.subscription?.endpoint)||!Array.isArray(record.times)){await env.INVITES.delete(name).catch(()=>{});counts.failed++;continue;}
+   if(!plain(record)||!validEndpoint(record.subscription?.endpoint)||!Array.isArray(record.times)){await env.INVITES.delete(name).catch(()=>{});await forgetPlace(env,name.slice(PUSH_PREFIX.length));counts.failed++;continue;}
    const firing=record.times.filter(t=>t.at<=nowSec);
    if(!firing.length)continue;
    const endpoint=record.subscription.endpoint,audience=new URL(endpoint).origin;
@@ -135,7 +152,7 @@ export async function sendDuePushes(env,{fetch=(...a)=>globalThis.fetch(...a),no
     const r=await fetch(endpoint,{method:'POST',headers:{Authorization:headers.get(audience),TTL:String(PUSH_TTL_SECONDS),Urgency:'normal','Content-Length':'0'},redirect:'manual'});
     status=r.status;await r.body?.cancel().catch(()=>{});
    }catch{status=0;}
-   if(status===404||status===410){await env.INVITES.delete(name);counts.gone++;continue;}
+   if(GONE.has(status)){await env.INVITES.delete(name);await forgetPlace(env,name.slice(PUSH_PREFIX.length));counts.gone++;continue;}
    // Sent: the due times go. Not sent: they stay for the next run, unless they have waited too long.
    const ok=status>=200&&status<300;
    if(ok)counts.sent++;else counts.failed++;

@@ -20,7 +20,7 @@ let t=performance.now();
 const worker=await import(${JSON.stringify(pathToFileURL(bundle).href)});
 const importMs=performance.now()-t;
 globalThis.fetch=async()=>Response.json({choices:[{index:0,message:{role:'assistant',content:'ok'},finish_reason:'stop'}],usage:{prompt_tokens:1,completion_tokens:1}});
-const env={PROVIDER_KEY:'synthetic-provider-key-not-real',ALLOWED_ORIGINS:'chrome-extension://*',ALLOW_HTTP_PROVIDER:'1',INVITES:memoryKV(),USAGE:memoryDurableObject(worker.UsageLedger)};
+const env={PROVIDER_KEY:'synthetic-provider-key-not-real',ALLOWED_ORIGINS:'chrome-extension://*',ALLOW_HTTP_PROVIDER:'1',LOCAL_DEV:'1',INVITES:memoryKV(),USAGE:memoryDurableObject(worker.UsageLedger)};
 const day=new Date().toISOString().slice(0,10);
 const body=${JSON.stringify(path)}==='/v1/chat'?{question:'hi',history:[],memory:{},summary:{schema:1,day,language:'en-US',cards:[],pointValues:[]}}:{messages:[{role:'user',content:'hi'}],max_tokens:10};
 t=performance.now();

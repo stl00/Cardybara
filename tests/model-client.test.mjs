@@ -168,7 +168,7 @@ test('hosted mode: an invite code saved by an older build is dropped from storag
 });
 test('hosted mode: gateway errors become a fixed set of codes, never gateway or provider text',async()=>{
  fakeChrome({ownKey:false});
- for(const [status,body,code] of [[429,{error:{code:'client_daily_limit'}},'hosted_client_cap'],[429,{error:{code:'daily_requests'}},'hosted_over_cap'],[429,{error:{code:'daily_tokens'}},'hosted_over_cap'],[429,{error:{code:'monthly_budget'}},'hosted_over_cap'],[429,{error:{code:'provider_rate_limited'}},'model_rate_limited'],[502,{error:{code:'provider_error'}},'model_failed'],[401,Error('not json'),'model_failed'],[401,{error:{code:'invite_invalid'}},'model_failed'],[500,{error:{code:'<script>'+INVITE}},'model_failed'],[403,{error:{code:'origin_forbidden'}},'model_failed']]){
+ for(const [status,body,code] of [[429,{error:{code:'daily_requests'}},'hosted_client_cap'],[429,{error:{code:'daily_tokens'}},'hosted_client_cap'],[429,{error:{code:'monthly_budget'}},'hosted_over_cap'],[429,{error:{code:'provider_rate_limited'}},'model_rate_limited'],[502,{error:{code:'provider_error'}},'model_failed'],[401,Error('not json'),'model_failed'],[401,{error:{code:'invite_invalid'}},'model_failed'],[500,{error:{code:'<script>'+INVITE}},'model_failed'],[403,{error:{code:'origin_forbidden'}},'model_failed']]){
   fakeGateway(()=>[status,body]);const error=await completeChat({messages:[]}).catch(e=>e);
   assert.equal(error.message,code,JSON.stringify([status,String(body)]));assert.ok(!String(error.stack).includes(INVITE));
  }
@@ -214,7 +214,7 @@ test('the hosted assistant route: no credential, an event stream back, errors as
  assert.equal(seen[0].url,GATEWAY_ORIGIN+'/v1/chat');assert.equal(seen[0].options.headers.Authorization,undefined);assert.equal(seen[0].options.credentials,'omit');assert.equal(seen[0].options.redirect,'error');
  globalThis.fetch=async()=>new Response('{}',{status:200,headers:{'Content-Type':'application/json'}});
  await assert.rejects(()=>postAgent({question:'hi'}),/model_failed/,'only an event stream is read');
- for(const [code,status,want] of [['client_daily_limit',429,'hosted_client_cap'],['daily_requests',429,'hosted_over_cap'],['turn_invalid',400,'model_failed']]){
+ for(const [code,status,want] of [['daily_requests',429,'hosted_client_cap'],['monthly_budget',429,'hosted_over_cap'],['turn_invalid',400,'model_failed']]){
   globalThis.fetch=async()=>Response.json({error:{code}},{status});
   await assert.rejects(()=>postAgent({question:'hi'}),new RegExp(want));
  }

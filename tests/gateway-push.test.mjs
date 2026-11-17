@@ -179,20 +179,66 @@ test('the cron sends one payload-free push per device with due times, signed wit
  const w3=pushWorld();await run(g,w3,T0+700*1000);assert.equal(w3.calls.length,0);
 });
 
-test('a 404 or 410 from the push service deletes the device',async()=>{
- for(const status of [404,410]){
+test('a 400, 403, 404 or 410 from the push service deletes the device at once and frees its place',async()=>{
+ for(const status of [400,403,404,410]){
   const g=await setup();
   await put(g,base({times:[{at:SEC-10,kind:'payment'}]}));await put(g,base({device:OTHER_DEVICE,subscription:{endpoint:ENDPOINT+'-2',keys:KEYS},times:[{at:SEC-10,kind:'fee'}]}));
   const w=pushWorld(url=>url===ENDPOINT?status:201),r=await run(g,w);
   assert.equal(await timesOf(g),undefined,String(status));assert.equal(stored(g).length,1);assert.deepEqual(await timesOf(g,OTHER_DEVICE),[]);
   assert.equal(r.gone,1);assert.equal(r.sent,1);
+  const ledger=g.env.USAGE.instances.get('global').storage.data;
+  assert.equal(ledger.has('v:'+DEVICE),false,'its place under the device cap is free');assert.equal(ledger.get('devices'),1);
  }
+});
+
+const ipReq=(ip,body,method='PUT')=>new Request('https://gateway.test'+ROUTES.push,{method,headers:{Origin:ORIGIN,'Content-Type':'application/json','CF-Connecting-IP':ip},body:JSON.stringify(body)});
+const deviceId=i=>('dev'+String(i).padStart(4,'0')).padEnd(22,'x');
+test('push writes are capped per client per day (PUT and DELETE alike), with their own code',async()=>{
+ const g=await setup({vars:{PUSH_WRITES_PER_CLIENT:'3'}});
+ for(let i=0;i<3;i++)assert.equal((await g.handle(ipReq('203.0.113.7',base({device:deviceId(i)})))).status,200);
+ const over=await g.handle(ipReq('203.0.113.7',base({device:deviceId(9)})));assert.equal(over.status,429);assert.equal(await errorOf(over),'push_daily_limit');
+ const del=await g.handle(ipReq('203.0.113.7',{device:deviceId(0)},'DELETE'));assert.equal(await errorOf(del),'push_daily_limit');
+ assert.equal(stored(g).length,3,'nothing written once over');
+ // Another address has its own allowance; the next day starts again.
+ assert.equal((await g.handle(ipReq('198.51.100.7',base({device:deviceId(9)})))).status,200);
+ assert.equal(g.logs.some(l=>l.includes('203.0.113.7')),false,'no address in the log');
+});
+test('a global device cap refuses new devices with push_capacity; known devices and deletes still work',async()=>{
+ const g=await setup({vars:{MAX_PUSH_DEVICES:'2'}});
+ assert.equal((await g.handle(ipReq('203.0.113.1',base({device:deviceId(1)})))).status,200);
+ assert.equal((await g.handle(ipReq('203.0.113.2',base({device:deviceId(2)})))).status,200);
+ const full=await g.handle(ipReq('203.0.113.3',base({device:deviceId(3)})));assert.equal(full.status,503);assert.equal(await errorOf(full),'push_capacity');
+ assert.equal(stored(g).length,2);
+ assert.equal((await g.handle(ipReq('203.0.113.1',base({device:deviceId(1),times:[]})))).status,200,'an update to a stored device is not a new one');
+ assert.equal((await g.handle(ipReq('203.0.113.1',{device:deviceId(1)},'DELETE'))).status,200);
+ assert.equal((await g.handle(ipReq('203.0.113.3',base({device:deviceId(3)})))).status,200,'a delete frees a place');
+});
+test('the cron goes round robin: devices claiming the oldest fire time cannot starve the others',async()=>{
+ const g=await setup({vars:{PUSH_WRITES_PER_CLIENT:'100'}});
+ // Six flooding devices with a fire time a day old (their pushes keep failing, so they stay due), then two real
+ // devices due now; three are handled per run. Oldest-first would never reach the real ones.
+ const ep=name=>ENDPOINT+'-'+name;
+ const floods=Array.from({length:6},(_,i)=>'a'+deviceId(i).slice(1)),real=['z'+'real1'.padEnd(21,'x'),'z'+'real2'.padEnd(21,'x')];
+ for(const d of floods)await put(g,base({device:d,subscription:{endpoint:ep(d),keys:KEYS},times:[{at:SEC-86399,kind:'payment'}]}));
+ for(const d of real)await put(g,base({device:d,subscription:{endpoint:ep(d),keys:KEYS},times:[{at:SEC,kind:'fee'}]}));
+ const reached=new Set();
+ for(let n=0;n<3;n++){
+  const seen=[];await sendDuePushes(g.env,{fetch:async url=>{seen.push(url);return new Response(null,{status:url.includes('-z')?201:500});},now:()=>T0,log:()=>{},perRun:3});
+  assert.ok(seen.length<=3,'at most three per run');seen.forEach(u=>reached.add(u));
+ }
+ for(const d of real){assert.ok(reached.has(ep(d)),'a real device was reached');assert.deepEqual(await timesOf(g,d),[]);}
+ // With a cursor: the run after a full batch starts after it.
+ const g2=await setup({vars:{PUSH_WRITES_PER_CLIENT:'100'}});
+ for(let i=0;i<5;i++)await put(g2,base({device:deviceId(i),times:[{at:SEC-10,kind:'fee'}]}));
+ const batches=[];
+ for(let n=0;n<2;n++){await sendDuePushes(g2.env,{fetch:async()=>{return new Response(null,{status:500});},now:()=>T0,log:()=>{},perRun:3});batches.push(await g2.env.INVITES.get('pushcursor'));}
+ assert.deepEqual(batches,[PUSH_PREFIX+deviceId(2),PUSH_PREFIX+deviceId(0)],'the second run starts after the first and wraps around');
 });
 
 test('a push that fails stays due for the next run, until it has waited two days',async()=>{
  const g=await setup();
  await put(g,base({times:[{at:SEC-10,kind:'payment'}]}));
- for(const status of [500,429,403,0]){
+ for(const status of [500,429,0]){
   const w=status?pushWorld(()=>status):{calls:[],fetch:async()=>{throw Error('network');}};
   const r=await run(g,w);assert.equal(r.failed,1,String(status));assert.deepEqual(await timesOf(g),[{at:SEC-10,kind:'payment'}],String(status));
  }

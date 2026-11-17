@@ -89,8 +89,9 @@ async function send(url,{provider,key,method='POST',body,signal,timeout=45000}){
  if(!response.ok)throw Error('model_failed');
  try{return await response.json();}catch{throw Error('model_failed');}
 }
-// client_daily_limit: this network address used its daily share. daily_*: a gateway from before 2026-11-16.
-const GATEWAY_ERRORS={client_daily_limit:'hosted_client_cap',daily_requests:'hosted_over_cap',daily_tokens:'hosted_over_cap',monthly_budget:'hosted_over_cap',provider_rate_limited:'model_rate_limited',rate_limited:'model_rate_limited'};
+// daily_requests / daily_tokens: this network address used its daily share. monthly_budget: the service's own
+// daily or monthly budget is used up.
+const GATEWAY_ERRORS={daily_requests:'hosted_client_cap',daily_tokens:'hosted_client_cap',monthly_budget:'hosted_over_cap',provider_rate_limited:'model_rate_limited',rate_limited:'model_rate_limited'};
 /** The code the wallet shows for a gateway error code, from a response or a streamed error event. */
 export const hostedError=code=>code==='too_large'?'tool_limit':['answer_not_grounded','tool_limit'].includes(code)?code:Object.hasOwn(GATEWAY_ERRORS,code)?GATEWAY_ERRORS[code]:'model_failed';
 async function gatewayError(response){

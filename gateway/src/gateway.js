@@ -19,7 +19,7 @@
 // init and native ESM both keep the failure), so every /v1/chat then answers agent_unavailable until a redeploy.
 import {writeMetrics} from './metrics.js';
 import {readSwitches} from './switches.js';
-import {parsePut,parseDelete,storePush,forgetPush,pushConfigured} from './push.js';
+import {parsePut,parseDelete,storePush,forgetPush,pushConfigured,EXPIRY_SECONDS} from './push.js';
 let agent=null;
 const agentRoute=ctx=>(agent||=import('./agent.js')).then(m=>m.agentRoute(ctx),()=>{throw new Refusal('agent_unavailable');});
 
@@ -33,7 +33,8 @@ const RESPONSE_FIELDS=['id','object','created','model','choices','usage'];
 // Error codes the extension may show. Nothing else from the gateway or the provider reaches the client.
 export const ERRORS={
  bad_request:400,model_not_allowed:400,origin_forbidden:403,not_found:404,method_not_allowed:405,
- too_large:413,unsupported_media_type:415,rate_limited:429,client_daily_limit:429,monthly_budget:429,provider_rate_limited:429,
+ too_large:413,unsupported_media_type:415,rate_limited:429,daily_requests:429,daily_tokens:429,monthly_budget:429,provider_rate_limited:429,
+ push_daily_limit:429,push_capacity:503,
  provider_rejected:502,provider_error:502,provider_unreachable:502,gateway_not_configured:503,gateway_busy:503,provider_timeout:504,
  turn_invalid:400,turn_expired:409,agent_unavailable:503,push_unavailable:503,
 };
@@ -51,6 +52,11 @@ export function readConfig(env){
   dailyRequests:number(env.DAILY_REQUESTS_PER_CLIENT??env.DAILY_REQUESTS_PER_CODE,200,{integer:true}),
   dailyTokens:number(env.DAILY_TOKENS_PER_CLIENT??env.DAILY_TOKENS_PER_CODE,300000,{integer:true}),
   monthlyBudgetMicros:number(env.MONTHLY_BUDGET_USD,10)==null?null:Math.round(number(env.MONTHLY_BUDGET_USD,10)*1e6),
+  // All clients together per UTC day; unset, it is the monthly budget / 30 (withSettings works it out).
+  dailyBudgetMicros:env.DAILY_BUDGET_USD==null||env.DAILY_BUDGET_USD===''?undefined:number(env.DAILY_BUDGET_USD,0)==null?null:Math.round(number(env.DAILY_BUDGET_USD,0)*1e6),
+  // Web Push writes (PUT and DELETE) per client per UTC day, and devices stored in all.
+  pushWrites:number(env.PUSH_WRITES_PER_CLIENT,20,{integer:true}),
+  maxPushDevices:number(env.MAX_PUSH_DEVICES,5000,{integer:true}),
   // USD per million tokens equals micro-USD per token.
   priceInput:number(env.PRICE_INPUT_USD_PER_MTOK,0.6),
   priceOutput:number(env.PRICE_OUTPUT_USD_PER_MTOK,2.4),
@@ -62,13 +68,16 @@ export function readConfig(env){
  c.ready=!!(c.providerKey&&url&&(url.protocol==='https:'||env.ALLOW_HTTP_PROVIDER==='1')&&c.models.length&&c.origins.length&&env.USAGE
   // The rate limiter is required in production; only a local run against an http mock may go without.
   &&(env.RATE_LIMITER||env.ALLOW_HTTP_PROVIDER==='1')
-  &&[c.maxBodyBytes,c.maxOutputTokens,c.dailyRequests,c.dailyTokens,c.monthlyBudgetMicros,c.priceInput,c.priceOutput,c.timeoutMs].every(v=>v!=null));
+  // The client-id salt is a required secret; only a local run (LOCAL_DEV=1) may fall back to the provider key.
+  &&(validSalt(env.CLIENT_SALT)||env.LOCAL_DEV==='1')
+  &&[c.maxBodyBytes,c.maxOutputTokens,c.dailyRequests,c.dailyTokens,c.monthlyBudgetMicros,c.dailyBudgetMicros,c.pushWrites,c.maxPushDevices,c.priceInput,c.priceOutput,c.timeoutMs].every(v=>v!==null));
  return c;
 }
 
+const validSalt=v=>typeof v==='string'&&v.length>=16;
 // Caps the owner can change without a deploy: the KV key `settings` holds {dailyRequests, dailyTokens} (per client)
-// and monthlyBudgetUsd (all clients); each present, valid value replaces the var of the same cap. Without the KV
-// binding the vars apply.
+// and monthlyBudgetUsd, dailyBudgetUsd (all clients); each present, valid value replaces the var of the same cap.
+// Without the KV binding the vars apply. A daily budget set nowhere is the monthly budget / 30.
 export const SETTINGS_KEY='settings';
 export async function withSettings(base,env){
  const c={...base};
@@ -77,8 +86,11 @@ export async function withSettings(base,env){
   const whole=v=>Number.isInteger(v)&&v>=0;
   if(whole(s.dailyRequests))c.dailyRequests=s.dailyRequests;
   if(whole(s.dailyTokens))c.dailyTokens=s.dailyTokens;
-  if(typeof s.monthlyBudgetUsd==='number'&&s.monthlyBudgetUsd>=0&&Number.isFinite(s.monthlyBudgetUsd))c.monthlyBudgetMicros=Math.round(s.monthlyBudgetUsd*1e6);
+  const usd=v=>typeof v==='number'&&v>=0&&Number.isFinite(v);
+  if(usd(s.monthlyBudgetUsd))c.monthlyBudgetMicros=Math.round(s.monthlyBudgetUsd*1e6);
+  if(usd(s.dailyBudgetUsd))c.dailyBudgetMicros=Math.round(s.dailyBudgetUsd*1e6);
  }
+ if(c.dailyBudgetMicros===undefined)c.dailyBudgetMicros=Math.floor(c.monthlyBudgetMicros/30);
  return c;
 }
 
@@ -173,13 +185,14 @@ export class Refusal extends Error{constructor(code,extra={}){super(code);this.e
 // settle once per model call.
 
 /**
- * The client id: HMAC-SHA256 of the UTC day and the client's address (clientKey), keyed by CLIENT_SALT if set, else
- * a key derived from PROVIDER_KEY (both Worker secrets). The address itself is never stored; the id changes every
- * day, so a day's counters cannot be linked to another day's or turned back into an address without the secret.
- * Never logged.
+ * The client id: HMAC-SHA256 of the UTC day and the client's address (clientKey), keyed by the secret CLIENT_SALT
+ * (required in production; a local run, LOCAL_DEV=1, falls back to a key derived from PROVIDER_KEY). The address
+ * itself is never stored; the id changes every day, so a day's counters cannot be linked to another day's or turned
+ * back into an address without the secret. Never logged.
  */
 export async function clientId(request,env,day){
- const secret=env.CLIENT_SALT||env.PROVIDER_KEY||'';
+ const secret=validSalt(env.CLIENT_SALT)?env.CLIENT_SALT:env.LOCAL_DEV==='1'?'local:'+(env.PROVIDER_KEY||''):null;
+ if(secret==null)throw new Refusal('gateway_not_configured');
  const key=await crypto.subtle.importKey('raw',encoder.encode('cardybara-client-v1:'+secret),{name:'HMAC',hash:'SHA-256'},false,['sign']);
  return 'c'+hex(new Uint8Array(await crypto.subtle.sign('HMAC',key,encoder.encode(day+'|'+clientKey(request))))).slice(0,32);
 }
@@ -196,12 +209,15 @@ export async function readJson(ctx){
  */
 export async function reserve(ctx,worst){
  const c=await withSettings(ctx.config,ctx.env),day=today(ctx.now());let reservation;
- try{reservation=await callLedger(ctx.env,'reserve',{code:await clientId(ctx.request,ctx.env,day),day,month:day.slice(0,7),tokens:worst.tokens,micros:worst.micros,maxRequests:c.dailyRequests,maxTokens:c.dailyTokens,maxMicros:c.monthlyBudgetMicros});}
+ const code=await clientId(ctx.request,ctx.env,day);
+ try{reservation=await callLedger(ctx.env,'reserve',{code,day,month:day.slice(0,7),tokens:worst.tokens,micros:worst.micros,maxRequests:c.dailyRequests,maxTokens:c.dailyTokens,maxMicros:c.monthlyBudgetMicros,maxDayMicros:c.dailyBudgetMicros});}
  catch{throw new Refusal('gateway_busy');}
  if(!reservation.ok){
-  // Either per-client cap is one code for the client; the log line says which.
-  if(reservation.reason==='daily_requests'||reservation.reason==='daily_tokens')throw new Refusal('client_daily_limit',{limit:reservation.reason==='daily_requests'?'requests':'tokens'});
-  throw new Refusal(ERRORS[reservation.reason]?reservation.reason:'gateway_busy');
+  // Clients see the codes extension builds have always known: daily_requests / daily_tokens for the client's own
+  // caps, monthly_budget for either budget. The log line's `limit` says exactly which cap it was.
+  const limit={daily_requests:'client_requests',daily_tokens:'client_tokens',monthly_budget:'monthly_budget',daily_budget:'daily_budget'}[reservation.reason];
+  if(!limit)throw new Refusal('gateway_busy');
+  throw new Refusal(reservation.reason==='daily_budget'?'monthly_budget':reservation.reason,{limit});
  }
  let settled=false;
  return async spent=>{
@@ -237,13 +253,21 @@ export async function callProvider(ctx,forwarded,settle,signal){
  return response;
 }
 
-/** The rate-limit key for a client: its IPv4 address, or the /64 prefix of an IPv6 address (one subscriber's block). */
+/**
+ * What a client is, before hashing: its IPv4 address, or the /48 prefix of an IPv6 address (a whole site's
+ * allocation, so one subscriber cannot spread across 65,536 /64s). An IPv4-mapped IPv6 address counts as its IPv4.
+ */
 export function clientKey(request){
- const ip=request.headers.get('CF-Connecting-IP')||'unknown';
+ let ip=(request.headers.get('CF-Connecting-IP')||'').trim().toLowerCase();
+ if(!ip)return 'unknown';
+ const mapped=ip.match(/^(?:::|(?:0{1,4}:){5})ffff:(\d{1,3}(?:\.\d{1,3}){3})$/);
+ if(mapped)return mapped[1];
+ const hexMapped=ip.match(/^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/);
+ if(hexMapped){const a=parseInt(hexMapped[1],16),b=parseInt(hexMapped[2],16);return [a>>8,a&255,b>>8,b&255].join('.');}
  if(!ip.includes(':'))return ip;
  const [head,tail=''] =ip.split('::'),h=head?head.split(':'):[],t=tail?tail.split(':'):[];
  const groups=ip.includes('::')?[...h,...Array(Math.max(0,8-h.length-t.length)).fill('0'),...t]:h;
- return groups.slice(0,4).map(g=>(parseInt(g||'0',16)||0).toString(16)).join(':')+'::/64';
+ return groups.slice(0,3).map(g=>(parseInt(g||'0',16)||0).toString(16)).join(':')+'::/48';
 }
 
 // --- Routes.
@@ -255,11 +279,22 @@ async function inviteRoute(ctx){return respond(200,{status:'active'},ctx.cors);}
 function pushReady(ctx){if(!pushConfigured(ctx.env))throw new Refusal('push_unavailable');}
 /** The VAPID public key the web wallet subscribes with. */
 async function pushKeyRoute(ctx){pushReady(ctx);return respond(200,{publicKey:ctx.env.VAPID_PUBLIC_KEY},ctx.cors);}
+/**
+ * Counts one push write against the client's daily cap and, for a PUT, holds the device's place under the global
+ * device cap, in the ledger, before KV is touched.
+ */
+async function pushLedger(ctx,action,device,exp){
+ const c=ctx.config,day=today(ctx.now());let r;
+ try{r=await callLedger(ctx.env,'push',{code:await clientId(ctx.request,ctx.env,day),day,action,device,exp,now:Math.floor(ctx.now()/1000),maxWrites:c.pushWrites,maxDevices:c.maxPushDevices});}
+ catch(e){throw e instanceof Refusal?e:new Refusal('gateway_busy');}
+ if(!r.ok)throw new Refusal(ERRORS[r.reason]?r.reason:'gateway_busy');
+}
 /** Replaces the device's subscription and its whole list of fire times. */
 async function pushPutRoute(ctx){
  pushReady(ctx);
  const body=await readJson(ctx);let record;
  try{record=parsePut(body,ctx.now());}catch{throw new Refusal('bad_request');}
+ await pushLedger(ctx,'put',record.device,Math.floor(ctx.now()/1000)+EXPIRY_SECONDS);
  await storePush(ctx.env.INVITES,record,ctx.now());
  ctx.record.times=record.times.length;
  return respond(200,{status:'stored',times:record.times.length},ctx.cors);
@@ -268,15 +303,25 @@ async function pushPutRoute(ctx){
 async function pushDeleteRoute(ctx){
  pushReady(ctx);
  let device;try{device=parseDelete(await readJson(ctx));}catch(e){throw e instanceof Refusal?e:new Refusal('bad_request');}
+ await pushLedger(ctx,'delete',device);
  await forgetPush(ctx.env.INVITES,device);
  ctx.record.times=0;
  return respond(200,{status:'forgotten'},ctx.cors);
 }
 
+// The proxy's one real use is card-type suggestion (two short messages, a JSON answer of a few hundred tokens), so it
+// takes nothing larger: a public, credential-free route must not be a general-purpose model.
+export const COMPLETION_LIMITS={maxTokens:600,messages:4,chars:32000};
+export function checkCompletionSize(body){
+ if(!plain(body)||!Array.isArray(body.messages)||body.messages.length>COMPLETION_LIMITS.messages)throw Error('bad_request');
+ if(body.max_tokens!==undefined&&!(Number.isInteger(body.max_tokens)&&body.max_tokens<=COMPLETION_LIMITS.maxTokens))throw Error('bad_request');
+ const chars=body.messages.reduce((n,m)=>n+(typeof m?.content==='string'?m.content.length:0),0)+(body.tools===undefined?0:JSON.stringify(body.tools).length);
+ if(chars>COMPLETION_LIMITS.chars)throw Error('bad_request');
+}
 /** The model proxy: one completion, as JSON or as server-sent events when the client asks to stream. */
 async function completionRoute(ctx){
  let forwarded;
- try{forwarded=sanitizeBody(await readJson(ctx),{...ctx.config,forceModel:(await ctx.switches()).forceModel});}catch(e){throw e instanceof Refusal?e:new Refusal(ERRORS[e.message]?e.message:'bad_request');}
+ try{const body=await readJson(ctx);checkCompletionSize(body);forwarded=sanitizeBody(body,{...ctx.config,maxOutputTokens:Math.min(ctx.config.maxOutputTokens,COMPLETION_LIMITS.maxTokens),forceModel:(await ctx.switches()).forceModel});}catch(e){throw e instanceof Refusal?e:new Refusal(ERRORS[e.message]?e.message:'bad_request');}
  ctx.metrics.model=forwarded.model;
  const settle=await reserve(ctx,worstCase(forwarded,ctx.config));
  const response=await callProvider(ctx,forwarded,settle);
@@ -368,6 +413,9 @@ export async function handle(request,env,deps={}){
  if(!route)return refuse('not_found');
  if(request.method!==route.method)return refuse('method_not_allowed');
  if(!config.ready)return refuse('gateway_not_configured');
+ // Cloudflare always sets the client's address. Without it every caller would share one bucket, so production
+ // refuses; only a local run (LOCAL_DEV=1: wrangler dev, tests, the E2E) may go without.
+ if(!request.headers.get('CF-Connecting-IP')&&env.LOCAL_DEV!=='1')return refuse('bad_request',{reason:'no_client_address'});
  try{
   // Per client, before any KV or ledger call. The limiter is given the hashed client id, never the address. The
   // binding is optional (local runs and tests have none); gateway/wrangler.jsonc declares it.
@@ -382,40 +430,54 @@ export async function handle(request,env,deps={}){
 /**
  * Usage counters in one Durable Object instance. Each operation runs to completion before the next starts
  * (an explicit queue on top of the runtime's input gates), so a check and its increment cannot interleave.
- * Keys: d:<day>:<client id> {requests,tokens}; m:<month> {micros}; r:<id> an open reservation; pruned: the last day
- * pruned. A client id is only ever kept for its own UTC day: the first request of the next day, or the alarm set
- * for just after midnight UTC, deletes every earlier day's counters.
+ * Keys: d:<day>:<client id> {requests,tokens}; p:<day>:<client id> {writes} (push); g:<day> {micros} (all clients);
+ * m:<month> {micros}; r:<id> an open reservation; v:<device> {exp} a stored push device, and `devices` their count;
+ * pruned: the last day pruned. A client id is only ever kept for its own UTC day: the first request of the next
+ * day, or the alarm set for just after midnight UTC, deletes every earlier day's d: and p: keys and strips the
+ * client's day key from older open reservations.
  */
 export class UsageLedger{
- constructor(state){this.storage=state.storage;this.queue=Promise.resolve();}
+ constructor(state){this.storage=state.storage;this.now=state.now||Date.now;this.queue=Promise.resolve();}
  /** Durable Object alarm: prunes when no request arrives after midnight. */
- async alarm(){await this.run(()=>this.prune(new Date().toISOString().slice(0,10)));}
+ async alarm(){await this.run(()=>this.prune(new Date(this.now()).toISOString().slice(0,10)));}
  run(fn){const p=this.queue.then(fn);this.queue=p.catch(()=>{});return p;}
  async fetch(request){
   const op=new URL(request.url).pathname.slice(1);let args;
   try{args=await request.json();}catch{return new Response('bad',{status:400});}
-  if(op!=='reserve'&&op!=='settle'&&op!=='month')return new Response('bad',{status:404});
+  if(!['reserve','settle','month','push','forget'].includes(op))return new Response('bad',{status:404});
   try{return Response.json(await this.run(()=>this[op](args)));}catch{return new Response('bad',{status:500});}
  }
- async reserve({code,day,month,tokens,micros,maxRequests,maxTokens,maxMicros}){
-  const dk=`d:${day}:${code}`,mk=`m:${month}`;
-  const d=(await this.storage.get(dk))||{requests:0,tokens:0},m=(await this.storage.get(mk))||{micros:0};
+ async reserve({code,day,month,tokens,micros,maxRequests,maxTokens,maxMicros,maxDayMicros=Infinity}){
+  await this.pruneOnce(day);
+  const dk=`d:${day}:${code}`,mk=`m:${month}`,gk=`g:${day}`;
+  const d=(await this.storage.get(dk))||{requests:0,tokens:0},m=(await this.storage.get(mk))||{micros:0},g=(await this.storage.get(gk))||{micros:0};
   if(d.requests+1>maxRequests)return {ok:false,reason:'daily_requests'};
   if(d.tokens+tokens>maxTokens)return {ok:false,reason:'daily_tokens'};
   if(m.micros+micros>maxMicros)return {ok:false,reason:'monthly_budget'};
+  if(g.micros+micros>(maxDayMicros??Infinity))return {ok:false,reason:'daily_budget'};
   const id=crypto.randomUUID();
-  await this.storage.put({[dk]:{requests:d.requests+1,tokens:d.tokens+tokens},[mk]:{micros:m.micros+micros},['r:'+id]:{dk,mk,tokens,micros,day}});
-  // The first request of a day clears earlier days' counters and open reservations older than yesterday (an
-  // open reservation is a request whose worker never settled; its worst case is already counted in the month).
-  if(this.storage.list&&(await this.storage.get('pruned'))!==day)await this.prune(day);
+  await this.storage.put({[dk]:{requests:d.requests+1,tokens:d.tokens+tokens},[mk]:{micros:m.micros+micros},[gk]:{micros:g.micros+micros},['r:'+id]:{dk,mk,gk,tokens,micros,day}});
   return {ok:true,id};
  }
+ // The first call of a day prunes (an open reservation is a request whose worker never settled; its worst case is
+ // already counted in the month and the day's budget).
+ async pruneOnce(day){if(this.storage.list&&(await this.storage.get('pruned'))!==day)await this.prune(day);}
  async prune(day){
   const yesterday=new Date(Date.parse(day+'T00:00:00Z')-86400000).toISOString().slice(0,10);
-  for(const prefix of ['d:','r:']){
-   const old=[...(await this.storage.list({prefix})).entries()].filter(([k,v])=>prefix==='d:'?k.slice(2,12)<day:(v?.day||'')<yesterday).map(([k])=>k);
-   for(let i=0;i<old.length;i+=128)await this.storage.delete(old.slice(i,i+128));
-  }
+  const all=async prefix=>[...(await this.storage.list({prefix})).entries()];
+  const drop=async keys=>{for(let i=0;i<keys.length;i+=128)await this.storage.delete(keys.slice(i,i+128));};
+  // Client ids: only today's.
+  await drop((await all('d:')).filter(([k])=>k.slice(2,12)<day).map(([k])=>k));
+  await drop((await all('p:')).filter(([k])=>k.slice(2,12)<day).map(([k])=>k));
+  await drop((await all('g:')).filter(([k])=>k.slice(2,12)<yesterday).map(([k])=>k));
+  const reservations=await all('r:');
+  await drop(reservations.filter(([,v])=>(v?.day||'')<yesterday).map(([k])=>k));
+  // An open reservation from an earlier day keeps only what settling the month and day budget needs.
+  const strip=reservations.filter(([,v])=>v?.dk&&(v.day||'')<day&&(v.day||'')>=yesterday);
+  for(const [k,v] of strip){const {dk,...rest}=v;await this.storage.put(k,rest);}
+  // Push devices whose KV record has expired no longer hold a place.
+  const nowSec=Math.floor(this.now()/1000),expired=(await all('v:')).filter(([,v])=>!(v?.exp>nowSec)).map(([k])=>k);
+  if(expired.length){await drop(expired);const n=(await this.storage.get('devices'))||0;await this.storage.put('devices',Math.max(0,n-expired.length));}
   await this.storage.put('pruned',day);
   // Run again just after the next UTC midnight, so a day's client ids go even when no request comes the next day.
   if(typeof this.storage.setAlarm==='function')await this.storage.setAlarm(Date.parse(day+'T00:00:00Z')+86400000+60000);
@@ -426,10 +488,36 @@ export class UsageLedger{
  async settle({id,tokens,micros,keep}){
   const r=await this.storage.get('r:'+id);if(!r)return {ok:false};
   if(keep){await this.storage.delete('r:'+id);return {ok:true};}
-  const d=await this.storage.get(r.dk),m=(await this.storage.get(r.mk))||{micros:0};
+  const d=r.dk?await this.storage.get(r.dk):null,m=(await this.storage.get(r.mk))||{micros:0},g=r.gk?await this.storage.get(r.gk):null;
   // A day's counters pruned since the reservation (it settled after midnight) are not written back.
-  await this.storage.put({...(d?{[r.dk]:{...d,tokens:Math.max(0,d.tokens-r.tokens+tokens)}}:{}),[r.mk]:{micros:Math.max(0,m.micros-r.micros+micros)}});
+  await this.storage.put({...(d?{[r.dk]:{...d,tokens:Math.max(0,d.tokens-r.tokens+tokens)}}:{}),...(g?{[r.gk]:{micros:Math.max(0,g.micros-r.micros+micros)}}:{}),[r.mk]:{micros:Math.max(0,m.micros-r.micros+micros)}});
   await this.storage.delete('r:'+id);
+  return {ok:true};
+ }
+ /**
+  * One push write: counts it against the client's daily cap, and for a PUT of a device not yet stored, takes one of
+  * the global device places (refused when they are all taken). A DELETE gives the place back.
+  */
+ async push({code,day,action,device,exp,now,maxWrites,maxDevices}){
+  await this.pruneOnce(day);
+  const pk=`p:${day}:${code}`,vk='v:'+device;
+  const p=(await this.storage.get(pk))||{writes:0};
+  if(p.writes+1>maxWrites)return {ok:false,reason:'push_daily_limit'};
+  const known=await this.storage.get(vk),n=(await this.storage.get('devices'))||0;
+  if(action==='put'){
+   if(!known&&n>=maxDevices)return {ok:false,reason:'push_capacity'};
+   await this.storage.put({[pk]:{writes:p.writes+1},[vk]:{exp},...(known?{}:{devices:n+1})});
+  }else{
+   await this.storage.put({[pk]:{writes:p.writes+1},...(known?{devices:Math.max(0,n-1)}:{})});
+   if(known)await this.storage.delete(vk);
+  }
+  return {ok:true};
+ }
+ /** The cron deleted a device (gone at its push service): its place is free again. */
+ async forget({device}){
+  const vk='v:'+device;if(!await this.storage.get(vk))return {ok:true};
+  const n=(await this.storage.get('devices'))||0;
+  await this.storage.delete(vk);await this.storage.put('devices',Math.max(0,n-1));
   return {ok:true};
  }
 }

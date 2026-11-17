@@ -41,6 +41,7 @@ export function memoryDurableObject(Class=UsageLedger){
 /** A gateway on in-memory bindings. vars override the defaults; fetch is the upstream provider. */
 export function localGateway({vars={},fetch,log=()=>{},now,observe}={}){
  // A rate limiter that always allows; tests pass their own, or null to check the gateway refuses to run without one.
- const env={PROVIDER_KEY:'synthetic-provider-key-not-real',ALLOWED_MODELS:'deepseek-flash',RATE_LIMITER:{limit:async()=>({success:true})},...vars,INVITES:memoryKV({now:now||Date.now}),USAGE:memoryDurableObject()};
+ // LOCAL_DEV: no CF-Connecting-IP is needed and the client-id salt falls back to the provider key, as in wrangler dev.
+ const env={PROVIDER_KEY:'synthetic-provider-key-not-real',ALLOWED_MODELS:'deepseek-flash',LOCAL_DEV:'1',RATE_LIMITER:{limit:async()=>({success:true})},...vars,INVITES:memoryKV({now:now||Date.now}),USAGE:memoryDurableObject()};
  return {env,handle:request=>handle(request,env,{fetch,log,now,observe})};
 }
