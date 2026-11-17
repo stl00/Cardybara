@@ -164,7 +164,9 @@ test('change password needs the current one and signs the other devices out',asy
  assert.equal(srv.db.tables.get('sessions').length>=1,true);
  // B's session was revoked: its next sync is told it is signed out.
  B.storage.setItem(SYNC_STATE_KEY,JSON.stringify({on:true,revision:0,base:null,changedAt:null}));
- const b=B.startSync();await settle();b.stop();
+ const b=B.startSync();
+ for(let i=0;i<100&&!b.statuses.includes('signed_out');i++)await new Promise(r=>setTimeout(r,50));
+ b.stop();
  assert.ok(b.statuses.includes('signed_out'));
 });
 
