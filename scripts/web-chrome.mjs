@@ -7,7 +7,7 @@ import {mkdtemp, readFile, rm, writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {extname, join, resolve} from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
-import {findChrome} from './dev-collector/chrome-launcher.mjs';
+import {findChrome, SANDBOX_SAFE_ARGS} from './dev-collector/chrome-launcher.mjs';
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 export const WEB_DIR = join(root, 'dist/web');
@@ -84,7 +84,7 @@ export async function run({shot, dir = WEB_DIR} = {}) {
   try {
     server = await serve(dir);
     const origin = `http://127.0.0.1:${server.address().port}`;
-    child = spawn(await findChrome(), ['--user-data-dir=' + join(work, 'profile'), '--remote-debugging-pipe', '--headless=new', '--no-first-run', '--no-default-browser-check', '--hide-scrollbars', '--force-color-profile=srgb', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', 'about:blank'], {stdio: ['ignore', 'ignore', 'ignore', 'pipe', 'pipe']});
+    child = spawn(await findChrome(), ['--user-data-dir=' + join(work, 'profile'), '--remote-debugging-pipe', '--headless=new', '--no-first-run', '--no-default-browser-check', '--hide-scrollbars', '--force-color-profile=srgb', ...SANDBOX_SAFE_ARGS, 'about:blank'], {stdio: ['ignore', 'ignore', 'ignore', 'pipe', 'pipe']});
     const send = cdpPipe(child);
     const {targetId} = await send('Target.createTarget', {url: 'about:blank'});
     const {sessionId} = await send('Target.attachToTarget', {targetId, flatten: true});

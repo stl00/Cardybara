@@ -20,6 +20,9 @@ export function assertDedicatedProfile(profile,personal=personalProfiles()){
 }
 // No automation or anti-detection flags: this is a plain Chrome with a loopback debugging port.
 // Port 0 lets Chrome pick a free port and record it in the profile's DevToolsActivePort.
+// Flags for a throwaway Chrome that only loads loopback pages inside a restricted sandbox (CI, verifier): the
+// default sandbox, GPU and /dev/shm use abort it with SIGABRT. Never used for the collector's real bank session.
+export const SANDBOX_SAFE_ARGS=['--no-sandbox','--disable-gpu','--disable-dev-shm-usage'];
 export function chromeArgs(profile,{headless=false,noSandbox=false,extraArgs=[]}={}){
  return ['--user-data-dir='+profile,'--remote-debugging-port=0','--remote-debugging-address=127.0.0.1','--no-first-run','--no-default-browser-check',...(headless?['--headless=new']:[]),...(noSandbox?['--no-sandbox']:[]),...extraArgs,'about:blank'];
 }
