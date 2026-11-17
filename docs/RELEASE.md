@@ -19,7 +19,7 @@ One source ships to two channels (owner decision 2026-11-16, #373). The rules, i
 ### Beta checklist
 
 Required checks — Claude runs these and reports them on the release PR:
-- [ ] `npm run check:release` passes locally on the commit to be tagged, and CI `Verify and package` and `E2E` are green on it (E2E covers install, Chase connect and read, manual card, hosted chat with no invite code).
+- [ ] `npm run check:release` passes locally on the commit to be tagged, and CI `Verify and package` and `E2E` are green on it (E2E covers install, Chase connect and read, Citi US connect and read on the synthetic Citi page, manual card, hosted chat with no invite code).
 - [ ] The package from that CI run has `build-scope.js` = `["Chase","Amex US"]` (the package audit fails otherwise) and its manifest says Beta.
 - [ ] Hosted gateway deployed with its provider key set and caps configured (`docs/GATEWAY.md`; #208, #210). No invite codes since 2026-11-16.
 - [ ] Release notes and the About page re-checked against `main`: the "Before tagging" list in the notes is cleared (#210 cloud agent, #195 common cards, #196 problem report — update the notes for each that merged, or keep it listed as not in this beta).
