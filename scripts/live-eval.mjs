@@ -94,7 +94,8 @@ const scrubValue=(v,secrets)=>typeof v==='string'?scrub(v,secrets):Array.isArray
 export function buildTranscripts({report,run,secrets=[]}){
  if(report.syntheticWallet!==true)throw Error('transcripts are kept only for the synthetic wallet');
  const tries=(run.transcripts||[]).map(t=>({id:t.id,attempt:t.attempt,failedChecks:t.failedChecks,...(t.error?{error:t.error}:{}),...(t.codes?{codes:t.codes}:{}),
-  answer:scrub(t.transcript.answer||'',secrets).slice(0,TRANSCRIPT_CAP),answerTruncated:(t.transcript.answer||'').length>TRANSCRIPT_CAP,toolCalls:scrubValue(t.transcript.toolCalls||[],secrets)}));
+  answer:scrub(t.transcript.answer||'',secrets).slice(0,TRANSCRIPT_CAP),answerTruncated:(t.transcript.answer||'').length>TRANSCRIPT_CAP,toolCalls:scrubValue(t.transcript.toolCalls||[],secrets),
+  ...(t.transcript.graded?{graded:t.transcript.graded}:{}),...(t.transcript.modelTexts?{modelTexts:t.transcript.modelTexts.map(x=>scrub(x,secrets).slice(0,TRANSCRIPT_CAP))}:{})}));
  return {schema:1,kind:'live-eval-transcripts',syntheticWallet:true,model:report.model,commit:report.commit,createdAt:report.createdAt,tries};
 }
 

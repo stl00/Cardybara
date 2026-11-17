@@ -197,3 +197,44 @@ test('coverage-no-record accepts a hedged no-record answer and still rejects a f
  assert.equal((await run('我的记录里没有找到，详见发卡行。This does not mean X, but it is not covered.')).avoidsWrongTotals,false);
  assert.equal((await run('这张卡航班延误有保障。')).coversNamedProgrammes,false,'no "no record" wording and no pointer fails');
 });
+
+// #260: the 2026-11-16 live try for trip-christmas-hotel answered correctly (no credit was marked, so none can be
+// confirmed used or unused) in wording the case did not list. The answer below is a synthetic copy of that wording.
+test('trip-christmas-hotel accepts "not marked, cannot confirm" wording and still rejects an answer with no status caveat',async()=>{
+ const c=liveCases.find(x=>x.id==='trip-christmas-hotel');
+ const chat=async()=>({content:'',tool_calls:[{function:{name:'query_credits',arguments:JSON.stringify({when:'12月圣诞节',use:'hotel'})}}]});
+ const run=async answer=>(await runLiveCase(c,{chat,turn:async({request})=>{await request({});return {answer,trace:[],tools:[],memory:{trip:{start:'2026-12-01'}},messages:[],context:{}};}})).checks;
+ assert.equal((await run('12月（2026-12-01 至 2026-12-31）：这些 credit 都没有手动标记，因此既不能确认已用，也不能确认未用。')).coversNamedProgrammes,true);
+ assert.equal((await run('12月（2026-12-01 至 2026-12-31）：以下酒店 credit 还可以用。')).coversNamedProgrammes,false);
+});
+
+// #260: answers-before-asking fell back to the code-written answer on both live tries, and the transcripts did not say why.
+// A failing try now keeps the checker's codes per stage and each model reply, so the next failing run names the cause.
+test('a try that fell back keeps the checker codes and the discarded model text for diagnosis',async()=>{
+ const c=liveCases.find(x=>x.id==='answers-before-asking');
+ const chat=async()=>({content:'MODEL-DRAFT-TEXT',tool_calls:[{function:{name:'choose_card',arguments:JSON.stringify({amount:100,category:'dining'})}}]});
+ const turn=async({request})=>{await request({});return {answer:'CODE-WRITTEN',trace:[{type:'grounding',passed:false,codes:['unsupported_number']},{type:'repair',passed:false,codes:['unsupported_number']},{type:'fallback',codes:['unsupported_number']}],tools:[],memory:{},messages:[],context:{}};};
+ const run=await runLiveEval({config:{attempts:1,passesNeeded:1,budgetUsd:1},cases:[c],spend:freeSpend(),runCase:x=>runLiveCase(x,{chat,turn})});
+ const report=buildReport({config,run,baseline:null,spend:freeSpend()});
+ const t=buildTranscripts({report,run});
+ assert.deepEqual(t.tries[0].failedChecks,['modelAnswered']);
+ assert.deepEqual(t.tries[0].graded.map(g=>g.type),['grounding','repair','fallback']);assert.deepEqual(t.tries[0].graded[2].codes,['unsupported_number']);
+ assert.deepEqual(t.tries[0].modelTexts,['MODEL-DRAFT-TEXT']);
+ assert.equal(JSON.stringify(report).includes('MODEL-DRAFT-TEXT'),false,'the report stays text-free');
+});
+
+// #260 cause: with no currency given, choose_card splits the answer by currency (depends-on-currency) and returns no
+// rows. The checker then failed a correct split answer twice: a default valuation stated per programme was "unstated"
+// because only rows counted as valued cards, and the 1 in a restated rate ("每 HK$4 赚 1 里") was an unsupported
+// number. Development case: the real agent loop on the case's own wallet, with a scripted model.
+test('answers-before-asking: a correct currency-split answer is the model\'s own, and invented figures still fall back',async()=>{
+ const c=liveCases.find(x=>x.id==='answers-before-asking');
+ const run=async answer=>{let i=0;const chat=async()=>i++===0?{role:'assistant',content:'',tool_calls:[{id:'c1',type:'function',function:{name:'choose_card',arguments:JSON.stringify({category:'dining',categorySource:'stated',amount:100})}}]}:{role:'assistant',content:answer};return runLiveCase(c,{chat});};
+ const good=await run('要看你用什么货币付：\n- 美元：刷 American Express Gold Card，餐厅 4 倍积分；积分按默认市场估值每点约 1.5 美分（可在设置里改）。\n- 港币：刷 Cathay Mastercard，每 HK$4 赚 1 里；Asia Miles 按默认市场估值每里约 10 港仙。\n- 加元：没有合适的卡。\n你在哪里消费、用什么货币付？');
+ assert.deepEqual(good.detail.trace.filter(t=>t.type==='grounding').map(t=>t.codes),[[]]);
+ assert.equal(good.checks.modelAnswered,true);assert.equal(good.checks.answersBeforeAsking,true);
+ // A value the tool did not return, or an earn figure it did not compute, is still caught and replaced by code.
+ for(const bad of ['美元：American Express Gold Card，积分按默认市场估值每点约 2 美分。','美元：American Express Gold Card，100 美元可得 400 点。']){
+  const r=await run(bad);assert.equal(r.checks.modelAnswered,false,bad);
+ }
+});
