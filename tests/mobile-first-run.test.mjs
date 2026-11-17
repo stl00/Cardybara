@@ -23,7 +23,7 @@ function ensureBuild() {
 }
 // Chrome must be found AND able to start. Some sandboxes ship a Chrome that aborts (SIGABRT) at launch: skip there with the
 // reason, but never skip on CI, where a broken Chrome has to fail the build.
-const chrome = await findChrome().then(() => withPhone(async () => true), () => false).then(ok => ok || false, err => {
+const chrome = await findChrome().then(() => { ensureBuild(); return withPhone(async () => true); }, () => false).then(ok => ok || false, err => {
   if (process.env.CI) throw err;
   console.warn('Chrome found but cannot start here, phone tests skipped: ' + err.message);
   return false;
