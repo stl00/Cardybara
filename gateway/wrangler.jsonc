@@ -36,12 +36,18 @@
     "MAX_BODY_BYTES": "262144",
     // Accounts (#412, docs/GATEWAY.md "Accounts"): the largest wallet document stored, in bytes. The account routes
     // answer 503 account_unavailable until the D1 binding DB, the send_email binding EMAIL, the var ACCOUNT_EMAIL_FROM
-    // (a verified Email Sending sender) and the secret ACCOUNT_SECRET are all set; none of them is set here yet.
-    "WALLET_MAX_BYTES": "524288"
+    // (a verified Email Sending sender) and the secret ACCOUNT_SECRET are all set. DB and ACCOUNT_SECRET are set
+    // (2026-11-17); EMAIL and ACCOUNT_EMAIL_FROM wait for a sender domain on Cloudflare (the account has none yet).
+    "WALLET_MAX_BYTES": "524288",
     // PROVIDER_KEY is a secret, set once by the owner with scripts/gateway-set-key.sh. Never a var.
     // Plaid (PLAID_PLAN.md, docs/GATEWAY.md "Plaid"): the /v2/plaid routes answer 503 plaid_unavailable until the accounts
-    // above work and the secrets PLAID_ENV (sandbox or production), PLAID_CLIENT_ID, PLAID_SECRET and PLAID_TOKEN_KEY are set. PLAID_REDIRECT_URI (var) is the OAuth redirect, https://<this Worker>/v2/plaid/link, registered in the Dashboard.
+    // above work and the secrets PLAID_CLIENT_ID, PLAID_SECRET and PLAID_TOKEN_KEY are set. PLAID_ENV (not a secret) picks
+    // the API host. PLAID_REDIRECT_URI is the OAuth redirect, registered in the Plaid Dashboard.
+    "PLAID_ENV": "production",
+    "PLAID_REDIRECT_URI": "https://cardybara-gateway.cardybara.workers.dev/v2/plaid/link"
   },
+  // Accounts and Plaid tables (migrations 0001-0003, applied remotely 2026-11-17). The id is not a secret.
+  "d1_databases": [{"binding": "DB", "database_name": "cardybara-accounts", "database_id": "ab23fecf-a63c-4e0b-8425-ff7588115eb8", "migrations_dir": "migrations"}],
   // The `settings` caps and switches, and Web Push devices. The binding keeps its old name from the invite codes
   // (none are read any more). The namespace id is not a secret and not an account id.
   "kv_namespaces": [{"binding": "INVITES", "id": "332d4b90299846508c1c85fc2c51411c"}],
