@@ -34,7 +34,7 @@ const store=()=>typeof localStorage==='undefined'?noStore:localStorage;
 const field={style:{minHeight:44},maxLength:1024};
 export default function AccountSettings({gateway}){
  useI18n();const {message:toast}=App.useApp();
- const client=useMemo(()=>createAccountClient({gateway,storage:store(),mirror:platform.account?.mirror}),[gateway]);
+ const client=useMemo(()=>createAccountClient({gateway,storage:store(),mirror:platform.account?.mirror,webSignIn:platform.account?.passkeySignIn}),[gateway]);
  const [account,setAccount]=useState(()=>readAccount(store()));
  const [on,setOn]=useState(()=>syncIsOn(store()));
  const [status,setStatus]=useState(null);
@@ -50,7 +50,7 @@ export default function AccountSettings({gateway}){
  useEffect(()=>{let live=true;client.passkeysAvailable().then(v=>live&&setPkOk(v)).catch(()=>{});return()=>{live=false;};},[client]);
  useEffect(()=>{if(!pkOk||!account)return;let live=true;client.listPasskeys().then(r=>live&&r.ok&&setPks(r.passkeys));return()=>{live=false;};},[client,pkOk,account]);
  useEffect(()=>{
-  if(!pkOk||account||mode!=='signin')return;
+  if(!pkOk||account||mode!=='signin'||platform.account?.passkeySignIn)return;
   const ac=new AbortController();
   client.signInWithPasskey({conditional:true,signal:ac.signal}).then(r=>{if(r.ok){setAccount(readAccount(store()));setOn(false);setStatus(null);toast.success(t('已登录。'));}}).catch(()=>{});
   return()=>ac.abort();
@@ -119,7 +119,7 @@ export default function AccountSettings({gateway}){
     <Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{on?t('钱包的一份副本存在 Cardybara 服务器上，同一账号的其他设备会合并成同一个钱包。关闭后不再同步，服务器上的副本保留，直到你删除账号。'):t('默认关闭。开启后，钱包的一份副本会存到 Cardybara 服务器，并在登录同一账号的设备间合并。不含银行密码或登录信息。')}</Paragraph>
     {on&&syncText(status)&&<Text className="account-sync-status" type={status==='error'||status==='signed_out'?'danger':'secondary'}>{syncText(status)}</Text>}
    </div>
-   {pkOk&&<div className="account-passkeys">
+   {pkOk&&!platform.account?.passkeySignIn&&<div className="account-passkeys">
     <Text strong>{t('通行密钥')}</Text>
     <Paragraph type="secondary" style={{margin:'4px 0 8px'}}>{t('用指纹、面容或设备锁登录。邮箱和密码仍然可用，丢了通行密钥也不会被锁在外面。')}</Paragraph>
     {pks.map(k=><Flex key={k.id} gap={8} align="center" justify="space-between" wrap style={{marginBottom:8}}><Text>{k.name||t('通行密钥')}</Text><Button size="small" style={{minHeight:44}} loading={busy} onClick={()=>removePk(k.id)}>{t('移除')}</Button></Flex>)}
