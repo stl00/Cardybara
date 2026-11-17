@@ -41,7 +41,9 @@ export function answerGrounding(answer,evidence=[],{contextText='',creditNames=[
  if(transfers.length||evidence.some(value=>value?.kind==='transfer-options'))for(const [text,from,to] of answer.matchAll(/(\d+(?:\.\d+)?)\s*[:：]\s*(\d+(?:\.\d+)?)/g))if(!(Number(from)>0&&ratios.has(ratioKey(Number(from),Number(to)))))issues.push({code:'unsupported_transfer_ratio',value:text});
  for(const url of answer.match(/https?:\/\/[^\s)\]"<>]+/g)||[])if(!urls.has(cleanUrl(url)))issues.push({code:'unsupported_citation',value:url});
  // The assistant takes no action and can't see one taken: a claim that one is done, in any wording, is ungrounded.
- issues.push(...actionClaimIssues(answer));
+ // Only a record whose terms need no enrolment and whose official text says it is activated automatically grounds "已自動啟用" (#362).
+ const autoActivation=evidence.some(value=>(value?.rules||[]).some(rule=>rule?.terms?.requiresEnrollment===false&&/\bautomatically activated\b|\bactivated automatically\b/i.test([rule.original?.summary,...(rule.original?.quotes||[])].join(' '))));
+ issues.push(...actionClaimIssues(answer,{autoActivation}));
  issues.push(...creditClaimIssues(answer,evidence,creditNames),...planCoverageIssues(answer,evidence),...choiceIssues(answer,evidence),...flightPlanIssues(answer,evidence));
  // Also check answers that skipped tools; absence of evidence is not permission to invent.
  const content=answer.replace(/https?:\/\/[^\s)\]"<>]+/g,'').replace(/^\s*\d+[.)、]\s/gm,'');
