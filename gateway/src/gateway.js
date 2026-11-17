@@ -29,7 +29,7 @@ const agentRoute=ctx=>(agent||=import('./agent.js')).then(m=>m.agentRoute(ctx),(
 export const ROUTES={chat:'/v1/chat/completions',agent:'/v1/chat',invite:'/v1/invite',push:'/v1/push',pushKey:'/v1/push/key',
  // Accounts and the wallet copy (#412, accounts.js). New shapes live under /v2; the /v1 routes are unchanged.
  account:'/v2/account',signUp:'/v2/account/signup',verify:'/v2/account/verify',session:'/v2/account/session',
- password:'/v2/account/password',forgot:'/v2/account/password/forgot',reset:'/v2/account/password/reset',wallet:'/v2/account/wallet'};
+ password:'/v2/account/password',forgot:'/v2/account/password/forgot',reset:'/v2/account/password/reset',wallet:'/v2/account/wallet',export:'/v2/account/export'};
 const FIELDS=['model','messages','tools','tool_choice','max_tokens','temperature','response_format'];
 const ROLES=new Set(['system','user','assistant','tool']);
 const MESSAGE_FIELDS=['role','content','name','tool_calls','tool_call_id'];
@@ -43,7 +43,7 @@ export const ERRORS={
  turn_invalid:400,turn_expired:409,agent_unavailable:503,push_unavailable:503,
  // Accounts (#412). Unknown email and wrong password are both invalid_credentials.
  weak_password:400,code_invalid:400,code_expired:400,invalid_credentials:401,unauthorized:401,email_unverified:403,
- stale_revision:409,account_locked:429,too_many_codes:429,mail_failed:502,account_unavailable:503,
+ stale_revision:409,invalid_document:422,account_locked:429,too_many_codes:429,mail_failed:502,account_unavailable:503,
 };
 
 const number=(value,fallback,{min=0,integer=false}={})=>{const n=Number(value??fallback);return Number.isFinite(n)&&n>=min&&(!integer||Number.isInteger(n))?n:null;};
@@ -377,7 +377,7 @@ function streamCompletion(ctx,response,settle,limit){
 
 // Account routes (accounts.js, docs/GATEWAY.md "Accounts"). The handler gets the JSON body (if the route takes one) and
 // the bearer session token; the user is always the session's, never an id from the client. The log line keeps the
-// route, status and error code only: no email, password, code, token or wallet content.
+// route, status, error code, a hash of the session's user id and the blob size: no email, password, code, token or wallet content.
 const WALLET_ENVELOPE_BYTES=4096;
 function accountRoute(op,{body=true}={}){
  return async ctx=>{
@@ -385,8 +385,15 @@ function accountRoute(op,{body=true}={}){
   const limit=op===accounts.putWallet?accounts.walletMaxBytes(ctx.env)+WALLET_ENVELOPE_BYTES:ctx.config.maxBodyBytes;
   const json=body?await readJson(ctx,limit):null;
   try{
-   const r=await op({env:ctx.env,body:json,token:accounts.bearer(ctx.request),now:ctx.now()});
-   return respond(r.status,r.body,ctx.cors);
+   const audit={};
+   try{
+    const r=await op({env:ctx.env,body:json,token:accounts.bearer(ctx.request),now:ctx.now(),audit});
+    return respond(r.status,r.body,ctx.cors);
+   }finally{
+    // The log line gets a hash of the session's user and the blob size; set also when the call is refused.
+    if(audit.userId)ctx.record.user=await accounts.logUserHash(ctx.env,audit.userId);
+    if(Number.isInteger(audit.size))ctx.record.size=audit.size;
+   }
   }catch(e){
    if(e instanceof accounts.AccountError){
     // Only these two say more than a code: when to try again, and the revision to pull before a retry.
@@ -417,6 +424,7 @@ export const ROUTE_TABLE=[
  {path:ROUTES.password,name:'account_password',method:'POST',handler:accountRoute(accounts.changePassword)},
  {path:ROUTES.wallet,name:'account_wallet',method:'GET',handler:accountRoute(accounts.getWallet,{body:false})},
  {path:ROUTES.wallet,name:'account_wallet',method:'PUT',handler:accountRoute(accounts.putWallet)},
+ {path:ROUTES.export,name:'account_export',method:'GET',handler:accountRoute(accounts.exportAccount,{body:false})},
  {path:ROUTES.account,name:'account',method:'DELETE',handler:accountRoute(accounts.deleteAccount)},
 ];
 
