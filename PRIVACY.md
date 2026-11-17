@@ -4,7 +4,7 @@ Effective 2026-10-29. Maintainer contact: https://github.com/stl00/Cardybara/iss
 
 ## Local data
 
-The wallet can store card product names, masked tails, balances, billing fields, point observations, source dates, limited financial-page evidence, manual benefit usage and fee records. The extension uses local Chrome storage; wallet pages also use origin-local browser storage/IndexedDB for ledgers. The bundle starts empty and contains no developer account snapshot. Cloud browser sync is not used by the application.
+The wallet can store card product names, masked tails, balances, billing fields, point observations, source dates, limited financial-page evidence, manual benefit usage and fee records. The extension uses local Chrome storage; wallet pages also use origin-local browser storage/IndexedDB for ledgers. The bundle starts empty and contains no developer account snapshot. Cloud browser sync is not used by the application today; the optional account sync described below applies only once its screens ship, and is off until you turn it on.
 
 Collection runs on supported bank pages in an existing user session. The reader does not read password values, cookies or authentication codes. Login and bank-required approval happen on the bank's own site. The connector does not pay, transfer money, redeem rewards, activate offers or change bank settings. Page structure, account association and partial dates can make collection incomplete.
 
@@ -22,7 +22,16 @@ Bill and benefit reminders are optional and off by default. Turning them on asks
 
 ## Web version
 
-The web version of the wallet keeps its data in the browser where it was entered (browser storage on this device); it is not uploaded or synced to other devices. The only thing it uploads is the questions asked to the conversational assistant, with the same content described above: earlier turns of the conversation, card products, point valuations, whether each card has an annual fee date and the wallet lookups the assistant asks for; never card numbers, balances or statements. Cards and amounts in the web version are entered by hand; bank reading exists only in the desktop Chrome extension. A browser may clear the data of a site that is not on the Home Screen, so export a backup regularly. 
+The web version of the wallet keeps its data in the browser where it was entered (browser storage on this device); it is not uploaded or synced to other devices unless you create an account and turn on sync (see above). Without sync, the only thing it uploads is the questions asked to the conversational assistant, with the same content described above: earlier turns of the conversation, card products, point valuations, whether each card has an annual fee date and the wallet lookups the assistant asks for; never card numbers, balances or statements. Cards and amounts in the web version are entered by hand; bank reading exists only in the desktop Chrome extension. A browser may clear the data of a site that is not on the Home Screen, so export a backup regularly. 
+
+## Optional account and wallet sync (web version and extension, when released)
+
+An account is optional. Without one, or with sync off, the wallet uploads nothing and works exactly as above. The account screens have not shipped yet; this section is the boundary they must keep, and `npm run check:web` and its tests enforce it where they can.
+
+- **What the server stores** (only after you create an account and turn sync on): a passkey public key (never a private key, and there is no email or phone number), session records, one readable copy of the wallet document (cards, statement fields you or the bank page produced, fee dates, benefit and cost records, settings), and, if you turn on web push, the push subscription and fire times.
+- **What it never stores:** bank passwords, cookies, one-time codes, bank page contents or page evidence. These stay on the bank page in your own browser; the sync body is checked against the wallet document's fields and anything else is rejected.
+- **Not end-to-end encrypted.** The copy is readable on the server so that devices can merge it. The database is encrypted at rest and every request is limited to the signed-in user's own rows. The operator, who owns the Cloudflare account that hosts the database, can technically read it; the operator does not read user rows except at a user's request for a named issue, logs keep route, status, a hashed user id and size but never wallet content or credentials, and no analytics, cookies or third-party requests are used.
+- **Export and deletion.** You can export everything the server holds for you, sign out (local data stays), or delete the account, which deletes every server row for it, including sessions and passkeys, and keeps the local wallet. Losing every passkey loses access to the server copy; add a second passkey.
 
 ## Retention, exports and deletion
 
