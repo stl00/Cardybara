@@ -12,6 +12,7 @@ import {manualOnly} from './manualBanks.js';
 import {convertPoints,readingsFor,routesForCard,transferProgrammes,transferRoutes} from './transferRoutes';
 import {FIXED_REDEMPTION_PROGRAMMES,fixedRedemptionsFor} from './fixedRedemptions.js';
 import {redemptionOptions} from './redemptionOptions.js';
+import {bestPointsOption} from './bestPointsOption.js';
 import {POOLING_TEXT,poolingRule,poolingRuleForRow,pointsReach,programmeTotals,shownInPooledEntry} from './pointsPooling';
 const {Paragraph,Text,Link}=Typography;
 const NO_CARD='no-card';
@@ -66,6 +67,14 @@ const kindLabels={'cash-back':'现金返还','statement-credit':'账单抵扣','
 const usd=cents=>money(cents/100,'USD');
 // #308/#465: the issuer's own redemptions beside the transfer partners, from the #307 records. Values come from redemptionOptions,
 // the same function the assistant's points_accounts uses (deposit blocks, annual cap, card dependence). Hidden mode masks them like balances.
+// #485: the answer to "which is best for this many points", from bestPointsOption (no maths here). Figures are masked in hidden mode.
+function BestOption({programme,points,rows,heldProductIds,hidden}){
+ const values=usePointValues(),best=bestPointsOption({programmeId:programme.id,region:programme.region,points,heldProductIds:heldProductIds||[],rows,overrides:values});
+ if(!best)return null;
+ const name=b=>b.type==='issuer'?t(kindLabels[b.kind]||b.kind):b.partner,basis=best.best.every(b=>b.basis==='user')?t('按你设定的估值'):best.best.every(b=>b.basis==='issuer')?t('按发卡行公布的比例'):best.best.every(b=>b.basis!=='user')?t('按默认市场估值，可在设置里改'):t('转点按你设定的估值，其余按公布的比例或默认估值');
+ const names=best.best.map(name).join(' / '),amount=hidden?'••••':usd(best.cents);
+ return <Alert showIcon type="success" style={{marginBottom:16}} title={best.best.length>1?t('已知价值最高（并列）：{0}，各约 {1}',[names,amount]):t('已知价值最高：{0}，约 {1}',[names,amount])} description={<>{basis}{best.notRanked>0?` · ${t('{0} 个选项未排名：价值未知或不固定',[best.notRanked])}`:''}</>}/>;
+}
 function IssuerRedemptions({programme,points,heldProductIds,hidden}){
  if(!FIXED_REDEMPTION_PROGRAMMES.includes(programme.id))return null;
  const stated=Number.isSafeInteger(points)&&points>0?points:null,en=currentLanguage()==='en-US';
@@ -97,6 +106,7 @@ export function ProgrammePanel({programme,accounts,cards,count,hidden}){
  {programme.id.endsWith('-hk')?<Alert showIcon type="warning" title={t('香港只公开 Turbo 计划费率')} description={t('是否已登记 Turbo 未核实，未登记的费率须登录查看。把已有伙伴账号加入转点时，页面列明每次收取400港元行政费，部分卡种除外。')} style={{marginBottom:16}}/>:null}
  {programme.id==='programme.bilt-rewards'?<Alert showIcon type="warning" title={t('Bilt 的最低转点数看会员等级')} description={t('Blue 等级会员每次最少转2,000点，Silver 及以上最少1,000点，都按1,000点递增。会员等级未核实，试算只按1,000点递增计算。Bilt 卡只能手动添加，不读取积分余额，可以输入积分数试算。')} style={{marginBottom:16}}/>:null}
  {programme.id.includes('ultimate')?<Alert showIcon type="warning" title={t('Chase 没有逐项公布比例')} description={t('Sapphire Preferred 页面只说多数伙伴1:1，没有逐项列明，因此这些伙伴不计算结果。World of Hyatt 的4:3只有 Sapphire Preferred 和 Ink Business Preferred 页面写明。')} style={{marginBottom:16}}/>:null}
+ <BestOption programme={programme} points={points} rows={rows} heldProductIds={rule?[...new Set(pointsReach(cards).filter(m=>m.rule.id===rule.id).map(m=>m.productId))]:null} hidden={hidden&&manual==null}/>
  <Space orientation="vertical" size="large" style={{width:"100%"}}>
   {airlines.length?<div><Paragraph strong style={{marginBottom:8}}>{t('航空伙伴')}</Paragraph><PartnerTable rows={airlines} points={points} hidden={hidden&&manual==null}/></div>:null}
   {hotels.length?<div><Paragraph strong style={{marginBottom:8}}>{t('酒店伙伴')}</Paragraph><PartnerTable rows={hotels} points={points} hidden={hidden&&manual==null}/></div>:null}
