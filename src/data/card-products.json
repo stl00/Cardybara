@@ -2024,7 +2024,12 @@
       "region": "US",
       "name": "Corporate Card",
       "aliases": [
-        "Corporate Card"
+        "Corporate Card",
+        "Healthcare Corporate Credit Card",
+        "Construction Corporate Credit Card",
+        "Professional Services Corporate Credit Card",
+        "Green Tech Corporate Credit Card",
+        "Wholesale Trade Corporate Credit Card"
       ],
       "currencies": [],
       "rewardPrograms": [],
@@ -2036,6 +2041,96 @@
         "verification": "legacy-asset",
         "sourceUrl": null
       }
+    },
+    {
+      "id": "amex-us-us-corporate-green-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "American Express Corporate Green Card",
+      "aliases": [
+        "American Express Corporate Green Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/corporate/",
+      "checkedAt": "2026-11-17",
+      "verification": "needs-review",
+      "art": null
+    },
+    {
+      "id": "amex-us-us-corporate-gold-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "American Express Corporate Gold Card",
+      "aliases": [
+        "American Express Corporate Gold Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/corporate/",
+      "checkedAt": "2026-11-17",
+      "verification": "needs-review",
+      "art": null
+    },
+    {
+      "id": "amex-us-us-corporate-platinum-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "American Express Corporate Platinum Card",
+      "aliases": [
+        "American Express Corporate Platinum Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/corporate/",
+      "checkedAt": "2026-11-17",
+      "verification": "needs-review",
+      "art": null
+    },
+    {
+      "id": "amex-us-us-corporate-cashback-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Corporate Cashback Card",
+      "aliases": [
+        "Corporate Cashback Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/corporate/",
+      "checkedAt": "2026-11-17",
+      "verification": "needs-review",
+      "art": null
+    },
+    {
+      "id": "amex-us-us-corporate-purchasing-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "American Express Corporate Purchasing Card",
+      "aliases": [
+        "American Express Corporate Purchasing Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/corporate/",
+      "checkedAt": "2026-11-17",
+      "verification": "needs-review",
+      "art": null
+    },
+    {
+      "id": "amex-us-us-corporate-meeting-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "American Express Corporate Meeting Card",
+      "aliases": [
+        "American Express Corporate Meeting Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/corporate/",
+      "checkedAt": "2026-11-17",
+      "verification": "needs-review",
+      "art": null
     },
     {
       "id": "amex-ca-ca-platinum-card",
