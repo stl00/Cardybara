@@ -441,7 +441,14 @@ The model still picks a neighbouring scenario or category, category more often t
 ## Crediting find_protections in the live eval (#426, 2026-11-16)
 `scripts/eval-benefit-recall-live.mjs` now reports a fourth score, `+ find_protections`: the rules `find_protections` returned join after the `find_benefits` results and the credited `query_credits` items, at most 12, mapped back to rule ids by the revision each returned rule carries. `recallAnyRoute` builds on it. The `find_benefits` and `+ query_credits` scores are computed as before, so older reports stay comparable; report schema is 3 (`recallWithProtections`, `precisionWithProtections`, `protectionsOnly`). Scoring moved to `evals/benefit-recall/live-score.mjs`; tests in `tests/benefit-recall-live-score.test.mjs` use hand-written tool calls, no model.
 
-Offline A/B/C do not change (the search is untouched): dev 98 / 100 / 100, held-out v2 94 / 99 / 100. **Not run:** re-scoring the #290 run's stored calls (`--rescore` on artifact `live-measure-recall` of run 43762741146), which needs that artifact downloaded; until then there is no live number with protections credited.
+Offline A/B/C do not change (the search is untouched): dev 98 / 100 / 100, held-out v2 94 / 99 / 100. **Re-scored offline (no model, no spend).** `node scripts/eval-benefit-recall-live.mjs --rescore=recall.json` on the stored calls of the #290 run (run 43762741146, artifact `live-measure-recall`), current sets and current search. `find_benefits` and `+ query_credits` reproduce the #290 table exactly. Recall@12, find_benefits / + credits / + find_protections:
+
+| | find_benefits | + query_credits | + find_protections | precision, find_benefits / + protections | protections only |
+| --- | --- | --- | --- | --- | --- |
+| Dev (n=137) | 84.5 | 86.4 | **94.0** | 52.4 / 56.1 | 7.3% (10 questions) |
+| Held-out v2 (n=106) | 88.7 | 89.6 | **92.5** | 45.4 / 47.2 | 3.8% (4 questions) |
+
+By language on dev (find / + credits / + protections): en 79.9 / 83.2 / 89.7, zh-Hans 88.0 / 89.7 / 96.3, zh-Hant 84.7 / 84.7 / 95.7. Held-out: en 87.5 / 87.5 / 92.0, zh-Hans 91.9 / 91.9 / 94.6, zh-Hant 86.0 / 90.0 / 90.0. Crediting `find_protections` adds +7.6 points on dev and +2.9 on held-out, close to the ceilings named in #290 (+7.3 and +3.8), so the 10 dev questions it answered are almost all scored as found. `recallAnyRoute` equals the protections score here. MRR is computed on `find_benefits` alone and is unchanged (0.799 dev, 0.838 held-out). This is one stored run, so held-out stays within the +-5-10 run-to-run noise noted above.
 
 ## Findings
 
