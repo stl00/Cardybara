@@ -46,13 +46,33 @@ test('the manifest is installable and standalone with the brand icon', () => {
 });
 
 test('the service worker precaches the shell, skips other origins and the seed, and falls back offline', () => {
-  const src = serviceWorkerSource(['/', '/index.html', '/assets/a.js'], 'abc');
+  const src = serviceWorkerSource(['/', '/assets/a.js'], 'abc');
   assert.match(src, /cardybara-web-abc/);
   assert.match(src, /url\.origin !== self\.location\.origin/);
   assert.match(src, /'\/data\.json'/);
   assert.match(src, /request\.method !== 'GET'/);
   assert.doesNotThrow(() => new Function(src.replace(/self\.addEventListener/g, 'void 0&&self.addEventListener')));
   assert.notEqual(serviceWorkerSource(['/'], 'abc'), serviceWorkerSource(['/'], 'abd'));
+});
+
+test('a navigation is never answered with a redirected response (Safari refuses it)', async () => {
+  const src = serviceWorkerSource(['/', '/assets/a.js'], 'abc');
+  const handlers = {}, store = new Map();
+  // A cached copy that followed Pages' 308 (/index.html -> /), as Safari's Cache keeps it.
+  const redirected = () => { const r = new Response('<!doctype html>', {status: 200, headers: {'Content-Type': 'text/html'}}); Object.defineProperty(r, 'redirected', {value: true}); return r; };
+  store.set('/', redirected());
+  const self = {location: {origin: 'https://wallet.example'}, addEventListener: (t, f) => { handlers[t] = f; }, skipWaiting() {}, clients: {claim() {}}};
+  const caches = {open: async () => ({match: async k => store.get(typeof k === 'string' ? k : new URL(k.url).pathname)?.clone?.() ?? store.get(k), put: async () => {}})};
+  new Function('self', 'caches', 'importScripts', 'fetch', src)(self, caches, () => {}, async () => redirected());
+  const run = async (url, mode) => { let p; handlers.fetch({request: {method: 'GET', url, mode}, respondWith: x => { p = x; }}); return p; };
+  for (const url of ['https://wallet.example/', 'https://wallet.example/#settings']) {
+    const r = await run(url, 'navigate');
+    assert.equal(r.redirected, false, url);assert.equal(await r.text(), '<!doctype html>');
+  }
+  assert.doesNotMatch(src, /'\/index\.html'/, 'the worker never asks for /index.html (Pages redirects it)');
+  store.clear();
+  const net = await run('https://wallet.example/index.html', 'navigate');
+  assert.equal(net.redirected, false, 'a redirected network answer to a navigation is copied too');
 });
 
 test('the page shell answers /data.json from the built-in empty seed and leaves other requests alone', async () => {
