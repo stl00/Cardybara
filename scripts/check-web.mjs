@@ -24,7 +24,7 @@ export function checkWeb(dir, {gateway = null} = {}) {
   const has = f => files.includes(f);
   const text = f => readFileSync(join(dir, f), 'utf8');
 
-  for (const f of ['index.html', 'manifest.webmanifest', 'sw.js', '_headers', 'cardybara.svg']) if (!has(f)) add(`missing ${f}`);
+  for (const f of ['index.html', 'manifest.webmanifest', 'sw.js', '_headers', 'cardybara.svg', 'apple-touch-icon.png']) if (!has(f)) add(`missing ${f}`);
   if (!files.some(f => /^assets\/[^/]+\.js$/.test(f))) add('missing the wallet script in assets/');
 
   for (const f of files) {
@@ -43,12 +43,16 @@ export function checkWeb(dir, {gateway = null} = {}) {
       if (m.display !== 'standalone') add('manifest display must be standalone');
       if (!Array.isArray(m.icons) || !m.icons.length) add('manifest has no icons');
       for (const icon of m.icons || []) if (!icon.src || !has(String(icon.src).replace(/^\//, ''))) add(`manifest icon ${icon.src} is not in the folder`);
+      const png = size => (m.icons || []).some(i => i.type === 'image/png' && String(i.sizes).split(' ').includes(size));
+      for (const size of ['192x192', '512x512']) if (!png(size)) add(`manifest has no ${size} PNG icon`);
+      if (!(m.icons || []).some(i => i.type === 'image/png' && /maskable/.test(i.purpose || ''))) add('manifest has no maskable PNG icon');
     }
   }
 
   if (has('index.html')) {
     const html = text('index.html');
     if (!/<link[^>]+rel="manifest"[^>]+href="\/manifest\.webmanifest"/.test(html)) add('index.html does not link the manifest');
+    if (!/<link[^>]+rel="apple-touch-icon"[^>]+href="\/apple-touch-icon\.png"/.test(html)) add('index.html does not link the apple-touch-icon');
     if (!/name="theme-color"[^>]+media="\(prefers-color-scheme: dark\)"/.test(html) || !/name="theme-color"[^>]+media="\(prefers-color-scheme: light\)"/.test(html)) add('index.html lacks light and dark theme-color');
     if (/<script(?![^>]*\bsrc=)[^>]*>[^<]/.test(html)) add('index.html has an inline script, which the Content-Security-Policy forbids');
   }
