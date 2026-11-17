@@ -7,7 +7,6 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {localGateway,memoryD1,memoryMail} from '../gateway/src/local.mjs';
 import {TABLES} from '../gateway/src/accounts.js';
-import {validWalletDocument} from '../gateway/src/walletSchema.js';
 import {createAccountClient,readAccount,setSync,syncIsOn,emailLooksValid,passwordLongEnough,SYNC_CHANGE_EVENT} from '../src/accountClient.js';
 import {startWalletSync,readSyncState,ACCOUNT_SESSION_KEY,SYNC_STATE_KEY} from '../src/walletSync.js';
 import {readWalletDocument,replaceWalletDocument} from '../src/walletDocument.js';
