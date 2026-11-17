@@ -41,7 +41,7 @@
     "build:release": "vite build && python3 scripts/build-release.py",
     "build:dev-extension": "node scripts/build-dev-extension.mjs",
     "check:release-package": "python3 scripts/audit-release.py --package",
-    "check:release": "npm run check:release-source && npm run check:fixtures && npm run test:refresh && npm run check:agent && npm run check:coupons && npm run build:release && npm run check:release-package && npm run check:dev-parity && npm run build:web && npm run check:web && npm run test:web",
+    "check:release": "npm run check:release-source && npm run check:fixtures && npm run test:refresh && npm run check:agent && npm run check:coupons && npm run build:release && npm run check:release-package && npm run check:dev-parity && npm run build:web && npm run check:web",
     "check:dev-parity": "python3 scripts/check-dev-parity.py",
     "check:acceptance": "node scripts/acceptance.mjs",
     "check:fixtures": "node scripts/debug-bank.mjs --parse-only",

@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   # The jobs below run, side by side, exactly what `npm run check:release` followed by
-  # `npm run test:collector-chrome` runs in a row. tests/ci-coverage.test.mjs fails when a step of
+  # `npm run test:collector-chrome` and `npm run test:web` run in a row. tests/ci-coverage.test.mjs fails when a step of
   # check:release is run by no job here, or when a job is missing from the final `Verify and package`.
   checks:
     name: Source checks and unit tests

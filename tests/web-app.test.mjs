@@ -5,8 +5,8 @@ import assert from 'node:assert/strict';
 import {existsSync} from 'node:fs';
 import {WEB_DIR, run} from '../scripts/web-chrome.mjs';
 
-// test:refresh also lists this file but runs before build:web, so it skips there when dist/web is absent; under
-// `npm run test:web` (after build:web, in check:release and CI) a missing dist/web fails instead of skipping.
+// Drives a real Chrome, so like the collector Chrome tests it runs only in CI (`npm run test:web` after build:web),
+// never in test:refresh or check:release (SEPARATE in scripts/run-tests.mjs). Under test:web a missing dist/web fails.
 const required = process.env.npm_lifecycle_event === 'test:web';
 test('the web app loads at phone width, reloads offline and still shows the empty wallet', {timeout: 120000, skip: !required && !existsSync(WEB_DIR) && 'dist/web is not built (npm run build:web); npm run test:web runs this'}, async () => {
   assert.ok(!required || existsSync(WEB_DIR), 'dist/web must be built (npm run build:web) before npm run test:web');
