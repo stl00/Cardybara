@@ -245,7 +245,7 @@ The hosted web wallet's reminders (#373, #380) are Web Push. The ui side (servic
 
 ## Accounts (`/v2/account`)
 
-Email and password accounts and one server copy of the wallet document per user (#412, epic #410). Code: `gateway/src/accounts.js`; schema: `gateway/migrations/0001_accounts.sql`; tests: `tests/gateway-accounts.test.mjs`. Isolation, schema validation of the document, export and the log-capture test are #413. The `/v1` routes are unchanged.
+Email and password accounts and one server copy of the wallet document per user (#412, epic #410). Code: `gateway/src/accounts.js`; schema: `gateway/migrations/0001_accounts.sql`; tests: `tests/gateway-accounts.test.mjs`. Per-user access, document schema, export and the log-capture test are #413 ("Who can see what" below). The `/v1` routes are unchanged.
 
 - **Routes** (JSON bodies, checked key by key; anything else is `400 bad_request`; the session is `Authorization: Bearer cbs_…`, never a cookie):
 
@@ -259,7 +259,8 @@ Email and password accounts and one server copy of the wallet document per user 
   | `POST /v2/account/password/reset` | `{email, code, password}` | `200 {token, expiresAt}`: new password, **every** older session revoked |
   | `POST /v2/account/password` | bearer, `{currentPassword, newPassword}` | `200`: every other session revoked, this one kept |
   | `GET /v2/account/wallet` | bearer | `200 {revision, formatVersion, document, updatedAt}`; revision 0 and `document: null` before the first write |
-  | `PUT /v2/account/wallet` | bearer, `{baseRevision, formatVersion, document}` | `200 {revision, size}` if `baseRevision` is the stored revision (0 for none); otherwise `409 {error:{code:"stale_revision", revision}}`; over `WALLET_MAX_BYTES` (default 512 KiB) `413 too_large` |
+  | `PUT /v2/account/wallet` | bearer, `{baseRevision, formatVersion, document}` | `200 {revision, size}` if `baseRevision` is the stored revision (0 for none); otherwise `409 {error:{code:"stale_revision", revision}}`; over `WALLET_MAX_BYTES` (default 512 KiB) `413 too_large`; a document outside the schema `422 invalid_document` |
+  | `GET /v2/account/export` | bearer | `200 {account, credentials, wallet, sessions, pendingEmailCodes}`: everything the server holds for this user (the password hash is named, not shown) |
   | `DELETE /v2/account` | bearer, `{password}` | `200`: every row of the user in every table deleted |
 
 - **Passwords:** at least 10 characters, PBKDF2-SHA256 through WebCrypto with a random 16-byte salt per user and 100,000 iterations (the most Workers' WebCrypto allows; the count is stored per user so a later raise can rehash on sign-in). An unknown email still spends one hash so its answer takes as long as a wrong password.
@@ -267,8 +268,16 @@ Email and password accounts and one server copy of the wallet document per user 
 - **Sessions:** 32 random bytes; only their SHA-256 is stored; 30 days.
 - **Limits:** every route goes through `RATE_LIMITER` per client like the `/v1` routes. Per email (keyed by an HMAC of the email in `auth_limits`, the same for emails with no account): 5 failed sign-ins within 15 minutes lock sign-in for 15 minutes, even with the right password (`429 account_locked` with `Retry-After`); at most 5 code mails an hour (`429 too_many_codes`).
 - **Tables:** `users` (id, email, verified, password hash, salt, iterations), `email_codes`, `sessions`, `wallets` (`user_id`, `revision`, `document` JSON, `format_version`, `size`, `updated_at`), `auth_limits`. Deleting an account empties all five for the user (tested).
-- **Log line:** route (`account_*`), status and error code only. No email, password, code, token or wallet content (tested).
+- **Log line:** route (`account_*`), status, error code, `user` (first 16 hex of an HMAC of the session's user id) and `size` (blob bytes). No email, password, code, token or wallet content (tested with a capture of every line).
 - **Until configured** the account routes answer `503 account_unavailable`: they need the D1 binding `DB`, the `send_email` binding `EMAIL`, the var `ACCOUNT_EMAIL_FROM` and the secret `ACCOUNT_SECRET` (at least 16 characters). The top-level environment in `gateway/wrangler.jsonc` has none of them yet, so deploying this code changes nothing for existing builds.
+
+### Who can see what (#413)
+
+- **Per-user access:** every `/v2/account` handler takes the user from the bearer session (`session()` in `accounts.js`); no route reads a user id from the body, path or query, and a body key it does not know is `400 bad_request`. User A's session cannot read, overwrite or delete user B's blob (tested).
+- **What is stored:** the wallet document only, checked against `gateway/src/walletSchema.js`: the nine sections of #411 (`cards`, `cardEdits`, `productChoices`, `paymentStates`, `pointValues`, `reminders`, `favorites`, `benefitEvents`, `costEvents`), JSON values only, strings up to 4,000 characters, depth 8, and no key such as `evidence`, `rawText`, `html` or `screenshot` at any depth. Anything else is `422 invalid_document` and nothing is stored. The per-section item shapes are tightened when #411 fixes them.
+- **Who can read D1:** the server copy is readable, not encrypted against the operator. The only people who can read the `wallets` table are those who can open the owner's Cloudflare account (dashboard, `wrangler d1 execute`, API token). Claude does not read user rows; it reads them only when the owner asks for a named issue, and then takes the least needed and keeps it out of Git and issues. Counts and sizes for operations come from the log line and Analytics Engine, not from rows.
+- **Logs and observability:** route, status, error code, user id hash and blob size only; Workers observability sees the same line, never a request body.
+- **Export and delete:** `GET /v2/account/export` and `DELETE /v2/account` (above) cover all five tables; delete is tested to leave 0 rows in each.
 
 ### Run accounts locally
 
