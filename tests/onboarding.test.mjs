@@ -70,14 +70,15 @@ test('DOM discovery ignores login fields, full numbers, deposit accounts and wro
  delete globalThis.document;delete globalThis.getComputedStyle;
 });
 test('extension bridge correlates failed worker replies so the refresh button can recover',async()=>{
- const code=readFileSync(new URL('../src/extensionBridge.js',import.meta.url),'utf8');
+ const {extension}=await import('../src/platform/extension.js');
  for(const failure of ['reject','reply']){
   let receive;const sent=[],origin='chrome-extension://'+'a'.repeat(32);
   const window={postMessage:m=>sent.push(m),addEventListener:(name,fn)=>receive=fn};
   const chrome={runtime:{id:'a'.repeat(32),onMessage:{addListener:()=>{}},sendMessage:async()=>{if(failure==='reject')throw Error('worker unavailable');return {ok:false,error:'storage full'};}},tabs:{getCurrent:async()=>({id:1})}};
-  vm.runInNewContext(code,{window,location:{origin,protocol:'chrome-extension:'},chrome});
-  await receive({source:window,origin,data:{channel:'cardybara-dashboard',type:'refresh',requestId:'fresh-user-request'}});
-  assert.equal(sent[0].ok,false);assert.equal(sent[0].requestId,'fresh-user-request');
+  Object.assign(globalThis,{window,location:{origin,protocol:'chrome-extension:'},chrome});
+  extension.collection.start();
+  try{await receive({source:window,origin,data:{channel:'cardybara-dashboard',type:'refresh',requestId:'fresh-user-request'}});
+  assert.equal(sent[0].ok,false);assert.equal(sent[0].requestId,'fresh-user-request');}finally{delete globalThis.window;delete globalThis.location;delete globalThis.chrome;}
  }
 });
 test('Chase discovers every product in the credit-card group, including IHG and nicknames, but never deposits',()=>{
