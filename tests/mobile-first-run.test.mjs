@@ -21,7 +21,13 @@ function ensureBuild() {
   const built = spawnSync('npm', ['run', 'build:web'], {cwd: root, encoding: 'utf8'});
   assert.equal(built.status, 0, 'npm run build:web failed:\n' + built.stdout.slice(-2000) + built.stderr.slice(-2000));
 }
-const chrome = await findChrome().then(() => true, () => false);
+// Chrome must be found AND able to start. Some sandboxes ship a Chrome that aborts (SIGABRT) at launch: skip there with the
+// reason, but never skip on CI, where a broken Chrome has to fail the build.
+const chrome = await findChrome().then(() => withPhone(async () => true), () => false).then(ok => ok || false, err => {
+  if (process.env.CI) throw err;
+  console.warn('Chrome found but cannot start here, phone tests skipped: ' + err.message);
+  return false;
+});
 const shots = process.env.CARDYBARA_SHOTS ? resolve(process.env.CARDYBARA_SHOTS) : null;
 
 // Every step of the path, with what must be on screen; run once per language because the long strings are what overflow.
@@ -82,14 +88,14 @@ async function walk(c, lang) {
 }
 
 for (const lang of ['zh-CN', 'en-US']) {
-  test(`first run at 375 px (${lang}): add a card, fee date, detail, credits, due date`, {timeout: 120000, skip: !chrome && 'no Chrome on this machine'}, async () => {
+  test(`first run at 375 px (${lang}): add a card, fee date, detail, credits, due date`, {timeout: 120000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
     ensureBuild();
     const steps = await withPhone(c => walk(c, lang), {init: `localStorage.setItem('cardybara-language',${JSON.stringify(lang)});localStorage.setItem(${JSON.stringify(GUIDE_KEY)},'1');`});
     assert.equal(steps.length, 9);
   });
 }
 
-test('the first-launch guide fits a 375 px phone', {timeout: 60000, skip: !chrome && 'no Chrome on this machine'}, async () => {
+test('the first-launch guide fits a 375 px phone', {timeout: 60000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
   ensureBuild();
   await withPhone(async c => {
     await c.goto('/');
