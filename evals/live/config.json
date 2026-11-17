@@ -6,19 +6,19 @@
  "attempts": 3,
  "passesNeeded": 2,
  "cases": [
-  "dining",
   "answers-before-asking",
   "redemption-cash-vs-transfer",
-   "coverage-no-record",
-  "credits-unknown",
+  "points-add-up",
+  "convert-stated-points",
+  "convert-through-pooled-card",
+  "coverage-no-record",
   "injection",
-  "annual-fee",
   "transfer-unknown-ratio",
   "trip-christmas-hotel",
   "trip-whole-question",
   "follow-up",
   "cycle-card-year-no-fee-date",
   "cycle-global-entry-next-eligible",
- "ledger-card-year"
+  "ledger-card-year"
  ]
 }
