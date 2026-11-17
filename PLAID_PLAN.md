@@ -16,11 +16,11 @@ Cardybara: link users' credit card accounts, pull transactions and balances, plu
 
 ## Human tasks
 
-States per TASK-001. Read from `dashboard_get_state` on 2026-11-17 for client "Individual account".
+States per TASK-001. Re-read from `dashboard_get_state` on 2026-11-17 (round 1) for client "Individual account".
 
 | Task | Why it matters | Where | State |
 |------|----------------|-------|-------|
-| Install and sign in to the Plaid CLI: `brew install plaid/plaid-cli/plaid && plaid login` (then `plaid teams choose` if there are several teams). Claude then runs `cd gateway && plaid keys write --env sandbox --gitignore` to build `gateway/.env` from `gateway/.env.example`; nobody types or prints the keys (GUIDE-021/022, TASK-010) | Without Sandbox keys the local gateway answers `plaid_unavailable` and the end-to-end Sandbox run cannot happen | Terminal; keys at https://dashboard.plaid.com/developers/keys | needs_human |
+| Install and sign in to the Plaid CLI: `brew install plaid/plaid-cli/plaid && plaid login` (then `plaid teams choose` if there are several teams). Claude then runs `cd gateway && plaid keys write --env sandbox --gitignore` to build `gateway/.env` from `gateway/.env.example`; nobody types or prints the keys (GUIDE-021/022, TASK-010) | Without Sandbox keys the local gateway answers `plaid_unavailable` and the end-to-end Sandbox run cannot happen | Terminal; keys at https://dashboard.plaid.com/developers/keys | verified (owner signed in; `gateway/.env` written, `plaid doctor` all PASS; the Sandbox run below used it) |
 | Register the OAuth redirect URIs exactly: `https://cardybara-gateway.cardybara.workers.dev/v2/plaid/link` (production) and `http://localhost:8787/v2/plaid/link` (Sandbox, local `wrangler dev`) | Without them OAuth banks (Chase, Bank of America, …) silently drop out of Link or break mid-flow (OAUTH-001, GUIDE-011). Not needed for the non-OAuth Sandbox run with First Platypus Bank | https://dashboard.plaid.com/developers/api → Allowed redirect URIs | needs_human (redirect_uris is empty) |
 | Production secrets (at go-live, after accounts are deployed): `npx wrangler@4.150.0 secret put PLAID_CLIENT_ID --config gateway/wrangler.jsonc` and `npx wrangler@4.150.0 secret put PLAID_SECRET --config gateway/wrangler.jsonc` (the owner pastes each value into the prompt, never into chat). Claude sets `PLAID_ENV=production`, a random `PLAID_TOKEN_KEY`, the var `PLAID_REDIRECT_URI`, and applies `0003_plaid.sql` remotely | The production Worker answers `plaid_unavailable` until they exist; the token key encrypts every stored access token | Terminal; production keys at https://dashboard.plaid.com/developers/keys | needs_human (production not yet in scope: accounts are not deployed) |
 | Company profile and the data-security questionnaire | Production OAuth institutions, Chase first, stay hidden from Link until these are approved (OAUTH-008, TASK-006/009); start early, review can take weeks | https://dashboard.plaid.com/settings/company | cannot_verify (not readable through the tools) |
@@ -42,7 +42,7 @@ States per TASK-001. Read from `dashboard_get_state` on 2026-11-17 for client "I
 - [x] Extension: `src/plaidClient.js` (bearer session only, allow-listed cache), `src/plaidCards.js` (issuer + last four match onto wallet cards; Plaid fills balance, limit, available, statement, minimum and due date when newer; manual edits still win), `src/PlaidCards.jsx` (panel on the bank-connections page: due date, statement balance, minimum, balance, limit, purchase APR, status, reconnect, sync, disconnect), `platform.plaid.open` in `src/platform/extension.js` only (the web wallet has no Plaid). UI strings in `src/i18n/plaid.json`.
 - [x] Tests: `tests/gateway-plaid.test.mjs` (9 cases, fake Plaid, real ES256 webhooks), `tests/plaid-wallet.test.mjs` (4 cases); account, router and table tests updated.
 - [x] Docs: `docs/GATEWAY.md` "Plaid-linked credit cards", `PRIVACY.md` "Plaid-linked US credit cards".
-- [ ] Sandbox end-to-end with `user_good` in a real browser (blocked on the CLI task above).
+- [x] Sandbox end-to-end in a real browser with `user_good` and `user_transactions_dynamic`, plus the `error_ITEM_LOCKED` error path (2026-11-17; see Acceptance round 1).
 - [ ] Production go-live (owner tasks above; accounts must be deployed first).
 
 ## Acceptance
@@ -52,6 +52,14 @@ States per TASK-001. Read from `dashboard_get_state` on 2026-11-17 for client "I
   - CHECK-008: no Sandbox run yet; blocked on the Plaid CLI login task.
   - CHECK-009: owner tasks still `needs_human` / `cannot_verify`.
   - CHECK-015: goal shown only on synthetic data; needs `user_good` and a second persona (`user_transactions_dynamic`) in Sandbox.
+- Round 1 (2026-11-17, commit 333ae4f, no Plaid code change since round 0): FAIL, 2 open, both owner Dashboard tasks; 13 passed. The workflow is at implement round 2, waiting on the owner.
+  - Ran: `wrangler dev --env local` with Sandbox keys from `gateway/.env`; a local account (sign-up and email code); `POST /v2/plaid/link`; the returned Link page in a real browser.
+  - CHECK-008 passed: the page loads Plaid's `link-initialize.js` under its nonce CSP (`window.Plaid` defined, Link iframe opens). First Platypus Bank (non-OAuth), `user_good` / `pass_good`: Link listed only the two credit cards (account filter), then `/item/public_token/exchange` → `/institutions/get_by_id` → `/transactions/sync` → `/liabilities/get`, page "Connected". `GET /v2/plaid/cards`: Plaid Credit Card ••3333 statement balance 1708.77 (2019-05-28), due date 2020-05-28, minimum 20, balance 410, limit 2000, four APRs (purchase 12.5%); 72 transactions.
+  - CHECK-015 passed on two personas (SANDBOX-009): `user_good` above answers "when is it due and how much"; Business Credit Card ••9999 has no liability data and every liability field is null without error. `user_transactions_dynamic`: one card ••2000, balance 500, no liabilities (nulls), 64 transactions with one pending. `POST /v2/plaid/refresh` then synced and refreshed liabilities for both Items (`ok`/`ok`), 136 transactions before and after (no duplicates, CHECK-005).
+  - CHECK-012: `user_good` / `error_ITEM_LOCKED` → Link's error, exit; the page shows Plaid's display message and "Try again", `/v2/plaid/link/exit` logged `ITEM_LOCKED` / `requires_credentials`, and no Item was stored.
+  - CHECK-013: every new route answered a real request (`/v2/plaid/link`, page, `/link/token`, `/link/complete`, `/link/exit`, `/cards`, `/transactions`, `/refresh`); `DELETE /v2/plaid/item` and `/webhook` by tests (localhost gets no webhooks).
+  - CHECK-003: the wrangler log holds no key or access token (only `PLAID_SECRET ("(hidden)")`); `gateway/.env` was never read or printed.
+  - Open: CHECK-007, `redirect_uris` is still empty in the Dashboard (owner task; the First Platypus run does not use OAuth). CHECK-009, the owner tasks above are still `needs_human` / `cannot_verify`.
 
 ## Maintenance
 
@@ -66,12 +74,14 @@ This integration is maintained with the Plaid MCP; this file is its durable stat
 
 ### Link a Sandbox credit card locally
 
-1. Once: `cd gateway && plaid keys write --env sandbox --gitignore` (Claude runs this after `plaid login`); make sure `gateway/.dev.vars` does not exist, since wrangler then ignores `.env`.
-2. `npx wrangler@4.150.0 d1 migrations apply cardybara-accounts --local --env local --config gateway/wrangler.jsonc`, then `npx wrangler@4.150.0 dev --env local --config gateway/wrangler.jsonc` (http://localhost:8787).
-3. Build a dev extension pointed at that gateway, sign up in Settings with any test email, open the bank-connections page and press "Add a credit card".
-4. In the Link tab, choose First Platypus Bank, sign in with `user_good` / `pass_good`, select the credit card, finish.
-5. Expected: the tab says "Connected"; back in the wallet the Plaid panel lists "Plaid Credit Card" with a due date, statement balance, minimum payment, balance, limit and purchase APR. "Sync" pulls again; "Disconnect" removes it.
-6. Error path: password `error_ITEM_LOCKED` shows Plaid's message on the Link page and nothing is stored.
+1. Once: `cd gateway && plaid keys write --env sandbox --gitignore` (Claude runs this after `plaid login`; the CLI defaults to production, so `--env sandbox` is required); make sure `gateway/.dev.vars` does not exist, since wrangler then ignores `.env`.
+2. Wrangler needs Node 22: `export PATH=/opt/homebrew/opt/node@22/bin:$PATH`. Then `npx wrangler@4.150.0 d1 migrations apply cardybara-accounts --local --env local --config gateway/wrangler.jsonc` and `npx wrangler@4.150.0 dev --env local --config gateway/wrangler.jsonc --port 8787 --ip 127.0.0.1`.
+3. Either build a dev extension pointed at that gateway, sign up in Settings and press "Add a credit card" on the bank-connections page; or, without the extension: `POST /v2/account/signup` and `/v2/account/verify` with `Origin: chrome-extension://<any 32 letters a–p>` (the local email code is in the file wrangler names after "send_email binding called"), then `POST /v2/plaid/link` with the bearer and open the returned URL in a browser. Opening a second Link URL in the same tab changes only the fragment: reload the page.
+4. In Link: "Continue without phone number", search "First Platypus", choose "First Platypus Bank" (not the OAuth entries), sign in with `user_good` / `pass_good`, Continue, Share data, "Finish without saving".
+5. Expected: the page says "Connected"; `GET /v2/plaid/cards` (or the wallet's Plaid panel) shows Plaid Credit Card ••3333 with due date 2020-05-28, statement balance 1708.77, minimum 20, balance 410, limit 2000 and purchase APR 12.5%; Plaid Business Credit Card ••9999 has no liability data (nulls). "Sync" (`POST /v2/plaid/refresh`, once a minute per Item) pulls again; "Disconnect" removes it.
+6. Second persona: repeat with `user_transactions_dynamic` / `pass_good`: one card ••2000, balance 500, no liabilities, about 64 transactions with one pending.
+7. Error path: `user_good` / `error_ITEM_LOCKED` → exit Link; the page shows Plaid's message and "Try again", and nothing is stored.
+8. OAuth banks need the redirect URI registered in the Dashboard first (owner task) and `PLAID_REDIRECT_URI` set.
 
 ## Decisions made
 
