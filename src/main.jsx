@@ -61,7 +61,9 @@ import {CardEditSection,loadCardEdits,saveCardEdits,useCardEdits} from './CardEd
 import {presentCard,productDisplayName} from './cardName.js';
 import PaymentAssistant,{loadPaymentMarks,savePaymentMarks} from './PaymentAssistant.jsx';
 import ReminderSettings,{ReminderRunner} from './ReminderSettings.jsx';
-import {readWalletDocument,writeWalletDocument,isNewerWalletDocument,walletImportErrorKey} from './walletDocument.js';
+import {readWalletDocument,writeWalletDocument,replaceWalletDocument,isNewerWalletDocument,walletImportErrorKey} from './walletDocument.js';
+import {startWalletSync} from './walletSync.js';
+import {GATEWAY_ORIGIN,gatewayConfigured} from '../extension-next/model-client.js';
 import ItemLogo from './ItemLogo';
 import CardArt from './CardArt';
 import CardCatalog from './CardCatalog.jsx';
@@ -121,6 +123,11 @@ const isBusy=b=>['queued','running'].includes(bankBusy[b]);
 
 const loadWallet=d=>{const saved=stored('cardybara-import',null);baseRef.current=saved?{...saved,cards:saved.cards.map(c=>({...c,art:d.cards.find(x=>x.id===c.id&&x.name===c.name)?.art||c.art}))}:d;baseRef.current=mergeWalletCards(withoutRemoved(baseRef.current,stored(WALLET_REMOVED_KEY,[])),stored(WALLET_CARDS_KEY,[]));setData(applyLive(baseRef.current,liveRef.current))};
 // Another wallet tab changed the cards. Reload them, or this tab would keep showing them and put a removed card back in the reminder plan.
+// Sync between devices (#414): starts only when this device turned sync on and is signed in; otherwise nothing runs.
+useEffect(()=>startWalletSync({gateway:gatewayConfigured?GATEWAY_ORIGIN:null,
+ readLocal:()=>readWalletDocument({storage:localStorage,readBenefitEvents,readCostEvents}),
+ applyLocal:async doc=>{await replaceWalletDocument(doc,{storage:localStorage,importBenefitEvents,importCostEvents,knownCard:c=>urls[c.bank]&&countries[c.region]});setFavorites(new Set(stored('cardybara-favorites',[])));for(const ev of ['cardybara-card-edits-change','cardybara-card-products-change','cardybara-payment-marks-change','cardybara-point-values-change','cardybara-reminder-settings-change'])window.dispatchEvent(new Event(ev));fetch('/data.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(d=>loadWallet(d)).catch(()=>{})},
+ onStatus:s=>{if(s==='newer')message.warning(t('另一台设备用更新版本的卡疲扒拉同步过钱包。请重新加载页面更新；在这之前本机不会同步。'))}}),[]);
 useEffect(()=>{const sync=e=>{if(![LIVE_KEY,WALLET_CARDS_KEY,WALLET_REMOVED_KEY,'cardybara-import'].includes(e.key))return;fetch('/data.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(d=>{liveRef.current=stored(LIVE_KEY,{});loadWallet(d)}).catch(()=>{})};window.addEventListener('storage',sync);return()=>window.removeEventListener('storage',sync)},[]);
 useEffect(()=>{if(!selectedDetail)setFeeFocus(null);},[selectedDetail]);
 useEffect(()=>{fetch('/data.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(d=>{setLastSync(new Date());loadWallet(d)}).catch(()=>setError(true));const route=()=>{const k=location.hash.slice(1)==='agent'?'settings':location.hash.slice(1);setPage(labels[k]&&(k!=='connections'||collects)?k:'overview');setCountry('all');setBank('all');setSearch('');setFavoriteOnly(false);setOfferStatus('all');setDetail(null);setOfferDetail(null);setCardRoute(cardRouteId(location.hash));window.scrollTo(0,0)};window.addEventListener('hashchange',route);return()=>window.removeEventListener('hashchange',route)},[]);

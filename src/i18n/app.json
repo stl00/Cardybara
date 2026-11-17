@@ -196,7 +196,8 @@
     "这份备份来自更新版本的卡疲扒拉。请先重新加载页面更新，再导入；这次没有写入任何数据。": "This backup comes from a newer version of Cardybara. Reload the page to update, then import it again. Nothing was written this time.",
     "备份里的钱包卡片记录格式不正确；这次没有写入任何数据。": "The wallet card records in this backup are malformed. Nothing was written.",
     "备份里的收藏列表格式不正确；这次没有写入任何数据。": "The favorites list in this backup is malformed. Nothing was written.",
-    "备份文件格式不正确；这次没有写入任何数据。": "This backup file is malformed. Nothing was written."
+    "备份文件格式不正确；这次没有写入任何数据。": "This backup file is malformed. Nothing was written.",
+    "另一台设备用更新版本的卡疲扒拉同步过钱包。请重新加载页面更新；在这之前本机不会同步。": "Another device synced this wallet with a newer version of Cardybara. Reload the page to update; this device will not sync until then."
   },
   "zh-TW": {
     "待更新": "待更新",
@@ -395,6 +396,7 @@
     "这份备份来自更新版本的卡疲扒拉。请先重新加载页面更新，再导入；这次没有写入任何数据。": "這份備份來自更新版本的卡疲扒拉。請先重新載入頁面更新，再匯入；這次沒有寫入任何資料。",
     "备份里的钱包卡片记录格式不正确；这次没有写入任何数据。": "備份裡的錢包卡片記錄格式不正確；這次沒有寫入任何資料。",
     "备份里的收藏列表格式不正确；这次没有写入任何数据。": "備份裡的收藏列表格式不正確；這次沒有寫入任何資料。",
-    "备份文件格式不正确；这次没有写入任何数据。": "備份檔案格式不正確；這次沒有寫入任何資料。"
+    "备份文件格式不正确；这次没有写入任何数据。": "備份檔案格式不正確；這次沒有寫入任何資料。",
+    "另一台设备用更新版本的卡疲扒拉同步过钱包。请重新加载页面更新；在这之前本机不会同步。": "另一台裝置用更新版本的卡疲扒拉同步過錢包。請重新載入頁面更新；在這之前本機不會同步。"
   }
 }

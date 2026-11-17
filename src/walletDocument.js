@@ -41,6 +41,8 @@ export const DEVICE_ONLY={
  'cardybara.webGuideSeen':'first-launch guide seen',
  'cardybara-push-mirror':'reminder plan for this browser\'s service worker (IndexedDB)',
  'cardybara-web-push-v1':'push subscription state of this browser',
+ 'cardybara-sync-v1':'sync switch, server revision and last synced copy of this device (walletSync.js)',
+ 'cardybara-account-session-v1':'account session token of this device, never exported',
 };
 const SECTIONS=['walletCards','cardEdits','cardProducts','paymentMarks','pointValues','reminderSettings','favorites','personalBenefits','costLedger'];
 const MAX_FAVORITES=200,MAX_REMOVED=200,MAX_CARDS=40;
@@ -138,6 +140,30 @@ export async function writeWalletDocument(raw,{storage,importBenefitEvents,impor
  set(WALLET_CARDS_KEY,registry);set(WALLET_REMOVED_KEY,removed);set(CARD_EDITS_KEY,edits);set(CARD_PRODUCT_KEY,choices);
  set(PAYMENT_MARKS_KEY,marks);set(POINT_VALUES_KEY,storedPointValues(values));if(carriesSettings)set(REMINDER_SETTINGS_KEY,settings);set(FAVORITES_KEY,favorites);
  return {doc,snapshot:snap};
+}
+
+/**
+ * Sync (walletSync.js): makes this device's stores equal to a merged document, deletions included, where an import
+ * only adds. Validated as an import is, before the first write. The two event ledgers are unions in a merged
+ * document, so adding what is missing makes them equal. Stored snapshot rows are left alone when the document has none.
+ */
+export async function replaceWalletDocument(raw,{storage,importBenefitEvents,importCostEvents,knownCard}){
+ const doc=migrateWalletDocument(raw);
+ const snap=hasSnapshot(doc)?snapshotOf(doc):null;
+ if(snap)validateSnapshot(snap,{knownCard});
+ validateRegistry(doc.walletCards);
+ mergeWalletCards({cards:[],connections:[]},doc.walletCards.cards);
+ if(!stringList(doc.favorites,MAX_FAVORITES))throw Error('invalid_favorites');
+ validateCostBackup(doc.costLedger);
+ const edits=mergeCardEdits([],doc.cardEdits),choices=mergeCardProductChoices([],doc.cardProducts);
+ const marks=mergePaymentMarks([],doc.paymentMarks),values=mergePointValues([],doc.pointValues);
+ await importBenefitEvents(doc.personalBenefits);
+ await importCostEvents(doc.costLedger);
+ const set=(key,value)=>storage.setItem(key,JSON.stringify(value));
+ if(snap)set(IMPORT_KEY,snap);
+ set(WALLET_CARDS_KEY,doc.walletCards.cards);set(WALLET_REMOVED_KEY,doc.walletCards.removed);set(CARD_EDITS_KEY,edits);set(CARD_PRODUCT_KEY,choices);
+ set(PAYMENT_MARKS_KEY,marks);set(POINT_VALUES_KEY,storedPointValues(values));set(REMINDER_SETTINGS_KEY,normalizeSettings(doc.reminderSettings));set(FAVORITES_KEY,doc.favorites);
+ return doc;
 }
 
 // Import error code -> zh-CN message key (translated by t() in the UI; keys live in src/i18n/app.json).
