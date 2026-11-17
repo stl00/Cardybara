@@ -41,7 +41,7 @@ test('inline surfaces in the wallet do not hard-code light colours',async()=>{
 test('the theme comes from the system and reaches confirmation dialogs',async()=>{
  const i18n=await read('src/i18n.jsx'),html=await read('index.html');
  assert.match(i18n,/theme\.darkAlgorithm/);
- assert.match(i18n,/useSyncExternalStore\(subscribeSystemDark, systemPrefersDark\)/);
+ assert.match(i18n,/useSyncExternalStore\(subscribeSystemDark, systemPrefersDark(, \(\) => false)?\)/);
  assert.match(i18n,/theme=\{dark \? DARK_THEME : LIGHT_THEME\}/);
  assert.match(html,/<meta name="color-scheme" content="light dark">/);
  // Static calls render outside ConfigProvider and would stay light.

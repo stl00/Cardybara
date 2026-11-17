@@ -15,7 +15,11 @@
     "显示名称（可不填，默认用卡种名称）": "Display name (optional; the card type's name by default)",
     "年费日（持卡周年日，可不填）": "Annual fee date (card anniversary, optional)",
     "银行页面不显示年费日。按你的账单或年费扣款记录填写；不知道可以留空，之后在卡片详情里设置。": "Bank pages don't show this. Use your statement or the date the fee was charged; leave it empty if you don't know and set it later in card details.",
-    "选择一家银行并登录，读取页面上可确认的卡片；没有识别到时，可以手动添加卡种与尾号。不需要旧备份。": "Choose a bank and sign in to read the cards its pages confirm. If a card isn't found, add it yourself by card type and last digits. No old backup is needed."
+    "选择一家银行并登录，读取页面上可确认的卡片；没有识别到时，可以手动添加卡种与尾号。不需要旧备份。": "Choose a bank and sign in to read the cards its pages confirm. If a card isn't found, add it yourself by card type and last digits. No old backup is needed.",
+    "从卡种目录里选一张卡，再填写尾号，就能把它记进钱包。所有数据只保存在这个浏览器里。": "Pick a card from the catalogue and enter its last digits to add it to your wallet. Everything stays in this browser.",
+    "默认关闭。开启时浏览器会请求通知权限，关闭后不再提醒。只在打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。": "Off by default. Turning it on asks your browser for notification permission; turning it off stops reminders. Reminders are checked only while the wallet page is open, so none arrive when it is closed. Credits can also use the calendar reminder on the Credits page; bills have no such backup yet.",
+    "没有获得通知权限，提醒保持关闭。可以在浏览器的网站设置里修改后再试。": "Notification permission was not granted, so reminders stay off. You can change it in your browser's site settings and try again.",
+    "卡片和金额由你手动填写；导入备份只恢复已保存的数据。每项数据单独记录日期。": "Cards and amounts are entered by you; importing a backup only restores saved data. Each item keeps its own date."
   },
   "zh-TW": {
     "添加卡片": "新增卡片",
@@ -33,6 +37,10 @@
     "显示名称（可不填，默认用卡种名称）": "顯示名稱（可不填，預設用卡種名稱）",
     "年费日（持卡周年日，可不填）": "年費日（持卡週年日，可不填）",
     "银行页面不显示年费日。按你的账单或年费扣款记录填写；不知道可以留空，之后在卡片详情里设置。": "銀行頁面不顯示年費日。按你的帳單或年費扣款記錄填寫；不知道可以留空，之後在卡片詳情裡設定。",
-    "选择一家银行并登录，读取页面上可确认的卡片；没有识别到时，可以手动添加卡种与尾号。不需要旧备份。": "選擇一家銀行並登入，讀取頁面上可確認的卡片；沒有識別到時，可以手動新增卡種與尾號。不需要舊備份。"
+    "选择一家银行并登录，读取页面上可确认的卡片；没有识别到时，可以手动添加卡种与尾号。不需要旧备份。": "選擇一家銀行並登入，讀取頁面上可確認的卡片；沒有識別到時，可以手動新增卡種與尾號。不需要舊備份。",
+    "从卡种目录里选一张卡，再填写尾号，就能把它记进钱包。所有数据只保存在这个浏览器里。": "從卡種目錄裡選一張卡，再填寫尾號，就能把它記進錢包。所有資料只保存在這個瀏覽器裡。",
+    "默认关闭。开启时浏览器会请求通知权限，关闭后不再提醒。只在打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。": "默認關閉。開啟時瀏覽器會請求通知權限，關閉後不再提醒。只在打開著錢包頁面時檢查；頁面關閉時不會提醒。福利可以另外用福利頁的日曆提醒，帳單目前沒有這個備用方式。",
+    "没有获得通知权限，提醒保持关闭。可以在浏览器的网站设置里修改后再试。": "沒有獲得通知權限，提醒保持關閉。可以在瀏覽器的網站設定裡修改後再試。",
+    "卡片和金额由你手动填写；导入备份只恢复已保存的数据。每项数据单独记录日期。": "卡片和金額由你手動填寫；匯入備份只恢復已保存的資料。每項資料單獨記錄日期。"
   }
 }

@@ -3,7 +3,7 @@
 // logs. The field mapping is documented in docs/GATEWAY.md ("Metrics"); keep the two in step.
 //
 // A data point holds only release identity, counts, durations and outcome codes. It never holds a question, an
-// answer, a card, a wallet summary or an invite code: the code's id (not the code) is the one index.
+// answer, a card, a wallet summary or anything that identifies a client: the route is the one index.
 
 /** Blob and double positions, in order. Analytics Engine addresses them as blob1.. and double1..; the names are for the docs. */
 export const BLOBS=['route','version_id','prompt_hash','snapshot_id','model','error','tool_counts'];
@@ -16,7 +16,7 @@ const text=v=>typeof v==='string'?v.slice(0,96):'';
 const toolCounts=counts=>Object.entries(counts||{}).filter(([k,n])=>/^[a-z_]{1,48}$/.test(k)&&n>0).sort(([a],[b])=>a<b?-1:1).map(([k,n])=>k+':'+n).join(',');
 
 /**
- * The data point for one finished request, from the log record (route, code id, status, tokens, counts) and the
+ * The data point for one finished request, from the log record (route, status, tokens, counts) and the
  * agent's own summary of the turn (ctx.metrics: model, prompt hash, snapshot, repaired, fallback, tool counts).
  * Returns null for routes that are not metered.
  */
@@ -25,7 +25,7 @@ export function metricsPoint(ctx,durationMs){
  if(r.route!=='agent'&&r.route!=='chat')return null;
  const answered=r.route==='agent'?!!r.answered:r.status===200&&!r.error;
  return {
-  indexes:[text(r.code)||'none'],
+  indexes:[r.route],
   blobs:[r.route,text(ctx.env?.CF_VERSION_METADATA?.id),text(m.promptHash),text(m.snapshotId),text(m.model),text(r.error),toolCounts(m.tools)],
   doubles:[count(r.status),count(r.model_calls),count(r.rounds_replayed),count(r.wallet_calls),count(r.prompt_tokens),count(r.completion_tokens),count(durationMs),
    flag(m.repaired),flag(m.fallback),flag(answered&&!m.fallback),flag(m.toolRequest),flag(answered),count(m.publicToolCalls),count(r.wallet_results)],
