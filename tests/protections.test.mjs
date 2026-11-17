@@ -150,9 +150,13 @@ test('lost luggage reimbursement is a coverage type recorded from the pages that
 // #326: the Gold page text read on 2026-11-16 states limits, so Gold's rules are revision 2; pages that still show no text stay unrecorded.
 test('Amex Gold protections carry the terms its product page states and the others stay unknown (#326)',()=>{
  assert.deepEqual(validateKnowledge().errors,[]);
- const rules=queryKnowledge({productId:'amex-us-us-american-express-gold-card',category:'protection'}).rules;
+ const all=queryKnowledge({productId:'amex-us-us-american-express-gold-card',category:'protection'}).rules;
+ const rules=all.filter(r=>r.evidence.checkedAt==='2026-11-16');
  const by=t=>rules.find(r=>r.terms.coverage.type===t);
  assert.equal(rules.length,3);
+ // 2026-11-17: the signed-out benefits page also names Purchase Protection (90 days, no amount stated).
+ const pp=all.find(r=>r.terms.coverage.type==='purchase-protection');
+ assert.equal(all.length,4);assert.equal(pp.evidence.checkedAt,'2026-11-17');assert.equal(pp.terms.amount,null);assert.match(pp.original.summary,/90 days/);
  assert.equal(by('rental-car').revision,2);assert.equal(by('rental-car').terms.coverage.basis,'secondary');
  assert.deepEqual(by('rental-car').terms.coverage.exclusions,['Coverage is not available for vehicles rented in Australia, Italy, and New Zealand.']);
  assert.equal(by('trip-delay').revision,2);assert.match(by('trip-delay').original.summary,/12 hours.*\$300 per trip/);
