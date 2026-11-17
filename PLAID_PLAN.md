@@ -69,6 +69,7 @@ States per TASK-001. Re-read from `dashboard_get_state` on 2026-11-17 (round 3) 
   - CORS: preflight from the PWA origin 204 with that exact `Access-Control-Allow-Origin`; from `http://evil.example` 403. The Link page embeds only the listed web origin as a place to go back to.
   - Degradation: the same gateway with `PLAID_ENV=off` → every Plaid route 503 `plaid_unavailable`; the PWA panel shows "Plaid 连接服务还没开通，钱包照常使用。", no Add or Sync button, cached cards still shown. The plan cap (`TRIAL_CONNECTION_LIMIT`) → 429 `plaid_limit` after one call, by test.
   - Logs: no access, public or link token in the wrangler log; `PLAID_SECRET ("(hidden)")` only; `gateway/.env` not read.
+  - After the run, the panel's Add/Sync buttons moved from the card's title bar into its body (the title was cut to "通过 …" at phone width); layout only, no Plaid call or state changed. Re-checked on the PWA at 375×812 against the same Sandbox gateway: full title, Add and Sync shown, cards unchanged.
 
 ## Maintenance
 

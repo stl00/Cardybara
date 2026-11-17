@@ -53,9 +53,11 @@ export default function PlaidCards({gateway}){
  const remove=itemId=>run('remove:'+itemId,async()=>{const r=await client.remove(itemId);if(!r.ok)return setErr(r.code);setView(readPlaidCache(store()));toast.success(t('已断开这个连接。'));});
  const itemOf=id=>view.items.find(i=>i.itemId===id);
  const unavailable=err==='plaid_unavailable',full=err==='plaid_limit';
- return <Card className="plaid-cards" style={{marginBottom:20}} title={t('通过 Plaid 连接的美国信用卡')} extra={signedIn&&!unavailable&&<Space wrap>
-  {view.items.length>0&&<Button onClick={refresh} loading={busy==='refresh'}>{t('同步')}</Button>}
-  <Button type="primary" onClick={()=>open()} loading={busy==='link'} disabled={full}>{t('添加信用卡')}</Button></Space>}>
+ return <Card className="plaid-cards" style={{marginBottom:20}} title={t('通过 Plaid 连接的美国信用卡')}>
+  {/* The actions sit in the body, not the title bar, so a phone-width title is not cut off. */}
+  {signedIn&&!unavailable&&<Space wrap style={{marginBottom:12}}>
+  <Button type="primary" onClick={()=>open()} loading={busy==='link'} disabled={full}>{t('添加信用卡')}</Button>
+  {view.items.length>0&&<Button onClick={refresh} loading={busy==='refresh'}>{t('同步')}</Button>}</Space>}
   {!signedIn?<Paragraph type="secondary">{t('在设置里登录卡疲扒拉账号后，可以通过 Plaid 添加美国信用卡，自动读取余额、账单金额、最低还款、还款日和 APR。')}</Paragraph>:<>
   <Paragraph type="secondary">{t('只读：卡疲扒拉不能动钱。银行密码只交给银行和 Plaid；连接可以随时断开。')}</Paragraph>
   {err&&<Alert type={unavailable?'info':'warning'} showIcon title={errorText(err)} style={{marginBottom:12}}/>}
