@@ -5,6 +5,8 @@ import {PAYMENT_MARKS_KEY,readPaymentMarks,mergePaymentMarks} from './paymentSta
 import {POINT_VALUES_KEY,readPointValueOverrides,storedPointValues,mergePointValues} from './pointValues.js';
 import {REMINDER_SETTINGS_KEY,readSettings,normalizeSettings} from './reminders.js';
 import {validateCostBackup} from './costStore.js';
+import {LIVE_KEY} from './live.js';
+import {readBankReadings,storeBankReadings,mergeBankReadings,cleanReadings,emptyReadings} from './bankReadings.js';
 
 // The whole wallet as one versioned document: what a backup exports and an import restores.
 // The bank snapshot rows (cards, rewards, transactions ...) stay at the top level, as older backups have them, so an
@@ -18,6 +20,7 @@ export const DOCUMENT_STORAGE={
  [CARD_EDITS_KEY]:'cardEdits',[CARD_PRODUCT_KEY]:'cardProducts',[PAYMENT_MARKS_KEY]:'paymentMarks',
  [POINT_VALUES_KEY]:'pointValues',[REMINDER_SETTINGS_KEY]:'reminderSettings',[FAVORITES_KEY]:'favorites',
  [IMPORT_KEY]:'snapshot rows (top level)',
+ [LIVE_KEY]:'bankReadings (numeric fields and read times only, bankReadings.js)',
  'cardybara-personal':'personalBenefits (IndexedDB)','cardybara-account-ledger':'costLedger (IndexedDB)',
 };
 /**
@@ -28,7 +31,6 @@ export const DEVICE_ONLY={
  'cardybara-language':'display language',
  'cardybara-pet-v1':'pet state',
  'cardybara-auto-sync':'auto-sync switch of this browser',
- 'cardybara-bank-live-v1':'live bank state, rebuilt by the next read',
  'cardybara-reminders-sent-v1':'which reminders this device already showed',
  'cardybara-fee-date-migration-v1':'marker that a one-time migration ran here',
  'cardybara-product-suggestions-v1':'model suggestion cache, asked again when needed',
@@ -44,7 +46,7 @@ export const DEVICE_ONLY={
  'cardybara-sync-v1':'sync switch, server revision and last synced copy of this device (walletSync.js)',
  'cardybara-account-session-v1':'account session token of this device, never exported',
 };
-const SECTIONS=['walletCards','cardEdits','cardProducts','paymentMarks','pointValues','reminderSettings','favorites','personalBenefits','costLedger'];
+const SECTIONS=['walletCards','cardEdits','cardProducts','paymentMarks','pointValues','reminderSettings','favorites','personalBenefits','costLedger','bankReadings'];
 const MAX_FAVORITES=200,MAX_REMOVED=200,MAX_CARDS=40;
 
 // formatVersion 0 is a backup from before the field existed: bank snapshot rows plus some of the sections.
@@ -53,7 +55,7 @@ const MIGRATIONS={0:doc=>({...doc,formatVersion:1})};
 const EMPTY={
  walletCards:()=>({cards:[],removed:[]}),cardEdits:()=>({schema:1,edits:[]}),cardProducts:()=>({schema:1,choices:[]}),
  paymentMarks:()=>({schema:1,marks:[]}),pointValues:()=>storedPointValues([]),reminderSettings:()=>normalizeSettings(null),
- favorites:()=>[],personalBenefits:()=>({schema:1,events:[]}),costLedger:()=>({schema:1,events:[]}),
+ favorites:()=>[],personalBenefits:()=>({schema:1,events:[]}),costLedger:()=>({schema:1,events:[]}),bankReadings:emptyReadings,
 };
 const plain=v=>v&&typeof v==='object'&&!Array.isArray(v);
 
@@ -105,6 +107,7 @@ export async function readWalletDocument({storage,readBenefitEvents,readCostEven
   favorites:Array.isArray(stored)?stored.filter(x=>typeof x==='string'):[],
   personalBenefits:{schema:1,events:await readBenefitEvents()},
   costLedger:{schema:1,events:await readCostEvents()},
+  bankReadings:readBankReadings(storage),
  };
 }
 
@@ -139,6 +142,8 @@ export async function writeWalletDocument(raw,{storage,importBenefitEvents,impor
  if(snap)set(IMPORT_KEY,snap);
  set(WALLET_CARDS_KEY,registry);set(WALLET_REMOVED_KEY,removed);set(CARD_EDITS_KEY,edits);set(CARD_PRODUCT_KEY,choices);
  set(PAYMENT_MARKS_KEY,marks);set(POINT_VALUES_KEY,storedPointValues(values));if(carriesSettings)set(REMINDER_SETTINGS_KEY,settings);set(FAVORITES_KEY,favorites);
+ // Readings a backup carries only add to or update this device's (the later reading of each field wins).
+ storeBankReadings(storage,mergeBankReadings(readBankReadings(storage),doc.bankReadings));
  return {doc,snapshot:snap};
 }
 
@@ -163,6 +168,7 @@ export async function replaceWalletDocument(raw,{storage,importBenefitEvents,imp
  if(snap)set(IMPORT_KEY,snap);
  set(WALLET_CARDS_KEY,doc.walletCards.cards);set(WALLET_REMOVED_KEY,doc.walletCards.removed);set(CARD_EDITS_KEY,edits);set(CARD_PRODUCT_KEY,choices);
  set(PAYMENT_MARKS_KEY,marks);set(POINT_VALUES_KEY,storedPointValues(values));set(REMINDER_SETTINGS_KEY,normalizeSettings(doc.reminderSettings));set(FAVORITES_KEY,doc.favorites);
+ storeBankReadings(storage,cleanReadings(doc.bankReadings),{replace:true});
  return doc;
 }
 

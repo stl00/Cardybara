@@ -16,7 +16,8 @@ export function applyLive(base,live={}){
   const next={...card,fieldDates:{...Object.fromEntries(['balance','available','statement','statementClosing','minimum','creditLimit','due','autopay','offers'].filter(k=>card[k]!=null).map(k=>[k,card.updated+'T00:00:00Z'])),...card.fieldDates}};
   for(const [k,v]of Object.entries(patch.fields||{})){
    if(!numeric.includes(k)||!Number.isFinite(v))continue;
-   const oldDate=card.fieldDates?.[k]||card.updated+'T00:00:00Z',fieldTime=patch.fieldCapturedAt?.[k]||patch.capturedAt;
+   // A card the bank page found has no seed date (`updated`), so any reading is newer than what it holds.
+   const oldDate=card.fieldDates?.[k]||(card.updated?card.updated+'T00:00:00Z':''),fieldTime=patch.fieldCapturedAt?.[k]||patch.capturedAt;
    if(!Number.isFinite(Date.parse(fieldTime))||fieldTime<oldDate)continue;
    next[k]=v;next.fieldDates[k]=fieldTime;
    if(patch.fieldSources?.[k])next.fieldSources={...next.fieldSources,[k]:patch.fieldSources[k]};

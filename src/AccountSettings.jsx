@@ -1,6 +1,7 @@
 import React,{useEffect,useMemo,useState} from 'react';
 import {Alert,App,Button,Card,Flex,Input,Modal,Segmented,Switch,Typography} from 'antd';
 import {t,useI18n} from './i18n';
+import platform from './platform';
 import {SYNC_STATUS_EVENT,createAccountClient,emailLooksValid,passwordLongEnough,PASSWORD_MIN,readAccount,setSync,syncIsOn} from './accountClient.js';
 const {Paragraph,Text}=Typography;
 
@@ -29,7 +30,7 @@ const store=()=>typeof localStorage==='undefined'?noStore:localStorage;
 const field={style:{minHeight:44},maxLength:1024};
 export default function AccountSettings({gateway}){
  useI18n();const {message:toast}=App.useApp();
- const client=useMemo(()=>createAccountClient({gateway,storage:store()}),[gateway]);
+ const client=useMemo(()=>createAccountClient({gateway,storage:store(),mirror:platform.account?.mirror}),[gateway]);
  const [account,setAccount]=useState(()=>readAccount(store()));
  const [on,setOn]=useState(()=>syncIsOn(store()));
  const [status,setStatus]=useState(null);
@@ -42,7 +43,7 @@ export default function AccountSettings({gateway}){
 
  const fail=r=>setErr(errorText(r.code,r.retryAfter));
  const go=m=>{setMode(m);setErr(null);setNote(null);setCode('');setPassword('');};
- const run=async fn=>{setBusy(true);setErr(null);try{await fn();}finally{setBusy(false);}};
+ const run=async fn=>{setBusy(true);setErr(null);try{try{await platform.account?.allow(gateway);}catch{/* without the permission the request itself fails and says so */}await fn();}finally{setBusy(false);}};
  const signedIn=r=>{setAccount(readAccount(store()));setOn(false);setStatus(null);setEmail('');setPassword('');setCode('');setMode('signin');toast.success(t('已登录。'));};
  const checkEmail=()=>emailLooksValid(email)?true:(setErr(errorText('bad_request')),false);
 
