@@ -62,9 +62,13 @@ export const webManifest = () => ({
   display: 'standalone',
   background_color: '#ffffff',
   theme_color: THEME.light,
+  // PNGs first: Android needs 192 and 512 px PNGs to install, and a maskable one with a safe zone; the SVG stays for
+  // browsers that prefer it. iOS ignores the manifest icons and uses the apple-touch-icon link (index.html).
   icons: [
+    {src: '/brand/app-icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any'},
+    {src: '/brand/app-icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any'},
+    {src: '/brand/app-icons/icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable'},
     {src: '/cardybara.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any'},
-    {src: '/cardybara.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'maskable'},
   ],
 });
 
@@ -118,6 +122,9 @@ export function webAppPlugin({root, env = process.env}) {
         {tag: 'meta', attrs: {name: 'theme-color', content: THEME.light, media: '(prefers-color-scheme: light)'}, injectTo: 'head'},
         {tag: 'meta', attrs: {name: 'theme-color', content: THEME.dark, media: '(prefers-color-scheme: dark)'}, injectTo: 'head'},
         {tag: 'link', attrs: {rel: 'manifest', href: '/manifest.webmanifest'}, injectTo: 'head'},
+        // iOS Home Screen: a 180 px PNG on an opaque background (an SVG or transparent PNG shows as a blank tile).
+        {tag: 'link', attrs: {rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png'}, injectTo: 'head'},
+        {tag: 'meta', attrs: {name: 'apple-mobile-web-app-title', content: 'Cardybara'}, injectTo: 'head'},
         {tag: 'script', attrs: {type: 'module', src: '/web/shell.js'}, injectTo: 'head-prepend'},
       ],
     },
@@ -125,6 +132,8 @@ export function webAppPlugin({root, env = process.env}) {
       // Static files the wallet links to by path. public/ is not copied wholesale: it can hold a local data.json
       // and review pages that are not part of the app.
       copyFileSync(join(rootDir, 'public/cardybara.svg'), join(outDir, 'cardybara.svg'));
+      // Also at the root path, which iOS requests by itself when a page has no link.
+      copyFileSync(join(rootDir, 'public/brand/app-icons/apple-touch-icon.png'), join(outDir, 'apple-touch-icon.png'));
       for (const folder of ['assets', 'brand']) {
         const from = join(rootDir, 'public', folder);
         if (existsSync(from)) cpSync(from, join(outDir, folder), {recursive: true, filter: p => !p.split('/').includes('archive') && (statSync(p).isDirectory() || IMAGES.has(extname(p).toLowerCase()))});

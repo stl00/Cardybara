@@ -2,11 +2,14 @@
 // dist/web audit. They use synthetic folders; tests/web-app.test.mjs loads the real build in Chrome.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtempSync, mkdirSync, writeFileSync, rmSync} from 'node:fs';
+import {existsSync, mkdtempSync, mkdirSync, writeFileSync, rmSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {gatewayOrigin, serviceWorkerSource, webHeaders, webManifest} from '../scripts/web-build.mjs';
 import {checkWeb} from '../scripts/check-web.mjs';
+
+const root = fileURLToPath(new URL('..', import.meta.url));
 import {headersFor} from '../scripts/web-chrome.mjs';
 
 globalThis.__CARDYBARA_WEB_TEST__ = true;
@@ -33,7 +36,12 @@ test('headers are strict, allow the gateway only in connect-src, and parse as Pa
 test('the manifest is installable and standalone with the brand icon', () => {
   const m = webManifest();
   assert.equal(m.display, 'standalone');
-  assert.ok(m.icons.every(i => i.src === '/cardybara.svg'));
+  const png = m.icons.filter(i => i.type === 'image/png');
+  assert.deepEqual(png.map(i => i.sizes).sort(), ['192x192', '512x512', '512x512'], 'Android needs 192 and 512 px PNGs');
+  assert.ok(png.some(i => i.purpose === 'maskable'), 'a maskable PNG with a safe zone');
+  assert.ok(m.icons.some(i => i.src === '/cardybara.svg'));
+  for (const i of png) assert.ok(existsSync(join(root, 'public', i.src)), `${i.src} is committed`);
+  assert.ok(existsSync(join(root, 'public/brand/app-icons/apple-touch-icon.png')), 'the iOS Home Screen icon is committed');
   assert.ok(m.name && m.short_name && m.theme_color && m.background_color);
 });
 
@@ -76,9 +84,13 @@ test('the storage-persistence answer is recorded, and a granted answer is not ov
 function folder(edit = () => {}) {
   const dir = mkdtempSync(join(tmpdir(), 'cardybara-web-check-'));
   const files = {
-    'index.html': '<!doctype html><meta name="theme-color" content="#1677ff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)"><link rel="manifest" href="/manifest.webmanifest"><script type="module" src="/assets/a.js"></script><div id="root"></div>',
+    'index.html': '<!doctype html><meta name="theme-color" content="#1677ff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)"><link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><script type="module" src="/assets/a.js"></script><div id="root"></div>',
     'manifest.webmanifest': JSON.stringify(webManifest()),
     'cardybara.svg': '<svg xmlns="http://www.w3.org/2000/svg"/>',
+    'apple-touch-icon.png': 'png',
+    'brand/app-icons/icon-192.png': 'png',
+    'brand/app-icons/icon-512.png': 'png',
+    'brand/app-icons/icon-maskable-512.png': 'png',
     'assets/a.js': 'console.log("see https://www.example-bank.com/cards")',
     'sw.js': serviceWorkerSource(['/', '/index.html', '/assets/a.js'], 'x'),
     '_headers': webHeaders('https://gateway.example'),
@@ -102,6 +114,10 @@ test('the audit fails on a missing manifest, service worker, icon or headers', (
   assert.match(problems(f => { f['sw.js'] = null; }).join(), /missing sw\.js/);
   assert.match(problems(f => { f['cardybara.svg'] = null; }).join(), /missing cardybara\.svg[\s\S]*icon/);
   assert.match(problems(f => { f['_headers'] = null; }).join(), /missing _headers/);
+  assert.match(problems(f => { f['apple-touch-icon.png'] = null; }).join(), /missing apple-touch-icon\.png/);
+  assert.match(problems(f => { f['index.html'] = f['index.html'].replace(/<link rel="apple-touch-icon"[^>]*>/, ''); }).join(), /apple-touch-icon/);
+  assert.match(problems(f => { const m = JSON.parse(f['manifest.webmanifest']); m.icons = m.icons.filter(i => i.sizes !== '192x192'); f['manifest.webmanifest'] = JSON.stringify(m); }).join(), /192x192 PNG/);
+  assert.match(problems(f => { const m = JSON.parse(f['manifest.webmanifest']); m.icons = m.icons.filter(i => i.purpose !== 'maskable'); f['manifest.webmanifest'] = JSON.stringify(m); }).join(), /maskable/);
   assert.match(problems(f => { f['sw.js'] = serviceWorkerSource(['/', '/index.html', '/assets/gone.js'], 'x'); }).join(), /gone\.js/);
   assert.match(problems(f => { f['sw.js'] = serviceWorkerSource(['/'], 'x'); }).join(), /index\.html/);
 });
