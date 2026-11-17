@@ -14,9 +14,10 @@
     // Extension origins allowed to call the gateway, comma-separated chrome-extension://<id>. The alpha is
     // loaded unpacked, so each tester's id differs: "chrome-extension://*" admits any extension but no web
     // page. There is no invite code: the per-client and monthly caps bound spend. Empty admits nobody. The hosted web
-    // wallet (PWA, Pages project `cardybara-app`, APP_ORIGIN in src/extensionSignIn.js) is listed by its exact origin;
+    // wallet (PWA, Pages project `cardybara-app`, served at https://cardybara.dev and its pages.dev name; APP_ORIGIN in
+    // src/extensionSignIn.js) is listed by each exact origin;
     // it is also the only place the Plaid Link page sends a user back to. No other web page is admitted.
-    "ALLOWED_ORIGINS": "chrome-extension://*,https://cardybara-app.pages.dev",
+    "ALLOWED_ORIGINS": "chrome-extension://*,https://cardybara.dev,https://cardybara-app.pages.dev",
     // Defaults; `node scripts/gateway-settings.mjs set-caps` overrides them in KV without a deploy. Per client (a
     // salted hash of its network address, kept for its UTC day only) per UTC day; the budget is for all clients.
     // CLIENT_SALT is a required secret for that hash (the gateway answers 503 without it; only the local env falls
