@@ -207,7 +207,11 @@
     "nav|卡片库": "Catalogue",
     "nav|福利库": "Library",
     "问问卡疲扒拉：这笔用哪张卡？": "Ask Cardybara: which card for this purchase?",
-    "主导航": "Main navigation"
+    "主导航": "Main navigation",
+    "页面": "Pages",
+    "数据": "Data",
+    "偏好": "Preferences",
+    "备份与指南": "Backup and guide"
   },
   "zh-TW": {
     "待更新": "待更新",
@@ -417,6 +421,10 @@
     "nav|卡片库": "卡片庫",
     "nav|福利库": "福利庫",
     "问问卡疲扒拉：这笔用哪张卡？": "問問卡疲扒拉：這筆用哪張卡？",
-    "主导航": "主導覽"
+    "主导航": "主導覽",
+    "页面": "頁面",
+    "数据": "資料",
+    "偏好": "偏好",
+    "备份与指南": "備份與指南"
   }
 }
