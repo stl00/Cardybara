@@ -36,8 +36,9 @@ async function hmac(env,text){
  return [...new Uint8Array(await crypto.subtle.sign('HMAC',key,encoder.encode(text)))].map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 async function digest(value){return [...new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(JSON.stringify(value))))].map(b=>b.toString(16).padStart(2,'0')).join('');}
-// The signature binds the invite, the expiry, this turn's question, history, memory and summary, and every round's message.
-async function signRounds(ctx,turn,messages,exp){return hmac(ctx.env,JSON.stringify(['turn',ctx.invite.id,exp,await digest([turn.question,turn.history,turn.memory,turn.summary]),messages]));}
+// The signature binds the expiry, this turn's question, history, memory and summary, and every round's message. It
+// binds no client: there is no invite code, and a client's address may change in the middle of a turn.
+async function signRounds(ctx,turn,messages,exp){return hmac(ctx.env,JSON.stringify(['turn-v2',exp,await digest([turn.question,turn.history,turn.memory,turn.summary]),messages]));}
 function sameText(a,b){if(typeof a!=='string'||a.length!==b.length)return false;let d=0;for(let i=0;i<a.length;i++)d|=a.charCodeAt(i)^b.charCodeAt(i);return d===0;}
 
 /** The request body as the agent accepts it, or a Refusal. Nothing beyond these fields is read. */

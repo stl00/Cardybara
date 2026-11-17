@@ -15,17 +15,16 @@ const local=new URL('../gateway/src/local.mjs',import.meta.url).href;
 // Runs in a fresh Node process: imports the bundle, serves one request on in-memory bindings with a stub provider,
 // and prints the milliseconds each step took.
 const probe=(bundle,path)=>`
-const {memoryKV,memoryDurableObject,addInvite}=await import(${JSON.stringify(local)});
+const {memoryKV,memoryDurableObject}=await import(${JSON.stringify(local)});
 let t=performance.now();
 const worker=await import(${JSON.stringify(pathToFileURL(bundle).href)});
 const importMs=performance.now()-t;
 globalThis.fetch=async()=>Response.json({choices:[{index:0,message:{role:'assistant',content:'ok'},finish_reason:'stop'}],usage:{prompt_tokens:1,completion_tokens:1}});
-const env={PROVIDER_KEY:'synthetic-provider-key-not-real',ALLOWED_ORIGINS:'chrome-extension://*',ALLOW_HTTP_PROVIDER:'1',INVITES:memoryKV(),USAGE:memoryDurableObject(worker.UsageLedger)};
-const code='cdy_'+'startup-test-only-'.padEnd(43,'0');await addInvite(env.INVITES,code,{id:'startup'});
+const env={PROVIDER_KEY:'synthetic-provider-key-not-real',ALLOWED_ORIGINS:'chrome-extension://*',ALLOW_HTTP_PROVIDER:'1',LOCAL_DEV:'1',INVITES:memoryKV(),USAGE:memoryDurableObject(worker.UsageLedger)};
 const day=new Date().toISOString().slice(0,10);
 const body=${JSON.stringify(path)}==='/v1/chat'?{question:'hi',history:[],memory:{},summary:{schema:1,day,language:'en-US',cards:[],pointValues:[]}}:{messages:[{role:'user',content:'hi'}],max_tokens:10};
 t=performance.now();
-const r=await worker.default.fetch(new Request('https://gateway.test'+${JSON.stringify(path)},{method:'POST',headers:{Origin:'chrome-extension://'+'a'.repeat(32),Authorization:'Bearer '+code,'Content-Type':'application/json'},body:JSON.stringify(body)}),env,{waitUntil(){}});
+const r=await worker.default.fetch(new Request('https://gateway.test'+${JSON.stringify(path)},{method:'POST',headers:{Origin:'chrome-extension://'+'a'.repeat(32),'Content-Type':'application/json'},body:JSON.stringify(body)}),env,{waitUntil(){}});
 await r.text();
 console.log(JSON.stringify({importMs,requestMs:performance.now()-t,status:r.status}));`;
 const run=(bundle,path)=>JSON.parse(execFileSync(process.execPath,['--input-type=module','-e',probe(bundle,path)],{encoding:'utf8',stdio:['ignore','pipe','pipe'],timeout:60000}).trim().split('\n').at(-1));

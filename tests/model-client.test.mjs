@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,statSync} from 'node:fs';
 import {join} from 'node:path';
-import {KEY_STORE,DEV_OWN_KEY,PROVIDERS,GATEWAY_ORIGIN,HOSTED,validInvite,keyStatus,saveKey,deleteKey,setModelEnabled,isModelReady,testKey,completeChat,completeJSON,completeBody,maskKey,validKey,requestPermission} from '../extension-next/model-client.js';
+import {KEY_STORE,DEV_OWN_KEY,PROVIDERS,GATEWAY_ORIGIN,HOSTED,keyStatus,saveKey,deleteKey,setModelEnabled,isModelReady,testKey,completeChat,completeJSON,completeBody,maskKey,validKey,requestPermission} from '../extension-next/model-client.js';
 import {parserStatus,modelParse} from '../extension-next/parser-client.js';
 import {extensionChat} from '../src/extensionChat.js';
 import {chatRequest} from '../src/chatProtocol.js';
@@ -26,22 +26,24 @@ function fakeProvider(reply=()=>({choices:[{message:{role:'assistant',content:'h
 }
 test('the key is saved locally only, masked after saving, and removed with its permission',async()=>{
  const {local,calls}=fakeChrome();
- assert.equal(await isModelReady(),false);assert.deepEqual(await keyStatus(),{saved:false,enabled:false,permission:false,ready:false});
+ // With nothing saved the hosted service is in use: nothing secret is stored, and it needs no permission.
+ assert.equal(await isModelReady(),true);assert.deepEqual(await keyStatus(),{saved:false,provider:HOSTED,hosted:true,label:'Cardybara 托管服务',model:'deepseek-flash',enabled:true,permission:true,ready:true});
  const status=await saveKey({provider:'deepseek',key:KEY});
  assert.equal(status.ready,true);assert.equal(status.masked,'tes…cdef');assert.ok(!JSON.stringify(status).includes(KEY));
  assert.equal(local.get(KEY_STORE).key,KEY);assert.equal(calls.sync,0);
  assert.equal(await requestPermission('deepseek'),true);assert.deepEqual(calls.permissionRequests,[['https://api.deepseek.com/*']]);await assert.rejects(()=>requestPermission('evil'),/invalid_provider/);
  await setModelEnabled(false);assert.equal(await isModelReady(),false);await setModelEnabled(true);
- assert.equal((await deleteKey()).saved,false);assert.equal(local.has(KEY_STORE),false);assert.deepEqual(calls.removed,[['https://api.deepseek.com/*'],[GATEWAY_ORIGIN+'/*']]);
+ const after=await deleteKey();assert.equal(after.saved,false);assert.equal(after.hosted,true,'back to the hosted service');assert.equal(local.has(KEY_STORE),false);assert.deepEqual(calls.removed,[['https://api.deepseek.com/*'],[GATEWAY_ORIGIN+'/*']]);
  for(const bad of ['','short','has space inside key here','x'.repeat(201),'中文密钥中文密钥中文密钥'])await assert.rejects(()=>saveKey({provider:'deepseek',key:bad}),/invalid_key/,bad);
- await assert.rejects(()=>saveKey({provider:'evil',key:KEY}),/invalid_provider/);
+ await assert.rejects(()=>saveKey({provider:'evil',key:KEY}),/invalid_provider/);await assert.rejects(()=>saveKey({provider:HOSTED,key:KEY}),/invalid_provider/,'the hosted service has nothing to save');
  assert.equal(validKey(KEY),true);assert.equal(maskKey(KEY).length<KEY.length,true);
 });
-test('without the host permission or a key, nothing is sent',async()=>{
+test('without the host permission an own key sends nothing; with AI turned off nothing is sent at all',async()=>{
  const chrome=fakeChrome({granted:false}),requests=fakeProvider();
  await saveKey({provider:'deepseek',key:KEY});assert.equal(await isModelReady(),false);
  await assert.rejects(()=>completeChat({messages:[{role:'user',content:'hi'}]}),/model_not_ready/);
  chrome.grant(true);await deleteKey();
+ await setModelEnabled(false);assert.equal(await isModelReady(),false);
  await assert.rejects(()=>completeChat({messages:[{role:'user',content:'hi'}]}),/model_not_ready/);
  assert.equal(requests.length,0);
 });
@@ -67,7 +69,8 @@ test('testKey checks a candidate without saving it, using a request that costs n
  const {local}=fakeChrome();const requests=fakeProvider(()=>({data:[]}));
  assert.equal(await testKey({provider:'deepseek',key:KEY}),true);
  assert.equal(requests[0].url,PROVIDERS.deepseek.models);assert.equal(requests[0].options.method,'GET');assert.equal(local.has(KEY_STORE),false);
- await assert.rejects(()=>testKey({provider:'deepseek',key:'bad key'}),/invalid_key/);await assert.rejects(()=>testKey(),/model_not_ready/);
+ await assert.rejects(()=>testKey({provider:'deepseek',key:'bad key'}),/invalid_key/);
+ await setModelEnabled(false);await assert.rejects(()=>testKey(),/model_not_ready/,'AI turned off: nothing to check');
 });
 test('completeJSON returns an object or a code, for the card-type suggestion',async()=>{
  fakeChrome();await saveKey({provider:'deepseek',key:KEY});
@@ -87,7 +90,7 @@ test('wallet chat sends exactly the payload the local server sends, and accepts 
  assert.ok(chatRequest(payload).messages[0].content.includes('Today is 2026-11-05'));
 });
 test('bank parsing uses the same client, and its status reflects only the saved key',async()=>{
- fakeChrome();assert.deepEqual(await parserStatus(),{configured:false,provider:'deepseek',model:null,processing:'cloud-direct',reason:'add_model_key'});
+ fakeChrome();assert.deepEqual(await parserStatus(),{configured:false,provider:HOSTED,model:'deepseek-flash',processing:'cloud-direct',reason:'hosted_no_parsing'},'the default hosted service never parses bank pages');
  await saveKey({provider:'deepseek',key:KEY});assert.equal((await parserStatus()).configured,true);
  const requests=fakeProvider(()=>({choices:[{message:{content:JSON.stringify({items:[],nextLinkId:null})}}]}));
  const batch={bank:'Amex HK',page:'/overview',scope:'mvp',aliases:[{id:'C1',cardId:'card-one',currency:'HKD'}],blocks:[{id:'B1',text:'[C1] Membership Rewards 123 points'}],links:[]};
@@ -128,38 +131,47 @@ test('review: the settings page keeps the separate consent switch for automatic 
  const picker=readFileSync('src/CardProductPicker.jsx','utf8');assert.ok(!picker.includes('127.0.0.1'),'the extension never sends card names to localhost');
 });
 
-// A made-up invite code in the gateway's shape.
+// A made-up invite code in the shape builds from before 2026-11-16 stored.
 const INVITE='cdy_'+'test-only-'.padEnd(43,'a');
 function fakeGateway(answer){
  const requests=[];
  globalThis.fetch=async(url,options)=>{requests.push({url:String(url),options});const [status,body]=answer(String(url),options);return {ok:status>=200&&status<300,status,json:async()=>{if(body instanceof Error)throw body;return body;}};};
  return requests;
 }
-test('hosted mode: an invite code is saved like a key and goes only to the gateway',async()=>{
- const {local,calls}=fakeChrome();
- assert.equal(validInvite(INVITE),true);assert.equal(validInvite(KEY),false);assert.equal(validInvite(INVITE+'x'),false);
- await assert.rejects(()=>saveKey({provider:HOSTED,key:KEY}),/invalid_invite/);await assert.rejects(()=>testKey({provider:HOSTED,key:'cdy_short'}),/invalid_invite/);
- const status=await saveKey({provider:HOSTED,key:INVITE});
- assert.equal(status.ready,true);assert.equal(status.hosted,true);assert.equal(status.label,'Cardybara 托管服务');assert.ok(!JSON.stringify(status).includes(INVITE));
- assert.equal(local.get(KEY_STORE).key,INVITE);assert.equal(calls.sync,0);
- await requestPermission(HOSTED);assert.deepEqual(calls.permissionRequests.at(-1),[GATEWAY_ORIGIN+'/*']);
+test('hosted mode: on out of the box, with no code, no Authorization header and no host permission',async()=>{
+ const {local,calls}=fakeChrome({granted:false,ownKey:false});
+ const status=await keyStatus();
+ assert.equal(status.ready,true);assert.equal(status.hosted,true);assert.equal(status.label,'Cardybara 托管服务');assert.equal(local.has(KEY_STORE),false,'nothing is stored');
  const requests=fakeGateway(url=>url.endsWith('/v1/invite')?[200,{status:'active'}]:[200,{choices:[{message:{role:'assistant',content:'hosted hello'},finish_reason:'stop'}],usage:{prompt_tokens:2,completion_tokens:1}}]);
  assert.equal(await testKey(),true);assert.equal(requests[0].url,GATEWAY_ORIGIN+'/v1/invite');assert.equal(requests[0].options.method,'POST');
  const reply=await completeChat({messages:[{role:'user',content:'hi'}]});assert.equal(reply.message.content,'hosted hello');
- for(const r of requests){assert.ok(r.url.startsWith(GATEWAY_ORIGIN+'/'));assert.ok(!r.url.includes(INVITE));assert.equal(r.options.headers.Authorization,'Bearer '+INVITE);assert.equal(r.options.credentials,'omit');assert.equal(r.options.redirect,'error');}
+ for(const r of requests){assert.ok(r.url.startsWith(GATEWAY_ORIGIN+'/'));assert.equal(r.options.headers.Authorization,undefined);assert.equal(r.options.credentials,'omit');assert.equal(r.options.redirect,'error');}
  assert.equal(requests[1].url,PROVIDERS[HOSTED].chat);assert.equal(JSON.parse(requests[1].options.body).model,'deepseek-flash');
+ assert.deepEqual(calls.permissionRequests,[],'no permission prompt');assert.equal(calls.sync,0);
+ // Turning AI off stores only that choice, and sends nothing.
+ await setModelEnabled(false);assert.deepEqual(local.get(KEY_STORE),{provider:HOSTED,enabled:false});
+ await assert.rejects(()=>completeChat({messages:[]}),/model_not_ready/);assert.equal(requests.length,2);
+ await setModelEnabled(true);assert.equal(await isModelReady(),true);
+});
+test('hosted mode: an invite code saved by an older build is dropped from storage and never sent',async()=>{
+ const {local}=fakeChrome({ownKey:false});
+ local.set(KEY_STORE,{provider:HOSTED,key:INVITE,savedAt:'2026-11-10T00:00:00.000Z',enabled:true});
+ const requests=fakeGateway(()=>[200,{choices:[{message:{content:'ok'}}]}]);
+ await completeChat({messages:[]});
+ assert.deepEqual(local.get(KEY_STORE),{provider:HOSTED,enabled:true,savedAt:'2026-11-10T00:00:00.000Z'},'the code is gone');
+ assert.ok(!JSON.stringify(requests).includes(INVITE),'the code is not sent');
+ // A turned-off choice is kept through the rewrite.
+ local.set(KEY_STORE,{provider:HOSTED,key:INVITE,enabled:false});assert.equal(await isModelReady(),false);assert.deepEqual(local.get(KEY_STORE),{provider:HOSTED,enabled:false});
  // Switching to an own key sends nothing to the gateway any more.
- await saveKey({provider:'deepseek',key:KEY});const own=fakeProvider();await completeChat({messages:[{role:'user',content:'hi'}]});assert.equal(own[0].url,PROVIDERS.deepseek.chat);
- assert.ok(!own[0].options.body.includes(INVITE)&&own[0].options.headers.Authorization==='Bearer '+KEY);
+ fakeChrome();await saveKey({provider:'deepseek',key:KEY});const own=fakeProvider();await completeChat({messages:[{role:'user',content:'hi'}]});assert.equal(own[0].url,PROVIDERS.deepseek.chat);
+ assert.equal(own[0].options.headers.Authorization,'Bearer '+KEY);
 });
 test('hosted mode: gateway errors become a fixed set of codes, never gateway or provider text',async()=>{
- fakeChrome();await saveKey({provider:HOSTED,key:INVITE});
- for(const [status,body,code] of [[401,{error:{code:'invite_invalid'}},'invite_invalid'],[403,{error:{code:'invite_revoked'}},'invite_revoked'],[429,{error:{code:'daily_requests'}},'hosted_over_cap'],[429,{error:{code:'daily_tokens'}},'hosted_over_cap'],[429,{error:{code:'monthly_budget'}},'hosted_over_cap'],[429,{error:{code:'provider_rate_limited'}},'model_rate_limited'],[502,{error:{code:'provider_error'}},'model_failed'],[401,Error('not json'),'invite_invalid'],[500,{error:{code:'<script>'+INVITE}},'model_failed'],[403,{error:{code:'origin_forbidden'}},'model_failed']]){
+ fakeChrome({ownKey:false});
+ for(const [status,body,code] of [[429,{error:{code:'daily_requests'}},'hosted_client_cap'],[429,{error:{code:'daily_tokens'}},'hosted_client_cap'],[429,{error:{code:'monthly_budget'}},'hosted_over_cap'],[429,{error:{code:'provider_rate_limited'}},'model_rate_limited'],[502,{error:{code:'provider_error'}},'model_failed'],[401,Error('not json'),'model_failed'],[401,{error:{code:'invite_invalid'}},'model_failed'],[500,{error:{code:'<script>'+INVITE}},'model_failed'],[403,{error:{code:'origin_forbidden'}},'model_failed']]){
   fakeGateway(()=>[status,body]);const error=await completeChat({messages:[]}).catch(e=>e);
   assert.equal(error.message,code,JSON.stringify([status,String(body)]));assert.ok(!String(error.stack).includes(INVITE));
  }
- // The settings page's save check refuses a revoked code.
- fakeGateway(()=>[403,{error:{code:'invite_revoked'}}]);await assert.rejects(()=>testKey({provider:HOSTED,key:INVITE}),/invite_revoked/);
 });
 test('the manifest asks for the gateway host only as an optional permission',()=>{
  const m=JSON.parse(readFileSync('extension-next/manifest.json','utf8'));
@@ -168,8 +180,8 @@ test('the manifest asks for the gateway host only as an optional permission',()=
  assert.match(GATEWAY_ORIGIN,/^https:\/\/[a-z0-9.-]+$/);
 });
 
-test('hosted mode: bank parsing never goes through the gateway, and an invite code is never an own key',async()=>{
- fakeChrome();await saveKey({provider:HOSTED,key:INVITE});const requests=fakeGateway(()=>[200,{choices:[{message:{content:'{}'}}]}]);
+test('hosted mode: bank parsing never goes through the gateway, and an old invite code is never an own key',async()=>{
+ fakeChrome();const requests=fakeGateway(()=>[200,{choices:[{message:{content:'{}'}}]}]);
  const status=await parserStatus();assert.equal(status.configured,false);assert.equal(status.reason,'hosted_no_parsing');
  const batch={bank:'Amex HK',page:'/overview',scope:'mvp',aliases:[{id:'C1',cardId:'card-one',currency:'HKD'}],blocks:[{id:'B1',text:'[C1] balance 1'}],links:[]};
  await assert.rejects(()=>modelParse(batch),/model_request_failed|model_not_ready/);
@@ -180,29 +192,29 @@ test('hosted mode: bank parsing never goes through the gateway, and an invite co
  assert.equal(validKey(INVITE),false);await assert.rejects(()=>saveKey({provider:'deepseek',key:INVITE}),/invalid_key/);await assert.rejects(()=>testKey({provider:'deepseek',key:INVITE}),/invalid_key/);
 });
 
-test('beta: without the developer flag an own key cannot be saved; the hosted service can',async()=>{
+test('beta: without the developer flag an own key cannot be saved; the hosted service is ready anyway',async()=>{
  const {local}=fakeChrome({ownKey:false});
  await assert.rejects(()=>saveKey({provider:'deepseek',key:KEY}),/own_key_disabled/);assert.equal(local.has(KEY_STORE),false);
- assert.equal((await saveKey({provider:HOSTED,key:INVITE})).ready,true);
+ assert.equal((await keyStatus()).ready,true);
  const ui=readFileSync('src/ModelKeySettings.jsx','utf8');assert.match(ui,/ownKeyAllowed/,'the settings page asks for the flag before showing own-key controls');
  assert.ok(!/DEV_OWN_KEY|cardybara-dev-own-key/.test(ui+readFileSync('src/ParserSettings.jsx','utf8')),'no wallet UI sets the developer flag');
 });
-test('the hosted assistant route: invite code only to the gateway, an event stream back, errors as codes',async()=>{
+test('the hosted assistant route: no credential, an event stream back, errors as codes',async()=>{
  const {postAgent,hostedReady,hostedError}=await import('../extension-next/model-client.js');
- const {local}=fakeChrome({ownKey:false});
- const INVITE='cdy_'+'model-client-test-only-'.padEnd(43,'0');
- // No credential, or an own key: there is no hosted agent to reach.
- await assert.rejects(()=>postAgent({question:'hi'}),/model_not_ready/);
+ const {local}=fakeChrome({ownKey:false,granted:false});
+ // Turned off, or an own key: there is no hosted agent to reach.
+ local.set(KEY_STORE,{provider:HOSTED,enabled:false});
+ assert.equal(await hostedReady(),false);await assert.rejects(()=>postAgent({question:'hi'}),/model_not_ready/);
  local.set(KEY_STORE,{provider:'deepseek',key:KEY,enabled:true});
  assert.equal(await hostedReady(),false);await assert.rejects(()=>postAgent({question:'hi'}),/model_not_ready/);
- local.set(KEY_STORE,{provider:HOSTED,key:INVITE,enabled:true});assert.equal(await hostedReady(),true);
+ local.delete(KEY_STORE);assert.equal(await hostedReady(),true,'on with nothing saved');
  const seen=[];
  globalThis.fetch=async(url,options)=>{seen.push({url:String(url),options});return new Response('data: {"type":"done"}\n\n',{status:200,headers:{'Content-Type':'text/event-stream'}});};
  const body=await postAgent({question:'hi'});assert.ok(body.getReader);
- assert.equal(seen[0].url,GATEWAY_ORIGIN+'/v1/chat');assert.equal(seen[0].options.headers.Authorization,'Bearer '+INVITE);assert.equal(seen[0].options.credentials,'omit');assert.equal(seen[0].options.redirect,'error');
+ assert.equal(seen[0].url,GATEWAY_ORIGIN+'/v1/chat');assert.equal(seen[0].options.headers.Authorization,undefined);assert.equal(seen[0].options.credentials,'omit');assert.equal(seen[0].options.redirect,'error');
  globalThis.fetch=async()=>new Response('{}',{status:200,headers:{'Content-Type':'application/json'}});
  await assert.rejects(()=>postAgent({question:'hi'}),/model_failed/,'only an event stream is read');
- for(const [code,status,want] of [['daily_requests',429,'hosted_over_cap'],['invite_revoked',403,'invite_revoked'],['turn_invalid',400,'model_failed']]){
+ for(const [code,status,want] of [['daily_requests',429,'hosted_client_cap'],['monthly_budget',429,'hosted_over_cap'],['turn_invalid',400,'model_failed']]){
   globalThis.fetch=async()=>Response.json({error:{code}},{status});
   await assert.rejects(()=>postAgent({question:'hi'}),new RegExp(want));
  }
