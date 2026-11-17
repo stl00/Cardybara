@@ -74,12 +74,13 @@ export const AUDIT = `(()=>{
     modals:[...document.querySelectorAll('.ant-modal-container,.ant-drawer-section')].filter(e=>!hidden(e)&&reallyShown(e)).map(e=>{const r=e.getBoundingClientRect();return {cls:(e.closest('.ant-modal,.ant-drawer')||e).className.replace(/css-\S+/g,'').trim().slice(0,60),l:round(r.left),r:round(r.right),t:round(r.top),b:round(r.bottom)};})};
 })()`;
 
-export async function withPhone(fn, {dir = WEB_DIR, init = ''} = {}) {
+// `origin`: an already running server (a Vite dev server for the collector flows) instead of serving `dir`.
+export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external = ''} = {}) {
   const work = await mkdtemp(join(tmpdir(), 'cardybara-phone-'));
   let server, child;
   try {
-    server = await serve(dir);
-    const origin = `http://127.0.0.1:${server.address().port}`;
+    if (!external) server = await serve(dir);
+    const origin = external || `http://127.0.0.1:${server.address().port}`;
     child = spawn(await findChrome(), ['--user-data-dir=' + join(work, 'profile'), '--remote-debugging-pipe', '--headless=new', '--no-first-run', '--no-default-browser-check', '--hide-scrollbars', '--force-color-profile=srgb', ...SANDBOX_SAFE_ARGS, 'about:blank'], {stdio: ['ignore', 'ignore', 'ignore', 'pipe', 'pipe']});
     const send = cdpPipe(child);
     const {targetId} = await send('Target.createTarget', {url: 'about:blank'});

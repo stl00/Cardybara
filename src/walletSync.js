@@ -78,8 +78,9 @@ function mergeKeyed(base,local,remote,keyOf,resolve){
  return out;
 }
 const later=(a,b)=>Date.parse(b.at)>Date.parse(a.at)?b:a;
+const unionPairs=(local,remote)=>{const m=new Map();for(const p of [...(remote||[]),...(local||[])])m.set(p.manualId+'\n'+p.bankId,p);return [...m.values()];};
 const union=(local,remote)=>{const m=new Map();for(const e of [...(remote||[]),...(local||[])])m.set(e.id,e);return [...m.values()];};
-const SECTIONS=new Set(['formatVersion','walletCards','cardEdits','cardProducts','paymentMarks','pointValues','reminderSettings','favorites','personalBenefits','costLedger','bankReadings']);
+const SECTIONS=new Set(['formatVersion','walletCards','cardEdits','cardProducts','paymentMarks','pointValues','reminderSettings','favorites','personalBenefits','costLedger','bankReadings','cardMerges']);
 const snapshotOf=doc=>Object.fromEntries(Object.entries(doc).filter(([k])=>!SECTIONS.has(k)));
 
 /**
@@ -137,6 +138,7 @@ export function mergeWalletDocuments({base,local,remote,localNewer}){
   pointValues:{...remote.pointValues,...local.pointValues,values},
   reminderSettings:settings,
   favorites,
+  cardMerges:{schema:1,declined:unionPairs(local.cardMerges?.declined,remote.cardMerges?.declined)},
   personalBenefits:{schema:1,events:union(local.personalBenefits?.events,remote.personalBenefits?.events)},
   costLedger:{schema:1,events:union(local.costLedger?.events,remote.costLedger?.events)},
   // Bank amounts: the later reading of each field wins; a removed card's readings go with it and a folded card's follow it.
