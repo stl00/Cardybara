@@ -5,7 +5,7 @@
 // It reads the last hours of the metrics dataset through the Analytics Engine SQL API, the month-to-date spend from the
 // UsageLedger, and compares them with thresholds (defaults below, overridable in KV `settings.alerts`). A breach opens
 // one GitHub issue per signal (labels agent-incident and P1) or comments on the open one; the next healthy check
-// comments and closes it. Issue bodies hold aggregates only: never a code id, a question or a per-turn number.
+// comments and closes it. Issue bodies hold aggregates only: never a client id, a question or a per-turn number.
 // docs/GATEWAY.md ("Alerts and switches") describes the signals and the flow.
 import {readConfig,withSettings,callLedger,SETTINGS_KEY} from './gateway.js';
 

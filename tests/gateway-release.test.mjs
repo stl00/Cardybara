@@ -35,12 +35,12 @@ test('plans name the version and the traffic split, and dry runs execute nothing
  assert.throws(()=>run(plan(['rollback',V1]),{exec:()=>3,log:()=>{}}),/exit code 3/);
 });
 
-test('the hosted transport pins the version with the override header and never leaks the invite code in errors',async()=>{
+test('the hosted transport pins the version with the override header and sends no credential',async()=>{
  let seen;
- const post=hostedPost({base:'https://g.test/',invite:'cdy_secret',version:V1,fetch:async(url,init)=>{seen={url,init};return new Response('{"error":{"code":"rate_limited"}}',{status:429});}});
- await assert.rejects(post({a:1}),e=>!/cdy_secret/.test(e.message)&&e.gatewayCode==='rate_limited');
+ const post=hostedPost({base:'https://g.test/',version:V1,fetch:async(url,init)=>{seen={url,init};return new Response('{"error":{"code":"rate_limited"}}',{status:429});}});
+ await assert.rejects(post({a:1}),e=>e.gatewayCode==='rate_limited');assert.equal(seen.init.headers.Authorization,undefined);
  assert.equal(seen.url,'https://g.test/v1/chat');assert.equal(seen.init.headers[OVERRIDE_HEADER],`cardybara-gateway="${V1}"`);
- assert.throws(()=>hostedPost({base:'x',invite:'c',version:'latest'}),/version id/);
+ assert.throws(()=>hostedPost({base:'x',version:'latest'}),/version id/);
  assert.ok(isVersionId(V1)&&!isVersionId('abc'));
 });
 
@@ -55,12 +55,12 @@ test('a report of another Worker version is a new baseline candidate, not a regr
 
 test('the hosted dry run goes through the real transport and gateway with no network or code',()=>{
  const out=fs.mkdtempSync(path.join(os.tmpdir(),'hosted-eval-'));
- const r=spawnSync('node',['scripts/live-eval.mjs','--target=hosted','--dry-run','--out='+out],{cwd:root,encoding:'utf8',timeout:120000,env:{...process.env,CARDYBARA_EVAL_INVITE:''}});
+ const r=spawnSync('node',['scripts/live-eval.mjs','--target=hosted','--dry-run','--out='+out],{cwd:root,encoding:'utf8',timeout:120000,env:process.env});
  assert.equal(r.status,0,r.stderr);
  const report=JSON.parse(fs.readFileSync(path.join(out,'report.json'),'utf8'));
  assert.equal(report.target,'hosted');assert.equal(report.mode,'dry-run');assert.ok(isVersionId(report.version));
  assert.ok(report.cases.every(c=>c.status==='pass'));
  assert.doesNotMatch(JSON.stringify(report),/cdy_/);
- const failed=spawnSync('node',['scripts/live-eval.mjs','--target=hosted','--out='+out],{cwd:root,encoding:'utf8',env:{...process.env,CARDYBARA_EVAL_INVITE:''}});
+ const failed=spawnSync('node',['scripts/live-eval.mjs','--target=hosted','--out='+out],{cwd:root,encoding:'utf8',env:process.env});
  assert.notEqual(failed.status,0);assert.match(failed.stderr,/--version/);
 });

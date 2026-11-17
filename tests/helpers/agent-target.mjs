@@ -10,7 +10,6 @@ import {localGateway} from '../../gateway/src/local.mjs';
 
 export const AGENT_TARGET=process.env.CARDYBARA_AGENT==='cloud'?'cloud':'local';
 export const ORIGIN='chrome-extension://'+'c'.repeat(32);
-export const INVITE='cdy_'+'agent-target-test-only-'.padEnd(43,'0');
 
 /** A provider response for one scripted reply, streamed (SSE chunks, as DeepSeek sends them) or as one JSON body. */
 export function providerResponse(reply,{stream,signal}){
@@ -37,7 +36,7 @@ export function providerResponse(reply,{stream,signal}){
 /** A gateway whose provider answers with request(payload, signal), plus the extension transport to it. */
 export async function cloudGateway({request,vars={},log=()=>{},now}={}){
  const observed=[],providerRequests=[],agentRequests=[];let lastPayload=null,thrown=null;
- const g=localGateway({vars:{ALLOWED_ORIGINS:ORIGIN,DAILY_REQUESTS_PER_CODE:'1000000',DAILY_TOKENS_PER_CODE:'1000000000',MONTHLY_BUDGET_USD:'1000000',...vars},log,now,observe:p=>observed.push(structuredClone(p)),
+ const g=localGateway({vars:{ALLOWED_ORIGINS:ORIGIN,DAILY_REQUESTS_PER_CLIENT:'1000000',DAILY_TOKENS_PER_CLIENT:'1000000000',MONTHLY_BUDGET_USD:'1000000',...vars},log,now,observe:p=>observed.push(structuredClone(p)),
   fetch:async(url,init)=>{
    const body=JSON.parse(init.body);providerRequests.push(body);
    const payload=observed.shift();
@@ -46,10 +45,9 @@ export async function cloudGateway({request,vars={},log=()=>{},now}={}){
    let reply;try{reply=await request(payload,init.signal,{repair:!body.stream});}catch(error){thrown??=error;throw error;}
    return providerResponse(reply,{stream:body.stream,signal:init.signal});
   }});
- await g.addInvite(INVITE,{id:'agent-tests'});
  const post=async(body,{signal}={})=>{
   agentRequests.push(structuredClone(body));
-  const response=await g.handle(new Request('https://gateway.test/v1/chat',{method:'POST',headers:{Origin:ORIGIN,Authorization:'Bearer '+INVITE,'Content-Type':'application/json'},body:JSON.stringify(body)}));
+  const response=await g.handle(new Request('https://gateway.test/v1/chat',{method:'POST',headers:{Origin:ORIGIN,'Content-Type':'application/json'},body:JSON.stringify(body)}));
   if(!response.ok){const code=(await response.json()).error?.code;throw Object.assign(Error(hostedError(code)),{gatewayCode:code});}
   return response.body;
  };

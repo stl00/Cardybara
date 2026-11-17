@@ -21,12 +21,12 @@ For the build described in [release-notes/beta-1.md](release-notes/beta-1.md). T
 
 第一次打开是一个空钱包：页面上方显示“欢迎，这是你的新钱包”，说明这个测试版可以连接 Chase 和 American Express 美国，下面有“连接第一家银行”按钮。不需要旧备份。
 
-### 4. 输入邀请码（用卡助手）
-1. 在钱包左侧打开“设置”，找到“AI 服务”。
-2. 在“粘贴邀请码”框里粘贴邀请你的人发给你的邀请码，点“保存邀请码”。
-3. Chrome 会问是否允许扩展访问 `cardybara-gateway.cardybara.workers.dev`，选“允许”。不允许的话邀请码不会保存。
-4. 保存后左侧打开“用卡助手”就能提问，回答边生成边显示。
-不输入邀请码也能正常使用钱包，只是没有聊天助手。邀请码只给你自己用，不要转发。
+### 4. 用卡助手（不需要邀请码）
+用卡助手装好就能用，不需要邀请码，也不用设置：左侧打开“用卡助手”就能提问，回答边生成边显示。
+- 为了控制费用，每个网络每天有使用上限，用完后会提示“今天从这个网络使用托管服务的次数已到上限”，第二天恢复。同一个网络（例如家里或公司）的人共用这个上限。
+- 服务只保留网络地址加盐后的哈希值，用来计算当天的用量，保留一天；不保存网络地址本身。
+- 不想用 AI 的话，在“设置”的“AI 服务”里关掉“在本扩展里使用 AI”，钱包其他功能不受影响。
+- 以前的测试版要求输入邀请码；更新后不再需要，旧的邀请码会自动从扩展里删除。
 
 ### 5. 连接 Chase 和 Amex US
 1. 点“连接第一家银行”或左侧的“银行连接”，进入银行连接页，在 Chase 或 American Express 美国 下面点“连接银行”（钱包里已经有这家银行的卡时，按钮叫“刷新银行”）。
@@ -50,7 +50,7 @@ For the build described in [release-notes/beta-1.md](release-notes/beta-1.md). T
 
 ### 8. 卸载并删除数据
 1. 想保留记录的话，先在钱包“数据管理 → 导出备份”，把 JSON 文件存到安全的地方（里面有你的金额，别发给别人）。
-2. 打开 `chrome://extensions`，在 Cardybara 上点“移除”。扩展保存的钱包、设置和邀请码会一起删除。
+2. 打开 `chrome://extensions`，在 Cardybara 上点“移除”。扩展保存的钱包和设置会一起删除。
 3. 删除第 1 步解压的文件夹，以及你导出过的备份文件（如果不再需要）。
 
 ---
@@ -72,12 +72,12 @@ Click the puzzle-piece icon at the top right of Chrome, find Cardybara and click
 
 The first time, the wallet is empty: the top of the page says **Welcome to your new wallet**, notes that this beta can connect Chase and American Express US, and has a **Connect your first bank** button. No old backup is needed.
 
-### 4. Enter your invite code (assistant)
-1. In the wallet, open **Settings** and find **AI service**.
-2. Paste the invite code you were sent into the **Paste the invite code** box and click **Save invite code**.
-3. Chrome asks whether the extension may access `cardybara-gateway.cardybara.workers.dev`; choose **Allow**. If you don't, the code isn't saved.
-4. Then open **Card assistant** on the left and ask a question; the answer appears as it is written.
-The wallet works without a code, just without the chat assistant. The code is for you only; don't pass it on.
+### 4. The assistant (no invite code needed)
+The assistant works out of the box, with no invite code and nothing to set up: open **Card assistant** on the left and ask a question; the answer appears as it is written.
+- To keep costs down, each network has a daily limit. When it is used up the chat says this network has reached today's limit; it resets the next day. People on the same network (a household or an office) share it.
+- The service keeps only a salted hash of your network address, to count that day's use, for one day; it never stores the address itself.
+- To stop using AI, turn off **Use AI in this extension** under **Settings → AI service**; the rest of the wallet works as usual.
+- Earlier beta builds asked for an invite code; after updating none is needed, and an old code is removed from the extension automatically.
 
 ### 5. Connect Chase and Amex US
 1. Click **Connect your first bank** or **Bank connections** on the left to open the bank connections page, then click **Connect bank** under Chase or American Express US (once the wallet holds a card of that bank, the button is called **Refresh bank**).
@@ -101,5 +101,5 @@ Also tell the person who invited you which bank, which step, and what message yo
 
 ### 8. Uninstall and remove your data
 1. To keep your records, first use **Data → Export backup** in the wallet and store the JSON file somewhere safe (it contains your amounts; don't share it).
-2. Open `chrome://extensions` and click **Remove** on Cardybara. The wallet, settings and invite code stored by the extension are deleted with it.
+2. Open `chrome://extensions` and click **Remove** on Cardybara. The wallet and settings stored by the extension are deleted with it.
 3. Delete the folder you unzipped in step 1, and any backup files you no longer need.

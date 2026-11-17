@@ -9,7 +9,7 @@ import {cloudGateway} from './helpers/agent-target.mjs';
 import {runCloudTurn} from '../src/cloudChat.js';
 import {buildWalletSummary} from '../src/walletSummary.js';
 import worker from '../gateway/src/worker.js';
-import {command} from '../scripts/gateway-codes.mjs';
+import {command} from '../scripts/gateway-settings.mjs';
 
 const NOW=Date.parse('2026-11-10T12:00:00Z');
 const spend=pct=>({micros:pct*1e4,budgetMicros:1e6});
@@ -207,7 +207,7 @@ test('a malformed settings value turns nothing on',async()=>{
 });
 
 // --- Commands
-test('gateway-codes sets, shows and clears the switches, and refuses an invalid value',async()=>{
+test('gateway-settings sets, shows and clears the switches, and refuses an invalid value',async()=>{
  const kv=localGateway().env.INVITES,defaults={models:['deepseek-flash']};
  await command(kv,['set-caps','--monthly-usd','5']);
  await command(kv,['set-switch','disabledTools','list_cards,find_benefits'],{defaults});

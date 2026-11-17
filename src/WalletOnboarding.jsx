@@ -47,6 +47,8 @@ export function AddWalletCard({onAdd}){
 }
 // The banks a scoped build reads, as one phrase ("Chase、American Express 美国").
 export const liveBanks=()=>CONNECTABLE_BANKS.map(bankName).join(t('、'));
-export function EmptyWalletWelcome({onConnect}){
- useI18n();return <Alert style={{marginBottom:20}} type="info" showIcon title={t('欢迎，这是你的新钱包')} description={<Space orientation="vertical"><span>{t('选择一家银行并登录，读取页面上可确认的卡片；没有识别到时，可以手动添加卡种与尾号。不需要旧备份。')}</span>{SCOPED&&<span className="beta-scope-note">{t('这个测试版可以连接 {0}。',[liveBanks()])}</span>}<Button type="primary" onClick={onConnect}>{t('连接第一家银行')}</Button></Space>}/>;
+// With `onConnect` the wallet can read bank pages and leads to the bank list. Without it (the web wallet, manual entry only)
+// the first step is adding a card by hand through `onAdd`.
+export function EmptyWalletWelcome({onConnect,onAdd}){
+ useI18n();if(!onConnect)return <Alert className="empty-wallet-manual" style={{marginBottom:20}} type="info" showIcon title={t('欢迎，这是你的新钱包')} description={<Space orientation="vertical"><span>{t('从卡种目录里选一张卡，再填写尾号，就能把它记进钱包。所有数据只保存在这个浏览器里。')}</span>{onAdd&&<AddWalletCard onAdd={onAdd}/>}</Space>}/>;return <Alert style={{marginBottom:20}} type="info" showIcon title={t('欢迎，这是你的新钱包')} description={<Space orientation="vertical"><span>{t('选择一家银行并登录，读取页面上可确认的卡片；没有识别到时，可以手动添加卡种与尾号。不需要旧备份。')}</span>{SCOPED&&<span className="beta-scope-note">{t('这个测试版可以连接 {0}。',[liveBanks()])}</span>}<Button type="primary" onClick={onConnect}>{t('连接第一家银行')}</Button></Space>}/>;
 }

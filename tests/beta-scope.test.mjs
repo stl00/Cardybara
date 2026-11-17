@@ -114,10 +114,10 @@ test('a beta candidate is accepted on its own banks, read from the ZIP',t=>{
 });
 
 test('beta screens never ask for a model key or name a model provider',()=>{
- // What a beta tester sees: the hosted invite-code path, the chat, card recognition, bank connections, onboarding and the release page.
+ // What a beta tester sees: the hosted service (no invite code), the chat, card recognition, bank connections, onboarding and the release page.
  const read=f=>readFileSync(new URL('../src/'+f,import.meta.url),'utf8');
  const hostedOnly=read('ModelKeySettings.jsx');
- const hostedCopy=[...hostedOnly.matchAll(/hostedFailures=\{([^}]*)\}/g)].map(m=>m[1]).join('')+hostedOnly.slice(hostedOnly.indexOf('const privacy=hosted'),hostedOnly.indexOf(':<Paragraph type="secondary">'));
+ const hostedCopy=[...hostedOnly.matchAll(/hostedFailures=\{([^}]*)\}/g)].map(m=>m[1]).join('')+hostedOnly.slice(hostedOnly.indexOf('{hosted&&<Flex'),hostedOnly.indexOf('{hosted&&devOwn&&'));
  assert.ok(hostedCopy.length>200);
  for(const [file,text] of [['ModelKeySettings.jsx hosted copy',hostedCopy],...['ChatAdvisor.jsx','ReleaseNotes.jsx','WalletOnboarding.jsx','CardProductPicker.jsx'].map(f=>[f,read(f)])]){
   for(const s of [...text.matchAll(/t\((['"])((?:(?!\1).)*)\1/g)].map(m=>m[2]))assert.doesNotMatch(s,/密钥|服务商|DeepSeek|API|[^a-z]key\b/i,`${file}: ${s}`);

@@ -59,3 +59,22 @@ test('strings exist in all three languages',()=>{
  const b=JSON.parse(readFileSync(new URL('../src/i18n/benefits.json',import.meta.url),'utf8'));
  for(const k of KEYS)for(const l of ['en-US','zh-TW'])assert.ok(b[l][k],l+' '+k);
 });
+
+test('a four-year or one-off credit can be dismissed: it leaves the list and reuse reminders, and shows in the restore list',async()=>{
+ const {fourYearReuse,dismissedCredits}=await import('../src/personalBenefits.js');
+ const products4=products.filter(p=>offCycleRows([card(p,9)],DAY).some(r=>r.state==='four-year'));assert.ok(products4.length,'a product with a four-year credit');
+ const c=card(products4[0],9),rows=offCycleRows([c],DAY),four=rows.find(r=>r.state==='four-year');
+ const used=[validatePersonalEvent({schema:1,id:'u',key:four.key,status:'used',at:'2026-11-01T00:00:00.000Z',revisionId:four.revisionId,usedOn:'2023-03-10'})];
+ assert.equal(fourYearReuse(rows,used).length,1,'reminds before dismissal');
+ const off=[...used,validatePersonalEvent({schema:1,id:'d',key:dismissKey(c.id,four.ruleId),status:'dismissed',at:'2026-11-02T00:00:00.000Z'})];
+ assert.ok(!activeTasks(rows,off).some(r=>r.key===four.key));
+ assert.equal(fourYearReuse(rows,off).length,0);
+ assert.ok(dismissedCredits([c],off).some(d=>d.ruleId===four.ruleId),'restorable from the dismissed list');
+ const back=[...off,validatePersonalEvent({schema:1,id:'r',key:dismissKey(c.id,four.ruleId),status:'restored',at:'2026-11-03T00:00:00.000Z'})];
+ assert.ok(activeTasks(rows,back).some(r=>r.key===four.key));
+ assert.equal(offCycleStatus(four,back).status,'used','restoring keeps the earlier used date');
+ // The off-cycle row offers the same "stop reminding" action as cycle rows.
+ const src=readFileSync(new URL('../src/PersonalWallet.jsx',import.meta.url),'utf8'),off_=src.slice(src.indexOf('const offRow='),src.indexOf('const headline='));
+ assert.match(off_,/setDismissed\(r,'dismissed'\)/);
+ assert.match(off_,/t\('不再提醒'\)/);
+});
