@@ -49,6 +49,6 @@ test('below md the wallet renders the tab bar instead of the sider, and lays out
   assert.match(main, /\{!phone&&<Sider /);
   assert.match(main, /\{phone&&<MobileTabBar /);
   const css = readFileSync(new URL('../src/style.css', import.meta.url), 'utf8');
-  assert.match(css, /\.main-layout\.is-phone\{margin-left:0;padding-bottom:calc\(56px \+ env\(safe-area-inset-bottom\)\)\}/);
+  assert.match(css, /\.main-layout\.is-phone\{margin-left:0;padding-bottom:calc\(72px \+ env\(safe-area-inset-bottom\)\)\}/);
   assert.match(css, /\.mobile-tab\{[^}]*min-height:44px/);
 });

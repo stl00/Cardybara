@@ -5,7 +5,7 @@ import NavIcon,{CapybaraMark} from './NavIcon.jsx';
 
 // Phones are below antd's `md` (768 px). Read from matchMedia so the first render already knows, rather than
 // Grid.useBreakpoint, which reports nothing until after mount and would flash the desktop sider.
-const PHONE_QUERY='(max-width: 767.98px)';
+const PHONE_QUERY='(max-width: 767px)';// the same edge as style.css's phone rules
 const subscribe=fn=>{if(typeof window==='undefined'||!window.matchMedia)return ()=>{};const m=window.matchMedia(PHONE_QUERY);m.addEventListener('change',fn);return ()=>m.removeEventListener('change',fn)};
 const phoneNow=()=>typeof window!=='undefined'&&!!window.matchMedia?.(PHONE_QUERY).matches;
 export function usePhone(){return useSyncExternalStore(subscribe,phoneNow,()=>false)}
