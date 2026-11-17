@@ -54,6 +54,7 @@
     "@ant-design/icons": "^6.0.0",
     "@ant-design/x": "^2.10.0",
     "antd": "^6.7.0",
+    "jose": "6.2.13",
     "openai": "^7.53.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

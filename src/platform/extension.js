@@ -29,6 +29,11 @@ export const extension={
   allow:origin=>chrome.permissions.request({origins:[origin+'/*']}),
   mirror:session=>session?chrome.storage.local.set({'cardybara-account-session-v1':session}):chrome.storage.local.remove('cardybara-account-session-v1')
  },
+ // Plaid-linked credit cards (PLAID_PLAN.md): the gateway hosts Plaid Link (an MV3 page may not load remote script); the
+ // wallet opens that page in a normal tab. The web wallet has no `plaid`: it is manual entry only.
+ plaid:{
+  open:url=>chrome.tabs.create({url})
+ },
  // The extension background's assistant and parser: one request in, its answer out.
  assistant:{
   send:(type,extra={})=>chrome.runtime.sendMessage({type,...extra}),

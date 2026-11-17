@@ -22,6 +22,8 @@ import {readSwitches} from './switches.js';
 import {parsePut,parseDelete,storePush,forgetPush,pushConfigured,EXPIRY_SECONDS} from './push.js';
 import * as accounts from './accounts.js';
 import * as passkeys from './passkeys.js';
+import * as plaid from './plaid.js';
+import {linkPage} from './plaidPage.js';
 let agent=null;
 const agentRoute=ctx=>(agent||=import('./agent.js')).then(m=>m.agentRoute(ctx),()=>{throw new Refusal('agent_unavailable');});
 
@@ -33,7 +35,11 @@ export const ROUTES={chat:'/v1/chat/completions',agent:'/v1/chat',invite:'/v1/in
  password:'/v2/account/password',forgot:'/v2/account/password/forgot',reset:'/v2/account/password/reset',wallet:'/v2/account/wallet',export:'/v2/account/export',
  // Passkeys (#461, passkeys.js). The last one takes the credential id after a slash.
  passkeyStatus:'/v2/account/passkey/status',passkeyRegisterOptions:'/v2/account/passkey/register/options',passkeyRegisterVerify:'/v2/account/passkey/register/verify',
- passkeyLoginOptions:'/v2/account/passkey/login/options',passkeyLoginVerify:'/v2/account/passkey/login/verify',passkeys:'/v2/account/passkey'};
+ passkeyLoginOptions:'/v2/account/passkey/login/options',passkeyLoginVerify:'/v2/account/passkey/login/verify',passkeys:'/v2/account/passkey',
+ // Plaid-linked credit cards (plaid.js, PLAID_PLAN.md). The link page, its token/complete/exit calls and the webhook are
+ // public routes (no extension Origin): the page is the Worker's own origin, the webhook is Plaid's servers.
+ plaidLink:'/v2/plaid/link',plaidLinkToken:'/v2/plaid/link/token',plaidLinkComplete:'/v2/plaid/link/complete',plaidLinkExit:'/v2/plaid/link/exit',
+ plaidCards:'/v2/plaid/cards',plaidTransactions:'/v2/plaid/transactions',plaidRefresh:'/v2/plaid/refresh',plaidItem:'/v2/plaid/item',plaidWebhook:'/v2/plaid/webhook'};
 const FIELDS=['model','messages','tools','tool_choice','max_tokens','temperature','response_format'];
 const ROLES=new Set(['system','user','assistant','tool']);
 const MESSAGE_FIELDS=['role','content','name','tool_calls','tool_call_id'];
@@ -48,6 +54,8 @@ export const ERRORS={
  // Accounts (#412). Unknown email and wrong password are both invalid_credentials.
  weak_password:400,code_invalid:400,code_expired:400,invalid_credentials:401,unauthorized:401,email_unverified:403,
  stale_revision:409,invalid_document:422,passkey_invalid:401,challenge_expired:400,passkey_unavailable:503,account_locked:429,too_many_codes:429,mail_failed:502,account_unavailable:503,
+ // Plaid (plaid.js).
+ plaid_unavailable:503,plaid_error:502,link_expired:410,item_not_found:404,webhook_invalid:401,
 };
 
 const number=(value,fallback,{min=0,integer=false}={})=>{const n=Number(value??fallback);return Number.isFinite(n)&&n>=min&&(!integer||Number.isInteger(n))?n:null;};
@@ -383,31 +391,64 @@ function streamCompletion(ctx,response,settle,limit){
 // the bearer session token; the user is always the session's, never an id from the client. The log line keeps the
 // route, status, error code, a hash of the session's user id and the blob size: no email, password, code, token or wallet content.
 const WALLET_ENVELOPE_BYTES=4096;
-function accountRoute(op,{body=true}={}){
+function accountRoute(op,{body=true,plaid:needsPlaid=false,sameOrigin=false}={}){
  return async ctx=>{
   if(!accounts.accountsConfigured(ctx.env))throw new Refusal('account_unavailable');
+  if(needsPlaid&&!plaid.plaidConfigured(ctx.env))throw new Refusal('plaid_unavailable');
+  // The Link page's own calls: same origin only (a page elsewhere cannot spend a link session).
+  if(sameOrigin&&ctx.request.headers.get('Origin')!==ctx.url.origin)throw new Refusal('origin_forbidden');
   const limit=op===accounts.putWallet?accounts.walletMaxBytes(ctx.env)+WALLET_ENVELOPE_BYTES:ctx.config.maxBodyBytes;
   const json=body?await readJson(ctx,limit):null;
   try{
    const audit={};
    try{
-    const r=await op({env:ctx.env,body:json,token:accounts.bearer(ctx.request),now:ctx.now(),audit,params:ctx.params});
+    const r=await op({env:ctx.env,body:json,token:accounts.bearer(ctx.request),now:ctx.now(),clock:ctx.now,audit,params:ctx.params,fetch:ctx.upstream,url:ctx.url,request:ctx.request,ctx});
     return respond(r.status,r.body,ctx.cors);
    }finally{
     // The log line gets a hash of the session's user and the blob size; set also when the call is refused.
     if(audit.userId)ctx.record.user=await accounts.logUserHash(ctx.env,audit.userId);
     if(Number.isInteger(audit.size))ctx.record.size=audit.size;
+    // Plaid: request_ids and error codes (support needs them), the Link session id; never a token.
+    if(audit.plaid)ctx.record.plaid=audit.plaid.slice(0,20);
+    for(const k of ['linkSessionId','linkError','linkStatus'])if(audit[k])ctx.record[k]=audit[k];
    }
   }catch(e){
    if(e instanceof accounts.AccountError){
     // Only these two say more than a code: when to try again, and the revision to pull before a retry.
-    const extra=Number.isInteger(e.extra?.retryAfter)?{retryAfter:e.extra.retryAfter}:Number.isInteger(e.extra?.revision)?{revision:e.extra.revision}:{};
+    const extra=Number.isInteger(e.extra?.retryAfter)?{retryAfter:e.extra.retryAfter}:Number.isInteger(e.extra?.revision)?{revision:e.extra.revision}:typeof e.extra?.plaidCode==='string'?{plaidCode:e.extra.plaidCode}:{};
     ctx.record.error=e.message;
     return respond(ERRORS[e.message]||400,{error:{code:e.message,...extra}},{...ctx.cors,...(extra.retryAfter?{'Retry-After':String(extra.retryAfter)}:{})});
    }
    throw e;
   }
  };
+}
+
+// Plaid handlers take a clock function (args.clock) and the request context's deferLog for webhook work.
+const plaidOp=op=>args=>op({...args,now:args.clock,deferLog:args.ctx.deferLog});
+/** DELETE /v2/account also removes the user's Plaid Items at Plaid (/item/remove), after the password check. */
+const deleteAccountWithPlaid=args=>accounts.deleteAccount({...args,beforeDelete:async userId=>{
+ const r=await plaid.removeAllItems({env:args.env,fetch:args.fetch,audit:args.audit,now:args.clock},userId);
+ if(r.failed)args.audit.plaidRemoveFailed=r.failed;
+}});
+/** GET /v2/plaid/link: the Link page (plaidPage.js). 503 until Plaid is set up. */
+async function plaidPageRoute(ctx){
+ if(!plaid.plaidConfigured(ctx.env))throw new Refusal('plaid_unavailable');
+ return linkPage();
+}
+/** POST /v2/plaid/webhook: no Origin, no session, its own size cap; the signature is the credential. */
+async function plaidWebhookRoute(ctx){
+ const audit={};
+ try{
+  const r=await plaid.webhook({env:ctx.env,request:ctx.request,now:ctx.now,audit,fetch:ctx.upstream,deferLog:ctx.deferLog});
+  return respond(r.status,r.body,{});
+ }catch(e){
+  if(e instanceof accounts.AccountError){ctx.record.error=e.message;return respond(ERRORS[e.message]||400,{error:{code:e.message}},{});}
+  throw e;
+ }finally{
+  if(audit.plaid)ctx.record.plaid=audit.plaid.slice(0,20);
+  if(audit.webhook)ctx.record.webhook=audit.webhook;
+ }
 }
 
 // The router. A route names its path, method and handler. No /v1 route needs a credential; /v2/account routes other
@@ -429,7 +470,7 @@ export const ROUTE_TABLE=[
  {path:ROUTES.wallet,name:'account_wallet',method:'GET',handler:accountRoute(accounts.getWallet,{body:false})},
  {path:ROUTES.wallet,name:'account_wallet',method:'PUT',handler:accountRoute(accounts.putWallet)},
  {path:ROUTES.export,name:'account_export',method:'GET',handler:accountRoute(accounts.exportAccount,{body:false})},
- {path:ROUTES.account,name:'account',method:'DELETE',handler:accountRoute(accounts.deleteAccount)},
+ {path:ROUTES.account,name:'account',method:'DELETE',handler:accountRoute(deleteAccountWithPlaid)},
  {path:ROUTES.passkeyStatus,name:'passkey_status',method:'GET',handler:accountRoute(passkeys.status,{body:false})},
  {path:ROUTES.passkeyRegisterOptions,name:'passkey_register_options',method:'POST',handler:accountRoute(passkeys.registerOptions)},
  {path:ROUTES.passkeyRegisterVerify,name:'passkey_register_verify',method:'POST',handler:accountRoute(passkeys.registerVerify)},
@@ -437,6 +478,18 @@ export const ROUTE_TABLE=[
  {path:ROUTES.passkeyLoginVerify,name:'passkey_login_verify',method:'POST',handler:accountRoute(passkeys.loginVerify)},
  {path:ROUTES.passkeys,name:'passkey_list',method:'GET',handler:accountRoute(passkeys.list,{body:false})},
  {path:ROUTES.passkeys,name:'passkey_remove',method:'DELETE',param:true,handler:accountRoute(passkeys.remove,{body:false})},
+ // Plaid (plaid.js). Signed in, from the extension:
+ {path:ROUTES.plaidLink,name:'plaid_link_start',method:'POST',handler:accountRoute(plaidOp(plaid.startLink),{plaid:true})},
+ {path:ROUTES.plaidCards,name:'plaid_cards',method:'GET',handler:accountRoute(plaidOp(plaid.listCards),{body:false,plaid:true})},
+ {path:ROUTES.plaidTransactions,name:'plaid_transactions',method:'GET',handler:accountRoute(plaidOp(plaid.listTransactions),{body:false,plaid:true})},
+ {path:ROUTES.plaidRefresh,name:'plaid_refresh',method:'POST',handler:accountRoute(plaidOp(plaid.refresh),{plaid:true})},
+ {path:ROUTES.plaidItem,name:'plaid_item_remove',method:'DELETE',handler:accountRoute(plaidOp(plaid.removeItem),{plaid:true})},
+ // Public: the Link page (GET, no Origin) and its same-origin calls; the webhook (Plaid's servers, signed).
+ {path:ROUTES.plaidLink,name:'plaid_link_page',method:'GET',public:true,handler:plaidPageRoute},
+ {path:ROUTES.plaidLinkToken,name:'plaid_link_token',method:'POST',public:true,limited:true,handler:accountRoute(plaidOp(plaid.linkToken),{plaid:true,sameOrigin:true})},
+ {path:ROUTES.plaidLinkComplete,name:'plaid_link_complete',method:'POST',public:true,limited:true,handler:accountRoute(plaidOp(plaid.completeLink),{plaid:true,sameOrigin:true})},
+ {path:ROUTES.plaidLinkExit,name:'plaid_link_exit',method:'POST',public:true,limited:true,handler:accountRoute(plaidOp(plaid.exitLink),{plaid:true,sameOrigin:true})},
+ {path:ROUTES.plaidWebhook,name:'plaid_webhook',method:'POST',public:true,handler:plaidWebhookRoute},
 ];
 
 /**
@@ -471,6 +524,21 @@ export async function handle(request,env,deps={}){
  if(request.method==='OPTIONS'){
   if(!allowed||!route)return finish(respond(allowed?404:403,null,cors));
   return finish(respond(204,null,{...cors,'Access-Control-Allow-Methods':onPath.map(r=>r.method).join(', '),'Access-Control-Allow-Headers':'Authorization, Content-Type','Access-Control-Max-Age':'600'}));
+ }
+ // Public routes (the Plaid Link page and webhook) skip the extension Origin list and the model-proxy setup; each
+ // handler checks its own caller (same origin, or Plaid's signature).
+ if(route?.public&&request.method!=='OPTIONS'){
+  const own=onPath.find(r=>r.method===request.method&&r.public);
+  if(own){
+   try{
+    if(own.limited&&env.RATE_LIMITER){const {success}=await env.RATE_LIMITER.limit({key:await clientId(request,env,today(now()))});if(!success)throw new Refusal('rate_limited');}
+    record.route=own.name;
+    return finish(await own.handler(ctx));
+   }catch(e){
+    if(e instanceof Refusal)return refuse(e.message,e.extra);
+    return refuse('gateway_busy');
+   }
+  }
  }
  if(!allowed)return refuse('origin_forbidden');
  if(!route)return refuse('not_found');

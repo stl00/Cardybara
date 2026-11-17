@@ -37,6 +37,8 @@
     // (a verified Email Sending sender) and the secret ACCOUNT_SECRET are all set; none of them is set here yet.
     "WALLET_MAX_BYTES": "524288"
     // PROVIDER_KEY is a secret, set once by the owner with scripts/gateway-set-key.sh. Never a var.
+    // Plaid (PLAID_PLAN.md, docs/GATEWAY.md "Plaid"): the /v2/plaid routes answer 503 plaid_unavailable until the accounts
+    // above work and the secrets PLAID_ENV (sandbox or production), PLAID_CLIENT_ID, PLAID_SECRET and PLAID_TOKEN_KEY are set. PLAID_REDIRECT_URI (var) is the OAuth redirect, https://<this Worker>/v2/plaid/link, registered in the Dashboard.
   },
   // The `settings` caps and switches, and Web Push devices. The binding keeps its old name from the invite codes
   // (none are read any more). The namespace id is not a secret and not an account id.
@@ -75,6 +77,9 @@
         "WALLET_MAX_BYTES": "524288",
         // Local only: no ACCOUNT_SECRET needed (LOCAL_DEV=1 falls back to a fixed key).
         "ACCOUNT_EMAIL_FROM": "Cardybara <no-reply@cardybara.localhost>"
+        // Plaid Sandbox: PLAID_CLIENT_ID, PLAID_SECRET and PLAID_ENV come only from gateway/.env, which
+        // `plaid keys write --env sandbox --gitignore` builds from gateway/.env.example (never typed, never committed).
+        // PLAID_TOKEN_KEY falls back to a fixed local key. No webhooks locally (no public https URL): the Sync button pulls.
       },
       "kv_namespaces": [{"binding": "INVITES", "id": "local-invites"}],
       // Local D1 (wrangler keeps it under .wrangler/state). Apply the schema first:
