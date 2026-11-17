@@ -28,7 +28,8 @@
     "账单日": "Statement date",
     "断开这个连接？": "Disconnect this connection?",
     "这家银行的所有卡都会停止同步，已同步的数据从服务器删除。": "Every card at this bank stops syncing, and the synced data is deleted from the server.",
-    "断开": "Disconnect"
+    "断开": "Disconnect",
+    "Plaid 连接名额已用完，暂时不能添加新的银行连接。已连接的卡照常同步。": "All Plaid connection slots are in use, so no new bank can be added right now. Cards already connected keep syncing."
   },
   "zh-TW": {
     "Plaid 连接服务还没开通，钱包照常使用。": "Plaid 連線服務尚未開通，錢包照常使用。",
@@ -59,6 +60,7 @@
     "账单日": "帳單日",
     "断开这个连接？": "中斷這個連線？",
     "这家银行的所有卡都会停止同步，已同步的数据从服务器删除。": "這家銀行的所有卡都會停止同步，已同步的資料會從伺服器刪除。",
-    "断开": "中斷"
+    "断开": "中斷",
+    "Plaid 连接名额已用完，暂时不能添加新的银行连接。已连接的卡照常同步。": "Plaid 連線名額已用完，暫時不能新增銀行連線。已連線的卡照常同步。"
   }
 }

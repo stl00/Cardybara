@@ -1,4 +1,4 @@
-// The extension's client for the gateway's `/v2/plaid` routes (PLAID_PLAN.md): start a Link session (the gateway hosts
+// The wallet's client (extension and PWA) for the gateway's `/v2/plaid` routes (PLAID_PLAN.md): start a Link session (the gateway hosts
 // the Link page; the extension only opens its URL in a tab), list the linked credit cards with their billing-cycle
 // fields, list synced transactions, "sync now", disconnect. Pure over an injected `fetchFn` and a Storage-like `storage`.
 // It sends the account's bearer session (walletSync.js's ACCOUNT_SESSION_KEY) and nothing Plaid-related is ever sent
@@ -8,7 +8,7 @@ import {ACCOUNT_SESSION_KEY} from './walletSync.js';
 
 export const PLAID_CACHE_KEY='cardybara-plaid-cards-v1';
 export const PLAID_CHANGE_EVENT='cardybara-plaid-change';
-const KNOWN=new Set(['unauthorized','plaid_unavailable','account_unavailable','plaid_error','item_not_found','link_expired','rate_limited']);
+const KNOWN=new Set(['unauthorized','plaid_unavailable','plaid_limit','account_unavailable','plaid_error','item_not_found','link_expired','rate_limited']);
 const tokenOf=storage=>{try{return JSON.parse(storage.getItem(ACCOUNT_SESSION_KEY))?.token||null}catch{return null}};
 const plain=v=>!!v&&typeof v==='object'&&!Array.isArray(v);
 const str=v=>typeof v==='string'?v:null;

@@ -58,10 +58,10 @@
     "AI 识别卡种默认关闭；开启后，或你在卡片详情里点“用 AI 推测卡种”时，会把未识别卡片的银行、地区和卡名（不含尾号和金额）经 Cardybara 服务发给 AI。": "AI card recognition is off by default; when you turn it on, or click “Ask AI for the card type” in card details, the unrecognised card's bank, region and name (no tail or amounts) go through the Cardybara service to the AI.",
     "网页版：钱包数据只保存在你输入它的那个浏览器里，不上传，也不同步到其他设备。": "Web version: your wallet data stays in the browser where you entered it; it is not uploaded or synced to other devices.",
     "网页版唯一上传的是你向用卡助手提的问题，附带的内容和上面一样（对话前文、持有的卡种、积分估值、是否填了年费日、助手请求的钱包查询结果），不含卡号、余额或账单。": "The only thing the web version uploads is the questions you ask the assistant, with the same content as above (earlier turns, the card products you hold, point valuations, whether an annual fee date is filled in, and the wallet lookups the assistant asks for); never card numbers, balances or statements.",
-    "网页版里的卡片和金额都由你手动填写；读取银行只在桌面版 Chrome 扩展里提供。": "In the web version you enter cards and amounts by hand; reading banks is only available in the desktop Chrome extension.",
     "浏览器可能清除没有添加到主屏幕的网站的数据，请经常在“数据管理”里导出备份。": "A browser may clear the data of a site that is not on the Home Screen, so export a backup often (Data → Export backup).",
     "不需要邀请码，装好就能用。为了控制费用，每个网络每天有使用上限，用完后第二天恢复。不想用可以在设置的“AI 服务”里关闭。": "No invite code needed: it works once installed. To keep costs down, each network has a daily limit, which resets the next day. To stop using it, turn it off in Settings → AI service.",
-    "用卡助手在 Cardybara 服务上运行：服务收到你的问题、这次对话的前文、持有的卡种、积分估值、每张卡是否填了年费日，以及助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单。服务不保存这些内容，只记录时间、用量和状态；为了限制每个网络每天的用量，只保留网络地址加盐后的哈希值，保留一天。": "The assistant runs on the Cardybara service: it receives your question, the earlier turns of the conversation, the card products you hold, your point valuations, whether each card has an annual fee date, and the wallet lookups the assistant asks for, and passes them to an AI model; it does not receive card numbers, balances or statements. The service does not store any of it; it records only time, usage and status. To limit each network's daily use, it keeps only a salted hash of the network address, for one day."
+    "用卡助手在 Cardybara 服务上运行：服务收到你的问题、这次对话的前文、持有的卡种、积分估值、每张卡是否填了年费日，以及助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单。服务不保存这些内容，只记录时间、用量和状态；为了限制每个网络每天的用量，只保留网络地址加盐后的哈希值，保留一天。": "The assistant runs on the Cardybara service: it receives your question, the earlier turns of the conversation, the card products you hold, your point valuations, whether each card has an annual fee date, and the wallet lookups the assistant asks for, and passes them to an AI model; it does not receive card numbers, balances or statements. The service does not store any of it; it records only time, usage and status. To limit each network's daily use, it keeps only a salted hash of the network address, for one day.",
+    "网页版里的卡片和金额由你手动填写；登录账号后，也可以通过 Plaid 只读连接美国信用卡，读取余额、账单和还款日。读取银行页面只在桌面版 Chrome 扩展里提供。": "In the web version you enter cards and amounts by hand; once signed in, you can also connect US credit cards read-only through Plaid for balances, statements and due dates. Reading bank pages is only available in the desktop Chrome extension."
   },
   "zh-TW": {
     "版本 {0}": "版本 {0}",
@@ -122,9 +122,9 @@
     "AI 识别卡种默认关闭；开启后，或你在卡片详情里点“用 AI 推测卡种”时，会把未识别卡片的银行、地区和卡名（不含尾号和金额）经 Cardybara 服务发给 AI。": "AI 識別卡種預設關閉；開啟後，或你在卡片詳情裡點「用 AI 推測卡種」時，會把未識別卡片的銀行、地區和卡名（不含尾號和金額）經 Cardybara 服務傳給 AI。",
     "网页版：钱包数据只保存在你输入它的那个浏览器里，不上传，也不同步到其他设备。": "網頁版：錢包資料只儲存在你輸入它的那個瀏覽器裡，不上傳，也不同步到其他裝置。",
     "网页版唯一上传的是你向用卡助手提的问题，附带的内容和上面一样（对话前文、持有的卡种、积分估值、是否填了年费日、助手请求的钱包查询结果），不含卡号、余额或账单。": "網頁版唯一上傳的是你向用卡助手提的問題，附帶的內容和上面一樣（對話前文、持有的卡種、積分估值、是否填了年費日、助手要求的錢包查詢結果），不含卡號、餘額或帳單。",
-    "网页版里的卡片和金额都由你手动填写；读取银行只在桌面版 Chrome 扩展里提供。": "網頁版裡的卡片和金額都由你手動填寫；讀取銀行只在桌面版 Chrome 擴充功能裡提供。",
     "浏览器可能清除没有添加到主屏幕的网站的数据，请经常在“数据管理”里导出备份。": "瀏覽器可能清除沒有加到主畫面的網站的資料，請經常在「資料管理」裡匯出備份。",
     "不需要邀请码，装好就能用。为了控制费用，每个网络每天有使用上限，用完后第二天恢复。不想用可以在设置的“AI 服务”里关闭。": "不需要邀請碼，裝好就能用。為了控制費用，每個網路每天有使用上限，用完後第二天恢復。不想用可以在設定的「AI 服務」裡關閉。",
-    "用卡助手在 Cardybara 服务上运行：服务收到你的问题、这次对话的前文、持有的卡种、积分估值、每张卡是否填了年费日，以及助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单。服务不保存这些内容，只记录时间、用量和状态；为了限制每个网络每天的用量，只保留网络地址加盐后的哈希值，保留一天。": "用卡助手在 Cardybara 服務上執行：服務收到你的問題、這次對話的前文、持有的卡種、積分估值、每張卡是否填了年費日，以及助手請求的錢包查詢結果，交給 AI 模型處理；不收到卡號、餘額或帳單。服務不儲存這些內容，只記錄時間、用量和狀態；為了限制每個網路每天的用量，只保留網路位址加鹽後的雜湊值，保留一天。"
+    "用卡助手在 Cardybara 服务上运行：服务收到你的问题、这次对话的前文、持有的卡种、积分估值、每张卡是否填了年费日，以及助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单。服务不保存这些内容，只记录时间、用量和状态；为了限制每个网络每天的用量，只保留网络地址加盐后的哈希值，保留一天。": "用卡助手在 Cardybara 服務上執行：服務收到你的問題、這次對話的前文、持有的卡種、積分估值、每張卡是否填了年費日，以及助手請求的錢包查詢結果，交給 AI 模型處理；不收到卡號、餘額或帳單。服務不儲存這些內容，只記錄時間、用量和狀態；為了限制每個網路每天的用量，只保留網路位址加鹽後的雜湊值，保留一天。",
+    "网页版里的卡片和金额由你手动填写；登录账号后，也可以通过 Plaid 只读连接美国信用卡，读取余额、账单和还款日。读取银行页面只在桌面版 Chrome 扩展里提供。": "網頁版裡的卡片和金額由你手動填寫；登入帳號後，也可以透過 Plaid 唯讀連接美國信用卡，讀取餘額、帳單和還款日。讀取銀行頁面只在桌面版 Chrome 擴充功能裡提供。"
   }
 }

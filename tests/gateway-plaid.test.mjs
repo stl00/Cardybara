@@ -42,7 +42,7 @@ function fakePlaid(){
   assert.equal(body.client_id,'synthetic-client-id');assert.equal(body.secret,'synthetic-plaid-secret');
   calls.push({path:u.pathname,body});
   switch(u.pathname){
-   case '/link/token/create':return ok({link_token:'link-sandbox-synthetic-'+calls.length,expiration:'2026-11-16T16:00:00Z'});
+   case '/link/token/create':if(state.linkError)return err(state.linkError,'RATE_LIMIT_EXCEEDED',429);return ok({link_token:'link-sandbox-synthetic-'+calls.length,expiration:'2026-11-16T16:00:00Z'});
    case '/item/public_token/exchange':state.exchanges++;return body.public_token===PUBLIC?ok({access_token:ACCESS,item_id:ITEM}):err('INVALID_PUBLIC_TOKEN','INVALID_INPUT');
    case '/institutions/get_by_id':return ok({institution:{institution_id:body.institution_id,name:'Synthetic Platypus Bank'}});
    case '/transactions/sync':{
@@ -294,4 +294,42 @@ test('ITEM_NOT_FOUND forgets the Item; a link session expires',async()=>{
  ({handle}=await link(t,token));
  t.advance(61*60);
  assert.deepEqual(await json(await t.page(ROUTES.plaidLinkToken,{handle})),{status:410,body:{error:{code:'link_expired'}}});
+});
+
+test('PWA: a listed web origin links and is sent back only there; other pages are refused; a used-up plan answers plaid_limit',async()=>{
+ const WEB='https://app.cardybara.test';
+ const t=await setup({vars:{ALLOWED_ORIGINS:ORIGIN+','+WEB}});
+ const token=await signIn(t);
+ // The bearer request from the PWA origin is admitted (CORS echoes exactly that origin), and the URL names it to go back to.
+ const r=await t.call('POST',ROUTES.plaidLink,{},{token,origin:WEB});
+ assert.equal(r.status,200);assert.equal(r.headers.get('Access-Control-Allow-Origin'),WEB);
+ const {url}=await r.json();
+ assert.match(url,/^https:\/\/gateway\.test\/v2\/plaid\/link#s=pls_[A-Za-z0-9_-]{43}&r=https%3A%2F%2Fapp\.cardybara\.test$/);
+ // From the extension there is nothing to go back to.
+ assert.doesNotMatch((await json(await t.call('POST',ROUTES.plaidLink,{},{token}))).body.url,/&r=/);
+ // Any other web page is refused before the session is looked at, preflight included.
+ for(const evil of ['https://evil.example','http://app.cardybara.test','https://app.cardybara.test.evil.example']){
+  assert.equal((await t.call('POST',ROUTES.plaidLink,{},{token,origin:evil})).status,403);
+  assert.equal((await t.call('OPTIONS',ROUTES.plaidLink,undefined,{origin:evil})).status,403);
+ }
+ assert.equal((await t.call('OPTIONS',ROUTES.plaidLink,undefined,{origin:WEB})).status,204);
+ // The page embeds only the listed web origins as places to go back to (never an extension origin, never the fragment's).
+ const html=await (await t.call('GET',ROUTES.plaidLink,undefined,{origin:null})).text();
+ assert.match(html,/RETURN_ORIGINS=\["https:\/\/app\.cardybara\.test"\]/);
+ // The Trial plan's connection cap: one call (no retry), 429 plaid_limit, no link session.
+ t.plaid.state.linkError='TRIAL_CONNECTION_LIMIT';
+ const before=t.plaid.count('/link/token/create');
+ const capped=await json(await t.call('POST',ROUTES.plaidLink,{},{token,origin:WEB}));
+ assert.equal(capped.status,429);assert.equal(capped.body.error.code,'plaid_limit');
+ assert.equal(t.plaid.count('/link/token/create'),before+1);
+});
+
+test('local runs may list an exact http://127.0.0.1 or localhost origin; production never admits http',async()=>{
+ const {originAllowed}=await import('../gateway/src/gateway.js');
+ const L='http://127.0.0.1:8766';
+ assert.equal(originAllowed(L,[L],{local:true}),true);
+ assert.equal(originAllowed('http://localhost:8766',['http://localhost:8766'],{local:true}),true);
+ assert.equal(originAllowed(L,[L]),false);
+ assert.equal(originAllowed('http://127.0.0.1:9999',[L],{local:true}),false);
+ assert.equal(originAllowed('http://evil.example',['http://evil.example'],{local:true}),false);
 });

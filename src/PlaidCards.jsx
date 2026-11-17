@@ -7,15 +7,18 @@ import {createPlaidClient,readPlaidCache,PLAID_CHANGE_EVENT} from './plaidClient
 import {issuerOf,purchaseApr} from './plaidCards.js';
 const {Text,Paragraph}=Typography;
 
-// US credit cards linked through Plaid (PLAID_PLAN.md). Extension only: the web wallet is manual entry with no import of
-// any kind, so `platform.plaid` is absent there and this panel never renders. The gateway hosts Plaid Link; here we only
-// open its page in a tab, then read the card list back when the wallet regains focus (no polling).
+// US credit cards linked through Plaid (PLAID_PLAN.md), in the extension and the PWA (owner 2026-11-17), for any signed-in
+// account. The gateway hosts Plaid Link; here we only open its page (a tab in the extension, this window in the PWA, which
+// the Link page sends back), then read the card list back when the wallet is shown again (no polling). Without Plaid on
+// the gateway (plaid_unavailable) the panel only says so; when the plan's connection slots are used up (plaid_limit) it
+// keeps the linked cards and Sync but offers no new link.
 const noStore={getItem:()=>null,setItem:()=>{},removeItem:()=>{}};
 const store=()=>typeof localStorage==='undefined'?noStore:localStorage;
 const errorText=code=>({
  offline:t('连不上服务器。检查网络后再试。'),
  unauthorized:t('登录已失效，请重新登录。'),
  plaid_unavailable:t('Plaid 连接服务还没开通，钱包照常使用。'),
+ plaid_limit:t('Plaid 连接名额已用完，暂时不能添加新的银行连接。已连接的卡照常同步。'),
  account_unavailable:t('账号服务暂时不可用，钱包照常使用。'),
  plaid_error:t('Plaid 暂时没有回应，请稍后再试。'),
  item_not_found:t('这个连接已经不存在了。'),
@@ -49,12 +52,13 @@ export default function PlaidCards({gateway}){
  const refresh=()=>run('refresh',async()=>{const r=await client.refresh();if(!r.ok)return setErr(r.code);setView(readPlaidCache(store()));toast.success(t('已同步。'));});
  const remove=itemId=>run('remove:'+itemId,async()=>{const r=await client.remove(itemId);if(!r.ok)return setErr(r.code);setView(readPlaidCache(store()));toast.success(t('已断开这个连接。'));});
  const itemOf=id=>view.items.find(i=>i.itemId===id);
- return <Card className="plaid-cards" style={{marginBottom:20}} title={t('通过 Plaid 连接的美国信用卡')} extra={signedIn&&<Space wrap>
+ const unavailable=err==='plaid_unavailable',full=err==='plaid_limit';
+ return <Card className="plaid-cards" style={{marginBottom:20}} title={t('通过 Plaid 连接的美国信用卡')} extra={signedIn&&!unavailable&&<Space wrap>
   {view.items.length>0&&<Button onClick={refresh} loading={busy==='refresh'}>{t('同步')}</Button>}
-  <Button type="primary" onClick={()=>open()} loading={busy==='link'}>{t('添加信用卡')}</Button></Space>}>
+  <Button type="primary" onClick={()=>open()} loading={busy==='link'} disabled={full}>{t('添加信用卡')}</Button></Space>}>
   {!signedIn?<Paragraph type="secondary">{t('在设置里登录卡疲扒拉账号后，可以通过 Plaid 添加美国信用卡，自动读取余额、账单金额、最低还款、还款日和 APR。')}</Paragraph>:<>
   <Paragraph type="secondary">{t('只读：卡疲扒拉不能动钱。银行密码只交给银行和 Plaid；连接可以随时断开。')}</Paragraph>
-  {err&&<Alert type="warning" showIcon title={errorText(err)} style={{marginBottom:12}}/>}
+  {err&&<Alert type={unavailable?'info':'warning'} showIcon title={errorText(err)} style={{marginBottom:12}}/>}
   {view.items.filter(i=>['login_required','pending_disconnect'].includes(i.status)).map(i=><Alert key={i.itemId} type="warning" showIcon style={{marginBottom:12}}
    title={t('{0} 需要重新登录才能继续同步。',[i.institution||t('这家银行')])} action={<Button size="small" loading={busy==='repair:'+i.itemId} onClick={()=>open(i.itemId)}>{t('重新连接')}</Button>}/>)}
   {view.items.some(i=>i.status==='ok'&&!i.historicalComplete)&&<Paragraph type="secondary">{t('还在导入历史交易，稍后点「同步」查看。')}</Paragraph>}

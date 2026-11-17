@@ -1,6 +1,7 @@
 // The Plaid panel (src/PlaidCards.jsx, PLAID_PLAN.md) on an extension page shows each linked card's due date, statement
 // balance, minimum, balance, limit and purchase APR from the cached card list; a broken login offers Reconnect; signed
-// out it explains, with no Add button; on the web (no chrome global) it renders nothing. Synthetic data only.
+// out it explains, with no Add button. The PWA (no chrome global) shows the same panel to any signed-in account (owner
+// 2026-11-17), and its platform goes to the Link page in the same window. Synthetic data only.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
@@ -34,7 +35,19 @@ test('extension, signed out: an explanation and no Add button',async()=>{
  const text=await renderPanel({chrome,location:{protocol:'chrome-extension:',hash:''},localStorage:storage({})});
  assert.match(text,/在设置里登录卡疲扒拉账号后/);assert.ok(!text.includes('添加信用卡 '));
 });
-test('web: nothing at all (the web wallet imports nothing)',async()=>{
+test('web (PWA), signed in: the same panel with due date and statement balance, and the Add button',async()=>{
  const text=await renderPanel({location:{protocol:'https:',hash:'',origin:'https://wallet.example'},localStorage:storage({'cardybara-account-session-v1':SESSION,'cardybara-plaid-cards-v1':JSON.stringify(CACHE)})});
- assert.equal(text.trim(),'');
+ for(const s of ['通过 Plaid 连接的美国信用卡','添加信用卡','Synthetic Credit Card ••3333','到期还款日','2026-11-26','账单金额','$390.25'])
+  assert.ok(text.includes(s),'missing: '+s);
+});
+test('web (PWA), signed out: an explanation and no Add button',async()=>{
+ const text=await renderPanel({location:{protocol:'https:',hash:'',origin:'https://wallet.example'},localStorage:storage({})});
+ assert.match(text,/在设置里登录卡疲扒拉账号后/);assert.ok(!text.includes('添加信用卡 '));
+});
+test('web platform: Link opens in this same window (a home-screen PWA has no tabs)',async()=>{
+ const {web}=await import('../src/platform/web.js');
+ const went=[];const before=Object.getOwnPropertyDescriptor(globalThis,'location');
+ Object.defineProperty(globalThis,'location',{value:{assign:u=>went.push(u)},configurable:true,writable:true});
+ try{web.plaid.open('https://gateway.test/v2/plaid/link#s=x');}finally{before?Object.defineProperty(globalThis,'location',before):delete globalThis.location;}
+ assert.deepEqual(went,['https://gateway.test/v2/plaid/link#s=x']);
 });

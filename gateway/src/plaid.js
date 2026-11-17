@@ -63,12 +63,17 @@ export async function openToken(env,itemId,sealed){
 }
 
 // --- The Plaid API: one POST per call, client id and secret in the body, the API version pinned by header.
+// The plan's connection cap (Trial plan, or Limited Production's Item cap): no new Item until the plan is upgraded.
+// The wallet says so instead of a generic error (plaid_limit).
+export const LIMIT_CODES=new Set(['TRIAL_CONNECTION_LIMIT','CREDITS_EXHAUSTED','ADDITION_LIMIT']);
+const plaidFail=e=>{if(e instanceof PlaidError)fail(LIMIT_CODES.has(e.code)?'plaid_limit':'plaid_error',{plaidCode:e.code});throw e;};
 export class PlaidError extends Error{
  constructor(data,status){super(data?.error_code||'PLAID_ERROR');this.type=data?.error_type||null;this.code=data?.error_code||null;this.requestId=data?.request_id||null;this.display=data?.display_message||null;this.status=status;}
 }
 // Transient: retried a couple of times with backoff and jitter. Everything else needs the user, or is a bug.
 const RETRY_CODES=new Set(['INSTITUTION_DOWN','INSTITUTION_NOT_RESPONDING','INTERNAL_SERVER_ERROR']);
-const retryable=e=>e instanceof PlaidError&&(e.type==='RATE_LIMIT_EXCEEDED'||RETRY_CODES.has(e.code));
+// A plan cap (LIMIT_CODES) is RATE_LIMIT_EXCEEDED too, but waiting does not lift it.
+const retryable=e=>e instanceof PlaidError&&!LIMIT_CODES.has(e.code)&&(e.type==='RATE_LIMIT_EXCEEDED'||RETRY_CODES.has(e.code));
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 /** ctx: {env, fetch, audit, sleep}. audit.plaid collects request_ids and error codes for the log line. */
 export async function plaidCall(ctx,path,body,{attempts=3}={}){
@@ -256,10 +261,14 @@ export async function startLink(args){
  }
  let r;
  try{r=await plaidCall(ctxOf(a),'/link/token/create',req);}
- catch(e){if(e instanceof PlaidError)fail('plaid_error',{plaidCode:e.code});throw e;}
+ catch(e){plaidFail(e);}
  const handle='pls_'+b64u(randomBytes(32));
  await run(a.env.DB,'INSERT INTO plaid_link_sessions (id, user_id, item_id, link_token, expires_at) VALUES (?, ?, ?, ?, ?)',await sha256(handle),userId,itemId,r.link_token,now+LINK_SESSION_TTL_SECONDS);
- return {status:200,body:{url:linkPageUrl(a.url)+'#s='+handle,expiresAt:now+LINK_SESSION_TTL_SECONDS,mode:itemId?'update':'new'}};
+ // The hosted wallet (a web origin the gateway already admitted) gets sent back to itself when Link is done; the page
+ // accepts only an origin on its own list (ALLOWED_ORIGINS), so a hand-made URL cannot redirect anywhere else.
+ const origin=a.request?.headers?.get('Origin')||'';
+ const back=/^https?:\/\//.test(origin)?'&r='+encodeURIComponent(origin):'';
+ return {status:200,body:{url:linkPageUrl(a.url)+'#s='+handle+back,expiresAt:now+LINK_SESSION_TTL_SECONDS,mode:itemId?'update':'new'}};
 }
 
 /** POST /v2/plaid/link/token {handle} (the Link page, same origin): the session's link_token, the same one every time. */
@@ -310,7 +319,7 @@ export async function completeLink(args){
  }
  let ex;
  try{ex=await plaidCall(ctxOf(a),'/item/public_token/exchange',{public_token:b.publicToken});}
- catch(e){if(e instanceof PlaidError)fail('plaid_error',{plaidCode:e.code});throw e;}
+ catch(e){plaidFail(e);}
  const itemId=str(ex.item_id),accessToken=str(ex.access_token,500);
  if(!itemId||!accessToken)fail('plaid_error');
  // Institution display data from Plaid, not from Link's metadata strings.
@@ -410,7 +419,7 @@ export async function removeItem(args){
  if(!plain(b)||Object.keys(b).length!==1)fail('bad_request');
  const row=await ownItem(a.env,userId,b.itemId);
  try{await removeItemEverywhere(ctxOf(a),row);}
- catch(e){if(e instanceof PlaidError)fail('plaid_error',{plaidCode:e.code});throw e;}
+ catch(e){plaidFail(e);}
  return {status:200,body:{status:'removed'}};
 }
 /**

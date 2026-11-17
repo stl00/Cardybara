@@ -11,20 +11,20 @@ Cardybara: link users' credit card accounts, pull transactions and balances, plu
   - `liabilities` in `additional_consented_products`: statement balance and date, minimum payment, due date, APRs through `/liabilities/get`; consented at Link, billed only on first use, no coverage cut (LIAB-007, CONV-002).
   - Rejected: `investments` (not a credit-card need), the Balance product (no real-time "refresh now" feature; cached balances are enough for billing cycles), Recurring Transactions and `/transactions/refresh` (paid add-ons, not needed; GUIDE-016), `auth`/`transfer`/`signal` (no money movement; they would also drop credit cards, TXN-021), identity and KYC (not needed).
 - Geography: US institutions only (`country_codes: ["US"]`).
-- Platform: Cloudflare Worker (`gateway/`, plain JavaScript ES modules) as the trusted backend; the Manifest V3 Chrome extension's wallet (React) as the client. The Link JS SDK runs on a page the Worker serves (WEB-010).
+- Platform: Cloudflare Worker (`gateway/`, plain JavaScript ES modules) as the trusted backend; the wallet (React) as the client, in the Manifest V3 Chrome extension and in the PWA (web wallet, `https://cardybara-app.pages.dev`, since 2026-11-17). The Link JS SDK runs on a page the Worker serves (WEB-010).
 - Environment: sandbox until acceptance passes and the owner tasks below are done.
 
 ## Human tasks
 
-States per TASK-001. Re-read from `dashboard_get_state` on 2026-11-17 (round 2) for client "Individual account".
+States per TASK-001. Re-read from `dashboard_get_state` on 2026-11-17 (round 2) for client "Individual account". The account is a personal free trial with 20 connections (Items); the panel and Link page degrade to "no new connection" when they are used up (`plaid_limit`).
 
 | Task | Why it matters | Where | State |
 |------|----------------|-------|-------|
 | Install and sign in to the Plaid CLI: `brew install plaid/plaid-cli/plaid && plaid login` (then `plaid teams choose` if there are several teams). Claude then runs `cd gateway && plaid keys write --env sandbox --gitignore` to build `gateway/.env` from `gateway/.env.example`; nobody types or prints the keys (GUIDE-021/022, TASK-010) | Without Sandbox keys the local gateway answers `plaid_unavailable` and the end-to-end Sandbox run cannot happen | Terminal; keys at https://dashboard.plaid.com/developers/keys | verified (owner signed in; `gateway/.env` written, `plaid doctor` all PASS; the Sandbox run below used it) |
 | Register the OAuth redirect URIs exactly: `https://cardybara-gateway.cardybara.workers.dev/v2/plaid/link` (production) and `http://localhost:8787/v2/plaid/link` (Sandbox, local `wrangler dev`) | Without them OAuth banks (Chase, Bank of America, …) silently drop out of Link or break mid-flow (OAUTH-001, GUIDE-011). Not needed for the non-OAuth Sandbox run with First Platypus Bank | https://dashboard.plaid.com/developers/api → Allowed redirect URIs | verified (round 2: `redirect_uris` lists both URIs exactly) |
 | Production secrets (at go-live, after accounts are deployed): `npx wrangler@4.150.0 secret put PLAID_CLIENT_ID --config gateway/wrangler.jsonc` and `npx wrangler@4.150.0 secret put PLAID_SECRET --config gateway/wrangler.jsonc` (the owner pastes each value into the prompt, never into chat). Claude sets `PLAID_ENV=production`, a random `PLAID_TOKEN_KEY`, the var `PLAID_REDIRECT_URI`, and applies `0003_plaid.sql` remotely | The production Worker answers `plaid_unavailable` until they exist; the token key encrypts every stored access token | Terminal; production keys at https://dashboard.plaid.com/developers/keys | not_applicable for this milestone (Sandbox scope; gateway accounts are not deployed to production yet). Do it at go-live |
-| Company profile and the data-security questionnaire | Production OAuth institutions, Chase first, stay hidden from Link until these are approved (OAUTH-008, TASK-006/009); start early, review can take weeks | https://dashboard.plaid.com/settings/company | reported_done (owner, 2026-11-17: submitted; approval status not readable through the tools) |
-| Data Transparency Messaging / Link use case for production | An unfinished DTM setup makes `/link/token/create` fail with `INVALID_LINK_CUSTOMIZATION` in production (PITFALL-002, CONV-011) | https://dashboard.plaid.com/link | reported_done (owner, 2026-11-17: submitted; not readable through the tools) |
+| Company profile and the data-security questionnaire (Settings → Compliance Center) | Production OAuth institutions, Chase first, stay hidden from Link until these are approved (OAUTH-008, TASK-006/009); needed when upgrading from the personal free trial to full production access; review can take weeks | https://dashboard.plaid.com/settings/company and Settings → Compliance Center | needs_human (corrected 2026-11-17: round 2 recorded reported_done from the owner's word, but the Compliance Center is not filled in. Not needed for the 20-connection trial; needed at the upgrade to full access) |
+| Data Transparency Messaging / Link use case for production | An unfinished DTM setup makes `/link/token/create` fail with `INVALID_LINK_CUSTOMIZATION` in production (PITFALL-002, CONV-011) | https://dashboard.plaid.com/link | reported_done (owner, 2026-11-17: published in the `default` Link customization with three data uses; the text is not readable through the tools) |
 | Production access for transactions and liabilities (US) | Product calls fail with `INVALID_PRODUCT` otherwise (TASK-007) | https://dashboard.plaid.com/settings/team/products | verified (production_by_country.US lists both; production is an authorized environment) |
 | Dashboard webhook receivers | Item and product webhooks are set per Item through `/link/token/create`'s `webhook`, not in the Dashboard (TASK-003) | — | not_applicable |
 
@@ -39,10 +39,11 @@ States per TASK-001. Re-read from `dashboard_get_state` on 2026-11-17 (round 2) 
 - [x] `/liabilities/get`: APRs kept as a list by type; every field nullable; `NO_LIABILITY_ACCOUNTS`/`PRODUCT_NOT_READY` keep the old snapshot (LIAB-002/003/008).
 - [x] Webhook receiver `POST /v2/plaid/webhook`: ES256-only JWT via `jose` (pinned 6.2.13), key by kid cached until `expired_at`, 5-minute age, constant-time SHA-256 of the raw body; 200 at once, work in `waitUntil`; SYNC_UPDATES_AVAILABLE → sync, LIABILITIES DEFAULT_UPDATE → liabilities, ITEM ERROR/PENDING_DISCONNECT/PENDING_EXPIRATION/LOGIN_REPAIRED/USER_PERMISSION_REVOKED → status; webhooks are triggers only (WEBHOOK-001/003/004/005/006/007).
 - [x] Errors and Item health: ITEM_LOGIN_REQUIRED → `login_required` and update mode (`POST /v2/plaid/link {itemId}`: access_token, no products, no exchange); ITEM_NOT_FOUND → purge; `DELETE /v2/plaid/item` and account deletion call `/item/remove` first (ITEM-002/003/005).
-- [x] Extension: `src/plaidClient.js` (bearer session only, allow-listed cache), `src/plaidCards.js` (issuer + last four match onto wallet cards; Plaid fills balance, limit, available, statement, minimum and due date when newer; manual edits still win), `src/PlaidCards.jsx` (panel on the bank-connections page: due date, statement balance, minimum, balance, limit, purchase APR, status, reconnect, sync, disconnect), `platform.plaid.open` in `src/platform/extension.js` only (the web wallet has no Plaid). UI strings in `src/i18n/plaid.json`.
+- [x] Extension: `src/plaidClient.js` (bearer session only, allow-listed cache), `src/plaidCards.js` (issuer + last four match onto wallet cards; Plaid fills balance, limit, available, statement, minimum and due date when newer; manual edits still win), `src/PlaidCards.jsx` (panel on the bank-connections page: due date, statement balance, minimum, balance, limit, purchase APR, status, reconnect, sync, disconnect), `platform.plaid.open` in `src/platform/extension.js` (a tab) and, since 2026-11-17, `src/platform/web.js` (the PWA's own window; the Link page sends it back to the listed PWA origin's `#settings`, where the panel sits). UI strings in `src/i18n/plaid.json`.
 - [x] Tests: `tests/gateway-plaid.test.mjs` (9 cases, fake Plaid, real ES256 webhooks), `tests/plaid-wallet.test.mjs` (4 cases); account, router and table tests updated.
 - [x] Docs: `docs/GATEWAY.md` "Plaid-linked credit cards", `PRIVACY.md` "Plaid-linked US credit cards".
 - [x] Sandbox end-to-end in a real browser with `user_good` and `user_transactions_dynamic`, plus the `error_ITEM_LOCKED` error path (2026-11-17; see Acceptance round 1).
+- [x] PWA (2026-11-17): `platform.plaid` on the web, panel on the PWA's settings page for every signed-in account; `ALLOWED_ORIGINS` lists the PWA's exact origin (`https://cardybara-app.pages.dev`; locally `http://127.0.0.1:8766` under `LOCAL_DEV=1`); the Link page returns only to a listed web origin; `plaid_unavailable` and the plan cap (`plaid_limit`: `TRIAL_CONNECTION_LIMIT`, `CREDITS_EXHAUSTED`, `ADDITION_LIMIT`, not retried) degrade the panel; tests in `tests/gateway-plaid.test.mjs` (11 cases) and `tests/plaid-panel.test.mjs`.
 - [ ] Production go-live (owner tasks above; accounts must be deployed first).
 
 ## Acceptance
@@ -70,8 +71,8 @@ This integration is maintained with the Plaid MCP; this file is its durable stat
 
 ### Automated (no keys)
 
-1. `node --test tests/gateway-plaid.test.mjs tests/plaid-wallet.test.mjs`
-2. Expected: 13 passing cases.
+1. `node --test tests/gateway-plaid.test.mjs tests/plaid-wallet.test.mjs tests/plaid-panel.test.mjs`
+2. Expected: 20 passing cases.
 
 ### Link a Sandbox credit card locally
 
@@ -98,6 +99,8 @@ Integration-surface choices (GUIDE-020). The owner acts as top-level PM and dele
 - Wallet mapping: a Plaid card fills the wallet card with the same issuer (Chase, Amex US, BOA, Citi US by institution name) and last four digits; an ambiguous or unknown match fills nothing and the card stays in the Plaid panel; no wallet card is created from Plaid (this session).
 - No polling: webhooks drive updates in production; the "Sync" button is the explicit user action and the reconcile path for missed webhooks (once a minute per Item); a local run has no webhooks (WEBHOOK-005) (this session).
 - Funnel: `/v2/plaid/link/complete` and `/v2/plaid/link/exit` record `link_session_id`, status and error code on the gateway log line. No third-party analytics (project rule) (this session).
+- 2026-11-17, owner: the PWA (web wallet) connects Plaid too, open to every signed-in account (no allowlist). This replaces the earlier "web wallet is manual entry only" rule for Plaid. Whether the personal (free trial) plan's terms allow serving several users has not been checked; the owner knows (owner, relayed by the session "Play 版 PWA 上线时间").
+- The PWA goes to the Link page in its own window, not a pop-up or tab (a home-screen PWA has none, and OAuth must not run in an iframe, OAUTH-007); the page sends it back only to an origin the gateway lists, carried in the fragment and checked against a list the server embeds in the page (this session).
 - JWT verification uses `jose` 6.2.13 (pinned, published more than two weeks before adoption); it is the one npm package allowed in the Worker bundle (this session).
 
 ## Open questions

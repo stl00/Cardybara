@@ -55,7 +55,7 @@ export const ERRORS={
  weak_password:400,code_invalid:400,code_expired:400,invalid_credentials:401,unauthorized:401,email_unverified:403,
  stale_revision:409,invalid_document:422,passkey_invalid:401,challenge_expired:400,passkey_unavailable:503,account_locked:429,too_many_codes:429,mail_failed:502,account_unavailable:503,
  // Plaid (plaid.js).
- plaid_unavailable:503,plaid_error:502,link_expired:410,item_not_found:404,webhook_invalid:401,
+ plaid_unavailable:503,plaid_error:502,plaid_limit:429,link_expired:410,item_not_found:404,webhook_invalid:401,
 };
 
 const number=(value,fallback,{min=0,integer=false}={})=>{const n=Number(value??fallback);return Number.isFinite(n)&&n>=min&&(!integer||Number.isInteger(n))?n:null;};
@@ -65,6 +65,8 @@ export function readConfig(env){
   providerKey:typeof env.PROVIDER_KEY==='string'&&env.PROVIDER_KEY.length>=8?env.PROVIDER_KEY:null,
   models:String(env.ALLOWED_MODELS??'deepseek-flash').split(',').map(s=>s.trim()).filter(Boolean),
   origins:String(env.ALLOWED_ORIGINS||'').split(',').map(s=>s.trim()).filter(Boolean),
+  // A local run (LOCAL_DEV=1) may also list an exact http://localhost or http://127.0.0.1 origin (the PWA's dev server).
+  localOrigins:env.LOCAL_DEV==='1',
   maxBodyBytes:number(env.MAX_BODY_BYTES,262144,{min:1024,integer:true}),
   maxOutputTokens:number(env.MAX_OUTPUT_TOKENS,8192,{min:1,integer:true}),
   // Per client (salted hash of its address) per UTC day. The *_PER_CODE names are read for a deploy that still has them.
@@ -114,13 +116,17 @@ export async function withSettings(base,env){
 }
 
 // Extension origins: exact id, or "chrome-extension://*" for unpacked builds whose id varies (never a web page).
-// Web origins (hosted wallet): only an exact, listed https:// origin; no wildcards, no http://.
-export function originAllowed(origin,origins){
+// Web origins (hosted wallet): only an exact, listed https:// origin; no wildcards, no http:// (except an exact, listed
+// http://localhost or http://127.0.0.1 origin when `local`, i.e. LOCAL_DEV=1).
+export function originAllowed(origin,origins,{local=false}={}){
  if(!origin)return false;
  if(/^chrome-extension:\/\/[a-p]{32}$/.test(origin))return origins.includes(origin)||origins.includes('chrome-extension://*');
  if(/^https:\/\/[a-z0-9]([a-z0-9.-]*[a-z0-9])?(:\d{1,5})?$/.test(origin))return origins.includes(origin);
+ if(local&&/^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/.test(origin))return origins.includes(origin);
  return false;
 }
+/** The listed web origins (the hosted wallet): where the Plaid Link page may send the user back to. */
+export const webOrigins=config=>config.origins.filter(o=>originAllowed(o,config.origins,{local:config.localOrigins})&&!o.startsWith('chrome-extension:'));
 
 const encoder=new TextEncoder();
 const hex=bytes=>[...bytes].map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -434,7 +440,7 @@ const deleteAccountWithPlaid=args=>accounts.deleteAccount({...args,beforeDelete:
 /** GET /v2/plaid/link: the Link page (plaidPage.js). 503 until Plaid is set up. */
 async function plaidPageRoute(ctx){
  if(!plaid.plaidConfigured(ctx.env))throw new Refusal('plaid_unavailable');
- return linkPage();
+ return linkPage({returnOrigins:webOrigins(ctx.config)});
 }
 /** POST /v2/plaid/webhook: no Origin, no session, its own size cap; the signature is the credential. */
 async function plaidWebhookRoute(ctx){
@@ -500,7 +506,7 @@ export const ROUTE_TABLE=[
 export async function handle(request,env,deps={}){
  const now=deps.now||Date.now,log=deps.log||(line=>console.log(line));
  const url=new URL(request.url),origin=request.headers.get('Origin');
- const config=readConfig(env),allowed=originAllowed(origin,config.origins);
+ const config=readConfig(env),allowed=originAllowed(origin,config.origins,{local:config.localOrigins});
  const cors=allowed?{'Access-Control-Allow-Origin':origin,'Vary':'Origin'}:{'Vary':'Origin'};
  // A path may have several methods; `route` is the entry for this request's method, or the path's first entry for a wrong method.
  const credentialId=url.pathname.startsWith(ROUTES.passkeys+'/')?url.pathname.slice(ROUTES.passkeys.length+1):'';
