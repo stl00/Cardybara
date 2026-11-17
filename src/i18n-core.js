@@ -1,6 +1,7 @@
 import {translations} from './i18n/index.js';
 export const LANGUAGES = ['zh-CN', 'zh-TW', 'en-US'];
 let activeLanguage = 'zh-CN';
+export const currentLanguage = () => activeLanguage;
 export function normalizeLanguage(language) {
   return LANGUAGES.includes(language) ? language : 'zh-CN';
 }

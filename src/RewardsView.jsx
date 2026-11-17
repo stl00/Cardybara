@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {Alert,Card,Row,Col,Statistic,Typography,Tag,Empty,Collapse,InputNumber,Select,Space,Table,Tabs,Flex} from 'antd';
-import {t,useI18n} from './i18n';
+import {t,useI18n,currentLanguage} from './i18n';
 import {BankIdentity,CardIdentity,RegionLabel,RegionFlag} from './Identity';
 import ItemLogo from './ItemLogo';
 import {knowledgeSources} from './knowledge';
@@ -10,7 +10,8 @@ import {usePointValues} from './PointValueSettings.jsx';
 import {cardProducts} from './productCatalog';
 import {manualOnly} from './manualBanks.js';
 import {convertPoints,readingsFor,routesForCard,transferProgrammes,transferRoutes} from './transferRoutes';
-import {REDEMPTION_PROGRAMMES,redemptionsFor,redemptionValue} from './issuerRedemptions.js';
+import {FIXED_REDEMPTION_PROGRAMMES,fixedRedemptionsFor} from './fixedRedemptions.js';
+import {redemptionOptions} from './redemptionOptions.js';
 import {POOLING_TEXT,poolingRule,poolingRuleForRow,pointsReach,programmeTotals,shownInPooledEntry} from './pointsPooling';
 const {Paragraph,Text,Link}=Typography;
 const NO_CARD='no-card';
@@ -61,17 +62,20 @@ function poolReadings(programme,accounts,cards,rule){
  const total=programmeTotals(accounts.current).totals.find(t=>t.ruleId===rule.id);
  return total?.basis==='sum-of-cards'?[{key:'combined',combined:true,amount:total.amount,usable:Number.isSafeInteger(total.amount),label:rule.label,productIds},...own]:own;
 }
-const kindLabels={'cash-back':'现金返还','travel-portal':'发卡行旅行平台','statement-credit':'账单抵扣','gift-card':'礼品卡'};
+const kindLabels={'cash-back':'现金返还','statement-credit':'账单抵扣','gift-card':'礼品卡','issuer-travel':'发卡行旅行','pay-yourself-back':'Pay Yourself Back','pay-with-points':'用积分支付','dining':'餐饮','experiences':'体验','deposit':'存款'};
 const usd=cents=>money(cents/100,'USD');
-// #308: the issuer's own redemptions beside the transfer partners. Values come from redemptionValue; hidden mode masks them like balances.
+// #308/#465: the issuer's own redemptions beside the transfer partners, from the #307 records. Values come from redemptionOptions,
+// the same function the assistant's points_accounts uses (deposit blocks, annual cap, card dependence). Hidden mode masks them like balances.
 function IssuerRedemptions({programme,points,heldProductIds,hidden}){
- if(!REDEMPTION_PROGRAMMES.includes(programme.id))return null;
- const records=redemptionsFor(programme.id);
+ if(!FIXED_REDEMPTION_PROGRAMMES.includes(programme.id))return null;
+ const stated=Number.isSafeInteger(points)&&points>0?points:null,en=currentLanguage()==='en-US';
+ const options=redemptionOptions(programme.id,{points:stated,heldProductIds:heldProductIds||[]});
  return <div style={{marginTop:16}}><Paragraph strong style={{marginBottom:8}}>{t('通过发卡行兑换')}</Paragraph>
-  {!records.length?<Paragraph type="secondary">{t('暂无发卡行兑换记录。')}</Paragraph>:<Space orientation="vertical" size={8} style={{width:'100%'}}>{records.map(r=>{
-   const v=redemptionValue(points,r,heldProductIds),sources=knowledgeSources(r.sourceIds||[]);
-   const value=v.status==='computed'?(hidden?'••••':usd(v.cents)):v.status==='varies'?t('不固定'):v.status==='needs-card'?t('需要持有指定的卡'):v.status==='no-points'?'—':t('未知');
-   return <Flex key={r.id} justify="space-between" gap={12} wrap><div><ItemLogo programme={programme.id} size={14}/> {t(kindLabels[r.kind]||r.kind)}{r.conditionText?<div><Text type="secondary">{r.conditionText}{v.status==='needs-card'&&r.productIds?.length?` ${cardNames(r.productIds)}`:''}</Text></div>:null}{sources.length?<div><Space wrap size={[12,4]}>{sources.map(s=><Link key={s.id} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></div>:null}</div><Text strong={v.status==='computed'}>{value}</Text></Flex>;})}</Space>}</div>;
+  {!options.length?<Paragraph type="secondary">{t('暂无发卡行兑换记录。')}</Paragraph>:<Space orientation="vertical" size={8} style={{width:'100%'}}>{options.map(o=>{
+   const v=o.value,record=fixedRedemptionsFor(programme.id).find(r=>r.id===o.id),line=en?record.textEn:record.textZh;
+   const value=v.status==='computed'?(hidden?'••••':usd(v.cents)):v.status==='varies'?t('不固定'):v.status==='needs-card'?t('需要持有指定的卡'):v.status==='above-annual-cap'?t('超过年度上限，不给合计'):v.status==='rate-only'?'—':t('未知');
+   const sources=o.sources;
+   return <Flex key={o.id} justify="space-between" gap={12} wrap><div><ItemLogo programme={programme.id} size={14}/> {t(kindLabels[o.kind]||o.kind)}<div><Text type="secondary">{line}{v.status==='computed'&&v.leftoverPoints>0&&!hidden?` ${t('按 1,000 点为单位，余 {0} 点未计入。',[v.leftoverPoints.toLocaleString('en-US')])}`:''}</Text></div>{sources.length?<div><Space wrap size={[12,4]}>{sources.map(s=><Link key={s.url} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></div>:null}</div><Text strong={v.status==='computed'}>{value}</Text></Flex>;})}</Space>}</div>;
 }
 export function ProgrammePanel({programme,accounts,cards,count,hidden}){
  const rule=poolingRule(programme.id),readings=poolReadings(programme,accounts,cards,rule),[selected,setSelected]=useState(null),[manual,setManual]=useState(null);
