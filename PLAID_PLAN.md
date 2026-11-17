@@ -47,7 +47,11 @@ States per TASK-001. Read from `dashboard_get_state` on 2026-11-17 for client "I
 
 ## Acceptance
 
-- Round 0: see the latest `build_check_acceptance` run reported in the PR. Not yet verified: the live Sandbox run (needs the keys task).
+- Round 0 (2026-11-17, commit "Link US credit cards through Plaid…"): FAIL, 4 open. Passed: CHECK-001–006, 010–014 (unit and route tests on a fake Plaid API with real ES256 webhooks; `wrangler dev --env local` booted under workerd and all 10 new routes answered, 503 `plaid_unavailable` without keys). Open:
+  - CHECK-007: the redirect URI is passed when `PLAID_REDIRECT_URI` is set, but not registered in the Dashboard (owner task).
+  - CHECK-008: no Sandbox run yet; blocked on the Plaid CLI login task.
+  - CHECK-009: owner tasks still `needs_human` / `cannot_verify`.
+  - CHECK-015: goal shown only on synthetic data; needs `user_good` and a second persona (`user_transactions_dynamic`) in Sandbox.
 
 ## Maintenance
 
