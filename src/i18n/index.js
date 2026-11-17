@@ -15,10 +15,11 @@ import knowledge from './knowledge.json' with {type:'json'};
 import knowledgeRules from './knowledge-rules.json' with {type:'json'};
 import onboarding from './onboarding.json' with {type:'json'};
 import payments from './payments.json' with {type:'json'};
+import plaid from './plaid.json' with {type:'json'};
 import purchase from './purchase.json' with {type:'json'};
 import rewards from './rewards.json' with {type:'json'};
 
-export const catalogFiles = {account, about, app, assistant, banks, benefits, cards, common, extension, knowledge, 'knowledge-rules': knowledgeRules, onboarding, payments, purchase, rewards};
+export const catalogFiles = {account, about, app, assistant, banks, benefits, cards, common, extension, knowledge, 'knowledge-rules': knowledgeRules, onboarding, payments, plaid, purchase, rewards};
 
 export function mergeCatalog(files) {
   const merged = {};

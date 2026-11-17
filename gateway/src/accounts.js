@@ -17,7 +17,7 @@ export class AccountError extends Error{constructor(code,extra={}){super(code);t
 const fail=(code,extra)=>{throw new AccountError(code,extra);};
 
 // Every table that may hold a row for a user. Deleting an account empties each of them for that user (tested).
-export const TABLES=['users','email_codes','sessions','wallets','auth_limits','passkeys','passkey_challenges'];
+export const TABLES=['users','email_codes','sessions','wallets','auth_limits','passkeys','passkey_challenges','plaid_items','plaid_transactions','plaid_link_sessions'];
 export const PASSWORD_MIN=10;
 export const PASSWORD_MAX=1024;
 // Workers' WebCrypto refuses PBKDF2 above 100,000 iterations, so this is the most it allows. Each user row keeps its
@@ -315,6 +315,8 @@ export async function exportAccount({env,token,now:ms,audit}){
  const sessions=(await env.DB.prepare('SELECT created_at, expires_at FROM sessions WHERE user_id = ?').bind(userId).all()).results;
  const codes=(await env.DB.prepare('SELECT purpose, expires_at FROM email_codes WHERE user_id = ?').bind(userId).all()).results;
  const keys=(await env.DB.prepare('SELECT name, created_at FROM passkeys WHERE user_id = ?').bind(userId).all()).results;
+ const items=(await env.DB.prepare('SELECT item_id, institution_name, status, accounts, liabilities, created_at FROM plaid_items WHERE user_id = ?').bind(userId).all()).results;
+ const txns=(await env.DB.prepare('SELECT data, date, account_id FROM plaid_transactions WHERE user_id = ?').bind(userId).all()).results;
  const out={
   account:{email:user.email,verified:!!user.verified,createdAt:(await one(env.DB,'SELECT created_at FROM users WHERE id = ?',userId)).created_at},
   credentials:{passwordHash:'stored (PBKDF2-SHA256, not exportable)',passwordIterations:user.password_iterations},
@@ -322,6 +324,12 @@ export async function exportAccount({env,token,now:ms,audit}){
   sessions:sessions.map(r=>({createdAt:r.created_at,expiresAt:r.expires_at})),
   passkeys:keys.map(r=>({name:r.name,createdAt:r.created_at})),
   pendingEmailCodes:codes.map(r=>({purpose:r.purpose,expiresAt:r.expires_at})),
+  // Plaid-linked cards (plaid.js): what was synced. The access token is named, never shown.
+  plaid:{
+   items:items.map(r=>({itemId:r.item_id,institution:r.institution_name,status:r.status,createdAt:r.created_at,accessToken:'stored (AES-GCM encrypted, not exportable)',
+    accounts:JSON.parse(r.accounts||'[]'),liabilities:JSON.parse(r.liabilities||'[]')})),
+   transactions:txns.map(r=>({accountId:r.account_id,...JSON.parse(r.data)})),
+  },
  };
  audit.size=encoder.encode(JSON.stringify(out)).byteLength;
  return {status:200,body:out};
@@ -331,14 +339,19 @@ export async function exportAccount({env,token,now:ms,audit}){
 export async function logUserHash(env,userId){return (await hmac(env,'log|'+userId)).slice(0,16);}
 
 /** DELETE /v2/account {password}: removes every row of the user in every table. */
-export async function deleteAccount({env,body:b,token,now:ms,audit}){
+// `beforeDelete(userId)` (gateway.js) removes the user's Plaid Items at Plaid before their rows go (gateway/src/plaid.js).
+export async function deleteAccount({env,body:b,token,now:ms,audit,beforeDelete}){
  const now=sec(ms),{userId}=await session(env,token,now,audit);
  body(b,['password']);
  if(typeof b.password!=='string'||b.password.length>PASSWORD_MAX)fail('bad_request');
  const user=await userById(env,userId);
  if(!(await passwordMatches(user,b.password)))fail('invalid_credentials');
+ if(beforeDelete)await beforeDelete(userId);
  const st=(sql,...args)=>env.DB.prepare(sql).bind(...args);
  await env.DB.batch([
+  st('DELETE FROM plaid_transactions WHERE user_id = ?',userId),
+  st('DELETE FROM plaid_link_sessions WHERE user_id = ?',userId),
+  st('DELETE FROM plaid_items WHERE user_id = ?',userId),
   st('DELETE FROM wallets WHERE user_id = ?',userId),
   st('DELETE FROM sessions WHERE user_id = ?',userId),
   st('DELETE FROM email_codes WHERE user_id = ?',userId),

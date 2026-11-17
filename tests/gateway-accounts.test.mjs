@@ -14,7 +14,7 @@ import {validWalletDocument} from '../gateway/src/walletSchema.js';
 import {TABLES,CODE_TTL_SECONDS,SIGNIN_MAX_FAILURES,LOCK_SECONDS,CODE_SENDS_PER_HOUR,CODE_MAX_ATTEMPTS,hashPassword} from '../gateway/src/accounts.js';
 
 const ORIGIN='https://app.cardybara.test';
-const MIGRATION=['0001_accounts','0002_passkeys'].map(f=>readFileSync(new URL(`../gateway/migrations/${f}.sql`,import.meta.url),'utf8')).join('\n');
+const MIGRATION=['0001_accounts','0002_passkeys','0003_plaid'].map(f=>readFileSync(new URL(`../gateway/migrations/${f}.sql`,import.meta.url),'utf8')).join('\n');
 const EMAIL='synthetic.user@example.test',OTHER='other.user@example.test';
 const PASSWORD='synthetic-pass-0001',NEW_PASSWORD='synthetic-pass-0002';
 const T0=Date.parse('2026-11-16T12:00:00Z');
@@ -310,7 +310,7 @@ test('user A\'s session cannot read, overwrite or delete user B\'s blob',async()
  assert.equal(rows.find(r=>r.user_id===idA).document,JSON.stringify({favorites:['a-doc']}));
  // Delete: A deleting the account leaves B's blob, sessions and user row.
  assert.equal((await t.call('DELETE',ROUTES.account,{password:PASSWORD},a)).status,200);
- assert.deepEqual(rowsFor(t.db,idB,OTHER),{users:1,email_codes:0,sessions:1,wallets:1,auth_limits:0,passkeys:0,passkey_challenges:0});
+ assert.deepEqual(rowsFor(t.db,idB,OTHER),{users:1,email_codes:0,sessions:1,wallets:1,auth_limits:0,passkeys:0,passkey_challenges:0,plaid_items:0,plaid_transactions:0,plaid_link_sessions:0});
  assert.deepEqual((await json(await t.call('GET',ROUTES.wallet,undefined,b))).body.document,{favorites:['b-secret']});
 });
 

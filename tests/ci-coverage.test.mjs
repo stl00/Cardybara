@@ -100,3 +100,12 @@ test('CI runs no npm script that does not exist', () => {
     if (name) assert.ok(name in scripts, name);
   }
 });
+
+test('the E2E job runs the Citi US step, and its negative control, on every PR and on main', () => {
+  const lines = workflow.slice(workflow.indexOf('\n  e2e:\n'), workflow.indexOf('\n  draft-release:\n')).split('\n');
+  for (const flags of ['--citi --out', '--citi --negative-controls --out']) {
+    const i = lines.findIndex(l => l.includes(`scripts/e2e-extension.mjs package-under-test ${flags}`));
+    assert.ok(i > 0, flags);
+    assert.ok(!/^\s+if:/.test(lines[i - 1]), `${flags} is not limited to nightly or tag runs`);
+  }
+});
