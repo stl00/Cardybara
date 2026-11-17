@@ -39,6 +39,8 @@ export const DEVICE_ONLY={
  'cardybara-parser-settings':'parser settings of this device',
  'cardybara-state-v2':'collector state of this device',
  'cardybara.webGuideSeen':'first-launch guide seen',
+ 'cardybara-push-mirror':'reminder plan for this browser\'s service worker (IndexedDB)',
+ 'cardybara-web-push-v1':'push subscription state of this browser',
 };
 const SECTIONS=['walletCards','cardEdits','cardProducts','paymentMarks','pointValues','reminderSettings','favorites','personalBenefits','costLedger'];
 const MAX_FAVORITES=200,MAX_REMOVED=200,MAX_CARDS=40;
