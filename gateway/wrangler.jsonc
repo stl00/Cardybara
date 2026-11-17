@@ -14,7 +14,8 @@
     // Extension origins allowed to call the gateway, comma-separated chrome-extension://<id>. The alpha is
     // loaded unpacked, so each tester's id differs: "chrome-extension://*" admits any extension but no web
     // page. There is no invite code: the per-client and monthly caps bound spend. Empty admits nobody.
-    "ALLOWED_ORIGINS": "chrome-extension://*",
+    // The hosted web wallet (#373, #389) is listed by its exact https:// origin; web origins never match a wildcard.
+    "ALLOWED_ORIGINS": "chrome-extension://*,https://cardybara-app.pages.dev",
     // Defaults; `node scripts/gateway-settings.mjs set-caps` overrides them in KV without a deploy. Per client (a
     // salted hash of its network address, kept for its UTC day only) per UTC day; the budget is for all clients.
     // CLIENT_SALT is a required secret for that hash (the gateway answers 503 without it; only the local env falls
