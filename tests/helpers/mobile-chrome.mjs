@@ -14,7 +14,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
 
 function cdpPipe(child) {
   let next = 0, buffer = Buffer.alloc(0), gone = null;
-  const pending = new Map();
+  const pending = new Map(), listeners = [];
   const fail = reason => { gone = gone || reason; for (const [id, p] of pending) { pending.delete(id); p.reject(Error(`${p.method}: ${gone}`)); } };
   child.on('error', e => fail('Chrome failed to start (' + e.message + ')'));
   child.on('exit', (code, signal) => fail(`Chrome exited (${signal || code})`));
@@ -25,16 +25,19 @@ function cdpPipe(child) {
     while ((i = buffer.indexOf(0)) >= 0) {
       const msg = JSON.parse(buffer.subarray(0, i).toString('utf8'));
       buffer = buffer.subarray(i + 1);
-      const p = msg.id === undefined ? null : pending.get(msg.id);
+      if (msg.id === undefined) { listeners.forEach(l => l(msg)); continue; }
+      const p = pending.get(msg.id);
       if (p) { pending.delete(msg.id); msg.error ? p.reject(Error(msg.error.message)) : p.resolve(msg.result); }
     }
   });
-  return (method, params = {}, sessionId) => new Promise((resolve, reject) => {
+  const send = (method, params = {}, sessionId) => new Promise((resolve, reject) => {
     if (gone) return reject(Error(`${method}: ${gone}`));
     const id = ++next, timer = setTimeout(() => { pending.delete(id); reject(Error(method + ': no answer in 30 s')); }, 30000);
     pending.set(id, {resolve: v => { clearTimeout(timer); resolve(v); }, reject: e => { clearTimeout(timer); reject(e); }, method});
     child.stdio[3].write(JSON.stringify({id, method, params, ...(sessionId ? {sessionId} : {})}) + '\0');
   });
+  send.on = fn => listeners.push(fn);
+  return send;
 }
 
 // Runs inside the page. `overflow`: a visible element that sticks out of the 375 px viewport and is not clipped by a
@@ -75,14 +78,16 @@ export const AUDIT = `(()=>{
 })()`;
 
 // `origin`: an already running server (a Vite dev server for the collector flows) instead of serving `dir`.
-export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external = ''} = {}) {
+// `args`: extra Chrome flags (a host rule that points a name at a loopback stub). `onEvent`: receives every protocol event.
+export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external = '', args = [], onEvent} = {}) {
   const work = await mkdtemp(join(tmpdir(), 'cardybara-phone-'));
   let server, child;
   try {
     if (!external) server = await serve(dir);
     const origin = external || `http://127.0.0.1:${server.address().port}`;
-    child = spawn(await findChrome(), ['--user-data-dir=' + join(work, 'profile'), '--remote-debugging-pipe', '--headless=new', '--no-first-run', '--no-default-browser-check', '--hide-scrollbars', '--force-color-profile=srgb', ...SANDBOX_SAFE_ARGS, 'about:blank'], {stdio: ['ignore', 'ignore', 'ignore', 'pipe', 'pipe']});
+    child = spawn(await findChrome(), ['--user-data-dir=' + join(work, 'profile'), '--remote-debugging-pipe', '--headless=new', '--no-first-run', '--no-default-browser-check', '--hide-scrollbars', '--force-color-profile=srgb', ...SANDBOX_SAFE_ARGS, ...args, 'about:blank'], {stdio: ['ignore', 'ignore', 'ignore', 'pipe', 'pipe']});
     const send = cdpPipe(child);
+    if (onEvent) send.on(onEvent);
     const {targetId} = await send('Target.createTarget', {url: 'about:blank'});
     const {sessionId} = await send('Target.attachToTarget', {targetId, flatten: true});
     const page = (m, p) => send(m, p, sessionId);
