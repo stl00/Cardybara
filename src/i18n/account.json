@@ -58,7 +58,17 @@
     "如果你想在多台设备上用，可以在“设置”里登录并开启同步（可选）。只有开启后，钱包的一份副本才会存到服务器。": "To use it on several devices, you can sign in and turn on sync in Settings (optional). Only then is a copy of the wallet stored on the server.",
     "没开启同步时，我们看不到你的钱包。没有同步的话，换一部手机、换一个浏览器，或使用隐私窗口，打开的都是另一个空钱包。": "Without sync, we can't see your wallet. Without sync, a different phone, a different browser or a private window opens a different, empty wallet.",
     "来自银行 · 读取于 {0}": "From your bank · read {0}",
-    "来自银行 · 尚未读取金额": "From your bank · amounts not read yet"
+    "来自银行 · 尚未读取金额": "From your bank · amounts not read yet",
+    "通行密钥": "Passkey",
+    "已添加通行密钥。": "Passkey added.",
+    "已移除通行密钥。": "Passkey removed.",
+    "添加通行密钥": "Add a passkey",
+    "用通行密钥登录": "Sign in with a passkey",
+    "用指纹、面容或设备锁登录。邮箱和密码仍然可用，丢了通行密钥也不会被锁在外面。": "Sign in with your fingerprint, face or device lock. Email and password still work, so losing a passkey never locks you out.",
+    "这个通行密钥不能用了。请用邮箱和密码登录。": "That passkey can't be used any more. Sign in with email and password.",
+    "验证超时了，请再试一次。": "Verification timed out. Please try again.",
+    "通行密钥暂时不可用，请用邮箱和密码登录。": "Passkeys are unavailable right now. Sign in with email and password.",
+    "已取消。": "Cancelled."
   },
   "zh-TW": {
     "连不上服务器。检查网络后再试。": "連不上伺服器。檢查網路後再試。",
@@ -119,6 +129,16 @@
     "如果你想在多台设备上用，可以在“设置”里登录并开启同步（可选）。只有开启后，钱包的一份副本才会存到服务器。": "如果你想在多台裝置上用，可以在「設定」裡登入並開啟同步（選用）。只有開啟後，錢包的一份副本才會存到伺服器。",
     "没开启同步时，我们看不到你的钱包。没有同步的话，换一部手机、换一个浏览器，或使用隐私窗口，打开的都是另一个空钱包。": "沒開啟同步時，我們看不到你的錢包。沒有同步的話，換一部手機、換一個瀏覽器，或使用隱私視窗，打開的都是另一個空錢包。",
     "来自银行 · 读取于 {0}": "來自銀行 · 讀取於 {0}",
-    "来自银行 · 尚未读取金额": "來自銀行 · 尚未讀取金額"
+    "来自银行 · 尚未读取金额": "來自銀行 · 尚未讀取金額",
+    "通行密钥": "通行金鑰",
+    "已添加通行密钥。": "已新增通行金鑰。",
+    "已移除通行密钥。": "已移除通行金鑰。",
+    "添加通行密钥": "新增通行金鑰",
+    "用通行密钥登录": "用通行金鑰登入",
+    "用指纹、面容或设备锁登录。邮箱和密码仍然可用，丢了通行密钥也不会被锁在外面。": "用指紋、面容或裝置鎖登入。電子郵件和密碼仍然可用，遺失通行金鑰也不會被鎖在外面。",
+    "这个通行密钥不能用了。请用邮箱和密码登录。": "這個通行金鑰已無法使用。請用電子郵件和密碼登入。",
+    "验证超时了，请再试一次。": "驗證逾時了，請再試一次。",
+    "通行密钥暂时不可用，请用邮箱和密码登录。": "通行金鑰暫時無法使用，請用電子郵件和密碼登入。",
+    "已取消。": "已取消。"
   }
 }
