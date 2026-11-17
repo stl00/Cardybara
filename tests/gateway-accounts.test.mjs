@@ -7,6 +7,9 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {localGateway,memoryD1,memoryMail} from '../gateway/src/local.mjs';
 import {ROUTES,ROUTE_TABLE} from '../gateway/src/gateway.js';
+import {readWalletDocument,migrateWalletDocument} from '../src/walletDocument.js';
+import {newWalletCard} from '../src/walletRegistry.js';
+import {cardProducts} from '../src/productCatalog.js';
 import {validWalletDocument} from '../gateway/src/walletSchema.js';
 import {TABLES,CODE_TTL_SECONDS,SIGNIN_MAX_FAILURES,LOCK_SECONDS,CODE_SENDS_PER_HOUR,CODE_MAX_ATTEMPTS,hashPassword} from '../gateway/src/accounts.js';
 
@@ -376,4 +379,37 @@ test('log lines carry route, status, a user hash and the blob size, and no walle
  assert.equal(new Set(idHash.map(l=>l.user)).size,1,'one user, one hash');
  const wlog=t.logs.map(l=>JSON.parse(l)).find(l=>l.route==='account_wallet'&&l.size);
  assert.equal(wlog.size,new TextEncoder().encode(JSON.stringify(doc)).byteLength);
+});
+
+// #449: the document the app itself writes (readWalletDocument, synthetic wallets) must be accepted.
+const memStorage=(init={})=>{const m=new Map(Object.entries(init));return {getItem:k=>m.has(k)?m.get(k):null,setItem:(k,v)=>m.set(k,String(v)),keys:()=>[...m.keys()]};};
+const appDocument=async(snapshot)=>{
+ const product=cardProducts[0];
+ const storage=memStorage({'cardybara-favorites':JSON.stringify(['manual-1'])});
+ const doc=await readWalletDocument({storage,snapshot,readBenefitEvents:async()=>[],readCostEvents:async()=>[]});
+ doc.walletCards={cards:[newWalletCard({bank:product.bank,name:'Synthetic Manual',tail:'0000'},'manual-1')],removed:[]};
+ return doc;
+};
+test('a #411 wallet document from readWalletDocument passes the schema and PUT returns 200',async()=>{
+ const t=await setup();const token=await account(t);
+ const rows={cards:[{id:'snap-1',name:'Synthetic Snapshot Card'}],rewards:[],transactions:[],offers:[],benefits:[],connections:[],extraRows:[{id:'x'}]};
+ for(const snapshot of [undefined,rows]){
+  const doc=await appDocument(snapshot);
+  assert.equal(validWalletDocument(doc),true);
+  assert.equal(validWalletDocument(migrateWalletDocument({formatVersion:1})),true);
+  assert.equal(validWalletDocument(migrateWalletDocument({})),true);
+  const r=await t.call('PUT',ROUTES.wallet,{baseRevision:snapshot?1:0,formatVersion:1,document:doc},token);
+  assert.equal(r.status,200);
+ }
+});
+test('a #411 document with evidence or rawText at any depth, or a bad section type, is still refused',async()=>{
+ const base=await appDocument(undefined);
+ assert.equal(validWalletDocument({...base,rawText:{a:1}}),false);
+ assert.equal(validWalletDocument({...base,walletCards:{...base.walletCards,cards:[{evidence:'x'}]}}),false);
+ assert.equal(validWalletDocument({...base,costLedger:{schema:1,events:[{a:{b:{rawText:'x'}}}]}}),false);
+ assert.equal(validWalletDocument({...base,favorites:{}}),false);
+ assert.equal(validWalletDocument({...base,reminderSettings:[]}),false);
+ assert.equal(validWalletDocument({...base,formatVersion:'1'}),false);
+ assert.equal(validWalletDocument({...base,cards:{}}),false);
+ assert.equal(validWalletDocument({...base,extraScalar:1}),false);
 });
