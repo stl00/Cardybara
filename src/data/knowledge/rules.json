@@ -95467,5 +95467,4213 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-the-platinum-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-the-platinum-card.lost-luggage@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-the-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李保险计划",
+      "summary": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Insurance Plan",
+      "summary": "The terms page lists the Baggage Insurance Plan and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card-terms",
+          "text": "Baggage Insurance Plan is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-the-platinum-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-the-platinum-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-the-platinum-card.purchase-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-the-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "The terms page lists Purchase Protection and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card-terms",
+          "text": "Purchase Protection is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-the-platinum-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-the-platinum-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-the-platinum-card.extended-warranty@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-the-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The terms page lists Extended Warranty and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card-terms",
+          "text": "Extended Warranty is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-the-platinum-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-the-platinum-card.return-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-the-platinum-card.return-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-the-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "退货保障",
+      "summary": "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Return Protection",
+      "summary": "The terms page lists Return Protection and says it is subject to additional terms, conditions and exclusions. It names no underwriter and states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-the-platinum-card-terms",
+          "text": "Return Protection is subject to additional important terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "return-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-the-platinum-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-card.trip-cancel",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-card.trip-cancel@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行程取消与中断保障",
+      "summary": "条款页列出行程取消与中断保险（Trip Cancellation and Interruption Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出行程取消与中断保险（Trip Cancellation and Interruption Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption Insurance",
+      "summary": "The terms page lists Trip Cancellation and Interruption Insurance, says it is secondary coverage, and names New Hampshire Insurance Company, an AIG Company, as the provider. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+          "text": "Coverage is provided by New Hampshire Insurance Company, an AIG Company, at no-additional-cost to the Card Member."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+          "text": "This benefit provides secondary coverage."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": "secondary",
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出行程取消与中断保险（Trip Cancellation and Interruption Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-card.trip-delay@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay Insurance",
+      "summary": "The terms page lists Trip Delay Insurance, says it is secondary coverage, and names New Hampshire Insurance Company, an AIG Company, as the provider. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+          "text": "Coverage is provided by New Hampshire Insurance Company, an AIG Company, at no-additional-cost to the Card Member."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+          "text": "This benefit provides secondary coverage."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": "secondary",
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-card.lost-luggage@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李保险计划",
+      "summary": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Insurance Plan",
+      "summary": "The terms page lists the Baggage Insurance Plan and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+          "text": "Baggage Insurance Plan is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-card.rental",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-card.rental@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Loss and Damage Insurance",
+      "summary": "The terms page lists Car Rental Loss and Damage Insurance and names AMEX Assurance Company as the underwriter. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+          "text": "Car Rental Loss and Damage Insurance is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-card.purchase-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "The terms page lists Purchase Protection and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+          "text": "Purchase Protection is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-card.extended-warranty@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The terms page lists Extended Warranty and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+          "text": "Extended Warranty is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-card.return-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-card.return-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "退货保障",
+      "summary": "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Return Protection",
+      "summary": "The terms page lists Return Protection and says it is subject to additional terms, conditions and exclusions. It names no underwriter and states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+          "text": "Return Protection is subject to additional important terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "return-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-reserve-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-platinum-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-platinum-card.trip-delay@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay Insurance",
+      "summary": "The terms page lists Trip Delay Insurance, says it is secondary coverage, and names New Hampshire Insurance Company, an AIG Company, as the provider. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card-terms",
+          "text": "Coverage is provided by New Hampshire Insurance Company, an AIG Company, at no-additional-cost to the Card Member."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card-terms",
+          "text": "This benefit provides secondary coverage."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": "secondary",
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-platinum-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-platinum-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-platinum-card.lost-luggage@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李保险计划",
+      "summary": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Insurance Plan",
+      "summary": "The terms page lists the Baggage Insurance Plan and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card-terms",
+          "text": "Baggage Insurance Plan is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-platinum-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-platinum-card.rental",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-platinum-card.rental@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Loss and Damage Insurance",
+      "summary": "The terms page lists Car Rental Loss and Damage Insurance and names AMEX Assurance Company as the underwriter. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card-terms",
+          "text": "Car Rental Loss and Damage Insurance is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-platinum-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-platinum-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-platinum-card.purchase-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "The terms page lists Purchase Protection and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card-terms",
+          "text": "Purchase Protection is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-platinum-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-platinum-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-platinum-card.extended-warranty@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The terms page lists Extended Warranty and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card-terms",
+          "text": "Extended Warranty is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-platinum-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-platinum-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-gold-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-gold-card.lost-luggage@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-gold-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李保险计划",
+      "summary": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Insurance Plan",
+      "summary": "The terms page lists the Baggage Insurance Plan and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-card-terms",
+          "text": "Baggage Insurance Plan is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-gold-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-gold-card.rental",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-gold-card.rental@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-gold-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Loss and Damage Insurance",
+      "summary": "The terms page lists Car Rental Loss and Damage Insurance and names AMEX Assurance Company as the underwriter. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-card-terms",
+          "text": "Car Rental Loss and Damage Insurance is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-gold-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-gold-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-gold-card.purchase-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-gold-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "The terms page lists Purchase Protection and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-card-terms",
+          "text": "Purchase Protection is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-gold-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-gold-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-gold-card.extended-warranty@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-delta-skymiles-gold-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The terms page lists Extended Warranty and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-card-terms",
+          "text": "Extended Warranty is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-delta-skymiles-gold-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-delta-skymiles-gold-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-aspire-card.trip-cancel",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-aspire-card.trip-cancel@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-aspire-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行程取消与中断保障",
+      "summary": "条款页列出行程取消与中断保险（Trip Cancellation and Interruption Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出行程取消与中断保险（Trip Cancellation and Interruption Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption Insurance",
+      "summary": "The terms page lists Trip Cancellation and Interruption Insurance, says it is secondary coverage, and names New Hampshire Insurance Company, an AIG Company, as the provider. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-aspire-card-terms",
+          "text": "Coverage is provided by New Hampshire Insurance Company, an AIG Company, at no-additional-cost to the Card Member."
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-aspire-card-terms",
+          "text": "This benefit provides secondary coverage."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": "secondary",
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出行程取消与中断保险（Trip Cancellation and Interruption Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-aspire-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-aspire-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-aspire-card.trip-delay@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-aspire-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay Insurance",
+      "summary": "The terms page lists Trip Delay Insurance, says it is secondary coverage, and names New Hampshire Insurance Company, an AIG Company, as the provider. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-aspire-card-terms",
+          "text": "Coverage is provided by New Hampshire Insurance Company, an AIG Company, at no-additional-cost to the Card Member."
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-aspire-card-terms",
+          "text": "This benefit provides secondary coverage."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": "secondary",
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-aspire-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-aspire-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-aspire-card.lost-luggage@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-aspire-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李保险计划",
+      "summary": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Insurance Plan",
+      "summary": "The terms page lists the Baggage Insurance Plan and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-aspire-card-terms",
+          "text": "Baggage Insurance Plan is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-aspire-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-aspire-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-aspire-card.rental",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-aspire-card.rental@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-aspire-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Loss and Damage Insurance",
+      "summary": "The terms page lists Car Rental Loss and Damage Insurance and names AMEX Assurance Company as the underwriter. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-aspire-card-terms",
+          "text": "Car Rental Loss and Damage Insurance is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-aspire-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-aspire-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-aspire-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-aspire-card.purchase-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-aspire-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "The terms page lists Purchase Protection and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-aspire-card-terms",
+          "text": "Purchase Protection is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-aspire-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-aspire-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-aspire-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-aspire-card.extended-warranty@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-aspire-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The terms page lists Extended Warranty and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-aspire-card-terms",
+          "text": "Extended Warranty is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-aspire-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-aspire-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-aspire-card.return-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-aspire-card.return-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-aspire-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "退货保障",
+      "summary": "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Return Protection",
+      "summary": "The terms page lists Return Protection and says it is subject to additional terms, conditions and exclusions. It names no underwriter and states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-aspire-card-terms",
+          "text": "Return Protection is subject to additional important terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "return-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-aspire-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.lost-luggage@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李保险计划",
+      "summary": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Insurance Plan",
+      "summary": "The terms page lists the Baggage Insurance Plan and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card-terms",
+          "text": "Baggage Insurance Plan is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.rental",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.rental@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Loss and Damage Insurance",
+      "summary": "The terms page lists Car Rental Loss and Damage Insurance and names AMEX Assurance Company as the underwriter. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card-terms",
+          "text": "Car Rental Loss and Damage Insurance is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.purchase-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "The terms page lists Purchase Protection and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card-terms",
+          "text": "Purchase Protection is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.extended-warranty@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The terms page lists Extended Warranty and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card-terms",
+          "text": "Extended Warranty is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-surpass-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-surpass-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-card.rental",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-card.rental@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Loss and Damage Insurance",
+      "summary": "The terms page lists Car Rental Loss and Damage Insurance and names AMEX Assurance Company as the underwriter. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-card-terms",
+          "text": "Car Rental Loss and Damage Insurance is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-card.purchase-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "The terms page lists Purchase Protection and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-card-terms",
+          "text": "Purchase Protection is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-card.extended-warranty@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-hilton-honors-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The terms page lists Extended Warranty and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-card-terms",
+          "text": "Extended Warranty is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-hilton-honors-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-hilton-honors-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-brilliant-card.trip-cancel",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-brilliant-card.trip-cancel@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-brilliant-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行程取消与中断保障",
+      "summary": "条款页列出行程取消与中断保险（Trip Cancellation and Interruption Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出行程取消与中断保险（Trip Cancellation and Interruption Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Cancellation and Interruption Insurance",
+      "summary": "The terms page lists Trip Cancellation and Interruption Insurance, says it is secondary coverage, and names New Hampshire Insurance Company, an AIG Company, as the provider. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+          "text": "Coverage is provided by New Hampshire Insurance Company, an AIG Company, at no-additional-cost to the Card Member."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+          "text": "This benefit provides secondary coverage."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": "secondary",
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出行程取消与中断保险（Trip Cancellation and Interruption Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-brilliant-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-brilliant-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-brilliant-card.trip-delay@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-brilliant-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay Insurance",
+      "summary": "The terms page lists Trip Delay Insurance, says it is secondary coverage, and names New Hampshire Insurance Company, an AIG Company, as the provider. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+          "text": "Coverage is provided by New Hampshire Insurance Company, an AIG Company, at no-additional-cost to the Card Member."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+          "text": "This benefit provides secondary coverage."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": "secondary",
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-brilliant-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-brilliant-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-brilliant-card.lost-luggage@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-brilliant-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李保险计划",
+      "summary": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Insurance Plan",
+      "summary": "The terms page lists the Baggage Insurance Plan and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+          "text": "Baggage Insurance Plan is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-brilliant-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-brilliant-card.rental",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-brilliant-card.rental@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-brilliant-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Loss and Damage Insurance",
+      "summary": "The terms page lists Car Rental Loss and Damage Insurance and names AMEX Assurance Company as the underwriter. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+          "text": "Car Rental Loss and Damage Insurance is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-brilliant-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-brilliant-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-brilliant-card.purchase-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-brilliant-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "The terms page lists Purchase Protection and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+          "text": "Purchase Protection is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-brilliant-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-brilliant-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-brilliant-card.extended-warranty@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-brilliant-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The terms page lists Extended Warranty and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+          "text": "Extended Warranty is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-brilliant-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-brilliant-card.return-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-brilliant-card.return-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-brilliant-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "退货保障",
+      "summary": "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Return Protection",
+      "summary": "The terms page lists Return Protection and says it is subject to additional terms, conditions and exclusions. It names no underwriter and states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+          "text": "Return Protection is subject to additional important terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "return-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-brilliant-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-bevy-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-bevy-card.trip-delay@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-bevy-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行延误保障",
+      "summary": "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay Insurance",
+      "summary": "The terms page lists Trip Delay Insurance, says it is secondary coverage, and names New Hampshire Insurance Company, an AIG Company, as the provider. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-bevy-card-terms",
+          "text": "Coverage is provided by New Hampshire Insurance Company, an AIG Company, at no-additional-cost to the Card Member."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-bevy-card-terms",
+          "text": "This benefit provides secondary coverage."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": "secondary",
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-bevy-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-bevy-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-bevy-card.lost-luggage@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-bevy-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李保险计划",
+      "summary": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Baggage Insurance Plan",
+      "summary": "The terms page lists the Baggage Insurance Plan and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-bevy-card-terms",
+          "text": "Baggage Insurance Plan is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-bevy-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-bevy-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-bevy-card.rental",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-bevy-card.rental@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-bevy-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Loss and Damage Insurance",
+      "summary": "The terms page lists Car Rental Loss and Damage Insurance and names AMEX Assurance Company as the underwriter. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-bevy-card-terms",
+          "text": "Car Rental Loss and Damage Insurance is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-bevy-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-bevy-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-bevy-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-bevy-card.purchase-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-bevy-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "The terms page lists Purchase Protection and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-bevy-card-terms",
+          "text": "Purchase Protection is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-bevy-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-bevy-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-bevy-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-bevy-card.extended-warranty@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-bevy-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The terms page lists Extended Warranty and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-bevy-card-terms",
+          "text": "Extended Warranty is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-marriott-bonvoy-bevy-card-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-marriott-bonvoy-bevy-card-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-blue-cash-everyday.rental",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-cash-everyday.rental@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-blue-cash-everyday"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Loss and Damage Insurance",
+      "summary": "The terms page lists Car Rental Loss and Damage Insurance and names AMEX Assurance Company as the underwriter. It does not say whether the coverage is primary or secondary.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-blue-cash-everyday-terms",
+          "text": "Car Rental Loss and Damage Insurance is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-blue-cash-everyday-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-blue-cash-everyday-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-blue-cash-everyday.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-cash-everyday.purchase-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-blue-cash-everyday"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "The terms page lists Purchase Protection and names AMEX Assurance Company as the underwriter. It states no limit.",
+      "howToUse": [
+        "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-blue-cash-everyday-terms",
+          "text": "Purchase Protection is underwritten by AMEX Assurance Company."
+        },
+        {
+          "sourceId": "card-amex-us-us-blue-cash-everyday-terms",
+          "text": "Subject to additional terms, conditions and exclusions."
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-blue-cash-everyday-terms"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]
