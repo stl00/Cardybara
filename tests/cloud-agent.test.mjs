@@ -3,7 +3,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {cloudGateway,ORIGIN,INVITE} from './helpers/agent-target.mjs';
+import {cloudGateway,ORIGIN} from './helpers/agent-target.mjs';
+// What an extension build from before 2026-11-16 still sends; the gateway ignores it.
+const OLD_CODE='cdy_'+'old-client-test-only-'.padEnd(43,'0');
 import {runCloudTurn} from '../src/cloudChat.js';
 import {buildWalletSummary} from '../src/walletSummary.js';
 import {sseEvents} from '../src/cloudProtocol.js';
@@ -26,7 +28,7 @@ async function gateway(steps,{vars,logs=[]}={}){
  // A failed assertion inside the scripted model surfaces as itself, not as the Worker's provider error.
  return {...g,payloads,logs,calls:()=>n,turn:args=>runCloudTurn({...args,post:args.post||g.post}).catch(e=>{throw g.thrown()||e;})};
 }
-const post=(g,body,{code=INVITE}={})=>g.handle(new Request('https://gateway.test/v1/chat',{method:'POST',headers:{Origin:ORIGIN,Authorization:'Bearer '+code,'Content-Type':'application/json'},body:JSON.stringify(body)}));
+const post=(g,body,{code=null}={})=>g.handle(new Request('https://gateway.test/v1/chat',{method:'POST',headers:{Origin:ORIGIN,...(code?{Authorization:'Bearer '+code}:{}),'Content-Type':'application/json'},body:JSON.stringify(body)}));
 async function events(response){const out=[];for await(const e of sseEvents(response.body))out.push(e);return out;}
 const summary=()=>buildWalletSummary({cards,day:DAY,language:'zh-CN'});
 const settle=()=>new Promise(r=>setTimeout(r,20));
@@ -102,14 +104,14 @@ test('the extension refuses a tool request for anything but a wallet tool of the
  await assert.rejects(()=>runCloudTurn({question:'本期酒店 credit 用了吗？',context,post:forged}),/model_failed/);
 });
 
-test('invite, caps and errors: a revoked code, a code over its cap mid-turn, and a cut stream',async()=>{
- const g=await gateway([tools(call('list_cards')),say('ok')],{vars:{DAILY_REQUESTS_PER_CODE:'1'}});
- await g.addInvite('cdy_'+'revoked-test-only-'.padEnd(43,'r'),{id:'revoked',status:'revoked'});
- const revoked=await post(g,{question:'hi',history:[],memory:{},summary:summary()},{code:'cdy_'+'revoked-test-only-'.padEnd(43,'r')});
- assert.equal(revoked.status,403);assert.equal((await revoked.json()).error.code,'invite_revoked');
- // The second model call of the turn is over the daily cap: the stream ends with that error.
- await assert.rejects(()=>runCloudTurn({question:'我有哪些卡？',context,post:g.post}),/hosted_over_cap/);
- assert.equal(g.calls(),1);
+test('caps and errors: an old client\'s code is ignored, a client over its cap mid-turn, and a cut stream',async()=>{
+ const g=await gateway([say('ok'),tools(call('list_cards')),say('ok')],{vars:{DAILY_REQUESTS_PER_CLIENT:'2'}});
+ // An extension build from before 2026-11-16 still sends its invite code: the turn is answered as without one.
+ const old=await post(g,{question:'hi',history:[],memory:{},summary:summary()},{code:OLD_CODE});
+ assert.equal(old.status,200);await old.text();
+ // The second model call of the next turn is over the client's daily cap: the stream ends with that error.
+ await assert.rejects(()=>runCloudTurn({question:'我有哪些卡？',context,post:g.post}),/hosted_client_cap/);
+ assert.equal(g.calls(),2);
  const cut=async()=>new Response('data: {"type":"model"}\n\ndata: {"type":"delta","text":"部分"}\n\n').body;
  await assert.rejects(()=>runCloudTurn({question:'hi',context,post:cut}),/model_failed/);
  await assert.rejects(()=>runCloudTurn({question:'hi',context,post:async()=>{throw Error('model_failed');}}),/model_failed/);
@@ -140,13 +142,13 @@ test('a failed grounding check is repaired without streaming, and the log line c
  assert.deepEqual(r.trace.filter(t=>['grounding','repair'].includes(t.type)).map(t=>[t.type,t.passed]),[['grounding',false],['repair',true]]);
  await settle();
  const line=JSON.parse(logs.at(-1));
- assert.deepEqual(Object.keys(line).sort(),['answered','at','code','completion_tokens','model_calls','prompt_tokens','rounds_replayed','route','status','wallet_results']);
- for(const text of ['CSR','年费','Sapphire',INVITE])assert.ok(!logs.join('\n').includes(text),'the log carries '+text);
+ assert.deepEqual(Object.keys(line).sort(),['answered','at','completion_tokens','model_calls','prompt_tokens','rounds_replayed','route','status','wallet_results']);
+ for(const text of ['CSR','年费','Sapphire'])assert.ok(!logs.join('\n').includes(text),'the log carries '+text);
 });
 
 test('the agent route takes the same origin and size limits as the model proxy',async()=>{
  const g=await gateway([]);
- const evil=await g.handle(new Request('https://gateway.test/v1/chat',{method:'POST',headers:{Origin:'https://evil.example',Authorization:'Bearer '+INVITE,'Content-Type':'application/json'},body:'{}'}));
+ const evil=await g.handle(new Request('https://gateway.test/v1/chat',{method:'POST',headers:{Origin:'https://evil.example','Content-Type':'application/json'},body:'{}'}));
  assert.equal(evil.status,403);
  const big=await post(g,{question:'x'.repeat(300000),history:[],memory:{},summary:summary()});
  assert.equal(big.status,413);
@@ -180,7 +182,7 @@ test('metrics: a normal turn writes release identity, shape and outcome, and no 
  await settle();
  assert.equal(points.length,1);
  const p=points[0];
- assert.deepEqual(p.indexes,['agent-tests']);
+ assert.deepEqual(p.indexes,['agent'],'the index is the route, never a client');
  assert.equal(p.blobs.length,BLOBS.length);assert.equal(p.doubles.length,DOUBLES.length);
  assert.deepEqual([field(p,'route'),field(p,'version_id'),field(p,'model'),field(p,'error')],['agent','ver-test-1','deepseek-flash','']);
  assert.match(field(p,'prompt_hash'),/^[0-9a-f]{8}$/);
@@ -190,7 +192,7 @@ test('metrics: a normal turn writes release identity, shape and outcome, and no 
  assert.ok(field(p,'prompt_tokens')>=0&&field(p,'duration_ms')>=0);
  // Nothing a user or the model wrote reaches the data point.
  const all=JSON.stringify(p);
- for(const t of [SECRET_QUESTION,'Synthetic-question','已核对','酒店',INVITE,'acct-sentinel'])assert.ok(!all.includes(t),'the data point carries '+t);
+ for(const t of [SECRET_QUESTION,'Synthetic-question','已核对','酒店','acct-sentinel'])assert.ok(!all.includes(t),'the data point carries '+t);
  assert.ok(r.answer);
 });
 

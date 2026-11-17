@@ -1,4 +1,4 @@
-// Web Push reminders (stl00/Cardybara#380): body validation, invite required, replacement, expiry, 410 cleanup,
+// Web Push reminders (stl00/Cardybara#380): body validation, no invite code, replacement, expiry, 410 cleanup,
 // the cron sending only what is due, and nothing stored beyond id, subscription, times and kinds. Synthetic data only.
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -14,6 +14,7 @@ import {generateVapid} from '../scripts/gateway-vapid.mjs';
 import worker from '../gateway/src/worker.js';
 
 const ORIGIN='chrome-extension://'+'a'.repeat(32);
+// What an extension build from before 2026-11-16 may still send; ignored.
 const CODE='cdy_'+'test-only-'.padEnd(43,'a');
 const DEVICE='D'.repeat(22),OTHER_DEVICE='E'.repeat(22);
 const ENDPOINT='https://fcm.googleapis.com/fcm/send/synthetic-endpoint-0001';
@@ -23,16 +24,15 @@ const vapid=await generateVapid();
 const base=(over={})=>({device:DEVICE,subscription:{endpoint:ENDPOINT,keys:{...KEYS}},times:[{at:SEC+3600,kind:'payment'},{at:SEC+86400,kind:'fee'}],...over});
 function setup({now=()=>T0,vars={}}={}){
  const logs=[],g=localGateway({vars:{ALLOWED_ORIGINS:ORIGIN,VAPID_PRIVATE_KEY:vapid.private,VAPID_PUBLIC_KEY:vapid.public,...vars},log:l=>logs.push(l),now:()=>now()});
- g.addInvite(CODE,{id:'t01'});
  return {...g,logs};
 }
-const req=(method,path,body,{code=CODE,origin=ORIGIN,raw}={})=>new Request('https://gateway.test'+path,{method,headers:{...(origin?{Origin:origin}:{}),...(code?{Authorization:'Bearer '+code}:{}),'Content-Type':'application/json'},...(body!==undefined||raw!==undefined?{body:raw??JSON.stringify(body)}:{})});
+const req=(method,path,body,{code=null,origin=ORIGIN,raw}={})=>new Request('https://gateway.test'+path,{method,headers:{...(origin?{Origin:origin}:{}),...(code?{Authorization:'Bearer '+code}:{}),'Content-Type':'application/json'},...(body!==undefined||raw!==undefined?{body:raw??JSON.stringify(body)}:{})});
 const put=(g,body,opts)=>g.handle(req('PUT',ROUTES.push,body,opts));
 const errorOf=async r=>(await r.json()).error.code;
 const stored=g=>[...g.env.INVITES.data.entries()].filter(([k])=>k.startsWith(PUSH_PREFIX));
 
 test('PUT stores a device and replaces its whole list of fire times',async()=>{
- const g=await setup();await g.addInvite(CODE,{id:'t01'});
+ const g=await setup();
  const r=await put(g,base());assert.equal(r.status,200);assert.deepEqual(await r.json(),{status:'stored',times:2});
  assert.equal(stored(g).length,1);
  const r2=await put(g,base({times:[{at:SEC+7200,kind:'credit'}]}));assert.equal(r2.status,200);
@@ -47,7 +47,7 @@ test('PUT stores a device and replaces its whole list of fire times',async()=>{
 });
 
 test('nothing is stored besides device id, subscription, fire times and kinds',async()=>{
- const g=await setup();await g.addInvite(CODE,{id:'t01'});
+ const g=await setup();
  await put(g,base());
  const [key,value]=stored(g)[0];
  assert.equal(key,PUSH_PREFIX+DEVICE);
@@ -57,24 +57,22 @@ test('nothing is stored besides device id, subscription, fire times and kinds',a
  assert.deepEqual(Object.keys(record.subscription.keys).sort(),['auth','p256dh']);
  for(const t of record.times)assert.deepEqual(Object.keys(t).sort(),['at','kind']);
  assert.deepEqual(Object.keys(g.env.INVITES.meta.get(key)).sort(),['exp','next']);
- // The invite code and its id are not part of the record.
+ // No code, address or client id is part of the record.
  assert.ok(!value.includes(CODE)&&!value.includes('t01'));
 });
 
-test('an invite code is required, and a revoked one is refused',async()=>{
- const g=await setup();await g.addInvite(CODE,{id:'t01'});
- for(const code of [null,'cdy_short','cdy_'+'z'.repeat(43)]){
-  const r=await put(g,base(),{code});assert.equal(r.status,401,String(code));assert.equal(await errorOf(r),'invite_invalid');
- }
- assert.equal((await g.handle(req('DELETE',ROUTES.push,{device:DEVICE},{code:null}))).status,401);
- assert.equal(stored(g).length,0);
- // The public key is public (the wallet asks for it before it has registered), but an unlisted origin still gets nothing.
- const open=await g.handle(req('GET',ROUTES.pushKey,undefined,{code:null}));assert.equal(open.status,200);assert.deepEqual(await open.json(),{publicKey:vapid.public});
- assert.equal((await g.handle(req('GET',ROUTES.pushKey,undefined,{code:null,origin:'https://evil.example'}))).status,403);
+test('no invite code is needed; an old client that sends one still works, and an unlisted origin gets nothing',async()=>{
+ const g=await setup();
+ assert.equal((await put(g,base())).status,200);assert.equal(stored(g).length,1);
+ assert.equal((await put(g,base({device:OTHER_DEVICE}),{code:CODE})).status,200,'a code is ignored');
+ assert.equal((await g.handle(req('DELETE',ROUTES.push,{device:OTHER_DEVICE}))).status,200);assert.equal(stored(g).length,1);
+ assert.equal((await put(g,base(),{origin:'https://evil.example'})).status,403);
+ const open=await g.handle(req('GET',ROUTES.pushKey,undefined));assert.equal(open.status,200);assert.deepEqual(await open.json(),{publicKey:vapid.public});
+ assert.equal((await g.handle(req('GET',ROUTES.pushKey,undefined,{origin:'https://evil.example'}))).status,403);
 });
 
 test('strict body checks',async()=>{
- const g=await setup();await g.addInvite(CODE,{id:'t01'});
+ const g=await setup();
  const bad=[
   ['extra key',{...base(),note:'x'}],['missing times',(({times,...r})=>r)(base())],['array body',[]],
   ['device too short',base({device:'short'})],['device bad characters',base({device:'a/b'.padEnd(22,'a')})],
@@ -106,7 +104,7 @@ test('strict body checks',async()=>{
 });
 
 test('DELETE forgets the device, and is quiet about one that is not there',async()=>{
- const g=await setup();await g.addInvite(CODE,{id:'t01'});
+ const g=await setup();
  await put(g,base());await put(g,base({device:OTHER_DEVICE}));
  const r=await g.handle(req('DELETE',ROUTES.push,{device:DEVICE}));assert.equal(r.status,200);
  assert.deepEqual(stored(g).map(([k])=>k),[PUSH_PREFIX+OTHER_DEVICE]);
@@ -120,12 +118,12 @@ test('DELETE forgets the device, and is quiet about one that is not there',async
 });
 
 test('push is unavailable until the VAPID pair is set',async()=>{
- const g=await setup({vars:{VAPID_PRIVATE_KEY:undefined,VAPID_PUBLIC_KEY:undefined}});await g.addInvite(CODE,{id:'t01'});
+ const g=await setup({vars:{VAPID_PRIVATE_KEY:undefined,VAPID_PUBLIC_KEY:undefined}});
  for(const r of [await put(g,base()),await g.handle(req('GET',ROUTES.pushKey,undefined,{code:null}))]){assert.equal(r.status,503);assert.equal(await errorOf(r),'push_unavailable');}
 });
 
 test('the log line has the route, status and number of fire times, never the endpoint or device',async()=>{
- const g=await setup();await g.addInvite(CODE,{id:'t01'});
+ const g=await setup();
  await put(g,base());
  const line=g.logs.at(-1),o=JSON.parse(line);
  assert.equal(o.route,'push');assert.equal(o.status,200);assert.equal(o.times,2);
@@ -134,7 +132,7 @@ test('the log line has the route, status and number of fire times, never the end
 });
 
 test('a device not updated for 60 days is deleted; an update starts the 60 days again',async()=>{
- let t=T0;const g=await setup({now:()=>t});await g.addInvite(CODE,{id:'t01'});
+ let t=T0;const g=await setup({now:()=>t});
  await put(g,base());
  t=T0+(EXPIRY_SECONDS-60)*1000;assert.equal(stored(g).length,1,'still there just before');
  assert.equal((await put(g,base({times:[{at:SEC+EXPIRY_SECONDS,kind:'fee'}]}))).status,200);// the wallet updated it
@@ -158,7 +156,7 @@ const run=(g,w,now=T0)=>{const logs=[];return sendDuePushes(g.env,{fetch:w.fetch
 const timesOf=async(g,device=DEVICE)=>(await g.env.INVITES.get(PUSH_PREFIX+device,{type:'json'}))?.times;
 
 test('the cron sends one payload-free push per device with due times, signed with VAPID, and drops only those times',async()=>{
- const g=await setup();await g.addInvite(CODE,{id:'t01'});
+ const g=await setup();
  await put(g,base({times:[{at:SEC-100,kind:'payment'},{at:SEC-50,kind:'fee'},{at:SEC+3600,kind:'credit'}]}));
  await put(g,base({device:OTHER_DEVICE,subscription:{endpoint:'https://updates.push.services.mozilla.com/wpush/v2/synthetic',keys:KEYS},times:[{at:SEC+600,kind:'fee'}]}));
  const w=pushWorld(),r=await run(g,w);
@@ -183,7 +181,7 @@ test('the cron sends one payload-free push per device with due times, signed wit
 
 test('a 404 or 410 from the push service deletes the device',async()=>{
  for(const status of [404,410]){
-  const g=await setup();await g.addInvite(CODE,{id:'t01'});
+  const g=await setup();
   await put(g,base({times:[{at:SEC-10,kind:'payment'}]}));await put(g,base({device:OTHER_DEVICE,subscription:{endpoint:ENDPOINT+'-2',keys:KEYS},times:[{at:SEC-10,kind:'fee'}]}));
   const w=pushWorld(url=>url===ENDPOINT?status:201),r=await run(g,w);
   assert.equal(await timesOf(g),undefined,String(status));assert.equal(stored(g).length,1);assert.deepEqual(await timesOf(g,OTHER_DEVICE),[]);
@@ -192,7 +190,7 @@ test('a 404 or 410 from the push service deletes the device',async()=>{
 });
 
 test('a push that fails stays due for the next run, until it has waited two days',async()=>{
- const g=await setup();await g.addInvite(CODE,{id:'t01'});
+ const g=await setup();
  await put(g,base({times:[{at:SEC-10,kind:'payment'}]}));
  for(const status of [500,429,403,0]){
   const w=status?pushWorld(()=>status):{calls:[],fetch:async()=>{throw Error('network');}};
@@ -206,7 +204,7 @@ test('a push that fails stays due for the next run, until it has waited two days
 });
 
 test('a run does not extend the 60 days, and its log line names no endpoint',async()=>{
- let t=T0;const g=await setup({now:()=>t});await g.addInvite(CODE,{id:'t01'});
+ let t=T0;const g=await setup({now:()=>t});
  await put(g,base({times:[{at:SEC+10,kind:'fee'},{at:SEC+(EXPIRY_SECONDS-5),kind:'fee'}]}));
  const logs=[];await sendDuePushes(g.env,{fetch:pushWorld().fetch,now:()=>T0+20*1000,log:l=>logs.push(l)});
  const meta=g.env.INVITES.meta.get(PUSH_PREFIX+DEVICE);assert.equal(meta.exp,SEC+EXPIRY_SECONDS);
@@ -216,13 +214,13 @@ test('a run does not extend the 60 days, and its log line names no endpoint',asy
 });
 
 test('without the VAPID secrets the cron sends nothing',async()=>{
- const g=await setup({vars:{VAPID_PRIVATE_KEY:undefined}});await g.addInvite(CODE,{id:'t01'});
+ const g=await setup({vars:{VAPID_PRIVATE_KEY:undefined}});
  await put(g,base({times:[{at:SEC-10,kind:'fee'}]}));
  const w=pushWorld();assert.deepEqual(await run(g,w),{skipped:true,logs:[]});assert.equal(w.calls.length,0);
 });
 
 test('the Worker runs the push sender on its 15-minute Cron Trigger and the alert check on the hourly one',async()=>{
- const g=await setup();await g.addInvite(CODE,{id:'t01'});
+ const g=await setup();
  await put(g,base({times:[{at:SEC-5,kind:'fee'}]}));
  const calls=[],original=globalThis.fetch,realNow=Date.now;
  globalThis.fetch=async url=>{calls.push(String(url));return new Response(null,{status:201});};Date.now=()=>T0;

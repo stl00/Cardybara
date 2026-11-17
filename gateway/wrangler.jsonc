@@ -13,11 +13,13 @@
     "ALLOWED_MODELS": "deepseek-flash",
     // Extension origins allowed to call the gateway, comma-separated chrome-extension://<id>. The alpha is
     // loaded unpacked, so each tester's id differs: "chrome-extension://*" admits any extension but no web
-    // page; the invite code is the real gate. Empty admits nobody.
+    // page. There is no invite code: the per-client and monthly caps bound spend. Empty admits nobody.
     "ALLOWED_ORIGINS": "chrome-extension://*",
-    // Defaults; `node scripts/gateway-codes.mjs set-caps` overrides them in KV without a deploy.
-    "DAILY_REQUESTS_PER_CODE": "200",
-    "DAILY_TOKENS_PER_CODE": "300000",
+    // Defaults; `node scripts/gateway-settings.mjs set-caps` overrides them in KV without a deploy. Per client (a
+    // salted hash of its network address, kept for its UTC day only) per UTC day; the budget is for all clients.
+    // CLIENT_SALT is an optional secret for that hash (without it a key derived from PROVIDER_KEY is used).
+    "DAILY_REQUESTS_PER_CLIENT": "200",
+    "DAILY_TOKENS_PER_CLIENT": "300000",
     "MONTHLY_BUDGET_USD": "10",
     // Charged per token from the provider's usage numbers; set at or above the provider's list price.
     "PRICE_INPUT_USD_PER_MTOK": "0.6",
@@ -28,14 +30,14 @@
     "MAX_BODY_BYTES": "262144"
     // PROVIDER_KEY is a secret, set once by the owner with scripts/gateway-set-key.sh. Never a var.
   },
-  // Invite codes (by SHA-256 digest only) and the `settings` caps. The namespace id is not a secret and not an
-  // account id.
+  // The `settings` caps and switches, and Web Push devices. The binding keeps its old name from the invite codes
+  // (none are read any more). The namespace id is not a secret and not an account id.
   "kv_namespaces": [{"binding": "INVITES", "id": "332d4b90299846508c1c85fc2c51411c"}],
   "durable_objects": {"bindings": [{"name": "USAGE", "class_name": "UsageLedger"}]},
   "migrations": [{"tag": "v1", "new_sqlite_classes": ["UsageLedger"]}],
-  // Per client address, checked before any invite lookup, so guessing codes can't exhaust KV or the quota.
+  // Per client (keyed by the hashed client id, never the address), checked before any KV or ledger call.
   "ratelimits": [{"name": "RATE_LIMITER", "namespace_id": "2081", "simple": {"limit": 60, "period": 60}}],
-  // Workers Logs keep the one metadata line per request (code id, time, tokens, status) for reading usage.
+  // Workers Logs keep the one metadata line per request (time, route, tokens, status) for reading usage.
   // Invocation logs (request metadata recorded by the platform) are off so no request header is ever kept.
   // One Analytics Engine data point per assistant turn and per model-proxy request (gateway/src/metrics.js; fields in
   // docs/GATEWAY.md). Release identity comes from the version metadata binding. The gateway runs without either.
@@ -53,8 +55,8 @@
         "ALLOW_HTTP_PROVIDER": "1",
         "ALLOWED_MODELS": "deepseek-flash",
         "ALLOWED_ORIGINS": "chrome-extension://*",
-        "DAILY_REQUESTS_PER_CODE": "20",
-        "DAILY_TOKENS_PER_CODE": "200000",
+        "DAILY_REQUESTS_PER_CLIENT": "20",
+        "DAILY_TOKENS_PER_CLIENT": "200000",
         "MONTHLY_BUDGET_USD": "1",
         "PRICE_INPUT_USD_PER_MTOK": "0.6",
         "PRICE_OUTPUT_USD_PER_MTOK": "2.4",

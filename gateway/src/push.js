@@ -3,7 +3,8 @@
 // Never a card name, bank, tail, amount or date text. Pushes carry no payload: the service worker wakes up and
 // writes the notification from the wallet in its own IndexedDB. The Worker's Cron Trigger sends what is due.
 //
-// Storage: one KV key `push:<device>` in the INVITES namespace (no new resource for the owner to create), with
+// Storage: one KV key `push:<device>` in the gateway's KV namespace (binding INVITES, a name kept from the invite
+// codes so the deploy needs no new resource), with
 // the earliest fire time in the key's metadata so the cron lists keys once and reads only the devices that are
 // due. Every PUT refreshes a 60-day expiry; a device the wallet stops updating disappears by itself.
 //

@@ -1,18 +1,19 @@
 // Cardybara model gateway (Cloudflare Worker): the logic. worker.js is the Worker's main module. It holds the owner's
-// model key and, for testers with an invite code, runs the hosted assistant (`/v1/chat`, agent.js: the agent loop and
+// model key and runs the hosted assistant (`/v1/chat`, agent.js: the agent loop and
 // public-knowledge tools, with wallet tools run in the extension) and relays single completions (`/v1/chat/completions`,
 // used for card-type suggestions).
 //
 // Treat it as public internet:
-// - an invite code is checked by its SHA-256 digest, compared in constant time; codes are never stored or logged;
+// - there is no invite code (owner decision 2026-11-16): a client is its network address, kept only as a salted hash
+//   that changes every UTC day (clientId), never the address itself;
 // - the request body is size-capped, and only allow-listed fields and models are forwarded;
 // - every request reserves its worst-case tokens and cost in one Durable Object before it reaches the
-//   provider, so parallel requests cannot overrun a per-code daily cap or the global monthly budget;
-// - bodies, codes and keys are never logged or echoed: a log line carries the code id, time, tokens and status.
+//   provider, so parallel requests cannot overrun a per-client daily cap or the global monthly budget;
+// - bodies, keys, addresses and client ids are never logged or echoed: a log line carries time, route, tokens and status.
 
 // The assistant (agent.js) brings the agent loop and the bundled public knowledge, whose modules build their indexes
 // when first evaluated: hundreds of milliseconds of CPU. Workers caps the CPU a script may spend at startup, so that
-// code is loaded on the first /v1/chat request, not at startup, and the proxy and invite routes never load it. The
+// code is loaded on the first /v1/chat request, not at startup, and the proxy and other routes never load it. The
 // bundler keeps a dynamically imported module lazy; tests/gateway-startup.test.mjs holds the built Worker to this.
 // A failed load stays cached on purpose: a module whose evaluation threw cannot be evaluated again (the bundler's lazy
 // init and native ESM both keep the failure), so every /v1/chat then answers agent_unavailable until a redeploy.
@@ -22,16 +23,17 @@ import {parsePut,parseDelete,storePush,forgetPush,pushConfigured} from './push.j
 let agent=null;
 const agentRoute=ctx=>(agent||=import('./agent.js')).then(m=>m.agentRoute(ctx),()=>{throw new Refusal('agent_unavailable');});
 
+// `/v1/invite` stays for extension builds from before 2026-11-16, which check a saved invite code there: it always
+// answers active. Those builds also send `Authorization: Bearer <code>` on every route; the header is ignored.
 export const ROUTES={chat:'/v1/chat/completions',agent:'/v1/chat',invite:'/v1/invite',push:'/v1/push',pushKey:'/v1/push/key'};
-export const INVITE_PATTERN=/^cdy_[A-Za-z0-9_-]{43}$/;
 const FIELDS=['model','messages','tools','tool_choice','max_tokens','temperature','response_format'];
 const ROLES=new Set(['system','user','assistant','tool']);
 const MESSAGE_FIELDS=['role','content','name','tool_calls','tool_call_id'];
 const RESPONSE_FIELDS=['id','object','created','model','choices','usage'];
 // Error codes the extension may show. Nothing else from the gateway or the provider reaches the client.
 export const ERRORS={
- bad_request:400,model_not_allowed:400,invite_invalid:401,invite_revoked:403,origin_forbidden:403,not_found:404,method_not_allowed:405,
- too_large:413,unsupported_media_type:415,rate_limited:429,daily_requests:429,daily_tokens:429,monthly_budget:429,provider_rate_limited:429,
+ bad_request:400,model_not_allowed:400,origin_forbidden:403,not_found:404,method_not_allowed:405,
+ too_large:413,unsupported_media_type:415,rate_limited:429,client_daily_limit:429,monthly_budget:429,provider_rate_limited:429,
  provider_rejected:502,provider_error:502,provider_unreachable:502,gateway_not_configured:503,gateway_busy:503,provider_timeout:504,
  turn_invalid:400,turn_expired:409,agent_unavailable:503,push_unavailable:503,
 };
@@ -45,8 +47,9 @@ export function readConfig(env){
   origins:String(env.ALLOWED_ORIGINS||'').split(',').map(s=>s.trim()).filter(Boolean),
   maxBodyBytes:number(env.MAX_BODY_BYTES,262144,{min:1024,integer:true}),
   maxOutputTokens:number(env.MAX_OUTPUT_TOKENS,8192,{min:1,integer:true}),
-  dailyRequests:number(env.DAILY_REQUESTS_PER_CODE,200,{integer:true}),
-  dailyTokens:number(env.DAILY_TOKENS_PER_CODE,300000,{integer:true}),
+  // Per client (salted hash of its address) per UTC day. The *_PER_CODE names are read for a deploy that still has them.
+  dailyRequests:number(env.DAILY_REQUESTS_PER_CLIENT??env.DAILY_REQUESTS_PER_CODE,200,{integer:true}),
+  dailyTokens:number(env.DAILY_TOKENS_PER_CLIENT??env.DAILY_TOKENS_PER_CODE,300000,{integer:true}),
   monthlyBudgetMicros:number(env.MONTHLY_BUDGET_USD,10)==null?null:Math.round(number(env.MONTHLY_BUDGET_USD,10)*1e6),
   // USD per million tokens equals micro-USD per token.
   priceInput:number(env.PRICE_INPUT_USD_PER_MTOK,0.6),
@@ -56,15 +59,16 @@ export function readConfig(env){
  };
  let url=null;try{url=new URL(c.providerUrl);}catch{}
  // Fail closed: a missing key, binding, origin list or a malformed number disables the gateway.
- c.ready=!!(c.providerKey&&url&&(url.protocol==='https:'||env.ALLOW_HTTP_PROVIDER==='1')&&c.models.length&&c.origins.length&&env.INVITES&&env.USAGE
+ c.ready=!!(c.providerKey&&url&&(url.protocol==='https:'||env.ALLOW_HTTP_PROVIDER==='1')&&c.models.length&&c.origins.length&&env.USAGE
   // The rate limiter is required in production; only a local run against an http mock may go without.
   &&(env.RATE_LIMITER||env.ALLOW_HTTP_PROVIDER==='1')
   &&[c.maxBodyBytes,c.maxOutputTokens,c.dailyRequests,c.dailyTokens,c.monthlyBudgetMicros,c.priceInput,c.priceOutput,c.timeoutMs].every(v=>v!=null));
  return c;
 }
 
-// Global caps the owner can change without a deploy: the KV key `settings` holds
-// {dailyRequests, dailyTokens, monthlyBudgetUsd}; each present, valid value replaces the var of the same cap.
+// Caps the owner can change without a deploy: the KV key `settings` holds {dailyRequests, dailyTokens} (per client)
+// and monthlyBudgetUsd (all clients); each present, valid value replaces the var of the same cap. Without the KV
+// binding the vars apply.
 export const SETTINGS_KEY='settings';
 export async function withSettings(base,env){
  const c={...base};
@@ -88,23 +92,7 @@ export function originAllowed(origin,origins){
 }
 
 const encoder=new TextEncoder();
-async function sha256(text){return new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(text)));}
 const hex=bytes=>[...bytes].map(b=>b.toString(16).padStart(2,'0')).join('');
-// Constant-time over equal-length inputs; the length is public (always 32 bytes here).
-export function sameBytes(a,b){if(a.length!==b.length)return false;let diff=0;for(let i=0;i<a.length;i++)diff|=a[i]^b[i];return diff===0;}
-export async function inviteKey(code){return 'invite:'+hex(await sha256(code));}
-
-async function findInvite(code,env){
- if(typeof code!=='string'||!INVITE_PATTERN.test(code))return null;
- const digest=await sha256(code),key='invite:'+hex(digest);
- const record=await env.INVITES.get(key,{type:'json'});
- if(!record||typeof record!=='object'||typeof record.hash!=='string'||!/^[0-9a-f]{64}$/.test(record.hash))return null;
- // The KV key is the digest already; this repeats the comparison in constant time against the stored value.
- const stored=Uint8Array.from(record.hash.match(/../g),h=>parseInt(h,16));
- if(!sameBytes(digest,stored))return null;
- if(typeof record.id!=='string'||!/^[a-z0-9-]{1,32}$/.test(record.id))return null;
- return record;
-}
 
 export async function readLimited(request,limit){
  const declared=request.headers.get('Content-Length');
@@ -181,17 +169,19 @@ const today=now=>new Date(now).toISOString().slice(0,10);
 export class Refusal extends Error{constructor(code,extra={}){super(code);this.extra=extra;}}
 
 // --- Middleware. Each takes the request context and either fills it in or throws a Refusal with an error code.
-// The agent route (`/v1/chat`, agent.js) reuses them as they are: authenticate once per request, and reserve and
+// The agent route (`/v1/chat`, agent.js) reuses them as they are: reserve and
 // settle once per model call.
 
-/** The invite code from the Authorization header; sets ctx.invite and the log's code id. */
-export async function authenticate(ctx){
- const auth=ctx.request.headers.get('Authorization')||'';
- const invite=await findInvite(auth.startsWith('Bearer ')?auth.slice(7):'',ctx.env);
- if(!invite)throw new Refusal('invite_invalid');
- ctx.record.code=invite.id;
- if(invite.status!=='active')throw new Refusal('invite_revoked');
- ctx.invite=invite;
+/**
+ * The client id: HMAC-SHA256 of the UTC day and the client's address (clientKey), keyed by CLIENT_SALT if set, else
+ * a key derived from PROVIDER_KEY (both Worker secrets). The address itself is never stored; the id changes every
+ * day, so a day's counters cannot be linked to another day's or turned back into an address without the secret.
+ * Never logged.
+ */
+export async function clientId(request,env,day){
+ const secret=env.CLIENT_SALT||env.PROVIDER_KEY||'';
+ const key=await crypto.subtle.importKey('raw',encoder.encode('cardybara-client-v1:'+secret),{name:'HMAC',hash:'SHA-256'},false,['sign']);
+ return 'c'+hex(new Uint8Array(await crypto.subtle.sign('HMAC',key,encoder.encode(day+'|'+clientKey(request))))).slice(0,32);
 }
 /** A JSON request body within the size cap. */
 export async function readJson(ctx){
@@ -200,17 +190,19 @@ export async function readJson(ctx){
  try{return JSON.parse(text);}catch{throw new Refusal('bad_request');}
 }
 /**
- * Reserves one model call's worst case against the code's daily caps and the global monthly budget, before
+ * Reserves one model call's worst case against the client's daily caps and the global monthly budget, before
  * anything reaches the provider. Returns settle(spent): {tokens,micros} replaces the worst case; settle(null)
  * keeps it (no usage numbers).
  */
 export async function reserve(ctx,worst){
- // A per-code override can only lower the caps, never raise them past the gateway's.
- const capOf=(own,global)=>Number.isInteger(own)&&own>=0?Math.min(own,global):global;
  const c=await withSettings(ctx.config,ctx.env),day=today(ctx.now());let reservation;
- try{reservation=await callLedger(ctx.env,'reserve',{code:ctx.invite.id,day,month:day.slice(0,7),tokens:worst.tokens,micros:worst.micros,maxRequests:capOf(ctx.invite.dailyRequests,c.dailyRequests),maxTokens:capOf(ctx.invite.dailyTokens,c.dailyTokens),maxMicros:c.monthlyBudgetMicros});}
+ try{reservation=await callLedger(ctx.env,'reserve',{code:await clientId(ctx.request,ctx.env,day),day,month:day.slice(0,7),tokens:worst.tokens,micros:worst.micros,maxRequests:c.dailyRequests,maxTokens:c.dailyTokens,maxMicros:c.monthlyBudgetMicros});}
  catch{throw new Refusal('gateway_busy');}
- if(!reservation.ok)throw new Refusal(ERRORS[reservation.reason]?reservation.reason:'gateway_busy');
+ if(!reservation.ok){
+  // Either per-client cap is one code for the client; the log line says which.
+  if(reservation.reason==='daily_requests'||reservation.reason==='daily_tokens')throw new Refusal('client_daily_limit',{limit:reservation.reason==='daily_requests'?'requests':'tokens'});
+  throw new Refusal(ERRORS[reservation.reason]?reservation.reason:'gateway_busy');
+ }
  let settled=false;
  return async spent=>{
   if(settled)return;settled=true;
@@ -256,11 +248,12 @@ export function clientKey(request){
 
 // --- Routes.
 
+/** Older extension builds check a saved invite code here before using the assistant. Any code, or none, is fine. */
 async function inviteRoute(ctx){return respond(200,{status:'active'},ctx.cors);}
 
 // Web Push reminders (push.js, docs/GATEWAY.md "Web Push"). The log line gets the number of fire times, never the endpoint.
 function pushReady(ctx){if(!pushConfigured(ctx.env))throw new Refusal('push_unavailable');}
-/** The VAPID public key the web wallet subscribes with. Public, so no invite code. */
+/** The VAPID public key the web wallet subscribes with. */
 async function pushKeyRoute(ctx){pushReady(ctx);return respond(200,{publicKey:ctx.env.VAPID_PUBLIC_KEY},ctx.cors);}
 /** Replaces the device's subscription and its whole list of fire times. */
 async function pushPutRoute(ctx){
@@ -330,14 +323,14 @@ function streamCompletion(ctx,response,settle,limit){
  return new Response(relay.readable,{status:200,headers:{'Content-Type':'text/event-stream; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...ctx.cors}});
 }
 
-// The router. A route names its path, method and handler; `auth: true` runs authenticate first.
+// The router. A route names its path, method and handler. No route needs a credential.
 export const ROUTE_TABLE=[
- {path:ROUTES.invite,name:'invite',method:'POST',auth:true,handler:inviteRoute},
- {path:ROUTES.agent,name:'agent',method:'POST',auth:true,handler:agentRoute},
- {path:ROUTES.chat,name:'chat',method:'POST',auth:true,handler:completionRoute},
- {path:ROUTES.push,name:'push',method:'PUT',auth:true,handler:pushPutRoute},
- {path:ROUTES.push,name:'push',method:'DELETE',auth:true,handler:pushDeleteRoute},
- {path:ROUTES.pushKey,name:'push_key',method:'GET',auth:false,handler:pushKeyRoute},
+ {path:ROUTES.invite,name:'invite',method:'POST',handler:inviteRoute},
+ {path:ROUTES.agent,name:'agent',method:'POST',handler:agentRoute},
+ {path:ROUTES.chat,name:'chat',method:'POST',handler:completionRoute},
+ {path:ROUTES.push,name:'push',method:'PUT',handler:pushPutRoute},
+ {path:ROUTES.push,name:'push',method:'DELETE',handler:pushDeleteRoute},
+ {path:ROUTES.pushKey,name:'push_key',method:'GET',handler:pushKeyRoute},
 ];
 
 /**
@@ -352,10 +345,10 @@ export async function handle(request,env,deps={}){
  const cors=allowed?{'Access-Control-Allow-Origin':origin,'Vary':'Origin'}:{'Vary':'Origin'};
  // A path may have several methods; `route` is the entry for this request's method, or the path's first entry for a wrong method.
  const onPath=ROUTE_TABLE.filter(r=>r.path===url.pathname),route=onPath.find(r=>r.method===request.method)||onPath[0];
- const record={at:new Date(now()).toISOString(),route:route?.name||'other',code:null,status:0};
+ const record={at:new Date(now()).toISOString(),route:route?.name||'other',status:0};
  let deferred=null,switchesRead=null;
  const ctx={request,env,config,cors,record,url,now,// Called as a plain function: Workers' fetch throws "Illegal invocation" when called as a method of another object.
-  upstream:deps.fetch||((...a)=>globalThis.fetch(...a)),invite:null,deferLog:p=>{deferred=p;},
+  upstream:deps.fetch||((...a)=>globalThis.fetch(...a)),deferLog:p=>{deferred=p;},
   // Tests only: sees each agent model call's payload before it becomes a provider request. The Worker never sets it.
   observe:deps.observe||null,
   // The KV switches, read once per request through a short cache (switches.js).
@@ -376,10 +369,9 @@ export async function handle(request,env,deps={}){
  if(request.method!==route.method)return refuse('method_not_allowed');
  if(!config.ready)return refuse('gateway_not_configured');
  try{
-  // Per client address, before any KV read, so guessing codes can't exhaust KV or the Workers quota. The
+  // Per client, before any KV or ledger call. The limiter is given the hashed client id, never the address. The
   // binding is optional (local runs and tests have none); gateway/wrangler.jsonc declares it.
-  if(env.RATE_LIMITER){const {success}=await env.RATE_LIMITER.limit({key:clientKey(request)});if(!success)throw new Refusal('rate_limited');}
-  if(route.auth)await authenticate(ctx);
+  if(env.RATE_LIMITER){const {success}=await env.RATE_LIMITER.limit({key:await clientId(request,env,today(now()))});if(!success)throw new Refusal('rate_limited');}
   return finish(await route.handler(ctx));
  }catch(e){
   if(e instanceof Refusal)return refuse(e.message,e.extra);
@@ -390,10 +382,14 @@ export async function handle(request,env,deps={}){
 /**
  * Usage counters in one Durable Object instance. Each operation runs to completion before the next starts
  * (an explicit queue on top of the runtime's input gates), so a check and its increment cannot interleave.
- * Keys: d:<day>:<code> {requests,tokens}; m:<month> {micros}; r:<id> an open reservation.
+ * Keys: d:<day>:<client id> {requests,tokens}; m:<month> {micros}; r:<id> an open reservation; pruned: the last day
+ * pruned. A client id is only ever kept for its own UTC day: the first request of the next day, or the alarm set
+ * for just after midnight UTC, deletes every earlier day's counters.
  */
 export class UsageLedger{
  constructor(state){this.storage=state.storage;this.queue=Promise.resolve();}
+ /** Durable Object alarm: prunes when no request arrives after midnight. */
+ async alarm(){await this.run(()=>this.prune(new Date().toISOString().slice(0,10)));}
  run(fn){const p=this.queue.then(fn);this.queue=p.catch(()=>{});return p;}
  async fetch(request){
   const op=new URL(request.url).pathname.slice(1);let args;
@@ -409,17 +405,20 @@ export class UsageLedger{
   if(m.micros+micros>maxMicros)return {ok:false,reason:'monthly_budget'};
   const id=crypto.randomUUID();
   await this.storage.put({[dk]:{requests:d.requests+1,tokens:d.tokens+tokens},[mk]:{micros:m.micros+micros},['r:'+id]:{dk,mk,tokens,micros,day}});
-  // The first request of a day for a code clears day counters and open reservations older than yesterday (an
-  // open reservation is a request whose worker never settled; its worst case is already counted).
-  if(d.requests===0&&this.storage.list)await this.prune(day);
+  // The first request of a day clears earlier days' counters and open reservations older than yesterday (an
+  // open reservation is a request whose worker never settled; its worst case is already counted in the month).
+  if(this.storage.list&&(await this.storage.get('pruned'))!==day)await this.prune(day);
   return {ok:true,id};
  }
  async prune(day){
-  const cutoff=new Date(Date.parse(day+'T00:00:00Z')-86400000).toISOString().slice(0,10);
+  const yesterday=new Date(Date.parse(day+'T00:00:00Z')-86400000).toISOString().slice(0,10);
   for(const prefix of ['d:','r:']){
-   const old=[...(await this.storage.list({prefix})).entries()].filter(([k,v])=>(prefix==='d:'?k.slice(2,12):v?.day||'')<cutoff).map(([k])=>k);
+   const old=[...(await this.storage.list({prefix})).entries()].filter(([k,v])=>prefix==='d:'?k.slice(2,12)<day:(v?.day||'')<yesterday).map(([k])=>k);
    for(let i=0;i<old.length;i+=128)await this.storage.delete(old.slice(i,i+128));
   }
+  await this.storage.put('pruned',day);
+  // Run again just after the next UTC midnight, so a day's client ids go even when no request comes the next day.
+  if(typeof this.storage.setAlarm==='function')await this.storage.setAlarm(Date.parse(day+'T00:00:00Z')+86400000+60000);
  }
  /** Month-to-date spend in micro-USD (settled use plus open reservations' worst case), for the hourly alert check. */
  async month({month}){const m=(await this.storage.get('m:'+month))||{micros:0};return {micros:m.micros};}
@@ -427,8 +426,9 @@ export class UsageLedger{
  async settle({id,tokens,micros,keep}){
   const r=await this.storage.get('r:'+id);if(!r)return {ok:false};
   if(keep){await this.storage.delete('r:'+id);return {ok:true};}
-  const d=(await this.storage.get(r.dk))||{requests:0,tokens:0},m=(await this.storage.get(r.mk))||{micros:0};
-  await this.storage.put({[r.dk]:{...d,tokens:Math.max(0,d.tokens-r.tokens+tokens)},[r.mk]:{micros:Math.max(0,m.micros-r.micros+micros)}});
+  const d=await this.storage.get(r.dk),m=(await this.storage.get(r.mk))||{micros:0};
+  // A day's counters pruned since the reservation (it settled after midnight) are not written back.
+  await this.storage.put({...(d?{[r.dk]:{...d,tokens:Math.max(0,d.tokens-r.tokens+tokens)}}:{}),[r.mk]:{micros:Math.max(0,m.micros-r.micros+micros)}});
   await this.storage.delete('r:'+id);
   return {ok:true};
  }

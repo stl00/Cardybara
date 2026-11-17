@@ -1,6 +1,6 @@
 // In-memory stand-ins for the Worker's KV namespace and Durable Object binding, so the unit tests and the
 // packaged-extension E2E run the gateway's own code in Node. Never imported by the Worker itself.
-import {handle,UsageLedger,inviteKey} from './gateway.js';
+import {handle,UsageLedger} from './gateway.js';
 
 export function memoryKV({now=Date.now}={}){
  const data=new Map(),meta=new Map(),expires=new Map();
@@ -38,14 +38,9 @@ export function memoryDurableObject(Class=UsageLedger){
  const instances=new Map();
  return {instances,idFromName:name=>name,get(id){if(!instances.has(id))instances.set(id,new Class({storage:memoryStorage()}));const obj=instances.get(id);return {fetch:(url,init)=>obj.fetch(new Request(url,init))};}};
 }
-export async function addInvite(kv,code,record){
- const key=await inviteKey(code);
- await kv.put(key,JSON.stringify({hash:key.slice('invite:'.length),status:'active',...record}));
- return key;
-}
 /** A gateway on in-memory bindings. vars override the defaults; fetch is the upstream provider. */
 export function localGateway({vars={},fetch,log=()=>{},now,observe}={}){
  // A rate limiter that always allows; tests pass their own, or null to check the gateway refuses to run without one.
  const env={PROVIDER_KEY:'synthetic-provider-key-not-real',ALLOWED_MODELS:'deepseek-flash',RATE_LIMITER:{limit:async()=>({success:true})},...vars,INVITES:memoryKV({now:now||Date.now}),USAGE:memoryDurableObject()};
- return {env,handle:request=>handle(request,env,{fetch,log,now,observe}),addInvite:(code,record)=>addInvite(env.INVITES,code,record)};
+ return {env,handle:request=>handle(request,env,{fetch,log,now,observe})};
 }
