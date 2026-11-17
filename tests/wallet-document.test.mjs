@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,statSync} from 'node:fs';
 import {join} from 'node:path';
-import {DEVICE_ONLY,DOCUMENT_STORAGE,WALLET_FORMAT_VERSION,migrateWalletDocument,isNewerWalletDocument,readWalletDocument,writeWalletDocument} from '../src/walletDocument.js';
+import {DEVICE_ONLY,DOCUMENT_STORAGE,WALLET_FORMAT_VERSION,migrateWalletDocument,isNewerWalletDocument,readWalletDocument,writeWalletDocument,walletImportErrorKey} from '../src/walletDocument.js';
 import {newWalletCard} from '../src/walletRegistry.js';
 import {cardProducts} from '../src/productCatalog.js';
 import {valuationTable} from '../src/pointValues.js';
@@ -100,4 +100,15 @@ test('no cardybara-* storage key is missing from the document and the device-onl
  const missing=[...found].filter(k=>!known.has(k)&&!prefixes.some(p=>k.startsWith(p.slice(0,-1))));
  assert.deepEqual(missing,[],'decide for each: document section, DEVICE_ONLY with a reason, or NOT_STORAGE in this test');
  for(const k of Object.keys(DOCUMENT_STORAGE))assert.ok(!(k in DEVICE_ONLY),k);
+});
+
+test('every import error code maps to a translated message in all languages',()=>{
+ const i18n=JSON.parse(readFileSync(new URL('../src/i18n/app.json',import.meta.url),'utf8'));
+ const src=readFileSync(new URL('../src/walletDocument.js',import.meta.url),'utf8');
+ const codes=[...new Set([...src.matchAll(/throw Error\('([a-z_]+)'\)/g)].map(m=>m[1]))].filter(c=>c!=='wallet_format_newer');
+ assert.ok(codes.length>=6);
+ for(const c of codes){const key=walletImportErrorKey(c);assert.ok(key,`no message for ${c}`);for(const lang of ['en-US','zh-TW'])assert.ok(i18n[lang][key],`${c} missing in ${lang}`);}
+ assert.equal(walletImportErrorKey('something_else'),null);
+ const main=readFileSync(new URL('../src/main.jsx',import.meta.url),'utf8');
+ assert.ok(main.includes('t(key):err.message'));
 });

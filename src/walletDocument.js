@@ -135,3 +135,14 @@ export async function writeWalletDocument(raw,{storage,importBenefitEvents,impor
  set(PAYMENT_MARKS_KEY,marks);set(POINT_VALUES_KEY,storedPointValues(values));set(REMINDER_SETTINGS_KEY,settings);set(FAVORITES_KEY,favorites);
  return {doc,snapshot:snap};
 }
+
+// Import error code -> zh-CN message key (translated by t() in the UI; keys live in src/i18n/app.json).
+export const WALLET_IMPORT_ERRORS={
+ invalid_snapshot:'请选择 Cardybara · 卡疲扒拉 导出的完整快照',
+ invalid_snapshot_card:'卡片信息或图片路径格式不正确',
+ duplicate_card_id:'卡片 ID 不能重复',
+ invalid_wallet_cards:'备份里的钱包卡片记录格式不正确；这次没有写入任何数据。',
+ invalid_favorites:'备份里的收藏列表格式不正确；这次没有写入任何数据。',
+ invalid_wallet_document:'备份文件格式不正确；这次没有写入任何数据。',
+};
+export const walletImportErrorKey=code=>WALLET_IMPORT_ERRORS[code]||null;
