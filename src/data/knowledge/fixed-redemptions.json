@@ -1,6 +1,6 @@
 {
  "schema": "fixed-redemptions/1",
- "checkedAt": "2026-11-16",
+ "checkedAt": "2026-11-17",
  "note": "Issuer fixed-value redemptions for US Membership Rewards and Ultimate Rewards (#307). centsPerPoint is a number only when an official page or term states it; null means the value is unknown, \"varies\" means the issuer says it differs by card or condition. Transfers live in rules.json.",
  "sources": [
   {
@@ -16,6 +16,13 @@
    "title": "Chase · Ultimate Rewards redemption options",
    "authority": "official",
    "checkedAt": "2026-11-16"
+  },
+  {
+   "id": "chase-ur-program-agreement-sapphire-preferred",
+   "url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0551_Web.pdf",
+   "title": "Chase · Sapphire Preferred with Ultimate Rewards Program Agreement",
+   "authority": "official",
+   "checkedAt": "2026-11-17"
   },
   {
    "id": "amex-mr-terms",
@@ -76,12 +83,13 @@
    "centsPerPoint": null,
    "dependsOn": "eligible-purchases",
    "sourceIds": [
-    "chase-ur-landing"
+    "chase-ur-landing",
+    "chase-ur-program-agreement-sapphire-preferred"
    ],
-   "checkedAt": "2026-11-16",
+   "checkedAt": "2026-11-17",
    "textEn": "Choose to receive a statement credit on one or more of your eligible purchases.",
    "textZh": "选择对一笔或多笔符合条件的消费换成账单抵扣；页面未给出每点价值。",
-   "unknownReason": "The public page lists the option but states no value per point."
+   "unknownReason": "Tried on 2026-11-17 by public WebFetch, no value per point stated: chase.com/personal/credit-cards/ultimate-rewards, chase.com/personal/credit-cards/education/basics/how-chase-ultimate-rewards-works, and the Sapphire Preferred and Freedom Flex Ultimate Rewards program agreements (asset.chase.com RPA0551 and RPA0534). The program agreement sets one cent per point only for cash, gift cards and travel. The agreement does not mention Pay Yourself Back. Search-result summaries and third-party sites are not accepted as evidence."
   },
   {
    "id": "ur-pay-with-points-amazon-paypal",
@@ -91,12 +99,13 @@
    "centsPerPoint": null,
    "dependsOn": "partner-checkout",
    "sourceIds": [
-    "chase-ur-landing"
+    "chase-ur-landing",
+    "chase-ur-program-agreement-sapphire-preferred"
    ],
-   "checkedAt": "2026-11-16",
+   "checkedAt": "2026-11-17",
    "textEn": "Use your points to pay for all or part of your eligible Amazon.com orders or when you check out with PayPal.",
    "textZh": "可用积分支付符合条件的 Amazon.com 订单或 PayPal 结账；页面未给出每点价值。",
-   "unknownReason": "The public page states no value per point."
+   "unknownReason": "Tried on 2026-11-17 by public WebFetch, no value per point stated: chase.com/personal/credit-cards/ultimate-rewards, chase.com/personal/credit-cards/education/basics/how-chase-ultimate-rewards-works, and the Sapphire Preferred and Freedom Flex Ultimate Rewards program agreements (asset.chase.com RPA0551 and RPA0534). The program agreement sets one cent per point only for cash, gift cards and travel. For Pay with Points at third-party merchants the agreement only says the value may be worth less than for options offered directly through the program, with no number. Search-result summaries and third-party sites are not accepted as evidence."
   },
   {
    "id": "ur-shop-apple",
@@ -106,12 +115,13 @@
    "centsPerPoint": null,
    "dependsOn": "partner-checkout",
    "sourceIds": [
-    "chase-ur-landing"
+    "chase-ur-landing",
+    "chase-ur-program-agreement-sapphire-preferred"
    ],
-   "checkedAt": "2026-11-16",
+   "checkedAt": "2026-11-17",
    "textEn": "Use your points to pay for all or part of your Apple purchases at The Shops at Chase.",
    "textZh": "可用积分支付 The Shops at Chase 的 Apple 商品；页面未给出每点价值。",
-   "unknownReason": "The public page states no value per point."
+   "unknownReason": "Tried on 2026-11-17 by public WebFetch, no value per point stated: chase.com/personal/credit-cards/ultimate-rewards, chase.com/personal/credit-cards/education/basics/how-chase-ultimate-rewards-works, and the Sapphire Preferred and Freedom Flex Ultimate Rewards program agreements (asset.chase.com RPA0551 and RPA0534). The program agreement sets one cent per point only for cash, gift cards and travel. The agreement says only that value used directly at third-party merchants may be worth less, with no number, and does not name Apple. Search-result summaries and third-party sites are not accepted as evidence."
   },
   {
    "id": "ur-chase-dining",
@@ -121,12 +131,13 @@
    "centsPerPoint": null,
    "dependsOn": "any",
    "sourceIds": [
-    "chase-ur-landing"
+    "chase-ur-landing",
+    "chase-ur-program-agreement-sapphire-preferred"
    ],
-   "checkedAt": "2026-11-16",
+   "checkedAt": "2026-11-17",
    "textEn": "Visit Chase Dining to redeem points for takeout.",
    "textZh": "在 Chase Dining 兑换外卖；页面未给出每点价值。",
-   "unknownReason": "The public page states no value per point."
+   "unknownReason": "Tried on 2026-11-17 by public WebFetch, no value per point stated: chase.com/personal/credit-cards/ultimate-rewards, chase.com/personal/credit-cards/education/basics/how-chase-ultimate-rewards-works, and the Sapphire Preferred and Freedom Flex Ultimate Rewards program agreements (asset.chase.com RPA0551 and RPA0534). The program agreement sets one cent per point only for cash, gift cards and travel. The agreement does not mention dining. Search-result summaries and third-party sites are not accepted as evidence."
   },
   {
    "id": "ur-experiences",
@@ -136,12 +147,13 @@
    "centsPerPoint": null,
    "dependsOn": "select-cards",
    "sourceIds": [
-    "chase-ur-landing"
+    "chase-ur-landing",
+    "chase-ur-program-agreement-sapphire-preferred"
    ],
-   "checkedAt": "2026-11-16",
+   "checkedAt": "2026-11-17",
    "textEn": "Use your card and points to attend exclusive events curated around your passions with select cards.",
    "textZh": "部分卡可用积分参加专属活动；页面未给出每点价值。",
-   "unknownReason": "The public page states no value per point."
+   "unknownReason": "Tried on 2026-11-17 by public WebFetch, no value per point stated: chase.com/personal/credit-cards/ultimate-rewards, chase.com/personal/credit-cards/education/basics/how-chase-ultimate-rewards-works, and the Sapphire Preferred and Freedom Flex Ultimate Rewards program agreements (asset.chase.com RPA0551 and RPA0534). The program agreement sets one cent per point only for cash, gift cards and travel. The agreement does not mention experiences. Search-result summaries and third-party sites are not accepted as evidence."
   },
   {
    "id": "mr-business-checking-deposit-business-platinum",
