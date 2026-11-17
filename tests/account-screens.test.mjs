@@ -47,14 +47,11 @@ async function putServerCopy(srv,p){
  const r=await srv.fetchFn(GATEWAY+'/v2/account/wallet',{method:'PUT',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({baseRevision:0,formatVersion:1,document:{cards:[]}})});
  assert.equal(r.status,200);
 }
-// The gateway's wallet schema still names the sections of an older draft, so it refuses the real wallet document
-// (#449). The cross-device test below runs by itself once the schema accepts what readWalletDocument writes.
-const gatewayAcceptsWallet=validWalletDocument(await readWalletDocument({storage:memory(),readBenefitEvents:async()=>[],readCostEvents:async()=>[]}));
 const tails=doc=>doc.walletCards.cards.map(c=>c.name+':'+c.tail).sort();
 // Waits for the sync loop to report 'synced' (or gives up after 10 s and lets the assertion fail); a fixed number of ticks is flaky under CI load.
 const settle=async s=>{const end=Date.now()+10000;while(!s.statuses.includes('synced')&&Date.now()<end)await new Promise(r=>setTimeout(r,5));};
 
-test('create account, sync on, a second fresh profile signs in with the same email and password and gets the same wallet',{skip:gatewayAcceptsWallet?false:'blocked by #449: the gateway wallet schema refuses the real wallet document'},async()=>{
+test('create account, sync on, a second fresh profile signs in with the same email and password and gets the same wallet',async()=>{
  const srv=await setup();
  const A=profile(srv),B=profile(srv);
  A.addCard('Synthetic One','1111','card-1');A.addCard('Synthetic Two','2222','card-2');
