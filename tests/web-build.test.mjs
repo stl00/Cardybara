@@ -112,7 +112,7 @@ function folder(edit = () => {}) {
     'brand/app-icons/icon-512.png': 'png',
     'brand/app-icons/icon-maskable-512.png': 'png',
     'assets/a.js': 'console.log("see https://www.example-bank.com/cards")',
-    'sw.js': serviceWorkerSource(['/', '/index.html', '/assets/a.js'], 'x'),
+    'sw.js': serviceWorkerSource(['/', '/assets/a.js'], 'x'),
     'push-worker.js': 'self.addEventListener("push",function(){});',
     '_headers': webHeaders('https://gateway.example'),
   };
@@ -139,8 +139,9 @@ test('the audit fails on a missing manifest, service worker, icon or headers', (
   assert.match(problems(f => { f['index.html'] = f['index.html'].replace(/<link rel="apple-touch-icon"[^>]*>/, ''); }).join(), /apple-touch-icon/);
   assert.match(problems(f => { const m = JSON.parse(f['manifest.webmanifest']); m.icons = m.icons.filter(i => i.sizes !== '192x192'); f['manifest.webmanifest'] = JSON.stringify(m); }).join(), /192x192 PNG/);
   assert.match(problems(f => { const m = JSON.parse(f['manifest.webmanifest']); m.icons = m.icons.filter(i => i.purpose !== 'maskable'); f['manifest.webmanifest'] = JSON.stringify(m); }).join(), /maskable/);
-  assert.match(problems(f => { f['sw.js'] = serviceWorkerSource(['/', '/index.html', '/assets/gone.js'], 'x'); }).join(), /gone\.js/);
-  assert.match(problems(f => { f['sw.js'] = serviceWorkerSource(['/'], 'x'); }).join(), /index\.html/);
+  assert.match(problems(f => { f['sw.js'] = serviceWorkerSource(['/', '/assets/gone.js'], 'x'); }).join(), /gone\.js/);
+  assert.match(problems(f => { f['sw.js'] = serviceWorkerSource(['/assets/a.js'], 'x'); }).join(), /does not cache \//);
+  assert.match(problems(f => { f['sw.js'] = serviceWorkerSource(['/', '/index.html', '/assets/a.js'], 'x'); }).join(), /caches \/index\.html, which Pages redirects/);
 });
 
 test('the audit fails when the service worker imports a script that is not shipped', () => {
