@@ -20,12 +20,16 @@
 import {writeMetrics} from './metrics.js';
 import {readSwitches} from './switches.js';
 import {parsePut,parseDelete,storePush,forgetPush,pushConfigured,EXPIRY_SECONDS} from './push.js';
+import * as accounts from './accounts.js';
 let agent=null;
 const agentRoute=ctx=>(agent||=import('./agent.js')).then(m=>m.agentRoute(ctx),()=>{throw new Refusal('agent_unavailable');});
 
 // `/v1/invite` stays for extension builds from before 2026-11-16, which check a saved invite code there: it always
 // answers active. Those builds also send `Authorization: Bearer <code>` on every route; the header is ignored.
-export const ROUTES={chat:'/v1/chat/completions',agent:'/v1/chat',invite:'/v1/invite',push:'/v1/push',pushKey:'/v1/push/key'};
+export const ROUTES={chat:'/v1/chat/completions',agent:'/v1/chat',invite:'/v1/invite',push:'/v1/push',pushKey:'/v1/push/key',
+ // Accounts and the wallet copy (#412, accounts.js). New shapes live under /v2; the /v1 routes are unchanged.
+ account:'/v2/account',signUp:'/v2/account/signup',verify:'/v2/account/verify',session:'/v2/account/session',
+ password:'/v2/account/password',forgot:'/v2/account/password/forgot',reset:'/v2/account/password/reset',wallet:'/v2/account/wallet'};
 const FIELDS=['model','messages','tools','tool_choice','max_tokens','temperature','response_format'];
 const ROLES=new Set(['system','user','assistant','tool']);
 const MESSAGE_FIELDS=['role','content','name','tool_calls','tool_call_id'];
@@ -37,6 +41,9 @@ export const ERRORS={
  push_daily_limit:429,push_capacity:503,
  provider_rejected:502,provider_error:502,provider_unreachable:502,gateway_not_configured:503,gateway_busy:503,provider_timeout:504,
  turn_invalid:400,turn_expired:409,agent_unavailable:503,push_unavailable:503,
+ // Accounts (#412). Unknown email and wrong password are both invalid_credentials.
+ weak_password:400,code_invalid:400,code_expired:400,invalid_credentials:401,unauthorized:401,email_unverified:403,
+ stale_revision:409,account_locked:429,too_many_codes:429,mail_failed:502,account_unavailable:503,
 };
 
 const number=(value,fallback,{min=0,integer=false}={})=>{const n=Number(value??fallback);return Number.isFinite(n)&&n>=min&&(!integer||Number.isInteger(n))?n:null;};
@@ -196,10 +203,10 @@ export async function clientId(request,env,day){
  const key=await crypto.subtle.importKey('raw',encoder.encode('cardybara-client-v1:'+secret),{name:'HMAC',hash:'SHA-256'},false,['sign']);
  return 'c'+hex(new Uint8Array(await crypto.subtle.sign('HMAC',key,encoder.encode(day+'|'+clientKey(request))))).slice(0,32);
 }
-/** A JSON request body within the size cap. */
-export async function readJson(ctx){
+/** A JSON request body within the size cap (MAX_BODY_BYTES unless a route gives its own). */
+export async function readJson(ctx,limit=ctx.config.maxBodyBytes){
  if(!/^application\/json(\s*;|$)/i.test(ctx.request.headers.get('Content-Type')||''))throw new Refusal('unsupported_media_type');
- let text;try{text=await readLimited(ctx.request,ctx.config.maxBodyBytes);}catch(e){throw new Refusal(e.message==='too_large'?'too_large':'bad_request');}
+ let text;try{text=await readLimited(ctx.request,limit);}catch(e){throw new Refusal(e.message==='too_large'?'too_large':'bad_request');}
  try{return JSON.parse(text);}catch{throw new Refusal('bad_request');}
 }
 /**
@@ -368,7 +375,32 @@ function streamCompletion(ctx,response,settle,limit){
  return new Response(relay.readable,{status:200,headers:{'Content-Type':'text/event-stream; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...ctx.cors}});
 }
 
-// The router. A route names its path, method and handler. No route needs a credential.
+// Account routes (accounts.js, docs/GATEWAY.md "Accounts"). The handler gets the JSON body (if the route takes one) and
+// the bearer session token; the user is always the session's, never an id from the client. The log line keeps the
+// route, status and error code only: no email, password, code, token or wallet content.
+const WALLET_ENVELOPE_BYTES=4096;
+function accountRoute(op,{body=true}={}){
+ return async ctx=>{
+  if(!accounts.accountsConfigured(ctx.env))throw new Refusal('account_unavailable');
+  const limit=op===accounts.putWallet?accounts.walletMaxBytes(ctx.env)+WALLET_ENVELOPE_BYTES:ctx.config.maxBodyBytes;
+  const json=body?await readJson(ctx,limit):null;
+  try{
+   const r=await op({env:ctx.env,body:json,token:accounts.bearer(ctx.request),now:ctx.now()});
+   return respond(r.status,r.body,ctx.cors);
+  }catch(e){
+   if(e instanceof accounts.AccountError){
+    // Only these two say more than a code: when to try again, and the revision to pull before a retry.
+    const extra=Number.isInteger(e.extra?.retryAfter)?{retryAfter:e.extra.retryAfter}:Number.isInteger(e.extra?.revision)?{revision:e.extra.revision}:{};
+    ctx.record.error=e.message;
+    return respond(ERRORS[e.message]||400,{error:{code:e.message,...extra}},{...ctx.cors,...(extra.retryAfter?{'Retry-After':String(extra.retryAfter)}:{})});
+   }
+   throw e;
+  }
+ };
+}
+
+// The router. A route names its path, method and handler. No /v1 route needs a credential; /v2/account routes other
+// than sign-up, verify, sign-in and the password-reset pair need a bearer session.
 export const ROUTE_TABLE=[
  {path:ROUTES.invite,name:'invite',method:'POST',handler:inviteRoute},
  {path:ROUTES.agent,name:'agent',method:'POST',handler:agentRoute},
@@ -376,6 +408,16 @@ export const ROUTE_TABLE=[
  {path:ROUTES.push,name:'push',method:'PUT',handler:pushPutRoute},
  {path:ROUTES.push,name:'push',method:'DELETE',handler:pushDeleteRoute},
  {path:ROUTES.pushKey,name:'push_key',method:'GET',handler:pushKeyRoute},
+ {path:ROUTES.signUp,name:'account_signup',method:'POST',handler:accountRoute(accounts.signUp)},
+ {path:ROUTES.verify,name:'account_verify',method:'POST',handler:accountRoute(accounts.verify)},
+ {path:ROUTES.session,name:'account_session',method:'POST',handler:accountRoute(accounts.signIn)},
+ {path:ROUTES.session,name:'account_session',method:'DELETE',handler:accountRoute(accounts.signOut,{body:false})},
+ {path:ROUTES.forgot,name:'account_forgot',method:'POST',handler:accountRoute(accounts.forgotPassword)},
+ {path:ROUTES.reset,name:'account_reset',method:'POST',handler:accountRoute(accounts.resetPassword)},
+ {path:ROUTES.password,name:'account_password',method:'POST',handler:accountRoute(accounts.changePassword)},
+ {path:ROUTES.wallet,name:'account_wallet',method:'GET',handler:accountRoute(accounts.getWallet,{body:false})},
+ {path:ROUTES.wallet,name:'account_wallet',method:'PUT',handler:accountRoute(accounts.putWallet)},
+ {path:ROUTES.account,name:'account',method:'DELETE',handler:accountRoute(accounts.deleteAccount)},
 ];
 
 /**
