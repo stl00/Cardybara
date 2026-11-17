@@ -358,6 +358,13 @@ export const liveCases=[
  {id:'coverage-no-record',heldProductIds:['amex-us-us-blue-cash-everyday'],question:'我的 Blue Cash Everyday 航班延误有保障吗？简短回答。',expectTool:'find_protections',stripDenials:true,answerPatterns:['没有[^。\\n]{0,12}记录|记录里没有|記錄裡沒有|未找到|没有找到|找不到|not found|no record','保障指南|发卡行|發卡行|guide to benefits'],forbidAnswerPatterns:['没有[^。\\n]{0,6}保障|不[^。\\n]{0,2}保障|不在[^。\\n]{0,4}保障|未[^。\\n]{0,2}覆盖|不承保|not covered|no coverage']},
  // #464: an issuer-redemption question: the dollar value is the one the tool computed from the stated points; a transfer is not priced.
  {id:'redemption-cash-vs-transfer',question:'我有 50000 点 Ultimate Rewards，换现金返还和转点哪个划算？简短回答。',expectTool:'points_accounts',expectedArgs:{programme:'Ultimate Rewards'},answerPatterns:['500']},
+ // #481: the points tools no other live case chooses between. A held card of one programme adds up with the others
+ // (points_accounts); a stated number of points converts to a partner with a published rate, the leftover never rounded up
+ // (convert_points, Amex Gold to Aer Lingus: 1,000-point steps, read on a day when that rule is in force); and a card with no
+ // transfer record of its own reaches Hyatt only by combining into the Sapphire Preferred that has one. `day` sets the wallet's date.
+ {id:'points-add-up',heldProductIds:['chase-us-sapphire-reserve','chase-us-freedom-unlimited'],question:'我有 Sapphire Reserve 和 Freedom Unlimited 两张卡，各自的 Ultimate Rewards 积分能加在一起用吗？简短回答。',expectTool:'points_accounts',expectedArgs:{programme:'Ultimate Rewards'},answerPatterns:['合并|合併|combine','Reserve']},
+ {id:'convert-stated-points',day:'2026-11-16',heldProductIds:['amex-us-us-american-express-gold-card'],question:'我有 12345 点 Membership Rewards，转到 Aer Lingus AerClub 能换多少？用不完的点数要说清楚，简短回答。',expectTool:'convert_points',expectedArgs:{points:12345},answerPatterns:['12,?000','(?<!\\d)345(?!\\d)'],forbidAnswerPatterns:['13,?000']},
+ {id:'convert-through-pooled-card',day:'2026-11-16',heldProductIds:['chase-us-chase-sapphire-preferred-credit-card','chase-us-freedom-unlimited'],question:'我的 Freedom Unlimited 自己没有转点记录，里面的积分能转到 Hyatt 吗？简短回答。',expectTools:['convert_points','points_accounts'],answerPatterns:['Sapphire Preferred','合并|合併|combine']},
  {id:'credits-by-card',question:'我的 Sapphire Reserve 本期有哪些 credit？没标记的不要当成没用。',expectTool:'query_credits'},
  {id:'follow-up',question:'那换成加拿大，100加元的餐厅呢？简短回答。',memory:{lastPurchase:{category:'dining',country:'US',currency:'USD',amount:100}},expectTool:'choose_card',expectedArgs:{category:'dining',country:'CA',currency:'CAD',amount:100}}
 ];
