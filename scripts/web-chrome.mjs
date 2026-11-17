@@ -84,7 +84,7 @@ export async function run({shot, dir = WEB_DIR} = {}) {
   try {
     server = await serve(dir);
     const origin = `http://127.0.0.1:${server.address().port}`;
-    child = spawn(await findChrome(), ['--user-data-dir=' + join(work, 'profile'), '--remote-debugging-pipe', '--headless=new', '--no-first-run', '--no-default-browser-check', '--hide-scrollbars', '--force-color-profile=srgb', ...(process.platform === 'linux' ? ['--no-sandbox'] : []), 'about:blank'], {stdio: ['ignore', 'ignore', 'ignore', 'pipe', 'pipe']});
+    child = spawn(await findChrome(), ['--user-data-dir=' + join(work, 'profile'), '--remote-debugging-pipe', '--headless=new', '--no-first-run', '--no-default-browser-check', '--hide-scrollbars', '--force-color-profile=srgb', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', 'about:blank'], {stdio: ['ignore', 'ignore', 'ignore', 'pipe', 'pipe']});
     const send = cdpPipe(child);
     const {targetId} = await send('Target.createTarget', {url: 'about:blank'});
     const {sessionId} = await send('Target.attachToTarget', {targetId, flatten: true});
