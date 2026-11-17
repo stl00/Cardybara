@@ -47,7 +47,7 @@ export class Engine{
  finish(ctx,raw,enrichment=null){return this.mutate(ctx,(j,s)=>{
   if(j.status!=='capturing'||j.navigation!==ctx.navigation||j.tabId!==ctx.tabId)return;
   if(this.io.now()>j.deadline){j.status='timeout';j.finishedAt=this.io.now();return;}
-  const result=validateRead(raw,j,this.io.now());j.status=result.status;if(enrichment){j.sections=enrichment.sections;j.phase='complete';j.pages=enrichment.pages||0;j.rejected=enrichment.rejected||0;j.rejectReasons=enrichment.rejectReasons||{};if(enrichment.error)j.readError=enrichment.error;else delete j.readError;delete j.enriching;if(enrichment.items?.length||result.patches.length)j.status=Object.values(j.sections).every(s=>['updated','checked_empty','not_collected'].includes(s.status))?'updated':'partial';}j.finishedAt=this.io.now();j.received=new Set([...result.patches.map(p=>p.id),...(enrichment?.items||[]).filter(i=>i.kind==='card').map(i=>i.cardId)]).size;
+  const result=validateRead(raw,j,this.io.now());j.status=result.status;if(enrichment){j.sections=enrichment.sections;j.phase='complete';j.pages=enrichment.pages||0;j.rejected=enrichment.rejected||0;j.rejectReasons=enrichment.rejectReasons||{};if(enrichment.error)j.readError=enrichment.error;else delete j.readError;const failed=(Array.isArray(enrichment.cardErrors)?enrichment.cardErrors:[]).map(e=>({cardIds:[...new Set((Array.isArray(e?.cardIds)?e.cardIds:[]).filter(id=>j.cards.some(c=>c.id===id)))],error:String(e?.error||'')})).filter(e=>e.cardIds.length&&/^[a-z_]{1,40}$/.test(e.error));if(failed.length)j.cardErrors=failed;else delete j.cardErrors;delete j.enriching;if(enrichment.items?.length||result.patches.length)j.status=Object.values(j.sections).every(s=>['updated','checked_empty','not_collected'].includes(s.status))?'updated':'partial';}j.finishedAt=this.io.now();j.received=new Set([...result.patches.map(p=>p.id),...(enrichment?.items||[]).filter(i=>i.kind==='card').map(i=>i.cardId)]).size;
   savePatches(s,j,result.patches);
  });}
  fail(ctx,status,diagnostic){if(!['interrupted','timeout','navigation_changed','tab_closed','load_error'].includes(status))throw Error('invalid_status');return this.mutate(ctx,j=>{j.status=status;j.finishedAt=this.io.now();j.phase='complete';delete j.enriching;if(diagnostic&&['stage','code'].every(k=>typeof diagnostic[k]==='string'&&/^[a-z_]{1,40}$/.test(diagnostic[k])))j.diagnostic=diagnostic;for(const section of Object.values(j.sections||{}))if(section.status==='reading')section.status=status;});}
@@ -60,7 +60,7 @@ export class Engine{
   if(r.jobs.some(x=>pending(x)))throw Error('busy');
   if(this.io.now()>(j.guideExpiresAt||r.startedAt+900000))throw Error('guide_expired');
   j.guideExpiresAt=j.guideExpiresAt||r.startedAt+900000;j.attemptId=this.io.uuid();j.navigation++;j.status='navigating';j.loadStarted=true;
-  j.startedAt=this.io.now();j.deadline=j.startedAt+60000;for(const key of ['finishedAt','received','enriching','enrichmentStartedAt','phase','sections','pages','rejected','rejectReasons','diagnostic'])delete j[key];r.status='running';
+  j.startedAt=this.io.now();j.deadline=j.startedAt+60000;for(const key of ['finishedAt','received','enriching','enrichmentStartedAt','phase','sections','pages','rejected','rejectReasons','diagnostic','cardErrors'])delete j[key];r.status='running';
   return this.save(s);
  });}
  // Stops the run, including a job that waits at needs-login: it ends cancelled as a stop on its guide would. Only a

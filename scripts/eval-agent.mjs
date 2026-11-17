@@ -2,18 +2,20 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {performance} from 'node:perf_hooks';
-import {context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,planGroundingCases,decisionCases,actionClaimCases,actionClaimControls,tripCases} from '../evals/fixtures.mjs';
+import {context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,cycleCases,ledgerCases,planGroundingCases,decisionCases,actionClaimCases,actionClaimControls,tripCases} from '../evals/fixtures.mjs';
 import {searchBenefitKnowledge} from '../src/benefitSearch.js';
 import {queryKnowledge} from '../src/knowledge.js';
 import {matchCardProduct} from '../src/productCatalog.js';
 import {chooseCard} from '../src/cardDecision.js';
 import {prepareAgentContext} from '../src/agentContext.js';
+import {renderCreditAnswer,renderCreditAnswers} from '../src/creditAnswer.js';
 import {answerGrounding} from '../src/answerGrounding.js';
 // CARDYBARA_AGENT=cloud runs every case through the hosted agent (tests/helpers/agent-target.mjs).
 import {AGENT_TARGET} from '../tests/helpers/agent-target.mjs';
 import {runWalletTool} from '../src/walletAgent.js';
 import {chatAgent} from './chat-agent.mjs';
 import {runLiveCase} from '../evals/live-case.mjs';
+import {coverageCases,runCoverageCase,FAULTS} from '../evals/coverage-case.mjs';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url))),live=process.argv.includes('--live');
 const outputArg=process.argv.find(a=>a.startsWith('--out=')),output=resolve(outputArg?.slice(6)||resolve(root,'evals/latest-'+(live?'live':'offline')+(AGENT_TARGET==='cloud'?'-cloud':'')+'.json'));
 const report={schema:1,dataset:'wallet-agent-development-v1',asOf:context.day,mode:(live?'live-deepseek-sdk':'offline')+(AGENT_TARGET==='cloud'?'-cloud-agent':''),syntheticWallet:true,createdAt:new Date().toISOString(),cases:[],limitations:['Development set, not a held-out benchmark.','Automated checks do not prove all statements true.','Live model runs are stochastic and use only synthetic products.']};
@@ -30,7 +32,8 @@ if(!live){
  }
  report.retrieval={cases:n,hitAt12:hits/n,meanReciprocalRank:rr/n,sharedQueries:{count:shared,beforeHitAt12:baseline/shared,afterHitAt12:sharedHits/shared},note:'Development-set expected-record hit@12, not exhaustive recall or held-out generalization.'};
  for(const c of decisionCases){
-  const r=chooseCard(c.args,{...referenceContext,events:c.events||[]});
+  // A case about the comparison mechanics pins marketDefaults:false, so it does not depend on the default valuation table.
+  const r=chooseCard(c.args,{...referenceContext,events:c.events||[],...(c.marketDefaults===false?{marketDefaults:false}:{})});
   check(c.id,{expected:c.check(r)},{choice:r.choice?.kind,certainty:r.choice?.certainty||null});
  }
  for(const c of publicRuleCases){
@@ -42,12 +45,31 @@ if(!live){
   const result=runWalletTool({id:c.id,function:{name:'query_credits',arguments:JSON.stringify({use:c.use||'hotel',...(c.when?{when:c.when}:{})})}},{...referenceContext,events:c.events||[]});
   check(c.id,{expected:c.check(result)});
  }
+ for(const c of cycleCases){
+  const cards=referenceContext.cards.map(card=>c.feeDates?.[card.productId]?{...card,feeDate:c.feeDates[card.productId]}:card);
+  const result=runWalletTool({id:c.id,function:{name:'query_credits',arguments:JSON.stringify(c.args)}},{...referenceContext,cards,events:c.events||[]});
+  check(c.id,{expected:c.check(result),answerInLanguage:c.answer.test(renderCreditAnswer(result,c.question))});
+ }
+ for(const c of ledgerCases){
+  const cards=referenceContext.cards.map(card=>c.feeDates?.[card.productId]?{...card,feeDate:c.feeDates[card.productId]}:card);
+  const result=runWalletTool({id:c.id,function:{name:'query_credits',arguments:JSON.stringify(c.args)}},{...referenceContext,cards,events:c.events||[]});
+  check(c.id,{expected:c.check(result),answerInLanguage:c.answer.test(renderCreditAnswers([result],c.question)),totalsAddUp:result.cards.every(x=>!x.returned||Math.round((x.returned.used+x.returned.unused+x.returned.skipped+x.returned.notCaptured+x.returned.open)*100)===Math.round(x.returned.available*100))});
+ }
  for(const c of tripCases){
   const run=(name,args)=>runWalletTool({id:c.id,function:{name,arguments:JSON.stringify(args)}},referenceContext);
   const flight=run('plan_flight',{airline:c.airline,when:c.when}),hotel=run('query_credits',{use:'hotel',when:c.when}),cover=run('find_protections',{});
   const same=flight.dates.start===hotel.window.start&&flight.dates.end===hotel.window.end;
   check(c.id,{sameWindow:same,expectedWindow:hotel.window.start===c.expectedWindow.start&&hotel.window.end===c.expectedWindow.end,awardNotChecked:flight.award.status==='not-checked',hotelCredits:hotel.totalItems>0,coverFound:cover.cards.some(x=>x.status==='found'),noRecordIsNotFound:cover.cards.every(x=>['found','not_found'].includes(x.status))});
  }
+ // #345: coverage questions end to end through the real agent loop with a scripted model. `--fault=<name>` breaks one rule on
+ // purpose (not-covered, invented-limit, valuation, no-tool) to show the matching case fail; without it the controls below must all be caught.
+ const fault=process.argv.find(a=>a.startsWith('--fault='))?.slice(8)||null;
+ if(fault&&!FAULTS.includes(fault))throw Error('unknown_fault');
+ for(const c of coverageCases){const r=await runCoverageCase(c,{fault});check(c.id,r.checks,r.detail);}
+ if(!fault)for(const f of FAULTS){const results=[];for(const c of coverageCases)results.push(await runCoverageCase(c,{fault:f}));
+  // A fault only applies where it has something to break: "not-covered" needs a card with no record.
+  const applicable=f==='not-covered'?results.filter((r,i)=>coverageCases[i].noRecord):results;
+  check('coverage-control-'+f,{caught:applicable.length>0&&applicable.every(r=>Object.values(r.checks).some(v=>!v))});}
  const planEvidence=[runWalletTool({id:'grounding',function:{name:'query_credits',arguments:JSON.stringify({use:'hotel',when:'12月'})}},referenceContext)];
  for(const [id,answer,code] of planGroundingCases)check(id,{caught:answerGrounding(answer,planEvidence).issues.some(i=>i.code===code)});
  const old=Array.from({length:30},(_,i)=>[{role:'user',content:'question '+i},{role:'assistant',content:'reply '.repeat(1000)}]).flat();const prep=prepareAgentContext(old,{lastPurchase:{category:'dining',country:'US',currency:'USD',amount:100}});check('bounded-context',{bounded:prep.chars<=22000,keepsLatest:prep.messages.some(x=>x.content==='question 29'),memory:prep.memory.lastPurchase.amount===100});

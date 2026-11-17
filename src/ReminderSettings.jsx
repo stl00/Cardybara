@@ -26,6 +26,7 @@ function message(item){
  const p=phrases();
  if(item.type==='bill-summary')return [p.bill,p.billSummary.replace('{0}',item.count)];
  if(item.type==='credit-summary')return [p.credit,p.creditSummary.replace('{0}',item.count)];
+ if(item.type==='reuse')return [p.credit,t('{0}：{1} 可以再次使用',[item.name,ruleField(item.title,item,'title')])];
  const credit=item.type==='credit',text=reminderText({group:credit?'credits':'bills',label:credit?`${ruleField(item.title,item,'title')} · ${item.name}`:item.type==='fee'?`${t('年费日')} · ${item.name}`:item.name,days:item.days,stale:item.stale,amount:item.statement!=null&&item.currency?`${item.currency} ${Number(item.statement).toLocaleString()}`:null},p);
  return [text.title,text.message];
 }

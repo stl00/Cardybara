@@ -21,6 +21,13 @@ export function matchCardProduct(card,products=cardProducts){
  const explicit=scoped.find(p=>p.id===card.productId);if(explicit)return {status:'matched',product:explicit,candidates:[explicit.id]};
  const name=cleanPageName(card.name),key=normalizeProductName(name);if(!key)return {status:'unknown',candidates:[]};
  let loose=false,matches=scoped.filter(p=>[p.name,...p.aliases].some(a=>normalizeProductName(a)===key));
+ // A page that cuts a long name to a few characters and "..." (or U+2026) gives a prefix, not a name. It is compared with the
+ // start of each product's names of this bank and region. One product is a match; several are offered and never picked.
+ const cut=/(?:\.{3}|\u2026)\s*$/.test(name)||/(?:\.{3}|\u2026)\s*$/.test(String(card.name||'').replace(/[®™℠]/g,'').trim());
+ if(cut&&!matches.length){
+  const prefix=normalizeProductName(name.replace(/(?:\.{3}|\u2026)\s*$/,'')),found=prefix.length>=4?scoped.filter(p=>[p.name,...p.aliases].some(a=>normalizeProductName(a).startsWith(prefix))):[];
+  return {status:found.length===1?'matched':found.length?'ambiguous':'unknown',...(found.length===1?{product:found[0]}:{}),candidates:found.map(p=>p.id)};
+ }
  // Only when nothing matches exactly: the same product words once issuer and "card" are set aside. A tie stays unresolved,
  // and so does a bare English word that other products also contain: "Platinum" could be several Platinum cards.
  const core=productCore(name);

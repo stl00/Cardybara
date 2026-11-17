@@ -3320,6 +3320,395 @@
         "checkedAt": "2026-11-11"
       },
       "transferProgrammeId": "programme.bilt-rewards"
+    },
+    {
+      "id": "citi-us-citi-strata-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi Strata Card",
+      "aliases": [
+        "Citi Strata Card",
+        "Citi Strata",
+        "Citi Strata® Card",
+        "Citi Strata Credit Card",
+        "Citi Rewards+",
+        "Citi Rewards+® Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Citi ThankYou Points"
+      ],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-credit-card",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-strata-credit-card",
+        "checkedAt": "2026-11-16"
+      }
+    },
+    {
+      "id": "citi-us-citi-aadvantage-globe-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi / AAdvantage Globe Card",
+      "aliases": [
+        "Citi / AAdvantage Globe Card",
+        "Citi® / AAdvantage® Globe™ card",
+        "Citi AAdvantage Globe",
+        "Citi / AAdvantage Globe Mastercard",
+        "AAdvantage Globe"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "American Airlines AAdvantage"
+      ],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-aadvantage-globe-mastercard",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-aadvantage-globe-mastercard",
+        "checkedAt": "2026-11-16"
+      }
+    },
+    {
+      "id": "citi-us-aadvantage-mileup-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "AAdvantage MileUp Card",
+      "aliases": [
+        "AAdvantage MileUp Card",
+        "AAdvantage® MileUp® card",
+        "Citi / AAdvantage MileUp",
+        "Citi AAdvantage MileUp",
+        "AAdvantage MileUp",
+        "MileUp"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "American Airlines AAdvantage"
+      ],
+      "sourceUrl": "https://www.citi.com/credit-cards/aadvantage-mile-up-credit-card",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/aadvantage-mile-up-credit-card",
+        "checkedAt": "2026-11-16"
+      }
+    },
+    {
+      "id": "citi-us-citi-diamond-preferred-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi Diamond Preferred Card",
+      "aliases": [
+        "Citi Diamond Preferred Card",
+        "Citi® Diamond Preferred® Credit Card",
+        "Citi Diamond Preferred",
+        "Citi Diamond Preferred Credit Card",
+        "Diamond Preferred"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-diamond-preferred-credit-card",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-citi-simplicity-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi Simplicity Card",
+      "aliases": [
+        "Citi Simplicity Card",
+        "Citi Simplicity® Credit Card",
+        "Citi Simplicity",
+        "Citi Simplicity Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-simplicity-credit-card",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-costco-anywhere-visa-card-by-citi",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Costco Anywhere Visa Card by Citi",
+      "aliases": [
+        "Costco Anywhere Visa Card by Citi",
+        "Costco Anywhere Visa® Card by Citi",
+        "Costco Anywhere Visa",
+        "Costco Anywhere Visa Card",
+        "Costco Anywhere Visa by Citi"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/costco-anywhere-visa-card",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-citi-aadvantage-business-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi / AAdvantage Business Card",
+      "aliases": [
+        "Citi / AAdvantage Business Card",
+        "Citi® / AAdvantage Business™ card",
+        "Citi AAdvantage Business",
+        "Citi / AAdvantage Business World Elite Mastercard",
+        "AAdvantage Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "American Airlines AAdvantage"
+      ],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-aadvantage-business-credit-card",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-aadvantage-business-credit-card",
+        "checkedAt": "2026-11-16"
+      }
+    },
+    {
+      "id": "citi-us-costco-anywhere-visa-business-card-by-citi",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Costco Anywhere Visa Business Card by Citi",
+      "aliases": [
+        "Costco Anywhere Visa Business Card by Citi",
+        "Costco Anywhere Visa® Business Card by Citi",
+        "Costco Anywhere Visa Business",
+        "Costco Anywhere Visa Business Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/costco-anywhere-visa-business-card",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-at-t-points-plus-card-from-citi",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "AT&T Points Plus Card from Citi",
+      "aliases": [
+        "AT&T Points Plus Card from Citi",
+        "AT&T Points Plus® Card from Citi",
+        "AT&T Points Plus",
+        "AT&T Points Plus Card",
+        "Citi AT&T Points Plus"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Citi ThankYou Points"
+      ],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-att-pointsplus-credit-card",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "rewardSource": {
+        "url": "https://www.citi.com/credit-cards/citi-att-pointsplus-credit-card",
+        "checkedAt": "2026-11-16"
+      }
+    },
+    {
+      "id": "citi-us-citi-secured-mastercard",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Citi Secured Mastercard",
+      "aliases": [
+        "Citi Secured Mastercard",
+        "Citi® Secured Mastercard®",
+        "Citi Secured",
+        "Citi Secured Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-secured-credit-card",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-bank-of-america-travel-rewards-credit-card",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Bank of America Travel Rewards credit card",
+      "aliases": [
+        "Bank of America Travel Rewards credit card",
+        "Bank of America® Travel Rewards credit card",
+        "Bank of America Travel Rewards",
+        "Travel Rewards",
+        "BofA Travel Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/travel-rewards-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-bank-of-america-premium-rewards-credit-card",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Bank of America Premium Rewards credit card",
+      "aliases": [
+        "Bank of America Premium Rewards credit card",
+        "Bank of America® Premium Rewards® credit card",
+        "Bank of America Premium Rewards",
+        "Premium Rewards",
+        "BofA Premium Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/premium-rewards-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-bank-of-america-premium-rewards-elite-credit-card",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Bank of America Premium Rewards Elite credit card",
+      "aliases": [
+        "Bank of America Premium Rewards Elite credit card",
+        "Bank of America® Premium Rewards® Elite credit card",
+        "Bank of America Premium Rewards Elite",
+        "Premium Rewards Elite",
+        "BofA Premium Rewards Elite"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/premium-rewards-elite-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-bankamericard-credit-card",
+      "bank": "BOA",
+      "region": "US",
+      "name": "BankAmericard credit card",
+      "aliases": [
+        "BankAmericard credit card",
+        "BankAmericard® credit card",
+        "BankAmericard",
+        "BofA BankAmericard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/bankamericard-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-susan-g-komen-customized-cash-rewards-credit-card",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Susan G. Komen Customized Cash Rewards credit card",
+      "aliases": [
+        "Susan G. Komen Customized Cash Rewards credit card",
+        "Susan G. Komen® Customized Cash Rewards credit card",
+        "Susan G. Komen Customized Cash Rewards",
+        "Komen Customized Cash Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/susan-komen-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-air-france-klm-visa-signature-credit-card",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Air France KLM Visa Signature Credit Card",
+      "aliases": [
+        "Air France KLM Visa Signature Credit Card",
+        "Air France KLM Visa Signature® Credit Card",
+        "Air France KLM Visa Signature",
+        "Air France KLM"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/air-france-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-norwegian-cruise-line-world-mastercard",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Norwegian Cruise Line World Mastercard",
+      "aliases": [
+        "Norwegian Cruise Line World Mastercard",
+        "Norwegian Cruise Line® World Mastercard®",
+        "Norwegian Cruise Line World Mastercard",
+        "NCL World Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/norwegian-cruise-lines-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-business-advantage-unlimited-cash-rewards-mastercard",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Business Advantage Unlimited Cash Rewards Mastercard",
+      "aliases": [
+        "Business Advantage Unlimited Cash Rewards Mastercard",
+        "Business Advantage Unlimited Cash Rewards Mastercard® credit card",
+        "Business Advantage Unlimited Cash Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://business.bankofamerica.com/en/credit-cards/business-advantage-unlimited-cash-rewards",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-business-advantage-customized-cash-rewards-mastercard",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Business Advantage Customized Cash Rewards Mastercard",
+      "aliases": [
+        "Business Advantage Customized Cash Rewards Mastercard",
+        "Business Advantage Customized Cash Rewards Mastercard® credit card",
+        "Business Advantage Customized Cash Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://business.bankofamerica.com/en/credit-cards/business-advantage-customized-cash-rewards",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-business-advantage-travel-rewards-world-mastercard",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Business Advantage Travel Rewards World Mastercard",
+      "aliases": [
+        "Business Advantage Travel Rewards World Mastercard",
+        "Business Advantage Travel Rewards World Mastercard® credit card",
+        "Business Advantage Travel Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://business.bankofamerica.com/en/credit-cards/business-advantage-travel-rewards",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
     }
   ]
 }

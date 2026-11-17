@@ -19,6 +19,28 @@ concurrency:
   group: live-evals
   cancel-in-progress: false
 jobs:
+  # A missed weekly multi-turn run leaves no failure behind, so the daily run checks that one happened (#353).
+  multiturn-fresh:
+    name: Weekly multi-turn run check
+    if: vars.LIVE_EVALS_ENABLED == 'true' && github.event_name == 'schedule' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+      - name: Report a live multi-turn eval older than 8 days
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: node scripts/check-live-multiturn-fresh.mjs --max-days=8
   live-eval:
     name: Live eval
     if: vars.LIVE_EVALS_ENABLED == 'true' && github.ref == 'refs/heads/main'
@@ -53,7 +75,7 @@ jobs:
           ACCEPT: ${{ inputs.accept_as_baseline }}
         run: |
           set +e
-          node scripts/live-eval.mjs --out=live-eval --baseline=baseline/report.json $([ "$ACCEPT" = "true" ] && echo --accept)
+          node scripts/live-eval.mjs --out=live-eval --transcripts=live-eval-transcripts --baseline=baseline/report.json $([ "$ACCEPT" = "true" ] && echo --accept)
           echo "code=$?" >> "$GITHUB_OUTPUT"
           [ -f live-eval/summary.md ] && cat live-eval/summary.md >> "$GITHUB_STEP_SUMMARY"
           exit 0
@@ -65,6 +87,16 @@ jobs:
           path: live-eval/
           if-no-files-found: error
           retention-days: 30
+      - name: Upload the transcripts of failing tries
+        # Answer text and tool calls of failing tries on the synthetic wallet, scrubbed and capped. A separate, short-lived
+        # artifact: the report and the baseline stay text-free.
+        if: steps.eval.outputs.code == '0' || steps.eval.outputs.code == '1'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: live-eval-transcripts
+          path: live-eval-transcripts/
+          if-no-files-found: error
+          retention-days: 14
       - name: Keep a good run as the next baseline
         if: steps.eval.outputs.code == '0'
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

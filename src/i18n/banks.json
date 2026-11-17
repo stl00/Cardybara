@@ -1,5 +1,10 @@
 {
   "en-US": {
+    "银行页面没有显示这张卡的入口": "The bank page did not show an entry for this card",
+    "这张卡的详情页加载超时": "This card's detail page timed out",
+    "打开这张卡时银行页面已切换": "The bank page changed while opening this card",
+    "以下卡片本轮没有读取成功": "These cards could not be read in this run",
+    "这些卡片保留上次读取的记录和日期。": "These cards keep their previously read records and dates.",
     "尚未采集账户详情。": "Account details have not been collected.",
     "回到钱包查看": "Return to your wallet",
     "取消本轮采集": "Cancel this collection",
@@ -98,6 +103,11 @@
     "AI 识别卡种": "AI card recognition"
   },
   "zh-TW": {
+    "银行页面没有显示这张卡的入口": "銀行頁面沒有顯示這張卡的入口",
+    "这张卡的详情页加载超时": "這張卡的詳情頁載入逾時",
+    "打开这张卡时银行页面已切换": "開啟這張卡時銀行頁面已切換",
+    "以下卡片本轮没有读取成功": "以下卡片本輪沒有讀取成功",
+    "这些卡片保留上次读取的记录和日期。": "這些卡片保留上次讀取的記錄和日期。",
     "尚未采集账户详情。": "尚未採集帳戶詳情。",
     "回到钱包查看": "回到錢包查看",
     "取消本轮采集": "取消本輪採集",

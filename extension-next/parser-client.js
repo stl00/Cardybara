@@ -53,11 +53,22 @@ export async function enrichBank(ctx,io){
  const notCollected={},noteOther=(cardId,programme)=>{if(cardId)(notCollected[cardId]??=new Set()).add(programme);};
  // In MVP scope only required programmes are collected; others are reported, not dropped.
  const inScope=(i,cardIdOf)=>{if(!MVP_KINDS.has(i.kind))return false;if(i.kind==='reward'&&!requiredReward(ctx.bank,i.key)){noteOther(cardIdOf(i.cardId),i.key);return false;}return true;};
- const summary=reason=>mvp?mvpSummary(items,ctx.cards,ctx.initialPatches||[],notCollected):sectionSummary(items,reason,empty,ctx.cards,coverage);
+ const rawSummary=reason=>mvp?mvpSummary(items,ctx.cards,ctx.initialPatches||[],notCollected):sectionSummary(items,reason,empty,ctx.cards,coverage);
+ const summary=reason=>{const out=rawSummary(reason);if(cardErrors.length)for(const v of Object.values(out))if(v.status==='updated'){v.status='partial';v.failedCards=cardErrors.reduce((n,e)=>n+e.cardIds.length,0);}return out;};
  const check=async()=>{if(!await io.current())throw Error('cancelled');};
  const navigator=ctx.bank==='Citi US'?citiCards:ctx.bank==='BOA'?boaCards:ctx.bank==='HSBC HK'?hsbcCards:ctx.bank==='Chase'?chaseCards:amexCards,canSwitch=ctx.bank==='Citi US'||ctx.bank==='BOA'||ctx.bank==='Chase'||ctx.bank==='HSBC HK'||ctx.bank.startsWith('Amex ');
- const advanceCard=async tabUrl=>{if(!switchTails.length||!overviewUrl)return false;await check();// Amex switches cards in place from a card page, with no page load.
-if(tabUrl!==overviewUrl&&!(ctx.bank.startsWith('Amex ')&&/^\/dashboard\/?$/.test(new URL(tabUrl).pathname)))await io.navigate(overviewUrl);const tail=switchTails.shift();const selected=await chrome.scripting.executeScript({target:{tabId:ctx.tabId},func:navigator,args:['select',tail,ctx.cards]});let selection=selected[0]?.result;if(typeof selection?.arriving==='string'&&guidedPage(ctx.bank,selection.arriving)){await io.arrive(selection.arriving);selection=[tail];}else if(typeof selection?.href==='string'&&guidedPage(ctx.bank,selection.href)){await io.navigate(selection.href);selection=[tail];}if(!Array.isArray(selection)||!selection.includes(tail)){error=ctx.bank==='Chase'&&['chase_account_button_timeout','chase_detail_timeout','chase_navigation_changed'].includes(selection?.error)?selection.error:'card_not_identified';return false;}currentIds=ctx.cards.filter(c=>c.tail===tail).map(c=>c.id);queue.clear();seen.clear();perCardPages=0;savedOffersRead=false;moreDetailsRead=false;chaseOffersRead=false;chaseBenefitsRead=false;return true;};
+ const cardErrors=[];
+ // One card that cannot be opened is recorded and skipped; the remaining tails are still read (#299).
+ const advanceCard=async tabUrl=>{if(!switchTails.length||!overviewUrl)return false;await check();
+  while(switchTails.length){
+   // Amex switches cards in place from a card page, with no page load.
+   if(tabUrl!==overviewUrl&&!(ctx.bank.startsWith('Amex ')&&/^\/dashboard\/?$/.test(new URL(tabUrl).pathname)))await io.navigate(overviewUrl);
+   const tail=switchTails.shift();const selected=await chrome.scripting.executeScript({target:{tabId:ctx.tabId},func:navigator,args:['select',tail,ctx.cards]});let selection=selected[0]?.result;
+   if(typeof selection?.arriving==='string'&&guidedPage(ctx.bank,selection.arriving)){await io.arrive(selection.arriving);selection=[tail];}else if(typeof selection?.href==='string'&&guidedPage(ctx.bank,selection.href)){await io.navigate(selection.href);selection=[tail];}
+   if(!Array.isArray(selection)||!selection.includes(tail)){const code=ctx.bank==='Chase'&&['chase_account_button_timeout','chase_detail_timeout','chase_navigation_changed'].includes(selection?.error)?selection.error:'card_not_identified';cardErrors.push({cardIds:ctx.cards.filter(c=>c.tail===tail).map(c=>c.id),error:code});tabUrl=(await chrome.tabs.get(ctx.tabId)).url;continue;}
+   currentIds=ctx.cards.filter(c=>c.tail===tail).map(c=>c.id);queue.clear();seen.clear();perCardPages=0;savedOffersRead=false;moreDetailsRead=false;chaseOffersRead=false;chaseBenefitsRead=false;return true;
+  }
+  return false;};
  if(canSwitch)await chrome.scripting.executeScript({target:{tabId:ctx.tabId},func:navigator,args:['close',null,ctx.cards]}).catch(()=>{});
  if(ctx.bank==='HSBC HK'){const first=ctx.cards.find(c=>c.bank==='HSBC HK');if(first)await chrome.scripting.executeScript({target:{tabId:ctx.tabId},func:hsbcCards,args:['select',first.tail,ctx.cards]}).catch(()=>{});}
  try{
@@ -109,6 +120,7 @@ switchTails=(found[0]?.result||[]).filter(t=>ctx.cards.some(c=>c.tail===t&&(['BO
    await check();queue.delete(next.href);stage='navigate';try{await io.navigate(next.href);}catch(e){if(e.message!=='navigation_timeout')throw e;error='navigation_timeout';const current=await chrome.tabs.get(ctx.tabId);if(!guidedPage(ctx.bank,current.url))throw Error('navigation_changed');if(await advanceCard(current.url))continue;break;}await check();
   }
  }catch(e){error=['cancelled','navigation_changed','document_changed','navigation_timeout','parser_busy','model_request_failed'].includes(e.message)?e.message:(e.name==='TimeoutError'?'parser_timeout':stage==='capture'?'page_read_failed':'parser_unavailable');}
+ if(!error&&cardErrors.length)error=cardErrors[0].error;
  if(startingUrl&&pages&&await io.current()){try{const current=await chrome.tabs.get(ctx.tabId);if(current.url!==startingUrl&&guidedPage(ctx.bank,current.url))await io.navigate(startingUrl);}catch{}}
- return {scope:mvp?'mvp':'full',items,sections:summary(error||(!allowModel?modelReason:'not_found')),pages,rejected,rejectReasons,error};
+ return {scope:mvp?'mvp':'full',items,sections:summary(error||(!allowModel?modelReason:'not_found')),pages,rejected,rejectReasons,error,cardErrors};
 }

@@ -25,6 +25,7 @@ export function answerLanguage(question){
  if(!/[㐀-鿿]/.test(question))return 'en';
  return /[還沒飯聖誕麼額週裡這個訂帳餘標確認請幫們東國開買費點會樣嗎啟應當從對於時間過]/.test(question)?'zh-TW':'zh-CN';
 }
+const NEXT_ELIGIBLE={'zh-CN':'下次可用','zh-TW':'下次可用',en:'next eligible'},RESETS={'zh-CN':'下个周期开始','zh-TW':'下個週期開始',en:'resets'},SET_FEE_DATE={'zh-CN':'请先在卡片上设置年费日','zh-TW':'請先在卡片上設定年費日',en:'set the fee date on the card to track it'};
 const GROUPS=['markedUnused','unknownStatus','markedUsed','noFixedCycle','cycleUnknown','outsideDates','dismissedByUser'];
 export function renderCreditAnswer(result,question){
  const lang=answerLanguage(question),w=WORDS[lang],lines=[];
@@ -36,7 +37,7 @@ export function renderCreditAnswer(result,question){
   lines.push('','**'+w[group]+'**');
   for(const i of result.groups[group]){
    const reason=i.reason?REASONS[i.reason]?.[lang]||i.reason:null;
-   const parts=[i.publicLimit==null?null:`${w.limit} ${i.currency} ${i.publicLimit}`,i.cycle?`${w.until} ${i.cycle.end}`:null,reason?`${w.reason}: ${reason}`:null].filter(Boolean);
+   const parts=[i.publicLimit==null?null:`${w.limit} ${i.currency} ${i.publicLimit}`,i.cycle?`${w.until} ${i.cycle.end}`:null,i.resetsOn?`${RESETS[lang]} ${i.resetsOn}`:null,i.fourYear?.nextEligible?`${NEXT_ELIGIBLE[lang]} ${i.fourYear.nextEligible}`:null,reason?`${w.reason}: ${reason}`:null,i.needsFeeDate?SET_FEE_DATE[lang]:null].filter(Boolean);
    lines.push(`- ${i.card} · ${titleOf(i)}${parts.length?' ('+parts.join('; ')+')':''}`);
   }
  }
@@ -45,7 +46,28 @@ export function renderCreditAnswer(result,question){
  if(result.unmatchedCards?.length)lines.push('',w.unmatched+result.unmatchedCards.join(', '));
  return lines.join('\n');
 }
+const LEDGER={
+ 'zh-CN':{card:'卡年',calendar:'日历年',head:'{0}内 Credit 返还（来自你自己的标记）',available:'可用',used:'已标记已用',notCaptured:'未记录（周期已结束但没有标记，不代表用过）',open:'周期未结束',unused:'标记未用',skipped:'本期不用',fee:'公布年费',needsFee:'请先在卡片上设置年费日，卡年无法确定',none:'没有可统计的卡。'},
+ 'zh-TW':{card:'卡年',calendar:'日曆年',head:'{0}內 Credit 返還（來自你自己的標記）',available:'可用',used:'已標記已用',notCaptured:'未記錄（週期已結束但沒有標記，不代表用過）',open:'週期未結束',unused:'標記未用',skipped:'本期不用',fee:'公布年費',needsFee:'請先在卡片上設定年費日，卡年無法確定',none:'沒有可統計的卡。'},
+ en:{card:'card year',calendar:'calendar year',head:'Credits returned in the {0} (from your own marks)',available:'available',used:'marked used',notCaptured:'not captured (cycle ended with no mark; not the same as used)',open:'cycle still open',unused:'marked unused',skipped:'skipped',fee:'published annual fee',needsFee:'set the annual fee date on the card; its card year is unknown',none:'No cards to total.'}
+};
+/** The code-written answer for a ledger result: only totals the tool returned, with "not captured" kept apart from "used". */
+export function renderLedgerAnswer(result,question){
+ const lang=answerLanguage(question),w=LEDGER[lang],lines=[w.head.replace('{0}',result.basis==='card-year'?w.card:w.calendar)];
+ for(const c of result.cards){
+  if(!c.returned){lines.push('',`- ${c.card}: ${w.needsFee}`);continue;}
+  const r=c.returned,cur=c.currency||'';
+  lines.push('',`- ${c.card} (${c.period.start} – ${c.period.end})`,`  ${w.used}: ${cur} ${r.used} / ${w.available}: ${cur} ${r.available}`,`  ${w.notCaptured}: ${cur} ${r.notCaptured}`);
+  if(r.open)lines.push(`  ${w.open}: ${cur} ${r.open}`);
+  if(r.unused)lines.push(`  ${w.unused}: ${cur} ${r.unused}`);
+  if(r.skipped)lines.push(`  ${w.skipped}: ${cur} ${r.skipped}`);
+  if(c.annualFee!=null)lines.push(`  ${w.fee}: ${cur} ${c.annualFee}`);
+  if(c.needsFeeDate)lines.push(`  ${w.needsFee}`);
+ }
+ if(!result.cards.length)lines.push('',w.none);
+ return lines.join('\n');
+}
 export function renderCreditAnswers(results,question,{partial=false}={}){
  const w=WORDS[answerLanguage(question)];
- return [...results.map(r=>renderCreditAnswer(r,question)),...(partial?[w.partial]:[]),w.note].join('\n\n');
+ return [...results.map(r=>r.mode==='ledger'?renderLedgerAnswer(r,question):renderCreditAnswer(r,question)),...(partial?[w.partial]:[]),w.note].join('\n\n');
 }

@@ -95,7 +95,7 @@ export const benefitSourceView=Object.fromEntries(sources.map(s=>[s.id,copy(s)])
 export const hsbcRewardCashView={...copy(manifest.hsbcRewardCash),capabilities:queryKnowledge({kind:'channel-capability',includeInactive:true}).rules.map(r=>({feature:r.content.title,channel:r.terms.channel,finding:r.content.summary,sourceIds:r.evidence.sourceIds}))};
 // What a protection benefit covers, held to its own quotes: a stated basis, payment requirement or exclusion must be
 // in the official text, and anything the text does not say stays null rather than read as "no".
-export const COVERAGE_TYPES=['rental-car','trip-cancellation','trip-delay','baggage-delay','emergency-evacuation','roadside','purchase-protection','return-protection','extended-warranty','travel-insurance'];
+export const COVERAGE_TYPES=['rental-car','trip-cancellation','trip-delay','baggage-delay','lost-luggage','emergency-evacuation','roadside','purchase-protection','return-protection','extended-warranty','travel-insurance'];
 export function validateCoverage(r){
  const c=r.terms.coverage,errors=[];if(!c||typeof c!=='object')return ['protection benefit needs terms.coverage'];
  const quotes=(r.original?.quotes||[]).map(q=>q.text.replace(/[\u2018\u2019]/g,"'")),said=re=>quotes.some(q=>re.test(q));

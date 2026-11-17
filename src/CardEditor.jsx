@@ -35,13 +35,15 @@ export function FeeDateInput({value,onChange,id}){
 export const feeDateRule={validator:(_,value)=>!value||cleanFeeDate(value)?Promise.resolve():Promise.reject(Error(t('请填写有效的月份和日期；年份可以不填。')))};
 const UserTag=()=><Tag color="blue" style={{marginInlineStart:6}}>{t('你设置的')}</Tag>;
 /** In card details: the card's own facts the user can correct, its annual fee date, and the edit form. */
-export function CardEditSection({card,cards,onSave,onManualEdit}){
+export function CardEditSection({card,cards,onSave,onManualEdit,openFeeDate=false}){
  useI18n();const {message}=App.useApp(),[open,setOpen]=useState(false),[form]=Form.useForm(),[busy,setBusy]=useState(false);
  const manual=card.identitySource!=='bank-page',set=f=>card.userSet?.includes(f),day=walletDay(),credits=anniversaryCredits(card,day);
  const period=anniversaryPeriod(card.feeDate,day),banks=manual?regionBanks(card.detected?.bank??card.bank):[];
  const save=patch=>{try{saveCardEdits(withCardEdit(loadCardEdits(),card,patch));onSave?.();return true;}catch{message.error(t('保存失败，刚才的设置没有生效。'));return false;}};
  const reset=field=>{if(save({[field]:null}))message.success(t('已恢复为银行读取的值。'));};
  const edit=()=>{form.setFieldsValue({name:card.name,tail:card.tail||'',bank:card.bank,feeDate:card.feeDate||null});setOpen(true);};
+ // Arriving from a credit row that asks for the fee date opens the editor straight away, once per card.
+ useEffect(()=>{if(openFeeDate&&!card.feeDate)edit();},[openFeeDate,card.id]);
  const submit=async()=>{
   let v;try{v=await form.validateFields()}catch{return;}
   const patch={};
@@ -83,10 +85,4 @@ export function CardEditSection({card,cards,onSave,onManualEdit}){
    </Form>
   </Modal>
  </div>;
-}
-/** On the credits list: cards whose anniversary credits stay without a cycle until a fee date is set. */
-export function FeeDateHint({cards}){
- useI18n();const missing=cards.filter(c=>!c.feeDate&&anniversaryCredits(c).length);
- if(!missing.length)return null;
- return <Alert className="fee-date-hint" type="info" showIcon style={{marginBottom:16}} title={t('{0} 张卡需要设置年费日，才能显示按持卡周年计算的福利：{1}',[missing.length,missing.map(c=>c.name).join('、')])} description={t('在卡片详情的“年费日”一行点“去设置”。')}/>;
 }

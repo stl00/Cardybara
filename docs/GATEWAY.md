@@ -36,13 +36,13 @@ Code: `gateway/src/gateway.js` (router, middleware, model proxy and the `UsageLe
 
 ## What the gateway does
 
-- **Router:** `ROUTE_TABLE` in `gateway.js` lists each route with its path, method, whether it needs an invite code, and its handler: `POST /v1/chat` (the assistant, `agent.js`), `POST /v1/chat/completions` (model proxy) and `POST /v1/invite` (checks a code, costs nothing, nothing forwarded). Everything else is 404/405.
+- **Router:** `ROUTE_TABLE` in `gateway.js` lists each route with its path, method, whether it needs an invite code, and its handler: `POST /v1/chat` (the assistant, `agent.js`), `POST /v1/chat/completions` (model proxy) `POST /v1/invite` (checks a code, costs nothing, nothing forwarded) and the Web Push routes below. Everything else is 404/405.
 - **Middleware** (exported, reused by later routes): `authenticate` (invite code), `readJson` (content type and body cap), `reserve` (caps; returns `settle`), `callProvider` (owner key, timeout, errors as codes).
 - **Invite codes:** `Authorization: Bearer cdy_…` (43 random base64url characters, 256 bits). Workers KV stores only `invite:<sha256 of the code>` → `{hash, id, status, issued, dailyRequests?, dailyTokens?}`; the digest is compared again in constant time. The code itself is never stored or logged. A per-code cap can only lower the global one.
 - **Caps:** per code per UTC day (requests and tokens) and one global monthly budget in USD. Before forwarding, a single Durable Object reserves the request's worst case (body bytes as input tokens plus `max_tokens` as output, priced with `PRICE_*`); the check and the increment run in one queued operation, so parallel requests cannot overrun a cap. After the reply the reservation is replaced by the provider's actual usage. A refusal (4xx, 429) releases its cost but still counts as a request; a timeout, dropped connection, 5xx, redirect, garbled reply or reply without usage keeps the worst case, because the provider may have billed it. Actual use above the worst case is charged in full and logged with `overrun: true`: that means the worst-case assumption (a token is at least one byte, reasoning off) broke, so re-check it whenever `PROVIDER_URL` or the model changes. The first request of each day prunes counters and stale reservations older than yesterday. Over a cap the gateway answers `429` with `daily_requests`, `daily_tokens` or `monthly_budget`, and the chat says so in Chinese, Traditional Chinese or English. The global caps start from the vars in `wrangler.jsonc` and can be changed in KV without a deploy (`set-caps` below).
 - **Streaming:** a request with `"stream": true` is forwarded with `stream_options.include_usage` and the provider's server-sent events pass through unchanged (size-capped); the final usage chunk settles the reservation and writes the log line when the stream ends. A stream without usage keeps its worst case. The assistant route reads the same provider stream itself (`readStream` in `agent.js`) and re-emits its own events.
 - **Forwarded fields only:** `model` (must be in `ALLOWED_MODELS`), `messages` (text roles only), `tools`, `tool_choice`, `max_tokens` (≤ `MAX_OUTPUT_TOKENS`), `temperature`, `response_format` (`json_object`/`text`), `stream`. Reasoning is forced off; any other field is dropped. Body limit `MAX_BODY_BYTES` (256 KB), enforced while streaming.
-- **CORS:** only `ALLOWED_ORIGINS`. The alpha is loaded unpacked, so every tester's extension id differs; the default `chrome-extension://*` admits any extension origin but no web page. The invite code is the real gate. Once the id is pinned (store listing or a manifest `key`), set the exact `chrome-extension://<id>`.
+- **CORS:** only `ALLOWED_ORIGINS`. The alpha is loaded unpacked, so every tester's extension id differs; the default `chrome-extension://*` admits any extension origin but no web page. The invite code is the real gate. Once the id is pinned (store listing or a manifest `key`), set the exact `chrome-extension://<id>`. The hosted web wallet is admitted by listing its exact `https://` origin (comma-separated, no path, no wildcards; `http://` is never allowed).
 - **Errors:** provider failures pass through as a code only (`provider_rejected`, `provider_rate_limited`, `provider_error`, `provider_unreachable`, `provider_timeout`); provider text never reaches the client because it can echo the request. Redirects are never followed.
 - **Logging:** one JSON line per request: time, route, code id, status, error code, prompt and completion tokens. Never bodies, codes, keys or wallet data. Workers Logs keeps these lines for reading usage; the platform's invocation logs (request metadata) are turned off in `wrangler.jsonc` so no request header is kept. After the first deploy, open one log entry in the dashboard and confirm it carries no `Authorization` header.
 - **Rate limit:** a Workers Rate Limiting binding (`RATE_LIMITER`, 60 requests a minute per IPv4 address or IPv6 /64) runs before any invite lookup, so guessing codes cannot exhaust KV reads. The gateway refuses to run without it (except a local run against an http mock). A limited request is still a Worker invocation, so it does not protect the Workers request quota; on workers.dev there is no WAF in front.
@@ -160,6 +160,79 @@ FROM cardybara_agent_metrics WHERE timestamp > NOW() - INTERVAL '7' DAY GROUP BY
 ```
 
 The deploy and the first query against real data are owner steps; the SQL is not yet run against real data.
+
+## Alerts and switches
+
+### Hourly alert check
+
+A Cron Trigger (`7 * * * *` in `gateway/wrangler.jsonc`) runs the Worker's `scheduled` handler (`gateway/src/alerts.js`). It is a handler of the gateway Worker, not a second Worker: it needs the `UsageLedger` and KV bindings directly (a second Worker would need cross-script Durable Object bindings), and it reports the version id of the code it runs with.
+
+Each run reads the last hour and the 7 days before it from the metrics dataset through the Analytics Engine SQL API (sampling corrected with `_sample_interval`), and the month-to-date spend from `UsageLedger`. A turn is an agent request that ended with an answer or an error code; a request that only asked the extension for wallet tools is not counted.
+
+| Signal | Breach when | Needs |
+| --- | --- | --- |
+| `budget` | month-to-date spend is at least 80% of the monthly budget (the KV `monthlyBudgetUsd` or `MONTHLY_BUDGET_USD`) | the ledger |
+| `errors` | error rate over the last hour is at least 5% | at least 20 turns in the hour |
+| `repair` | repair rate of the last hour is at least double its mean over the 7 days before (and at least 5%, so a mean of zero does not make one repair an incident) | at least 20 turns in the hour |
+| `fallback` | the same for the fallback rate | at least 20 turns in the hour |
+
+Defaults are in code (`DEFAULT_THRESHOLDS`); KV `settings.alerts` overrides each one: `{"alerts":{"budgetPercent":80,"errorPercent":5,"rateMultiple":2,"minRatePercent":5,"minTurns":20}}`. A value that is not a positive number is ignored and logged.
+
+### Incident flow
+
+- A breach opens one GitHub issue per signal, titled `Assistant alert: <signal>`, labelled `agent-incident` and `P1`. The body holds the aggregates that tripped it, the checked time, the Worker version id and a link to this section. Never a code id, a question or per-turn data. If an incident for the signal is already open, the check comments on it instead of opening another (once per hourly check while the breach lasts).
+- The next check where the signal is healthy comments "Healthy again" and closes the issue. A signal that cannot be judged (fewer than 20 turns, or the source could not be read) neither opens nor closes anything.
+- What to do: `budget` is the spend guard (raise the cap with `set-caps --yes` only if the spend is expected; `assistantOff` below stops the assistant at once); `errors` and `fallback` after a release: compare by `version_id` (Metrics) and roll back (Release); `repair` points at a prompt or model change.
+- The Worker sends no push notification, and nothing is rolled back automatically.
+
+Owner steps (none run by code): create a fine-grained GitHub token with Issues: write on this repository only and a Cloudflare API token that can read Account Analytics, then `npx wrangler@4.150.0 secret put GITHUB_TOKEN --config gateway/wrangler.jsonc` (and `ANALYTICS_SQL_TOKEN`, `CF_ACCOUNT_ID`), and create the labels `agent-incident` and `P1` if missing. Optional var `GITHUB_REPO` (default `stl00/Cardybara`). Without the secrets the check logs what is missing (`github_token_missing`, `sql_token_missing`) and does nothing; without the SQL ones it still checks the budget. The SQL has not yet run against real data.
+
+### KV switches
+
+Stored in the KV key `settings` beside the caps, read on each request through a 30-second cache (a change takes up to about a minute in KV plus 30 seconds here):
+
+| Switch | Effect |
+| --- | --- |
+| `disabledTools` (list of tool names) | the tools are removed from the list the model sees; a tool the model still names is rejected by the agent loop |
+| `forceModel` (a name in `ALLOWED_MODELS`) | every model call uses this model whatever the client asked |
+| `assistantOff` (`true`) | `/v1/chat` answers "temporarily unavailable" in the wallet's language (zh-CN, zh-TW, en-US) with no model call and no charge; it is not counted as an answered turn |
+
+An invalid value (wrong type, a model not in `ALLOWED_MODELS`, a tool name that is not `a-z0-9_`) is ignored, never applied, and logged as `{"switch":"<key>","ignored":"invalid_value"}` without the value.
+
+```sh
+node scripts/gateway-codes.mjs switches
+node scripts/gateway-codes.mjs set-switch disabledTools find_benefits,get_card_rules
+node scripts/gateway-codes.mjs set-switch forceModel deepseek-flash
+node scripts/gateway-codes.mjs set-switch assistantOff on        # off to turn it back
+node scripts/gateway-codes.mjs clear-switch disabledTools
+```
+
+`set-switch` checks the same rules as the gateway and refuses an invalid value; `forceModel` is checked against `ALLOWED_MODELS` in `gateway/wrangler.jsonc`.
+
+## Release (staged, by Worker version)
+
+`scripts/gateway-release.mjs` wraps wrangler so a new gateway build is tested as the exact Worker version that will take traffic, then ramped, instead of replacing the gateway in one step. It is an owner/ops tool: nothing in it runs in CI on pull requests, every step prints what it will run, and any step that acts on a version refuses to run without an explicit version id. Add `--dry-run` to print the steps and stop.
+
+1. `node scripts/gateway-release.mjs upload` uploads a new version at 0% traffic and prints its version id.
+2. `CARDYBARA_EVAL_INVITE=<code> node scripts/gateway-release.mjs eval <version> --out=dir [--baseline=report.json]` runs the pinned live eval (`scripts/live-eval.mjs --target=hosted`) through `POST /v1/chat`, with the `Cloudflare-Workers-Version-Overrides` header pinning the request to that version. Wallet tools run locally on the synthetic wallet, as in the extension. The invite code is read from the environment and never printed or written; use a code with low caps (`scripts/gateway-codes.mjs`). The report records the version id; a baseline from another version makes the run a new baseline candidate, not a regression by itself.
+3. `ramp <version> 10 --stable <current-version>`, then `ramp <version> 50 --stable <current-version>`, then `ramp <version> 100`.
+4. `rollback <current-version>` sends 100% of traffic back.
+
+At each step compare the new version with the stable one by `version_id` (see Metrics): repair rate (`double8`), fallback rate (`double9`) and error rate (`blob6` non-empty, or `double1` of 500 and above). Roll back when the new version's fallback or error rate is clearly above the stable version's over a comparable number of turns, or when the hosted eval has a case that passed on the stable version and fails now. `scripts/live-eval.mjs --target=hosted --dry-run` runs the hosted transport against an in-process gateway with a canned provider (no network, no code) and is covered by `tests/gateway-release.test.mjs`.
+
+Owner steps: issue an eval invite code with low caps, store it as a `live-evals` environment secret, and run the first real staged release.
+
+## Web Push reminders (`/v1/push`)
+
+The hosted web wallet's reminders (#373, #380) are Web Push. The ui side (service worker, permission prompt, IndexedDB wallet) is a separate issue; this is the gateway half.
+
+- **Routes:** `PUT /v1/push` (invite code) takes exactly `{device, subscription:{endpoint, keys:{p256dh, auth}}, times:[{at, kind}]}` and replaces the device's whole record. `device` is a random 22 to 43 character base64url id the wallet makes; `at` is a whole-second UTC Unix timestamp, at most 200 entries, from one day ago to 400 days ahead; `kind` is `payment`, `fee` or `credit`. `DELETE /v1/push` (invite code) takes `{device}` and forgets it (a device that is not there is not an error). `GET /v1/push/key` (no invite code) returns `{publicKey}`, the VAPID public key the wallet subscribes with. Anything else in a body is `400 bad_request`; without the VAPID secrets all three answer `503 push_unavailable`. Add the web wallet's exact `https://` origin to `ALLOWED_ORIGINS` (#378).
+- **Endpoints:** the Worker posts to the subscription's endpoint, so it must be `https`, without credentials or a port, on a browser vendor's push host (`fcm.googleapis.com`, `*.push.services.mozilla.com`, `*.notify.windows.com`, `*.push.apple.com`; `PUSH_HOSTS` in `push.js`). A client cannot aim the Worker at another address.
+- **Stored:** one KV key `push:<device>` in the `INVITES` namespace (no new resource) holding `{subscription, times}` and, as key metadata, the earliest fire time and the expiry. Nothing else: no card name, bank, tail, amount, date text, invite id or code. A device not updated for 60 days is deleted by KV's own expiry (each PUT starts the 60 days again; the cron's rewrites keep the original expiry). A push service answering 404 or 410 deletes the device.
+- **Sending:** the Cron Trigger `*/15 * * * *` lists the `push:` keys (one list call, the earliest fire time is in the metadata), reads only the devices that are due, sends one payload-free push each (`POST` with `Authorization: vapid t=<ES256 JWT>, k=<public key>`, `TTL: 86400`) and removes the times it sent. A failed push (5xx, 429, network) stays due for the next run and is dropped after 2 days. At most 200 devices a run, the rest 15 minutes later, to stay under the 1,000 subrequests of an invocation. The hourly alert trigger (`7 * * * *`) is unchanged.
+- **VAPID keys:** `scripts/gateway-set-vapid.sh` (owner, once) makes the P-256 pair and puts `VAPID_PRIVATE_KEY` (PKCS#8, base64url) and `VAPID_PUBLIC_KEY` (raw point, base64url) as Worker secrets; the private key goes straight into `wrangler secret put` and is never printed. It refuses to replace an existing pair unless `ROTATE=1`, because a new pair invalidates every subscription. `VAPID_SUBJECT` (a var in `wrangler.jsonc`) is the contact URL push services see.
+- **Log line:** route `push`, status and `times` (the count of fire times); the endpoint, keys and device id are never logged. The cron logs counts only (`due`, `sent`, `gone`, `failed`, `expired`).
+- **Free tier at 100 devices:** the cron is 96 invocations a day and 96 KV list calls (free limit 1,000 a day). KV reads are the due devices only (about 100 a day if each fires once; free limit 100,000). Writes are one per wallet update plus one per send (a few hundred a day at most; free limit 1,000), and the gateway already runs on Workers Paid, which includes millions of each. No new paid product.
 
 ## Expected monthly cost
 

@@ -7,8 +7,9 @@ import os from 'node:os';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
-import {selectCases,verdict,runLiveEval,compare,buildReport,summary} from '../scripts/live-eval.mjs';
-import {runLiveCase} from '../evals/live-case.mjs';
+import {selectCases,verdict,runLiveEval,compare,buildReport,summary,buildTranscripts,scrub,TRANSCRIPT_CAP} from '../scripts/live-eval.mjs';
+import {runLiveCase,caseWallet} from '../evals/live-case.mjs';
+import {runWalletTool} from '../src/walletAgent.js';
 import {liveCases} from '../evals/fixtures.mjs';
 import {meter,priceFor} from '../evals/multiturn/live.mjs';
 
@@ -86,6 +87,45 @@ test('facts are checked by code and the report holds no model text',async()=>{
  assert.equal(report.cases[0].status,'pass');assert.equal(text.includes(secret),false);assert.equal(text.includes(c.question),false);assert.equal(report.syntheticWallet,true);assert.equal(report.model,config.model);
 });
 
+test('failing tries keep their answer text and failure codes in the transcripts, never in the report',async()=>{
+ const c=liveCases.find(x=>x.id==='dining'),words='WRONG-ANSWER-TEXT',key='sk-'+'a1b2c3d4e5f6a7b8c9d0';
+ const chat=async()=>({content:words+' '+key+' '+'word '.repeat(1000),tool_calls:[{function:{name:'find_benefits',arguments:JSON.stringify({q:'Bearer abcdefghijklmnop'})}}]});
+ const turn=async({request})=>{await request({});throw Object.assign(Error('answer_not_grounded'),{codes:['unsupported_number']});};
+ const pass=async()=>({content:'PASSING-TEXT',tool_calls:[{function:{name:'choose_card',arguments:JSON.stringify(c.expectedArgs)}}]});
+ const okTurn=async({request})=>{await request({});return {answer:'PASSING-TEXT',trace:[],tools:[],memory:{},messages:[],context:{}};};
+ const other=liveCases.find(x=>x.id!==c.id);
+ const run=await runLiveEval({config:{attempts:2,passesNeeded:2,budgetUsd:1},cases:[c,other],spend:freeSpend(),runCase:x=>x.id===c.id?runLiveCase(x,{chat,turn}):runLiveCase(x,{chat:pass,turn:okTurn})});
+ const report=buildReport({config,run,baseline:null,spend:freeSpend()});
+ const t=buildTranscripts({report,run});
+ assert.equal(t.kind,'live-eval-transcripts');assert.equal(t.tries[0].id,c.id);assert.equal(t.tries[0].error,'answer_not_grounded');assert.deepEqual(t.tries[0].codes,['unsupported_number']);
+ assert.match(t.tries[0].answer,/^WRONG-ANSWER-TEXT/);assert.equal(t.tries[0].answer.length,TRANSCRIPT_CAP);assert.equal(t.tries[0].answerTruncated,true);
+ assert.deepEqual(t.tries[0].toolCalls[0].name,'find_benefits');
+ const kept=JSON.stringify(t);assert.equal(kept.includes(key),false);assert.equal(kept.includes('abcdefghijklmnop'),false);assert.equal(kept.includes('PASSING-TEXT'),false,'passing tries add nothing');
+ const text=JSON.stringify(report)+summary(report);assert.equal(text.includes(words),false);
+ assert.equal(JSON.stringify(report).includes('transcript'),false,'the baseline stays text-free');
+ assert.throws(()=>buildTranscripts({report:{...report,syntheticWallet:false},run}),/synthetic wallet/);
+ assert.equal(scrub('literal-secret-value here',['literal-secret-value']),'[redacted] here');
+});
+
+test('the command writes transcripts for failing tries to a separate directory',()=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'live-eval-')),env={...process.env,NODE_NO_WARNINGS:'1'};delete env.DEEPSEEK_API_KEY;
+ try{
+  const r=spawnSync(process.execPath,['scripts/live-eval.mjs','--dry-run','--out='+path.join(dir,'out'),'--transcripts='+path.join(dir,'tx'),'--fail='+config.cases[0]],{cwd:root,env,encoding:'utf8'});
+  assert.equal(r.status,0,r.stderr);
+  const t=JSON.parse(fs.readFileSync(path.join(dir,'tx','transcripts.json'),'utf8'));
+  assert.deepEqual([...new Set(t.tries.map(x=>x.id))],[config.cases[0]]);assert.deepEqual(t.tries[0].failedChecks,['completed']);
+  assert.deepEqual(fs.readdirSync(path.join(dir,'out')).sort(),['report.json','summary.md']);
+ }finally{fs.rmSync(dir,{recursive:true,force:true});}
+});
+
+test('the workflow uploads the transcripts as their own short-lived artifact',()=>{
+ const yml=fs.readFileSync(path.join(root,'.github/workflows/live-evals.yml'),'utf8');
+ const step=yml.slice(yml.indexOf('name: Upload the transcripts'),yml.indexOf('name: Keep a good run'));
+ assert.match(step,/name: live-eval-transcripts/);assert.match(step,/path: live-eval-transcripts\//);assert.match(step,/retention-days: 14/);
+ assert.match(yml,/--transcripts=live-eval-transcripts/);
+ assert.match(yml,/name: live-eval-report\n\s+path: live-eval\//);
+});
+
 test('the command exits 0 on a good run, 1 on a regression and 2 without a key',()=>{
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'live-eval-')),env={...process.env,NODE_NO_WARNINGS:'1'};delete env.DEEPSEEK_API_KEY;
  const run=(...args)=>spawnSync(process.execPath,['scripts/live-eval.mjs',...args],{cwd:root,env,encoding:'utf8'});
@@ -114,4 +154,46 @@ test('the workflow runs only on a schedule or by hand, behind the protected envi
  for(const uses of yml.match(/uses: .+/g))assert.match(uses,/@[0-9a-f]{40} /,'actions are pinned by commit: '+uses);
  // The key must not reach CI, where pull requests run.
  assert.doesNotMatch(fs.readFileSync(path.join(root,'.github/workflows/ci.yml'),'utf8'),/DEEPSEEK_API_KEY/);
+});
+
+test('the live ledger case sends its fee date and marks, and its totals are the tool\'s own',async()=>{
+ const c=liveCases.find(x=>x.id==='ledger-card-year');
+ assert.ok(config.cases.includes(c.id),'the daily sample lists the ledger case');
+ let sent=null;
+ const chat=async()=>({content:'',tool_calls:[{function:{name:'query_credits',arguments:JSON.stringify({cardName:'Sapphire Reserve',yearBasis:'card-year'})}}]});
+ const turn=answer=>async({context,request})=>{sent=context;await request({});return {answer,trace:[],tools:[],memory:{},messages:[],context:{}};};
+ const good=await runLiveCase(c,{chat,turn:turn('已标记用掉 USD 314；未记录 USD 70。')});
+ assert.ok(Object.values(good.checks).every(Boolean),JSON.stringify(good.checks));
+ const reserve=sent.cards.find(x=>x.productId===Object.keys(c.feeDates)[0]);
+ assert.deepEqual(reserve.feeDate,{month:8,day:1});
+ assert.equal(sent.cards.filter(x=>x.feeDate).length,1,'only the named card gets a fee date');
+ assert.deepEqual(sent.events,c.events);assert.equal(sent.events.length,3);
+ // Counting the uncaptured cycles as used is caught, as is a missing total.
+ assert.equal((await runLiveCase(c,{chat,turn:turn('共返还 USD 384，其中未记录 USD 70，已用 314。')})).checks.avoidsWrongTotals,false);
+ assert.equal((await runLiveCase(c,{chat,turn:turn('已用 USD 314。')})).checks.coversNamedProgrammes,false);
+ assert.equal((await runLiveCase(c,{chat:async()=>({content:'',tool_calls:[{function:{name:'query_credits',arguments:JSON.stringify({cardName:'Sapphire Reserve'})}}]}),turn:turn('已标记用掉 USD 314；未记录 USD 70。')})).checks.expectedArguments,false,'without yearBasis');
+ // The expected totals are what the tool returns for that wallet.
+ const r=runWalletTool({id:'x',function:{name:'query_credits',arguments:JSON.stringify({cardName:'Sapphire Reserve',yearBasis:'card-year'})}},caseWallet(c));
+ assert.equal(r.cards[0].returned.used,314);assert.equal(r.cards[0].returned.notCaptured,70);
+});
+
+// #361: the 2026-11-16 live tries answered correctly ("no record, this does not mean no coverage, see the guide to benefits")
+// and failed on the case's own wording checks. Both answers are synthetic copies of those transcripts.
+test('coverage-no-record accepts a hedged no-record answer and still rejects a flat "not covered"',async()=>{
+ const c=liveCases.find(x=>x.id==='coverage-no-record');
+ assert.ok(config.cases.includes(c.id));
+ const chat=async()=>({content:'',tool_calls:[{function:{name:'find_protections',arguments:JSON.stringify({cardName:'Blue Cash Everyday',type:'trip-delay'})}}]});
+ const turn=answer=>async({request})=>{await request({});return {answer,trace:[],tools:[],memory:{},messages:[],context:{}};};
+ const run=async answer=>(await runLiveCase(c,{chat,turn:turn(answer)})).checks;
+ for(const answer of[
+  '我的记录里没有 Blue Cash Everyday 的航班延误保障资料（not found），所以无法确认。这不代表它一定没有保障，具体以该卡的 guide to benefits 为准；这不是保险建议。',
+  '我的记录里没有找到 Blue Cash Everyday 的航班延误保障条目（not found）。这不代表它一定没有保障，具体以该卡的 guide to benefits 为准；以上不是保险建议。']){
+  const checks=await run(answer);
+  assert.ok(Object.values(checks).every(Boolean),JSON.stringify(checks));
+ }
+ assert.equal((await run('Blue Cash Everyday 没有保障。我的记录里没有找到，详见发卡行。')).avoidsWrongTotals,false,'a flat claim fails');
+ assert.equal((await run('Blue Cash Everyday 不在保障范围内，请看 guide to benefits。')).avoidsWrongTotals,false);
+ assert.equal((await run('我的记录里没有找到，详见发卡行。这不代表X，但没有保障。')).avoidsWrongTotals,false,'a comma-joined flat claim after a denial fails');
+ assert.equal((await run('我的记录里没有找到，详见发卡行。This does not mean X, but it is not covered.')).avoidsWrongTotals,false);
+ assert.equal((await run('这张卡航班延误有保障。')).coversNamedProgrammes,false,'no "no record" wording and no pointer fails');
 });

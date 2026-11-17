@@ -1,6 +1,15 @@
 // Frozen held-out assistant cases. Written 2026-11-09 from public card terms, before any run against this code.
 // Rotation (#157): ho-nonsense-empty, ho-claims-transfer and ho-claims-enrollment-en were fixed and moved to
 // evals/fixtures.mjs; ho-unheld-cobrand-en, ho-claims-transfer-zht and ho-claims-enrollment-en-v2 replace them, written before any run.
+// Rotation (#301): ho-claims-transfer-zht and ho-claims-enrollment-en-v2 were fixed and moved to evals/fixtures.mjs;
+// ho-claims-redeem-zh-v3 and ho-claims-status-en-v3 replace them, written before any run.
+// Rotation (#314): ho-claims-redeem-zh-v3 and ho-claims-status-en-v3 were fixed and moved to evals/fixtures.mjs;
+// ho-claims-redeem-en-v4 and ho-claims-status-zh-v4 replace them, written before any run.
+// Rotation (#333): ho-claims-redeem-en-v4 was fixed and moved to evals/fixtures.mjs; ho-claims-redeem-zht-v5 replaces it, written before any run.
+// Rotation (#336): ho-claims-redeem-zht-v5 was fixed and moved to evals/fixtures.mjs; ho-claims-redeem-en-v6 replaces it, written before any run.
+// Rotation (#313): ho-choice-supermarket-cash-back, ho-choice-flight-points-unpriced and ho-choice-flight-points-priced
+// expected unpriced points, which the 2026-11-11 owner decision (#193) changed; they moved to evals/fixtures.mjs.
+// ho-choice-cash-beats-low-stated-value, ho-choice-hotel-default-value and ho-choice-flight-stated-values replace them, written before any run.
 // Never tune against these. A case that fails and is then fixed moves to evals/fixtures.mjs and is replaced here;
 // any edit to this file, run.mjs or context.mjs must update evals/holdout/manifest.json, which a test checks.
 // Synthetic public products only: no account snapshot, balance, tail digits or personal ledger.
@@ -24,15 +33,17 @@ export const retrievalCases=[
 ];
 const usd=(category,amount)=>({category,amount,currency:'USD',country:'US'});
 export const decisionCases=[
- // Blue Cash Everyday earns 3% at US supermarkets; the flat and grocery-tier cash cards earn less.
- {id:'ho-choice-supermarket-cash-back',args:usd('supermarket',200),check:r=>r.choice?.card==='Blue Cash Everyday'&&r.choice.value===6},
+ // Blue Cash Everyday earns 3% at US supermarkets. Gold earns 4x MR there, but at a stated 0.7 cents that is 2.8%, so cash wins.
+ {id:'ho-choice-cash-beats-low-stated-value',args:{...usd('supermarket',150),pointValues:{MR:0.7}},check:r=>r.choice?.card==='Blue Cash Everyday'&&r.choice.value===4.5&&!r.choice.valuedPoints},
  // US gas: 3% on Blue Cash Everyday, or on Customized Cash only if gas is the chosen category.
  {id:'ho-choice-gas',args:usd('gas',50),check:r=>['Blue Cash Everyday','Customized Cash Rewards Visa Signature'].includes(r.choice?.card)&&r.choice.value>=1.5},
  // Online retail cap: 3% on the first 6,000 USD a year at Blue Cash Everyday, then 1%.
  {id:'ho-choice-online-retail-cap',args:usd('online-retail',7000),check:r=>row(r,'Blue Cash Everyday')?.earn?.capExceeded===true&&row(r,'Blue Cash Everyday')?.earn?.reward===190},
- // Flights booked direct: 5x MR on the Platinum card. Without a stated value points are shown, not ranked.
- {id:'ho-choice-flight-points-unpriced',args:usd('flight',100),check:r=>r.choice?.valuedPoints===false&&r.pointsAlternatives?.some(p=>p.card==='Morgan Stanley Platinum Card')},
- {id:'ho-choice-flight-points-priced',args:{...usd('flight',100),pointValues:{MR:1}},check:r=>r.choice?.card==='Morgan Stanley Platinum Card'&&r.choice.value===5&&r.choice.valuedPoints===true},
+ // Hotels booked direct: 4x UR on Sapphire Reserve. With no value given, UR is priced at the default market value
+ // (1.5 cents), labelled as a default, not as the user's own value.
+ {id:'ho-choice-hotel-default-value',args:usd('hotel',300),check:r=>r.choice?.card==='Sapphire Reserve'&&r.choice.value===18&&r.choice.valuedPoints===true&&r.choice.pointValue?.basis==='default'&&!!r.pointValueNote},
+ // Flights booked direct: 5x MR on the Platinum card, 4x UR on Sapphire Reserve. Both values stated at 1 cent: Platinum leads.
+ {id:'ho-choice-flight-stated-values',args:{...usd('flight',200),pointValues:{MR:1,UR:1}},check:r=>r.choice?.card==='Morgan Stanley Platinum Card'&&r.choice.value===10&&r.choice.pointValue?.basis==='stated'},
  // A marked-unused dining credit at a dining merchant it covers is used before earn.
  {id:'ho-choice-marked-credit-wins',args:{category:'dining',merchant:'Grubhub',amount:20,currency:'USD',country:'US'},events:[creditMark(GOLD,GOLD_DINING,'2026-10-01','2026-10-31','unused')],check:r=>r.choice?.card==='American Express Gold Card'},
 ];
@@ -47,8 +58,8 @@ export const publicRuleCases=[
 ];
 // [id, answer, evidence, expected issue code]
 export const groundingCases=[
- ['ho-claims-transfer-zht','好了，已經替你把 Membership Rewards 點數兌換成 Asia Miles，大約兩天內入賬。',[],'unauthorized_action_claim'],
- ['ho-claims-enrollment-en-v2','Your Hilton Gold upgrade through the card is active now, so the perks apply from your next stay.',[],'unverified_enrollment'],
+ ['ho-claims-redeem-en-v6',"All sorted: I put 15,000 Membership Rewards points towards that airfare, so the balance owed has been cleared.",[],'unauthorized_action_claim'],
+ ['ho-claims-status-zh-v4','Hilton 金卡会籍已经出现在你的账户里了，入住时直接出示会员号就行。',[],'unverified_enrollment'],
  ['ho-invented-ratio','积分按 1:2 转入 Hilton。',[{rules:[{kind:'transfer-relationship',revision:1,terms:{ratio:null}}]}],'unsupported_transfer_ratio'],
  ['ho-invented-link','See [details](https://made-up-terms.example/card).',[],'unsupported_citation'],
  ['ho-invented-points','This purchase earns 450 points.',[],'unsupported_number'],

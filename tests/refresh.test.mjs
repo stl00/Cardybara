@@ -204,3 +204,32 @@ test('MVP default reads every Chase card reward and never enters offers or benef
  const result=await enrichBank({bank:'Chase',cards,tabId:2},{current:async()=>true,progress:async()=>{},checkpoint:async items=>{for(const i of items)if(i.kind==='reward')savedRewards.add(i.cardId);},navigate:async u=>{url=u;}});
  assert.equal(result.error,null);assert.equal(result.scope,'mvp');assert.equal(result.pages,3);assert.equal(result.items.length,4);assert.deepEqual(visited,[]);assert.deepEqual(Object.keys(result.sections).sort(),['card','reward']);assert.equal(result.sections.reward.status,'updated');assert.equal(result.sections.card.status,'partial');assert.equal(cloudCalls,0);
 });
+
+// #299: one card that cannot be opened must not stop the remaining cards.
+async function threeCardRun(bank,fn,overview,detail,tails,badTail){
+ const cards=tails.map((tail,i)=>({id:'c'+i,bank,tail,currency:'USD'}));let url=overview,card=null;const checkpoints=[];
+ globalThis.chrome={permissions:{contains:async()=>true},storage:{local:{get:async()=>({[PARSER_SETTINGS]:{scope:'mvp',enabled:false,cloudConsent:false}})}},tabs:{get:async()=>({id:2,url,status:'complete'})},scripting:{executeScript:async o=>{
+  if(o.files)return [{documentId:'injected'}];
+  if(o.target.documentIds&&o.func?.name!=='capturePage')return [{documentId:'doc',result:true}];
+  if(o.func.name===fn){if(o.args[0]==='list')return [{result:tails}];if(o.args[0]==='select'){if(o.args[1]===badTail)return [{result:[]}];card=cards.find(c=>c.tail===o.args[1]);return [{result:{arriving:detail,tail:o.args[1]}}];}return [{result:[]}];}
+  if(url===overview)return [{documentId:'doc',result:{pageHref:url,aliases:[],blocks:[{id:'B1',text:'Summary'}],observations:[],links:[],capturedAt:'2030-01-01T00:00:00Z'}}];
+  const evidence='[C1] Current Balance $1.00';
+  return [{documentId:'doc',result:{pageHref:url,aliases:[{id:'C1',cardId:card.id,currency:'USD'}],blocks:[{id:'B1',text:evidence}],observations:[{kind:'card',cardId:'C1',key:'balance',title:'Current Balance',value:1,currency:'USD',date:'',status:'unknown',evidence}],links:[],capturedAt:'2030-01-01T00:00:00Z'}}];
+ }}};
+ globalThis.fetch=async()=>({ok:true,json:async()=>({configured:false})});
+ const result=await enrichBank({bank,cards,tabId:2},{current:async()=>true,progress:async()=>{},checkpoint:async r=>checkpoints.push(structuredClone(r)),arrive:async href=>{url=href;},navigate:async href=>{url=href;}});
+ return {result,cards};
+}
+test('Citi keeps reading the other cards when the middle card cannot be identified',async()=>{
+ const {result}=await threeCardRun('Citi US','citiCards','https://online.citi.com/US/ag/dashboard/summary','https://online.citi.com/US/ag/dashboard/credit-card',['1111','2222','3333'],'2222');
+ assert.deepEqual(new Set(result.items.map(i=>i.cardId)),new Set(['c0','c2']));
+ assert.deepEqual(result.cardErrors,[{cardIds:['c1'],error:'card_not_identified'}]);
+ assert.equal(result.error,'card_not_identified');
+ assert.notEqual(result.sections.card.status,'updated','a run with a failed card is not reported as updated');
+});
+test('BOA keeps reading the other cards when the first card cannot be identified',async()=>{
+ const {result}=await threeCardRun('BOA','boaCards','https://secure.bankofamerica.com/accounts-home/','https://secure.bankofamerica.com/myaccounts/details/card',['1111','2222','3333'],'1111');
+ assert.deepEqual(new Set(result.items.map(i=>i.cardId)),new Set(['c1','c2']));
+ assert.deepEqual(result.cardErrors,[{cardIds:['c0'],error:'card_not_identified'}]);
+ assert.notEqual(result.sections.card.status,'updated');
+});

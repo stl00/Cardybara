@@ -167,6 +167,7 @@ Long range moved beyond run-to-run noise (it held at 2/20 over four earlier runs
 - **Comparison.** A good run uploads its report as the `live-eval-baseline` artifact. The next run downloads the latest one and reports a regression for each case that passed there and fails now. A case the budget cut short keeps its baseline status. A case that has never passed is listed but is not a regression.
 - **Regression.** The run fails and opens one issue labelled `live-eval-regression`, or comments on the open one. The next good run comments and closes it. If a case changed on purpose, run the workflow by hand with `accept_as_baseline`.
 - **Report.** Case ids, check outcomes, tool names, token counts and spend, on the synthetic wallet. No questions, answers, model text or key.
+- **Transcripts (#268).** For each failing try the run also writes `transcripts.json` to a separate directory, uploaded as the `live-eval-transcripts` artifact (14 days; the repository is public, so the artifact is downloadable). It holds the final answer text (capped at 4,000 characters), the tool calls with arguments, the failed checks and grounding codes. It is written only when the report says the run used the synthetic wallet, and text that looks like a key or token is replaced with `[redacted]`. Passing tries add nothing, and the report and baseline stay text-free.
 
 `node scripts/live-eval.mjs --dry-run --out=.debug/live-eval [--fail=id]` exercises the same path with no model and no key.
 
@@ -177,3 +178,17 @@ Owner steps before the first run (the workflow is skipped until all are done):
 3. Repository settings → Variables → `LIVE_EVALS_ENABLED` = `true`.
 
 Not yet measured: the real cost of one case. The first runs may stop at the cap with cases `not_run`; raise `budgetUsd` or trim `cases` from what the report shows.
+
+## Weekly live multi-turn eval (#269)
+
+`.github/workflows/live-multiturn.yml` runs `node scripts/eval-multiturn.mjs --live --budget-usd=0.50 --public` every Monday and on manual dispatch, on `main` only, never on a pull request, behind the same `live-evals` environment and `LIVE_EVALS_ENABLED` switch as the daily eval (the owner steps above cover both). The script's `--budget-usd` is the cap: it stops before a dialogue that could pass it, and dialogues run round-robin by kind so a stopped run still covers every kind. About 4 runs a month at the cap add about 2 USD to the 10 USD monthly budget.
+
+- **Job summary.** Strict pass rate (expected tool, key arguments, answer completed) overall, by reference kind (`long-range` is the 很早之前 kind) and by language, plus the referent-resolved counts and spend. Targets from #256: follow-ups at least 90%, much earlier turns at least 70%.
+- **Missed week.** GitHub can delay or drop scheduled runs (on this repository the daily slot has fired 6 to 8 hours late). The daily live-eval workflow runs `scripts/check-live-multiturn-fresh.mjs`: when the newest non-skipped `live-multiturn` run is older than 8 days (or the workflow never ran for 8 days), it opens or updates one issue labelled `live-multiturn-stale`, and closes it once a run appears. `--dry-run` prints the decision only.
+- **Report.** Uploaded as `live-multiturn-report` (90 days). `--public` drops call arguments, so it holds case ids, check outcomes, tool names and spend on the synthetic wallet.
+- **No regression issue yet.** Gather two weeks of numbers first.
+- **Dry run.** `node scripts/eval-multiturn.mjs --live --dry-run --budget-usd=0.50 --public --out=.debug/mt.json --summary=.debug/mt.md` prints the same summary with a scripted model and no key. In CI the key comes from the `DEEPSEEK_API_KEY` environment variable when no `.env.local` exists.
+
+## Coverage questions (#345)
+
+`evals/coverage-case.mjs` runs four offline cases (rental car with a recorded basis, trip delay for a card with no protection record, two held cards compared for a flight, and a Chinese rental-car variant) through the real agent loop with a scripted model that answers only from `find_protections`. Checks are code: the tool was called for the held cards, "no record found" is never "not covered" and points to the issuer's guide to benefits, primary or secondary is stated only as recorded, every number is in the tool result, and no insurance gets a dollar value. `node scripts/eval-agent.mjs --fault=not-covered` (also `invented-limit`, `valuation`, `no-tool`) breaks one rule on purpose and the matching case fails; without `--fault` the `coverage-control-*` cases require every fault to be caught. `tests/coverage-eval.test.mjs` pins this. One live case, `coverage-no-record`, is in `evals/live/config.json` in place of `hotel-colloquial`; its answer check ignores a clause that denies the forbidden claim, such as "this does not mean it has no coverage" (#361) (the config is at `maxCases`; the hotel-benefit path is also exercised by `trip-christmas-hotel`).

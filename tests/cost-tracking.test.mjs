@@ -23,6 +23,22 @@ test('partial credits preserve explicit actual value, snapshots and prior period
  const unvalued={...e,usage:{...usage,value:null}};assert.equal(creditValueForCycle(cycle,[unvalued]).unvalued,1);const zero={...e,usage:{...usage,value:0}};assert.equal(creditValueForCycle(cycle,[zero]).count,1);assert.equal(creditValueForCycle(cycle,[zero]).value,0);
  assert.throws(()=>validatePersonalEvent({...e,usage:{...usage,value:8}}));assert.throws(()=>validatePersonalEvent({...e,usage:{...usage,date:'2026-09-01'}}));
 });
+test('four-year and one-off used marks count in the fee cycle they were used in, valued only when the user entered a value',()=>{
+ const cycle=evt('gold',fee),mk=(kind,id,extra={})=>({schema:1,id,key:JSON.stringify(['gold','rule.x',kind]),status:'used',at:'2026-10-10T12:00:00.000Z',revisionId:null,...extra});
+ const base=creditValueForCycle(cycle,[]);
+ // four-year without a used-on date, or used outside the fee cycle: nothing
+ assert.deepEqual(creditValueForCycle(cycle,[mk('four-year','a')]),base);
+ assert.deepEqual(creditValueForCycle(cycle,[mk('four-year','b',{usedOn:'2025-05-01'})]),base);
+ // used inside the cycle, no value entered: unvalued, never the public limit
+ assert.deepEqual(creditValueForCycle(cycle,[mk('four-year','c',{usedOn:'2026-05-01'})]),{value:0,count:0,unvalued:1});
+ // one-off marked used inside / outside the cycle (its mark date is the usage date)
+ assert.deepEqual(creditValueForCycle(cycle,[mk('one-off','d')]),{value:0,count:0,unvalued:1});
+ assert.deepEqual(creditValueForCycle(cycle,[mk('one-off','e',{at:'2025-10-10T12:00:00.000Z'})]),base);
+ assert.deepEqual(creditValueForCycle(cycle,[mk('one-off','f',{status:'skipped'})]),base);
+ // a value the user entered is added; a value in another currency is unvalued
+ assert.deepEqual(creditValueForCycle(cycle,[mk('four-year','g',{usedOn:'2026-05-01',usage:{value:80,currency:'USD'}})]),{value:80,count:1,unvalued:0});
+ assert.deepEqual(creditValueForCycle(cycle,[mk('four-year','h',{usedOn:'2026-05-01',usage:{value:80,currency:'HKD'}})]),{value:0,count:0,unvalued:1});
+});
 test('fee ledger persists corrections, rejects overlaps, supports tombstones and idempotent import',async()=>{
  const first=await appendCostEvent('fee','test-card',fee);assert.equal(actualCost(feeCycles(await readCostEvents(),'test-card')[0]),275);
  await appendCostEvent('fee','test-card',{...fee,refund:100});assert.equal(actualCost(feeCycles(await readCostEvents(),'test-card')[0]),225);

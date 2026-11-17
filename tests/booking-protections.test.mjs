@@ -108,3 +108,26 @@ for(const q of QUESTIONS){
   assert.ok(r.answer.includes('Sapphire Reserve'));
  });
 }
+
+// #330: lost luggage cover is a booking protection for flights and general travel, not for hotels or car rentals.
+test('a flight and a travel booking list lost luggage cover on a card that records it (#330)',()=>{
+ const held=[
+  {id:'sw',name:'Southwest Rapid Rewards Plus Credit Card',bank:'Chase',region:'US',currency:'USD'},
+  {id:'ihg',name:'IHG One Rewards Credit Card',bank:'Chase',region:'US',currency:'USD'},
+ ];
+ const ctx={cards:held,events:[],day:'2026-11-16',language:'en'};
+ for(const category of ['flight','travel']){
+  const result=runWalletTool(call('choose_card',{category,currency:'USD',amount:800}),ctx);
+  assert.ok(result.bookingProtections.coverageTypes.includes('lost-luggage'),category);
+  const sw=result.bookingProtections.cards.find(c=>c.name===held[0].name);
+  assert.ok(sw,'the Southwest card is compared');
+  assert.equal(sw.status,'found');
+  assert.ok(sw.coverage.some(p=>p.type==='lost-luggage'&&p.sources.length),category+' lists lost luggage cover with a source');
+  const ihg=result.bookingProtections.cards.find(c=>c.name===held[1].name);
+  if(ihg)assert.ok(!ihg.coverage.some(p=>p.type==='lost-luggage'),'no record, no claim');
+ }
+ for(const category of ['hotel','car-rental']){
+  const result=runWalletTool(call('choose_card',{category,currency:'USD',amount:800}),ctx);
+  assert.ok(!result.bookingProtections.coverageTypes.includes('lost-luggage'),category);
+ }
+});

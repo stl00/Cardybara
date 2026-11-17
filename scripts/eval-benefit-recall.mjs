@@ -46,7 +46,7 @@ await writeFile(output,JSON.stringify(report,null,1)+'\n');
 
 const pct=x=>x==null?'   -':(100*x).toFixed(0).padStart(3)+'%';
 const num=x=>x==null?'   -':x.toFixed(2).padStart(4);
-const cell=m=>`${pct(m.recallAt12)} ${num(m.mrr)} ${pct(m.zeroResultRate)} ${pct(m.precision)} ${m.meanReturned.toFixed(1).padStart(4)}`;
+const cell=m=>`${pct(m.recallAt12)} ${num(m.mrr)} ${pct(m.zeroResultRate)} ${pct(m.precision)} ${m.meanReturned==null?'   -':m.meanReturned.toFixed(1).padStart(4)}`;
 const line=(label,g)=>`${label.padEnd(13)}${String(g.raw.n).padStart(4)} │ ${modes.map(m=>cell(g[m])).join(' │ ')}`;
 const out=[`Benefit retrieval recall@${K} · ${golden.dataset} · asOf ${golden.asOf}`,
  `${report.counts.questions} questions: ${report.counts.scored} scored, ${report.counts.absent} absent, ${report.counts.ambiguous} ambiguous`,
@@ -56,6 +56,7 @@ const out=[`Benefit retrieval recall@${K} · ${golden.dataset} · asOf ${golden.
 for(const [title,groups] of [['language',report.byLanguage],['type',report.byType],['portfolio',report.byPortfolio]]){out.push(`by ${title}`);for(const [k,v] of Object.entries(groups))if(v.raw.n)out.push(line(k,v));out.push('');}
 out.push(`questions with a forbidden rule in the top ${K}: ${modes.map((m,i)=>'ABC'[i]+' '+pct(report.overall[m].forbiddenHitRate).trim()).join(', ')}`);
 out.push(`absent questions returning unrelated rules (n=${report.overall.raw.absent.n}): ${modes.map((m,i)=>'ABC'[i]+' '+pct(report.overall[m].absent.spuriousRate).trim()).join(', ')}`,'');
+for(const [lang,g] of Object.entries(report.byLanguage))if(g.raw.absent.n)out.push(`  ${lang} (n=${g.raw.absent.n}): ${modes.map((m,i)=>'ABC'[i]+' '+pct(g[m].absent.spuriousRate).trim()).join(', ')}`);
 out.push(`all ${allCards.length} synthetic cards held at once: recall A ${pct(report.largeWallet.rawRecallAt12).trim()}, C ${pct(report.largeWallet.rewriteRecallAt12).trim()}`,'');
 out.push('10 worst questions (recall A / B / C)');
 for(const w of report.worst)out.push(`  ${pct(w.rawRecall)} /${pct(w.rewriteQueryRecall)} /${pct(w.rewriteRecall)}  ${w.id}  ${w.question}`);

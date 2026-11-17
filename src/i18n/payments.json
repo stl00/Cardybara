@@ -58,7 +58,8 @@
     "读到的账单没有应付金额": "Statement read shows nothing to pay",
     "没有应付金额": "Nothing billed",
     "年费日（你设置了年费日的卡）": "Annual fee date (cards where you set one)",
-    "年费日提前天数": "Days before the annual fee date"
+    "年费日提前天数": "Days before the annual fee date",
+    "{0}：{1} 可以再次使用": "{0}: {1} can be used again"
   },
   "zh-TW": {
     "还款日已过 {0} 天": "還款日已過 {0} 天",
@@ -119,6 +120,7 @@
     "读到的账单没有应付金额": "讀到的帳單沒有應付金額",
     "没有应付金额": "沒有應付金額",
     "年费日（你设置了年费日的卡）": "年費日（你設定了年費日的卡）",
-    "年费日提前天数": "年費日提前天數"
+    "年费日提前天数": "年費日提前天數",
+    "{0}：{1} 可以再次使用": "{0}：{1} 可以再次使用"
   }
 }

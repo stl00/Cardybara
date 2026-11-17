@@ -20,6 +20,10 @@ The conversational assistant uses the configured local proxy to send chat text a
 
 Bill and benefit reminders are optional and off by default. Turning them on asks Chrome for notification permission. Reminders are decided on this device. So that they can arrive with the wallet page closed while Chrome is running, the wallet page saves a short plan in the extension's local storage for its background worker: reminder ids, card and benefit names, dates and notification wording, and a bill amount only if the user asks for amounts. Reminders show a card or benefit name, and show an amount only if the user asks for that, because notifications can appear on a lock screen. The plan is replaced whenever the wallet page syncs and removed when reminders are turned off. Reminder settings and a list of reminders already shown stay in local browser storage, and uninstalling the extension removes them. Nothing is sent to a server.
 
+## Web version
+
+The web version of the wallet keeps its data in the browser where it was entered (browser storage on this device); it is not uploaded or synced to other devices. The only thing it uploads is the questions asked to the conversational assistant, with the same content described above: earlier turns of the conversation, card products, point valuations, whether each card has an annual fee date and the wallet lookups the assistant asks for; never card numbers, balances or statements. Cards and amounts in the web version are entered by hand; bank reading exists only in the desktop Chrome extension. A browser may clear the data of a site that is not on the Home Screen, so export a backup regularly. 
+
 ## Retention, exports and deletion
 
 Local readings/ledgers remain until the user clears them or removes the relevant browser origin/extension. Task and evidence state is bounded and may be replaced during later runs. Exporting creates a sensitive local file under the user's control. Clearing the extension does not necessarily clear a separate website-origin wallet or exported files. Uninstalling may delete extension data; back up first.

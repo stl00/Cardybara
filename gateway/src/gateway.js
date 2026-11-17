@@ -17,10 +17,12 @@
 // A failed load stays cached on purpose: a module whose evaluation threw cannot be evaluated again (the bundler's lazy
 // init and native ESM both keep the failure), so every /v1/chat then answers agent_unavailable until a redeploy.
 import {writeMetrics} from './metrics.js';
+import {readSwitches} from './switches.js';
+import {parsePut,parseDelete,storePush,forgetPush,pushConfigured} from './push.js';
 let agent=null;
 const agentRoute=ctx=>(agent||=import('./agent.js')).then(m=>m.agentRoute(ctx),()=>{throw new Refusal('agent_unavailable');});
 
-export const ROUTES={chat:'/v1/chat/completions',agent:'/v1/chat',invite:'/v1/invite'};
+export const ROUTES={chat:'/v1/chat/completions',agent:'/v1/chat',invite:'/v1/invite',push:'/v1/push',pushKey:'/v1/push/key'};
 export const INVITE_PATTERN=/^cdy_[A-Za-z0-9_-]{43}$/;
 const FIELDS=['model','messages','tools','tool_choice','max_tokens','temperature','response_format'];
 const ROLES=new Set(['system','user','assistant','tool']);
@@ -31,7 +33,7 @@ export const ERRORS={
  bad_request:400,model_not_allowed:400,invite_invalid:401,invite_revoked:403,origin_forbidden:403,not_found:404,method_not_allowed:405,
  too_large:413,unsupported_media_type:415,rate_limited:429,daily_requests:429,daily_tokens:429,monthly_budget:429,provider_rate_limited:429,
  provider_rejected:502,provider_error:502,provider_unreachable:502,gateway_not_configured:503,gateway_busy:503,provider_timeout:504,
- turn_invalid:400,turn_expired:409,agent_unavailable:503,
+ turn_invalid:400,turn_expired:409,agent_unavailable:503,push_unavailable:503,
 };
 
 const number=(value,fallback,{min=0,integer=false}={})=>{const n=Number(value??fallback);return Number.isFinite(n)&&n>=min&&(!integer||Number.isInteger(n))?n:null;};
@@ -64,7 +66,7 @@ export function readConfig(env){
 // Global caps the owner can change without a deploy: the KV key `settings` holds
 // {dailyRequests, dailyTokens, monthlyBudgetUsd}; each present, valid value replaces the var of the same cap.
 export const SETTINGS_KEY='settings';
-async function withSettings(base,env){
+export async function withSettings(base,env){
  const c={...base};
  let s=null;try{s=await env.INVITES.get(SETTINGS_KEY,{type:'json'});}catch{}
  if(plain(s)){
@@ -76,11 +78,13 @@ async function withSettings(base,env){
  return c;
 }
 
-// Exact extension origins only. "chrome-extension://*" admits any extension (for unpacked builds whose id
-// varies) but never a web page.
+// Extension origins: exact id, or "chrome-extension://*" for unpacked builds whose id varies (never a web page).
+// Web origins (hosted wallet): only an exact, listed https:// origin; no wildcards, no http://.
 export function originAllowed(origin,origins){
- if(!origin||!/^chrome-extension:\/\/[a-p]{32}$/.test(origin))return false;
- return origins.includes(origin)||origins.includes('chrome-extension://*');
+ if(!origin)return false;
+ if(/^chrome-extension:\/\/[a-p]{32}$/.test(origin))return origins.includes(origin)||origins.includes('chrome-extension://*');
+ if(/^https:\/\/[a-z0-9]([a-z0-9.-]*[a-z0-9])?(:\d{1,5})?$/.test(origin))return origins.includes(origin);
+ return false;
 }
 
 const encoder=new TextEncoder();
@@ -121,7 +125,8 @@ const plain=v=>!!v&&typeof v==='object'&&!Array.isArray(v);
 export function sanitizeBody(body,c){
  if(!plain(body))throw Error('bad_request');
  const out={};
- const model=body.model??c.models[0];
+ // The forceModel switch (switches.js) is already checked against ALLOWED_MODELS and replaces what the client asked for.
+ const model=c.forceModel||(body.model??c.models[0]);
  if(typeof model!=='string'||!c.models.includes(model))throw Error('model_not_allowed');
  out.model=model;
  if(!Array.isArray(body.messages)||!body.messages.length||body.messages.length>200)throw Error('bad_request');
@@ -163,7 +168,7 @@ export const actualCost=(usage,c)=>{
 };
 
 const ledger=env=>env.USAGE.get(env.USAGE.idFromName('global'));
-async function callLedger(env,op,args){
+export async function callLedger(env,op,args){
  const response=await ledger(env).fetch('https://ledger.internal/'+op,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(args)});
  if(!response.ok)throw Error('gateway_busy');
  return response.json();
@@ -253,10 +258,32 @@ export function clientKey(request){
 
 async function inviteRoute(ctx){return respond(200,{status:'active'},ctx.cors);}
 
+// Web Push reminders (push.js, docs/GATEWAY.md "Web Push"). The log line gets the number of fire times, never the endpoint.
+function pushReady(ctx){if(!pushConfigured(ctx.env))throw new Refusal('push_unavailable');}
+/** The VAPID public key the web wallet subscribes with. Public, so no invite code. */
+async function pushKeyRoute(ctx){pushReady(ctx);return respond(200,{publicKey:ctx.env.VAPID_PUBLIC_KEY},ctx.cors);}
+/** Replaces the device's subscription and its whole list of fire times. */
+async function pushPutRoute(ctx){
+ pushReady(ctx);
+ const body=await readJson(ctx);let record;
+ try{record=parsePut(body,ctx.now());}catch{throw new Refusal('bad_request');}
+ await storePush(ctx.env.INVITES,record,ctx.now());
+ ctx.record.times=record.times.length;
+ return respond(200,{status:'stored',times:record.times.length},ctx.cors);
+}
+/** Forgets the device. Deleting a device that is not there is not an error. */
+async function pushDeleteRoute(ctx){
+ pushReady(ctx);
+ let device;try{device=parseDelete(await readJson(ctx));}catch(e){throw e instanceof Refusal?e:new Refusal('bad_request');}
+ await forgetPush(ctx.env.INVITES,device);
+ ctx.record.times=0;
+ return respond(200,{status:'forgotten'},ctx.cors);
+}
+
 /** The model proxy: one completion, as JSON or as server-sent events when the client asks to stream. */
 async function completionRoute(ctx){
  let forwarded;
- try{forwarded=sanitizeBody(await readJson(ctx),ctx.config);}catch(e){throw e instanceof Refusal?e:new Refusal(ERRORS[e.message]?e.message:'bad_request');}
+ try{forwarded=sanitizeBody(await readJson(ctx),{...ctx.config,forceModel:(await ctx.switches()).forceModel});}catch(e){throw e instanceof Refusal?e:new Refusal(ERRORS[e.message]?e.message:'bad_request');}
  ctx.metrics.model=forwarded.model;
  const settle=await reserve(ctx,worstCase(forwarded,ctx.config));
  const response=await callProvider(ctx,forwarded,settle);
@@ -308,6 +335,9 @@ export const ROUTE_TABLE=[
  {path:ROUTES.invite,name:'invite',method:'POST',auth:true,handler:inviteRoute},
  {path:ROUTES.agent,name:'agent',method:'POST',auth:true,handler:agentRoute},
  {path:ROUTES.chat,name:'chat',method:'POST',auth:true,handler:completionRoute},
+ {path:ROUTES.push,name:'push',method:'PUT',auth:true,handler:pushPutRoute},
+ {path:ROUTES.push,name:'push',method:'DELETE',auth:true,handler:pushDeleteRoute},
+ {path:ROUTES.pushKey,name:'push_key',method:'GET',auth:false,handler:pushKeyRoute},
 ];
 
 /**
@@ -320,23 +350,26 @@ export async function handle(request,env,deps={}){
  const url=new URL(request.url),origin=request.headers.get('Origin');
  const config=readConfig(env),allowed=originAllowed(origin,config.origins);
  const cors=allowed?{'Access-Control-Allow-Origin':origin,'Vary':'Origin'}:{'Vary':'Origin'};
- const route=ROUTE_TABLE.find(r=>r.path===url.pathname);
+ // A path may have several methods; `route` is the entry for this request's method, or the path's first entry for a wrong method.
+ const onPath=ROUTE_TABLE.filter(r=>r.path===url.pathname),route=onPath.find(r=>r.method===request.method)||onPath[0];
  const record={at:new Date(now()).toISOString(),route:route?.name||'other',code:null,status:0};
- let deferred=null;
+ let deferred=null,switchesRead=null;
  const ctx={request,env,config,cors,record,url,now,// Called as a plain function: Workers' fetch throws "Illegal invocation" when called as a method of another object.
   upstream:deps.fetch||((...a)=>globalThis.fetch(...a)),invite:null,deferLog:p=>{deferred=p;},
   // Tests only: sees each agent model call's payload before it becomes a provider request. The Worker never sets it.
   observe:deps.observe||null,
+  // The KV switches, read once per request through a short cache (switches.js).
+  switches:()=>(switchesRead||=readSwitches({env,config,now,log})),
   // What the metrics data point needs beyond the log record (model, prompt hash, repair, tool counts); never logged.
   metrics:{}};
  const started=now();
  // The log line first, then the metrics data point (metrics.js): neither can make the other fail.
  const write=()=>{log(JSON.stringify(record));writeMetrics(ctx,now()-started);};
  const finish=response=>{record.status=response.status;if(deferred){const p=deferred.then(write);deps.waitUntil?deps.waitUntil(p):void p;}else write();return response;};
- const refuse=(code,extra={})=>{Object.assign(record,{error:code},extra);return finish(respond(ERRORS[code]||500,{error:{code}},code==='method_not_allowed'?{...cors,Allow:route.method}:cors));};
+ const refuse=(code,extra={})=>{Object.assign(record,{error:code},extra);return finish(respond(ERRORS[code]||500,{error:{code}},code==='method_not_allowed'?{...cors,Allow:onPath.map(r=>r.method).join(', ')}:cors));};
  if(request.method==='OPTIONS'){
   if(!allowed||!route)return finish(respond(allowed?404:403,null,cors));
-  return finish(respond(204,null,{...cors,'Access-Control-Allow-Methods':route.method,'Access-Control-Allow-Headers':'Authorization, Content-Type','Access-Control-Max-Age':'600'}));
+  return finish(respond(204,null,{...cors,'Access-Control-Allow-Methods':onPath.map(r=>r.method).join(', '),'Access-Control-Allow-Headers':'Authorization, Content-Type','Access-Control-Max-Age':'600'}));
  }
  if(!allowed)return refuse('origin_forbidden');
  if(!route)return refuse('not_found');
@@ -365,7 +398,7 @@ export class UsageLedger{
  async fetch(request){
   const op=new URL(request.url).pathname.slice(1);let args;
   try{args=await request.json();}catch{return new Response('bad',{status:400});}
-  if(op!=='reserve'&&op!=='settle')return new Response('bad',{status:404});
+  if(op!=='reserve'&&op!=='settle'&&op!=='month')return new Response('bad',{status:404});
   try{return Response.json(await this.run(()=>this[op](args)));}catch{return new Response('bad',{status:500});}
  }
  async reserve({code,day,month,tokens,micros,maxRequests,maxTokens,maxMicros}){
@@ -388,6 +421,8 @@ export class UsageLedger{
    for(let i=0;i<old.length;i+=128)await this.storage.delete(old.slice(i,i+128));
   }
  }
+ /** Month-to-date spend in micro-USD (settled use plus open reservations' worst case), for the hourly alert check. */
+ async month({month}){const m=(await this.storage.get('m:'+month))||{micros:0};return {micros:m.micros};}
  /** Replaces a reservation's worst case with what was actually spent. */
  async settle({id,tokens,micros,keep}){
   const r=await this.storage.get('r:'+id);if(!r)return {ok:false};

@@ -54,6 +54,16 @@ test('CORS: only allowed extension origins, and preflight answers only for them'
  assert.equal((await g.handle(new Request('https://gateway.test'+ROUTES.chat,{method:'OPTIONS',headers:{Origin:'https://evil.example'}}))).status,403);
  assert.equal(originAllowed('chrome-extension://'+'c'.repeat(32),['chrome-extension://*']),true);
  assert.equal(originAllowed('https://evil.example',['chrome-extension://*']),false);
+ // Hosted wallet: exact https origins only.
+ const W='https://wallet.example.com';
+ assert.equal(originAllowed(W,[W]),true);
+ assert.equal(originAllowed('https://other.example.com',[W]),false);
+ assert.equal(originAllowed('http://wallet.example.com',['http://wallet.example.com']),false);
+ assert.equal(originAllowed('https://wallet.example.com',['https://*']),false);
+ assert.equal(originAllowed('https://wallet.example.com',['https://*.example.com']),false);
+ assert.equal(originAllowed('https://wallet.example.com/',[W+'/']),false);
+ assert.equal(originAllowed('chrome-extension://'+'c'.repeat(32),[W]),false);
+ assert.equal(originAllowed('chrome-extension://'+'c'.repeat(32),['chrome-extension://'+'c'.repeat(32),W]),true);
  // No origin list means no client at all.
  const closed=setup({vars:{ALLOWED_ORIGINS:''}});await closed.addInvite(CODE,{id:'t01'});
  assert.equal((await closed.handle(post(ROUTES.chat))).status,403);
@@ -218,8 +228,8 @@ test('global caps can be changed in KV without a deploy; bad values are ignored'
  const h=setup({vars:{DAILY_REQUESTS_PER_CODE:'1'}});await h.addInvite(CODE,{id:'t01'});await h.env.INVITES.put(SETTINGS_KEY,JSON.stringify({dailyRequests:-5,monthlyBudgetUsd:'lots'}));
  assert.equal((await h.handle(post(ROUTES.chat))).status,200);assert.equal((await h.handle(post(ROUTES.chat))).status,429);
 });
-test('the router lists each route once with its method; the agent route sits beside the proxy',()=>{
- assert.deepEqual(ROUTE_TABLE.map(r=>[r.path,r.method,r.auth]),[[ROUTES.invite,'POST',true],[ROUTES.agent,'POST',true],[ROUTES.chat,'POST',true]]);
+test('the router lists each route once per method; the agent route sits beside the proxy',()=>{
+ assert.deepEqual(ROUTE_TABLE.map(r=>[r.path,r.method,r.auth]),[[ROUTES.invite,'POST',true],[ROUTES.agent,'POST',true],[ROUTES.chat,'POST',true],[ROUTES.push,'PUT',true],[ROUTES.push,'DELETE',true],[ROUTES.pushKey,'GET',false]]);
 });
 
 test('a rate limiter, when bound, refuses before any invite lookup',async()=>{

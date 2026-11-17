@@ -2,10 +2,11 @@
 import {queryKnowledge,knowledgeSources,ruleText} from './knowledge.js';
 import {benefitPeriod,profileForCard} from './benefitRules.js';
 import {matchCardProduct} from './productCatalog.js';
-import {taskStatus,dismissedKeys,dismissKey} from './personalBenefits.js';
+import {taskStatus,dismissedKeys,dismissKey,offCycleStatus} from './personalBenefits.js';
 import {resolveTripDates,addDays,isRealDate} from './tripDates.js';
 import {CREDIT_CATEGORIES,creditCategoriesForRule} from './creditCategories.js';
 import {creditApplicability} from './creditApplicability.js';
+import {creditLedger,LEDGER_BASES} from './creditLedger.js';
 import {translations} from './i18n/index.js';
 const MAX_ITEMS=30;
 const NO_FIXED_CYCLE=new Set(['ongoing','per-stay','per-trip','event-based']);
@@ -72,6 +73,15 @@ function describe(card,row,destination,asOf,use,brief,purchase){
   reviewDue:rule.assessment.reviewDue,...(brief?{}:{sources:knowledgeSources(rule.evidence.sourceIds).map(s=>({title:s.title,url:s.url}))})
  };
 }
+/** What the user's own data says when a credit has no computable cycle: a missing fee date to ask for, or a four-year last-use date. */
+function unknownCycleFacts(period,card,ruleId,events){
+ if(period==='account-anniversary')return {needsFeeDate:true,nextStep:'The card has no annual fee date. Ask the user to set it on the card; do not guess the card year or fall back to the calendar year.'};
+ if(period==='rolling-four-years'){
+  const status=offCycleStatus({state:'four-year',key:JSON.stringify([card.id,ruleId,'four-year'])},events);
+  return {fourYear:status.status==='used'?{lastUsedOn:status.usedOn,nextEligible:status.nextEligible}:{lastUsedOn:null,nextEligible:null},nextStep:status.status==='used'?'Next eligible is four years after the recorded last-use date.':'No last-use date is recorded, so the next eligible date is unknown. Ask the user for the date they last used it; do not guess it.'};
+ }
+ return {};
+}
 function latestUsage(key,revisionId,events){
  const event=events.filter(e=>e.key===key).sort((a,b)=>Date.parse(b.at)-Date.parse(a.at)||b.id.localeCompare(a.id))[0];
  return event?.revisionId===revisionId?event.usage||null:null;
@@ -121,12 +131,12 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
     if(!row.period){
      const period=row.rule.terms.period;
      if(NO_FIXED_CYCLE.has(period))groups.noFixedCycle.push({...item,cycle:null,status:'unknown'});
-     else groups.cycleUnknown.push({...item,reason:UNKNOWN_CYCLE_REASON[period]||'cycle-dates-unknown',cycle:null,status:'unknown'});
+     else groups.cycleUnknown.push({...item,reason:UNKNOWN_CYCLE_REASON[period]||'cycle-dates-unknown',cycle:null,status:'unknown',...unknownCycleFacts(period,card,id,events)});
      continue;
     }
     const {task,status}=statusOf(row.period),endsWithinDates=row.period.end<=window.end;
     if(endsWithinDates)boundaries.add(addDays(row.period.end,1));
-    const entry={...item,cycle:{start:row.period.start,end:row.period.end},datesInCycle:row.overlap,status,...(endsWithinDates?{cycleEndsWithinDates:true,nextCycleStarts:addDays(row.period.end,1)}:{})};
+    const entry={...item,cycle:{start:row.period.start,end:row.period.end},resetsOn:addDays(row.period.end,1),datesInCycle:row.overlap,status,...(endsWithinDates?{cycleEndsWithinDates:true,nextCycleStarts:addDays(row.period.end,1)}:{})};
     if(['used','skipped'].includes(status))groups.markedUsed.push(entry);
     else if(status==='unknown')groups.unknownStatus.push(entry);
     else{
@@ -153,5 +163,35 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
   groups,groupCounts:counts,totalItems:Object.values(counts).reduce((a,b)=>a+b,0),truncated,...(dismissedTruncated?{dismissedTruncated:true}:{}),needsEnrollmentOrChannel:conditions,
   dateSensitivity:{exactDatesCouldChangeAnswer:!['days','current-cycle'].includes(window.precision)&&boundaries.size>0,cycleBoundaries:[...boundaries].sort()},
   unmatchedCards
+ };
+}
+
+export const LEDGER_BASIS_CHOICES=LEDGER_BASES;
+/**
+ * How much a card's credits returned in the card year or the calendar year (#288), from the per-card ledger. Amounts are
+ * the user's own marks: a past cycle with no mark is notCaptured (the wallet does not know), never used. A card year
+ * without a fee date has no totals at all, so zeros cannot pass for "nothing returned".
+ */
+export function queryCreditLedger({basis},{cards,events=[],day}){
+ if(!isRealDate(day))throw TypeError('queryCreditLedger needs the wallet day');
+ if(!LEDGER_BASES.includes(basis))throw TypeError('invalid_ledger_basis');
+ const ledgers=creditLedger(cards,events,day,{basis}),byId=new Map(ledgers.map(l=>[l.cardId,l]));
+ const rows=[];
+ for(const card of cards){
+  const l=byId.get(card.id);if(!l)continue;
+  const base={card:card.name,cardRegion:card.region,currency:l.currency,basis};
+  if(l.needsFeeDate&&basis==='card-year'){rows.push({...base,needsFeeDate:true,period:null,returned:null,nextStep:'The card has no annual fee date, so its card year is unknown. Ask the user to set it on the card; do not guess the card year or answer with the calendar year instead.'});continue;}
+  rows.push({...base,period:l.period,annualFee:l.annualFee,
+   returned:{available:l.available,used:l.used,unused:l.unused,skipped:l.skipped,notCaptured:l.notCaptured,open:l.open},
+   netOfFee:l.netOfFee,
+   credits:l.credits.map(c=>({title:c.title,cycle:c.cycle,cycles:c.cycles,available:c.available,used:c.used,unused:c.unused,skipped:c.skipped,notCaptured:c.notCaptured,open:c.open})),
+   ...(l.needsFeeDate?{needsFeeDate:true,cardYearCreditsLeftOut:l.excluded.cardYearCredits,nextStep:'Credits tied to the card year are left out of these totals because the card has no annual fee date. Ask the user to set it on the card.'}:{})});
+ }
+ const listed=new Set(rows.map(r=>r.card));
+ return {
+  tool:'query_credits',mode:'ledger',today:day,basis,cards:rows,totalCards:rows.length,
+  unmatchedCards:cards.filter(c=>!listed.has(c.name)).map(c=>c.name),
+  meaning:{used:'Marked used by the user (the marked amount for a partial mark).',notCaptured:'The cycle has ended and the user made no mark. The wallet does not know whether it was used. Never call it used, and never call it missed.',unused:'The user marked it unused, or marked only part of it used, and the cycle has ended.',skipped:'The user chose not to use it that cycle.',open:'The cycle has not ended yet.',available:'Published per-cycle limits summed over every cycle that starts in the period (a monthly credit counts 12).'},
+  coverage:'Amounts come only from the user\'s manual marks; banks are not read for benefit use. Published limits are not remaining balances. Credits dismissed by the user and one-off or ongoing benefits are not counted. netOfFee is used (or available) minus the published annual fee, not the fee actually charged.'
  };
 }

@@ -9,6 +9,9 @@
 //   node scripts/gateway-codes.mjs caps                      # show the global caps in KV
 //   node scripts/gateway-codes.mjs set-caps [--daily-requests N] [--daily-tokens N] [--monthly-usd X] [--yes]
 //                                  (raising any cap above its current value needs --yes)
+//   node scripts/gateway-codes.mjs switches                  # show the KV switches
+//   node scripts/gateway-codes.mjs set-switch disabledTools <tool,tool>|forceModel <model>|assistantOff on|off
+//   node scripts/gateway-codes.mjs clear-switch disabledTools|forceModel|assistantOff
 //
 // Backend: the Cloudflare API when CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID and CARDYBARA_KV_NAMESPACE_ID
 // are set; otherwise wrangler (logged in) with gateway/wrangler.jsonc. Tester ids are short labels such as
@@ -18,6 +21,7 @@ import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {resolve} from 'node:path';
 import {readFileSync} from 'node:fs';
+import {parseSwitches,SWITCH_KEYS} from '../gateway/src/switches.js';
 
 const PREFIX='invite:',SETTINGS='settings',ID=/^[a-z0-9-]{1,32}$/;
 export const newCode=()=>'cdy_'+randomBytes(32).toString('base64url');
@@ -46,7 +50,7 @@ export function wranglerKV({config=resolve(fileURLToPath(new URL('..',import.met
 export function deployedDefaults(file=resolve(fileURLToPath(new URL('..',import.meta.url)),'gateway/wrangler.jsonc')){
  try{
   const vars=JSON.parse(readFileSync(file,'utf8').replace(/^\s*\/\/.*$/gm,'')).vars||{};
-  return {dailyRequests:Number(vars.DAILY_REQUESTS_PER_CODE),dailyTokens:Number(vars.DAILY_TOKENS_PER_CODE),monthlyBudgetUsd:Number(vars.MONTHLY_BUDGET_USD)};
+  return {dailyRequests:Number(vars.DAILY_REQUESTS_PER_CODE),dailyTokens:Number(vars.DAILY_TOKENS_PER_CODE),monthlyBudgetUsd:Number(vars.MONTHLY_BUDGET_USD),models:String(vars.ALLOWED_MODELS||'').split(',').map(m=>m.trim()).filter(Boolean)};
  }catch{return {};}
 }
 const whole=(v,flag)=>{if(v==null)return undefined;if(!/^\d+$/.test(v))throw Error(flag+' must be a whole number');return Number(v);};
@@ -92,7 +96,30 @@ export async function command(kv,argv,{defaults={}}={}){
   await kv.put(SETTINGS,JSON.stringify(next));
   return ['Caps now: '+JSON.stringify(next)];
  }
- throw Error('usage: gateway-codes.mjs issue <id> [--daily-requests N] [--daily-tokens N] | list | revoke <id> | restore <id> | caps | set-caps [--daily-requests N] [--daily-tokens N] [--monthly-usd X]');
+ if(op==='switches'){
+  const raw=JSON.parse(await kv.get(SETTINGS)||'{}'),shown=Object.fromEntries(SWITCH_KEYS.filter(k=>k in raw).map(k=>[k,raw[k]]));
+  const {invalid}=parseSwitches(raw,defaults.models||[]);
+  return [Object.keys(shown).length?JSON.stringify(shown):'No switches set.',...(invalid.length?['Ignored by the gateway as invalid: '+invalid.join(', ')]:[])];
+ }
+ if(op==='set-switch'){
+  const name=args.shift(),value=args.shift();
+  if(!SWITCH_KEYS.includes(name)||value==null)throw Error('set-switch disabledTools <tool,tool> | forceModel <model> | assistantOff on|off');
+  const parsed=name==='disabledTools'?value.split(',').map(v=>v.trim()).filter(Boolean):name==='assistantOff'?(value==='on'?true:value==='off'?false:value):value;
+  // The same check the gateway applies on each request, so a value that would be ignored is refused here.
+  if(name==='forceModel'&&!(defaults.models||[]).length)throw Error('forceModel needs ALLOWED_MODELS from gateway/wrangler.jsonc, which could not be read');
+  const {invalid}=parseSwitches({[name]:parsed},defaults.models||[]);
+  if(invalid.length)throw Error(name==='forceModel'?'forceModel must be one of ALLOWED_MODELS ('+defaults.models.join(', ')+')':name==='assistantOff'?'assistantOff takes on or off':'disabledTools takes tool names: a-z, 0-9 and _, separated by commas');
+  const next={...JSON.parse(await kv.get(SETTINGS)||'{}'),[name]:parsed};
+  await kv.put(SETTINGS,JSON.stringify(next));
+  return [`${name} is now ${JSON.stringify(parsed)}. KV can take about a minute, and the gateway caches it for 30 seconds.`];
+ }
+ if(op==='clear-switch'){
+  const name=args[0];if(!SWITCH_KEYS.includes(name))throw Error('clear-switch disabledTools | forceModel | assistantOff');
+  const next={...JSON.parse(await kv.get(SETTINGS)||'{}')};delete next[name];
+  await kv.put(SETTINGS,JSON.stringify(next));
+  return [name+' cleared.'];
+ }
+ throw Error('usage: gateway-codes.mjs issue <id> [--daily-requests N] [--daily-tokens N] | list | revoke <id> | restore <id> | caps | set-caps [--daily-requests N] [--daily-tokens N] [--monthly-usd X] | switches | set-switch <name> <value> | clear-switch <name>');
 }
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){

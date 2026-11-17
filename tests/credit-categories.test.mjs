@@ -35,6 +35,8 @@ test('every override resolves to exactly what it is meant to',()=>{
   'rule.chase-us-ihg-premier.airline-new':['airline'],'rule.chase-us-ihg-premier.travelbank':['airline'],'rule.boa-us-atmos-rewards-summit-visa-infinite.companion':['airline'],'rule.boa-us-atmos-rewards-summit-visa-infinite.partner-fees':['airline'],
   'rule.hsbc-hk-hk-red-credit-card.hkexpress':['airline'],'rule.boa-us-customized-cash-rewards-visa-signature.first-year':['reward'],
  };
+ // #352: Global Entry and trusted-traveler credits are travel credits too, so use "travel" finds them.
+ for(const id of ["rule.chase-us-sapphire-reserve.global-entry", "rule.chase-us-chase-sapphire-preferred-credit-card.trusted-traveler", "rule.chase-us-sapphire-reserve-for-business-credit-card.trusted-traveler", "rule.citi-us-citi-strata-elite-card.trusted-traveler", "rule.citi-us-citi-aadvantage-executive-card.trusted-traveler", "rule.capital-one-us-venture-rewards-credit-card.trusted-traveler", "rule.capital-one-us-venture-x-business-card.trusted-traveler", "rule.amex-us-us-delta-skymiles-platinum-card.trusted-traveler", "rule.amex-us-us-delta-skymiles-reserve-card.trusted-traveler", "rule.amex-us-us-marriott-bonvoy-brilliant-card.trusted-traveler", "rule.amex-us-us-delta-skymiles-platinum-business-card.trusted-traveler", "rule.chase-us-united-explorer-card.trusted-traveler", "rule.chase-us-southwest-rapid-rewards-performance-business-credit-card.trusted-traveler"])expected[id]=['airport','travel'];
  assert.deepEqual(Object.keys(data.ruleOverrides).sort(),Object.keys(expected).sort());
  for(const [id,list] of Object.entries(expected))assert.deepEqual(creditCategoriesForRuleId(id),list,id);
 });
