@@ -77,6 +77,16 @@ test('importing merges with what the device already has instead of replacing it'
  assert.equal(got.cardProducts.choices.length,1);
 });
 
+test('importing a backup without reminder settings leaves this device\'s reminders unchanged',async()=>{
+ const storage=memory(),l=ledgers();
+ await writeWalletDocument({...fixtures.full()},{storage,...deps(l)});
+ const before=(await readWalletDocument({storage,...deps(l)})).reminderSettings;
+ assert.equal(before.enabled,true);
+ await writeWalletDocument({...snapshotRows()},{storage,...deps(l)});
+ await writeWalletDocument({formatVersion:1,favorites:['x']},{storage,...deps(l)});
+ assert.deepEqual((await readWalletDocument({storage,...deps(l)})).reminderSettings,before);
+});
+
 // Every cardybara-* name in the source is either carried by the document, device-only, or not storage at all.
 const NOT_STORAGE=new Set([
  // events and message channels

@@ -123,6 +123,8 @@ export async function writeWalletDocument(raw,{storage,importBenefitEvents,impor
  const choices=mergeCardProductChoices(readCardProductChoices(storage),doc.cardProducts);
  const marks=mergePaymentMarks(readPaymentMarks(storage),doc.paymentMarks);
  const values=mergePointValues(readPointValueOverrides(storage),doc.pointValues);
+ // A backup without this section (an older export) must leave this device's reminders alone.
+ const carriesSettings=plain(raw)&&raw.reminderSettings!==undefined;
  const settings=normalizeSettings(doc.reminderSettings);
  const favorites=[...new Set([...parse(storage,FAVORITES_KEY,[]).filter(x=>typeof x==='string'),...doc.favorites])];
  const hidden=parse(storage,WALLET_REMOVED_KEY,[]);
@@ -134,7 +136,7 @@ export async function writeWalletDocument(raw,{storage,importBenefitEvents,impor
  const set=(key,value)=>storage.setItem(key,JSON.stringify(value));
  if(snap)set(IMPORT_KEY,snap);
  set(WALLET_CARDS_KEY,registry);set(WALLET_REMOVED_KEY,removed);set(CARD_EDITS_KEY,edits);set(CARD_PRODUCT_KEY,choices);
- set(PAYMENT_MARKS_KEY,marks);set(POINT_VALUES_KEY,storedPointValues(values));set(REMINDER_SETTINGS_KEY,settings);set(FAVORITES_KEY,favorites);
+ set(PAYMENT_MARKS_KEY,marks);set(POINT_VALUES_KEY,storedPointValues(values));if(carriesSettings)set(REMINDER_SETTINGS_KEY,settings);set(FAVORITES_KEY,favorites);
  return {doc,snapshot:snap};
 }
 
