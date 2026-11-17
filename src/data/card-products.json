@@ -4275,6 +4275,210 @@
       "checkedAt": "2026-11-16",
       "verification": "issuer-listed",
       "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-smartly-visa-signature-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "U.S. Bank Smartly® Visa Signature® Card",
+      "aliases": [
+        "U.S. Bank Smartly® Visa Signature® Card",
+        "U.S. Bank Smartly Visa Signature Card",
+        "U.S. Bank Smartly™ Visa Signature® Card",
+        "U.S. Bank Smartly",
+        "Smartly Visa Signature",
+        "Smartly"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/credit-cards/bank-smartly-visa-signature-credit-card.html",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-altitude-connect-visa-signature-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "U.S. Bank Altitude® Connect Visa Signature® Card",
+      "aliases": [
+        "U.S. Bank Altitude® Connect Visa Signature® Card",
+        "U.S. Bank Altitude Connect Visa Signature Card",
+        "U.S. Bank Altitude Connect",
+        "Altitude Connect"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/credit-cards/altitude-connect-visa-signature-credit-card.html",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-shield-visa-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "U.S. Bank Shield® Visa® Card",
+      "aliases": [
+        "U.S. Bank Shield® Visa® Card",
+        "U.S. Bank Shield Visa Card",
+        "U.S. Bank Shield",
+        "Shield Visa",
+        "Shield"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/credit-cards/shield-visa-credit-card.html",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-altitude-go-secured-visa-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "U.S. Bank Altitude® Go Secured Visa® Card",
+      "aliases": [
+        "U.S. Bank Altitude® Go Secured Visa® Card",
+        "U.S. Bank Altitude Go Secured Visa Card",
+        "U.S. Bank Altitude Go Secured",
+        "Altitude Go Secured"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/credit-cards/altitude-go-secured-visa-credit-card.html",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-cash-plus-secured-visa-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "U.S. Bank Cash+® Secured Visa® Card",
+      "aliases": [
+        "U.S. Bank Cash+® Secured Visa® Card",
+        "U.S. Bank Cash+ Secured Visa Card",
+        "U.S. Bank Cash+ Secured",
+        "Cash+ Secured Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/credit-cards/cash-plus-secured-visa-credit-card.html",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-secured-visa-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "U.S. Bank Secured Visa® Card",
+      "aliases": [
+        "U.S. Bank Secured Visa® Card",
+        "U.S. Bank Secured Visa Card",
+        "U.S. Bank Secured Visa",
+        "Secured Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/credit-cards/secured-visa-credit-card.html",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-triple-cash-rewards-visa-business-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "U.S. Bank Triple Cash Rewards Visa® Business Card",
+      "aliases": [
+        "U.S. Bank Triple Cash Rewards Visa® Business Card",
+        "U.S. Bank Triple Cash Rewards Visa Business Card",
+        "U.S. Bank Triple Cash Rewards",
+        "Triple Cash Rewards Visa Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/business-banking/business-credit-cards/business-triple-cash-back-credit-card.html",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-business-altitude-connect-visa-signature-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "U.S. Bank Business Altitude® Connect Visa Signature® Card",
+      "aliases": [
+        "U.S. Bank Business Altitude® Connect Visa Signature® Card",
+        "U.S. Bank Business Altitude Connect Visa Signature Card",
+        "U.S. Bank Business Altitude Connect",
+        "Business Altitude Connect"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/business-banking/business-credit-cards/business-altitude-connect-credit-card.html",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-business-essentials-visa-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "U.S. Bank Business Essentials™ Visa® Card",
+      "aliases": [
+        "U.S. Bank Business Essentials™ Visa® Card",
+        "U.S. Bank Business Essentials Visa Card",
+        "U.S. Bank Business Essentials",
+        "Business Essentials Visa",
+        "Business Essentials"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/business-banking/business-credit-cards/business-essentials-credit-card.html",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-business-essentials-plus-visa-signature-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "U.S. Bank Business Essentials™ Plus Visa Signature® Card",
+      "aliases": [
+        "U.S. Bank Business Essentials™ Plus Visa Signature® Card",
+        "U.S. Bank Business Essentials Plus Visa Signature Card",
+        "U.S. Bank Business Essentials Plus",
+        "Business Essentials Plus",
+        "Business Essentials Plus Visa Signature"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/business-banking/business-credit-cards/business-essentials-plus-credit-card.html",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-business-shield-visa-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "U.S. Bank Business Shield® Visa® Card",
+      "aliases": [
+        "U.S. Bank Business Shield® Visa® Card",
+        "U.S. Bank Business Shield Visa Card",
+        "U.S. Bank Business Shield",
+        "Business Shield Visa",
+        "Business Shield"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/business-banking/business-credit-cards/business-shield-credit-card.html",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
     }
   ]
 }
