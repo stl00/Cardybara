@@ -4,6 +4,7 @@
 import {copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {extname, join} from 'node:path';
+import {GATEWAY_ORIGIN, gatewayConfigured} from '../extension-next/model-client.js';
 
 export const WEB_OUT = 'dist/web';
 const IMAGES = new Set(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.ico']);
@@ -20,6 +21,12 @@ export function gatewayOrigin(env = process.env) {
     throw new Error('CARDYBARA_GATEWAY_ORIGIN must be a bare https origin such as https://gateway.example');
   }
   return url.origin;
+}
+
+// The web build talks to the hosted assistant at the same gateway as the extension (#389), so that origin is the default.
+// CARDYBARA_GATEWAY_ORIGIN overrides it (a test or staging gateway).
+export function webGatewayOrigin(env = process.env) {
+  return gatewayOrigin(env) ?? (gatewayConfigured ? GATEWAY_ORIGIN : null);
 }
 
 export function webHeaders(gateway = null) {
@@ -109,7 +116,7 @@ const walk = dir => readdirSync(dir, {withFileTypes: true}).flatMap(e => e.isDir
 
 export function webAppPlugin({root, env = process.env}) {
   const rootDir = root instanceof URL ? root.pathname : root;
-  const gateway = gatewayOrigin(env);
+  const gateway = webGatewayOrigin(env);
   let outDir;
   return {
     name: 'cardybara-web-app',
