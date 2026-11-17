@@ -1293,5 +1293,19 @@
     "title": "Amex · Blue Cash Everyday 官方申请条款页（保障条款）",
     "checkedAt": "2026-11-17",
     "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-blue-cash-preferred-card-terms",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/supplementary/terms/blue-cash-preferred-credit-card/36182-9-0",
+    "title": "Amex · Blue Cash Preferred 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-delta-skymiles-blue-card-terms",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/prospect/terms/delta-skymiles-blue-american-express-card/25330-10-0",
+    "title": "Amex · Delta SkyMiles Blue 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
+    "authority": "official"
   }
 ]
