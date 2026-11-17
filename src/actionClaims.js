@@ -15,7 +15,18 @@ const ZH_DONE='完成|成功|完毕|完畢|好了|妥了|搞定|到账|到賬';
 const ZH_AGENT=/我|[帮幫为為替给給代]你/;
 const ZH_HEDGE=/如果|若|假如|假设|假設|一旦|是否|有没有|有沒有|[吗嗎呢][？?。！!]?$|[？?]|[成功完]后|[成功完]後|之后|之後|以后|以後|之前|以前|(?<![刚剛])才|需要|必须|必須|须|須|要先|请|請|可以|可|能否|无法|無法|不能|没办法|沒辦法|不会|不會|未|没有|沒有|没|沒|不代表|无法确认|確認一下|确认一下|的话|的話|记得|記得|建议|建議|[将將](?=[会會于於在要可能])|即将|即將|会自动|會自動/;
 // The gap allows a long object before the verb ("已經替你把 Membership Rewards 點數兌換成…", #301).
-const zhCompleted=new RegExp(`已(?:经|經)?[^，,。；;！!？?\\n]{0,40}?(${ZH_ENROL}|${ZH_ACTION})(?!的)|(${ZH_ENROL}|${ZH_ACTION})已?(?:${ZH_DONE})`);
+const zhCompletedStrict=new RegExp(`已(?:经|經)?[^，,。；;！!？?\\n]{0,40}?(${ZH_ENROL}|${ZH_ACTION})(?!的)|(${ZH_ENROL}|${ZH_ACTION})已?(?:${ZH_DONE})`);
+// Without an agent in the clause, wordings that only describe a requirement are not claims (#362):
+// - a requirement word between 已 and the verb: "已包含 Marriott Gold 會籍但需登記", "官網已列明需登記";
+// - the verb used as a noun or an attribute: "登記資格", "登記步驟", "已登記嘅白金卡";
+// - 已 inside an instrument phrase: "用已關聯 Amex 嘅 Airbnb 帳戶預訂", "通过已关联 Amex 账户的…";
+// - "完成即/就…", a condition: "登記同關聯完成即享 Gold Elite".
+const ZH_NOUN_AFTER='[的嘅]|资格|資格|入口|方法|方式|条件|條件|要求|手续|手續|流程|步骤|步驟|页面|頁面|链接|連結|网址|網址|截止|期限';
+const ZH_INSTRUMENT='用|以|使用|通过|通過|透过|透過|凭|憑|持';
+const zhCompleted=new RegExp(`(?<!(?:${ZH_INSTRUMENT})\\s*)已(?:经|經)?(?:(?![需要])[^，,。；;！!？?\\n]){0,40}?(${ZH_ENROL}|${ZH_ACTION})(?!${ZH_NOUN_AFTER})|(${ZH_ENROL}|${ZH_ACTION})已?(?:${ZH_DONE})(?![即就便])`);
+// Activation the terms say is automatic ("Priority Pass Select … automatically activated"), said as "已自動啟用".
+// It counts as grounded only when the evidence has such a record (answerGrounding passes autoActivation, #362).
+const zhAutoActivated=/自[动動](?:地)?(?:激活|启用|啟用|开通|開通|生效)$/;
 const zhAgentDid=new RegExp(`(?:我|[帮幫为為替给給代]你)[^，,。；;！!？?\\n]{0,16}?(?:${ZH_AGENT_ONLY})`);
 const zhStatus=/(?:已经|已經|已|现在|現在)(?:是|成为|成為)[^，,。；;]{0,12}(?:会员|會員|会籍|會籍)/;
 // A membership or status said to be in effect or upgraded (#301). Only status nouns count: a credit or offer can be
@@ -65,15 +76,17 @@ const isEnrol=word=>new RegExp(`^(?:${ZH_ENROL}|${EN_ENROL}|enrollment|enrolment
 // statement rather than claiming the action (#301).
 const REPORTED=/^\s*(?:你(?:刚才|剛才|之前)?(?:说|說|提到|表示|讲|講|告诉我|告訴我)|据你|據你|根据你|根據你|按你|照你|(?:you|you've)\s+(?:said|mentioned|told me|say|noted)\b|according to you\b|as you (?:said|mentioned)\b)/i;
 
-export function actionClaimIssues(answer){
+// autoActivation: the evidence has a record whose terms say it is activated automatically, with no enrolment.
+export function actionClaimIssues(answer,{autoActivation=false}={}){
  const codes=new Set();
  const sentences=String(answer||'').replace(/(\d),(?=\d{3}\b)/g,'$1').split(/(?<=[。！？!?\n])|(?<=\.)\s+/).filter(s=>!REPORTED.test(s));
  const clauses=sentences.flatMap(s=>s.split(/(?<=[。！？!?；;，,：:\n—–])|(?<=\.)\s+/));
  for(const clause of clauses){
   const zh=/[㐀-鿿]/.test(clause);
   if(zh&&!ZH_HEDGE.test(clause)){
-   const m=clause.match(zhCompleted);
-   if(m){const verb=m[1]||m[2];if(isEnrol(verb)){codes.add('unverified_enrollment');if(ZH_AGENT.test(clause))codes.add('unauthorized_action_claim');}else codes.add('unauthorized_action_claim');}
+   const agent=ZH_AGENT.test(clause);
+   const m=clause.match(agent?zhCompletedStrict:zhCompleted);
+   if(m&&!(autoActivation&&!agent&&zhAutoActivated.test(m[0]))){const verb=m[1]||m[2];if(isEnrol(verb)){codes.add('unverified_enrollment');if(ZH_AGENT.test(clause))codes.add('unauthorized_action_claim');}else codes.add('unauthorized_action_claim');}
    if(zhStatus.test(clause)||zhStatusActive.test(clause)||zhStatusShown.test(clause))codes.add('unverified_enrollment');
    if(zhHandled.test(clause)||zhAgentDid.test(clause)||zhUsedPoints.test(clause)||zhUsedPointsBa.test(clause))codes.add('unauthorized_action_claim');
   }
