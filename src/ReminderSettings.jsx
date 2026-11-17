@@ -98,12 +98,12 @@ export default function ReminderSettings(){
  const lead=()=>LEAD_DAYS.map(days=>({value:days,label:t('提前 {0} 天',[days])}));
  const lost=settings.enabled&&supported()&&Notification.permission!=='granted';
  return <Card title={t('账单和福利提醒')} style={{marginBottom:20}}>
-  <Flex align="center" gap={12} wrap><Switch aria-label={t('开启提醒')} checked={settings.enabled} loading={busy} disabled={!supported()} onChange={toggle}/><Text strong>{t('开启浏览器通知')}</Text></Flex>
+  <label className="account-sync-switch"><Switch aria-label={t('开启提醒')} checked={settings.enabled} loading={busy} disabled={!supported()} onChange={toggle}/><Text strong>{t('开启浏览器通知')}</Text></label>
   <Paragraph type="secondary" style={{marginTop:12}}>{worker()?t('默认关闭。开启时 Chrome 会请求通知权限，关闭后不再提醒。钱包页面关闭时也会提醒，但 Chrome 需要在运行；Chrome 没运行时到点的提醒，下次启动后补发，已经过时的不再发。提醒按你上次打开钱包时的数据，安排接下来 {0} 天：在银行付款后，到钱包标记已处理才会停止。',[SCHEDULE_DAYS]):platform.kind==='web'?t('默认关闭。开启时浏览器会请求通知权限，关闭后不再提醒。只在打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。'):t('默认关闭。开启时 Chrome 会请求通知权限，关闭后不再提醒。只在 Chrome 中打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。')}</Paragraph>
   {support==='install'&&<Alert type="info" showIcon title={t('在 iPhone 或 iPad 上，要先把 Cardybara 添加到主屏幕（iOS 16.4 或更高），才能收到钱包关闭时的提醒。')} description={t('在 Safari 点“分享”，选“添加到主屏幕”，再从主屏幕图标打开钱包，回到这里开启。')} style={{marginBottom:12}}/>}
   {support==='ready'&&<div style={{marginBottom:12}}>
    {pushOn?<Flex align="center" gap={12} wrap><Text>{t('钱包关闭时也会提醒（Web Push）。')}</Text><Button size="small" loading={busy} onClick={turnOffPush}>{t('关闭后台提醒')}</Button></Flex>
-   :<><Button type="primary" loading={busy} onClick={turnOnPush}>{t('开启钱包关闭时的提醒')}</Button><Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{t('只把提醒的时间发给 Cardybara 服务器，不含卡名、尾号、金额；提醒的文字由本机生成。')}</Paragraph></>}
+   :<><Button type="primary" className="wrap-button" loading={busy} onClick={turnOnPush}>{t('开启钱包关闭时的提醒')}</Button><Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{t('只把提醒的时间发给 Cardybara 服务器，不含卡名、尾号、金额；提醒的文字由本机生成。')}</Paragraph></>}
   </div>}
   {!supported()&&support!=='install'&&<Alert type="info" showIcon title={t('这个浏览器不支持通知。')} style={{marginBottom:12}}/>}
   {denied&&<Alert type="warning" showIcon title={platform.kind==='web'?t('没有获得通知权限，提醒保持关闭。可以在浏览器的网站设置里修改后再试。'):t('没有获得通知权限，提醒保持关闭。可以在 Chrome 的网站设置里修改后再试。')} style={{marginBottom:12}}/>}

@@ -97,7 +97,7 @@ const NOT_STORAGE=new Set([
  'cardybara-model-key','cardybara-dev-own-key',
  // files, notification and alarm ids, DOM ids, build scope, hosts, report kinds
  'cardybara-snapshot','cardybara-credit-reminders','cardybara-extension-standalone','cardybara-extension-records','cardybara-test','cardybara-reminder',
- 'cardybara-bank-guide','cardybara-scope','cardybara-gateway','cardybara-problem-report','cardybara.svg','cardybara.workers',
+ 'cardybara-bank-guide','cardybara-scope','cardybara-gateway','cardybara-problem-report','cardybara-sync-change','cardybara-sync-status','cardybara.svg','cardybara.workers',
 ]);
 const walk=d=>readdirSync(d).flatMap(n=>{const p=join(d,n);return statSync(p).isDirectory()?walk(p):/\.(js|jsx|mjs)$/.test(n)?[p]:[]});
 test('no cardybara-* storage key is missing from the document and the device-only list',()=>{
