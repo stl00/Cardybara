@@ -6,7 +6,7 @@ import {existsSync, mkdtempSync, mkdirSync, writeFileSync, rmSync} from 'node:fs
 import {fileURLToPath} from 'node:url';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {gatewayOrigin, serviceWorkerSource, webHeaders, webManifest} from '../scripts/web-build.mjs';
+import {gatewayOrigin, serviceWorkerSource, shellVersion, webHeaders, webManifest} from '../scripts/web-build.mjs';
 import {checkWeb} from '../scripts/check-web.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
@@ -55,6 +55,16 @@ test('the service worker precaches the shell, skips other origins and the seed, 
   assert.notEqual(serviceWorkerSource(['/'], 'abc'), serviceWorkerSource(['/'], 'abd'));
 });
 
+test('the cache version changes when only index.html changes', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'sw-version-'));
+  mkdirSync(join(dir, 'assets'));
+  writeFileSync(join(dir, 'assets/a.js'), 'a');writeFileSync(join(dir, 'push-worker.js'), 'p');writeFileSync(join(dir, 'index.html'), 'one');
+  const before = shellVersion(dir, ['/', '/assets/a.js']);
+  writeFileSync(join(dir, 'index.html'), 'two');
+  assert.notEqual(shellVersion(dir, ['/', '/assets/a.js']), before);
+  rmSync(dir, {recursive: true, force: true});
+});
+
 test('a navigation is never answered with a redirected response (Safari refuses it)', async () => {
   const src = serviceWorkerSource(['/', '/assets/a.js'], 'abc');
   const handlers = {}, store = new Map();
@@ -62,7 +72,7 @@ test('a navigation is never answered with a redirected response (Safari refuses 
   const redirected = () => { const r = new Response('<!doctype html>', {status: 200, headers: {'Content-Type': 'text/html'}}); Object.defineProperty(r, 'redirected', {value: true}); return r; };
   store.set('/', redirected());
   const self = {location: {origin: 'https://wallet.example'}, addEventListener: (t, f) => { handlers[t] = f; }, skipWaiting() {}, clients: {claim() {}}};
-  const caches = {open: async () => ({match: async k => store.get(typeof k === 'string' ? k : new URL(k.url).pathname)?.clone?.() ?? store.get(k), put: async () => {}})};
+  const caches = {open: async () => ({match: async k => (store.has(typeof k === 'string' ? k : new URL(k.url).pathname) ? redirected() : undefined), put: async () => {}})};
   new Function('self', 'caches', 'importScripts', 'fetch', src)(self, caches, () => {}, async () => redirected());
   const run = async (url, mode) => { let p; handlers.fetch({request: {method: 'GET', url, mode}, respondWith: x => { p = x; }}); return p; };
   for (const url of ['https://wallet.example/', 'https://wallet.example/#settings']) {
