@@ -22,6 +22,13 @@ export const extension={
    });
   }
  },
+ // Account and sync (#416): the same `/v2/account` routes as the web wallet. `allow` asks once for the gateway's host permission
+ // (a click must be on the stack); `mirror` keeps the session token in chrome.storage.local too, for the background. No passkey
+ // sign-in here yet: it opens the web origin with chrome.identity.launchWebAuthFlow once passkeys exist (#422).
+ account:{
+  allow:origin=>chrome.permissions.request({origins:[origin+'/*']}),
+  mirror:session=>session?chrome.storage.local.set({'cardybara-account-session-v1':session}):chrome.storage.local.remove('cardybara-account-session-v1')
+ },
  // The extension background's assistant and parser: one request in, its answer out.
  assistant:{
   send:(type,extra={})=>chrome.runtime.sendMessage({type,...extra}),

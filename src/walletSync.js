@@ -13,18 +13,20 @@
 //  - payment marks and point values: by key, the later `at` (their backup rule);
 //  - benefit and cost events: a union by id;
 //  - reminder settings: field by field, the newer side on a tie;
+//  - bank readings (#416): per card and field, the later reading wins (src/bankReadings.js);
 //  - favourites: a set; bank snapshot rows: as one unit, the newer side on a tie.
 // "Newer side" is this device's last local change time against the server copy's `updatedAt`.
 //
 // The default timers are wrapped: a browser's setTimeout throws "Illegal invocation" when called as a method of another object.
 // Sync is off unless the user turned it on and is signed in. Off, nothing here touches the network or adds a listener.
 import {WALLET_FORMAT_VERSION,migrateWalletDocument} from './walletDocument.js';
+import {mergeBankReadings} from './bankReadings.js';
 
 export const SYNC_STATE_KEY='cardybara-sync-v1';
 export const ACCOUNT_SESSION_KEY='cardybara-account-session-v1';
 export const PUSH_DEBOUNCE_MS=5000,CHECK_INTERVAL_MS=30000,MAX_ROUNDS=4;
 // Events the wallet's modules dispatch after writing their store.
-export const CHANGE_EVENTS=['cardybara-card-edits-change','cardybara-card-products-change','cardybara-payment-marks-change','cardybara-point-values-change','cardybara-reminder-settings-change','cardybara-personal-change','cardybara-cost-change'];
+export const CHANGE_EVENTS=['cardybara-card-edits-change','cardybara-card-products-change','cardybara-payment-marks-change','cardybara-point-values-change','cardybara-reminder-settings-change','cardybara-personal-change','cardybara-cost-change','cardybara-bank-live-change'];
 
 const plain=v=>!!v&&typeof v==='object'&&!Array.isArray(v);
 /** JSON with object keys sorted, so two equal documents compare equal whatever order their keys were written in. */
@@ -77,7 +79,7 @@ function mergeKeyed(base,local,remote,keyOf,resolve){
 }
 const later=(a,b)=>Date.parse(b.at)>Date.parse(a.at)?b:a;
 const union=(local,remote)=>{const m=new Map();for(const e of [...(remote||[]),...(local||[])])m.set(e.id,e);return [...m.values()];};
-const SECTIONS=new Set(['formatVersion','walletCards','cardEdits','cardProducts','paymentMarks','pointValues','reminderSettings','favorites','personalBenefits','costLedger']);
+const SECTIONS=new Set(['formatVersion','walletCards','cardEdits','cardProducts','paymentMarks','pointValues','reminderSettings','favorites','personalBenefits','costLedger','bankReadings']);
 const snapshotOf=doc=>Object.fromEntries(Object.entries(doc).filter(([k])=>!SECTIONS.has(k)));
 
 /**
@@ -137,6 +139,8 @@ export function mergeWalletDocuments({base,local,remote,localNewer}){
   favorites,
   personalBenefits:{schema:1,events:union(local.personalBenefits?.events,remote.personalBenefits?.events)},
   costLedger:{schema:1,events:union(local.costLedger?.events,remote.costLedger?.events)},
+  // Bank amounts: the later reading of each field wins; a removed card's readings go with it and a folded card's follow it.
+  bankReadings:mergeBankReadings(local.bankReadings,remote.bankReadings,id=>gone.has(id)?null:moveId(id)),
  };
 }
 

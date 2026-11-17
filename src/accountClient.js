@@ -24,7 +24,10 @@ export function readAccount(storage,nowMs=Date.now()){
   return {email:typeof v.email==='string'?v.email:'',expiresAt:Number.isFinite(v.expiresAt)?v.expiresAt:null};
  }catch{return null}
 }
-const writeSession=(storage,{token,expiresAt},email)=>storage.setItem(ACCOUNT_SESSION_KEY,JSON.stringify({token,expiresAt,email}));
+// `mirror(session|null)` lets a platform keep a second copy of the session where its background can read it (the
+// extension's own storage area, src/platform/extension.js). It never throws into the screens.
+const writeSession=(storage,{token,expiresAt},email,mirror)=>{storage.setItem(ACCOUNT_SESSION_KEY,JSON.stringify({token,expiresAt,email}));try{Promise.resolve(mirror?.({token,expiresAt,email})).catch(()=>{});}catch{}};
+const dropSession=(storage,mirror)=>{storage.removeItem(ACCOUNT_SESSION_KEY);try{Promise.resolve(mirror?.(null)).catch(()=>{});}catch{}};
 const tokenOf=storage=>{try{return JSON.parse(storage.getItem(ACCOUNT_SESSION_KEY))?.token||null}catch{return null}};
 
 /** Turns sync on or off for this device and tells the page, which starts or stops the sync loop. */
@@ -38,7 +41,7 @@ export const syncIsOn=storage=>readSyncState(storage).on;
  * `gateway` is the origin; every call answers `{ok:true,...body}` or `{ok:false,code}` and never throws.
  * `code` is a gateway error code, 'offline' when the request did not get through, or 'error'.
  */
-export function createAccountClient({gateway,storage=globalThis.localStorage,fetchFn=(...a)=>globalThis.fetch(...a),now=()=>Date.now(),win=globalThis.window}){
+export function createAccountClient({gateway,storage=globalThis.localStorage,fetchFn=(...a)=>globalThis.fetch(...a),now=()=>Date.now(),win=globalThis.window,mirror=null}){
  async function call(method,path,body,{auth=false}={}){
   const headers={};
   if(body!==undefined)headers['Content-Type']='application/json';
@@ -53,7 +56,7 @@ export function createAccountClient({gateway,storage=globalThis.localStorage,fet
  }
  const norm=e=>String(e).trim();
  /** A session came back: keep it and answer without the token. */
- const keep=(r,email)=>{if(r.ok&&typeof r.token==='string'){writeSession(storage,r,email);forgetSync();return {ok:true,email,expiresAt:r.expiresAt};}return r;};
+ const keep=(r,email)=>{if(r.ok&&typeof r.token==='string'){writeSession(storage,r,email,mirror);forgetSync();return {ok:true,email,expiresAt:r.expiresAt};}return r;};
  /** The account changed: its sync copy is not this device's any more. */
  const forgetSync=()=>setSync(storage,false,win);
  return {
@@ -66,13 +69,13 @@ export function createAccountClient({gateway,storage=globalThis.localStorage,fet
   /** Signs out on the server when it can be reached; the session is dropped here either way. Local data is untouched. */
   async signOut(){
    const r=await call('DELETE','/v2/account/session',undefined,{auth:true});
-   storage.removeItem(ACCOUNT_SESSION_KEY);forgetSync();
+   dropSession(storage,mirror);forgetSync();
    return {ok:true,serverSignedOut:r.ok};
   },
   /** Deletes the server account and its wallet copy. Only after the server says so is the local session dropped; the local wallet is never touched. */
   async deleteAccount(password){
    const r=await call('DELETE','/v2/account',{password},{auth:true});
-   if(r.ok||r.code==='unauthorized'){storage.removeItem(ACCOUNT_SESSION_KEY);forgetSync();}
+   if(r.ok||r.code==='unauthorized'){dropSession(storage,mirror);forgetSync();}
    return r;
   },
  };
