@@ -21,6 +21,7 @@ import {writeMetrics} from './metrics.js';
 import {readSwitches} from './switches.js';
 import {parsePut,parseDelete,storePush,forgetPush,pushConfigured,EXPIRY_SECONDS} from './push.js';
 import * as accounts from './accounts.js';
+import * as passkeys from './passkeys.js';
 let agent=null;
 const agentRoute=ctx=>(agent||=import('./agent.js')).then(m=>m.agentRoute(ctx),()=>{throw new Refusal('agent_unavailable');});
 
@@ -29,7 +30,10 @@ const agentRoute=ctx=>(agent||=import('./agent.js')).then(m=>m.agentRoute(ctx),(
 export const ROUTES={chat:'/v1/chat/completions',agent:'/v1/chat',invite:'/v1/invite',push:'/v1/push',pushKey:'/v1/push/key',
  // Accounts and the wallet copy (#412, accounts.js). New shapes live under /v2; the /v1 routes are unchanged.
  account:'/v2/account',signUp:'/v2/account/signup',verify:'/v2/account/verify',session:'/v2/account/session',
- password:'/v2/account/password',forgot:'/v2/account/password/forgot',reset:'/v2/account/password/reset',wallet:'/v2/account/wallet',export:'/v2/account/export'};
+ password:'/v2/account/password',forgot:'/v2/account/password/forgot',reset:'/v2/account/password/reset',wallet:'/v2/account/wallet',export:'/v2/account/export',
+ // Passkeys (#461, passkeys.js). The last one takes the credential id after a slash.
+ passkeyStatus:'/v2/account/passkey/status',passkeyRegisterOptions:'/v2/account/passkey/register/options',passkeyRegisterVerify:'/v2/account/passkey/register/verify',
+ passkeyLoginOptions:'/v2/account/passkey/login/options',passkeyLoginVerify:'/v2/account/passkey/login/verify',passkeys:'/v2/account/passkey'};
 const FIELDS=['model','messages','tools','tool_choice','max_tokens','temperature','response_format'];
 const ROLES=new Set(['system','user','assistant','tool']);
 const MESSAGE_FIELDS=['role','content','name','tool_calls','tool_call_id'];
@@ -43,7 +47,7 @@ export const ERRORS={
  turn_invalid:400,turn_expired:409,agent_unavailable:503,push_unavailable:503,
  // Accounts (#412). Unknown email and wrong password are both invalid_credentials.
  weak_password:400,code_invalid:400,code_expired:400,invalid_credentials:401,unauthorized:401,email_unverified:403,
- stale_revision:409,invalid_document:422,account_locked:429,too_many_codes:429,mail_failed:502,account_unavailable:503,
+ stale_revision:409,invalid_document:422,passkey_invalid:401,challenge_expired:400,passkey_unavailable:503,account_locked:429,too_many_codes:429,mail_failed:502,account_unavailable:503,
 };
 
 const number=(value,fallback,{min=0,integer=false}={})=>{const n=Number(value??fallback);return Number.isFinite(n)&&n>=min&&(!integer||Number.isInteger(n))?n:null;};
@@ -387,7 +391,7 @@ function accountRoute(op,{body=true}={}){
   try{
    const audit={};
    try{
-    const r=await op({env:ctx.env,body:json,token:accounts.bearer(ctx.request),now:ctx.now(),audit});
+    const r=await op({env:ctx.env,body:json,token:accounts.bearer(ctx.request),now:ctx.now(),audit,params:ctx.params});
     return respond(r.status,r.body,ctx.cors);
    }finally{
     // The log line gets a hash of the session's user and the blob size; set also when the call is refused.
@@ -426,6 +430,13 @@ export const ROUTE_TABLE=[
  {path:ROUTES.wallet,name:'account_wallet',method:'PUT',handler:accountRoute(accounts.putWallet)},
  {path:ROUTES.export,name:'account_export',method:'GET',handler:accountRoute(accounts.exportAccount,{body:false})},
  {path:ROUTES.account,name:'account',method:'DELETE',handler:accountRoute(accounts.deleteAccount)},
+ {path:ROUTES.passkeyStatus,name:'passkey_status',method:'GET',handler:accountRoute(passkeys.status,{body:false})},
+ {path:ROUTES.passkeyRegisterOptions,name:'passkey_register_options',method:'POST',handler:accountRoute(passkeys.registerOptions)},
+ {path:ROUTES.passkeyRegisterVerify,name:'passkey_register_verify',method:'POST',handler:accountRoute(passkeys.registerVerify)},
+ {path:ROUTES.passkeyLoginOptions,name:'passkey_login_options',method:'POST',handler:accountRoute(passkeys.loginOptions)},
+ {path:ROUTES.passkeyLoginVerify,name:'passkey_login_verify',method:'POST',handler:accountRoute(passkeys.loginVerify)},
+ {path:ROUTES.passkeys,name:'passkey_list',method:'GET',handler:accountRoute(passkeys.list,{body:false})},
+ {path:ROUTES.passkeys,name:'passkey_remove',method:'DELETE',param:true,handler:accountRoute(passkeys.remove,{body:false})},
 ];
 
 /**
@@ -439,10 +450,12 @@ export async function handle(request,env,deps={}){
  const config=readConfig(env),allowed=originAllowed(origin,config.origins);
  const cors=allowed?{'Access-Control-Allow-Origin':origin,'Vary':'Origin'}:{'Vary':'Origin'};
  // A path may have several methods; `route` is the entry for this request's method, or the path's first entry for a wrong method.
- const onPath=ROUTE_TABLE.filter(r=>r.path===url.pathname),route=onPath.find(r=>r.method===request.method)||onPath[0];
+ const credentialId=url.pathname.startsWith(ROUTES.passkeys+'/')?url.pathname.slice(ROUTES.passkeys.length+1):'';
+ const params=/^[A-Za-z0-9_-]{1,1024}$/.test(credentialId)?{id:credentialId}:null;
+ const onPath=ROUTE_TABLE.filter(r=>r.param?!!params&&r.path===ROUTES.passkeys:r.path===url.pathname),route=onPath.find(r=>r.method===request.method)||onPath[0];
  const record={at:new Date(now()).toISOString(),route:route?.name||'other',status:0};
  let deferred=null,switchesRead=null;
- const ctx={request,env,config,cors,record,url,now,// Called as a plain function: Workers' fetch throws "Illegal invocation" when called as a method of another object.
+ const ctx={request,env,config,cors,record,url,now,params,// Called as a plain function: Workers' fetch throws "Illegal invocation" when called as a method of another object.
   upstream:deps.fetch||((...a)=>globalThis.fetch(...a)),deferLog:p=>{deferred=p;},
   // Tests only: sees each agent model call's payload before it becomes a provider request. The Worker never sets it.
   observe:deps.observe||null,

@@ -14,7 +14,7 @@ import {newWalletCard} from '../src/walletRegistry.js';
 import {cardProducts} from '../src/productCatalog.js';
 
 const ORIGIN='https://app.cardybara.test',GATEWAY='https://gateway.test';
-const MIGRATION=readFileSync(new URL('../gateway/migrations/0001_accounts.sql',import.meta.url),'utf8');
+const MIGRATION=['0001_accounts','0002_passkeys'].map(f=>readFileSync(new URL(`../gateway/migrations/${f}.sql`,import.meta.url),'utf8')).join('\n');
 const EMAIL='synthetic.user@example.test',PASSWORD='synthetic-pass-0001',NEW_PASSWORD='synthetic-pass-0002';
 const T0=Date.parse('2026-11-17T12:00:00Z');
 const bank=cardProducts[0].bank;

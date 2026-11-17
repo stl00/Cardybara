@@ -17,7 +17,7 @@ export class AccountError extends Error{constructor(code,extra={}){super(code);t
 const fail=(code,extra)=>{throw new AccountError(code,extra);};
 
 // Every table that may hold a row for a user. Deleting an account empties each of them for that user (tested).
-export const TABLES=['users','email_codes','sessions','wallets','auth_limits'];
+export const TABLES=['users','email_codes','sessions','wallets','auth_limits','passkeys','passkey_challenges'];
 export const PASSWORD_MIN=10;
 export const PASSWORD_MAX=1024;
 // Workers' WebCrypto refuses PBKDF2 above 100,000 iterations, so this is the most it allows. Each user row keeps its
@@ -37,10 +37,10 @@ import {validWalletDocument} from './walletSchema.js';
 
 const encoder=new TextEncoder();
 const hex=bytes=>[...bytes].map(b=>b.toString(16).padStart(2,'0')).join('');
-const b64u=bytes=>{let s='';for(const b of bytes)s+=String.fromCharCode(b);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');};
+export const b64u=bytes=>{let s='';for(const b of bytes)s+=String.fromCharCode(b);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');};
 const plain=v=>!!v&&typeof v==='object'&&!Array.isArray(v);
 const exact=(o,keys)=>plain(o)&&Object.keys(o).length===keys.length&&keys.every(k=>Object.hasOwn(o,k));
-const sec=ms=>Math.floor(ms/1000);
+export const sec=ms=>Math.floor(ms/1000);
 
 const validSecret=v=>typeof v==='string'&&v.length>=16;
 /** ACCOUNT_SECRET keys the code and email-limit HMACs; a local run (LOCAL_DEV=1) falls back to a fixed key. */
@@ -57,7 +57,7 @@ async function hmac(env,text){
  return hex(new Uint8Array(await crypto.subtle.sign('HMAC',key,encoder.encode(text))));
 }
 const sha256=async text=>hex(new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(text))));
-const randomBytes=n=>crypto.getRandomValues(new Uint8Array(n));
+export const randomBytes=n=>crypto.getRandomValues(new Uint8Array(n));
 
 export async function hashPassword(password,salt,iterations=PBKDF2_ITERATIONS){
  const key=await crypto.subtle.importKey('raw',encoder.encode(password),'PBKDF2',false,['deriveBits']);
@@ -88,8 +88,8 @@ function code(value){if(typeof value!=='string'||!/^\d{6}$/.test(value))fail('co
 function body(b,keys){if(!exact(b,keys))fail('bad_request');return b;}
 
 // --- D1 helpers.
-const one=(db,sql,...args)=>db.prepare(sql).bind(...args).first();
-const run=(db,sql,...args)=>db.prepare(sql).bind(...args).run();
+export const one=(db,sql,...args)=>db.prepare(sql).bind(...args).first();
+export const run=(db,sql,...args)=>db.prepare(sql).bind(...args).run();
 const changes=r=>r?.meta?.changes??0;
 
 // --- Per-email limits, keyed by an HMAC of the email (also for emails with no account, so the answer is the same).
@@ -153,7 +153,7 @@ async function mail(env,to,kind,value){
 }
 
 // --- Sessions: 32 random bytes; only their SHA-256 is stored.
-async function newSession(env,userId,now){
+export async function newSession(env,userId,now){
  const token='cbs_'+b64u(randomBytes(32));
  await run(env.DB,'INSERT INTO sessions (token_hash, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)',await sha256(token),userId,now,now+SESSION_TTL_SECONDS);
  return {token,expiresAt:now+SESSION_TTL_SECONDS};
@@ -163,7 +163,7 @@ export function bearer(request){
  return m?m[1]:null;
 }
 /** The signed-in user for a bearer token, or unauthorized. The user id never comes from the client. */
-async function session(env,token,now,audit){
+export async function session(env,token,now,audit){
  if(!token)fail('unauthorized');
  const hash=await sha256(token);
  const row=await one(env.DB,'SELECT user_id, expires_at FROM sessions WHERE token_hash = ?',hash);
@@ -174,7 +174,7 @@ async function session(env,token,now,audit){
 }
 
 const userByEmail=(env,email)=>one(env.DB,'SELECT id, email, verified, password_hash, password_salt, password_iterations FROM users WHERE email = ?',email);
-const userById=(env,id)=>one(env.DB,'SELECT id, email, verified, password_hash, password_salt, password_iterations FROM users WHERE id = ?',id);
+export const userById=(env,id)=>one(env.DB,'SELECT id, email, verified, password_hash, password_salt, password_iterations FROM users WHERE id = ?',id);
 async function setPassword(env,userId,value){
  const salt=b64u(randomBytes(16));
  await run(env.DB,'UPDATE users SET password_hash = ?, password_salt = ?, password_iterations = ? WHERE id = ?',await hashPassword(value,salt),salt,PBKDF2_ITERATIONS,userId);
@@ -314,11 +314,13 @@ export async function exportAccount({env,token,now:ms,audit}){
  const w=await one(env.DB,'SELECT revision, document, format_version, size, updated_at FROM wallets WHERE user_id = ?',userId);
  const sessions=(await env.DB.prepare('SELECT created_at, expires_at FROM sessions WHERE user_id = ?').bind(userId).all()).results;
  const codes=(await env.DB.prepare('SELECT purpose, expires_at FROM email_codes WHERE user_id = ?').bind(userId).all()).results;
+ const keys=(await env.DB.prepare('SELECT name, created_at FROM passkeys WHERE user_id = ?').bind(userId).all()).results;
  const out={
   account:{email:user.email,verified:!!user.verified,createdAt:(await one(env.DB,'SELECT created_at FROM users WHERE id = ?',userId)).created_at},
   credentials:{passwordHash:'stored (PBKDF2-SHA256, not exportable)',passwordIterations:user.password_iterations},
   wallet:w?{revision:w.revision,formatVersion:w.format_version,document:JSON.parse(w.document),updatedAt:w.updated_at}:null,
   sessions:sessions.map(r=>({createdAt:r.created_at,expiresAt:r.expires_at})),
+  passkeys:keys.map(r=>({name:r.name,createdAt:r.created_at})),
   pendingEmailCodes:codes.map(r=>({purpose:r.purpose,expiresAt:r.expires_at})),
  };
  audit.size=encoder.encode(JSON.stringify(out)).byteLength;
@@ -340,6 +342,8 @@ export async function deleteAccount({env,body:b,token,now:ms,audit}){
   st('DELETE FROM wallets WHERE user_id = ?',userId),
   st('DELETE FROM sessions WHERE user_id = ?',userId),
   st('DELETE FROM email_codes WHERE user_id = ?',userId),
+  st('DELETE FROM passkeys WHERE user_id = ?',userId),
+  st('DELETE FROM passkey_challenges WHERE user_id = ?',userId),
   st('DELETE FROM email_codes WHERE email = ?',user.email),
   st('DELETE FROM auth_limits WHERE key = ?',await limitKey(env,'signin',user.email)),
   st('DELETE FROM auth_limits WHERE key = ?',await limitKey(env,'send',user.email)),
