@@ -162,6 +162,26 @@ SELECT toDate(timestamp) AS day, blob1 AS route,
 FROM cardybara_agent_metrics WHERE timestamp > NOW() - INTERVAL '7' DAY GROUP BY day, route ORDER BY day, tokens DESC
 ```
 
+### Baseline report
+
+`scripts/assistant-baseline.mjs` turns raw data points into per-week answer-success, repair and fallback rate, p50/p95 duration, tokens and USD per answered turn, and into **proposed** targets for the owner's table in #256 (#478). It reads a file or stdin, holds no token and makes no network call; the owner/ops step is to run the query and save its JSON. This query returns one row per agent-route data point (tool requests and errors included, because they cost tokens), each carrying its sampling weight `_sample_interval`; the script applies that weight to every count, rate, quantile and cost:
+
+```sql
+SELECT timestamp, _sample_interval, double12 AS answered, double8 AS repaired, double9 AS fallback, blob6 AS error,
+  double5 AS prompt_tokens, double6 AS completion_tokens, double7 AS duration_ms
+FROM cardybara_agent_metrics WHERE blob1 = 'agent' AND timestamp > NOW() - INTERVAL '35' DAY
+ORDER BY timestamp LIMIT 100000 FORMAT JSON
+```
+
+```sh
+node scripts/assistant-baseline.mjs rows.json [--min-turns 20] [--turns-per-conversation 3] [--input-usd-per-mtok 0.6 --output-usd-per-mtok 2.4] [--json]
+```
+
+- A turn is an agent request that ended with an answer or an error code (as in the alert check). Answer success = answered / turns; repair and fallback rate are over answered turns; p50/p95 are over answered turns.
+- Tokens and USD per answered turn count every agent request in the week (a `tool_request` and a failed request spend tokens too), divided by answered turns. Prices default to the gateway's `PRICE_*` defaults (0.6 / 2.4 USD per million input / output tokens), and `docs/GATEWAY.md` "Price and limits" is where they are checked against the provider.
+- The data point has no conversation id by design, so **cost per conversation** is a proxy: USD per answered turn times `--turns-per-conversation` (default 3, an assumption to replace with the owner's figure). The output states it.
+- A week with fewer than `--min-turns` turns (default 20) is listed but not used. Proposals pool the weeks that qualify: success floor (the lower of 95% and observed minus 2 points), repair and fallback ceilings (double the observed rate, at least 5%, as the alert check), p95 ceiling (1.5 times observed) and a USD-per-conversation ceiling (1.5 times observed, with the conversations the monthly budget then covers). They are proposals; the owner sets the real targets in #256.
+
 Deployed with the binding on 2026-11-16 (code version `95179795`; setting `CF_ACCOUNT_ID` made version `1e8803f6` with the same code; #371). The three queries above were run that day against the live dataset after one synthetic turn (a throwaway invite code `m371`, revoked afterwards, and a made-up one-card wallet): each returned one row, and the full data point held only the code id, route, version, prompt hash, snapshot id, model, `list_cards:1` and counts, no question, answer or wallet value. The SQL API answers within about a minute of a write; a new dataset appears in `SHOW TABLES` with its first point.
 
 ## Alerts and switches
