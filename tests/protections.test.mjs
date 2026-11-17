@@ -210,3 +210,22 @@ test('a wallet holding Autograph Journey and Bilt Obsidian gets their recorded p
  for(const id of ['boa-us-atmos-rewards-summit-visa-infinite','boa-us-atmos-rewards-ascent-visa-signature','boa-us-bank-of-america-unlimited-cash-rewards','boa-us-customized-cash-rewards-visa-signature','us-bank-us-altitude-go-visa-signature-card','us-bank-us-cash-plus-visa-signature-card','discover-us-discover-it-cash-back-credit-card'])assert.equal(n(id),0,id);
  assert.ok(queryKnowledge({kind:'benefit',category:'protection'}).rules.filter(r=>/wells-fargo|bilt/.test(r.productIds[0])).every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt==='2026-11-16'));
 });
+
+// #326: Schwab and Morgan Stanley Platinum public terms pages name seven protections each; cards whose pages show no text stay unknown.
+test('a wallet holding Schwab and Morgan Stanley Platinum gets their recorded protections with sources; unread cards stay not_found (#326)',()=>{
+ const held=[{id:'sc',name:'Platinum Card from American Express Exclusively for Charles Schwab',bank:'Amex US',region:'US',currency:'USD'},{id:'ms',name:'Morgan Stanley Platinum Card',bank:'Amex US',region:'US',currency:'USD'},{id:'dl',name:'Delta SkyMiles Gold American Express Card',bank:'Amex US',region:'US',currency:'USD'}];
+ const ctx={cards:held,events:[],day:'2026-11-17',language:'en'};
+ const all=runWalletTool(call('find_protections',{}),ctx);
+ const card=n=>all.cards.find(c=>c.name===n);
+ const types=['extended-warranty','lost-luggage','purchase-protection','rental-car','return-protection','trip-cancellation','trip-delay'];
+ assert.deepEqual(card('Platinum Card from American Express Exclusively for Charles Schwab').coverageTypes.sort(),types);
+ assert.deepEqual(card('Morgan Stanley Platinum Card').coverageTypes.sort(),types);
+ assert.equal(card('Delta SkyMiles Gold American Express Card').status,'not_found');
+ assert.ok(all.rules.every(r=>r.sources.length&&r.sources.every(s=>/^https:\/\/www\.americanexpress\.com\/us\/credit-cards\/card-application\//.test(s.url))));
+ const trip=runWalletTool(call('find_protections',{type:'trip-delay'}),ctx);
+ assert.equal(trip.rules.length,2);assert.ok(trip.rules.every(r=>r.basis==='secondary'));
+ const rental=runWalletTool(call('find_protections',{type:'rental-car'}),ctx);
+ assert.ok(rental.rules.every(r=>r.basis==='not-stated'));
+ for(const id of ['amex-us-us-schwab-platinum-card','amex-us-us-morgan-stanley-platinum-card'])assert.ok(queryKnowledge({productId:id,category:'protection'}).rules.every(r=>r.evidence.checkedAt==='2026-11-17'&&r.evidence.fullTermsReviewed===false&&r.terms.amount===null));
+ assert.equal(queryKnowledge({productId:'amex-us-us-delta-skymiles-gold-card',category:'protection'}).count,0);
+});
