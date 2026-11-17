@@ -12,6 +12,7 @@ const T=(user,calls,answer)=>({user,calls,answer});
 const fb=(query,extra={})=>['find_benefits',{query,...extra}];
 const rules=(kind,extra={})=>['get_card_rules',{kind,...extra}];
 const credits=(args={})=>['query_credits',args];
+const pa=args=>['points_accounts',args];
 const choose=args=>['choose_card',args];
 const SR='chase-us-sapphire-reserve',GOLD='amex-us-us-american-express-gold-card',MS='amex-us-us-morgan-stanley-platinum-card',ASPIRE='amex-us-us-hilton-honors-aspire-card',PLAT_US='amex-us-us-the-platinum-card',PLAT_HK='amex-hk-hk-the-platinum-card',PLAT_CA='amex-ca-ca-platinum-card',RED='hsbc-hk-hk-red-credit-card',CATHAY='sc-hk-hk-cathay-mastercard';
 
@@ -138,4 +139,9 @@ export const dialogues=[
  {id:'same-marriott-ca-en',lang:'en',kind:'same-name',turns:[muMarriottEn],question:'How do I enrol on the Canadian one?',regionInQuestion:true,expect:{tool:'find_benefits',args:{query:'Marriott Gold',cardName:'Platinum Card',region:'CA'}},target:{card:PLAT_CA}},
  {id:'same-marriott-hk-hant',lang:'zh-Hant',kind:'same-name',turns:[muMarriottHant],question:'香港嗰張點登記？',regionInQuestion:true,expect:{tool:'find_benefits',args:{query:'Marriott Gold',cardName:'The Platinum Card',region:'HK'}},target:{card:PLAT_HK}},
  {id:'same-lounge-hk-vs-ms-hans',lang:'zh-Hans',kind:'same-name',turns:[T('哪些卡有 Global Lounge Collection？',[fb('Global Lounge Collection')],'Global Lounge Collection 出现在两张卡上：香港白金卡和 Morgan Stanley 白金卡。')],question:'美国那张的条件是什么？',regionInQuestion:true,expect:{tool:'find_benefits',args:{query:'Global Lounge Collection',cardName:'Morgan Stanley'}},target:{card:MS}},
+ // ---- redemption (#464): "as a statement credit?" is a Membership Rewards option, and the last programme asked about was Membership Rewards, not the Ultimate Rewards one before it ----
+ {id:'red-statement-credit-en',lang:'en',kind:'ellipsis',turns:[
+  T('I have 50,000 Ultimate Rewards points. What is cash back worth?',[pa({programme:'Ultimate Rewards',region:'US',points:50000})],'Ultimate Rewards cash back is 1 cent per point, so 50,000 points is $500.'),
+  T('And if I put 50,000 Membership Rewards points into an Amex checking deposit?',[pa({programme:'Membership Rewards',region:'US',points:50000})],'A standard Membership Rewards checking deposit is 0.8 cents per point, so 50,000 points is $400.'),
+ ],question:'And as a statement credit?',expect:{tool:'points_accounts',args:{programme:'Membership Rewards',region:'US'}},target:{programme:['Membership Rewards']}},
 ];
