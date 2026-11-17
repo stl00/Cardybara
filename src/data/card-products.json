@@ -2463,7 +2463,9 @@
         "Savor Credit Card",
         "Capital One Savor",
         "Savor Cash Rewards",
-        "Savor"
+        "Savor",
+        "Savor Rewards",
+        "Savor Rewards Credit Card"
       ],
       "currencies": [],
       "rewardPrograms": [],
@@ -3709,6 +3711,570 @@
       "sourceUrl": "https://business.bankofamerica.com/en/credit-cards/business-advantage-travel-rewards",
       "checkedAt": "2026-11-16",
       "verification": "issuer-listed"
+    },
+    {
+      "id": "capital-one-us-quicksilver-rewards-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Quicksilver Rewards Credit Card",
+      "aliases": [
+        "Quicksilver Rewards Credit Card",
+        "Capital One Quicksilver",
+        "Quicksilver Rewards",
+        "Quicksilver",
+        "Quicksilver Cash Rewards",
+        "Quicksilver Rewards from Capital One"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/quicksilver/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-quicksilverone-rewards-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "QuicksilverOne Rewards Credit Card",
+      "aliases": [
+        "QuicksilverOne Rewards Credit Card",
+        "Capital One QuicksilverOne",
+        "QuicksilverOne Rewards",
+        "QuicksilverOne"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-quicksilver-rewards-for-good-credit",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Quicksilver Rewards for Good Credit",
+      "aliases": [
+        "Quicksilver Rewards for Good Credit",
+        "Quicksilver for Good Credit",
+        "Capital One Quicksilver for Good Credit"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-ventureone-rewards-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "VentureOne Rewards Credit Card",
+      "aliases": [
+        "VentureOne Rewards Credit Card",
+        "Capital One VentureOne",
+        "VentureOne Rewards",
+        "VentureOne",
+        "VentureOne Rewards from Capital One"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Capital One Miles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/ventureone/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-ventureone-rewards-for-good-credit",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "VentureOne Rewards for Good Credit",
+      "aliases": [
+        "VentureOne Rewards for Good Credit",
+        "VentureOne for Good Credit",
+        "Capital One VentureOne for Good Credit"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Capital One Miles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-savorone-rewards-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "SavorOne Rewards Credit Card",
+      "aliases": [
+        "SavorOne Rewards Credit Card",
+        "Capital One SavorOne",
+        "SavorOne Rewards",
+        "SavorOne",
+        "SavorOne Cash Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/savorone/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-savor-rewards-for-good-credit",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Savor Rewards for Good Credit",
+      "aliases": [
+        "Savor Rewards for Good Credit",
+        "Savor for Good Credit",
+        "Capital One Savor for Good Credit"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-platinum-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Platinum Credit Card",
+      "aliases": [
+        "Platinum Credit Card",
+        "Capital One Platinum",
+        "Platinum"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/platinum/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-savor-rewards-for-students",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Savor Rewards for Students",
+      "aliases": [
+        "Savor Rewards for Students",
+        "Savor Student",
+        "Capital One Savor Student",
+        "Savor for Students"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-quicksilver-rewards-for-students",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Quicksilver Rewards for Students",
+      "aliases": [
+        "Quicksilver Rewards for Students",
+        "Quicksilver Student",
+        "Capital One Quicksilver Student",
+        "Quicksilver for Students"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-quicksilver-secured-rewards-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Quicksilver Secured Rewards Credit Card",
+      "aliases": [
+        "Quicksilver Secured Rewards Credit Card",
+        "Capital One Quicksilver Secured",
+        "Quicksilver Secured Rewards",
+        "Quicksilver Secured",
+        "Quicksilver Secured from Capital One"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/quicksilver-secured/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-platinum-secured-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Platinum Secured Credit Card",
+      "aliases": [
+        "Platinum Secured Credit Card",
+        "Capital One Platinum Secured",
+        "Platinum Secured"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-spark-2-cash-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Spark 2% Cash Credit Card",
+      "aliases": [
+        "Spark 2% Cash Credit Card",
+        "Spark 2% Cash Card",
+        "Capital One Spark Cash",
+        "Spark Cash",
+        "Spark 2% Cash"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/spark-cash/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-spark-1-5-cash-select-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Spark 1.5% Cash Select Credit Card",
+      "aliases": [
+        "Spark 1.5% Cash Select Credit Card",
+        "Spark 1.5% Cash Select Card",
+        "Capital One Spark Cash Select",
+        "Spark Cash Select",
+        "Spark 1.5% Cash Select"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/spark-cash-select/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-spark-1-classic-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Spark 1% Classic Credit Card",
+      "aliases": [
+        "Spark 1% Classic Credit Card",
+        "Spark 1% Classic Card",
+        "Capital One Spark Classic",
+        "Spark Classic",
+        "Spark 1% Classic"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/spark-classic/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-venture-business-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Venture Business Credit Card",
+      "aliases": [
+        "Venture Business Credit Card",
+        "Venture Business Card",
+        "Capital One Venture Business",
+        "Venture Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Capital One Miles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/venture-business/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-ventureone-business-credit-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "VentureOne Business Credit Card",
+      "aliases": [
+        "VentureOne Business Credit Card",
+        "VentureOne Business Card",
+        "Capital One VentureOne Business",
+        "VentureOne Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Capital One Miles"
+      ],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/ventureone-business/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-t-mobile-visa-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "T-Mobile Visa Card",
+      "aliases": [
+        "T-Mobile Visa Card",
+        "T-Mobile Visa®",
+        "T-Mobile Visa",
+        "Capital One T-Mobile Visa",
+        "T-Mobile Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/t-mobile/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-rei-co-op-mastercard",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "REI Co-op Mastercard",
+      "aliases": [
+        "REI Co-op Mastercard",
+        "REI Co-op® Mastercard®",
+        "Capital One REI Co-op Mastercard",
+        "REI Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-bj-s-one-mastercard",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "BJ's One Mastercard",
+      "aliases": [
+        "BJ's One Mastercard",
+        "BJ's One® Mastercard®",
+        "BJs One Mastercard",
+        "BJ's One"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-bj-s-one-plus-mastercard",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "BJ's One+ Mastercard",
+      "aliases": [
+        "BJ's One+ Mastercard",
+        "BJ's One+® Mastercard®",
+        "BJs One+ Mastercard",
+        "BJ's One+"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-kohl-s-rewards-visa-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Kohl's Rewards Visa Card",
+      "aliases": [
+        "Kohl's Rewards Visa Card",
+        "Kohl's Rewards® Visa",
+        "Kohl's Rewards Visa",
+        "Kohl's Visa",
+        "Kohls Rewards Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-pottery-barn-key-rewards-visa-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Pottery Barn Key Rewards Visa Card",
+      "aliases": [
+        "Pottery Barn Key Rewards Visa Card",
+        "Pottery Barn Key Rewards® Visa",
+        "Pottery Barn Key Rewards Visa",
+        "Pottery Barn Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-williams-sonoma-key-rewards-visa-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Williams Sonoma Key Rewards Visa Card",
+      "aliases": [
+        "Williams Sonoma Key Rewards Visa Card",
+        "Williams Sonoma Key Rewards® Visa",
+        "Williams Sonoma Key Rewards Visa",
+        "Williams Sonoma Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-west-elm-key-rewards-visa-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "West Elm Key Rewards Visa Card",
+      "aliases": [
+        "West Elm Key Rewards Visa Card",
+        "West Elm Key Rewards® Visa",
+        "West Elm Key Rewards Visa",
+        "West Elm Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-key-rewards-visa-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Key Rewards Visa Card",
+      "aliases": [
+        "Key Rewards Visa Card",
+        "Key Rewards® Visa",
+        "Key Rewards Visa",
+        "Capital One Key Rewards Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-cabela-s-club-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Cabela's CLUB Card",
+      "aliases": [
+        "Cabela's CLUB Card",
+        "Cabela's CLUB Visa",
+        "Cabela's CLUB",
+        "Cabelas CLUB Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-bass-pro-shops-club-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Bass Pro Shops CLUB Card",
+      "aliases": [
+        "Bass Pro Shops CLUB Card",
+        "Bass Pro Shops CLUB Visa",
+        "Bass Pro Shops CLUB",
+        "Bass Pro CLUB Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "capital-one-us-bass-pro-shops-and-cabela-s-club-business-card",
+      "bank": "Capital One",
+      "region": "US",
+      "name": "Bass Pro Shops and Cabela's CLUB Business Card",
+      "aliases": [
+        "Bass Pro Shops and Cabela's CLUB Business Card",
+        "Bass Pro Shops and Cabela's CLUB Business card",
+        "Bass Pro Shops and Cabela's CLUB Business",
+        "CLUB Business Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.capitalone.com/credit-cards/club-business/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
     }
   ]
 }
