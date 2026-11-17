@@ -10,7 +10,30 @@ export const SYNC_STATUS_EVENT='cardybara-sync-status';
 export const PASSWORD_MIN=10;
 
 /** Gateway error codes the screens know, each with its own message (src/i18n/account.json); anything else is 'error'. */
-const KNOWN=new Set(['bad_request','weak_password','code_invalid','code_expired','invalid_credentials','email_unverified','account_locked','too_many_codes','mail_failed','account_unavailable','unauthorized','too_large']);
+const KNOWN=new Set(['bad_request','weak_password','code_invalid','code_expired','invalid_credentials','email_unverified','account_locked','too_many_codes','mail_failed','account_unavailable','unauthorized','too_large','passkey_invalid','challenge_expired','passkey_unavailable']);
+
+
+// Passkeys (stl00/Cardybara#422): WebAuthn options and credentials cross the gateway as JSON with base64url binary fields.
+const b64uToBuf=s=>{const b=atob(String(s).replace(/-/g,'+').replace(/_/g,'/').padEnd(Math.ceil(String(s).length/4)*4,'='));return Uint8Array.from(b,c=>c.charCodeAt(0)).buffer;};
+const bufToB64u=buf=>btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+/** Gateway options (base64url strings) -> the shape navigator.credentials wants (ArrayBuffers). */
+export function decodePublicKeyOptions(pk){
+ const o={...pk,challenge:b64uToBuf(pk.challenge)};
+ if(pk.user)o.user={...pk.user,id:b64uToBuf(pk.user.id)};
+ for(const k of ['allowCredentials','excludeCredentials'])if(Array.isArray(pk[k]))o[k]=pk[k].map(c=>({...c,id:b64uToBuf(c.id)}));
+ return o;
+}
+/** A PublicKeyCredential -> plain JSON for the gateway. */
+export function encodeCredential(c){
+ const r=c.response,out={id:c.id,rawId:bufToB64u(c.rawId),type:c.type,response:{clientDataJSON:bufToB64u(r.clientDataJSON)}};
+ if(r.attestationObject)out.response.attestationObject=bufToB64u(r.attestationObject);
+ if(r.authenticatorData)out.response.authenticatorData=bufToB64u(r.authenticatorData);
+ if(r.signature)out.response.signature=bufToB64u(r.signature);
+ if(r.userHandle)out.response.userHandle=bufToB64u(r.userHandle);
+ if(typeof r.getTransports==='function')out.response.transports=r.getTransports();
+ return out;
+}
+export const passkeySupported=(creds=globalThis.navigator?.credentials)=>typeof creds?.get==='function'&&typeof creds?.create==='function'&&typeof globalThis.PublicKeyCredential!=='undefined';
 
 export const emailLooksValid=v=>typeof v==='string'&&v.length<=254&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 export const passwordLongEnough=v=>typeof v==='string'&&[...v].length>=PASSWORD_MIN;
@@ -41,7 +64,7 @@ export const syncIsOn=storage=>readSyncState(storage).on;
  * `gateway` is the origin; every call answers `{ok:true,...body}` or `{ok:false,code}` and never throws.
  * `code` is a gateway error code, 'offline' when the request did not get through, or 'error'.
  */
-export function createAccountClient({gateway,storage=globalThis.localStorage,fetchFn=(...a)=>globalThis.fetch(...a),now=()=>Date.now(),win=globalThis.window,mirror=null}){
+export function createAccountClient({gateway,storage=globalThis.localStorage,fetchFn=(...a)=>globalThis.fetch(...a),now=()=>Date.now(),win=globalThis.window,mirror=null,credentials=globalThis.navigator?.credentials}){
  async function call(method,path,body,{auth=false}={}){
   const headers={};
   if(body!==undefined)headers['Content-Type']='application/json';
@@ -60,6 +83,30 @@ export function createAccountClient({gateway,storage=globalThis.localStorage,fet
  /** The account changed: its sync copy is not this device's any more. */
  const forgetSync=()=>setSync(storage,false,win);
  return {
+  // Passkeys. The gateway's /v2/account/passkey routes answer 404 until they ship; the screens then hide the passkey controls.
+  /** True when the browser can do passkeys and the gateway has the routes. Never throws. */
+  async passkeysAvailable(){if(!passkeySupported(credentials))return false;const r=await call('GET','/v2/account/passkey/status');return r.ok&&r.enabled===true;},
+  async listPasskeys(){const r=await call('GET','/v2/account/passkey',undefined,{auth:true});return r.ok?{ok:true,passkeys:Array.isArray(r.passkeys)?r.passkeys:[]}:r;},
+  async removePasskey(id){return call('DELETE','/v2/account/passkey/'+encodeURIComponent(id),undefined,{auth:true});},
+  /** Signed in: asks the browser for a new passkey and registers it. A cancelled prompt answers `{ok:false,code:'cancelled'}`. */
+  async addPasskey(name){
+   const o=await call('POST','/v2/account/passkey/register/options',{},{auth:true});
+   if(!o.ok)return o;
+   let cred;
+   try{cred=await credentials.create({publicKey:decodePublicKeyOptions(o.publicKey)});}catch{return {ok:false,code:'cancelled'};}
+   if(!cred)return {ok:false,code:'cancelled'};
+   return call('POST','/v2/account/passkey/register/verify',{challengeId:o.challengeId,credential:encodeCredential(cred),name:String(name||'').trim().slice(0,60)},{auth:true});
+  },
+  /** Signed out: sign in with a passkey. `conditional` uses the browser's autofill UI and can be aborted with `signal`. */
+  async signInWithPasskey({conditional=false,signal}={}){
+   const o=await call('POST','/v2/account/passkey/login/options',{});
+   if(!o.ok)return o;
+   let cred;
+   try{cred=await credentials.get({publicKey:decodePublicKeyOptions(o.publicKey),...(conditional?{mediation:'conditional'}:{}),signal});}catch{return {ok:false,code:'cancelled'};}
+   if(!cred)return {ok:false,code:'cancelled'};
+   const r=await call('POST','/v2/account/passkey/login/verify',{challengeId:o.challengeId,credential:encodeCredential(cred)});
+   return keep(r,typeof r.email==='string'?r.email:'');
+  },
   signUp:(email,password)=>call('POST','/v2/account/signup',{email:norm(email),password}),
   verify:async(email,code)=>keep(await call('POST','/v2/account/verify',{email:norm(email),code:norm(code)}),norm(email)),
   signIn:async(email,password)=>keep(await call('POST','/v2/account/session',{email:norm(email),password}),norm(email)),
