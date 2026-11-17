@@ -15,6 +15,7 @@ export const SEPARATE = {
   'tests/card-merge-page.test.mjs': 'test:collector-chrome',
   'tests/web-app.test.mjs': 'test:web',
   'tests/mobile-first-run.test.mjs': 'test:web',
+  'tests/mobile-nav.test.mjs': 'test:web',
   'tests/web-chat.test.mjs': 'test:web',
   'tests/extension-sync.test.mjs': 'test:web',
   // Agent model plumbing and multi-turn evals run with the agent evals.
