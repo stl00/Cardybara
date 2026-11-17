@@ -67,6 +67,8 @@ export function checkWeb(dir, {gateway = null} = {}) {
     else for (const f of list) if (f !== '/' && !has(f.replace(/^\//, ''))) add(`sw.js caches ${f}, which is not in the folder`);
     if (list && !list.includes('/index.html')) add('sw.js does not cache index.html, so an offline reload has no page');
     if (!/addEventListener\('fetch'/.test(sw)) add('sw.js does not answer fetches');
+    for (const m of sw.matchAll(/importScripts\('([^']+)'\)/g)) if (!has(m[1].replace(/^\//, ''))) add(`sw.js imports ${m[1]}, which is not in the folder`);
+    if (has('push-worker.js') && !/importScripts\('\/push-worker\.js'\)/.test(sw)) add('push-worker.js is shipped but sw.js does not load it');
   }
 
   // Third-party URLs: none in anything but the wallet bundle; the bundle may hold reference links but never a request.
