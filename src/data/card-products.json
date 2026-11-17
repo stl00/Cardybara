@@ -4479,6 +4479,171 @@
       "checkedAt": "2026-11-16",
       "verification": "issuer-listed",
       "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-miles-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Miles Credit Card",
+      "aliases": [
+        "Discover it Miles Credit Card",
+        "Discover it Miles"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/travel/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-chrome-gas-restaurants-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Chrome Gas & Restaurants Credit Card",
+      "aliases": [
+        "Discover it Chrome Gas & Restaurants Credit Card",
+        "Discover it Chrome",
+        "Discover it Chrome Gas and Restaurants"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/cash-back/chrome/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-balance-transfer-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Balance Transfer Credit Card",
+      "aliases": [
+        "Discover it Balance Transfer Credit Card",
+        "Discover it Balance Transfer"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/balance-transfer-credit-cards/cash-back-bt-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-nhl-discover-it-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "NHL® Discover it Credit Card",
+      "aliases": [
+        "NHL® Discover it Credit Card",
+        "NHL Discover it Credit Card",
+        "NHL Discover it Credit Card",
+        "NHL Discover it"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/cash-back/nhl-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-cash-back-for-good-credit",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Cash Back for Good Credit",
+      "aliases": [
+        "Discover it Cash Back for Good Credit",
+        "Discover it Cash Back Good Credit"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-miles-for-good-credit",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Miles for Good Credit",
+      "aliases": [
+        "Discover it Miles for Good Credit",
+        "Discover it Miles Good Credit"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-chrome-for-good-credit",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Chrome for Good Credit",
+      "aliases": [
+        "Discover it Chrome for Good Credit",
+        "Discover it Chrome Good Credit"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-student-cash-back-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Student Cash Back Credit Card",
+      "aliases": [
+        "Discover it Student Cash Back Credit Card",
+        "Discover it Student Cash Back"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/student-credit-card/it-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-student-chrome-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Student Chrome Credit Card",
+      "aliases": [
+        "Discover it Student Chrome Credit Card",
+        "Discover it Student Chrome"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/student-credit-card/chrome-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-secured-cash-back-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Secured Cash Back Credit Card",
+      "aliases": [
+        "Discover it Secured Cash Back Credit Card",
+        "Discover it Secured Cash Back",
+        "Discover it Secured Credit Card",
+        "Discover it Secured"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/secured-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
     }
   ]
 }
