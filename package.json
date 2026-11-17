@@ -22,7 +22,7 @@
     "eval:multiturn": "node scripts/eval-multiturn.mjs",
     "eval:multiturn:live": "node scripts/eval-multiturn.mjs --live",
     "eval:benefit-recall": "node scripts/eval-benefit-recall.mjs && node scripts/eval-benefit-recall.mjs --golden=evals/benefit-recall/holdout.json --out=evals/latest-benefit-recall-holdout.json",
-    "check:agent": "node --test tests/find-benefits-judge.test.mjs tests/model-client.test.mjs tests/agent-scripted-model.test.mjs tests/chat-agent.test.mjs tests/agent-quality.test.mjs tests/agent-credit-query.test.mjs tests/card-decision.test.mjs tests/point-values.test.mjs tests/purchase-choice.test.mjs tests/credit-applicability.test.mjs tests/credit-dismissal.test.mjs tests/multiturn-eval.test.mjs tests/conversation-state.test.mjs tests/redemption-options.test.mjs tests/coverage-eval.test.mjs && node scripts/eval-agent.mjs && node scripts/eval-multiturn.mjs --min=0.9 && npm run check:agent:cloud",
+    "check:agent": "node --test tests/find-benefits-judge.test.mjs tests/model-client.test.mjs tests/agent-scripted-model.test.mjs tests/chat-agent.test.mjs tests/agent-quality.test.mjs tests/agent-credit-query.test.mjs tests/card-decision.test.mjs tests/point-values.test.mjs tests/purchase-choice.test.mjs tests/credit-applicability.test.mjs tests/credit-dismissal.test.mjs tests/multiturn-eval.test.mjs tests/conversation-state.test.mjs tests/redemption-options.test.mjs tests/coverage-eval.test.mjs tests/redemption-eval.test.mjs && node scripts/eval-agent.mjs && node scripts/eval-multiturn.mjs --min=0.9 && npm run check:agent:cloud",
     "check:agent:cloud": "node scripts/check-cloud-agent.mjs",
     "build:gateway": "node scripts/build-gateway.mjs",
     "smoke:gateway-dev": "node scripts/gateway-dev-smoke.mjs",

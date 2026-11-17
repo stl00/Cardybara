@@ -26,6 +26,8 @@ export function argumentsMatch(expect,call){
   if(k==='query')return typeof call.args.query==='string'&&call.args.query.trim().length>0;
   if(k==='cardName'||k==='region'){const want=selectCards(expect.args).map(c=>c.id).sort().join(),got=selectCards(call.args).map(c=>c.id).sort().join();return want===got;}
   if(k==='partner')return typeof call.args.partner==='string'&&call.args.partner.trim().length>0&&partnersReached(call.args.partner).includes(targetProgramme(v));
+  // points_accounts takes a programme label from a fixed list ("Membership Rewards" for every region), so it is compared as given.
+  if(k==='programme'&&expect.tool==='points_accounts')return call.args.programme===v;
   if(k==='programme')return typeof call.args.programme==='string'&&call.args.programme.trim().length>0&&programmesReached(call.args.programme).includes(targetProgramme(v));
   return call.args[k]===v;
  });

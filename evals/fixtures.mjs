@@ -356,6 +356,8 @@ export const liveCases=[
  {id:'ledger-card-year',feeDates:reserveFee,events:reserveMarks,question:'我的 Sapphire Reserve 这个卡年 credit 返还了多少？已标记用掉的和没有记录的分开说。简短回答。',expectTool:'query_credits',expectedArgs:{yearBasis:'card-year'},answerPatterns:['(?<!\\d)314(?!\\d)','(?<!\\d)70(?!\\d)'],forbidAnswerPatterns:['(?<!\\d)384(?!\\d)']},
  // #345: a held card with no protection record. The answer says no record was found and points to the issuer's guide; it never says "not covered".
  {id:'coverage-no-record',heldProductIds:['amex-us-us-blue-cash-everyday'],question:'我的 Blue Cash Everyday 航班延误有保障吗？简短回答。',expectTool:'find_protections',stripDenials:true,answerPatterns:['没有[^。\\n]{0,12}记录|记录里没有|記錄裡沒有|未找到|没有找到|找不到|not found|no record','保障指南|发卡行|發卡行|guide to benefits'],forbidAnswerPatterns:['没有[^。\\n]{0,6}保障|不[^。\\n]{0,2}保障|不在[^。\\n]{0,4}保障|未[^。\\n]{0,2}覆盖|不承保|not covered|no coverage']},
+ // #464: an issuer-redemption question: the dollar value is the one the tool computed from the stated points; a transfer is not priced.
+ {id:'redemption-cash-vs-transfer',question:'我有 50000 点 Ultimate Rewards，换现金返还和转点哪个划算？简短回答。',expectTool:'points_accounts',expectedArgs:{programme:'Ultimate Rewards'},answerPatterns:['500']},
  {id:'credits-by-card',question:'我的 Sapphire Reserve 本期有哪些 credit？没标记的不要当成没用。',expectTool:'query_credits'},
  {id:'follow-up',question:'那换成加拿大，100加元的餐厅呢？简短回答。',memory:{lastPurchase:{category:'dining',country:'US',currency:'USD',amount:100}},expectTool:'choose_card',expectedArgs:{category:'dining',country:'CA',currency:'CAD',amount:100}}
 ];
