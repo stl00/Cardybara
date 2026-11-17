@@ -100287,5 +100287,89 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-american-express-gold-card.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-american-express-gold-card.purchase-protection@2026-11-17.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-american-express-gold-card"
+    ],
+    "market": {
+      "issuer": "Amex US",
+      "country": "US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障",
+      "summary": "官网会员权益页列出购物保障（Purchase Protection）：无需登记，承保意外损坏或被盗，自购买日起最长 90 天，并注明“Coverage Limits Apply”。页面未写赔付额、主要或次要保障和除外责任；具体条件须查完整保障指南。",
+      "howToUse": [
+        "官网会员权益页列出购物保障（Purchase Protection）：无需登记，承保意外损坏或被盗，自购买日起最长 90 天，并注明“Coverage Limits Apply”。页面未写赔付额、主要或次要保障和除外责任；具体条件须查完整保障指南。",
+        "该条目仅为官网公开权益页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Protection",
+      "summary": "The public benefits page says Purchase Protection needs no enrollment and covers accidental damage or theft for up to 90 days from the purchase date. It states no limit amount, primary or secondary basis, or exclusions.",
+      "howToUse": [
+        "This is a summary of the official public benefits page; the Guide to Benefits controls. Check the limits, exclusions and claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-american-express-gold-card-benefits",
+          "text": "Coverage Limits Apply"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官网会员权益页列出购物保障（Purchase Protection）：无需登记，承保意外损坏或被盗，自购买日起最长 90 天，并注明“Coverage Limits Apply”。页面未写赔付额、主要或次要保障和除外责任；具体条件须查完整保障指南。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-american-express-gold-card-benefits"
+      ],
+      "checkedAt": "2026-11-17",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-17",
+      "reviewAfter": "2027-02-15",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]
