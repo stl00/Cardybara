@@ -23,6 +23,8 @@
     "PRICE_INPUT_USD_PER_MTOK": "0.6",
     "PRICE_OUTPUT_USD_PER_MTOK": "2.4",
     "MAX_OUTPUT_TOKENS": "8192",
+    // Contact URL or mailto: that push services may use to reach the sender of Web Push reminders (RFC 8292 `sub`).
+    "VAPID_SUBJECT": "https://github.com/stl00/Cardybara",
     "MAX_BODY_BYTES": "262144"
     // PROVIDER_KEY is a secret, set once by the owner with scripts/gateway-set-key.sh. Never a var.
   },
@@ -41,7 +43,7 @@
   "version_metadata": {"binding": "CF_VERSION_METADATA"},
   // Hourly alert check (gateway/src/alerts.js, docs/GATEWAY.md "Alerts and switches"). It needs the secrets GITHUB_TOKEN,
   // ANALYTICS_SQL_TOKEN and CF_ACCOUNT_ID (owner steps); without them it logs what is missing and does nothing.
-  "triggers": {"crons": ["7 * * * *"]},
+  "triggers": {"crons": ["7 * * * *", "*/15 * * * *"]},
   "observability": {"enabled": true, "logs": {"enabled": true, "invocation_logs": false}},
   "env": {
     // `wrangler dev --env local` against scripts/mock-provider.mjs.
