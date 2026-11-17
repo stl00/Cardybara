@@ -170,3 +170,43 @@ test('the web platform has Web Push, the extension and dev builds do not use it'
  assert.match(src,/get push\(\)/);
  assert.match(src,/export const dev=\{[\s\S]*notifications:\{worker:false\}/);
 });
+
+// #445: a tapped reminder opens its card. The id stays local: it is in the page's plan and the notification, never in the gateway body.
+import {cardHash,cardRouteId} from '../src/cardRoute.js';
+const memArea=init=>{const m={...init};return {get:async ks=>Object.fromEntries(ks.filter(k=>k in m).map(k=>[k,m[k]])),set:async o=>void Object.assign(m,o),remove:async k=>void delete m[k]};};
+
+test('entries carry the local card id; the id and card details never reach the gateway body',async()=>{
+ const plan=schedule();
+ assert.equal(plan.entries.find(e=>e.id.startsWith('fee:')).cardId,'c');
+ assert.deepEqual(plan.entries.filter(e=>e.id.startsWith('bill:')).map(e=>e.cardId).sort(),['a','b']);
+ assert.ok(readSchedule(plan).entries.every(e=>typeof e.cardId==='string'));
+ const {push,calls}=pushEnv({permission:'default'});
+ await push.enable();await push.sync(pushTimes(plan,now));
+ const body=JSON.stringify(calls.find(c=>c[0]==='PUT')[2]);
+ for(const secret of ['"cardId"','Synthetic','9999','123.45','"a"','"b"','"c"'])assert.ok(!body.includes(secret),secret);
+});
+
+test('a click on a single reminder opens that card; summaries and cardless entries open the overview',async()=>{
+ const plan=schedule(),shown=[];
+ await handlePush({area:memArea({[REMINDER_SCHEDULE_KEY]:plan}),show:async(t,b,tag,url)=>shown.push({tag,url}),now});
+ const fee=shown.find(s=>s.tag.startsWith('fee:'));
+ assert.equal(fee.url,'/'+cardHash('c'));
+ assert.equal(cardRouteId(fee.url.slice(1)),'c');
+ const bill=shown.find(s=>s.tag.startsWith('bill:'));
+ assert.equal(cardRouteId(bill.url.slice(1)),plan.entries.find(e=>e.id===bill.tag).cardId);
+ const opened=[];
+ await handleClick({origin:'https://wallet.test',url:fee.url,clients:{matchAll:async()=>[],openWindow:async u=>opened.push(u)}});
+ assert.deepEqual(opened,['https://wallet.test/#card/c']);
+ // many due at once: one summary, no card
+ const many={...plan,entries:Array.from({length:4},(_,n)=>({id:'bill:x'+n,group:'bills',label:'x',fireAt:now-1000,firstDay:'2026-11-04',lastDay:'2026-11-09',targetDay:'2026-11-06',cardId:'c'+n}))};
+ const s2=[];await handlePush({area:memArea({[REMINDER_SCHEDULE_KEY]:many}),show:async(t,b,tag,url)=>s2.push(url),now});
+ assert.deepEqual(s2,['/#overview']);
+ // hostile or missing urls fall back
+ for(const url of [undefined,'https://evil.test/','//evil.test'])await handleClick({origin:'https://wallet.test',url,clients:{matchAll:async()=>[],openWindow:async u=>opened.push(u)}});
+ assert.deepEqual(opened.slice(1),Array(3).fill('https://wallet.test/#overview'));
+});
+
+test('card routes round-trip and reject other hashes',()=>{
+ assert.equal(cardRouteId(cardHash('a b/c')),'a b/c');
+ for(const h of ['','#overview','#card/','#card/%E0%A4%A'])assert.equal(cardRouteId(h),null);
+});

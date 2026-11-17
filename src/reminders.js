@@ -29,13 +29,13 @@ export function readSent(storage){try{const rows=JSON.parse(storage.getItem(REMI
  */
 export function billReminders(cards,marks,settings,asOf){
  return paymentView(cards,marks,asOf).items.filter(i=>!i.handled&&!(i.autopay==='on'&&!i.autopayOld)&&(i.state==='overdue'||(['due','autopay'].includes(i.state)&&i.days!=null&&i.days<=settings.billDays))).map(i=>({
-  id:`${i.state==='overdue'?'overdue':'bill'}:${i.key}`,kind:i.state==='overdue'?'overdue':'bill',name:i.card.name,days:i.days,stale:i.stale,statement:i.card.statement??null,currency:i.card.currency,
+  id:`${i.state==='overdue'?'overdue':'bill'}:${i.key}`,kind:i.state==='overdue'?'overdue':'bill',cardId:i.card.id,name:i.card.name,days:i.days,stale:i.stale,statement:i.card.statement??null,currency:i.card.currency,
  }));
 }
 /** Status never comes from a guess: an unconfirmed credit still reminds, a used, skipped or dismissed one does not. */
 export function creditReminders(cards,events,settings,asOf){
  return activeTasks(creditTasks(cards,asOf),events).filter(task=>!['used','skipped'].includes(taskStatus(task,events))).map(task=>({task,days:Math.round((Date.parse(task.period.end+'T00:00:00Z')-Date.parse(asOf+'T00:00:00Z'))/DAY_MS)})).filter(r=>r.days<=settings.creditDays).map(({task,days})=>({
-  id:`credit:${task.key}`,kind:'credit',title:task.title,...(task.original?{original:task.original}:{}),name:cards.find(c=>c.id===task.cardId)?.name||'',days,
+  id:`credit:${task.key}`,kind:'credit',title:task.title,...(task.original?{original:task.original}:{}),cardId:task.cardId,name:cards.find(c=>c.id===task.cardId)?.name||'',days,
  }));
 }
 /**
@@ -45,7 +45,7 @@ export function creditReminders(cards,events,settings,asOf){
  */
 export function reuseReminders(cards,events,settings,asOf){
  return fourYearReuse(offCycleRows(cards,asOf),events).filter(r=>r.nextEligible===asOf).map(({row,nextEligible})=>({
-  id:`reuse:${row.key}:${nextEligible}`,kind:'reuse',title:row.title,...(row.original?{original:row.original}:{}),...(row.translations?{translations:row.translations}:{}),ruleId:row.ruleId,name:cards.find(c=>c.id===row.cardId)?.name||'',days:0,
+  id:`reuse:${row.key}:${nextEligible}`,kind:'reuse',cardId:row.cardId,title:row.title,...(row.original?{original:row.original}:{}),...(row.translations?{translations:row.translations}:{}),ruleId:row.ruleId,name:cards.find(c=>c.id===row.cardId)?.name||'',days:0,
  }));
 }
 /**
@@ -54,7 +54,7 @@ export function reuseReminders(cards,events,settings,asOf){
  */
 export function feeReminders(cards,settings,asOf){
  return cards.filter(c=>c.feeDate&&profileForCard(c)?.fees?.primaryAnnual!==0).map(card=>{const day=nextFeeDay(card.feeDate,asOf);return day&&{card,day,days:Math.round((Date.parse(day+'T00:00:00Z')-Date.parse(asOf+'T00:00:00Z'))/DAY_MS)};}).filter(r=>r&&r.days<=settings.feeDays).map(({card,day,days})=>({
-  id:`fee:${JSON.stringify([card.id,day])}`,kind:'fee',name:card.name,days,
+  id:`fee:${JSON.stringify([card.id,day])}`,kind:'fee',cardId:card.id,name:card.name,days,
  }));
 }
 const ofKind=(list,...kinds)=>list.filter(r=>kinds.includes(r.kind));
@@ -99,7 +99,7 @@ export function buildSchedule({cards,marks,events,settings,sent,asOf,phrases,tra
    let entry=entries.get(r.id);
    if(!entry){
     const credit=r.kind==='credit',amount=!credit&&settings.showAmounts&&r.statement!=null&&r.currency?`${r.currency} ${Number(r.statement).toLocaleString()}`:null;
-    entry={id:r.id,group:credit?'credits':'bills',label:credit?`${translate(r.title,r)} · ${r.name}`:r.kind==='fee'?`${translate('年费日')} · ${r.name}`:r.name,firstDay:day,lastDay:day,targetDay:addDays(day,r.days),fireAt:fireTime(day),...(amount?{amount}:{})};
+    entry={id:r.id,group:credit?'credits':'bills',label:credit?`${translate(r.title,r)} · ${r.name}`:r.kind==='fee'?`${translate('年费日')} · ${r.name}`:r.name,firstDay:day,lastDay:day,targetDay:addDays(day,r.days),fireAt:fireTime(day),...(amount?{amount}:{}),...(r.cardId!=null?{cardId:r.cardId}:{})};
     entries.set(r.id,entry);
    }
    entry.lastDay=day;
