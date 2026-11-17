@@ -93,8 +93,9 @@ test('the remaining Capital One public cards match by full name and short name (
  assert.equal(seen.size,full.length,'each card reaches its own product');
  const short={'Quicksilver Rewards':'Quicksilver Rewards Credit Card','VentureOne Rewards':'VentureOne Rewards Credit Card','SavorOne Rewards':'SavorOne Rewards Credit Card','Platinum':'Platinum Credit Card','Spark 2% Cash':'Spark 2% Cash Credit Card','Spark 1.5% Cash Select':'Spark 1.5% Cash Select Credit Card','Spark 1% Classic':'Spark 1% Classic Credit Card','Venture Business':'Venture Business Credit Card','VentureOne Business':'VentureOne Business Credit Card','T-Mobile Visa®':'T-Mobile Visa Card','REI Co-op® Mastercard®':'REI Co-op Mastercard','Key Rewards® Visa':'Key Rewards Visa Card','Quicksilver Secured Rewards':'Quicksilver Secured Rewards Credit Card','Platinum Secured':'Platinum Secured Credit Card'};
  for(const [n,want] of Object.entries(short)){const m=matchCardProduct({bank:'Capital One',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,want,n);}
- // normalizeProductName drops "+", so "BJ's One" and "BJ's One+" collide: never picked, only offered (follow-up: keep "+" in the name key).
- for(const n of ['BJ\'s One Mastercard','BJ\'s One+ Mastercard']){const m=matchCardProduct({bank:'Capital One',region:'US',name:n});assert.equal(m.status,'ambiguous',n);assert.equal(m.candidates.length,2,n);}
+ // "+" is kept in the name key as "plus", so "BJ's One" and "BJ's One+" are two different products.
+ for(const n of ['BJ\'s One Mastercard','BJ\'s One+ Mastercard']){const m=matchCardProduct({bank:'Capital One',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.candidates.length,1,n);}
+ assert.notEqual(matchCardProduct({bank:'Capital One',region:'US',name:'BJ\'s One Mastercard'}).product.id,matchCardProduct({bank:'Capital One',region:'US',name:'BJ\'s One+ Mastercard'}).product.id);
  // Existing Capital One cards are not stolen by the new aliases.
  for(const [n,id] of [['Savor Rewards','capital-one-us-savor-credit-card'],['Venture Rewards','capital-one-us-venture-rewards-credit-card'],['Spark Cash Plus','capital-one-us-spark-cash-plus-card']])assert.equal(matchCardProduct({bank:'Capital One',region:'US',name:n}).product?.id,id,n);
 });
