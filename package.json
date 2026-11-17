@@ -37,7 +37,7 @@
     "check:release-source": "python3 scripts/audit-release.py",
     "build:web": "vite build --mode web",
     "check:web": "node scripts/check-web.mjs",
-    "test:web": "node --test tests/web-app.test.mjs tests/mobile-first-run.test.mjs tests/web-chat.test.mjs",
+    "test:web": "node --test tests/web-app.test.mjs tests/mobile-first-run.test.mjs tests/web-chat.test.mjs tests/extension-sync.test.mjs",
     "build:release": "vite build && python3 scripts/build-release.py",
     "build:dev-extension": "node scripts/build-dev-extension.mjs",
     "check:release-package": "python3 scripts/audit-release.py --package",

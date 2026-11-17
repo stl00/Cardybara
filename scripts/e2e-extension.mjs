@@ -59,7 +59,10 @@ const MODEL_HOST='api.deepseek.com';
 const TEST_KEY='e2e-test-only-'+'0'.repeat(24);
 // The hosted gateway the packaged client calls under --chat --hosted, and the gateway's own made-up provider key.
 // Neither is real.
-const GATEWAY_HOST=new URL(GATEWAY_ORIGIN).hostname;
+export const GATEWAY_HOST=new URL(GATEWAY_ORIGIN).hostname;
+// A web origin the harness serves over HTTPS for a caller's second browser (tests/extension-sync.test.mjs): the built PWA.
+// The gateway admits only an https web origin. Nothing is served there until a caller sets `bank.page.handle`.
+export const PAGE_HOST='wallet.cardybara.test';
 const GATEWAY_PROVIDER_KEY='e2e-gateway-provider-key-not-real';
 // Values the synthetic bank shows. They are read into the wallet and must never travel to the model.
 const READ_VALUES=['1234.56','1,234.56','67.89'];
@@ -116,15 +119,16 @@ export async function checkManifest(dir){
 // --- synthetic bank ------------------------------------------------------------------------
 async function syntheticBank(work){
  const key=join(work,'bank-key.pem'),cert=join(work,'bank-cert.pem');
- execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',key,'-out',cert,'-days','1','-subj','/CN='+BANK_HOST,'-addext',`subjectAltName=DNS:${BANK_HOST},DNS:${MODEL_HOST},DNS:${GATEWAY_HOST}`],{stdio:'ignore'});
+ execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',key,'-out',cert,'-days','1','-subj','/CN='+BANK_HOST,'-addext',`subjectAltName=DNS:${BANK_HOST},DNS:${MODEL_HOST},DNS:${GATEWAY_HOST},DNS:${PAGE_HOST}`],{stdio:'ignore'});
  const page=await readFile(join(root,'tests/fixtures/synthetic-bank.html'));
  const requests=[];let held=null;
  const model={script:null,requests:[]};
  // The gateway starts once the extension id is known (it allows only that origin); until then it refuses.
- const gateway={handle:null,requests:[],logs:[]};
+ const gateway={handle:null,requests:[],logs:[]},pageServer={handle:null};
  const server=createServer({key:await readFile(key),cert:await readFile(cert)},(req,res)=>{
   if((req.headers.host||'').split(':')[0]===MODEL_HOST){syntheticProvider(model,req,res);return;}
   if((req.headers.host||'').split(':')[0]===GATEWAY_HOST){serveGateway(gateway,req,res);return;}
+  if((req.headers.host||'').split(':')[0]===PAGE_HOST){if(pageServer.handle)pageServer.handle(req,res);else res.writeHead(404).end();return;}
   requests.push(req.headers.host+req.url);note('synthetic bank served',req.method,req.url);
   if(req.url==='/favicon.ico'){res.writeHead(404).end();return;}
   const answer=()=>setTimeout(()=>res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}).end(page),BANK_DELAY_MS);
@@ -133,7 +137,7 @@ async function syntheticBank(work){
  });
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const spki=createHash('sha256').update(createPublicKey(await readFile(cert)).export({type:'spki',format:'der'})).digest('base64');
- return {port:server.address().port,spki,requests,model,gateway,
+ return {port:server.address().port,spki,requests,model,gateway,page:pageServer,
   async startGateway({origin,dailyRequests}){
    const g=localGateway({vars:{PROVIDER_KEY:GATEWAY_PROVIDER_KEY,ALLOWED_ORIGINS:origin,DAILY_REQUESTS_PER_CLIENT:String(dailyRequests)},log:line=>{gateway.logs.push(line);note('gateway',line);},
     // The gateway's upstream is the same scripted provider, reached in process.
@@ -213,7 +217,7 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=null,hosted=false,tamper=null,clientDailyRequests=50,cards=false,cardFeeDate={month:2,day:29},cardQuery=null,upgradeFrom=null,mutatePrevious,swap=true}={}){
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=null,hosted=false,tamper=null,clientDailyRequests=50,afterMain=null,cards=false,cardFeeDate={month:2,day:29},cardQuery=null,upgradeFrom=null,mutatePrevious,swap=true}={}){
  if([restart,expiredLogin,cancel,chat,cards,!!upgradeFrom].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel, --chat, --cards and --upgrade-from separately: each starts from the end of the main path');
  if(hosted&&!chat)throw Error('--hosted is a variant of --chat');
  chatScript??=hosted?scriptedHostedChat:scriptedChat;
@@ -353,6 +357,9 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
   note('fields written back; missing values left unknown');
   if(!bank.requests.length)throw new StepError('the synthetic bank was never contacted');
   note('PASS: packaged extension installs, connects a synthetic bank, signs in and reads back'+(upgradeFrom?' (previous package)':''));
+
+  // A caller's own scenario on top of the main path (tests/extension-sync.test.mjs), with what it needs to drive the extension.
+  if(afterMain)await afterMain({id,cdp,evaluate,attach,sessions,words,until,pageText,state,bank,note,StepError,walletUrl});
 
   if(restart||upgradeFrom){
    const across=upgradeFrom?'an upgrade':'a browser restart';
