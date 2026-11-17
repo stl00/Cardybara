@@ -16,6 +16,7 @@
 //  - favourites: a set; bank snapshot rows: as one unit, the newer side on a tie.
 // "Newer side" is this device's last local change time against the server copy's `updatedAt`.
 //
+// The default timers are wrapped: a browser's setTimeout throws "Illegal invocation" when called as a method of another object.
 // Sync is off unless the user turned it on and is signed in. Off, nothing here touches the network or adds a listener.
 import {WALLET_FORMAT_VERSION,migrateWalletDocument} from './walletDocument.js';
 
@@ -166,7 +167,7 @@ export function createAccountTransport({gateway,token,fetchFn=(...a)=>globalThis
  * it. `isOn()` is checked before every request. Status codes for `onStatus`: syncing, synced, offline, signed_out,
  * newer (the server copy comes from a newer build: nothing is written here until a reload), error.
  */
-export function createWalletSync({transport,readLocal,applyLocal,storage,isOn,now=()=>Date.now(),onStatus=()=>{},timers={set:setTimeout,clear:clearTimeout}}){
+export function createWalletSync({transport,readLocal,applyLocal,storage,isOn,now=()=>Date.now(),onStatus=()=>{},timers={set:(f,ms)=>setTimeout(f,ms),clear:id=>clearTimeout(id)}}){
  let running=null,again=false,timer=null,blocked=false;
  const save=patch=>writeSyncState(storage,{...readSyncState(storage),...patch});
 
@@ -234,7 +235,7 @@ export function createWalletSync({transport,readLocal,applyLocal,storage,isOn,no
  * Starts sync for the page when it is on and the user is signed in; otherwise does nothing at all (no request, no
  * listener) and returns a no-op. Returns `stop`.
  */
-export function startWalletSync({gateway,storage=globalThis.localStorage,win=globalThis.window,doc=globalThis.document,fetchFn,readLocal,applyLocal,onStatus,interval={set:setInterval,clear:clearInterval}}){
+export function startWalletSync({gateway,storage=globalThis.localStorage,win=globalThis.window,doc=globalThis.document,fetchFn,readLocal,applyLocal,onStatus,interval={set:(f,ms)=>setInterval(f,ms),clear:id=>clearInterval(id)}}){
  const isOn=()=>!!gateway&&readSyncState(storage).on&&!!readSessionToken(storage);
  if(!isOn())return ()=>{};
  // The stores' own change events fire while a pulled copy is applied; those are not local edits.

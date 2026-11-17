@@ -81,6 +81,8 @@ test('the web settings page has the reminder card but no bank refresh, parser or
  const html=await withGlobals({location:{hash:'#settings',protocol:'https:',origin:'https://wallet.example'}},()=>render(empty));
  const text=html.replace(/<[^>]+>/g,' ');
  assert.match(text,/账单和福利提醒/);
+ assert.match(text,/账号与同步/,'the optional account section is there, signed out');
+ assert.match(text,/忘记密码/);
  assert.match(text,/开启时浏览器会请求通知权限/);
  assert.doesNotMatch(text,/银行刷新|AI 服务|可选 AI 解析|自动补全银行数据|Chrome/);
 });
