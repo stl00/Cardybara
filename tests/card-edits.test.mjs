@@ -140,10 +140,10 @@ test('backups carry the edits; a damaged backup is refused and a backup without 
  const mine=[{cardId:'a',feeDate:{month:1,day:2}},{cardId:'b',name:'Mine'}];
  assert.deepEqual(mergeCardEdits(mine,{schema:1,edits:[{cardId:'b',name:'Theirs'},{cardId:'c',tail:'7777'}]}),[{cardId:'a',feeDate:{month:1,day:2}},{cardId:'b',name:'Theirs'},{cardId:'c',tail:'7777'}]);
  for(const bad of [null,{schema:2,edits:[]},{schema:1,edits:{}},{schema:1,edits:[{cardId:'x',tail:'1'}]}])assert.throws(()=>mergeCardEdits(mine,bad));
- // main.jsx only merges when the backup has the section.
- const main=readFileSync(new URL('../src/main.jsx',import.meta.url),'utf8');
- assert.match(main,/d\.cardEdits\?mergeCardEdits\(loadCardEdits\(\),d\.cardEdits\):null/);
- assert.match(main,/cardEdits:\{schema:1,edits:loadCardEdits\(\)\}/);
+ // The wallet document (walletDocument.js) writes the section through this merge and exports it; a backup without it keeps this wallet's edits.
+ const doc=readFileSync(new URL('../src/walletDocument.js',import.meta.url),'utf8');
+ assert.match(doc,/mergeCardEdits\(readCardEdits\(storage\),doc\.cardEdits\)/);
+ assert.match(doc,/cardEdits:\{schema:1,edits:readCardEdits\(storage\)\}/);
 });
 
 test('an anniversary credit gets a real cycle from the user date, and stays cycle-unknown without one',()=>{
