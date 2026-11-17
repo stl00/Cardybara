@@ -1,0 +1,235 @@
+{
+ "schema": "fixed-redemptions/1",
+ "checkedAt": "2026-11-16",
+ "note": "Issuer fixed-value redemptions for US Membership Rewards and Ultimate Rewards (#307). centsPerPoint is a number only when an official page or term states it; null means the value is unknown, \"varies\" means the issuer says it differs by card or condition. Transfers live in rules.json.",
+ "sources": [
+  {
+   "id": "chase-ur-how-it-works",
+   "url": "https://www.chase.com/personal/credit-cards/education/basics/how-chase-ultimate-rewards-works",
+   "title": "Chase · How Ultimate Rewards works",
+   "authority": "official",
+   "checkedAt": "2026-11-16"
+  },
+  {
+   "id": "chase-ur-landing",
+   "url": "https://www.chase.com/personal/credit-cards/ultimate-rewards",
+   "title": "Chase · Ultimate Rewards redemption options",
+   "authority": "official",
+   "checkedAt": "2026-11-16"
+  },
+  {
+   "id": "amex-mr-terms",
+   "url": "https://www.americanexpress.com/content/dam/amex/us/rewards/membership-rewards/mr-terms-conditions-november-2026.pdf",
+   "title": "American Express · Membership Rewards Program Terms and Conditions (US)",
+   "authority": "official",
+   "checkedAt": "2026-11-16"
+  }
+ ],
+ "redemptions": [
+  {
+   "id": "ur-cash-back",
+   "programmeId": "programme.chase-ultimate-rewards",
+   "region": "US",
+   "kind": "cash-back",
+   "centsPerPoint": 1,
+   "dependsOn": "any",
+   "sourceIds": [
+    "chase-ur-how-it-works"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "If you're interested in cash back, each point is worth 1 cent when redeemed.",
+   "textZh": "兑换现金返还（账单抵扣或存入 Chase 账户）时，每点值 1 美分。"
+  },
+  {
+   "id": "ur-gift-cards",
+   "programmeId": "programme.chase-ultimate-rewards",
+   "region": "US",
+   "kind": "gift-card",
+   "centsPerPoint": 1,
+   "dependsOn": "any",
+   "sourceIds": [
+    "chase-ur-how-it-works"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "The point value is 1 cent when redeeming for gift cards. Chase sometimes discounts certain gift cards, which raises the value on those cards.",
+   "textZh": "兑换礼品卡时每点值 1 美分；Chase 有时对部分礼品卡打折，该卡的实际价值会更高。"
+  },
+  {
+   "id": "ur-travel-chase-travel",
+   "programmeId": "programme.chase-ultimate-rewards",
+   "region": "US",
+   "kind": "issuer-travel",
+   "centsPerPoint": "varies",
+   "dependsOn": "card-with-points-boost",
+   "sourceIds": [
+    "chase-ur-how-it-works"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "Points may have higher value when redeemed for travel through Chase Travel; Points Boost makes them worth up to 50% more with eligible Chase cards, and the boost varies by card.",
+   "textZh": "通过 Chase Travel 订旅行时价值可能更高；Points Boost 在符合条件的 Chase 卡上最高多 50%，具体倍数因卡而异，页面未给出固定数字。"
+  },
+  {
+   "id": "ur-pay-yourself-back",
+   "programmeId": "programme.chase-ultimate-rewards",
+   "region": "US",
+   "kind": "pay-yourself-back",
+   "centsPerPoint": null,
+   "dependsOn": "eligible-purchases",
+   "sourceIds": [
+    "chase-ur-landing"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "Choose to receive a statement credit on one or more of your eligible purchases.",
+   "textZh": "选择对一笔或多笔符合条件的消费换成账单抵扣；页面未给出每点价值。",
+   "unknownReason": "The public page lists the option but states no value per point."
+  },
+  {
+   "id": "ur-pay-with-points-amazon-paypal",
+   "programmeId": "programme.chase-ultimate-rewards",
+   "region": "US",
+   "kind": "pay-with-points",
+   "centsPerPoint": null,
+   "dependsOn": "partner-checkout",
+   "sourceIds": [
+    "chase-ur-landing"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "Use your points to pay for all or part of your eligible Amazon.com orders or when you check out with PayPal.",
+   "textZh": "可用积分支付符合条件的 Amazon.com 订单或 PayPal 结账；页面未给出每点价值。",
+   "unknownReason": "The public page states no value per point."
+  },
+  {
+   "id": "ur-shop-apple",
+   "programmeId": "programme.chase-ultimate-rewards",
+   "region": "US",
+   "kind": "pay-with-points",
+   "centsPerPoint": null,
+   "dependsOn": "partner-checkout",
+   "sourceIds": [
+    "chase-ur-landing"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "Use your points to pay for all or part of your Apple purchases at The Shops at Chase.",
+   "textZh": "可用积分支付 The Shops at Chase 的 Apple 商品；页面未给出每点价值。",
+   "unknownReason": "The public page states no value per point."
+  },
+  {
+   "id": "ur-chase-dining",
+   "programmeId": "programme.chase-ultimate-rewards",
+   "region": "US",
+   "kind": "dining",
+   "centsPerPoint": null,
+   "dependsOn": "any",
+   "sourceIds": [
+    "chase-ur-landing"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "Visit Chase Dining to redeem points for takeout.",
+   "textZh": "在 Chase Dining 兑换外卖；页面未给出每点价值。",
+   "unknownReason": "The public page states no value per point."
+  },
+  {
+   "id": "ur-experiences",
+   "programmeId": "programme.chase-ultimate-rewards",
+   "region": "US",
+   "kind": "experiences",
+   "centsPerPoint": null,
+   "dependsOn": "select-cards",
+   "sourceIds": [
+    "chase-ur-landing"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "Use your card and points to attend exclusive events curated around your passions with select cards.",
+   "textZh": "部分卡可用积分参加专属活动；页面未给出每点价值。",
+   "unknownReason": "The public page states no value per point."
+  },
+  {
+   "id": "mr-business-checking-deposit-business-platinum",
+   "programmeId": "programme.amex-membership-rewards-us",
+   "region": "US",
+   "kind": "deposit",
+   "centsPerPoint": 1,
+   "dependsOn": "business-checking-with-business-platinum",
+   "sourceIds": [
+    "amex-mr-terms"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "American Express Business Checking Account with a linked Business Platinum Card = 1,000 points for a $10 deposit up to the first 1,000,000 points per calendar year, then 1,000 points for an $8 deposit.",
+   "textZh": "美国 Business Checking 账户且关联 Business Platinum 卡：每年前 100 万点按 1,000 点兑 10 美元存入，超出部分按 1,000 点兑 8 美元。"
+  },
+  {
+   "id": "mr-checking-deposit-standard",
+   "programmeId": "programme.amex-membership-rewards-us",
+   "region": "US",
+   "kind": "deposit",
+   "centsPerPoint": 0.8,
+   "dependsOn": "checking-account",
+   "sourceIds": [
+    "amex-mr-terms"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "American Express Business Checking Account or Rewards Checking Account (including Checking Accounts linked to other Cards) = 1,000 points for an $8 deposit.",
+   "textZh": "Business Checking 或 Rewards Checking 账户（含关联其他卡的）：1,000 点兑 8 美元存入。"
+  },
+  {
+   "id": "mr-statement-credit",
+   "programmeId": "programme.amex-membership-rewards-us",
+   "region": "US",
+   "kind": "statement-credit",
+   "centsPerPoint": null,
+   "dependsOn": "basic-card-member",
+   "sourceIds": [
+    "amex-mr-terms"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "You must redeem points worth at least $1 to Use Points for a Statement Credit. The value of points varies according to how you choose to use them.",
+   "textZh": "账单抵扣最低需兑换价值 1 美元；条款只说价值因兑换方式而异，没有写每点价值。",
+   "unknownReason": "The terms state a $1 minimum but no rate; the Amex pages that may state one could not be fetched (fetch failed), and search-result summaries are not accepted as evidence."
+  },
+  {
+   "id": "mr-gift-cards",
+   "programmeId": "programme.amex-membership-rewards-us",
+   "region": "US",
+   "kind": "gift-card",
+   "centsPerPoint": null,
+   "dependsOn": "catalogue",
+   "sourceIds": [
+    "amex-mr-terms"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "Use points for gift cards: you can use points to get gift cards from a variety of merchants. You must have at least 1,000 points in your account for American Express Gift Cards.",
+   "textZh": "可用积分换多家商户礼品卡；条款没有写每点价值，具体按目录。",
+   "unknownReason": "The terms give no rate; the catalogue page returned no content to a public fetch."
+  },
+  {
+   "id": "mr-pay-with-points",
+   "programmeId": "programme.amex-membership-rewards-us",
+   "region": "US",
+   "kind": "pay-with-points",
+   "centsPerPoint": null,
+   "dependsOn": "participating-brand-or-amex-travel",
+   "sourceIds": [
+    "amex-mr-terms"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "You can use Pay with Points at checkout towards purchases with your Card at participating brands, or through American Express Travel.",
+   "textZh": "可在合作商户结账或通过 Amex Travel 使用 Pay with Points；条款没有写每点价值。",
+   "unknownReason": "The terms give no rate; the Pay with Points page returned no content to a public fetch."
+  },
+  {
+   "id": "mr-amex-travel",
+   "programmeId": "programme.amex-membership-rewards-us",
+   "region": "US",
+   "kind": "issuer-travel",
+   "centsPerPoint": null,
+   "dependsOn": "amex-travel",
+   "sourceIds": [
+    "amex-mr-terms"
+   ],
+   "checkedAt": "2026-11-16",
+   "textEn": "The value of points varies according to how you choose to use them.",
+   "textZh": "通过 Amex Travel 兑换：条款只说价值因兑换方式而异。",
+   "unknownReason": "The terms give no rate; the pages that may state one could not be read."
+  }
+ ]
+}

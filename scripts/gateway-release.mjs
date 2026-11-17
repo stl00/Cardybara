@@ -5,7 +5,7 @@
 //   node scripts/gateway-release.mjs upload                          new version at 0% traffic; prints its version id
 //   node scripts/gateway-release.mjs eval <version> [--out=dir] [--baseline=report.json]
 //                                                                    live eval through POST /v1/chat pinned to that version
-//                                                                    (needs CARDYBARA_EVAL_INVITE; costs model spend)
+//                                                                    (no credential; costs model spend)
 //   node scripts/gateway-release.mjs ramp <version> <percent> --stable <version>
 //                                                                    send <percent> of traffic to <version>, the rest to --stable
 //   node scripts/gateway-release.mjs rollback <stable-version>       100% of traffic back to that version

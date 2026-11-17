@@ -142,10 +142,21 @@
     "未记录（周期已结束）": "Not captured (cycle ended)",
     "周期未结束": "Cycle still open",
     "标记未用 / 不适用": "Marked unused / not relevant",
+    "四年期 / 一次性 Credit（本期已用）": "Four-year / one-off credits used this period",
     "公布年费": "Published annual fee",
     "已用减年费": "Used minus annual fee",
     "{0} 项持卡年度 Credit 没有年费日，未计入。": "{0} card-year credits are left out: no annual fee date.",
-    "“已用”只来自你自己的标记；周期结束仍没标记的算“未记录”，不当作已用，也不当作错过。年费为公布标准年费，不是实际扣款。": "\"Used\" comes only from your own marks. A cycle that ended with no mark is \"not captured\": not counted as used and not counted as missed. The fee is the published standard fee, not an actual charge."
+    "“已用”只来自你自己的标记；周期结束仍没标记的算“未记录”，不当作已用，也不当作错过。年费为公布标准年费，不是实际扣款。": "\"Used\" comes only from your own marks. A cycle that ended with no mark is \"not captured\": not counted as used and not counted as missed. The fee is the published standard fee, not an actual charge.",
+    "账单信息": "Statement details",
+    "手动填写账单": "Enter bill by hand",
+    "最低还款额": "Minimum payment",
+    "到期还款日": "Payment due date",
+    "你填写的 · {0}": "Entered by you · {0}",
+    "账单信息已保存。": "Bill details saved.",
+    "已清除你填写的账单信息。": "Your bill entries were cleared.",
+    "清除": "Clear",
+    "不知道就留空，留空表示未知，不会当作 0。": "Leave blank if you do not know; blank means unknown, not 0.",
+    "带“你填写的”标记的是你手动填的；银行之后读到更新的值就会换成银行的，不会混在一起。": "Values marked \"Entered by you\" were typed by hand; a newer bank read replaces them, so the two are never mixed."
   },
   "zh-TW": {
     "{0} 产品卡面": "{0} 產品卡面",
@@ -290,9 +301,20 @@
     "未记录（周期已结束）": "未記錄（週期已結束）",
     "周期未结束": "週期未結束",
     "标记未用 / 不适用": "標記未用 / 不適用",
+    "四年期 / 一次性 Credit（本期已用）": "四年期 / 一次性 Credit（本期已用）",
     "公布年费": "公布年費",
     "已用减年费": "已用減年費",
     "{0} 项持卡年度 Credit 没有年费日，未计入。": "{0} 項持卡年度 Credit 沒有年費日，未計入。",
-    "“已用”只来自你自己的标记；周期结束仍没标记的算“未记录”，不当作已用，也不当作错过。年费为公布标准年费，不是实际扣款。": "「已用」只來自你自己的標記；週期結束仍沒標記的算「未記錄」，不當作已用，也不當作錯過。年費為公布標準年費，不是實際扣款。"
+    "“已用”只来自你自己的标记；周期结束仍没标记的算“未记录”，不当作已用，也不当作错过。年费为公布标准年费，不是实际扣款。": "「已用」只來自你自己的標記；週期結束仍沒標記的算「未記錄」，不當作已用，也不當作錯過。年費為公布標準年費，不是實際扣款。",
+    "账单信息": "帳單資訊",
+    "手动填写账单": "手動填寫帳單",
+    "最低还款额": "最低還款額",
+    "到期还款日": "到期還款日",
+    "你填写的 · {0}": "你填寫的 · {0}",
+    "账单信息已保存。": "帳單資訊已儲存。",
+    "已清除你填写的账单信息。": "已清除你填寫的帳單資訊。",
+    "清除": "清除",
+    "不知道就留空，留空表示未知，不会当作 0。": "不知道就留空，留空表示未知，不會當作 0。",
+    "带“你填写的”标记的是你手动填的；银行之后读到更新的值就会换成银行的，不会混在一起。": "帶「你填寫的」標記的是你手動填的；銀行之後讀到更新的值就會換成銀行的，不會混在一起。"
   }
 }

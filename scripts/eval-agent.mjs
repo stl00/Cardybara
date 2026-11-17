@@ -15,6 +15,7 @@ import {AGENT_TARGET} from '../tests/helpers/agent-target.mjs';
 import {runWalletTool} from '../src/walletAgent.js';
 import {chatAgent} from './chat-agent.mjs';
 import {runLiveCase} from '../evals/live-case.mjs';
+import {coverageCases,runCoverageCase,FAULTS} from '../evals/coverage-case.mjs';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url))),live=process.argv.includes('--live');
 const outputArg=process.argv.find(a=>a.startsWith('--out=')),output=resolve(outputArg?.slice(6)||resolve(root,'evals/latest-'+(live?'live':'offline')+(AGENT_TARGET==='cloud'?'-cloud':'')+'.json'));
 const report={schema:1,dataset:'wallet-agent-development-v1',asOf:context.day,mode:(live?'live-deepseek-sdk':'offline')+(AGENT_TARGET==='cloud'?'-cloud-agent':''),syntheticWallet:true,createdAt:new Date().toISOString(),cases:[],limitations:['Development set, not a held-out benchmark.','Automated checks do not prove all statements true.','Live model runs are stochastic and use only synthetic products.']};
@@ -60,6 +61,15 @@ if(!live){
   const same=flight.dates.start===hotel.window.start&&flight.dates.end===hotel.window.end;
   check(c.id,{sameWindow:same,expectedWindow:hotel.window.start===c.expectedWindow.start&&hotel.window.end===c.expectedWindow.end,awardNotChecked:flight.award.status==='not-checked',hotelCredits:hotel.totalItems>0,coverFound:cover.cards.some(x=>x.status==='found'),noRecordIsNotFound:cover.cards.every(x=>['found','not_found'].includes(x.status))});
  }
+ // #345: coverage questions end to end through the real agent loop with a scripted model. `--fault=<name>` breaks one rule on
+ // purpose (not-covered, invented-limit, valuation, no-tool) to show the matching case fail; without it the controls below must all be caught.
+ const fault=process.argv.find(a=>a.startsWith('--fault='))?.slice(8)||null;
+ if(fault&&!FAULTS.includes(fault))throw Error('unknown_fault');
+ for(const c of coverageCases){const r=await runCoverageCase(c,{fault});check(c.id,r.checks,r.detail);}
+ if(!fault)for(const f of FAULTS){const results=[];for(const c of coverageCases)results.push(await runCoverageCase(c,{fault:f}));
+  // A fault only applies where it has something to break: "not-covered" needs a card with no record.
+  const applicable=f==='not-covered'?results.filter((r,i)=>coverageCases[i].noRecord):results;
+  check('coverage-control-'+f,{caught:applicable.length>0&&applicable.every(r=>Object.values(r.checks).some(v=>!v))});}
  const planEvidence=[runWalletTool({id:'grounding',function:{name:'query_credits',arguments:JSON.stringify({use:'hotel',when:'12月'})}},referenceContext)];
  for(const [id,answer,code] of planGroundingCases)check(id,{caught:answerGrounding(answer,planEvidence).issues.some(i=>i.code===code)});
  const old=Array.from({length:30},(_,i)=>[{role:'user',content:'question '+i},{role:'assistant',content:'reply '.repeat(1000)}]).flat();const prep=prepareAgentContext(old,{lastPurchase:{category:'dining',country:'US',currency:'USD',amount:100}});check('bounded-context',{bounded:prep.chars<=22000,keepsLatest:prep.messages.some(x=>x.content==='question 29'),memory:prep.memory.lastPurchase.amount===100});

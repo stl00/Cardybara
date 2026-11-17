@@ -4,13 +4,13 @@ import {t,useI18n} from './i18n';
 import {BankIdentity} from './Identity';
 import {MODELS} from '../extension-next/agent-core';
 import {visibleConnections} from './walletRegistry.js';
+import platform from './platform';
 const {Text,Paragraph}=Typography;
-const ownExtension=()=>location.protocol==='chrome-extension:'&&!!globalThis.chrome?.runtime?.id;
 const errors={needs_login:'请先在银行官网完成登录。',card_not_identified:'页面未显示已知卡片，请打开卡片详情。',no_financial_text:'当前页面没有找到可解析的财务内容。',document_changed:'银行页面已改变，请重新预览。',wrong_bank_page:'请选择该银行已登录的账户页。',agent_busy:'正在解析，请等待或停止任务。',preview_required:'请先预览当前银行页面。',model_permission_required:'请先授权模型服务连接。',model_auth_failed:'模型密钥无效或没有权限。',model_rate_limited:'模型服务限流，请稍后重试。',model_timeout:'模型响应超时，未更新钱包。',model_unavailable:'模型服务暂不可用。',model_parse_failed:'模型返回格式异常，未更新钱包。',model_output_too_large:'模型返回内容过多，未更新钱包。',invalid_model_output:'模型结果未通过校验。',empty_model_output:'模型没有返回解析结果。',step_limit:'已达到本轮五页限制，请重新开始。',no_next_page:'没有可继续读取的页面。',page_loading:'银行页面仍在加载，请稍后继续。',review_required:'请先核对解析结果。',agent_action_failed:'操作未完成，已保留钱包数据。'};
 export default function AgentPanel({data,onApplied}){
  useI18n();const [provider,setProvider]=useState('deepseek'),[model,setModel]=useState(MODELS.deepseek.model),[key,setKey]=useState(''),[bank,setBank]=useState(()=>sessionStorage.getItem('cardybara-agent-bank')||'Amex HK'),[tabs,setTabs]=useState([]),[tabId,setTabId]=useState(),[state,setState]=useState(null),[busy,setBusy]=useState(false),[error,setError]=useState(''),[consent,setConsent]=useState(false),[indices,setIndices]=useState([]);
- const enabled=ownExtension();
- async function call(type,extra={}){const r=await chrome.runtime.sendMessage({type,...extra});if(!r?.ok)throw Error(r?.error||'agent_action_failed');return r.result;}
+ const enabled=!!platform.assistant;
+ async function call(type,extra={}){const r=await platform.assistant.send(type,extra);if(!r?.ok)throw Error(r?.error||'agent_action_failed');return r.result;}
  const act=async fn=>{setBusy(true);setError('');try{await fn();}catch(e){setError(errors[e.message]||errors.agent_action_failed)}finally{setBusy(false)}};
  const receive=s=>{setState(s);setConsent(false);setIndices([])};
  useEffect(()=>{if(enabled)void act(async()=>{const s=await call('agent-state');receive(s);setProvider(s.provider);setModel(s.model)})},[]);
@@ -22,7 +22,7 @@ export default function AgentPanel({data,onApplied}){
  {error&&<Alert closable onClose={()=>setError('')} type="error" showIcon title={t(error)} style={{marginBottom:20}}/>}
  <Card title={t('1 · 连接解析模型')} extra={<Tag color={state?.configured?'success':'default'}>{state?.configured?t('本次会话已连接'):t('尚未配置')}</Tag>}>
  <div className="agent-controls"><label><Paragraph>{t('模型服务')}</Paragraph><Select style={{width:'100%'}} value={provider} disabled={!enabled||busy||state?.status==='running'} onChange={v=>{setProvider(v);setModel(MODELS[v].model)}} options={Object.entries(MODELS).map(([value,m])=>({value,label:m.label}))}/></label><label><Paragraph>{t('模型名称')}</Paragraph><Input value={model} disabled={!enabled||busy||state?.status==='running'} onChange={e=>setModel(e.target.value)}/></label></div>
- <Space.Compact style={{width:'100%',marginTop:16}}><Input.Password aria-label={t('模型 API 密钥')} placeholder={t('在此填写 API 密钥，不要发送到聊天')} autoComplete="off" value={key} disabled={!enabled||busy||state?.status==='running'} onChange={e=>setKey(e.target.value)}/><Button disabled={!enabled||!key||busy||state?.status==='running'} onClick={()=>{void act(async()=>{const granted=await chrome.permissions.request({origins:[selected.origin+'/*']});if(!granted)throw Error('model_permission_required');const s=await call('agent-config',{provider,model,key:key.trim()});setKey('');receive(s)})}}>{t('连接模型')}</Button></Space.Compact>
+ <Space.Compact style={{width:'100%',marginTop:16}}><Input.Password aria-label={t('模型 API 密钥')} placeholder={t('在此填写 API 密钥，不要发送到聊天')} autoComplete="off" value={key} disabled={!enabled||busy||state?.status==='running'} onChange={e=>setKey(e.target.value)}/><Button disabled={!enabled||!key||busy||state?.status==='running'} onClick={()=>{void act(async()=>{const granted=await platform.assistant.allowOrigin(selected.origin);if(!granted)throw Error('model_permission_required');const s=await call('agent-config',{provider,model,key:key.trim()});setKey('');receive(s)})}}>{t('连接模型')}</Button></Space.Compact>
  <Paragraph type="secondary" className="source-note">{t('密钥只存于本次 Chrome 会话，不随钱包导出；重启浏览器后需重新填写。连接只保存配置，首次解析才会验证密钥。')}</Paragraph>
  {state?.configured&&<Button type="link" onClick={()=>act(async()=>receive(await call('agent-forget')))}>{t('移除会话密钥')}</Button>}
  </Card>

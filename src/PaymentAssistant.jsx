@@ -98,7 +98,7 @@ export default function PaymentAssistant({cards,hidden=false,urls,onDetail,onRef
  const query=search.trim().toLowerCase();
  const rows=query?pool.filter(i=>[i.card.name,i.card.bank,i.card.tail].join(' ').toLowerCase().includes(query)):pool;
  const headline=view.action?(view.urgent?t('{0} 笔要尽快处理，共 {1} 笔待还款',[view.urgent,view.action]):t('{0} 笔待还款',[view.action])):t('没有已知要处理的账单');
- const unjudged=view.refresh.length>0&&<Alert className="payment-refresh" type="info" showIcon title={t('{0} 张卡的账单未读取或读数已过期，暂时无法判断是否要还款',[view.refresh.length])} action={<Button size="small" onClick={onRefresh}>{t('刷新银行')}</Button>}/>;
+ const unjudged=view.refresh.length>0&&<Alert className="payment-refresh" type="info" showIcon title={t('{0} 张卡的账单未读取或读数已过期，暂时无法判断是否要还款',[view.refresh.length])} action={onRefresh&&<Button size="small" onClick={onRefresh}>{t('刷新银行')}</Button>}/>;
  return <Card className="payment-assistant" style={{marginBottom:20}} title={t('现在要处理')} extra={<Text type="secondary" className="payment-headline">{headline}</Text>}>
   {view.top.map(row)}
   {unjudged}

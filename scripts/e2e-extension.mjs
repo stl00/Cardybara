@@ -11,10 +11,10 @@
 // --chat (nightly set): after the main path, the user saves a test-only model key in settings, which
 // asks for the provider's host permission, then asks the assistant a question. A scripted model
 // answers through a synthetic provider; the answer must show in the chat, and no balance read from
-// the bank may ever reach the model. With --hosted, the user picks the Cardybara hosted service and saves a
-// test-only invite code instead; the packaged client goes through the gateway's own code (gateway/src),
-// served locally on the gateway host, which forwards to the same scripted provider with its own synthetic
-// key. With --negative-controls, a revoked code and a code over its daily cap must fail.
+// the bank may ever reach the model. With --hosted, nothing is set up: the Cardybara hosted service is on out of
+// the box, with no invite code and no host permission (owner decision 2026-11-16); the packaged client goes
+// through the gateway's own code (gateway/src), served locally on the gateway host, which forwards to the same
+// scripted provider with its own synthetic key. With --negative-controls, a client over its daily cap must fail.
 // The user then hides a card: the overview and a new chat leave it
 // out while the bank records stay, and unhiding brings it back (stl00/Cardybara#198).
 // --upgrade-from (nightly set): the main path runs on the previous package instead; then Chrome is
@@ -57,10 +57,9 @@ const BANK_HOST='secure.chase.com';
 const MODEL_HOST='api.deepseek.com';
 // A made-up key in the provider's key shape. It is never a real key and only ever reaches the synthetic provider.
 const TEST_KEY='e2e-test-only-'+'0'.repeat(24);
-// The hosted gateway the packaged client calls under --chat --hosted, a made-up invite code in the gateway's
-// shape, and the gateway's own made-up provider key. None of them is real.
+// The hosted gateway the packaged client calls under --chat --hosted, and the gateway's own made-up provider key.
+// Neither is real.
 const GATEWAY_HOST=new URL(GATEWAY_ORIGIN).hostname;
-const TEST_INVITE='cdy_'+'e2e-test-only-'.padEnd(43,'0');
 const GATEWAY_PROVIDER_KEY='e2e-gateway-provider-key-not-real';
 // Values the synthetic bank shows. They are read into the wallet and must never travel to the model.
 const READ_VALUES=['1234.56','1,234.56','67.89'];
@@ -135,8 +134,8 @@ async function syntheticBank(work){
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const spki=createHash('sha256').update(createPublicKey(await readFile(cert)).export({type:'spki',format:'der'})).digest('base64');
  return {port:server.address().port,spki,requests,model,gateway,
-  async startGateway({origin,status,dailyRequests}){
-   const g=localGateway({vars:{PROVIDER_KEY:GATEWAY_PROVIDER_KEY,ALLOWED_ORIGINS:origin,DAILY_REQUESTS_PER_CODE:String(dailyRequests)},log:line=>{gateway.logs.push(line);note('gateway',line);},
+  async startGateway({origin,dailyRequests}){
+   const g=localGateway({vars:{PROVIDER_KEY:GATEWAY_PROVIDER_KEY,ALLOWED_ORIGINS:origin,DAILY_REQUESTS_PER_CLIENT:String(dailyRequests)},log:line=>{gateway.logs.push(line);note('gateway',line);},
     // The gateway's upstream is the same scripted provider, reached in process.
     fetch:async(url,init)=>{
      const {status,value}=await providerAnswer(model,{method:init.method,path:new URL(url).pathname,authorization:init.headers.Authorization,raw:init.body,via:'gateway'});
@@ -145,7 +144,7 @@ async function syntheticBank(work){
      if(status===200&&stream){const choice=value.choices[0];return providerResponse({message:choice.message,finishReason:choice.finish_reason},{stream:true});}
      return new Response(JSON.stringify(value),{status,headers:{'Content-Type':'application/json'}});
     }});
-   await g.addInvite(TEST_INVITE,{id:'e2e-tester',status});gateway.handle=g.handle;
+   gateway.handle=g.handle;
   },
   hold(){held=held||[];},heldCount:()=>held?.length||0,release(){const waiting=held||[];held=null;waiting.forEach(f=>f());return waiting.length;},close:()=>new Promise(r=>{server.close(r);server.closeAllConnections();})};
 }
@@ -214,7 +213,7 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=null,hosted=false,tamper=null,invite=TEST_INVITE,inviteStatus='active',inviteDailyRequests=50,cards=false,cardFeeDate={month:2,day:29},cardQuery=null,upgradeFrom=null,mutatePrevious,swap=true}={}){
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=null,hosted=false,tamper=null,clientDailyRequests=50,cards=false,cardFeeDate={month:2,day:29},cardQuery=null,upgradeFrom=null,mutatePrevious,swap=true}={}){
  if([restart,expiredLogin,cancel,chat,cards,!!upgradeFrom].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel, --chat, --cards and --upgrade-from separately: each starts from the end of the main path');
  if(hosted&&!chat)throw Error('--hosted is a variant of --chat');
  chatScript??=hosted?scriptedHostedChat:scriptedChat;
@@ -528,59 +527,69 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    note('PASS: a refresh waiting at needs-login stops from the wallet header and does not read after a sign-in');
   }
   if(chat){
-   // 9. The assistant chat UI on the packaged extension with a scripted model. The user picks how to reach
-   // the model, pastes a test-only key (or, with --hosted, an invite code) in settings and saves it with a
-   // real click, which asks for that host's permission; then asks a question. The answer comes from the
-   // scripted provider through the packaged client, and with --hosted through the gateway.
+   // 9. The assistant chat UI on the packaged extension with a scripted model. Own key: the user pastes a
+   // test-only key in settings and saves it with a real click, which asks for the provider's host permission.
+   // Hosted: nothing to set up; settings show the hosted service ready with no code field, and the extension holds
+   // no permission for the gateway host (plain CORS requests). Then the user asks a question; the answer comes from
+   // the scripted provider through the packaged client, and with --hosted through the gateway.
    bank.model.script=chatScript;
-   const credential=hosted?invite:chatKey,host=hosted?GATEWAY_HOST:MODEL_HOST,what=hosted?'invite code':'key';
-   if(hosted)await bank.startGateway({origin:`chrome-extension://${id}`,status:inviteStatus,dailyRequests:inviteDailyRequests});
-   const reached=()=>hosted?bank.gateway.requests.length:bank.model.requests.length;
+   const host=hosted?GATEWAY_HOST:MODEL_HOST;
+   if(hosted)await bank.startGateway({origin:`chrome-extension://${id}`,dailyRequests:clientDailyRequests});
    const access={cdp,id,attach,evaluate,sessions};
-   await allowModelHost(access,host);
-   // The beta build offers the hosted service only. An own key is a developer-only mode behind a storage flag
-   // no wallet UI sets; the harness sets it the way a developer would, from DevTools.
-   if(!hosted)await evaluate('worker',`chrome.storage.local.set({'cardybara-dev-own-key':true}).then(()=>true)`);
-   // Leave and re-enter settings so the page reads the flag afresh.
-   await evaluate('wallet','location.hash="wallet"');await sleep(200);
-   await evaluate('wallet','location.hash="settings"');
    if(hosted){
-    await until('the invite code field',()=>evaluate('wallet',`!!document.querySelector('input[type=password]')`));
+    await evaluate('wallet','location.hash="wallet"');await sleep(200);
+    await evaluate('wallet','location.hash="settings"');
+    await until('the hosted service to show ready',async()=>{const t=await pageText('wallet');return JSON.parse(words('已就绪')).some(w=>t.includes(w));});
     const t=await pageText('wallet');
-    for(const zh of ['使用自己的 key','粘贴你的 API 密钥','保存密钥','自动补全银行数据'])if(JSON.parse(words(zh)).some(w=>t.includes(w)))throw new StepError('the beta settings page offers an own model key: '+zh);
-    note('settings offer the hosted service only');
-   }else await until('the AI mode choice',()=>clickText('wallet','label.ant-radio-wrapper','使用自己的 key'));
-   const keyBox=await until('the '+what+' field',()=>evaluate('wallet',`(()=>{const el=document.querySelector('input[type=password]');if(!el||!${JSON.stringify(words(hosted?'粘贴邀请码':'粘贴你的 API 密钥'))}.includes(el.placeholder))return false;el.focus();return true;})()`));
-   if(!keyBox)throw new StepError('no '+what+' field on the settings page');
-   await cdp.send('Input.insertText',{text:credential},sessions.wallet);
-   await cdp.send('Target.activateTarget',{targetId:walletTarget}).catch(()=>{});
-   // A real mouse click: Chrome only asks for the host permission from a user gesture.
-   // A click that lands is seen as the button going busy or as the check reaching the service; a
-   // click that missed (the page still settling) is sent again.
-   await until('the save click to take effect',async()=>{
-    const checks=reached();
-    if(!await realClick('wallet','button',words(hosted?'保存邀请码':'保存密钥')))return false;
-    const end=Date.now()+2000;
-    while(Date.now()<end){if(reached()>checks||await evaluate('wallet',`!!document.querySelector('.ant-btn-loading')||!document.querySelector('input[type=password]')`))return true;await sleep(100);}
-    note('the save click did not take effect; clicking again');return false;
-   });
-   note('pasted a test-only',what,'and pressed save');
-   await until('the '+what+' to be saved and ready',async()=>{
-    const t=await pageText('wallet');
-    for(const zh of ['没有获得访问服务商的权限，密钥未保存。','服务商拒绝了这个密钥，请检查是否复制完整或已过期。','没有获得访问托管服务的权限，邀请码未保存。','托管服务不认识这个邀请码，请检查是否复制完整。','这个邀请码已停用，请联系发码人。'])if(JSON.parse(words(zh)).some(w=>t.includes(w)))throw new StepError(`the ${what} was not saved: `+zh);
-    return JSON.parse(words('已就绪')).some(w=>t.includes(w));
-   });
-   const stored=await evaluate('worker',`chrome.storage.local.get('cardybara-model-key').then(r=>r['cardybara-model-key']||null)`);
-   if(stored?.key!==credential||stored?.provider!==(hosted?'cardybara':'deepseek'))throw new StepError(`the saved ${what} is not the one pasted`);
-   if(!await evaluate('worker',`chrome.permissions.contains({origins:['https://${host}/*']})`))throw new StepError(`the ${hosted?'gateway':'provider'} host permission was not granted`);
-   await restoreSiteAccess(access);
-   // The permission the save button obtained is the extension's own and stays; the bank hosts are back.
-   for(const h of [host,BANK_HOST])if(!await evaluate('worker',`chrome.permissions.contains({origins:['https://${h}/*']})`))throw new StepError(`no host permission for ${h} after site access went back to all sites`);
-   const checks=hosted?bank.gateway.requests.filter(r=>r.method==='POST'&&r.path==='/v1/invite'):bank.model.requests.filter(r=>r.method==='GET'&&r.path==='/models');
-   if(!checks.length)throw new StepError(`the ${what} was saved without a check against the ${hosted?'gateway':'provider'}`);
-   note(what,'saved with the host permission after one check');
-   // The page must not show the credential in full once saved.
-   if((await pageText('wallet')).includes(credential))throw new StepError(`the settings page shows the saved ${what} in full`);
+    if(await evaluate('wallet',`!!document.querySelector('input[type=password]')`))throw new StepError('the settings page asks for a code or key in hosted mode');
+    for(const zh of ['粘贴邀请码','保存邀请码','使用自己的 key','粘贴你的 API 密钥','保存密钥','自动补全银行数据'])if(JSON.parse(words(zh)).some(w=>t.includes(w)))throw new StepError('the beta settings page offers a code or own key: '+zh);
+    const stored=await evaluate('worker',`chrome.storage.local.get('cardybara-model-key').then(r=>r['cardybara-model-key']||null)`);
+    if(stored?.key)throw new StepError('a credential is stored in hosted mode');
+    if(await evaluate('worker',`chrome.permissions.contains({origins:['https://${host}/*']})`))throw new StepError('the extension holds the gateway host permission; hosted mode must work without it');
+    note('settings: the hosted service is ready out of the box, no code field, no stored credential, no gateway permission');
+   }else{
+    const what='key';
+    await allowModelHost(access,host);
+    // An own key is a developer-only mode behind a storage flag no wallet UI sets; the harness sets it the way a
+    // developer would, from DevTools.
+    await evaluate('worker',`chrome.storage.local.set({'cardybara-dev-own-key':true}).then(()=>true)`);
+    // Leave and re-enter settings so the page reads the flag afresh.
+    await evaluate('wallet','location.hash="wallet"');await sleep(200);
+    await evaluate('wallet','location.hash="settings"');
+    await until('the own-key button',()=>clickText('wallet','button','使用自己的 key'));
+    const keyBox=await until('the '+what+' field',()=>evaluate('wallet',`(()=>{const el=document.querySelector('input[type=password]');if(!el||!${JSON.stringify(words('粘贴你的 API 密钥'))}.includes(el.placeholder))return false;el.focus();return true;})()`));
+    if(!keyBox)throw new StepError('no '+what+' field on the settings page');
+    await cdp.send('Input.insertText',{text:chatKey},sessions.wallet);
+    await cdp.send('Target.activateTarget',{targetId:walletTarget}).catch(()=>{});
+    // A real mouse click: Chrome only asks for the host permission from a user gesture.
+    // A click that lands is seen as the button going busy or as the check reaching the service; a
+    // click that missed (the page still settling) is sent again.
+    await until('the save click to take effect',async()=>{
+     const checks=bank.model.requests.length;
+     if(!await realClick('wallet','button',words('保存密钥')))return false;
+     const end=Date.now()+2000;
+     while(Date.now()<end){if(bank.model.requests.length>checks||await evaluate('wallet',`!!document.querySelector('.ant-btn-loading')||!document.querySelector('input[type=password]')`))return true;await sleep(100);}
+     note('the save click did not take effect; clicking again');return false;
+    });
+    note('pasted a test-only',what,'and pressed save');
+    await until('the '+what+' to be saved and ready',async()=>{
+     const t=await pageText('wallet');
+     for(const zh of ['没有获得访问服务商的权限，密钥未保存。','服务商拒绝了这个密钥，请检查是否复制完整或已过期。'])if(JSON.parse(words(zh)).some(w=>t.includes(w)))throw new StepError(`the ${what} was not saved: `+zh);
+     // The hosted service already shows ready before anything is saved, so wait for the own key to be in storage.
+     const saved=await evaluate('worker',`chrome.storage.local.get('cardybara-model-key').then(r=>r['cardybara-model-key']?.provider||null)`);
+     return saved==='deepseek'&&JSON.parse(words('已就绪')).some(w=>t.includes(w));
+    });
+    const stored=await evaluate('worker',`chrome.storage.local.get('cardybara-model-key').then(r=>r['cardybara-model-key']||null)`);
+    if(stored?.key!==chatKey||stored?.provider!=='deepseek')throw new StepError(`the saved ${what} is not the one pasted`);
+    if(!await evaluate('worker',`chrome.permissions.contains({origins:['https://${host}/*']})`))throw new StepError('the provider host permission was not granted');
+    await restoreSiteAccess(access);
+    // The permission the save button obtained is the extension's own and stays; the bank hosts are back.
+    for(const h of [host,BANK_HOST])if(!await evaluate('worker',`chrome.permissions.contains({origins:['https://${h}/*']})`))throw new StepError(`no host permission for ${h} after site access went back to all sites`);
+    if(!bank.model.requests.some(r=>r.method==='GET'&&r.path==='/models'))throw new StepError(`the ${what} was saved without a check against the provider`);
+    note(what,'saved with the host permission after one check');
+    // The page must not show the credential in full once saved.
+    if((await pageText('wallet')).includes(chatKey))throw new StepError(`the settings page shows the saved ${what} in full`);
+   }
 
    await evaluate('wallet','location.hash="advisor"');
    // Negative controls only: the page's requests to the hosted agent are changed before they leave it.
@@ -593,7 +602,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    note('asked the assistant a question');
    await until('the scripted answer in the chat',async()=>{
     const t=await pageText('wallet');
-    const failed=['这次没有完成，AI 服务可能暂时不可用。可以重试；你的钱包没有被修改。','聊天助手需要先在设置里输入邀请码，钱包其他功能不受影响。','已达到托管服务的用量上限，请稍后再试。','这个邀请码已停用，请联系发码人。','邀请码无效，请在设置里检查是否复制完整。'].find(zh=>JSON.parse(words(zh)).some(w=>t.includes(w)));
+    const failed=['这次没有完成，AI 服务可能暂时不可用。可以重试；你的钱包没有被修改。','聊天助手已在设置里关闭，钱包其他功能不受影响。','已达到托管服务的用量上限，请稍后再试。','今天从这个网络使用托管服务的次数已到上限，请明天再试。'].find(zh=>JSON.parse(words(zh)).some(w=>t.includes(w)));
     if(failed)throw new StepError('the chat failed instead of answering: '+failed);
     return t.includes(ANSWER_MARK);
    },STEP_MS*2);
@@ -602,7 +611,6 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    for(const r of bank.model.requests){
     if(r.authorization!=='Bearer '+(hosted?GATEWAY_PROVIDER_KEY:chatKey))throw new StepError(`a provider request did not carry the ${hosted?'gateway\'s own key':'saved key'}`);
     if(hosted&&r.via!=='gateway')throw new StepError('in hosted mode the extension reached the provider directly');
-    if(hosted&&r.raw.includes(credential))throw new StepError('the invite code reached the provider');
     for(const v of READ_VALUES)if(r.raw.includes(v))throw new StepError(`a value read from the bank (${v}) reached the model`);
    }
    if(hosted){
@@ -610,7 +618,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
     if(bank.gateway.requests.some(r=>r.path==='/v1/chat/completions'))throw new StepError('the hosted chat used the completion proxy instead of the agent');
     if(chats.some(r=>r.body?.stream!==true))throw new StepError('the hosted agent did not stream its model calls');
     for(const r of bank.gateway.requests.filter(r=>r.method==='POST')){
-     if(r.authorization!=='Bearer '+credential)throw new StepError('a gateway request did not carry the saved invite code');
+     if(r.authorization)throw new StepError('a gateway request carried an Authorization header; the hosted service needs no credential');
      if(r.origin!==`chrome-extension://${id}`)throw new StepError('a gateway request came without the extension origin: '+r.origin);
      for(const v of READ_VALUES)if(r.raw.includes(v))throw new StepError(`a value read from the bank (${v}) reached the gateway`);
      for(const v of READ_TAILS)if(r.raw.includes(v))throw new StepError(`a card tail read from the bank (${v}) reached the gateway`);
@@ -627,7 +635,8 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
     if(turns[0].summary.cards.some(c=>Object.keys(c).sort().join()!=='bank,currency,feeDate,name,productId,region'))throw new StepError('the wallet summary carries a field beyond the held product');
     note('hosted agent: question, then one continuation with only the requested wallet tool result; the summary names products only');
     const logs=bank.gateway.logs.join('\n');
-    for(const secret of [credential,GATEWAY_PROVIDER_KEY,QUESTION,ANSWER_MARK])if(logs.includes(secret))throw new StepError('the gateway log carries a body, code or key');
+    for(const secret of [GATEWAY_PROVIDER_KEY,QUESTION,ANSWER_MARK])if(logs.includes(secret))throw new StepError('the gateway log carries a body or key');
+    if(logs.split('\n').some(l=>{try{const j=JSON.parse(l);return 'code' in j||'client' in j;}catch{return false;}}))throw new StepError('the gateway log carries a client or code id');
     const everything=await evaluate('worker',`chrome.storage.local.get(null).then(r=>JSON.stringify(r))`);
     if(everything.includes(GATEWAY_PROVIDER_KEY))throw new StepError('the gateway\'s provider key reached the extension');
    }
@@ -637,7 +646,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    // Card tails are read from the bank too; the projected inventory the model sees must not carry them.
    const inventory=JSON.stringify(listed);
    for(const tail of READ_TAILS)if(inventory.includes(tail))throw new StepError(`a card tail read from the bank (${tail}) reached the model`);
-   note('scripted answer shown;',String(chats.length),'model requests,',hosted?'all through the gateway with its own key, the invite code only to the gateway,':'the saved key only,','no read value sent');
+   note('scripted answer shown;',String(chats.length),'model requests,',hosted?'all through the gateway with its own key, no credential from the extension,':'the saved key only,','no read value sent');
    note(`PASS: the assistant chat on the packaged extension answers through a scripted model${hosted?' via the hosted gateway':''}`);
 
    // 9b. Hide a card (stl00/Cardybara#198): the bank keeps it, but the overview and the assistant act as if it is not held.
@@ -945,11 +954,9 @@ export const BROKEN_CHAT={
  'a key the provider rejects':[/the key was not saved/,{chatKey:'e2e-rejected-'+'1'.repeat(24)}],
  'a model that never gives the answer':[/the chat failed instead of answering|timed out waiting for the scripted answer/,{chatScript:[()=>({content:'',tool_calls:[toolCall('e2e-1','list_cards')]})]}],
 };
-// With --chat --hosted: a revoked invite code is never saved, and a code over its daily cap cannot finish a
-// chat; the check must notice either.
+// With --chat --hosted: a client over its daily cap cannot finish a chat; the check must notice.
 export const BROKEN_HOSTED_CHAT={
- 'a revoked invite code':[/the invite code was not saved: 这个邀请码已停用/,{inviteStatus:'revoked'}],
- 'an invite code over its daily cap':[/the chat failed instead of answering: 已达到托管服务的用量上限/,{inviteDailyRequests:1}],
+ 'a client over its daily cap':[/the chat failed instead of answering: 今天从这个网络使用托管服务的次数已到上限/,{clientDailyRequests:1}],
  // Wallet data beyond the requested tool result: the Worker refuses a request with an extra field, and a read value
  // smuggled into a requested result is still caught by the check of every request to the gateway.
  'a wallet field sent beside the question':[/the chat failed instead of answering/,{tamper:"b=>{b.balance='1234.56';}"}],

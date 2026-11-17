@@ -1,5 +1,5 @@
 import {profileForCard,benefitPeriod} from './benefitRules.js';
-import {dismissKey,dismissedKeys} from './personalBenefits.js';
+import {dismissKey,dismissedKeys,ONE_OFF_PERIODS} from './personalBenefits.js';
 import {anniversaryPeriod,cleanFeeDate} from './feeDate.js';
 // Per-card credit ledger. A pure function of cards, the user's own marks and a day: no clock, no storage, so the
 // wallet page and the assistant read the same numbers. Amounts are the published per-cycle limits; "used" is only
@@ -46,6 +46,17 @@ function cycleRow(card,rule,period,events,asOf){
  else rest(limit);
  return {key,start:period.start,end:period.end,status,ended,...b};
 }
+/**
+ * The day a four-year or one-off credit was used: the used-on date the user entered (four-year), or the day the one-off
+ * mark was made (a one-off mark carries no separate usage date). Null when the latest mark is not "used".
+ */
+export function offCycleUsedDay(rule,card,events){
+ const kind=rule.period==='rolling-four-years'?'four-year':ONE_OFF_PERIODS.has(rule.period)?'one-off':null;if(!kind)return null;
+ const mark=latestMark(events,JSON.stringify([card.id,rule.knowledgeRuleId,kind]));
+ if(!mark||mark.status!=='used'||kind==='one-off'&&mark.revisionId&&mark.revisionId!==rule.revisionId)return null;
+ const day=kind==='four-year'?mark.usedOn:String(mark.at||'').slice(0,10);
+ return /^\d{4}-\d{2}-\d{2}$/.test(day||'')?{kind,day}:null;
+}
 const sum=(into,row)=>{for(const k of Object.keys(ZERO()))into[k]=cents(into[k]+row[k]);return into;};
 /**
  * @param {object[]} cards wallet cards (id, name, bank, region, currency, feeDate)
@@ -62,11 +73,19 @@ export function creditLedger(cards,events,asOf,{basis='card-year'}={}){
   const profile=profileForCard(card);if(!profile)continue;
   const feeDate=cleanFeeDate(card.feeDate)?card.feeDate:null,window=ledgerWindow(basis,feeDate,asOf);
   const fee=profile.fees?.currency===card.currency||!card.currency?profile.fees?.primaryAnnual??null:null;
-  const entry={cardId:card.id,basis,currency:card.currency||profile.fees?.currency,period:window,annualFee:fee,...ZERO(),credits:[],needsFeeDate:false,excluded:{cardYearCredits:0,oneOffOrOngoing:0}};
+  const entry={cardId:card.id,basis,currency:card.currency||profile.fees?.currency,period:window,annualFee:fee,...ZERO(),credits:[],needsFeeDate:false,excluded:{cardYearCredits:0,oneOffOrOngoing:0},offCycle:{available:0,used:0,count:0,credits:[]}};
   const totals=ZERO();
   for(const b of profile.benefits||[]){
    if(!['credit','promo'].includes(b.category)||b.applicability||dismissed.has(dismissKey(card.id,b.knowledgeRuleId)))continue;
-   if(!CYCLES.has(b.period)){entry.excluded.oneOffOrOngoing++;continue;}
+   if(!CYCLES.has(b.period)){
+    entry.excluded.oneOffOrOngoing++;
+    // Off-cycle credit: counted only for the window it was used in, at its public limit, on its own line.
+    const used=window&&offCycleUsedDay(b,card,events),limit=b.quantity?b.amount*b.quantity:b.amount;
+    if(used&&used.day>=window.start&&used.day<=window.end&&Number.isFinite(limit)&&limit>0&&(!b.validFrom||b.validFrom<=used.day)&&(!b.validThrough||b.validThrough>=used.day)){
+     const o=entry.offCycle;o.available=cents(o.available+limit);o.used=cents(o.used+limit);o.count++;o.credits.push({ruleId:b.knowledgeRuleId,title:b.title,kind:used.kind,usedOn:used.day});
+    }
+    continue;
+   }
    if(b.period==='account-anniversary'&&!feeDate&&basis==='calendar-year'){entry.excluded.cardYearCredits++;entry.needsFeeDate=true;continue;}
    if(!window)continue;
    const cycles=cyclesInWindow(b,window,feeDate).filter(p=>(!b.validFrom||b.validFrom<=p.end)&&(!b.validThrough||b.validThrough>=p.start));

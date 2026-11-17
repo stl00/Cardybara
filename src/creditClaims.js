@@ -155,7 +155,8 @@ export function choiceIssues(answer,evidence){
  issues.push(...defaultAsUserIssues(answer,decisions.flatMap(d=>d.pointValues||[])));
  const defaults=decisions.some(d=>(d.pointValues||[]).some(v=>v.basis==='default')),allowed=returnedCents(decisions);
  // Pricing is allowed only on a line about a card that has a value: the user's, or the default market valuation.
- const valued=decisions.flatMap(d=>(d.rows||[]).filter(r=>r.centsPerPoint!=null)).flatMap(r=>cardAnchors({card:r.card}));
+ // A currency-split answer (depends-on-currency) has no rows; each option that carries a pointValue is a valued card (#260).
+ const valued=decisions.flatMap(d=>[...(d.rows||[]).filter(r=>r.centsPerPoint!=null),...(d.choice.options||[]).filter(o=>o.card&&o.pointValue)]).flatMap(r=>cardAnchors({card:r.card}));
  for(const line of answer.split(/\n|(?<=[。！？!?])/))if(POINT_PRICE.test(line)&&!CONDITIONAL_PRICE.test(line)&&!(valued.length&&(mentions(norm(line),valued)||USER_VALUE.test(line)||defaults&&DEFAULT_WORDS.test(line)))||defaults&&!CONDITIONAL_PRICE.test(line)&&unreturned(line,allowed))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
  return issues;
 }

@@ -149,7 +149,7 @@
           "additionalProperties": false,
           "required": ["type", "basis", "requiresCardPayment", "exclusions"],
           "properties": {
-            "type": {"enum": ["rental-car", "trip-cancellation", "trip-delay", "baggage-delay", "emergency-evacuation", "roadside", "purchase-protection", "return-protection", "extended-warranty", "travel-insurance"]},
+            "type": {"enum": ["rental-car", "trip-cancellation", "trip-delay", "baggage-delay", "lost-luggage", "emergency-evacuation", "roadside", "purchase-protection", "return-protection", "extended-warranty", "travel-insurance"]},
             "basis": {"enum": ["primary", "secondary", null]},
             "basisScope": {"type": "string"},
             "requiresCardPayment": {"enum": [true, null]},

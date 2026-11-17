@@ -17,7 +17,7 @@ export function I18nProvider({children}) {
     try { return normalizeLanguage(localStorage.getItem(STORAGE_KEY)); }
     catch { return 'zh-CN'; }
   });
-  const dark = useSyncExternalStore(subscribeSystemDark, systemPrefersDark);
+  const dark = useSyncExternalStore(subscribeSystemDark, systemPrefersDark, () => false);
   activateLanguage(language);
   useEffect(() => {
     try { localStorage.setItem(STORAGE_KEY, language); } catch { /* Language still works when storage is unavailable. */ }

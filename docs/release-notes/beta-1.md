@@ -28,7 +28,7 @@ Install guide for testers: [docs/BETA-INSTALL.md](../BETA-INSTALL.md).
 - 福利使用记录。
 
 ### 用卡助手
-- 需要邀请码：在 设置 → AI 服务 输入邀请你的人给的邀请码。不输入也能正常使用钱包，只是没有聊天助手和 AI 识别卡种。
+- 不需要邀请码，装好就能用。为了控制费用，每个网络每天有使用上限，用完后第二天恢复。不想用可以在 设置 → AI 服务 里关闭。
 - 能做：回答持卡、福利、积分和年费周期的问题；比较一笔消费用哪张卡更好。回答边生成边显示。
 - 不能做：付款、操作银行、替你登记优惠。
 - 它看不到银行余额、账单和还款日；回答里的数字只来自钱包的福利、积分和卡片资料，查不到时会说不知道，不会猜。
@@ -40,8 +40,12 @@ Install guide for testers: [docs/BETA-INSTALL.md](../BETA-INSTALL.md).
 
 ### 隐私
 - 钱包数据保存在这台电脑的 Chrome 里，不上传，也不同步。
-- 用卡助手在 Cardybara 服务上运行：服务收到你的问题、这次对话的前文、持有的卡种、积分估值、每张卡是否填了年费日，以及助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单。服务不保存这些内容，只记录邀请码编号、时间、用量和状态。
+- 用卡助手在 Cardybara 服务上运行：服务收到你的问题、这次对话的前文、持有的卡种、积分估值、每张卡是否填了年费日，以及助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单。服务不保存这些内容，只记录时间、用量和状态；为了限制每个网络每天的用量，只保留网络地址加盐后的哈希值，保留一天。
 - AI 识别卡种默认关闭；开启后，或你在卡片详情里点“用 AI 推测卡种”时，会把未识别卡片的银行、地区和卡名（不含尾号和金额）经 Cardybara 服务发给 AI。
+- 网页版：钱包数据只保存在你输入它的那个浏览器里，不上传，也不同步到其他设备。
+- 网页版唯一上传的是你向用卡助手提的问题，附带的内容和上面一样（对话前文、持有的卡种、积分估值、是否填了年费日、助手请求的钱包查询结果），不含卡号、余额或账单。
+- 网页版里的卡片和金额都由你手动填写；读取银行只在桌面版 Chrome 扩展里提供。
+- 浏览器可能清除没有添加到主屏幕的网站的数据，请经常在“数据管理”里导出备份。
 - 没有广告，也没有使用统计。
 - 卸载扩展会删除扩展里的数据；需要保留的话，先在“数据管理 → 导出备份”。
 
@@ -83,7 +87,7 @@ This is a beta for friends, not a Chrome Web Store release.
 - Benefit usage you mark.
 
 ### The assistant
-- Needs an invite code: Settings → AI service, enter the code from the person who invited you. Without it the wallet works, just without the chat assistant and AI card recognition.
+- No invite code needed: it works once installed. To keep costs down, each network has a daily limit, which resets the next day. To stop using it, turn it off in Settings → AI service.
 - Can: answer questions about your cards, benefits, points and card-year cycles; compare which card to use for a purchase. Answers appear as they are written.
 - Cannot: pay, act on your bank, or enrol offers.
 - It can't see bank balances, statements or due dates; numbers in its answers come only from the wallet's benefit, points and card data, and when it can't find something it says so instead of guessing.
@@ -95,8 +99,12 @@ This is a beta for friends, not a Chrome Web Store release.
 
 ### Privacy
 - Your wallet stays in Chrome on this computer; it is not uploaded or synced.
-- The assistant runs on the Cardybara service: it receives your question, the earlier turns of the conversation, the card products you hold, your point valuations, whether each card has an annual fee date, and the wallet lookups the assistant asks for, and passes them to an AI model; it does not receive card numbers, balances or statements. The service does not store any of it; it records only the invite code's id, time, usage and status.
+- The assistant runs on the Cardybara service: it receives your question, the earlier turns of the conversation, the card products you hold, your point valuations, whether each card has an annual fee date, and the wallet lookups the assistant asks for, and passes them to an AI model; it does not receive card numbers, balances or statements. The service does not store any of it; it records only time, usage and status. To limit each network's daily use, it keeps only a salted hash of the network address, for one day.
 - AI card recognition is off by default; when you turn it on, or click “Ask AI for the card type” in card details, the unrecognised card's bank, region and name (no tail or amounts) go through the Cardybara service to the AI.
+- Web version: your wallet data stays in the browser where you entered it; it is not uploaded or synced to other devices.
+- The only thing the web version uploads is the questions you ask the assistant, with the same content as above (earlier turns, the card products you hold, point valuations, whether an annual fee date is filled in, and the wallet lookups the assistant asks for); never card numbers, balances or statements.
+- In the web version you enter cards and amounts by hand; reading banks is only available in the desktop Chrome extension.
+- A browser may clear the data of a site that is not on the Home Screen, so export a backup often (Data → Export backup).
 - No ads and no usage analytics.
 - Uninstalling the extension deletes its data; export a backup first (Data → Export backup) if you want to keep it.
 
@@ -118,6 +126,6 @@ Also tell the person who invited you which bank, which step, and what message yo
 
 ## Coverage (maintainers)
 
-Checked against `main` on 2026-11-11. Covered above: beta bank scope and this page (#197, #218), hosted invite-code gateway (#215), assistant on the gateway with streaming (#210: #219, #227), common Chase and Amex US cards (#195: #216, #220, #224, #225, #229), problem report (#196: #200), Bilt as a manual-only issuer (#234), Amex US card art (#232), purchase chooser redesign (#223), visual card picker (#207), annual fee date (#209), hide a card (#203), pooled MR/UR (#206), point valuations (#202), yearless due dates (#191).
+Checked against `main` on 2026-11-11. Covered above: beta bank scope and this page (#197, #218), hosted gateway (#215; invite codes dropped 2026-11-16), assistant on the gateway with streaming (#210: #219, #227), common Chase and Amex US cards (#195: #216, #220, #224, #225, #229), problem report (#196: #200), Bilt as a manual-only issuer (#234), Amex US card art (#232), purchase chooser redesign (#223), visual card picker (#207), annual fee date (#209), hide a card (#203), pooled MR/UR (#206), point valuations (#202), yearless due dates (#191).
 
 Not in this beta: niche Chase cards' rules (Slate, Slate Edge, DoorDash, Instacart — #235); Amex Green has no rules yet. Card art for other issuers (#233) was open when this was written; if it merges before the tag, the notes stay true (they promise art for Amex US and Chase only).

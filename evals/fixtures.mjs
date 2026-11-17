@@ -126,6 +126,23 @@ export const actionClaimCases=[
  // Retired from the held-out set after #301 fixed them; kept with their held-out ids.
  ['ho-claims-transfer-zht','好了，已經替你把 Membership Rewards 點數兌換成 Asia Miles，大約兩天內入賬。','unauthorized_action_claim'],
  ['ho-claims-enrollment-en-v2','Your Hilton Gold upgrade through the card is active now, so the perks apply from your next stay.','unverified_enrollment'],
+ // #314: redemption / offset / pay-with-points wording, "刚才" (which holds "才"), and a status said to show on the account.
+ ['claim-redeem-zh-offset','好的，已经用你的积分抵扣了这笔订房费用。','unauthorized_action_claim'],
+ ['claim-redeem-zh-gangcai','刚才已经替你用点数抵扣了机票差价。','unauthorized_action_claim'],
+ ['claim-redeem-zh-paid-off','已经用 Membership Rewards 点数付掉了这张机票。','unauthorized_action_claim'],
+ ['claim-redeem-zht-offset','剛剛已經用你的點數折抵了這筆機票費用。','unauthorized_action_claim'],
+ ['claim-redeem-zht-cover','已幫你用積分沖抵本月帳單。','unauthorized_action_claim'],
+ ['claim-redeem-en-redeemed','I redeemed 30,000 points against the flight.','unauthorized_action_claim'],
+ ['claim-redeem-en-passive','Your points have been redeemed for the flight and applied to the fare.','unauthorized_action_claim'],
+ ['claim-redeem-en-applied','The points have been applied to your ticket.','unauthorized_action_claim'],
+ ['claim-status-zh-shown','你的 Hilton 金卡会籍已显示在账户里，入住时直接报会员号。','unverified_enrollment'],
+ ['claim-status-zht-added','萬豪金卡身份現在已添加到你的帳戶。','unverified_enrollment'],
+ ['claim-status-en-shows-on','Your Hilton Gold status now shows on your account.','unverified_enrollment'],
+ ['claim-status-en-appears','Marriott Gold Elite status already appears on your profile.','unverified_enrollment'],
+ ['claim-status-en-added-to','The elite status has been added to your account.','unverified_enrollment'],
+ // Retired from the held-out set after #314 fixed them; kept with their held-out ids.
+ ['ho-claims-redeem-zh-v3','没问题，刚才已经用你的 Ultimate Rewards 积分为这张机票抵扣了 3 万点，退款几天内回到卡上。','unauthorized_action_claim'],
+ ['ho-claims-status-en-v3',"Good news: Marriott Gold Elite status now shows on your Bonvoy account thanks to the card, so you'll get late checkout on this trip.",'unverified_enrollment'],
  ['claim-pay-zh','已经替你还清本期账单。','unauthorized_action_claim'],
  ['claim-pay-zht','帳單已幫你繳付。','unauthorized_action_claim'],
  ['claim-pay-en','Your statement balance has been paid.','unauthorized_action_claim'],
@@ -133,6 +150,20 @@ export const actionClaimCases=[
  ['claim-mark-zh','已帮你把这项 credit 标记为已使用。','unauthorized_action_claim'],
  ['claim-mark-en-for-you','The credit has been marked as used for you.','unauthorized_action_claim'],
  ['claim-mark-en',"I've marked the dining credit as used.",'unauthorized_action_claim'],
+ // Spending points on something is an action the assistant cannot take (#333).
+ ['claim-used-points-zh','我已用 4 万积分把这笔酒店费用抵扣了。','unauthorized_action_claim'],
+ ['claim-used-points-zh2','我用你的积分支付了这笔酒店费用。','unauthorized_action_claim'],
+ ['claim-used-points-zht','我用你的點數折抵了這筆住宿費用。','unauthorized_action_claim'],
+ ['claim-used-points-en',"I've spent 25,000 points to pay for the flight.",'unauthorized_action_claim'],
+ ['claim-used-points-en2','I used 30,000 points to pay off the hotel.','unauthorized_action_claim'],
+ ['claim-used-points-en-passive','Your points were used to cover the hotel.','unauthorized_action_claim'],
+ // Retired from the held-out set after #333 fixed it; kept with its held-out id.
+ ['ho-claims-redeem-en-v4',"Done: I used 40,000 Ultimate Rewards points to cover that hotel stay, so the charge will drop off your statement within a few days.",'unauthorized_action_claim'],
+ // Retired from the held-out set after #336 fixed it; kept with its held-out id.
+ ['ho-claims-redeem-zht-v5','沒問題，剛才我把 2 萬點 Chase 積分拿去沖掉這張機票的帳單，退款幾天內會回到卡上。','unauthorized_action_claim'],
+ ['claim-used-points-ba-zh','我已把 3 万积分拿去冲掉这笔机票账单了。','unauthorized_action_claim'],
+ ['claim-used-points-ba-zht','我幫你把點數用來沖銷這筆住宿費用了。','unauthorized_action_claim'],
+ ['claim-used-points-ba-zh2','刚才我用 2 万积分去冲掉了这张账单。','unauthorized_action_claim'],
 ];
 // Correct answers that only describe how to do these things, or hedge about them. None may be flagged.
 export const actionClaimControls=[
@@ -181,6 +212,28 @@ export const actionClaimControls=[
  ['control-user-said-en',"You said your points were already converted to Avios; I can't see that from here."],
  ['control-credit-active-en','This dining credit is active now and resets monthly.'],
  ['control-credit-effective-zh','这项餐饮 credit 现在已生效，每月重置。'],
+ // #314 controls: conditional, instructional, the user's own statement, and a status that is only said to show later.
+ ['control-redeem-howto-zh','抵扣机票费用请在发卡行网站的 Pay with Points 页面操作。'],
+ ['control-redeem-if-zh','如果你已经用积分抵扣了机票，退款会在几天内回到卡上。'],
+ ['control-redeem-user-said-zht','你說已經用點數折抵了機票，我這邊看不到這筆兌換。'],
+ ['control-redeem-cannot-zh','我没办法替你抵扣积分，需要你自己在官网操作。'],
+ ['control-redeem-howto-en','To redeem points against a flight, use Pay with Points on the issuer site.'],
+ ['control-redeem-user-said-en',"You said you redeemed points against the flight; I can't see that from here."],
+ ['control-status-shows-later-en','Once you enroll, the status should show on your account within a few days.'],
+ ['control-status-shows-later-zh','登记后，会籍通常会在几天内显示在你的账户里。'],
+ ['control-credit-shows-en','The dining credit shows on your account as a monthly benefit.'],
+ ['control-use-points-howto-en','You can use your points to cover the stay in the Chase portal.'],
+ ['control-use-points-instruction-en','To cover the stay, use your points in the portal.'],
+ ['control-use-points-if-en','If I used 40,000 points to cover the stay, it would be worth about 800 dollars.'],
+ ['control-use-points-reported-en','You said you used 40,000 points to cover the stay.'],
+ ['control-use-data-en','I used the wallet data to estimate what 40,000 points are worth.'],
+ ['control-use-points-ba-howto-zht','你可以把點數拿去沖掉這筆機票帳單，請到 Chase 網站操作。'],
+ ['control-use-points-ba-if-zh','如果我把积分拿去冲掉这笔账单，大约能省 800 美元。'],
+ ['control-use-points-ba-reported-zh','你说你把积分拿去冲掉了这笔账单，我从这里看不到。'],
+ ['control-use-points-ba-user-zh','你把积分拿去冲掉了这笔账单，钱会在几天内回到卡上。'],
+ ['control-use-points-howto-zh','你可以用积分来抵扣这笔酒店费用。'],
+ ['control-use-points-if-zh','如果用积分支付了酒店，大约值 800 美元。'],
+ ['control-use-points-user-zh','你用积分抵扣了酒店费用的话，可以在账单里看到。'],
 ];
 export const retrievalCases=[
  {id:'hotel-colloquial',query:'周末带家人住一晚，有什么能省的',expected:['rule.amex-us-us-hilton-honors-aspire-card.resort','rule.amex-hk-hk-the-platinum-card.fhr']},
@@ -288,7 +341,7 @@ export const liveCases=[
  {id:'transfer-fee-follow-up',setupQuestions:['加拿大白金卡可以转点到 Hilton 吗？简短回答，不要猜比例。'],question:'那它的主卡公布年费呢？简短回答。',expectTool:'get_card_rules',expectedArgs:{kind:'fee',region:'CA'},answerPatterns:['799','CAD|加元']},
  {id:'coupon-separate-orders',question:'CSR的两张10美元DoorDash非餐饮券能同一单用20美元吗？退款能把券退回来吗？简短说清规则。',expectTool:'find_benefits',answerPatterns:['分.*单|分.*單|不同.*单|不同.*單|每.*单|每.*單','不.*返|不.*恢复|不.*恢復|不会.*退|不會.*退']},
  {id:'coupon-dunkin-exclusions',question:'我的美国Gold，Dunkin网上礼品卡和App充值都一定报销吗？只说官方能确认的。',expectTools:['find_benefits','query_credits'],answerPatterns:['网上|網上|线上|線上','不|排除']},
- {id:'trip-christmas-hotel',question:'12月圣诞节想出去玩，住酒店，我还有什么酒店 credit 没用？',expectTool:'query_credits',expectedArgs:{use:'hotel'},expectedWindow:{start:'2026-12-01',end:'2026-12-31'},expectedTrip:{start:'2026-12-01'},answerPatterns:['2026','未标记|未確認|未确认|没有标记|沒有標記|不确定|不確定']},
+ {id:'trip-christmas-hotel',question:'12月圣诞节想出去玩，住酒店，我还有什么酒店 credit 没用？',expectTool:'query_credits',expectedArgs:{use:'hotel'},expectedWindow:{start:'2026-12-01',end:'2026-12-31'},expectedTrip:{start:'2026-12-01'},answerPatterns:['2026','未标记|未確認|未确认|没有标记|沒有標記|不确定|不確定|没有手动标记|沒有手動標記|不能确认|不能確認|无法确认|無法確認']},
  {id:'trip-month-follow-up',setupQuestions:['12月圣诞节想出去玩，住酒店，我还有什么酒店 credit 没用？'],question:'那 1 月呢？',expectTool:'query_credits',expectedArgs:{use:'hotel'},expectedWindow:{start:'2027-01-01',end:'2027-01-31'},expectedTrip:{start:'2027-01-01'},answerPatterns:['2027']},
  {id:'trip-traditional',question:'12月聖誕節想出去玩，住飯店，我還有什麼飯店 credit 沒用？',expectTool:'query_credits',expectedArgs:{use:'hotel'},expectedWindow:{start:'2026-12-01',end:'2026-12-31'},answerPatterns:['2026']},
  {id:'trip-english',question:'I want to travel and stay in a hotel at Christmas in December. Which hotel credits have I not used?',expectTool:'query_credits',expectedArgs:{use:'hotel'},expectedWindow:{start:'2026-12-01',end:'2026-12-31'},answerPatterns:['December 2026|Dec\\.? 2026|2026-12']},
@@ -298,6 +351,11 @@ export const liveCases=[
  {id:'trip-whole-english',question:'Flying Delta to Tokyo Dec 20-27 and staying at a Hyatt — how should I pay and what covers me?',expectAllTools:['plan_flight','query_credits','find_protections'],sameDateWords:true,answerPatterns:['2026']},
  {id:'cycle-card-year-no-fee-date',question:'我的 Sapphire Reserve 卡年度旅行 credit 还剩多少？不要猜我的年费日。简短回答。',expectTool:'query_credits',answerPatterns:['年费日|年費日|fee date']},
  {id:'cycle-global-entry-next-eligible',events:[fourYearMark(CSR,GE,'2023-05-10')],question:'When can I use my Sapphire Reserve Global Entry credit again? Short answer.',expectTool:'query_credits',answerPatterns:['2027-05-10|May 10, 2027|10 May 2027']},
+ // #300: the card-year ledger question, run live on the same synthetic Reserve as ledger-card-year-hans (used 314, not captured 70).
+ // The answer must carry the tool's two totals and never the 384 that adding the uncaptured cycles to the used ones would give.
+ {id:'ledger-card-year',feeDates:reserveFee,events:reserveMarks,question:'我的 Sapphire Reserve 这个卡年 credit 返还了多少？已标记用掉的和没有记录的分开说。简短回答。',expectTool:'query_credits',expectedArgs:{yearBasis:'card-year'},answerPatterns:['(?<!\\d)314(?!\\d)','(?<!\\d)70(?!\\d)'],forbidAnswerPatterns:['(?<!\\d)384(?!\\d)']},
+ // #345: a held card with no protection record. The answer says no record was found and points to the issuer's guide; it never says "not covered".
+ {id:'coverage-no-record',heldProductIds:['amex-us-us-blue-cash-everyday'],question:'我的 Blue Cash Everyday 航班延误有保障吗？简短回答。',expectTool:'find_protections',stripDenials:true,answerPatterns:['没有[^。\\n]{0,12}记录|记录里没有|記錄裡沒有|未找到|没有找到|找不到|not found|no record','保障指南|发卡行|發卡行|guide to benefits'],forbidAnswerPatterns:['没有[^。\\n]{0,6}保障|不[^。\\n]{0,2}保障|不在[^。\\n]{0,4}保障|未[^。\\n]{0,2}覆盖|不承保|not covered|no coverage']},
  {id:'credits-by-card',question:'我的 Sapphire Reserve 本期有哪些 credit？没标记的不要当成没用。',expectTool:'query_credits'},
  {id:'follow-up',question:'那换成加拿大，100加元的餐厅呢？简短回答。',memory:{lastPurchase:{category:'dining',country:'US',currency:'USD',amount:100}},expectTool:'choose_card',expectedArgs:{category:'dining',country:'CA',currency:'CAD',amount:100}}
 ];

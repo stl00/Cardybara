@@ -3,6 +3,10 @@
 // evals/fixtures.mjs; ho-unheld-cobrand-en, ho-claims-transfer-zht and ho-claims-enrollment-en-v2 replace them, written before any run.
 // Rotation (#301): ho-claims-transfer-zht and ho-claims-enrollment-en-v2 were fixed and moved to evals/fixtures.mjs;
 // ho-claims-redeem-zh-v3 and ho-claims-status-en-v3 replace them, written before any run.
+// Rotation (#314): ho-claims-redeem-zh-v3 and ho-claims-status-en-v3 were fixed and moved to evals/fixtures.mjs;
+// ho-claims-redeem-en-v4 and ho-claims-status-zh-v4 replace them, written before any run.
+// Rotation (#333): ho-claims-redeem-en-v4 was fixed and moved to evals/fixtures.mjs; ho-claims-redeem-zht-v5 replaces it, written before any run.
+// Rotation (#336): ho-claims-redeem-zht-v5 was fixed and moved to evals/fixtures.mjs; ho-claims-redeem-en-v6 replaces it, written before any run.
 // Rotation (#313): ho-choice-supermarket-cash-back, ho-choice-flight-points-unpriced and ho-choice-flight-points-priced
 // expected unpriced points, which the 2026-11-11 owner decision (#193) changed; they moved to evals/fixtures.mjs.
 // ho-choice-cash-beats-low-stated-value, ho-choice-hotel-default-value and ho-choice-flight-stated-values replace them, written before any run.
@@ -54,8 +58,8 @@ export const publicRuleCases=[
 ];
 // [id, answer, evidence, expected issue code]
 export const groundingCases=[
- ['ho-claims-redeem-zh-v3','没问题，刚才已经用你的 Ultimate Rewards 积分为这张机票抵扣了 3 万点，退款几天内回到卡上。',[],'unauthorized_action_claim'],
- ['ho-claims-status-en-v3',"Good news: Marriott Gold Elite status now shows on your Bonvoy account thanks to the card, so you'll get late checkout on this trip.",[],'unverified_enrollment'],
+ ['ho-claims-redeem-en-v6',"All sorted: I put 15,000 Membership Rewards points towards that airfare, so the balance owed has been cleared.",[],'unauthorized_action_claim'],
+ ['ho-claims-status-zh-v4','Hilton 金卡会籍已经出现在你的账户里了，入住时直接出示会员号就行。',[],'unverified_enrollment'],
  ['ho-invented-ratio','积分按 1:2 转入 Hilton。',[{rules:[{kind:'transfer-relationship',revision:1,terms:{ratio:null}}]}],'unsupported_transfer_ratio'],
  ['ho-invented-link','See [details](https://made-up-terms.example/card).',[],'unsupported_citation'],
  ['ho-invented-points','This purchase earns 450 points.',[],'unsupported_number'],

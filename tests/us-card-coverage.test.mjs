@@ -42,7 +42,7 @@ test('a transfer link reaches the programme rules; no link gets no partner row',
  assert.equal(queryKnowledge({kind:'transfer-relationship',productId:'chase-us-ink-business-cash-credit-card'}).count,0,'a cash back page gives no transfer evidence');
 });
 test('what a page does not structure stays unknown',()=>{
- const hotel=queryKnowledge({productId:'amex-us-us-the-platinum-card'}).rules.find(r=>r.id.endsWith('.hotel-credit'));assert.equal(hotel.terms.period,null,'the page does not say how the half-years divide');
+ const hotel=queryKnowledge({productId:'amex-us-us-the-platinum-card'}).rules.find(r=>r.id.endsWith('.hotel-credit'));assert.equal(hotel.terms.period,'calendar-half-year','the page states semi-annual credits capped per calendar year');
  const clear=queryKnowledge({productId:'amex-us-us-the-platinum-card'}).rules.find(r=>r.id.endsWith('.clear'));assert.equal(clear.terms.requiresEnrollment,undefined);
  assert.equal(queryKnowledge({productId:'chase-us-chase-sapphire-preferred-credit-card',requiresEnrollment:false}).count,0);
 });

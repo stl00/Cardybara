@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react';
 import {Alert,App,Button,Descriptions,Flex,Form,Input,InputNumber,Modal,Select,Space,Tag,Typography} from 'antd';
 import {t,useI18n} from './i18n';
 import {BankIdentity,RegionLabel} from './Identity';
-import {CARD_EDITS_KEY,readCardEdits,withCardEdit,regionBanks,validCardName} from './cardEdits.js';
+import {CARD_EDITS_KEY,readCardEdits,withCardEdit,regionBanks,validCardName,cleanBill} from './cardEdits.js';
 import {anniversaryPeriod,cleanFeeDate,feeDateText} from './feeDate.js';
 import {profileForCard} from './benefitRules.js';
 import {walletDay} from './personalBenefits.js';
@@ -63,6 +63,17 @@ export function CardEditSection({card,cards,onSave,onManualEdit,openFeeDate=fals
    if(!Object.keys(overlay).length||save(overlay)){setOpen(false);if(Object.keys(patch).length)message.success(t(card.bank!==(own.bank??card.bank)?'卡片信息已保存；换了地区，请重新选择卡种。':'卡片信息已保存。'));}
   }catch(e){message.error(t(e.message==='duplicate_card'?'这家银行的同一尾号卡片已经在钱包里。':'保存失败，刚才的设置没有生效。'));}finally{setBusy(false)}
  };
+ const [billOpen,setBillOpen]=useState(false),[billForm]=Form.useForm(),mb=card.manualBill||{};
+ const openBill=()=>{billForm.setFieldsValue({statement:card.statement??null,minimum:card.minimum??null,due:/^\d{4}-\d{2}-\d{2}$/.test(card.due||'')?card.due:''});setBillOpen(true);};
+ // Everything left empty is cleared: unknown stays unknown, never zero. The entry time is stamped on what remains.
+ const submitBill=async()=>{
+  let v;try{v=await billForm.validateFields()}catch{return;}
+  const bill=cleanBill({statement:v.statement??undefined,minimum:v.minimum??undefined,due:v.due||undefined,at:new Date().toISOString()});
+  if(save({bill})){setBillOpen(false);message.success(t(bill?'账单信息已保存。':'已清除你填写的账单信息。'));}
+ };
+ const clearBill=()=>{if(save({bill:null})){setBillOpen(false);message.success(t('已清除你填写的账单信息。'));}};
+ const mine=key=>key in mb&&<Tag color="blue" className="manual-bill-tag" style={{marginInlineStart:6}}>{t('你填写的 · {0}',[String(mb[key]).slice(0,10)])}</Tag>;
+ const money=v=>v==null?<Text type="secondary">{t('未知')}</Text>:<Text>{card.currency?`${card.currency} `:''}{Number(v).toLocaleString()}</Text>;
  const tailTaken=(bank,tail)=>cards.some(c=>c.id!==card.id&&c.bank===bank&&(c.tail===tail||c.detected?.tail===tail));
  const resetLink=field=>!manual&&set(field)&&<Button size="small" type="link" onClick={()=>reset(field)}>{t('恢复银行显示的值')}</Button>;
  return <div className="card-edit-section" style={{margin:'12px 0'}}>
@@ -72,6 +83,19 @@ export function CardEditSection({card,cards,onSave,onManualEdit,openFeeDate=fals
    {key:'region',label:t('地区'),children:<RegionLabel region={card.region}/>},
    {key:'fee',label:t('年费日'),children:<Flex align="center" wrap gap={4}>{card.feeDate?<><Text>{feeDateText(card.feeDate)}</Text><UserTag/></>:<><Text type="secondary">{t('未设置')}</Text><Button className="fee-date-set" size="small" type="link" onClick={edit}>{t('去设置')}</Button></>}</Flex>},
   ]}/>
+  <Descriptions className="manual-bill-section" size="small" column={1} title={t('账单信息')} extra={<Button size="small" className="manual-bill-edit" onClick={openBill}>{t('手动填写账单')}</Button>} items={[
+   {key:'statement',label:t('账单金额'),children:<Flex align="center" wrap gap={4}>{money(card.statement)}{mine('statement')}</Flex>},
+   {key:'minimum',label:t('最低还款额'),children:<Flex align="center" wrap gap={4}>{money(card.minimum)}{mine('minimum')}</Flex>},
+   {key:'due',label:t('到期还款日'),children:<Flex align="center" wrap gap={4}>{card.due?<Text>{card.due}</Text>:card.duePartial?<Text>{String(card.duePartial)}</Text>:<Text type="secondary">{t('未知')}</Text>}{mine('due')}</Flex>},
+  ]}/>
+  {Object.keys(mb).length>0&&<Paragraph type="secondary" style={{fontSize:12,margin:'4px 0 0'}}>{t('带“你填写的”标记的是你手动填的；银行之后读到更新的值就会换成银行的，不会混在一起。')}</Paragraph>}
+  <Modal className="manual-bill-modal" title={t('手动填写账单')} open={billOpen} onCancel={()=>setBillOpen(false)} onOk={submitBill} okText={t('保存')} cancelText={t('取消')} destroyOnHidden footer={(_,{OkBtn,CancelBtn})=>[<Button key="clear" danger onClick={clearBill}>{t('清除')}</Button>,<CancelBtn key="cancel"/>,<OkBtn key="ok"/>]}>
+   <Form form={billForm} layout="vertical">
+    <Form.Item name="statement" label={t('账单金额')} extra={t('不知道就留空，留空表示未知，不会当作 0。')}><InputNumber min={0} max={1000000000} style={{width:'100%'}}/></Form.Item>
+    <Form.Item name="minimum" label={t('最低还款额')}><InputNumber min={0} max={1000000000} style={{width:'100%'}}/></Form.Item>
+    <Form.Item name="due" label={t('到期还款日')}><Input type="date"/></Form.Item>
+   </Form>
+  </Modal>
   {card.feeDate&&period&&<Paragraph type="secondary" style={{fontSize:12,margin:'4px 0 0'}}>{t('当前持卡年度：{0} — {1}；周年福利、年费提醒和持卡成本都按它计算。',[period.start,period.end])}</Paragraph>}
   {card.feeDate&&card.feeDateConflict&&<Paragraph type="secondary" className="fee-date-conflict" style={{fontSize:12,margin:'4px 0 0'}}>{t('年费日取自你以前记录的持卡年度（最新一条）；那些记录用过不同的日期：{0}。请核对。',[card.feeDateConflict.join(' / ')])}</Paragraph>}
   {!card.feeDate&&credits.length>0&&<Alert className="fee-date-prompt" type="info" showIcon style={{marginTop:8}} title={t('填年费日，周年福利才能算周期')} action={<Button size="small" type="link" onClick={edit}>{t('设置年费日')}</Button>}/>}

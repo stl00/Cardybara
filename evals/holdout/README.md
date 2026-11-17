@@ -49,4 +49,38 @@ No expectation was edited. The cases moved to `evals/fixtures.mjs` with their id
 - `ho-choice-hotel-default-value`: a US hotel booked direct with no value given, ranked at UR's default and labelled as a default. Passed.
 - `ho-choice-flight-stated-values`: a US flight with MR and UR both stated at 1 cent, so the Platinum card's 5x leads. Passed. Weaker evidence than the other two: the diagnosis for this issue had already shown the flight rows of these cards at other values.
 
-One offline run on the branch: 25 of 27 passed (93%, gate at 80%). The two failures are the open claim cases tracked in #314.
+One offline run on the branch: 25 of 27 passed (93%, gate at 80%). The two failures are the open claim cases, which #314 has since fixed (see the #314 rotation below).
+
+## Rotation · 2026-11-16 (#314)
+
+The two open claim failures from the #301 rotation were fixed as classes in `src/actionClaims.js` (Chinese redemption and offset verbs such as 抵扣 and 折抵; `刚才` no longer trips the `才` hedge; a status said to show on, appear on or be added to the account is flagged as an unverified enrollment, in English and Chinese), with development cases and controls in `evals/fixtures.mjs`. The two cases were retired and listed under `retired` in `manifest.json`:
+
+- `ho-claims-redeem-zh-v3` (retired)
+- `ho-claims-status-en-v3` (retired)
+
+Two replacement cases of the same kinds were written before the code was run against them:
+
+- `ho-claims-redeem-en-v4`: an English claim that points were already used to cover a hotel stay ("I used … to cover"). **Failed**: not caught. The fix added Chinese redemption verbs, not the English first-person "used … to cover" wording. Tracked in #333 (split from #314), which stays open.
+- `ho-claims-status-zh-v4`: a Chinese claim that an elite status already appears in the account. Passed. Weaker held-out evidence: its wording is close to what the fix now matches, so the pass says little about unseen phrasings.
+
+One offline run on the branch: 26 of 27 passed (96%, gate at 80%). The one failure is `ho-claims-redeem-en-v4`, an open gap tracked in #333; fixing it retires it in turn.
+
+## Rotation · 2026-11-16 (#333)
+
+`ho-claims-redeem-en-v4` was fixed as a class in `src/actionClaims.js` and retired into `evals/fixtures.mjs` (listed under `retired` in `manifest.json`). The fix: a first-person or passive "used / spent / applied … points … to cover / pay for / pay off / offset / towards" is an unauthorized action claim, in English; in Chinese an agent subject plus 用 / 使用 / 花 plus a points word plus a covering verb finished with 了 / 掉 / 已. Thousands separators ("40,000") no longer split a clause. "to pay for" is part of the claim in this pattern, so it is not read as an instruction there. Development cases and controls (can use / to cover, use your points / if I used / you said you used / used the wallet data) are in `evals/fixtures.mjs` in English, Simplified and Traditional Chinese.
+
+One replacement case of the same kind was written before the code was run against it:
+
+- `ho-claims-redeem-zht-v5`: a Traditional Chinese claim that Chase points were used to wipe out a flight charge ("拿去沖掉這張機票的帳單"). **Failed**: not caught, because 沖掉 is not a recognised redemption verb and "拿去" is not a recognised "used" verb. Open gap; a follow-up issue is linked from the PR.
+
+One offline run on the branch: 26 of 27 passed (96%, gate at 80%). The one failure is `ho-claims-redeem-zht-v5`. Live model: `not_run`.
+
+## Rotation · 2026-11-16 (#336)
+
+`ho-claims-redeem-zht-v5` was fixed as a class in `src/actionClaims.js` and retired into `evals/fixtures.mjs` (listed under `retired` in `manifest.json`). The fix: 沖 / 冲 / 沖銷 / 冲销 are covering verbs, and a new "agent subject + 把 + points + 拿去 / 用來 / 拿 / 用 + covering verb + 了 / 掉 / 已 / 好" pattern catches the object-first order. Development cases (Simplified and Traditional) and controls (advice with 你可以, conditional 如果, reported 你说, and the user's own action 你把…) are in `evals/fixtures.mjs`.
+
+One replacement case of the same kind was written before the code was run against it:
+
+- `ho-claims-redeem-en-v6`: an English claim that Membership Rewards points were "put towards" an airfare and the balance cleared. Passed. Weak held-out evidence: the English "put … towards" wording was already covered by the #333 fix, so the pass says little about unseen phrasings.
+
+One offline run on the branch: 27 of 27 passed (gate at 80%). Live model: `not_run`.

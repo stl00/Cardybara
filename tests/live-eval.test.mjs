@@ -8,7 +8,8 @@ import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {selectCases,verdict,runLiveEval,compare,buildReport,summary,buildTranscripts,scrub,TRANSCRIPT_CAP} from '../scripts/live-eval.mjs';
-import {runLiveCase} from '../evals/live-case.mjs';
+import {runLiveCase,caseWallet} from '../evals/live-case.mjs';
+import {runWalletTool} from '../src/walletAgent.js';
 import {liveCases} from '../evals/fixtures.mjs';
 import {meter,priceFor} from '../evals/multiturn/live.mjs';
 
@@ -153,4 +154,87 @@ test('the workflow runs only on a schedule or by hand, behind the protected envi
  for(const uses of yml.match(/uses: .+/g))assert.match(uses,/@[0-9a-f]{40} /,'actions are pinned by commit: '+uses);
  // The key must not reach CI, where pull requests run.
  assert.doesNotMatch(fs.readFileSync(path.join(root,'.github/workflows/ci.yml'),'utf8'),/DEEPSEEK_API_KEY/);
+});
+
+test('the live ledger case sends its fee date and marks, and its totals are the tool\'s own',async()=>{
+ const c=liveCases.find(x=>x.id==='ledger-card-year');
+ assert.ok(config.cases.includes(c.id),'the daily sample lists the ledger case');
+ let sent=null;
+ const chat=async()=>({content:'',tool_calls:[{function:{name:'query_credits',arguments:JSON.stringify({cardName:'Sapphire Reserve',yearBasis:'card-year'})}}]});
+ const turn=answer=>async({context,request})=>{sent=context;await request({});return {answer,trace:[],tools:[],memory:{},messages:[],context:{}};};
+ const good=await runLiveCase(c,{chat,turn:turn('已标记用掉 USD 314；未记录 USD 70。')});
+ assert.ok(Object.values(good.checks).every(Boolean),JSON.stringify(good.checks));
+ const reserve=sent.cards.find(x=>x.productId===Object.keys(c.feeDates)[0]);
+ assert.deepEqual(reserve.feeDate,{month:8,day:1});
+ assert.equal(sent.cards.filter(x=>x.feeDate).length,1,'only the named card gets a fee date');
+ assert.deepEqual(sent.events,c.events);assert.equal(sent.events.length,3);
+ // Counting the uncaptured cycles as used is caught, as is a missing total.
+ assert.equal((await runLiveCase(c,{chat,turn:turn('共返还 USD 384，其中未记录 USD 70，已用 314。')})).checks.avoidsWrongTotals,false);
+ assert.equal((await runLiveCase(c,{chat,turn:turn('已用 USD 314。')})).checks.coversNamedProgrammes,false);
+ assert.equal((await runLiveCase(c,{chat:async()=>({content:'',tool_calls:[{function:{name:'query_credits',arguments:JSON.stringify({cardName:'Sapphire Reserve'})}}]}),turn:turn('已标记用掉 USD 314；未记录 USD 70。')})).checks.expectedArguments,false,'without yearBasis');
+ // The expected totals are what the tool returns for that wallet.
+ const r=runWalletTool({id:'x',function:{name:'query_credits',arguments:JSON.stringify({cardName:'Sapphire Reserve',yearBasis:'card-year'})}},caseWallet(c));
+ assert.equal(r.cards[0].returned.used,314);assert.equal(r.cards[0].returned.notCaptured,70);
+});
+
+// #361: the 2026-11-16 live tries answered correctly ("no record, this does not mean no coverage, see the guide to benefits")
+// and failed on the case's own wording checks. Both answers are synthetic copies of those transcripts.
+test('coverage-no-record accepts a hedged no-record answer and still rejects a flat "not covered"',async()=>{
+ const c=liveCases.find(x=>x.id==='coverage-no-record');
+ assert.ok(config.cases.includes(c.id));
+ const chat=async()=>({content:'',tool_calls:[{function:{name:'find_protections',arguments:JSON.stringify({cardName:'Blue Cash Everyday',type:'trip-delay'})}}]});
+ const turn=answer=>async({request})=>{await request({});return {answer,trace:[],tools:[],memory:{},messages:[],context:{}};};
+ const run=async answer=>(await runLiveCase(c,{chat,turn:turn(answer)})).checks;
+ for(const answer of[
+  '我的记录里没有 Blue Cash Everyday 的航班延误保障资料（not found），所以无法确认。这不代表它一定没有保障，具体以该卡的 guide to benefits 为准；这不是保险建议。',
+  '我的记录里没有找到 Blue Cash Everyday 的航班延误保障条目（not found）。这不代表它一定没有保障，具体以该卡的 guide to benefits 为准；以上不是保险建议。']){
+  const checks=await run(answer);
+  assert.ok(Object.values(checks).every(Boolean),JSON.stringify(checks));
+ }
+ assert.equal((await run('Blue Cash Everyday 没有保障。我的记录里没有找到，详见发卡行。')).avoidsWrongTotals,false,'a flat claim fails');
+ assert.equal((await run('Blue Cash Everyday 不在保障范围内，请看 guide to benefits。')).avoidsWrongTotals,false);
+ assert.equal((await run('我的记录里没有找到，详见发卡行。这不代表X，但没有保障。')).avoidsWrongTotals,false,'a comma-joined flat claim after a denial fails');
+ assert.equal((await run('我的记录里没有找到，详见发卡行。This does not mean X, but it is not covered.')).avoidsWrongTotals,false);
+ assert.equal((await run('这张卡航班延误有保障。')).coversNamedProgrammes,false,'no "no record" wording and no pointer fails');
+});
+
+// #260: the 2026-11-16 live try for trip-christmas-hotel answered correctly (no credit was marked, so none can be
+// confirmed used or unused) in wording the case did not list. The answer below is a synthetic copy of that wording.
+test('trip-christmas-hotel accepts "not marked, cannot confirm" wording and still rejects an answer with no status caveat',async()=>{
+ const c=liveCases.find(x=>x.id==='trip-christmas-hotel');
+ const chat=async()=>({content:'',tool_calls:[{function:{name:'query_credits',arguments:JSON.stringify({when:'12月圣诞节',use:'hotel'})}}]});
+ const run=async answer=>(await runLiveCase(c,{chat,turn:async({request})=>{await request({});return {answer,trace:[],tools:[],memory:{trip:{start:'2026-12-01'}},messages:[],context:{}};}})).checks;
+ assert.equal((await run('12月（2026-12-01 至 2026-12-31）：这些 credit 都没有手动标记，因此既不能确认已用，也不能确认未用。')).coversNamedProgrammes,true);
+ assert.equal((await run('12月（2026-12-01 至 2026-12-31）：以下酒店 credit 还可以用。')).coversNamedProgrammes,false);
+});
+
+// #260: answers-before-asking fell back to the code-written answer on both live tries, and the transcripts did not say why.
+// A failing try now keeps the checker's codes per stage and each model reply, so the next failing run names the cause.
+test('a try that fell back keeps the checker codes and the discarded model text for diagnosis',async()=>{
+ const c=liveCases.find(x=>x.id==='answers-before-asking');
+ const chat=async()=>({content:'MODEL-DRAFT-TEXT',tool_calls:[{function:{name:'choose_card',arguments:JSON.stringify({amount:100,category:'dining'})}}]});
+ const turn=async({request})=>{await request({});return {answer:'CODE-WRITTEN',trace:[{type:'grounding',passed:false,codes:['unsupported_number']},{type:'repair',passed:false,codes:['unsupported_number']},{type:'fallback',codes:['unsupported_number']}],tools:[],memory:{},messages:[],context:{}};};
+ const run=await runLiveEval({config:{attempts:1,passesNeeded:1,budgetUsd:1},cases:[c],spend:freeSpend(),runCase:x=>runLiveCase(x,{chat,turn})});
+ const report=buildReport({config,run,baseline:null,spend:freeSpend()});
+ const t=buildTranscripts({report,run});
+ assert.deepEqual(t.tries[0].failedChecks,['modelAnswered']);
+ assert.deepEqual(t.tries[0].graded.map(g=>g.type),['grounding','repair','fallback']);assert.deepEqual(t.tries[0].graded[2].codes,['unsupported_number']);
+ assert.deepEqual(t.tries[0].modelTexts,['MODEL-DRAFT-TEXT']);
+ assert.equal(JSON.stringify(report).includes('MODEL-DRAFT-TEXT'),false,'the report stays text-free');
+});
+
+// #260 cause: with no currency given, choose_card splits the answer by currency (depends-on-currency) and returns no
+// rows. The checker then failed a correct split answer twice: a default valuation stated per programme was "unstated"
+// because only rows counted as valued cards, and the 1 in a restated rate ("每 HK$4 赚 1 里") was an unsupported
+// number. Development case: the real agent loop on the case's own wallet, with a scripted model.
+test('answers-before-asking: a correct currency-split answer is the model\'s own, and invented figures still fall back',async()=>{
+ const c=liveCases.find(x=>x.id==='answers-before-asking');
+ const run=async answer=>{let i=0;const chat=async()=>i++===0?{role:'assistant',content:'',tool_calls:[{id:'c1',type:'function',function:{name:'choose_card',arguments:JSON.stringify({category:'dining',categorySource:'stated',amount:100})}}]}:{role:'assistant',content:answer};return runLiveCase(c,{chat});};
+ const good=await run('要看你用什么货币付：\n- 美元：刷 American Express Gold Card，餐厅 4 倍积分；积分按默认市场估值每点约 1.5 美分（可在设置里改）。\n- 港币：刷 Cathay Mastercard，每 HK$4 赚 1 里；Asia Miles 按默认市场估值每里约 10 港仙。\n- 加元：没有合适的卡。\n你在哪里消费、用什么货币付？');
+ assert.deepEqual(good.detail.trace.filter(t=>t.type==='grounding').map(t=>t.codes),[[]]);
+ assert.equal(good.checks.modelAnswered,true);assert.equal(good.checks.answersBeforeAsking,true);
+ // A value the tool did not return, or an earn figure it did not compute, is still caught and replaced by code.
+ for(const bad of ['美元：American Express Gold Card，积分按默认市场估值每点约 2 美分。','美元：American Express Gold Card，100 美元可得 400 点。']){
+  const r=await run(bad);assert.equal(r.checks.modelAnswered,false,bad);
+ }
 });

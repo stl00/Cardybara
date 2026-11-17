@@ -1,8 +1,8 @@
-import {runWalletTool,validateToolCall} from './walletAgent.js';
+import {runWalletToolAsync,validateToolCall} from './walletAgent.js';
 import {heldCards} from './heldCards.js';
 import {prepareAgentContext,statedPointValues} from './agentContext.js';
 import {validateState,reduceToolResult,diffState,endTurn,keepHeldTopics} from './conversationState.js';
-import {answerGrounding} from './answerGrounding.js';
+import {answerGrounding,separateLinks,statedOrdinals} from './answerGrounding.js';
 import {planResults,ledgerResults} from './creditClaims.js';
 import {renderCreditAnswers} from './creditAnswer.js';
 import {renderChoiceAnswer} from './decisionAnswer.js';
@@ -25,7 +25,8 @@ export async function runAgentTurn({history,question,context,request,memory={},o
  // The model receives the wallet day every turn; it never infers the current date.
  const invoke=async(final=false,override)=>{signal?.throwIfAborted();const start=Date.now();const reply=await request({messages:override||messages,memory:state,final,...(context.day?{today:context.day}:{})},signal,{repair:!!override});trace.push({type:'model',ms:Date.now()-start,inputChars:JSON.stringify(override||messages).length,final,...(reply.usage?{usage:reply.usage}:{})});return reply.message;};
  const creditNames=creditNamesForCards(context.cards,context.day);
- const groundingContext=()=>question+' '+JSON.stringify(state.lastPurchase||{})+' '+JSON.stringify(state.trip||{})+' '+(context.day||'');
+ // The user's own words count as context, ordinal words ("第四個", "the fifth") included as the digits an answer may echo.
+ const groundingContext=()=>question+' '+statedOrdinals(question).join(' ')+' '+JSON.stringify(state.lastPurchase||{})+' '+JSON.stringify(state.trip||{})+' '+(context.day||'');
  // Complete turns only; old tool evidence is not replayed as current account state.
  for(let round=0;round<5;round++){
   // A round replayed from an earlier request of this turn: its model reply is not asked for again.
@@ -36,12 +37,15 @@ export async function runAgentTurn({history,question,context,request,memory={},o
   if(!message||message.role!=='assistant')throw Error('invalid_response');
   if(!message.tool_calls?.length){
    if(!message.content?.trim())throw Error('empty_answer');
+   // What is graded is what is shown: a link run into Chinese text is split from it first.
+   message={...message,content:separateLinks(message.content)};
    let grade=answerGrounding(message.content,evidence,{contextText:groundingContext(),creditNames});trace.push({type:'grounding',passed:grade.passed,codes:grade.issues.map(i=>i.code)});
    if(!grade.passed){
     // One bounded repair attempt. No new tools or changes to wallet state.
     const correction={role:'user',content:'The answer checker found unsupported claims: '+JSON.stringify(grade.issues)+'. Rewrite using only the supplied tool evidence. Remove unsupported numbers, links and action claims. Explain missing facts rather than guessing. An item with unknown status must be described as not confirmed, never as unused. State the assumed dates and cover every credit the tool returned. Answer the original question in its language.'};
     message=await invoke(true,[...messages,message,correction]);
     if(!message||message.role!=='assistant'||message.tool_calls?.length||!message.content?.trim())throw Error('invalid_repair');
+    message={...message,content:separateLinks(message.content)};
     grade=answerGrounding(message.content,evidence,{contextText:groundingContext(),creditNames});trace.push({type:'repair',passed:grade.passed,codes:grade.issues.map(i=>i.code)});if(!grade.passed){
      // Credit facts are already computed, so code can state them plainly rather than refuse the question.
      const choice=evidence.findLast(x=>x?.tool==='choose_card'&&x.choice);
@@ -75,7 +79,7 @@ export async function runAgentTurn({history,question,context,request,memory={},o
    signal?.throwIfAborted();
    const isRemote=!!remoteTools?.has(call.function.name);
    if(isRemote)validateToolCall(call);
-   const start=Date.now(),result=isRemote?replayed.results[call.id]:runWalletTool(call,{...context,trip:state.trip}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
+   const start=Date.now(),result=isRemote?replayed.results[call.id]:await runWalletToolAsync(call,{...context,trip:state.trip,signal}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
    // A flight plan's credits and transfer rows are checked exactly as query_credits and convert_points results are.
    if(call.function.name==='plan_flight')evidence.push(result.credits,result.transfers);
    // Each tool result updates the state through the reducers; the trace records what changed, channel by channel.

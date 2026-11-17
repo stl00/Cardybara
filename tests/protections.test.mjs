@@ -111,15 +111,138 @@ test('a wallet holding an Ink card and a co-brand business card gets the newly r
 // #306: Amex US pages that name protections; most Amex pages return no benefit text signed out.
 test('a wallet holding Platinum and a Delta card gets Platinum protections with sources and Delta stays not_found (#306)',()=>{
  const held=[{id:'plat',name:'The Platinum Card',bank:'Amex US',region:'US',currency:'USD'},{id:'dg',name:'Delta SkyMiles Gold Card',bank:'Amex US',region:'US',currency:'USD'},{id:'gold',name:'American Express Gold Card',bank:'Amex US',region:'US',currency:'USD'}];
- const ctx={cards:held,events:[],day:'2026-11-15',language:'en'};
+ const ctx={cards:held,events:[],day:'2026-11-16',language:'en'};
  const all=runWalletTool(call('find_protections',{}),ctx);
  const card=name=>all.cards.find(c=>c.name===name);
  assert.deepEqual(card('The Platinum Card').coverageTypes.sort(),['rental-car','trip-cancellation','trip-delay']);
- assert.deepEqual(card('American Express Gold Card').coverageTypes.sort(),['rental-car','trip-delay']);
+ assert.deepEqual(card('American Express Gold Card').coverageTypes.sort(),['lost-luggage','rental-car','trip-delay']);
  assert.equal(card('Delta SkyMiles Gold Card').status,'not_found');
  assert.ok(all.rules.every(r=>r.sources.length&&r.sources.every(s=>s.url.startsWith('https://www.americanexpress.com/'))));
  // A heading on the page is not terms: no basis, payment condition or exclusions are claimed.
  const rental=runWalletTool(call('find_protections',{type:'rental-car'}),ctx);
- assert.equal(rental.rules.length,2);assert.ok(rental.rules.every(r=>r.basis==='not-stated'&&r.requiresCardPayment!==true));
+ assert.equal(rental.rules.length,2);assert.ok(rental.rules.every(r=>r.requiresCardPayment!==true));
+ // Platinum's page shows only the heading, so no basis; Gold's page states it is secondary (#326).
+ assert.deepEqual(rental.rules.map(r=>r.basis).sort(),['not-stated','secondary']);
  assert.equal(queryKnowledge({productId:'amex-us-us-business-platinum-card',category:'protection'}).count,0);
+});
+
+// #316: Lost Luggage Reimbursement on Chase personal cards, and the pages that showed no protection text.
+test('lost luggage reimbursement is a coverage type recorded from the pages that state it (#316)',()=>{
+ assert.ok(COVERAGE_TYPES.includes('lost-luggage'));
+ assert.deepEqual(validateKnowledge().errors,[]);
+ const held=[{id:'sw',name:'Southwest Rapid Rewards Plus Credit Card',bank:'Chase',region:'US',currency:'USD'},{id:'ihg',name:'IHG One Rewards Credit Card',bank:'Chase',region:'US',currency:'USD'}];
+ const ctx={cards:held,events:[],day:'2026-11-16',language:'en'};
+ const lost=runWalletTool(call('find_protections',{type:'lost-luggage'}),ctx);
+ assert.equal(lost.rules.length,1);
+ assert.equal(lost.rules[0].basis,'not-stated');
+ assert.ok(lost.rules[0].sources.every(s=>s.url.startsWith('https://creditcards.chase.com/')));
+ // IHG One's page showed no lost luggage text on 2026-11-16, so its other recorded protections stay and this one is absent.
+ assert.equal(lost.cards.find(c=>c.name==='IHG One Rewards Credit Card').status,'not_found');
+ for(const id of ['southwest-rapid-rewards-plus-credit-card','marriott-bonvoy-bold-credit-card','world-of-hyatt-credit-card','united-club-card','british-airways-visa-signature-credit-card','aer-lingus-visa-signature-credit-card']){
+  const r=queryKnowledge({productId:'chase-us-'+id,category:'protection'}).rules.find(r=>r.terms.coverage.type==='lost-luggage');
+  assert.ok(r,id);assert.equal(r.evidence.checkedAt,'2026-11-16');assert.equal(r.evidence.verification,'official-summary');
+ }
+ // Pages that showed only a heading record nothing, never a sibling's protections.
+ for(const id of ['united-explorer-card','united-quest','ihg-premier','iberia-visa-signature-credit-card','disney-inspire-visa-card','prime-visa'])
+  assert.equal(queryKnowledge({productId:'chase-us-'+id,category:'protection'}).count,0,id);
+});
+
+// #326: the Gold page text read on 2026-11-16 states limits, so Gold's rules are revision 2; pages that still show no text stay unrecorded.
+test('Amex Gold protections carry the terms its product page states and the others stay unknown (#326)',()=>{
+ assert.deepEqual(validateKnowledge().errors,[]);
+ const rules=queryKnowledge({productId:'amex-us-us-american-express-gold-card',category:'protection'}).rules;
+ const by=t=>rules.find(r=>r.terms.coverage.type===t);
+ assert.equal(rules.length,3);
+ assert.equal(by('rental-car').revision,2);assert.equal(by('rental-car').terms.coverage.basis,'secondary');
+ assert.deepEqual(by('rental-car').terms.coverage.exclusions,['Coverage is not available for vehicles rented in Australia, Italy, and New Zealand.']);
+ assert.equal(by('trip-delay').revision,2);assert.match(by('trip-delay').original.summary,/12 hours.*\$300 per trip/);
+ const bag=by('lost-luggage');assert.equal(bag.revision,1);assert.match(bag.original.summary,/\$1,250 for carry-on and \$500 for checked/);
+ assert.ok(rules.every(r=>r.evidence.checkedAt==='2026-11-16'&&r.evidence.verification==='official-summary'&&r.evidence.fullTermsReviewed===false));
+ // Platinum's product page shows only headings: nothing beyond the type is claimed (#439 added four more from its terms page).
+ const plat=queryKnowledge({productId:'amex-us-us-the-platinum-card',category:'protection'}).rules;
+ assert.equal(plat.length,7);assert.ok(plat.every(r=>r.terms.coverage.basis===null&&r.revision===1||/\.(trip-cancel|trip-delay)$/.test(r.id)));
+});
+
+// #343: Capital One and Citi US pages that name protections; a page that names none records nothing.
+test('a wallet holding a Strata card and a Venture card gets their recorded protections with sources, others stay not_found (#343)',()=>{
+ const held=[{id:'el',name:'Citi Strata Elite Card',bank:'Citi US',region:'US',currency:'USD'},{id:'v',name:'Venture Rewards Credit Card',bank:'Capital One',region:'US',currency:'USD'},{id:'vx',name:'Venture X Rewards Credit Card',bank:'Capital One',region:'US',currency:'USD'}];
+ const ctx={cards:held,events:[],day:'2026-11-16',language:'en'};
+ const all=runWalletTool(call('find_protections',{}),ctx);
+ const card=name=>all.cards.find(c=>c.name===name);
+ assert.deepEqual(card('Citi Strata Elite Card').coverageTypes.sort(),['extended-warranty','lost-luggage','purchase-protection','rental-car','trip-cancellation','trip-delay']);
+ assert.deepEqual(card('Venture Rewards Credit Card').coverageTypes.sort(),['extended-warranty','rental-car']);
+ // Venture X's page names only cell phone cover, which needs #323, so nothing is recorded.
+ assert.equal(card('Venture X Rewards Credit Card').status,'not_found');
+ assert.ok(all.rules.every(r=>r.sources.length&&r.sources.every(s=>/^https:\/\/www\.(citi|capitalone)\.com\//.test(s.url))));
+ const rental=runWalletTool(call('find_protections',{type:'rental-car'}),ctx);
+ assert.equal(rental.rules.length,2);assert.ok(rental.rules.every(r=>r.basis==='not-stated'));
+ // Double Cash says secondary; Custom Cash and Platinum Select pages name none.
+ assert.equal(queryKnowledge({productId:'citi-us-citi-double-cash-card',category:'protection'}).rules[0].terms.coverage.basis,'secondary');
+ for(const id of ['citi-us-citi-custom-cash-card','citi-us-citi-aadvantage-platinum-select-card','capital-one-us-venture-x-rewards-credit-card'])assert.equal(queryKnowledge({productId:id,category:'protection'}).count,0,id);
+ assert.ok(queryKnowledge({kind:'benefit',category:'protection'}).rules.filter(r=>/capital-one|citi-us/.test(r.productIds[0])).every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt==='2026-11-16'));
+});
+
+// #343: OpenCC reads 列出租车 as 列 + 出租车 (taxi); zh-TW must say 租車, never 計程車, there.
+test('zh-TW knowledge text keeps 租車 and does not turn it into 計程車 (#343)',()=>{
+ const zhTW=JSON.parse(readFileSync(new URL('../src/i18n/knowledge.json',import.meta.url)))['zh-TW'];
+ let checked=0;
+ for(const [zh,tw] of Object.entries(zhTW)){
+  if(/列出租车/.test(zh)){checked++;assert.ok(!tw.includes('計程車'),zh);assert.ok(tw.includes('列出租車'),zh);}
+  if(tw.includes('計程車'))assert.match(zh,/(?<!列)出租车/,zh);
+ }
+ assert.ok(checked>=1);
+});
+
+// #344: Wells Fargo and Bilt pages that name protections; BofA, U.S. Bank and Discover pages name none.
+test('a wallet holding Autograph Journey and Bilt Obsidian gets their recorded protections with sources; pages naming none stay not_found (#344)',()=>{
+ const held=[{id:'wf',name:'Wells Fargo Autograph Journey Visa Card',bank:'Wells Fargo',region:'US',currency:'USD'},{id:'bo',name:'Bilt Obsidian Card',bank:'Bilt',region:'US',currency:'USD'},{id:'bb',name:'Bank of America Unlimited Cash Rewards',bank:'Bank of America',region:'US',currency:'USD'}];
+ const ctx={cards:held,events:[],day:'2026-11-16',language:'en'};
+ const all=runWalletTool(call('find_protections',{}),ctx);
+ const card=name=>all.cards.find(c=>c.name===name);
+ assert.deepEqual(card('Wells Fargo Autograph Journey Visa Card').coverageTypes.sort(),['lost-luggage','rental-car','roadside','trip-cancellation']);
+ assert.deepEqual(card('Bilt Obsidian Card').coverageTypes.sort(),['extended-warranty','lost-luggage','purchase-protection','rental-car','trip-cancellation','trip-delay']);
+ assert.equal(card('Bank of America Unlimited Cash Rewards').status,'not_found');
+ assert.ok(all.rules.length>=10&&all.rules.every(r=>r.sources.length&&r.sources.every(s=>/^https:\/\/(www\.bilt\.com|creditcards\.wellsfargo\.com)\//.test(s.url))));
+ const rental=runWalletTool(call('find_protections',{type:'rental-car'}),ctx);
+ assert.deepEqual(rental.rules.map(r=>r.basis).sort(),['not-stated','secondary']);
+ const n=id=>queryKnowledge({productId:id,category:'protection'}).count;
+ assert.equal(n('bilt-us-bilt-blue-card'),2);assert.equal(n('bilt-us-bilt-palladium-card'),7);
+ for(const id of ['boa-us-atmos-rewards-summit-visa-infinite','boa-us-atmos-rewards-ascent-visa-signature','boa-us-bank-of-america-unlimited-cash-rewards','boa-us-customized-cash-rewards-visa-signature','us-bank-us-altitude-go-visa-signature-card','us-bank-us-cash-plus-visa-signature-card','discover-us-discover-it-cash-back-credit-card'])assert.equal(n(id),0,id);
+ assert.ok(queryKnowledge({kind:'benefit',category:'protection'}).rules.filter(r=>/wells-fargo|bilt/.test(r.productIds[0])).every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt==='2026-11-16'));
+});
+
+// #326: Schwab and Morgan Stanley Platinum public terms pages name seven protections each; cards whose pages show no text stay unknown.
+test('a wallet holding Schwab and Morgan Stanley Platinum gets their recorded protections with sources; unread cards stay not_found (#326)',()=>{
+ const held=[{id:'sc',name:'Platinum Card from American Express Exclusively for Charles Schwab',bank:'Amex US',region:'US',currency:'USD'},{id:'ms',name:'Morgan Stanley Platinum Card',bank:'Amex US',region:'US',currency:'USD'},{id:'dl',name:'Delta SkyMiles Blue American Express Card',bank:'Amex US',region:'US',currency:'USD'}];
+ const ctx={cards:held,events:[],day:'2026-11-17',language:'en'};
+ const all=runWalletTool(call('find_protections',{}),ctx);
+ const card=n=>all.cards.find(c=>c.name===n);
+ const types=['extended-warranty','lost-luggage','purchase-protection','rental-car','return-protection','trip-cancellation','trip-delay'];
+ assert.deepEqual(card('Platinum Card from American Express Exclusively for Charles Schwab').coverageTypes.sort(),types);
+ assert.deepEqual(card('Morgan Stanley Platinum Card').coverageTypes.sort(),types);
+ assert.equal(card('Delta SkyMiles Blue American Express Card').status,'not_found');
+ assert.ok(all.rules.every(r=>r.sources.length&&r.sources.every(s=>/^https:\/\/www\.americanexpress\.com\/us\/credit-cards\/card-application\//.test(s.url))));
+ const trip=runWalletTool(call('find_protections',{type:'trip-delay'}),ctx);
+ assert.equal(trip.rules.length,2);assert.ok(trip.rules.every(r=>r.basis==='secondary'));
+ const rental=runWalletTool(call('find_protections',{type:'rental-car'}),ctx);
+ assert.ok(rental.rules.every(r=>r.basis==='not-stated'));
+ for(const id of ['amex-us-us-schwab-platinum-card','amex-us-us-morgan-stanley-platinum-card'])assert.ok(queryKnowledge({productId:id,category:'protection'}).rules.every(r=>r.evidence.checkedAt==='2026-11-17'&&r.evidence.fullTermsReviewed===false&&r.terms.amount===null));
+ assert.equal(queryKnowledge({productId:'amex-us-us-delta-skymiles-blue-card',category:'protection'}).count,0);
+});
+
+// #439: more Amex US cards whose public terms pages were readable; Delta Blue and the business cards stay unknown.
+test('a wallet holding Platinum and a Delta card gets only the protections their terms pages name (#439)',()=>{
+ const held=[{id:'pl',name:'The Platinum Card from American Express',bank:'Amex US',region:'US',currency:'USD'},{id:'dr',name:'Delta SkyMiles Reserve American Express Card',bank:'Amex US',region:'US',currency:'USD'},{id:'dg',name:'Delta SkyMiles Gold American Express Card',bank:'Amex US',region:'US',currency:'USD'},{id:'db',name:'Delta SkyMiles Blue American Express Card',bank:'Amex US',region:'US',currency:'USD'}];
+ const ctx={cards:held,events:[],day:'2026-11-17',language:'en'};
+ const all=runWalletTool(call('find_protections',{}),ctx);
+ const types=n=>all.cards.find(c=>c.name===n).coverageTypes.sort();
+ assert.deepEqual(types('The Platinum Card from American Express'),['extended-warranty','lost-luggage','purchase-protection','rental-car','return-protection','trip-cancellation','trip-delay']);
+ assert.deepEqual(types('Delta SkyMiles Reserve American Express Card'),['extended-warranty','lost-luggage','purchase-protection','rental-car','return-protection','trip-cancellation','trip-delay']);
+ assert.deepEqual(types('Delta SkyMiles Gold American Express Card'),['extended-warranty','lost-luggage','purchase-protection','rental-car']);
+ assert.equal(all.cards.find(c=>c.name==='Delta SkyMiles Blue American Express Card').status,'not_found');
+ assert.ok(all.rules.every(r=>r.sources.length&&r.sources.every(s=>/^https:\/\/www\.americanexpress\.com\//.test(s.url))));
+ const trip=runWalletTool(call('find_protections',{type:'trip-delay',cardName:'Delta SkyMiles Reserve American Express Card'}),ctx);
+ assert.ok(trip.rules.length>=1&&trip.rules.every(r=>r.basis==='secondary'));
+ for(const id of ['amex-us-us-delta-skymiles-reserve-card','amex-us-us-delta-skymiles-gold-card','amex-us-us-marriott-bonvoy-brilliant-card','amex-us-us-hilton-honors-aspire-card'])assert.ok(queryKnowledge({productId:id,category:'protection'}).rules.every(r=>r.evidence.checkedAt==='2026-11-17'&&r.evidence.fullTermsReviewed===false&&r.terms.amount===null));
+ for(const id of ['amex-us-us-business-platinum-card','amex-us-us-business-gold-card','amex-us-us-blue-cash-preferred-card','amex-us-us-blue-business-plus-credit-card','amex-us-us-business-green-rewards-card','amex-us-us-graphite-business-cash-unlimited-card'])assert.equal(queryKnowledge({productId:id,category:'protection'}).count,0,id);
 });

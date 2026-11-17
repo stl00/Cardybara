@@ -10,6 +10,7 @@ import {usePointValues} from './PointValueSettings.jsx';
 import {cardProducts} from './productCatalog';
 import {manualOnly} from './manualBanks.js';
 import {convertPoints,readingsFor,routesForCard,transferProgrammes,transferRoutes} from './transferRoutes';
+import {REDEMPTION_PROGRAMMES,redemptionsFor,redemptionValue} from './issuerRedemptions.js';
 import {POOLING_TEXT,poolingRule,poolingRuleForRow,pointsReach,programmeTotals,shownInPooledEntry} from './pointsPooling';
 const {Paragraph,Text,Link}=Typography;
 const NO_CARD='no-card';
@@ -60,7 +61,19 @@ function poolReadings(programme,accounts,cards,rule){
  const total=programmeTotals(accounts.current).totals.find(t=>t.ruleId===rule.id);
  return total?.basis==='sum-of-cards'?[{key:'combined',combined:true,amount:total.amount,usable:Number.isSafeInteger(total.amount),label:rule.label,productIds},...own]:own;
 }
-function ProgrammePanel({programme,accounts,cards,count,hidden}){
+const kindLabels={'cash-back':'现金返还','travel-portal':'发卡行旅行平台','statement-credit':'账单抵扣','gift-card':'礼品卡'};
+const usd=cents=>money(cents/100,'USD');
+// #308: the issuer's own redemptions beside the transfer partners. Values come from redemptionValue; hidden mode masks them like balances.
+function IssuerRedemptions({programme,points,heldProductIds,hidden}){
+ if(!REDEMPTION_PROGRAMMES.includes(programme.id))return null;
+ const records=redemptionsFor(programme.id);
+ return <div style={{marginTop:16}}><Paragraph strong style={{marginBottom:8}}>{t('通过发卡行兑换')}</Paragraph>
+  {!records.length?<Paragraph type="secondary">{t('暂无发卡行兑换记录。')}</Paragraph>:<Space orientation="vertical" size={8} style={{width:'100%'}}>{records.map(r=>{
+   const v=redemptionValue(points,r,heldProductIds),sources=knowledgeSources(r.sourceIds||[]);
+   const value=v.status==='computed'?(hidden?'••••':usd(v.cents)):v.status==='varies'?t('不固定'):v.status==='needs-card'?t('需要持有指定的卡'):v.status==='no-points'?'—':t('未知');
+   return <Flex key={r.id} justify="space-between" gap={12} wrap><div><ItemLogo programme={programme.id} size={14}/> {t(kindLabels[r.kind]||r.kind)}{r.conditionText?<div><Text type="secondary">{r.conditionText}{v.status==='needs-card'&&r.productIds?.length?` ${cardNames(r.productIds)}`:''}</Text></div>:null}{sources.length?<div><Space wrap size={[12,4]}>{sources.map(s=><Link key={s.id} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></div>:null}</div><Text strong={v.status==='computed'}>{value}</Text></Flex>;})}</Space>}</div>;
+}
+export function ProgrammePanel({programme,accounts,cards,count,hidden}){
  const rule=poolingRule(programme.id),readings=poolReadings(programme,accounts,cards,rule),[selected,setSelected]=useState(null),[manual,setManual]=useState(null);
  const reading=selected===NO_CARD?null:readings.find(r=>r.key===selected)||readings[0]||null,points=manual??(reading?.usable?reading.amount:null),all=transferRoutes(programme.id);
  // The pooling rule (#192) decides which held cards' partners a reading reaches: its own, or every transfer card of the pool.
@@ -85,6 +98,7 @@ function ProgrammePanel({programme,accounts,cards,count,hidden}){
   {hotels.length?<div><Paragraph strong style={{marginBottom:8}}>{t('酒店伙伴')}</Paragraph><PartnerTable rows={hotels} points={points} hidden={hidden&&manual==null}/></div>:null}
   {others.length?<div><Paragraph strong style={{marginBottom:8}}>{t('其他伙伴')}</Paragraph><PartnerTable rows={others} points={points} hidden={hidden&&manual==null}/></div>:null}
  </Space>
+ <IssuerRedemptions programme={programme} points={points} heldProductIds={rule?[...new Set(pointsReach(cards).filter(m=>m.rule.id===rule.id).map(m=>m.productId))]:null} hidden={hidden&&manual==null}/>
  <Paragraph type="secondary" style={{marginTop:12,marginBottom:0}}>{t('来源（核对 {0}）：',[all[0]?.checkedAt||'—'])}<Space wrap size={[12,4]}>{sources.map(s=><Link key={s.id} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></Paragraph>
  {rule?<Paragraph type="secondary" style={{marginTop:4,marginBottom:0}}>{t('积分池规则（持卡人说明，核对 {0}）：',[rule.checkedAt])}<Space wrap size={[12,4]}>{knowledgeSources(rule.sourceIds).map(s=><Link key={s.id} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></Paragraph>:null}</>;
 }

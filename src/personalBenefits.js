@@ -26,7 +26,8 @@ export function dismissedCredits(cards,events){
  }
  return rows.sort((a,b)=>b.at.localeCompare(a.at)||a.key.localeCompare(b.key));
 }
-export const walletDay=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+const walletDayOf=at=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit'}).format(at);
+export const walletDay=()=>walletDayOf(new Date());
 export function creditTasks(cards,asOf=walletDay()){
  const rows=[];
  for(const card of cards)for(const b of profileForCard(card)?.benefits||[]){
@@ -58,7 +59,7 @@ export function feeDateNeededRows(cards,asOf=walletDay()){
 const isRealDate=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v+'T00:00:00Z'))&&new Date(v+'T00:00:00Z').toISOString().slice(0,10)===v;
 export const OFF_CYCLE_KEYS=['four-year','one-off'];
 const CYCLE_PERIODS=new Set(['calendar-year','calendar-quarter','calendar-half-year','calendar-month','account-anniversary']);
-const ONE_OFF_PERIODS=new Set(['per-trip','per-stay','activation-based','fixed-date','promotion-period']);
+export const ONE_OFF_PERIODS=new Set(['per-trip','per-stay','activation-based','fixed-date','promotion-period']);
 /** Date four years after a day (same month and day; every date that can be used on Feb 29 has a Feb 29 four years on). */
 export const nextFourYears=day=>{const d=new Date(day+'T00:00:00Z');d.setUTCFullYear(d.getUTCFullYear()+4);return d.toISOString().slice(0,10);};
 /**
@@ -106,14 +107,28 @@ export function validatePersonalEvent(e){
  return {schema:1,id:e.id,key:e.key,status:e.status,at:e.at,...(usage?{usage}:{}),revisionId:typeof e.revisionId==='string'&&e.revisionId.length<300?e.revisionId:null};
 }
 export function reminderTasks(tasks,events,asOf=walletDay(),days=3){const now=Date.parse(asOf+'T00:00:00Z');return activeTasks(tasks,events).filter(t=>['unknown','unused','partial'].includes(taskStatus(t,events))&&(Date.parse(t.period.end+'T00:00:00Z')-now)/86400000<=days);}
+/**
+ * Four-year credits the user marked used with a date and still wants to hear about, each with the day it can be
+ * used again. An unmarked row has no next date and never appears (it is not guessed). Rows come from offCycleRows,
+ * so a card the user does not hold has none; "stop reminding" is honoured like for cycle credits.
+ */
+export function fourYearReuse(rows,events){
+ return activeTasks(rows.filter(r=>r.state==='four-year'),events).map(row=>({row,status:offCycleStatus(row,events)})).filter(({status})=>status?.status==='used'&&status.nextEligible).map(({row,status})=>({row,usedOn:status.usedOn,nextEligible:status.nextEligible}));
+}
 const esc=s=>String(s).replace(/\\/g,'\\\\').replace(/\r/g,'').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
-export function creditCalendar(tasks,events,days=3,{now=new Date()}={}){
+export function creditCalendar(tasks,events,days=3,{now=new Date(),offCycle=[]}={}){
  const rows=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Cardybara//Credits//EN','CALSCALE:GREGORIAN'];
  for(const t of activeTasks(tasks,events).filter(t=>['unknown','unused','partial'].includes(taskStatus(t,events)))){
   const day=new Date(Date.parse(t.period.end+'T00:00:00Z')-days*86400000).toISOString().slice(0,10).replaceAll('-','');
   const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(now),part=k=>parts.find(p=>p.type===k).value,localNow=part('year')+part('month')+part('day')+'T'+part('hour')+part('minute')+part('second');
   const starts=day+'T090000'<localNow?new Date(now.getTime()+600000).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,''):day+'T090000';
   rows.push('BEGIN:VEVENT','UID:'+encodeURIComponent(t.key)+'@cardybara','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,''),'DTSTART:'+starts,'SUMMARY:'+esc('Cardybara · '+t.title),'DESCRIPTION:'+esc('Check this credit before '+t.period.end+'. Public limit is not a remaining balance. '+t.condition),'BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY','DESCRIPTION:'+esc(t.title),'END:VALARM','END:VEVENT');
+ }
+ const today=walletDayOf(now),stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+ for(const {row,nextEligible} of fourYearReuse(offCycle,events)){
+  if(nextEligible<today)continue; // a past date has nothing left to remind
+  const next=new Date(Date.parse(nextEligible+'T00:00:00Z')+86400000).toISOString().slice(0,10).replaceAll('-','');
+  rows.push('BEGIN:VEVENT','UID:'+encodeURIComponent(row.key)+'-'+nextEligible+'@cardybara','DTSTAMP:'+stamp,'DTSTART;VALUE=DATE:'+nextEligible.replaceAll('-',''),'DTEND;VALUE=DATE:'+next,'SUMMARY:'+esc('Cardybara · '+row.title+' can be used again'),'DESCRIPTION:'+esc('Four years after the last use you recorded. Check the programme before applying again.'),'END:VEVENT');
  }
  return rows.concat('END:VCALENDAR','').map(line=>{let parts=[],segment='',size=0;for(const char of line){const bytes=new TextEncoder().encode(char).length;if(size+bytes>73){parts.push(segment);segment=' ';size=1;}segment+=char;size+=bytes;}parts.push(segment);return parts.join('\r\n');}).join('\r\n');
 }

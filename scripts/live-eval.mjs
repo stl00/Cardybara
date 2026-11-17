@@ -4,7 +4,7 @@
 //   node scripts/live-eval.mjs --out=dir [--transcripts=dir] [--baseline=report.json] [--accept]   real model, API cost
 //   node scripts/live-eval.mjs --out=dir --dry-run [--fail=id,id]              no network, no key
 //   node scripts/live-eval.mjs --target=hosted --version=<id> --out=dir        the deployed Worker, pinned to one version
-//        [--url=<gateway>]; the invite code comes from CARDYBARA_EVAL_INVITE (a code with low caps; never printed)
+//        [--url=<gateway>]; no credential (the gateway needs none; its per-client daily cap applies)
 //   node scripts/live-eval.mjs --target=hosted --dry-run --out=dir             the hosted transport on an in-process gateway
 //                                                                              with a canned provider: no network, no code
 //
@@ -94,7 +94,8 @@ const scrubValue=(v,secrets)=>typeof v==='string'?scrub(v,secrets):Array.isArray
 export function buildTranscripts({report,run,secrets=[]}){
  if(report.syntheticWallet!==true)throw Error('transcripts are kept only for the synthetic wallet');
  const tries=(run.transcripts||[]).map(t=>({id:t.id,attempt:t.attempt,failedChecks:t.failedChecks,...(t.error?{error:t.error}:{}),...(t.codes?{codes:t.codes}:{}),
-  answer:scrub(t.transcript.answer||'',secrets).slice(0,TRANSCRIPT_CAP),answerTruncated:(t.transcript.answer||'').length>TRANSCRIPT_CAP,toolCalls:scrubValue(t.transcript.toolCalls||[],secrets)}));
+  answer:scrub(t.transcript.answer||'',secrets).slice(0,TRANSCRIPT_CAP),answerTruncated:(t.transcript.answer||'').length>TRANSCRIPT_CAP,toolCalls:scrubValue(t.transcript.toolCalls||[],secrets),
+  ...(t.transcript.graded?{graded:t.transcript.graded}:{}),...(t.transcript.modelTexts?{modelTexts:t.transcript.modelTexts.map(x=>scrub(x,secrets).slice(0,TRANSCRIPT_CAP))}:{})}));
  return {schema:1,kind:'live-eval-transcripts',syntheticWallet:true,model:report.model,commit:report.commit,createdAt:report.createdAt,tries};
 }
 
@@ -139,19 +140,17 @@ async function main(){
  let runCase;
  if(target==='hosted'){
   const {hostedPost,hostedTurn,PRODUCTION_URL,EVAL_ORIGIN}=await import('../evals/hosted-turn.mjs'),failing=new Set((arg('fail')||'').split(',').filter(Boolean));
-  let fetchImpl=fetch,base=arg('url')||PRODUCTION_URL,invite=process.env.CARDYBARA_EVAL_INVITE;
+  let fetchImpl=fetch,base=arg('url')||PRODUCTION_URL;
   if(dryRun){
    // The real transport and the real Worker code on in-memory bindings; the provider is canned. Only "an answer arrived" is judged.
    const {localGateway}=await import('../gateway/src/local.mjs'),{providerResponse}=await import('../tests/helpers/agent-target.mjs'),{context}=await import('../evals/fixtures.mjs');
-   const g=localGateway({vars:{ALLOWED_ORIGINS:EVAL_ORIGIN,DAILY_REQUESTS_PER_CODE:'1000000',DAILY_TOKENS_PER_CODE:'1000000000',MONTHLY_BUDGET_USD:'1000000'},now:()=>Date.parse(context.day+'T12:00:00Z'),
+   const g=localGateway({vars:{ALLOWED_ORIGINS:EVAL_ORIGIN,DAILY_REQUESTS_PER_CLIENT:'1000000',DAILY_TOKENS_PER_CLIENT:'1000000000',MONTHLY_BUDGET_USD:'1000000'},now:()=>Date.parse(context.day+'T12:00:00Z'),
     fetch:async(url,init)=>providerResponse({content:'Mock provider reply.'},{stream:JSON.parse(init.body).stream,signal:init.signal})});
-   invite='cdy_'+'dry-run-only-'.padEnd(43,'0');await g.addInvite(invite,{id:'live-eval-dry-run'});
    fetchImpl=(url,init)=>g.handle(new Request(url,init));base='https://gateway.test';
-   const turn=hostedTurn({post:hostedPost({base,invite,version,fetch:fetchImpl})});
+   const turn=hostedTurn({post:hostedPost({base,version,fetch:fetchImpl})});
    runCase=async c=>{spend.record({prompt_tokens:1000,completion_tokens:100});const r=await turn({history:[],memory:{},question:c.question,context});return {checks:{completed:!!r.answer.trim()&&!failing.has(c.id)},detail:{toolNames:[],ms:0,transcript:{answer:r.answer,toolCalls:[]}}};};
   }else{
-   if(!invite)throw Error('CARDYBARA_EVAL_INVITE is not set');
-   const {runLiveCase}=await import('../evals/live-case.mjs'),post=hostedPost({base,invite,version,fetch:fetchImpl});
+   const {runLiveCase}=await import('../evals/live-case.mjs'),post=hostedPost({base,version,fetch:fetchImpl});
    // The gateway reports no usage here, so every request of a turn is charged its worst case (twice, for the repair): the cap holds.
    const metered=async(body,options)=>{spend.unmetered();spend.unmetered();return post(body,options);};
    const turn=hostedTurn({post:metered});
@@ -176,7 +175,7 @@ async function main(){
  await writeFile(resolve(out,'summary.md'),summary(report));
  const transcriptsDir=resolve(arg('transcripts')||out+'-transcripts');
  await mkdir(transcriptsDir,{recursive:true});
- await writeFile(resolve(transcriptsDir,'transcripts.json'),JSON.stringify(buildTranscripts({report,run,secrets:[process.env.DEEPSEEK_API_KEY,process.env.CARDYBARA_EVAL_INVITE]}),null,2)+'\n');
+ await writeFile(resolve(transcriptsDir,'transcripts.json'),JSON.stringify(buildTranscripts({report,run,secrets:[process.env.DEEPSEEK_API_KEY]}),null,2)+'\n');
  console.log(JSON.stringify({status:report.status,usd:report.spend.usd,regressions:report.regressions,failing:report.failing,notRun:report.notRun,report:resolve(out,'report.json')}));
  if(report.status!=='good')process.exitCode=1;
  // The in-process gateway of the hosted dry run leaves provider timers behind; the report is written, so end here.

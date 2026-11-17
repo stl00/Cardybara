@@ -1,38 +1,49 @@
 // Cardybara model gateway (Cloudflare Worker): the logic. worker.js is the Worker's main module. It holds the owner's
-// model key and, for testers with an invite code, runs the hosted assistant (`/v1/chat`, agent.js: the agent loop and
+// model key and runs the hosted assistant (`/v1/chat`, agent.js: the agent loop and
 // public-knowledge tools, with wallet tools run in the extension) and relays single completions (`/v1/chat/completions`,
 // used for card-type suggestions).
 //
 // Treat it as public internet:
-// - an invite code is checked by its SHA-256 digest, compared in constant time; codes are never stored or logged;
+// - there is no invite code (owner decision 2026-11-16): a client is its network address, kept only as a salted hash
+//   that changes every UTC day (clientId), never the address itself;
 // - the request body is size-capped, and only allow-listed fields and models are forwarded;
 // - every request reserves its worst-case tokens and cost in one Durable Object before it reaches the
-//   provider, so parallel requests cannot overrun a per-code daily cap or the global monthly budget;
-// - bodies, codes and keys are never logged or echoed: a log line carries the code id, time, tokens and status.
+//   provider, so parallel requests cannot overrun a per-client daily cap or the global monthly budget;
+// - bodies, keys, addresses and client ids are never logged or echoed: a log line carries time, route, tokens and status.
 
 // The assistant (agent.js) brings the agent loop and the bundled public knowledge, whose modules build their indexes
 // when first evaluated: hundreds of milliseconds of CPU. Workers caps the CPU a script may spend at startup, so that
-// code is loaded on the first /v1/chat request, not at startup, and the proxy and invite routes never load it. The
+// code is loaded on the first /v1/chat request, not at startup, and the proxy and other routes never load it. The
 // bundler keeps a dynamically imported module lazy; tests/gateway-startup.test.mjs holds the built Worker to this.
 // A failed load stays cached on purpose: a module whose evaluation threw cannot be evaluated again (the bundler's lazy
 // init and native ESM both keep the failure), so every /v1/chat then answers agent_unavailable until a redeploy.
 import {writeMetrics} from './metrics.js';
 import {readSwitches} from './switches.js';
+import {parsePut,parseDelete,storePush,forgetPush,pushConfigured,EXPIRY_SECONDS} from './push.js';
+import * as accounts from './accounts.js';
 let agent=null;
 const agentRoute=ctx=>(agent||=import('./agent.js')).then(m=>m.agentRoute(ctx),()=>{throw new Refusal('agent_unavailable');});
 
-export const ROUTES={chat:'/v1/chat/completions',agent:'/v1/chat',invite:'/v1/invite'};
-export const INVITE_PATTERN=/^cdy_[A-Za-z0-9_-]{43}$/;
+// `/v1/invite` stays for extension builds from before 2026-11-16, which check a saved invite code there: it always
+// answers active. Those builds also send `Authorization: Bearer <code>` on every route; the header is ignored.
+export const ROUTES={chat:'/v1/chat/completions',agent:'/v1/chat',invite:'/v1/invite',push:'/v1/push',pushKey:'/v1/push/key',
+ // Accounts and the wallet copy (#412, accounts.js). New shapes live under /v2; the /v1 routes are unchanged.
+ account:'/v2/account',signUp:'/v2/account/signup',verify:'/v2/account/verify',session:'/v2/account/session',
+ password:'/v2/account/password',forgot:'/v2/account/password/forgot',reset:'/v2/account/password/reset',wallet:'/v2/account/wallet',export:'/v2/account/export'};
 const FIELDS=['model','messages','tools','tool_choice','max_tokens','temperature','response_format'];
 const ROLES=new Set(['system','user','assistant','tool']);
 const MESSAGE_FIELDS=['role','content','name','tool_calls','tool_call_id'];
 const RESPONSE_FIELDS=['id','object','created','model','choices','usage'];
 // Error codes the extension may show. Nothing else from the gateway or the provider reaches the client.
 export const ERRORS={
- bad_request:400,model_not_allowed:400,invite_invalid:401,invite_revoked:403,origin_forbidden:403,not_found:404,method_not_allowed:405,
+ bad_request:400,model_not_allowed:400,origin_forbidden:403,not_found:404,method_not_allowed:405,
  too_large:413,unsupported_media_type:415,rate_limited:429,daily_requests:429,daily_tokens:429,monthly_budget:429,provider_rate_limited:429,
+ push_daily_limit:429,push_capacity:503,
  provider_rejected:502,provider_error:502,provider_unreachable:502,gateway_not_configured:503,gateway_busy:503,provider_timeout:504,
- turn_invalid:400,turn_expired:409,agent_unavailable:503,
+ turn_invalid:400,turn_expired:409,agent_unavailable:503,push_unavailable:503,
+ // Accounts (#412). Unknown email and wrong password are both invalid_credentials.
+ weak_password:400,code_invalid:400,code_expired:400,invalid_credentials:401,unauthorized:401,email_unverified:403,
+ stale_revision:409,invalid_document:422,account_locked:429,too_many_codes:429,mail_failed:502,account_unavailable:503,
 };
 
 const number=(value,fallback,{min=0,integer=false}={})=>{const n=Number(value??fallback);return Number.isFinite(n)&&n>=min&&(!integer||Number.isInteger(n))?n:null;};
@@ -44,9 +55,15 @@ export function readConfig(env){
   origins:String(env.ALLOWED_ORIGINS||'').split(',').map(s=>s.trim()).filter(Boolean),
   maxBodyBytes:number(env.MAX_BODY_BYTES,262144,{min:1024,integer:true}),
   maxOutputTokens:number(env.MAX_OUTPUT_TOKENS,8192,{min:1,integer:true}),
-  dailyRequests:number(env.DAILY_REQUESTS_PER_CODE,200,{integer:true}),
-  dailyTokens:number(env.DAILY_TOKENS_PER_CODE,300000,{integer:true}),
+  // Per client (salted hash of its address) per UTC day. The *_PER_CODE names are read for a deploy that still has them.
+  dailyRequests:number(env.DAILY_REQUESTS_PER_CLIENT??env.DAILY_REQUESTS_PER_CODE,200,{integer:true}),
+  dailyTokens:number(env.DAILY_TOKENS_PER_CLIENT??env.DAILY_TOKENS_PER_CODE,300000,{integer:true}),
   monthlyBudgetMicros:number(env.MONTHLY_BUDGET_USD,10)==null?null:Math.round(number(env.MONTHLY_BUDGET_USD,10)*1e6),
+  // All clients together per UTC day; unset, it is the monthly budget / 30 (withSettings works it out).
+  dailyBudgetMicros:env.DAILY_BUDGET_USD==null||env.DAILY_BUDGET_USD===''?undefined:number(env.DAILY_BUDGET_USD,0)==null?null:Math.round(number(env.DAILY_BUDGET_USD,0)*1e6),
+  // Web Push writes (PUT and DELETE) per client per UTC day, and devices stored in all.
+  pushWrites:number(env.PUSH_WRITES_PER_CLIENT,20,{integer:true}),
+  maxPushDevices:number(env.MAX_PUSH_DEVICES,5000,{integer:true}),
   // USD per million tokens equals micro-USD per token.
   priceInput:number(env.PRICE_INPUT_USD_PER_MTOK,0.6),
   priceOutput:number(env.PRICE_OUTPUT_USD_PER_MTOK,2.4),
@@ -55,15 +72,19 @@ export function readConfig(env){
  };
  let url=null;try{url=new URL(c.providerUrl);}catch{}
  // Fail closed: a missing key, binding, origin list or a malformed number disables the gateway.
- c.ready=!!(c.providerKey&&url&&(url.protocol==='https:'||env.ALLOW_HTTP_PROVIDER==='1')&&c.models.length&&c.origins.length&&env.INVITES&&env.USAGE
+ c.ready=!!(c.providerKey&&url&&(url.protocol==='https:'||env.ALLOW_HTTP_PROVIDER==='1')&&c.models.length&&c.origins.length&&env.USAGE
   // The rate limiter is required in production; only a local run against an http mock may go without.
   &&(env.RATE_LIMITER||env.ALLOW_HTTP_PROVIDER==='1')
-  &&[c.maxBodyBytes,c.maxOutputTokens,c.dailyRequests,c.dailyTokens,c.monthlyBudgetMicros,c.priceInput,c.priceOutput,c.timeoutMs].every(v=>v!=null));
+  // The client-id salt is a required secret; only a local run (LOCAL_DEV=1) may fall back to the provider key.
+  &&(validSalt(env.CLIENT_SALT)||env.LOCAL_DEV==='1')
+  &&[c.maxBodyBytes,c.maxOutputTokens,c.dailyRequests,c.dailyTokens,c.monthlyBudgetMicros,c.dailyBudgetMicros,c.pushWrites,c.maxPushDevices,c.priceInput,c.priceOutput,c.timeoutMs].every(v=>v!==null));
  return c;
 }
 
-// Global caps the owner can change without a deploy: the KV key `settings` holds
-// {dailyRequests, dailyTokens, monthlyBudgetUsd}; each present, valid value replaces the var of the same cap.
+const validSalt=v=>typeof v==='string'&&v.length>=16;
+// Caps the owner can change without a deploy: the KV key `settings` holds {dailyRequests, dailyTokens} (per client)
+// and monthlyBudgetUsd, dailyBudgetUsd (all clients); each present, valid value replaces the var of the same cap.
+// Without the KV binding the vars apply. A daily budget set nowhere is the monthly budget / 30.
 export const SETTINGS_KEY='settings';
 export async function withSettings(base,env){
  const c={...base};
@@ -72,36 +93,25 @@ export async function withSettings(base,env){
   const whole=v=>Number.isInteger(v)&&v>=0;
   if(whole(s.dailyRequests))c.dailyRequests=s.dailyRequests;
   if(whole(s.dailyTokens))c.dailyTokens=s.dailyTokens;
-  if(typeof s.monthlyBudgetUsd==='number'&&s.monthlyBudgetUsd>=0&&Number.isFinite(s.monthlyBudgetUsd))c.monthlyBudgetMicros=Math.round(s.monthlyBudgetUsd*1e6);
+  const usd=v=>typeof v==='number'&&v>=0&&Number.isFinite(v);
+  if(usd(s.monthlyBudgetUsd))c.monthlyBudgetMicros=Math.round(s.monthlyBudgetUsd*1e6);
+  if(usd(s.dailyBudgetUsd))c.dailyBudgetMicros=Math.round(s.dailyBudgetUsd*1e6);
  }
+ if(c.dailyBudgetMicros===undefined)c.dailyBudgetMicros=Math.floor(c.monthlyBudgetMicros/30);
  return c;
 }
 
-// Exact extension origins only. "chrome-extension://*" admits any extension (for unpacked builds whose id
-// varies) but never a web page.
+// Extension origins: exact id, or "chrome-extension://*" for unpacked builds whose id varies (never a web page).
+// Web origins (hosted wallet): only an exact, listed https:// origin; no wildcards, no http://.
 export function originAllowed(origin,origins){
- if(!origin||!/^chrome-extension:\/\/[a-p]{32}$/.test(origin))return false;
- return origins.includes(origin)||origins.includes('chrome-extension://*');
+ if(!origin)return false;
+ if(/^chrome-extension:\/\/[a-p]{32}$/.test(origin))return origins.includes(origin)||origins.includes('chrome-extension://*');
+ if(/^https:\/\/[a-z0-9]([a-z0-9.-]*[a-z0-9])?(:\d{1,5})?$/.test(origin))return origins.includes(origin);
+ return false;
 }
 
 const encoder=new TextEncoder();
-async function sha256(text){return new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(text)));}
 const hex=bytes=>[...bytes].map(b=>b.toString(16).padStart(2,'0')).join('');
-// Constant-time over equal-length inputs; the length is public (always 32 bytes here).
-export function sameBytes(a,b){if(a.length!==b.length)return false;let diff=0;for(let i=0;i<a.length;i++)diff|=a[i]^b[i];return diff===0;}
-export async function inviteKey(code){return 'invite:'+hex(await sha256(code));}
-
-async function findInvite(code,env){
- if(typeof code!=='string'||!INVITE_PATTERN.test(code))return null;
- const digest=await sha256(code),key='invite:'+hex(digest);
- const record=await env.INVITES.get(key,{type:'json'});
- if(!record||typeof record!=='object'||typeof record.hash!=='string'||!/^[0-9a-f]{64}$/.test(record.hash))return null;
- // The KV key is the digest already; this repeats the comparison in constant time against the stored value.
- const stored=Uint8Array.from(record.hash.match(/../g),h=>parseInt(h,16));
- if(!sameBytes(digest,stored))return null;
- if(typeof record.id!=='string'||!/^[a-z0-9-]{1,32}$/.test(record.id))return null;
- return record;
-}
 
 export async function readLimited(request,limit){
  const declared=request.headers.get('Content-Length');
@@ -178,36 +188,44 @@ const today=now=>new Date(now).toISOString().slice(0,10);
 export class Refusal extends Error{constructor(code,extra={}){super(code);this.extra=extra;}}
 
 // --- Middleware. Each takes the request context and either fills it in or throws a Refusal with an error code.
-// The agent route (`/v1/chat`, agent.js) reuses them as they are: authenticate once per request, and reserve and
+// The agent route (`/v1/chat`, agent.js) reuses them as they are: reserve and
 // settle once per model call.
 
-/** The invite code from the Authorization header; sets ctx.invite and the log's code id. */
-export async function authenticate(ctx){
- const auth=ctx.request.headers.get('Authorization')||'';
- const invite=await findInvite(auth.startsWith('Bearer ')?auth.slice(7):'',ctx.env);
- if(!invite)throw new Refusal('invite_invalid');
- ctx.record.code=invite.id;
- if(invite.status!=='active')throw new Refusal('invite_revoked');
- ctx.invite=invite;
+/**
+ * The client id: HMAC-SHA256 of the UTC day and the client's address (clientKey), keyed by the secret CLIENT_SALT
+ * (required in production; a local run, LOCAL_DEV=1, falls back to a key derived from PROVIDER_KEY). The address
+ * itself is never stored; the id changes every day, so a day's counters cannot be linked to another day's or turned
+ * back into an address without the secret. Never logged.
+ */
+export async function clientId(request,env,day){
+ const secret=validSalt(env.CLIENT_SALT)?env.CLIENT_SALT:env.LOCAL_DEV==='1'?'local:'+(env.PROVIDER_KEY||''):null;
+ if(secret==null)throw new Refusal('gateway_not_configured');
+ const key=await crypto.subtle.importKey('raw',encoder.encode('cardybara-client-v1:'+secret),{name:'HMAC',hash:'SHA-256'},false,['sign']);
+ return 'c'+hex(new Uint8Array(await crypto.subtle.sign('HMAC',key,encoder.encode(day+'|'+clientKey(request))))).slice(0,32);
 }
-/** A JSON request body within the size cap. */
-export async function readJson(ctx){
+/** A JSON request body within the size cap (MAX_BODY_BYTES unless a route gives its own). */
+export async function readJson(ctx,limit=ctx.config.maxBodyBytes){
  if(!/^application\/json(\s*;|$)/i.test(ctx.request.headers.get('Content-Type')||''))throw new Refusal('unsupported_media_type');
- let text;try{text=await readLimited(ctx.request,ctx.config.maxBodyBytes);}catch(e){throw new Refusal(e.message==='too_large'?'too_large':'bad_request');}
+ let text;try{text=await readLimited(ctx.request,limit);}catch(e){throw new Refusal(e.message==='too_large'?'too_large':'bad_request');}
  try{return JSON.parse(text);}catch{throw new Refusal('bad_request');}
 }
 /**
- * Reserves one model call's worst case against the code's daily caps and the global monthly budget, before
+ * Reserves one model call's worst case against the client's daily caps and the global monthly budget, before
  * anything reaches the provider. Returns settle(spent): {tokens,micros} replaces the worst case; settle(null)
  * keeps it (no usage numbers).
  */
 export async function reserve(ctx,worst){
- // A per-code override can only lower the caps, never raise them past the gateway's.
- const capOf=(own,global)=>Number.isInteger(own)&&own>=0?Math.min(own,global):global;
  const c=await withSettings(ctx.config,ctx.env),day=today(ctx.now());let reservation;
- try{reservation=await callLedger(ctx.env,'reserve',{code:ctx.invite.id,day,month:day.slice(0,7),tokens:worst.tokens,micros:worst.micros,maxRequests:capOf(ctx.invite.dailyRequests,c.dailyRequests),maxTokens:capOf(ctx.invite.dailyTokens,c.dailyTokens),maxMicros:c.monthlyBudgetMicros});}
+ const code=await clientId(ctx.request,ctx.env,day);
+ try{reservation=await callLedger(ctx.env,'reserve',{code,day,month:day.slice(0,7),tokens:worst.tokens,micros:worst.micros,maxRequests:c.dailyRequests,maxTokens:c.dailyTokens,maxMicros:c.monthlyBudgetMicros,maxDayMicros:c.dailyBudgetMicros});}
  catch{throw new Refusal('gateway_busy');}
- if(!reservation.ok)throw new Refusal(ERRORS[reservation.reason]?reservation.reason:'gateway_busy');
+ if(!reservation.ok){
+  // Clients see the codes extension builds have always known: daily_requests / daily_tokens for the client's own
+  // caps, monthly_budget for either budget. The log line's `limit` says exactly which cap it was.
+  const limit={daily_requests:'client_requests',daily_tokens:'client_tokens',monthly_budget:'monthly_budget',daily_budget:'daily_budget'}[reservation.reason];
+  if(!limit)throw new Refusal('gateway_busy');
+  throw new Refusal(reservation.reason==='daily_budget'?'monthly_budget':reservation.reason,{limit});
+ }
  let settled=false;
  return async spent=>{
   if(settled)return;settled=true;
@@ -242,23 +260,75 @@ export async function callProvider(ctx,forwarded,settle,signal){
  return response;
 }
 
-/** The rate-limit key for a client: its IPv4 address, or the /64 prefix of an IPv6 address (one subscriber's block). */
+/**
+ * What a client is, before hashing: its IPv4 address, or the /48 prefix of an IPv6 address (a whole site's
+ * allocation, so one subscriber cannot spread across 65,536 /64s). An IPv4-mapped IPv6 address counts as its IPv4.
+ */
 export function clientKey(request){
- const ip=request.headers.get('CF-Connecting-IP')||'unknown';
+ let ip=(request.headers.get('CF-Connecting-IP')||'').trim().toLowerCase();
+ if(!ip)return 'unknown';
+ const mapped=ip.match(/^(?:::|(?:0{1,4}:){5})ffff:(\d{1,3}(?:\.\d{1,3}){3})$/);
+ if(mapped)return mapped[1];
+ const hexMapped=ip.match(/^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/);
+ if(hexMapped){const a=parseInt(hexMapped[1],16),b=parseInt(hexMapped[2],16);return [a>>8,a&255,b>>8,b&255].join('.');}
  if(!ip.includes(':'))return ip;
  const [head,tail=''] =ip.split('::'),h=head?head.split(':'):[],t=tail?tail.split(':'):[];
  const groups=ip.includes('::')?[...h,...Array(Math.max(0,8-h.length-t.length)).fill('0'),...t]:h;
- return groups.slice(0,4).map(g=>(parseInt(g||'0',16)||0).toString(16)).join(':')+'::/64';
+ return groups.slice(0,3).map(g=>(parseInt(g||'0',16)||0).toString(16)).join(':')+'::/48';
 }
 
 // --- Routes.
 
+/** Older extension builds check a saved invite code here before using the assistant. Any code, or none, is fine. */
 async function inviteRoute(ctx){return respond(200,{status:'active'},ctx.cors);}
 
+// Web Push reminders (push.js, docs/GATEWAY.md "Web Push"). The log line gets the number of fire times, never the endpoint.
+function pushReady(ctx){if(!pushConfigured(ctx.env))throw new Refusal('push_unavailable');}
+/** The VAPID public key the web wallet subscribes with. */
+async function pushKeyRoute(ctx){pushReady(ctx);return respond(200,{publicKey:ctx.env.VAPID_PUBLIC_KEY},ctx.cors);}
+/**
+ * Counts one push write against the client's daily cap and, for a PUT, holds the device's place under the global
+ * device cap, in the ledger, before KV is touched.
+ */
+async function pushLedger(ctx,action,device,exp){
+ const c=ctx.config,day=today(ctx.now());let r;
+ try{r=await callLedger(ctx.env,'push',{code:await clientId(ctx.request,ctx.env,day),day,action,device,exp,now:Math.floor(ctx.now()/1000),maxWrites:c.pushWrites,maxDevices:c.maxPushDevices});}
+ catch(e){throw e instanceof Refusal?e:new Refusal('gateway_busy');}
+ if(!r.ok)throw new Refusal(ERRORS[r.reason]?r.reason:'gateway_busy');
+}
+/** Replaces the device's subscription and its whole list of fire times. */
+async function pushPutRoute(ctx){
+ pushReady(ctx);
+ const body=await readJson(ctx);let record;
+ try{record=parsePut(body,ctx.now());}catch{throw new Refusal('bad_request');}
+ await pushLedger(ctx,'put',record.device,Math.floor(ctx.now()/1000)+EXPIRY_SECONDS);
+ await storePush(ctx.env.INVITES,record,ctx.now());
+ ctx.record.times=record.times.length;
+ return respond(200,{status:'stored',times:record.times.length},ctx.cors);
+}
+/** Forgets the device. Deleting a device that is not there is not an error. */
+async function pushDeleteRoute(ctx){
+ pushReady(ctx);
+ let device;try{device=parseDelete(await readJson(ctx));}catch(e){throw e instanceof Refusal?e:new Refusal('bad_request');}
+ await pushLedger(ctx,'delete',device);
+ await forgetPush(ctx.env.INVITES,device);
+ ctx.record.times=0;
+ return respond(200,{status:'forgotten'},ctx.cors);
+}
+
+// The proxy's one real use is card-type suggestion (two short messages, a JSON answer of a few hundred tokens), so it
+// takes nothing larger: a public, credential-free route must not be a general-purpose model.
+export const COMPLETION_LIMITS={maxTokens:600,messages:4,chars:32000};
+export function checkCompletionSize(body){
+ if(!plain(body)||!Array.isArray(body.messages)||body.messages.length>COMPLETION_LIMITS.messages)throw Error('bad_request');
+ if(body.max_tokens!==undefined&&!(Number.isInteger(body.max_tokens)&&body.max_tokens<=COMPLETION_LIMITS.maxTokens))throw Error('bad_request');
+ const chars=body.messages.reduce((n,m)=>n+(typeof m?.content==='string'?m.content.length:0),0)+(body.tools===undefined?0:JSON.stringify(body.tools).length);
+ if(chars>COMPLETION_LIMITS.chars)throw Error('bad_request');
+}
 /** The model proxy: one completion, as JSON or as server-sent events when the client asks to stream. */
 async function completionRoute(ctx){
  let forwarded;
- try{forwarded=sanitizeBody(await readJson(ctx),{...ctx.config,forceModel:(await ctx.switches()).forceModel});}catch(e){throw e instanceof Refusal?e:new Refusal(ERRORS[e.message]?e.message:'bad_request');}
+ try{const body=await readJson(ctx);checkCompletionSize(body);forwarded=sanitizeBody(body,{...ctx.config,maxOutputTokens:Math.min(ctx.config.maxOutputTokens,COMPLETION_LIMITS.maxTokens),forceModel:(await ctx.switches()).forceModel});}catch(e){throw e instanceof Refusal?e:new Refusal(ERRORS[e.message]?e.message:'bad_request');}
  ctx.metrics.model=forwarded.model;
  const settle=await reserve(ctx,worstCase(forwarded,ctx.config));
  const response=await callProvider(ctx,forwarded,settle);
@@ -305,11 +375,57 @@ function streamCompletion(ctx,response,settle,limit){
  return new Response(relay.readable,{status:200,headers:{'Content-Type':'text/event-stream; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...ctx.cors}});
 }
 
-// The router. A route names its path, method and handler; `auth: true` runs authenticate first.
+// Account routes (accounts.js, docs/GATEWAY.md "Accounts"). The handler gets the JSON body (if the route takes one) and
+// the bearer session token; the user is always the session's, never an id from the client. The log line keeps the
+// route, status, error code, a hash of the session's user id and the blob size: no email, password, code, token or wallet content.
+const WALLET_ENVELOPE_BYTES=4096;
+function accountRoute(op,{body=true}={}){
+ return async ctx=>{
+  if(!accounts.accountsConfigured(ctx.env))throw new Refusal('account_unavailable');
+  const limit=op===accounts.putWallet?accounts.walletMaxBytes(ctx.env)+WALLET_ENVELOPE_BYTES:ctx.config.maxBodyBytes;
+  const json=body?await readJson(ctx,limit):null;
+  try{
+   const audit={};
+   try{
+    const r=await op({env:ctx.env,body:json,token:accounts.bearer(ctx.request),now:ctx.now(),audit});
+    return respond(r.status,r.body,ctx.cors);
+   }finally{
+    // The log line gets a hash of the session's user and the blob size; set also when the call is refused.
+    if(audit.userId)ctx.record.user=await accounts.logUserHash(ctx.env,audit.userId);
+    if(Number.isInteger(audit.size))ctx.record.size=audit.size;
+   }
+  }catch(e){
+   if(e instanceof accounts.AccountError){
+    // Only these two say more than a code: when to try again, and the revision to pull before a retry.
+    const extra=Number.isInteger(e.extra?.retryAfter)?{retryAfter:e.extra.retryAfter}:Number.isInteger(e.extra?.revision)?{revision:e.extra.revision}:{};
+    ctx.record.error=e.message;
+    return respond(ERRORS[e.message]||400,{error:{code:e.message,...extra}},{...ctx.cors,...(extra.retryAfter?{'Retry-After':String(extra.retryAfter)}:{})});
+   }
+   throw e;
+  }
+ };
+}
+
+// The router. A route names its path, method and handler. No /v1 route needs a credential; /v2/account routes other
+// than sign-up, verify, sign-in and the password-reset pair need a bearer session.
 export const ROUTE_TABLE=[
- {path:ROUTES.invite,name:'invite',method:'POST',auth:true,handler:inviteRoute},
- {path:ROUTES.agent,name:'agent',method:'POST',auth:true,handler:agentRoute},
- {path:ROUTES.chat,name:'chat',method:'POST',auth:true,handler:completionRoute},
+ {path:ROUTES.invite,name:'invite',method:'POST',handler:inviteRoute},
+ {path:ROUTES.agent,name:'agent',method:'POST',handler:agentRoute},
+ {path:ROUTES.chat,name:'chat',method:'POST',handler:completionRoute},
+ {path:ROUTES.push,name:'push',method:'PUT',handler:pushPutRoute},
+ {path:ROUTES.push,name:'push',method:'DELETE',handler:pushDeleteRoute},
+ {path:ROUTES.pushKey,name:'push_key',method:'GET',handler:pushKeyRoute},
+ {path:ROUTES.signUp,name:'account_signup',method:'POST',handler:accountRoute(accounts.signUp)},
+ {path:ROUTES.verify,name:'account_verify',method:'POST',handler:accountRoute(accounts.verify)},
+ {path:ROUTES.session,name:'account_session',method:'POST',handler:accountRoute(accounts.signIn)},
+ {path:ROUTES.session,name:'account_session',method:'DELETE',handler:accountRoute(accounts.signOut,{body:false})},
+ {path:ROUTES.forgot,name:'account_forgot',method:'POST',handler:accountRoute(accounts.forgotPassword)},
+ {path:ROUTES.reset,name:'account_reset',method:'POST',handler:accountRoute(accounts.resetPassword)},
+ {path:ROUTES.password,name:'account_password',method:'POST',handler:accountRoute(accounts.changePassword)},
+ {path:ROUTES.wallet,name:'account_wallet',method:'GET',handler:accountRoute(accounts.getWallet,{body:false})},
+ {path:ROUTES.wallet,name:'account_wallet',method:'PUT',handler:accountRoute(accounts.putWallet)},
+ {path:ROUTES.export,name:'account_export',method:'GET',handler:accountRoute(accounts.exportAccount,{body:false})},
+ {path:ROUTES.account,name:'account',method:'DELETE',handler:accountRoute(accounts.deleteAccount)},
 ];
 
 /**
@@ -322,11 +438,12 @@ export async function handle(request,env,deps={}){
  const url=new URL(request.url),origin=request.headers.get('Origin');
  const config=readConfig(env),allowed=originAllowed(origin,config.origins);
  const cors=allowed?{'Access-Control-Allow-Origin':origin,'Vary':'Origin'}:{'Vary':'Origin'};
- const route=ROUTE_TABLE.find(r=>r.path===url.pathname);
- const record={at:new Date(now()).toISOString(),route:route?.name||'other',code:null,status:0};
+ // A path may have several methods; `route` is the entry for this request's method, or the path's first entry for a wrong method.
+ const onPath=ROUTE_TABLE.filter(r=>r.path===url.pathname),route=onPath.find(r=>r.method===request.method)||onPath[0];
+ const record={at:new Date(now()).toISOString(),route:route?.name||'other',status:0};
  let deferred=null,switchesRead=null;
  const ctx={request,env,config,cors,record,url,now,// Called as a plain function: Workers' fetch throws "Illegal invocation" when called as a method of another object.
-  upstream:deps.fetch||((...a)=>globalThis.fetch(...a)),invite:null,deferLog:p=>{deferred=p;},
+  upstream:deps.fetch||((...a)=>globalThis.fetch(...a)),deferLog:p=>{deferred=p;},
   // Tests only: sees each agent model call's payload before it becomes a provider request. The Worker never sets it.
   observe:deps.observe||null,
   // The KV switches, read once per request through a short cache (switches.js).
@@ -337,20 +454,22 @@ export async function handle(request,env,deps={}){
  // The log line first, then the metrics data point (metrics.js): neither can make the other fail.
  const write=()=>{log(JSON.stringify(record));writeMetrics(ctx,now()-started);};
  const finish=response=>{record.status=response.status;if(deferred){const p=deferred.then(write);deps.waitUntil?deps.waitUntil(p):void p;}else write();return response;};
- const refuse=(code,extra={})=>{Object.assign(record,{error:code},extra);return finish(respond(ERRORS[code]||500,{error:{code}},code==='method_not_allowed'?{...cors,Allow:route.method}:cors));};
+ const refuse=(code,extra={})=>{Object.assign(record,{error:code},extra);return finish(respond(ERRORS[code]||500,{error:{code}},code==='method_not_allowed'?{...cors,Allow:onPath.map(r=>r.method).join(', ')}:cors));};
  if(request.method==='OPTIONS'){
   if(!allowed||!route)return finish(respond(allowed?404:403,null,cors));
-  return finish(respond(204,null,{...cors,'Access-Control-Allow-Methods':route.method,'Access-Control-Allow-Headers':'Authorization, Content-Type','Access-Control-Max-Age':'600'}));
+  return finish(respond(204,null,{...cors,'Access-Control-Allow-Methods':onPath.map(r=>r.method).join(', '),'Access-Control-Allow-Headers':'Authorization, Content-Type','Access-Control-Max-Age':'600'}));
  }
  if(!allowed)return refuse('origin_forbidden');
  if(!route)return refuse('not_found');
  if(request.method!==route.method)return refuse('method_not_allowed');
  if(!config.ready)return refuse('gateway_not_configured');
+ // Cloudflare always sets the client's address. Without it every caller would share one bucket, so production
+ // refuses; only a local run (LOCAL_DEV=1: wrangler dev, tests, the E2E) may go without.
+ if(!request.headers.get('CF-Connecting-IP')&&env.LOCAL_DEV!=='1')return refuse('bad_request',{reason:'no_client_address'});
  try{
-  // Per client address, before any KV read, so guessing codes can't exhaust KV or the Workers quota. The
+  // Per client, before any KV or ledger call. The limiter is given the hashed client id, never the address. The
   // binding is optional (local runs and tests have none); gateway/wrangler.jsonc declares it.
-  if(env.RATE_LIMITER){const {success}=await env.RATE_LIMITER.limit({key:clientKey(request)});if(!success)throw new Refusal('rate_limited');}
-  if(route.auth)await authenticate(ctx);
+  if(env.RATE_LIMITER){const {success}=await env.RATE_LIMITER.limit({key:await clientId(request,env,today(now()))});if(!success)throw new Refusal('rate_limited');}
   return finish(await route.handler(ctx));
  }catch(e){
   if(e instanceof Refusal)return refuse(e.message,e.extra);
@@ -361,36 +480,57 @@ export async function handle(request,env,deps={}){
 /**
  * Usage counters in one Durable Object instance. Each operation runs to completion before the next starts
  * (an explicit queue on top of the runtime's input gates), so a check and its increment cannot interleave.
- * Keys: d:<day>:<code> {requests,tokens}; m:<month> {micros}; r:<id> an open reservation.
+ * Keys: d:<day>:<client id> {requests,tokens}; p:<day>:<client id> {writes} (push); g:<day> {micros} (all clients);
+ * m:<month> {micros}; r:<id> an open reservation; v:<device> {exp} a stored push device, and `devices` their count;
+ * pruned: the last day pruned. A client id is only ever kept for its own UTC day: the first request of the next
+ * day, or the alarm set for just after midnight UTC, deletes every earlier day's d: and p: keys and strips the
+ * client's day key from older open reservations.
  */
 export class UsageLedger{
- constructor(state){this.storage=state.storage;this.queue=Promise.resolve();}
+ constructor(state){this.storage=state.storage;this.now=state.now||Date.now;this.queue=Promise.resolve();}
+ /** Durable Object alarm: prunes when no request arrives after midnight. */
+ async alarm(){await this.run(()=>this.prune(new Date(this.now()).toISOString().slice(0,10)));}
  run(fn){const p=this.queue.then(fn);this.queue=p.catch(()=>{});return p;}
  async fetch(request){
   const op=new URL(request.url).pathname.slice(1);let args;
   try{args=await request.json();}catch{return new Response('bad',{status:400});}
-  if(op!=='reserve'&&op!=='settle'&&op!=='month')return new Response('bad',{status:404});
+  if(!['reserve','settle','month','push','forget'].includes(op))return new Response('bad',{status:404});
   try{return Response.json(await this.run(()=>this[op](args)));}catch{return new Response('bad',{status:500});}
  }
- async reserve({code,day,month,tokens,micros,maxRequests,maxTokens,maxMicros}){
-  const dk=`d:${day}:${code}`,mk=`m:${month}`;
-  const d=(await this.storage.get(dk))||{requests:0,tokens:0},m=(await this.storage.get(mk))||{micros:0};
+ async reserve({code,day,month,tokens,micros,maxRequests,maxTokens,maxMicros,maxDayMicros=Infinity}){
+  await this.pruneOnce(day);
+  const dk=`d:${day}:${code}`,mk=`m:${month}`,gk=`g:${day}`;
+  const d=(await this.storage.get(dk))||{requests:0,tokens:0},m=(await this.storage.get(mk))||{micros:0},g=(await this.storage.get(gk))||{micros:0};
   if(d.requests+1>maxRequests)return {ok:false,reason:'daily_requests'};
   if(d.tokens+tokens>maxTokens)return {ok:false,reason:'daily_tokens'};
   if(m.micros+micros>maxMicros)return {ok:false,reason:'monthly_budget'};
+  if(g.micros+micros>(maxDayMicros??Infinity))return {ok:false,reason:'daily_budget'};
   const id=crypto.randomUUID();
-  await this.storage.put({[dk]:{requests:d.requests+1,tokens:d.tokens+tokens},[mk]:{micros:m.micros+micros},['r:'+id]:{dk,mk,tokens,micros,day}});
-  // The first request of a day for a code clears day counters and open reservations older than yesterday (an
-  // open reservation is a request whose worker never settled; its worst case is already counted).
-  if(d.requests===0&&this.storage.list)await this.prune(day);
+  await this.storage.put({[dk]:{requests:d.requests+1,tokens:d.tokens+tokens},[mk]:{micros:m.micros+micros},[gk]:{micros:g.micros+micros},['r:'+id]:{dk,mk,gk,tokens,micros,day}});
   return {ok:true,id};
  }
+ // The first call of a day prunes (an open reservation is a request whose worker never settled; its worst case is
+ // already counted in the month and the day's budget).
+ async pruneOnce(day){if(this.storage.list&&(await this.storage.get('pruned'))!==day)await this.prune(day);}
  async prune(day){
-  const cutoff=new Date(Date.parse(day+'T00:00:00Z')-86400000).toISOString().slice(0,10);
-  for(const prefix of ['d:','r:']){
-   const old=[...(await this.storage.list({prefix})).entries()].filter(([k,v])=>(prefix==='d:'?k.slice(2,12):v?.day||'')<cutoff).map(([k])=>k);
-   for(let i=0;i<old.length;i+=128)await this.storage.delete(old.slice(i,i+128));
-  }
+  const yesterday=new Date(Date.parse(day+'T00:00:00Z')-86400000).toISOString().slice(0,10);
+  const all=async prefix=>[...(await this.storage.list({prefix})).entries()];
+  const drop=async keys=>{for(let i=0;i<keys.length;i+=128)await this.storage.delete(keys.slice(i,i+128));};
+  // Client ids: only today's.
+  await drop((await all('d:')).filter(([k])=>k.slice(2,12)<day).map(([k])=>k));
+  await drop((await all('p:')).filter(([k])=>k.slice(2,12)<day).map(([k])=>k));
+  await drop((await all('g:')).filter(([k])=>k.slice(2,12)<yesterday).map(([k])=>k));
+  const reservations=await all('r:');
+  await drop(reservations.filter(([,v])=>(v?.day||'')<yesterday).map(([k])=>k));
+  // An open reservation from an earlier day keeps only what settling the month and day budget needs.
+  const strip=reservations.filter(([,v])=>v?.dk&&(v.day||'')<day&&(v.day||'')>=yesterday);
+  for(const [k,v] of strip){const {dk,...rest}=v;await this.storage.put(k,rest);}
+  // Push devices whose KV record has expired no longer hold a place.
+  const nowSec=Math.floor(this.now()/1000),expired=(await all('v:')).filter(([,v])=>!(v?.exp>nowSec)).map(([k])=>k);
+  if(expired.length){await drop(expired);const n=(await this.storage.get('devices'))||0;await this.storage.put('devices',Math.max(0,n-expired.length));}
+  await this.storage.put('pruned',day);
+  // Run again just after the next UTC midnight, so a day's client ids go even when no request comes the next day.
+  if(typeof this.storage.setAlarm==='function')await this.storage.setAlarm(Date.parse(day+'T00:00:00Z')+86400000+60000);
  }
  /** Month-to-date spend in micro-USD (settled use plus open reservations' worst case), for the hourly alert check. */
  async month({month}){const m=(await this.storage.get('m:'+month))||{micros:0};return {micros:m.micros};}
@@ -398,9 +538,36 @@ export class UsageLedger{
  async settle({id,tokens,micros,keep}){
   const r=await this.storage.get('r:'+id);if(!r)return {ok:false};
   if(keep){await this.storage.delete('r:'+id);return {ok:true};}
-  const d=(await this.storage.get(r.dk))||{requests:0,tokens:0},m=(await this.storage.get(r.mk))||{micros:0};
-  await this.storage.put({[r.dk]:{...d,tokens:Math.max(0,d.tokens-r.tokens+tokens)},[r.mk]:{micros:Math.max(0,m.micros-r.micros+micros)}});
+  const d=r.dk?await this.storage.get(r.dk):null,m=(await this.storage.get(r.mk))||{micros:0},g=r.gk?await this.storage.get(r.gk):null;
+  // A day's counters pruned since the reservation (it settled after midnight) are not written back.
+  await this.storage.put({...(d?{[r.dk]:{...d,tokens:Math.max(0,d.tokens-r.tokens+tokens)}}:{}),...(g?{[r.gk]:{micros:Math.max(0,g.micros-r.micros+micros)}}:{}),[r.mk]:{micros:Math.max(0,m.micros-r.micros+micros)}});
   await this.storage.delete('r:'+id);
+  return {ok:true};
+ }
+ /**
+  * One push write: counts it against the client's daily cap, and for a PUT of a device not yet stored, takes one of
+  * the global device places (refused when they are all taken). A DELETE gives the place back.
+  */
+ async push({code,day,action,device,exp,now,maxWrites,maxDevices}){
+  await this.pruneOnce(day);
+  const pk=`p:${day}:${code}`,vk='v:'+device;
+  const p=(await this.storage.get(pk))||{writes:0};
+  if(p.writes+1>maxWrites)return {ok:false,reason:'push_daily_limit'};
+  const known=await this.storage.get(vk),n=(await this.storage.get('devices'))||0;
+  if(action==='put'){
+   if(!known&&n>=maxDevices)return {ok:false,reason:'push_capacity'};
+   await this.storage.put({[pk]:{writes:p.writes+1},[vk]:{exp},...(known?{}:{devices:n+1})});
+  }else{
+   await this.storage.put({[pk]:{writes:p.writes+1},...(known?{devices:Math.max(0,n-1)}:{})});
+   if(known)await this.storage.delete(vk);
+  }
+  return {ok:true};
+ }
+ /** The cron deleted a device (gone at its push service): its place is free again. */
+ async forget({device}){
+  const vk='v:'+device;if(!await this.storage.get(vk))return {ok:true};
+  const n=(await this.storage.get('devices'))||0;
+  await this.storage.delete(vk);await this.storage.put('devices',Math.max(0,n-1));
   return {ok:true};
  }
 }

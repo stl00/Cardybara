@@ -563,21 +563,21 @@
     "id": "card-citi-us-citi-strata-premier-card",
     "url": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
     "title": "Citi · Citi Strata Premier Card 官方产品页",
-    "checkedAt": "2026-11-11",
+    "checkedAt": "2026-11-16",
     "authority": "official"
   },
   {
     "id": "card-citi-us-citi-strata-elite-card",
     "url": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card",
     "title": "Citi · Citi Strata Elite Card 官方产品页",
-    "checkedAt": "2026-11-11",
+    "checkedAt": "2026-11-16",
     "authority": "official"
   },
   {
     "id": "card-citi-us-citi-double-cash-card",
     "url": "https://www.citi.com/credit-cards/citi-double-cash-credit-card",
     "title": "Citi · Citi Double Cash Card 官方产品页",
-    "checkedAt": "2026-11-04",
+    "checkedAt": "2026-11-16",
     "authority": "official"
   },
   {
@@ -591,14 +591,14 @@
     "id": "card-citi-us-citi-aadvantage-executive-card",
     "url": "https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard",
     "title": "Citi · Citi / AAdvantage Executive Card 官方产品页",
-    "checkedAt": "2026-11-04",
+    "checkedAt": "2026-11-16",
     "authority": "official"
   },
   {
     "id": "card-capital-one-us-venture-rewards-credit-card",
     "url": "https://www.capitalone.com/credit-cards/venture/",
     "title": "Capital One · Venture Rewards Credit Card 官方产品页",
-    "checkedAt": "2026-11-11",
+    "checkedAt": "2026-11-16",
     "authority": "official"
   },
   {
@@ -612,21 +612,21 @@
     "id": "card-capital-one-us-savor-credit-card",
     "url": "https://www.capitalone.com/credit-cards/savor/",
     "title": "Capital One · Savor Credit Card 官方产品页",
-    "checkedAt": "2026-11-04",
+    "checkedAt": "2026-11-16",
     "authority": "official"
   },
   {
     "id": "card-capital-one-us-venture-x-business-card",
     "url": "https://www.capitalone.com/small-business/credit-cards/venture-x-business/",
     "title": "Capital One · Venture X Business Card 官方产品页",
-    "checkedAt": "2026-11-11",
+    "checkedAt": "2026-11-16",
     "authority": "official"
   },
   {
     "id": "card-capital-one-us-spark-cash-plus-card",
     "url": "https://www.capitalone.com/small-business/credit-cards/spark-cash-plus/",
     "title": "Capital One · Spark Cash Plus Card 官方产品页",
-    "checkedAt": "2026-11-12",
+    "checkedAt": "2026-11-16",
     "authority": "official"
   },
   {
@@ -822,7 +822,7 @@
     "id": "card-wells-fargo-us-autograph-journey-visa-card",
     "url": "https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/",
     "title": "Wells Fargo · Wells Fargo Autograph Journey Visa Card 官方产品页",
-    "checkedAt": "2026-11-11",
+    "checkedAt": "2026-11-16",
     "authority": "official"
   },
   {
@@ -1025,7 +1025,7 @@
     "id": "card-bilt-us-bilt-blue-card",
     "url": "https://www.bilt.com/card",
     "title": "Bilt · Bilt Blue Card 官方卡片页",
-    "checkedAt": "2026-11-11",
+    "checkedAt": "2026-11-16",
     "authority": "official"
   },
   {
@@ -1053,7 +1053,7 @@
     "id": "card-bilt-us-bilt-obsidian-card",
     "url": "https://www.bilt.com/card",
     "title": "Bilt · Bilt Obsidian Card 官方卡片页",
-    "checkedAt": "2026-11-11",
+    "checkedAt": "2026-11-16",
     "authority": "official"
   },
   {
@@ -1081,7 +1081,7 @@
     "id": "card-bilt-us-bilt-palladium-card",
     "url": "https://www.bilt.com/card",
     "title": "Bilt · Bilt Palladium Card 官方卡片页",
-    "checkedAt": "2026-11-11",
+    "checkedAt": "2026-11-16",
     "authority": "official"
   },
   {
@@ -1186,7 +1186,112 @@
     "id": "card-amex-us-us-american-express-gold-card",
     "url": "https://www.americanexpress.com/us/credit-cards/card/gold-card/",
     "title": "American Express · American Express Gold Card 官方产品页",
-    "checkedAt": "2026-11-15",
+    "checkedAt": "2026-11-16",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-venture-tsa-help",
+    "title": "Capital One · TSA PreCheck / Global Entry 福利说明",
+    "url": "https://www.capitalone.com/help-center/credit-cards/tsa-precheck-global-entry-benefits/",
+    "checkedAt": "2026-11-16",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-travel-consumer-benefits",
+    "title": "Capital One · Capital One Travel 持卡人福利",
+    "url": "https://www.capitalone.com/travel/consumer-travel-benefits/",
+    "checkedAt": "2026-11-16",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-hotel-credit-how-to",
+    "title": "American Express · 酒店抵扣使用说明",
+    "url": "https://www.americanexpress.com/en-us/travel/benefits/how-to-use-hotel-credit/",
+    "checkedAt": "2026-11-16",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-schwab-platinum-card-terms",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/partner/print/personal-card/csb/charles-schwab-platinum-card/ep-ADAP?print=false",
+    "title": "Amex · Schwab Platinum 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-morgan-stanley-platinum-card",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/partner/print/personal-card/msb/morgan-stanley-platinum-card/ep-msb-mcs-26?print=false",
+    "title": "Amex · Morgan Stanley Platinum 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-the-platinum-card-terms",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/supplementary/terms/platinum-card/38171-9-0",
+    "title": "Amex · Platinum Card 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-delta-skymiles-reserve-card-terms",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/prospect/terms/delta-skymiles-reserve-american-express-card/25330-10-0",
+    "title": "Amex · Delta SkyMiles Reserve 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-delta-skymiles-platinum-card-terms",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/member/terms/delta-skymiles-platinum-american-express-card/36182-11-0/",
+    "title": "Amex · Delta SkyMiles Platinum 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-delta-skymiles-gold-card-terms",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/prospect/terms/delta-skymiles-gold-american-express-card/28310-10-0",
+    "title": "Amex · Delta SkyMiles Gold 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-hilton-honors-aspire-card-terms",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/prospect/terms/hilton-honors-aspire-credit-card/26129-10-0",
+    "title": "Amex · Hilton Honors Aspire 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-hilton-honors-surpass-card-terms",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/prospect/terms/hilton-honors-surpass-credit-card/26129-10-0",
+    "title": "Amex · Hilton Honors Surpass 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-hilton-honors-card-terms",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/supplementary/terms/hilton-honors-credit-card/36182-9-0",
+    "title": "Amex · Hilton Honors 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-marriott-bonvoy-brilliant-card-terms",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/supplementary/terms/marriott-bonvoy-brilliant-card/36182-9-0",
+    "title": "Amex · Marriott Bonvoy Brilliant 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-marriott-bonvoy-bevy-card-terms",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/supplementary/terms/marriott-bonvoy-bevy-card/36182-9-0",
+    "title": "Amex · Marriott Bonvoy Bevy 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
+    "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-blue-cash-everyday-terms",
+    "url": "https://www.americanexpress.com/us/credit-cards/card-application/apply/supplementary/terms/blue-cash-everyday-credit-card/36182-9-0",
+    "title": "Amex · Blue Cash Everyday 官方申请条款页（保障条款）",
+    "checkedAt": "2026-11-17",
     "authority": "official"
   }
 ]

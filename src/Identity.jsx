@@ -10,7 +10,7 @@ const banks={
  'HSBC HK':['hsbc.png','香港汇丰','HK'],
  'SC HK':['sc.png','香港渣打','HK'],
  BOA:['boa.png','Bank of America','US'],
- 'Citi US':[null,'Citi','US'],
+ 'Citi US':['citi.png','Citi','US'],
  'Capital One':[null,'Capital One','US'],
  Discover:[null,'Discover','US'],
  'U.S. Bank':[null,'U.S. Bank','US'],
