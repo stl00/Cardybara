@@ -271,6 +271,27 @@ Email and password accounts and one server copy of the wallet document per user 
 - **Log line:** route (`account_*`), status, error code, `user` (first 16 hex of an HMAC of the session's user id) and `size` (blob bytes). No email, password, code, token or wallet content (tested with a capture of every line).
 - **Until configured** the account routes answer `503 account_unavailable`: they need the D1 binding `DB`, the `send_email` binding `EMAIL`, the var `ACCOUNT_EMAIL_FROM` and the secret `ACCOUNT_SECRET` (at least 16 characters). The top-level environment in `gateway/wrangler.jsonc` has none of them yet, so deploying this code changes nothing for existing builds.
 
+### Passkeys (`/v2/account/passkey`, #461)
+
+WebAuthn sign-in for an existing account, as a second way in beside email and password (the password stays; nothing here replaces it). Code: `gateway/src/passkeys.js`; schema: `gateway/migrations/0002_passkeys.sql` (apply it after 0001 with the same `wrangler d1 migrations apply`); tests: `tests/gateway-passkeys.test.mjs` (a software authenticator, `tests/helpers/virtual-authenticator.mjs`) and `tests/account-passkey-phone.test.mjs` (real headless Chrome at 375 px with Chrome's virtual authenticator).
+
+| Route | Body | Answer |
+| --- | --- | --- |
+| `GET /v2/account/passkey/status` | none | `200 {enabled}`; true only when `PASSKEY_ORIGIN` is set. The PWA hides its passkey controls until it is true |
+| `POST /v2/account/passkey/register/options` | bearer, `{}` | `200 {challengeId, publicKey}`: creation options for this user (discoverable credential, `attestation: none`, ES256 or RS256, existing passkeys excluded) |
+| `POST /v2/account/passkey/register/verify` | bearer, `{challengeId, credential, name}` | `200 {id}` |
+| `GET /v2/account/passkey` | bearer | `200 {passkeys:[{id, name}]}` |
+| `DELETE /v2/account/passkey/:id` | bearer | `200`; an id that is not the caller's is `404 not_found` |
+| `POST /v2/account/passkey/login/options` | `{}` | `200 {challengeId, publicKey}`: no email asked, the authenticator picks the credential |
+| `POST /v2/account/passkey/login/verify` | `{challengeId, credential}` | `200 {token, expiresAt, email}`: a normal 30-day session |
+
+- **Relying party:** the var `PASSKEY_ORIGIN` is the PWA's exact origin (`https://…`, no path; `http://localhost` only with `LOCAL_DEV=1`); the rpId is its hostname, and `clientDataJSON.origin` must equal it. The gateway's own CORS list (`ALLOWED_ORIGINS`) must name the same origin. Unset, the passkey routes answer `503 passkey_unavailable`.
+- **Challenges:** 32 random bytes in `passkey_challenges`, bound to a purpose and a user, good for 5 minutes, and deleted the moment they are read, before anything is verified: a replay, a retry after a wrong answer and an expired one all get `400 challenge_expired`.
+- **Checks:** type, challenge, origin, `crossOrigin`, rpIdHash, user-presence flag, the signature over `authData || SHA-256(clientDataJSON)` (ES256 or RS256, public key stored as JWK), the userHandle when sent, and a signature counter that must rise unless both sides are 0. Anything wrong is `401 passkey_invalid`. Attestation is not asked for and not checked.
+- **Limits:** at most 10 passkeys per account; the per-client rate limiter covers every route. A passkey signs in only a verified account.
+- **Tables:** `passkeys` (credential id, user, name, public key, algorithm, signature counter, created) and `passkey_challenges`. Deleting the account empties both for the user (tested); the export lists each passkey's name and date, never its key.
+- **Extension:** it signs in through the PWA with `chrome.identity.launchWebAuthFlow` (split from #461 into its own issue); a passkey made on the web origin cannot be used from `chrome-extension://`.
+
 ### Who can see what (#413)
 
 - **Per-user access:** every `/v2/account` handler takes the user from the bearer session (`session()` in `accounts.js`); no route reads a user id from the body, path or query, and a body key it does not know is `400 bad_request`. User A's session cannot read, overwrite or delete user B's blob (tested).
