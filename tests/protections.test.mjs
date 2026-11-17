@@ -158,9 +158,9 @@ test('Amex Gold protections carry the terms its product page states and the othe
  assert.equal(by('trip-delay').revision,2);assert.match(by('trip-delay').original.summary,/12 hours.*\$300 per trip/);
  const bag=by('lost-luggage');assert.equal(bag.revision,1);assert.match(bag.original.summary,/\$1,250 for carry-on and \$500 for checked/);
  assert.ok(rules.every(r=>r.evidence.checkedAt==='2026-11-16'&&r.evidence.verification==='official-summary'&&r.evidence.fullTermsReviewed===false));
- // Platinum's page still shows only headings: nothing beyond the type is claimed.
+ // Platinum's product page shows only headings: nothing beyond the type is claimed (#439 added four more from its terms page).
  const plat=queryKnowledge({productId:'amex-us-us-the-platinum-card',category:'protection'}).rules;
- assert.equal(plat.length,3);assert.ok(plat.every(r=>r.terms.coverage.basis===null&&r.revision===1));
+ assert.equal(plat.length,7);assert.ok(plat.every(r=>r.terms.coverage.basis===null&&r.revision===1||/\.(trip-cancel|trip-delay)$/.test(r.id)));
 });
 
 // #343: Capital One and Citi US pages that name protections; a page that names none records nothing.
@@ -213,19 +213,36 @@ test('a wallet holding Autograph Journey and Bilt Obsidian gets their recorded p
 
 // #326: Schwab and Morgan Stanley Platinum public terms pages name seven protections each; cards whose pages show no text stay unknown.
 test('a wallet holding Schwab and Morgan Stanley Platinum gets their recorded protections with sources; unread cards stay not_found (#326)',()=>{
- const held=[{id:'sc',name:'Platinum Card from American Express Exclusively for Charles Schwab',bank:'Amex US',region:'US',currency:'USD'},{id:'ms',name:'Morgan Stanley Platinum Card',bank:'Amex US',region:'US',currency:'USD'},{id:'dl',name:'Delta SkyMiles Gold American Express Card',bank:'Amex US',region:'US',currency:'USD'}];
+ const held=[{id:'sc',name:'Platinum Card from American Express Exclusively for Charles Schwab',bank:'Amex US',region:'US',currency:'USD'},{id:'ms',name:'Morgan Stanley Platinum Card',bank:'Amex US',region:'US',currency:'USD'},{id:'dl',name:'Delta SkyMiles Blue American Express Card',bank:'Amex US',region:'US',currency:'USD'}];
  const ctx={cards:held,events:[],day:'2026-11-17',language:'en'};
  const all=runWalletTool(call('find_protections',{}),ctx);
  const card=n=>all.cards.find(c=>c.name===n);
  const types=['extended-warranty','lost-luggage','purchase-protection','rental-car','return-protection','trip-cancellation','trip-delay'];
  assert.deepEqual(card('Platinum Card from American Express Exclusively for Charles Schwab').coverageTypes.sort(),types);
  assert.deepEqual(card('Morgan Stanley Platinum Card').coverageTypes.sort(),types);
- assert.equal(card('Delta SkyMiles Gold American Express Card').status,'not_found');
+ assert.equal(card('Delta SkyMiles Blue American Express Card').status,'not_found');
  assert.ok(all.rules.every(r=>r.sources.length&&r.sources.every(s=>/^https:\/\/www\.americanexpress\.com\/us\/credit-cards\/card-application\//.test(s.url))));
  const trip=runWalletTool(call('find_protections',{type:'trip-delay'}),ctx);
  assert.equal(trip.rules.length,2);assert.ok(trip.rules.every(r=>r.basis==='secondary'));
  const rental=runWalletTool(call('find_protections',{type:'rental-car'}),ctx);
  assert.ok(rental.rules.every(r=>r.basis==='not-stated'));
  for(const id of ['amex-us-us-schwab-platinum-card','amex-us-us-morgan-stanley-platinum-card'])assert.ok(queryKnowledge({productId:id,category:'protection'}).rules.every(r=>r.evidence.checkedAt==='2026-11-17'&&r.evidence.fullTermsReviewed===false&&r.terms.amount===null));
- assert.equal(queryKnowledge({productId:'amex-us-us-delta-skymiles-gold-card',category:'protection'}).count,0);
+ assert.equal(queryKnowledge({productId:'amex-us-us-delta-skymiles-blue-card',category:'protection'}).count,0);
+});
+
+// #439: more Amex US cards whose public terms pages were readable; Delta Blue and the business cards stay unknown.
+test('a wallet holding Platinum and a Delta card gets only the protections their terms pages name (#439)',()=>{
+ const held=[{id:'pl',name:'The Platinum Card from American Express',bank:'Amex US',region:'US',currency:'USD'},{id:'dr',name:'Delta SkyMiles Reserve American Express Card',bank:'Amex US',region:'US',currency:'USD'},{id:'dg',name:'Delta SkyMiles Gold American Express Card',bank:'Amex US',region:'US',currency:'USD'},{id:'db',name:'Delta SkyMiles Blue American Express Card',bank:'Amex US',region:'US',currency:'USD'}];
+ const ctx={cards:held,events:[],day:'2026-11-17',language:'en'};
+ const all=runWalletTool(call('find_protections',{}),ctx);
+ const types=n=>all.cards.find(c=>c.name===n).coverageTypes.sort();
+ assert.deepEqual(types('The Platinum Card from American Express'),['extended-warranty','lost-luggage','purchase-protection','rental-car','return-protection','trip-cancellation','trip-delay']);
+ assert.deepEqual(types('Delta SkyMiles Reserve American Express Card'),['extended-warranty','lost-luggage','purchase-protection','rental-car','return-protection','trip-cancellation','trip-delay']);
+ assert.deepEqual(types('Delta SkyMiles Gold American Express Card'),['extended-warranty','lost-luggage','purchase-protection','rental-car']);
+ assert.equal(all.cards.find(c=>c.name==='Delta SkyMiles Blue American Express Card').status,'not_found');
+ assert.ok(all.rules.every(r=>r.sources.length&&r.sources.every(s=>/^https:\/\/www\.americanexpress\.com\//.test(s.url))));
+ const trip=runWalletTool(call('find_protections',{type:'trip-delay',cardName:'Delta SkyMiles Reserve American Express Card'}),ctx);
+ assert.ok(trip.rules.length>=1&&trip.rules.every(r=>r.basis==='secondary'));
+ for(const id of ['amex-us-us-delta-skymiles-reserve-card','amex-us-us-delta-skymiles-gold-card','amex-us-us-marriott-bonvoy-brilliant-card','amex-us-us-hilton-honors-aspire-card'])assert.ok(queryKnowledge({productId:id,category:'protection'}).rules.every(r=>r.evidence.checkedAt==='2026-11-17'&&r.evidence.fullTermsReviewed===false&&r.terms.amount===null));
+ for(const id of ['amex-us-us-business-platinum-card','amex-us-us-business-gold-card','amex-us-us-blue-cash-preferred-card','amex-us-us-blue-business-plus-credit-card','amex-us-us-business-green-rewards-card','amex-us-us-graphite-business-cash-unlimited-card'])assert.equal(queryKnowledge({productId:id,category:'protection'}).count,0,id);
 });
