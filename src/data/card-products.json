@@ -3529,6 +3529,186 @@
       "sourceUrl": "https://www.citi.com/credit-cards/citi-secured-credit-card",
       "checkedAt": "2026-11-16",
       "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-bank-of-america-travel-rewards-credit-card",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Bank of America Travel Rewards credit card",
+      "aliases": [
+        "Bank of America Travel Rewards credit card",
+        "Bank of America® Travel Rewards credit card",
+        "Bank of America Travel Rewards",
+        "Travel Rewards",
+        "BofA Travel Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/travel-rewards-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-bank-of-america-premium-rewards-credit-card",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Bank of America Premium Rewards credit card",
+      "aliases": [
+        "Bank of America Premium Rewards credit card",
+        "Bank of America® Premium Rewards® credit card",
+        "Bank of America Premium Rewards",
+        "Premium Rewards",
+        "BofA Premium Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/premium-rewards-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-bank-of-america-premium-rewards-elite-credit-card",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Bank of America Premium Rewards Elite credit card",
+      "aliases": [
+        "Bank of America Premium Rewards Elite credit card",
+        "Bank of America® Premium Rewards® Elite credit card",
+        "Bank of America Premium Rewards Elite",
+        "Premium Rewards Elite",
+        "BofA Premium Rewards Elite"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/premium-rewards-elite-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-bankamericard-credit-card",
+      "bank": "BOA",
+      "region": "US",
+      "name": "BankAmericard credit card",
+      "aliases": [
+        "BankAmericard credit card",
+        "BankAmericard® credit card",
+        "BankAmericard",
+        "BofA BankAmericard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/bankamericard-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-susan-g-komen-customized-cash-rewards-credit-card",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Susan G. Komen Customized Cash Rewards credit card",
+      "aliases": [
+        "Susan G. Komen Customized Cash Rewards credit card",
+        "Susan G. Komen® Customized Cash Rewards credit card",
+        "Susan G. Komen Customized Cash Rewards",
+        "Komen Customized Cash Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/susan-komen-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-air-france-klm-visa-signature-credit-card",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Air France KLM Visa Signature Credit Card",
+      "aliases": [
+        "Air France KLM Visa Signature Credit Card",
+        "Air France KLM Visa Signature® Credit Card",
+        "Air France KLM Visa Signature",
+        "Air France KLM"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/air-france-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-norwegian-cruise-line-world-mastercard",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Norwegian Cruise Line World Mastercard",
+      "aliases": [
+        "Norwegian Cruise Line World Mastercard",
+        "Norwegian Cruise Line® World Mastercard®",
+        "Norwegian Cruise Line World Mastercard",
+        "NCL World Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/norwegian-cruise-lines-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-business-advantage-unlimited-cash-rewards-mastercard",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Business Advantage Unlimited Cash Rewards Mastercard",
+      "aliases": [
+        "Business Advantage Unlimited Cash Rewards Mastercard",
+        "Business Advantage Unlimited Cash Rewards Mastercard® credit card",
+        "Business Advantage Unlimited Cash Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://business.bankofamerica.com/en/credit-cards/business-advantage-unlimited-cash-rewards",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-business-advantage-customized-cash-rewards-mastercard",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Business Advantage Customized Cash Rewards Mastercard",
+      "aliases": [
+        "Business Advantage Customized Cash Rewards Mastercard",
+        "Business Advantage Customized Cash Rewards Mastercard® credit card",
+        "Business Advantage Customized Cash Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://business.bankofamerica.com/en/credit-cards/business-advantage-customized-cash-rewards",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "boa-us-business-advantage-travel-rewards-world-mastercard",
+      "bank": "BOA",
+      "region": "US",
+      "name": "Business Advantage Travel Rewards World Mastercard",
+      "aliases": [
+        "Business Advantage Travel Rewards World Mastercard",
+        "Business Advantage Travel Rewards World Mastercard® credit card",
+        "Business Advantage Travel Rewards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://business.bankofamerica.com/en/credit-cards/business-advantage-travel-rewards",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed"
     }
   ]
 }

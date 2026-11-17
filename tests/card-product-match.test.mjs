@@ -79,3 +79,10 @@ test('every current Citi US card on the public card list matches its own product
  for(const [n,p] of Object.entries(want))assert.equal(id('Citi US','US',n),p,n);
  for(const p of cardProducts.filter(p=>p.bank==='Citi US'))assert.ok(p.sourceUrl.startsWith('https://www.citi.com/credit-cards/')&&p.checkedAt,p.id);
 });
+test('the remaining Bank of America public cards match by full name and short name (#366)',()=>{
+ const full=['Bank of America Travel Rewards credit card','Bank of America Premium Rewards credit card','Bank of America Premium Rewards Elite credit card','BankAmericard credit card','Susan G. Komen Customized Cash Rewards credit card','Air France KLM Visa Signature Credit Card','Norwegian Cruise Line World Mastercard','Business Advantage Unlimited Cash Rewards Mastercard','Business Advantage Customized Cash Rewards Mastercard','Business Advantage Travel Rewards World Mastercard'];
+ const seen=new Set();
+ for(const name of full){const m=matchCardProduct({bank:'BOA',region:'US',name});assert.equal(m.status,'matched',name);seen.add(m.product.id);}
+ assert.equal(seen.size,full.length,'each card reaches its own product');
+ for(const name of ['Bank of America® Premium Rewards® Elite credit card','Bank of America® Premium Rewards® credit card','BankAmericard®','Bank of America® Travel Rewards credit card'])assert.equal(matchCardProduct({bank:'BOA',region:'US',name}).status,'matched',name);
+});
