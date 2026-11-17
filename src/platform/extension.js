@@ -1,5 +1,6 @@
 // The Chrome extension's side of the platform: the only file in src/ that calls the browser extension API.
 // Shared code imports `platform` from './platform' and never reaches for it directly.
+import {signInUrl,sessionFromRedirect} from '../extensionSignIn.js';
 const NOTIFICATIONS={permissions:['notifications']};
 export const extension={
  kind:'extension',
@@ -24,8 +25,14 @@ export const extension={
  },
  // Account and sync (#416): the same `/v2/account` routes as the web wallet. `allow` asks once for the gateway's host permission
  // (a click must be on the stack); `mirror` keeps the session token in chrome.storage.local too, for the background. No passkey
- // sign-in here yet: it opens the web origin with chrome.identity.launchWebAuthFlow once passkeys exist (#422).
+ // sign-in goes through the PWA: `passkeySignIn` opens it with chrome.identity.launchWebAuthFlow (#472) and answers the session or null.
  account:{
+  passkeySignIn:async()=>{
+   const id=chrome.runtime.id;
+   const url=signInUrl(id);
+   if(!url)return null;
+   return sessionFromRedirect(await chrome.identity.launchWebAuthFlow({url,interactive:true}),id);
+  },
   allow:origin=>chrome.permissions.request({origins:[origin+'/*']}),
   mirror:session=>session?chrome.storage.local.set({'cardybara-account-session-v1':session}):chrome.storage.local.remove('cardybara-account-session-v1')
  },

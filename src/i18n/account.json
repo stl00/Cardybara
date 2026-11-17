@@ -68,7 +68,11 @@
     "这个通行密钥不能用了。请用邮箱和密码登录。": "That passkey can't be used any more. Sign in with email and password.",
     "验证超时了，请再试一次。": "Verification timed out. Please try again.",
     "通行密钥暂时不可用，请用邮箱和密码登录。": "Passkeys are unavailable right now. Sign in with email and password.",
-    "已取消。": "Cancelled."
+    "已取消。": "Cancelled.",
+    "登录 Cardybara 扩展": "Sign in to the Cardybara extension",
+    "用通行密钥登录，完成后会自动回到扩展。": "Sign in with a passkey. You'll go back to the extension when it's done.",
+    "没有登录成功。请再试一次，或回到扩展改用邮箱和密码。": "Sign-in didn't work. Try again, or go back to the extension and use email and password.",
+    "这个登录链接无效。请回到扩展重新开始。": "This sign-in link isn't valid. Go back to the extension and start again."
   },
   "zh-TW": {
     "连不上服务器。检查网络后再试。": "連不上伺服器。檢查網路後再試。",
@@ -139,6 +143,10 @@
     "这个通行密钥不能用了。请用邮箱和密码登录。": "這個通行金鑰已無法使用。請用電子郵件和密碼登入。",
     "验证超时了，请再试一次。": "驗證逾時了，請再試一次。",
     "通行密钥暂时不可用，请用邮箱和密码登录。": "通行金鑰暫時無法使用，請用電子郵件和密碼登入。",
-    "已取消。": "已取消。"
+    "已取消。": "已取消。",
+    "登录 Cardybara 扩展": "登入 Cardybara 擴充功能",
+    "用通行密钥登录，完成后会自动回到扩展。": "用通行金鑰登入，完成後會自動回到擴充功能。",
+    "没有登录成功。请再试一次，或回到扩展改用邮箱和密码。": "沒有登入成功。請再試一次，或回到擴充功能改用電子郵件和密碼。",
+    "这个登录链接无效。请回到扩展重新开始。": "這個登入連結無效。請回到擴充功能重新開始。"
   }
 }

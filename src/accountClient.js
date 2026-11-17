@@ -4,6 +4,7 @@
 // localStorage under ACCOUNT_SESSION_KEY, the key walletSync.js reads; nothing else about the account is kept here.
 // Passwords and codes are only ever sent to the gateway, never stored or logged.
 import {ACCOUNT_SESSION_KEY,setSyncOn,readSyncState} from './walletSync.js';
+import {redirectWithSession} from './extensionSignIn.js';
 
 export const SYNC_CHANGE_EVENT='cardybara-sync-change';
 export const SYNC_STATUS_EVENT='cardybara-sync-status';
@@ -64,7 +65,7 @@ export const syncIsOn=storage=>readSyncState(storage).on;
  * `gateway` is the origin; every call answers `{ok:true,...body}` or `{ok:false,code}` and never throws.
  * `code` is a gateway error code, 'offline' when the request did not get through, or 'error'.
  */
-export function createAccountClient({gateway,storage=globalThis.localStorage,fetchFn=(...a)=>globalThis.fetch(...a),now=()=>Date.now(),win=globalThis.window,mirror=null,credentials=globalThis.navigator?.credentials}){
+export function createAccountClient({gateway,storage=globalThis.localStorage,fetchFn=(...a)=>globalThis.fetch(...a),now=()=>Date.now(),win=globalThis.window,mirror=null,credentials=globalThis.navigator?.credentials,webSignIn=null}){
  async function call(method,path,body,{auth=false}={}){
   const headers={};
   if(body!==undefined)headers['Content-Type']='application/json';
@@ -85,7 +86,7 @@ export function createAccountClient({gateway,storage=globalThis.localStorage,fet
  return {
   // Passkeys. The gateway's /v2/account/passkey routes answer 404 until they ship; the screens then hide the passkey controls.
   /** True when the browser can do passkeys and the gateway has the routes. Never throws. */
-  async passkeysAvailable(){if(!passkeySupported(credentials))return false;const r=await call('GET','/v2/account/passkey/status');return r.ok&&r.enabled===true;},
+  async passkeysAvailable(){if(!webSignIn&&!passkeySupported(credentials))return false;const r=await call('GET','/v2/account/passkey/status');return r.ok&&r.enabled===true;},
   async listPasskeys(){const r=await call('GET','/v2/account/passkey',undefined,{auth:true});return r.ok?{ok:true,passkeys:Array.isArray(r.passkeys)?r.passkeys:[]}:r;},
   async removePasskey(id){return call('DELETE','/v2/account/passkey/'+encodeURIComponent(id),undefined,{auth:true});},
   /** Signed in: asks the browser for a new passkey and registers it. A cancelled prompt answers `{ok:false,code:'cancelled'}`. */
@@ -99,6 +100,14 @@ export function createAccountClient({gateway,storage=globalThis.localStorage,fet
   },
   /** Signed out: sign in with a passkey. `conditional` uses the browser's autofill UI and can be aborted with `signal`. */
   async signInWithPasskey({conditional=false,signal}={}){
+   // The extension cannot use a passkey itself (its rpId is the PWA's): `webSignIn()` runs the PWA flow and answers a session or null.
+   if(webSignIn){
+    let s;try{s=await webSignIn();}catch{return {ok:false,code:'cancelled'};}
+    if(typeof s?.token!=='string'||!s.token)return {ok:false,code:'cancelled'};
+    const email=typeof s.email==='string'?s.email:'';
+    writeSession(storage,s,email,mirror);forgetSync();
+    return {ok:true,email,expiresAt:s.expiresAt};
+   }
    const o=await call('POST','/v2/account/passkey/login/options',{});
    if(!o.ok)return o;
    let cred;
@@ -106,6 +115,18 @@ export function createAccountClient({gateway,storage=globalThis.localStorage,fet
    if(!cred)return {ok:false,code:'cancelled'};
    const r=await call('POST','/v2/account/passkey/login/verify',{challengeId:o.challengeId,credential:encodeCredential(cred)});
    return keep(r,typeof r.email==='string'?r.email:'');
+  },
+  /**
+   * The PWA's half of the extension sign-in: a passkey sign-in here, then the URL to send the browser to
+   * (https://<extension-id>.chromiumapp.org/ with the session in the fragment). `{ok:false,code}` for a bad id or a failed sign-in.
+   */
+  async passkeyHandoff(extensionId){
+   if(!redirectWithSession(extensionId,{token:'x'}))return {ok:false,code:'bad_request'};
+   const r=await this.signInWithPasskey();
+   if(!r.ok)return r;
+   let s=null;try{s=JSON.parse(storage.getItem(ACCOUNT_SESSION_KEY));}catch{/* unreadable */}
+   const url=redirectWithSession(extensionId,s);
+   return url?{ok:true,url}:{ok:false,code:'error'};
   },
   signUp:(email,password)=>call('POST','/v2/account/signup',{email:norm(email),password}),
   verify:async(email,code)=>keep(await call('POST','/v2/account/verify',{email:norm(email),code:norm(code)}),norm(email)),
