@@ -42,7 +42,8 @@ function fakePlaid(){
   assert.equal(body.client_id,'synthetic-client-id');assert.equal(body.secret,'synthetic-plaid-secret');
   calls.push({path:u.pathname,body});
   switch(u.pathname){
-   case '/link/token/create':if(state.linkError)return err(state.linkError,'RATE_LIMIT_EXCEEDED',429);return ok({link_token:'link-sandbox-synthetic-'+calls.length,expiration:'2026-11-16T16:00:00Z'});
+   case '/link/token/create':if(state.linkFieldError)return new Response(JSON.stringify({error_type:'INVALID_REQUEST',error_code:'INVALID_FIELD',error_message:state.linkFieldError,display_message:null,request_id:'req-field-1'}),{status:400});
+    if(state.linkError)return err(state.linkError,'RATE_LIMIT_EXCEEDED',429);return ok({link_token:'link-sandbox-synthetic-'+calls.length,expiration:'2026-11-16T16:00:00Z'});
    case '/item/public_token/exchange':state.exchanges++;return body.public_token===PUBLIC?ok({access_token:ACCESS,item_id:ITEM}):err('INVALID_PUBLIC_TOKEN','INVALID_INPUT');
    case '/institutions/get_by_id':return ok({institution:{institution_id:body.institution_id,name:'Synthetic Platypus Bank'}});
    case '/transactions/sync':{
@@ -322,6 +323,15 @@ test('PWA: a listed web origin links and is sent back only there; other pages ar
  const capped=await json(await t.call('POST',ROUTES.plaidLink,{},{token,origin:WEB}));
  assert.equal(capped.status,429);assert.equal(capped.body.error.code,'plaid_limit');
  assert.equal(t.plaid.count('/link/token/create'),before+1);
+ // A malformed request (INVALID_FIELD): 502 plaid_error, and the log line says which field and keeps the request_id.
+ t.plaid.state.linkError=null;t.plaid.state.linkFieldError='redirect_uri must be configured in the developer dashboard';
+ const bad=await json(await t.call('POST',ROUTES.plaidLink,{},{token,origin:WEB}));
+ assert.deepEqual(bad,{status:502,body:{error:{code:'plaid_error',plaidCode:'INVALID_FIELD'}}});
+ const line=t.logs.map(l=>JSON.parse(l)).filter(l=>l.route==='plaid_link_start').at(-1);
+ assert.deepEqual(line.plaid,[{call:'/link/token/create',requestId:'req-field-1',error:'INVALID_FIELD',message:'redirect_uri must be configured in the developer dashboard'}]);
+ assert.equal(line.error,'plaid_error');
+ // Item errors keep only the code: their message is not ours to fix and is not logged.
+ assert.ok(!JSON.stringify(t.logs).includes('synthetic"'),'no message on an item error');
 });
 
 test('local runs may list an exact http://127.0.0.1 or localhost origin; production never admits http',async()=>{
