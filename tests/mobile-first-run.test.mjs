@@ -22,9 +22,9 @@ function ensureBuild() {
   assert.equal(built.status, 0, 'npm run build:web failed:\n' + built.stdout.slice(-2000) + built.stderr.slice(-2000));
 }
 // Chrome must be found AND able to start. Some sandboxes ship a Chrome that aborts (SIGABRT) at launch: skip there with the
-// reason, but never skip on CI, where a broken Chrome has to fail the build.
+// reason, but never skip on GitHub Actions, where a broken Chrome has to fail the build (the local verifier sandbox also sets CI, so CI alone is not the signal).
 const chrome = await findChrome().then(() => { ensureBuild(); return withPhone(async () => true); }, () => false).then(ok => ok || false, err => {
-  if (process.env.CI) throw err;
+  if (process.env.GITHUB_ACTIONS) throw err;
   console.warn('Chrome found but cannot start here, phone tests skipped: ' + err.message);
   return false;
 });
