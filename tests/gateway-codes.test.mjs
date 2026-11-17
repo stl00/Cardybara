@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {execFileSync} from 'node:child_process';
-import {mkdtempSync,writeFileSync,readFileSync,chmodSync} from 'node:fs';
+import {execFileSync,spawnSync} from 'node:child_process';
+import {mkdtempSync,writeFileSync,readFileSync,chmodSync,rmSync,existsSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {command,digest,apiKV,deployedDefaults} from '../scripts/gateway-codes.mjs';
@@ -59,4 +59,38 @@ test('gateway-set-key.sh pipes the key to wrangler and never prints it',()=>{
  assert.ok(!out2.includes(gatewayKey));assert.equal(readFileSync(join(dir,'stdin'),'utf8'),gatewayKey);
  writeFileSync(join(dir,'empty.env'),'OTHER=1\n');
  assert.throws(()=>execFileSync('bash',['scripts/gateway-set-key.sh'],{env:{...process.env,PATH:dir+':'+process.env.PATH,CARDYBARA_MODEL_CONFIG:join(dir,'empty.env')},stdio:'pipe'}));
+});
+test('gateway-set-alert-secrets.sh pipes both tokens to wrangler by name and never prints them',()=>{
+ const dir=mkdtempSync(join(tmpdir(),'cardybara-alerts-')),gh='synthetic-github-token-'+'1'.repeat(20),sql='synthetic-analytics-token-'+'2'.repeat(20);
+ // A stand-in npx that stores stdin in a file named after the secret (the word after "put").
+ writeFileSync(join(dir,'npx'),`#!/bin/sh\nname=""\nwhile [ $# -gt 0 ]; do if [ "$1" = put ]; then name="$2"; fi; shift; done\ncat > "${dir}/stdin-$name"\n`);chmodSync(join(dir,'npx'),0o755);
+ const run=(file,extra={})=>{
+  const r=spawnSync('bash',['scripts/gateway-set-alert-secrets.sh'],{env:{...process.env,PATH:dir+':'+process.env.PATH,CARDYBARA_ALERT_SECRETS:file,...extra},encoding:'utf8',stdio:['ignore','pipe','pipe']});
+  return {status:r.status,out:r.stdout,err:r.stderr};
+ };
+ const clean=r=>{for(const v of [gh,sql]){assert.ok(!r.out.includes(v));assert.ok(!r.err.includes(v));}};
+ writeFileSync(join(dir,'both.env'),`OTHER=1\nGATEWAY_GITHUB_TOKEN="${gh}"\nGATEWAY_ANALYTICS_SQL_TOKEN='${sql}'\n`);
+ const ok=run(join(dir,'both.env'));
+ assert.equal(ok.status,0);clean(ok);
+ assert.match(ok.out,/GITHUB_TOKEN set/);assert.match(ok.out,/ANALYTICS_SQL_TOKEN set/);
+ assert.equal(readFileSync(join(dir,'stdin-GITHUB_TOKEN'),'utf8'),gh);
+ assert.equal(readFileSync(join(dir,'stdin-ANALYTICS_SQL_TOKEN'),'utf8'),sql);
+ // A name missing from the file is skipped and reported by name only; the other is still set.
+ writeFileSync(join(dir,'one.env'),`GATEWAY_GITHUB_TOKEN=${gh}\n`);
+ rmSync(join(dir,'stdin-ANALYTICS_SQL_TOKEN'));
+ const one=run(join(dir,'one.env'));
+ assert.equal(one.status,0);clean(one);assert.match(one.err,/No usable GATEWAY_ANALYTICS_SQL_TOKEN/);
+ assert.equal(existsSync(join(dir,'stdin-ANALYTICS_SQL_TOKEN')),false);
+ // A value shorter than 16 characters is not used, and nothing set exits 3 without echoing the value.
+ writeFileSync(join(dir,'short.env'),'GATEWAY_GITHUB_TOKEN=short-value\nGATEWAY_ANALYTICS_SQL_TOKEN=tiny\n');
+ rmSync(join(dir,'stdin-GITHUB_TOKEN'));
+ const short=run(join(dir,'short.env'));
+ assert.equal(short.status,3);assert.ok(!short.out.includes('short-value')&&!short.err.includes('short-value'));
+ assert.equal(existsSync(join(dir,'stdin-GITHUB_TOKEN')),false);
+ // Nothing set at all also exits 3.
+ writeFileSync(join(dir,'empty.env'),'OTHER=1\n');
+ assert.equal(run(join(dir,'empty.env')).status,3);
+ // A missing file, or no variable at all, is refused before wrangler runs.
+ assert.equal(run(join(dir,'nope.env')).status,2);
+ assert.equal(run('').status,2);
 });
