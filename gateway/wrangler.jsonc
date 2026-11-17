@@ -31,7 +31,11 @@
     "MAX_OUTPUT_TOKENS": "8192",
     // Contact URL or mailto: that push services may use to reach the sender of Web Push reminders (RFC 8292 `sub`).
     "VAPID_SUBJECT": "https://github.com/stl00/Cardybara",
-    "MAX_BODY_BYTES": "262144"
+    "MAX_BODY_BYTES": "262144",
+    // Accounts (#412, docs/GATEWAY.md "Accounts"): the largest wallet document stored, in bytes. The account routes
+    // answer 503 account_unavailable until the D1 binding DB, the send_email binding EMAIL, the var ACCOUNT_EMAIL_FROM
+    // (a verified Email Sending sender) and the secret ACCOUNT_SECRET are all set; none of them is set here yet.
+    "WALLET_MAX_BYTES": "524288"
     // PROVIDER_KEY is a secret, set once by the owner with scripts/gateway-set-key.sh. Never a var.
   },
   // The `settings` caps and switches, and Web Push devices. The binding keeps its old name from the invite codes
@@ -67,9 +71,16 @@
         "PRICE_INPUT_USD_PER_MTOK": "0.6",
         "PRICE_OUTPUT_USD_PER_MTOK": "2.4",
         "MAX_OUTPUT_TOKENS": "8192",
-        "MAX_BODY_BYTES": "262144"
+        "MAX_BODY_BYTES": "262144",
+        "WALLET_MAX_BYTES": "524288",
+        // Local only: no ACCOUNT_SECRET needed (LOCAL_DEV=1 falls back to a fixed key).
+        "ACCOUNT_EMAIL_FROM": "Cardybara <no-reply@cardybara.localhost>"
       },
       "kv_namespaces": [{"binding": "INVITES", "id": "local-invites"}],
+      // Local D1 (wrangler keeps it under .wrangler/state). Apply the schema first:
+      // npx wrangler@4.150.0 d1 migrations apply cardybara-accounts --local --env local --config gateway/wrangler.jsonc
+      "d1_databases": [{"binding": "DB", "database_name": "cardybara-accounts", "database_id": "local-accounts", "migrations_dir": "migrations"}],
+      "send_email": [{"name": "EMAIL"}],
       "durable_objects": {"bindings": [{"name": "USAGE", "class_name": "UsageLedger"}]}
     }
   }
