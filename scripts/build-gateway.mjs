@@ -15,7 +15,8 @@ export async function buildGateway(out=root+'gateway/dist/worker.js'){
  const result=await build({entryPoints:[root+'gateway/src/worker.js'],outfile:out,bundle:true,format:'esm',platform:'neutral',target:'es2022',conditions:['workerd','worker','browser'],minify:false,legalComments:'none',metafile:true,logLevel:'warning'});
  const inputs=Object.keys(result.metafile.inputs);
  // Only gateway/, src/ and the two extension modules the knowledge code shares; never a test, script or local stand-in.
- const foreign=inputs.filter(f=>!/^(gateway\/src|src|extension-next)\//.test(f)||/local\.mjs$|tests\//.test(f));
+ // One vetted package: jose, for the Plaid webhook's ES256 JWT (gateway/src/plaid.js).
+ const foreign=inputs.filter(f=>!/^(gateway\/src|src|extension-next|node_modules\/jose)\//.test(f)||/local\.mjs$|tests\//.test(f));
  if(foreign.length)throw Error('unexpected modules in the Worker bundle: '+foreign.join(', '));
  const bytes=statSync(out).size,gz=gzipSync(readFileSync(out)).length;
  // Workers limits a script to 3 MB gzipped on the free plan and 10 MB on paid plans.

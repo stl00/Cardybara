@@ -40,11 +40,11 @@ export function memoryDurableObject(Class=UsageLedger){
 }
 /** A gateway on in-memory bindings. vars override the defaults; fetch is the upstream provider. */
 // bindings: extra bindings such as {DB:memoryD1(), EMAIL:memoryMail()} for the account routes.
-export function localGateway({vars={},bindings={},fetch,log=()=>{},now,observe}={}){
+export function localGateway({vars={},bindings={},fetch,log=()=>{},now,observe,waitUntil}={}){
  // A rate limiter that always allows; tests pass their own, or null to check the gateway refuses to run without one.
  // LOCAL_DEV: no CF-Connecting-IP is needed and the client-id salt falls back to the provider key, as in wrangler dev.
  const env={PROVIDER_KEY:'synthetic-provider-key-not-real',ALLOWED_MODELS:'deepseek-flash',LOCAL_DEV:'1',RATE_LIMITER:{limit:async()=>({success:true})},...vars,INVITES:memoryKV({now:now||Date.now}),USAGE:memoryDurableObject(),...bindings};
- return {env,handle:request=>handle(request,env,{fetch,log,now,observe})};
+ return {env,handle:request=>handle(request,env,{fetch,log,now,observe,waitUntil})};
 }
 
 /**

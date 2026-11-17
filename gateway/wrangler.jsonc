@@ -13,8 +13,10 @@
     "ALLOWED_MODELS": "deepseek-flash",
     // Extension origins allowed to call the gateway, comma-separated chrome-extension://<id>. The alpha is
     // loaded unpacked, so each tester's id differs: "chrome-extension://*" admits any extension but no web
-    // page. There is no invite code: the per-client and monthly caps bound spend. Empty admits nobody.
-    "ALLOWED_ORIGINS": "chrome-extension://*",
+    // page. There is no invite code: the per-client and monthly caps bound spend. Empty admits nobody. The hosted web
+    // wallet (PWA, Pages project `cardybara-app`, APP_ORIGIN in src/extensionSignIn.js) is listed by its exact origin;
+    // it is also the only place the Plaid Link page sends a user back to. No other web page is admitted.
+    "ALLOWED_ORIGINS": "chrome-extension://*,https://cardybara-app.pages.dev",
     // Defaults; `node scripts/gateway-settings.mjs set-caps` overrides them in KV without a deploy. Per client (a
     // salted hash of its network address, kept for its UTC day only) per UTC day; the budget is for all clients.
     // CLIENT_SALT is a required secret for that hash (the gateway answers 503 without it; only the local env falls
@@ -37,6 +39,8 @@
     // (a verified Email Sending sender) and the secret ACCOUNT_SECRET are all set; none of them is set here yet.
     "WALLET_MAX_BYTES": "524288"
     // PROVIDER_KEY is a secret, set once by the owner with scripts/gateway-set-key.sh. Never a var.
+    // Plaid (PLAID_PLAN.md, docs/GATEWAY.md "Plaid"): the /v2/plaid routes answer 503 plaid_unavailable until the accounts
+    // above work and the secrets PLAID_ENV (sandbox or production), PLAID_CLIENT_ID, PLAID_SECRET and PLAID_TOKEN_KEY are set. PLAID_REDIRECT_URI (var) is the OAuth redirect, https://<this Worker>/v2/plaid/link, registered in the Dashboard.
   },
   // The `settings` caps and switches, and Web Push devices. The binding keeps its old name from the invite codes
   // (none are read any more). The namespace id is not a secret and not an account id.
@@ -64,7 +68,8 @@
         // Local only: no CF-Connecting-IP needed, and no CLIENT_SALT (a key derived from PROVIDER_KEY is used).
         "LOCAL_DEV": "1",
         "ALLOWED_MODELS": "deepseek-flash",
-        "ALLOWED_ORIGINS": "chrome-extension://*",
+        // The PWA built against this gateway and served by `npm run preview` (LOCAL_DEV=1 admits an exact http://127.0.0.1 origin).
+        "ALLOWED_ORIGINS": "chrome-extension://*,http://127.0.0.1:8766",
         "DAILY_REQUESTS_PER_CLIENT": "20",
         "DAILY_TOKENS_PER_CLIENT": "200000",
         "MONTHLY_BUDGET_USD": "1",
@@ -75,6 +80,9 @@
         "WALLET_MAX_BYTES": "524288",
         // Local only: no ACCOUNT_SECRET needed (LOCAL_DEV=1 falls back to a fixed key).
         "ACCOUNT_EMAIL_FROM": "Cardybara <no-reply@cardybara.localhost>"
+        // Plaid Sandbox: PLAID_CLIENT_ID, PLAID_SECRET and PLAID_ENV come only from gateway/.env, which
+        // `plaid keys write --env sandbox --gitignore` builds from gateway/.env.example (never typed, never committed).
+        // PLAID_TOKEN_KEY falls back to a fixed local key. No webhooks locally (no public https URL): the Sync button pulls.
       },
       "kv_namespaces": [{"binding": "INVITES", "id": "local-invites"}],
       // Local D1 (wrangler keeps it under .wrangler/state). Apply the schema first:

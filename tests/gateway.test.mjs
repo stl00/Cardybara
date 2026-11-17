@@ -310,10 +310,12 @@ test('caps can be changed in KV without a deploy; bad values are ignored',async(
  assert.equal((await h.handle(post(ROUTES.chat))).status,200);assert.equal((await h.handle(post(ROUTES.chat))).status,429);
 });
 test('the router lists each route once per method; the agent route sits beside the proxy',()=>{
- // The /v1 routes are unchanged (older builds keep working); the account routes (#412) are all under /v2/account.
+ // The /v1 routes are unchanged (older builds keep working); the account routes (#412) are all under /v2/account and
+ // the Plaid routes (PLAID_PLAN.md) under /v2/plaid. Only Plaid's link page, its own calls and the webhook are public.
  const v1=ROUTE_TABLE.filter(r=>r.path.startsWith('/v1/')),v2=ROUTE_TABLE.filter(r=>!r.path.startsWith('/v1/'));
  assert.deepEqual(v1.map(r=>[r.path,r.method]),[[ROUTES.invite,'POST'],[ROUTES.agent,'POST'],[ROUTES.chat,'POST'],[ROUTES.push,'PUT'],[ROUTES.push,'DELETE'],[ROUTES.pushKey,'GET']]);
- assert.ok(v2.length&&v2.every(r=>r.path===ROUTES.account||r.path.startsWith(ROUTES.account+'/')));
+ assert.ok(v2.length&&v2.every(r=>r.path===ROUTES.account||r.path.startsWith(ROUTES.account+'/')||r.path.startsWith('/v2/plaid/')));
+ assert.deepEqual(ROUTE_TABLE.filter(r=>r.public).map(r=>r.name).sort(),['plaid_link_complete','plaid_link_exit','plaid_link_page','plaid_link_token','plaid_webhook']);
  assert.equal(new Set(ROUTE_TABLE.map(r=>r.path+' '+r.method)).size,ROUTE_TABLE.length);
  assert.ok(ROUTE_TABLE.every(r=>!('auth' in r)),'no route needs a credential');
 });

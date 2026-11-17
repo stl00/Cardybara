@@ -13,7 +13,7 @@ import {createAccountClient} from '../src/accountClient.js';
 import {virtualAuthenticator,toB64u} from './helpers/virtual-authenticator.mjs';
 
 const ORIGIN='https://app.cardybara.test';
-const MIGRATION=['0001_accounts','0002_passkeys'].map(f=>readFileSync(new URL(`../gateway/migrations/${f}.sql`,import.meta.url),'utf8')).join('\n');
+const MIGRATION=['0001_accounts','0002_passkeys','0003_plaid'].map(f=>readFileSync(new URL(`../gateway/migrations/${f}.sql`,import.meta.url),'utf8')).join('\n');
 const EMAIL='synthetic.user@example.test',OTHER='other.user@example.test',PASSWORD='synthetic-pass-0001';
 const T0=Date.parse('2026-11-17T12:00:00Z');
 const memory=()=>{const m=new Map();return {getItem:k=>m.has(k)?m.get(k):null,setItem:(k,v)=>m.set(k,String(v)),removeItem:k=>m.delete(k)};};

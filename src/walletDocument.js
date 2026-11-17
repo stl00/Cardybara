@@ -30,6 +30,7 @@ export const DOCUMENT_STORAGE={
  */
 export const DEVICE_ONLY={
  'cardybara-language':'display language',
+ 'cardybara-plaid-cards-v1':'cache of the Plaid-linked cards; the gateway holds them for the account and the wallet reads them again',
  'cardybara-pet-v1':'pet state',
  'cardybara-auto-sync':'auto-sync switch of this browser',
  'cardybara-reminders-sent-v1':'which reminders this device already showed',
