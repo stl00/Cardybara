@@ -46,7 +46,6 @@ Install guide for testers: [docs/BETA-INSTALL.md](../BETA-INSTALL.md).
 - 网页版唯一上传的是你向用卡助手提的问题，附带的内容和上面一样（对话前文、持有的卡种、积分估值、是否填了年费日、助手请求的钱包查询结果），不含卡号、余额或账单。
 - 网页版里的卡片和金额都由你手动填写；读取银行只在桌面版 Chrome 扩展里提供。
 - 浏览器可能清除没有添加到主屏幕的网站的数据，请经常在“数据管理”里导出备份。
-- 网页版开启提醒后，服务只保存这台设备的推送订阅、提醒时间和一个类型代码，不含任何卡片信息；关闭提醒或 60 天没有更新后删除。通知文字在你的手机上生成。
 - 没有广告，也没有使用统计。
 - 卸载扩展会删除扩展里的数据；需要保留的话，先在“数据管理 → 导出备份”。
 
@@ -106,7 +105,6 @@ This is a beta for friends, not a Chrome Web Store release.
 - The only thing the web version uploads is the questions you ask the assistant, with the same content as above (earlier turns, the card products you hold, point valuations, whether an annual fee date is filled in, and the wallet lookups the assistant asks for); never card numbers, balances or statements.
 - In the web version you enter cards and amounts by hand; reading banks is only available in the desktop Chrome extension.
 - A browser may clear the data of a site that is not on the Home Screen, so export a backup often (Data → Export backup).
-- With reminders on in the web version, the service keeps only this device's push subscription, the reminder times and a kind code, nothing about your cards; it is deleted when you turn reminders off or after 60 days without an update. The notification text is written on your phone.
 - No ads and no usage analytics.
 - Uninstalling the extension deletes its data; export a backup first (Data → Export backup) if you want to keep it.
 
