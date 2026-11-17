@@ -77,8 +77,9 @@ test('hidden-amount mode masks every computed value',async()=>{
 });
 test('each option shows its condition and source link, in en-US and zh-TW',async()=>{
  const {panel}=await load(),en=panel({...wallets.mrQualifying,lang:'en-US'}),tw=panel({...wallets.mrQualifying,lang:'zh-TW'});
- assert.match(section(en),/Redeem with the issuer/);assert.match(section(en),/Statement credit/);assert.match(section(en),/Varies|Unknown/);
- assert.match(section(en),/Needs a qualifying card|\$120/);
+ assert.match(section(en),/Redeem with the issuer/);assert.match(section(en),/Statement credit/);assert.match(section(en),/Unknown/);
+ assert.match(section(en),/\$120(?!\.\d)/);assert.match(section(en),/\$96(?!\.\d)/);
+ const enNo=section(panel({...wallets.mrWithout,lang:'en-US'}));assert.match(enNo,/Needs a qualifying card/);assert.doesNotMatch(enNo,/\$120/);
  assert.match(section(tw),/透過發卡行兌換/);assert.match(section(tw),/帳單抵扣/);
  const links=h=>(h.slice(h.indexOf('Redeem with the issuer')>=0?h.indexOf('Redeem with the issuer'):h.indexOf('透過發卡行兌換')).match(/<a [^>]*href="https:/g)||[]).length;
  assert.ok(links(en)>=6&&links(tw)>=6,'one source link per option');
