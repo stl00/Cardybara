@@ -99,3 +99,11 @@ test('the remaining Capital One public cards match by full name and short name (
  // Existing Capital One cards are not stolen by the new aliases.
  for(const [n,id] of [['Savor Rewards','capital-one-us-savor-credit-card'],['Venture Rewards','capital-one-us-venture-rewards-credit-card'],['Spark Cash Plus','capital-one-us-spark-cash-plus-card']])assert.equal(matchCardProduct({bank:'Capital One',region:'US',name:n}).product?.id,id,n);
 });
+test('the remaining U.S. Bank public cards match by full name and short name (#368)',()=>{
+ const full=['U.S. Bank Smartly® Visa Signature® Card','U.S. Bank Altitude® Connect Visa Signature® Card','U.S. Bank Shield® Visa® Card','U.S. Bank Altitude® Go Secured Visa® Card','U.S. Bank Cash+® Secured Visa® Card','U.S. Bank Secured Visa® Card','U.S. Bank Triple Cash Rewards Visa® Business Card','U.S. Bank Business Altitude® Connect Visa Signature® Card','U.S. Bank Business Essentials™ Visa® Card','U.S. Bank Business Essentials™ Plus Visa Signature® Card','U.S. Bank Business Shield® Visa® Card'];
+ const seen=new Set();
+ for(const name of full){for(const n of [name,name.replace(/[®™]/g,'')]){const m=matchCardProduct({bank:'U.S. Bank',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,name,n);seen.add(m.product.id);}}
+ assert.equal(seen.size,full.length,'each card reaches its own product');
+ for(const [n,want] of Object.entries({'Altitude Connect':'U.S. Bank Altitude® Connect Visa Signature® Card','Business Altitude Connect':'U.S. Bank Business Altitude® Connect Visa Signature® Card','Business Essentials Plus':'U.S. Bank Business Essentials™ Plus Visa Signature® Card','Business Essentials':'U.S. Bank Business Essentials™ Visa® Card','Shield Visa':'U.S. Bank Shield® Visa® Card','Business Shield':'U.S. Bank Business Shield® Visa® Card'})){const m=matchCardProduct({bank:'U.S. Bank',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,want,n);}
+ for(const [n,id] of [['Cash+ Visa Signature Card','us-bank-us-cash-plus-visa-signature-card'],['Altitude Go','us-bank-us-altitude-go-visa-signature-card']])assert.equal(matchCardProduct({bank:'U.S. Bank',region:'US',name:n}).product?.id,id,n);
+});
