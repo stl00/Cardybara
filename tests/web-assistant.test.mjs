@@ -47,7 +47,7 @@ test('a web chat turn posts one hosted-agent request that passes the cloudProtoc
     return sse([{type: 'done', answer: 'Synthetic answer.', memory: {}, history: [], tools: []}]);
   };
   try {
-    const r = await runCloudTurn({question: 'Which card for dining?', context: {cards: [card], events: [], day: '2026-10-28', language: 'en-US'}, post: postAgent});
+    const r = await runCloudTurn({question: 'Which card for dining?', context: {cards: [card], events: [], day: '2026-10-28', language: 'en-US'}, post: (b, o) => postAgent(b, {...o, idle: 200})});  // a short idle timer so the test process can exit
     assert.equal(r.answer, 'Synthetic answer.');
   } finally { globalThis.fetch = realFetch; }
   assert.equal(seen.length, 1);
