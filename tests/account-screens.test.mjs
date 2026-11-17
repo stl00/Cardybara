@@ -51,7 +51,8 @@ async function putServerCopy(srv,p){
 // (#449). The cross-device test below runs by itself once the schema accepts what readWalletDocument writes.
 const gatewayAcceptsWallet=validWalletDocument(await readWalletDocument({storage:memory(),readBenefitEvents:async()=>[],readCostEvents:async()=>[]}));
 const tails=doc=>doc.walletCards.cards.map(c=>c.name+':'+c.tail).sort();
-const settle=async()=>{for(let i=0;i<20;i++)await new Promise(r=>setImmediate(r));};
+// Waits for the sync loop to report 'synced' (or gives up after 10 s and lets the assertion fail); a fixed number of ticks is flaky under CI load.
+const settle=async s=>{const end=Date.now()+10000;while(!s.statuses.includes('synced')&&Date.now()<end)await new Promise(r=>setTimeout(r,5));};
 
 test('create account, sync on, a second fresh profile signs in with the same email and password and gets the same wallet',{skip:gatewayAcceptsWallet?false:'blocked by #449: the gateway wallet schema refuses the real wallet document'},async()=>{
  const srv=await setup();
@@ -71,7 +72,7 @@ test('create account, sync on, a second fresh profile signs in with the same ema
 
  setSync(A.storage,true,A.win);
  assert.ok(A.events.includes('sync-change'),'the page is told to start the sync loop');
- const a=A.startSync();await settle();a.stop();
+ const a=A.startSync();await settle(a);a.stop();
  assert.ok(a.statuses.includes('synced'));
  assert.equal(srv.db.tables.get('wallets').length,1);
 
@@ -80,7 +81,7 @@ test('create account, sync on, a second fresh profile signs in with the same ema
  assert.equal(readAccount(B.storage),null);
  assert.equal((await B.client.signIn(EMAIL,PASSWORD)).ok,true);
  setSync(B.storage,true,B.win);
- const b=B.startSync();await settle();b.stop();
+ const b=B.startSync();await settle(b);b.stop();
  assert.ok(b.statuses.includes('synced'));
  assert.deepEqual(tails(await B.read()),['Synthetic One:1111','Synthetic Two:2222']);
  assert.deepEqual(tails(await A.read()),tails(await B.read()));
