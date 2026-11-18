@@ -31,6 +31,7 @@ export const DOCUMENT_STORAGE={
 export const DEVICE_ONLY={
  'cardybara-language':'display language',
  'cardybara-plaid-cards-v1':'cache of the Plaid-linked cards; the gateway holds them for the account and the wallet reads them again',
+ 'cardybara-plaid-links-v1':'manual Plaid card to wallet card links made on this device; "Add to wallet" makes a synced manual card that matches by issuer and last four everywhere',
  'cardybara-pet-v1':'pet state',
  'cardybara-auto-sync':'auto-sync switch of this browser',
  'cardybara-reminders-sent-v1':'which reminders this device already showed',

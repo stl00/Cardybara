@@ -72,6 +72,8 @@ States per TASK-001. Re-read from `dashboard_get_state` on 2026-11-17 (round 3) 
   - Logs: no access, public or link token in the wrangler log; `PLAID_SECRET ("(hidden)")` only; `gateway/.env` not read.
   - After the run, the panel's Add/Sync buttons moved from the card's title bar into its body (the title was cut to "通过 …" at phone width); layout only, no Plaid call or state changed. Re-checked on the PWA at 375×812 against the same Sandbox gateway: full title, Add and Sync shown, cards unchanged.
 
+- Round 5 (2026-11-18, PR #514, wallet matching only; gateway unchanged): **PASS, all 15 checks**. Built PWA in the built-in browser with synthetic data: two Chase Plaid cards, empty wallet → "添加到钱包" → the wallet card shows Plaid's balance and due date. Tests cover manual links (persistent_account_id key, TXN-012), same-currency only, 5-digit Amex tails. Independent Opus review APPROVE after one round of fixes.
+
 ## Maintenance
 
 This integration is maintained with the Plaid MCP; this file is its durable state. Agents working in this repository: consult build_guidance before modifying any Plaid-touching code, and re-run build_check_acceptance before reporting such a change as working. The acceptance above applies only to the code as it was verified — later changes invalidate it.
@@ -81,7 +83,7 @@ This integration is maintained with the Plaid MCP; this file is its durable stat
 ### Automated (no keys)
 
 1. `node --test tests/gateway-plaid.test.mjs tests/plaid-wallet.test.mjs tests/plaid-panel.test.mjs`
-2. Expected: 20 passing cases.
+2. Expected: 27 passing cases.
 
 ### Link a Sandbox credit card locally
 
@@ -116,6 +118,7 @@ Integration-surface choices (GUIDE-020). The owner acts as top-level PM and dele
 - 365 days of history at first Link (`transactions.days_requested`), for annual credit tracking (#272); it cannot be raised later without re-linking (this session).
 - Link shows credit-card accounts only (`account_filters`); the panel and Link page say so before Link opens (this session).
 - Wallet mapping: a Plaid card fills the wallet card with the same issuer (Chase, Amex US, BOA, Citi US by institution name) and last four digits; an ambiguous or unknown match fills nothing and the card stays in the Plaid panel; no wallet card is created from Plaid (this session).
+- 2026-11-18, owner: automatic matching plus a manual fallback. The panel says which wallet card each Plaid card fills; an unmatched card can be linked to a wallet card by hand (kept on this device in `cardybara-plaid-links-v1`, keyed by persistent_account_id, else institution + mask + subtype, TXN-012) or added to the wallet with "添加到钱包" (a manual card with the issuer, Plaid's last four and Plaid's account name, created only on the user's click). Matching reads the tail and bank as the user sees them (edits and the bank's own reading count). Found because a production user's wallet had no card for the Chase cards they linked.
 - No polling: webhooks drive updates in production; the "Sync" button is the explicit user action and the reconcile path for missed webhooks (once a minute per Item); a local run has no webhooks (WEBHOOK-005) (this session).
 - Funnel: `/v2/plaid/link/complete` and `/v2/plaid/link/exit` record `link_session_id`, status and error code on the gateway log line. No third-party analytics (project rule) (this session).
 - 2026-11-17, owner: the PWA (web wallet) connects Plaid too, open to every signed-in account (no allowlist). This replaces the earlier "web wallet is manual entry only" rule for Plaid. Whether the personal (free trial) plan's terms allow serving several users has not been checked; the owner knows (owner, relayed by the session "Play 版 PWA 上线时间").
