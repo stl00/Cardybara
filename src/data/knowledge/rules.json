@@ -49026,7 +49026,7 @@
     },
     "terms": {
       "category": "spend-unlock",
-      "period": null,
+      "period": "promotion-period",
       "amount": 50,
       "currency": "USD"
     },
@@ -49541,7 +49541,7 @@
     },
     "terms": {
       "category": "spend-unlock",
-      "period": null,
+      "period": "earned-year-plus-next",
       "amount": null,
       "currency": null
     },
