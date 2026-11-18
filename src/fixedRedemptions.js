@@ -6,6 +6,8 @@ export const FIXED_REDEMPTION_PROGRAMMES=['programme.amex-membership-rewards-us'
 export const fixedRedemptionSources=structuredClone(data.sources);
 export const fixedRedemptions=structuredClone(data.redemptions);
 export const fixedRedemptionsCheckedAt=data.checkedAt;
+/** Points Boost upper limits by product for a redemption id (upper bounds, never a value; #532). */
+export const upToByProductFor=id=>fixedRedemptions.find(r=>r.id===id)?.upToByProduct||[];
 export const fixedRedemptionsFor=programmeId=>fixedRedemptions.filter(r=>r.programmeId===programmeId);
 
 /** Errors in the redemption data: no source or date, a value that is neither a number, "varies" nor unknown, or a programme outside US MR/UR. */
@@ -29,6 +31,15 @@ export function validateFixedRedemptions(d=data){
   if(!date.test(r.checkedAt||''))fail('checkedAt');
   if(!r.textEn||!r.textZh)fail('English source text and Simplified Chinese');
   if(!r.sourceIds?.length||r.sourceIds.some(id=>!sources.has(id)))fail('missing source');
+ }
+ for(const r of d.redemptions||[])for(const u of r.upToByProduct||[]){
+  const fail=m=>errors.push(`${r.id}/${u.productId}: ${m}`);
+  if(!(typeof u.upToCentsPerPoint==='number'&&u.upToCentsPerPoint>0&&u.upToCentsPerPoint<=10))fail('upToCentsPerPoint');
+  if(!u.textEn||!u.textZh)fail('English source text and Simplified Chinese');
+  if(!date.test(u.checkedAt||''))fail('checkedAt');
+  const src=sources.get(u.sourceId);
+  if(!src||!/^https:\/\/([a-z]+\.)?chase\.com\//.test(src.url))fail('needs a public chase.com source');
+  if(r.centsPerPoint!=='varies')fail('upToByProduct only on a "varies" record');
  }
  return errors;
 }
