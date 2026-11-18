@@ -72,7 +72,14 @@
     "登录 Cardybara 扩展": "Sign in to the Cardybara extension",
     "用通行密钥登录，完成后会自动回到扩展。": "Sign in with a passkey. You'll go back to the extension when it's done.",
     "没有登录成功。请再试一次，或回到扩展改用邮箱和密码。": "Sign-in didn't work. Try again, or go back to the extension and use email and password.",
-    "这个登录链接无效。请回到扩展重新开始。": "This sign-in link isn't valid. Go back to the extension and start again."
+    "这个登录链接无效。请回到扩展重新开始。": "This sign-in link isn't valid. Go back to the extension and start again.",
+    "账号": "Account",
+    "账号设置": "Account settings",
+    "同步已关闭": "Sync is off",
+    "或用邮箱": "Or use email",
+    "登录卡疲扒拉": "Sign in to Cardybara",
+    "同一个钱包，在手机和电脑上都能用。": "The same wallet on your phone and your computer.",
+    "不登录也能完整使用钱包；开启同步后，钱包副本才会存到服务器。": "The wallet works fully without signing in; a copy goes to the server only after you turn on sync."
   },
   "zh-TW": {
     "连不上服务器。检查网络后再试。": "連不上伺服器。檢查網路後再試。",
@@ -147,6 +154,13 @@
     "登录 Cardybara 扩展": "登入 Cardybara 擴充功能",
     "用通行密钥登录，完成后会自动回到扩展。": "用通行金鑰登入，完成後會自動回到擴充功能。",
     "没有登录成功。请再试一次，或回到扩展改用邮箱和密码。": "沒有登入成功。請再試一次，或回到擴充功能改用電子郵件和密碼。",
-    "这个登录链接无效。请回到扩展重新开始。": "這個登入連結無效。請回到擴充功能重新開始。"
+    "这个登录链接无效。请回到扩展重新开始。": "這個登入連結無效。請回到擴充功能重新開始。",
+    "账号": "帳號",
+    "账号设置": "帳號設定",
+    "同步已关闭": "同步已關閉",
+    "或用邮箱": "或用信箱",
+    "登录卡疲扒拉": "登入卡疲扒拉",
+    "同一个钱包，在手机和电脑上都能用。": "同一個錢包，在手機和電腦上都能用。",
+    "不登录也能完整使用钱包；开启同步后，钱包副本才会存到服务器。": "不登入也能完整使用錢包；開啟同步後，錢包副本才會存到伺服器。"
   }
 }

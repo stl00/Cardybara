@@ -2,7 +2,8 @@ import React,{useEffect,useMemo,useState} from 'react';
 import {Alert,App,Button,Card,Flex,Input,Modal,Segmented,Switch,Typography} from 'antd';
 import {t,useI18n} from './i18n';
 import platform from './platform';
-import {SYNC_STATUS_EVENT,createAccountClient,emailLooksValid,passwordLongEnough,PASSWORD_MIN,readAccount,setSync,syncIsOn} from './accountClient.js';
+import {CapybaraMark} from './NavIcon.jsx';
+import {ACCOUNT_CHANGE_EVENT,SYNC_CHANGE_EVENT,SYNC_STATUS_EVENT,createAccountClient,emailLooksValid,passwordLongEnough,PASSWORD_MIN,readAccount,setSync,syncIsOn} from './accountClient.js';
 const {Paragraph,Text}=Typography;
 
 // Account and sync (stl00/Cardybara#415, epic #410): signed out is the default and the wallet works without any of this.
@@ -32,7 +33,12 @@ const syncText=s=>({syncing:t('正在同步…'),synced:t('已同步'),offline:t
 const noStore={getItem:()=>null,setItem:()=>{},removeItem:()=>{}};
 const store=()=>typeof localStorage==='undefined'?noStore:localStorage;
 const field={style:{minHeight:44},maxLength:1024};
-export default function AccountSettings({gateway}){
+// `sy•••@example.com`: enough to recognise the account in a header popover without showing the whole address.
+export const maskEmail=email=>{const [user,domain]=String(email||'').split('@');if(!domain)return email||'';return user.slice(0,Math.min(2,Math.max(1,user.length-1)))+'•••@'+domain;};
+// `variant="card"` is the full Settings card. `variant="sheet"` is the header's sign-in sheet / account popover (#500): the same
+// flows and error texts, with the passkey first, and when signed in only sync, passkeys, a link to Settings and sign out.
+export default function AccountSettings({gateway,variant='card',onSettings}){
+ const sheet=variant==='sheet';
  useI18n();const {message:toast}=App.useApp();
  const client=useMemo(()=>createAccountClient({gateway,storage:store(),mirror:platform.account?.mirror,webSignIn:platform.account?.passkeySignIn}),[gateway]);
  const [account,setAccount]=useState(()=>readAccount(store()));
@@ -45,12 +51,14 @@ export default function AccountSettings({gateway}){
  const [del,setDel]=useState(false),[delPw,setDelPw]=useState('');
  const [pkOk,setPkOk]=useState(false),[pks,setPks]=useState([]);
  useEffect(()=>{const h=e=>setStatus(e.detail);window.addEventListener(SYNC_STATUS_EVENT,h);return()=>window.removeEventListener(SYNC_STATUS_EVENT,h);},[]);
+ // Another view (the header or Settings) signed in or out, or turned sync on or off.
+ useEffect(()=>{const a=()=>setAccount(readAccount(store())),o=()=>setOn(syncIsOn(store()));window.addEventListener(ACCOUNT_CHANGE_EVENT,a);window.addEventListener(SYNC_CHANGE_EVENT,o);return()=>{window.removeEventListener(ACCOUNT_CHANGE_EVENT,a);window.removeEventListener(SYNC_CHANGE_EVENT,o);};},[]);
 
  // Passkeys: the controls appear only when the browser and the gateway both support them; email and password stay the fallback.
  useEffect(()=>{let live=true;client.passkeysAvailable().then(v=>live&&setPkOk(v)).catch(()=>{});return()=>{live=false;};},[client]);
  useEffect(()=>{if(!pkOk||!account)return;let live=true;client.listPasskeys().then(r=>live&&r.ok&&setPks(r.passkeys));return()=>{live=false;};},[client,pkOk,account]);
  useEffect(()=>{
-  if(!pkOk||account||mode!=='signin'||platform.account?.passkeySignIn)return;
+  if(sheet||!pkOk||account||mode!=='signin'||platform.account?.passkeySignIn)return;
   const ac=new AbortController();
   client.signInWithPasskey({conditional:true,signal:ac.signal}).then(r=>{if(r.ok){setAccount(readAccount(store()));setOn(false);setStatus(null);toast.success(t('已登录。'));}}).catch(()=>{});
   return()=>ac.abort();
@@ -111,7 +119,19 @@ export default function AccountSettings({gateway}){
  const link=(label,m)=><Button type="link" style={{padding:'0 4px',minHeight:44}} onClick={()=>go(m)}>{label}</Button>;
 
  let body;
- if(account){
+ if(account&&sheet){
+  body=<Flex vertical gap={12} className="account-sheet-signed-in">
+   <div><Text type="secondary">{t('已登录')}</Text><div className="account-email"><Text strong>{maskEmail(account.email)||t('（邮箱未记录）')}</Text></div></div>
+   <div>
+    <label className="account-sync-switch"><Switch aria-label={t('在设备间同步钱包')} checked={on} onChange={toggle}/><Text>{t('在设备间同步钱包')}</Text></label>
+    <div><Text className="account-sync-status" type={on&&(status==='error'||status==='signed_out')?'danger':'secondary'}>{on?(syncText(status)||t('正在同步…')):t('同步已关闭')}</Text></div>
+   </div>
+   {err&&<Alert type="error" showIcon title={err} role="alert"/>}
+   {pkOk&&!platform.account?.passkeySignIn&&<Button loading={busy} onClick={addPk}>{t('添加通行密钥')}{pks.length?` · ${pks.length}`:''}</Button>}
+   <Button onClick={onSettings} className="account-open-settings">{t('账号设置')}</Button>
+   <Button loading={busy} onClick={signOut} className="account-signout">{t('退出登录')}</Button>
+  </Flex>;
+ }else if(account){
   body=<Flex vertical gap={16}>
    <div><Text type="secondary">{t('已登录')}</Text><div className="account-email" style={{wordBreak:'break-all'}}><Text strong>{account.email||t('（邮箱未记录）')}</Text></div></div>
    <div>
@@ -148,14 +168,21 @@ export default function AccountSettings({gateway}){
   body=<Flex vertical gap={12}>{alerts}{codeInput}{pwInput(t('新密码（至少 {0} 个字符）',[PASSWORD_MIN]),password,setPassword,'new-password')}<Button type="primary" loading={busy} disabled={code.length!==6} onClick={reset}>{t('设置新密码并登录')}</Button>{link(t('返回'),'signin')}</Flex>;
  }else{
   const up=mode==='signup';
+  const passkeyFirst=sheet&&pkOk&&!up;
   body=<Flex vertical gap={12}>
+   {passkeyFirst&&<><Button type="primary" loading={busy} onClick={passkeySignIn} className="account-passkey-signin">{t('用通行密钥登录')}</Button><Text type="secondary" className="account-or">{t('或用邮箱')}</Text></>}
    <Segmented block value={mode} onChange={go} options={[{value:'signin',label:t('登录')},{value:'signup',label:t('注册')}]} style={{minHeight:44}}/>
    {alerts}{emailInput}{pwInput(up?t('密码（至少 {0} 个字符）',[PASSWORD_MIN]):t('密码'),password,setPassword,up?'new-password':'current-password')}
-   <Button type="primary" loading={busy} onClick={up?signUp:signIn}>{up?t('注册并发送验证码'):t('登录')}</Button>
+   <Button type={passkeyFirst?'default':'primary'} loading={busy} onClick={up?signUp:signIn} className="account-email-submit">{up?t('注册并发送验证码'):t('登录')}</Button>
    {!up&&link(t('忘记密码'),'forgot')}
-   {!up&&pkOk&&<Button loading={busy} onClick={passkeySignIn} className="account-passkey-signin">{t('用通行密钥登录')}</Button>}
+   {!up&&pkOk&&!sheet&&<Button loading={busy} onClick={passkeySignIn} className="account-passkey-signin">{t('用通行密钥登录')}</Button>}
   </Flex>;
  }
+ if(sheet)return <div className="account-sheet">
+  {!account&&<div className="account-sheet-head"><CapybaraMark size={48}/><Typography.Title level={4}>{t('登录卡疲扒拉')}</Typography.Title><Paragraph type="secondary">{t('同一个钱包，在手机和电脑上都能用。')}</Paragraph></div>}
+  {body}
+  {!account&&mode==='signin'&&<Paragraph type="secondary" className="account-sheet-privacy">{t('不登录也能完整使用钱包；开启同步后，钱包副本才会存到服务器。')}</Paragraph>}
+ </div>;
  return <Card className="account-settings" title={t('账号与同步')} style={{marginBottom:20}}>
   {!account&&<Paragraph type="secondary">{t('可选。不登录也能完整使用钱包，数据只在这个浏览器里。登录并开启同步后，才会把钱包副本存到服务器，在你的其他设备上使用。')}</Paragraph>}
   {body}
