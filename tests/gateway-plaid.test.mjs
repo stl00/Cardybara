@@ -33,7 +33,7 @@ function fakePlaid(){
   {added:[txn('t3','2026-11-12',7.25)],modified:[],removed:[],has_more:false,next_cursor:'c2',transactions_update_status:'HISTORICAL_UPDATE_COMPLETE'}],
   mutateOnce:false,liabilitiesError:null,removeError:null,exchanges:0,key:null};
  const ok=body=>new Response(JSON.stringify({request_id:'req-'+calls.length,...body}),{status:200,headers:{'Content-Type':'application/json'}});
- const err=(code,type='ITEM_ERROR',status=400)=>new Response(JSON.stringify({error_type:type,error_code:code,error_message:'synthetic',display_message:null,request_id:'req-err-'+calls.length}),{status});
+ const err=(code,type='ITEM_ERROR',status=400)=>new Response(JSON.stringify({error_type:type,error_code:code,error_message:state.errorMessage||'synthetic',display_message:null,request_id:'req-err-'+calls.length}),{status});
  async function fetch(url,init){
   const u=new URL(url);
   assert.equal(u.origin,'https://sandbox.plaid.com','only the configured environment host is called');
@@ -42,7 +42,8 @@ function fakePlaid(){
   assert.equal(body.client_id,'synthetic-client-id');assert.equal(body.secret,'synthetic-plaid-secret');
   calls.push({path:u.pathname,body});
   switch(u.pathname){
-   case '/link/token/create':if(state.linkFieldError)return new Response(JSON.stringify({error_type:'INVALID_REQUEST',error_code:'INVALID_FIELD',error_message:state.linkFieldError,display_message:null,request_id:'req-field-1'}),{status:400});
+   case '/link/token/create':if(state.linkFieldError)return new Response(JSON.stringify({error_type:'INVALID_REQUEST',error_code:'INVALID_FIELD',error_message:typeof state.linkFieldError==='function'?state.linkFieldError(body):state.linkFieldError,display_message:null,request_id:'req-field-1'}),{status:400});
+    if(state.linkItemError)return err(state.linkItemError,'ITEM_ERROR');
     if(state.linkError)return err(state.linkError,'RATE_LIMIT_EXCEEDED',429);return ok({link_token:'link-sandbox-synthetic-'+calls.length,expiration:'2026-11-16T16:00:00Z'});
    case '/item/public_token/exchange':state.exchanges++;return body.public_token===PUBLIC?ok({access_token:ACCESS,item_id:ITEM}):err('INVALID_PUBLIC_TOKEN','INVALID_INPUT');
    case '/institutions/get_by_id':return ok({institution:{institution_id:body.institution_id,name:'Synthetic Platypus Bank'}});
@@ -330,8 +331,28 @@ test('PWA: a listed web origin links and is sent back only there; other pages ar
  const line=t.logs.map(l=>JSON.parse(l)).filter(l=>l.route==='plaid_link_start').at(-1);
  assert.deepEqual(line.plaid,[{call:'/link/token/create',requestId:'req-field-1',error:'INVALID_FIELD',message:'redirect_uri must be configured in the developer dashboard'}]);
  assert.equal(line.error,'plaid_error');
- // Item errors keep only the code: their message is not ours to fix and is not logged.
- assert.ok(!JSON.stringify(t.logs).includes('synthetic"'),'no message on an item error');
+ // Only a malformed-request error keeps its message. An ITEM_ERROR (and the plan cap, RATE_LIMIT_EXCEEDED) keeps only the code.
+ const plaidLog=()=>t.logs.map(l=>JSON.parse(l)).filter(l=>l.route==='plaid_link_start').at(-1).plaid;
+ t.plaid.state.linkFieldError=null;t.plaid.state.errorMessage='ITEM-MARKER-do-not-log';
+ t.plaid.state.linkItemError='ITEM_LOGIN_REQUIRED';
+ await t.call('POST',ROUTES.plaidLink,{},{token,origin:WEB});
+ assert.deepEqual(plaidLog().map(e=>Object.keys(e).sort()),[['call','error','requestId']],'item error: exactly call, requestId, error');
+ t.plaid.state.linkItemError=null;t.plaid.state.linkError='TRIAL_CONNECTION_LIMIT';
+ await t.call('POST',ROUTES.plaidLink,{},{token,origin:WEB});
+ assert.deepEqual(plaidLog().map(e=>Object.keys(e).sort()),[['call','error','requestId']],'plan cap: no message');
+ assert.ok(t.logs.every(l=>!l.includes('ITEM-MARKER')),'the marker is nowhere in the logs');
+ // A long message is cut to 200 characters.
+ t.plaid.state.linkError=null;t.plaid.state.linkFieldError='x '.repeat(300);
+ await t.call('POST',ROUTES.plaidLink,{},{token,origin:WEB});
+ assert.equal(plaidLog()[0].message.length,200);
+ // A message that quotes a token or the caller's user id is logged with both redacted.
+ const ACCESS_TOKEN='access-production-123e4567-e89b-12d3-a456-426614174000';
+ t.plaid.state.linkFieldError=body=>`bad value ${ACCESS_TOKEN} for user ${body.user.client_user_id} and ${'Z'.repeat(30)}`;
+ await t.call('POST',ROUTES.plaidLink,{},{token,origin:WEB});
+ const uid=t.plaid.calls.filter(c=>c.path==='/link/token/create').at(-1).body.user.client_user_id;
+ const m=plaidLog()[0].message;
+ assert.equal(m,'bad value [redacted] for user [redacted] and [redacted]');
+ assert.ok(t.logs.every(l=>!l.includes(ACCESS_TOKEN)&&!l.includes(uid)),'neither the token nor the user id reaches the logs');
 });
 
 test('local runs may list an exact http://127.0.0.1 or localhost origin; production never admits http',async()=>{
@@ -342,4 +363,10 @@ test('local runs may list an exact http://127.0.0.1 or localhost origin; product
  assert.equal(originAllowed(L,[L]),false);
  assert.equal(originAllowed('http://127.0.0.1:9999',[L],{local:true}),false);
  assert.equal(originAllowed('http://evil.example',['http://evil.example'],{local:true}),false);
+});
+
+test('the logged Plaid message redacts the request\'s own user id even when it is short and not token-shaped',async()=>{
+ const {explanation}=await import('../gateway/src/plaid.js');
+ assert.equal(explanation('INVALID_INPUT','client_user_id u_abc is invalid','u_abc'),'client_user_id [redacted] is invalid');
+ assert.equal(explanation('ITEM_ERROR','anything','u_abc'),null);
 });

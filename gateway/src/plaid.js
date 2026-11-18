@@ -69,11 +69,18 @@ export const LIMIT_CODES=new Set(['TRIAL_CONNECTION_LIMIT','CREDITS_EXHAUSTED','
 const plaidFail=e=>{if(e instanceof PlaidError)fail(LIMIT_CODES.has(e.code)?'plaid_limit':'plaid_error',{plaidCode:e.code});throw e;};
 // A request Plaid refused as malformed (INVALID_REQUEST, INVALID_INPUT) is our bug or our configuration, and its error_code
 // alone (INVALID_FIELD) does not say which field: the log line keeps Plaid's error_message for these, cut short. Plaid
-// writes it about the request's shape; it never echoes a key or token.
+// writes it about the request's shape, but we do not control it and it may quote a field value, so it is scrubbed
+// (token-shaped strings, long opaque runs, the request's client_user_id) before it is kept: defence in depth, not a guarantee.
 const EXPLAINED_TYPES=new Set(['INVALID_REQUEST','INVALID_INPUT']);
-const explanation=(type,m)=>EXPLAINED_TYPES.has(type)&&typeof m==='string'&&m?m.slice(0,200):null;
+const TOKEN_SHAPES=/\b(?:access|public|link)-(?:sandbox|development|production)-[\w-]+|[A-Za-z0-9_-]{24,}/g;
+export const explanation=(type,m,userId=null)=>{
+ if(!EXPLAINED_TYPES.has(type)||typeof m!=='string'||!m)return null;
+ let s=m;
+ if(typeof userId==='string'&&userId)s=s.split(userId).join('[redacted]');
+ return s.replace(TOKEN_SHAPES,'[redacted]').slice(0,200);
+};
 export class PlaidError extends Error{
- constructor(data,status){super(data?.error_code||'PLAID_ERROR');this.type=data?.error_type||null;this.code=data?.error_code||null;this.requestId=data?.request_id||null;this.display=data?.display_message||null;this.status=status;this.explanation=explanation(this.type,data?.error_message);}
+ constructor(data,status,userId=null){super(data?.error_code||'PLAID_ERROR');this.type=data?.error_type||null;this.code=data?.error_code||null;this.requestId=data?.request_id||null;this.display=data?.display_message||null;this.status=status;this.explanation=explanation(this.type,data?.error_message,userId);}
 }
 // Transient: retried a couple of times with backoff and jitter. Everything else needs the user, or is a bug.
 const RETRY_CODES=new Set(['INSTITUTION_DOWN','INSTITUTION_NOT_RESPONDING','INTERNAL_SERVER_ERROR']);
@@ -92,7 +99,7 @@ export async function plaidCall(ctx,path,body,{attempts=3}={}){
    try{data=await r.json();}catch{data=null;}
    if(r.ok&&plain(data)){note(ctx,path,data.request_id,null);return data;}
   }catch{data={error_type:'API_ERROR',error_code:'PLAID_UNREACHABLE'};}
-  const e=new PlaidError(data,status);
+  const e=new PlaidError(data,status,body?.user?.client_user_id);
   note(ctx,path,e.requestId,e.code,e.explanation);
   if(attempt>=attempts||!retryable(e))throw e;
   await sleep(250*2**attempt+Math.floor(Math.random()*250));
