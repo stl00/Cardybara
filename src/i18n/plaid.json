@@ -21,7 +21,6 @@
     "还没有读到信用卡数据，稍后点「同步」。": "No credit card data yet. Press Sync in a little while.",
     "还没有连接信用卡。": "No credit cards connected yet.",
     "信用卡": "Credit card",
-    "仅在此处显示": "Shown here only",
     "已逾期": "Overdue",
     "信用额度": "Credit limit",
     "购物 APR": "Purchase APR",
@@ -29,7 +28,15 @@
     "断开这个连接？": "Disconnect this connection?",
     "这家银行的所有卡都会停止同步，已同步的数据从服务器删除。": "Every card at this bank stops syncing, and the synced data is deleted from the server.",
     "断开": "Disconnect",
-    "Plaid 连接名额已用完，暂时不能添加新的银行连接。已连接的卡照常同步。": "All Plaid connection slots are in use, so no new bank can be added right now. Cards already connected keep syncing."
+    "Plaid 连接名额已用完，暂时不能添加新的银行连接。已连接的卡照常同步。": "All Plaid connection slots are in use, so no new bank can be added right now. Cards already connected keep syncing.",
+    "这张卡缺少尾号信息，不能手动对应。": "This card has no last digits from the bank, so it can't be linked by hand.",
+    "钱包里已经有同一发卡行、同一尾号的卡。": "The wallet already has a card from this issuer with these last digits.",
+    "添加失败，钱包没有变化。": "Couldn't add the card. The wallet is unchanged.",
+    "对应钱包里的卡：{0}": "Wallet card: {0}",
+    "取消对应": "Unlink",
+    "还没有对应到钱包里的卡，金额只在这里显示。": "Not linked to a wallet card yet; its amounts show only here.",
+    "对应到钱包里的卡": "Link to a wallet card",
+    "添加到钱包": "Add to wallet"
   },
   "zh-TW": {
     "Plaid 连接服务还没开通，钱包照常使用。": "Plaid 連線服務尚未開通，錢包照常使用。",
@@ -53,7 +60,6 @@
     "还没有读到信用卡数据，稍后点「同步」。": "還沒有讀到信用卡資料，稍後點「同步」。",
     "还没有连接信用卡。": "還沒有連線信用卡。",
     "信用卡": "信用卡",
-    "仅在此处显示": "僅在此處顯示",
     "已逾期": "已逾期",
     "信用额度": "信用額度",
     "购物 APR": "消費 APR",
@@ -61,6 +67,14 @@
     "断开这个连接？": "中斷這個連線？",
     "这家银行的所有卡都会停止同步，已同步的数据从服务器删除。": "這家銀行的所有卡都會停止同步，已同步的資料會從伺服器刪除。",
     "断开": "中斷",
-    "Plaid 连接名额已用完，暂时不能添加新的银行连接。已连接的卡照常同步。": "Plaid 連線名額已用完，暫時不能新增銀行連線。已連線的卡照常同步。"
+    "Plaid 连接名额已用完，暂时不能添加新的银行连接。已连接的卡照常同步。": "Plaid 連線名額已用完，暫時不能新增銀行連線。已連線的卡照常同步。",
+    "这张卡缺少尾号信息，不能手动对应。": "這張卡缺少尾號資訊，無法手動對應。",
+    "钱包里已经有同一发卡行、同一尾号的卡。": "錢包裡已經有同一發卡行、同一尾號的卡。",
+    "添加失败，钱包没有变化。": "新增失敗，錢包沒有變化。",
+    "对应钱包里的卡：{0}": "對應錢包裡的卡：{0}",
+    "取消对应": "取消對應",
+    "还没有对应到钱包里的卡，金额只在这里显示。": "尚未對應到錢包裡的卡，金額只在這裡顯示。",
+    "对应到钱包里的卡": "對應到錢包裡的卡",
+    "添加到钱包": "加入錢包"
   }
 }

@@ -1,17 +1,18 @@
 import React,{useCallback,useEffect,useMemo,useState} from 'react';
-import {Alert,App,Button,Card,Descriptions,Empty,Flex,List,Popconfirm,Space,Tag,Typography} from 'antd';
+import {Alert,App,Button,Card,Descriptions,Empty,Flex,List,Popconfirm,Select,Space,Tag,Typography} from 'antd';
 import {t,useI18n,formatNumber,formatDateTime} from './i18n';
 import platform from './platform';
 import {readAccount} from './accountClient.js';
 import {createPlaidClient,readPlaidCache,PLAID_CHANGE_EVENT} from './plaidClient.js';
-import {issuerOf,purchaseApr} from './plaidCards.js';
+import {issuerOf,purchaseApr,plaidWalletCard,readPlaidLinks,savePlaidLinks,withPlaidLink,isManualLink} from './plaidCards.js';
 const {Text,Paragraph}=Typography;
 
 // US credit cards linked through Plaid (PLAID_PLAN.md), in the extension and the PWA (owner 2026-11-17), for any signed-in
 // account. The gateway hosts Plaid Link; here we only open its page (a tab in the extension, this window in the PWA, which
 // the Link page sends back), then read the card list back when the wallet is shown again (no polling). Without Plaid on
 // the gateway (plaid_unavailable) the panel only says so; when the plan's connection slots are used up (plaid_limit) it
-// keeps the linked cards and Sync but offers no new link.
+// keeps the linked cards and Sync but offers no new link. Each card says which wallet card it fills (`pairs` from
+// main.jsx's matchPlaidCards); an unmatched one can be linked to a wallet card by hand or added to the wallet as a new card.
 const noStore={getItem:()=>null,setItem:()=>{},removeItem:()=>{}};
 const store=()=>typeof localStorage==='undefined'?noStore:localStorage;
 const errorText=code=>({
@@ -26,7 +27,7 @@ const errorText=code=>({
 const statusTag=s=>({ok:<Tag color="success">{t('已连接')}</Tag>,login_required:<Tag color="warning">{t('需要重新登录')}</Tag>,pending_disconnect:<Tag color="warning">{t('即将断开，请重新连接')}</Tag>,revoked:<Tag color="error">{t('已在银行撤销授权')}</Tag>,error:<Tag color="error">{t('连接出错')}</Tag>})[s]||<Tag>{s}</Tag>;
 const money=(v,currency)=>v==null?t('未知'):formatNumber(v,{style:'currency',currency:currency||'USD'});
 
-export default function PlaidCards({gateway}){
+export default function PlaidCards({gateway,walletCards=[],pairs=[],onAddCard}){
  useI18n();const {message:toast}=App.useApp();
  const client=useMemo(()=>createPlaidClient({gateway,storage:store()}),[gateway]);
  const [view,setView]=useState(()=>readPlaidCache(store()));
@@ -52,6 +53,22 @@ export default function PlaidCards({gateway}){
  const refresh=()=>run('refresh',async()=>{const r=await client.refresh();if(!r.ok)return setErr(r.code);setView(readPlaidCache(store()));toast.success(t('已同步。'));});
  const remove=itemId=>run('remove:'+itemId,async()=>{const r=await client.remove(itemId);if(!r.ok)return setErr(r.code);setView(readPlaidCache(store()));toast.success(t('已断开这个连接。'));});
  const itemOf=id=>view.items.find(i=>i.itemId===id);
+ const walletOf=c=>{const id=pairs.find(([,p])=>p.accountId===c.accountId)?.[0];return id?walletCards.find(w=>w.id===id)||null:null;};
+ const cardLabel=w=>w.name+(w.tail?` ••${w.tail}`:'');
+ const link=(c,cardId)=>{try{savePlaidLinks(store(),withPlaidLink(readPlaidLinks(store()),c,cardId));}catch{toast.error(t('这张卡缺少尾号信息，不能手动对应。'));}};
+ const addToWallet=c=>{const spec=plaidWalletCard(c);if(!spec)return;try{onAddCard(spec);}catch(e){toast.error(e?.message==='duplicate_card'?t('钱包里已经有同一发卡行、同一尾号的卡。'):t('添加失败，钱包没有变化。'));}};
+ const walletRow=c=>{
+  const w=walletOf(c);
+  if(w)return <Flex align="center" wrap gap={8}><Text type="secondary">{t('对应钱包里的卡：{0}',[cardLabel(w)])}</Text>
+   {isManualLink(readPlaidLinks(store()),c,w.id)&&<Button size="small" type="link" onClick={()=>link(c,null)}>{t('取消对应')}</Button>}</Flex>;
+  const taken=new Set(pairs.map(([id])=>id)),bank=issuerOf(c.institution);
+  // Same issuer first; a card another Plaid card already fills is not offered.
+  const options=walletCards.filter(x=>!taken.has(x.id)).sort((a,b)=>(b.bank===bank)-(a.bank===bank)).map(x=>({value:x.id,label:cardLabel(x)}));
+  const spec=onAddCard?plaidWalletCard(c):null;
+  return <Flex vertical gap={6}><Text type="secondary">{t('还没有对应到钱包里的卡，金额只在这里显示。')}</Text>
+   <Flex wrap gap={8}>{options.length>0&&<Select size="small" style={{minWidth:200,maxWidth:'100%'}} placeholder={t('对应到钱包里的卡')} aria-label={t('对应到钱包里的卡')} options={options} onChange={id=>link(c,id)}/>}
+    {spec&&<Button size="small" onClick={()=>addToWallet(c)}>{t('添加到钱包')}</Button>}</Flex></Flex>;
+ };
  const unavailable=err==='plaid_unavailable',full=err==='plaid_limit';
  return <Card className="plaid-cards" style={{marginBottom:20}} title={t('通过 Plaid 连接的美国信用卡')}>
   {/* The actions sit in the body, not the title bar, so a phone-width title is not cut off. */}
@@ -68,7 +85,7 @@ export default function PlaidCards({gateway}){
   <List dataSource={view.cards} rowKey="accountId" renderItem={c=>{const item=itemOf(c.itemId),apr=purchaseApr(c);return <List.Item>
    <Flex vertical gap={8} style={{width:'100%'}}>
     <Flex justify="space-between" align="center" wrap gap={8}><Text strong>{c.name||c.officialName||t('信用卡')}{c.mask&&` ••${c.mask}`}</Text>
-     <Space size={4} wrap><Text type="secondary">{c.institution}</Text>{item&&statusTag(item.status)}{!issuerOf(c.institution)&&<Tag>{t('仅在此处显示')}</Tag>}{c.isOverdue&&<Tag color="error">{t('已逾期')}</Tag>}</Space></Flex>
+     <Space size={4} wrap><Text type="secondary">{c.institution}</Text>{item&&statusTag(item.status)}{c.isOverdue&&<Tag color="error">{t('已逾期')}</Tag>}</Space></Flex>
     <Descriptions size="small" column={{xs:1,sm:2,md:3}} items={[
      {key:'due',label:t('到期还款日'),children:c.dueDate||t('未知')},
      {key:'statement',label:t('账单金额'),children:money(c.statementBalance,c.currency)},
@@ -78,6 +95,7 @@ export default function PlaidCards({gateway}){
      {key:'apr',label:t('购物 APR'),children:apr==null?t('未知'):formatNumber(apr/100,{style:'percent',maximumFractionDigits:2})},
      ...(c.statementDate?[{key:'statementDate',label:t('账单日'),children:c.statementDate}]:[]),
     ]}/>
+    {walletRow(c)}
     <Flex justify="space-between" align="center" wrap gap={8}><Text type="secondary">{c.readAt?t('读取于 {0}',[formatDateTime(c.readAt*1000,{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})]):''}</Text>
      <Popconfirm title={t('断开这个连接？')} description={t('这家银行的所有卡都会停止同步，已同步的数据从服务器删除。')} okText={t('断开')} cancelText={t('取消')} onConfirm={()=>remove(c.itemId)}>
       <Button size="small" type="link" danger loading={busy==='remove:'+c.itemId}>{t('断开')}</Button></Popconfirm></Flex>

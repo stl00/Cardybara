@@ -8,12 +8,12 @@ import {createRequire} from 'node:module';
 import {build} from 'esbuild';
 const root=new URL('..',import.meta.url).pathname;
 
-async function renderPanel(globals){
+async function renderPanel(globals,props={}){
  const before=Object.fromEntries(Object.keys(globals).map(k=>[k,Object.getOwnPropertyDescriptor(globalThis,k)]));
  for(const [k,v] of Object.entries(globals))Object.defineProperty(globalThis,k,{value:v,configurable:true,writable:true});
  try{
   const {outputFiles:[out]}=await build({stdin:{contents:`import React from 'react';import {renderToStaticMarkup} from 'react-dom/server';import {App} from 'antd';import {I18nProvider} from './src/i18n.jsx';import PlaidCards from './src/PlaidCards.jsx';
-   export const html=renderToStaticMarkup(React.createElement(I18nProvider,null,React.createElement(App,null,React.createElement(PlaidCards,{gateway:'https://gateway.test'}))));`,resolveDir:root,loader:'jsx'},
+   export const html=renderToStaticMarkup(React.createElement(I18nProvider,null,React.createElement(App,null,React.createElement(PlaidCards,{gateway:'https://gateway.test',...${JSON.stringify(props)},onAddCard:${props.walletCards?'()=>{}':'undefined'}}))));`,resolveDir:root,loader:'jsx'},
    bundle:true,write:false,format:'cjs',platform:'node',jsx:'automatic',logLevel:'silent',loader:{'.css':'empty','.svg':'dataurl','.png':'dataurl','.jpg':'dataurl','.webp':'dataurl'}});
   const module={exports:{}};new Function('module','exports','require',out.text)(module,module.exports,createRequire(new URL('../package.json',import.meta.url)));
   return module.exports.html.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ');
@@ -50,4 +50,16 @@ test('web platform: Link opens in this same window (a home-screen PWA has no tab
  Object.defineProperty(globalThis,'location',{value:{assign:u=>went.push(u)},configurable:true,writable:true});
  try{web.plaid.open('https://gateway.test/v2/plaid/link#s=x');}finally{before?Object.defineProperty(globalThis,'location',before):delete globalThis.location;}
  assert.deepEqual(went,['https://gateway.test/v2/plaid/link#s=x']);
+});
+
+test('PWA: each Plaid card says which wallet card it fills; an unmatched one offers a manual link and Add to wallet',async()=>{
+ const cache={...CACHE,items:[{itemId:'item_9',institution:'Chase',status:'ok',historicalComplete:true}],cards:[
+  {...CACHE.cards[0],itemId:'item_9',accountId:'acc_a',institution:'Chase',name:'Synthetic Freedom',mask:'1111'},
+  {...CACHE.cards[0],itemId:'item_9',accountId:'acc_b',institution:'Chase',name:'Synthetic Sapphire',mask:'2222'}]};
+ const walletCards=[{id:'w1',bank:'Chase',name:'Freedom Unlimited',tail:'1111'},{id:'w2',bank:'Amex US',name:'Synthetic Gold',tail:'3005'}];
+ const text=await renderPanel({location:{protocol:'https:',hash:'',origin:'https://wallet.example'},localStorage:storage({'cardybara-account-session-v1':SESSION,'cardybara-plaid-cards-v1':JSON.stringify(cache)})},
+  {walletCards,pairs:[['w1',cache.cards[0]]]});
+ assert.ok(text.includes('对应钱包里的卡：Freedom Unlimited ••1111'),text);
+ assert.ok(text.includes('还没有对应到钱包里的卡'));assert.ok(text.includes('添加到钱包'));assert.ok(text.includes('对应到钱包里的卡'));
+ assert.ok(!text.includes('仅在此处显示'));
 });
