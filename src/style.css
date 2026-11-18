@@ -179,6 +179,9 @@ body:has(.chat-composer-area textarea:focus) .mobile-tabbar{display:none}
 .ask-card-text{flex:1;min-width:0}.ask-card-arrow{color:var(--ant-color-text-tertiary)}
 /* The phone "More" sheet sits above the tab bar; while it is open the bar stays over the mask so More closes it. */
 .mobile-tabbar.is-over{z-index:1001}
+/* A dialog that opens while the sheet is up (card-merge questions, Data sources) must cover the bar again. */
+body:has(.ant-modal-wrap:not([style*="display: none"])) .mobile-tabbar.is-over{z-index:30}
+.visually-hidden{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .more-drawer .ant-drawer-content-wrapper{bottom:calc(56px + env(safe-area-inset-bottom));max-height:calc(80dvh - 56px - env(safe-area-inset-bottom))}
 .more-drawer .ant-drawer-section{border-radius:16px 16px 0 0;max-height:inherit}
 .more-drawer .ant-drawer-body{padding:8px 16px 12px;overflow:auto}

@@ -26,6 +26,7 @@ export function MobileTabBar({groups,page,onGo,onMore,moreOpen=false,over=moreOp
  </nav>;
 }
 
+const LANGUAGE_NAMES={'zh-CN':'简体中文','zh-TW':'繁體中文','en-US':'English'};
 const LANGUAGE_OPTIONS=[{value:'zh-CN',label:'简'},{value:'zh-TW',label:'繁'},{value:'en-US',label:'EN'}];
 // The phone "More" sheet (#499): the config's more pages as tiles, backup, language and settings, then the footer links.
 // It opens above the tab bar, so the bar stays tappable (More closes it again) and nothing overlaps.
@@ -33,7 +34,7 @@ export function MoreDrawer({open,onClose,afterOpenChange,...sheet}){
  return <Drawer rootClassName="more-drawer" placement="bottom" size="auto" open={open} onClose={onClose} afterOpenChange={afterOpenChange} closable={false} title={null} aria-label={t('更多')}><MoreSheet {...sheet}/></Drawer>;
 }
 // The drawer's contents, separate so it can be rendered and tested without the portal.
-export function MoreSheet({groups,page,onGo,onExport,onImport,language,setLanguage,onSources,onRelease}){
+export function MoreSheet({groups,page,onGo,onExport,onImport,language,setLanguage,onSources,onRelease,settingsLabel=t('设置')}){
  const pages=groups.more.filter(i=>i.key!=='settings');
  const row=(action,icon,label,onClick)=><button type="button" className="more-row" data-action={action} onClick={onClick}><span className="more-row-icon" aria-hidden="true">{icon}</span><span className="more-row-label">{label}</span><RightOutlined className="more-row-arrow" aria-hidden="true"/></button>;
  return <>
@@ -45,8 +46,8 @@ export function MoreSheet({groups,page,onGo,onExport,onImport,language,setLangua
    {row('export',<DownloadOutlined/>,t('导出备份'),onExport)}{row('import',<UploadOutlined/>,t('导入备份'),onImport)}
   </section>
   <section className="more-section"><div className="more-section-title">{t('偏好')}</div>
-   <div className="more-language"><span>{t('界面语言')}</span><Segmented data-action="language" aria-label={t('界面语言')} value={language} onChange={setLanguage} options={LANGUAGE_OPTIONS.map(o=>({...o,title:{'zh-CN':'简体中文','zh-TW':'繁體中文','en-US':'English'}[o.value]}))}/></div>
-   {row('settings',<SettingOutlined/>,t('设置'),()=>onGo('settings'))}
+   <div className="more-language"><span>{t('界面语言')}</span><Segmented data-action="language" aria-label={t('界面语言')} value={language} onChange={setLanguage} options={LANGUAGE_OPTIONS.map(o=>({value:o.value,label:<><span aria-hidden="true">{o.label}</span><span className="visually-hidden">{LANGUAGE_NAMES[o.value]}</span></>}))}/></div>
+   {row('settings',<SettingOutlined/>,settingsLabel,()=>onGo('settings'))}
   </section>
   <div className="more-links"><Button type="link" onClick={onSources}>{t('数据来源与说明')}</Button><Button type="link" onClick={onRelease}>{t('关于这个版本')}</Button></div>
  </>;

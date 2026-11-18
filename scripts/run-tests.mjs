@@ -18,6 +18,7 @@ export const SEPARATE = {
   'tests/mobile-nav.test.mjs': 'test:web',
   'tests/web-chat.test.mjs': 'test:web',
   'tests/extension-sync.test.mjs': 'test:web',
+  'tests/phone-sheets.test.mjs': 'test:web',
   // Agent model plumbing and multi-turn evals run with the agent evals.
   'tests/model-client.test.mjs': 'check:agent',
   'tests/agent-scripted-model.test.mjs': 'check:agent',
