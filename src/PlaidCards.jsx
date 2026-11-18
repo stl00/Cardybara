@@ -4,7 +4,7 @@ import {t,useI18n,formatNumber,formatDateTime} from './i18n';
 import platform from './platform';
 import {readAccount} from './accountClient.js';
 import {createPlaidClient,readPlaidCache,PLAID_CHANGE_EVENT} from './plaidClient.js';
-import {issuerOf,purchaseApr,plaidWalletCard,readPlaidLinks,savePlaidLinks,withPlaidLink,isManualLink,canTakePlaid} from './plaidCards.js';
+import {issuerOf,purchaseApr,plaidWalletCard,readPlaidLinks,savePlaidLinks,withPlaidLink,isManualLink,canTakePlaid,setPlaidDismissed} from './plaidCards.js';
 const {Text,Paragraph}=Typography;
 
 // US credit cards linked through Plaid (PLAID_PLAN.md), in the extension and the PWA (owner 2026-11-17), for any signed-in
@@ -12,7 +12,8 @@ const {Text,Paragraph}=Typography;
 // the Link page sends back), then read the card list back when the wallet is shown again (no polling). Without Plaid on
 // the gateway (plaid_unavailable) the panel only says so; when the plan's connection slots are used up (plaid_limit) it
 // keeps the linked cards and Sync but offers no new link. Each card says which wallet card it fills (`pairs` from
-// main.jsx's matchPlaidCards); an unmatched one can be linked to a wallet card by hand or added to the wallet as a new card.
+// main.jsx's matchPlaidCards). main.jsx adds an unmatched card it can place to the wallet on its own (#535); one it cannot
+// place, or one the user removed from the wallet, can be linked to a wallet card by hand or added to the wallet here.
 const noStore={getItem:()=>null,setItem:()=>{},removeItem:()=>{}};
 const store=()=>typeof localStorage==='undefined'?noStore:localStorage;
 const errorText=code=>({
@@ -56,7 +57,7 @@ export default function PlaidCards({gateway,walletCards=[],pairs=[],onAddCard}){
  const walletOf=c=>{const id=pairs.find(([,p])=>p.accountId===c.accountId)?.[0];return id?walletCards.find(w=>w.id===id)||null:null;};
  const cardLabel=w=>w.name+(w.tail?` ••${w.tail}`:'');
  const link=(c,cardId)=>{try{savePlaidLinks(store(),withPlaidLink(readPlaidLinks(store()),c,cardId));}catch{toast.error(t('这张卡缺少尾号信息，不能手动对应。'));}};
- const addToWallet=c=>{const spec=plaidWalletCard(c);if(!spec)return;try{onAddCard(spec);}catch(e){toast.error(e?.message==='duplicate_card'?t('钱包里已经有同一发卡行、同一尾号的卡。'):t('添加失败，钱包没有变化。'));}};
+ const addToWallet=c=>{const spec=plaidWalletCard(c);if(!spec)return;try{onAddCard(spec);setPlaidDismissed(store(),c,false);}catch(e){toast.error(e?.message==='duplicate_card'?t('钱包里已经有同一发卡行、同一尾号的卡。'):t('添加失败，钱包没有变化。'));}};
  const walletRow=c=>{
   const w=walletOf(c);
   if(w)return <Flex align="center" wrap gap={8}><Text type="secondary">{t('对应钱包里的卡：{0}',[cardLabel(w)])}</Text>

@@ -62,12 +62,12 @@ import {presentCard,productDisplayName} from './cardName.js';
 import PaymentAssistant,{loadPaymentMarks,savePaymentMarks} from './PaymentAssistant.jsx';
 import ReminderSettings,{ReminderRunner} from './ReminderSettings.jsx';
 import {readWalletDocument,writeWalletDocument,replaceWalletDocument,isNewerWalletDocument,walletImportErrorKey} from './walletDocument.js';
-import {startWalletSync} from './walletSync.js';
+import {startWalletSync,readSyncState,readSessionToken} from './walletSync.js';
 import {GATEWAY_ORIGIN,gatewayConfigured} from '../extension-next/model-client.js';
 import AccountSettings from './AccountSettings.jsx';
 import AccountEntry from './AccountEntry.jsx';
 import PlaidCards from './PlaidCards.jsx';
-import {applyPlaid,matchPlaidCards,readPlaidLinks} from './plaidCards.js';
+import {applyPlaid,matchPlaidCards,readPlaidLinks,plaidCardsToAdd,readPlaidDismissed,setPlaidDismissed} from './plaidCards.js';
 import {readPlaidCache,PLAID_CHANGE_EVENT} from './plaidClient.js';
 import {SYNC_CHANGE_EVENT,SYNC_STATUS_EVENT} from './accountClient.js';
 import ItemLogo from './ItemLogo';
@@ -125,6 +125,8 @@ const laterMerges=()=>{for(const q of merge.open)laterRef.current.add(q.bank.id+
 const undoMerges=async u=>{try{await undoMerge({storage:localStorage,io:mergeIo,bankId:u.bankId,manualId:u.manualId});saveCardEdits(loadCardEdits());saveCardProductChoices(loadCardProductChoices());showCards();setMerge(m=>({...m,undos:readMergeState(localStorage).undos}));message.success(t('已撤销合并，这两张卡不会再被建议合并。'));}catch{message.error(t('撤销失败，卡片没有变化。'));}};
 useEffect(()=>{if(!collects)return;const timer=setInterval(()=>{if(v2.current&&(requestRef.current||collectorState?.run?.status==='running'))sendCollector('hello');},3000);return()=>clearInterval(timer);},[collectorState?.run?.status]);
 const refreshBank=(bankName=null,cardId=null)=>{if(!bankName&&!data.cards.length){location.hash='connections';message.info(t('请选择一家银行开始连接。'));return;}if(!extension){setSetup(true);return;}if(requestRef.current){message.info(t("已有银行刷新正在执行。"));return;}const banks=bankName?[bankName]:defaultRefreshBanks(data.cards);if(!banks.length){location.hash='connections';message.info(t('请选择一家银行开始连接。'));return;}const requestId=crypto.randomUUID();requestRef.current=requestId;setBankBusy(Object.fromEntries(banks.map(b=>[b,'queued'])));window.postMessage({channel:v2.current?'cardybara-dashboard':'cardybara-legacy-dashboard',type:'refresh',requestId,banks,cards:data.cards.filter(c=>!manualOnly(c.bank)).map(refreshCard),...(cardId?{cardId}:{})},location.origin);if(v2.current)return;runTimer.current=setTimeout(()=>{requestRef.current=null;setBankBusy(prev=>Object.fromEntries(Object.entries(prev).map(([k,v])=>[k,v==='running'||v==='queued'?'interrupted':v])));message.warning(t("未收到完整刷新结果，请检查 Chrome 扩展和银行登录状态。"));},480000);};
+// Stores new manual cards in the registry and shows them. Shared by "add a card" and Plaid's auto-add (#535).
+const registerCards=cards=>{const registered=mergeWalletCards({cards:stored(WALLET_CARDS_KEY,[])},cards).cards;localStorage.setItem(WALLET_CARDS_KEY,JSON.stringify(registered));baseRef.current=mergeWalletCards(baseRef.current||data,registered);setData(applyLive(baseRef.current,liveRef.current));};
 const addCard=value=>{
  // The product's name in the wallet's language, unless the user typed their own.
  const name=String(value.name||'').trim()||(value.productId?productDisplayName(value.productId,language):'');
@@ -132,10 +134,10 @@ const addCard=value=>{
  if([...data.cards,...displayed.cards].some(c=>c.bank===card.bank&&c.tail===card.tail)||stored(WALLET_CARDS_KEY,[]).some(c=>c.bank===card.bank&&c.tail===card.tail))throw Error('duplicate_card');
  // Checked before anything is stored, so a bad product or date never leaves half a card behind.
  const choices=value.productId?withCardProductChoice(loadCardProductChoices(),card,value.productId):null,edits=value.feeDate?withCardEdit(loadCardEdits(),card,{feeDate:value.feeDate}):null;
- const registered=mergeWalletCards({cards:stored(WALLET_CARDS_KEY,[])},[card]).cards;localStorage.setItem(WALLET_CARDS_KEY,JSON.stringify(registered));if(choices)saveCardProductChoices(choices);if(edits)saveCardEdits(edits);baseRef.current=mergeWalletCards(baseRef.current||data,registered);setData(applyLive(baseRef.current,liveRef.current));message.success(t('卡片已保存，金额和积分将在读取银行后显示。'));};
+ registerCards([card]);if(choices)saveCardProductChoices(choices);if(edits)saveCardEdits(edits);message.success(t('卡片已保存，金额和积分将在读取银行后显示。'));};
 // A manual card's name, tail and region live in the registry, so refreshes, discovery and duplicate checks see the edit.
 const editCard=(shown,patch)=>{const card=data.cards.find(c=>c.id===shown.id)||shown;const registry=editManualCard(stored(WALLET_CARDS_KEY,[]),card,patch,displayed.cards.filter(c=>c.id!==card.id));localStorage.setItem(WALLET_CARDS_KEY,JSON.stringify(registry));saveCardEdits(withCardEdit(loadCardEdits(),card,{name:null,tail:null,bank:null}));if(patch.bank&&patch.bank!==card.bank)saveCardProductChoices(loadCardProductChoices().filter(c=>c.cardId!==card.id));baseRef.current=mergeWalletCards(baseRef.current||data,registry);setData(applyLive(baseRef.current,liveRef.current));};
-const removeCard=shown=>{const card=data.cards.find(c=>c.id===shown.id)||shown;if(isBusy(card.bank)){message.info(t("已有银行刷新正在执行。"));return;}modal.confirm({title:t('移除这张卡？'),content:t('这张卡和它的本机读数会从钱包中移除，银行页面也不会再把它自动加回来。如果以后需要，可以手动添加。'),okText:t('移除'),okButtonProps:{danger:true},cancelText:t('取消'),onOk(){const next=removeWalletCard(stored(WALLET_CARDS_KEY,[]),stored(WALLET_REMOVED_KEY,[]),card);localStorage.setItem(WALLET_REMOVED_KEY,JSON.stringify(next.removed));localStorage.setItem(WALLET_CARDS_KEY,JSON.stringify(next.registry));liveRef.current=withoutLiveCard(liveRef.current,card);try{saveCardProductChoices(loadCardProductChoices().filter(c=>c.cardId!==card.id))}catch{}try{saveCardEdits(withoutCardEdits(loadCardEdits(),card.id))}catch{}localStorage.setItem(LIVE_KEY,JSON.stringify(liveRef.current));baseRef.current=withoutRemoved(baseRef.current,next.removed);setData(applyLive(baseRef.current,liveRef.current));setDetail(null);if(v2.current&&!manualOnly(card.bank))sendCollector('remove-card',card.bank,{cardId:card.id,tail:card.tail});message.success(t('卡片已移除。'));}});};
+const removeCard=shown=>{const card=data.cards.find(c=>c.id===shown.id)||shown;if(isBusy(card.bank)){message.info(t("已有银行刷新正在执行。"));return;}modal.confirm({title:t('移除这张卡？'),content:t('这张卡和它的本机读数会从钱包中移除，银行页面也不会再把它自动加回来。如果以后需要，可以手动添加。'),okText:t('移除'),okButtonProps:{danger:true},cancelText:t('取消'),onOk(){const filledBy=plaidPairsOf(data).find(([id])=>id===card.id)?.[1];if(filledBy)setPlaidDismissed(localStorage,filledBy,true);const next=removeWalletCard(stored(WALLET_CARDS_KEY,[]),stored(WALLET_REMOVED_KEY,[]),card);localStorage.setItem(WALLET_REMOVED_KEY,JSON.stringify(next.removed));localStorage.setItem(WALLET_CARDS_KEY,JSON.stringify(next.registry));liveRef.current=withoutLiveCard(liveRef.current,card);try{saveCardProductChoices(loadCardProductChoices().filter(c=>c.cardId!==card.id))}catch{}try{saveCardEdits(withoutCardEdits(loadCardEdits(),card.id))}catch{}localStorage.setItem(LIVE_KEY,JSON.stringify(liveRef.current));baseRef.current=withoutRemoved(baseRef.current,next.removed);setData(applyLive(baseRef.current,liveRef.current));setDetail(null);if(v2.current&&!manualOnly(card.bank))sendCollector('remove-card',card.bank,{cardId:card.id,tail:card.tail});message.success(t('卡片已移除。'));}});};
 const fieldDate=(c,k)=>c[k]==null||c[k]==='unknown'?t('未采集'):formatReadDate(c.fieldDates?.[k]||c.updated);
 const bankState=b=>({queued:t("等待刷新"),running:t("正在刷新银行数据"),updated:t("本次刷新完成"),partial:t("部分数据已更新"),needs_login:t("需要登录银行"),needs_confirmation:t("等待手机确认"),load_error:t("银行页面加载失败"),no_data:t("未找到可可靠读取的字段"),interrupted:t("执行中断，请重试"),cancelled:t("已取消"),timeout:t("读取超时"),navigation_changed:t("页面已切换"),tab_closed:t("银行标签页已关闭"),ambiguous:t("账户或金额不明确"),cleared:t("本机读数已清除"),disconnected:t("采集已停用")})[bankBusy[b]||data?.connections.find(c=>c.bank===b)?.liveStatus];
 const isBusy=b=>['queued','running'].includes(bankBusy[b]);
@@ -147,6 +149,21 @@ const [syncRun,setSyncRun]=useState(0);
 // Plaid-linked cards (PLAID_PLAN.md; extension, and the PWA's settings page where there is no bank-connections page): their billing-cycle fields fill the matching wallet cards; manual edits still win.
 const [plaidCards,setPlaidCards]=useState(()=>platform.plaid&&typeof localStorage!=='undefined'?readPlaidCache(localStorage).cards:[]),[plaidLinks,setPlaidLinks]=useState(()=>platform.plaid&&typeof localStorage!=='undefined'?readPlaidLinks(localStorage):[]);
 useEffect(()=>{if(!platform.plaid)return;const h=()=>{setPlaidCards(readPlaidCache(localStorage).cards);setPlaidLinks(readPlaidLinks(localStorage));};window.addEventListener(PLAID_CHANGE_EVENT,h);return()=>window.removeEventListener(PLAID_CHANGE_EVENT,h);},[]);
+// Plaid cards are matched against the cards as the user sees them (an edited tail or bank counts).
+const plaidPairsOf=d=>matchPlaidCards(applyCardEdits(applyAgentRecords(d,collectorState?.agentRecords||[]).cards,cardEdits),plaidCards,plaidLinks);
+// With sync on, Plaid's auto-add waits for this page's first completed sync, so a card removed on another device is known here first.
+const [syncSettled,setSyncSettled]=useState(false);
+useEffect(()=>{const h=e=>{if(e.detail==='synced')setSyncSettled(true);};window.addEventListener(SYNC_STATUS_EVENT,h);return()=>window.removeEventListener(SYNC_STATUS_EVENT,h)},[]);
+// Every Plaid card that fills no wallet card and that plaidWalletCard can place becomes a manual card (#535); applyPlaid then fills it.
+// Runs on each new Plaid read; idempotent, since an added card matches its Plaid card from then on.
+useEffect(()=>{if(!platform.plaid||!data||!plaidCards.length)return;if(readSyncState(localStorage).on&&readSessionToken(localStorage)&&!syncSettled)return;
+ const shown=applyCardEdits(applyAgentRecords(data,collectorState?.agentRecords||[]).cards,cardEdits);
+ const adds=plaidCardsToAdd({walletCards:[...shown,...stored(WALLET_CARDS_KEY,[])],plaidCards,pairs:plaidPairsOf(data),dismissed:readPlaidDismissed(localStorage),removed:stored(WALLET_REMOVED_KEY,[])});
+ const cards=[];for(const {spec} of adds){try{cards.push(newWalletCard(spec));}catch{}}
+ // The registry holds 40 cards; add what fits rather than nothing.
+ while(cards.length){try{registerCards(cards);break;}catch{cards.pop();}}
+ if(cards.length)message.success(t('已把 {0} 张通过 Plaid 连接的卡加入钱包。',[cards.length]));
+},[plaidCards,plaidLinks,data,cardEdits,syncSettled]);
 useEffect(()=>{const h=()=>setSyncRun(n=>n+1);window.addEventListener(SYNC_CHANGE_EVENT,h);return()=>window.removeEventListener(SYNC_CHANGE_EVENT,h)},[]);
 useEffect(()=>startWalletSync({gateway:gatewayConfigured?GATEWAY_ORIGIN:null,
  readLocal:()=>readWalletDocument({storage:localStorage,readBenefitEvents,readCostEvents}),
@@ -172,7 +189,7 @@ const importCardTypes=async e=>{const f=e.target.files?.[0];e.target.value='';if
 if(error)return <Result status="error" title={t("数据快照加载失败")} extra={<Button onClick={()=>location.reload()}>{t("重新加载")}</Button>}/>;
 if(!data)return <div className="loading"><Spin size="large"/><Text type="secondary">{t("正在读取钱包快照…")}</Text></div>;
 // Plaid cards match the cards as the user sees them (an edited tail or bank counts); the fill still goes under the edits.
-const agentView=applyAgentRecords(data,collectorState?.agentRecords||[]),plaidPairs=matchPlaidCards(applyCardEdits(agentView.cards,cardEdits),plaidCards,plaidLinks);
+const agentView=applyAgentRecords(data,collectorState?.agentRecords||[]),plaidPairs=plaidPairsOf(data);
 const recorded=applyPlaid(agentView,plaidCards,{pairs:plaidPairs}),displayed={...recorded,cards:applyCardProductChoices(applyCardEdits(recorded.cards,cardEdits),productChoices).map(c=>presentCard(c,language))};
 // Everything that counts a held card reads `held`; only the card list, card details and bank connections see hidden cards.
 const held=heldWallet(displayed);

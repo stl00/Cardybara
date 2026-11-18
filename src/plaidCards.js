@@ -2,9 +2,11 @@
 // is the same card: either the user said so in the Plaid panel (a manual link, kept in PLAID_LINKS_KEY), or, failing
 // that, the same issuer (from the institution's name) and the same last four digits. Each field is taken only when
 // Plaid's read is newer than what the card already holds, and is marked with the source {method:'plaid'} so the card
-// details say where it came from. A Plaid card that matches no wallet card stays in the Plaid panel (PlaidCards.jsx),
-// where the user can link it to a wallet card or add it to the wallet as a new manual card (plaidWalletCard); it is never
-// turned into a wallet card on its own, since a guessed issuer or product would be a false match.
+// details say where it came from. A Plaid card that matches no wallet card is added to the wallet as a manual card on its
+// own (#535, plaidCardsToAdd) when plaidWalletCard can place it: a known US issuer, USD and four or five digits, named
+// with Plaid's own account name, never a guessed product. One the user removed after that is not added again
+// (PLAID_DISMISSED_KEY, plus the wallet's synced removal list for other devices). A card Plaid cannot place stays in
+// the Plaid panel (PlaidCards.jsx), where the user can link it to a wallet card by hand.
 //
 // Field mapping: balance <- current balance, creditLimit <- limit, available <- available, statement <- last statement
 // balance, minimum <- minimum payment, due <- next payment due date (YYYY-MM-DD as Plaid gives it, no year guessing).
@@ -89,6 +91,38 @@ export function plaidWalletCard(p){
  // Plaid's account name, without long digit runs (newWalletCard refuses anything that could be a card number).
  const name=[p.name,p.officialName].map(n=>typeof n==='string'?n.replace(/(?:\d[ -]?){5,}/g,'').replace(/\s+/g,' ').trim():'').find(n=>n&&n.length<=100&&!/[<>\u0000-\u001f]/.test(n));
  return {bank,tail:last,name:name||bank+' '+last};
+}
+
+export const PLAID_DISMISSED_KEY='cardybara-plaid-dismissed-v1';
+const cleanKeys=v=>[...new Set((Array.isArray(v)?v:[]).filter(k=>typeof k==='string'&&k&&k.length<=300))].slice(-200);
+/** Plaid card keys (plaidCardKey) whose auto-added wallet card the user removed: they are not added again on their own. */
+export function readPlaidDismissed(storage){try{return cleanKeys(JSON.parse(storage.getItem(PLAID_DISMISSED_KEY)));}catch{return [];}}
+/** Records (dismissed=true) or forgets a dismissal for this Plaid card. A card without a key is ignored. */
+export function setPlaidDismissed(storage,plaidCard,dismissed){
+ const key=plaidCardKey(plaidCard);if(!key)return;
+ const rest=readPlaidDismissed(storage).filter(k=>k!==key);
+ try{storage.setItem(PLAID_DISMISSED_KEY,JSON.stringify(cleanKeys(dismissed?[...rest,key]:rest)));}catch{}
+}
+
+/**
+ * The manual wallet cards (newWalletCard specs) to add for Plaid cards that fill no wallet card (#535). `pairs` are
+ * matchPlaidCards' answer for `walletCards`. A Plaid card is left out when plaidWalletCard cannot place it, when the
+ * user dismissed it, when any wallet card or registry row already has its issuer and last four (an ambiguous or
+ * other-currency card is the user's to sort out in the panel), or when a removed card had them (removed on another
+ * device and synced here). Adding the result and running this again adds nothing.
+ */
+export function plaidCardsToAdd({walletCards=[],plaidCards=[],pairs=[],dismissed=[],removed=[]}){
+ const filled=new Set(pairs.map(([,p])=>p?.accountId)),skip=new Set(dismissed),out=[];
+ const taken=[...walletCards.map(c=>[c.bank,walletTail(c)]),...(Array.isArray(removed)?removed:[]).map(r=>[r?.bank,tail(r?.tail)])];
+ for(const p of plaidCards||[]){
+  if(filled.has(p?.accountId))continue;
+  const spec=plaidWalletCard(p),key=plaidCardKey(p);
+  if(!spec||!key||skip.has(key))continue;
+  const last=tail(spec.tail);
+  if(taken.some(([bank,t])=>bank===spec.bank&&t===last))continue;
+  taken.push([spec.bank,last]);out.push({spec,plaid:p});
+ }
+ return out;
 }
 
 const FIELDS=[['balance','balance'],['creditLimit','limit'],['available','available'],['statement','statementBalance'],['minimum','minimumPayment'],['due','dueDate']];
