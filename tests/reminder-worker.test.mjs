@@ -153,3 +153,20 @@ test('clicking a reminder opens or focuses the wallet',async()=>{
  await worker(f,0).clicked('n');assert.equal(created.url,'chrome-extension://x/index.html#overview');
  f.chrome.tabs.query=async()=>[{id:7,windowId:1}];await worker(f,0).clicked('n');assert.equal(updated.id,7);assert.equal(updated.active,true);
 });
+
+test('a four-year credit shows one "can be used again" notification on its day and none before',async()=>{
+ const {offCycleRows}=await import('../src/personalBenefits.js');
+ const cards=fixture.filter(c=>c.id==='ca-platinum'),row=offCycleRows(cards,'2026-03-05').find(r=>r.state==='four-year');
+ const events=[{id:'m1',key:row.key,status:'used',usedOn:'2022-03-10',revisionId:row.revisionId,at:'2026-03-01T00:00:00.000Z'}];
+ const reusePhrases={...phrases,reuse:'{0}: {1} can be used again'};
+ const schedule=buildSchedule({cards,marks:[],events,settings:on,sent:[],asOf:'2026-03-05',phrases:reusePhrases}),entries=schedule.entries.filter(e=>e.id.startsWith('reuse:'));
+ assert.equal(entries.length,1);const [entry]=entries;
+ assert.equal(entry.firstDay,'2026-03-10');assert.equal(entry.lastDay,'2026-03-10');assert.equal(entry.targetDay,'2026-03-10');
+ const early=fakeChrome({store:area({[REMINDER_SCHEDULE_KEY]:schedule})});await worker(early,at('2026-03-09')).tick();
+ assert.equal(early.shown.filter(n=>n.id===entry.id).length,0,'none before');
+ const due=fakeChrome({store:early.store});await worker(due,entry.fireAt).tick();
+ const shown=due.shown.filter(n=>n.id===entry.id);assert.equal(shown.length,1);
+ assert.equal(shown[0].message,`${cards[0].name}: ${row.title} can be used again`);assert.ok(!/ends today/.test(shown[0].message));
+ const late=fakeChrome({store:early.store});await worker(late,at('2026-03-11')).tick();
+ assert.equal(late.shown.filter(n=>n.id===entry.id).length,0,'a day late is dropped, not repeated');
+});

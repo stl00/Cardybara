@@ -24,7 +24,7 @@ async function dropPermission(){if(worker())await platform.notifications.drop();
 function saveSettings(next){localStorage.setItem(REMINDER_SETTINGS_KEY,JSON.stringify(next));window.dispatchEvent(new Event(CHANGE));}
 function show(title,body,tag){const n=new Notification(title,{body,tag,icon:'/cardybara.svg'});n.onclick=()=>{window.focus();location.hash='overview';n.close();};}
 // The worker has no translations, so the page hands it these in the current language. {0} is filled in when sent.
-const phrases=()=>({bill:t('账单提醒'),credit:t('福利提醒'),billSummary:t('{0} 笔账单快到期或已过还款日，打开钱包查看。',['{0}']),creditSummary:t('{0} 项福利快到期，打开钱包查看。',['{0}']),overdue:t('还款日已过 {0} 天',['{0}']),dueToday:t('今天到期'),dueTomorrow:t('明天到期'),endsToday:t('今天截止'),endsTomorrow:t('明天截止'),later:t('还有 {0} 天',['{0}']),stale:t('读数已过期')});
+const phrases=()=>({bill:t('账单提醒'),credit:t('福利提醒'),billSummary:t('{0} 笔账单快到期或已过还款日，打开钱包查看。',['{0}']),creditSummary:t('{0} 项福利快到期，打开钱包查看。',['{0}']),overdue:t('还款日已过 {0} 天',['{0}']),dueToday:t('今天到期'),dueTomorrow:t('明天到期'),endsToday:t('今天截止'),endsTomorrow:t('明天截止'),later:t('还有 {0} 天',['{0}']),stale:t('读数已过期'),reuse:t('{0}：{1} 可以再次使用',['{0}','{1}'])});
 function message(item){
  const p=phrases();
  if(item.type==='bill-summary')return [p.bill,p.billSummary.replace('{0}',item.count)];
