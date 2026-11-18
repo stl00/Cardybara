@@ -89,3 +89,14 @@ test('the summary reads in zh-CN and zh-TW with official programme names untrans
  assert.match(cn,/已知价值最高：Air Canada Aeroplan，约 \$168/);assert.match(cn,/个选项未排名：价值未知或不固定/);
  assert.match(tw,/已知價值最高：Air Canada Aeroplan，約 \$168/);assert.match(tw,/個選項未排名：價值未知或不固定/);
 });
+// #533: a Points Boost "up to" limit is an upper bound, never a value: the best option stays as without it.
+import {fixedRedemptions} from '../src/fixedRedemptions.js';
+const upTo=fixedRedemptions.find(r=>r.id==='ur-travel-chase-travel')?.upToByProduct||[];
+test('an "up to" limit higher than every known value does not change the best option',{skip:upTo.length?false:'needs the #532 upToByProduct data'},async()=>{
+ const {panel}=await load();setValues(lowExcept());
+ const csr={id:'c',bank:'Chase',region:'US',name:'Sapphire Reserve',currency:'USD'},w=wallet('programme.chase-ultimate-rewards',csr,20000);
+ w.accounts.current[0].label='Ultimate Rewards';
+ const s=summary(panel(w));
+ assert.match(s,/Highest known value/);assert.doesNotMatch(s,/Travel/);
+ assert.match(s,/about \$200\b/,'1 cent per point from the known options, not the 2 cent limit');assert.doesNotMatch(s,/\$400/);
+});

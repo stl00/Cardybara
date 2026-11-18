@@ -12,6 +12,7 @@ import {manualOnly} from './manualBanks.js';
 import {convertPoints,readingsFor,routesForCard,transferProgrammes,transferRoutes} from './transferRoutes';
 import {FIXED_REDEMPTION_PROGRAMMES,fixedRedemptionsFor} from './fixedRedemptions.js';
 import {redemptionOptions} from './redemptionOptions.js';
+import {heldPointsBoostLimits} from './pointsBoostLimits.js';
 import {bestPointsOption} from './bestPointsOption.js';
 import {POOLING_TEXT,poolingRule,poolingRuleForRow,pointsReach,programmeTotals,shownInPooledEntry} from './pointsPooling';
 const {Paragraph,Text,Link}=Typography;
@@ -78,13 +79,13 @@ function BestOption({programme,points,rows,heldProductIds,hidden}){
 function IssuerRedemptions({programme,points,heldProductIds,hidden}){
  if(!FIXED_REDEMPTION_PROGRAMMES.includes(programme.id))return null;
  const stated=Number.isSafeInteger(points)&&points>0?points:null,en=currentLanguage()==='en-US';
- const options=redemptionOptions(programme.id,{points:stated,heldProductIds:heldProductIds||[]});
+ const options=redemptionOptions(programme.id,{points:stated,heldProductIds:heldProductIds||[]}),limitsFor=r=>heldPointsBoostLimits(r,heldProductIds||[]);
  return <div style={{marginTop:16}}><Paragraph strong style={{marginBottom:8}}>{t('通过发卡行兑换')}</Paragraph>
   {!options.length?<Paragraph type="secondary">{t('暂无发卡行兑换记录。')}</Paragraph>:<Space orientation="vertical" size={8} style={{width:'100%'}}>{options.map(o=>{
    const v=o.value,record=fixedRedemptionsFor(programme.id).find(r=>r.id===o.id),line=en?record.textEn:record.textZh;
    const value=v.status==='computed'?(hidden?'••••':usd(v.cents)):v.status==='varies'?t('不固定'):v.status==='needs-card'?t('需要持有指定的卡'):v.status==='above-annual-cap'?t('超过年度上限，不给合计'):v.status==='rate-only'?'—':t('未知');
    const sources=o.sources;
-   return <Flex key={o.id} justify="space-between" gap={12}><div style={{flex:1,minWidth:0}}><ItemLogo programme={programme.id} size={14}/> {t(kindLabels[o.kind]||o.kind)}<div><Text type="secondary">{line}{v.status==='computed'&&v.leftoverPoints>0&&!hidden?` ${t('按 1,000 点为单位，余 {0} 点未计入。',[v.leftoverPoints.toLocaleString('en-US')])}`:''}</Text></div>{sources.length?<div><Space wrap size={[12,4]}>{sources.map(s=><Link key={s.url} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></div>:null}</div><Text strong={v.status==='computed'} style={{flex:"none",textAlign:"right"}}>{value}</Text></Flex>;})}</Space>}</div>;
+   return <Flex key={o.id} justify="space-between" gap={12}><div style={{flex:1,minWidth:0}}><ItemLogo programme={programme.id} size={14}/> {t(kindLabels[o.kind]||o.kind)}<div><Text type="secondary">{line}{v.status==='computed'&&v.leftoverPoints>0&&!hidden?` ${t('按 1,000 点为单位，余 {0} 点未计入。',[v.leftoverPoints.toLocaleString('en-US')])}`:''}</Text></div>{sources.length?<div><Space wrap size={[12,4]}>{sources.map(s=><Link key={s.url} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></div>:null}{limitsFor(record).map(l=><div key={l.productId}><Text type="secondary">{t('{0}：最高每点 {1} 美分（Points Boost 上限；实际价值取决于订购的行程）',[l.name,l.upToCentsPerPoint])}</Text>{l.source?<> <Link href={l.source.url} target="_blank" rel="noreferrer">{t(l.source.title)}</Link></>:null}</div>)}</div><Text strong={v.status==='computed'} style={{flex:"none",textAlign:"right"}}>{value}</Text></Flex>;})}</Space>}</div>;
 }
 export function ProgrammePanel({programme,accounts,cards,count,hidden}){
  const rule=poolingRule(programme.id),readings=poolReadings(programme,accounts,cards,rule),[selected,setSelected]=useState(null),[manual,setManual]=useState(null);
