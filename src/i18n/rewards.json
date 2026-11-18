@@ -96,7 +96,8 @@
     "按发卡行公布的比例": "At the issuer's published rate",
     "按默认市场估值，可在设置里改": "At the default market valuation, which you can change in settings",
     "转点按你设定的估值，其余按公布的比例或默认估值": "Transfers at your own valuation, the rest at the published rate or default valuation",
-    "{0} 个选项未排名：价值未知或不固定": "{0} options not ranked: value unknown or varies"
+    "{0} 个选项未排名：价值未知或不固定": "{0} options not ranked: value unknown or varies",
+    "{0}：最高每点 {1} 美分（Points Boost 上限；实际价值取决于订购的行程）": "{0}: up to {1} cents per point with this card (Points Boost limit; actual value depends on the booking)"
   },
   "zh-TW": {
     "美元现金奖励": "美元現金獎勵",
@@ -195,6 +196,7 @@
     "按发卡行公布的比例": "按發卡行公布的比例",
     "按默认市场估值，可在设置里改": "按預設市場估值，可在設定裡改",
     "转点按你设定的估值，其余按公布的比例或默认估值": "轉點按你設定的估值，其餘按公布的比例或預設估值",
-    "{0} 个选项未排名：价值未知或不固定": "{0} 個選項未排名：價值未知或不固定"
+    "{0} 个选项未排名：价值未知或不固定": "{0} 個選項未排名：價值未知或不固定",
+    "{0}：最高每点 {1} 美分（Points Boost 上限；实际价值取决于订购的行程）": "{0}：最高每點 {1} 美分（Points Boost 上限；實際價值取決於訂購的行程）"
   }
 }
