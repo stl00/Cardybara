@@ -216,3 +216,48 @@ test('an ordinal the user said in words may be echoed as a digit, and only that 
  assert.ok(!finalResult.trace.some(t=>t.type==='repair'));
  await assert.rejects(()=>replay(d,{finalRequest:scripted(d,'第5項係 Radisson Premium 會籍，要先登記。')}),/answer_not_grounded/,'a position the user did not say is not grounded');
 });
+
+// ---- follow-ups of find_protections, plan_flight and points_accounts (#482) ----
+test('coverage, trip and pooling follow-ups: two or three dialogues each, in at least two languages, ending in the tool they test',()=>{
+ const tools={'coverage-followup':'find_protections','trip-followup':'plan_flight','pooling-followup':'points_accounts'};
+ for(const [kind,toolName] of Object.entries(tools)){
+  const group=dialogues.filter(d=>d.kind===kind);
+  assert.ok(group.length>=2&&group.length<=3,kind);
+  assert.ok(new Set(group.map(d=>d.lang)).size>=2,kind+' languages');
+  for(const d of group){
+   assert.equal(d.expect.tool,toolName,d.id);
+   assert.ok(d.turns.at(-1).calls.some(([name])=>name===toolName),d.id+': the scripted first answer comes from the same tool');
+  }
+ }
+ assert.ok(interleaved(dialogues).slice(0,[...new Set(dialogues.map(d=>d.kind))].length).some(d=>d.kind==='trip-followup'),'the weekly live run reaches the new kinds in its first dialogues');
+});
+
+test('the new follow-ups replay through the real agent loop with grounded scripted answers',async()=>{
+ for(const d of dialogues.filter(d=>/followup$/.test(d.kind))){
+  const {fixtureIssues,sent}=await replay(d);
+  assert.deepEqual(fixtureIssues,[],d.id);
+  assert.equal(sent.messages.at(-1).content,d.question,d.id);
+ }
+});
+
+test('a wrong expected tool or argument in a new dialogue fails the label check (negative control)',()=>{
+ const good=byId('trip-points-hant');
+ assert.deepEqual(checkLabels(good),[]);
+ const wrongTool=structuredClone(good);wrongTool.expect.tool='find_protections';
+ assert.notDeepEqual(checkLabels(wrongTool),[],'a tool that does not fit the question');
+ const badArgs=structuredClone(byId('cov-ordinal-en'));badArgs.expect.args={type:'rental-car',cardName:'No Such Card'};
+ assert.notDeepEqual(checkLabels(badArgs),[],'a card name that selects nothing');
+ const noPath=structuredClone(good);noPath.expect.args={airline:'Delta',route:'JFK',milesNeeded:75000,points:80000};
+ assert.notDeepEqual(checkLabels(noPath),[],'an airline no held card reaches');
+});
+
+test('live scoring of plan_flight: the airline by name or alias, route and dates as the user said them, numbers as stated',()=>{
+ const expect=byId('trip-points-hant').expect,call=args=>({name:'plan_flight',args});
+ assert.equal(argumentsMatch(expect,call({airline:'ANA',route:'JFK to Tokyo',milesNeeded:75000,points:80000})),true);
+ assert.equal(argumentsMatch(expect,call({airline:'全日空 ANA',route:'JFK 飛東京',milesNeeded:75000,points:80000})),false,'an alias the knowledge does not hold');
+ assert.equal(argumentsMatch(expect,call({airline:'ANA',route:'JFK 飛東京',milesNeeded:75000,points:60000})),false,'the old points');
+ assert.equal(argumentsMatch(expect,call({airline:'Air Canada',route:'JFK 飛東京',milesNeeded:75000,points:80000})),false,'another airline');
+ assert.equal(argumentsMatch(expect,call({airline:'ANA',route:'',milesNeeded:75000,points:80000})),false,'no route');
+ assert.equal(argumentsMatch(byId('trip-airline-en').expect,{name:'plan_flight',args:{airline:'Air Canada',route:'NYC to Tokyo',when:'Dec'}}),true);
+ assert.equal(argumentsMatch(byId('trip-airline-en').expect,{name:'plan_flight',args:{airline:'Air Canada',route:'JFK to Tokyo'}}),false,'the dates are dropped');
+});
