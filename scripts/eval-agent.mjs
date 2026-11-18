@@ -74,9 +74,9 @@ if(!live){
   check(c.id,{notScored:r.protections.scored===false,coveringCardFound:csr?.status==='found'&&csr.coverage.some(p=>p.type==='trip-delay'&&p.sources.length>0),notFoundHasNoCoverage:none.length>0&&none.every(x=>x.coverage.length===0),goodNamesCardAndGuide:says(c.good).names&&says(c.good).guide,goodNeverUncovered:!says(c.good).callsUncovered,badCaught:says(c.bad).callsUncovered});
  }
  for(const c of flightCompareCases){
-  const r=runWalletTool({id:c.id,function:{name:'plan_flight',arguments:JSON.stringify(c.args)}},{...context,day:'2026-11-16'}),row=r.cashComparison?.rows.find(x=>x.partner==='Delta SkyMiles'),evidence=[r,r.credits,r.transfers,r.cashComparison];
+  const r=runWalletTool({id:c.id,function:{name:'plan_flight',arguments:JSON.stringify(c.args)}},{...context,day:'2026-11-16'}),row=r.cashComparison?.rows.find(x=>x.partner==='Delta SkyMiles'),evidence=[r,r.credits,r.transfers,r.cashComparison,r.payCash];
   const issues=text=>answerGrounding(text,evidence).issues.filter(i=>i.code==='unsupported_number').length;
-  check(c.id,{verdictFromCode:(row?.cheaper||row?.status)===c.verdict,goodAnswerGrounded:issues(c.good)===0,inventedFareCaught:issues(c.bad)>0});
+  check(c.id,{verdictFromCode:(row?.cheaper||row?.status)===c.verdict,goodAnswerGrounded:issues(c.good)===0,inventedFareCaught:issues(c.bad)>0,...(c.payCard?{payCardFromCode:r.payCash?.choice?.card===c.payCard,goodNamesPayCard:c.good.includes(r.payCash?.choice?.card||'\0')}:{})});
  }
  // #345: coverage questions end to end through the real agent loop with a scripted model. `--fault=<name>` breaks one rule on
  // purpose (not-covered, invented-limit, valuation, no-tool) to show the matching case fail; without it the controls below must all be caught.
