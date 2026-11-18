@@ -118,6 +118,7 @@ const CALLS={
  query_credits:[{},{use:'dining'},{cardName:HIDDEN.name}],
  find_protections:[{},{type:'rental-car'},{cardName:HIDDEN.name}],
  plan_flight:[{airline:'Delta'},{airline:'United',milesNeeded:30000,points:20000}],
+ plan_stay:[{programme:'Hyatt',nights:3},{programme:'Marriott',nights:2,pointsPerNight:30000,points:40000,when:'Dec 20-27'}],
  points_accounts:[{},{programme:'Membership Rewards'},{cardName:HIDDEN.name}],
  list_cards:[{}],
 };

@@ -15,7 +15,7 @@ Code: `gateway/src/gateway.js` (router, middleware, model proxy and the `UsageLe
 
 ## The hosted assistant (`/v1/chat`)
 
-**Split.** Cloud: `runAgentTurn` from `src/agentSession.js`, the system prompt from `src/chatProtocol.js`, every model call, and the public-knowledge tools `list_cards`, `find_benefits`, `get_card_rules`, `convert_points`, `find_protections`, `points_accounts`, which run on the summary's held products against the catalogue, benefit rules, transfer routes, point-value defaults and pooling rules bundled from `src/data`. Extension: the chat UI, rendering the stream, and the wallet tools `choose_card`, `query_credits`, `plan_flight` (`WALLET_TOOLS`), which read credit marks, fee dates and point-value overrides.
+**Split.** Cloud: `runAgentTurn` from `src/agentSession.js`, the system prompt from `src/chatProtocol.js`, every model call, and the public-knowledge tools `list_cards`, `find_benefits`, `get_card_rules`, `convert_points`, `find_protections`, `points_accounts`, which run on the summary's held products against the catalogue, benefit rules, transfer routes, point-value defaults and pooling rules bundled from `src/data`. Extension: the chat UI, rendering the stream, and the wallet tools `choose_card`, `query_credits`, `plan_flight`, `plan_stay` (`WALLET_TOOLS`), which read credit marks, fee dates and point-value overrides.
 
 **What the extension sends** (`src/cloudProtocol.js`, checked field by field by the Worker; anything else is `400 bad_request`):
 - the question; the trimmed history (questions, answers and `choose_card` arguments; never a tool result); the conversation memory (`src/conversationState.js`);
@@ -244,10 +244,30 @@ node scripts/gateway-settings.mjs clear-switch disabledTools
 
 1. `node scripts/gateway-release.mjs upload` uploads a new version at 0% traffic and prints its version id.
 2. `node scripts/gateway-release.mjs eval <version> --out=dir [--baseline=report.json]` runs the pinned live eval (`scripts/live-eval.mjs --target=hosted`) through `POST /v1/chat`, with the `Cloudflare-Workers-Version-Overrides` header pinning the request to that version. Wallet tools run locally on the synthetic wallet, as in the extension. No credential is needed; the eval's requests count against the per-client daily cap of the machine that runs it. The report records the version id; a baseline from another version makes the run a new baseline candidate, not a regression by itself.
-3. `ramp <version> 10 --stable <current-version>`, then `ramp <version> 50 --stable <current-version>`, then `ramp <version> 100`.
+3. `ramp <version> 10 --stable <current-version>`, then `compare`, then `ramp <version> 50 --stable <current-version>`, then `compare`, then `ramp <version> 100`.
 4. `rollback <current-version>` sends 100% of traffic back.
 
-At each step compare the new version with the stable one by `version_id` (see Metrics): repair rate (`double8`), fallback rate (`double9`) and error rate (`blob6` non-empty, or `double1` of 500 and above). Roll back when the new version's fallback or error rate is clearly above the stable version's over a comparable number of turns, or when the hosted eval has a case that passed on the stable version and fails now. `scripts/live-eval.mjs --target=hosted --dry-run` runs the hosted transport against an in-process gateway with a canned provider (no network, no code) and is covered by `tests/gateway-release.test.mjs`.
+Between each `ramp`, wait for traffic, run this query over the window since the ramp (the same turn definition as `TURN` in `gateway/src/alerts.js`, every count weighted by `_sample_interval`, only the two versions) and save its JSON output:
+
+```sql
+SELECT blob2 AS version, SUM(_sample_interval) AS turns,
+  SUM(_sample_interval * IF(blob6 != '', 1, 0)) AS errors,
+  SUM(_sample_interval * double8) AS repaired,
+  SUM(_sample_interval * double9) AS fallbacks
+FROM cardybara_agent_metrics
+WHERE blob1 = 'agent' AND double11 = 0 AND (double12 = 1 OR blob6 != '')
+  AND timestamp > NOW() - INTERVAL '2' HOUR
+  AND blob2 IN ('<new-version>', '<stable-version>')
+GROUP BY version FORMAT JSON
+```
+
+Then `node scripts/gateway-release.mjs compare <new-version> --stable <current-version> --metrics=result.json` (or the JSON on stdin). It holds no token and makes no network call. It prints turns, error, repair and fallback rates per version and one verdict:
+
+- `hold`: either version has fewer than `minTurns` (20) turns. Wait for more traffic and run the query again.
+- `rollback`: the new version's error rate, or its fallback rate, is at least `minRatePercent` (5%) and at least `rateMultiple` (2) times the stable version's. Run `rollback <current-version>`.
+- `ramp`: otherwise. Go to the next `ramp` step.
+
+The defaults are those of `DEFAULT_THRESHOLDS` in `gateway/src/alerts.js` (a test keeps them equal); override them with `--min-turns`, `--min-rate-percent` and `--rate-multiple`. A malformed version id, a version missing from the data or a malformed file is an error, never a `ramp`. The repair rate is shown but does not decide. Also roll back when the hosted eval has a case that passed on the stable version and fails now. `scripts/live-eval.mjs --target=hosted --dry-run` runs the hosted transport against an in-process gateway with a canned provider (no network, no code) and is covered by `tests/gateway-release.test.mjs`.
 
 Owner steps: run the first real staged release. (The `CARDYBARA_EVAL_INVITE` secret is no longer read and can be deleted.)
 
@@ -289,7 +309,7 @@ Email and password accounts and one server copy of the wallet document per user 
 - **Limits:** every route goes through `RATE_LIMITER` per client like the `/v1` routes. Per email (keyed by an HMAC of the email in `auth_limits`, the same for emails with no account): 5 failed sign-ins within 15 minutes lock sign-in for 15 minutes, even with the right password (`429 account_locked` with `Retry-After`); at most 5 code mails an hour (`429 too_many_codes`).
 - **Tables:** `users` (id, email, verified, password hash, salt, iterations), `email_codes`, `sessions`, `wallets` (`user_id`, `revision`, `document` JSON, `format_version`, `size`, `updated_at`), `auth_limits`. Deleting an account empties all five for the user (tested).
 - **Log line:** route (`account_*`), status, error code, `user` (first 16 hex of an HMAC of the session's user id) and `size` (blob bytes). No email, password, code, token or wallet content (tested with a capture of every line).
-- **Until configured** the account routes answer `503 account_unavailable`: they need the D1 binding `DB`, the `send_email` binding `EMAIL`, the var `ACCOUNT_EMAIL_FROM` and the secret `ACCOUNT_SECRET` (at least 16 characters). The top-level environment in `gateway/wrangler.jsonc` has none of them yet, so deploying this code changes nothing for existing builds.
+- **Until configured** the account routes answer `503 account_unavailable`: they need the D1 binding `DB`, the `send_email` binding `EMAIL`, the var `ACCOUNT_EMAIL_FROM` and the secret `ACCOUNT_SECRET` (at least 16 characters). Production (2026-11-17) has all four: D1 `cardybara-accounts` (migrations 0001–0003 applied), `ACCOUNT_SECRET`, and Email Sending on the zone `cardybara.dev` with sender `no-reply@cardybara.dev` (SPF, DKIM and DMARC records were added by Cloudflare when sending was enabled).
 
 ### Passkeys (`/v2/account/passkey`, #461)
 
@@ -324,7 +344,7 @@ WebAuthn sign-in for an existing account, as a second way in beside email and pa
 
 `node --test tests/gateway-accounts.test.mjs` runs every case on the gateway's own code with an in-memory D1 (`memoryD1` in `gateway/src/local.mjs`, which applies the real migration file) and a mail stand-in that keeps the messages (`memoryMail`). Under wrangler (Node 22): `npx wrangler@4.150.0 d1 migrations apply cardybara-accounts --local --env local --config gateway/wrangler.jsonc`, then `wrangler dev --env local` as in "Run it locally"; the local env has a local D1 and an `EMAIL` binding. **Not yet run under `wrangler dev` or workerd** (this machine has Node 21); in particular how local `wrangler dev` handles `send_email` for Email Sending is not verified.
 
-### To deploy accounts (not done; needs the orchestrator, and the owner where marked)
+### To deploy accounts (done in production 2026-11-17)
 
 1. Create the D1 database (included usage only, no paid plan): `npx wrangler@4.150.0 d1 create cardybara-accounts`. Add to the top level of `gateway/wrangler.jsonc`: `"d1_databases": [{"binding": "DB", "database_name": "cardybara-accounts", "database_id": "<id from create>", "migrations_dir": "migrations"}]` (the id is not a secret). Apply the schema: `npx wrangler@4.150.0 d1 migrations apply cardybara-accounts --remote --config gateway/wrangler.jsonc`.
 2. Email Sending: onboard the sender domain (DNS records Cloudflare gives for SPF/DKIM) and pick the sender, then add `"send_email": [{"name": "EMAIL"}]` and the var `ACCOUNT_EMAIL_FROM` (for example `Cardybara <no-reply@…>` on that domain). Which domain to send from is the owner's choice (#410 approved the service, not a domain).
@@ -357,7 +377,7 @@ US credit cards connected through Plaid (plan, decisions and owner tasks: `PLAID
 - **Secrets and environment:** `PLAID_CLIENT_ID`, `PLAID_SECRET`, `PLAID_ENV` (`sandbox` or `production`; the one source of the API host) and `PLAID_TOKEN_KEY` (32+ characters; keys the AES-GCM encryption of access tokens; `LOCAL_DEV=1` falls back to a fixed key). Without them, or without working accounts, every `/v2/plaid` route answers `503 plaid_unavailable`.
 - **Tables:** `plaid_items` (Item id, user, encrypted access token, institution, the duplicate-check keys, sync cursor, status, last accounts and liabilities snapshot), `plaid_transactions` (allow-listed fields only), `plaid_link_sessions` (handle hash, user, link_token, expiry). Account deletion calls `/item/remove` for each Item, then empties all three (tested); the export lists them, naming the token without showing it.
 - **Plan cap:** when the Plaid plan's connection slots are used up (`TRIAL_CONNECTION_LIMIT`, `CREDITS_EXHAUSTED`, `ADDITION_LIMIT`; the personal free trial has 20), `POST /v2/plaid/link` and the exchange answer `429 plaid_limit` without retrying, the Link page says so, and the wallet keeps the linked cards and Sync but disables Add. Without the Plaid secrets every route answers `503 plaid_unavailable` and the wallet panel only says the service is not set up.
-- **Log line:** route (`plaid_*`), status, error code, user hash, Plaid `request_id`s with their error codes, the Link `link_session_id`, and the webhook type and code. Never a token, secret, amount or merchant (tested).
+- **Log line:** route (`plaid_*`), status, error code, user hash, Plaid `request_id`s with their error codes (and Plaid's `error_message`, cut to 200 characters, for `INVALID_REQUEST`/`INVALID_INPUT` errors, which say which field was wrong; token-shaped strings, long opaque runs and the request's `client_user_id` are replaced with `[redacted]` first), the Link `link_session_id`, and the webhook type and code. Never a token, secret, amount or merchant (tested).
 - **Locally:** `wrangler dev --env local` reads `PLAID_CLIENT_ID`, `PLAID_SECRET` and `PLAID_ENV` from `gateway/.env` (built by `cd gateway && plaid keys write --env sandbox --gitignore` from `gateway/.env.example`; wrangler ignores `.env` while `gateway/.dev.vars` exists). No webhooks reach a local run; the wallet's Sync button pulls. A PWA built against the local gateway and served by `npm run preview` (`http://127.0.0.1:8766`) is admitted because the local env lists that exact origin and `LOCAL_DEV=1` allows an exact `http://127.0.0.1`/`localhost` origin; production admits only `https://`.
 
 ## Expected monthly cost
