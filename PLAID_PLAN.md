@@ -72,6 +72,8 @@ States per TASK-001. Re-read from `dashboard_get_state` on 2026-11-17 (round 3) 
   - Logs: no access, public or link token in the wrangler log; `PLAID_SECRET ("(hidden)")` only; `gateway/.env` not read.
   - After the run, the panel's Add/Sync buttons moved from the card's title bar into its body (the title was cut to "通过 …" at phone width); layout only, no Plaid call or state changed. Re-checked on the PWA at 375×812 against the same Sandbox gateway: full title, Add and Sync shown, cards unchanged.
 
+- Round 5 (2026-11-18, PR #514, wallet matching only; gateway unchanged): **PASS, all 15 checks**. Built PWA in the built-in browser with synthetic data: two Chase Plaid cards, empty wallet → "添加到钱包" → the wallet card shows Plaid's balance and due date. Tests cover manual links (persistent_account_id key, TXN-012), same-currency only, 5-digit Amex tails. Independent Opus review APPROVE after one round of fixes.
+
 ## Maintenance
 
 This integration is maintained with the Plaid MCP; this file is its durable state. Agents working in this repository: consult build_guidance before modifying any Plaid-touching code, and re-run build_check_acceptance before reporting such a change as working. The acceptance above applies only to the code as it was verified — later changes invalidate it.
