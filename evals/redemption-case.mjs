@@ -9,7 +9,7 @@ import {runWalletTool} from '../src/walletAgent.js';
 export const REDEMPTION_DAY='2026-11-16';
 export const REDEMPTION_POINTS=50000;
 const GOLD='amex-us-us-american-express-gold-card',SAPPHIRE='chase-us-sapphire-reserve';
-export const REDEMPTION_FAULTS=['wrong-dollars','invented-cpp','varies-number','needs-card-value','no-tool'];
+export const REDEMPTION_FAULTS=['wrong-dollars','invented-cpp','varies-number','needs-card-value','boost-dollars','no-tool'];
 
 // What each case is about. `status` is the value.status the tool gives the option; `fault` is the one fault that has
 // something to break there (no-tool applies to every case).
@@ -18,6 +18,7 @@ export const redemptionCases=[
  {id:'redemption-ur-cash-back-zh',language:'zh-CN',programme:'Ultimate Rewards',optionId:'ur-cash-back',status:'computed',fault:'wrong-dollars',question:'我有 50000 Ultimate Rewards 点，换现金返还还是转点划算？',focus:/现金返还/},
  {id:'redemption-mr-unknown-zh',language:'zh-CN',programme:'Membership Rewards',optionId:'mr-statement-credit',status:'unknown',fault:'invented-cpp',question:'我有 50000 MR 点，抵扣账单一点值多少钱？',focus:/抵扣账单/},
  {id:'redemption-ur-varies-en',language:'en',programme:'Ultimate Rewards',optionId:'ur-travel-chase-travel',status:'varies',fault:'varies-number',question:'I have 50,000 Ultimate Rewards points. What are they worth through Chase Travel?',focus:/chase travel/i},
+ {id:'redemption-ur-boost-en',language:'en',programme:'Ultimate Rewards',optionId:'ur-travel-chase-travel',status:'varies',boost:true,fault:'boost-dollars',question:'I have 50,000 Ultimate Rewards points. Does my card give a better rate through Chase Travel?',focus:/chase travel/i},
  {id:'redemption-mr-needs-card-zh',language:'zh-TW',programme:'Membership Rewards',optionId:'mr-business-checking-deposit-business-platinum',status:'needs-card',fault:'needs-card-value',question:'我有 50000 MR 點，存入 Business Checking 可以換多少錢？',focus:/Business Checking/},
 ];
 
@@ -33,6 +34,7 @@ function answerFrom(c,result,fault){
   const total=f==='wrong-dollars'?Math.round(o.value.dollars*1.5):o.value.dollars;
   text=zh?`现金返还：每点 ${cpp} 美分，${pts} 点是 $${dollars(total)}。转点的价值这里没有公布，转点比例请以 convert_points 返回的为准，我不会把它换算成美元来比较。`:`Cash back: each point is worth ${cpp} cent, so ${pts} points is $${dollars(total)}. The value of a transferred point is not published here, so I do not convert transfers into dollars; check the rates convert_points returns.`;
  }else if(c.status==='unknown')text=(zh?'抵扣账单：官方条款没有公布每点价值，所以我不能给出具体金额。':'')+(f==='invented-cpp'?'抵扣账单每点约 0.6 美分，50000 点约 $300。':'');
+ else if(c.boost)text=f==='boost-dollars'?'Chase Travel: your Sapphire Reserve page says up to $2.00, so your 50,000 points are worth $1,000.':'Chase Travel: the value varies. Your Sapphire Reserve page says 100 points could be worth up to $2.00 through Chase Travel with Points Boost. That is a ceiling, not what a booking will give, so I give no dollar amount for your points.';
  else if(c.status==='varies')text=f==='varies-number'?'Chase Travel is worth about 1.5 cents per point, so 50,000 points is $750.':'Chase Travel: the issuer says the value varies by card, so I give no value per point and no dollar amount.';
  else text=f==='needs-card-value'?'存入 Business Checking 約值 $500。':(hant?'存入 Business Checking 需要綁定 Business Platinum Card，你的錢包裡沒有這張卡，所以不能給你這個方案的金額。':'');
  return text;
@@ -80,6 +82,13 @@ export async function runRedemptionCase(c,{fault=null,turn=runAgentTurn}={}){
    // The dollar value is the one code computed, and it is the only dollar amount in the answer.
    checks.dollarsMatchTool=!!option&&dollarAmounts(answer).length>0&&dollarAmounts(answer).every(n=>n===option.value.dollars);
    checks.centsMatchTool=!!option&&numbers(own).includes(option.centsPerPoint);
+  }else if(c.boost){
+   // The held card's ceiling is given as "up to", with its source's figure, and no dollar amount is computed from it.
+   const h=option?.pointsBoost?.heldCards?.[0];
+   checks.toolReturnsHeldLimit=!!h&&h.productId===SAPPHIRE;
+   checks.givesLimitAsUpTo=!!h&&/up to/i.test(own)&&dollarAmounts(own).includes(h.upToCentsPerPoint);
+   checks.computesNoDollars=dollarAmounts(answer).every(n=>n===h?.upToCentsPerPoint)&&!numbers(answer).some(n=>n>REDEMPTION_POINTS||(n!==REDEMPTION_POINTS&&n>=300&&n!==100));
+   checks.saysCeiling=/ceiling|upper limit|not what a booking/i.test(own);
   }else{
    checks.givesNoValue=noValue(answer);
    if(c.status==='needs-card')checks.namesCondition=/Business Platinum/.test(own);
