@@ -101,3 +101,30 @@ test('zh-Hant: a rate for an unpublished redemption is rejected, while the state
  assert.ok(answerGrounding('Pay Yourself Back 每點 1.25 美分。',evidence).issues.some(i=>i.code==='unsupported_number'));
  assert.equal(answerGrounding('8000 點換現金返還是 80 美元。',evidence).passed,true);
 });
+
+test('Chase Travel returns the Points Boost ceiling of a held card only, and the value stays "varies" (#534)',()=>{
+ const o=options(pa([csr],{programme:'Ultimate Rewards',points:20000}))['ur-travel-chase-travel'];
+ assert.equal(o.value.status,'varies');assert.equal(o.value.cents,undefined);assert.equal(o.value.dollars,undefined);
+ assert.equal(o.pointsBoost.heldCards.length,1);
+ const h=o.pointsBoost.heldCards[0];
+ assert.equal(h.productId,'chase-us-sapphire-reserve');assert.equal(h.card,'Sapphire Reserve');assert.equal(h.upToCentsPerPoint,2);
+ assert.match(h.quote,/up to \$2\.00/);assert.match(h.source.url,/^https:\/\/[a-z.]*chase\.com\//);
+ assert.match(o.pointsBoost.note,/ceiling/);assert.match(o.pointsBoost.note,/not what a booking will give/);
+ // The business card is not held, so it is not returned.
+ assert.ok(o.pointsBoost.heldCards.every(c=>c.productId!=='chase-us-sapphire-reserve-for-business-credit-card'));
+});
+
+test('a wallet without a Points Boost card gets the Chase Travel record as before; other options never carry one (#534)',()=>{
+ const none=options(pa([gold],{programme:'Ultimate Rewards',points:20000}));
+ assert.equal(none['ur-travel-chase-travel'].pointsBoost,undefined);assert.equal(none['ur-travel-chase-travel'].value.status,'varies');
+ const held=options(pa([csr],{programme:'Ultimate Rewards'}));
+ assert.equal(held['ur-travel-chase-travel'].value.status,'varies');
+ for(const o of Object.values(held))if(o.id!=='ur-travel-chase-travel')assert.equal(o.pointsBoost,undefined,o.id);
+ assert.equal(options(pa([{...csr,hidden:true}],{programme:'Ultimate Rewards'}))['ur-travel-chase-travel'].pointsBoost,undefined);
+});
+
+test('a dollar amount computed from a Points Boost ceiling is still rejected',()=>{
+ const evidence=[{tool:'points_accounts',...pa([csr],{programme:'Ultimate Rewards',points:20000})}];
+ assert.ok(answerGrounding('With Chase Travel your 20,000 points are worth up to $400.',evidence).issues.some(i=>i.code==='unsupported_number'));
+ assert.equal(answerGrounding('Your Sapphire Reserve page says 100 points could be worth up to $2.00 through Chase Travel with Points Boost. That is a ceiling, not what a booking will give, so I give no dollar amount for your points.',evidence).passed,true);
+});
