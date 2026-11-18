@@ -44,6 +44,13 @@ Object.defineProperty(navigator.credentials,'get',{configurable:true,value:async
 const init = lang => `${STUB}localStorage.setItem('cardybara-language',${JSON.stringify(lang)});localStorage.setItem(${JSON.stringify(GUIDE_KEY)},'1');`;
 const entry = c => c.evaluate(`(()=>{const e=document.querySelector('.app-header .account-entry');return e?{text:e.innerText.split(' ').join('').trim(),avatar:e.classList.contains('account-avatar'),sync:e.dataset.sync||null}:null})()`);
 const openDialogs = c => c.evaluate(`document.querySelectorAll('.ant-modal-wrap:not([style*="display: none"]) .ant-modal-container,.ant-drawer-open .ant-drawer-section').length`);
+// The header stays one 64 px row (title and account entry centred on the same line) with no horizontal scroll.
+async function oneRow(c, what) {
+  const h = await c.evaluate(`(()=>{const hd=document.querySelector('.app-header').getBoundingClientRect(),mid=e=>{const r=document.querySelector(e).getBoundingClientRect();return (r.top+r.bottom)/2};return {h:Math.round(hd.height),d:Math.abs(mid('.app-header .page-title')-mid('.app-header .account-entry')),sw:document.documentElement.scrollWidth}})()`);
+  assert.ok(h.h <= 72, `${what}: header ${h.h}px tall`);
+  assert.ok(h.d <= 4, `${what}: title and account entry are not on one row (${h.d}px apart)`);
+  assert.ok(h.sw <= PHONE.width, `${what}: horizontal scroll (${h.sw}px)`);
+}
 const SIGN_IN = {'zh-CN': '登录', 'zh-TW': '登入', 'en-US': 'Signin'};
 
 for (const lang of ['zh-CN', 'zh-TW', 'en-US']) {
@@ -54,6 +61,7 @@ for (const lang of ['zh-CN', 'zh-TW', 'en-US']) {
       await c.pause(1200);
       assert.deepEqual(await entry(c), {text: SIGN_IN[lang], avatar: false, sync: null}, `${lang}: a plain Sign in button`);
       assert.equal(await openDialogs(c), 0, `${lang}: nothing opens by itself while signed out`);
+      await oneRow(c, `${lang} signed out`);
       await c.tap('.app-header .account-entry');
       await c.until(`document.querySelector('.account-drawer.ant-drawer-open .account-passkey-signin')`, 'the sign-in sheet with the passkey first');
       await c.pause(400);
@@ -63,6 +71,7 @@ for (const lang of ['zh-CN', 'zh-TW', 'en-US']) {
       await c.until(`document.querySelector('.app-header .account-avatar')`, 'the avatar after a passkey sign-in');
       await c.pause(600);
       assert.equal((await entry(c)).text, 'S', `${lang}: the avatar shows the email's first letter`);
+      await oneRow(c, `${lang} signed in`);
       assert.ok((await c.evaluate('window.__calls')).includes('POST /v2/account/passkey/login/verify'), `${lang}: signed in through the passkey route`);
       assert.equal(await c.evaluate(`!!document.querySelector('.account-drawer.ant-drawer-open')`), false, `${lang}: the sheet closes after signing in`);
       assert.equal((await entry(c)).sync, 'off', `${lang}: no sync dot while sync is off`);
@@ -81,6 +90,8 @@ for (const lang of ['zh-CN', 'zh-TW', 'en-US']) {
       }
       await c.tap('.account-drawer .account-signout');
       await c.until(`document.querySelector('.app-header .account-entry:not(.account-avatar)')`, 'Sign in again after signing out');
+      await c.pause(700);
+      assert.equal(await openDialogs(c), 0, `${lang}: signing out opens nothing by itself`);
     }, {init: init(lang)});
   });
 }
@@ -125,5 +136,9 @@ test('desktop: Sign in opens a modal; the signed-in avatar opens a popover with 
     const shown = await c.evaluate(`document.querySelector('.account-popover .account-email').innerText`);
     assert.equal(shown, 'sy•••@example.test', 'the popover masks the email');
     assert.ok(await c.evaluate(`!!document.querySelector('.account-settings')===false`), 'the full Settings card is not in the header');
+    await c.tap('.account-popover .account-signout');
+    await c.until(`document.querySelector('.app-header .account-entry:not(.account-avatar)')`, 'Sign in after signing out');
+    await c.pause(700);
+    assert.equal(await openDialogs(c), 0, 'signing out on desktop opens no sign-in modal');
   }, {init: init('en-US')});
 });
