@@ -95,6 +95,7 @@ export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external 
     await page('Runtime.enable');
     await page('Emulation.setDeviceMetricsOverride', {...PHONE, deviceScaleFactor: 2, mobile: true});
     await page('Emulation.setEmulatedMedia', {features: [{name: 'prefers-color-scheme', value: 'light'}]});
+    await page('Page.addScriptToEvaluateOnNewDocument', {source: `window.__taps=[];for(const k of ['mousedown','mouseup','click'])addEventListener(k,e=>window.__taps.push(k+'@'+Math.round(performance.now())+':'+(e.target.className?.toString?.()||e.target.tagName).replace(/css-\\S+/g,'').slice(0,50)),true);`});
     if (init) await page('Page.addScriptToEvaluateOnNewDocument', {source: init});
     const evaluate = async expression => {
       const r = await page('Runtime.evaluate', {expression, awaitPromise: true, returnByValue: true});
@@ -107,21 +108,49 @@ export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external 
       // Polls a page expression until it is truthy.
       until: async (expr, what = expr, ms = 8000) => {
         for (let t = 0; t < ms / 50; t++) { if (await evaluate(`!!(${expr})`)) return; await wait(50); }
-        throw Error('timed out waiting for ' + what);
+        const state = await evaluate(`(()=>{const v=e=>e&&getComputedStyle(e).display!=='none';return JSON.stringify({modals:[...document.querySelectorAll('.ant-modal-wrap,.ant-drawer')].filter(v).map(e=>e.className.replace(/css-\\S+/g,'').trim().slice(0,80)),errors:[...document.querySelectorAll('.ant-form-item-explain-error,.ant-alert-error')].map(e=>e.innerText.slice(0,80)),focus:document.activeElement?.className?.toString().slice(0,60),hash:location.hash,taps:(window.__taps||[]).slice(-6),now:Math.round(performance.now())})})()`).catch(e => 'unreadable: ' + e.message);
+        if (process.env.CARDYBARA_FAIL_SHOTS) await ctl.shot(join(process.env.CARDYBARA_FAIL_SHOTS, `fail-${Date.now()}.png`)).catch(() => {});
+        throw Error('timed out waiting for ' + what + ' ' + state);
       },
       pause: wait,
       audit: () => evaluate(AUDIT),
       text: () => evaluate(`document.body.innerText`),
-      // A real tap: scrolls the element into view, then sends touch-style mouse events at its centre.
+      // A real tap: scrolls the element into view, waits until it has settled, then sends touch-style mouse events and checks
+      // that the click reached it. Settled: nothing that could move it is animating (the element, an ancestor, or anything in
+      // an open modal or drawer; the pet's waddle elsewhere on the page does not count), it has not moved for 150 ms, and
+      // the point pressed is on screen with nothing on top of it. Less is not enough: a modal's open callback runs just after
+      // its animation ends and can move the content (focusing the search box scrolls the card picker), and a press and
+      // release that land on different elements send the click to their common ancestor, so the control never sees it.
+      // `match.at`: [fx, fy], where to press as fractions of the element's box (default the centre), e.g. a mask's top
+      // edge, whose centre lies under the sheet it belongs to.
       tap: async (selector, match) => {
         const text = typeof match === 'string' ? match : match?.text;
-        const find = `(()=>{const all=[...document.querySelectorAll(${JSON.stringify(selector)})].filter(e=>{const r=e.getBoundingClientRect();const s=getComputedStyle(e);return r.width>0&&r.height>0&&s.visibility!=='hidden'});const e=${text ? `all.find(e=>(e.innerText||e.value||e.getAttribute('aria-label')||'').includes(${JSON.stringify(text)}))` : 'all[0]'};if(!e)return null;e.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'});const r=e.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2}})()`;
-        let at = null;
-        for (let t = 0; t < 100 && !at; t++) { at = await evaluate(find); if (!at) await wait(50); }
-        if (!at) throw Error(`nothing to tap: ${selector}${text ? ' / ' + text : ''}`);
-        await wait(60);
-        at = await evaluate(find);
+        const [fx, fy] = (typeof match === 'object' && match?.at) || [0.5, 0.5];
+        const name = `${selector}${text ? ' / ' + text : ''}`;
+        const find = `(async()=>{const all=[...document.querySelectorAll(${JSON.stringify(selector)})].filter(e=>{const r=e.getBoundingClientRect();const s=getComputedStyle(e);return r.width>0&&r.height>0&&s.visibility!=='hidden'});const e=${text ? `all.find(e=>(e.innerText||e.value||e.getAttribute('aria-label')||'').includes(${JSON.stringify(text)}))` : 'all[0]'};if(!e)return {why:'not found'};e.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'});
+          const box=()=>{const r=e.getBoundingClientRect();return [r.left,r.top,r.width,r.height].map(n=>Math.round(n*10)/10).join()};
+          const moves=t=>t instanceof Element&&(t.contains(e)||!!t.closest('.ant-modal-root,.ant-modal-wrap,.ant-drawer'));
+          const busy=()=>document.getAnimations().some(a=>a.playState==='running'&&a.effect?.getComputedTiming().endTime!==Infinity&&moves(a.effect.target));
+          const frame=()=>new Promise(r=>requestAnimationFrame(r)),t0=performance.now();let last=box(),since=t0;
+          while(performance.now()-since<150){await frame();const now=box();if(now!==last||busy()){last=now;since=performance.now();}if(performance.now()-t0>1500)return {why:'still moving'};}
+          // A finger can only tap what is on screen and on top there.
+          const r=e.getBoundingClientRect(),x=r.left+r.width*${fx},y=r.top+r.height*${fy};
+          if(x<0||y<0||x>innerWidth||y>innerHeight)return {why:'off screen at '+Math.round(x)+','+Math.round(y)};
+          const top=document.elementFromPoint(x,y);if(!top||!e.contains(top))return {why:'covered by '+(top?(top.className?.toString?.()||top.tagName).replace(/css-\\S+/g,'').trim().slice(0,50):'nothing')};
+          window.__tapTarget=e;return {x,y,ok:true}})()`;
+        // One deadline for finding the element and for it to settle; a miss after the press is reported, never retried.
+        const end = Date.now() + 8000;
+        let at = await evaluate(find);
+        while (!at.ok && Date.now() < end) { await wait(50); at = await evaluate(find); }
+        if (!at.ok) throw Error(`cannot tap ${name}: ${at.why} after 8 s`);
+        await evaluate(`(()=>{window.__tapHit='no click';const e=window.__tapTarget;addEventListener('click',ev=>{window.__tapHit=e.contains(ev.target)?'':'the click went to '+(ev.target.className?.toString?.()||ev.target.tagName).replace(/css-\\S+/g,'').trim().slice(0,60);},{capture:true,once:true});})()`);
         for (const type of ['mousePressed', 'mouseReleased']) await page('Input.dispatchMouseEvent', {type, x: at.x, y: at.y, button: 'left', clickCount: 1});
+        // A tap that navigates leaves a new document without the mark: the click was delivered, so that is not a miss.
+        const hit = await evaluate(`window.__tapHit===undefined?'':window.__tapHit`).catch(() => '');
+        if (hit) {
+          const where = await evaluate(`(()=>{const r=window.__tapTarget.getBoundingClientRect(),p=document.elementFromPoint(${at.x},${at.y});return 'pressed at '+${Math.round(at.x)}+','+${Math.round(at.y)}+', target now at '+[r.left,r.top,r.width,r.height].map(Math.round).join()+', connected '+window.__tapTarget.isConnected+', scrollY '+Math.round(scrollY)+', at that point now: '+(p?(p.className?.toString?.()||p.tagName).replace(/css-\\S+/g,'').trim().slice(0,50):'nothing')})()`).catch(e => e.message);
+          throw Error(`tap on ${name} missed: ${hit} (${where})`);
+        }
         await wait(150);
       },
       // Focuses a field and types into it like a keyboard would.
