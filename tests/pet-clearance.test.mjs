@@ -96,6 +96,11 @@ test('a first load of /#agent opens the assistant, and the pet stays off its com
     await c.goto('/#agent');
     await c.until(`!!document.querySelector('.chat-composer-area')`, 'the assistant composer');
     await c.pause(500);
-    assert.equal(await c.evaluate(`[...document.querySelectorAll('.capy-companion,.capy-restore')].some(p=>p.getBoundingClientRect().width>0)`), false, 'pet hidden on /#agent');
+    const shown = () => c.evaluate(`[...document.querySelectorAll('.capy-companion,.capy-restore')].some(p=>p.getBoundingClientRect().width>0)`);
+    assert.equal(await shown(), false, 'pet hidden on /#agent');
+    // Positive control, so the check above cannot pass just because the pet never renders.
+    await c.tap('.mobile-tabbar [data-nav-key="credits"]');
+    await c.pause(500);
+    assert.equal(await shown(), true, 'pet back on credits');
   }, {init: base});
 });
