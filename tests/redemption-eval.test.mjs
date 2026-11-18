@@ -36,6 +36,12 @@ test('the named failures: wrong dollars, an invented value per point, a number f
  assert.equal((await runRedemptionCase(byId('redemption-mr-needs-card-zh'),{fault:'needs-card-value',turn:ungatedTurn})).checks.givesNoValue,false);
 });
 
+test('the Points Boost case: the held card\'s limit is given as "up to" and a dollar amount computed from it fails (#534)',async()=>{
+ const c=byId('redemption-ur-boost-en');
+ const ok=await runRedemptionCase(c);assert.deepEqual(failed(ok),[]);assert.equal(ok.checks.givesLimitAsUpTo,true);
+ const bad=await runRedemptionCase(c,{fault:'boost-dollars',turn:ungatedTurn});assert.equal(bad.checks.computesNoDollars,false);
+});
+
 test('answering without calling points_accounts fails every case',async()=>{
  for(const c of redemptionCases){
   assert.ok(failed(await runRedemptionCase(c,{fault:'no-tool'})).length,c.id+' shipped loop');
@@ -49,7 +55,7 @@ test('the needs-card answer names the condition, and dropping it fails',async()=
  const r=await runRedemptionCase(c,{fault:'needs-card-value',turn:ungatedTurn});assert.equal(r.checks.namesCondition,false);
 });
 
-test('the fault list is the one the eval script offers',()=>{assert.deepEqual(REDEMPTION_FAULTS,['wrong-dollars','invented-cpp','varies-number','needs-card-value','no-tool']);});
+test('the fault list is the one the eval script offers',()=>{assert.deepEqual(REDEMPTION_FAULTS,['wrong-dollars','invented-cpp','varies-number','needs-card-value','boost-dollars','no-tool']);});
 
 test('multi-turn: "and as a statement credit?" is scored against the Membership Rewards programme, not the Ultimate Rewards one before it',async()=>{
  const {dialogues}=await import('../evals/multiturn/dialogues.mjs'),{argumentsMatch}=await import('../evals/multiturn/live.mjs'),{replay,contextSources,resolvable,checkLabels}=await import('../evals/multiturn/harness.mjs');

@@ -88,7 +88,7 @@ if(!live){
   // A fault only applies where it has something to break: "not-covered" needs a card with no record.
   const applicable=f==='not-covered'?results.filter((r,i)=>coverageCases[i].noRecord):results;
   check('coverage-control-'+f,{caught:applicable.length>0&&applicable.every(r=>Object.values(r.checks).some(v=>!v))});}
- // #464: issuer-redemption answers (points_accounts). `--fault=<name>` (wrong-dollars, invented-cpp, varies-number, needs-card-value, no-tool)
+ // #464: issuer-redemption answers (points_accounts). `--fault=<name>` (wrong-dollars, invented-cpp, varies-number, needs-card-value, boost-dollars, no-tool)
  // breaks one rule so the matching case fails. The controls take the shipped answer checker out of the way, so they test the eval's own checks.
  for(const c of redemptionCases){const r=await runRedemptionCase(c,{fault:redemptionFault});check(c.id,r.checks,r.detail);}
  if(!fault)for(const f of REDEMPTION_FAULTS){const results=[];for(const c of redemptionCases)results.push(await runRedemptionCase(c,{fault:f,turn:ungatedTurn}));
