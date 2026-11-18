@@ -2,7 +2,7 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {performance} from 'node:perf_hooks';
-import {context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,cycleCases,ledgerCases,planGroundingCases,decisionCases,actionClaimCases,actionClaimControls,tripCases} from '../evals/fixtures.mjs';
+import {flightProtectionCases,stayCases,context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,cycleCases,ledgerCases,planGroundingCases,decisionCases,actionClaimCases,actionClaimControls,tripCases,flightCompareCases} from '../evals/fixtures.mjs';
 import {searchBenefitKnowledge} from '../src/benefitSearch.js';
 import {queryKnowledge} from '../src/knowledge.js';
 import {matchCardProduct} from '../src/productCatalog.js';
@@ -16,6 +16,8 @@ import {runWalletTool} from '../src/walletAgent.js';
 import {chatAgent} from './chat-agent.mjs';
 import {runLiveCase} from '../evals/live-case.mjs';
 import {coverageCases,runCoverageCase,FAULTS} from '../evals/coverage-case.mjs';
+import {pointsCases,runPointsCase,POINTS_FAULTS} from '../evals/points-case.mjs';
+import {redemptionCases,runRedemptionCase,ungatedTurn,REDEMPTION_FAULTS} from '../evals/redemption-case.mjs';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url))),live=process.argv.includes('--live');
 const outputArg=process.argv.find(a=>a.startsWith('--out=')),output=resolve(outputArg?.slice(6)||resolve(root,'evals/latest-'+(live?'live':'offline')+(AGENT_TARGET==='cloud'?'-cloud':'')+'.json'));
 const report={schema:1,dataset:'wallet-agent-development-v1',asOf:context.day,mode:(live?'live-deepseek-sdk':'offline')+(AGENT_TARGET==='cloud'?'-cloud-agent':''),syntheticWallet:true,createdAt:new Date().toISOString(),cases:[],limitations:['Development set, not a held-out benchmark.','Automated checks do not prove all statements true.','Live model runs are stochastic and use only synthetic products.']};
@@ -61,15 +63,42 @@ if(!live){
   const same=flight.dates.start===hotel.window.start&&flight.dates.end===hotel.window.end;
   check(c.id,{sameWindow:same,expectedWindow:hotel.window.start===c.expectedWindow.start&&hotel.window.end===c.expectedWindow.end,awardNotChecked:flight.award.status==='not-checked',hotelCredits:hotel.totalItems>0,coverFound:cover.cards.some(x=>x.status==='found'),noRecordIsNotFound:cover.cards.every(x=>['found','not_found'].includes(x.status))});
  }
+ for(const c of stayCases){
+  const r=runWalletTool({id:c.id,function:{name:c.tool,arguments:JSON.stringify(c.args)}},referenceContext),hotel=runWalletTool({id:c.id,function:{name:'query_credits',arguments:JSON.stringify({use:'hotel',when:c.args.when})}},referenceContext);
+  const rows=r.transfers.programmes.flatMap(g=>g.partners);
+  check(c.id,{sameWindowAsHotelCredits:r.dates.start===hotel.window.start&&r.dates.end===hotel.window.end,expectedWindow:r.dates.start===c.expectedWindow.start&&r.dates.end===c.expectedWindow.end,availabilityNotChecked:r.availability.status==='not-checked',hotelPathFound:r.transfers.partnerFound&&rows.length>0,noPointsInvented:rows.every(x=>x.stay.status==='no-award-price'),protectionsListed:r.protections.cards.length>0});
+ }
+ for(const c of flightProtectionCases){
+  const r=runWalletTool({id:c.id,function:{name:'plan_flight',arguments:JSON.stringify(c.args)}},referenceContext),csr=r.protections.cards.find(x=>x.name==='Sapphire Reserve'),none=r.protections.cards.filter(x=>x.status==='not_found');
+  const says=t=>({names:/Sapphire Reserve/.test(t)&&/trip delay/i.test(t),guide:/guide to benefits/i.test(t),callsUncovered:/no coverage|not covered|uncovered/i.test(t)});
+  check(c.id,{notScored:r.protections.scored===false,coveringCardFound:csr?.status==='found'&&csr.coverage.some(p=>p.type==='trip-delay'&&p.sources.length>0),notFoundHasNoCoverage:none.length>0&&none.every(x=>x.coverage.length===0),goodNamesCardAndGuide:says(c.good).names&&says(c.good).guide,goodNeverUncovered:!says(c.good).callsUncovered,badCaught:says(c.bad).callsUncovered});
+ }
+ for(const c of flightCompareCases){
+  const r=runWalletTool({id:c.id,function:{name:'plan_flight',arguments:JSON.stringify(c.args)}},{...context,day:'2026-11-16'}),row=r.cashComparison?.rows.find(x=>x.partner==='Delta SkyMiles'),evidence=[r,r.credits,r.transfers,r.cashComparison];
+  const issues=text=>answerGrounding(text,evidence).issues.filter(i=>i.code==='unsupported_number').length;
+  check(c.id,{verdictFromCode:(row?.cheaper||row?.status)===c.verdict,goodAnswerGrounded:issues(c.good)===0,inventedFareCaught:issues(c.bad)>0});
+ }
  // #345: coverage questions end to end through the real agent loop with a scripted model. `--fault=<name>` breaks one rule on
  // purpose (not-covered, invented-limit, valuation, no-tool) to show the matching case fail; without it the controls below must all be caught.
  const fault=process.argv.find(a=>a.startsWith('--fault='))?.slice(8)||null;
- if(fault&&!FAULTS.includes(fault))throw Error('unknown_fault');
- for(const c of coverageCases){const r=await runCoverageCase(c,{fault});check(c.id,r.checks,r.detail);}
+ if(fault&&!FAULTS.includes(fault)&&!REDEMPTION_FAULTS.includes(fault))throw Error('unknown_fault');
+ const coverageFault=FAULTS.includes(fault)?fault:null,redemptionFault=REDEMPTION_FAULTS.includes(fault)?fault:null;
+ for(const c of coverageCases){const r=await runCoverageCase(c,{fault:coverageFault});check(c.id,r.checks,r.detail);}
  if(!fault)for(const f of FAULTS){const results=[];for(const c of coverageCases)results.push(await runCoverageCase(c,{fault:f}));
   // A fault only applies where it has something to break: "not-covered" needs a card with no record.
   const applicable=f==='not-covered'?results.filter((r,i)=>coverageCases[i].noRecord):results;
   check('coverage-control-'+f,{caught:applicable.length>0&&applicable.every(r=>Object.values(r.checks).some(v=>!v))});}
+ // #464: issuer-redemption answers (points_accounts). `--fault=<name>` (wrong-dollars, invented-cpp, varies-number, needs-card-value, no-tool)
+ // breaks one rule so the matching case fails. The controls take the shipped answer checker out of the way, so they test the eval's own checks.
+ for(const c of redemptionCases){const r=await runRedemptionCase(c,{fault:redemptionFault});check(c.id,r.checks,r.detail);}
+ if(!fault)for(const f of REDEMPTION_FAULTS){const results=[];for(const c of redemptionCases)results.push(await runRedemptionCase(c,{fault:f,turn:ungatedTurn}));
+  const applicable=f==='no-tool'?results:results.filter((r,i)=>redemptionCases[i].fault===f);
+  check('redemption-control-'+f,{caught:applicable.length>0&&applicable.every(r=>Object.values(r.checks).some(v=>!v))});}
+ // #481: the points live cases (points_accounts, convert_points) run offline against the scripted model; each control shows a fault is caught.
+ for(const c of pointsCases){const r=await runPointsCase(c);check(c.id,r.checks,r.detail);}
+ if(!fault)for(const f of POINTS_FAULTS){const results=[];for(const c of pointsCases)results.push(await runPointsCase(c,{fault:f}));
+  const applicable=f==='rounded-up'?results.filter((r,i)=>pointsCases[i].id==='convert-stated-points'):f==='no-combine'?results.filter((r,i)=>pointsCases[i].id!=='convert-stated-points'):results;
+  check('points-control-'+f,{caught:applicable.length>0&&applicable.every(r=>Object.values(r.checks).some(v=>!v))});}
  const planEvidence=[runWalletTool({id:'grounding',function:{name:'query_credits',arguments:JSON.stringify({use:'hotel',when:'12月'})}},referenceContext)];
  for(const [id,answer,code] of planGroundingCases)check(id,{caught:answerGrounding(answer,planEvidence).issues.some(i=>i.code===code)});
  const old=Array.from({length:30},(_,i)=>[{role:'user',content:'question '+i},{role:'assistant',content:'reply '.repeat(1000)}]).flat();const prep=prepareAgentContext(old,{lastPurchase:{category:'dining',country:'US',currency:'USD',amount:100}});check('bounded-context',{bounded:prep.chars<=22000,keepsLatest:prep.messages.some(x=>x.content==='question 29'),memory:prep.memory.lastPurchase.amount===100});

@@ -4,7 +4,21 @@ import {cleanFeeDate,feeDateFromCycles} from './feeDate.js';
 // annual fee date, and whether the card is hidden (still read from the bank, but treated as not held; see heldCards.js). Kept apart from the bank's readings and applied on top of them, so a later bank refresh
 // never overwrites a correction, and resetting a field brings back what the bank showed.
 export const CARD_EDITS_KEY='cardybara-card-edits-v1';
-export const CARD_EDIT_FIELDS=['name','tail','bank','feeDate','hidden'];
+export const CARD_EDIT_FIELDS=['name','tail','bank','feeDate','hidden','bill'];
+// A bill the user typed in: statement balance, minimum payment (numbers) and due date (a calendar day), stamped with when it was entered.
+const BILL_AMOUNT_MAX=1e9;
+const validAmount=v=>typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=BILL_AMOUNT_MAX;
+const validDay=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&new Date(v+'T00:00:00Z').toISOString().slice(0,10)===v;
+const validStamp=v=>typeof v==='string'&&v.length<=40&&Number.isFinite(Date.parse(v));
+/** Only the fields that are valid survive; without a valid entry time nothing does, so a manual value is never undated. Null when nothing is left. */
+export function cleanBill(bill){
+ if(!bill||typeof bill!=='object'||!validStamp(bill.at))return null;
+ const out={at:bill.at};
+ if(validAmount(bill.statement))out.statement=bill.statement;
+ if(validAmount(bill.minimum))out.minimum=bill.minimum;
+ if(validDay(bill.due))out.due=bill.due;
+ return Object.keys(out).length>1?out:null;
+}
 const MAX=200;
 /** The same rules as a manually added card's name: no tags, no control characters, nothing like a card number. */
 export const validCardName=value=>typeof value==='string'&&!!value.trim()&&value.trim().length<=100&&!/[<>\u0000-\u001f]/.test(value)&&!/(?:\d[ -]?){9,}/.test(value);
@@ -20,6 +34,7 @@ function cleanRow(row){
  if(validBank(row.bank))out.bank=row.bank;
  const fee=cleanFeeDate(row.feeDate);if(fee)out.feeDate=fee;
  if(row.hidden===true)out.hidden=true;
+ const bill=cleanBill(row.bill);if(bill)out.bill=bill;
  // Month-days that older card-year records disagreed on when the fee date was taken from them.
  if(fee&&Array.isArray(row.feeDateConflict)&&row.feeDateConflict.length>1&&row.feeDateConflict.length<=20&&row.feeDateConflict.every(d=>typeof d==='string'&&/^\d{2}-\d{2}$/.test(d)))out.feeDateConflict=[...row.feeDateConflict];
  return Object.keys(out).length>1?out:null;
@@ -39,6 +54,13 @@ export function withCardEdit(edits,card,patch){
   // The user setting or clearing the fee date settles any conflict a migration noted.
   if(field==='feeDate')delete row.feeDateConflict;
   // Unhiding is clearing the flag, so a shown card carries no row for it.
+  if(field==='bill'){
+   // A bill replaces the whole set: a field left out is cleared, and all that remain carry the new entry time.
+   const bill=value==null?null:cleanBill(value);
+   if(value!=null&&typeof value==='object'&&Object.keys(value).some(k=>k!=='at'&&value[k]!=null&&!(k in (bill||{}))))throw Error('invalid_card_bill');
+   if(bill)row.bill=bill;else delete row.bill;
+   continue;
+  }
   if(value==null||value===''||(field==='hidden'&&value===false)){delete row[field];continue;}
   if(field==='hidden'&&value!==true)throw Error('invalid_card_hidden');
   if(field==='name'&&!validCardName(value))throw Error('invalid_card_name');
@@ -80,6 +102,25 @@ export function migrateFeeDatesOnce(edits,cycles,done){
  return {edits:next,done:[...handled].slice(-1000),changed:fresh.length>0};
 }
 export const withoutCardEdits=(edits,cardId)=>edits.filter(e=>e.cardId!==cardId);
+const BILL_DATE_KEYS={statement:['statement'],minimum:['minimum'],due:['due','duePartial']};
+/**
+ * Lays hand-entered bill values onto `next`. A field is the user's only if the bank has not read it since they
+ * entered it (a bank date after the entry wins, and nothing of the manual value is kept for that field). The
+ * date of an applied value is the entry time, so later logic ages it and compares it with other readings the
+ * same way as a collected one. Returns {field: entry time} for the fields applied, or null.
+ */
+function applyBill(card,next,bill){
+ const at=Date.parse(bill.at),applied={};
+ for(const key of ['statement','minimum','due']){
+  if(bill[key]==null)continue;
+  const bankDay=Math.max(...BILL_DATE_KEYS[key].map(k=>card[k]!=null?Date.parse(card.fieldDates?.[k]||card.updated):NaN).filter(Number.isFinite),-Infinity);
+  if(bankDay>at)continue;
+  next[key]=bill[key];next.fieldDates={...next.fieldDates,[key]:bill.at};
+  if(key==='due'){delete next.duePartial;if(next.fieldDates)delete next.fieldDates.duePartial;}
+  applied[key]=bill.at;
+ }
+ return Object.keys(applied).length?applied:null;
+}
 /**
  * The cards as the user sees them. `userSet` lists the fields the user changed and `detected` keeps what
  * was there before, so the page can label a correction and offer to reset it. A bank-page card keeps the
@@ -101,7 +142,9 @@ export function applyCardEdits(cards,edits){
   if(row.feeDate){next.feeDate=row.feeDate;userSet.push('feeDate');if(row.feeDateConflict)next.feeDateConflict=row.feeDateConflict;}
   // Hiding is not a correction of the bank's reading, so it is not listed in userSet.
   if(row.hidden)next.hidden=true;
-  return userSet.length?{...next,userSet,detected}:row.hidden?next:card;
+  const manualBill=row.bill?applyBill(card,next,row.bill):null;
+  if(manualBill)next.manualBill=manualBill;
+  return userSet.length?{...next,userSet,detected}:row.hidden||manualBill?next:card;
  });
 }
 /** Edits from a backup win over this wallet's for the same card; other cards' edits are kept. */

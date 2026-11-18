@@ -79,10 +79,49 @@ test('every current Citi US card on the public card list matches its own product
  for(const [n,p] of Object.entries(want))assert.equal(id('Citi US','US',n),p,n);
  for(const p of cardProducts.filter(p=>p.bank==='Citi US'))assert.ok(p.sourceUrl.startsWith('https://www.citi.com/credit-cards/')&&p.checkedAt,p.id);
 });
+test('Citi US retail co-brand cards each match their own product by full name (#384)',()=>{
+ const want={'My Best Buy® Credit Cards':'citi-us-my-best-buy-credit-cards','Macy’s Credit Cards':'citi-us-macys-credit-cards','Bloomingdale’s Credit Cards':'citi-us-bloomingdales-credit-cards','The Home Depot® Consumer Credit Card':'citi-us-the-home-depot-consumer-credit-card','Pro Xtra Credit Card':'citi-us-pro-xtra-credit-card','TSC Credit Cards':'citi-us-tsc-credit-cards','L.L.Bean® Mastercard®':'citi-us-l-l-bean-mastercard','Dillard’s Credit Cards':'citi-us-dillards-credit-cards','Wayfair Credit Cards':'citi-us-wayfair-credit-cards','Goodyear® Credit Card':'citi-us-goodyear-credit-card'};
+ for(const [n,p] of Object.entries(want))assert.equal(id('Citi US','US',n),p,n);
+});
 test('the remaining Bank of America public cards match by full name and short name (#366)',()=>{
  const full=['Bank of America Travel Rewards credit card','Bank of America Premium Rewards credit card','Bank of America Premium Rewards Elite credit card','BankAmericard credit card','Susan G. Komen Customized Cash Rewards credit card','Air France KLM Visa Signature Credit Card','Norwegian Cruise Line World Mastercard','Business Advantage Unlimited Cash Rewards Mastercard','Business Advantage Customized Cash Rewards Mastercard','Business Advantage Travel Rewards World Mastercard'];
  const seen=new Set();
  for(const name of full){const m=matchCardProduct({bank:'BOA',region:'US',name});assert.equal(m.status,'matched',name);seen.add(m.product.id);}
  assert.equal(seen.size,full.length,'each card reaches its own product');
  for(const name of ['Bank of America® Premium Rewards® Elite credit card','Bank of America® Premium Rewards® credit card','BankAmericard®','Bank of America® Travel Rewards credit card'])assert.equal(matchCardProduct({bank:'BOA',region:'US',name}).status,'matched',name);
+});
+test('the remaining Capital One public cards match by full name and short name (#367)',()=>{
+ const full=['Quicksilver Rewards Credit Card','QuicksilverOne Rewards Credit Card','Quicksilver Rewards for Good Credit','VentureOne Rewards Credit Card','VentureOne Rewards for Good Credit','SavorOne Rewards Credit Card','Savor Rewards for Good Credit','Platinum Credit Card','Savor Rewards for Students','Quicksilver Rewards for Students','Quicksilver Secured Rewards Credit Card','Platinum Secured Credit Card','Spark 2% Cash Credit Card','Spark 1.5% Cash Select Credit Card','Spark 1% Classic Credit Card','Venture Business Credit Card','VentureOne Business Credit Card','T-Mobile Visa Card','REI Co-op Mastercard','Kohl\'s Rewards Visa Card','Pottery Barn Key Rewards Visa Card','Williams Sonoma Key Rewards Visa Card','West Elm Key Rewards Visa Card','Key Rewards Visa Card','Cabela\'s CLUB Card','Bass Pro Shops CLUB Card','Bass Pro Shops and Cabela\'s CLUB Business Card'];
+ const seen=new Set();
+ for(const name of full){const m=matchCardProduct({bank:'Capital One',region:'US',name});assert.equal(m.status,'matched',name);seen.add(m.product.id);}
+ assert.equal(seen.size,full.length,'each card reaches its own product');
+ const short={'Quicksilver Rewards':'Quicksilver Rewards Credit Card','VentureOne Rewards':'VentureOne Rewards Credit Card','SavorOne Rewards':'SavorOne Rewards Credit Card','Platinum':'Platinum Credit Card','Spark 2% Cash':'Spark 2% Cash Credit Card','Spark 1.5% Cash Select':'Spark 1.5% Cash Select Credit Card','Spark 1% Classic':'Spark 1% Classic Credit Card','Venture Business':'Venture Business Credit Card','VentureOne Business':'VentureOne Business Credit Card','T-Mobile Visa®':'T-Mobile Visa Card','REI Co-op® Mastercard®':'REI Co-op Mastercard','Key Rewards® Visa':'Key Rewards Visa Card','Quicksilver Secured Rewards':'Quicksilver Secured Rewards Credit Card','Platinum Secured':'Platinum Secured Credit Card'};
+ for(const [n,want] of Object.entries(short)){const m=matchCardProduct({bank:'Capital One',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,want,n);}
+ // "+" is kept in the name key as "plus", so "BJ's One" and "BJ's One+" are two different products.
+ for(const n of ['BJ\'s One Mastercard','BJ\'s One+ Mastercard']){const m=matchCardProduct({bank:'Capital One',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.candidates.length,1,n);}
+ assert.notEqual(matchCardProduct({bank:'Capital One',region:'US',name:'BJ\'s One Mastercard'}).product.id,matchCardProduct({bank:'Capital One',region:'US',name:'BJ\'s One+ Mastercard'}).product.id);
+ // Existing Capital One cards are not stolen by the new aliases.
+ for(const [n,id] of [['Savor Rewards','capital-one-us-savor-credit-card'],['Venture Rewards','capital-one-us-venture-rewards-credit-card'],['Spark Cash Plus','capital-one-us-spark-cash-plus-card']])assert.equal(matchCardProduct({bank:'Capital One',region:'US',name:n}).product?.id,id,n);
+});
+test('the remaining U.S. Bank public cards match by full name and short name (#368)',()=>{
+ const full=['U.S. Bank Smartly® Visa Signature® Card','U.S. Bank Altitude® Connect Visa Signature® Card','U.S. Bank Shield® Visa® Card','U.S. Bank Altitude® Go Secured Visa® Card','U.S. Bank Cash+® Secured Visa® Card','U.S. Bank Secured Visa® Card','U.S. Bank Triple Cash Rewards Visa® Business Card','U.S. Bank Business Altitude® Connect Visa Signature® Card','U.S. Bank Business Essentials™ Visa® Card','U.S. Bank Business Essentials™ Plus Visa Signature® Card','U.S. Bank Business Shield® Visa® Card'];
+ const seen=new Set();
+ for(const name of full){for(const n of [name,name.replace(/[®™]/g,'')]){const m=matchCardProduct({bank:'U.S. Bank',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,name,n);seen.add(m.product.id);}}
+ assert.equal(seen.size,full.length,'each card reaches its own product');
+ for(const [n,want] of Object.entries({'Altitude Connect':'U.S. Bank Altitude® Connect Visa Signature® Card','Business Altitude Connect':'U.S. Bank Business Altitude® Connect Visa Signature® Card','Business Essentials Plus':'U.S. Bank Business Essentials™ Plus Visa Signature® Card','Business Essentials':'U.S. Bank Business Essentials™ Visa® Card','Shield Visa':'U.S. Bank Shield® Visa® Card','Business Shield':'U.S. Bank Business Shield® Visa® Card'})){const m=matchCardProduct({bank:'U.S. Bank',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,want,n);}
+ for(const [n,id] of [['Cash+ Visa Signature Card','us-bank-us-cash-plus-visa-signature-card'],['Altitude Go','us-bank-us-altitude-go-visa-signature-card']])assert.equal(matchCardProduct({bank:'U.S. Bank',region:'US',name:n}).product?.id,id,n);
+});
+test('the remaining Discover public cards match by full name and short name (#369)',()=>{
+ const full=["Discover it Miles Credit Card", "Discover it Chrome Gas & Restaurants Credit Card", "Discover it Balance Transfer Credit Card", "NHL® Discover it Credit Card", "Discover it Cash Back for Good Credit", "Discover it Miles for Good Credit", "Discover it Chrome for Good Credit", "Discover it Student Cash Back Credit Card", "Discover it Student Chrome Credit Card", "Discover it Secured Cash Back Credit Card"];
+ const seen=new Set();
+ for(const name of full){for(const n of [name,name.replace(/[®™]/g,'')]){const m=matchCardProduct({bank:'Discover',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,name,n);seen.add(m.product.id);}}
+ assert.equal(seen.size,full.length,'each card reaches its own product');
+ for(const [n,id] of [['Discover it Cash Back Credit Card','discover-us-discover-it-cash-back-credit-card'],['Discover it','discover-us-discover-it-cash-back-credit-card']])assert.equal(matchCardProduct({bank:'Discover',region:'US',name:n}).product?.id,id,n);
+});
+test('the remaining Wells Fargo public cards match by full name and short name (#370)',()=>{
+ const full=['Wells Fargo Active Cash® Card','Wells Fargo Autograph® Card','Wells Fargo Reflect® Card','Wells Fargo One Key® Card','Wells Fargo Choice Privileges® Mastercard®','Wells Fargo Choice Privileges® Select Mastercard®','Wells Fargo Signify Business Cash® Card'];
+ const seen=new Set();
+ for(const name of full){for(const n of [name,name.replace(/[®™]/g,''),name.replace('Wells Fargo ','')]){const m=matchCardProduct({bank:'Wells Fargo',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,name,n);seen.add(m.product.id);}}
+ assert.equal(seen.size,full.length,'each card reaches its own product');
+ assert.equal(matchCardProduct({bank:'Wells Fargo',region:'US',name:'Autograph Journey'}).product?.id,'wells-fargo-us-autograph-journey-visa-card','the existing card is not taken by Autograph');
 });

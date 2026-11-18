@@ -4,17 +4,18 @@
 //   node scripts/eval-benefit-recall-live.mjs --rescore=<report.json>   (no model: re-scores stored calls with the current search)
 // Each question gets the production system prompt and tools. The model may call list_cards or other read-only tools
 // first (they run locally); the first round with find_benefits ends the question, with no final answer, to save cost.
-// Three scores: find_benefits alone; plus credits that query_credits returned, because a credit question answered
-// from query_credits is right for the user; plus questions the golden set labels as also answered by another tool
-// (alsoAnsweredBy), when the model used that tool.
+// Four scores: find_benefits alone; plus credits that query_credits returned, because a credit question answered
+// from query_credits is right for the user; plus protections that find_protections returned, for the same reason;
+// plus questions the golden set labels as also answered by another tool (alsoAnsweredBy), when the model used that tool.
+// Scoring lives in evals/benefit-recall/live-score.mjs.
 // The key is read from the config file and passed to the client only. It is never printed or written.
 import {readFile,writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {chatAgent} from './chat-agent.mjs';
 import {runWalletTool} from '../src/walletAgent.js';
-import {queryKnowledge} from '../src/knowledge.js';
 import {loadGolden,K} from '../evals/benefit-recall/lib.mjs';
+import {scoreCase,altRouteAnswered} from '../evals/benefit-recall/live-score.mjs';
 
 const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
 const arg=(name,d)=>process.argv.find(a=>a.startsWith(`--${name}=`))?.slice(name.length+3)??d;
@@ -65,33 +66,8 @@ async function ask(question,cards,day){
  return {toolCalls};
 }
 
-// Credit items name a card and a title; together they identify the rule.
-function creditRuleIds(args,cards,day){
- let r;try{r=runWalletTool({id:'credits',function:{name:'query_credits',arguments:JSON.stringify(args)}},{cards,events:[],day});}catch{return [];}
- const items=Object.entries(r.groups||{}).filter(([g])=>g!=='dismissedByUser').flatMap(([,list])=>list);
- const rules=queryKnowledge({kind:'benefit',asOf:day}).rules;
- return [...new Set(items.flatMap(i=>{const card=cards.find(c=>c.name===i.card);return rules.filter(x=>card&&x.productIds.includes(card.productId)&&x.content.title===i.title).map(x=>x.id);}))];
-}
-// Another tool counts only when its output has something to answer with: transfer relationships, or a card choice.
-function altRouteAnswered(q,toolCalls,cards,day){
- return (q.alsoAnsweredBy||[]).some(a=>toolCalls.some(t=>{
-  if(t.name!==a.tool||!t.args||(a.kind&&t.args.kind!==a.kind))return false;
-  let r;try{r=runWalletTool({id:'alt',function:{name:t.name,arguments:JSON.stringify(t.args)}},{cards,events:[],day});}catch{return false;}
-  return t.name==='get_card_rules'?r.rules?.length>0:t.name==='choose_card'?!!r.choice&&r.choice.kind!=='points-depends':false;
- }));
-}
-function scoreCase(q,toolCalls,{cards,run,score,day}){
- const calls=toolCalls.filter(t=>t.name==='find_benefits').map(t=>t.args),credits=toolCalls.filter(t=>t.name==='query_credits').map(t=>t.args);
- const found=calls.length?run(calls,cards):{ranked:[],total:0},find=score(q,found);
- const creditIds=credits.flatMap(a=>creditRuleIds(a,cards,day)),seen=new Set(found.ranked.map(([id])=>id));
- // Credits that query_credits returned join after the search results.
- // Capped at the same 12 a reader sees from each tool.
- const both=score(q,{ranked:[...found.ranked,...creditIds.filter(id=>!seen.has(id)).slice(0,K).map((id,i)=>[id,K+1+i])],total:found.total+creditIds.length});
- return {find,both,calls};
-}
-
 const old=rescore?JSON.parse(await readFile(resolve(rescore),'utf8')):null;
-const report={schema:2,label,createdAt:new Date().toISOString(),model:old?.model||env.DEEPSEEK_MODEL||'deepseek-flash',k:K,priceAssumption:PRICE,maxUsd,...(old?{rescoredFrom:{label:old.label,createdAt:old.createdAt}}:{}),sets:{}};
+const report={schema:3,label,createdAt:new Date().toISOString(),model:old?.model||env.DEEPSEEK_MODEL||'deepseek-flash',k:K,priceAssumption:PRICE,maxUsd,...(old?{rescoredFrom:{label:old.label,createdAt:old.createdAt}}:{}),sets:{}};
 for(const path of (arg('golden')?[arg('golden')]:['evals/benefit-recall/golden.json','evals/benefit-recall/holdout.json'])){
  const {golden,portfolios,questions,run,score}=await loadGolden(resolve(root,path));
  const stored=old?Object.fromEntries((old.sets[golden.dataset]?.cases||[]).map(c=>[c.id,c])):null;
@@ -110,19 +86,19 @@ for(const path of (arg('golden')?[arg('golden')]:['evals/benefit-recall/golden.j
   const s=scoreCase(q,r.toolCalls.filter(t=>t.args),{cards,run,score,day:golden.asOf});
   // A question labelled as also answered by another tool counts when that tool returned something to answer with.
   const altRoute=!r.partialRoutes&&altRouteAnswered(q,r.toolCalls,cards,golden.asOf);
-  rows.push({id:q.id,lang:q.lang,type:q.type,recall:s.find.recall,recallBothRoutes:s.both.recall,recallAnyRoute:altRoute?1:s.both.recall,rr:s.find.rr,precision:s.find.precision,precisionBothRoutes:s.both.precision,returnedBothRoutes:s.both.returned,forbiddenHits:s.find.forbiddenHits,missed:s.both.missed,returned:s.find.returned,
+  rows.push({id:q.id,lang:q.lang,type:q.type,recall:s.find.recall,recallBothRoutes:s.both.recall,recallWithProtections:s.tools.recall,recallAnyRoute:altRoute?1:s.tools.recall,precisionWithProtections:s.tools.precision,rr:s.find.rr,precision:s.find.precision,precisionBothRoutes:s.both.precision,returnedBothRoutes:s.both.returned,forbiddenHits:s.find.forbiddenHits,missed:s.tools.missed,returned:s.find.returned,
    tools:r.toolCalls.map(t=>t.name),toolCalls:r.toolCalls,calls:s.calls,...(r.error?{error:r.error}:{}),...(r.modelError?{modelError:r.modelError}:{}),...(r.answeredWithoutSearch?{answeredWithoutSearch:true}:{}),...(r.stopped?{stopped:true}:{}),...(r.partialRoutes?{partialRoutes:true}:{})});
   if(!old)process.stdout.write('.');
  }
  const done=rows.filter(x=>!x.stopped&&!x.error),mean=xs=>xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:null,cjk=s=>/[㐀-鿿]/.test(s||'');
- const sum=list=>({n:list.length,recallAt12:mean(list.map(x=>x.recall)),recallBothRoutes:mean(list.map(x=>x.recallBothRoutes)),recallAnyRoute:mean(list.map(x=>x.recallAnyRoute??x.recallBothRoutes)),mrr:mean(list.map(x=>x.rr)),
-  precision:mean(list.filter(x=>x.precision!=null).map(x=>x.precision)),precisionBothRoutes:mean(list.filter(x=>x.precisionBothRoutes!=null).map(x=>x.precisionBothRoutes)),returnedBothRoutes:mean(list.map(x=>x.returnedBothRoutes??x.returned)),modelErrors:list.filter(x=>x.modelError).length,forbiddenHitRate:mean(list.map(x=>x.forbiddenHits.length?1:0)),meanReturned:mean(list.map(x=>x.returned)),
-  searched:mean(list.map(x=>x.calls.length?1:0)),creditsOnly:mean(list.map(x=>!x.calls.length&&x.tools.includes('query_credits')?1:0)),
+ const sum=list=>({n:list.length,recallAt12:mean(list.map(x=>x.recall)),recallBothRoutes:mean(list.map(x=>x.recallBothRoutes)),recallWithProtections:mean(list.map(x=>x.recallWithProtections??x.recallBothRoutes)),recallAnyRoute:mean(list.map(x=>x.recallAnyRoute??x.recallBothRoutes)),mrr:mean(list.map(x=>x.rr)),
+  precision:mean(list.filter(x=>x.precision!=null).map(x=>x.precision)),precisionBothRoutes:mean(list.filter(x=>x.precisionBothRoutes!=null).map(x=>x.precisionBothRoutes)),precisionWithProtections:mean(list.filter(x=>x.precisionWithProtections!=null).map(x=>x.precisionWithProtections)),returnedBothRoutes:mean(list.map(x=>x.returnedBothRoutes??x.returned)),modelErrors:list.filter(x=>x.modelError).length,forbiddenHitRate:mean(list.map(x=>x.forbiddenHits.length?1:0)),meanReturned:mean(list.map(x=>x.returned)),
+  searched:mean(list.map(x=>x.calls.length?1:0)),creditsOnly:mean(list.map(x=>!x.calls.length&&x.tools.includes('query_credits')?1:0)),protectionsOnly:mean(list.map(x=>!x.calls.length&&x.tools.includes('find_protections')?1:0)),
   filterSet:mean(list.filter(x=>x.calls.length).map(x=>x.calls.some(c=>c.scenarioId||c.category)?1:0)),programmeSet:mean(list.filter(x=>x.calls.length).map(x=>x.calls.some(c=>c.programme)?1:0)),
   chineseQuery:mean(list.filter(x=>x.calls.length).map(x=>x.calls.some(c=>cjk(c.query))?1:0)),callsPerQuestion:mean(list.map(x=>x.calls.length))});
  const by=key=>Object.fromEntries([...new Set(done.map(x=>x[key]))].sort().map(v=>[v,sum(done.filter(x=>x[key]===v))]));
  report.sets[golden.dataset]={overall:sum(done),byLanguage:by('lang'),byType:by('type'),notRun:questions.filter(q=>!q.ambiguous&&q.type!=='absent').length-done.length,partialRoutes:done.some(x=>x.partialRoutes),
-  worst:done.filter(x=>x.recallBothRoutes<1).sort((a,b)=>a.recallBothRoutes-b.recallBothRoutes||a.id.localeCompare(b.id)).slice(0,15).map(x=>({id:x.id,recall:x.recall,recallBothRoutes:x.recallBothRoutes,calls:x.calls,missed:x.missed,tools:x.tools})),cases:rows};
+  worst:done.filter(x=>(x.recallWithProtections??x.recallBothRoutes)<1).sort((a,b)=>(a.recallWithProtections??a.recallBothRoutes)-(b.recallWithProtections??b.recallBothRoutes)||a.id.localeCompare(b.id)).slice(0,15).map(x=>({id:x.id,recall:x.recall,recallBothRoutes:x.recallBothRoutes,recallWithProtections:x.recallWithProtections,calls:x.calls,missed:x.missed,tools:x.tools})),cases:rows};
  if(!old)process.stdout.write('\n');
 }
 report.spend={...spend,usd:Number(spend.usd.toFixed(4)),stopped};
@@ -131,9 +107,9 @@ await writeFile(out,JSON.stringify(report,null,1)+'\n');
 const pct=x=>x==null?'-':(100*x).toFixed(1)+'%';
 for(const [name,s] of Object.entries(report.sets)){
  const o=s.overall;
- console.log(`${name}: recall@12 find_benefits ${pct(o.recallAt12)} · + query_credits ${pct(o.recallBothRoutes)} · + labelled other routes ${pct(o.recallAnyRoute)}${s.partialRoutes?' (old report: find_benefits only)':''} (n=${o.n}, not run ${s.notRun})`);
- console.log(`  precision ${pct(o.precision)} (with credits ${pct(o.precisionBothRoutes)}, ${o.returnedBothRoutes?.toFixed(1)} returned) · model errors ${o.modelErrors} · returned ${o.meanReturned?.toFixed(1)} · forbidden ${pct(o.forbiddenHitRate)} · searched ${pct(o.searched)} · credits only ${pct(o.creditsOnly)} · filter set ${pct(o.filterSet)} · Chinese query ${pct(o.chineseQuery)}`);
- for(const [lang,v] of Object.entries(s.byLanguage))console.log(`  ${lang.padEnd(8)} ${pct(v.recallAt12)} · ${pct(v.recallBothRoutes)} · ${pct(v.recallAnyRoute)} (n=${v.n})`);
+ console.log(`${name}: recall@12 find_benefits ${pct(o.recallAt12)} · + query_credits ${pct(o.recallBothRoutes)} · + find_protections ${pct(o.recallWithProtections)} · + labelled other routes ${pct(o.recallAnyRoute)}${s.partialRoutes?' (old report: find_benefits only)':''} (n=${o.n}, not run ${s.notRun})`);
+ console.log(`  precision ${pct(o.precision)} (with credits ${pct(o.precisionBothRoutes)}, ${o.returnedBothRoutes?.toFixed(1)} returned; with protections ${pct(o.precisionWithProtections)}) · model errors ${o.modelErrors} · returned ${o.meanReturned?.toFixed(1)} · forbidden ${pct(o.forbiddenHitRate)} · searched ${pct(o.searched)} · credits only ${pct(o.creditsOnly)} · protections only ${pct(o.protectionsOnly)} · filter set ${pct(o.filterSet)} · Chinese query ${pct(o.chineseQuery)}`);
+ for(const [lang,v] of Object.entries(s.byLanguage))console.log(`  ${lang.padEnd(8)} ${pct(v.recallAt12)} · ${pct(v.recallBothRoutes)} · ${pct(v.recallWithProtections)} · ${pct(v.recallAnyRoute)} (n=${v.n})`);
 }
 if(!old)console.log(`spend: ${spend.calls} calls, ${spend.promptTokens} prompt tokens (${spend.cacheHitTokens} cached), ${spend.completionTokens} output, ≈$${spend.usd.toFixed(4)} at assumed peak prices${spend.errors?` · ${spend.errors} failed requests (cost unknown, questions left out)`:''}${stopped?' · STOPPED ('+stopped+')':''}`);
 console.log('Report: '+out);

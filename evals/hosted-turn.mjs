@@ -12,12 +12,11 @@ export const WORKER_NAME='cardybara-gateway';
 export const PRODUCTION_URL='https://cardybara-gateway.cardybara.workers.dev';
 export const isVersionId=v=>typeof v==='string'&&/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(v);
 
-/** The transport for runCloudTurn: posts to `${base}/v1/chat` with the invite code and the version override. */
-export function hostedPost({base,invite,version,fetch=globalThis.fetch,origin=EVAL_ORIGIN}){
+/** The transport for runCloudTurn: posts to `${base}/v1/chat` with the version override. No credential: the gateway needs none. */
+export function hostedPost({base,version,fetch=globalThis.fetch,origin=EVAL_ORIGIN}){
  if(!isVersionId(version))throw Error('--version must be a Worker version id');
- if(!invite)throw Error('no invite code');
  return async(body,{signal}={})=>{
-  const r=await fetch(base.replace(/\/$/,'')+'/v1/chat',{method:'POST',headers:{Origin:origin,Authorization:'Bearer '+invite,'Content-Type':'application/json',[OVERRIDE_HEADER]:`${WORKER_NAME}="${version}"`},body:JSON.stringify(body),signal});
+  const r=await fetch(base.replace(/\/$/,'')+'/v1/chat',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json',[OVERRIDE_HEADER]:`${WORKER_NAME}="${version}"`},body:JSON.stringify(body),signal});
   if(!r.ok){const code=(await r.json().catch(()=>({})))?.error?.code;throw Object.assign(Error(hostedError(code)),{gatewayCode:code});}
   return r.body;
  };

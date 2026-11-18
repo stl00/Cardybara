@@ -1,6 +1,6 @@
 // In-memory stand-ins for the Worker's KV namespace and Durable Object binding, so the unit tests and the
 // packaged-extension E2E run the gateway's own code in Node. Never imported by the Worker itself.
-import {handle,UsageLedger,inviteKey} from './gateway.js';
+import {handle,UsageLedger} from './gateway.js';
 
 export function memoryKV({now=Date.now}={}){
  const data=new Map(),meta=new Map(),expires=new Map();
@@ -38,14 +38,113 @@ export function memoryDurableObject(Class=UsageLedger){
  const instances=new Map();
  return {instances,idFromName:name=>name,get(id){if(!instances.has(id))instances.set(id,new Class({storage:memoryStorage()}));const obj=instances.get(id);return {fetch:(url,init)=>obj.fetch(new Request(url,init))};}};
 }
-export async function addInvite(kv,code,record){
- const key=await inviteKey(code);
- await kv.put(key,JSON.stringify({hash:key.slice('invite:'.length),status:'active',...record}));
- return key;
-}
 /** A gateway on in-memory bindings. vars override the defaults; fetch is the upstream provider. */
-export function localGateway({vars={},fetch,log=()=>{},now,observe}={}){
+// bindings: extra bindings such as {DB:memoryD1(), EMAIL:memoryMail()} for the account routes.
+export function localGateway({vars={},bindings={},fetch,log=()=>{},now,observe,waitUntil}={}){
  // A rate limiter that always allows; tests pass their own, or null to check the gateway refuses to run without one.
- const env={PROVIDER_KEY:'synthetic-provider-key-not-real',ALLOWED_MODELS:'deepseek-flash',RATE_LIMITER:{limit:async()=>({success:true})},...vars,INVITES:memoryKV({now:now||Date.now}),USAGE:memoryDurableObject()};
- return {env,handle:request=>handle(request,env,{fetch,log,now,observe}),addInvite:(code,record)=>addInvite(env.INVITES,code,record)};
+ // LOCAL_DEV: no CF-Connecting-IP is needed and the client-id salt falls back to the provider key, as in wrangler dev.
+ const env={PROVIDER_KEY:'synthetic-provider-key-not-real',ALLOWED_MODELS:'deepseek-flash',LOCAL_DEV:'1',RATE_LIMITER:{limit:async()=>({success:true})},...vars,INVITES:memoryKV({now:now||Date.now}),USAGE:memoryDurableObject(),...bindings};
+ return {env,handle:request=>handle(request,env,{fetch,log,now,observe,waitUntil})};
+}
+
+/**
+ * An in-memory stand-in for a D1 database, enough for the statements gateway/src/accounts.js makes: CREATE TABLE
+ * (column PRIMARY KEY / UNIQUE / NOT NULL / DEFAULT, table PRIMARY KEY (a, b)), INSERT [OR IGNORE | OR REPLACE] with
+ * ? or literal values, SELECT columns, UPDATE ... SET col = value, DELETE, with WHERE conditions joined by AND
+ * (=, !=, <, >, <=, >=). Anything else throws, so a statement the real D1 would need is noticed in the tests.
+ * `exec(sql)` runs a migration file. `tables` is the data, for tests that count rows.
+ */
+export function memoryD1(){
+ const tables=new Map(),schemas=new Map();
+ const ident=/^[a-z_][a-z0-9_]*$/i;
+ const create=sql=>{
+  const m=/^CREATE TABLE(?: IF NOT EXISTS)? ([a-z_]+) \(([\s\S]*)\)$/i.exec(sql.trim());
+  if(!m)throw Error('memoryD1: unsupported '+sql.slice(0,40));
+  const [,name,inner]=m,columns=[],unique=[];
+  for(const part of inner.split(/,(?![^(]*\))/).map(p=>p.trim()).filter(Boolean)){
+   const pk=/^PRIMARY KEY \(([^)]+)\)$/i.exec(part);
+   if(pk){unique.push(pk[1].split(',').map(s=>s.trim()));continue;}
+   const [col,...rest]=part.split(/\s+/),words=rest.join(' ').toUpperCase();
+   const def=/DEFAULT (-?\d+)/.exec(words);
+   columns.push({name:col,notNull:/NOT NULL|PRIMARY KEY/.test(words),def:def?Number(def[1]):null});
+   if(/PRIMARY KEY|UNIQUE/.test(words))unique.push([col]);
+  }
+  if(!tables.has(name))tables.set(name,[]);
+  schemas.set(name,{columns,unique});
+ };
+ const table=name=>{if(!tables.has(name))throw Error('memoryD1: no such table '+name);return tables.get(name);};
+ const value=(token,args)=>{
+  token=token.trim();
+  if(token==='?'){if(!args.length)throw Error('memoryD1: too few bindings');return args.shift();}
+  if(/^-?\d+$/.test(token))return Number(token);
+  const q=/^'(.*)'$/.exec(token);if(q)return q[1];
+  throw Error('memoryD1: unsupported value '+token);
+ };
+ const where=(text,args)=>{
+  if(!text)return ()=>true;
+  const conds=text.split(/\s+AND\s+/i).map(c=>{
+   const m=/^([a-z_]+)\s*(=|!=|<=|>=|<|>)\s*(\S+)$/i.exec(c.trim());
+   if(!m)throw Error('memoryD1: unsupported condition '+c);
+   return {col:m[1],op:m[2],v:value(m[3],args)};
+  });
+  return row=>conds.every(({col,op,v})=>{const x=row[col];return op==='='?x===v:op==='!='?x!==v:op==='<'?x<v:op==='>'?x>v:op==='<='?x<=v:x>=v;});
+ };
+ const clash=(name,row,except)=>schemas.get(name).unique.some(cols=>table(name).some(r=>r!==except&&cols.every(c=>r[c]===row[c])));
+ const execute=(sql,bound)=>{
+  const args=[...bound],s=sql.trim().replace(/\s+/g,' ');let m;
+  if((m=/^INSERT(?: OR (IGNORE|REPLACE))? INTO ([a-z_]+) \(([^)]+)\) VALUES \((.+)\)$/i.exec(s))){
+   const [,mode,name,cols,vals]=m,schema=schemas.get(name);table(name);
+   const names=cols.split(',').map(c=>c.trim()),values=vals.split(',').map(v=>value(v,args));
+   if(names.length!==values.length||!names.every(n=>ident.test(n)&&schema.columns.some(c=>c.name===n)))throw Error('memoryD1: bad insert');
+   const row=Object.fromEntries(schema.columns.map(c=>[c.name,c.def]));
+   names.forEach((n,i)=>{row[n]=values[i]===undefined?null:values[i];});
+   for(const c of schema.columns)if(c.notNull&&row[c.name]==null)throw Error('NOT NULL constraint failed: '+name+'.'+c.name);
+   if(clash(name,row)){
+    if(mode?.toUpperCase()==='IGNORE')return {results:[],changes:0};
+    if(mode?.toUpperCase()!=='REPLACE')throw Error('UNIQUE constraint failed: '+name);
+    tables.set(name,table(name).filter(r=>!schema.unique.some(cols=>cols.every(c=>r[c]===row[c]))));
+   }
+   table(name).push(row);return {results:[],changes:1};
+  }
+  if((m=/^SELECT (.+?) FROM ([a-z_]+)(?: WHERE (.+))?$/i.exec(s))){
+   const [,cols,name,cond]=m,test=where(cond,args),rows=table(name).filter(test);
+   const pick=cols.trim()==='*'?r=>({...r}):r=>Object.fromEntries(cols.split(',').map(c=>c.trim()).map(c=>[c,r[c]]));
+   return {results:rows.map(pick),changes:0};
+  }
+  if((m=/^UPDATE ([a-z_]+) SET (.+?)(?: WHERE (.+))?$/i.exec(s))){
+   const [,name,sets,cond]=m;
+   const assign=sets.split(',').map(p=>{const [c,v]=p.split('=');return [c.trim(),value(v,args)];});
+   const rows=table(name).filter(where(cond,args));
+   for(const r of rows)for(const [c,v] of assign)r[c]=v;
+   return {results:[],changes:rows.length};
+  }
+  if((m=/^DELETE FROM ([a-z_]+)(?: WHERE (.+))?$/i.exec(s))){
+   const [,name,cond]=m,test=where(cond,args),before=table(name).length;
+   tables.set(name,table(name).filter(r=>!test(r)));
+   return {results:[],changes:before-tables.get(name).length};
+  }
+  throw Error('memoryD1: unsupported statement '+s.slice(0,40));
+ };
+ const statement=(sql,args=[])=>({
+  bind:(...a)=>statement(sql,a),
+  async first(){await null;return execute(sql,args).results[0]??null;},
+  async all(){await null;const r=execute(sql,args);return {results:r.results,success:true,meta:{changes:r.changes}};},
+  async run(){await null;const r=execute(sql,args);return {results:[],success:true,meta:{changes:r.changes}};},
+ });
+ return {tables,
+  prepare:sql=>statement(sql),
+  // D1 runs a batch as one transaction: all or nothing.
+  async batch(list){const saved=new Map([...tables].map(([k,v])=>[k,v.map(r=>({...r}))]));try{return await Promise.all(list.map(st=>st.run()));}catch(e){for(const [k,v] of saved)tables.set(k,v);throw e;}},
+  async exec(sql){
+   for(const part of sql.replace(/--.*$/gm,'').split(';').map(p=>p.trim()).filter(Boolean)){
+    if(/^CREATE INDEX/i.test(part))continue;
+    create(part);
+   }
+  }};
+}
+
+/** An Email Sending binding that keeps what it was asked to send, for the tests. `fail` makes the next send throw. */
+export function memoryMail(){
+ const sent=[];
+ return {sent,fail:false,async send(message){if(this.fail)throw Object.assign(Error('send failed'),{code:'E_TEST'});sent.push(structuredClone(message));return {messageId:'m'+sent.length};}};
 }

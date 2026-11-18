@@ -13,11 +13,20 @@
     "ALLOWED_MODELS": "deepseek-flash",
     // Extension origins allowed to call the gateway, comma-separated chrome-extension://<id>. The alpha is
     // loaded unpacked, so each tester's id differs: "chrome-extension://*" admits any extension but no web
-    // page; the invite code is the real gate. Empty admits nobody.
-    "ALLOWED_ORIGINS": "chrome-extension://*",
-    // Defaults; `node scripts/gateway-codes.mjs set-caps` overrides them in KV without a deploy.
-    "DAILY_REQUESTS_PER_CODE": "200",
-    "DAILY_TOKENS_PER_CODE": "300000",
+    // page. There is no invite code: the per-client and monthly caps bound spend. Empty admits nobody. The hosted web
+    // wallet (PWA, Pages project `cardybara-app`, served at https://cardybara.dev and its pages.dev name; APP_ORIGIN in
+    // src/extensionSignIn.js) is listed by each exact origin;
+    // it is also the only place the Plaid Link page sends a user back to. No other web page is admitted.
+    "ALLOWED_ORIGINS": "chrome-extension://*,https://cardybara.dev,https://cardybara-app.pages.dev",
+    // Defaults; `node scripts/gateway-settings.mjs set-caps` overrides them in KV without a deploy. Per client (a
+    // salted hash of its network address, kept for its UTC day only) per UTC day; the budget is for all clients.
+    // CLIENT_SALT is a required secret for that hash (the gateway answers 503 without it; only the local env falls
+    // back to PROVIDER_KEY). DAILY_BUDGET_USD (all clients per UTC day) defaults to MONTHLY_BUDGET_USD / 30.
+    "DAILY_REQUESTS_PER_CLIENT": "200",
+    "DAILY_TOKENS_PER_CLIENT": "300000",
+    // Web Push: writes (PUT/DELETE) per client per UTC day, and devices stored in all.
+    "PUSH_WRITES_PER_CLIENT": "20",
+    "MAX_PUSH_DEVICES": "5000",
     "MONTHLY_BUDGET_USD": "10",
     // Charged per token from the provider's usage numbers; set at or above the provider's list price.
     "PRICE_INPUT_USD_PER_MTOK": "0.6",
@@ -25,24 +34,38 @@
     "MAX_OUTPUT_TOKENS": "8192",
     // Contact URL or mailto: that push services may use to reach the sender of Web Push reminders (RFC 8292 `sub`).
     "VAPID_SUBJECT": "https://github.com/stl00/Cardybara",
-    "MAX_BODY_BYTES": "262144"
+    "MAX_BODY_BYTES": "262144",
+    // Accounts (#412, docs/GATEWAY.md "Accounts"): the largest wallet document stored, in bytes. The account routes
+    // answer 503 account_unavailable until the D1 binding DB, the send_email binding EMAIL, the var ACCOUNT_EMAIL_FROM
+    // (a verified Email Sending sender) and the secret ACCOUNT_SECRET are all set (production since 2026-11-17;
+    // Email Sending is enabled on the zone cardybara.dev).
+    "WALLET_MAX_BYTES": "524288",
+    "ACCOUNT_EMAIL_FROM": "Cardybara <no-reply@cardybara.dev>",
     // PROVIDER_KEY is a secret, set once by the owner with scripts/gateway-set-key.sh. Never a var.
+    // Plaid (PLAID_PLAN.md, docs/GATEWAY.md "Plaid"): the /v2/plaid routes answer 503 plaid_unavailable until the accounts
+    // above work and the secrets PLAID_CLIENT_ID, PLAID_SECRET and PLAID_TOKEN_KEY are set. PLAID_ENV (not a secret) picks
+    // the API host. PLAID_REDIRECT_URI is the OAuth redirect, registered in the Plaid Dashboard.
+    "PLAID_ENV": "production",
+    "PLAID_REDIRECT_URI": "https://cardybara-gateway.cardybara.workers.dev/v2/plaid/link"
   },
-  // Invite codes (by SHA-256 digest only) and the `settings` caps. The namespace id is not a secret and not an
-  // account id.
+  // Accounts and Plaid tables (migrations 0001-0003, applied remotely 2026-11-17). The id is not a secret.
+  "d1_databases": [{"binding": "DB", "database_name": "cardybara-accounts", "database_id": "ab23fecf-a63c-4e0b-8425-ff7588115eb8", "migrations_dir": "migrations"}],
+  "send_email": [{"name": "EMAIL"}],
+  // The `settings` caps and switches, and Web Push devices. The binding keeps its old name from the invite codes
+  // (none are read any more). The namespace id is not a secret and not an account id.
   "kv_namespaces": [{"binding": "INVITES", "id": "332d4b90299846508c1c85fc2c51411c"}],
   "durable_objects": {"bindings": [{"name": "USAGE", "class_name": "UsageLedger"}]},
   "migrations": [{"tag": "v1", "new_sqlite_classes": ["UsageLedger"]}],
-  // Per client address, checked before any invite lookup, so guessing codes can't exhaust KV or the quota.
+  // Per client (keyed by the hashed client id, never the address), checked before any KV or ledger call.
   "ratelimits": [{"name": "RATE_LIMITER", "namespace_id": "2081", "simple": {"limit": 60, "period": 60}}],
-  // Workers Logs keep the one metadata line per request (code id, time, tokens, status) for reading usage.
+  // Workers Logs keep the one metadata line per request (time, route, tokens, status) for reading usage.
   // Invocation logs (request metadata recorded by the platform) are off so no request header is ever kept.
   // One Analytics Engine data point per assistant turn and per model-proxy request (gateway/src/metrics.js; fields in
   // docs/GATEWAY.md). Release identity comes from the version metadata binding. The gateway runs without either.
   "analytics_engine_datasets": [{"binding": "AGENT_METRICS", "dataset": "cardybara_agent_metrics"}],
   "version_metadata": {"binding": "CF_VERSION_METADATA"},
-  // Hourly alert check (gateway/src/alerts.js, docs/GATEWAY.md "Alerts and switches"). It needs the secrets GITHUB_TOKEN,
-  // ANALYTICS_SQL_TOKEN and CF_ACCOUNT_ID (owner steps); without them it logs what is missing and does nothing.
+  // Hourly alert check (gateway/src/alerts.js, docs/GATEWAY.md "Alerts and switches"). It needs the secrets GITHUB_TOKEN and
+  // ANALYTICS_SQL_TOKEN (owner: scripts/gateway-set-alert-secrets.sh) and CF_ACCOUNT_ID; without them it logs what is missing.
   "triggers": {"crons": ["7 * * * *", "*/15 * * * *"]},
   "observability": {"enabled": true, "logs": {"enabled": true, "invocation_logs": false}},
   "env": {
@@ -51,17 +74,30 @@
       "vars": {
         "PROVIDER_URL": "http://127.0.0.1:8799/chat/completions",
         "ALLOW_HTTP_PROVIDER": "1",
+        // Local only: no CF-Connecting-IP needed, and no CLIENT_SALT (a key derived from PROVIDER_KEY is used).
+        "LOCAL_DEV": "1",
         "ALLOWED_MODELS": "deepseek-flash",
-        "ALLOWED_ORIGINS": "chrome-extension://*",
-        "DAILY_REQUESTS_PER_CODE": "20",
-        "DAILY_TOKENS_PER_CODE": "200000",
+        // The PWA built against this gateway and served by `npm run preview` (LOCAL_DEV=1 admits an exact http://127.0.0.1 origin).
+        "ALLOWED_ORIGINS": "chrome-extension://*,http://127.0.0.1:8766",
+        "DAILY_REQUESTS_PER_CLIENT": "20",
+        "DAILY_TOKENS_PER_CLIENT": "200000",
         "MONTHLY_BUDGET_USD": "1",
         "PRICE_INPUT_USD_PER_MTOK": "0.6",
         "PRICE_OUTPUT_USD_PER_MTOK": "2.4",
         "MAX_OUTPUT_TOKENS": "8192",
-        "MAX_BODY_BYTES": "262144"
+        "MAX_BODY_BYTES": "262144",
+        "WALLET_MAX_BYTES": "524288",
+        // Local only: no ACCOUNT_SECRET needed (LOCAL_DEV=1 falls back to a fixed key).
+        "ACCOUNT_EMAIL_FROM": "Cardybara <no-reply@cardybara.localhost>"
+        // Plaid Sandbox: PLAID_CLIENT_ID, PLAID_SECRET and PLAID_ENV come only from gateway/.env, which
+        // `plaid keys write --env sandbox --gitignore` builds from gateway/.env.example (never typed, never committed).
+        // PLAID_TOKEN_KEY falls back to a fixed local key. No webhooks locally (no public https URL): the Sync button pulls.
       },
       "kv_namespaces": [{"binding": "INVITES", "id": "local-invites"}],
+      // Local D1 (wrangler keeps it under .wrangler/state). Apply the schema first:
+      // npx wrangler@4.150.0 d1 migrations apply cardybara-accounts --local --env local --config gateway/wrangler.jsonc
+      "d1_databases": [{"binding": "DB", "database_name": "cardybara-accounts", "database_id": "local-accounts", "migrations_dir": "migrations"}],
+      "send_email": [{"name": "EMAIL"}],
       "durable_objects": {"bindings": [{"name": "USAGE", "class_name": "UsageLedger"}]}
     }
   }

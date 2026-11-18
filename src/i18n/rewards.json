@@ -81,9 +81,22 @@
     "需要持有指定的卡": "Needs a qualifying card",
     "未知": "Unknown",
     "现金返还": "Cash back",
-    "发卡行旅行平台": "Issuer travel portal",
     "账单抵扣": "Statement credit",
-    "礼品卡": "Gift cards"
+    "礼品卡": "Gift cards",
+    "超过年度上限，不给合计": "Above the annual limit; no total",
+    "按 1,000 点为单位，余 {0} 点未计入。": "Deposits move in blocks of 1,000 points; {0} points left over are not counted.",
+    "发卡行旅行": "Issuer travel",
+    "用积分支付": "Pay with points",
+    "体验": "Experiences",
+    "存款": "Deposit",
+    "Pay Yourself Back": "Pay Yourself Back",
+    "已知价值最高：{0}，约 {1}": "Highest known value: {0}, about {1}",
+    "已知价值最高（并列）：{0}，各约 {1}": "Highest known value (tie): {0}, about {1} each",
+    "按你设定的估值": "At your own valuation",
+    "按发卡行公布的比例": "At the issuer's published rate",
+    "按默认市场估值，可在设置里改": "At the default market valuation, which you can change in settings",
+    "转点按你设定的估值，其余按公布的比例或默认估值": "Transfers at your own valuation, the rest at the published rate or default valuation",
+    "{0} 个选项未排名：价值未知或不固定": "{0} options not ranked: value unknown or varies"
   },
   "zh-TW": {
     "美元现金奖励": "美元現金獎勵",
@@ -167,8 +180,21 @@
     "需要持有指定的卡": "需要持有指定的卡",
     "未知": "未知",
     "现金返还": "現金返還",
-    "发卡行旅行平台": "發卡行旅行平台",
     "账单抵扣": "帳單抵扣",
-    "礼品卡": "禮品卡"
+    "礼品卡": "禮品卡",
+    "超过年度上限，不给合计": "超過年度上限，不給合計",
+    "按 1,000 点为单位，余 {0} 点未计入。": "按 1,000 點為單位，餘 {0} 點未計入。",
+    "发卡行旅行": "發卡行旅行",
+    "用积分支付": "用積分支付",
+    "体验": "體驗",
+    "存款": "存款",
+    "Pay Yourself Back": "Pay Yourself Back",
+    "已知价值最高：{0}，约 {1}": "已知價值最高：{0}，約 {1}",
+    "已知价值最高（并列）：{0}，各约 {1}": "已知價值最高（並列）：{0}，各約 {1}",
+    "按你设定的估值": "按你設定的估值",
+    "按发卡行公布的比例": "按發卡行公布的比例",
+    "按默认市场估值，可在设置里改": "按預設市場估值，可在設定裡改",
+    "转点按你设定的估值，其余按公布的比例或默认估值": "轉點按你設定的估值，其餘按公布的比例或預設估值",
+    "{0} 个选项未排名：价值未知或不固定": "{0} 個選項未排名：價值未知或不固定"
   }
 }

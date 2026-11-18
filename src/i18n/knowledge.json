@@ -613,7 +613,15 @@
     "产品页列出旅行延误（Trip Delay Reimbursement）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。": "The product page lists trip delay reimbursement. It names the benefit without limits or conditions.",
     "产品页列出行李遗失或损坏保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。": "The product page lists lost or damaged luggage protection. It names the benefit without limits or conditions.",
     "产品页列出延长保修（Extended Warranty）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。": "The product page lists extended warranty. It names the benefit without limits or conditions.",
-    "产品页列出行李延误（Baggage Delay Insurance）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。": "The product page lists baggage delay insurance. It names the benefit without limits or conditions."
+    "产品页列出行李延误（Baggage Delay Insurance）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。": "The product page lists baggage delay insurance. It names the benefit without limits or conditions.",
+    "条款页列出行程取消与中断保险（Trip Cancellation and Interruption Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "The terms page lists Trip Cancellation and Interruption Insurance, says it is secondary coverage, and names New Hampshire Insurance Company, an AIG Company, as the provider. It states no limit.",
+    "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。": "This is a summary of the official public terms page; the Guide to Benefits controls. Check the exclusions, eligibility and claim requirements before relying on it.",
+    "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "The terms page lists Trip Delay Insurance, says it is secondary coverage, and names New Hampshire Insurance Company, an AIG Company, as the provider. It states no limit.",
+    "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "The terms page lists the Baggage Insurance Plan and names AMEX Assurance Company as the underwriter. It states no limit.",
+    "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "The terms page lists Car Rental Loss and Damage Insurance and names AMEX Assurance Company as the underwriter. It does not say whether the coverage is primary or secondary.",
+    "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "The terms page lists Purchase Protection and names AMEX Assurance Company as the underwriter. It states no limit.",
+    "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "The terms page lists Extended Warranty and names AMEX Assurance Company as the underwriter. It states no limit.",
+    "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "The terms page lists Return Protection and says it is subject to additional terms, conditions and exclusions. It names no underwriter and states no limit."
   },
   "zh-TW": {
     "直订航班": "直訂航班",
@@ -1229,6 +1237,14 @@
     "产品页列出旅行延误（Trip Delay Reimbursement）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。": "產品頁列出旅行延誤（Trip Delay Reimbursement）保障。官網產品頁僅列出名稱，金額上限、除外責任和理賠條件須查完整保障指南。",
     "产品页列出行李遗失或损坏保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。": "產品頁列出行李遺失或損壞保障。官網產品頁僅列出名稱，金額上限、除外責任和理賠條件須查完整保障指南。",
     "产品页列出延长保修（Extended Warranty）。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。": "產品頁列出延長保修（Extended Warranty）。官網產品頁僅列出名稱，金額上限、除外責任和理賠條件須查完整保障指南。",
-    "产品页列出行李延误（Baggage Delay Insurance）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。": "產品頁列出行李延誤（Baggage Delay Insurance）保障。官網產品頁僅列出名稱，金額上限、除外責任和理賠條件須查完整保障指南。"
+    "产品页列出行李延误（Baggage Delay Insurance）保障。官网产品页仅列出名称，金额上限、除外责任和理赔条件须查完整保障指南。": "產品頁列出行李延誤（Baggage Delay Insurance）保障。官網產品頁僅列出名稱，金額上限、除外責任和理賠條件須查完整保障指南。",
+    "条款页列出行程取消与中断保险（Trip Cancellation and Interruption Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "條款頁列出行程取消與中斷保險（Trip Cancellation and Interruption Insurance），稱屬次要保障，承保方為 New Hampshire Insurance Company（AIG 旗下）。官網條款頁未寫賠付額、觸發條件和除外責任；具體條件須查完整保障指南。",
+    "该条目仅为官网公开条款页摘要；核对完整保障指南、承保方、除外责任和所需证明后再判断。": "該條目僅為官網公開條款頁摘要；核對完整保障指南、承保方、除外責任和所需證明後再判斷。",
+    "条款页列出旅行延误保险（Trip Delay Insurance），称属次要保障，承保方为 New Hampshire Insurance Company（AIG 旗下）。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "條款頁列出旅行延誤保險（Trip Delay Insurance），稱屬次要保障，承保方為 New Hampshire Insurance Company（AIG 旗下）。官網條款頁未寫賠付額、觸發條件和除外責任；具體條件須查完整保障指南。",
+    "条款页列出行李保险计划（Baggage Insurance Plan），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "條款頁列出行李保險計劃（Baggage Insurance Plan），承保方為 AMEX Assurance Company。官網條款頁未寫賠付額、觸發條件和除外責任；具體條件須查完整保障指南。",
+    "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "條款頁列出租車損失與損壞保險（Car Rental Loss and Damage Insurance），承保方為 AMEX Assurance Company；頁面未寫明屬於主要還是次要保障。官網條款頁未寫賠付額、觸發條件和除外責任；具體條件須查完整保障指南。",
+    "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "條款頁列出購物保障（Purchase Protection），承保方為 AMEX Assurance Company。官網條款頁未寫賠付額、觸發條件和除外責任；具體條件須查完整保障指南。",
+    "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "條款頁列出延長保修（Extended Warranty），承保方為 AMEX Assurance Company。官網條款頁未寫賠付額、觸發條件和除外責任；具體條件須查完整保障指南。",
+    "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "條款頁列出退貨保障（Return Protection），稱受額外條款、條件和除外責任約束；頁面未寫明承保方。官網條款頁未寫賠付額、觸發條件和除外責任；具體條件須查完整保障指南。"
   }
 }

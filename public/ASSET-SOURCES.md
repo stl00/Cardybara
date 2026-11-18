@@ -7,6 +7,8 @@ Product artwork is used to identify the user's cards. Versions may differ from t
 - HSBC Red and Premier: https://www.hsbc.com.hk/credit-cards/
 - Product/interaction reference: https://maxworth.app/
 
+Web app icons (`brand/app-icons/*.png`, 180/192/512 px and a maskable 512 px) are rendered from the project's own `cardybara.svg` with headless Chrome; no third-party artwork.
+
 No bank login credentials, full account numbers, cookies or authentication tokens are part of this application.
 
 # Official card artwork research

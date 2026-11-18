@@ -4,14 +4,17 @@ import {t,useI18n} from './i18n';
 import ModelKeySettings from './ModelKeySettings';
 import {ownKeyAllowed} from '../extension-next/model-client.js';
 import {autoSuggestOn,setAutoSuggest} from './CardProductPicker.jsx';
+import platform from './platform';
 const {Paragraph,Text}=Typography;
-const internal=()=>location.protocol==='chrome-extension:'&&!!globalThis.chrome?.runtime?.id;
+const internal=()=>!!platform.assistant;
 export default function ParserSettings(){
  useI18n();const [state,setState]=useState(null),[busy,setBusy]=useState(false),[error,setError]=useState(''),[consent,setConsent]=useState(false),[auto,setAuto]=useState(autoSuggestOn),[devOwn,setDevOwn]=useState(false);
- const call=async(type,extra={})=>{const r=await chrome.runtime.sendMessage({type,...extra});if(!r?.ok)throw Error();setState(r.result);setConsent(!!r.result.settings?.cloudConsent);return r.result;};
+ const call=async(type,extra={})=>{const r=await platform.assistant.send(type,extra);if(!r?.ok)throw Error();setState(r.result);setConsent(!!r.result.settings?.cloudConsent);return r.result;};
  const action=async fn=>{setBusy(true);setError('');try{await fn()}catch{setError(internal()?t('暂时读不到 AI 设置，请稍后重试。'):t('未连接到本机解析服务，请确认本机调试服务已启动。'))}finally{setBusy(false)}};
  const localStatus=async()=>{const r=await fetch('/api/parser/status');if(!r.ok)throw Error();setState(await r.json())};
- useEffect(()=>{void action(()=>internal()?call('parser-state'):localStatus());if(internal())void ownKeyAllowed().then(setDevOwn);},[]);
+ useEffect(()=>{if(platform.kind==='web')return;void action(()=>internal()?call('parser-state'):localStatus());if(internal())void ownKeyAllowed().then(setDevOwn);},[]);
+ // The web wallet is manual entry only: no bank refresh, parser or model settings, so only the reference cards remain.
+ if(platform.kind==='web')return <div className="parser-settings"><Card title={t('卡片与福利资料')}><Space wrap><Button onClick={()=>location.hash='guide'}>{t('查看完整福利资料')}</Button><Button onClick={()=>location.hash='catalog'}>{t('卡片资料库')}</Button></Space></Card><Card title={t('已归档的实验功能')}><Paragraph type="secondary">{t('此前的代码与历史记录均保留；MVP 默认不刷新这些数据。')}</Paragraph><Space wrap>{[['offers','卡片优惠'],['benefits','福利进度'],['transactions','交易记录']].map(([key,label])=><Button key={key} onClick={()=>location.hash=key}>{t(label)}</Button>)}</Space></Card></div>;
  return <div className="parser-settings"><Card title={t('卡片与福利资料')}><Space wrap><Button onClick={()=>location.hash='guide'}>{t('查看完整福利资料')}</Button><Button onClick={()=>location.hash='catalog'}>{t('卡片资料库')}</Button></Space></Card><Card title={t('银行刷新')}><Paragraph>{t('MVP 刷新只读取积分、余额、账单、最低还款与还款日。优惠、福利和交易不参与本轮刷新。')}</Paragraph><Paragraph type="secondary">{t('需要登录时在银行官网完成；未读取到的字段保留原值与原日期。')}</Paragraph></Card>
  <ModelKeySettings/>
  <Card title={t('AI 识别卡种')}>

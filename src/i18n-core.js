@@ -1,6 +1,7 @@
 import {translations} from './i18n/index.js';
 export const LANGUAGES = ['zh-CN', 'zh-TW', 'en-US'];
 let activeLanguage = 'zh-CN';
+export const currentLanguage = () => activeLanguage;
 export function normalizeLanguage(language) {
   return LANGUAGES.includes(language) ? language : 'zh-CN';
 }
@@ -20,6 +21,13 @@ export function translate(key, params = [], language = activeLanguage) {
   return text.replace(/\{(\d+)\}/g, (token, index) => params[index] == null ? token : String(params[index]));
 }
 export const t = translate;
+// A word whose translation depends on where it is shown (gettext's msgctxt): the catalog key is `<context>|<zh-CN text>`,
+// zh-CN shows the text itself, and a missing context entry falls back to the plain key. Used for the short tab-bar names.
+export function tx(context, key, params = [], language = activeLanguage) {
+  const scoped = `${context}|${key}`;
+  if (language !== 'zh-CN' && translations[language]?.[scoped] != null) return translate(scoped, params, language);
+  return translate(key, params, language);
+}
 export function formatNumber(value, options = {}) {
   return new Intl.NumberFormat(activeLanguage, options).format(value);
 }

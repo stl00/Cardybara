@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {Alert,Card,Row,Col,Statistic,Typography,Tag,Empty,Collapse,InputNumber,Select,Space,Table,Tabs,Flex} from 'antd';
-import {t,useI18n} from './i18n';
+import {t,useI18n,currentLanguage} from './i18n';
 import {BankIdentity,CardIdentity,RegionLabel,RegionFlag} from './Identity';
 import ItemLogo from './ItemLogo';
 import {knowledgeSources} from './knowledge';
@@ -10,7 +10,9 @@ import {usePointValues} from './PointValueSettings.jsx';
 import {cardProducts} from './productCatalog';
 import {manualOnly} from './manualBanks.js';
 import {convertPoints,readingsFor,routesForCard,transferProgrammes,transferRoutes} from './transferRoutes';
-import {REDEMPTION_PROGRAMMES,redemptionsFor,redemptionValue} from './issuerRedemptions.js';
+import {FIXED_REDEMPTION_PROGRAMMES,fixedRedemptionsFor} from './fixedRedemptions.js';
+import {redemptionOptions} from './redemptionOptions.js';
+import {bestPointsOption} from './bestPointsOption.js';
 import {POOLING_TEXT,poolingRule,poolingRuleForRow,pointsReach,programmeTotals,shownInPooledEntry} from './pointsPooling';
 const {Paragraph,Text,Link}=Typography;
 const NO_CARD='no-card';
@@ -61,17 +63,28 @@ function poolReadings(programme,accounts,cards,rule){
  const total=programmeTotals(accounts.current).totals.find(t=>t.ruleId===rule.id);
  return total?.basis==='sum-of-cards'?[{key:'combined',combined:true,amount:total.amount,usable:Number.isSafeInteger(total.amount),label:rule.label,productIds},...own]:own;
 }
-const kindLabels={'cash-back':'现金返还','travel-portal':'发卡行旅行平台','statement-credit':'账单抵扣','gift-card':'礼品卡'};
+const kindLabels={'cash-back':'现金返还','statement-credit':'账单抵扣','gift-card':'礼品卡','issuer-travel':'发卡行旅行','pay-yourself-back':'Pay Yourself Back','pay-with-points':'用积分支付','dining':'餐饮','experiences':'体验','deposit':'存款'};
 const usd=cents=>money(cents/100,'USD');
-// #308: the issuer's own redemptions beside the transfer partners. Values come from redemptionValue; hidden mode masks them like balances.
+// #308/#465: the issuer's own redemptions beside the transfer partners, from the #307 records. Values come from redemptionOptions,
+// the same function the assistant's points_accounts uses (deposit blocks, annual cap, card dependence). Hidden mode masks them like balances.
+// #485: the answer to "which is best for this many points", from bestPointsOption (no maths here). Figures are masked in hidden mode.
+function BestOption({programme,points,rows,heldProductIds,hidden}){
+ const values=usePointValues(),best=bestPointsOption({programmeId:programme.id,region:programme.region,points,heldProductIds:heldProductIds||[],rows,overrides:values});
+ if(!best)return null;
+ const name=b=>b.type==='issuer'?t(kindLabels[b.kind]||b.kind):b.partner,basis=best.best.every(b=>b.basis==='user')?t('按你设定的估值'):best.best.every(b=>b.basis==='issuer')?t('按发卡行公布的比例'):best.best.every(b=>b.basis!=='user')?t('按默认市场估值，可在设置里改'):t('转点按你设定的估值，其余按公布的比例或默认估值');
+ const names=best.best.map(name).join(' / '),amount=hidden?'••••':usd(best.cents);
+ return <Alert showIcon type="success" style={{marginBottom:16}} title={best.best.length>1?t('已知价值最高（并列）：{0}，各约 {1}',[names,amount]):t('已知价值最高：{0}，约 {1}',[names,amount])} description={<>{basis}{best.notRanked>0?` · ${t('{0} 个选项未排名：价值未知或不固定',[best.notRanked])}`:''}</>}/>;
+}
 function IssuerRedemptions({programme,points,heldProductIds,hidden}){
- if(!REDEMPTION_PROGRAMMES.includes(programme.id))return null;
- const records=redemptionsFor(programme.id);
+ if(!FIXED_REDEMPTION_PROGRAMMES.includes(programme.id))return null;
+ const stated=Number.isSafeInteger(points)&&points>0?points:null,en=currentLanguage()==='en-US';
+ const options=redemptionOptions(programme.id,{points:stated,heldProductIds:heldProductIds||[]});
  return <div style={{marginTop:16}}><Paragraph strong style={{marginBottom:8}}>{t('通过发卡行兑换')}</Paragraph>
-  {!records.length?<Paragraph type="secondary">{t('暂无发卡行兑换记录。')}</Paragraph>:<Space orientation="vertical" size={8} style={{width:'100%'}}>{records.map(r=>{
-   const v=redemptionValue(points,r,heldProductIds),sources=knowledgeSources(r.sourceIds||[]);
-   const value=v.status==='computed'?(hidden?'••••':usd(v.cents)):v.status==='varies'?t('不固定'):v.status==='needs-card'?t('需要持有指定的卡'):v.status==='no-points'?'—':t('未知');
-   return <Flex key={r.id} justify="space-between" gap={12} wrap><div><ItemLogo programme={programme.id} size={14}/> {t(kindLabels[r.kind]||r.kind)}{r.conditionText?<div><Text type="secondary">{r.conditionText}{v.status==='needs-card'&&r.productIds?.length?` ${cardNames(r.productIds)}`:''}</Text></div>:null}{sources.length?<div><Space wrap size={[12,4]}>{sources.map(s=><Link key={s.id} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></div>:null}</div><Text strong={v.status==='computed'}>{value}</Text></Flex>;})}</Space>}</div>;
+  {!options.length?<Paragraph type="secondary">{t('暂无发卡行兑换记录。')}</Paragraph>:<Space orientation="vertical" size={8} style={{width:'100%'}}>{options.map(o=>{
+   const v=o.value,record=fixedRedemptionsFor(programme.id).find(r=>r.id===o.id),line=en?record.textEn:record.textZh;
+   const value=v.status==='computed'?(hidden?'••••':usd(v.cents)):v.status==='varies'?t('不固定'):v.status==='needs-card'?t('需要持有指定的卡'):v.status==='above-annual-cap'?t('超过年度上限，不给合计'):v.status==='rate-only'?'—':t('未知');
+   const sources=o.sources;
+   return <Flex key={o.id} justify="space-between" gap={12}><div style={{flex:1,minWidth:0}}><ItemLogo programme={programme.id} size={14}/> {t(kindLabels[o.kind]||o.kind)}<div><Text type="secondary">{line}{v.status==='computed'&&v.leftoverPoints>0&&!hidden?` ${t('按 1,000 点为单位，余 {0} 点未计入。',[v.leftoverPoints.toLocaleString('en-US')])}`:''}</Text></div>{sources.length?<div><Space wrap size={[12,4]}>{sources.map(s=><Link key={s.url} href={s.url} target="_blank" rel="noreferrer">{t(s.title)}</Link>)}</Space></div>:null}</div><Text strong={v.status==='computed'} style={{flex:"none",textAlign:"right"}}>{value}</Text></Flex>;})}</Space>}</div>;
 }
 export function ProgrammePanel({programme,accounts,cards,count,hidden}){
  const rule=poolingRule(programme.id),readings=poolReadings(programme,accounts,cards,rule),[selected,setSelected]=useState(null),[manual,setManual]=useState(null);
@@ -93,6 +106,7 @@ export function ProgrammePanel({programme,accounts,cards,count,hidden}){
  {programme.id.endsWith('-hk')?<Alert showIcon type="warning" title={t('香港只公开 Turbo 计划费率')} description={t('是否已登记 Turbo 未核实，未登记的费率须登录查看。把已有伙伴账号加入转点时，页面列明每次收取400港元行政费，部分卡种除外。')} style={{marginBottom:16}}/>:null}
  {programme.id==='programme.bilt-rewards'?<Alert showIcon type="warning" title={t('Bilt 的最低转点数看会员等级')} description={t('Blue 等级会员每次最少转2,000点，Silver 及以上最少1,000点，都按1,000点递增。会员等级未核实，试算只按1,000点递增计算。Bilt 卡只能手动添加，不读取积分余额，可以输入积分数试算。')} style={{marginBottom:16}}/>:null}
  {programme.id.includes('ultimate')?<Alert showIcon type="warning" title={t('Chase 没有逐项公布比例')} description={t('Sapphire Preferred 页面只说多数伙伴1:1，没有逐项列明，因此这些伙伴不计算结果。World of Hyatt 的4:3只有 Sapphire Preferred 和 Ink Business Preferred 页面写明。')} style={{marginBottom:16}}/>:null}
+ <BestOption programme={programme} points={points} rows={rows} heldProductIds={rule?[...new Set(pointsReach(cards).filter(m=>m.rule.id===rule.id).map(m=>m.productId))]:null} hidden={hidden&&manual==null}/>
  <Space orientation="vertical" size="large" style={{width:"100%"}}>
   {airlines.length?<div><Paragraph strong style={{marginBottom:8}}>{t('航空伙伴')}</Paragraph><PartnerTable rows={airlines} points={points} hidden={hidden&&manual==null}/></div>:null}
   {hotels.length?<div><Paragraph strong style={{marginBottom:8}}>{t('酒店伙伴')}</Paragraph><PartnerTable rows={hotels} points={points} hidden={hidden&&manual==null}/></div>:null}

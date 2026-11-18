@@ -4,6 +4,7 @@
 import {existsSync, readdirSync, readFileSync} from 'node:fs';
 import {extname, join} from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
+import {webGatewayOrigin} from './web-build.mjs';
 
 const SHIPPED = new Set(['.html', '.js', '.css', '.svg', '.png', '.jpg', '.jpeg', '.webp', '.ico', '.webmanifest']);
 const NAMESPACES = /^https?:\/\/www\.w3\.org\//;
@@ -48,7 +49,7 @@ export function checkWeb(dir, {gateway = null} = {}) {
   const has = f => files.includes(f);
   const text = f => readFileSync(join(dir, f), 'utf8');
 
-  for (const f of ['index.html', 'manifest.webmanifest', 'sw.js', '_headers', 'cardybara.svg']) if (!has(f)) add(`missing ${f}`);
+  for (const f of ['index.html', 'manifest.webmanifest', 'sw.js', '_headers', 'cardybara.svg', 'apple-touch-icon.png']) if (!has(f)) add(`missing ${f}`);
   if (!files.some(f => /^assets\/[^/]+\.js$/.test(f))) add('missing the wallet script in assets/');
 
   for (const f of files) {
@@ -67,12 +68,16 @@ export function checkWeb(dir, {gateway = null} = {}) {
       if (m.display !== 'standalone') add('manifest display must be standalone');
       if (!Array.isArray(m.icons) || !m.icons.length) add('manifest has no icons');
       for (const icon of m.icons || []) if (!icon.src || !has(String(icon.src).replace(/^\//, ''))) add(`manifest icon ${icon.src} is not in the folder`);
+      const png = size => (m.icons || []).some(i => i.type === 'image/png' && String(i.sizes).split(' ').includes(size));
+      for (const size of ['192x192', '512x512']) if (!png(size)) add(`manifest has no ${size} PNG icon`);
+      if (!(m.icons || []).some(i => i.type === 'image/png' && /maskable/.test(i.purpose || ''))) add('manifest has no maskable PNG icon');
     }
   }
 
   if (has('index.html')) {
     const html = text('index.html');
     if (!/<link[^>]+rel="manifest"[^>]+href="\/manifest\.webmanifest"/.test(html)) add('index.html does not link the manifest');
+    if (!/<link[^>]+rel="apple-touch-icon"[^>]+href="\/apple-touch-icon\.png"/.test(html)) add('index.html does not link the apple-touch-icon');
     if (!/name="theme-color"[^>]+media="\(prefers-color-scheme: dark\)"/.test(html) || !/name="theme-color"[^>]+media="\(prefers-color-scheme: light\)"/.test(html)) add('index.html lacks light and dark theme-color');
     if (/<script(?![^>]*\bsrc=)[^>]*>[^<]/.test(html)) add('index.html has an inline script, which the Content-Security-Policy forbids');
   }
@@ -84,8 +89,12 @@ export function checkWeb(dir, {gateway = null} = {}) {
     try { list = shell && JSON.parse(shell[1]); } catch { /* reported below */ }
     if (!list?.length) add('sw.js lists no app shell files');
     else for (const f of list) if (f !== '/' && !has(f.replace(/^\//, ''))) add(`sw.js caches ${f}, which is not in the folder`);
-    if (list && !list.includes('/index.html')) add('sw.js does not cache index.html, so an offline reload has no page');
+    // The page is cached as / (Pages answers /index.html with a 308, and a redirected copy breaks every reload).
+    if (list && !list.includes('/')) add('sw.js does not cache /, so an offline reload has no page');
+    if (list?.includes('/index.html')) add('sw.js caches /index.html, which Pages redirects: a navigation answered with it fails');
     if (!/addEventListener\('fetch'/.test(sw)) add('sw.js does not answer fetches');
+    for (const m of sw.matchAll(/importScripts\('([^']+)'\)/g)) if (!has(m[1].replace(/^\//, ''))) add(`sw.js imports ${m[1]}, which is not in the folder`);
+    if (has('push-worker.js') && !/importScripts\('\/push-worker\.js'\)/.test(sw)) add('push-worker.js is shipped but sw.js does not load it');
   }
 
   const connectSrc = has('_headers') ? /connect-src\s+([^;\n]*)/.exec(text('_headers'))?.[1].trim().split(/\s+/) ?? [] : [];
@@ -127,7 +136,7 @@ export function checkWeb(dir, {gateway = null} = {}) {
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const dir = fileURLToPath(new URL('../dist/web', import.meta.url));
-  const problems = checkWeb(dir, {gateway: process.env.CARDYBARA_GATEWAY_ORIGIN?.replace(/\/$/, '') || null});
+  const problems = checkWeb(dir, {gateway: webGatewayOrigin()});
   if (problems.length) { console.error('dist/web check failed:\n' + problems.map(p => '  ' + p).join('\n')); process.exit(1); }
   console.log(`dist/web ok: ${walk(dir).length} files`);
 }

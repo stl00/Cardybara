@@ -1,0 +1,173 @@
+// A small Chrome DevTools driver for the phone-width tests: dist/web served from loopback in headless Chrome at
+// 375x812 (mobile emulation), synthetic state only, no bank and no network beyond 127.0.0.1.
+import {spawn} from 'node:child_process';
+import {once} from 'node:events';
+import {mkdtemp, rm, writeFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {WEB_DIR, serve} from '../../scripts/web-chrome.mjs';
+import {findChrome, SANDBOX_SAFE_ARGS} from '../../scripts/dev-collector/chrome-launcher.mjs';
+
+export {WEB_DIR};
+export const PHONE = {width: 375, height: 812};
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+function cdpPipe(child) {
+  let next = 0, buffer = Buffer.alloc(0), gone = null;
+  const pending = new Map(), listeners = [];
+  const fail = reason => { gone = gone || reason; for (const [id, p] of pending) { pending.delete(id); p.reject(Error(`${p.method}: ${gone}`)); } };
+  child.on('error', e => fail('Chrome failed to start (' + e.message + ')'));
+  child.on('exit', (code, signal) => fail(`Chrome exited (${signal || code})`));
+  for (const s of [child.stdio[3], child.stdio[4]]) s.on('error', e => fail('pipe closed (' + e.message + ')'));
+  child.stdio[4].on('data', chunk => {
+    buffer = Buffer.concat([buffer, chunk]);
+    let i;
+    while ((i = buffer.indexOf(0)) >= 0) {
+      const msg = JSON.parse(buffer.subarray(0, i).toString('utf8'));
+      buffer = buffer.subarray(i + 1);
+      if (msg.id === undefined) { listeners.forEach(l => l(msg)); continue; }
+      const p = pending.get(msg.id);
+      if (p) { pending.delete(msg.id); msg.error ? p.reject(Error(msg.error.message)) : p.resolve(msg.result); }
+    }
+  });
+  const send = (method, params = {}, sessionId) => new Promise((resolve, reject) => {
+    if (gone) return reject(Error(`${method}: ${gone}`));
+    const id = ++next, timer = setTimeout(() => { pending.delete(id); reject(Error(method + ': no answer in 30 s')); }, 30000);
+    pending.set(id, {resolve: v => { clearTimeout(timer); resolve(v); }, reject: e => { clearTimeout(timer); reject(e); }, method});
+    child.stdio[3].write(JSON.stringify({id, method, params, ...(sessionId ? {sessionId} : {})}) + '\0');
+  });
+  send.on = fn => listeners.push(fn);
+  return send;
+}
+
+// Runs inside the page. `overflow`: a visible element that sticks out of the 375 px viewport and is not clipped by a
+// scroll container of its own. `small`: a visible control whose hit area is under 44 px either way.
+export const AUDIT = `(()=>{
+  const vw=document.documentElement.clientWidth,round=n=>Math.round(n*10)/10;
+  const label=el=>el.tagName.toLowerCase()+(el.id?'#'+el.id:'')+[...el.classList].slice(0,3).map(c=>'.'+c).join('')+' "'+(el.getAttribute('aria-label')||el.innerText||el.value||'').trim().replace(/\\s+/g,' ').slice(0,30)+'"';
+  const shown=el=>{const s=getComputedStyle(el);if(s.display==='none'||s.visibility==='hidden'||+s.opacity===0)return false;const r=el.getBoundingClientRect();return r.width>0&&r.height>0;};
+  const hidden=e=>{const s=getComputedStyle(e);return s.display==='none'||s.visibility==='hidden'||+s.opacity===0;};
+  const reallyShown=el=>{for(let e=el;e&&e!==document.body;e=e.parentElement)if(hidden(e))return false;return !el.closest('[aria-hidden="true"],[inert]');};
+  const clipped=el=>{for(let p=el.parentElement;p&&p!==document.body&&p!==document.documentElement;p=p.parentElement){const o=getComputedStyle(p).overflowX;if(o!=='visible'){const r=p.getBoundingClientRect();if(r.left>=-1&&r.right<=vw+1)return true;}}return false;};
+  const overflow=[],small=[];
+  for(const el of document.body.querySelectorAll('*')){
+    if(/^(SCRIPT|STYLE|LINK|META|HEAD|TITLE|PATH|G|DEFS|CIRCLE|RECT|LINE|POLYLINE)$/i.test(el.tagName)||el instanceof SVGElement&&el.tagName!=='svg')continue;
+    if(!shown(el)||!reallyShown(el))continue;
+    const r=el.getBoundingClientRect();
+    if((r.right>vw+1||r.left<-1)&&!clipped(el)){
+      // Only the outermost offender: a child of an element already reported adds nothing.
+      if(!overflow.some(o=>o.el.contains(el)))overflow.push({el,why:label(el)+' '+round(r.left)+'..'+round(r.right)});
+    }
+  }
+  const sel='button,a[href],input:not([type=hidden]):not([type=radio]):not([type=checkbox]),select,textarea,[role=button],[role=tab],[role=menuitem],[role=option],[role=switch],[role=checkbox],[role=radio],.ant-select-selector,.ant-checkbox-wrapper,.ant-radio-wrapper,.ant-segmented-item,.ant-tabs-tab';
+  for(const el of document.body.querySelectorAll(sel)){
+    if(!shown(el)||!reallyShown(el))continue;
+    if(el.closest('.ant-select-selector')&&!el.matches('.ant-select-selector'))continue;
+    if(el.matches('.ant-select-selection-search-input,[disabled],.ant-btn-icon-only[aria-hidden]'))continue;
+    // An inline link inside a sentence is exempt (WCAG 2.5.8); every other control is measured by the box a finger hits.
+    if(el.matches('a:not(.ant-btn)')&&getComputedStyle(el).display==='inline')continue;
+    const box=el.matches('input,.ant-switch,.ant-segmented-item')?(el.closest('.ant-input-number,.ant-input-affix-wrapper,.ant-picker,.ant-select,label,.ant-segmented-item')||el):el;
+    if(el.closest('[role=tablist]')&&el.matches('[role=tab]')===false&&el.matches('button'))continue;
+    const r=box.getBoundingClientRect();
+    if(r.bottom<0||r.top>innerHeight*3)continue;
+    if((r.width<43.5||r.height<43.5)&&!small.some(o=>o.el===box))small.push({el:box,why:label(box)+' '+round(r.width)+'x'+round(r.height)});
+  }
+  const strip=l=>l.map(o=>o.why);
+  return {scrollWidth:document.documentElement.scrollWidth,vw,bodyScrollWidth:document.body.scrollWidth,overflow:strip(overflow),small:strip(small),
+    modals:[...document.querySelectorAll('.ant-modal-container,.ant-drawer-section')].filter(e=>!hidden(e)&&reallyShown(e)).map(e=>{const r=e.getBoundingClientRect();return {cls:(e.closest('.ant-modal,.ant-drawer')||e).className.replace(/css-\S+/g,'').trim().slice(0,60),l:round(r.left),r:round(r.right),t:round(r.top),b:round(r.bottom)};})};
+})()`;
+
+// `origin`: an already running server (a Vite dev server for the collector flows) instead of serving `dir`.
+// `args`: extra Chrome flags (a host rule that points a name at a loopback stub). `onEvent`: receives every protocol event.
+export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external = '', args = [], onEvent} = {}) {
+  const work = await mkdtemp(join(tmpdir(), 'cardybara-phone-'));
+  let server, child;
+  try {
+    if (!external) server = await serve(dir);
+    const origin = external || `http://127.0.0.1:${server.address().port}`;
+    child = spawn(await findChrome(), ['--user-data-dir=' + join(work, 'profile'), '--remote-debugging-pipe', '--headless=new', '--no-first-run', '--no-default-browser-check', '--hide-scrollbars', '--force-color-profile=srgb', ...SANDBOX_SAFE_ARGS, ...args, 'about:blank'], {stdio: ['ignore', 'ignore', 'ignore', 'pipe', 'pipe']});
+    const send = cdpPipe(child);
+    if (onEvent) send.on(onEvent);
+    const {targetId} = await send('Target.createTarget', {url: 'about:blank'});
+    const {sessionId} = await send('Target.attachToTarget', {targetId, flatten: true});
+    const page = (m, p) => send(m, p, sessionId);
+    await page('Page.enable');
+    await page('Runtime.enable');
+    await page('Emulation.setDeviceMetricsOverride', {...PHONE, deviceScaleFactor: 2, mobile: true});
+    await page('Emulation.setEmulatedMedia', {features: [{name: 'prefers-color-scheme', value: 'light'}]});
+    await page('Page.addScriptToEvaluateOnNewDocument', {source: `window.__taps=[];for(const k of ['mousedown','mouseup','click'])addEventListener(k,e=>window.__taps.push(k+'@'+Math.round(performance.now())+':'+(e.target.className?.toString?.()||e.target.tagName).replace(/css-\\S+/g,'').slice(0,50)),true);`});
+    if (init) await page('Page.addScriptToEvaluateOnNewDocument', {source: init});
+    const evaluate = async expression => {
+      const r = await page('Runtime.evaluate', {expression, awaitPromise: true, returnByValue: true});
+      if (r.exceptionDetails) throw Error(r.exceptionDetails.exception?.description || r.exceptionDetails.text);
+      return r.result.value;
+    };
+    const ctl = {
+      origin, evaluate, page,
+      goto: async path => { await page('Page.navigate', {url: origin + path}); await ctl.until(`!!document.querySelector('#root > *')`); },
+      // Polls a page expression until it is truthy.
+      until: async (expr, what = expr, ms = 8000) => {
+        for (let t = 0; t < ms / 50; t++) { if (await evaluate(`!!(${expr})`)) return; await wait(50); }
+        const state = await evaluate(`(()=>{const v=e=>e&&getComputedStyle(e).display!=='none';return JSON.stringify({modals:[...document.querySelectorAll('.ant-modal-wrap,.ant-drawer')].filter(v).map(e=>e.className.replace(/css-\\S+/g,'').trim().slice(0,80)),errors:[...document.querySelectorAll('.ant-form-item-explain-error,.ant-alert-error')].map(e=>e.innerText.slice(0,80)),focus:document.activeElement?.className?.toString().slice(0,60),hash:location.hash,taps:(window.__taps||[]).slice(-6),now:Math.round(performance.now())})})()`).catch(e => 'unreadable: ' + e.message);
+        if (process.env.CARDYBARA_FAIL_SHOTS) await ctl.shot(join(process.env.CARDYBARA_FAIL_SHOTS, `fail-${Date.now()}.png`)).catch(() => {});
+        throw Error('timed out waiting for ' + what + ' ' + state);
+      },
+      pause: wait,
+      audit: () => evaluate(AUDIT),
+      text: () => evaluate(`document.body.innerText`),
+      // A real tap: scrolls the element into view, waits until it has settled, then sends touch-style mouse events and checks
+      // that the click reached it. Settled: nothing that could move it is animating (the element, an ancestor, or anything in
+      // an open modal or drawer; the pet's waddle elsewhere on the page does not count), it has not moved for 150 ms, and
+      // the point pressed is on screen with nothing on top of it. Less is not enough: a modal's open callback runs just after
+      // its animation ends and can move the content (focusing the search box scrolls the card picker), and a press and
+      // release that land on different elements send the click to their common ancestor, so the control never sees it.
+      // `match.at`: [fx, fy], where to press as fractions of the element's box (default the centre), e.g. a mask's top
+      // edge, whose centre lies under the sheet it belongs to.
+      tap: async (selector, match) => {
+        const text = typeof match === 'string' ? match : match?.text;
+        const [fx, fy] = (typeof match === 'object' && match?.at) || [0.5, 0.5];
+        const name = `${selector}${text ? ' / ' + text : ''}`;
+        const find = `(async()=>{const all=[...document.querySelectorAll(${JSON.stringify(selector)})].filter(e=>{const r=e.getBoundingClientRect();const s=getComputedStyle(e);return r.width>0&&r.height>0&&s.visibility!=='hidden'});const e=${text ? `all.find(e=>(e.innerText||e.value||e.getAttribute('aria-label')||'').includes(${JSON.stringify(text)}))` : 'all[0]'};if(!e)return {why:'not found'};e.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'});
+          const box=()=>{const r=e.getBoundingClientRect();return [r.left,r.top,r.width,r.height].map(n=>Math.round(n*10)/10).join()};
+          const moves=t=>t instanceof Element&&(t.contains(e)||!!t.closest('.ant-modal-root,.ant-modal-wrap,.ant-drawer'));
+          const busy=()=>document.getAnimations().some(a=>a.playState==='running'&&a.effect?.getComputedTiming().endTime!==Infinity&&moves(a.effect.target));
+          const frame=()=>new Promise(r=>requestAnimationFrame(r)),t0=performance.now();let last=box(),since=t0;
+          while(performance.now()-since<150){await frame();const now=box();if(now!==last||busy()){last=now;since=performance.now();}if(performance.now()-t0>1500)return {why:'still moving'};}
+          // A finger can only tap what is on screen and on top there.
+          const r=e.getBoundingClientRect(),x=r.left+r.width*${fx},y=r.top+r.height*${fy};
+          if(x<0||y<0||x>innerWidth||y>innerHeight)return {why:'off screen at '+Math.round(x)+','+Math.round(y)};
+          const top=document.elementFromPoint(x,y);if(!top||!e.contains(top))return {why:'covered by '+(top?(top.className?.toString?.()||top.tagName).replace(/css-\\S+/g,'').trim().slice(0,50):'nothing')};
+          window.__tapTarget=e;return {x,y,ok:true}})()`;
+        // One deadline for finding the element and for it to settle; a miss after the press is reported, never retried.
+        const end = Date.now() + 8000;
+        let at = await evaluate(find);
+        while (!at.ok && Date.now() < end) { await wait(50); at = await evaluate(find); }
+        if (!at.ok) throw Error(`cannot tap ${name}: ${at.why} after 8 s`);
+        await evaluate(`(()=>{window.__tapHit='no click';const e=window.__tapTarget;addEventListener('click',ev=>{window.__tapHit=e.contains(ev.target)?'':'the click went to '+(ev.target.className?.toString?.()||ev.target.tagName).replace(/css-\\S+/g,'').trim().slice(0,60);},{capture:true,once:true});})()`);
+        for (const type of ['mousePressed', 'mouseReleased']) await page('Input.dispatchMouseEvent', {type, x: at.x, y: at.y, button: 'left', clickCount: 1});
+        // A tap that navigates leaves a new document without the mark: the click was delivered, so that is not a miss.
+        const hit = await evaluate(`window.__tapHit===undefined?'':window.__tapHit`).catch(() => '');
+        if (hit) {
+          const where = await evaluate(`(()=>{const r=window.__tapTarget.getBoundingClientRect(),p=document.elementFromPoint(${at.x},${at.y});return 'pressed at '+${Math.round(at.x)}+','+${Math.round(at.y)}+', target now at '+[r.left,r.top,r.width,r.height].map(Math.round).join()+', connected '+window.__tapTarget.isConnected+', scrollY '+Math.round(scrollY)+', at that point now: '+(p?(p.className?.toString?.()||p.tagName).replace(/css-\\S+/g,'').trim().slice(0,50):'nothing')})()`).catch(e => e.message);
+          throw Error(`tap on ${name} missed: ${hit} (${where})`);
+        }
+        await wait(150);
+      },
+      // Focuses a field and types into it like a keyboard would.
+      type: async (selector, value) => {
+        await evaluate(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});e.scrollIntoView({block:'center',behavior:'instant'});e.focus();if(e.select)e.select();})()`);
+        await page('Input.insertText', {text: value});
+        await wait(100);
+      },
+      // Sets a controlled input the way a date picker does, then lets React see it.
+      setValue: async (selector, value) => evaluate(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,${JSON.stringify(value)});e.dispatchEvent(new Event('input',{bubbles:true}));e.dispatchEvent(new Event('change',{bubbles:true}))})()`),
+      shot: async file => writeFile(file, Buffer.from((await page('Page.captureScreenshot', {format: 'png'})).data, 'base64')),
+    };
+    return await fn(ctl);
+  } finally {
+    if (child && child.exitCode === null && child.signalCode === null) { const exited = once(child, 'exit').catch(() => {}); child.kill(); await Promise.race([exited, wait(5000)]); }
+    server?.closeAllConnections?.();
+    server?.close();
+    await rm(work, {recursive: true, force: true, maxRetries: 5, retryDelay: 200});
+  }
+}
