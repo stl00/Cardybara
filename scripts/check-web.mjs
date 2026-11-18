@@ -65,7 +65,9 @@ export function checkWeb(dir, {gateway = null} = {}) {
     try { list = shell && JSON.parse(shell[1]); } catch { /* reported below */ }
     if (!list?.length) add('sw.js lists no app shell files');
     else for (const f of list) if (f !== '/' && !has(f.replace(/^\//, ''))) add(`sw.js caches ${f}, which is not in the folder`);
-    if (list && !list.includes('/index.html')) add('sw.js does not cache index.html, so an offline reload has no page');
+    // The page is cached as / (Pages answers /index.html with a 308, and a redirected copy breaks every reload).
+    if (list && !list.includes('/')) add('sw.js does not cache /, so an offline reload has no page');
+    if (list?.includes('/index.html')) add('sw.js caches /index.html, which Pages redirects: a navigation answered with it fails');
     if (!/addEventListener\('fetch'/.test(sw)) add('sw.js does not answer fetches');
     for (const m of sw.matchAll(/importScripts\('([^']+)'\)/g)) if (!has(m[1].replace(/^\//, ''))) add(`sw.js imports ${m[1]}, which is not in the folder`);
     if (has('push-worker.js') && !/importScripts\('\/push-worker\.js'\)/.test(sw)) add('push-worker.js is shipped but sw.js does not load it');

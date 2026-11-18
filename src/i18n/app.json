@@ -117,7 +117,6 @@
     "管理银行账户，登录后读取最新数据。": "Manage bank accounts. Sign in to read the latest data.",
     "已载入初始记录；如需最新金额，请刷新银行。": "Initial records loaded. Refresh banks for the latest amounts.",
     "钱包记录": "Wallet records",
-    "我的私人钱包": "My private wallet",
     "数据管理": "Data",
     "导入备份": "Import backup",
     " · 余额更新 ": " · Balance read ",
@@ -197,7 +196,18 @@
     "备份里的钱包卡片记录格式不正确；这次没有写入任何数据。": "The wallet card records in this backup are malformed. Nothing was written.",
     "备份里的收藏列表格式不正确；这次没有写入任何数据。": "The favorites list in this backup is malformed. Nothing was written.",
     "备份文件格式不正确；这次没有写入任何数据。": "This backup file is malformed. Nothing was written.",
-    "另一台设备用更新版本的卡疲扒拉同步过钱包。请重新加载页面更新；在这之前本机不会同步。": "Another device synced this wallet with a newer version of Cardybara. Reload the page to update; this device will not sync until then."
+    "另一台设备用更新版本的卡疲扒拉同步过钱包。请重新加载页面更新；在这之前本机不会同步。": "Another device synced this wallet with a newer version of Cardybara. Reload the page to update; this device will not sync until then.",
+    "问问卡疲扒拉": "Ask Cardybara",
+    "更多": "More",
+    "nav|钱包": "Wallet",
+    "nav|问问": "Ask",
+    "nav|福利": "Benefits",
+    "nav|积分": "Points",
+    "nav|银行": "Banks",
+    "nav|卡片库": "Catalogue",
+    "nav|福利库": "Library",
+    "问问卡疲扒拉：这笔用哪张卡？": "Ask Cardybara: which card for this purchase?",
+    "主导航": "Main navigation"
   },
   "zh-TW": {
     "待更新": "待更新",
@@ -317,7 +327,6 @@
     "管理银行账户，登录后读取最新数据。": "管理銀行帳戶，登入後讀取最新資料。",
     "已载入初始记录；如需最新金额，请刷新银行。": "已載入初始記錄；如需最新金額，請刷新銀行。",
     "钱包记录": "錢包記錄",
-    "我的私人钱包": "我的私人錢包",
     "数据管理": "資料管理",
     "导入备份": "匯入備份",
     " · 余额更新 ": " · 餘額更新 ",
@@ -397,6 +406,17 @@
     "备份里的钱包卡片记录格式不正确；这次没有写入任何数据。": "備份裡的錢包卡片記錄格式不正確；這次沒有寫入任何資料。",
     "备份里的收藏列表格式不正确；这次没有写入任何数据。": "備份裡的收藏列表格式不正確；這次沒有寫入任何資料。",
     "备份文件格式不正确；这次没有写入任何数据。": "備份檔案格式不正確；這次沒有寫入任何資料。",
-    "另一台设备用更新版本的卡疲扒拉同步过钱包。请重新加载页面更新；在这之前本机不会同步。": "另一台裝置用更新版本的卡疲扒拉同步過錢包。請重新載入頁面更新；在這之前本機不會同步。"
+    "另一台设备用更新版本的卡疲扒拉同步过钱包。请重新加载页面更新；在这之前本机不会同步。": "另一台裝置用更新版本的卡疲扒拉同步過錢包。請重新載入頁面更新；在這之前本機不會同步。",
+    "问问卡疲扒拉": "問問卡疲扒拉",
+    "更多": "更多",
+    "nav|钱包": "錢包",
+    "nav|问问": "問問",
+    "nav|福利": "福利",
+    "nav|积分": "積分",
+    "nav|银行": "銀行",
+    "nav|卡片库": "卡片庫",
+    "nav|福利库": "福利庫",
+    "问问卡疲扒拉：这笔用哪张卡？": "問問卡疲扒拉：這筆用哪張卡？",
+    "主导航": "主導覽"
   }
 }
