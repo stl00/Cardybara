@@ -15,7 +15,7 @@ Code: `gateway/src/gateway.js` (router, middleware, model proxy and the `UsageLe
 
 ## The hosted assistant (`/v1/chat`)
 
-**Split.** Cloud: `runAgentTurn` from `src/agentSession.js`, the system prompt from `src/chatProtocol.js`, every model call, and the public-knowledge tools `list_cards`, `find_benefits`, `get_card_rules`, `convert_points`, `find_protections`, `points_accounts`, which run on the summary's held products against the catalogue, benefit rules, transfer routes, point-value defaults and pooling rules bundled from `src/data`. Extension: the chat UI, rendering the stream, and the wallet tools `choose_card`, `query_credits`, `plan_flight` (`WALLET_TOOLS`), which read credit marks, fee dates and point-value overrides.
+**Split.** Cloud: `runAgentTurn` from `src/agentSession.js`, the system prompt from `src/chatProtocol.js`, every model call, and the public-knowledge tools `list_cards`, `find_benefits`, `get_card_rules`, `convert_points`, `find_protections`, `points_accounts`, which run on the summary's held products against the catalogue, benefit rules, transfer routes, point-value defaults and pooling rules bundled from `src/data`. Extension: the chat UI, rendering the stream, and the wallet tools `choose_card`, `query_credits`, `plan_flight`, `plan_stay` (`WALLET_TOOLS`), which read credit marks, fee dates and point-value overrides.
 
 **What the extension sends** (`src/cloudProtocol.js`, checked field by field by the Worker; anything else is `400 bad_request`):
 - the question; the trimmed history (questions, answers and `choose_card` arguments; never a tool result); the conversation memory (`src/conversationState.js`);

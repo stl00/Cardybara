@@ -292,6 +292,13 @@ export const tripCases=[
  {id:'trip-whole-hant',airline:'達美',when:'聖誕節',expectedWindow:{start:'2026-12-01',end:'2026-12-31'}},
  {id:'trip-whole-en',airline:'Delta',when:'Dec 20-27',expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
 ];
+// #480: the hotel half of a whole-trip question ('住凯悦' in trip-whole-question). Offline, code runs plan_stay on the
+// same date words and the checks mirror the flight half: dates agree with the hotel credit read, availability is marked not
+// checked, the hotel path is found and no award price or points are invented.
+export const stayCases=[
+ {id:'stay-whole-hans',tool:'plan_stay',args:{programme:'凯悦',nights:7,when:'12月20日到27日'},expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
+ {id:'stay-whole-en',tool:'plan_stay',args:{programme:'Hyatt',nights:7,when:'Dec 20-27'},expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
+];
 // #479: a stated cash fare against an award. The tool result carries the verdict; the answer must report it and must not
 // bring a fare of its own. Synthetic fares only. `good` reports the code's verdict, `bad` invents a fare.
 export const flightCompareCases=[
