@@ -182,7 +182,11 @@ for (const lang of LANGS) {
         const drawer = (await rects(c, '.more-drawer .ant-drawer-section')).concat(await rects(c, '.more-drawer.ant-drawer-section'))[0];
         assert.ok(drawer, `${lang}: the drawer panel is measurable`);
         if (ready[501]) for (const p of await rects(c, '.capy-companion,.capy-restore')) assert.ok(!hit(drawer, p), `${lang} ${from}: pet overlaps the open drawer`);
-        for (const m of await rects(c, '.chat-composer-area')) assert.ok(!hit(drawer, m), `${lang} ${from}: composer overlaps the open drawer`);
+        // A bottom sheet is modal: it may cover page content (the composer) but then the content must be behind its mask, not poking through.
+        const [bar] = await rects(c, '.mobile-tabbar');
+        assert.ok(!bar || !hit(drawer, bar), `${lang} ${from}: the open drawer overlaps the tab bar`);
+        const front = await c.evaluate(`(()=>{const e=document.querySelector('.chat-composer-area');if(!e)return 'none';const r=e.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;if(y>=innerHeight||y<0)return 'offscreen';const t=document.elementFromPoint(x,y);return t&&t.closest('.ant-drawer')?'drawer':'composer'})()`);
+        assert.notEqual(front, 'composer', `${lang} ${from}: the composer shows through the open drawer`);
         await c.tap('.more-drawer .ant-drawer-mask, .ant-drawer-mask').catch(() => {});
         await c.pause(400);
       }
