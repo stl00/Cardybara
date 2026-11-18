@@ -81,7 +81,7 @@ export async function runAgentTurn({history,question,context,request,memory={},o
    if(isRemote)validateToolCall(call);
    const start=Date.now(),result=isRemote?replayed.results[call.id]:await runWalletToolAsync(call,{...context,trip:state.trip,signal}),args=JSON.parse(call.function.arguments||'{}');tools.push(call.function.name);evidence.push(result,args);
    // A flight plan's credits and transfer rows are checked exactly as query_credits and convert_points results are.
-   if(call.function.name==='plan_flight')evidence.push(result.credits,result.transfers);
+   if(call.function.name==='plan_flight')evidence.push(result.credits,result.transfers,...(result.cashComparison?[result.cashComparison]:[]));
    // Each tool result updates the state through the reducers; the trace records what changed, channel by channel.
    const event={name:call.function.name,args,result},before=state;
    state=reduceToolResult(state,event,{cards:context.cards,appendItems:toolsRun++>0});
