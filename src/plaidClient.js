@@ -19,8 +19,8 @@ const day=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)?v:null;
 export function cleanCards(body){
  const items=(Array.isArray(body?.items)?body.items:[]).filter(plain).map(i=>({itemId:str(i.itemId),institution:str(i.institution),status:str(i.status),errorCode:str(i.errorCode),
   historicalComplete:i.historicalComplete===true,syncedAt:num(i.syncedAt),liabilitiesAt:num(i.liabilitiesAt)})).filter(i=>i.itemId);
- const cards=(Array.isArray(body?.cards)?body.cards:[]).filter(plain).map(c=>({itemId:str(c.itemId),accountId:str(c.accountId),institution:str(c.institution),
-  name:str(c.name),officialName:str(c.officialName),mask:str(c.mask),currency:str(c.currency),balance:num(c.balance),available:num(c.available),limit:num(c.limit),
+ const cards=(Array.isArray(body?.cards)?body.cards:[]).filter(plain).map(c=>({itemId:str(c.itemId),accountId:str(c.accountId),persistentAccountId:str(c.persistentAccountId),
+  institutionId:str(c.institutionId),institution:str(c.institution),name:str(c.name),officialName:str(c.officialName),mask:str(c.mask),subtype:str(c.subtype),currency:str(c.currency),balance:num(c.balance),available:num(c.available),limit:num(c.limit),
   statementBalance:num(c.statementBalance),statementDate:day(c.statementDate),minimumPayment:num(c.minimumPayment),dueDate:day(c.dueDate),
   isOverdue:typeof c.isOverdue==='boolean'?c.isOverdue:null,lastPaymentAmount:num(c.lastPaymentAmount),lastPaymentDate:day(c.lastPaymentDate),
   aprs:(Array.isArray(c.aprs)?c.aprs:[]).filter(plain).map(a=>({type:str(a.type),percentage:num(a.percentage)})).filter(a=>a.type&&a.percentage!=null),
