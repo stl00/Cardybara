@@ -1,6 +1,6 @@
 {
- "schema": "fixed-redemptions/1",
- "checkedAt": "2026-11-17",
+ "schema": "fixed-redemptions/2",
+ "checkedAt": "2026-11-18",
  "note": "Issuer fixed-value redemptions for US Membership Rewards and Ultimate Rewards (#307). centsPerPoint is a number only when an official page or term states it; null means the value is unknown, \"varies\" means the issuer says it differs by card or condition. Transfers live in rules.json.",
  "sources": [
   {
@@ -30,6 +30,20 @@
    "title": "American Express · Membership Rewards Program Terms and Conditions (US)",
    "authority": "official",
    "checkedAt": "2026-11-16"
+  },
+  {
+   "id": "chase-sapphire-reserve-page",
+   "url": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve",
+   "title": "Chase · Sapphire Reserve card page (Points Boost offer details)",
+   "authority": "official",
+   "checkedAt": "2026-11-18"
+  },
+  {
+   "id": "chase-sapphire-reserve-business-page",
+   "url": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
+   "title": "Chase · Sapphire Reserve for Business card page (Points Boost offer details)",
+   "authority": "official",
+   "checkedAt": "2026-11-18"
   }
  ],
  "redemptions": [
@@ -69,11 +83,48 @@
    "centsPerPoint": "varies",
    "dependsOn": "card-with-points-boost",
    "sourceIds": [
-    "chase-ur-how-it-works"
+    "chase-ur-how-it-works",
+    "chase-sapphire-reserve-page",
+    "chase-sapphire-reserve-business-page"
    ],
    "checkedAt": "2026-11-16",
    "textEn": "Points may have higher value when redeemed for travel through Chase Travel; Points Boost makes them worth up to 50% more with eligible Chase cards, and the boost varies by card.",
-   "textZh": "通过 Chase Travel 订旅行时价值可能更高；Points Boost 在符合条件的 Chase 卡上最高多 50%，具体倍数因卡而异，页面未给出固定数字。"
+   "textZh": "通过 Chase Travel 订旅行时价值可能更高；Points Boost 在符合条件的 Chase 卡上最高多 50%，具体倍数因卡而异，页面未给出固定数字。",
+   "upToByProduct": [
+    {
+     "productId": "chase-us-sapphire-reserve",
+     "upToCentsPerPoint": 2,
+     "textEn": "100 points could be worth up to $2.00 for Sapphire Reserve, J.P. Morgan Reserve, and Sapphire Reserve for Business cards",
+     "textZh": "Points Boost 促销下，Sapphire Reserve 类卡通过 Chase Travel 每 100 点最高可值 2.00 美元（每点最高 2 美分）；基础价值为每点 1 美分，促销因卡和活动而异。",
+     "sourceId": "chase-sapphire-reserve-page",
+     "checkedAt": "2026-11-18"
+    },
+    {
+     "productId": "chase-us-sapphire-reserve-for-business-credit-card",
+     "upToCentsPerPoint": 2,
+     "textEn": "100 points could be worth up to $2.00 for Sapphire Reserve, J.P. Morgan Reserve, and Sapphire Reserve for Business cards",
+     "textZh": "Points Boost 促销下，Sapphire Reserve 类卡通过 Chase Travel 每 100 点最高可值 2.00 美元（每点最高 2 美分）；基础价值为每点 1 美分，促销因卡和活动而异。",
+     "sourceId": "chase-sapphire-reserve-business-page",
+     "checkedAt": "2026-11-18"
+    },
+    {
+     "productId": "chase-us-chase-sapphire-preferred-credit-card",
+     "upToCentsPerPoint": 1.5,
+     "textEn": "100 points could be worth up to $1.50 for Sapphire Preferred, Ink Business Preferred, and Ink Plus cards",
+     "textZh": "Points Boost 促销下，Sapphire Preferred 与 Ink Business Preferred 通过 Chase Travel 每 100 点最高可值 1.50 美元（每点最高 1.5 美分）；基础价值为每点 1 美分，促销因卡和活动而异。",
+     "sourceId": "chase-sapphire-reserve-page",
+     "checkedAt": "2026-11-18"
+    },
+    {
+     "productId": "chase-us-ink-business-preferred-credit-card",
+     "upToCentsPerPoint": 1.5,
+     "textEn": "100 points could be worth up to $1.50 for Sapphire Preferred, Ink Business Preferred, and Ink Plus cards",
+     "textZh": "Points Boost 促销下，Sapphire Preferred 与 Ink Business Preferred 通过 Chase Travel 每 100 点最高可值 1.50 美元（每点最高 1.5 美分）；基础价值为每点 1 美分，促销因卡和活动而异。",
+     "sourceId": "chase-sapphire-reserve-business-page",
+     "checkedAt": "2026-11-18"
+    }
+   ],
+   "upToNote": "Upper bounds only, from the Points Boost offer details on the two Sapphire Reserve pages, which name each card. The Sapphire Preferred and Ink Business Preferred own pages (read 2026-11-18) state no Points Boost figure. Boosts are promotional and vary by offer; centsPerPoint stays \"varies\"."
   },
   {
    "id": "ur-pay-yourself-back",
