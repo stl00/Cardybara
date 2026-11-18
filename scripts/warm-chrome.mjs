@@ -22,6 +22,7 @@ export async function warmChrome({limitMs = LIMIT_MS} = {}) {
       const done = f => v => { clearTimeout(timer); f(v); };
       child.on('error', done(reject));
       child.on('exit', code => done(reject)(Error(`Chrome exited (${code}) before answering`)));
+      for (const pipe of [child.stdio[3], child.stdio[4]]) pipe.on('error', e => done(reject)(Error('pipe closed (' + e.message + ')')));
       child.stdio[4].on('data', d => { if (d.includes(0)) done(resolve)({ms: Date.now() - t0}); });
       child.stdio[3].write(JSON.stringify({id: 1, method: 'Browser.getVersion'}) + '\0');
     });
@@ -32,5 +33,9 @@ export async function warmChrome({limitMs = LIMIT_MS} = {}) {
   }
 }
 
-const r = await warmChrome();
+// Same rule as the phone tests: a Chrome that cannot start here skips them locally, but must fail the build on GitHub Actions.
+const r = await warmChrome().catch(err => {
+  if (process.env.GITHUB_ACTIONS) throw err;
+  return {skipped: 'Chrome found but cannot start here (' + err.message + '); the browser tests will skip'};
+});
 console.log(r.skipped ? `warm-chrome: skipped, ${r.skipped}` : `warm-chrome: first DevTools answer after ${r.ms} ms`);
