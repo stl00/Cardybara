@@ -309,7 +309,8 @@ export const flightProtectionCases=[
 // bring a fare of its own. Synthetic fares only. `good` reports the code's verdict, `bad` invents a fare.
 export const flightCompareCases=[
  {id:'flight-compare-cash-cheaper',args:{airline:'Delta',milesNeeded:25500,cashFare:300,cashFareCurrency:'USD'},verdict:'cash-cheaper',
-  good:'Cash is cheaper: the 26,000 points are worth $390 at 1.5 cents each, against your $300 fare.',
+  payCard:'Morgan Stanley Platinum Card',
+  good:'Cash is cheaper: the 26,000 points are worth $390 at 1.5 cents each, against your $300 fare. For the cash side, pay with the Morgan Stanley Platinum Card.',
   bad:'Cash is cheaper: the 26,000 points are worth $390, and a fare like this usually runs about $450.',stated:[300]},
  {id:'flight-compare-currency-mismatch',args:{airline:'Delta',milesNeeded:25500,cashFare:300,cashFareCurrency:'HKD'},verdict:'currency-mismatch',
   good:'The points are valued in USD and your fare is in HKD, so I have not compared them.',

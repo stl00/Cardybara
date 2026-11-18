@@ -177,8 +177,23 @@ test('plan_flight protections follow cardName and region, and leave the rest of 
  const all=runWalletTool(call({airline:'Delta',milesNeeded:25500,points:20000,cashFare:300,cashFareCurrency:'USD'}),ctx);
  const {protections,...rest}=all;
  assert.equal(all.kind,'flight-plan');assert.ok(all.cashComparison);
- assert.deepEqual(Object.keys(rest).sort(),['asOf','award','cashComparison','coverage','credits','dates','kind','route','transfers','valuation'].sort());
+ assert.deepEqual(Object.keys(rest).sort(),['asOf','award','cashComparison','coverage','credits','dates','kind','payCash','route','transfers','valuation'].sort());
  // Protections do not depend on the transfer maths: an airline no card reaches still lists them.
  const none=runWalletTool(call({airline:'Nowhere Air'}),ctx);
  assert.equal(none.transfers.partnerFound,false);assert.ok(none.protections.cards.length>0);
+});
+
+// #531: with a stated fare, payCash is choose_card's own answer for a flight; without a fare there is none.
+test('payCash matches choose_card for the stated fare, is absent without one, and leaves cashComparison alone',()=>{
+ for(const [cashFare,cashFareCurrency,pointValues] of [[300,'USD'],[500,'USD',{MR:2}],[300,'HKD']]){
+  const extra={cashFare,cashFareCurrency,...(pointValues?{pointValues}:{})},r=cmp(extra);
+  const cc=runWalletTool({id:'c2',type:'function',function:{name:'choose_card',arguments:JSON.stringify({category:'flight',amount:cashFare,currency:cashFareCurrency,...(pointValues?{pointValues}:{})})}},ctx);
+  assert.equal(r.payCash.kind,'pay-cash-card');
+  assert.deepEqual(r.payCash.choice,cc.choice);assert.deepEqual(r.payCash.rows,cc.rows);assert.deepEqual(r.payCash.pointValues,cc.pointValues);
+  assert.match(r.payCash.note,/not looked up/);assert.match(r.payCash.note,/does not change/);
+  // The verdict is the one flightCashComparison gives on its own inputs.
+  assert.deepEqual(r.cashComparison,flightCashComparison({args:{airline:'Delta',milesNeeded:25500,...extra},programmes:r.transfers.programmes,valuation:r.valuation,credits:r.credits}));
+ }
+ assert.equal(cmp({}).payCash,undefined);
+ assert.throws(()=>cmp({cashFare:300}),/invalid_arguments/);
 });
