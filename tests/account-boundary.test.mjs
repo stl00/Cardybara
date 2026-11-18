@@ -10,7 +10,7 @@ test('PRIVACY.md describes the optional account, what the server holds, who can 
   const p = read('PRIVACY.md');
   const section = p.slice(p.indexOf('## Optional account and wallet sync'), p.indexOf('## Retention, exports and deletion'));
   assert.ok(section.length > 500, 'account section missing');
-  for (const re of [/optional/i, /passkey public key/, /readable copy of the wallet document/, /push subscription/, /never stores/i, /bank passwords, cookies, one-time codes/, /not end-to-end encrypted/i, /operator[\s\S]*can technically read/, /export everything/i, /delete the account/i]) assert.match(section, re);
+  for (const re of [/optional/i, /passkey public key if you add one/, /salted password hash/, /readable copy of the wallet document/, /push subscription/, /never stores/i, /bank passwords, cookies, bank one-time codes/, /not end-to-end encrypted/i, /operator[\s\S]*can technically read/, /export everything/i, /delete the account/i]) assert.match(section, re);
   assert.doesNotMatch(p, /Cloud browser sync is not used by the application\.(?! )/);
 });
 
