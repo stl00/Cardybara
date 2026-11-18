@@ -207,3 +207,10 @@ test('auto-add leaves out what plaidWalletCard cannot place',()=>{
  const odd=[plaidCard({institution:'First Platypus Bank'}),plaidCard({accountId:'a2',mask:'12'}),plaidCard({accountId:'a3',currency:'CAD'}),plaidCard({accountId:'a4',mask:null})];
  assert.deepEqual(plaidCardsToAdd({plaidCards:odd}),[]);
 });
+
+test('auto-add where bank pages are read too: an Amex US card with a four-digit mask is left to the panel',()=>{
+ const short={...amex,mask:'1001'};
+ assert.deepEqual(plaidCardsToAdd({plaidCards:[short,plaidCard()],bankPages:true}).map(a=>a.spec.bank),['Chase']);
+ assert.deepEqual(plaidCardsToAdd({plaidCards:[amex],bankPages:true}).map(a=>a.spec.tail),['71001'],'five digits still match the page');
+ assert.deepEqual(plaidCardsToAdd({plaidCards:[short]}).map(a=>a.spec.tail),['1001'],'the PWA reads no bank pages');
+});

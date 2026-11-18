@@ -1,7 +1,7 @@
 // #535: Plaid-linked cards land in the wallet on their own, in the built PWA (dist/web) in headless Chrome at phone width.
 // The gateway is an in-page fetch stub for /v2/plaid and /v2/account/wallet, so no Plaid, account service or network is used.
 // With sync on, two Plaid cards into an empty wallet become two wallet cards with Plaid's balances, and the debounced push
-// carries both. Negative control: with sync off and a card Plaid cannot place (an unknown institution), nothing is added,
+// carries both; with sync off they are added on this device only, and one the user removed is not added back. Negative control: with sync off and a card Plaid cannot place (an unknown institution), nothing is added,
 // the card stays in the Plaid panel, and nothing is sent to the wallet route. Synthetic data only.
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -87,4 +87,22 @@ test('PWA, sync off (negative control): a card Plaid cannot place stays in the p
     assert.ok((await c.text()).includes('还没有对应到钱包里的卡'), 'the card stays in the panel, unmatched');
     assert.ok(!(await c.evaluate(`window.__calls.some(x=>x.includes('/v2/account/wallet'))`)), 'sync off: no wallet route is called');
   }, {init: init({plaid: UNKNOWN, syncOn: false})});
+});
+
+test('PWA, sync off: placeable cards are still added on this device; a removed one is not added back on the next read', {timeout: 90000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
+  ensureBuild();
+  await withPhone(async c => {
+    await c.goto('/#settings');
+    await c.until(`JSON.parse(localStorage.getItem('cardybara-wallet-cards-v1')||'[]').length===2`, 'both cards in the wallet registry', 15000);
+    await c.goto('/#wallet');
+    await c.tap('.wallet-card .card-title', 'Synthetic Sapphire');
+    await c.tap('.ant-drawer-footer .ant-btn-dangerous');
+    await c.tap('.ant-modal .ant-btn-dangerous');
+    await c.until(`JSON.parse(localStorage.getItem('cardybara-wallet-cards-v1')||'[]').length===1`, 'the Chase card removed');
+    await c.goto('/#settings');
+    await c.until(`document.body.innerText.includes('添加到钱包')`, 'the removed card is offered back in the panel');
+    await c.pause(1500);
+    assert.deepEqual(await registry(c), [['Amex US', '71001', 'manual']], 'not re-added after removal');
+    assert.ok(!(await c.evaluate(`window.__calls.some(x=>x.includes('/v2/account/wallet'))`)), 'sync off: no wallet route is called');
+  }, {init: init({plaid: TWO, syncOn: false})});
 });

@@ -109,15 +109,19 @@ export function setPlaidDismissed(storage,plaidCard,dismissed){
  * matchPlaidCards' answer for `walletCards`. A Plaid card is left out when plaidWalletCard cannot place it, when the
  * user dismissed it, when any wallet card or registry row already has its issuer and last four (an ambiguous or
  * other-currency card is the user's to sort out in the panel), or when a removed card had them (removed on another
- * device and synced here). Adding the result and running this again adds nothing.
+ * device and synced here; any earlier removal of those digits counts). `bankPages`: the wallet also reads bank pages,
+ * so an Amex US card with a four-digit mask is left out. Adding the result and running this again adds nothing.
  */
-export function plaidCardsToAdd({walletCards=[],plaidCards=[],pairs=[],dismissed=[],removed=[]}){
+export function plaidCardsToAdd({walletCards=[],plaidCards=[],pairs=[],dismissed=[],removed=[],bankPages=false}){
  const filled=new Set(pairs.map(([,p])=>p?.accountId)),skip=new Set(dismissed),out=[];
  const taken=[...walletCards.map(c=>[c.bank,walletTail(c)]),...(Array.isArray(removed)?removed:[]).map(r=>[r?.bank,tail(r?.tail)])];
  for(const p of plaidCards||[]){
   if(filled.has(p?.accountId))continue;
   const spec=plaidWalletCard(p),key=plaidCardKey(p);
   if(!spec||!key||skip.has(key))continue;
+  // Where the wallet also reads bank pages (the extension), an Amex US page gives five digits; a four-digit Plaid mask
+  // would become a second card beside it, so that one is left to the panel.
+  if(bankPages&&spec.bank==='Amex US'&&spec.tail.length<5)continue;
   const last=tail(spec.tail);
   if(taken.some(([bank,t])=>bank===spec.bank&&t===last))continue;
   taken.push([spec.bank,last]);out.push({spec,plaid:p});
