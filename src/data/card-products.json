@@ -4879,6 +4879,183 @@
       "checkedAt": "2026-11-16",
       "verification": "issuer-listed",
       "collection": "not-supported"
+    },
+    {
+      "id": "citi-us-my-best-buy-credit-cards",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "My Best Buy® Credit Cards",
+      "aliases": [
+        "My Best Buy® Credit Cards",
+        "My Best Buy Credit Cards",
+        "My Best Buy Credit Card",
+        "My Best Buy Visa",
+        "Best Buy Credit Card",
+        "Best Buy Credit Cards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-best-buy-credit-cards",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-macys-credit-cards",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Macy’s Credit Cards",
+      "aliases": [
+        "Macy’s Credit Cards",
+        "Macy's Credit Cards",
+        "Macys Credit Cards",
+        "Macy's Credit Card",
+        "Macy's Card",
+        "Macys Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-macys-credit-card",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-bloomingdales-credit-cards",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Bloomingdale’s Credit Cards",
+      "aliases": [
+        "Bloomingdale’s Credit Cards",
+        "Bloomingdale's Credit Cards",
+        "Bloomingdales Credit Cards",
+        "Bloomingdale's Credit Card",
+        "Bloomingdale's Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/bloomingdales-credit-cards",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-the-home-depot-consumer-credit-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "The Home Depot® Consumer Credit Card",
+      "aliases": [
+        "The Home Depot® Consumer Credit Card",
+        "The Home Depot Consumer Credit Card",
+        "Home Depot Consumer Credit Card",
+        "Home Depot Credit Card",
+        "The Home Depot Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-home-depot-consumer-credit-card",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-pro-xtra-credit-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Pro Xtra Credit Card",
+      "aliases": [
+        "Pro Xtra Credit Card",
+        "Home Depot Pro Xtra Credit Card",
+        "The Home Depot Pro Xtra Credit Card",
+        "Pro Xtra"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/home-depot-pro-xtra-credit-card",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-tsc-credit-cards",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "TSC Credit Cards",
+      "aliases": [
+        "TSC Credit Cards",
+        "TSC Credit Card",
+        "Tractor Supply Credit Card",
+        "Tractor Supply Credit Cards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-tractor-supply-credit-cards",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-l-l-bean-mastercard",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "L.L.Bean® Mastercard®",
+      "aliases": [
+        "L.L.Bean® Mastercard®",
+        "L.L.Bean Mastercard",
+        "LL Bean Mastercard",
+        "L.L.Bean Credit Card",
+        "L.L.Bean Mastercard Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-llbean-credit-card",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-dillards-credit-cards",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Dillard’s Credit Cards",
+      "aliases": [
+        "Dillard’s Credit Cards",
+        "Dillard's Credit Cards",
+        "Dillards Credit Cards",
+        "Dillard's Credit Card",
+        "Dillard's Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/dillards-credit-cards",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-wayfair-credit-cards",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Wayfair Credit Cards",
+      "aliases": [
+        "Wayfair Credit Cards",
+        "Wayfair Credit Card",
+        "Wayfair Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/wayfair-credit-cards",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-goodyear-credit-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Goodyear® Credit Card",
+      "aliases": [
+        "Goodyear® Credit Card",
+        "Goodyear Credit Card",
+        "Goodyear Credit Cards",
+        "Goodyear Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/goodyear-credit-cards",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
     }
   ]
 }

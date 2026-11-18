@@ -223,9 +223,6 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-// The password fields of the model-key settings. The account card on the same page has a password field of its own
-// (email sign-in), which comes first and is not a key or code field.
-const KEY_FIELDS=`[...document.querySelectorAll('input[type=password]')].filter(el=>!el.closest('.account-settings'))`;
 export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=null,hosted=false,tamper=null,clientDailyRequests=50,afterMain=null,cards=false,citi=false,cardFeeDate={month:2,day:29},cardQuery=null,upgradeFrom=null,mutatePrevious,swap=true}={}){
  if([restart,expiredLogin,cancel,chat,cards,citi,!!upgradeFrom].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel, --chat, --cards, --citi and --upgrade-from separately: each starts from the end of the main path');
  if(hosted&&!chat)throw Error('--hosted is a variant of --chat');
@@ -558,7 +555,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
     await evaluate('wallet','location.hash="settings"');
     await until('the hosted service to show ready',async()=>{const t=await pageText('wallet');return JSON.parse(words('已就绪')).some(w=>t.includes(w));});
     const t=await pageText('wallet');
-    if(await evaluate('wallet',`${KEY_FIELDS}.length>0`))throw new StepError('the settings page asks for a code or key in hosted mode');
+    if(await evaluate('wallet',`!!document.querySelector('input[type=password]')`))throw new StepError('the settings page asks for a code or key in hosted mode');
     for(const zh of ['粘贴邀请码','保存邀请码','使用自己的 key','粘贴你的 API 密钥','保存密钥','自动补全银行数据'])if(JSON.parse(words(zh)).some(w=>t.includes(w)))throw new StepError('the beta settings page offers a code or own key: '+zh);
     const stored=await evaluate('worker',`chrome.storage.local.get('cardybara-model-key').then(r=>r['cardybara-model-key']||null)`);
     if(stored?.key)throw new StepError('a credential is stored in hosted mode');
@@ -574,7 +571,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
     await evaluate('wallet','location.hash="wallet"');await sleep(200);
     await evaluate('wallet','location.hash="settings"');
     await until('the own-key button',()=>clickText('wallet','button','使用自己的 key'));
-    const keyBox=await until('the '+what+' field',()=>evaluate('wallet',`(()=>{const el=${KEY_FIELDS}[0];if(!el||!${JSON.stringify(words('粘贴你的 API 密钥'))}.includes(el.placeholder))return false;el.focus();return true;})()`));
+    const keyBox=await until('the '+what+' field',()=>evaluate('wallet',`(()=>{const el=document.querySelector('input[type=password]');if(!el||!${JSON.stringify(words('粘贴你的 API 密钥'))}.includes(el.placeholder))return false;el.focus();return true;})()`));
     if(!keyBox)throw new StepError('no '+what+' field on the settings page');
     await cdp.send('Input.insertText',{text:chatKey},sessions.wallet);
     await cdp.send('Target.activateTarget',{targetId:walletTarget}).catch(()=>{});
@@ -585,7 +582,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
      const checks=bank.model.requests.length;
      if(!await realClick('wallet','button',words('保存密钥')))return false;
      const end=Date.now()+2000;
-     while(Date.now()<end){if(bank.model.requests.length>checks||await evaluate('wallet',`!!document.querySelector('.ant-btn-loading')||!${KEY_FIELDS}.length`))return true;await sleep(100);}
+     while(Date.now()<end){if(bank.model.requests.length>checks||await evaluate('wallet',`!!document.querySelector('.ant-btn-loading')||!document.querySelector('input[type=password]')`))return true;await sleep(100);}
      note('the save click did not take effect; clicking again');return false;
     });
     note('pasted a test-only',what,'and pressed save');

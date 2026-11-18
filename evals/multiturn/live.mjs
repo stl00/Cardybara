@@ -11,8 +11,9 @@ const escape=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 /** What a programme argument reaches: get_card_rules keeps a programme whose name contains it. */
 export const programmesReached=text=>programmeNames.filter(n=>n.toLowerCase().includes(String(text).toLowerCase().trim()));
 /** The one programme an expected value names, as a whole word ("ANA" is ANA Mileage Club, not Air Canada). */
+export const programmesNamed=value=>programmeNames.filter(n=>new RegExp(`(?<![\\p{L}\\p{N}])${escape(value.trim())}(?![\\p{L}\\p{N}])`,'iu').test(n));
 export function targetProgramme(value){
- const found=programmeNames.filter(n=>new RegExp(`(?<![\\p{L}\\p{N}])${escape(value.trim())}(?![\\p{L}\\p{N}])`,'iu').test(n));
+ const found=programmesNamed(value);
  if(found.length!==1)throw Error('ambiguous_expected_programme: '+value);
  return found[0];
 }
@@ -25,6 +26,9 @@ export function argumentsMatch(expect,call){
  return Object.entries(expect.args).every(([k,v])=>{
   if(k==='query')return typeof call.args.query==='string'&&call.args.query.trim().length>0;
   if(k==='cardName'||k==='region'){const want=selectCards(expect.args).map(c=>c.id).sort().join(),got=selectCards(call.args).map(c=>c.id).sort().join();return want===got;}
+  // plan_flight: the airline is reached by name or alias like a partner; route and dates are the user's own words, so any non-empty text counts and the numbers are compared as stated.
+  if(expect.tool==='plan_flight'&&k==='airline')return typeof call.args.airline==='string'&&call.args.airline.trim().length>0&&partnersReached(call.args.airline).some(n=>programmesNamed(v).includes(n));
+  if(expect.tool==='plan_flight'&&(k==='route'||k==='when'))return typeof call.args[k]==='string'&&call.args[k].trim().length>0;
   if(k==='partner')return typeof call.args.partner==='string'&&call.args.partner.trim().length>0&&partnersReached(call.args.partner).includes(targetProgramme(v));
   // points_accounts takes a programme label from a fixed list ("Membership Rewards" for every region), so it is compared as given.
   if(k==='programme'&&expect.tool==='points_accounts')return call.args.programme===v;

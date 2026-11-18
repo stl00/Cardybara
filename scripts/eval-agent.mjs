@@ -2,7 +2,7 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {performance} from 'node:perf_hooks';
-import {context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,cycleCases,ledgerCases,planGroundingCases,decisionCases,actionClaimCases,actionClaimControls,tripCases} from '../evals/fixtures.mjs';
+import {stayCases,context,referenceContext,retrievalCases,liveCases,publicRuleCases,planCases,cycleCases,ledgerCases,planGroundingCases,decisionCases,actionClaimCases,actionClaimControls,tripCases,flightCompareCases} from '../evals/fixtures.mjs';
 import {searchBenefitKnowledge} from '../src/benefitSearch.js';
 import {queryKnowledge} from '../src/knowledge.js';
 import {matchCardProduct} from '../src/productCatalog.js';
@@ -62,6 +62,16 @@ if(!live){
   const flight=run('plan_flight',{airline:c.airline,when:c.when}),hotel=run('query_credits',{use:'hotel',when:c.when}),cover=run('find_protections',{});
   const same=flight.dates.start===hotel.window.start&&flight.dates.end===hotel.window.end;
   check(c.id,{sameWindow:same,expectedWindow:hotel.window.start===c.expectedWindow.start&&hotel.window.end===c.expectedWindow.end,awardNotChecked:flight.award.status==='not-checked',hotelCredits:hotel.totalItems>0,coverFound:cover.cards.some(x=>x.status==='found'),noRecordIsNotFound:cover.cards.every(x=>['found','not_found'].includes(x.status))});
+ }
+ for(const c of stayCases){
+  const r=runWalletTool({id:c.id,function:{name:c.tool,arguments:JSON.stringify(c.args)}},referenceContext),hotel=runWalletTool({id:c.id,function:{name:'query_credits',arguments:JSON.stringify({use:'hotel',when:c.args.when})}},referenceContext);
+  const rows=r.transfers.programmes.flatMap(g=>g.partners);
+  check(c.id,{sameWindowAsHotelCredits:r.dates.start===hotel.window.start&&r.dates.end===hotel.window.end,expectedWindow:r.dates.start===c.expectedWindow.start&&r.dates.end===c.expectedWindow.end,availabilityNotChecked:r.availability.status==='not-checked',hotelPathFound:r.transfers.partnerFound&&rows.length>0,noPointsInvented:rows.every(x=>x.stay.status==='no-award-price'),protectionsListed:r.protections.cards.length>0});
+ }
+ for(const c of flightCompareCases){
+  const r=runWalletTool({id:c.id,function:{name:'plan_flight',arguments:JSON.stringify(c.args)}},{...context,day:'2026-11-16'}),row=r.cashComparison?.rows.find(x=>x.partner==='Delta SkyMiles'),evidence=[r,r.credits,r.transfers,r.cashComparison];
+  const issues=text=>answerGrounding(text,evidence).issues.filter(i=>i.code==='unsupported_number').length;
+  check(c.id,{verdictFromCode:(row?.cheaper||row?.status)===c.verdict,goodAnswerGrounded:issues(c.good)===0,inventedFareCaught:issues(c.bad)>0});
  }
  // #345: coverage questions end to end through the real agent loop with a scripted model. `--fault=<name>` breaks one rule on
  // purpose (not-covered, invented-limit, valuation, no-tool) to show the matching case fail; without it the controls below must all be caught.

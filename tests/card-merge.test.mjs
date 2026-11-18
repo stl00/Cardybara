@@ -37,13 +37,12 @@ test('fixture: exact match with tail merges, no duplicate, user fields kept', ()
  assert.equal(JSON.parse(state.benefitEvents[0].key)[0],'b1');
 });
 
-test('fixture: manual card without digits merges with the one bank card of its product', () => {
- const plan=planCardMerges({manual:[manual(A,'m1')],bank:[bank(A,'b1','9876')]});
- assert.deepEqual(plan.merges,[{manualId:'m1',bankId:'b1'}]);assert.deepEqual(plan.ambiguous,[]);
+test('fixture: a card without digits is never matched, since a manual card always has digits', () => {
+ assert.deepEqual(planCardMerges({manual:[manual(A,'m1')],bank:[bank(A,'b1','9876')]}),{merges:[],ambiguous:[]});
 });
 
-test('fixture: two digitless manual cards of one product are ambiguous, never guessed', () => {
- const plan=planCardMerges({manual:[manual(A,'m1'),manual(A,'m2')],bank:[bank(A,'b1','9876')]});
+test('fixture: two stored manual cards with the same digits are ambiguous, never guessed', () => {
+ const plan=planCardMerges({manual:[manual(A,'m1','9876'),manual(A,'m2','9876')],bank:[bank(A,'b1','9876')]});
  assert.deepEqual(plan.merges,[]);
  assert.deepEqual(plan.ambiguous,[{bankId:'b1',manualIds:['m1','m2']}]);
 });
@@ -53,13 +52,13 @@ test('fixture: a manual card with other digits, or another product, is not merge
  assert.deepEqual(planCardMerges({manual:[manual(B,'m1','1234')],bank:[bank(A,'b1','1234')]}),{merges:[],ambiguous:[]});
 });
 
-test('a digit match wins over a digitless card of the same product', () => {
- const plan=planCardMerges({manual:[manual(A,'m1','1234'),manual(A,'m2')],bank:[bank(A,'b1','1234')]});
+test('a digit match is picked over a card with other digits of the same product', () => {
+ const plan=planCardMerges({manual:[manual(A,'m1','1234'),manual(A,'m2','5678')],bank:[bank(A,'b1','1234')]});
  assert.deepEqual(plan.merges,[{manualId:'m1',bankId:'b1'}]);
 });
 
-test('one digitless manual card claimed by two bank cards asks instead of picking', () => {
- const plan=planCardMerges({manual:[manual(A,'m1')],bank:[bank(A,'b1','1111'),bank(A,'b2','2222')]});
+test('one manual card claimed by two bank cards of the same digits asks instead of picking', () => {
+ const plan=planCardMerges({manual:[manual(A,'m1','1111')],bank:[bank(A,'b1','1111'),bank(A,'b2','1111')]});
  assert.deepEqual(plan.merges,[]);assert.equal(plan.ambiguous.length,2);
 });
 

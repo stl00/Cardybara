@@ -3,7 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
+import {runWalletTool,validateToolCall,flightCashComparison} from '../src/walletAgent.js';
 import {pointsToReach,convertPoints} from '../src/transferRoutes.js';
 import {answerGrounding} from '../src/answerGrounding.js';
 import {reduceToolResult,topicItems} from '../src/conversationState.js';
@@ -106,4 +106,50 @@ test('review #193: a value the user said in the chat reaches plan_flight first, 
  // A value the plan did not return can't be quoted.
  const plain=runWalletTool(call({airline:'Delta',milesNeeded:25500}),ctx);
  assert.ok(answerGrounding('按默认市场估值每点 1.7 美分，可在设置里改。',[plain,plain.credits,plain.transfers]).issues.some(i=>i.code==='unstated_point_value'));
+});
+
+// #479: a stated cash fare against the award, all maths in code. Synthetic fares; Delta via Membership Rewards US is 1:1 at 1.5 cents.
+const cmp=(extra,c=ctx)=>runWalletTool(call({airline:'Delta',milesNeeded:25500,...extra}),c);
+const only=r=>r.cashComparison.rows.find(x=>x.partner==='Delta SkyMiles');
+
+test('cash comparison: cash cheaper, award cheaper and equal come from code',()=>{
+ // 26,000 points at 1.5 cents is 390.00; taxes of 5.60 make the award side 395.60.
+ const cash=only(cmp({cashFare:300,cashFareCurrency:'USD',taxesAndFees:5.6}));
+ assert.deepEqual([cash.status,cash.pointsSpent,cash.pointsCashEquivalent,cash.awardTotal,cash.cheaper],['computed',26000,390,395.6,'cash-cheaper']);
+ assert.equal(cash.centsPerMile,1.15,'(300 - 5.60) / 25,500 miles');
+ const award=only(cmp({cashFare:500,cashFareCurrency:'USD'}));
+ assert.deepEqual([award.cheaper,award.centsPerMile],['award-cheaper',1.96]);
+ const equal=only(cmp({cashFare:390,cashFareCurrency:'USD'}));assert.equal(equal.cheaper,'equal');
+ const own=only(cmp({cashFare:390,cashFareCurrency:'USD',pointValues:{MR:2}}));
+ assert.deepEqual([own.pointValue.basis,own.awardTotal,own.cheaper],['stated',520,'cash-cheaper']);
+});
+
+test('cash comparison gives nothing when the inputs cannot support it',()=>{
+ const mismatch=only(cmp({cashFare:300,cashFareCurrency:'HKD'}));
+ assert.equal(mismatch.status,'currency-mismatch');assert.equal(mismatch.cheaper,undefined);assert.equal(mismatch.awardTotal,undefined);assert.match(mismatch.note,/differ/);
+ const r=runWalletTool(call({airline:'Flying Blue',milesNeeded:25000,cashFare:300,cashFareCurrency:'USD'}),ctx);
+ const ur=r.cashComparison.rows.find(x=>x.programme==='Ultimate Rewards');
+ assert.equal(ur.status,'rate-not-published');assert.equal(ur.pointsSpent,undefined);assert.equal(ur.cheaper,undefined);
+ const noAward=runWalletTool(call({airline:'Delta',cashFare:300,cashFareCurrency:'USD'}),ctx).cashComparison;
+ assert.equal(noAward.status,'not-computed');assert.ok(noAward.rows.every(x=>x.status==='no-award-price'&&x.cheaper===undefined));
+ const noValue=only(cmp({cashFare:300,cashFareCurrency:'USD'},{...ctx,marketDefaults:false}));assert.equal(noValue.status,'no-point-value');
+ // No fare stated: no comparison at all.
+ assert.equal(cmp({}).cashComparison,undefined);
+});
+
+test('an unused credit is netted against the cash side and labelled as possible, not certain',()=>{
+ const r=cmp({cashFare:400,cashFareCurrency:'USD'}),row=only(r);
+ assert.equal(row.cheaper,'award-cheaper','390 award against 400 cash');
+ const plan=(credit)=>flightCashComparison({args:{cashFare:400,cashFareCurrency:'USD',milesNeeded:25500},programmes:r.transfers.programmes,valuation:r.valuation,credits:{groups:{markedUnused:credit}}});
+ const withCredit=plan([{publicLimit:50,currency:'USD'},{publicLimit:30,currency:'HKD'}]).rows.find(x=>x.partner==='Delta SkyMiles');
+ assert.deepEqual([withCredit.withUnusedCredit.unusedCredit,withCredit.withUnusedCredit.cashSide,withCredit.withUnusedCredit.cheaper],[50,350,'cash-cheaper']);
+ assert.equal(withCredit.cheaper,'award-cheaper','the headline verdict ignores the credit');
+ assert.match(withCredit.withUnusedCredit.note,/not a certain one/);
+ assert.equal(plan([]).rows.find(x=>x.partner==='Delta SkyMiles').withUnusedCredit,undefined);
+});
+
+test('cash fare arguments are validated',()=>{
+ for(const bad of [{cashFare:300},{cashFareCurrency:'USD'},{cashFare:0,cashFareCurrency:'USD'},{cashFare:300,cashFareCurrency:'usd'},{taxesAndFees:20},{cashFare:300,cashFareCurrency:'USD',taxesAndFees:-1},{cashFare:'300',cashFareCurrency:'USD'}])
+  assert.throws(()=>validateToolCall(call({airline:'Delta',...bad})),/invalid_arguments/);
+ assert.equal(validateToolCall(call({airline:'Delta',cashFare:300,cashFareCurrency:'USD',taxesAndFees:5.6})).name,'plan_flight');
 });

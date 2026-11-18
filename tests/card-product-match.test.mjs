@@ -79,6 +79,10 @@ test('every current Citi US card on the public card list matches its own product
  for(const [n,p] of Object.entries(want))assert.equal(id('Citi US','US',n),p,n);
  for(const p of cardProducts.filter(p=>p.bank==='Citi US'))assert.ok(p.sourceUrl.startsWith('https://www.citi.com/credit-cards/')&&p.checkedAt,p.id);
 });
+test('Citi US retail co-brand cards each match their own product by full name (#384)',()=>{
+ const want={'My Best Buy® Credit Cards':'citi-us-my-best-buy-credit-cards','Macy’s Credit Cards':'citi-us-macys-credit-cards','Bloomingdale’s Credit Cards':'citi-us-bloomingdales-credit-cards','The Home Depot® Consumer Credit Card':'citi-us-the-home-depot-consumer-credit-card','Pro Xtra Credit Card':'citi-us-pro-xtra-credit-card','TSC Credit Cards':'citi-us-tsc-credit-cards','L.L.Bean® Mastercard®':'citi-us-l-l-bean-mastercard','Dillard’s Credit Cards':'citi-us-dillards-credit-cards','Wayfair Credit Cards':'citi-us-wayfair-credit-cards','Goodyear® Credit Card':'citi-us-goodyear-credit-card'};
+ for(const [n,p] of Object.entries(want))assert.equal(id('Citi US','US',n),p,n);
+});
 test('the remaining Bank of America public cards match by full name and short name (#366)',()=>{
  const full=['Bank of America Travel Rewards credit card','Bank of America Premium Rewards credit card','Bank of America Premium Rewards Elite credit card','BankAmericard credit card','Susan G. Komen Customized Cash Rewards credit card','Air France KLM Visa Signature Credit Card','Norwegian Cruise Line World Mastercard','Business Advantage Unlimited Cash Rewards Mastercard','Business Advantage Customized Cash Rewards Mastercard','Business Advantage Travel Rewards World Mastercard'];
  const seen=new Set();

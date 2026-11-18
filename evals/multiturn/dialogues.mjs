@@ -5,7 +5,8 @@
 // referent that must still be identifiable in the model's context.
 //
 // kind: pronoun (这张/它/it), ordinal (第二个/the second one), ellipsis (那 Amex 呢), topic-return (switch, then back),
-// long-range (referent more than six turns back), same-name (same product name in another region).
+// long-range (referent more than six turns back), same-name (same product name in another region), and the follow-ups of
+// the whole-trip tools (#482): coverage-followup (find_protections), trip-followup (plan_flight), pooling-followup (points_accounts).
 // Transfer partners and rates are convert_points (#170); get_card_rules transfer-relationship is expected only where no
 // rate rule lists the card (Amex CA), which convert_points points to with transferRelationshipHint (#357).
 const T=(user,calls,answer)=>({user,calls,answer});
@@ -13,6 +14,8 @@ const fb=(query,extra={})=>['find_benefits',{query,...extra}];
 const rules=(kind,extra={})=>['get_card_rules',{kind,...extra}];
 const credits=(args={})=>['query_credits',args];
 const pa=args=>['points_accounts',args];
+const prot=(args={})=>['find_protections',args];
+const flight=args=>['plan_flight',args];
 const choose=args=>['choose_card',args];
 const SR='chase-us-sapphire-reserve',GOLD='amex-us-us-american-express-gold-card',MS='amex-us-us-morgan-stanley-platinum-card',ASPIRE='amex-us-us-hilton-honors-aspire-card',PLAT_US='amex-us-us-the-platinum-card',PLAT_HK='amex-hk-hk-the-platinum-card',PLAT_CA='amex-ca-ca-platinum-card',RED='hsbc-hk-hk-red-credit-card',CATHAY='sc-hk-hk-cathay-mastercard';
 
@@ -144,4 +147,19 @@ export const dialogues=[
   T('I have 50,000 Ultimate Rewards points. What is cash back worth?',[pa({programme:'Ultimate Rewards',region:'US',points:50000})],'Ultimate Rewards cash back is 1 cent per point, so 50,000 points is $500.'),
   T('And if I put 50,000 Membership Rewards points into an Amex checking deposit?',[pa({programme:'Membership Rewards',region:'US',points:50000})],'A standard Membership Rewards checking deposit is 0.8 cents per point, so 50,000 points is $400.'),
  ],question:'And as a statement credit?',expect:{tool:'points_accounts',args:{programme:'Membership Rewards',region:'US'}},target:{programme:['Membership Rewards']}},
+
+ // ---- #482 coverage-followup: the sourced protection list is only the cards that have a record; the others are "no record held" ----
+ {id:'cov-other-card-hans',lang:'zh-Hans',kind:'coverage-followup',turns:[T('哪张卡有租车险？',[prot({type:'rental-car'})],'只有 Sapphire Reserve 记录有租车损坏保障。其他持有的卡没有这一类的保障记录，这表示我没有查到记录，不代表它们没有保障，请看各卡的 guide to benefits。以上不是保险建议。')],question:'那 Amex Gold 呢？',expect:{tool:'find_protections',args:{type:'rental-car',cardName:'Gold Card'}},target:{item:['租车','rental']}},
+ {id:'cov-ordinal-en',lang:'en',kind:'coverage-followup',turns:[T('What protections does my Sapphire Reserve have?',[prot({cardName:'Sapphire Reserve'})],'Your Chase Sapphire Reserve has these protection records:\n1. Baggage Delay Insurance\n2. Emergency Evacuation and Transportation\n3. Purchase Protection\n4. Auto Rental Coverage\n5. Return Protection\n6. Roadside Assistance\n7. Trip Cancellation and Interruption Insurance\n8. Trip Delay Reimbursement\n9. Extended Warranty\nThese are summaries; the card\'s guide to benefits controls, and this is not insurance advice.')],question:'Is the fourth one primary?',expect:{tool:'find_protections',args:{type:'rental-car',cardName:'Sapphire Reserve'}},target:{card:SR,ordinal:{index:4,list:[['Baggage Delay Insurance','行李延误保障'],['Emergency Evacuation and Transportation','紧急撤离保障'],['Purchase Protection','购物保护'],['Auto Rental Coverage','租车损坏保障']]}}},
+ {id:'cov-pronoun-hant',lang:'zh-Hant',kind:'coverage-followup',turns:[T('我張 Sapphire Reserve 有冇行程延誤保障？',[prot({type:'trip-delay',cardName:'Sapphire Reserve'})],'有，Chase Sapphire Reserve 有一條旅行延誤保障（Trip Delay Reimbursement）嘅記錄。賠償條件、除外項目同申索要求要睇完整嘅 guide to benefits，以上唔係保險意見。')],question:'呢張卡嘅租車保障又點？',expect:{tool:'find_protections',args:{type:'rental-car',cardName:'Sapphire Reserve'}},target:{card:SR}},
+
+ // ---- #482 trip-followup: a change to the airline, the dates or the stated points keeps the route and the award price ----
+ {id:'trip-airline-en',lang:'en',kind:'trip-followup',turns:[T('How could I pay for JFK to Tokyo on ANA in December with points?',[flight({airline:'ANA',route:'JFK to Tokyo',when:'December'})],'Your Amex Membership Rewards cards have a recorded transfer path to ANA Mileage Club, but the ratio is not published, so I cannot work out how many points it takes. No award search is connected, so I have not checked award seats or prices. I assumed December 2026. Airline credits with no mark either way: the Morgan Stanley Platinum Card Airline Fee Credit and the Hilton Honors Aspire Card Flight credit.')],question:'What if I fly Air Canada instead?',expect:{tool:'plan_flight',args:{airline:'Air Canada',route:'JFK to Tokyo',when:'December'}},target:{item:['Tokyo']}},
+ {id:'trip-dates-hans',lang:'zh-Hans',kind:'trip-followup',turns:[T('12月从纽约飞东京，用 ANA 的话积分怎么出？',[flight({airline:'ANA',route:'纽约飞东京',when:'12月'})],'你的 Amex Membership Rewards 卡记录有转到 ANA Mileage Club 的路径，但转换比例没有公布，我算不出需要多少点。目前没有接入 award 查询，所以没有核对 award 座位和价格。我按 2026年12月 来看。航空类抵扣里还没有标记的有：Morgan Stanley Platinum Card 的航司杂费抵扣和 Hilton Honors Aspire Card 的机票抵扣。')],question:'改成 1 月出发呢？',expect:{tool:'plan_flight',args:{airline:'ANA',route:'纽约飞东京',when:'1月'}},target:{item:['东京','ANA']}},
+ {id:'trip-points-hant',lang:'zh-Hant',kind:'trip-followup',turns:[T('JFK 飛東京坐 ANA 要 75000 里，我有 60000 點，夠唔夠？',[flight({airline:'ANA',route:'JFK 飛東京',milesNeeded:75000,points:60000})],'有轉去 ANA Mileage Club 嘅路徑，但轉換比例未有公布，所以我計唔到 60000 點夠唔夠換 75000 里。仲未接入 award 查詢，所以冇核對 award 座位同價錢。航空類抵扣仲未有標記嘅有：Morgan Stanley Platinum Card 嘅航司雜費抵扣同 Hilton Honors Aspire Card 嘅機票抵扣。')],question:'如果我有 80000 點呢？',expect:{tool:'plan_flight',args:{airline:'ANA',route:'JFK 飛東京',milesNeeded:75000,points:80000}},target:{item:['ANA']}},
+
+ // ---- #482 pooling-followup: a different programme or region is a new points_accounts call, not the same pool ----
+ {id:'pool-chase-en',lang:'en',kind:'pooling-followup',turns:[T('Do my Amex cards share one points balance?',[pa({programme:'Membership Rewards',region:'US'})],'Yes. Your Amex US cards earn into one Membership Rewards pool, as you stated, so count the balance once and not per card. I have not read any balance here.')],question:'And my Chase cards?',expect:{tool:'points_accounts',args:{programme:'Ultimate Rewards',region:'US'}},target:{item:['pool']}},
+ {id:'pool-chase-hans',lang:'zh-Hans',kind:'pooling-followup',turns:[T('我美国的运通卡点数是合在一起的吗？',[pa({programme:'Membership Rewards',region:'US'})],'是的，你美国运通卡的 Membership Rewards 点数是同一个 pool（积分池），余额只算一次，不要按卡相加。这里没有读取任何余额。')],question:'那 Chase 的呢？',expect:{tool:'points_accounts',args:{programme:'Ultimate Rewards',region:'US'}},target:{item:['pool','积分池']}},
+ {id:'pool-hk-hant',lang:'zh-Hant',kind:'pooling-followup',turns:[T('我美國嗰兩張 Amex 嘅積分係咪同一個戶口？',[pa({programme:'Membership Rewards',region:'US'})],'係，你美國 Amex 卡嘅 Membership Rewards 積分係同一個池，所以餘額只可以計一次，唔好逐張卡加。我冇讀取任何餘額。')],question:'咁香港嗰張呢？',regionInQuestion:true,expect:{tool:'points_accounts',args:{programme:'Membership Rewards',region:'HK'}},target:{item:['Membership Rewards']}},
 ];

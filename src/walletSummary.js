@@ -13,7 +13,7 @@ import {valuationProgramme} from './pointValues.js';
 import {cardProgramme,poolingExplanation} from './pointsPooling.js';
 
 /** Tools that read the user's own wallet (credit marks, fee dates, point values): they run in the extension. */
-export const WALLET_TOOLS=Object.freeze(['choose_card','query_credits','plan_flight']);
+export const WALLET_TOOLS=Object.freeze(['choose_card','query_credits','plan_flight','plan_stay']);
 export const SUMMARY_SCHEMA=1;
 export const SUMMARY_LANGUAGES=['zh-CN','zh-TW','en-US'];
 const REGIONS=['US','HK','CA'];

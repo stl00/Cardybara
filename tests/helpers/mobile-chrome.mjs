@@ -116,8 +116,8 @@ export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external 
       audit: () => evaluate(AUDIT),
       text: () => evaluate(`document.body.innerText`),
       // A real tap: scrolls the element into view, waits until the page has settled, then sends touch-style mouse events at
-      // its centre and checks that the click reached it. Settled: no finite animation is running anywhere on the page and the
-      // element has not moved for 150 ms. Less is not enough: a modal's open callback runs just after its animation ends and
+      // its centre and checks that the click reached it. Settled: no finite animation is running anywhere on the page, the
+      // element has not moved for 150 ms, and its centre is on screen with nothing on top of it. Less is not enough: a modal's open callback runs just after its animation ends and
       // can move the content (focusing the search box scrolls the card picker), and a press and release that land on
       // different elements send the click to their common ancestor, so the control never sees it.
       tap: async (selector, match) => {
@@ -126,17 +126,24 @@ export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external 
           const box=()=>{const r=e.getBoundingClientRect();return [r.left,r.top,r.width,r.height].map(n=>Math.round(n*10)/10).join()};
           const busy=()=>document.getAnimations().some(a=>a.playState==='running'&&a.effect?.getComputedTiming().endTime!==Infinity);
           const frame=()=>new Promise(r=>requestAnimationFrame(r)),t0=performance.now();let last=box(),since=t0;
-          while(performance.now()-since<150){await frame();const now=box();if(now!==last||busy()){last=now;since=performance.now();}if(performance.now()-t0>1500)return {still:false};}
-          window.__tapTarget=e;const r=e.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2,still:true}})()`;
+          while(performance.now()-since<150){await frame();const now=box();if(now!==last||busy()){last=now;since=performance.now();}if(performance.now()-t0>1500)return {still:false,why:'still moving'};}
+          // A finger can only tap what is on screen and on top there.
+          const r=e.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
+          if(x<0||y<0||x>innerWidth||y>innerHeight)return {still:false,why:'off screen at '+Math.round(x)+','+Math.round(y)};
+          const top=document.elementFromPoint(x,y);if(!top||!e.contains(top))return {still:false,why:'covered by '+(top?(top.className?.toString?.()||top.tagName).replace(/css-\\S+/g,'').trim().slice(0,50):'nothing')};
+          window.__tapTarget=e;return {x,y,still:true}})()`;
         let at = null;
-        for (let t = 0; t < 20 && !at?.still; t++) { at = await evaluate(find); if (!at) await wait(50); }
+        for (let t = 0; t < 20 && !at?.still; t++) { at = await evaluate(find); if (!at?.still) await wait(50); }
         for (let t = 0; t < 80 && !at; t++) { at = await evaluate(find); if (!at) await wait(50); }
         if (!at) throw Error(`nothing to tap: ${selector}${text ? ' / ' + text : ''}`);
-        if (!at.still) throw Error(`never settled: ${selector}${text ? ' / ' + text : ''}`);
+        if (!at.still) throw Error(`cannot tap ${selector}${text ? ' / ' + text : ''}: ${at.why}`);
         await evaluate(`(()=>{window.__tapHit='no click';const e=window.__tapTarget;addEventListener('click',ev=>{window.__tapHit=e.contains(ev.target)?'':'the click went to '+(ev.target.className?.toString?.()||ev.target.tagName).replace(/css-\\S+/g,'').trim().slice(0,60);},{capture:true,once:true});})()`);
         for (const type of ['mousePressed', 'mouseReleased']) await page('Input.dispatchMouseEvent', {type, x: at.x, y: at.y, button: 'left', clickCount: 1});
         const hit = await evaluate(`window.__tapHit`);
-        if (hit) throw Error(`tap on ${selector}${text ? ' / ' + text : ''} missed: ${hit}`);
+        if (hit) {
+          const where = await evaluate(`(()=>{const r=window.__tapTarget.getBoundingClientRect(),p=document.elementFromPoint(${at.x},${at.y});return 'pressed at '+${Math.round(at.x)}+','+${Math.round(at.y)}+', target now at '+[r.left,r.top,r.width,r.height].map(Math.round).join()+', connected '+window.__tapTarget.isConnected+', scrollY '+Math.round(scrollY)+', at that point now: '+(p?(p.className?.toString?.()||p.tagName).replace(/css-\\S+/g,'').trim().slice(0,50):'nothing')})()`).catch(e => e.message);
+          throw Error(`tap on ${selector}${text ? ' / ' + text : ''} missed: ${hit} (${where})`);
+        }
         await wait(150);
       },
       // Focuses a field and types into it like a keyboard would.
