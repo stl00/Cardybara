@@ -56,7 +56,7 @@ test('PWA: each Plaid card says which wallet card it fills; an unmatched one off
  const cache={...CACHE,items:[{itemId:'item_9',institution:'Chase',status:'ok',historicalComplete:true}],cards:[
   {...CACHE.cards[0],itemId:'item_9',accountId:'acc_a',institution:'Chase',name:'Synthetic Freedom',mask:'1111'},
   {...CACHE.cards[0],itemId:'item_9',accountId:'acc_b',institution:'Chase',name:'Synthetic Sapphire',mask:'2222'}]};
- const walletCards=[{id:'w1',bank:'Chase',name:'Freedom Unlimited',tail:'1111'},{id:'w2',bank:'Amex US',name:'Synthetic Gold',tail:'3005'}];
+ const walletCards=[{id:'w1',bank:'Chase',currency:'USD',name:'Freedom Unlimited',tail:'1111'},{id:'w2',bank:'Amex US',currency:'USD',name:'Synthetic Gold',tail:'3005'}];
  const text=await renderPanel({location:{protocol:'https:',hash:'',origin:'https://wallet.example'},localStorage:storage({'cardybara-account-session-v1':SESSION,'cardybara-plaid-cards-v1':JSON.stringify(cache)})},
   {walletCards,pairs:[['w1',cache.cards[0]]]});
  assert.ok(text.includes('对应钱包里的卡：Freedom Unlimited ••1111'),text);

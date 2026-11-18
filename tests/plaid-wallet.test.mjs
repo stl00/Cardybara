@@ -4,7 +4,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createPlaidClient,readPlaidCache,cleanCards,PLAID_CACHE_KEY} from '../src/plaidClient.js';
-import {applyPlaid,matchPlaidCards,issuerOf,purchaseApr,plaidCardKey,withPlaidLink,readPlaidLinks,savePlaidLinks,isManualLink,plaidWalletCard,PLAID_LINKS_KEY} from '../src/plaidCards.js';
+import {applyPlaid,matchPlaidCards,issuerOf,purchaseApr,canTakePlaid,plaidCardKey,withPlaidLink,readPlaidLinks,savePlaidLinks,isManualLink,plaidWalletCard,PLAID_LINKS_KEY} from '../src/plaidCards.js';
 import {ACCOUNT_SESSION_KEY} from '../src/walletSync.js';
 
 const GW='https://gateway.test';
@@ -44,9 +44,9 @@ test('cleanCards drops malformed dates and APRs without a type or number',()=>{
 test('issuer matching: known US issuers only; one wallet card per Plaid card; ambiguity fills nothing',()=>{
  assert.equal(issuerOf('Chase'),'Chase');assert.equal(issuerOf('American Express'),'Amex US');assert.equal(issuerOf('Bank of America'),'BOA');assert.equal(issuerOf('Citibank Online'),'Citi US');
  assert.equal(issuerOf('First Platypus Bank'),null);assert.equal(issuerOf(null),null);
- const wallet=[{id:'w1',bank:'Chase',tail:'1234'},{id:'w2',bank:'Chase',tail:'9999'},{id:'w3',bank:'Amex US',tail:'1234'}];
+ const wallet=[{id:'w1',bank:'Chase',currency:'USD',tail:'1234'},{id:'w2',bank:'Chase',currency:'USD',tail:'9999'},{id:'w3',bank:'Amex US',currency:'USD',tail:'1234'}];
  assert.deepEqual(matchPlaidCards(wallet,[plaidCard()]).map(([id])=>id),['w1']);
- assert.deepEqual(matchPlaidCards([...wallet,{id:'w4',bank:'Chase',tail:'**1234'}],[plaidCard()]),[],'two Chase cards ending 1234: ambiguous');
+ assert.deepEqual(matchPlaidCards([...wallet,{id:'w4',bank:'Chase',currency:'USD',tail:'**1234'}],[plaidCard()]),[],'two Chase cards ending 1234: ambiguous');
  assert.deepEqual(matchPlaidCards(wallet,[plaidCard({institution:'First Platypus Bank'})]),[]);
  assert.equal(purchaseApr(plaidCard()),24.99,'by type, not by position');
  assert.equal(purchaseApr(plaidCard({aprs:[]})),null);
@@ -54,8 +54,8 @@ test('issuer matching: known US issuers only; one wallet card per Plaid card; am
 
 test('applyPlaid fills the billing-cycle fields when newer, skips nulls, keeps newer bank reads, adds no card',()=>{
  const wallet={cards:[
-  {id:'w1',bank:'Chase',tail:'1234',balance:100,statement:80,minimum:25,due:'2026-10-26',updated:'2026-10-20',fieldDates:{balance:'2026-10-20T00:00:00Z'}},
-  {id:'w2',bank:'Citi US',tail:'5555',balance:5,fieldDates:{balance:'2026-11-17T00:00:00Z'}},
+  {id:'w1',bank:'Chase',currency:'USD',tail:'1234',balance:100,statement:80,minimum:25,due:'2026-10-26',updated:'2026-10-20',fieldDates:{balance:'2026-10-20T00:00:00Z'}},
+  {id:'w2',bank:'Citi US',currency:'USD',tail:'5555',balance:5,fieldDates:{balance:'2026-11-17T00:00:00Z'}},
  ]};
  const out=applyPlaid(wallet,[plaidCard({minimumPayment:null}),plaidCard({itemId:'item_2',accountId:'acc_2',institution:'Citibank',mask:'5555'}),plaidCard({accountId:'acc_3',institution:'First Platypus Bank',mask:'0000'})]);
  assert.equal(out.cards.length,2,'no wallet card is invented');
@@ -68,7 +68,7 @@ test('applyPlaid fills the billing-cycle fields when newer, skips nulls, keeps n
 });
 
 test('a manual link wins over issuer and last four, survives a re-link (new account_id), and takes one wallet card',()=>{
- const wallet=[{id:'w1',bank:'Chase',tail:'1234'},{id:'w2',bank:'Chase',name:'No tail yet'}];
+ const wallet=[{id:'w1',bank:'Chase',currency:'USD',tail:'1234'},{id:'w2',bank:'Chase',currency:'USD',name:'No tail yet'}];
  const p=plaidCard({persistentAccountId:'pers_1'});
  let links=withPlaidLink([],p,'w2');
  assert.deepEqual(matchPlaidCards(wallet,[p],links).map(([id])=>id),['w2'],'the manual link, not the tail match');
@@ -81,7 +81,7 @@ test('a manual link wins over issuer and last four, survives a re-link (new acco
  assert.deepEqual(matchPlaidCards(wallet,[p,other],links).map(([id,x])=>[id,x.accountId]),[['w2','acc_9'],['w1','acc_1']]);
  assert.deepEqual(withPlaidLink(links,other,null),[]);
  // A link to a card that left the wallet is ignored.
- assert.deepEqual(matchPlaidCards([{id:'w1',bank:'Chase',tail:'1234'}],[p],withPlaidLink([],p,'gone')).map(([id])=>id),['w1']);
+ assert.deepEqual(matchPlaidCards([{id:'w1',bank:'Chase',currency:'USD',tail:'1234'}],[p],withPlaidLink([],p,'gone')).map(([id])=>id),['w1']);
 });
 
 test('without a persistent id the key is institution, mask and subtype; a card with no mask cannot be linked',()=>{
@@ -98,9 +98,9 @@ test('links are stored allow-listed and announced',()=>{
 });
 
 test('auto matching reads a bank-read tail too; applyPlaid takes precomputed pairs',()=>{
- const wallet={cards:[{id:'w1',bank:'Chase',detected:{tail:'1234'},balance:1}]};
+ const wallet={cards:[{id:'w1',bank:'Chase',currency:'USD',detected:{tail:'1234'},balance:1}]};
  assert.deepEqual(matchPlaidCards(wallet.cards,[plaidCard()]).map(([id])=>id),['w1']);
- const out=applyPlaid({cards:[{id:'w9',bank:'Citi US',tail:'0000'}]},[plaidCard()],{pairs:[['w9',plaidCard()]]});
+ const out=applyPlaid({cards:[{id:'w9',bank:'Citi US',currency:'USD',tail:'0000'}]},[plaidCard()],{pairs:[['w9',plaidCard()]]});
  assert.equal(out.cards[0].balance,410.5);assert.deepEqual(out.cards[0].fieldSources.balance,{method:'plaid'});
 });
 
@@ -115,4 +115,27 @@ test('Add to wallet: a known issuer and four digits make a manual card spec; the
 test('cleanCards keeps the ids a manual link needs',()=>{
  const {cards}=cleanCards({cards:[plaidCard({persistentAccountId:'pers_1',institutionId:'ins_56',subtype:'credit card'})]});
  assert.equal(cards[0].persistentAccountId,'pers_1');assert.equal(cards[0].institutionId,'ins_56');assert.equal(cards[0].subtype,'credit card');
+});
+
+test('a USD Plaid card never fills a card in another currency, by hand or automatically',()=>{
+ const p=plaidCard({persistentAccountId:'pers_1'});
+ const wallet=[{id:'hk',bank:'HSBC HK',currency:'HKD',tail:'8888'},{id:'us',bank:'Chase',currency:'USD',tail:'0001'}];
+ assert.deepEqual(matchPlaidCards(wallet,[p],withPlaidLink([],p,'hk')),[],'a stored link to an HKD card is ignored');
+ assert.deepEqual(matchPlaidCards(wallet,[p],withPlaidLink([],p,'us')).map(([id])=>id),['us']);
+ assert.equal(canTakePlaid({currency:'CAD'},p),false);assert.equal(canTakePlaid({region:'US'},p),true,'a US card without a currency counts as USD');
+ assert.equal(canTakePlaid({},p),false);
+ assert.deepEqual(matchPlaidCards([{id:'c',bank:'Chase',currency:'HKD',tail:'1234'}],[p]),[]);
+});
+
+test('Add to wallet keeps a five-digit mask, so the bank page reading of the same card merges with it',()=>{
+ assert.deepEqual(plaidWalletCard(plaidCard({institution:'American Express',mask:'71001'})),{bank:'Amex US',tail:'71001',name:'Synthetic Sapphire'});
+ // A five-digit wallet tail still matches a four-digit Plaid mask by the last four.
+ assert.deepEqual(matchPlaidCards([{id:'a',bank:'Amex US',currency:'USD',tail:'71001'}],[plaidCard({institution:'American Express',mask:'1001'})]).map(([id])=>id),['a']);
+ assert.equal(plaidWalletCard(plaidCard({currency:'CAD'})),null);
+});
+
+test('links keep the newest hundred',()=>{
+ const storage=memory();
+ savePlaidLinks(storage,Array.from({length:101},(_,i)=>({key:'p:'+i,cardId:'w'+i})),null);
+ const kept=readPlaidLinks(storage);assert.equal(kept.length,100);assert.equal(kept.at(-1).key,'p:100');
 });

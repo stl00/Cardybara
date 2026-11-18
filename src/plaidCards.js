@@ -21,6 +21,14 @@ export function issuerOf(institution){
 const tail=v=>typeof v==='string'?v.replace(/\D/g,'').slice(-4):'';
 // A wallet card's last four: its own tail, or the bank's reading when the user's edit has not set one.
 const walletTail=c=>tail(c.tail)||tail(c.detected?.tail);
+/**
+ * Whether a wallet card can take this Plaid card's amounts: the same currency (a wallet card without one counts as USD
+ * when it is a US card). Plaid's figures are written as they are, so a USD card must never fill an HKD or CAD card.
+ */
+export function canTakePlaid(card,p){
+ const own=card?.currency||(card?.region==='US'?'USD':null);
+ return !!own&&own===(p?.currency||'USD');
+}
 
 export const PLAID_LINKS_KEY='cardybara-plaid-links-v1';
 /**
@@ -32,7 +40,7 @@ export function plaidCardKey(p){
  const inst=p?.institutionId||p?.institution;
  return typeof inst==='string'&&inst&&typeof p?.mask==='string'&&p.mask?['m',inst,p.mask,p.subtype||''].join('|'):null;
 }
-const cleanLinks=v=>(Array.isArray(v)?v:[]).filter(l=>l&&typeof l.key==='string'&&l.key.length<=300&&typeof l.cardId==='string'&&/^[a-zA-Z0-9-]{1,64}$/.test(l.cardId)).slice(0,100);
+const cleanLinks=v=>(Array.isArray(v)?v:[]).filter(l=>l&&typeof l.key==='string'&&l.key.length<=300&&typeof l.cardId==='string'&&/^[a-zA-Z0-9-]{1,64}$/.test(l.cardId)).slice(-100);
 export function readPlaidLinks(storage){try{return cleanLinks(JSON.parse(storage.getItem(PLAID_LINKS_KEY)));}catch{return [];}}
 export function savePlaidLinks(storage,links,win=globalThis.window){
  try{storage.setItem(PLAID_LINKS_KEY,JSON.stringify(cleanLinks(links)));}catch{}
@@ -56,14 +64,14 @@ export function matchPlaidCards(walletCards,plaidCards,links=[]){
  const linked=new Map(cleanLinks(links).map(l=>[l.key,l.cardId]));
  for(const p of plaid){
   const id=linked.get(plaidCardKey(p));
-  if(!id||used.has(id)||!cards.some(c=>c.id===id))continue;
+  if(!id||used.has(id)||!cards.some(c=>c.id===id&&canTakePlaid(c,p)))continue;
   used.add(id);done.add(p);pairs.push([id,p]);
  }
  for(const p of plaid){
   if(done.has(p))continue;
   const bank=issuerOf(p.institution),last=tail(p.mask);
   if(!bank||last.length!==4)continue;
-  const hits=cards.filter(c=>c.bank===bank&&walletTail(c)===last&&!used.has(c.id));
+  const hits=cards.filter(c=>c.bank===bank&&walletTail(c)===last&&!used.has(c.id)&&canTakePlaid(c,p));
   // Two wallet cards with the same issuer and last four: ambiguous, fill neither.
   if(hits.length!==1)continue;
   used.add(hits[0].id);pairs.push([hits[0].id,p]);
@@ -73,8 +81,11 @@ export function matchPlaidCards(walletCards,plaidCards,links=[]){
 
 /** The new manual wallet card for an unmatched Plaid card ({bank,name,tail} for newWalletCard), or null for an unknown issuer. */
 export function plaidWalletCard(p){
- const bank=issuerOf(p?.institution),last=tail(p?.mask);
- if(!bank||last.length!==4)return null;
+ const bank=issuerOf(p?.institution),digits=typeof p?.mask==='string'?p.mask.replace(/\D/g,''):'';
+ if(!bank||digits.length<4||(p.currency&&p.currency!=='USD'))return null;
+ // The mask as Plaid gives it when it is 4 or 5 digits (an Amex US page shows five), so the bank page's own reading of the
+ // same card later merges with this row instead of becoming a second card.
+ const last=digits.length<=5?digits:digits.slice(-4);
  // Plaid's account name, without long digit runs (newWalletCard refuses anything that could be a card number).
  const name=[p.name,p.officialName].map(n=>typeof n==='string'?n.replace(/(?:\d[ -]?){5,}/g,'').replace(/\s+/g,' ').trim():'').find(n=>n&&n.length<=100&&!/[<>\u0000-\u001f]/.test(n));
  return {bank,tail:last,name:name||bank+' '+last};
