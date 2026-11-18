@@ -108,28 +108,35 @@ export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external 
       // Polls a page expression until it is truthy.
       until: async (expr, what = expr, ms = 8000) => {
         for (let t = 0; t < ms / 50; t++) { if (await evaluate(`!!(${expr})`)) return; await wait(50); }
-        const state = await evaluate(`(()=>{const v=e=>e&&getComputedStyle(e).display!=='none';return JSON.stringify({modals:[...document.querySelectorAll('.ant-modal-wrap,.ant-drawer')].filter(v).map(e=>e.className.replace(/css-\\S+/g,'').trim().slice(0,80)),errors:[...document.querySelectorAll('.ant-form-item-explain-error,.ant-alert-error')].map(e=>e.innerText.slice(0,80)),focus:document.activeElement?.className?.toString().slice(0,60),hash:location.hash,taps:window.__taps.slice(-6),now:Math.round(performance.now())})})()`).catch(e => 'unreadable: ' + e.message);
+        const state = await evaluate(`(()=>{const v=e=>e&&getComputedStyle(e).display!=='none';return JSON.stringify({modals:[...document.querySelectorAll('.ant-modal-wrap,.ant-drawer')].filter(v).map(e=>e.className.replace(/css-\\S+/g,'').trim().slice(0,80)),errors:[...document.querySelectorAll('.ant-form-item-explain-error,.ant-alert-error')].map(e=>e.innerText.slice(0,80)),focus:document.activeElement?.className?.toString().slice(0,60),hash:location.hash,taps:(window.__taps||[]).slice(-6),now:Math.round(performance.now())})})()`).catch(e => 'unreadable: ' + e.message);
         if (process.env.CARDYBARA_FAIL_SHOTS) await ctl.shot(join(process.env.CARDYBARA_FAIL_SHOTS, `fail-${Date.now()}.png`)).catch(() => {});
         throw Error('timed out waiting for ' + what + ' ' + state);
       },
       pause: wait,
       audit: () => evaluate(AUDIT),
       text: () => evaluate(`document.body.innerText`),
-      // A real tap: scrolls the element into view, waits until it has stopped moving, then sends touch-style mouse events
-      // at its centre. A press sent while a modal or drawer is still animating in lands on the moving target and the release
-      // lands beside it, so the browser sends the click to their common ancestor and the control never sees it.
+      // A real tap: scrolls the element into view, waits until the page has settled, then sends touch-style mouse events at
+      // its centre and checks that the click reached it. Settled: no finite animation is running anywhere on the page and the
+      // element has not moved for 150 ms. Less is not enough: a modal's open callback runs just after its animation ends and
+      // can move the content (focusing the search box scrolls the card picker), and a press and release that land on
+      // different elements send the click to their common ancestor, so the control never sees it.
       tap: async (selector, match) => {
         const text = typeof match === 'string' ? match : match?.text;
         const find = `(async()=>{const all=[...document.querySelectorAll(${JSON.stringify(selector)})].filter(e=>{const r=e.getBoundingClientRect();const s=getComputedStyle(e);return r.width>0&&r.height>0&&s.visibility!=='hidden'});const e=${text ? `all.find(e=>(e.innerText||e.value||e.getAttribute('aria-label')||'').includes(${JSON.stringify(text)}))` : 'all[0]'};if(!e)return null;e.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'});
-          const box=()=>{const r=e.getBoundingClientRect();return [r.left,r.top,r.width,r.height].map(n=>Math.round(n*10)/10).join()};const before=box();
-          await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
-          const moving=document.getAnimations().some(a=>a.playState==='running'&&a.effect?.target instanceof Element&&a.effect.target.contains(e));
-          const r=e.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2,still:!moving&&box()===before}})()`;
+          const box=()=>{const r=e.getBoundingClientRect();return [r.left,r.top,r.width,r.height].map(n=>Math.round(n*10)/10).join()};
+          const busy=()=>document.getAnimations().some(a=>a.playState==='running'&&a.effect?.getComputedTiming().endTime!==Infinity);
+          const frame=()=>new Promise(r=>requestAnimationFrame(r)),t0=performance.now();let last=box(),since=t0;
+          while(performance.now()-since<150){await frame();const now=box();if(now!==last||busy()){last=now;since=performance.now();}if(performance.now()-t0>1500)return {still:false};}
+          window.__tapTarget=e;const r=e.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2,still:true}})()`;
         let at = null;
-        for (let t = 0; t < 100 && !at?.still; t++) { at = await evaluate(find); if (!at?.still) await wait(50); }
+        for (let t = 0; t < 20 && !at?.still; t++) { at = await evaluate(find); if (!at) await wait(50); }
+        for (let t = 0; t < 80 && !at; t++) { at = await evaluate(find); if (!at) await wait(50); }
         if (!at) throw Error(`nothing to tap: ${selector}${text ? ' / ' + text : ''}`);
-        if (!at.still) throw Error(`still moving after 5 s: ${selector}${text ? ' / ' + text : ''}`);
+        if (!at.still) throw Error(`never settled: ${selector}${text ? ' / ' + text : ''}`);
+        await evaluate(`(()=>{window.__tapHit='no click';const e=window.__tapTarget;addEventListener('click',ev=>{window.__tapHit=e.contains(ev.target)?'':'the click went to '+(ev.target.className?.toString?.()||ev.target.tagName).replace(/css-\\S+/g,'').trim().slice(0,60);},{capture:true,once:true});})()`);
         for (const type of ['mousePressed', 'mouseReleased']) await page('Input.dispatchMouseEvent', {type, x: at.x, y: at.y, button: 'left', clickCount: 1});
+        const hit = await evaluate(`window.__tapHit`);
+        if (hit) throw Error(`tap on ${selector}${text ? ' / ' + text : ''} missed: ${hit}`);
         await wait(150);
       },
       // Focuses a field and types into it like a keyboard would.

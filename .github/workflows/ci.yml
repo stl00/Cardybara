@@ -100,8 +100,6 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: TEMPORARY Chrome start-up probe
-        run: node scripts/ci-chrome-probe.mjs
       - run: npm run test:collector-chrome
   verify:
     # The one status branch protection requires. It runs even when a part failed or was skipped, because a
