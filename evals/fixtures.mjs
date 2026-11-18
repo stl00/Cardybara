@@ -299,6 +299,12 @@ export const stayCases=[
  {id:'stay-whole-hans',tool:'plan_stay',args:{programme:'凯悦',nights:7,when:'12月20日到27日'},expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
  {id:'stay-whole-en',tool:'plan_stay',args:{programme:'Hyatt',nights:7,when:'Dec 20-27'},expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
 ];
+// #530: the flight plan lists booking protections of the held cards; a card with no record is not_found, never uncovered.
+export const flightProtectionCases=[
+ {id:'flight-protections-en',args:{airline:'Delta',when:'Dec 20-27'},
+  good:'Your Sapphire Reserve lists trip delay and trip cancellation protection; the card\'s guide to benefits controls the terms. The Gold Card has no protection record held here, so I cannot say what it covers.',
+  bad:'Your Gold Card has no coverage for a delay, so only the Sapphire Reserve helps.'},
+];
 // #479: a stated cash fare against an award. The tool result carries the verdict; the answer must report it and must not
 // bring a fare of its own. Synthetic fares only. `good` reports the code's verdict, `bad` invents a fare.
 export const flightCompareCases=[

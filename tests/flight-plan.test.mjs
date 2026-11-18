@@ -153,3 +153,32 @@ test('cash fare arguments are validated',()=>{
   assert.throws(()=>validateToolCall(call({airline:'Delta',...bad})),/invalid_arguments/);
  assert.equal(validateToolCall(call({airline:'Delta',cashFare:300,cashFareCurrency:'USD',taxesAndFees:5.6})).name,'plan_flight');
 });
+
+// #530: booking protections beside the plan, as plan_stay lists them. Facts only; nothing else in the plan changes.
+test('plan_flight lists trip delay with its source for a card that has a record, not_found for one without',()=>{
+ const r=runWalletTool(call({airline:'Delta',when:'Dec 20-27'}),ctx);
+ assert.equal(r.protections.scored,false);
+ assert.ok(r.protections.coverageTypes.includes('trip-delay'));
+ const csr=r.protections.cards.find(c=>c.name==='Sapphire Reserve');
+ assert.equal(csr.status,'found');
+ const delay=csr.coverage.find(p=>p.type==='trip-delay');
+ assert.ok(delay&&delay.sources.length&&delay.sources.every(s=>s.url.startsWith('https://')));
+ assert.ok(['primary','secondary','not-stated'].includes(delay.basis));
+ assert.ok(csr.coverage.every(p=>r.protections.coverageTypes.includes(p.type)&&p.value===undefined));
+ const gold=r.protections.cards.find(c=>c.name==='American Express Gold Card');
+ assert.equal(gold.status,'not_found');assert.deepEqual(gold.coverage,[]);
+ assert.match(r.protections.note,/guide to benefits controls/);assert.match(r.protections.note,/not proof it has no coverage/);
+});
+test('plan_flight protections follow cardName and region, and leave the rest of the plan unchanged',()=>{
+ const one=runWalletTool(call({airline:'Delta',cardName:'Sapphire Reserve'}),ctx);
+ assert.deepEqual(one.protections.cards.map(c=>c.name),['Sapphire Reserve']);
+ const hk=runWalletTool(call({airline:'Delta',region:'HK'}),ctx);
+ assert.ok(hk.protections.cards.every(c=>c.region==='HK'));
+ const all=runWalletTool(call({airline:'Delta',milesNeeded:25500,points:20000,cashFare:300,cashFareCurrency:'USD'}),ctx);
+ const {protections,...rest}=all;
+ assert.equal(all.kind,'flight-plan');assert.ok(all.cashComparison);
+ assert.deepEqual(Object.keys(rest).sort(),['asOf','award','cashComparison','coverage','credits','dates','kind','route','transfers','valuation'].sort());
+ // Protections do not depend on the transfer maths: an airline no card reaches still lists them.
+ const none=runWalletTool(call({airline:'Nowhere Air'}),ctx);
+ assert.equal(none.transfers.partnerFound,false);assert.ok(none.protections.cards.length>0);
+});
