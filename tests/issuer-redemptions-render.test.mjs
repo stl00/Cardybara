@@ -85,3 +85,32 @@ test('each option shows its condition and source link, in en-US and zh-TW',async
  assert.ok(links(en)>=6&&links(tw)>=6,'one source link per option');
  assert.match(section(en),/Membership Rewards/,'the English record text of the issuer page');
 });
+// #533: Points Boost "up to" limits of held cards beside Chase Travel (data from #532; the render checks wait for it).
+import {fixedRedemptions} from '../src/fixedRedemptions.js';
+import {heldPointsBoostLimits} from '../src/pointsBoostLimits.js';
+const boost=fixedRedemptions.find(r=>r.id==='ur-travel-chase-travel')?.upToByProduct||[];
+const noData={skip:boost.length?false:'needs the #532 upToByProduct data'};
+test('heldPointsBoostLimits lists only held cards that have an entry, with the source',()=>{
+ const record={upToByProduct:[{productId:'p1',upToCentsPerPoint:2,textEn:'a',textZh:'b',sourceId:'s1'},{productId:'p2',upToCentsPerPoint:1.5,textEn:'c',textZh:'d',sourceId:'s1'}]};
+ const sources=[{id:'s1',url:'https://example.test/s',title:'S'}],products=[{id:'p1',name:'Card One'},{id:'p2',name:'Card Two'}];
+ const got=heldPointsBoostLimits(record,['p2','p2','p9'],{sources,products});
+ assert.deepEqual(got.map(g=>[g.productId,g.name,g.upToCentsPerPoint,g.source.url]),[['p2','Card Two',1.5,'https://example.test/s']]);
+ assert.deepEqual(heldPointsBoostLimits(record,[],{sources,products}),[]);
+ assert.deepEqual(heldPointsBoostLimits({},['p1'],{sources,products}),[]);
+});
+test('Chase Travel lists the limit and source of a held eligible card, in each language',noData,async()=>{
+ const {panel}=await load();
+ const zh=section(panel(wallets.urCsr)),en=section(panel({...wallets.urCsr,lang:'en-US'})),tw=section(panel({...wallets.urCsr,lang:'zh-TW'}));
+ assert.match(zh,/Sapphire Reserve：最高每点 2 美分/);assert.match(en,/Sapphire Reserve: up to 2 cents per point with this card.*depends on the booking/);assert.match(tw,/最高每點 2 美分/);
+ assert.doesNotMatch(en,/Sapphire Preferred: up to/,'a card that is not held is not listed');
+ const html=panel({...wallets.urCsr,lang:'en-US'});assert.match(html.slice(html.indexOf('Redeem with the issuer')),/href="https:\/\/creditcards\.chase\.com\/rewards-credit-cards\/sapphire\/reserve"/);
+ for(const u of boost.filter(u=>u.productId==='chase-us-chase-sapphire-preferred-credit-card'))assert.match(section(panel(wallets.urCsp)),/Sapphire Preferred.*最高每点 1.5 美分/);
+});
+test('Chase Travel row is unchanged without a held card that has an entry',noData,async()=>{
+ const {panel}=await load(),other={programme:UR,cards:[card('x','Chase','Freedom Unlimited')],accounts:{current:[reading(card('x','Chase','Freedom Unlimited'),20000,'Ultimate Rewards')],historical:[]}};
+ assert.doesNotMatch(section(panel(other)),/最高每点/);
+});
+test('hidden mode keeps the public limit but still masks computed amounts',noData,async()=>{
+ const {panel}=await load(),s=section(panel({...wallets.urCsr,hidden:true}));
+ assert.match(s,/最高每点 2 美分/);assert.doesNotMatch(s,/\$\d/);assert.match(s,/••••/);
+});
