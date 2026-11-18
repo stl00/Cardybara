@@ -39,8 +39,8 @@ test('discovery merges the unambiguous pair: one card, user fields, bank reading
  const again=await runCardMerges(w);assert.equal(again.applied.length,0);assert.equal(w.registry().length,1);
 });
 
-test('two manual cards without digits: nothing merges and one question is asked; answering merges the chosen one',async()=>{
- const w=world({registry:[card('m1','manual'),card('m2','manual'),card('b1','bank-page','1234')]});
+test('two stored manual cards with the same digits: nothing merges and one question is asked; answering merges the chosen one',async()=>{
+ const w=world({registry:[card('m1','manual','1234'),card('m2','manual','1234'),card('b1','bank-page','1234')]});
  const r=await runCardMerges(w);
  assert.equal(r.applied.length,0);assert.equal(w.registry().length,3);
  assert.equal(r.open.length,1);assert.deepEqual(r.open[0].manual.map(c=>c.id).sort(),['m1','m2']);
@@ -49,7 +49,7 @@ test('two manual cards without digits: nothing merges and one question is asked;
 });
 
 test('answering "none of them" stores the declined pairs and the question does not come back',async()=>{
- const w=world({registry:[card('m1','manual'),card('m2','manual'),card('b1','bank-page','1234')]});
+ const w=world({registry:[card('m1','manual','1234'),card('m2','manual','1234'),card('b1','bank-page','1234')]});
  await answerMerge({...w,bankId:'b1',manualId:null,candidates:['m1','m2']});
  assert.equal(readDeclined(w.storage).length,2);
  const r=await runCardMerges(w);assert.deepEqual(r.open,[]);assert.equal(w.registry().length,3);
@@ -112,4 +112,12 @@ test('the two ledger stores have a rewrite call that keeps ids and the wallet sh
  }
  const main=readFileSync(new URL('../src/main.jsx',import.meta.url),'utf8');
  for(const needle of ['runCardMerges','endSyncCycle','CardMergeQuestions','CardMergeUndo'])assert.ok(main.includes(needle),needle);
+});
+
+test('a manual card needs digits, so the engine has no digitless candidate to ask about (#460)',async()=>{
+ const {newWalletCard}=await import('../src/walletRegistry.js');
+ for(const tail of [undefined,'','123'])assert.throws(()=>newWalletCard({bank:A.bank,name:A.name,tail}),/invalid_card/);
+ const w=world({registry:[{...card('m1','manual'),tail:undefined},card('b1','bank-page','1234')]});
+ const r=await runCardMerges(w);
+ assert.equal(r.applied.length,0);assert.deepEqual(r.open,[]);assert.equal(w.registry().length,2);
 });

@@ -14,10 +14,11 @@ export function productOf(card,choices=[]){
 const manualTail=c=>c.tail||'';
 const bankTail=c=>c.tail||c.detected?.tail||'';
 /**
- * Pairs each bank-read card with a manual card. Rules: same bank, same recognised product, and the same last digits
- * when the manual card has any. A pair the user undid (`declined`) is never offered again. A bank card with one
- * candidate merges; with several (two manual cards of one product without digits) it is `ambiguous` and the caller
- * asks once. A manual card claimed by two bank cards is ambiguous for both. Nothing is guessed.
+ * Pairs each bank-read card with a manual card. Rules: same bank, same recognised product, and the same last digits.
+ * A manual card always has digits (`newWalletCard` requires 4-5, stl00/Cardybara#460), so a card without them never
+ * matches. A pair the user undid (`declined`) is never offered again. A bank card with one candidate merges; with
+ * several (stored data that holds two manual cards of one bank and digits, such as an older backup) it is
+ * `ambiguous` and the caller asks once. A manual card claimed by two bank cards is ambiguous for both. Nothing is guessed.
  */
 export function planCardMerges({manual,bank,choices=[],declined=[]}){
  const isDeclined=(m,b)=>declined.some(d=>d.manualId===m.id&&d.bankId===b.id);
@@ -26,17 +27,15 @@ export function planCardMerges({manual,bank,choices=[],declined=[]}){
   const product=productOf(b);
   if(!product)continue;
   const list=manual.filter(m=>m.identitySource!=='bank-page'&&m.id!==b.id&&m.bank===b.bank&&productOf(m,choices)===product
-   &&(!manualTail(m)||sameTail(manualTail(m),bankTail(b)))&&!isDeclined(m,b));
+   &&sameTail(manualTail(m),bankTail(b))&&!isDeclined(m,b));
   if(list.length)candidates.set(b.id,list);
  }
  const claims=new Map();
  for(const list of candidates.values())for(const m of list)claims.set(m.id,(claims.get(m.id)||0)+1);
  const merges=[],ambiguous=[];
  for(const [bankId,list] of candidates){
-  // A card with matching digits is the one when it is the only card with digits; digitless ones then stay a separate question.
-  const exact=list.filter(m=>manualTail(m)),pool=exact.length===1?exact:list;
-  if(pool.length===1&&claims.get(pool[0].id)===1)merges.push({manualId:pool[0].id,bankId});
-  else ambiguous.push({bankId,manualIds:pool.map(m=>m.id)});
+  if(list.length===1&&claims.get(list[0].id)===1)merges.push({manualId:list[0].id,bankId});
+  else ambiguous.push({bankId,manualIds:list.map(m=>m.id)});
  }
  return {merges,ambiguous};
 }
