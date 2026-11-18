@@ -41,7 +41,6 @@ export function creditReminders(cards,events,settings,asOf){
 /**
  * A four-year credit marked used with a date reminds once, on the day it can be used again (used date + 4 years).
  * Nothing before that day, nothing for an unmarked row, and nothing for a dismissed credit or a card not held.
- * Page only: the worker's plan still needs a "can be used again" wording in extension-next/reminder-core.js.
  */
 export function reuseReminders(cards,events,settings,asOf){
  return fourYearReuse(offCycleRows(cards,asOf),events).filter(r=>r.nextEligible===asOf).map(({row,nextEligible})=>({
@@ -94,12 +93,12 @@ export function buildSchedule({cards,marks,events,settings,sent,asOf,phrases,tra
  const seen=new Set(sent.map(r=>r.id)),entries=new Map();
  for(let n=0;n<=days;n++){
   const day=addDays(asOf,n);
-  for(const r of [...(settings.bills?billReminders(cards,marks,settings,day):[]),...(settings.fees?feeReminders(cards,settings,day):[]),...(settings.credits?creditReminders(cards,events,settings,day):[])]){
+  for(const r of [...(settings.bills?billReminders(cards,marks,settings,day):[]),...(settings.fees?feeReminders(cards,settings,day):[]),...(settings.credits?[...creditReminders(cards,events,settings,day),...reuseReminders(cards,events,settings,day)]:[])]){
    if(seen.has(r.id))continue;
    let entry=entries.get(r.id);
    if(!entry){
-    const credit=r.kind==='credit',amount=!credit&&settings.showAmounts&&r.statement!=null&&r.currency?`${r.currency} ${Number(r.statement).toLocaleString()}`:null;
-    entry={id:r.id,group:credit?'credits':'bills',label:credit?`${translate(r.title,r)} · ${r.name}`:r.kind==='fee'?`${translate('年费日')} · ${r.name}`:r.name,firstDay:day,lastDay:day,targetDay:addDays(day,r.days),fireAt:fireTime(day),...(amount?{amount}:{}),...(r.cardId!=null?{cardId:r.cardId}:{})};
+    const reuse=r.kind==='reuse',credit=r.kind==='credit'||reuse,amount=!credit&&settings.showAmounts&&r.statement!=null&&r.currency?`${r.currency} ${Number(r.statement).toLocaleString()}`:null;
+    entry={id:r.id,group:credit?'credits':'bills',label:credit?`${translate(r.title,r)} · ${r.name}`:r.kind==='fee'?`${translate('年费日')} · ${r.name}`:r.name,firstDay:day,lastDay:day,targetDay:addDays(day,r.days),fireAt:fireTime(day),...(reuse?{reuse:{name:r.name,title:translate(r.title,r)}}:{}),...(amount?{amount}:{}),...(r.cardId!=null?{cardId:r.cardId}:{})};
     entries.set(r.id,entry);
    }
    entry.lastDay=day;
