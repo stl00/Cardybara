@@ -9,6 +9,10 @@ import {redirectWithSession} from './extensionSignIn.js';
 export const SYNC_CHANGE_EVENT='cardybara-sync-change';
 export const SYNC_STATUS_EVENT='cardybara-sync-status';
 export const PASSWORD_MIN=10;
+export const maskEmail=e=>{const [u='',d='']=String(e||'').split('@');return d?(u.length<=2?u[0]||'':u[0]+'***'+u[u.length-1])+'@'+d:'';};
+/** The header dot's state from the switch and the last SYNC_STATUS_EVENT: off (no dot), syncing, synced, offline or error. */
+export const syncState=(on,status)=>!on||!status?'off':status==='syncing'||status==='synced'||status==='offline'?status:'error';
+
 
 /** Gateway error codes the screens know, each with its own message (src/i18n/account.json); anything else is 'error'. */
 const KNOWN=new Set(['bad_request','weak_password','code_invalid','code_expired','invalid_credentials','email_unverified','account_locked','too_many_codes','mail_failed','account_unavailable','unauthorized','too_large','passkey_invalid','challenge_expired','passkey_unavailable']);

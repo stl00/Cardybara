@@ -1,8 +1,8 @@
 import React,{useEffect,useMemo,useState} from 'react';
-import {Alert,App,Button,Card,Flex,Input,Modal,Segmented,Switch,Typography} from 'antd';
+import {Alert,App,Button,Card,Divider,Flex,Input,Modal,Segmented,Switch,Typography} from 'antd';
 import {t,useI18n} from './i18n';
 import platform from './platform';
-import {SYNC_STATUS_EVENT,createAccountClient,emailLooksValid,passwordLongEnough,PASSWORD_MIN,readAccount,setSync,syncIsOn} from './accountClient.js';
+import {maskEmail,syncState,SYNC_CHANGE_EVENT,SYNC_STATUS_EVENT,createAccountClient,emailLooksValid,passwordLongEnough,PASSWORD_MIN,readAccount,setSync,syncIsOn} from './accountClient.js';
 const {Paragraph,Text}=Typography;
 
 // Account and sync (stl00/Cardybara#415, epic #410): signed out is the default and the wallet works without any of this.
@@ -32,7 +32,9 @@ const syncText=s=>({syncing:t('正在同步…'),synced:t('已同步'),offline:t
 const noStore={getItem:()=>null,setItem:()=>{},removeItem:()=>{}};
 const store=()=>typeof localStorage==='undefined'?noStore:localStorage;
 const field={style:{minHeight:44},maxLength:1024};
-export default function AccountSettings({gateway}){
+// All account state and actions, shared by the Settings card and the header entry (#500) so the sign-in flows exist once.
+// `active:false` holds back the passkey probe (a gateway request) until the header's sheet or menu is opened.
+export function useAccountFlow(gateway,{active=true}={}){
  useI18n();const {message:toast}=App.useApp();
  const client=useMemo(()=>createAccountClient({gateway,storage:store(),mirror:platform.account?.mirror,webSignIn:platform.account?.passkeySignIn}),[gateway]);
  const [account,setAccount]=useState(()=>readAccount(store()));
@@ -45,16 +47,18 @@ export default function AccountSettings({gateway}){
  const [del,setDel]=useState(false),[delPw,setDelPw]=useState('');
  const [pkOk,setPkOk]=useState(false),[pks,setPks]=useState([]);
  useEffect(()=>{const h=e=>setStatus(e.detail);window.addEventListener(SYNC_STATUS_EVENT,h);return()=>window.removeEventListener(SYNC_STATUS_EVENT,h);},[]);
+ // The header entry and the Settings card are two views of one account: a sign-in, sign-out, delete or sync switch anywhere re-reads the stored state here.
+ useEffect(()=>{const h=()=>{const a=readAccount(store());setAccount(a);setOn(syncIsOn(store()));if(!a)setStatus(null);};window.addEventListener(SYNC_CHANGE_EVENT,h);return()=>window.removeEventListener(SYNC_CHANGE_EVENT,h);},[]);
 
  // Passkeys: the controls appear only when the browser and the gateway both support them; email and password stay the fallback.
- useEffect(()=>{let live=true;client.passkeysAvailable().then(v=>live&&setPkOk(v)).catch(()=>{});return()=>{live=false;};},[client]);
+ useEffect(()=>{if(!active)return;let live=true;client.passkeysAvailable().then(v=>live&&setPkOk(v)).catch(()=>{});return()=>{live=false;};},[client,active]);
  useEffect(()=>{if(!pkOk||!account)return;let live=true;client.listPasskeys().then(r=>live&&r.ok&&setPks(r.passkeys));return()=>{live=false;};},[client,pkOk,account]);
  useEffect(()=>{
-  if(!pkOk||account||mode!=='signin'||platform.account?.passkeySignIn)return;
+  if(!active||!pkOk||account||mode!=='signin'||platform.account?.passkeySignIn)return;
   const ac=new AbortController();
   client.signInWithPasskey({conditional:true,signal:ac.signal}).then(r=>{if(r.ok){setAccount(readAccount(store()));setOn(false);setStatus(null);toast.success(t('已登录。'));}}).catch(()=>{});
   return()=>ac.abort();
- },[client,pkOk,account,mode]);
+ },[client,pkOk,account,mode,active]);
  const fail=r=>setErr(errorText(r.code,r.retryAfter));
  const go=m=>{setMode(m);setErr(null);setNote(null);setCode('');setPassword('');};
  const run=async fn=>{setBusy(true);setErr(null);try{try{await platform.account?.allow(gateway);}catch{/* without the permission the request itself fails and says so */}await fn();}finally{setBusy(false);}};
@@ -104,27 +108,68 @@ export default function AccountSettings({gateway}){
   toast.success(t('账号和服务器上的钱包副本已删除。这台设备上的钱包还在。'));
  });
 
+ return {client,toast,account,on,status,mode,email,setEmail,password,setPassword,code,setCode,err,setErr,note,busy,pw,setPw,cur,setCur,next,setNext,del,setDel,delPw,setDelPw,pkOk,pks,go,signUp,signIn,verify,forgot,reset,passkeySignIn,addPk,removePk,signOut,toggle,changePw,remove};
+}
+function SyncSwitch({f,compact=false}){
+ const {on,status,toggle}=f;
+ return <div>
+  <label className="account-sync-switch"><Switch aria-label={t('在设备间同步钱包')} checked={on} onChange={toggle}/><Text strong>{t('在设备间同步钱包')}</Text></label>
+  {!compact&&<Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{on?t('钱包的一份副本存在 Cardybara 服务器上，同一账号的其他设备会合并成同一个钱包。关闭后不再同步，服务器上的副本保留，直到你删除账号。'):t('默认关闭。开启后，钱包的一份副本会存到 Cardybara 服务器，并在登录同一账号的设备间合并。不含银行密码或登录信息。')}</Paragraph>}
+  {on&&syncText(status)&&<Text className="account-sync-status" type={status==='error'||status==='signed_out'?'danger':'secondary'}>{syncText(status)}</Text>}
+ </div>;
+}
+function PasskeyList({f,compact=false}){
+ const {pkOk,pks,busy,removePk,addPk}=f;
+ if(!pkOk||platform.account?.passkeySignIn)return null;
+ return <div className="account-passkeys">
+  <Text strong>{t('通行密钥')}</Text>
+  {!compact&&<Paragraph type="secondary" style={{margin:'4px 0 8px'}}>{t('用指纹、面容或设备锁登录。邮箱和密码仍然可用，丢了通行密钥也不会被锁在外面。')}</Paragraph>}
+  {pks.map(k=><Flex key={k.id} gap={8} align="center" justify="space-between" wrap style={{marginBottom:8}}><Text>{k.name||t('通行密钥')}</Text><Button size="small" style={{minHeight:44}} loading={busy} onClick={()=>removePk(k.id)}>{t('移除')}</Button></Flex>)}
+  <Button loading={busy} onClick={addPk}>{t('添加通行密钥')}</Button>
+ </div>;
+}
+export function SignedOutForm({f,sheet=false}){
+ const {mode,go,note,err,email,setEmail,password,setPassword,code,setCode,busy,pkOk,verify,forgot,reset,signUp,signIn,passkeySignIn}=f;
  const alerts=<>{note&&<Alert type="info" showIcon title={note} style={{marginBottom:12}}/>}{err&&<Alert type="error" showIcon title={err} role="alert" style={{marginBottom:12}}/>}</>;
  const emailInput=<Input {...field} type="email" inputMode="email" autoComplete={pkOk&&mode==='signin'?'username webauthn':'email'} aria-label={t('邮箱')} placeholder={t('邮箱')} value={email} onChange={e=>setEmail(e.target.value)}/>;
  const pwInput=(label,value,set,auto)=><Input.Password {...field} aria-label={label} placeholder={label} autoComplete={auto} value={value} onChange={e=>set(e.target.value)}/>;
  const codeInput=<Input {...field} maxLength={6} inputMode="numeric" autoComplete="one-time-code" aria-label={t('6 位验证码')} placeholder={t('6 位验证码')} value={code} onChange={e=>setCode(e.target.value.replace(/\D/g,''))}/>;
  const link=(label,m)=><Button type="link" style={{padding:'0 4px',minHeight:44}} onClick={()=>go(m)}>{label}</Button>;
-
+ if(mode==='code')return <Flex vertical gap={12}>{alerts}{codeInput}<Button type="primary" loading={busy} disabled={code.length!==6} onClick={verify}>{t('验证并登录')}</Button><Flex wrap>{link(t('重新发送验证码'),'signup')}{link(t('返回'),'signin')}</Flex></Flex>;
+ if(mode==='forgot')return <Flex vertical gap={12}>{alerts}<Paragraph type="secondary" style={{marginBottom:0}}>{t('输入注册邮箱，我们会发一个验证码来设置新密码。')}</Paragraph>{emailInput}<Button type="primary" loading={busy} onClick={forgot}>{t('发送验证码')}</Button>{link(t('返回'),'signin')}</Flex>;
+ if(mode==='reset')return <Flex vertical gap={12}>{alerts}{codeInput}{pwInput(t('新密码（至少 {0} 个字符）',[PASSWORD_MIN]),password,setPassword,'new-password')}<Button type="primary" loading={busy} disabled={code.length!==6} onClick={reset}>{t('设置新密码并登录')}</Button>{link(t('返回'),'signin')}</Flex>;
+ const up=mode==='signup',pkFirst=sheet&&pkOk&&!up;
+ return <Flex vertical gap={12}>
+  {pkFirst&&<><Button type="primary" loading={busy} onClick={passkeySignIn} className="account-passkey-signin">{t('用通行密钥登录')}</Button><Divider plain style={{margin:'4px 0'}}>{t('或用邮箱')}</Divider></>}
+  <Segmented block value={mode} onChange={go} options={[{value:'signin',label:t('登录')},{value:'signup',label:t('注册')}]} style={{minHeight:44}}/>
+  {alerts}{emailInput}{pwInput(up?t('密码（至少 {0} 个字符）',[PASSWORD_MIN]):t('密码'),password,setPassword,up?'new-password':'current-password')}
+  <Button type={pkFirst?'default':'primary'} loading={busy} onClick={up?signUp:signIn} className="account-email-submit">{up?t('注册并发送验证码'):t('登录')}</Button>
+  {!up&&link(t('忘记密码'),'forgot')}
+  {!sheet&&!up&&pkOk&&<Button loading={busy} onClick={passkeySignIn} className="account-passkey-signin">{t('用通行密钥登录')}</Button>}
+ </Flex>;
+}
+/** The signed-in actions, used by the header's popover and bottom drawer. */
+export function AccountMenu({f,onSettings}){
+ const {account,busy,signOut}=f;
+ return <Flex vertical gap={12} className="account-menu">
+  <div><Text type="secondary">{t('已登录')}</Text><div className="account-email" style={{wordBreak:'break-all'}}><Text strong>{maskEmail(account?.email)||t('（邮箱未记录）')}</Text></div></div>
+  <SyncSwitch f={f} compact/>
+  <PasskeyList f={f} compact/>
+  <Button onClick={onSettings}>{t('账号设置')}</Button>
+  <Button loading={busy} onClick={signOut} data-action="sign-out">{t('退出登录')}</Button>
+ </Flex>;
+}
+export default function AccountSettings({gateway}){
+ const f=useAccountFlow(gateway);
+ const {account,busy,err,setErr,pw,setPw,cur,setCur,next,setNext,del,setDel,delPw,setDelPw,note,changePw,signOut,remove}=f;
+ const alerts=<>{note&&<Alert type="info" showIcon title={note} style={{marginBottom:12}}/>}{err&&<Alert type="error" showIcon title={err} role="alert" style={{marginBottom:12}}/>}</>;
+ const pwInput=(label,value,set,auto)=><Input.Password {...field} aria-label={label} placeholder={label} autoComplete={auto} value={value} onChange={e=>set(e.target.value)}/>;
  let body;
  if(account){
   body=<Flex vertical gap={16}>
    <div><Text type="secondary">{t('已登录')}</Text><div className="account-email" style={{wordBreak:'break-all'}}><Text strong>{account.email||t('（邮箱未记录）')}</Text></div></div>
-   <div>
-    <label className="account-sync-switch"><Switch aria-label={t('在设备间同步钱包')} checked={on} onChange={toggle}/><Text strong>{t('在设备间同步钱包')}</Text></label>
-    <Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{on?t('钱包的一份副本存在 Cardybara 服务器上，同一账号的其他设备会合并成同一个钱包。关闭后不再同步，服务器上的副本保留，直到你删除账号。'):t('默认关闭。开启后，钱包的一份副本会存到 Cardybara 服务器，并在登录同一账号的设备间合并。不含银行密码或登录信息。')}</Paragraph>
-    {on&&syncText(status)&&<Text className="account-sync-status" type={status==='error'||status==='signed_out'?'danger':'secondary'}>{syncText(status)}</Text>}
-   </div>
-   {pkOk&&!platform.account?.passkeySignIn&&<div className="account-passkeys">
-    <Text strong>{t('通行密钥')}</Text>
-    <Paragraph type="secondary" style={{margin:'4px 0 8px'}}>{t('用指纹、面容或设备锁登录。邮箱和密码仍然可用，丢了通行密钥也不会被锁在外面。')}</Paragraph>
-    {pks.map(k=><Flex key={k.id} gap={8} align="center" justify="space-between" wrap style={{marginBottom:8}}><Text>{k.name||t('通行密钥')}</Text><Button size="small" style={{minHeight:44}} loading={busy} onClick={()=>removePk(k.id)}>{t('移除')}</Button></Flex>)}
-    <Button loading={busy} onClick={addPk}>{t('添加通行密钥')}</Button>
-   </div>}
+   <SyncSwitch f={f}/>
+   <PasskeyList f={f}/>
    {err&&!pw&&!del&&<Alert type="error" showIcon title={err} role="alert"/>}
    {pw?<Flex vertical gap={12} className="account-password">
     {alerts}{pwInput(t('当前密码'),cur,setCur,'current-password')}{pwInput(t('新密码（至少 {0} 个字符）',[PASSWORD_MIN]),next,setNext,'new-password')}
@@ -140,22 +185,7 @@ export default function AccountSettings({gateway}){
     {pwInput(t('输入密码确认'),delPw,setDelPw,'current-password')}
    </Modal>
   </Flex>;
- }else if(mode==='code'){
-  body=<Flex vertical gap={12}>{alerts}{codeInput}<Button type="primary" loading={busy} disabled={code.length!==6} onClick={verify}>{t('验证并登录')}</Button><Flex wrap>{link(t('重新发送验证码'),'signup')}{link(t('返回'),'signin')}</Flex></Flex>;
- }else if(mode==='forgot'){
-  body=<Flex vertical gap={12}>{alerts}<Paragraph type="secondary" style={{marginBottom:0}}>{t('输入注册邮箱，我们会发一个验证码来设置新密码。')}</Paragraph>{emailInput}<Button type="primary" loading={busy} onClick={forgot}>{t('发送验证码')}</Button>{link(t('返回'),'signin')}</Flex>;
- }else if(mode==='reset'){
-  body=<Flex vertical gap={12}>{alerts}{codeInput}{pwInput(t('新密码（至少 {0} 个字符）',[PASSWORD_MIN]),password,setPassword,'new-password')}<Button type="primary" loading={busy} disabled={code.length!==6} onClick={reset}>{t('设置新密码并登录')}</Button>{link(t('返回'),'signin')}</Flex>;
- }else{
-  const up=mode==='signup';
-  body=<Flex vertical gap={12}>
-   <Segmented block value={mode} onChange={go} options={[{value:'signin',label:t('登录')},{value:'signup',label:t('注册')}]} style={{minHeight:44}}/>
-   {alerts}{emailInput}{pwInput(up?t('密码（至少 {0} 个字符）',[PASSWORD_MIN]):t('密码'),password,setPassword,up?'new-password':'current-password')}
-   <Button type="primary" loading={busy} onClick={up?signUp:signIn}>{up?t('注册并发送验证码'):t('登录')}</Button>
-   {!up&&link(t('忘记密码'),'forgot')}
-   {!up&&pkOk&&<Button loading={busy} onClick={passkeySignIn} className="account-passkey-signin">{t('用通行密钥登录')}</Button>}
-  </Flex>;
- }
+ }else body=<SignedOutForm f={f}/>;
  return <Card className="account-settings" title={t('账号与同步')} style={{marginBottom:20}}>
   {!account&&<Paragraph type="secondary">{t('可选。不登录也能完整使用钱包，数据只在这个浏览器里。登录并开启同步后，才会把钱包副本存到服务器，在你的其他设备上使用。')}</Paragraph>}
   {body}
