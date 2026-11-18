@@ -38,7 +38,7 @@ test('Chase Travel Points Boost limits are per-product upper bounds on a "varies
   const p=byId.get(u.productId);assert.ok(p,`${u.productId} in catalogue`);assert.ok(p.rewardPrograms.includes('Ultimate Rewards'),u.productId);
   assert.ok(!ids.has(u.productId));ids.add(u.productId);
   assert.match(src.get(u.sourceId).url,/^https:\/\/[a-z.]*chase\.com\//);
-  const n=u.upToCentsPerPoint;assert.ok(u.textEn.includes((n*100/100).toFixed(2))||u.textEn.includes('$'+(n).toFixed(2)),`quote holds the number for ${u.productId}`);
+  const n=u.upToCentsPerPoint;assert.ok(u.textEn.includes('$'+n.toFixed(2)),`quote holds the number for ${u.productId}`);assert.ok(/[一-鿿]/.test(u.textZh)&&u.textZh.includes(n.toFixed(2)),`Simplified Chinese text holds the number for ${u.productId}`);assert.ok(!/[們點動這與優]/.test(u.textZh),`Simplified Chinese for ${u.productId}`);
  }
  assert.deepEqual(upToByProductFor('ur-cash-back'),[]);
 });
