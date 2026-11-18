@@ -36,7 +36,8 @@
     "取消对应": "Unlink",
     "还没有对应到钱包里的卡，金额只在这里显示。": "Not linked to a wallet card yet; its amounts show only here.",
     "对应到钱包里的卡": "Link to a wallet card",
-    "添加到钱包": "Add to wallet"
+    "添加到钱包": "Add to wallet",
+    "已把 {0} 张通过 Plaid 连接的卡加入钱包。": "Added {0} Plaid-linked card(s) to the wallet."
   },
   "zh-TW": {
     "Plaid 连接服务还没开通，钱包照常使用。": "Plaid 連線服務尚未開通，錢包照常使用。",
@@ -75,6 +76,7 @@
     "取消对应": "取消對應",
     "还没有对应到钱包里的卡，金额只在这里显示。": "尚未對應到錢包裡的卡，金額只在這裡顯示。",
     "对应到钱包里的卡": "對應到錢包裡的卡",
-    "添加到钱包": "加入錢包"
+    "添加到钱包": "加入錢包",
+    "已把 {0} 张通过 Plaid 连接的卡加入钱包。": "已把 {0} 張透過 Plaid 連接的卡加入錢包。"
   }
 }
