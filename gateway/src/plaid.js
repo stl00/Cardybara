@@ -70,9 +70,9 @@ const plaidFail=e=>{if(e instanceof PlaidError)fail(LIMIT_CODES.has(e.code)?'pla
 // A request Plaid refused as malformed (INVALID_REQUEST, INVALID_INPUT) is our bug or our configuration, and its error_code
 // alone (INVALID_FIELD) does not say which field: the log line keeps Plaid's error_message for these, cut short. Plaid
 // writes it about the request's shape, but we do not control it and it may quote a field value, so it is scrubbed
-// (token-shaped strings, long opaque runs, the request's client_user_id) before it is kept: defence in depth, not a guarantee.
+// (token-shaped strings, long opaque runs but not plain snake_case field names, the request's client_user_id) before it is kept: defence in depth, not a guarantee.
 const EXPLAINED_TYPES=new Set(['INVALID_REQUEST','INVALID_INPUT']);
-const TOKEN_SHAPES=/\b(?:access|public|link)-(?:sandbox|development|production)-[\w-]+|[A-Za-z0-9_-]{24,}/g;
+const TOKEN_SHAPES=/\b(?:access|public|link)-(?:sandbox|development|production)-[\w-]+|(?<![A-Za-z0-9_-])(?![a-z]+(?:_[a-z]+)+(?![A-Za-z0-9_-]))[A-Za-z0-9_-]{24,}/g;
 export const explanation=(type,m,userId=null)=>{
  if(!EXPLAINED_TYPES.has(type)||typeof m!=='string'||!m)return null;
  let s=m;
