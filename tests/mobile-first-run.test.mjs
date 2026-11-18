@@ -115,7 +115,7 @@ test('the first-launch guide fits a 375 px phone', {timeout: 60000, skip: !chrom
 
 // The add-card form puts the cursor in the tail field once the picker has closed and the form has opened, but both wait for
 // an animation, so on a slow phone they land late. A field the user has moved to by then keeps the focus: a late focus once
-// sent the fee date's day into the tail field (#513).
+// sent the fee date's day into the tail field (#518).
 // A finite animation still running (the pet's breathing loops forever and is not one).
 const OPENING = `document.getAnimations().some(a=>a.playState==='running'&&a.effect?.getComputedTiming().endTime!==Infinity)`;
 test('a late focus on the tail field never takes the cursor from the fee date', {timeout: 60000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
