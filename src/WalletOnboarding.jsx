@@ -25,12 +25,16 @@ export function AddWalletCard({onAdd}){
  const typedBank=Form.useWatch('bank',form),chosenBank=product?product.bank:typedBank;
  const start=()=>{setError('');setChoice(undefined);setOtherBank(undefined);setOpen(true);setPicking(true);};
  const close=()=>{setOpen(false);setPicking(false);};
- const focusTail=()=>document.querySelector('.add-card-modal .add-card-tail')?.focus();
+ // Both the picker's close and the form's open end in an animation, so this can run late on a slow phone: it never takes
+ // focus from a field the user has already moved to. For the same reason the picker, once a card is chosen, does not hand
+ // the focus back to the button that opened it: that button is behind the form, whose focus trap would then pull it
+ // to the form's close button.
+ const focusTail=()=>{if(!document.activeElement?.closest?.('.add-card-form'))document.querySelector('.add-card-modal .add-card-tail')?.focus();};
  // Closing the panel before anything was chosen ends adding; after a choice it goes back to the form.
  const closePicker=()=>{setPicking(false);if(choice===undefined)setOpen(false);};
  const submit=async()=>{try{const value=await form.validateFields();onAdd({...value,bank:product?product.bank:value.bank,productId:product?product.id:null});form.resetFields();setError('');close();}catch(e){if(!e.errorFields)setError(t(e.message==='duplicate_card'?'这家银行的同一尾号卡片已经在钱包里。':'卡片未保存，请检查信息或浏览器存储空间。'));}};
  return <><Button onClick={start}>{t('添加卡片')}</Button>
- <ProductPickerPanel open={open&&picking} onClose={closePicker} afterClose={focusTail} products={products} title={t('添加卡片：选择卡种')} selectedId={product?.id}
+ <ProductPickerPanel open={open&&picking} onClose={closePicker} afterClose={focusTail} returnFocus={choice===undefined} products={products} title={t('添加卡片：选择卡种')} selectedId={product?.id}
   onChoose={id=>{setChoice(id);setPicking(false);}} onOther={bank=>{setChoice(OTHER_PRODUCT);setOtherBank(bank||undefined);if(bank&&form.getFieldInstance?.('bank'))form.setFieldsValue({bank});setPicking(false);}}/>
  <Modal className="add-card-modal" title={t('添加自己的卡片')} open={open&&choice!==undefined} afterOpenChange={o=>o&&focusTail()} onCancel={close} onOk={submit} okText={t('保存卡片')} cancelText={t('取消')} destroyOnHidden>
   <Alert type="info" showIcon title={t('只填写卡种和尾号，不要填写完整卡号、密码或验证码。')} style={{marginBottom:20}}/>

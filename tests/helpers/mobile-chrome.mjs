@@ -95,6 +95,7 @@ export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external 
     await page('Runtime.enable');
     await page('Emulation.setDeviceMetricsOverride', {...PHONE, deviceScaleFactor: 2, mobile: true});
     await page('Emulation.setEmulatedMedia', {features: [{name: 'prefers-color-scheme', value: 'light'}]});
+    await page('Page.addScriptToEvaluateOnNewDocument', {source: `window.__taps=[];for(const k of ['mousedown','mouseup','click'])addEventListener(k,e=>window.__taps.push(k+'@'+Math.round(performance.now())+':'+(e.target.className?.toString?.()||e.target.tagName).replace(/css-\\S+/g,'').slice(0,50)),true);`});
     if (init) await page('Page.addScriptToEvaluateOnNewDocument', {source: init});
     const evaluate = async expression => {
       const r = await page('Runtime.evaluate', {expression, awaitPromise: true, returnByValue: true});
@@ -107,20 +108,27 @@ export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external 
       // Polls a page expression until it is truthy.
       until: async (expr, what = expr, ms = 8000) => {
         for (let t = 0; t < ms / 50; t++) { if (await evaluate(`!!(${expr})`)) return; await wait(50); }
-        throw Error('timed out waiting for ' + what);
+        const state = await evaluate(`(()=>{const v=e=>e&&getComputedStyle(e).display!=='none';return JSON.stringify({modals:[...document.querySelectorAll('.ant-modal-wrap,.ant-drawer')].filter(v).map(e=>e.className.replace(/css-\\S+/g,'').trim().slice(0,80)),errors:[...document.querySelectorAll('.ant-form-item-explain-error,.ant-alert-error')].map(e=>e.innerText.slice(0,80)),focus:document.activeElement?.className?.toString().slice(0,60),hash:location.hash,taps:window.__taps.slice(-6),now:Math.round(performance.now())})})()`).catch(e => 'unreadable: ' + e.message);
+        if (process.env.CARDYBARA_FAIL_SHOTS) await ctl.shot(join(process.env.CARDYBARA_FAIL_SHOTS, `fail-${Date.now()}.png`)).catch(() => {});
+        throw Error('timed out waiting for ' + what + ' ' + state);
       },
       pause: wait,
       audit: () => evaluate(AUDIT),
       text: () => evaluate(`document.body.innerText`),
-      // A real tap: scrolls the element into view, then sends touch-style mouse events at its centre.
+      // A real tap: scrolls the element into view, waits until it has stopped moving, then sends touch-style mouse events
+      // at its centre. A press sent while a modal or drawer is still animating in lands on the moving target and the release
+      // lands beside it, so the browser sends the click to their common ancestor and the control never sees it.
       tap: async (selector, match) => {
         const text = typeof match === 'string' ? match : match?.text;
-        const find = `(()=>{const all=[...document.querySelectorAll(${JSON.stringify(selector)})].filter(e=>{const r=e.getBoundingClientRect();const s=getComputedStyle(e);return r.width>0&&r.height>0&&s.visibility!=='hidden'});const e=${text ? `all.find(e=>(e.innerText||e.value||e.getAttribute('aria-label')||'').includes(${JSON.stringify(text)}))` : 'all[0]'};if(!e)return null;e.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'});const r=e.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2}})()`;
+        const find = `(async()=>{const all=[...document.querySelectorAll(${JSON.stringify(selector)})].filter(e=>{const r=e.getBoundingClientRect();const s=getComputedStyle(e);return r.width>0&&r.height>0&&s.visibility!=='hidden'});const e=${text ? `all.find(e=>(e.innerText||e.value||e.getAttribute('aria-label')||'').includes(${JSON.stringify(text)}))` : 'all[0]'};if(!e)return null;e.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'});
+          const box=()=>{const r=e.getBoundingClientRect();return [r.left,r.top,r.width,r.height].map(n=>Math.round(n*10)/10).join()};const before=box();
+          await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+          const moving=document.getAnimations().some(a=>a.playState==='running'&&a.effect?.target instanceof Element&&a.effect.target.contains(e));
+          const r=e.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2,still:!moving&&box()===before}})()`;
         let at = null;
-        for (let t = 0; t < 100 && !at; t++) { at = await evaluate(find); if (!at) await wait(50); }
+        for (let t = 0; t < 100 && !at?.still; t++) { at = await evaluate(find); if (!at?.still) await wait(50); }
         if (!at) throw Error(`nothing to tap: ${selector}${text ? ' / ' + text : ''}`);
-        await wait(60);
-        at = await evaluate(find);
+        if (!at.still) throw Error(`still moving after 5 s: ${selector}${text ? ' / ' + text : ''}`);
         for (const type of ['mousePressed', 'mouseReleased']) await page('Input.dispatchMouseEvent', {type, x: at.x, y: at.y, button: 'left', clickCount: 1});
         await wait(150);
       },

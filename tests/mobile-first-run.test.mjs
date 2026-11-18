@@ -112,3 +112,27 @@ test('the first-launch guide fits a 375 px phone', {timeout: 60000, skip: !chrom
     }
   }, {init: `localStorage.setItem('cardybara-language','zh-CN');`});
 });
+
+// The add-card form puts the cursor in the tail field once the picker has closed and the form has opened, but both wait for
+// an animation, so on a slow phone they land late. A field the user has moved to by then keeps the focus: a late focus once
+// sent the fee date's day into the tail field (#513).
+// A finite animation still running (the pet's breathing loops forever and is not one).
+const OPENING = `document.getAnimations().some(a=>a.playState==='running'&&a.effect?.getComputedTiming().endTime!==Infinity)`;
+test('a late focus on the tail field never takes the cursor from the fee date', {timeout: 60000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
+  ensureBuild();
+  await withPhone(async c => {
+    await c.goto('/');
+    await c.until(`document.querySelector('.empty-wallet-manual')`, 'the empty wallet');
+    await c.tap('.empty-wallet-manual button');
+    await c.until(`document.querySelector('.product-tile')`, 'the card catalogue');
+    await c.tap('.product-tile');
+    // As soon as the form exists, before its opening animation ends: move to the fee date's month.
+    await c.until(`document.querySelectorAll('.add-card-form .ant-input-number-input').length===3`, 'the fee date');
+    const early = await c.evaluate(`(()=>{const m=document.querySelectorAll('.add-card-form .ant-input-number-input')[0];m.focus();return ${OPENING}})()`);
+    await c.until(`!${OPENING}`, 'the form to finish opening');
+    await c.pause(300);
+    const focus = await c.evaluate(`document.activeElement===document.querySelectorAll('.add-card-form .ant-input-number-input')[0]`);
+    assert.ok(early, 'the month was focused while the form was still animating in');
+    assert.ok(focus, 'the month keeps the focus after the form has opened');
+  }, {init: `localStorage.setItem('cardybara-language','en-US');localStorage.setItem(${JSON.stringify(GUIDE_KEY)},'1');`});
+});

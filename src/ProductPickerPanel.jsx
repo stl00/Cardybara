@@ -30,7 +30,8 @@ export function ChosenProduct({product,extra}){
  * A panel of card tiles grouped by bank, with search on top. Type to search, arrows to move, Enter to choose,
  * Esc to close. `badges` puts tags on tiles (and those tiles first); `onOther` adds the "not listed" way out.
  */
-export default function ProductPickerPanel({open,onClose,afterClose,onChoose,onOther,products,title,badges={},selectedId}){
+// `returnFocus`: false when the caller moves the focus itself after the panel closes (the add-card form does).
+export default function ProductPickerPanel({open,onClose,afterClose,onChoose,onOther,products,title,badges={},selectedId,returnFocus=true}){
  const {language}=useI18n(),screen=Grid.useBreakpoint(),narrow=!screen.md;
  const [query,setQuery]=useState(''),[bank,setBank]=useState(null),[type,setType]=useState('all'),[active,setActive]=useState(0);
  const input=useRef(null),list=useRef(null),fromKeys=useRef(false);
@@ -64,7 +65,7 @@ export default function ProductPickerPanel({open,onClose,afterClose,onChoose,onO
   else if(!inInput&&e.key.length===1&&!e.metaKey&&!e.ctrlKey&&!e.altKey)input.current?.focus();
  };
  const other=onOther&&<Button className="product-picker-other" type="dashed" block onClick={()=>onOther(bank)}>{t('找不到我的卡')}<Text type="secondary" style={{marginInlineStart:6}}>{t('（自己填写卡名）')}</Text></Button>;
- return <Modal className={`product-picker-modal${narrow?' narrow':''}`} title={title||t('选择卡种')} open={open} onCancel={onClose} footer={null} width={narrow?'100%':920} destroyOnHidden centered={!narrow} afterOpenChange={o=>{if(o)input.current?.focus();else{setQuery('');setBank(null);setType('all');setActive(0);afterClose?.();}}}>
+ return <Modal className={`product-picker-modal${narrow?' narrow':''}`} title={title||t('选择卡种')} open={open} onCancel={onClose} footer={null} width={narrow?'100%':920} destroyOnHidden centered={!narrow} focusable={{focusTriggerAfterClose:returnFocus}} afterOpenChange={o=>{if(o)input.current?.focus();else{setQuery('');setBank(null);setType('all');setActive(0);afterClose?.();}}}>
   <div className="product-picker" onKeyDown={onKeyDown}>
    <Input ref={input} className="product-picker-search" size="large" autoFocus allowClear prefix={<SearchOutlined/>} value={query} onChange={e=>setQuery(e.target.value)}
     placeholder={t('搜索卡名、品牌或银行，例如 Sapphire、Marriott、万豪')} aria-label={t('搜索卡种')} role="combobox" aria-expanded aria-controls="product-picker-list" aria-activedescendant={flat[active]?`product-tile-${flat[active].id}`:undefined}/>
