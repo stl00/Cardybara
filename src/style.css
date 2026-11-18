@@ -197,3 +197,16 @@ body:has(.ant-modal-wrap:not([style*="display: none"])) .mobile-tabbar.is-over{z
 .more-language{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;border-bottom:1px solid var(--ant-color-border-secondary);padding:0 4px;font-size:15px}
 .more-language .ant-segmented-item-label{min-height:44px;line-height:44px;min-width:44px;padding:0 12px}
 .more-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}.more-links .ant-btn{min-height:44px}
+/* The header: page title left; hide-amounts, language (desktop) and the account entry right, on one row. */
+.app-header-title{min-width:0;flex:1}.app-header-actions{flex:none}
+.page-title{font-size:16px;font-weight:600;color:var(--ant-color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.account-avatar{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:0;border:0;background:none;cursor:pointer;border-radius:50%}
+.account-avatar:focus-visible{outline:2px solid var(--ant-color-primary);outline-offset:-2px}
+.sync-dot{position:absolute;right:6px;bottom:6px;width:10px;height:10px;border-radius:50%;border:2px solid var(--ant-color-bg-container);box-sizing:content-box}
+.sync-dot-synced{background:var(--ant-color-success)}.sync-dot-syncing{background:var(--ant-color-primary)}.sync-dot-offline{background:var(--ant-color-text-quaternary)}.sync-dot-error{background:var(--ant-color-error)}
+.account-sheet-head{text-align:center;margin-bottom:12px}.account-sheet-head h4{margin:8px 0 4px!important}.account-sheet-head .ant-typography{margin-bottom:0}
+.account-or{display:block;text-align:center;font-size:12px}.account-sheet-privacy{margin:12px 0 0!important;font-size:12px;text-align:center}
+.account-sheet .ant-btn,.account-sheet .ant-input-affix-wrapper,.account-sheet .ant-input{min-height:44px}
+.account-popover{width:280px}
+.account-drawer .ant-drawer-section{border-radius:16px 16px 0 0;max-height:90dvh}.account-drawer .ant-drawer-body{padding:8px 16px calc(16px + env(safe-area-inset-bottom))}
+.account-sheet .ant-segmented-item-label,.account-settings .ant-segmented-item-label{min-height:36px;line-height:36px}

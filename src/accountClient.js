@@ -8,6 +8,9 @@ import {redirectWithSession} from './extensionSignIn.js';
 
 export const SYNC_CHANGE_EVENT='cardybara-sync-change';
 export const SYNC_STATUS_EVENT='cardybara-sync-status';
+// Fired on this page whenever the stored session is written or dropped, so every account view (Settings, the header) agrees.
+export const ACCOUNT_CHANGE_EVENT='cardybara-account-change';
+const accountChanged=()=>{try{globalThis.window?.dispatchEvent?.(new Event(ACCOUNT_CHANGE_EVENT));}catch{}};
 export const PASSWORD_MIN=10;
 
 /** Gateway error codes the screens know, each with its own message (src/i18n/account.json); anything else is 'error'. */
@@ -50,8 +53,8 @@ export function readAccount(storage,nowMs=Date.now()){
 }
 // `mirror(session|null)` lets a platform keep a second copy of the session where its background can read it (the
 // extension's own storage area, src/platform/extension.js). It never throws into the screens.
-const writeSession=(storage,{token,expiresAt},email,mirror)=>{storage.setItem(ACCOUNT_SESSION_KEY,JSON.stringify({token,expiresAt,email}));try{Promise.resolve(mirror?.({token,expiresAt,email})).catch(()=>{});}catch{}};
-const dropSession=(storage,mirror)=>{storage.removeItem(ACCOUNT_SESSION_KEY);try{Promise.resolve(mirror?.(null)).catch(()=>{});}catch{}};
+const writeSession=(storage,{token,expiresAt},email,mirror)=>{storage.setItem(ACCOUNT_SESSION_KEY,JSON.stringify({token,expiresAt,email}));try{Promise.resolve(mirror?.({token,expiresAt,email})).catch(()=>{});}catch{}accountChanged();};
+const dropSession=(storage,mirror)=>{storage.removeItem(ACCOUNT_SESSION_KEY);try{Promise.resolve(mirror?.(null)).catch(()=>{});}catch{}accountChanged();};
 const tokenOf=storage=>{try{return JSON.parse(storage.getItem(ACCOUNT_SESSION_KEY))?.token||null}catch{return null}};
 
 /** Turns sync on or off for this device and tells the page, which starts or stops the sync loop. */
