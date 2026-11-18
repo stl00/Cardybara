@@ -3,6 +3,19 @@ import {Button,Popover,Space,Typography} from 'antd';
 import {useI18n} from './i18n';
 import './capybara-pet.css';
 const KEY='cardybara-pet-v1';
+// Phones (#501): the pet keeps at least GAP px above the bottom tab bar (`.mobile-tabbar`, 56 px plus the home-indicator
+// inset), and stays away from the assistant page, where the assistant itself is the capybara.
+const GAP=10,TABBAR=56,PHONE='(max-width: 767px)';
+let probe=null;
+const safeBottom=()=>{if(!probe){probe=document.createElement('div');probe.style.cssText='position:fixed;bottom:0;height:0;visibility:hidden;pointer-events:none;padding-bottom:env(safe-area-inset-bottom)';document.body.appendChild(probe);}return parseFloat(getComputedStyle(probe).paddingBottom)||0;};
+// The lowest y the pet may reach: the tab bar's top when it is on screen; on a phone before it mounts, where it will be.
+function floorY(){
+ const bar=document.querySelector('.mobile-tabbar');
+ if(bar&&getComputedStyle(bar).display!=='none')return bar.getBoundingClientRect().top;
+ return window.matchMedia?.(PHONE).matches?window.innerHeight-TABBAR-safeBottom():window.innerHeight;
+}
+// A first load of `#agent` also opens the assistant (main.jsx), so it counts as the assistant page here too.
+const onAdvisor=()=>typeof location!=='undefined'&&['#advisor','#agent'].includes(location.hash);
 function load(){try{const r=JSON.parse(localStorage.getItem(KEY));return {hidden:r?.hidden===true,feeds:Math.max(0,Math.min(9999,Number(r?.feeds)||0)),pos:r?.pos&&Number.isFinite(r.pos.x)&&Number.isFinite(r.pos.y)?r.pos:null}}catch{return {hidden:false,feeds:0,pos:null}}}
 const words={
  'zh-CN':{name:'小卡豚',pet:'摸摸水豚',feed:'喂黄瓜',sleep:'一起发呆',wake:'起床啦',close:'收起',hide:'让它休息',restore:'叫水豚回来',hint:'拖动换位置 · 方向键也可以',hello:'我在这里陪你。',happy:'呼噜呼噜…',yum:'咔嚓！黄瓜真好吃。',nap:'今天也要慢慢来。',fed:'吃过 {0} 根黄瓜',idle:['发呆是一门艺术。','刷卡要精明，生活要松弛。','别忘了喝口水。','我没有偷吃黄瓜。']},
@@ -12,9 +25,11 @@ const words={
 function Capy({mood}){return <svg viewBox="0 0 112 100" aria-hidden="true" className="capy-drawing"><ellipse cx="58" cy="91" rx="41" ry="5" fill="#493b31" opacity=".09"/><g className="capy-body" stroke="#493B31" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"><path d="M45 65c0-21 19-29 39-21 15 6 20 23 14 36-5 10-20 11-34 8L38 84" fill="#DCC5A6"/><path d="M76 82v8h10m-35-9v9h9" fill="#DCC5A6"/><g transform="translate(3 12)"><path d="M17 40V25c0-10 7-16 17-16 9 0 15 5 17 13l7 5c3 2 4 5 4 9v9c0 7-5 12-13 12H30c-8 0-13-5-13-12Z" fill="#DCC5A6"/><path d="M20 17c-6-9-13-5-10 3l7 5M38 11c2-9 11-8 11 1v6" fill="#C2A17C"/><path d={mood==='happy'||mood==='eating'?'M29 29q4-5 8 0':'M30 28h6'}/><path d="M51 36h1m-12 9h12"/><path d="M22 53v5m19-2v3"/></g></g>{mood==='happy'&&<g className="capy-hearts" fill="#eb8d8d"><path d="M79 22c-10-9-15 4 0 12 15-8 10-21 0-12Z"/></g>}{mood==='eating'&&<text x="60" y="68" fontSize="27">🥒</text>}{mood==='sleep'&&<g className="capy-zzz" fill="#8c8c8c" fontFamily="sans-serif" fontWeight="600"><text x="70" y="30" fontSize="13">z</text><text x="83" y="20" fontSize="18">z</text></g>}</svg>}
 export default function CapybaraPet(){
  const {language}=useI18n(),s=words[language]||words['zh-CN'];const [saved]=useState(load),[hidden,setHidden]=useState(saved.hidden),[feeds,setFeeds]=useState(saved.feeds),[pos,setPos]=useState(saved.pos),[mood,setMood]=useState('idle'),[line,setLine]=useState(''),[open,setOpen]=useState(false);const timer=useRef(),speech=useRef(),drag=useRef(null),dragged=useRef(false),host=useRef(null);
- const clamp=p=>({x:Math.max(4,Math.min(window.innerWidth-116,p.x)),y:Math.max(72,Math.min(window.innerHeight-110,p.y))});
+ const [advisor,setAdvisor]=useState(onAdvisor);
+ const clamp=p=>{const w=host.current?.offsetWidth||112,h=host.current?.offsetHeight||100;return {x:Math.max(4,Math.min(window.innerWidth-w-4,p.x)),y:Math.max(72,Math.min(floorY()-GAP-h,p.y))};};
+ useEffect(()=>{const h=()=>setAdvisor(onAdvisor());window.addEventListener('hashchange',h);return()=>window.removeEventListener('hashchange',h)},[]);
  useEffect(()=>{try{localStorage.setItem(KEY,JSON.stringify({hidden,feeds,pos}))}catch{}},[hidden,feeds,pos]);
- useEffect(()=>{const resize=()=>setPos(p=>p?clamp(p):p);resize();window.addEventListener('resize',resize);return()=>window.removeEventListener('resize',resize)},[]);
+ useEffect(()=>{const resize=()=>setPos(p=>p?clamp(p):p);resize();window.addEventListener('resize',resize);return()=>window.removeEventListener('resize',resize)},[advisor,hidden]);
  useEffect(()=>{const id=setInterval(()=>{if(document.hidden||hidden||open||drag.current)return;setMood(m=>m==='sleep'?m:Math.random()<.35?'wander':'idle')},14000);return()=>clearInterval(id)},[hidden,open]);
  useEffect(()=>()=>{clearTimeout(timer.current);clearTimeout(speech.current)},[]);
  const say=text=>{clearTimeout(speech.current);setLine(text);speech.current=setTimeout(()=>setLine(''),4200)};
@@ -24,6 +39,7 @@ export default function CapybaraPet(){
  const move=e=>{const d=drag.current;if(!d)return;if(Math.hypot(e.clientX-d.x,e.clientY-d.y)>5){dragged.current=true;setOpen(false);setPos(clamp({x:d.left+e.clientX-d.x,y:d.top+e.clientY-d.y}))}};
  const end=()=>{drag.current=null};
  const key=e=>{const delta={ArrowLeft:[-16,0],ArrowRight:[16,0],ArrowUp:[0,-16],ArrowDown:[0,16]}[e.key];if(!delta)return;e.preventDefault();const r=host.current.getBoundingClientRect();setPos(clamp({x:r.left+delta[0],y:r.top+delta[1]}))};
+ if(advisor)return null;
  if(hidden)return <button className="capy-restore" aria-label={s.restore} title={s.restore} onClick={()=>{setHidden(false);say(s.hello)}}><img src="/brand/zen.svg" alt="" width="26" height="26"/></button>;
  return <div ref={host} className={'capy-companion capy-'+mood} style={pos?{left:pos.x,top:pos.y,right:'auto',bottom:'auto'}:undefined}>
  {line&&!open&&<div className="capy-speech" role="status">{line}</div>}

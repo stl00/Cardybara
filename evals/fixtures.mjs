@@ -292,6 +292,23 @@ export const tripCases=[
  {id:'trip-whole-hant',airline:'達美',when:'聖誕節',expectedWindow:{start:'2026-12-01',end:'2026-12-31'}},
  {id:'trip-whole-en',airline:'Delta',when:'Dec 20-27',expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
 ];
+// #480: the hotel half of a whole-trip question ('住凯悦' in trip-whole-question). Offline, code runs plan_stay on the
+// same date words and the checks mirror the flight half: dates agree with the hotel credit read, availability is marked not
+// checked, the hotel path is found and no award price or points are invented.
+export const stayCases=[
+ {id:'stay-whole-hans',tool:'plan_stay',args:{programme:'凯悦',nights:7,when:'12月20日到27日'},expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
+ {id:'stay-whole-en',tool:'plan_stay',args:{programme:'Hyatt',nights:7,when:'Dec 20-27'},expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
+];
+// #479: a stated cash fare against an award. The tool result carries the verdict; the answer must report it and must not
+// bring a fare of its own. Synthetic fares only. `good` reports the code's verdict, `bad` invents a fare.
+export const flightCompareCases=[
+ {id:'flight-compare-cash-cheaper',args:{airline:'Delta',milesNeeded:25500,cashFare:300,cashFareCurrency:'USD'},verdict:'cash-cheaper',
+  good:'Cash is cheaper: the 26,000 points are worth $390 at 1.5 cents each, against your $300 fare.',
+  bad:'Cash is cheaper: the 26,000 points are worth $390, and a fare like this usually runs about $450.',stated:[300]},
+ {id:'flight-compare-currency-mismatch',args:{airline:'Delta',milesNeeded:25500,cashFare:300,cashFareCurrency:'HKD'},verdict:'currency-mismatch',
+  good:'The points are valued in USD and your fare is in HKD, so I have not compared them.',
+  bad:'The points are valued in USD and your fare is in HKD, but at about 7.8 HKD per USD the fare is $38, so cash wins.',stated:[300]},
+];
 // #277: cycle questions the credit tool must answer from the user's own data. Each case is a tool result plus the code-written fallback answer in the question's language.
 const GE='rule.chase-us-sapphire-reserve.global-entry';
 const fourYearMark=(productId,ruleId,usedOn)=>({schema:1,id:[ruleId,usedOn,'used'].join('-'),key:JSON.stringify([cardFor(productId).id,ruleId,'four-year']),status:'used',usedOn,at:'2026-10-20T00:00:00.000Z',revisionId:null});

@@ -90,7 +90,7 @@ test('importing a backup without reminder settings leaves this device\'s reminde
 // Every cardybara-* name in the source is either carried by the document, device-only, or not storage at all.
 const NOT_STORAGE=new Set([
  // events and message channels
- 'cardybara-card-edits-change','cardybara-card-products-change','cardybara-cost-change','cardybara-bank-live-change','cardybara-cost-ledger','cardybara-payment-marks-change',
+ 'cardybara-account-change','cardybara-card-edits-change','cardybara-card-products-change','cardybara-cost-change','cardybara-bank-live-change','cardybara-cost-ledger','cardybara-payment-marks-change',
  'cardybara-personal-change','cardybara-plaid-change','cardybara-point-values-change','cardybara-product-suggestions-change','cardybara-reminder-settings-change',
  'cardybara-dashboard','cardybara-extension','cardybara-legacy-dashboard','cardybara-legacy-extension',
  // secrets: only model-client.js may name them, and they never enter a document

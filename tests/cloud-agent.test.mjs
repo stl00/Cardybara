@@ -72,6 +72,19 @@ test('a wallet tool runs in the extension: only its result is posted back, then 
  for(const v of SENTINELS)assert.ok(!JSON.stringify(g.agentRequests).includes(v),v);
 });
 
+test('plan_stay is handed to the extension like plan_flight, so hotel credits use the user\'s own marks',async()=>{
+ const g=await gateway([
+  tools(call('plan_stay',{programme:'Hyatt',nights:3},'stay')),
+  say('住宿的 credit 状态以你的手动标记为准。'),
+  say('住宿的 credit 状态以你的手动标记为准。'),
+ ]);
+ await g.turn({question:'用凯悦积分住 3 晚',context});
+ const [first,second]=g.agentRequests;
+ assert.ok(!('rounds' in first));
+ assert.deepEqual(Object.keys(second.rounds[0].results),['stay'],'plan_stay ran in the extension, not the cloud');
+ assert.equal(second.rounds[0].message.tool_calls[0].function.name,'plan_stay');
+});
+
 test('the Worker refuses a continuation that adds wallet data or answers calls it never made',async()=>{
  const g=await gateway([tools(call('query_credits',{use:'hotel'},'wal'))]);
  const base={question:'本期酒店 credit 用了吗？',history:[],memory:{},summary:summary()};

@@ -153,9 +153,14 @@ export function checkLabels(d){
  // A transfer read must reach a partner for the card, and the named partner when one is expected.
  if(d.expect.tool==='convert_points'&&!result.totalPartners)issues.push('expected call returns no partner');
  if(d.expect.tool==='convert_points'&&d.expect.args.partner&&!result.programmes.some(g=>g.partners.some(p=>p.partner.toLowerCase().includes(d.expect.args.partner.toLowerCase()))))issues.push('expected call does not reach '+d.expect.args.partner);
+ // The follow-up tools of #482: protections list the selected cards, a flight plan needs a path to the airline, a points account needs the programme.
+ if(d.expect.tool==='find_protections'&&!result.cards?.length)issues.push('expected call selects no card');
+ if(d.expect.tool==='plan_flight'&&!result.transfers?.programmes?.some(g=>g.partners.length))issues.push('expected call finds no transfer path');
+ if(d.expect.tool==='points_accounts'&&!result.programmes?.length)issues.push('expected call returns no programme');
  if(d.expect.tool==='query_credits'&&!Object.values(result.groups||{}).some(g=>g.length))issues.push('expected call returns no credits');
  const titleOf=t.ordinal?t.ordinal.list[t.ordinal.index-1][0]:t.item?.[0];
- if(titleOf&&d.expect.tool!=='choose_card'&&!JSON.stringify(result).includes(titleOf))issues.push('expected call does not return '+titleOf);
+ // A card with no protection record answers not_found: that is a valid follow-up, with no title to find.
+ if(titleOf&&d.expect.tool!=='choose_card'&&!(d.expect.tool==='find_protections'&&!result.totalMatches)&&!JSON.stringify(result).includes(titleOf))issues.push('expected call does not return '+titleOf);
  if(t.item&&anyIn(d.question,t.item))issues.push('question already names the item');
  if(t.programme&&anyIn(d.question,t.programme))issues.push('question already names the programme');
  return issues;

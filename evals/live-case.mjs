@@ -6,7 +6,7 @@ import {context,referenceContext} from './fixtures.mjs';
 import {resolveTripDates} from '../src/tripDates.js';
 import {runAgentTurn} from '../tests/helpers/agent-target.mjs';
 
-export const READ_ONLY_TOOLS=['list_cards','choose_card','find_benefits','get_card_rules','convert_points','query_credits','find_protections','plan_flight','points_accounts'];
+export const READ_ONLY_TOOLS=['list_cards','choose_card','find_benefits','get_card_rules','convert_points','query_credits','find_protections','plan_flight','plan_stay','points_accounts'];
 
 /** The wallet a case sends: the shared synthetic one, plus the case's scripted marks (`events`) and card fee dates
  * (`feeDates`, product id to {month,day}), `day` moves the wallet's date (rules checked after the shared day are not in force before it), and `heldProductIds` narrows the wallet to those products, the same way the offline ledger and cycle cases set them up. */

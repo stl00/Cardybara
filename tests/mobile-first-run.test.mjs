@@ -65,7 +65,7 @@ async function walk(c, lang) {
   await c.until(`!document.querySelector('.add-card-modal') && document.querySelector('.payment-assistant')`, 'the saved card');
   await c.pause(600);
     await check('card-saved');
-  await c.tap('.app-sider .ant-menu-item:nth-child(2)');
+  await c.tap('.mobile-tabbar [data-nav-key="wallet"]');
   await c.until(`document.querySelector('.card-title')`, 'the card list');
   await check('card-list');
   await c.tap('.card-title');
@@ -94,6 +94,28 @@ for (const lang of ['zh-CN', 'en-US']) {
     assert.equal(steps.length, 9);
   });
 }
+
+// The add-card dialog focuses the tail field when its open animation (and the catalogue's close animation) ends. On a slow
+// phone the user, or a test, is already typing the fee date by then; focus must stay where they put it, or the day lands in
+// the tail field and Save fails validation. This flaked CI as "timed out waiting for the saved card".
+test('focus stays in the fee date when the add-card dialog finishes opening late', {timeout: 60000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
+  ensureBuild();
+  await withPhone(async c => {
+    await c.goto('/');
+    await c.until(`document.querySelector('.empty-wallet-manual')`, 'the empty wallet');
+    await c.tap('.empty-wallet-manual button');
+    await c.until(`document.querySelector('.product-tile')`, 'the card catalogue');
+    await c.tap('.product-tile');
+    // As soon as the form exists, while the animations are still running, move into the month field and type.
+    await c.until(`document.querySelector('.add-card-form .ant-input-number-input')`, 'the fee date fields');
+    await c.evaluate(`document.querySelectorAll('.add-card-form .ant-input-number-input')[0].focus()`);
+    await c.page('Input.insertText', {text: '12'});
+    await c.pause(1200);
+    assert.equal(await c.evaluate(`document.activeElement===document.querySelectorAll('.add-card-form .ant-input-number-input')[0]`), true, 'focus stayed in the month field');
+    await c.page('Input.insertText', {text: '3'});
+    assert.equal(await c.evaluate(`document.querySelector('.add-card-tail').value`), '', 'nothing typed after the animation went into the tail field');
+  }, {init: `localStorage.setItem('cardybara-language','en-US');localStorage.setItem(${JSON.stringify(GUIDE_KEY)},'1');`});
+});
 
 test('the first-launch guide fits a 375 px phone', {timeout: 60000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
   ensureBuild();
