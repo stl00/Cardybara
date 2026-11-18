@@ -5,8 +5,8 @@
 // The redirect target is rebuilt from a validated extension id, never taken from the URL, so there is no open redirect.
 // The token only ever travels in the fragment: never a query string, never a log line.
 
-/** The PWA's origin (Pages project `cardybara-app`). Must equal the gateway's PASSKEY_ORIGIN. */
-export const APP_ORIGIN='https://cardybara-app.pages.dev';
+/** The PWA's origin (Pages project `cardybara-app`, custom domain cardybara.dev). Must equal the gateway's PASSKEY_ORIGIN. */
+export const APP_ORIGIN='https://cardybara.dev';
 export const ROUTE_PREFIX='#extension-signin/';
 // A Chrome extension id: 32 letters a-p.
 const EXTENSION_ID=/^[a-p]{32}$/;

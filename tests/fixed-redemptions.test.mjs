@@ -26,3 +26,25 @@ test('validator rejects programmes outside US MR/UR and non-official sources',()
 test('every record carries English source text and Simplified Chinese',()=>{
  for(const r of fixedRedemptions){assert.ok(r.textEn&&/[一-鿿]/.test(r.textZh),r.id);}
 });
+import {upToByProductFor} from '../src/fixedRedemptions.js';
+import products from '../src/data/card-products.json' with {type:'json'};
+test('Chase Travel Points Boost limits are per-product upper bounds on a "varies" record (#532)',()=>{
+ const r=fixedRedemptions.find(x=>x.id==='ur-travel-chase-travel'),list=upToByProductFor('ur-travel-chase-travel');
+ assert.equal(r.centsPerPoint,'varies');assert.equal(r.dependsOn,'card-with-points-boost');
+ assert.ok(list.length>=1);
+ const byId=new Map(products.products.map(p=>[p.id,p])),src=new Map(data.sources.map(s=>[s.id,s]));
+ const ids=new Set();
+ for(const u of list){
+  const p=byId.get(u.productId);assert.ok(p,`${u.productId} in catalogue`);assert.ok(p.rewardPrograms.includes('Ultimate Rewards'),u.productId);
+  assert.ok(!ids.has(u.productId));ids.add(u.productId);
+  assert.match(src.get(u.sourceId).url,/^https:\/\/[a-z.]*chase\.com\//);
+  const n=u.upToCentsPerPoint;assert.ok(u.textEn.includes('$'+n.toFixed(2)),`quote holds the number for ${u.productId}`);assert.ok(/[一-鿿]/.test(u.textZh)&&u.textZh.includes(n.toFixed(2)),`Simplified Chinese text holds the number for ${u.productId}`);assert.ok(!/[們點動這與優]/.test(u.textZh),`Simplified Chinese for ${u.productId}`);
+ }
+ assert.deepEqual(upToByProductFor('ur-cash-back'),[]);
+});
+test('validator rejects bad Points Boost entries and any entry on a record with a fixed number',()=>{
+ const mk=f=>{const d=clone();f(d.redemptions.find(x=>x.id==='ur-travel-chase-travel'));return validateFixedRedemptions(d);};
+ assert.ok(mk(r=>{r.upToByProduct[0].upToCentsPerPoint='2';}).some(m=>/upToCentsPerPoint/.test(m)));
+ assert.ok(mk(r=>{r.upToByProduct[0].sourceId='amex-mr-terms';}).some(m=>/chase\.com/.test(m)));
+ assert.ok(mk(r=>{r.centsPerPoint=1;}).some(m=>/varies/.test(m)));
+});

@@ -1,7 +1,7 @@
 // Hourly alert check and KV switches (stl00/Cardybara#259). Synthetic query results and an in-memory GitHub only.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {evaluate,readThresholds,runAlerts,DEFAULT_THRESHOLDS,HOUR_SQL,WEEK_SQL,LABELS} from '../gateway/src/alerts.js';
+import {evaluate,readThresholds,runAlerts,DEFAULT_THRESHOLDS,HOUR_SQL,WEEK_SQL,SILENCE_SQL,LABELS} from '../gateway/src/alerts.js';
 import {parseSwitches,withoutDisabledTools,unavailableText} from '../gateway/src/switches.js';
 import {callLedger,SETTINGS_KEY} from '../gateway/src/gateway.js';
 import {localGateway} from '../gateway/src/local.mjs';
@@ -50,14 +50,14 @@ test('thresholds come from KV settings.alerts over the defaults; an invalid one 
 });
 
 // A fake GitHub and SQL API behind one fetch.
-function world({hour={turns:100,errors:0,repaired:0,fallbacks:0},week={turns:1000,repaired:0,fallbacks:0},issues=[]}={}){
- const w={hour,week,issues,calls:[],failSql:false};
+function world({hour={turns:100,errors:0,repaired:0,fallbacks:0},week={turns:1000,repaired:0,fallbacks:0},recent={turns:100},issues=[]}={}){
+ const w={hour,week,recent,issues,calls:[],failSql:false};
  w.fetch=async(url,init={})=>{
   w.calls.push(url);
   if(url.includes('/analytics_engine/sql')){
    if(w.failSql)return new Response('x',{status:500});
    assert.equal(init.headers.Authorization,'Bearer synthetic-sql-token');
-   const row=init.body===HOUR_SQL?w.hour:init.body===WEEK_SQL?w.week:assert.fail('unexpected query');
+   const row=init.body===HOUR_SQL?w.hour:init.body===WEEK_SQL?w.week:init.body===SILENCE_SQL?w.recent:assert.fail('unexpected query');
    return Response.json({data:[row]});
   }
   assert.equal(init.headers.Authorization,'Bearer synthetic-github-token');
@@ -223,4 +223,41 @@ test('gateway-settings sets, shows and clears the switches, and refuses an inval
  await command(kv,['clear-switch','assistantOff']);
  assert.equal('assistantOff' in JSON.parse(await kv.get(SETTINGS_KEY)),false);
  await assert.rejects(()=>command(kv,['clear-switch','monthlyBudgetUsd']),/clear-switch/);
+});
+
+// --- Silence (stl00/Cardybara#529)
+test('silence: zero turns in 3 hours after a busy week breaches; any turn is ok; a quiet or unreadable week is unknown',()=>{
+ const busy={turns:168*10,repaired:0,fallbacks:0};// 10 turns per hour
+ assert.equal(state(evaluate({recent:{turns:0},week:busy}),'silence'),'breach');
+ assert.equal(state(evaluate({recent:{turns:1},week:busy}),'silence'),'ok');
+ assert.equal(state(evaluate({recent:{turns:0},week:{turns:168*5,repaired:0,fallbacks:0}}),'silence'),'breach','exactly minHourlyTurns breaches');
+ assert.equal(state(evaluate({recent:{turns:0},week:{turns:168*5-1,repaired:0,fallbacks:0}}),'silence'),'unknown','a quiet prior week never raises it');
+ assert.equal(state(evaluate({recent:{turns:0},week:null}),'silence'),'unknown');
+ assert.equal(state(evaluate({recent:null,week:busy}),'silence'),'unknown','unreadable metrics');
+ assert.ok(evaluate({}).some(r=>r.signal==='silence'));
+});
+test('an invalid minHourlyTurns in settings is ignored and named',()=>{
+ for(const bad of [0,-1,'5',NaN,1e6]){
+  const {thresholds,invalid}=readThresholds({alerts:{minHourlyTurns:bad}});
+  assert.equal(thresholds.minHourlyTurns,5);assert.deepEqual(invalid,['minHourlyTurns']);
+ }
+ const ok=readThresholds({alerts:{minHourlyTurns:20}});
+ assert.equal(ok.thresholds.minHourlyTurns,20);assert.deepEqual(ok.invalid,[]);
+ assert.equal(state(evaluate({recent:{turns:0},week:{turns:168*10,repaired:0,fallbacks:0}},ok.thresholds),'silence'),'unknown');
+});
+test('a silence breach opens one incident with aggregates only and the next healthy check closes it',async()=>{
+ const env=await alertEnv(),w=world({hour:{turns:0,errors:0,repaired:0,fallbacks:0},recent:{turns:0},week:{turns:168*10,repaired:0,fallbacks:0}});
+ const first=await run(env,w);
+ assert.deepEqual(first.done,['silence:opened']);
+ const [issue]=w.issues;
+ assert.equal(issue.title,'Assistant alert: silence');assert.deepEqual(issue.labels,['agent-incident','P1']);
+ assert.match(issue.body,/turnsLast3Hours: 0/);assert.match(issue.body,/priorWeekHourlyMean: 10/);assert.match(issue.body,/minHourlyTurns: 5/);
+ assert.deepEqual((await run(env,w)).done,['silence:commented']);assert.equal(w.issues.length,1);
+ w.recent={turns:12};
+ assert.deepEqual((await run(env,w)).done,['silence:closed']);
+ assert.equal(w.issues[0].state,'closed');assert.match(w.issues[0].comments.at(-1),/Healthy again/);
+});
+test('unreadable metrics leave silence unknown and do not open or close it',async()=>{
+ const env=await alertEnv(),w=world({issues:[{number:3,state:'open',title:'Assistant alert: silence',labels:LABELS,comments:[]}]});w.failSql=true;
+ assert.deepEqual((await run(env,w)).done,[]);assert.equal(w.issues[0].state,'open');
 });

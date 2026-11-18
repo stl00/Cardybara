@@ -294,6 +294,9 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
   await until('the service worker to answer the wallet',()=>evaluate('wallet',`chrome.tabs.getCurrent().then(t=>chrome.runtime.sendMessage({type:'hello',requestId:'e2e-hello',ownerTabId:t.id})).then(r=>!!r?.ok,()=>false)`));
   const {translations}=await import('../src/i18n/index.js');
   const words=zh=>JSON.stringify([zh,translations['en-US']?.[zh],translations['zh-TW']?.[zh]].filter(Boolean));
+  // Settings also holds the account sign-in card (#456), whose password field comes first; the model key and invite code
+  // fields are told apart by their placeholders. A page expression for the matching password inputs:
+  const secretFields=(...zh)=>`[...document.querySelectorAll('input[type=password]')].filter(e=>[${zh.map(z=>words(z).slice(1,-1)).join(',')}].includes(e.placeholder))`;
   const clickText=(name,selector,zh)=>evaluate(name,`(()=>{const want=${words(zh)};const el=[...document.querySelectorAll(${JSON.stringify(selector)})].find(e=>want.includes(e.textContent.trim()));if(!el)return false;el.click();return true;})()`);
   const pageText=name=>evaluate(name,'document.body?.innerText||""');
   // Click with real mouse events at the element's centre, for steps that need a user gesture.
@@ -555,7 +558,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
     await evaluate('wallet','location.hash="settings"');
     await until('the hosted service to show ready',async()=>{const t=await pageText('wallet');return JSON.parse(words('已就绪')).some(w=>t.includes(w));});
     const t=await pageText('wallet');
-    if(await evaluate('wallet',`!!document.querySelector('input[type=password]')`))throw new StepError('the settings page asks for a code or key in hosted mode');
+    if(await evaluate('wallet',`${secretFields('粘贴你的 API 密钥','粘贴邀请码')}.length>0`))throw new StepError('the settings page asks for a code or key in hosted mode');
     for(const zh of ['粘贴邀请码','保存邀请码','使用自己的 key','粘贴你的 API 密钥','保存密钥','自动补全银行数据'])if(JSON.parse(words(zh)).some(w=>t.includes(w)))throw new StepError('the beta settings page offers a code or own key: '+zh);
     const stored=await evaluate('worker',`chrome.storage.local.get('cardybara-model-key').then(r=>r['cardybara-model-key']||null)`);
     if(stored?.key)throw new StepError('a credential is stored in hosted mode');
@@ -571,7 +574,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
     await evaluate('wallet','location.hash="wallet"');await sleep(200);
     await evaluate('wallet','location.hash="settings"');
     await until('the own-key button',()=>clickText('wallet','button','使用自己的 key'));
-    const keyBox=await until('the '+what+' field',()=>evaluate('wallet',`(()=>{const el=document.querySelector('input[type=password]');if(!el||!${JSON.stringify(words('粘贴你的 API 密钥'))}.includes(el.placeholder))return false;el.focus();return true;})()`));
+    const keyBox=await until('the '+what+' field',()=>evaluate('wallet',`(()=>{const el=${secretFields('粘贴你的 API 密钥')}[0];if(!el)return false;el.focus();return true;})()`));
     if(!keyBox)throw new StepError('no '+what+' field on the settings page');
     await cdp.send('Input.insertText',{text:chatKey},sessions.wallet);
     await cdp.send('Target.activateTarget',{targetId:walletTarget}).catch(()=>{});
@@ -582,7 +585,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
      const checks=bank.model.requests.length;
      if(!await realClick('wallet','button',words('保存密钥')))return false;
      const end=Date.now()+2000;
-     while(Date.now()<end){if(bank.model.requests.length>checks||await evaluate('wallet',`!!document.querySelector('.ant-btn-loading')||!document.querySelector('input[type=password]')`))return true;await sleep(100);}
+     while(Date.now()<end){if(bank.model.requests.length>checks||await evaluate('wallet',`!!document.querySelector('.ant-btn-loading')||!${secretFields('粘贴你的 API 密钥')}.length`))return true;await sleep(100);}
      note('the save click did not take effect; clicking again');return false;
     });
     note('pasted a test-only',what,'and pressed save');

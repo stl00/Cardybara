@@ -370,3 +370,14 @@ test('the logged Plaid message redacts the request\'s own user id even when it i
  assert.equal(explanation('INVALID_INPUT','client_user_id u_abc is invalid','u_abc'),'client_user_id [redacted] is invalid');
  assert.equal(explanation('ITEM_ERROR','anything','u_abc'),null);
 });
+
+test('the scrub keeps long snake_case field names but still redacts opaque runs, and plaidCall passes the short user id through',async()=>{
+ const {explanation,plaidCall,PlaidError}=await import('../gateway/src/plaid.js');
+ assert.equal(explanation('INVALID_INPUT','unknown field additional_consented_products and personal_finance_category_version'),'unknown field additional_consented_products and personal_finance_category_version');
+ assert.equal(explanation('INVALID_INPUT','bad '+'Z'.repeat(30)+' and Ab3_'+'k9'.repeat(12)),'bad [redacted] and [redacted]');
+ // A short, non-token-shaped user id is redacted only if plaidCall hands it to PlaidError.
+ const fetch=async()=>new Response(JSON.stringify({error_type:'INVALID_INPUT',error_code:'INVALID_FIELD',error_message:'client_user_id u_abc is invalid',request_id:'r'}),{status:400});
+ const ctx={env:{PLAID_CLIENT_ID:'c',PLAID_SECRET:'s',PLAID_ENV:'sandbox'},fetch,audit:{},sleep:async()=>{}};
+ const e=await plaidCall(ctx,'/link/token/create',{user:{client_user_id:'u_abc'}}).catch(x=>x);
+ assert.ok(e instanceof PlaidError);assert.equal(e.explanation,'client_user_id [redacted] is invalid');
+});
