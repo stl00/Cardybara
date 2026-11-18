@@ -187,7 +187,9 @@ for (const lang of LANGS) {
         assert.ok(!bar || !hit(drawer, bar), `${lang} ${from}: the open drawer overlaps the tab bar`);
         const front = await c.evaluate(`(()=>{const e=document.querySelector('.chat-composer-area');if(!e)return 'none';const r=e.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;if(y>=innerHeight||y<0)return 'offscreen';const t=document.elementFromPoint(x,y);return t&&t.closest('.ant-drawer')?'drawer':'composer'})()`);
         assert.notEqual(front, 'composer', `${lang} ${from}: the composer shows through the open drawer`);
-        await c.tap('.more-drawer .ant-drawer-mask, .ant-drawer-mask').catch(() => {});
+        // The mask covers the whole screen and its centre lies under the sheet: tap it near the top, above the sheet.
+        await c.tap('.more-drawer .ant-drawer-mask, .ant-drawer-mask', {at: [0.5, 0.05]});
+        await c.until(`!${drawerOpen}`, 'the More sheet to close from its mask');
         await c.pause(400);
       }
     });

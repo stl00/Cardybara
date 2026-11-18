@@ -8,9 +8,10 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {findChrome, SANDBOX_SAFE_ARGS} from './dev-collector/chrome-launcher.mjs';
 
-const LIMIT_MS = 120000;
+// CI gets room for a cold disk; locally a Chrome that hangs this long is skipped rather than waited on.
+const LIMIT_MS = process.env.GITHUB_ACTIONS ? 120000 : 30000;
 
-export async function warmChrome({limitMs = LIMIT_MS} = {}) {
+async function warmChrome({limitMs = LIMIT_MS} = {}) {
   const chrome = await findChrome().catch(() => null);
   if (!chrome) return {skipped: 'no Chrome on this machine'};
   const work = await mkdtemp(join(tmpdir(), 'cardybara-warm-'));
