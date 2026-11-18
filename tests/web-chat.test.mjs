@@ -56,7 +56,7 @@ async function chat({dailyRequests}) {
       await c.tap('.add-card-modal .ant-btn-primary');
       await c.until(`!document.querySelector('.add-card-modal') && document.querySelector('.payment-assistant')`, 'the saved card');
       // A due date by hand too, so the wallet holds a value that must never reach the gateway.
-      await c.tap('.app-sider .ant-menu-item:nth-child(2)');
+      await c.tap('.mobile-tabbar [data-nav-key="wallet"]');
       await c.until(`document.querySelector('.card-title')`, 'the card list');
       await c.tap('.card-title');
       await c.until(`document.querySelector('.ant-drawer .manual-bill-edit')`, 'the card detail');

@@ -65,7 +65,7 @@ async function walk(c, lang) {
   await c.until(`!document.querySelector('.add-card-modal') && document.querySelector('.payment-assistant')`, 'the saved card');
   await c.pause(600);
     await check('card-saved');
-  await c.tap('.app-sider .ant-menu-item:nth-child(2)');
+  await c.tap('.mobile-tabbar [data-nav-key="wallet"]');
   await c.until(`document.querySelector('.card-title')`, 'the card list');
   await check('card-list');
   await c.tap('.card-title');
