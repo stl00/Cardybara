@@ -14,7 +14,8 @@ function floorY(){
  if(bar&&getComputedStyle(bar).display!=='none')return bar.getBoundingClientRect().top;
  return window.matchMedia?.(PHONE).matches?window.innerHeight-TABBAR-safeBottom():window.innerHeight;
 }
-const onAdvisor=()=>typeof location!=='undefined'&&location.hash==='#advisor';
+// A first load of `#agent` also opens the assistant (main.jsx), so it counts as the assistant page here too.
+const onAdvisor=()=>typeof location!=='undefined'&&['#advisor','#agent'].includes(location.hash);
 function load(){try{const r=JSON.parse(localStorage.getItem(KEY));return {hidden:r?.hidden===true,feeds:Math.max(0,Math.min(9999,Number(r?.feeds)||0)),pos:r?.pos&&Number.isFinite(r.pos.x)&&Number.isFinite(r.pos.y)?r.pos:null}}catch{return {hidden:false,feeds:0,pos:null}}}
 const words={
  'zh-CN':{name:'小卡豚',pet:'摸摸水豚',feed:'喂黄瓜',sleep:'一起发呆',wake:'起床啦',close:'收起',hide:'让它休息',restore:'叫水豚回来',hint:'拖动换位置 · 方向键也可以',hello:'我在这里陪你。',happy:'呼噜呼噜…',yum:'咔嚓！黄瓜真好吃。',nap:'今天也要慢慢来。',fed:'吃过 {0} 根黄瓜',idle:['发呆是一门艺术。','刷卡要精明，生活要松弛。','别忘了喝口水。','我没有偷吃黄瓜。']},

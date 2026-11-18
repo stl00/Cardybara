@@ -1,6 +1,6 @@
 // #501: on a 375x812 phone the capybara pet stays clear of the bottom tab bar, in real headless Chrome (dist/web, synthetic
 // wallet, loopback only): its default spot, a saved spot from an older layout (clamped on load), and keyboard moves can never
-// put it on the bar; it hides on the assistant page and comes back elsewhere; it steps aside while the More sheet is open.
+// put it on the bar, nor can a pointer drag; it hides on the assistant page (also when it opens from a first load of #agent) and comes back elsewhere; it steps aside while the More sheet is open.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
@@ -37,6 +37,23 @@ test('default spot, saved spot and keyboard moves all keep the pet at least 8 px
     for (let i = 0; i < 40; i++) await c.evaluate(`document.querySelector('.capy-pet-button').dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowDown',bubbles:true}))`);
     await c.pause(200);
     assert.ok((await gap(c)) >= 8, `after moving down with the keyboard: ${await gap(c)} px`);
+    // Real pointer drags from the pet's centre: first up (proving the drag moves it), then down past the bar to y=800,
+    // near the bottom of the 812 px screen.
+    const mouse = (type, x, y, buttons) => c.page('Input.dispatchMouseEvent', {type, x, y, button: 'left', buttons, clickCount: 1});
+    const dragTo = async toY => {
+      const at = await c.evaluate(`(()=>{const r=document.querySelector('.capy-pet-button').getBoundingClientRect();return {x:Math.round(r.left+r.width/2),y:Math.round(r.top+r.height/2)}})()`);
+      await mouse('mouseMoved', at.x, at.y, 0);
+      await mouse('mousePressed', at.x, at.y, 1);
+      for (let i = 1; i <= 10; i++) await mouse('mouseMoved', at.x, Math.round(at.y + (toY - at.y) * i / 10), 1);
+      await mouse('mouseReleased', at.x, toY, 0);
+      await c.pause(200);
+    };
+    await dragTo(300);
+    const top = await c.evaluate(`Math.round(document.querySelector('.capy-companion').getBoundingClientRect().top)`);
+    assert.ok(top < 400, `the drag moved the pet up: top ${top}`);
+    await dragTo(800);
+    const g = await gap(c);
+    assert.ok(g >= 8 && g < 40, `after dragging toward y=800 the pet sits just above the bar: ${g} px`);
   }, {init: base});
   // A spot saved by the old layout, right where the tab bar now is.
   await withPhone(async c => {
@@ -70,5 +87,15 @@ test('the pet hides on the assistant page and while the More sheet is open, and 
     await c.tap('.mobile-tabbar [data-nav-key="more"]');
     await c.pause(700);
     assert.equal(await shown(), false, 'steps aside while the More sheet is open');
+  }, {init: base});
+});
+
+test('a first load of /#agent opens the assistant, and the pet stays off its composer', {timeout: 60000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
+  ensureBuild();
+  await withPhone(async c => {
+    await c.goto('/#agent');
+    await c.until(`!!document.querySelector('.chat-composer-area')`, 'the assistant composer');
+    await c.pause(500);
+    assert.equal(await c.evaluate(`[...document.querySelectorAll('.capy-companion,.capy-restore')].some(p=>p.getBoundingClientRect().width>0)`), false, 'pet hidden on /#agent');
   }, {init: base});
 });

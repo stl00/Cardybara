@@ -2,3 +2,5 @@
 @media(max-width:767px){.capy-companion{width:90px;height:80px;transform:none}.capy-pet-button{width:90px;height:80px}}
 /* While the phone More sheet is open the pet steps aside rather than sitting on it. */
 body:has(.more-drawer.ant-drawer-open) .capy-companion,body:has(.more-drawer.ant-drawer-open) .capy-restore{visibility:hidden}
+/* Whatever the address says, the pet never sits on the assistant's composer. */
+body:has(.chat-composer-area) .capy-companion,body:has(.chat-composer-area) .capy-restore{display:none}
