@@ -17,7 +17,7 @@ One source ships to two channels (owner decision 2026-11-16, #373). The rules, i
 
 The web channel is deployed by `.github/workflows/web-deploy.yml` (`tests/web-deploy-workflow.test.mjs` guards its red lines). To roll back a bad deploy, redeploy the previous green commit: open the workflow's last green `main` run for that commit and re-run its `Deploy production` job (or revert the bad commit on `main`, whose own green run then deploys). The Pages project keeps earlier deployments, but do not use its dashboard rollback as the routine path, so that the live build always matches a commit that passed the gates. A deploy that changed the stored data format is never rolled back: older builds would read newer data. It is fixed forward with a new commit (CLAUDE.md, "One source, two channels").
 
-Setup the workflow expects (owner's standing Cloudflare operations authorization, done by the orchestrator): Pages project `cardybara-app`, and a protected `web` environment holding `CLOUDFLARE_API_TOKEN` (Pages: Edit only) and `CLOUDFLARE_ACCOUNT_ID`. Without them the deploy jobs fail at the deploy step; the build and test jobs still run.
+The workflow uses the Pages project `cardybara-app` and the `web` environment's `CLOUDFLARE_API_TOKEN` (Pages: Edit only) and `CLOUDFLARE_ACCOUNT_ID`. A production job fails if either secret is missing. Preview jobs skip deployment when either is missing. After a production deployment, the job checks that the homepage at `cardybara.dev` references the built JavaScript entry bundle and serves that bundle with the expected SHA-256.
 
 ## Friends beta (scoped build)
 
