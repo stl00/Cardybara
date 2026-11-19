@@ -229,12 +229,36 @@ test('a try that fell back keeps the checker codes and the discarded model text 
 // number. Development case: the real agent loop on the case's own wallet, with a scripted model.
 test('answers-before-asking: a correct currency-split answer is the model\'s own, and invented figures still fall back',async()=>{
  const c=liveCases.find(x=>x.id==='answers-before-asking');
- const run=async answer=>{let i=0;const chat=async()=>i++===0?{role:'assistant',content:'',tool_calls:[{id:'c1',type:'function',function:{name:'choose_card',arguments:JSON.stringify({category:'dining',categorySource:'stated',amount:100})}}]}:{role:'assistant',content:answer};return runLiveCase(c,{chat});};
+ const run=async(answer,repair=answer)=>{
+  const replies=[
+   {role:'assistant',content:'',tool_calls:[{id:'c1',type:'function',function:{name:'choose_card',arguments:JSON.stringify({category:'dining',categorySource:'stated',amount:100})}}]},
+   {role:'assistant',content:answer},
+   {role:'assistant',content:repair},
+  ];
+  return runLiveCase(c,{chat:async()=>replies.shift()});
+ };
  const good=await run('要看你用什么货币付：\n- 美元：刷 American Express Gold Card，餐厅 4 倍积分；积分按默认市场估值每点约 1.5 美分（可在设置里改）。\n- 港币：刷 Cathay Mastercard，每 HK$4 赚 1 里；Asia Miles 按默认市场估值每里约 10 港仙。\n- 加元：没有合适的卡。\n你在哪里消费、用什么货币付？');
  assert.deepEqual(good.detail.trace.filter(t=>t.type==='grounding').map(t=>t.codes),[[]]);
  assert.equal(good.checks.modelAnswered,true);assert.equal(good.checks.answersBeforeAsking,true);
+ const withEarnRate='美元：刷 American Express Gold Card，餐饮每 1 美元 4 分 Amex MR。按默认市场估值 1.5¢/分。\n港币：刷 Cathay Mastercard，餐饮每 4 港元 1 Asia Mile。按默认市场估值每里 10 港仙。\n加元：没有可比的卡。\n这笔是在哪里、用什么货币付的？';
+ for(const answer of [withEarnRate,withEarnRate.replace('每 1 美元 4 分','每美元可賺 4 分')]){
+  const result=await run(answer);
+  assert.deepEqual(result.detail.trace.filter(t=>t.type==='grounding').map(t=>t.codes),[[]]);
+  assert.equal(result.checks.modelAnswered,true);
+  assert.equal(result.checks.answersBeforeAsking,true);
+ }
+ const repaired=await run(withEarnRate+' 100 美元可得 400 分。',withEarnRate);
+ assert.equal(repaired.detail.trace.find(t=>t.type==='repair')?.passed,true);
+ assert.equal(repaired.checks.modelAnswered,true);
  // A value the tool did not return, or an earn figure it did not compute, is still caught and replaced by code.
- for(const bad of ['美元：American Express Gold Card，积分按默认市场估值每点约 2 美分。','美元：American Express Gold Card，100 美元可得 400 点。']){
+ for(const bad of [
+  '美元：American Express Gold Card，积分按默认市场估值每点约 2 美分。',
+  '美元：American Express Gold Card，积分按默认市场估值每点值得 4 分。',
+  '美元：American Express Gold Card，每 1 美元 10 分。',
+  '港币：Cathay Mastercard，每 1 美元 4 分。',
+  '美元：American Express Gold Card，100 美元可得 400 点。',
+  '美元：American Express Gold Card，100 美元可得 400 分。',
+ ]){
   const r=await run(bad);assert.equal(r.checks.modelAnswered,false,bad);
  }
 });
