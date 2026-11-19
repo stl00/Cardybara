@@ -14,6 +14,9 @@ const ZH_AGENT_ONLY='标记|標記|取消';
 const ZH_DONE='完成|成功|完毕|完畢|好了|妥了|搞定|到账|到賬';
 const ZH_AGENT=/我|[帮幫为為替给給代]你/;
 const ZH_HEDGE=/如果|若|假如|假设|假設|一旦|是否|有没有|有沒有|[吗嗎呢][？?。！!]?$|[？?]|[成功完]后|[成功完]後|之后|之後|以后|以後|之前|以前|(?<![刚剛])才|需要|必须|必須|须|須|要先|请|請|可以|可|能否|无法|無法|不能|没办法|沒辦法|不会|不會|未|没有|沒有|没|沒|不代表|无法确认|確認一下|确认一下|的话|的話|记得|記得|建议|建議|[将將](?=[会會于於在要可能])|即将|即將|会自动|會自動/;
+// A published rule can be followed by a reference to credits. Leave that reference intact if it has a predicate of its own.
+const ZH_DOCUMENTED_TERMS=/已(?:经|經)?(?:公布|公佈|发布|發布|發佈)(?:的)?(?:转点|轉點|转分|轉分)(?:规则|規則|伙伴|夥伴|条款|條款|路径|路徑)(?:(?:和|以及|及|与|與)已(?:经|經)?(?:记录|記錄)的抵扣(?=[\s*。！？!?]*$))?/g;
+const ZH_CREDIT_EARN_EXCLUSION=/^\s*\**已抵扣(?:的)?部分不[赚賺](?:取)?(?:积分|積分|点|點)(?=[\s*。！？!?；;，,：:]*$)/;
 // The gap allows a long object before the verb ("已經替你把 Membership Rewards 點數兌換成…", #301).
 const zhCompletedStrict=new RegExp(`已(?:经|經)?[^，,。；;！!？?\\n]{0,40}?(${ZH_ENROL}|${ZH_ACTION})(?!的)|(${ZH_ENROL}|${ZH_ACTION})已?(?:${ZH_DONE})`);
 // Without an agent in the clause, wordings that only describe a requirement are not claims (#362):
@@ -85,7 +88,9 @@ export function actionClaimIssues(answer,{autoActivation=false}={}){
   const zh=/[㐀-鿿]/.test(clause);
   if(zh&&!ZH_HEDGE.test(clause)){
    const agent=ZH_AGENT.test(clause);
-   const m=clause.match(agent?zhCompletedStrict:zhCompleted);
+   // Keep a separator so “通过” before a rule cannot suppress a later claim of a completed transfer.
+   const completion=clause.replace(ZH_DOCUMENTED_TERMS,'…').replace(ZH_CREDIT_EARN_EXCLUSION,'…');
+   const m=completion.match(agent?zhCompletedStrict:zhCompleted);
    if(m&&!(autoActivation&&!agent&&zhAutoActivated.test(m[0]))){const verb=m[1]||m[2];if(isEnrol(verb)){codes.add('unverified_enrollment');if(ZH_AGENT.test(clause))codes.add('unauthorized_action_claim');}else codes.add('unauthorized_action_claim');}
    if(zhStatus.test(clause)||zhStatusActive.test(clause)||zhStatusShown.test(clause))codes.add('unverified_enrollment');
    if(zhHandled.test(clause)||zhAgentDid.test(clause)||zhUsedPoints.test(clause)||zhUsedPointsBa.test(clause))codes.add('unauthorized_action_claim');
