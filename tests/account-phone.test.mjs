@@ -5,23 +5,18 @@
 // Screenshots: CARDYBARA_SHOTS=<dir> node --test tests/account-phone.test.mjs
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {spawnSync} from 'node:child_process';
-import {existsSync, mkdirSync, readdirSync, statSync} from 'node:fs';
+import {mkdirSync} from 'node:fs';
 import {join, resolve} from 'node:path';
-import {fileURLToPath} from 'node:url';
-import {WEB_DIR, PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {prepareWebTestBuild} from './helpers/web-test-build.mjs';
 import {findChrome} from '../scripts/dev-collector/chrome-launcher.mjs';
 import {GUIDE_KEY} from '../src/webFirstLaunch.js';
 
-const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
-const newest = dir => readdirSync(dir, {withFileTypes: true}).reduce((m, e) => Math.max(m, e.isDirectory() ? newest(join(dir, e.name)) : statSync(join(dir, e.name)).mtimeMs), 0);
-function ensureBuild() {
-  const index = join(WEB_DIR, 'index.html');
-  if (existsSync(index) && statSync(index).mtimeMs >= Math.max(newest(join(root, 'src')), statSync(join(root, 'index.html')).mtimeMs)) return;
-  const built = spawnSync('npm', ['run', 'build:web'], {cwd: root, encoding: 'utf8'});
-  assert.equal(built.status, 0, 'npm run build:web failed:\n' + built.stdout.slice(-2000) + built.stderr.slice(-2000));
-}
-const chrome = await findChrome().then(() => { ensureBuild(); return withPhone(async () => true); }, () => false).then(ok => ok || false, err => {
+let buildDir;
+const chrome = await findChrome().then(() => {
+  buildDir = prepareWebTestBuild();
+  return withPhone(async () => true, {dir: buildDir});
+}, () => false).then(ok => ok || false, err => {
   if (process.env.GITHUB_ACTIONS) throw err;
   console.warn('Chrome found but cannot start here, phone tests skipped: ' + err.message);
   return false;
@@ -101,8 +96,7 @@ async function walk(c, lang) {
 
 for (const lang of ['zh-CN', 'en-US']) {
   test(`account screens at 375 px (${lang}): sign up, code, sync on, change password, delete`, {timeout: 120000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
-    ensureBuild();
-    const steps = await withPhone(c => walk(c, lang), {init: `localStorage.setItem('cardybara-language',${JSON.stringify(lang)});localStorage.setItem(${JSON.stringify(GUIDE_KEY)},'1');${STUB}`});
+    const steps = await withPhone(c => walk(c, lang), {dir: buildDir, init: `localStorage.setItem('cardybara-language',${JSON.stringify(lang)});localStorage.setItem(${JSON.stringify(GUIDE_KEY)},'1');${STUB}`});
     assert.equal(steps.length, 8);
   });
 }

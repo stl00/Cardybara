@@ -4,13 +4,13 @@
 // An invalid id shows an error and navigates nowhere. Synthetic data only; the loopback origin is `localhost` because a passkey needs a name.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {spawnSync} from 'node:child_process';
 import {createServer} from 'node:http';
 import {createHash} from 'node:crypto';
-import {existsSync, mkdirSync, readFileSync, readdirSync, statSync} from 'node:fs';
+import {readFileSync} from 'node:fs';
 import {join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {WEB_DIR, PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {prepareWebTestBuild} from './helpers/web-test-build.mjs';
 import {staticHandler} from '../scripts/web-chrome.mjs';
 import {findChrome} from '../scripts/dev-collector/chrome-launcher.mjs';
 import {localGateway, memoryD1, memoryMail} from '../gateway/src/local.mjs';
@@ -18,14 +18,11 @@ import {GUIDE_KEY} from '../src/webFirstLaunch.js';
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const MIGRATION = ['0001_accounts', '0002_passkeys'].map(f => readFileSync(join(root, 'gateway/migrations', f + '.sql'), 'utf8')).join('\n');
-const newest = dir => readdirSync(dir, {withFileTypes: true}).reduce((m, e) => Math.max(m, e.isDirectory() ? newest(join(dir, e.name)) : statSync(join(dir, e.name)).mtimeMs), 0);
-function ensureBuild() {
-  const index = join(WEB_DIR, 'index.html');
-  if (existsSync(index) && statSync(index).mtimeMs >= Math.max(newest(join(root, 'src')), statSync(join(root, 'index.html')).mtimeMs)) return;
-  const built = spawnSync('npm', ['run', 'build:web'], {cwd: root, encoding: 'utf8'});
-  assert.equal(built.status, 0, 'npm run build:web failed:\n' + built.stdout.slice(-2000) + built.stderr.slice(-2000));
-}
-const chrome = await findChrome().then(() => { ensureBuild(); return withPhone(async () => true); }, () => false).then(ok => ok || false, err => {
+let buildDir;
+const chrome = await findChrome().then(() => {
+  buildDir = prepareWebTestBuild();
+  return withPhone(async () => true, {dir: buildDir});
+}, () => false).then(ok => ok || false, err => {
   if (process.env.GITHUB_ACTIONS) throw err;
   console.warn('Chrome found but cannot start here, phone tests skipped: ' + err.message);
   return false;
@@ -34,7 +31,7 @@ const shots = process.env.CARDYBARA_SHOTS ? resolve(process.env.CARDYBARA_SHOTS)
 
 // The wallet and the gateway on one loopback origin. The web build's gateway origin is replaced in the page by this one.
 async function startServer() {
-  const files = await staticHandler(WEB_DIR);
+  const files = await staticHandler(buildDir);
   const db = memoryD1(); await db.exec(MIGRATION);
   const mail = memoryMail();
   let gateway;
@@ -63,7 +60,6 @@ const EMAIL = 'synthetic.user@example.test', PASSWORD = 'synthetic-pass-0001';
 const A = '.account-settings';
 
 test('extension sign-in route: passkey made on the web signs in and redirects to the extension target with a fragment', {timeout: 120000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
-  ensureBuild();
   const srv = await startServer();
   const navigations = [];
   try {

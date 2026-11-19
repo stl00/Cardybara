@@ -110,6 +110,22 @@ const lines=answer=>answer.split(/\n|(?<=[。！？!?])/);
 // A value per point as written: "1.5 美分", "1.5 分", "1.5¢", "1.5 cents". Not 分钟.
 const centsIn=line=>[...line.matchAll(/(\d+(?:\.\d+)?)\s*(?:美分|港仙|分(?![钟鐘])|¢|cents?\b)/gi)].map(m=>Number(m[1]));
 const near=(set,n)=>[...set].some(v=>Math.abs(v-n)<0.006);
+const SPEND_CURRENCIES={美元:'USD',美金:'USD',港元:'HKD',港币:'HKD',港幣:'HKD',加元:'CAD',加币:'CAD',加幣:'CAD'};
+const POINTS_PER_SPEND=/每\s*(\d+(?:\.\d+)?|一)?\s*(美元|美金|港元|港币|港幣|加元|加币|加幣|USD|HKD|CAD)\s*(?:可?(?:[赚賺](?:取|得)?|[获獲]得|得)\s*)?(\d+(?:\.\d+)?)\s*分(?![钟鐘])/gi;
+function withoutSplitEarnRates(answer,options,issues){
+ // In “每 1 美元 4 分”, 分 counts earned points. Verify the rate against that currency's tool option before checking valuations.
+ return answer.split('\n').map(line=>{
+  const named=options.filter(row=>row.card&&mentions(norm(line),[norm(row.card)]));
+  return line.replace(POINTS_PER_SPEND,(claim,amount,unit,points)=>{
+   const currency=SPEND_CURRENCIES[unit]||unit.toUpperCase();
+   const option=options.find(row=>row.currency===currency);
+   const spend=amount&&amount!=='一'?Number(amount):1;
+   const earnRate=option?.unit==='HKD-per-mile'?1/option.rate:option?.unit===`points-per-${currency}`?option.rate:null;
+   if(spend<=0||earnRate!==Number(points)/spend||(named.length&&!named.includes(option)))issues.push({code:'unsupported_earn_rate',value:claim});
+   return ' ';
+  });
+ }).join('\n');
+}
 /**
  * #193: a default market valuation is never the user's own. A line crediting a value to the user ("按你…", "at
  * your…") is wrong when the number it gives is a default and not one the user said or set, or, with no number, when
@@ -151,12 +167,13 @@ export function choiceIssues(answer,evidence){
   const anchors=cardAnchors({card:latest.choice.card});
   if(anchors.length&&!mentions(text.slice(0,240),anchors))issues.push({code:'choice_not_first',value:latest.choice.card});
  }
+ const valuationText=latest.choice.kind==='depends-on-currency'?withoutSplitEarnRates(answer,latest.choice.options||[],issues):answer;
  // #193: a default market valuation is never the user's own.
- issues.push(...defaultAsUserIssues(answer,decisions.flatMap(d=>d.pointValues||[])));
+ issues.push(...defaultAsUserIssues(valuationText,decisions.flatMap(d=>d.pointValues||[])));
  const defaults=decisions.some(d=>(d.pointValues||[]).some(v=>v.basis==='default')),allowed=returnedCents(decisions);
  // Pricing is allowed only on a line about a card that has a value: the user's, or the default market valuation.
  // A currency-split answer (depends-on-currency) has no rows; each option that carries a pointValue is a valued card (#260).
  const valued=decisions.flatMap(d=>[...(d.rows||[]).filter(r=>r.centsPerPoint!=null),...(d.choice.options||[]).filter(o=>o.card&&o.pointValue)]).flatMap(r=>cardAnchors({card:r.card}));
- for(const line of answer.split(/\n|(?<=[。！？!?])/))if(POINT_PRICE.test(line)&&!CONDITIONAL_PRICE.test(line)&&!(valued.length&&(mentions(norm(line),valued)||USER_VALUE.test(line)||defaults&&DEFAULT_WORDS.test(line)))||defaults&&!CONDITIONAL_PRICE.test(line)&&unreturned(line,allowed))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
+ for(const line of lines(valuationText))if(POINT_PRICE.test(line)&&!CONDITIONAL_PRICE.test(line)&&!(valued.length&&(mentions(norm(line),valued)||USER_VALUE.test(line)||defaults&&DEFAULT_WORDS.test(line)))||defaults&&!CONDITIONAL_PRICE.test(line)&&unreturned(line,allowed))issues.push({code:'unstated_point_value',sentence:line.slice(0,160)});
  return issues;
 }
