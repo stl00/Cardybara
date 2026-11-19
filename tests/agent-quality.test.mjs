@@ -76,6 +76,26 @@ test('grounding catches completed transfer and enrolment claims in any wording, 
  for(const answer of ['你已经登记好了。','會籍已完成登記。',"You're now enrolled.","You've been registered for the benefit.",'Enrollment is complete.'])assert.ok(codes(answer).includes('unverified_enrollment'),answer);
  for(const answer of ['你可以在 App 里登记。','轉點請到官網操作。','If you are enrolled, the credit posts automatically.','To transfer, go to the rewards site.',"I can't enroll you."])assert.deepEqual(codes(answer).filter(c=>['unauthorized_action_claim','unverified_enrollment'].includes(c)),[],answer);
 });
+
+test('published transfer terms and credit earning exclusions are distinct from completed actions',()=>{
+ const codes=answer=>answerGrounding(answer,[]).issues.map(i=>i.code);
+ for(const answer of [
+  '下面只讲已公布的转点规则和已记录的抵扣。',
+  '達美不是任何一張卡的已公佈轉點夥伴。',
+  '已抵扣部分不赚点。',
+  '**已抵扣的部分不賺取積分**。',
+ ])assert.deepEqual(codes(answer),[],answer);
+ for(const answer of [
+  '按已公布的转点规则我已帮你把积分转入达美。',
+  '點數通過已公佈的轉點路徑已轉入達美。',
+  '已记录的抵扣已经到账。',
+  '已记录的抵扣都已到账。',
+  '已记录的抵扣已经全部到账。',
+  '已公佈的轉點規則與已記錄的抵扣 **已到帳**。',
+  '已公布的转点规则和已记录的抵扣，全部已到账。',
+  '我已经替你抵扣了。',
+ ])assert.ok(codes(answer).includes('unauthorized_action_claim'),answer);
+});
 // #301: a conversion with a long object before the verb, and a status said to be in effect or upgraded.
 test('grounding catches converted points and a status claimed active or upgraded, but not a restated user claim',()=>{
  const codes=answer=>answerGrounding(answer,[]).issues.map(i=>i.code);
