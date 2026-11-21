@@ -21,7 +21,7 @@ async function receiveDiagnostics(req,json){
  // A skip report must not hide the last run's findings.
  if(report.run!=='skipped')await writeFile(resolve(dir,'latest-run.json'),JSON.stringify(report,null,1),{mode:0o600});json(200,{ok:true});
 }
-export function createWalletHandler({port=Number(process.env.CARDYBARA_DEV_PORT||8766),staticFiles=true}={}){
+export function createWalletHandler({port=Number(process.env.CARDYBARA_DEV_PORT||8776),staticFiles=true}={}){
 const allowed=new Set(['http://127.0.0.1:'+port,'http://localhost:'+port,...(env.CARDYBARA_EXTENSION_ORIGINS||'').split(',').map(x=>x.trim()).filter(Boolean)]);
 const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.ico':'image/x-icon','.zip':'application/zip'};
 let active=0;
@@ -87,7 +87,7 @@ return async(req,res)=>{
 };
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){
- const port=Number(process.env.CARDYBARA_DEV_PORT||8766);
+ const port=Number(process.env.CARDYBARA_DEV_PORT||8776);
  const server=http.createServer(createWalletHandler({port}));
  server.listen(port,'127.0.0.1',()=>console.log('Cardybara wallet preview: http://127.0.0.1:'+port+' (model credentials stay on this machine)'));
 }

@@ -78,7 +78,7 @@
         "LOCAL_DEV": "1",
         "ALLOWED_MODELS": "deepseek-flash",
         // The PWA built against this gateway and served by `npm run preview` (LOCAL_DEV=1 admits an exact http://127.0.0.1 origin).
-        "ALLOWED_ORIGINS": "chrome-extension://*,http://127.0.0.1:8766",
+        "ALLOWED_ORIGINS": "chrome-extension://*,http://127.0.0.1:8776",
         "DAILY_REQUESTS_PER_CLIENT": "20",
         "DAILY_TOKENS_PER_CLIENT": "200000",
         "MONTHLY_BUDGET_USD": "1",

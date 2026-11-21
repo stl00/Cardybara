@@ -4,12 +4,12 @@ from pathlib import Path
 import hashlib,json,subprocess,sys,tempfile,zipfile
 root=Path(__file__).resolve().parents[1];node=sys.argv[1] if len(sys.argv)>1 else 'node'
 source=root/'public/cardybara-extension-1.1.0-preview.zip';target=root/'public/cardybara-extension-1.1.0-local-dev.zip'
-origin='http://127.0.0.1:8766';local='http://127.0.0.1:8766'
+origin='http://127.0.0.1:8776';local='http://127.0.0.1:8776'
 with zipfile.ZipFile(source) as z:data={n:z.read(n) for n in z.namelist() if n!='CHECKSUMS.json'}
 for n in ['providers.js','dashboard.js','popup.html']:
  data[n]=data[n].decode().replace(origin,local).encode()
 m=json.loads(data['manifest.json']);m['name']='Cardybara 卡疲扒拉 · 本地联调版';m['host_permissions']=[h for h in m['host_permissions'] if not h.startswith(origin)]+['http://127.0.0.1/*'];m['content_scripts'][0]['matches']=['http://127.0.0.1/*'];data['manifest.json']=(json.dumps(m,ensure_ascii=False,indent=2)+'\n').encode()
-notice='本包仅用于本地联调；数据接收页面仅为 http://127.0.0.1:8766。Chrome host pattern 覆盖 127.0.0.1 各端口，但桥接和 sender 校验严格限制 :8766。新增本机网站、storage 和 alarms 权限须安装时审核。生产包不包含本机域名。\n'
+notice='本包仅用于本地联调；数据接收页面仅为 http://127.0.0.1:8776。Chrome host pattern 覆盖 127.0.0.1 各端口，但桥接和 sender 校验严格限制 :8776。新增本机网站、storage 和 alarms 权限须安装时审核。生产包不包含本机域名。\n'
 data['README.md']=notice.encode()+data['README.md'];data['privacy.html']=data['privacy.html'].decode().replace('<h1>', '<p>'+notice+'</p><h1>',1).replace('除既有私人 Dashboard 外不授权其他网站，也不授权 localhost。','此开发包只授权上述本机 Dashboard 作为数据接收方，不向其他 Dashboard 传输。').encode()
 checks={n:hashlib.sha256(b).hexdigest() for n,b in data.items()};data['CHECKSUMS.json']=(json.dumps(checks,sort_keys=True,indent=2)+'\n').encode()
 with zipfile.ZipFile(target,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:

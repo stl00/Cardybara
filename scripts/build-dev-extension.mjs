@@ -30,7 +30,7 @@ const manifest=JSON.parse(await readFile(join(work,'manifest.json'),'utf8'));
 manifest.name='Cardybara Dev';manifest.background={service_worker:'background-dev.js',type:'module'};manifest.action.default_popup='dev-popup.html';manifest.action.default_title='Cardybara Dev';manifest.permissions=[...manifest.permissions,'idle'];manifest.optional_permissions=[...new Set([...(manifest.optional_permissions||[]),'notifications'])];
 delete manifest.content_scripts;
 // A page on localhost can't reach the extension: no content script and no external connections. This permission only lets the report be sent.
-manifest.host_permissions=[...manifest.host_permissions.filter(h=>!h.startsWith('http:')),'http://127.0.0.1:8766/*'];manifest.optional_host_permissions=(manifest.optional_host_permissions||[]).filter(h=>!h.startsWith('http:'));
+manifest.host_permissions=[...manifest.host_permissions.filter(h=>!h.startsWith('http:')),'http://127.0.0.1:8776/*'];manifest.optional_host_permissions=(manifest.optional_host_permissions||[]).filter(h=>!h.startsWith('http:'));
 await writeFile(join(work,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
 const walk=async dir=>(await Promise.all((await readdir(dir,{withFileTypes:true})).map(e=>e.isDirectory()?walk(join(dir,e.name)):[join(dir,e.name)]))).flat();
 const hash=createHash('sha256');for(const file of (await walk(work)).sort()){hash.update(relative(work,file));hash.update(await readFile(file));}

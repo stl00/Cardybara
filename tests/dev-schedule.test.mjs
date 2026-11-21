@@ -98,7 +98,7 @@ test('the dev build has no way in from localhost, and never touches a credential
   const r=spawnSync(process.execPath,['scripts/build-dev-extension.mjs','--no-wallet'],{cwd:root,encoding:'utf8',env:{...process.env,CARDYBARA_DEV_EXTENSION_DIR:join(dir,'ext')}});assert.equal(r.status,0,r.stderr);
   const m=JSON.parse(readFileSync(join(dir,'ext/manifest.json'),'utf8'));
   assert.equal(m.content_scripts,undefined);assert.equal(m.externally_connectable,undefined);assert.equal(m.background.service_worker,'background-dev.js');
-  assert.deepEqual(m.host_permissions.filter(h=>h.startsWith('http:')),['http://127.0.0.1:8766/*']);assert.deepEqual((m.optional_host_permissions||[]).filter(h=>h.startsWith('http:')),[]);
+  assert.deepEqual(m.host_permissions.filter(h=>h.startsWith('http:')),['http://127.0.0.1:8776/*']);assert.deepEqual((m.optional_host_permissions||[]).filter(h=>h.startsWith('http:')),[]);
   assert.ok(!readdirSync(join(dir,'ext')).includes('dashboard.js'));
   writeFileSync(join(dir,'keep.txt'),'x');const refused=spawnSync(process.execPath,['scripts/build-dev-extension.mjs','--no-wallet'],{cwd:root,encoding:'utf8',env:{...process.env,CARDYBARA_DEV_EXTENSION_DIR:dir}});assert.notEqual(refused.status,0,'a folder it did not build is not replaced');assert.ok(readdirSync(dir).includes('keep.txt'));
   for(const name of ['background-dev.js','schedule-core.js','dev-popup.js']){
@@ -191,7 +191,7 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   store['cardybara-dev-pending-report']={schema:1,at:1,build:'dev',run:'complete',banks:[]};
   const runPosts=()=>calls.posts.filter(p=>p.run!=='skipped'),skipPosts=()=>calls.posts.filter(p=>p.run==='skipped');
   await tick();assert.equal(store['cardybara-dev-pending-report'],undefined,'a report waiting from an earlier build is sent, not a crash');assert.equal(calls.posts[0].run,'complete');assert.equal(calls.posts.filter(p=>p.run==='skipped').length,1,'off is reported, once');calls.posts.length=0;await new Promise(r=>setTimeout(r,20));assert.equal(state()?.run,undefined,'off until the owner turns it on');assert.equal(settings().skips.BOA,'off');await tick();assert.equal(skipPosts().length,0,'nothing changed since startup');
-  assert.equal((await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60},{id:'dev',url:'http://127.0.0.1:8766/'}))?.ok,false,'only its own popup can turn it on');
+  assert.equal((await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60},{id:'dev',url:'http://127.0.0.1:8776/'}))?.ok,false,'only its own popup can turn it on');
   assert.equal((await say({type:'dev-schedule-set',enabled:true,intervalMinutes:60})).ok,true);
   await tick();assert.equal(state()?.run,undefined);assert.deepEqual(calls.created,[],'no card and no signed-in tab: nothing opens');assert.equal(settings().skips.BOA,'no_tab');assert.equal(skipPosts().at(-1).banks.find(b=>b.bank==='BOA').reason,'no_tab','a change is reported');
   idle='active';tabs=[{id:5,url:href,status:'complete',windowId:1,active:true}];await tick();assert.equal(state()?.run,undefined,'it waits until Chrome is idle');assert.equal(settings().skips.BOA,'not_idle');
@@ -212,7 +212,7 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   assert.ok(!calls.parser,'a scheduled run sends nothing to the model route');
   // Read now: only the popup may start it; it works with the schedule off and skips idle and the interval, and nothing else.
   await say({type:'dev-schedule-set',enabled:false});allow();idle='active';read='updated';captureError=null;
-  for(const sender of [{id:'dev',url:'chrome-extension://dev/index.html'},{id:'dev',url:'http://127.0.0.1:8766/'},{id:'other',url:'chrome-extension://dev/dev-popup.html'}])assert.equal((await say({type:'dev-read-now'},sender))?.ok,false,sender.url);
+  for(const sender of [{id:'dev',url:'chrome-extension://dev/index.html'},{id:'dev',url:'http://127.0.0.1:8776/'},{id:'other',url:'chrome-extension://dev/dev-popup.html'}])assert.equal((await say({type:'dev-read-now'},sender))?.ok,false,sender.url);
   const prior=state().run.id;const stoppedNow=await say({type:'dev-read-now'});assert.equal(stoppedNow.outcome,'nothing','a stopped bank is not retried');assert.equal(state().run.id,prior);
   settings().banks.BOA={state:'ok',lastAttemptAt:Date.now()};tabs=[{id:7,url:href,status:'complete',windowId:1,active:true}];
   const guidesAtStart=calls.files.filter(f=>f==='guide.js').length;assert.equal(guidesAtStart,0,'no scheduled run so far showed the guide');
@@ -228,7 +228,7 @@ test('in a mock Chrome: reads a signed-in tab, stops on failure, asks nothing, r
   assert.equal(settings().banks.BOA.state,'stopped','a challenge after a partial read stops the bank');
   const challenged=state().run.id;allow();captureError=null;await tick();assert.equal(state().run.id,challenged,'and it is not retried');
   // Retry from the popup: only its own popup, only a known bank, and the hourly minimum still holds.
-  assert.equal((await say({type:'dev-retry-bank',bank:'Nope'}))?.ok,false);assert.equal((await say({type:'dev-retry-bank',bank:'BOA'},{id:'dev',url:'http://127.0.0.1:8766/'}))?.ok,false);assert.equal(settings().banks.BOA.state,'stopped');
+  assert.equal((await say({type:'dev-retry-bank',bank:'Nope'}))?.ok,false);assert.equal((await say({type:'dev-retry-bank',bank:'BOA'},{id:'dev',url:'http://127.0.0.1:8776/'}))?.ok,false);assert.equal(settings().banks.BOA.state,'stopped');
   settings().banks.BOA.lastAttemptAt=Date.now();const retried=await say({type:'dev-retry-bank',bank:'BOA'});assert.equal(retried.ok,true);assert.equal(retried.settings.banks.BOA.state,undefined);assert.equal(retried.settings.skips.BOA,'not_due','a retried bank still waits out its hour');assert.equal(state().run.id,challenged,'retry itself starts nothing');
   await tick();assert.equal(state().run.id,challenged,'nor does the next check within the hour');settings().banks.BOA={state:'stopped'};
   // A worker that died mid-run: the check must settle that run, not replace it.
