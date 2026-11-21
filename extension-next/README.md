@@ -74,6 +74,6 @@ computer-use password autofill was an agent action, not an extension feature.
 
 常用流程只有“刷新银行／刷新全部银行”。所有数据类别共享同一任务、登录引导、取消和结果进度。内部先执行规则读取，再在已开启本机解析服务时补全积分、福利、优惠与交易。银行只读链接可自动遍历，最多五页；未读到不等于已确认不存在。
 
-运行 `npm run dev:wallet`，服务绑定 127.0.0.1:8766，静态页面取自 dist，DeepSeek 配置从工作区 .env.local 读取，绝不打包到扩展。GET /api/parser/status 不返回密钥。POST /api/parser/parse 限定已知扩展与本地网页来源、JSON、固定模型目标、固定提示词、请求体大小、并发1和24秒超时。当前使用云端模型，并非本地推理。
+运行 `npm run dev:wallet`，服务绑定 127.0.0.1:8776，静态页面取自 dist，DeepSeek 配置从工作区 .env.local 读取，绝不打包到扩展。GET /api/parser/status 不返回密钥。POST /api/parser/parse 限定已知扩展与本地网页来源、JSON、固定模型目标、固定提示词、请求体大小、并发1和24秒超时。当前使用云端模型，并非本地推理。
 
 在独立钱包“设置”点击连接本机服务，批准可选 loopback 权限，并明确开启 DeepSeek 财务片段解析。仅在用户允许后自动刷新解析。旧 AI 助手不再是主导航入口；模型配置是刷新设置。

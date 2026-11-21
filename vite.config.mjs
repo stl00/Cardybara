@@ -11,7 +11,7 @@ import {webAppPlugin,WEB_OUT} from './scripts/web-build.mjs';
 export default defineConfig(({mode})=>{
  const root=new URL('./',import.meta.url);
  return {
- server:{host:'127.0.0.1',port:8766,strictPort:true,watch:{ignored:['**/.debug/**']},fs:{deny:['.env','.env.*','*.{crt,pem}','**/.git/**','**/.debug/**']}},
+ server:{host:'127.0.0.1',port:8776,strictPort:true,watch:{ignored:['**/.debug/**']},fs:{deny:['.env','.env.*','*.{crt,pem}','**/.git/**','**/.debug/**']}},
  ...(mode==='web'?{publicDir:false,build:{outDir:WEB_OUT,emptyOutDir:true}}:{}),
  plugins:[buildScopePlugin(root),...(mode==='web'?[webAppPlugin({root})]:[]),i18nCatalogPlugin(),collectorPlugin(),{
   name:'cardybara-local-api',

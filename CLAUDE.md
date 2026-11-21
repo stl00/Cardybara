@@ -65,7 +65,7 @@ The wallet in `src/` is one codebase shipped to two channels (owner decision 202
 
 ```sh
 npm ci && npm run init:local     # once; init never overwrites an existing wallet
-npm run dev                      # source dev server (default 127.0.0.1:8766; pass -- --port N for another)
+npm run dev                      # source dev server (default 127.0.0.1:8776; pass -- --port N for another)
 npm run check:fixtures           # parse-only pass over bank samples
 npm run debug:bank               # field replays + the full regression list
 npm run test:refresh             # collector / state machine / UI-logic regressions

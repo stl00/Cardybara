@@ -1,5 +1,5 @@
 importScripts('reader.js');
-const ORIGIN='http://127.0.0.1:8766';
+const ORIGIN='http://127.0.0.1:8776';
 const BANKS={
  'Amex US':{url:'https://www.americanexpress.com/en-us/account/login',hosts:['www.americanexpress.com','global.americanexpress.com'],region:/en-us|\/us\//i},
  'Amex HK':{url:'https://www.americanexpress.com/zh-hk/account/login',hosts:['www.americanexpress.com','global.americanexpress.com'],region:/zh-hk|en-hk|\/hk\//i},

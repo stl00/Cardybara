@@ -28,7 +28,7 @@ npm run build
 npm run dev
 ```
 
-Open http://127.0.0.1:8766. `init:local` creates an empty seed only when none exists. Add a card or connect a bank from the empty wallet. Backup import is optional; never upload personal backups to GitHub.
+Open http://127.0.0.1:8776. `init:local` creates an empty seed only when none exists. Add a card or connect a bank from the empty wallet. Backup import is optional; never upload personal backups to GitHub.
 
 For optional AI in the extension, open the wallet from the extension, go to Settings and paste your own key under **AI model key**. Saving asks Chrome to let the extension reach the provider's API host. The key stays in the extension's local storage and goes only to that host; chat, card recognition and consented bank parsing use it. For the source wallet at `npm run dev`, the local server reads a key from `.env.local` instead. Enable any bank-data cloud parsing only after reviewing its consent settings.
 

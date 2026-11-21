@@ -44,7 +44,7 @@ States per TASK-001. Re-read from `dashboard_get_state` on 2026-11-17 (round 3) 
 - [x] Tests: `tests/gateway-plaid.test.mjs` (9 cases, fake Plaid, real ES256 webhooks), `tests/plaid-wallet.test.mjs` (4 cases); account, router and table tests updated.
 - [x] Docs: `docs/GATEWAY.md` "Plaid-linked credit cards", `PRIVACY.md` "Plaid-linked US credit cards".
 - [x] Sandbox end-to-end in a real browser with `user_good` and `user_transactions_dynamic`, plus the `error_ITEM_LOCKED` error path (2026-11-17; see Acceptance round 1).
-- [x] PWA (2026-11-17): `platform.plaid` on the web, panel on the PWA's settings page for every signed-in account; `ALLOWED_ORIGINS` lists the PWA's exact origins (`https://cardybara.dev`, and `https://cardybara-app.pages.dev`; locally `http://127.0.0.1:8766` under `LOCAL_DEV=1`); the Link page returns only to a listed web origin; `plaid_unavailable` and the plan cap (`plaid_limit`: `TRIAL_CONNECTION_LIMIT`, `CREDITS_EXHAUSTED`, `ADDITION_LIMIT`, not retried) degrade the panel; tests in `tests/gateway-plaid.test.mjs` (11 cases) and `tests/plaid-panel.test.mjs`.
+- [x] PWA (2026-11-17): `platform.plaid` on the web, panel on the PWA's settings page for every signed-in account; `ALLOWED_ORIGINS` lists the PWA's exact origins (`https://cardybara.dev`, and `https://cardybara-app.pages.dev`; locally `http://127.0.0.1:8776` under `LOCAL_DEV=1`); the Link page returns only to a listed web origin; `plaid_unavailable` and the plan cap (`plaid_limit`: `TRIAL_CONNECTION_LIMIT`, `CREDITS_EXHAUSTED`, `ADDITION_LIMIT`, not retried) degrade the panel; tests in `tests/gateway-plaid.test.mjs` (11 cases) and `tests/plaid-panel.test.mjs`.
 - [ ] Production go-live (owner tasks above; accounts must be deployed first): apply to upgrade from the personal free trial to full production access, then fill in the Security practices questionnaire (Settings → Compliance Center, unlocked by that application) before OAuth institutions such as Chase; production secrets; deploy the gateway with the new `ALLOWED_ORIGINS`.
 
 ## Acceptance
@@ -98,7 +98,7 @@ This integration is maintained with the Plaid MCP; this file is its durable stat
 
 ### Link from the PWA (phone size)
 
-1. Start the local gateway as above, adding `--var "ALLOWED_ORIGINS:chrome-extension://*,http://127.0.0.1:<port>"` for the port you serve the PWA on (the local env already lists `http://127.0.0.1:8766`, `npm run preview`'s port).
+1. Start the local gateway as above, adding `--var "ALLOWED_ORIGINS:chrome-extension://*,http://127.0.0.1:<port>"` for the port you serve the PWA on (the local env already lists `http://127.0.0.1:8776`, `npm run preview`'s port).
 2. Build the web wallet against that gateway into a scratch folder, without committing: set `GATEWAY_ORIGIN` in `extension-next/model-client.js` to `http://127.0.0.1:8787`, `npx vite build --mode web --outDir <scratch>/web-local`, then `git checkout extension-next/model-client.js`. Serve the folder: `python3 -m http.server <port> --bind 127.0.0.1`.
 3. Open `http://127.0.0.1:<port>/#settings` at phone size (the built-in browser's mobile preset). Expected, signed out: the card "通过 Plaid 连接的美国信用卡" explains that signing in is needed, with no Add button.
 4. Sign up in "账号与同步" with any `@example.test` address (the code is in the file wrangler names after "send_email binding called"). Expected: the Plaid panel says "还没有连接信用卡。" with "添加信用卡".

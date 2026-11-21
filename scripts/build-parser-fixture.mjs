@@ -6,6 +6,6 @@ fs.copyFileSync(new URL('../tests/browser/hsbc-fixture.html',import.meta.url),ne
 fs.copyFileSync(new URL('../tests/browser/amex-hk-fixture.html',import.meta.url),new URL('amex-hk.html',dir));
 fs.copyFileSync(new URL('../tests/browser/amex-hk-data-fixture.html',import.meta.url),new URL('amex-hk-data.html',dir));
 fs.copyFileSync(new URL('../tests/browser/amex-lazy-offers-fixture.html',import.meta.url),new URL('amex-lazy-offers.html',dir));
-console.log('http://127.0.0.1:8766/debug-parser/index.html');
+console.log('http://127.0.0.1:8776/debug-parser/index.html');
 
 fs.copyFileSync(new URL('../tests/browser/chase-fixture.html',import.meta.url),new URL('chase.html',dir));

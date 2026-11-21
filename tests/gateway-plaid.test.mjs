@@ -357,9 +357,9 @@ test('PWA: a listed web origin links and is sent back only there; other pages ar
 
 test('local runs may list an exact http://127.0.0.1 or localhost origin; production never admits http',async()=>{
  const {originAllowed}=await import('../gateway/src/gateway.js');
- const L='http://127.0.0.1:8766';
+ const L='http://127.0.0.1:8776';
  assert.equal(originAllowed(L,[L],{local:true}),true);
- assert.equal(originAllowed('http://localhost:8766',['http://localhost:8766'],{local:true}),true);
+ assert.equal(originAllowed('http://localhost:8776',['http://localhost:8776'],{local:true}),true);
  assert.equal(originAllowed(L,[L]),false);
  assert.equal(originAllowed('http://127.0.0.1:9999',[L],{local:true}),false);
  assert.equal(originAllowed('http://evil.example',['http://evil.example'],{local:true}),false);

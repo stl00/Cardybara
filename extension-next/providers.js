@@ -2,7 +2,7 @@
 import {BUILD_BANKS,BUILD_SCOPE} from './build-scope.js';
 export {BUILD_SCOPE};
 export const VERSION='1.1.0';
-export const ORIGIN='http://127.0.0.1:8766';
+export const ORIGIN='http://127.0.0.1:8776';
 const amex=['www.americanexpress.com','global.americanexpress.com'];
 export const PROVIDERS={
  'Amex US':{issuer:'Amex',region:'US',locales:['en-US'],currency:'USD',hosts:amex,regionPath:/en-us|\/us\//i,url:'https://www.americanexpress.com/en-us/account/login',evidence:'unverified'},
