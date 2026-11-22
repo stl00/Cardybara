@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """The dev extension must run the same code the release package ships: every packaged file byte for byte,
-except the short list below. Its only additions are the local schedule, diagnostics and self-reload."""
+except the short list below. Its only additions are the local Read now, diagnostics and self-reload."""
 from pathlib import Path
 import json,subprocess,sys,tempfile,zipfile,os
 r=Path(__file__).resolve().parents[1]
@@ -8,7 +8,7 @@ r=Path(__file__).resolve().parents[1]
 PACKAGE_ONLY={'README.md','RELEASE-NOTES.txt','CHECKSUMS.json','manifest.json'}
 # The content script only serves a localhost wallet, which the dev build refuses by design.
 DEV_DROPS={'dashboard.js'}
-DEV_ONLY={'background-dev.js','schedule-core.js','dev-popup.html','dev-popup.js','dev-build-info.js','build-stamp.json','dev-structure-report.js'}
+DEV_ONLY={'background-dev.js','read-core.js','dev-popup.html','dev-popup.js','dev-build-info.js','build-stamp.json','dev-structure-report.js'}
 args=dict(a.split('=',1) for a in sys.argv[1:] if '=' in a)
 cfg=json.loads((r/'release.json').read_text())
 package=Path(args.get('--package-file',r/'release'/('cardybara-'+cfg['label']+'.zip')))
@@ -24,7 +24,7 @@ def compare(dev):
    elif f.read_bytes()!=z.read(n):problems.append('differs from the release package: '+n)
   m=json.loads(z.read('manifest.json'))
  d=json.loads((dev/'manifest.json').read_text())
- if set(d['permissions'])-{'idle'}!=set(m['permissions']):problems.append('permissions differ beyond idle')
+ if set(d['permissions'])!=set(m['permissions']):problems.append('permissions differ')
  if set(h for h in d['host_permissions'] if not h.startswith('http:'))!=set(m['host_permissions']):problems.append('bank hosts differ')
  if d.get('content_scripts') or m.get('content_scripts'):problems.append('a content script is present')
  # Every other manifest key must match, so a page policy or exposed resource can't differ unnoticed.

@@ -16,9 +16,9 @@ const NOW=Date.UTC(2026,10,10,15,0);
 const H=3600000;
 
 // Eight banks, every status the dev popup can show at once, with a last result on most rows.
-const DEV_SKIPS={'Amex US':'not_due','Amex HK':'amex_turn',Chase:'ready',BOA:'stopped','HSBC HK':'signed_out','SC HK':'no_tab','Citi US':'check_failed','Amex CA':'other_region'};
-const DEV_BANKS={'Amex US':{state:'ok',lastAttemptAt:NOW-2*H,finishedAt:NOW-2*H},'Amex HK':{state:'login_expired',lastAttemptAt:NOW-5*H,finishedAt:NOW-5*H},Chase:{state:'ok',lastAttemptAt:NOW-30*H,finishedAt:NOW-30*H},BOA:{state:'stopped',reason:'no_data',lastAttemptAt:NOW-3*H,finishedAt:NOW-3*H},'HSBC HK':{state:'login_expired',lastAttemptAt:NOW-26*H,finishedAt:NOW-26*H},'SC HK':{state:'ok',lastAttemptAt:NOW-50*H,finishedAt:NOW-50*H},'Citi US':{state:'stopped',lastAttemptAt:NOW-H,finishedAt:NOW-H},'Amex CA':{}};
-const devState={ok:true,running:false,settings:{enabled:true,intervalMinutes:360,lastCheckAt:NOW-10*60000,readNow:['Amex US','Chase','BOA','Citi US'],skips:DEV_SKIPS,banks:DEV_BANKS}};
+const DEV_SKIPS={'Amex US':'ready','Amex HK':'amex_turn',Chase:'ready',BOA:'ready','HSBC HK':'signed_out','SC HK':'no_tab','Citi US':'check_failed','Amex CA':'other_region'};
+const DEV_BANKS={'Amex US':{state:'ok',finishedAt:NOW-2*H},'Amex HK':{state:'login_expired',finishedAt:NOW-5*H},Chase:{state:'ok',finishedAt:NOW-30*H},BOA:{state:'failed',reason:'no_data',finishedAt:NOW-3*H},'HSBC HK':{state:'login_expired',finishedAt:NOW-26*H},'SC HK':{state:'ok',finishedAt:NOW-50*H},'Citi US':{state:'failed',finishedAt:NOW-H},'Amex CA':{}};
+const devState={ok:true,running:false,read:{lastCheckAt:NOW-10*60000,readNow:['Amex US','Chase','BOA','Citi US'],skips:DEV_SKIPS,banks:DEV_BANKS}};
 // The release popup with a run over every active bank, each in a different phase.
 const JOBS=[['Amex US','updated'],['Amex HK','needs_login'],['Chase','capturing'],['BOA','partial'],['HSBC HK','needs_confirmation'],['SC HK','load_error'],['Citi US','queued']];
 const releaseState={ok:true,state:{runtimeBuild:'stale-build',disabled:['Citi US'],run:{status:'running',jobs:JOBS.map(([bank,status])=>({bank,status}))}}};
@@ -39,7 +39,7 @@ globalThis.chrome={runtime:{sendMessage:async()=>structuredClone(${JSON.stringif
 const TYPES={'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.ico':'image/x-icon'};
 async function stage(dir){
  await cp(join(root,'extension-next'),dir,{recursive:true});
- for(const f of ['dev-popup.html','dev-popup.js','schedule-core.js'])await cp(join(root,'extension-dev',f),join(dir,f));
+ for(const f of ['dev-popup.html','dev-popup.js','read-core.js'])await cp(join(root,'extension-dev',f),join(dir,f));
  await cp(join(root,'public/brand'),join(dir,'brand'),{recursive:true});
  for(const [i,s] of SCENARIOS.entries()){
   await writeFile(join(dir,`stub-${i}.js`),stub(s));
