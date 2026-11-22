@@ -156,7 +156,8 @@ export function checkLabels(d){
  // The follow-up tools of #482: protections list the selected cards, a flight plan needs a path to the airline, a points account needs the programme.
  if(d.expect.tool==='find_protections'&&!result.cards?.length)issues.push('expected call selects no card');
  if(d.expect.tool==='plan_flight'&&!result.transfers?.programmes?.some(g=>g.partners.length))issues.push('expected call finds no transfer path');
- if(d.expect.tool==='points_accounts'&&!result.programmes?.length)issues.push('expected call returns no programme');
+ if(d.expect.tool==='plan_stay'&&!result.transfers?.programmes?.some(g=>g.partners.length))issues.push('expected call finds no transfer path');
+if(d.expect.tool==='points_accounts'&&!result.programmes?.length)issues.push('expected call returns no programme');
  if(d.expect.tool==='query_credits'&&!Object.values(result.groups||{}).some(g=>g.length))issues.push('expected call returns no credits');
  const titleOf=t.ordinal?t.ordinal.list[t.ordinal.index-1][0]:t.item?.[0];
  // A card with no protection record answers not_found: that is a valid follow-up, with no title to find.
