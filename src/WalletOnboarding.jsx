@@ -1,4 +1,4 @@
-import React,{useMemo,useState} from 'react';
+import React,{useMemo,useRef,useState} from 'react';
 import {Alert,Button,Flex,Form,Input,Modal,Select,Space,Typography} from 'antd';
 import {ACTIVE_BANKS,CONNECTABLE_BANKS,SCOPED,bankOrder,connectable} from '../extension-next/providers.js';
 import {BankIdentity,bankName} from './Identity';
@@ -16,16 +16,19 @@ export const OTHER_PRODUCT='other';
  * uses, so a manual card gets the same art, benefits and credits; a free-text name covers anything else.
  */
 export function AddWalletCard({onAdd}){
- const {language}=useI18n();const [open,setOpen]=useState(false),[picking,setPicking]=useState(false),[form]=Form.useForm(),[error,setError]=useState('');
+ const {language}=useI18n();const [open,setOpen]=useState(false),[picking,setPicking]=useState(false),[form]=Form.useForm(),[error,setError]=useState('');const lastField=useRef(null);
  // undefined until the user picks a tile or "not listed"; the product decides the bank, so only "not listed" asks for one.
  const [choice,setChoice]=useState(),[otherBank,setOtherBank]=useState();
  const products=useMemo(()=>cardProducts.filter(p=>[...ACTIVE_BANKS,...MANUAL_BANK_NAMES].includes(p.bank)&&p.region===bankProfile(p.bank)?.region),[]);
  const product=choice&&choice!==OTHER_PRODUCT?products.find(p=>p.id===choice):null;
  // A scoped build (the beta) can still hold a card of another bank, but says it won't be read.
  const typedBank=Form.useWatch('bank',form),chosenBank=product?product.bank:typedBank;
- const start=()=>{setError('');setChoice(undefined);setOtherBank(undefined);setOpen(true);setPicking(true);};
+ const start=()=>{lastField.current=null;setError('');setChoice(undefined);setOtherBank(undefined);setOpen(true);setPicking(true);};
  const close=()=>{setOpen(false);setPicking(false);};
- const focusTail=()=>document.querySelector('.add-card-modal .add-card-tail')?.focus();
+ // Runs when the dialog's open animation (or the catalogue's close animation) ends. By then antd has also moved focus (the
+ // catalogue returns it to its trigger, the dialog to its close button), and on a slow phone the user may already be typing
+ // the fee date. So go back to the field they last used and fall back to the tail only when they have not used one.
+ const focusTail=()=>{const f=lastField.current;(f?.isConnected?f:document.querySelector('.add-card-modal .add-card-tail'))?.focus();};
  // Closing the panel before anything was chosen ends adding; after a choice it goes back to the form.
  const closePicker=()=>{setPicking(false);if(choice===undefined)setOpen(false);};
  const submit=async()=>{try{const value=await form.validateFields();onAdd({...value,bank:product?product.bank:value.bank,productId:product?product.id:null});form.resetFields();setError('');close();}catch(e){if(!e.errorFields)setError(t(e.message==='duplicate_card'?'这家银行的同一尾号卡片已经在钱包里。':'卡片未保存，请检查信息或浏览器存储空间。'));}};
@@ -34,7 +37,7 @@ export function AddWalletCard({onAdd}){
   onChoose={id=>{setChoice(id);setPicking(false);}} onOther={bank=>{setChoice(OTHER_PRODUCT);setOtherBank(bank||undefined);if(bank&&form.getFieldInstance?.('bank'))form.setFieldsValue({bank});setPicking(false);}}/>
  <Modal className="add-card-modal" title={t('添加自己的卡片')} open={open&&choice!==undefined} afterOpenChange={o=>o&&focusTail()} onCancel={close} onOk={submit} okText={t('保存卡片')} cancelText={t('取消')} destroyOnHidden>
   <Alert type="info" showIcon title={t('只填写卡种和尾号，不要填写完整卡号、密码或验证码。')} style={{marginBottom:20}}/>
-  <Form form={form} layout="vertical" className="add-card-form" preserve={false}>
+  <Form form={form} layout="vertical" className="add-card-form" preserve={false} onFocus={e=>{if(e.target.matches?.('input,textarea'))lastField.current=e.target;}}>
    {product?<ChosenProduct product={product} extra={<Button className="add-card-change" onClick={()=>setPicking(true)}>{t('更换')}</Button>}/>:<>
     <Flex className="add-card-unlisted" align="center" justify="space-between" gap={8} wrap style={{marginBottom:16}}><Text type="secondary">{t('不在列表里（自己填写卡名）')}</Text><Button size="small" className="add-card-change" onClick={()=>setPicking(true)}>{t('从列表选择')}</Button></Flex>
     <Form.Item name="bank" label={t('银行与地区')} initialValue={otherBank} rules={[{required:true}]}><Select className="add-card-bank" aria-label={t('银行与地区')} showSearch optionFilterProp="search" options={[...bankOrder(ACTIVE_BANKS),...MANUAL_BANK_NAMES].map(b=>({value:b,search:`${b} ${t(bankProfile(b).issuer)}`,label:<BankIdentity bank={b}/>}))}/></Form.Item>

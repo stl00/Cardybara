@@ -25,7 +25,7 @@ files['README.md']=(r/'README.md').read_bytes();files['RELEASE-NOTES.txt']=(r/cf
 with tempfile.TemporaryDirectory(prefix='cardybara-release-smoke-') as tmp:
  for n,b in files.items():
   p=Path(tmp)/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b)
- subprocess.run(['node',str(r/'scripts/smoke-extension.mjs'),str(Path(tmp)/'background.js'),'http://127.0.0.1:8766'],check=True)
+ subprocess.run(['node',str(r/'scripts/smoke-extension.mjs'),str(Path(tmp)/'background.js'),'http://127.0.0.1:8776'],check=True)
 o=r/'release';o.mkdir(exist_ok=True);target=o/('cardybara-'+cfg['label']+'.zip')
 with zipfile.ZipFile(target,'w',zipfile.ZIP_DEFLATED) as z:
  for n,b in sorted(files.items()):

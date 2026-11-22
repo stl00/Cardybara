@@ -2,6 +2,7 @@
 // Keys are the zh-CN source text; each file maps them per language ({"en-US":{…},"zh-TW":{…}}).
 // Put a new string in the file for its feature. A new file also needs a line below;
 // scripts/i18n-catalog.mjs fails the build when a file is missing here or a key appears in two files.
+import account from './account.json' with {type:'json'};
 import about from './about.json' with {type:'json'};
 import app from './app.json' with {type:'json'};
 import assistant from './assistant.json' with {type:'json'};
@@ -14,10 +15,11 @@ import knowledge from './knowledge.json' with {type:'json'};
 import knowledgeRules from './knowledge-rules.json' with {type:'json'};
 import onboarding from './onboarding.json' with {type:'json'};
 import payments from './payments.json' with {type:'json'};
+import plaid from './plaid.json' with {type:'json'};
 import purchase from './purchase.json' with {type:'json'};
 import rewards from './rewards.json' with {type:'json'};
 
-export const catalogFiles = {about, app, assistant, banks, benefits, cards, common, extension, knowledge, 'knowledge-rules': knowledgeRules, onboarding, payments, purchase, rewards};
+export const catalogFiles = {account, about, app, assistant, banks, benefits, cards, common, extension, knowledge, 'knowledge-rules': knowledgeRules, onboarding, payments, plaid, purchase, rewards};
 
 export function mergeCatalog(files) {
   const merged = {};

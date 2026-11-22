@@ -7,10 +7,14 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {localGateway,memoryD1,memoryMail} from '../gateway/src/local.mjs';
 import {ROUTES,ROUTE_TABLE} from '../gateway/src/gateway.js';
+import {readWalletDocument,migrateWalletDocument} from '../src/walletDocument.js';
+import {newWalletCard} from '../src/walletRegistry.js';
+import {cardProducts} from '../src/productCatalog.js';
+import {validWalletDocument} from '../gateway/src/walletSchema.js';
 import {TABLES,CODE_TTL_SECONDS,SIGNIN_MAX_FAILURES,LOCK_SECONDS,CODE_SENDS_PER_HOUR,CODE_MAX_ATTEMPTS,hashPassword} from '../gateway/src/accounts.js';
 
 const ORIGIN='https://app.cardybara.test';
-const MIGRATION=readFileSync(new URL('../gateway/migrations/0001_accounts.sql',import.meta.url),'utf8');
+const MIGRATION=['0001_accounts','0002_passkeys','0003_plaid'].map(f=>readFileSync(new URL(`../gateway/migrations/${f}.sql`,import.meta.url),'utf8')).join('\n');
 const EMAIL='synthetic.user@example.test',OTHER='other.user@example.test';
 const PASSWORD='synthetic-pass-0001',NEW_PASSWORD='synthetic-pass-0002';
 const T0=Date.parse('2026-11-16T12:00:00Z');
@@ -185,23 +189,23 @@ test('wallet: first write, read back, stale revision answers 409 with the curren
 
 test('wallet: a document over the size cap is refused and nothing is stored',async()=>{
  const t=await setup({vars:{WALLET_MAX_BYTES:'2048'}});const token=await account(t);
- const big={notes:'x'.repeat(3000)};
+ const big={cards:[1,2,3].map(()=>'x'.repeat(1000))};
  const r=await json(await t.call('PUT',ROUTES.wallet,{baseRevision:0,formatVersion:1,document:big},token));
  assert.deepEqual(r,{status:413,body:{error:{code:'too_large'}}});
  // Far over the cap: the body itself is cut off while it is read.
- const huge=await t.call('PUT',ROUTES.wallet,{baseRevision:0,formatVersion:1,document:{notes:'x'.repeat(20000)}},token);
+ const huge=await t.call('PUT',ROUTES.wallet,{baseRevision:0,formatVersion:1,document:{cards:['x'.repeat(20000)]}},token);
  assert.equal(huge.status,413);
  assert.equal(t.db.tables.get('wallets').length,0);
- assert.equal((await t.call('PUT',ROUTES.wallet,{baseRevision:0,formatVersion:1,document:{notes:'x'.repeat(1000)}},token)).status,200);
+ assert.equal((await t.call('PUT',ROUTES.wallet,{baseRevision:0,formatVersion:1,document:{cards:['x'.repeat(1000)]}},token)).status,200);
 });
 
 test('one user cannot read or write another user\'s wallet',async()=>{
  const t=await setup();
  const a=await account(t,EMAIL),b=await account(t,OTHER);
- await t.call('PUT',ROUTES.wallet,{baseRevision:0,formatVersion:1,document:{owner:'a'}},a);
+ await t.call('PUT',ROUTES.wallet,{baseRevision:0,formatVersion:1,document:{favorites:['a']}},a);
  assert.equal((await json(await t.call('GET',ROUTES.wallet,undefined,b))).body.document,null);
- assert.equal((await t.call('PUT',ROUTES.wallet,{baseRevision:0,formatVersion:1,document:{owner:'b'}},b)).status,200);
- assert.deepEqual((await json(await t.call('GET',ROUTES.wallet,undefined,a))).body.document,{owner:'a'});
+ assert.equal((await t.call('PUT',ROUTES.wallet,{baseRevision:0,formatVersion:1,document:{favorites:['b']}},b)).status,200);
+ assert.deepEqual((await json(await t.call('GET',ROUTES.wallet,undefined,a))).body.document,{favorites:['a']});
 });
 
 test('delete account leaves 0 rows for that user in every table and keeps the other user',async()=>{
@@ -230,14 +234,14 @@ test('log lines carry no email, password, code, token or wallet content',async()
  const t=await setup();
  const token=await account(t);
  const code=t.mail.sent.map(m=>/\d{6}/.exec(m.text)?.[0]).find(Boolean);
- await t.call('PUT',ROUTES.wallet,{baseRevision:0,formatVersion:1,document:{note:'synthetic-wallet-marker'}},token);
+ await t.call('PUT',ROUTES.wallet,{baseRevision:0,formatVersion:1,document:{cards:[{note:'synthetic-wallet-marker'}]}},token);
  await t.call('GET',ROUTES.wallet,undefined,token);
  await t.call('POST',ROUTES.session,{email:EMAIL,password:'wrong-pass-0001'});
  const text=t.logs.join('\n');
  for(const secret of [EMAIL,'synthetic.user',PASSWORD,'wrong-pass-0001',code,token,'synthetic-wallet-marker'])assert.ok(!text.includes(secret),'log contains '+secret);
  const routes=t.logs.map(l=>JSON.parse(l).route);
  assert.ok(routes.includes('account_wallet')&&routes.includes('account_session'));
- for(const l of t.logs)for(const k of Object.keys(JSON.parse(l)))assert.ok(['at','route','status','error'].includes(k),'unexpected log field '+k);
+ for(const l of t.logs)for(const k of Object.keys(JSON.parse(l)))assert.ok(['at','route','status','error','user','size'].includes(k),'unexpected log field '+k);
 });
 
 test('without D1, mail or a sender the account routes answer 503 and the /v1 routes are unchanged',async()=>{
@@ -269,4 +273,143 @@ test('passwords are PBKDF2-SHA256 with a per-user salt',async()=>{
  assert.notEqual(a.password_salt,b.password_salt);
  assert.equal(a.password_iterations,100000);
  assert.equal(a.password_hash,await hashPassword(PASSWORD,a.password_salt,a.password_iterations));
+});
+
+// --- #413: per-user access, schema, export, delete, logs.
+const DOC={cards:[{id:'card-synthetic-1',product:'synthetic-product',nickname:'synthetic-nick-A'}],favorites:['card-synthetic-1'],pointValues:{synthetic:1.5}};
+const put=(t,doc,token,base=0)=>t.call('PUT',ROUTES.wallet,{baseRevision:base,formatVersion:1,document:doc},token);
+
+test('no account route takes a user id from the client',async()=>{
+ const t=await setup();
+ const a=await account(t,EMAIL),b=await account(t,OTHER);
+ const idB=t.db.tables.get('users').find(u=>u.email===OTHER).id;
+ await put(t,{favorites:['b-only']},b);
+ // A user id in the body, the path or the query string changes nothing: the session decides.
+ assert.equal(await codeOf(await put(t,{favorites:['x']},a)),undefined);
+ assert.equal(await codeOf(await t.call('PUT',ROUTES.wallet,{baseRevision:1,formatVersion:1,document:{},userId:idB},a)),'bad_request');
+ assert.equal(await codeOf(await t.call('DELETE',ROUTES.account,{password:PASSWORD,userId:idB},a)),'bad_request');
+ const viaQuery=await json(await t.call('GET',ROUTES.wallet+'?user='+idB+'&userId='+idB,undefined,a));
+ assert.deepEqual(viaQuery.body.document,{favorites:['x']});
+ assert.ok(!JSON.stringify(viaQuery).includes('b-only'));
+ assert.equal(await codeOf(await t.call('GET',ROUTES.wallet+'/'+idB,undefined,a)),'not_found');
+});
+
+test('user A\'s session cannot read, overwrite or delete user B\'s blob',async()=>{
+ const t=await setup();
+ const a=await account(t,EMAIL),b=await account(t,OTHER);
+ const idA=t.db.tables.get('users').find(u=>u.email===EMAIL).id,idB=t.db.tables.get('users').find(u=>u.email===OTHER).id;
+ assert.equal((await put(t,{favorites:['b-secret']},b)).status,200);
+ // Read: A sees only A's (empty) wallet, and export shows nothing of B's.
+ assert.equal((await json(await t.call('GET',ROUTES.wallet,undefined,a))).body.document,null);
+ assert.ok(!JSON.stringify((await json(await t.call('GET',ROUTES.export,undefined,a))).body).includes('b-secret'));
+ // Overwrite: A writing at B's revision creates or changes A's row only.
+ assert.equal((await put(t,{favorites:['a-doc']},a,1)).status,409);
+ assert.equal((await put(t,{favorites:['a-doc']},a)).status,200);
+ const rows=t.db.tables.get('wallets');
+ assert.equal(rows.find(r=>r.user_id===idB).document,JSON.stringify({favorites:['b-secret']}));
+ assert.equal(rows.find(r=>r.user_id===idA).document,JSON.stringify({favorites:['a-doc']}));
+ // Delete: A deleting the account leaves B's blob, sessions and user row.
+ assert.equal((await t.call('DELETE',ROUTES.account,{password:PASSWORD},a)).status,200);
+ assert.deepEqual(rowsFor(t.db,idB,OTHER),{users:1,email_codes:0,sessions:1,wallets:1,auth_limits:0,passkeys:0,passkey_challenges:0,plaid_items:0,plaid_transactions:0,plaid_link_sessions:0});
+ assert.deepEqual((await json(await t.call('GET',ROUTES.wallet,undefined,b))).body.document,{favorites:['b-secret']});
+});
+
+test('a document with a field outside the schema is refused and nothing is stored',async()=>{
+ const t=await setup();const token=await account(t);
+ const bad=[
+  {...DOC,pageEvidence:'synthetic'},{...DOC,rawBankText:'synthetic'},{...DOC,extra:1},
+  {cards:[{id:'c',evidence:{html:'<p>x</p>'}}]},{cards:[{nested:{deep:{rawText:'x'}}}]},
+  {cards:{a:1}},{favorites:'x'},{cards:['x'.repeat(4001)]}
+ ];
+ for(const doc of bad){
+  const r=await json(await put(t,doc,token));
+  assert.deepEqual(r,{status:422,body:{error:{code:'invalid_document'}}},JSON.stringify(doc).slice(0,60));
+ }
+ assert.equal(t.db.tables.get('wallets').length,0);
+ assert.equal((await put(t,DOC,token)).status,200);
+ assert.equal(validWalletDocument({}),true);assert.equal(validWalletDocument(null),false);assert.equal(validWalletDocument([]),false);
+});
+
+test('export returns the stored document and everything else held for the user',async()=>{
+ const t=await setup();const token=await account(t);const other=await account(t,OTHER);
+ assert.equal(await codeOf(await t.call('GET',ROUTES.export)),'unauthorized');
+ const empty=await json(await t.call('GET',ROUTES.export,undefined,token));
+ assert.equal(empty.status,200);assert.equal(empty.body.wallet,null);
+ await put(t,DOC,token);await put(t,{favorites:['b']},other);
+ await t.call('POST',ROUTES.forgot,{email:EMAIL});
+ const r=await json(await t.call('GET',ROUTES.export,undefined,token));
+ assert.equal(r.status,200);
+ assert.deepEqual(r.body.wallet,{revision:1,formatVersion:1,document:DOC,updatedAt:Math.floor(T0/1000)});
+ assert.equal(r.body.account.email,EMAIL);assert.equal(r.body.account.verified,true);
+ assert.equal(r.body.sessions.length,1);assert.equal(r.body.pendingEmailCodes.length,1);
+ const text=JSON.stringify(r.body);
+ assert.ok(!text.includes(OTHER)&&!text.includes('"b"'),'nothing of another user');
+ assert.ok(!text.includes(t.db.tables.get('users')[0].password_hash),'the hash itself is not exported');
+});
+
+test('delete leaves 0 rows in every table, sessions and credentials included',async()=>{
+ const t=await setup();const token=await account(t);
+ await put(t,DOC,token);
+ await t.call('POST',ROUTES.session,{email:EMAIL,password:PASSWORD});// a second session
+ await t.call('POST',ROUTES.session,{email:EMAIL,password:'wrong-pass-0001'});
+ await t.call('POST',ROUTES.forgot,{email:EMAIL});
+ assert.equal((await t.call('DELETE',ROUTES.account,{password:PASSWORD},token)).status,200);
+ for(const name of TABLES)assert.equal(t.db.tables.get(name).length,0,name+' still has rows');
+});
+
+test('log lines carry route, status, a user hash and the blob size, and no wallet field value',async()=>{
+ const t=await setup();const token=await account(t);
+ const doc={cards:[{id:'card-synthetic-77',nickname:'synthetic-nickname-77',lastFour:'synthetic-4242'}],cardEdits:{x:{note:'synthetic-edit-88'}},
+  productChoices:{p:'synthetic-product-99'},paymentStates:{a:'synthetic-paid-11'},pointValues:{mr:'synthetic-cpp-22'},
+  reminders:{note:'synthetic-remind-33'},favorites:['synthetic-fav-44'],benefitEvents:[{note:'synthetic-benefit-55'}],costEvents:[{note:'synthetic-cost-66'}]};
+ assert.equal((await put(t,doc,token)).status,200);
+ await put(t,doc,token);// stale
+ await put(t,{...doc,pageEvidence:'synthetic-evidence-00'},token,1);// refused
+ await t.call('GET',ROUTES.wallet,undefined,token);
+ await t.call('GET',ROUTES.export,undefined,token);
+ await t.call('DELETE',ROUTES.account,{password:PASSWORD},token);
+ const text=t.logs.join('\n');
+ const values=[];const walk=v=>{if(typeof v==='string')values.push(v);else if(v&&typeof v==='object')Object.values(v).forEach(walk);};
+ walk(doc);values.push('synthetic-evidence-00');
+ assert.ok(values.length>=10);
+ for(const v of values)assert.ok(!text.includes(v),'log contains '+v);
+ const idHash=t.logs.map(l=>JSON.parse(l)).filter(l=>l.route.startsWith('account')&&l.user);
+ assert.ok(idHash.length>=5);
+ for(const l of idHash)assert.match(l.user,/^[0-9a-f]{16}$/);
+ assert.equal(new Set(idHash.map(l=>l.user)).size,1,'one user, one hash');
+ const wlog=t.logs.map(l=>JSON.parse(l)).find(l=>l.route==='account_wallet'&&l.size);
+ assert.equal(wlog.size,new TextEncoder().encode(JSON.stringify(doc)).byteLength);
+});
+
+// #449: the document the app itself writes (readWalletDocument, synthetic wallets) must be accepted.
+const memStorage=(init={})=>{const m=new Map(Object.entries(init));return {getItem:k=>m.has(k)?m.get(k):null,setItem:(k,v)=>m.set(k,String(v)),keys:()=>[...m.keys()]};};
+const appDocument=async(snapshot)=>{
+ const product=cardProducts[0];
+ const storage=memStorage({'cardybara-favorites':JSON.stringify(['manual-1'])});
+ const doc=await readWalletDocument({storage,snapshot,readBenefitEvents:async()=>[],readCostEvents:async()=>[]});
+ doc.walletCards={cards:[newWalletCard({bank:product.bank,name:'Synthetic Manual',tail:'0000'},'manual-1')],removed:[]};
+ return doc;
+};
+test('a #411 wallet document from readWalletDocument passes the schema and PUT returns 200',async()=>{
+ const t=await setup();const token=await account(t);
+ const rows={cards:[{id:'snap-1',name:'Synthetic Snapshot Card'}],rewards:[],transactions:[],offers:[],benefits:[],connections:[],extraRows:[{id:'x'}]};
+ for(const snapshot of [undefined,rows]){
+  const doc=await appDocument(snapshot);
+  assert.equal(validWalletDocument(doc),true);
+  assert.equal(validWalletDocument(migrateWalletDocument({formatVersion:1})),true);
+  assert.equal(validWalletDocument(migrateWalletDocument({})),true);
+  const r=await t.call('PUT',ROUTES.wallet,{baseRevision:snapshot?1:0,formatVersion:1,document:doc},token);
+  assert.equal(r.status,200);
+ }
+});
+test('a #411 document with evidence or rawText at any depth, or a bad section type, is still refused',async()=>{
+ const base=await appDocument(undefined);
+ assert.equal(validWalletDocument({...base,rawText:{a:1}}),false);
+ assert.equal(validWalletDocument({...base,walletCards:{...base.walletCards,cards:[{evidence:'x'}]}}),false);
+ assert.equal(validWalletDocument({...base,costLedger:{schema:1,events:[{a:{b:{rawText:'x'}}}]}}),false);
+ assert.equal(validWalletDocument({...base,favorites:{}}),false);
+ assert.equal(validWalletDocument({...base,reminderSettings:[]}),false);
+ assert.equal(validWalletDocument({...base,formatVersion:'1'}),false);
+ assert.equal(validWalletDocument({...base,cards:{}}),false);
+ assert.equal(validWalletDocument({...base,extraScalar:1}),false);
 });

@@ -6,7 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
-import {plan,run} from '../scripts/gateway-release.mjs';
+import {plan,run,compare,parseCompare,DEFAULT_THRESHOLDS} from '../scripts/gateway-release.mjs';
 import {hostedPost,OVERRIDE_HEADER,isVersionId} from '../evals/hosted-turn.mjs';
 import {buildReport} from '../scripts/live-eval.mjs';
 
@@ -63,4 +63,69 @@ test('the hosted dry run goes through the real transport and gateway with no net
  assert.doesNotMatch(JSON.stringify(report),/cdy_/);
  const failed=spawnSync('node',['scripts/live-eval.mjs','--target=hosted','--out='+out],{cwd:root,encoding:'utf8',env:process.env});
  assert.notEqual(failed.status,0);assert.match(failed.stderr,/--version/);
+});
+
+// --- compare (#528): synthetic numbers only
+const V3='33333333-3333-4333-8333-333333333333';
+const row=(version,turns,errors=0,repaired=0,fallbacks=0)=>({version,turns,errors,repaired,fallbacks});
+const run2=(rows,extra=[],argv=['compare',V2,'--stable',V1])=>{const lines=[];const r=compare([...argv,'--metrics=m.json',...extra],{readFile:()=>JSON.stringify({data:rows}),log:l=>lines.push(l)});return {...r,lines};};
+
+test('compare ramps when the new version is no worse than stable',()=>{
+ const r=run2([row(V1,1000,10,50,5),row(V2,200,2,12,1)]);
+ assert.equal(r.verdict,'ramp');assert.match(r.lines.join('\n'),/verdict: ramp/);assert.equal(r.new.turns,200);assert.equal(r.new.errorPercent,1);
+ assert.equal(run2([row(V1,1000,100),row(V2,200,12)]).verdict,'ramp');// 6% but stable is 10%: under 2x
+});
+
+test('compare holds when either side has too few turns',()=>{
+ assert.equal(run2([row(V1,1000),row(V2,19,19)]).verdict,'hold');
+ assert.equal(run2([row(V1,19),row(V2,1000)]).verdict,'hold');
+ assert.equal(run2([row(V1,19),row(V2,1000)],['--min-turns=10']).verdict,'ramp');
+});
+
+test('compare rolls back on errors or fallbacks, and the rule needs both the floor and the multiple',()=>{
+ assert.equal(run2([row(V1,1000,10),row(V2,100,10)]).verdict,'rollback');
+ const f=run2([row(V1,1000,0,0,10),row(V2,100,0,0,10)]);assert.equal(f.verdict,'rollback');assert.match(f.reason,/fallback/);
+ assert.equal(run2([row(V1,1000,0),row(V2,100,4)]).verdict,'ramp');// below 5% floor
+ assert.equal(run2([row(V1,1000,0),row(V2,100,4)],['--min-rate-percent=3']).verdict,'rollback');
+ assert.equal(run2([row(V1,100,5),row(V2,100,9)]).verdict,'ramp');// 9% < 2x5%
+ assert.equal(run2([row(V1,100,5),row(V2,100,9)],['--rate-multiple','1.5']).verdict,'rollback');
+});
+
+test('compare reads sampling-weighted counts from stdin as given',()=>{
+ // a sample interval of 10 makes 5 sampled turns weigh 50; the query has already applied it, so the counts are used as is
+ const r=compare(['compare',V2,'--stable',V1],{readStdin:()=>JSON.stringify({data:[row(V1,500,5),row(V2,50,5)]}),log:()=>{}});
+ assert.equal(r.verdict,'rollback');assert.equal(r.new.errorPercent,10);
+});
+
+test('compare rejects a malformed id, an unknown version and a malformed file instead of ramping',()=>{
+ const ok=[row(V1,100),row(V2,100)],go=(argv,data)=>()=>compare(argv,{readFile:()=>typeof data==='string'?data:JSON.stringify(data),log:()=>{}});
+ assert.throws(go(['compare','latest','--stable',V1,'--metrics=m'],{data:ok}),/version id/);
+ assert.throws(go(['compare',V2,'--metrics=m'],{data:ok}),/--stable/);
+ assert.throws(go(['compare',V2,'--stable',V2,'--metrics=m'],{data:ok}),/differ/);
+ assert.throws(go(['compare',V3,'--stable',V1,'--metrics=m'],{data:ok}),/not in the metrics/);
+ assert.throws(go(['compare',V2,'--stable',V1,'--metrics=m'],'not json'),/readable JSON/);
+ assert.throws(go(['compare',V2,'--stable',V1,'--metrics=m'],{rows:[]}),/"data" array/);
+ assert.throws(go(['compare',V2,'--stable',V1,'--metrics=m'],{data:[row(V1,100),row(V2,'x')]}),/invalid count/);
+ assert.throws(go(['compare',V2,'--stable',V1,'--metrics=m'],{data:[row(V1,100),row(V2,10,20)]}),/more events/);
+ assert.throws(go(['compare',V2,'--stable',V1,'--metrics=m'],{data:[row(V1,100),row(V1,100),row(V2,100)]}),/twice/);
+ assert.throws(()=>parseCompare(['compare',V2,'--stable',V1,'--min-turns=0']),/min-turns/);
+ assert.throws(()=>parseCompare(['compare',V2,'--stable',V1,'--rate-multiple=abc']),/rate-multiple/);
+});
+
+test('compare makes no network request and the CLI works end to end',()=>{
+ const realFetch=globalThis.fetch;let calls=0;globalThis.fetch=()=>{calls++;throw Error('network');};
+ try{run2([row(V1,100),row(V2,100)]);}finally{globalThis.fetch=realFetch;}
+ assert.equal(calls,0);
+ const src=fs.readFileSync(path.join(root,'scripts/gateway-release.mjs'),'utf8');
+ assert.doesNotMatch(src,/\bfetch\s*\(|node:https?|node:net\b|XMLHttpRequest/);
+ const r=spawnSync('node',['scripts/gateway-release.mjs','compare',V2,'--stable',V1],{cwd:root,encoding:'utf8',input:JSON.stringify({data:[row(V1,100,1),row(V2,100,20)]})});
+ assert.equal(r.status,0,r.stderr);assert.match(r.stdout,/verdict: rollback/);
+ const bad=spawnSync('node',['scripts/gateway-release.mjs','compare',V2,'--stable',V1],{cwd:root,encoding:'utf8',input:'{}'});
+ assert.notEqual(bad.status,0);
+});
+
+test('compare defaults are the alert defaults of gateway/src/alerts.js',()=>{
+ const src=fs.readFileSync(path.join(root,'gateway/src/alerts.js'),'utf8');
+ for(const k of Object.keys(DEFAULT_THRESHOLDS))assert.equal(Number(src.match(new RegExp('\\b'+k+':(\\d+)'))?.[1]),DEFAULT_THRESHOLDS[k],k);
+ assert.deepEqual(parseCompare(['compare',V2,'--stable',V1]).thresholds,DEFAULT_THRESHOLDS);
 });

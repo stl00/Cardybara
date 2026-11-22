@@ -3,7 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
+import {runWalletTool,validateToolCall,flightCashComparison} from '../src/walletAgent.js';
 import {pointsToReach,convertPoints} from '../src/transferRoutes.js';
 import {answerGrounding} from '../src/answerGrounding.js';
 import {reduceToolResult,topicItems} from '../src/conversationState.js';
@@ -106,4 +106,94 @@ test('review #193: a value the user said in the chat reaches plan_flight first, 
  // A value the plan did not return can't be quoted.
  const plain=runWalletTool(call({airline:'Delta',milesNeeded:25500}),ctx);
  assert.ok(answerGrounding('按默认市场估值每点 1.7 美分，可在设置里改。',[plain,plain.credits,plain.transfers]).issues.some(i=>i.code==='unstated_point_value'));
+});
+
+// #479: a stated cash fare against the award, all maths in code. Synthetic fares; Delta via Membership Rewards US is 1:1 at 1.5 cents.
+const cmp=(extra,c=ctx)=>runWalletTool(call({airline:'Delta',milesNeeded:25500,...extra}),c);
+const only=r=>r.cashComparison.rows.find(x=>x.partner==='Delta SkyMiles');
+
+test('cash comparison: cash cheaper, award cheaper and equal come from code',()=>{
+ // 26,000 points at 1.5 cents is 390.00; taxes of 5.60 make the award side 395.60.
+ const cash=only(cmp({cashFare:300,cashFareCurrency:'USD',taxesAndFees:5.6}));
+ assert.deepEqual([cash.status,cash.pointsSpent,cash.pointsCashEquivalent,cash.awardTotal,cash.cheaper],['computed',26000,390,395.6,'cash-cheaper']);
+ assert.equal(cash.centsPerMile,1.15,'(300 - 5.60) / 25,500 miles');
+ const award=only(cmp({cashFare:500,cashFareCurrency:'USD'}));
+ assert.deepEqual([award.cheaper,award.centsPerMile],['award-cheaper',1.96]);
+ const equal=only(cmp({cashFare:390,cashFareCurrency:'USD'}));assert.equal(equal.cheaper,'equal');
+ const own=only(cmp({cashFare:390,cashFareCurrency:'USD',pointValues:{MR:2}}));
+ assert.deepEqual([own.pointValue.basis,own.awardTotal,own.cheaper],['stated',520,'cash-cheaper']);
+});
+
+test('cash comparison gives nothing when the inputs cannot support it',()=>{
+ const mismatch=only(cmp({cashFare:300,cashFareCurrency:'HKD'}));
+ assert.equal(mismatch.status,'currency-mismatch');assert.equal(mismatch.cheaper,undefined);assert.equal(mismatch.awardTotal,undefined);assert.match(mismatch.note,/differ/);
+ const r=runWalletTool(call({airline:'Flying Blue',milesNeeded:25000,cashFare:300,cashFareCurrency:'USD'}),ctx);
+ const ur=r.cashComparison.rows.find(x=>x.programme==='Ultimate Rewards');
+ assert.equal(ur.status,'rate-not-published');assert.equal(ur.pointsSpent,undefined);assert.equal(ur.cheaper,undefined);
+ const noAward=runWalletTool(call({airline:'Delta',cashFare:300,cashFareCurrency:'USD'}),ctx).cashComparison;
+ assert.equal(noAward.status,'not-computed');assert.ok(noAward.rows.every(x=>x.status==='no-award-price'&&x.cheaper===undefined));
+ const noValue=only(cmp({cashFare:300,cashFareCurrency:'USD'},{...ctx,marketDefaults:false}));assert.equal(noValue.status,'no-point-value');
+ // No fare stated: no comparison at all.
+ assert.equal(cmp({}).cashComparison,undefined);
+});
+
+test('an unused credit is netted against the cash side and labelled as possible, not certain',()=>{
+ const r=cmp({cashFare:400,cashFareCurrency:'USD'}),row=only(r);
+ assert.equal(row.cheaper,'award-cheaper','390 award against 400 cash');
+ const plan=(credit)=>flightCashComparison({args:{cashFare:400,cashFareCurrency:'USD',milesNeeded:25500},programmes:r.transfers.programmes,valuation:r.valuation,credits:{groups:{markedUnused:credit}}});
+ const withCredit=plan([{publicLimit:50,currency:'USD'},{publicLimit:30,currency:'HKD'}]).rows.find(x=>x.partner==='Delta SkyMiles');
+ assert.deepEqual([withCredit.withUnusedCredit.unusedCredit,withCredit.withUnusedCredit.cashSide,withCredit.withUnusedCredit.cheaper],[50,350,'cash-cheaper']);
+ assert.equal(withCredit.cheaper,'award-cheaper','the headline verdict ignores the credit');
+ assert.match(withCredit.withUnusedCredit.note,/not a certain one/);
+ assert.equal(plan([]).rows.find(x=>x.partner==='Delta SkyMiles').withUnusedCredit,undefined);
+});
+
+test('cash fare arguments are validated',()=>{
+ for(const bad of [{cashFare:300},{cashFareCurrency:'USD'},{cashFare:0,cashFareCurrency:'USD'},{cashFare:300,cashFareCurrency:'usd'},{taxesAndFees:20},{cashFare:300,cashFareCurrency:'USD',taxesAndFees:-1},{cashFare:'300',cashFareCurrency:'USD'}])
+  assert.throws(()=>validateToolCall(call({airline:'Delta',...bad})),/invalid_arguments/);
+ assert.equal(validateToolCall(call({airline:'Delta',cashFare:300,cashFareCurrency:'USD',taxesAndFees:5.6})).name,'plan_flight');
+});
+
+// #530: booking protections beside the plan, as plan_stay lists them. Facts only; nothing else in the plan changes.
+test('plan_flight lists trip delay with its source for a card that has a record, not_found for one without',()=>{
+ const r=runWalletTool(call({airline:'Delta',when:'Dec 20-27'}),ctx);
+ assert.equal(r.protections.scored,false);
+ assert.ok(r.protections.coverageTypes.includes('trip-delay'));
+ const csr=r.protections.cards.find(c=>c.name==='Sapphire Reserve');
+ assert.equal(csr.status,'found');
+ const delay=csr.coverage.find(p=>p.type==='trip-delay');
+ assert.ok(delay&&delay.sources.length&&delay.sources.every(s=>s.url.startsWith('https://')));
+ assert.ok(['primary','secondary','not-stated'].includes(delay.basis));
+ assert.ok(csr.coverage.every(p=>r.protections.coverageTypes.includes(p.type)&&p.value===undefined));
+ const gold=r.protections.cards.find(c=>c.name==='American Express Gold Card');
+ assert.equal(gold.status,'not_found');assert.deepEqual(gold.coverage,[]);
+ assert.match(r.protections.note,/guide to benefits controls/);assert.match(r.protections.note,/not proof it has no coverage/);
+});
+test('plan_flight protections follow cardName and region, and leave the rest of the plan unchanged',()=>{
+ const one=runWalletTool(call({airline:'Delta',cardName:'Sapphire Reserve'}),ctx);
+ assert.deepEqual(one.protections.cards.map(c=>c.name),['Sapphire Reserve']);
+ const hk=runWalletTool(call({airline:'Delta',region:'HK'}),ctx);
+ assert.ok(hk.protections.cards.every(c=>c.region==='HK'));
+ const all=runWalletTool(call({airline:'Delta',milesNeeded:25500,points:20000,cashFare:300,cashFareCurrency:'USD'}),ctx);
+ const {protections,...rest}=all;
+ assert.equal(all.kind,'flight-plan');assert.ok(all.cashComparison);
+ assert.deepEqual(Object.keys(rest).sort(),['asOf','award','cashComparison','coverage','credits','dates','kind','payCash','route','transfers','valuation'].sort());
+ // Protections do not depend on the transfer maths: an airline no card reaches still lists them.
+ const none=runWalletTool(call({airline:'Nowhere Air'}),ctx);
+ assert.equal(none.transfers.partnerFound,false);assert.ok(none.protections.cards.length>0);
+});
+
+// #531: with a stated fare, payCash is choose_card's own answer for a flight; without a fare there is none.
+test('payCash matches choose_card for the stated fare, is absent without one, and leaves cashComparison alone',()=>{
+ for(const [cashFare,cashFareCurrency,pointValues] of [[300,'USD'],[500,'USD',{MR:2}],[300,'HKD']]){
+  const extra={cashFare,cashFareCurrency,...(pointValues?{pointValues}:{})},r=cmp(extra);
+  const cc=runWalletTool({id:'c2',type:'function',function:{name:'choose_card',arguments:JSON.stringify({category:'flight',amount:cashFare,currency:cashFareCurrency,...(pointValues?{pointValues}:{})})}},ctx);
+  assert.equal(r.payCash.kind,'pay-cash-card');
+  assert.deepEqual(r.payCash.choice,cc.choice);assert.deepEqual(r.payCash.rows,cc.rows);assert.deepEqual(r.payCash.pointValues,cc.pointValues);
+  assert.match(r.payCash.note,/not looked up/);assert.match(r.payCash.note,/does not change/);
+  // The verdict is the one flightCashComparison gives on its own inputs.
+  assert.deepEqual(r.cashComparison,flightCashComparison({args:{airline:'Delta',milesNeeded:25500,...extra},programmes:r.transfers.programmes,valuation:r.valuation,credits:r.credits}));
+ }
+ assert.equal(cmp({}).payCash,undefined);
+ assert.throws(()=>cmp({cashFare:300}),/invalid_arguments/);
 });

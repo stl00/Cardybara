@@ -14,6 +14,30 @@ const URL_RE = /(?:https?:)?\/\/[A-Za-z0-9][A-Za-z0-9.-]*\.[A-Za-z]{2,}[^\s"'`)<
 const LOADS = /(?:\bfetch|\bimport|importScripts|\bWebSocket|\bEventSource|sendBeacon|\bXMLHttpRequest[^;]{0,40}\bopen)\(\s*(?:[`"'])(?:https?:)?\/\//;
 const SECRETS = [/gh[pousr]_[A-Za-z0-9]{25,}/, /github_pat_[A-Za-z0-9_]{30,}/, /sk-[A-Za-z0-9_-]{24,}/, /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/, /\/Users\/[A-Za-z0-9_.-]+\//];
 
+// Account sync boundary (stl00/Cardybara#410, #418). The `PUT /v2/account/wallet` request body may hold the wallet document and
+// nothing else (the sign-up, sign-in and password routes carry a password by design): never a bank credential, a one-time code, a cookie or bank page evidence. `checkAccountBody` is the
+// check meant for the sync tests to run on every captured body (not wired in yet; follow-up); `allowed` is the wallet document's field list (#411) when known.
+export const ACCOUNT_FORBIDDEN_KEY = /pass(?:word|code)|^pwd$|cookie|one[-_]?time|^otp$|^code$|session[-_]?token|auth(?:orization|[-_]?code)|^secret$|api[-_]?key|evidence|raw[-_]?(?:text|html|page)|^html$|page[-_]?text/i;
+export function checkAccountBody(body, {allowed = null} = {}) {
+  const problems = [];
+  let doc = body;
+  if (typeof body === 'string') { try { doc = JSON.parse(body); } catch { return ['account body is not valid JSON']; } }
+  const visit = (value, path) => {
+    if (Array.isArray(value)) return value.forEach((v, i) => visit(v, `${path}[${i}]`));
+    if (!value || typeof value !== 'object') return;
+    for (const [key, v] of Object.entries(value)) {
+      if (ACCOUNT_FORBIDDEN_KEY.test(key)) problems.push(`account body carries ${path}.${key}, which is not wallet data`);
+      visit(v, `${path}.${key}`);
+    }
+  };
+  visit(doc, 'body');
+  if (allowed && doc && typeof doc === 'object') {
+    const wallet = doc.document ?? doc;
+    for (const key of Object.keys(wallet)) if (!allowed.includes(key)) problems.push(`account body carries ${key}, which is outside the wallet document`);
+  }
+  return problems;
+}
+
 const walk = (dir, base = dir) => readdirSync(dir, {withFileTypes: true}).flatMap(e =>
   e.isDirectory() ? walk(join(dir, e.name), base) : [join(dir, e.name).slice(base.length + 1).split('\\').join('/')]);
 
@@ -65,10 +89,16 @@ export function checkWeb(dir, {gateway = null} = {}) {
     try { list = shell && JSON.parse(shell[1]); } catch { /* reported below */ }
     if (!list?.length) add('sw.js lists no app shell files');
     else for (const f of list) if (f !== '/' && !has(f.replace(/^\//, ''))) add(`sw.js caches ${f}, which is not in the folder`);
-    if (list && !list.includes('/index.html')) add('sw.js does not cache index.html, so an offline reload has no page');
+    // The page is cached as / (Pages answers /index.html with a 308, and a redirected copy breaks every reload).
+    if (list && !list.includes('/')) add('sw.js does not cache /, so an offline reload has no page');
+    if (list?.includes('/index.html')) add('sw.js caches /index.html, which Pages redirects: a navigation answered with it fails');
     if (!/addEventListener\('fetch'/.test(sw)) add('sw.js does not answer fetches');
+    for (const m of sw.matchAll(/importScripts\('([^']+)'\)/g)) if (!has(m[1].replace(/^\//, ''))) add(`sw.js imports ${m[1]}, which is not in the folder`);
+    if (has('push-worker.js') && !/importScripts\('\/push-worker\.js'\)/.test(sw)) add('push-worker.js is shipped but sw.js does not load it');
   }
 
+  const connectSrc = has('_headers') ? /connect-src\s+([^;\n]*)/.exec(text('_headers'))?.[1].trim().split(/\s+/) ?? [] : [];
+  const hasGatewayConnect = connectSrc.some(o => /^https?:\/\//.test(o));
   // Third-party URLs: none in anything but the wallet bundle; the bundle may hold reference links but never a request.
   for (const f of files) {
     const ext = extname(f);
@@ -77,6 +107,7 @@ export function checkWeb(dir, {gateway = null} = {}) {
     for (const re of SECRETS) if (re.test(body)) add(`${f}: credential-like value or personal path`);
     if (ext === '.js' && f !== 'sw.js') {
       if (LOADS.test(body)) add(`${f}: requests a third-party URL`);
+      if (/\/v2\/account/.test(body) && !hasGatewayConnect) add(`${f}: talks to /v2/account but the CSP connect-src names no gateway origin`);
       continue;
     }
     for (const url of body.match(URL_RE) || []) {

@@ -1,28 +1,27 @@
-// Dev build only: the plugin's own schedule, redacted diagnostics and self-reload. Nothing here listens to
+// Dev build only: the owner's Read now, redacted diagnostics and self-reload. Nothing here listens to
 // the network, so no local page or tool can start a refresh. localhost only receives the redacted report.
 import {ready,engine,next} from './background.js';
-// The schedule reads only the banks this build connects (all active banks unless release.json scopes the build).
+// Read now reads only the banks this build connects (all active banks unless release.json scopes the build).
 import {CONNECTABLE_BANKS,PROVIDERS,guidedPage} from './providers.js';
 import {discoverVisibleCards} from './discovery.js';
 import {DEV_STAMP} from './dev-build-info.js';
-import {SETTINGS_KEY,CHECK_MINUTES,IDLE_SECONDS,defaultSettings,setEnabled,retryBank,afterRun,decideBanks,planBanks,markAttempted,buildReport,skipReport,skipSignature} from './schedule-core.js';
+import {STATE_KEY as READ_KEY,OBSOLETE_KEYS,defaultState,afterRun,decideBanks,planBanks,buildReport} from './read-core.js';
 import {STATE_KEY} from './engine.js';
 import {refreshCard} from './protocol.js';
 
-const TICK='cardybara-dev-schedule',RELOAD='cardybara-dev-reload',REPORT_URL='http://127.0.0.1:8766/api/dev/diagnostics',PENDING='cardybara-dev-pending-report',RUN='cardybara-dev-run';
+const RELOAD='cardybara-dev-reload',REPORT_URL='http://127.0.0.1:8776/api/dev/diagnostics',PENDING='cardybara-dev-pending-report',RUN='cardybara-dev-run';
 let queue=Promise.resolve();
 const serial=fn=>{const p=queue.then(fn);queue=p.catch(()=>{});return p;};
-const loadSettings=async()=>(await chrome.storage.local.get(SETTINGS_KEY))[SETTINGS_KEY]||defaultSettings();
-const saveSettings=settings=>chrome.storage.local.set({[SETTINGS_KEY]:settings});
-async function showState(settings){const attention=Object.values(settings.banks).some(b=>['stopped','login_expired'].includes(b.state));await chrome.action.setBadgeText({text:settings.enabled&&attention?'!':''});}
+const loadRead=async()=>(await chrome.storage.local.get(READ_KEY))[READ_KEY]||defaultState();
+const saveRead=read=>chrome.storage.local.set({[READ_KEY]:read});
 
-// Sends reports oldest first. If the server is off they wait for the next check; if it refuses one, that one is dropped, since sending it again can't help. Nothing is asked of the owner.
+// Sends reports oldest first. If the server is off they wait for the next try (startup, opening the popup, a read, or the reload alarm); if it refuses one, that one is dropped, since sending it again can't help. Nothing is asked of the owner.
 async function deliver(report){
  const stored=(await chrome.storage.local.get(PENDING))[PENDING];
- // An earlier build kept a single report here.
- const waiting=[...(Array.isArray(stored)?stored:stored?[stored]:[]),...(report?[report]:[])];
- // Room for five: the oldest skip reports go first, so a run's findings stay.
- while(waiting.length>5){const old=waiting.findIndex(r=>r.run==='skipped');waiting.splice(old<0?0:old,1);}
+ // An earlier build kept a single report here, and its "skipped" reports no longer mean anything.
+ const waiting=[...(Array.isArray(stored)?stored:stored?[stored]:[]).filter(r=>r?.run!=='skipped'),...(report?[report]:[])];
+ // Room for five: the oldest go first.
+ while(waiting.length>5)waiting.shift();
  while(waiting.length){
   try{const r=await fetch(REPORT_URL,{method:'POST',headers:{'Content-Type':'application/json','X-Cardybara-Client':'extension-dev'},body:JSON.stringify(waiting[0]),credentials:'omit',redirect:'error',signal:AbortSignal.timeout(5000)});if(!r.ok&&r.status>=500)break;waiting.shift();}
   catch{break;}
@@ -32,16 +31,14 @@ async function deliver(report){
 async function pageShape(job){
  try{const tab=await chrome.tabs.get(job.tabId);if(!guidedPage(job.bank,tab.url))return null;const read=chrome.scripting.executeScript({target:{tabId:job.tabId},files:['dev-structure-report.js']});const [{result}]=await Promise.race([read,new Promise((_,no)=>setTimeout(()=>no(Error('timeout')),8000))]);return result||null;}catch{return null;}
 }
-// Handles a scheduled run once it ends, including one a worker restart or reload interrupted. The stop is saved
-// first, so nothing after it can lose it. A repeat repeats the report and closes only a tab still on the bank.
+// Handles a read once it ends, including one a worker restart or reload interrupted. The result is saved first, so
+// nothing after it can lose it. A repeat repeats the report. The owner is there, so the bank tab stays open and in
+// front, and the guide stays where they can see it.
 async function settleRun(){
  const state=await engine.load(),run=state.run,mine=(await chrome.storage.local.get(RUN))[RUN];
  if(!run?.scheduled||run.status==='running'||mine?.id!==run.id||mine.done)return;
- const settings=afterRun(await loadSettings(),run,Date.now());await saveSettings(settings);await showState(settings);
+ await saveRead(afterRun(await loadRead(),run,Date.now()));
  const pages={};for(const job of run.jobs)if((job.status!=='updated'||job.readError)&&Number.isInteger(job.tabId))pages[job.bank]=await pageShape(job);
- // With the owner there, the bank tab stays open and in front, so the guide stays where they can see it.
- if(!mine.manual)for(const job of run.jobs)if(job.owned&&Number.isInteger(job.tabId)){const tab=await chrome.tabs.get(job.tabId).catch(()=>null);if(tab&&guidedPage(job.bank,tab.url))await chrome.tabs.remove(job.tabId).catch(()=>{});}
- if(!mine.manual&&Number.isInteger(mine.restoreTab)){const current=(await chrome.tabs.query({active:true,lastFocusedWindow:true}))[0];if(current&&run.jobs.some(j=>j.tabId===current.id))await chrome.tabs.update(mine.restoreTab,{active:true}).catch(()=>{});}
  await deliver(buildReport({run,state,pages,build:'dev',now:Date.now()}));
  await chrome.storage.local.set({[RUN]:{...mine,done:true}});
 }
@@ -60,31 +57,28 @@ async function bankTabs(banks){
  }
  return seen;
 }
-// Every check records why each bank will or won't be read. Only a scheduled check may start a run: opening the popup, turning it on or reloading never does.
-// A check for the popup (preview) also says which banks Read now would take, so it looks at the tabs Read now would.
-const check=({mayRead,manual=false,preview=false})=>serial(async()=>{
- // An unfinished run settles first, so a new run can't replace it and lose its stop.
- await ready;await settleRun();let settings=await loadSettings();await deliver();
+// Every check records why each bank will or won't be read. Only the owner's Read now (start) may start a run: opening
+// the popup or reloading never does. The check looks at the bank tabs Read now would look at.
+const check=({start=false}={})=>serial(async()=>{
+ // An unfinished run settles first, so a new run can't replace it and lose its result.
+ await ready;await settleRun();let read=await loadRead();await deliver();
  const state=await engine.load();
  // No check of tabs during a read: the popup just says which banks are being read.
- if(state.run?.status==='running'){const reading=state.run.jobs.map(j=>j.bank);await saveSettings({...settings,skips:{...settings.skips,...Object.fromEntries(reading.map(bank=>[bank,'reading']))},lastCheckAt:Date.now()});return 'running';}
- const known=(state.discoveredCards||[]).filter(c=>CONNECTABLE_BANKS.includes(c.bank)),now=Date.now(),idle=await chrome.idle.queryState(IDLE_SECONDS);
- const input={settings,activeBanks:CONNECTABLE_BANKS,disabled:state.disabled,withCards:[...new Set(known.map(c=>c.bank))],idle,now,manual},settled=['off','disconnected','stopped','not_due'],before=decideBanks(input);
- // A bank that can't be read anyway isn't touched, even by the read-only tab check. A popup check probes what Read now
- // could take (also with the schedule off or a bank not due), the same read-only discovery Read now runs; ticks never do.
- const probe=preview?decideBanks({...input,manual:true}):before;
- input.tabs=await bankTabs(CONNECTABLE_BANKS.filter(bank=>!settled.includes(probe[bank])));
- const skips=decideBanks(input),signature=skipSignature(skips),changed=signature!==settings.skipSignature;
- settings={...settings,skips,skipSignature:signature,lastCheckAt:now,...(preview?{readNow:planBanks({...input,manual:true})}:{})};await saveSettings(settings);
- if(changed)await deliver(skipReport(skips,now));
- const banks=mayRead&&(manual||idle==='idle')?planBanks(input):[];if(!banks.length)return 'nothing';
- const restoreTab=(await chrome.tabs.query({active:true,lastFocusedWindow:true}))[0]?.id,id=crypto.randomUUID();
- await saveSettings(markAttempted(settings,banks,now));await chrome.storage.local.set({[RUN]:{id,restoreTab:restoreTab??null,manual}});
- await engine.start({type:'refresh',requestId:id,banks,cards:known.filter(c=>banks.includes(c.bank)).map(refreshCard)},-1,{scheduled:true,manual});
+ if(state.run?.status==='running'){const reading=state.run.jobs.map(j=>j.bank);await saveRead({...read,skips:{...read.skips,...Object.fromEntries(reading.map(bank=>[bank,'reading']))},lastCheckAt:Date.now()});return 'running';}
+ const known=(state.discoveredCards||[]).filter(c=>CONNECTABLE_BANKS.includes(c.bank)),now=Date.now();
+ const input={state:read,activeBanks:CONNECTABLE_BANKS,disabled:state.disabled,withCards:[...new Set(known.map(c=>c.bank))]};
+ // A disconnected bank isn't touched, even by the read-only tab check.
+ input.tabs=await bankTabs(CONNECTABLE_BANKS.filter(bank=>!(state.disabled||[]).includes(bank)));
+ const skips=decideBanks(input),banks=planBanks(input);
+ read={...read,skips,readNow:banks,lastCheckAt:now};await saveRead(read);
+ if(!start||!banks.length)return 'nothing';
+ const id=crypto.randomUUID();await chrome.storage.local.set({[RUN]:{id}});
+ // The run is flagged scheduled+manual: the shared engine's name for a read with no page of its own, and the owner
+ // being there. With manual it shows the guide; scheduled still keeps the model route out of the read.
+ await engine.start({type:'refresh',requestId:id,banks,cards:known.filter(c=>banks.includes(c.bank)).map(refreshCard)},-1,{scheduled:true,manual:true});
  void next();return 'started';
 });
-const tick=()=>check({mayRead:true});
-const popupState=async()=>({settings:await loadSettings(),running:(await engine.load()).run?.status==='running'});
+const popupState=async()=>({read:await loadRead(),running:(await engine.load()).run?.status==='running'});
 // An unpacked extension reads this file from disk, so a new build is noticed with no network and no page. It never reads a bank or starts a refresh.
 const reloadIfRebuilt=()=>serial(async()=>{
  const stamp=await fetch(chrome.runtime.getURL('build-stamp.json'),{cache:'no-store'}).then(r=>r.json()).then(j=>j.stamp).catch(()=>null);if(!stamp||stamp===DEV_STAMP)return;
@@ -92,20 +86,17 @@ const reloadIfRebuilt=()=>serial(async()=>{
  const {devReloadTried}=await chrome.storage.local.get('devReloadTried');if(devReloadTried===stamp)return;
  await chrome.storage.local.set({devReloadTried:stamp});chrome.runtime.reload();
 });
-chrome.alarms.onAlarm.addListener(alarm=>{if(alarm.name===TICK)void tick().catch(()=>{});if(alarm.name===RELOAD)void reloadIfRebuilt().catch(()=>{});});
-chrome.idle.setDetectionInterval(IDLE_SECONDS);
-chrome.idle.onStateChanged.addListener(state=>{if(state==='idle')void tick().catch(()=>{});});
+chrome.alarms.onAlarm.addListener(alarm=>{if(alarm.name===RELOAD)void reloadIfRebuilt().then(()=>serial(()=>deliver())).catch(()=>{});});
 chrome.storage.onChanged.addListener((changes,area)=>{if(area==='local'&&changes[STATE_KEY]?.newValue?.run?.scheduled&&changes[STATE_KEY].newValue.run.status!=='running')void finishRun().catch(()=>{});});
 chrome.runtime.onMessage.addListener((raw,sender,reply)=>{
- if(!['dev-schedule-get','dev-schedule-set','dev-schedule-state','dev-read-now','dev-retry-bank'].includes(raw?.type))return false;
+ if(!['dev-read-status','dev-read-poll','dev-read-now'].includes(raw?.type))return false;
  if(sender.id!==chrome.runtime.id||sender.url!==chrome.runtime.getURL('dev-popup.html')){reply({ok:false});return false;}
- // The owner's click skips only the schedule switch, the interval and idle; every other rule of a scheduled read holds.
  // Following a run touches no tab: it only reads what is stored.
- if(raw.type==='dev-schedule-state'){void popupState().then(state=>reply({ok:true,...state})).catch(()=>reply({ok:false}));return true;}
- if(raw.type==='dev-read-now'){void check({mayRead:true,manual:true}).then(async outcome=>reply({ok:true,outcome:outcome||'nothing',...await popupState()})).catch(()=>reply({ok:false}));return true;}
- if(raw.type==='dev-retry-bank'&&!CONNECTABLE_BANKS.includes(raw.bank)){reply({ok:false});return false;}
- // Retry clears one bank's stop and starts nothing: the next check reads it under the usual rules.
- void (async()=>{if(raw.type==='dev-schedule-set')await serial(async()=>{const settings=setEnabled(await loadSettings(),raw.enabled,raw.intervalMinutes);await saveSettings(settings);await showState(settings);});if(raw.type==='dev-retry-bank')await serial(async()=>{const settings=retryBank(await loadSettings(),raw.bank);await saveSettings(settings);await showState(settings);});await Promise.race([check({mayRead:false,preview:true}),new Promise(done=>setTimeout(done,3000))]);reply({ok:true,...await popupState()});})().catch(()=>reply({ok:false}));
+ if(raw.type==='dev-read-poll'){void popupState().then(state=>reply({ok:true,...state})).catch(()=>reply({ok:false}));return true;}
+ if(raw.type==='dev-read-now'){void check({start:true}).then(async outcome=>reply({ok:true,outcome:outcome||'nothing',...await popupState()})).catch(()=>reply({ok:false}));return true;}
+ void Promise.race([check(),new Promise(done=>setTimeout(done,3000))]).then(async()=>reply({ok:true,...await popupState()})).catch(()=>reply({ok:false}));
  return true;
 });
-void (async()=>{for(const [name,periodInMinutes]of [[TICK,CHECK_MINUTES],[RELOAD,1]])if(!await chrome.alarms.get(name))await chrome.alarms.create(name,{periodInMinutes});await ready;await finishRun();await check({mayRead:false});})().catch(()=>{});
+// Obsolete: the scheduled refresh's settings, alarm and badge. Cleared once, so an old build's leftovers can't linger.
+void (async()=>{await chrome.storage.local.remove(OBSOLETE_KEYS);await chrome.alarms.clear('cardybara-dev-schedule');await chrome.action.setBadgeText({text:''});
+ if(!await chrome.alarms.get(RELOAD))await chrome.alarms.create(RELOAD,{periodInMinutes:1});await ready;await finishRun();await check();})().catch(()=>{});

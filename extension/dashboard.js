@@ -1,5 +1,5 @@
 (()=>{
-const origin='http://127.0.0.1:8766';
+const origin='http://127.0.0.1:8776';
 if(location.origin!==origin)return;
 const emit=payload=>window.postMessage({channel:'cardybara-legacy-extension',...payload},origin);
 chrome.runtime.onMessage.addListener(m=>{if(m.channel==='cardybara-legacy-extension')emit(m)});

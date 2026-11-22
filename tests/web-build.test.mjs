@@ -6,7 +6,7 @@ import {existsSync, mkdtempSync, mkdirSync, writeFileSync, rmSync} from 'node:fs
 import {fileURLToPath} from 'node:url';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {gatewayOrigin, serviceWorkerSource, webHeaders, webManifest} from '../scripts/web-build.mjs';
+import {gatewayOrigin, serviceWorkerSource, shellVersion, webHeaders, webManifest} from '../scripts/web-build.mjs';
 import {checkWeb} from '../scripts/check-web.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
@@ -46,13 +46,43 @@ test('the manifest is installable and standalone with the brand icon', () => {
 });
 
 test('the service worker precaches the shell, skips other origins and the seed, and falls back offline', () => {
-  const src = serviceWorkerSource(['/', '/index.html', '/assets/a.js'], 'abc');
+  const src = serviceWorkerSource(['/', '/assets/a.js'], 'abc');
   assert.match(src, /cardybara-web-abc/);
   assert.match(src, /url\.origin !== self\.location\.origin/);
   assert.match(src, /'\/data\.json'/);
   assert.match(src, /request\.method !== 'GET'/);
   assert.doesNotThrow(() => new Function(src.replace(/self\.addEventListener/g, 'void 0&&self.addEventListener')));
   assert.notEqual(serviceWorkerSource(['/'], 'abc'), serviceWorkerSource(['/'], 'abd'));
+});
+
+test('the cache version changes when only index.html changes', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'sw-version-'));
+  mkdirSync(join(dir, 'assets'));
+  writeFileSync(join(dir, 'assets/a.js'), 'a');writeFileSync(join(dir, 'push-worker.js'), 'p');writeFileSync(join(dir, 'index.html'), 'one');
+  const before = shellVersion(dir, ['/', '/assets/a.js']);
+  writeFileSync(join(dir, 'index.html'), 'two');
+  assert.notEqual(shellVersion(dir, ['/', '/assets/a.js']), before);
+  rmSync(dir, {recursive: true, force: true});
+});
+
+test('a navigation is never answered with a redirected response (Safari refuses it)', async () => {
+  const src = serviceWorkerSource(['/', '/assets/a.js'], 'abc');
+  const handlers = {}, store = new Map();
+  // A cached copy that followed Pages' 308 (/index.html -> /), as Safari's Cache keeps it.
+  const redirected = () => { const r = new Response('<!doctype html>', {status: 200, headers: {'Content-Type': 'text/html'}}); Object.defineProperty(r, 'redirected', {value: true}); return r; };
+  store.set('/', redirected());
+  const self = {location: {origin: 'https://wallet.example'}, addEventListener: (t, f) => { handlers[t] = f; }, skipWaiting() {}, clients: {claim() {}}};
+  const caches = {open: async () => ({match: async k => (store.has(typeof k === 'string' ? k : new URL(k.url).pathname) ? redirected() : undefined), put: async () => {}})};
+  new Function('self', 'caches', 'importScripts', 'fetch', src)(self, caches, () => {}, async () => redirected());
+  const run = async (url, mode) => { let p; handlers.fetch({request: {method: 'GET', url, mode}, respondWith: x => { p = x; }}); return p; };
+  for (const url of ['https://wallet.example/', 'https://wallet.example/#settings']) {
+    const r = await run(url, 'navigate');
+    assert.equal(r.redirected, false, url);assert.equal(await r.text(), '<!doctype html>');
+  }
+  assert.doesNotMatch(src, /'\/index\.html'/, 'the worker never asks for /index.html (Pages redirects it)');
+  store.clear();
+  const net = await run('https://wallet.example/index.html', 'navigate');
+  assert.equal(net.redirected, false, 'a redirected network answer to a navigation is copied too');
 });
 
 test('the page shell answers /data.json from the built-in empty seed and leaves other requests alone', async () => {
@@ -92,7 +122,8 @@ function folder(edit = () => {}) {
     'brand/app-icons/icon-512.png': 'png',
     'brand/app-icons/icon-maskable-512.png': 'png',
     'assets/a.js': 'console.log("see https://www.example-bank.com/cards")',
-    'sw.js': serviceWorkerSource(['/', '/index.html', '/assets/a.js'], 'x'),
+    'sw.js': serviceWorkerSource(['/', '/assets/a.js'], 'x'),
+    'push-worker.js': 'self.addEventListener("push",function(){});',
     '_headers': webHeaders('https://gateway.example'),
   };
   edit(files);
@@ -118,8 +149,13 @@ test('the audit fails on a missing manifest, service worker, icon or headers', (
   assert.match(problems(f => { f['index.html'] = f['index.html'].replace(/<link rel="apple-touch-icon"[^>]*>/, ''); }).join(), /apple-touch-icon/);
   assert.match(problems(f => { const m = JSON.parse(f['manifest.webmanifest']); m.icons = m.icons.filter(i => i.sizes !== '192x192'); f['manifest.webmanifest'] = JSON.stringify(m); }).join(), /192x192 PNG/);
   assert.match(problems(f => { const m = JSON.parse(f['manifest.webmanifest']); m.icons = m.icons.filter(i => i.purpose !== 'maskable'); f['manifest.webmanifest'] = JSON.stringify(m); }).join(), /maskable/);
-  assert.match(problems(f => { f['sw.js'] = serviceWorkerSource(['/', '/index.html', '/assets/gone.js'], 'x'); }).join(), /gone\.js/);
-  assert.match(problems(f => { f['sw.js'] = serviceWorkerSource(['/'], 'x'); }).join(), /index\.html/);
+  assert.match(problems(f => { f['sw.js'] = serviceWorkerSource(['/', '/assets/gone.js'], 'x'); }).join(), /gone\.js/);
+  assert.match(problems(f => { f['sw.js'] = serviceWorkerSource(['/assets/a.js'], 'x'); }).join(), /does not cache \//);
+  assert.match(problems(f => { f['sw.js'] = serviceWorkerSource(['/', '/index.html', '/assets/a.js'], 'x'); }).join(), /caches \/index\.html, which Pages redirects/);
+});
+
+test('the audit fails when the service worker imports a script that is not shipped', () => {
+  assert.match(problems(f => { f['push-worker.js'] = null; }).join(), /push-worker\.js, which is not in the folder/);
 });
 
 test('the audit fails on a wallet snapshot or any file the web app does not ship', () => {

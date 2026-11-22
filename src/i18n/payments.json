@@ -59,7 +59,14 @@
     "没有应付金额": "Nothing billed",
     "年费日（你设置了年费日的卡）": "Annual fee date (cards where you set one)",
     "年费日提前天数": "Days before the annual fee date",
-    "{0}：{1} 可以再次使用": "{0}: {1} can be used again"
+    "{0}：{1} 可以再次使用": "{0}: {1} can be used again",
+    "在 iPhone 或 iPad 上，要先把 Cardybara 添加到主屏幕（iOS 16.4 或更高），才能收到钱包关闭时的提醒。": "On iPhone or iPad, add Cardybara to the Home Screen first (iOS 16.4 or later) to get reminders while the wallet is closed.",
+    "在 Safari 点“分享”，选“添加到主屏幕”，再从主屏幕图标打开钱包，回到这里开启。": "In Safari tap Share, choose Add to Home Screen, open the wallet from its Home Screen icon, then come back here to turn this on.",
+    "钱包关闭时也会提醒（Web Push）。": "Reminders also arrive while the wallet is closed (Web Push).",
+    "关闭后台提醒": "Turn off closed-wallet reminders",
+    "开启钱包关闭时的提醒": "Turn on reminders while the wallet is closed",
+    "只把提醒的时间发给 Cardybara 服务器，不含卡名、尾号、金额；提醒的文字由本机生成。": "Only the reminder times go to the Cardybara server, with no card names, tails or amounts; the text of each reminder is written on this device.",
+    "打开钱包，看看有什么快到期。": "Open the wallet to see what is due soon."
   },
   "zh-TW": {
     "还款日已过 {0} 天": "還款日已過 {0} 天",
@@ -121,6 +128,13 @@
     "没有应付金额": "沒有應付金額",
     "年费日（你设置了年费日的卡）": "年費日（你設定了年費日的卡）",
     "年费日提前天数": "年費日提前天數",
-    "{0}：{1} 可以再次使用": "{0}：{1} 可以再次使用"
+    "{0}：{1} 可以再次使用": "{0}：{1} 可以再次使用",
+    "在 iPhone 或 iPad 上，要先把 Cardybara 添加到主屏幕（iOS 16.4 或更高），才能收到钱包关闭时的提醒。": "在 iPhone 或 iPad 上，要先把 Cardybara 加到主畫面（iOS 16.4 或更高），才能收到錢包關閉時的提醒。",
+    "在 Safari 点“分享”，选“添加到主屏幕”，再从主屏幕图标打开钱包，回到这里开启。": "在 Safari 點「分享」，選「加入主畫面」，再從主畫面圖示打開錢包，回到這裡開啟。",
+    "钱包关闭时也会提醒（Web Push）。": "錢包關閉時也會提醒（Web Push）。",
+    "关闭后台提醒": "關閉背景提醒",
+    "开启钱包关闭时的提醒": "開啟錢包關閉時的提醒",
+    "只把提醒的时间发给 Cardybara 服务器，不含卡名、尾号、金额；提醒的文字由本机生成。": "只把提醒的時間傳給 Cardybara 伺服器，不含卡名、尾號、金額；提醒的文字由本機產生。",
+    "打开钱包，看看有什么快到期。": "打開錢包，看看有什麼快到期。"
   }
 }

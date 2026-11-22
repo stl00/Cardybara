@@ -14,16 +14,16 @@ for name in allow:
 manifest=json.loads((source/'manifest.json').read_text())
 assert manifest['permissions']==['scripting','storage','alarms']
 assert manifest['background']=={'service_worker':'background.js','type':'module'}
-assert manifest['content_scripts'][0]['matches']==['http://127.0.0.1:8766/*']
+assert manifest['content_scripts'][0]['matches']==['http://127.0.0.1:8776/*']
 assert not any('*://' in h or 'localhost' in h or '127.0.0.1' in h for h in manifest['host_permissions'])
 for n in [16,32,48,128]:
  data=(source/f'icons/{n}.png').read_bytes();assert data[:8]==b'\x89PNG\r\n\x1a\n' and struct.unpack('>II',data[16:24])==(n,n)
-checks={name:hashlib.sha256((source/name).read_bytes().replace(b'index.html#overview',b'http://127.0.0.1:8766/#overview') if name=='popup.html' else (source/name).read_bytes()).hexdigest() for name in allow}
+checks={name:hashlib.sha256((source/name).read_bytes().replace(b'index.html#overview',b'http://127.0.0.1:8776/#overview') if name=='popup.html' else (source/name).read_bytes()).hexdigest() for name in allow}
 target=root/'public'/f'cardybara-extension-{version}-preview.zip'
 with zipfile.ZipFile(str(target)+'.tmp','w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
  for name in sorted(allow):
   info=zipfile.ZipInfo(name,(2026,1,1,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16
-  z.writestr(info,(source/name).read_bytes().replace(b'index.html#overview',b'http://127.0.0.1:8766/#overview') if name=='popup.html' else (source/name).read_bytes())
+  z.writestr(info,(source/name).read_bytes().replace(b'index.html#overview',b'http://127.0.0.1:8776/#overview') if name=='popup.html' else (source/name).read_bytes())
  info=zipfile.ZipInfo('CHECKSUMS.json',(2026,1,1,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16
  z.writestr(info,json.dumps(checks,sort_keys=True,indent=2)+'\n')
 Path(str(target)+'.tmp').replace(target)

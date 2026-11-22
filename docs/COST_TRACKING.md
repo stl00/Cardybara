@@ -26,4 +26,4 @@ The displayed Credit value less net annual fee is explicitly a partial compariso
 
 Five new automated tests cover leap dates/unknown fees, gross debt and distinct currencies, conflicting shared limits, partial Credit valuation/period attribution, atomic fee writes/overlap rejection/tombstones/import deduplication, and invalid usage write rejection. Full regression: 174 passed.
 
-An isolated 127.0.0.1:8767 browser wallet was used for synthetic QA only: charge 50 and refund 10 produced net fee 40; cumulative use 5 and personal value 3 produced cycle difference -37; a confirmed limit 12345 reached the portfolio summary. Reload preserved all three. No synthetic records were written to the main 8766 wallet.
+An isolated 127.0.0.1:8767 browser wallet was used for synthetic QA only: charge 50 and refund 10 produced net fee 40; cumulative use 5 and personal value 3 produced cycle difference -37; a confirmed limit 12345 reached the portfolio summary. Reload preserved all three. No synthetic records were written to the main 8776 wallet.

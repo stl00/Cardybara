@@ -1,7 +1,7 @@
 // End-to-end test of the packaged extension: the exact release ZIP, installed in a clean Chrome
 // profile, against a local synthetic bank. No bank is contacted and no secret is used.
 //
-//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart] [--expired-login] [--cancel] [--chat [--hosted]] [--cards] [--upgrade-from <previous-release-dir-or-zip>]
+//   node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--restart] [--expired-login] [--cancel] [--chat [--hosted]] [--cards] [--citi] [--upgrade-from <previous-release-dir-or-zip>]
 //
 // --restart (nightly set): after the main path, close Chrome and start it again on the same
 // profile; the extension must still be installed and the records it read must still be there.
@@ -24,6 +24,8 @@
 // and setting its annual fee date, sees its anniversary credit get a real cycle, edits it, corrects the
 // name of a card the bank page showed and resets that correction, then removes the manual card
 // (stl00/Cardybara#176). The product is chosen from the catalogue data, and every tail and date is synthetic.
+// --citi: after the main path, the user connects Citi US, signs in on the synthetic Citi page (www.citi.com signs in,
+// online.citi.com shows the cards) and both cards are found by their details links and read back (stl00/Cardybara#486).
 // --cancel (nightly set): after the main path, the user stops a refresh from the wallet while the
 // bank page is still loading, then stops a reading that waits at needs-login from the bank page's
 // guide, then stops another such reading from the wallet header; each must end cancelled with the
@@ -53,13 +55,18 @@ let STEP_MS=Number(process.env.CARDYBARA_E2E_STEP_MS||30000);
 // A value that is not a positive number falls back to the default, so the start can never wait forever.
 const CHROME_START_MS=Number(process.env.CARDYBARA_E2E_CHROME_START_MS)>0?Number(process.env.CARDYBARA_E2E_CHROME_START_MS):30000;
 const BANK_HOST='secure.chase.com';
+// Citi US: the sign-in page is on www, the cards on online (stl00/Cardybara#486). Both reach the synthetic Citi page.
+export const CITI_HOSTS=['www.citi.com','online.citi.com'];
 // The model provider the packaged client calls. Under --chat it resolves to a scripted synthetic provider.
 const MODEL_HOST='api.deepseek.com';
 // A made-up key in the provider's key shape. It is never a real key and only ever reaches the synthetic provider.
 const TEST_KEY='e2e-test-only-'+'0'.repeat(24);
 // The hosted gateway the packaged client calls under --chat --hosted, and the gateway's own made-up provider key.
 // Neither is real.
-const GATEWAY_HOST=new URL(GATEWAY_ORIGIN).hostname;
+export const GATEWAY_HOST=new URL(GATEWAY_ORIGIN).hostname;
+// A web origin the harness serves over HTTPS for a caller's second browser (tests/extension-sync.test.mjs): the built PWA.
+// The gateway admits only an https web origin. Nothing is served there until a caller sets `bank.page.handle`.
+export const PAGE_HOST='wallet.cardybara.test';
 const GATEWAY_PROVIDER_KEY='e2e-gateway-provider-key-not-real';
 // Values the synthetic bank shows. They are read into the wallet and must never travel to the model.
 const READ_VALUES=['1234.56','1,234.56','67.89'];
@@ -116,24 +123,27 @@ export async function checkManifest(dir){
 // --- synthetic bank ------------------------------------------------------------------------
 async function syntheticBank(work){
  const key=join(work,'bank-key.pem'),cert=join(work,'bank-cert.pem');
- execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',key,'-out',cert,'-days','1','-subj','/CN='+BANK_HOST,'-addext',`subjectAltName=DNS:${BANK_HOST},DNS:${MODEL_HOST},DNS:${GATEWAY_HOST}`],{stdio:'ignore'});
+ execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',key,'-out',cert,'-days','1','-subj','/CN='+BANK_HOST,'-addext',`subjectAltName=DNS:${BANK_HOST},DNS:${MODEL_HOST},DNS:${GATEWAY_HOST},DNS:${PAGE_HOST},${CITI_HOSTS.map(h=>`DNS:${h}`).join(',')}`],{stdio:'ignore'});
  const page=await readFile(join(root,'tests/fixtures/synthetic-bank.html'));
+ const citiPage=await readFile(join(root,'tests/fixtures/synthetic-citi.html'));
  const requests=[];let held=null;
  const model={script:null,requests:[]};
  // The gateway starts once the extension id is known (it allows only that origin); until then it refuses.
- const gateway={handle:null,requests:[],logs:[]};
+ const gateway={handle:null,requests:[],logs:[]},pageServer={handle:null};
  const server=createServer({key:await readFile(key),cert:await readFile(cert)},(req,res)=>{
   if((req.headers.host||'').split(':')[0]===MODEL_HOST){syntheticProvider(model,req,res);return;}
   if((req.headers.host||'').split(':')[0]===GATEWAY_HOST){serveGateway(gateway,req,res);return;}
+  if((req.headers.host||'').split(':')[0]===PAGE_HOST){if(pageServer.handle)pageServer.handle(req,res);else res.writeHead(404).end();return;}
   requests.push(req.headers.host+req.url);note('synthetic bank served',req.method,req.url);
   if(req.url==='/favicon.ico'){res.writeHead(404).end();return;}
-  const answer=()=>setTimeout(()=>res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}).end(page),BANK_DELAY_MS);
+  const body=CITI_HOSTS.includes((req.headers.host||'').split(':')[0])?citiPage:page;
+  const answer=()=>setTimeout(()=>res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}).end(body),BANK_DELAY_MS);
   // While held, pages wait for release(): a bank page that is still loading.
   if(held){held.push(answer);note('synthetic bank holding',req.url);}else answer();
  });
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const spki=createHash('sha256').update(createPublicKey(await readFile(cert)).export({type:'spki',format:'der'})).digest('base64');
- return {port:server.address().port,spki,requests,model,gateway,
+ return {port:server.address().port,spki,requests,model,gateway,page:pageServer,
   async startGateway({origin,dailyRequests}){
    const g=localGateway({vars:{PROVIDER_KEY:GATEWAY_PROVIDER_KEY,ALLOWED_ORIGINS:origin,DAILY_REQUESTS_PER_CLIENT:String(dailyRequests)},log:line=>{gateway.logs.push(line);note('gateway',line);},
     // The gateway's upstream is the same scripted provider, reached in process.
@@ -203,7 +213,7 @@ async function launch(profile,bank){
   '--headless=new','--no-first-run','--no-default-browser-check','--disable-sync','--disable-component-update','--window-size=1280,900',
   // The bank host goes to the synthetic bank, the model host to the synthetic provider and the gateway
   // host to the gateway's own code (one local server, routed by Host); nothing else resolves.
-  `--host-rules=MAP ${BANK_HOST} 127.0.0.1:${bank.port}, MAP ${MODEL_HOST} 127.0.0.1:${bank.port}, MAP ${GATEWAY_HOST} 127.0.0.1:${bank.port}, MAP * ~NOTFOUND`,
+  `--host-rules=MAP ${BANK_HOST} 127.0.0.1:${bank.port}, MAP ${MODEL_HOST} 127.0.0.1:${bank.port}, MAP ${GATEWAY_HOST} 127.0.0.1:${bank.port}, ${CITI_HOSTS.map(h=>`MAP ${h} 127.0.0.1:${bank.port}`).join(', ')}, MAP * ~NOTFOUND`,
   '--ignore-certificate-errors-spki-list='+bank.spki,
   ...(process.platform==='linux'?['--no-sandbox']:[]),'about:blank'];
  const child=spawn(await findChrome(),args,{stdio:['ignore','ignore','pipe','pipe','pipe']});
@@ -213,8 +223,8 @@ async function launch(profile,bank){
 }
 
 // --- the main path -------------------------------------------------------------------------
-export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=null,hosted=false,tamper=null,clientDailyRequests=50,cards=false,cardFeeDate={month:2,day:29},cardQuery=null,upgradeFrom=null,mutatePrevious,swap=true}={}){
- if([restart,expiredLogin,cancel,chat,cards,!!upgradeFrom].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel, --chat, --cards and --upgrade-from separately: each starts from the end of the main path');
+export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,restart=false,beforeRestart,expiredLogin=false,expire=expireBankSession,requireExpired=true,cancel=false,stop=stopFromWallet,stopGuide=stopFromGuide,stopWaiting=stopFromWallet,chat=false,chatKey=TEST_KEY,chatScript=null,hosted=false,tamper=null,clientDailyRequests=50,afterMain=null,cards=false,citi=false,cardFeeDate={month:2,day:29},cardQuery=null,upgradeFrom=null,mutatePrevious,swap=true}={}){
+ if([restart,expiredLogin,cancel,chat,cards,citi,!!upgradeFrom].filter(Boolean).length>1)throw Error('run --restart, --expired-login, --cancel, --chat, --cards, --citi and --upgrade-from separately: each starts from the end of the main path');
  if(hosted&&!chat)throw Error('--hosted is a variant of --chat');
  chatScript??=hosted?scriptedHostedChat:scriptedChat;
  if(stepMs)STEP_MS=stepMs;log=[];lastState=null;
@@ -240,6 +250,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    ext=await extractPackage(zip,sums,join(work,'extension'));
    if(mutate){await mutate(ext);note('negative control: package deliberately broken after extraction');}
    await checkManifest(ext);
+   if(citi)await offerCiti(ext);
   }
   bank=await syntheticBank(work);
   let profile=join(work,'profile'),cdp;
@@ -283,6 +294,9 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
   await until('the service worker to answer the wallet',()=>evaluate('wallet',`chrome.tabs.getCurrent().then(t=>chrome.runtime.sendMessage({type:'hello',requestId:'e2e-hello',ownerTabId:t.id})).then(r=>!!r?.ok,()=>false)`));
   const {translations}=await import('../src/i18n/index.js');
   const words=zh=>JSON.stringify([zh,translations['en-US']?.[zh],translations['zh-TW']?.[zh]].filter(Boolean));
+  // Settings also holds the account sign-in card (#456), whose password field comes first; the model key and invite code
+  // fields are told apart by their placeholders. A page expression for the matching password inputs:
+  const secretFields=(...zh)=>`[...document.querySelectorAll('input[type=password]')].filter(e=>[${zh.map(z=>words(z).slice(1,-1)).join(',')}].includes(e.placeholder))`;
   const clickText=(name,selector,zh)=>evaluate(name,`(()=>{const want=${words(zh)};const el=[...document.querySelectorAll(${JSON.stringify(selector)})].find(e=>want.includes(e.textContent.trim()));if(!el)return false;el.click();return true;})()`);
   const pageText=name=>evaluate(name,'document.body?.innerText||""');
   // Click with real mouse events at the element's centre, for steps that need a user gesture.
@@ -353,6 +367,9 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
   note('fields written back; missing values left unknown');
   if(!bank.requests.length)throw new StepError('the synthetic bank was never contacted');
   note('PASS: packaged extension installs, connects a synthetic bank, signs in and reads back'+(upgradeFrom?' (previous package)':''));
+
+  // A caller's own scenario on top of the main path (tests/extension-sync.test.mjs), with what it needs to drive the extension.
+  if(afterMain)await afterMain({id,cdp,evaluate,attach,sessions,words,until,pageText,state,bank,note,StepError,walletUrl});
 
   if(restart||upgradeFrom){
    const across=upgradeFrom?'an upgrade':'a browser restart';
@@ -541,7 +558,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
     await evaluate('wallet','location.hash="settings"');
     await until('the hosted service to show ready',async()=>{const t=await pageText('wallet');return JSON.parse(words('已就绪')).some(w=>t.includes(w));});
     const t=await pageText('wallet');
-    if(await evaluate('wallet',`!!document.querySelector('input[type=password]')`))throw new StepError('the settings page asks for a code or key in hosted mode');
+    if(await evaluate('wallet',`${secretFields('粘贴你的 API 密钥','粘贴邀请码')}.length>0`))throw new StepError('the settings page asks for a code or key in hosted mode');
     for(const zh of ['粘贴邀请码','保存邀请码','使用自己的 key','粘贴你的 API 密钥','保存密钥','自动补全银行数据'])if(JSON.parse(words(zh)).some(w=>t.includes(w)))throw new StepError('the beta settings page offers a code or own key: '+zh);
     const stored=await evaluate('worker',`chrome.storage.local.get('cardybara-model-key').then(r=>r['cardybara-model-key']||null)`);
     if(stored?.key)throw new StepError('a credential is stored in hosted mode');
@@ -557,7 +574,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
     await evaluate('wallet','location.hash="wallet"');await sleep(200);
     await evaluate('wallet','location.hash="settings"');
     await until('the own-key button',()=>clickText('wallet','button','使用自己的 key'));
-    const keyBox=await until('the '+what+' field',()=>evaluate('wallet',`(()=>{const el=document.querySelector('input[type=password]');if(!el||!${JSON.stringify(words('粘贴你的 API 密钥'))}.includes(el.placeholder))return false;el.focus();return true;})()`));
+    const keyBox=await until('the '+what+' field',()=>evaluate('wallet',`(()=>{const el=${secretFields('粘贴你的 API 密钥')}[0];if(!el)return false;el.focus();return true;})()`));
     if(!keyBox)throw new StepError('no '+what+' field on the settings page');
     await cdp.send('Input.insertText',{text:chatKey},sessions.wallet);
     await cdp.send('Target.activateTarget',{targetId:walletTarget}).catch(()=>{});
@@ -568,7 +585,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
      const checks=bank.model.requests.length;
      if(!await realClick('wallet','button',words('保存密钥')))return false;
      const end=Date.now()+2000;
-     while(Date.now()<end){if(bank.model.requests.length>checks||await evaluate('wallet',`!!document.querySelector('.ant-btn-loading')||!document.querySelector('input[type=password]')`))return true;await sleep(100);}
+     while(Date.now()<end){if(bank.model.requests.length>checks||await evaluate('wallet',`!!document.querySelector('.ant-btn-loading')||!${secretFields('粘贴你的 API 密钥')}.length`))return true;await sleep(100);}
      note('the save click did not take effect; clicking again');return false;
     });
     note('pasted a test-only',what,'and pressed save');
@@ -692,6 +709,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    await until('the overview to name the card again',async()=>(await pageText('wallet')).includes(hideName));
    note('PASS: a hidden card is left out of the overview and the assistant, and comes back when unhidden');
   }
+  if(citi)await readCiti({cdp,evaluate,attach,until,pageText,state,bank,note,StepError});
   if(cards)await manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate:cardFeeDate,query:cardQuery});
   return {ok:true};
  }catch(error){
@@ -796,6 +814,64 @@ async function anniversaryProduct(){
   return product;
  }
  throw new StepError('the catalogue has no Chase product with an anniversary credit to test with');
+}
+// The beta package offers only the banks in release.json ("banks": Chase and Amex US), and its worker refuses to
+// connect any other. For --citi the extracted copy's bank list gets Citi US added, the one change; manifest, host
+// permissions and code are the package's own. Once release.json offers Citi US this does nothing.
+export async function offerCiti(dir){
+ const file=join(dir,'build-scope.js'),text=await readFile(file,'utf8');
+ const m=/BUILD_BANKS=(null|\[[^\]]*\]);/.exec(text);
+ if(!m)throw Error('build-scope.js has no bank list');
+ const banks=JSON.parse(m[1]);
+ if(banks===null||banks.includes('Citi US')){note('the package already offers Citi US');return;}
+ await writeFile(file,text.replace(m[0],`BUILD_BANKS=${JSON.stringify([...banks,'Citi US'])};`));
+ note('the package offers',banks.join(', '),'only: Citi US added to its bank list in the extracted copy (not run on the shipped scope)');
+}
+// --citi: Citi US on the packaged extension (stl00/Cardybara#486). The sign-in page is on www.citi.com and the cards
+// are on online.citi.com, both served by the synthetic Citi page. After the Chase main path the user connects Citi US,
+// signs in on the synthetic page, and both cards must be found by their account details links and read back.
+async function readCiti({cdp,evaluate,attach,until,pageText,state,bank,note,StepError}){
+ const fail=m=>{throw new StepError('Citi US: '+m);};
+ // The manifest the browser loaded, not only the file: both Citi hosts must be granted to the installed extension.
+ const hosts=await evaluate('worker','chrome.runtime.getManifest().host_permissions');
+ for(const h of CITI_HOSTS)if(!hosts.includes(`https://${h}/*`))fail(`no host permission for https://${h}/* in the installed package`);
+ const citiJob=s=>s?.run?.jobs?.find(j=>j.bank==='Citi US');
+ // The beta package's wallet does not list Citi US (release.json "banks"), so there is no button to press: the
+ // wallet page sends the same message its connect button sends, which the packaged worker validates as usual.
+ await evaluate('wallet',`window.postMessage({channel:'cardybara-dashboard',type:'refresh',requestId:crypto.randomUUID(),banks:['Citi US'],cards:[]},location.origin),true`);
+ note('asked the extension to connect Citi US');
+ const tab=await until('the Citi tab',async()=>(await cdp.send('Target.getTargets')).targetInfos.find(t=>t.type==='page'&&CITI_HOSTS.includes(new URL(t.url||'about:blank').hostname)));
+ await attach('citi',tab.targetId);
+ await until('the synthetic Citi sign-in page',()=>evaluate('citi','!!document.getElementById("sign-in")'));
+ await until('needs-login for Citi US in the extension state',async()=>{const j=citiJob(await state());if(j&&!['queued','opening','navigating','capturing','needs_login'].includes(j.status))fail(`the run ended as ${j.status} before sign-in: ${JSON.stringify(j.diagnostic||null)}`);return j?.status==='needs_login';});
+ note('Citi US asks for a sign-in');
+ await evaluate('citi','document.getElementById("sign-in").click()');
+ note('signed in on the synthetic Citi page');
+ const done=await until('the Citi US reading to finish',async()=>{const s=await state();const j=citiJob(s);return s?.run?.status&&s.run.status!=='running'&&j&&j.status!=='needs_login'?s:null;},STEP_MS*3);
+ const job=citiJob(done);
+ note('run',done.run.status,'job',job.status);
+ const cards=(done.discoveredCards||[]).filter(c=>c.bank==='Citi US'),byTail=Object.fromEntries(cards.map(c=>[c.tail,c]));
+ const agent=(done.agentRecords||[]).filter(i=>i.bank==='Citi US');
+ const value=(tail,key)=>agent.find(i=>i.cardId===byTail[tail]?.id&&i.kind==='card'&&i.key===key)?.value;
+ const due=tail=>agent.find(i=>i.cardId===byTail[tail]?.id&&i.kind==='billing'&&i.key==='due')?.date;
+ const problems=[],expect=(label,got,want)=>{if(JSON.stringify(got)!==JSON.stringify(want))problems.push(`${label}: expected ${JSON.stringify(want)}, got ${JSON.stringify(got)}`);};
+ expect('job status',job.status,'updated');
+ expect('cards found by their details links',Object.keys(byTail).sort(),['2345','6789']);
+ // The page cuts long names off ("Name...-tail"); each card is still matched to its own details link.
+ expect('2345 name starts',byTail['2345']?.name?.startsWith('Wallaby T'),true);
+ expect('6789 name starts',byTail['6789']?.name?.startsWith('Dingo Car'),true);
+ for(const [tail,want,day] of [['2345',{balance:1234.56,available:8765.44,creditLimit:10000,statement:321,minimum:35},'2030-12-19'],['6789',{balance:-7.2,available:4932.11,creditLimit:5000,statement:0,minimum:0},'2030-12-20']]){
+  for(const [key,v] of Object.entries(want))expect(`${tail} ${key}`,value(tail,key),v);
+  expect(`${tail} due date`,due(tail),day);
+ }
+ // The 6789 card owes nothing: its minimum is the zero the page printed. Rewards are not read for Citi US.
+ expect('reward section',job.sections?.reward?.status,'not_collected');
+ if(agent.some(i=>i.kind==='reward'))problems.push('no rewards may be recorded for Citi US, got '+JSON.stringify(agent.filter(i=>i.kind==='reward')));
+ if(problems.length)fail('read-back mismatch:\n  '+problems.join('\n  ')+'\nrecords: '+JSON.stringify(agent));
+ await evaluate('wallet','location.hash="wallet"');
+ await until('the Citi US balance on the wallet page',async()=>(await pageText('wallet')).includes('1,234.56'));
+ if(!bank.requests.some(r=>r.startsWith('online.citi.com/')))fail('the synthetic Citi page on online.citi.com was never contacted');
+ note('PASS: packaged extension connects Citi US, signs in on the synthetic page and reads both cards back (balance, statement, minimum, due date; no rewards)');
 }
 async function manageCards({cdp,evaluate,sessions,until,words,pageText,feeDate,query}){
  const [{anniversaryPeriod},{walletDay}]=await Promise.all([import('../src/feeDate.js'),import('../src/personalBenefits.js')]);
@@ -968,6 +1044,11 @@ export const BROKEN_CARDS={
  'a fee date that does not exist':[/timed out waiting for the manual card to be stored/,{cardFeeDate:{month:2,day:30}}],
  'a product search that matches nothing':[/timed out waiting for the product tile for /,{cardQuery:'zz no such card zz'}],
 };
+// With --citi: the package has no host permission for the page the cards are on, or a card's data is
+// never read; the check must notice instead of passing on a package that cannot read Citi.
+export const BROKEN_CITI={
+ 'no online.citi.com host permission':[/Citi US: no host permission for https:\/\/online\.citi\.com/,{mutate:async dir=>{const p=join(dir,'manifest.json'),m=JSON.parse(await readFile(p,'utf8'));m.host_permissions=m.host_permissions.filter(h=>!h.includes('online.citi.com'));await writeFile(p,JSON.stringify(m));}}],
+};
 // With --upgrade-from: the records are lost during the upgrade, or the tested package never replaces the
 // previous one (made to differ from it so the check can tell); the upgrade check must notice either.
 export const BROKEN_UPGRADE={
@@ -981,12 +1062,12 @@ async function sameFiles(a,b){
  for(const f of x)if(!(await readFile(join(a,f))).equals(await readFile(join(b,f))))return false;
  return true;
 }
-export async function negativeControls(input,{out,restart=false,expiredLogin=false,cancel=false,chat=false,hosted=false,cards=false,upgradeFrom=null}){
+export async function negativeControls(input,{out,restart=false,expiredLogin=false,cancel=false,chat=false,hosted=false,cards=false,citi=false,upgradeFrom=null}){
  const escaped=[];
  // With --restart, --expired-login or --cancel only that scenario's controls run; the package controls run
  // in their own step.
- const extended=restart||expiredLogin||cancel||chat||cards||!!upgradeFrom;
- const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire,requireExpired:false}]):[]),...(cancel?Object.entries(BROKEN_CANCEL).map(([name,[reason,broken]])=>[name,reason,{cancel:true,...broken}]):[]),...(chat?Object.entries(hosted?BROKEN_HOSTED_CHAT:BROKEN_CHAT).map(([name,[reason,broken]])=>[name,reason,{chat:true,hosted,...broken}]):[]),...(cards?Object.entries(BROKEN_CARDS).map(([name,[reason,broken]])=>[name,reason,{cards:true,...broken}]):[]),...(upgradeFrom?Object.entries(BROKEN_UPGRADE).map(([name,[reason,broken]])=>[name,reason,{upgradeFrom,...broken}]):[])];
+ const extended=restart||expiredLogin||cancel||chat||cards||citi||!!upgradeFrom;
+ const controls=[...(extended?[]:Object.entries(BROKEN).map(([name,[reason,mutate]])=>[name,reason,{mutate}])),...(restart?Object.entries(BROKEN_RESTART).map(([name,[reason,beforeRestart]])=>[name,reason,{restart:true,beforeRestart}]):[]),...(expiredLogin?Object.entries(BROKEN_EXPIRED_LOGIN).map(([name,[reason,expire]])=>[name,reason,{expiredLogin:true,expire,requireExpired:false}]):[]),...(cancel?Object.entries(BROKEN_CANCEL).map(([name,[reason,broken]])=>[name,reason,{cancel:true,...broken}]):[]),...(chat?Object.entries(hosted?BROKEN_HOSTED_CHAT:BROKEN_CHAT).map(([name,[reason,broken]])=>[name,reason,{chat:true,hosted,...broken}]):[]),...(cards?Object.entries(BROKEN_CARDS).map(([name,[reason,broken]])=>[name,reason,{cards:true,...broken}]):[]),...(citi?Object.entries(BROKEN_CITI).map(([name,[reason,broken]])=>[name,reason,{citi:true,...broken}]):[]),...(upgradeFrom?Object.entries(BROKEN_UPGRADE).map(([name,[reason,broken]])=>[name,reason,{upgradeFrom,...broken}]):[])];
  for(const [name,reason,options] of controls){
   console.log(`--- negative control: ${name}`);
   const error=await run(input,{out:join(out,name.replace(/\W+/g,'-')),...options,stepMs:12000}).then(()=>null,e=>e);
@@ -1000,8 +1081,8 @@ export async function negativeControls(input,{out,restart=false,expiredLogin=fal
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const valued=['--out','--upgrade-from'];
  const args=process.argv.slice(2),take=flag=>{const i=args.indexOf(flag);if(i<0)return undefined;if(valued.includes(flag)&&!args[i+1]){console.error(flag+' needs a path');process.exit(2);}return args.splice(i,valued.includes(flag)?2:1).at(-1);};
- const outArg=take('--out'),upgradeFrom=take('--upgrade-from')||null,controls=take('--negative-controls'),restart=!!take('--restart'),expiredLogin=!!take('--expired-login'),cancel=!!take('--cancel'),chat=!!take('--chat'),hosted=!!take('--hosted'),cards=!!take('--cards');
- if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart] [--expired-login] [--cancel] [--chat [--hosted]] [--cards] [--upgrade-from <previous-release-dir-or-zip>]');process.exit(2);}
+ const outArg=take('--out'),upgradeFrom=take('--upgrade-from')||null,controls=take('--negative-controls'),restart=!!take('--restart'),expiredLogin=!!take('--expired-login'),cancel=!!take('--cancel'),chat=!!take('--chat'),hosted=!!take('--hosted'),cards=!!take('--cards'),citi=!!take('--citi');
+ if(!args[0]){console.error('usage: node scripts/e2e-extension.mjs <release-dir-or-zip> [--out <dir>] [--negative-controls] [--restart] [--expired-login] [--cancel] [--chat [--hosted]] [--cards] [--citi] [--upgrade-from <previous-release-dir-or-zip>]');process.exit(2);}
  const out=resolve(outArg||join(root,'.debug/e2e'));
- (controls?negativeControls(args[0],{out,restart,expiredLogin,cancel,chat,hosted,cards,upgradeFrom}):run(args[0],{out,restart,expiredLogin,cancel,chat,hosted,cards,upgradeFrom})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
+ (controls?negativeControls(args[0],{out,restart,expiredLogin,cancel,chat,hosted,cards,citi,upgradeFrom}):run(args[0],{out,restart,expiredLogin,cancel,chat,hosted,cards,citi,upgradeFrom})).then(()=>process.exit(0),e=>{console.error(e.message);process.exit(1);});
 }

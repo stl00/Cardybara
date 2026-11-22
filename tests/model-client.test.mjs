@@ -102,8 +102,8 @@ test('the key appears in no other code, and nothing reaches the old localhost mo
  const files=dir=>readdirSync(dir).flatMap(name=>{const path=join(dir,name);return statSync(path).isDirectory()?files(path):[path];});
  const sources=[...files('extension-next'),...files('extension-dev'),...files('src')].filter(f=>/\.(js|jsx|mjs)$/.test(f));
  for(const file of sources){const text=readFileSync(file,'utf8');if(file.endsWith('model-client.js'))continue;assert.ok(!text.includes("'cardybara-model-key'"),file+' reads the key store directly');}
- for(const file of ['extension-next/parser-client.js','extension-next/background.js','src/ChatAdvisor.jsx','src/extensionChat.js'])assert.ok(!/127\.0\.0\.1:8766\/api\/(?:parser|advisor)/.test(readFileSync(file,'utf8')),file);
- for(const file of ['extension-dev/background-dev.js','extension-dev/schedule-core.js'])assert.ok(!readFileSync(file,'utf8').includes('model-client'),file+': diagnostics never touch the key');
+ for(const file of ['extension-next/parser-client.js','extension-next/background.js','src/ChatAdvisor.jsx','src/extensionChat.js'])assert.ok(!/127\.0\.0\.1:8776\/api\/(?:parser|advisor)/.test(readFileSync(file,'utf8')),file);
+ for(const file of ['extension-dev/background-dev.js','extension-dev/read-core.js'])assert.ok(!readFileSync(file,'utf8').includes('model-client'),file+': diagnostics never touch the key');
  assert.ok(!readFileSync('extension-next/model-client.js','utf8').match(/console\./),'the client never logs');
 });
 test('review: card-type suggestion goes to the provider with the server\'s prompt and scoping',async()=>{

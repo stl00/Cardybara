@@ -1,5 +1,5 @@
 (()=>{
- const origin='http://127.0.0.1:8766';if(location.origin!==origin||window.top!==window)return;
+ const origin='http://127.0.0.1:8776';if(location.origin!==origin||window.top!==window)return;
  const emit=m=>window.postMessage({channel:'cardybara-extension',...m},origin);
  // Bootstrap from the content script too: React may send hello before document_idle.
  chrome.runtime.sendMessage({type:'hello',requestId:crypto.randomUUID()}).then(result=>emit({type:'ready',...result})).catch(()=>emit({type:'error',error:'扩展启动失败，请重新加载。'}));

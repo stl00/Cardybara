@@ -25,9 +25,11 @@ export function headersFor(file) {
   return out;
 }
 
-export async function serve(dir) {
+// The request listener that serves `dir` with the shipped headers; `serve` puts it on loopback HTTP, and the web chat check
+// (tests/web-chat.test.mjs) puts it behind HTTPS, which the gateway requires of a web origin.
+export async function staticHandler(dir) {
   const headers = headersFor(await readFile(join(dir, '_headers'), 'utf8'));
-  const server = createServer(async (req, res) => {
+  return async (req, res) => {
     let name = decodeURIComponent(new URL(req.url, 'http://x').pathname);
     if (name === '/') name = '/index.html';
     const path = join(dir, name);
@@ -36,7 +38,11 @@ export async function serve(dir) {
       const body = await readFile(path);
       res.writeHead(200, {...headers, 'content-type': TYPES[extname(path)] || 'application/octet-stream'}).end(body);
     } catch { res.writeHead(404, headers).end(); }
-  });
+  };
+}
+
+export async function serve(dir) {
+  const server = createServer(await staticHandler(dir));
   await new Promise(r => server.listen(0, '127.0.0.1', r));
   return server;
 }

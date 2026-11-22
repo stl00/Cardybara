@@ -6,11 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --host 127.0.0.1 --port 8766",
+    "preview": "vite preview --host 127.0.0.1 --port 8776",
     "test:collector": "node --test tests/collector.test.mjs tests/live.test.mjs",
     "package:extension": "python3 scripts/package-extension.py",
     "test:refresh": "node scripts/run-tests.mjs",
-    "test:collector-chrome": "node --test tests/dev-collector-chrome.test.mjs tests/popup-layout.test.mjs",
+    "test:collector-chrome": "node scripts/warm-chrome.mjs && node --test tests/dev-collector-chrome.test.mjs tests/popup-layout.test.mjs tests/card-merge-page.test.mjs",
     "test:e2e": "node scripts/e2e-extension.mjs release",
     "test:e2e-extended": "node scripts/e2e-extension.mjs release --restart && node scripts/e2e-extension.mjs release --restart --negative-controls && node scripts/e2e-extension.mjs release --expired-login && node scripts/e2e-extension.mjs release --expired-login --negative-controls && node scripts/e2e-extension.mjs release --cancel && node scripts/e2e-extension.mjs release --cancel --negative-controls && node scripts/e2e-extension.mjs release --chat && node scripts/e2e-extension.mjs release --chat --negative-controls && node scripts/e2e-extension.mjs release --chat --hosted && node scripts/e2e-extension.mjs release --chat --hosted --negative-controls",
     "test:e2e-upgrade": "scripts/build-previous-package.sh .debug/previous-package && node scripts/e2e-extension.mjs release --upgrade-from .debug/previous-package && node scripts/e2e-extension.mjs release --upgrade-from .debug/previous-package --negative-controls",
@@ -22,7 +22,7 @@
     "eval:multiturn": "node scripts/eval-multiturn.mjs",
     "eval:multiturn:live": "node scripts/eval-multiturn.mjs --live",
     "eval:benefit-recall": "node scripts/eval-benefit-recall.mjs && node scripts/eval-benefit-recall.mjs --golden=evals/benefit-recall/holdout.json --out=evals/latest-benefit-recall-holdout.json",
-    "check:agent": "node --test tests/find-benefits-judge.test.mjs tests/model-client.test.mjs tests/agent-scripted-model.test.mjs tests/chat-agent.test.mjs tests/agent-quality.test.mjs tests/agent-credit-query.test.mjs tests/card-decision.test.mjs tests/point-values.test.mjs tests/purchase-choice.test.mjs tests/credit-applicability.test.mjs tests/credit-dismissal.test.mjs tests/multiturn-eval.test.mjs tests/conversation-state.test.mjs tests/redemption-options.test.mjs tests/coverage-eval.test.mjs && node scripts/eval-agent.mjs && node scripts/eval-multiturn.mjs --min=0.9 && npm run check:agent:cloud",
+    "check:agent": "node --test tests/find-benefits-judge.test.mjs tests/model-client.test.mjs tests/agent-scripted-model.test.mjs tests/chat-agent.test.mjs tests/agent-quality.test.mjs tests/agent-credit-query.test.mjs tests/card-decision.test.mjs tests/point-values.test.mjs tests/purchase-choice.test.mjs tests/credit-applicability.test.mjs tests/credit-dismissal.test.mjs tests/multiturn-eval.test.mjs tests/conversation-state.test.mjs tests/redemption-options.test.mjs tests/coverage-eval.test.mjs tests/redemption-eval.test.mjs tests/points-live-cases.test.mjs tests/eval-tool-coverage.test.mjs tests/stay-plan.test.mjs && node scripts/eval-agent.mjs && node scripts/eval-multiturn.mjs --min=0.9 && npm run check:agent:cloud",
     "check:agent:cloud": "node scripts/check-cloud-agent.mjs",
     "build:gateway": "node scripts/build-gateway.mjs",
     "smoke:gateway-dev": "node scripts/gateway-dev-smoke.mjs",
@@ -37,7 +37,7 @@
     "check:release-source": "python3 scripts/audit-release.py",
     "build:web": "vite build --mode web",
     "check:web": "node scripts/check-web.mjs",
-    "test:web": "node --test tests/web-app.test.mjs",
+    "test:web": "node scripts/warm-chrome.mjs && node --test tests/web-app.test.mjs tests/mobile-first-run.test.mjs tests/mobile-nav.test.mjs tests/web-chat.test.mjs tests/extension-sync.test.mjs tests/phone-sheets.test.mjs tests/account-header.test.mjs tests/pet-clearance.test.mjs tests/plaid-auto-add.test.mjs",
     "build:release": "vite build && python3 scripts/build-release.py",
     "build:dev-extension": "node scripts/build-dev-extension.mjs",
     "check:release-package": "python3 scripts/audit-release.py --package",
@@ -54,7 +54,8 @@
     "@ant-design/icons": "^6.0.0",
     "@ant-design/x": "^2.10.0",
     "antd": "^6.7.0",
-    "openai": "^7.53.0",
+    "jose": "6.2.17",
+    "openai": "^7.57.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
@@ -63,7 +64,7 @@
   "devDependencies": {
     "esbuild": "0.28.2",
     "fake-indexeddb": "^6.2.8",
-    "vite": "^6.0.0",
-    "ws": "^8.22.2"
+    "vite": "^8.3.8",
+    "ws": "^8.23.0"
   }
 }

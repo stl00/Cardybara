@@ -24,9 +24,7 @@ const NO_STATED_CYCLE={
  'rule.bilt-us-bilt-obsidian-card.bilt-cash-2027':'page not readable: Bilt terms are a PDF/404 to the fetch tool',
  'rule.bilt-us-bilt-palladium-card.bilt-cash':'page not readable: Bilt terms are a PDF/404 to the fetch tool',
  'rule.bilt-us-bilt-palladium-card.bilt-cash-2027':'page not readable: Bilt terms are a PDF/404 to the fetch tool',
- // Non-credit rules from #340 (spend-unlock, lounge, membership): no period value fits what the rule text says; page not re-read in this PR.
- 'rule.chase-us-marriott-bonvoy-boundless-credit-card.airline-credit':'dated promo windows per cardholder group, not a repeating cycle; no matching period value',
- 'rule.chase-us-ihg-one-rewards-credit-card.fourth-night':'unlocked by a calendar-year spend requirement and lasts into the next year; no matching period value',
+ // Rules where no period value fits what the page says, or the page does not state a start (re-checked in #348 for Marriott Bonvoy Boundless and IHG One, which now carry a period).
  'rule.us-bank-us-altitude-go-visa-signature-card.streaming':'12-month credit, page does not state when the 12 months start: not stated',
  'rule.amex-us-us-delta-skymiles-reserve-business-card.sky-club':'counted per Medallion year; no matching period value',
  'rule.amex-us-us-delta-skymiles-reserve-business-card.mqd-headstart':'granted per Medallion qualification year; no matching period value',
@@ -45,4 +43,10 @@ test('the allow-list only names rules that still need it',()=>{
   const r=rules.find(x=>x.id===id);assert.ok(r,id+' exists');assert.ok(reason.length>10,id+' has a reason');
   assert.ok(needsCycle(r)&&r.terms.period==null,id+' now has a period or is no longer an active credit; remove it from the list');
  }
+});
+// stl00/Cardybara#348: the cycle the issuer page states is recorded, not left null.
+test('rules with a stated cycle carry the matching period (#348)',()=>{
+ const byId=new Map(rules.map(r=>[r.id,r]));
+ assert.equal(byId.get('rule.chase-us-ihg-one-rewards-credit-card.fourth-night').terms.period,'earned-year-plus-next');
+ assert.equal(byId.get('rule.chase-us-marriott-bonvoy-boundless-credit-card.airline-credit').terms.period,'promotion-period');
 });

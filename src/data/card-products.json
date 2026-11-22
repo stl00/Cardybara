@@ -2024,7 +2024,12 @@
       "region": "US",
       "name": "Corporate Card",
       "aliases": [
-        "Corporate Card"
+        "Corporate Card",
+        "Healthcare Corporate Credit Card",
+        "Construction Corporate Credit Card",
+        "Professional Services Corporate Credit Card",
+        "Green Tech Corporate Credit Card",
+        "Wholesale Trade Corporate Credit Card"
       ],
       "currencies": [],
       "rewardPrograms": [],
@@ -2036,6 +2041,96 @@
         "verification": "legacy-asset",
         "sourceUrl": null
       }
+    },
+    {
+      "id": "amex-us-us-corporate-green-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "American Express Corporate Green Card",
+      "aliases": [
+        "American Express Corporate Green Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/corporate/",
+      "checkedAt": "2026-11-17",
+      "verification": "needs-review",
+      "art": null
+    },
+    {
+      "id": "amex-us-us-corporate-gold-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "American Express Corporate Gold Card",
+      "aliases": [
+        "American Express Corporate Gold Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/corporate/",
+      "checkedAt": "2026-11-17",
+      "verification": "needs-review",
+      "art": null
+    },
+    {
+      "id": "amex-us-us-corporate-platinum-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "American Express Corporate Platinum Card",
+      "aliases": [
+        "American Express Corporate Platinum Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/corporate/",
+      "checkedAt": "2026-11-17",
+      "verification": "needs-review",
+      "art": null
+    },
+    {
+      "id": "amex-us-us-corporate-cashback-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "Corporate Cashback Card",
+      "aliases": [
+        "Corporate Cashback Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/corporate/",
+      "checkedAt": "2026-11-17",
+      "verification": "needs-review",
+      "art": null
+    },
+    {
+      "id": "amex-us-us-corporate-purchasing-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "American Express Corporate Purchasing Card",
+      "aliases": [
+        "American Express Corporate Purchasing Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/corporate/",
+      "checkedAt": "2026-11-17",
+      "verification": "needs-review",
+      "art": null
+    },
+    {
+      "id": "amex-us-us-corporate-meeting-card",
+      "bank": "Amex US",
+      "region": "US",
+      "name": "American Express Corporate Meeting Card",
+      "aliases": [
+        "American Express Corporate Meeting Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.americanexpress.com/en-us/business/corporate/",
+      "checkedAt": "2026-11-17",
+      "verification": "needs-review",
+      "art": null
     },
     {
       "id": "amex-ca-ca-platinum-card",
@@ -4479,6 +4574,488 @@
       "checkedAt": "2026-11-16",
       "verification": "issuer-listed",
       "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-miles-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Miles Credit Card",
+      "aliases": [
+        "Discover it Miles Credit Card",
+        "Discover it Miles"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/travel/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-chrome-gas-restaurants-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Chrome Gas & Restaurants Credit Card",
+      "aliases": [
+        "Discover it Chrome Gas & Restaurants Credit Card",
+        "Discover it Chrome",
+        "Discover it Chrome Gas and Restaurants"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/cash-back/chrome/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-balance-transfer-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Balance Transfer Credit Card",
+      "aliases": [
+        "Discover it Balance Transfer Credit Card",
+        "Discover it Balance Transfer"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/balance-transfer-credit-cards/cash-back-bt-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-nhl-discover-it-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "NHL® Discover it Credit Card",
+      "aliases": [
+        "NHL® Discover it Credit Card",
+        "NHL Discover it Credit Card",
+        "NHL Discover it Credit Card",
+        "NHL Discover it"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/cash-back/nhl-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-cash-back-for-good-credit",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Cash Back for Good Credit",
+      "aliases": [
+        "Discover it Cash Back for Good Credit",
+        "Discover it Cash Back Good Credit"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-miles-for-good-credit",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Miles for Good Credit",
+      "aliases": [
+        "Discover it Miles for Good Credit",
+        "Discover it Miles Good Credit"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-chrome-for-good-credit",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Chrome for Good Credit",
+      "aliases": [
+        "Discover it Chrome for Good Credit",
+        "Discover it Chrome Good Credit"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-student-cash-back-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Student Cash Back Credit Card",
+      "aliases": [
+        "Discover it Student Cash Back Credit Card",
+        "Discover it Student Cash Back"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/student-credit-card/it-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-student-chrome-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Student Chrome Credit Card",
+      "aliases": [
+        "Discover it Student Chrome Credit Card",
+        "Discover it Student Chrome"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/student-credit-card/chrome-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "discover-us-discover-it-secured-cash-back-credit-card",
+      "bank": "Discover",
+      "region": "US",
+      "name": "Discover it Secured Cash Back Credit Card",
+      "aliases": [
+        "Discover it Secured Cash Back Credit Card",
+        "Discover it Secured Cash Back",
+        "Discover it Secured Credit Card",
+        "Discover it Secured"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.discover.com/credit-cards/secured-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-active-cash-card",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo Active Cash® Card",
+      "aliases": [
+        "Wells Fargo Active Cash® Card",
+        "Wells Fargo Active Cash Card",
+        "Active Cash® Card",
+        "Active Cash Card",
+        "Active Cash",
+        "Wells Fargo Active Cash"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.wellsfargo.com/active-cash-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-autograph-card",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo Autograph® Card",
+      "aliases": [
+        "Wells Fargo Autograph® Card",
+        "Wells Fargo Autograph Card",
+        "Autograph® Card",
+        "Autograph Card",
+        "Autograph",
+        "Wells Fargo Autograph"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.wellsfargo.com/autograph-visa-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-reflect-card",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo Reflect® Card",
+      "aliases": [
+        "Wells Fargo Reflect® Card",
+        "Wells Fargo Reflect Card",
+        "Reflect® Card",
+        "Reflect Card",
+        "Reflect",
+        "Wells Fargo Reflect"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://creditcards.wellsfargo.com/reflect-visa-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-one-key-card",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo One Key® Card",
+      "aliases": [
+        "Wells Fargo One Key® Card",
+        "Wells Fargo One Key Card",
+        "One Key® Card",
+        "One Key Card",
+        "One Key",
+        "Wells Fargo One Key"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.wellsfargo.com/one-key-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-choice-privileges-mastercard",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo Choice Privileges® Mastercard®",
+      "aliases": [
+        "Wells Fargo Choice Privileges® Mastercard®",
+        "Wells Fargo Choice Privileges Mastercard",
+        "Choice Privileges® Mastercard®",
+        "Choice Privileges Mastercard",
+        "Choice Privileges",
+        "Wells Fargo Choice Privileges"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.wellsfargo.com/choice-hotel-privileges-mastercard/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-choice-privileges-select-mastercard",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo Choice Privileges® Select Mastercard®",
+      "aliases": [
+        "Wells Fargo Choice Privileges® Select Mastercard®",
+        "Wells Fargo Choice Privileges Select Mastercard",
+        "Choice Privileges® Select Mastercard®",
+        "Choice Privileges Select Mastercard",
+        "Choice Privileges Select",
+        "Wells Fargo Choice Privileges Select"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.wellsfargo.com/choice-hotels-privileges-select-mastercard/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "wells-fargo-us-signify-business-cash-card",
+      "bank": "Wells Fargo",
+      "region": "US",
+      "name": "Wells Fargo Signify Business Cash® Card",
+      "aliases": [
+        "Wells Fargo Signify Business Cash® Card",
+        "Wells Fargo Signify Business Cash Card",
+        "Signify Business Cash® Card",
+        "Signify Business Cash Card",
+        "Signify Business Cash",
+        "Wells Fargo Signify Business Cash"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.wellsfargo.com/business-credit-cards/signify-business-cash-credit-card/",
+      "checkedAt": "2026-11-16",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "citi-us-my-best-buy-credit-cards",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "My Best Buy® Credit Cards",
+      "aliases": [
+        "My Best Buy® Credit Cards",
+        "My Best Buy Credit Cards",
+        "My Best Buy Credit Card",
+        "My Best Buy Visa",
+        "Best Buy Credit Card",
+        "Best Buy Credit Cards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-best-buy-credit-cards",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-macys-credit-cards",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Macy’s Credit Cards",
+      "aliases": [
+        "Macy’s Credit Cards",
+        "Macy's Credit Cards",
+        "Macys Credit Cards",
+        "Macy's Credit Card",
+        "Macy's Card",
+        "Macys Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-macys-credit-card",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-bloomingdales-credit-cards",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Bloomingdale’s Credit Cards",
+      "aliases": [
+        "Bloomingdale’s Credit Cards",
+        "Bloomingdale's Credit Cards",
+        "Bloomingdales Credit Cards",
+        "Bloomingdale's Credit Card",
+        "Bloomingdale's Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/bloomingdales-credit-cards",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-the-home-depot-consumer-credit-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "The Home Depot® Consumer Credit Card",
+      "aliases": [
+        "The Home Depot® Consumer Credit Card",
+        "The Home Depot Consumer Credit Card",
+        "Home Depot Consumer Credit Card",
+        "Home Depot Credit Card",
+        "The Home Depot Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-home-depot-consumer-credit-card",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-pro-xtra-credit-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Pro Xtra Credit Card",
+      "aliases": [
+        "Pro Xtra Credit Card",
+        "Home Depot Pro Xtra Credit Card",
+        "The Home Depot Pro Xtra Credit Card",
+        "Pro Xtra"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/home-depot-pro-xtra-credit-card",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-tsc-credit-cards",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "TSC Credit Cards",
+      "aliases": [
+        "TSC Credit Cards",
+        "TSC Credit Card",
+        "Tractor Supply Credit Card",
+        "Tractor Supply Credit Cards"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-tractor-supply-credit-cards",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-l-l-bean-mastercard",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "L.L.Bean® Mastercard®",
+      "aliases": [
+        "L.L.Bean® Mastercard®",
+        "L.L.Bean Mastercard",
+        "LL Bean Mastercard",
+        "L.L.Bean Credit Card",
+        "L.L.Bean Mastercard Credit Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-llbean-credit-card",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-dillards-credit-cards",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Dillard’s Credit Cards",
+      "aliases": [
+        "Dillard’s Credit Cards",
+        "Dillard's Credit Cards",
+        "Dillards Credit Cards",
+        "Dillard's Credit Card",
+        "Dillard's Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/dillards-credit-cards",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-wayfair-credit-cards",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Wayfair Credit Cards",
+      "aliases": [
+        "Wayfair Credit Cards",
+        "Wayfair Credit Card",
+        "Wayfair Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/wayfair-credit-cards",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
+    },
+    {
+      "id": "citi-us-goodyear-credit-card",
+      "bank": "Citi US",
+      "region": "US",
+      "name": "Goodyear® Credit Card",
+      "aliases": [
+        "Goodyear® Credit Card",
+        "Goodyear Credit Card",
+        "Goodyear Credit Cards",
+        "Goodyear Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.citi.com/credit-cards/goodyear-credit-cards",
+      "checkedAt": "2026-11-18",
+      "verification": "issuer-listed"
     }
   ]
 }

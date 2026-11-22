@@ -66,7 +66,7 @@ test('a card name with digits becomes its product name, else its bank, never the
 });
 
 test('wallet tools are exactly the tools that read the user\'s wallet; the rest are public knowledge',()=>{
- assert.deepEqual([...WALLET_TOOLS].sort(),['choose_card','plan_flight','query_credits']);
+ assert.deepEqual([...WALLET_TOOLS].sort(),['choose_card','plan_flight','plan_stay','query_credits']);
  for(const name of WALLET_TOOLS)assert.ok(agentTools.some(t=>t.function.name===name));
 });
 

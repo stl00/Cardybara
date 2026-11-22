@@ -9,8 +9,15 @@ The standalone build has no ordinary-website bridge content script and no requir
 One source ships to two channels (owner decision 2026-11-16, #373). The rules, including where the web build deploys, PR previews, red lines and data-format versions, are in `CLAUDE.md`, "One source, two channels". Target state: the web build and its deploy arrive with #374 and #375.
 
 - **Extension:** the gated flow below. Nothing reaches a tester before a tag and the owner's exact-artifact acceptance.
-- **Web (PWA):** continuous deployment to the Pages project `cardybara-app`. A PR from a branch of this repository gets a preview; a `main` commit deploys to production once its build, web checks and mobile E2E jobs are green on that commit. No tag, release note bump or owner step. A bad deploy is rolled back by redeploying the previous green commit, except one that changed the stored data format, which is fixed forward. The web build is manual entry only and has no bank access, so the bank acceptance below does not apply to it.
+- **Web (PWA):** continuous deployment to the Pages project `cardybara-app`. A PR from a branch of this repository gets a preview; a `main` commit deploys to production once its build, web checks and mobile E2E jobs are green on that commit. No tag, release note bump or owner step. A bad deploy is rolled back by redeploying the previous green commit, except one that changed the stored data format, which is fixed forward. The web build reads no bank pages (its only bank data is Plaid-linked US credit cards through the gateway, `PLAID_PLAN.md`), so the bank acceptance below does not apply to it.
 - **Product site** (`site/`, project `cardybara`): unchanged, manual deploy, production needs the owner's go-ahead.
+
+
+## Web rollback
+
+The web channel is deployed by `.github/workflows/web-deploy.yml` (`tests/web-deploy-workflow.test.mjs` guards its red lines). To roll back a bad deploy, redeploy the previous green commit: open the workflow's last green `main` run for that commit and re-run its `Deploy production` job (or revert the bad commit on `main`, whose own green run then deploys). The Pages project keeps earlier deployments, but do not use its dashboard rollback as the routine path, so that the live build always matches a commit that passed the gates. A deploy that changed the stored data format is never rolled back: older builds would read newer data. It is fixed forward with a new commit (CLAUDE.md, "One source, two channels").
+
+The workflow uses the Pages project `cardybara-app` and the `web` environment's `CLOUDFLARE_API_TOKEN` (Pages: Edit only) and `CLOUDFLARE_ACCOUNT_ID`. A production job fails if either secret is missing. Preview jobs skip deployment when either is missing. After a production deployment, the job checks that the homepage at `cardybara.dev` references the built JavaScript entry bundle and serves that bundle with the expected SHA-256.
 
 ## Friends beta (scoped build)
 
@@ -19,7 +26,7 @@ One source ships to two channels (owner decision 2026-11-16, #373). The rules, i
 ### Beta checklist
 
 Required checks — Claude runs these and reports them on the release PR:
-- [ ] `npm run check:release` passes locally on the commit to be tagged, and CI `Verify and package` and `E2E` are green on it (E2E covers install, Chase connect and read, manual card, hosted chat with no invite code).
+- [ ] `npm run check:release` passes locally on the commit to be tagged, and CI `Verify and package` and `E2E` are green on it (E2E covers install, Chase connect and read, Citi US connect and read on the synthetic Citi page, manual card, hosted chat with no invite code).
 - [ ] The package from that CI run has `build-scope.js` = `["Chase","Amex US"]` (the package audit fails otherwise) and its manifest says Beta.
 - [ ] Hosted gateway deployed with its provider key set and caps configured (`docs/GATEWAY.md`; #208, #210). No invite codes since 2026-11-16.
 - [ ] Release notes and the About page re-checked against `main`: the "Before tagging" list in the notes is cleared (#210 cloud agent, #195 common cards, #196 problem report — update the notes for each that merged, or keep it listed as not in this beta).

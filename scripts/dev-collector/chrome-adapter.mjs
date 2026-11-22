@@ -177,7 +177,7 @@ export function createChromeAdapter({openBrowser,extensionRoot,storagePath,permi
  const chrome={
   runtime:{id:RUNTIME_ID,getURL:path=>'chrome-extension://'+RUNTIME_ID+'/'+path,onMessage,sendMessage:async()=>undefined},
   storage:{local,session},
-  // Same default as a package without loopback permission, so a dev run never calls the 8766 parser.
+  // Same default as a package without loopback permission, so a dev run never calls the 8776 parser.
   permissions:{contains:async()=>false},
   alarms:{onAlarm,
    async create(name,{when}){clearTimeout(alarms.get(name));alarms.set(name,setTimeout(()=>{alarms.delete(name);onAlarm.fire({name,scheduledTime:when});},Math.max(0,when-Date.now())));},

@@ -292,6 +292,30 @@ export const tripCases=[
  {id:'trip-whole-hant',airline:'達美',when:'聖誕節',expectedWindow:{start:'2026-12-01',end:'2026-12-31'}},
  {id:'trip-whole-en',airline:'Delta',when:'Dec 20-27',expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
 ];
+// #480: the hotel half of a whole-trip question ('住凯悦' in trip-whole-question). Offline, code runs plan_stay on the
+// same date words and the checks mirror the flight half: dates agree with the hotel credit read, availability is marked not
+// checked, the hotel path is found and no award price or points are invented.
+export const stayCases=[
+ {id:'stay-whole-hans',tool:'plan_stay',args:{programme:'凯悦',nights:7,when:'12月20日到27日'},expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
+ {id:'stay-whole-en',tool:'plan_stay',args:{programme:'Hyatt',nights:7,when:'Dec 20-27'},expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
+];
+// #530: the flight plan lists booking protections of the held cards; a card with no record is not_found, never uncovered.
+export const flightProtectionCases=[
+ {id:'flight-protections-en',args:{airline:'Delta',when:'Dec 20-27'},
+  good:'Your Sapphire Reserve lists trip delay and trip cancellation protection; the card\'s guide to benefits controls the terms. The Gold Card has no protection record held here, so I cannot say what it covers.',
+  bad:'Your Gold Card has no coverage for a delay, so only the Sapphire Reserve helps.'},
+];
+// #479: a stated cash fare against an award. The tool result carries the verdict; the answer must report it and must not
+// bring a fare of its own. Synthetic fares only. `good` reports the code's verdict, `bad` invents a fare.
+export const flightCompareCases=[
+ {id:'flight-compare-cash-cheaper',args:{airline:'Delta',milesNeeded:25500,cashFare:300,cashFareCurrency:'USD'},verdict:'cash-cheaper',
+  payCard:'Morgan Stanley Platinum Card',
+  good:'Cash is cheaper: the 26,000 points are worth $390 at 1.5 cents each, against your $300 fare. For the cash side, pay with the Morgan Stanley Platinum Card.',
+  bad:'Cash is cheaper: the 26,000 points are worth $390, and a fare like this usually runs about $450.',stated:[300]},
+ {id:'flight-compare-currency-mismatch',args:{airline:'Delta',milesNeeded:25500,cashFare:300,cashFareCurrency:'HKD'},verdict:'currency-mismatch',
+  good:'The points are valued in USD and your fare is in HKD, so I have not compared them.',
+  bad:'The points are valued in USD and your fare is in HKD, but at about 7.8 HKD per USD the fare is $38, so cash wins.',stated:[300]},
+];
 // #277: cycle questions the credit tool must answer from the user's own data. Each case is a tool result plus the code-written fallback answer in the question's language.
 const GE='rule.chase-us-sapphire-reserve.global-entry';
 const fourYearMark=(productId,ruleId,usedOn)=>({schema:1,id:[ruleId,usedOn,'used'].join('-'),key:JSON.stringify([cardFor(productId).id,ruleId,'four-year']),status:'used',usedOn,at:'2026-10-20T00:00:00.000Z',revisionId:null});
@@ -356,6 +380,15 @@ export const liveCases=[
  {id:'ledger-card-year',feeDates:reserveFee,events:reserveMarks,question:'我的 Sapphire Reserve 这个卡年 credit 返还了多少？已标记用掉的和没有记录的分开说。简短回答。',expectTool:'query_credits',expectedArgs:{yearBasis:'card-year'},answerPatterns:['(?<!\\d)314(?!\\d)','(?<!\\d)70(?!\\d)'],forbidAnswerPatterns:['(?<!\\d)384(?!\\d)']},
  // #345: a held card with no protection record. The answer says no record was found and points to the issuer's guide; it never says "not covered".
  {id:'coverage-no-record',heldProductIds:['amex-us-us-blue-cash-everyday'],question:'我的 Blue Cash Everyday 航班延误有保障吗？简短回答。',expectTool:'find_protections',stripDenials:true,answerPatterns:['没有[^。\\n]{0,12}记录|记录里没有|記錄裡沒有|未找到|没有找到|找不到|not found|no record','保障指南|发卡行|發卡行|guide to benefits'],forbidAnswerPatterns:['没有[^。\\n]{0,6}保障|不[^。\\n]{0,2}保障|不在[^。\\n]{0,4}保障|未[^。\\n]{0,2}覆盖|不承保|not covered|no coverage']},
+ // #464: an issuer-redemption question: the dollar value is the one the tool computed from the stated points; a transfer is not priced.
+ {id:'redemption-cash-vs-transfer',question:'我有 50000 点 Ultimate Rewards，换现金返还和转点哪个划算？简短回答。',expectTool:'points_accounts',expectedArgs:{programme:'Ultimate Rewards'},answerPatterns:['500']},
+ // #481: the points tools no other live case chooses between. A held card of one programme adds up with the others
+ // (points_accounts); a stated number of points converts to a partner with a published rate, the leftover never rounded up
+ // (convert_points, Amex Gold to Aer Lingus: 1,000-point steps, read on a day when that rule is in force); and a card with no
+ // transfer record of its own reaches Hyatt only by combining into the Sapphire Preferred that has one. `day` sets the wallet's date.
+ {id:'points-add-up',heldProductIds:['chase-us-sapphire-reserve','chase-us-freedom-unlimited'],question:'我有 Sapphire Reserve 和 Freedom Unlimited 两张卡，各自的 Ultimate Rewards 积分能加在一起用吗？简短回答。',expectTool:'points_accounts',expectedArgs:{programme:'Ultimate Rewards'},answerPatterns:['合并|合併|combine','Reserve']},
+ {id:'convert-stated-points',day:'2026-11-16',heldProductIds:['amex-us-us-american-express-gold-card'],question:'我有 12345 点 Membership Rewards，转到 Aer Lingus AerClub 能换多少？用不完的点数要说清楚，简短回答。',expectTool:'convert_points',expectedArgs:{points:12345},answerPatterns:['12,?000','(?<!\\d)345(?!\\d)'],forbidAnswerPatterns:['13,?000']},
+ {id:'convert-through-pooled-card',day:'2026-11-16',heldProductIds:['chase-us-chase-sapphire-preferred-credit-card','chase-us-freedom-unlimited'],question:'我的 Freedom Unlimited 自己没有转点记录，里面的积分能转到 Hyatt 吗？简短回答。',expectTools:['convert_points','points_accounts'],answerPatterns:['Sapphire Preferred','合并|合併|combine']},
  {id:'credits-by-card',question:'我的 Sapphire Reserve 本期有哪些 credit？没标记的不要当成没用。',expectTool:'query_credits'},
  {id:'follow-up',question:'那换成加拿大，100加元的餐厅呢？简短回答。',memory:{lastPurchase:{category:'dining',country:'US',currency:'USD',amount:100}},expectTool:'choose_card',expectedArgs:{category:'dining',country:'CA',currency:'CAD',amount:100}}
 ];

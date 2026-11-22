@@ -79,6 +79,10 @@ test('every current Citi US card on the public card list matches its own product
  for(const [n,p] of Object.entries(want))assert.equal(id('Citi US','US',n),p,n);
  for(const p of cardProducts.filter(p=>p.bank==='Citi US'))assert.ok(p.sourceUrl.startsWith('https://www.citi.com/credit-cards/')&&p.checkedAt,p.id);
 });
+test('Citi US retail co-brand cards each match their own product by full name (#384)',()=>{
+ const want={'My Best Buy® Credit Cards':'citi-us-my-best-buy-credit-cards','Macy’s Credit Cards':'citi-us-macys-credit-cards','Bloomingdale’s Credit Cards':'citi-us-bloomingdales-credit-cards','The Home Depot® Consumer Credit Card':'citi-us-the-home-depot-consumer-credit-card','Pro Xtra Credit Card':'citi-us-pro-xtra-credit-card','TSC Credit Cards':'citi-us-tsc-credit-cards','L.L.Bean® Mastercard®':'citi-us-l-l-bean-mastercard','Dillard’s Credit Cards':'citi-us-dillards-credit-cards','Wayfair Credit Cards':'citi-us-wayfair-credit-cards','Goodyear® Credit Card':'citi-us-goodyear-credit-card'};
+ for(const [n,p] of Object.entries(want))assert.equal(id('Citi US','US',n),p,n);
+});
 test('the remaining Bank of America public cards match by full name and short name (#366)',()=>{
  const full=['Bank of America Travel Rewards credit card','Bank of America Premium Rewards credit card','Bank of America Premium Rewards Elite credit card','BankAmericard credit card','Susan G. Komen Customized Cash Rewards credit card','Air France KLM Visa Signature Credit Card','Norwegian Cruise Line World Mastercard','Business Advantage Unlimited Cash Rewards Mastercard','Business Advantage Customized Cash Rewards Mastercard','Business Advantage Travel Rewards World Mastercard'];
  const seen=new Set();
@@ -106,4 +110,18 @@ test('the remaining U.S. Bank public cards match by full name and short name (#3
  assert.equal(seen.size,full.length,'each card reaches its own product');
  for(const [n,want] of Object.entries({'Altitude Connect':'U.S. Bank Altitude® Connect Visa Signature® Card','Business Altitude Connect':'U.S. Bank Business Altitude® Connect Visa Signature® Card','Business Essentials Plus':'U.S. Bank Business Essentials™ Plus Visa Signature® Card','Business Essentials':'U.S. Bank Business Essentials™ Visa® Card','Shield Visa':'U.S. Bank Shield® Visa® Card','Business Shield':'U.S. Bank Business Shield® Visa® Card'})){const m=matchCardProduct({bank:'U.S. Bank',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,want,n);}
  for(const [n,id] of [['Cash+ Visa Signature Card','us-bank-us-cash-plus-visa-signature-card'],['Altitude Go','us-bank-us-altitude-go-visa-signature-card']])assert.equal(matchCardProduct({bank:'U.S. Bank',region:'US',name:n}).product?.id,id,n);
+});
+test('the remaining Discover public cards match by full name and short name (#369)',()=>{
+ const full=["Discover it Miles Credit Card", "Discover it Chrome Gas & Restaurants Credit Card", "Discover it Balance Transfer Credit Card", "NHL® Discover it Credit Card", "Discover it Cash Back for Good Credit", "Discover it Miles for Good Credit", "Discover it Chrome for Good Credit", "Discover it Student Cash Back Credit Card", "Discover it Student Chrome Credit Card", "Discover it Secured Cash Back Credit Card"];
+ const seen=new Set();
+ for(const name of full){for(const n of [name,name.replace(/[®™]/g,'')]){const m=matchCardProduct({bank:'Discover',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,name,n);seen.add(m.product.id);}}
+ assert.equal(seen.size,full.length,'each card reaches its own product');
+ for(const [n,id] of [['Discover it Cash Back Credit Card','discover-us-discover-it-cash-back-credit-card'],['Discover it','discover-us-discover-it-cash-back-credit-card']])assert.equal(matchCardProduct({bank:'Discover',region:'US',name:n}).product?.id,id,n);
+});
+test('the remaining Wells Fargo public cards match by full name and short name (#370)',()=>{
+ const full=['Wells Fargo Active Cash® Card','Wells Fargo Autograph® Card','Wells Fargo Reflect® Card','Wells Fargo One Key® Card','Wells Fargo Choice Privileges® Mastercard®','Wells Fargo Choice Privileges® Select Mastercard®','Wells Fargo Signify Business Cash® Card'];
+ const seen=new Set();
+ for(const name of full){for(const n of [name,name.replace(/[®™]/g,''),name.replace('Wells Fargo ','')]){const m=matchCardProduct({bank:'Wells Fargo',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,name,n);seen.add(m.product.id);}}
+ assert.equal(seen.size,full.length,'each card reaches its own product');
+ assert.equal(matchCardProduct({bank:'Wells Fargo',region:'US',name:'Autograph Journey'}).product?.id,'wells-fargo-us-autograph-journey-visa-card','the existing card is not taken by Autograph');
 });

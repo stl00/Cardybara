@@ -27,7 +27,7 @@ export function nextFireAt(schedule,log,now){
  const times=pending(schedule,log,now).map(e=>e.fireAt).filter(t=>t>now);
  return times.length?Math.min(...times):null;
 }
-const fill=(phrase,value)=>String(phrase??'').replace('{0}',value);
+const fill=(phrase,value,slot='{0}')=>String(phrase??'').replace(slot,()=>value);
 function whenText(days,bill,p){
  if(days<0)return fill(p.overdue,-days);
  if(days===0)return bill?p.dueToday:p.endsToday;
@@ -35,7 +35,8 @@ function whenText(days,bill,p){
  return fill(p.later,days);
 }
 /** One reminder's wording. The day count comes from today, because a send can be late. */
-export function reminderText({group,label,days,amount,stale},phrases){
+export function reminderText({group,label,days,amount,stale,reuse},phrases){
+ if(reuse&&phrases.reuse)return {title:phrases.credit,message:fill(fill(phrases.reuse,reuse.name),reuse.title,'{1}')};
  const bill=group==='bills';
  return {title:bill?phrases.bill:phrases.credit,message:[label,whenText(days,bill,phrases),...(amount?[amount]:[]),...(stale?[phrases.stale]:[])].join(' · ')};
 }
@@ -50,7 +51,7 @@ export function dueNotifications(schedule,log,now){
   const rows=due.filter(e=>e.group===group);
   if(!rows.length)continue;
   if(rows.length>SINGLE_LIMIT)out.push({id:`summary:${group}:${today}:${log.length}`,ids:rows.map(r=>r.id),title:group==='bills'?p.bill:p.credit,message:fill(group==='bills'?p.billSummary:p.creditSummary,rows.length)});
-  else for(const e of rows)out.push({id:e.id,ids:[e.id],...reminderText({group,label:e.label,amount:e.amount,days:daysBetween(today,e.targetDay),stale:!!e.staleFrom&&today>=e.staleFrom},p)});
+  else for(const e of rows)out.push({id:e.id,ids:[e.id],...reminderText({group,label:e.label,amount:e.amount,reuse:e.reuse&&typeof e.reuse.name==='string'&&typeof e.reuse.title==='string'?e.reuse:undefined,days:daysBetween(today,e.targetDay),stale:!!e.staleFrom&&today>=e.staleFrom},p)});
  }
  return out;
 }

@@ -12,7 +12,16 @@ export const SEPARATE = {
   // Drive a real Chrome; CI runs them in their own step.
   'tests/dev-collector-chrome.test.mjs': 'test:collector-chrome',
   'tests/popup-layout.test.mjs': 'test:collector-chrome',
+  'tests/card-merge-page.test.mjs': 'test:collector-chrome',
   'tests/web-app.test.mjs': 'test:web',
+  'tests/mobile-first-run.test.mjs': 'test:web',
+  'tests/mobile-nav.test.mjs': 'test:web',
+  'tests/web-chat.test.mjs': 'test:web',
+  'tests/extension-sync.test.mjs': 'test:web',
+  'tests/phone-sheets.test.mjs': 'test:web',
+  'tests/account-header.test.mjs': 'test:web',
+  'tests/plaid-auto-add.test.mjs': 'test:web',
+  'tests/pet-clearance.test.mjs': 'test:web',
   // Agent model plumbing and multi-turn evals run with the agent evals.
   'tests/model-client.test.mjs': 'check:agent',
   'tests/agent-scripted-model.test.mjs': 'check:agent',
