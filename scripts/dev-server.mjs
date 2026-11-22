@@ -5,7 +5,7 @@ import {chatAgent,validateChat} from './chat-agent.mjs';
 import {parseAdvisorIntent} from './advisor-model.mjs';
 import {suggestProduct} from './product-suggest.mjs';
 import {mkdir,readFile,stat,writeFile} from 'node:fs/promises';
-import {validReport} from '../extension-dev/schedule-core.js';
+import {validReport} from '../extension-dev/read-core.js';
 import {resolve,extname,sep} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {modelRequest,validateModel} from '../extension-next/agent-core.js';
@@ -18,8 +18,7 @@ async function receiveDiagnostics(req,json){
  if(!validReport(report)){json(400,{error:'not_redacted'});return;}
  const dir=process.env.CARDYBARA_DEV_DIAGNOSTICS_DIR||resolve(root,'.debug/plugin-diagnostics');await mkdir(dir,{recursive:true,mode:0o700});
  await writeFile(resolve(dir,'latest.json'),JSON.stringify(report,null,1),{mode:0o600});
- // A skip report must not hide the last run's findings.
- if(report.run!=='skipped')await writeFile(resolve(dir,'latest-run.json'),JSON.stringify(report,null,1),{mode:0o600});json(200,{ok:true});
+ await writeFile(resolve(dir,'latest-run.json'),JSON.stringify(report,null,1),{mode:0o600});json(200,{ok:true});
 }
 export function createWalletHandler({port=Number(process.env.CARDYBARA_DEV_PORT||8776),staticFiles=true}={}){
 const allowed=new Set(['http://127.0.0.1:'+port,'http://localhost:'+port,...(env.CARDYBARA_EXTENSION_ORIGINS||'').split(',').map(x=>x.trim()).filter(Boolean)]);
