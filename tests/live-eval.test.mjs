@@ -262,3 +262,18 @@ test('answers-before-asking: a correct currency-split answer is the model\'s own
   const r=await run(bad);assert.equal(r.checks.modelAnswered,false,bad);
  }
 });
+
+// #564: the hotel-stay case holds a daily slot. Offline, the tool it expects runs on the case's own wallet and returns a
+// stay plan for the stated dates with availability not checked; the case passes only when the call carries the user's own numbers.
+test('stay-points-hotel is in the daily set, reads a stay plan from the case wallet, and fails when the stated numbers are dropped',async()=>{
+ const c=liveCases.find(x=>x.id==='stay-points-hotel');
+ assert.ok(config.cases.includes(c.id));assert.equal(config.cases.length,14);assert.equal(config.maxCases,14);
+ const args={programme:'凯悦',nights:5,pointsPerNight:20000,points:90000,when:'12月20日到25日'};
+ const r=runWalletTool({id:'x',function:{name:'plan_stay',arguments:JSON.stringify(args)}},caseWallet(c));
+ assert.equal(r.kind,'stay-plan');assert.equal(r.availability.status,'not-checked');assert.equal(r.dates.start,'2026-12-20');
+ const run=async a=>(await runLiveCase(c,{chat:async()=>({content:'',tool_calls:[{function:{name:'plan_stay',arguments:JSON.stringify(a)}}]}),turn:async({request})=>{await request({});return {answer:'ok',trace:[],tools:[],memory:{},messages:[],context:{}};}})).checks;
+ const good=await run(args);
+ assert.ok(Object.values(good).every(Boolean),JSON.stringify(good));
+ assert.equal((await run({programme:'凯悦',nights:5})).expectedArguments,false,'without the stated points');
+ assert.equal((await run({...args,nights:4})).expectedArguments,false,'with a different number of nights');
+});

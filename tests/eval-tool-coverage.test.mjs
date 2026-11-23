@@ -10,12 +10,8 @@ import {dialogues} from '../evals/multiturn/dialogues.mjs';
 
 const LEVELS = ['offline', 'live', 'multiturn'];
 // Dated exemptions: {tool, level, reason, issue, since}. Today's gaps for the points and trip tools were closed by
-// #481 (live) and #482 (multi-turn), so what is left is the tool no user question chooses and the live set's missing find_benefits case. Remove an entry when it is covered.
+// #481 (live) and #482 (multi-turn), so what is left is the tool no user question chooses (#564 gave find_benefits and plan_stay their live slots). Remove an entry when it is covered.
 const EXEMPTIONS = [
-  {tool: 'find_benefits', level: 'live', issue: 38, since: '2026-11-17',
-    reason: 'No find_benefits case is in evals/live/config.json, which is at its cap of 14; a case must be swapped in or the cap raised (no separate issue yet, tracked by the epic).'},
-  {tool: 'plan_stay', level: 'live', issue: 480, since: '2026-11-17',
-    reason: 'The live set is at its cap of 14 and #480 forbids raising it; the stay half is covered by an offline case until a live slot is freed.'},
   ...LEVELS.map(level => ({tool: 'list_cards', level, issue: 'by design', since: '2026-11-17',
     reason: 'Reads the wallet for the model before other tools; no user question is answered by it alone, so no case can expect it.'})),
 ];
