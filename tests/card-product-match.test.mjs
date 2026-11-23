@@ -111,6 +111,13 @@ test('the remaining U.S. Bank public cards match by full name and short name (#3
  for(const [n,want] of Object.entries({'Altitude Connect':'U.S. Bank Altitude® Connect Visa Signature® Card','Business Altitude Connect':'U.S. Bank Business Altitude® Connect Visa Signature® Card','Business Essentials Plus':'U.S. Bank Business Essentials™ Plus Visa Signature® Card','Business Essentials':'U.S. Bank Business Essentials™ Visa® Card','Shield Visa':'U.S. Bank Shield® Visa® Card','Business Shield':'U.S. Bank Business Shield® Visa® Card'})){const m=matchCardProduct({bank:'U.S. Bank',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,want,n);}
  for(const [n,id] of [['Cash+ Visa Signature Card','us-bank-us-cash-plus-visa-signature-card'],['Altitude Go','us-bank-us-altitude-go-visa-signature-card']])assert.equal(matchCardProduct({bank:'U.S. Bank',region:'US',name:n}).product?.id,id,n);
 });
+test('the U.S. Bank partner and co-brand cards match by full name and short name (#574)',()=>{
+ const full=['H-D™ Visa Signature® Card','Harley Davidson® H.O.G™ Elite Visa Signature® Card','Skypass SkyBlue Visa® Card','Skypass Visa Signature® Card','Skypass Select Visa Signature® Card','State Farm® Premier Cash Rewards Visa® Card','State Farm® Good Neighbor Visa® Card','Skypass Visa Signature® Business Card','Prime Business World Elite Mastercard®','Amazon Business World Elite Mastercard®'];
+ const seen=new Set();
+ for(const name of full){for(const n of [name,name.replace(/[®™]/g,'')]){const m=matchCardProduct({bank:'U.S. Bank',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,name,n);seen.add(m.product.id);}}
+ assert.equal(seen.size,full.length,'each card reaches its own product');
+ for(const [n,want] of Object.entries({'Harley-Davidson H.O.G. Elite Visa Signature Card':full[1],'H-D Visa Signature Card':full[0],'Skypass Visa Signature Card':full[3],'Skypass Visa Signature Business Card':full[7],'Amazon Prime Business Card':full[8],'Amazon Business Card':full[9],'State Farm Good Neighbor Visa Card':full[6]})){const m=matchCardProduct({bank:'U.S. Bank',region:'US',name:n});assert.equal(m.status,'matched',n);assert.equal(m.product.name,want,n);}
+});
 test('the remaining Discover public cards match by full name and short name (#369)',()=>{
  const full=["Discover it Miles Credit Card", "Discover it Chrome Gas & Restaurants Credit Card", "Discover it Balance Transfer Credit Card", "NHL® Discover it Credit Card", "Discover it Cash Back for Good Credit", "Discover it Miles for Good Credit", "Discover it Chrome for Good Credit", "Discover it Student Cash Back Credit Card", "Discover it Student Chrome Credit Card", "Discover it Secured Cash Back Credit Card"];
  const seen=new Set();

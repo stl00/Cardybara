@@ -5056,6 +5056,190 @@
       "sourceUrl": "https://www.citi.com/credit-cards/goodyear-credit-cards",
       "checkedAt": "2026-11-18",
       "verification": "issuer-listed"
+    },
+    {
+      "id": "us-bank-us-h-d-visa-signature-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "H-D™ Visa Signature® Card",
+      "aliases": [
+        "H-D™ Visa Signature® Card",
+        "H-D Visa Signature Card",
+        "H-D Visa Signature",
+        "H-D Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/credit-cards/co-branded-credit-cards.html",
+      "checkedAt": "2026-11-23",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-harley-davidson-h-o-g-elite-visa-signature-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "Harley Davidson® H.O.G™ Elite Visa Signature® Card",
+      "aliases": [
+        "Harley Davidson® H.O.G™ Elite Visa Signature® Card",
+        "Harley-Davidson H.O.G. Elite Visa Signature Card",
+        "Harley Davidson HOG Elite Visa Signature Card",
+        "H.O.G. Elite Visa Signature",
+        "HOG Elite Visa Signature"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/credit-cards/co-branded-credit-cards.html",
+      "checkedAt": "2026-11-23",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-skypass-skyblue-visa-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "Skypass SkyBlue Visa® Card",
+      "aliases": [
+        "Skypass SkyBlue Visa® Card",
+        "Skypass SkyBlue Visa Card",
+        "Skypass SkyBlue",
+        "SKYPASS SkyBlue Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/credit-cards/co-branded-credit-cards.html",
+      "checkedAt": "2026-11-23",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-skypass-visa-signature-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "Skypass Visa Signature® Card",
+      "aliases": [
+        "Skypass Visa Signature® Card",
+        "Skypass Visa Signature Card",
+        "Skypass Visa Signature",
+        "SKYPASS Visa Signature"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/credit-cards/co-branded-credit-cards.html",
+      "checkedAt": "2026-11-23",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-skypass-select-visa-signature-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "Skypass Select Visa Signature® Card",
+      "aliases": [
+        "Skypass Select Visa Signature® Card",
+        "Skypass Select Visa Signature Card",
+        "Skypass Select",
+        "SKYPASS Select Visa Signature"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/credit-cards/co-branded-credit-cards.html",
+      "checkedAt": "2026-11-23",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-state-farm-premier-cash-rewards-visa-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "State Farm® Premier Cash Rewards Visa® Card",
+      "aliases": [
+        "State Farm® Premier Cash Rewards Visa® Card",
+        "State Farm Premier Cash Rewards Visa Card",
+        "State Farm Premier Cash Rewards",
+        "State Farm Premier Cash"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/credit-cards/co-branded-credit-cards.html",
+      "checkedAt": "2026-11-23",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-state-farm-good-neighbor-visa-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "State Farm® Good Neighbor Visa® Card",
+      "aliases": [
+        "State Farm® Good Neighbor Visa® Card",
+        "State Farm Good Neighbor Visa Card",
+        "State Farm Good Neighbor",
+        "Good Neighbor Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/credit-cards/co-branded-credit-cards.html",
+      "checkedAt": "2026-11-23",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-skypass-visa-signature-business-card",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "Skypass Visa Signature® Business Card",
+      "aliases": [
+        "Skypass Visa Signature® Business Card",
+        "Skypass Visa Signature Business Card",
+        "Skypass Business Visa Signature",
+        "SKYPASS Visa Signature Business Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "SKYPASS miles"
+      ],
+      "sourceUrl": "https://www.skypassvisa.com/credit/visaBusinessCard.do",
+      "checkedAt": "2026-11-23",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-prime-business-world-elite-mastercard",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "Prime Business World Elite Mastercard®",
+      "aliases": [
+        "Prime Business World Elite Mastercard®",
+        "Prime Business World Elite Mastercard",
+        "Amazon Prime Business Card",
+        "Prime Business Card",
+        "Amazon Business Prime Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/business-banking/business-credit-cards/amazon-business-credit-cards.html",
+      "checkedAt": "2026-11-23",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "us-bank-us-amazon-business-world-elite-mastercard",
+      "bank": "U.S. Bank",
+      "region": "US",
+      "name": "Amazon Business World Elite Mastercard®",
+      "aliases": [
+        "Amazon Business World Elite Mastercard®",
+        "Amazon Business World Elite Mastercard",
+        "Amazon Business Card",
+        "Amazon Business Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "sourceUrl": "https://www.usbank.com/business-banking/business-credit-cards/amazon-business-credit-cards.html",
+      "checkedAt": "2026-11-23",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
     }
   ]
 }
