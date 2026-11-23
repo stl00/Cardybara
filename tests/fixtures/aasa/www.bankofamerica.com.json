@@ -1,0 +1,108 @@
+{
+ "applinks": {
+  "apps": [],
+  "details": [
+   {
+    "appID": "3A9QHK2F92.com.bankofamerica.iPhoneSIT",
+    "paths": [
+     "/deeplink/redirect.go"
+    ]
+   },
+   {
+    "appID": "6VA92R47D3.com.bankofamerica.iPhoneSIT",
+    "paths": [
+     "/deeplink/redirect.go"
+    ]
+   },
+   {
+    "appID": "95J66AGFJ6.com.baccorp.iPhonePush",
+    "paths": [
+     "/deeplink/redirect.go"
+    ]
+   },
+   {
+    "appID": "95J66AGFJ6.com.baccorp.iPhoneProd",
+    "paths": [
+     "/deeplink/redirect.go"
+    ]
+   },
+   {
+    "appID": "6VA92R47D3.com.bankofamerica.BofA",
+    "paths": [
+     "/deeplink/redirect.go"
+    ]
+   },
+   {
+    "appID": "3Z9S28RTZY.com.boa.demodistiPad",
+    "paths": [
+     "/deeplink/redirect.go"
+    ]
+   },
+   {
+    "appID": "8S7FPMB38R.com.boa.demodebugiPad",
+    "paths": [
+     "/deeplink/redirect.go"
+    ]
+   },
+   {
+    "appID": "3Z9S28RTZY.com.boa.debugdistiPad",
+    "paths": [
+     "/deeplink/redirect.go"
+    ]
+   },
+   {
+    "appID": "344ZV937T2.com.cloudent.iPadPush",
+    "paths": [
+     "/deeplink/redirect.go"
+    ]
+   },
+   {
+    "appID": "344ZV937T2.com.cloudent.iPadProd",
+    "paths": [
+     "/deeplink/redirect.go"
+    ]
+   },
+   {
+    "appID": "KFX82HQ99C.com.bankofamerica.iPad",
+    "paths": [
+     "/deeplink/redirect.go"
+    ]
+   },
+   {
+    "appID": "KK4GH9FSYQ.com.boa.debugdist",
+    "paths": [
+     "/deeplink/redirect.go"
+    ]
+   },
+   {
+    "appID": "344ZV937T2.com.bankofamerica.VPN-Sign-On",
+    "components": [
+     {
+      "/": "/+CSCOE+/saml/sp/login/*",
+      "percentEncoded": false
+     }
+    ]
+   }
+  ]
+ },
+ "webcredentials": {
+  "apps": [
+   "344ZV937T2.com.bankofamerica.VPN-Sign-On",
+   "HF2AKJZ7MX.com.boa.debuguniversal",
+   "KK4GH9FSYQ.com.boa.debugdist",
+   "95J66AGFJ6.com.baccorp.iPhonePush",
+   "QGXB87P9S7.com.mymerrill.mobile1",
+   "AL4DJBGFBB.com.mymerrill.edgemobile1",
+   "HHQSXT3HY2.com.ml.edgemobile",
+   "7D8H3EQJRU.com.ml.mymerrillmobile",
+   "9A778JYEL2.com.ml.mobile.mymerrilliphone",
+   "JH3377S3B9.com.ml.mobile.merrilledgeiphone",
+   "WD8D43SDCU.com.ml.mobile.mymerrillipad",
+   "3R75335Y3T.com.ml.mobile.merrilledgeipad",
+   "6VA92R47D3.com.bankofamerica.BofA",
+   "AAN8LFDPRT.com.ml.mobile.ustrustiphone",
+   "AL4DJBGFBB.com.ml.benefitsonline",
+   "LRP5D982PS.com.ustrust.mobileapps.accountaccessiphone"
+  ]
+ }
+}
