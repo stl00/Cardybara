@@ -1,0 +1,937 @@
+{
+ "applinks": {
+  "apps": [],
+  "details": [
+   {
+    "appIDs": [
+     "539KP4FXX7.at.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/at/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.at.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/at/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.at.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/at/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.au.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/au/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.au.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/au/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.au.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/au/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.be.co.americanexpress.amexservice.master"
+    ],
+    "components": [
+     {
+      "/": "/be/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.be.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/be/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.be.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/be/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.ca.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/ca/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.ca.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/ca/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.ca.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/ca/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.com.americanexpress.amexservice.development"
+    ],
+    "components": [
+     {
+      "/": "/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.com.americanexpress.amexservice.icc.master"
+    ],
+    "components": [
+     {
+      "/": "/icc/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.com.americanexpress.amexservice.icc.rc"
+    ],
+    "components": [
+     {
+      "/": "/icc/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.com.americanexpress.amexservice.icc.sl"
+    ],
+    "components": [
+     {
+      "/": "/icc/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.com.americanexpress.amexservice.master"
+    ],
+    "components": [
+     {
+      "/": "/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.com.americanexpress.coremobile.prbuild"
+    ],
+    "components": [
+     {
+      "/": "/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.com.americanexpress.coremobile.release.debug"
+    ],
+    "components": [
+     {
+      "/": "/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.de.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/de/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.de.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/de/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.de.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/de/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.es.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/es/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.es.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/es/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.es.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/es/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.fi.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/fi/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.fi.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/fi/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.fi.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/fi/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.fr.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/fr/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.fr.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/fr/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.fr.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/fr/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.hk.co.americanexpress.amexservice.e2.mi"
+    ],
+    "components": [
+     {
+      "/": "/hk/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.hk.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/hk/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.hk.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/hk/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.in.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/in/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.in.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/in/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.in.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/in/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.it.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/it/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.it.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/it/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.it.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/it/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.jp.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/jp/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.jp.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/jp/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.jp.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/jp/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.mx.co.americanexpress.amexmx.mi"
+    ],
+    "components": [
+     {
+      "/": "/mx/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.mx.co.americanexpress.amexmx.rc"
+    ],
+    "components": [
+     {
+      "/": "/mx/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.mx.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/mx/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.nl.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/nl/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.nl.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/nl/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.nl.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/nl/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.no.co.americanexpress.amexservice.master"
+    ],
+    "components": [
+     {
+      "/": "/no/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.no.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/no/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.no.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/no/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.nz.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/nz/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.nz.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/nz/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.nz.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/nz/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.se.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/se/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.se.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/se/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.se.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/se/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.sg.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/sg/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.sg.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/sg/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.sg.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/sg/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.tw.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/tw/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.tw.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/tw/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.tw.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/tw/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.uk.co.americanexpress.amexservice.mi"
+    ],
+    "components": [
+     {
+      "/": "/uk/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.uk.co.americanexpress.amexservice.rc"
+    ],
+    "components": [
+     {
+      "/": "/uk/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "539KP4FXX7.uk.co.americanexpress.amexservice.sl"
+    ],
+    "components": [
+     {
+      "/": "/uk/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "7SW9WJ3QXR.fr.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/fr/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "8DR9MTC4E8.com.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "AKZUZ3HN68.jp.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/jp/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.at.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/at/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.be.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/be/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.ca.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/ca/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.com.americanexpress.amexservice.icc"
+    ],
+    "components": [
+     {
+      "/": "/icc/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.com.americanexpress.amexservice.partner"
+    ],
+    "components": [
+     {
+      "/": "/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.de.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/de/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.es.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/es/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.fi.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/fi/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.hk.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/hk/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.in.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/in/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.it.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/it/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.nl.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/nl/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.no.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/no/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.nz.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/nz/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.se.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/se/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.sg.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/sg/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.tw.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/tw/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "X54WJFJZ98.uk.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/uk/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "X8H4MT7BV8.mx.co.americanexpress.amexmx"
+    ],
+    "components": [
+     {
+      "/": "/mx/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "ZJR7R5D3KH.au.co.americanexpress.amexservice"
+    ],
+    "components": [
+     {
+      "/": "/au/go/*"
+     }
+    ]
+   },
+   {
+    "appIDs": [
+     "HK4F2F3G7B.com.americanexpress.ios.travel",
+     "539KP4FXX7.com.americanexpress.ios.travel.main",
+     "539KP4FXX7.com.americanexpress.ios.travel.rc",
+     "539KP4FXX7.com.americanexpress.ios.travel.sl",
+     "JDJ67K33AE.com.americanexpress.ios.travel.development.alt",
+     "539KP4FXX7.com.americanexpress.ios.travel.development"
+    ],
+    "components": [
+     {
+      "/": "/travel/go/*"
+     },
+     {
+      "/": "/en-us/travel/my-bookings/summary"
+     },
+     {
+      "/": "/en-us/travel/my-bookings/trip-overview",
+      "?": {
+       "tripLob": "*"
+      }
+     },
+     {
+      "/": "/en-us/travel/",
+      "?": {
+       "intlink": "us-ser-iphone-membershiptab-booktravel"
+      }
+     }
+    ]
+   }
+  ]
+ }
+}
