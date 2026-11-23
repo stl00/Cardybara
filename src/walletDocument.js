@@ -34,6 +34,7 @@ export const DEVICE_ONLY={
  'cardybara-plaid-links-v1':'manual Plaid card to wallet card links made on this device; "Add to wallet" makes a synced manual card that matches by issuer and last four everywhere',
  'cardybara-plaid-dismissed-v1':'Plaid cards whose auto-added wallet card was removed on this device; other devices learn of the removal from the synced removal list',
  'cardybara-pet-v1':'pet state',
+ 'cardybara-home-screen-banner-v1':'whether this Home Screen app already showed its sign-in banner; each browser is its own app',
  'cardybara-auto-sync':'auto-sync switch of this browser',
  'cardybara-reminders-sent-v1':'which reminders this device already showed',
  'cardybara-fee-date-migration-v1':'marker that a one-time migration ran here',
