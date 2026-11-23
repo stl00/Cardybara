@@ -68,7 +68,8 @@ import AccountSettings from './AccountSettings.jsx';
 import AccountEntry from './AccountEntry.jsx';
 import PlaidCards from './PlaidCards.jsx';
 import {applyPlaid,matchPlaidCards,readPlaidLinks,plaidCardsToAdd,readPlaidDismissed,setPlaidDismissed} from './plaidCards.js';
-import {readPlaidCache,PLAID_CHANGE_EVENT} from './plaidClient.js';
+import {readPlaidCache,createPlaidClient,PLAID_CHANGE_EVENT} from './plaidClient.js';
+import {startPlaidAutoFetch} from './plaidAutoFetch.js';
 import {SYNC_CHANGE_EVENT,SYNC_STATUS_EVENT} from './accountClient.js';
 import ItemLogo from './ItemLogo';
 import CardArt from './CardArt';
@@ -153,6 +154,8 @@ const [syncRun,setSyncRun]=useState(0);
 // Plaid-linked cards (PLAID_PLAN.md; extension, and the PWA's settings page where there is no bank-connections page): their billing-cycle fields fill the matching wallet cards; manual edits still win.
 const [plaidCards,setPlaidCards]=useState(()=>platform.plaid&&typeof localStorage!=='undefined'?readPlaidCache(localStorage).cards:[]),[plaidLinks,setPlaidLinks]=useState(()=>platform.plaid&&typeof localStorage!=='undefined'?readPlaidLinks(localStorage):[]);
 useEffect(()=>{if(!platform.plaid)return;const h=()=>{setPlaidCards(readPlaidCache(localStorage).cards);setPlaidLinks(readPlaidLinks(localStorage));};window.addEventListener(PLAID_CHANGE_EVENT,h);return()=>window.removeEventListener(PLAID_CHANGE_EVENT,h);},[]);
+// The Plaid panel is not the only reader (#580): the wallet reads the card list itself when it opens, returns to the front or signs in.
+useEffect(()=>{if(!platform.plaid||!gatewayConfigured||typeof localStorage==='undefined')return;return startPlaidAutoFetch({client:createPlaidClient({gateway:GATEWAY_ORIGIN,storage:localStorage}),signedIn:()=>!!readSessionToken(localStorage)});},[]);
 // Plaid cards are matched against the cards as the user sees them (an edited tail or bank counts).
 const plaidPairsOf=d=>matchPlaidCards(applyCardEdits(applyAgentRecords(d,collectorState?.agentRecords||[]).cards,cardEdits),plaidCards,plaidLinks);
 // With sync on, Plaid's auto-add waits for this page's first completed sync, so a card removed on another device is known here first.

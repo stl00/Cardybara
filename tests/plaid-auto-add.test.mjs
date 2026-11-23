@@ -36,7 +36,7 @@ const UNKNOWN = {items: [{itemId: 'item_3', institution: 'Synthetic Platypus Ban
   cards: [card({itemId: 'item_3', accountId: 'acc_3', institution: 'Synthetic Platypus Bank', name: 'Synthetic Platypus Card', mask: '3333'})]};
 
 // Runs before the page: a signed-in session, sync on or off, and the gateway's Plaid and wallet routes from memory.
-const init = ({plaid, syncOn}) => `(()=>{const real=window.fetch.bind(window);const J=(s,b)=>new Response(JSON.stringify(b),{status:s,headers:{'Content-Type':'application/json'}});
+const init = ({plaid, syncOn, signedIn = true}) => `(()=>{const real=window.fetch.bind(window);const J=(s,b)=>new Response(JSON.stringify(b),{status:s,headers:{'Content-Type':'application/json'}});
 window.__puts=[];window.__calls=[];let rev=0;
 window.fetch=async(url,init={})=>{url=String(url);const i=url.indexOf('/v2/');if(i<0)return real(url,init);
  const path=url.slice(i).split('?')[0],method=init.method||'GET';window.__calls.push(method+' '+path);
@@ -45,7 +45,7 @@ window.fetch=async(url,init={})=>{url=String(url);const i=url.indexOf('/v2/');if
  return J(404,{error:{code:'not_found'}});};
 if(!sessionStorage.getItem('seeded')){sessionStorage.setItem('seeded','1');
  localStorage.setItem('cardybara-language','zh-CN');localStorage.setItem(${JSON.stringify(GUIDE_KEY)},'1');
- localStorage.setItem('cardybara-account-session-v1',JSON.stringify({token:'cbs_'+'A'.repeat(43),expiresAt:Math.floor(Date.now()/1000)+86400,email:'synthetic.user@example.test'}));
+ ${signedIn ? `localStorage.setItem('cardybara-account-session-v1',JSON.stringify({token:'cbs_'+'A'.repeat(43),expiresAt:Math.floor(Date.now()/1000)+86400,email:'synthetic.user@example.test'}));` : ''}
  ${syncOn ? `localStorage.setItem('cardybara-sync-v1',JSON.stringify({on:true}));` : ''}}})();`;
 
 const registry = c => c.evaluate(`JSON.parse(localStorage.getItem('cardybara-wallet-cards-v1')||'[]').map(c=>[c.bank,c.tail,c.identitySource])`);
@@ -105,4 +105,27 @@ test('PWA, sync off: placeable cards are still added on this device; a removed o
     assert.deepEqual(await registry(c), [['Amex US', '71001', 'manual']], 'not re-added after removal');
     assert.ok(!(await c.evaluate(`window.__calls.some(x=>x.includes('/v2/account/wallet'))`)), 'sync off: no wallet route is called');
   }, {init: init({plaid: TWO, syncOn: false})});
+});
+
+// #580: a new device (an iPhone Home Screen app has its own storage) never opens the Plaid panel. The wallet page reads
+// the card list itself, so the Plaid card lands with its numbers without a visit to Settings.
+test('PWA, no Plaid panel: opening the wallet page reads Plaid and fills the card', {timeout: 60000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
+  ensureBuild();
+  await withPhone(async c => {
+    await c.goto('/#wallet');
+    await c.until(`document.body.innerText.includes('Synthetic Sapphire')`, 'the Plaid card on the wallet page', 15000);
+    const text = await c.text();
+    for (const s of ['•••• 1234', '410.50']) assert.ok(text.includes(s), 'wallet page is missing ' + s);
+    assert.ok(await c.evaluate(`window.__calls.includes('GET /v2/plaid/cards')`), 'the wallet read the Plaid card list');
+    assert.ok(!(await c.evaluate(`location.hash.includes('settings')`)), 'never left the wallet page');
+  }, {init: init({plaid: {items: [TWO.items[0]], cards: [TWO.cards[0]]}, syncOn: false})});
+});
+
+test('PWA, signed out: the wallet makes no Plaid request', {timeout: 60000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
+  ensureBuild();
+  await withPhone(async c => {
+    await c.goto('/#wallet');
+    await c.pause(2500);
+    assert.ok(!(await c.evaluate(`window.__calls.some(x=>x.includes('/v2/plaid'))`)), 'signed out: no Plaid call');
+  }, {init: init({plaid: TWO, syncOn: false, signedIn: false})});
 });
