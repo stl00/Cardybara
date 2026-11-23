@@ -31,3 +31,15 @@ test('genericCardName', () => {
   assert.ok(!genericCardName(card('Sapphire Preferred')));
   assert.ok(!genericCardName(card('United Explorer')));
 });
+
+test('names with the card\'s own tail or only 信用卡 are generic too', () => {
+  for (const name of ['CREDIT CARD 1234', 'Credit Card (1234)', '信用卡'])
+    assert.equal(presentCard(chosen(card(name)), 'en-US').name, productDisplayName(ID, 'en-US'), name);
+  assert.ok(!genericCardName(card('Credit Card 9999')), 'other digits are not this card\'s tail');
+});
+
+test('bank-page cards keep their existing path', () => {
+  const page = {id: 'b1', bank: 'Chase', region: 'US', tail: '1234', identitySource: 'bank-page', name: 'Sapphire Reserve'};
+  assert.equal(presentCard(page, 'en-US').name, productDisplayName(ID, 'en-US'), 'recognised by its page name as before');
+  assert.equal(presentCard({...page, name: 'Visa Signature'}, 'en-US').name, 'Visa Signature', 'no choice: the cleaned page name, as before');
+});
