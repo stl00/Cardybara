@@ -11,13 +11,18 @@ export const PLAID_FETCH_MIN_MS=60_000;
 /** Starts the reads; answers a stop function. `signedIn()` is checked before every read. Never throws. */
 export function startPlaidAutoFetch({client,signedIn,win=globalThis.window,doc=globalThis.document,now=()=>Date.now(),minMs=PLAID_FETCH_MIN_MS}){
  if(!client||!win?.addEventListener)return ()=>{};
- let last=-Infinity,busy=false,stopped=false;
+ let last=-Infinity,busy=false,stopped=false,pending=false;
  const run=force=>{
-  if(stopped||busy||doc?.visibilityState==='hidden')return;
+  if(stopped||doc?.visibilityState==='hidden')return;
+  // A sign-in while a read is out (another account, say) is not dropped: it runs as soon as that read ends.
+  if(busy){if(force)pending=true;return;}
   let ok=false;try{ok=!!signedIn();}catch{}
   if(!ok||(!force&&now()-last<minMs))return;
   busy=true;last=now();
-  Promise.resolve().then(()=>client.cards()).catch(()=>{}).finally(()=>{busy=false;});
+  Promise.resolve().then(()=>client.cards())
+   // A read that never got through does not count against the minute, so the `online` event retries at once.
+   .then(r=>{if(r?.ok===false&&r.code==='offline')last=-Infinity;},()=>{last=-Infinity;})
+   .finally(()=>{busy=false;if(pending){pending=false;run(true);}});
  };
  const front=()=>run(false),account=()=>run(true);
  win.addEventListener('focus',front);win.addEventListener('online',front);win.addEventListener(ACCOUNT_CHANGE_EVENT,account);

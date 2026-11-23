@@ -72,3 +72,28 @@ test('a failing client never throws into the page', async () => {
   startPlaidAutoFetch({client: {cards: async () => ({ok: true})}, signedIn: () => { throw new Error('x'); }, win, doc});
   await tick();
 });
+
+test('a sign-in during a read runs right after that read ends', async () => {
+  const win = target(), doc = {...target(), visibilityState: 'visible'};
+  let calls = 0, release;
+  const client = {cards: () => { calls++; return calls === 1 ? new Promise(r => { release = () => r({ok: true}); }) : Promise.resolve({ok: true}); }};
+  startPlaidAutoFetch({client, signedIn: () => true, win, doc, now: () => 0, minMs: 60_000});
+  await tick();
+  assert.equal(calls, 1);
+  win.fire(ACCOUNT_CHANGE_EVENT); await tick();
+  assert.equal(calls, 1, 'not two reads at once');
+  release(); await tick(); await tick();
+  assert.equal(calls, 2, 'the queued sign-in read ran');
+});
+
+test('an offline read does not hold back the online retry', async () => {
+  const win = target(), doc = {...target(), visibilityState: 'visible'};
+  let calls = 0, t = 0;
+  const client = {cards: async () => (++calls === 1 ? {ok: false, code: 'offline'} : {ok: true})};
+  startPlaidAutoFetch({client, signedIn: () => true, win, doc, now: () => t, minMs: 60_000});
+  await tick(); await tick();
+  t += 20_000; win.fire('online'); await tick();
+  assert.equal(calls, 2, 'retried on online within the minute');
+  t += 1_000; win.fire('focus'); await tick();
+  assert.equal(calls, 2, 'a successful read still counts against the minute');
+});
