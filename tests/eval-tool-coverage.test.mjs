@@ -16,8 +16,6 @@ const EXEMPTIONS = [
     reason: 'No find_benefits case is in evals/live/config.json, which is at its cap of 14; a case must be swapped in or the cap raised (no separate issue yet, tracked by the epic).'},
   {tool: 'plan_stay', level: 'live', issue: 480, since: '2026-11-17',
     reason: 'The live set is at its cap of 14 and #480 forbids raising it; the stay half is covered by an offline case until a live slot is freed.'},
-  {tool: 'plan_stay', level: 'multiturn', issue: 480, since: '2026-11-17',
-    reason: 'No multi-turn dialogue follows a stay plan yet; #480 asks for the offline case only.'},
   ...LEVELS.map(level => ({tool: 'list_cards', level, issue: 'by design', since: '2026-11-17',
     reason: 'Reads the wallet for the model before other tools; no user question is answered by it alone, so no case can expect it.'})),
 ];
