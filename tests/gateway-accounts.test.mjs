@@ -413,3 +413,20 @@ test('a #411 document with evidence or rawText at any depth, or a bad section ty
  assert.equal(validWalletDocument({...base,cards:{}}),false);
  assert.equal(validWalletDocument({...base,extraScalar:1}),false);
 });
+
+test('the per-client rate limiter runs on every /v2/account route before D1 or Email Sending is touched',async()=>{
+ const t=await setup();const token=await account(t);
+ const sent=t.mail.sent.length,users=t.db.tables.get('users').length,keys=[];
+ let allow=false;t.g.env.RATE_LIMITER={limit:async({key})=>{keys.push(key);return {success:allow};}};
+ const accountRoutes=ROUTE_TABLE.filter(r=>r.path.startsWith('/v2/account')&&!r.public&&!r.param);
+ assert.ok(accountRoutes.length>=10,'every account route is listed');
+ for(const r of accountRoutes){
+  const body=r.method==='GET'||r.method==='DELETE'&&r.path!==ROUTES.account?undefined:{email:OTHER,password:PASSWORD};
+  const res=await t.call(r.method,r.path,body,token);
+  assert.equal(res.status,429,`${r.method} ${r.path}`);assert.equal(await codeOf(res),'rate_limited');
+ }
+ assert.equal(keys.length,accountRoutes.length,'one limiter call per request');
+ assert.ok(keys.every(k=>/^c[0-9a-f]{32}$/.test(k)&&k===keys[0]),'keyed by the hashed client id, never the email');
+ assert.equal(t.mail.sent.length,sent,'no mail once limited');assert.equal(t.db.tables.get('users').length,users,'no new user once limited');
+ allow=true;assert.notEqual((await t.call('GET',ROUTES.wallet,undefined,token)).status,429,'allowed again when the limiter allows');
+});
