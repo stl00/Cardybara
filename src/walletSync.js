@@ -34,9 +34,9 @@ export const stableJson=v=>JSON.stringify(v,(k,x)=>plain(x)?Object.fromEntries(O
 const same=(a,b)=>stableJson(a)===stableJson(b);
 
 // ---- state -------------------------------------------------------------------------------------------------------
-/** `{on, revision, base, changedAt}`: whether sync is on, the server revision and document last synced, the last local change. */
+/** `{on, revision, base, changedAt, syncedAt?}`: whether sync is on, the server revision and document last synced, the last local change, and when a sync last finished (#580). */
 export function readSyncState(storage){
- try{const v=JSON.parse(storage.getItem(SYNC_STATE_KEY));if(plain(v))return {on:v.on===true,revision:Number.isInteger(v.revision)&&v.revision>0?v.revision:0,base:plain(v.base)?v.base:null,changedAt:Number.isFinite(v.changedAt)?v.changedAt:null};}catch{}
+ try{const v=JSON.parse(storage.getItem(SYNC_STATE_KEY));if(plain(v))return {on:v.on===true,revision:Number.isInteger(v.revision)&&v.revision>0?v.revision:0,base:plain(v.base)?v.base:null,changedAt:Number.isFinite(v.changedAt)?v.changedAt:null,...(Number.isFinite(v.syncedAt)?{syncedAt:v.syncedAt}:{})};}catch{}
  return {on:false,revision:0,base:null,changedAt:null};
 }
 const writeSyncState=(storage,s)=>storage.setItem(SYNC_STATE_KEY,JSON.stringify(s));
@@ -87,10 +87,13 @@ const snapshotOf=doc=>Object.fromEntries(Object.entries(doc).filter(([k])=>!SECT
  * One registry card per bank and tail: a manual row wins over a bank-read copy, otherwise the first (this device's)
  * row stays. Returns the kept cards and a map from each dropped id to the id that replaced it.
  */
+// The same card by its digits: equal, or a four-digit tail against the last four of a five-digit one (an Amex US page
+// shows five, Plaid's mask has four). Two five-digit tails that differ stay two cards (#580).
+const sameDigits=(a,b)=>!!a&&!!b&&(a===b||(a.length!==b.length&&Math.min(a.length,b.length)===4&&a.slice(-4)===b.slice(-4)));
 export function dedupeRegistry(cards){
  const kept=[],moved=new Map();
  for(const c of cards){
-  const i=kept.findIndex(o=>o.id===c.id||(c.tail&&o.bank===c.bank&&o.tail===c.tail));
+  const i=kept.findIndex(o=>o.id===c.id||(o.bank===c.bank&&sameDigits(c.tail,o.tail)));
   if(i<0){kept.push(c);continue;}
   const o=kept[i];
   if(o.id===c.id)continue;
@@ -182,7 +185,7 @@ export function createWalletSync({transport,readLocal,applyLocal,storage,isOn,no
   const local=migrateWalletDocument(await readLocal());
   if(pushFirst&&st.base&&st.revision>0&&!same(local,st.base)){
    const r=await transport.put({baseRevision:st.revision,formatVersion:WALLET_FORMAT_VERSION,document:local});
-   if(r.ok){save({revision:r.revision,base:local,changedAt:null});return true;}
+   if(r.ok){save({revision:r.revision,base:local,changedAt:null,syncedAt:now()});return true;}
   }
   const remote=await transport.get();
   if(Number.isInteger(remote.formatVersion)&&remote.formatVersion>WALLET_FORMAT_VERSION){const e=Error('wallet_format_newer');throw e;}
@@ -190,9 +193,9 @@ export function createWalletSync({transport,readLocal,applyLocal,storage,isOn,no
   const localNewer=st.changedAt!=null&&(remote.updatedAt==null||st.changedAt>=remote.updatedAt*1000);
   const merged=remoteDoc?mergeWalletDocuments({base:st.base,local,remote:remoteDoc,localNewer}):local;
   if(!same(merged,local))await applyLocal(merged);
-  if(remoteDoc&&same(merged,remoteDoc)){save({revision:remote.revision,base:merged,changedAt:null});return true;}
+  if(remoteDoc&&same(merged,remoteDoc)){save({revision:remote.revision,base:merged,changedAt:null,syncedAt:now()});return true;}
   const r=await transport.put({baseRevision:remote.revision||0,formatVersion:WALLET_FORMAT_VERSION,document:merged});
-  if(r.ok){save({revision:r.revision,base:merged,changedAt:null});return true;}
+  if(r.ok){save({revision:r.revision,base:merged,changedAt:null,syncedAt:now()});return true;}
   // 409: someone wrote in between. The merged copy is already this device's, so the next round starts from it.
   return false;
  }
