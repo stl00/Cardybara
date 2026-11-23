@@ -39,11 +39,12 @@ Install guide for testers: [docs/BETA-INSTALL.md](../BETA-INSTALL.md).
 - Chase 和大部分 American Express 美国卡种显示发卡机构公开的卡面图片。
 
 ### 隐私
-- 钱包数据保存在这台电脑的 Chrome 里，不上传，也不同步。
+- 钱包数据默认只保存在这台电脑的 Chrome 里，不上传。只有你登录账号并开启“在设备间同步钱包”后，才会存一份到 Cardybara 服务器；银行密码、Cookie、验证码和银行页面内容永远不会上传。
 - 用卡助手在 Cardybara 服务上运行：服务收到你的问题、这次对话的前文、持有的卡种、积分估值、每张卡是否填了年费日，以及助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单。服务不保存这些内容，只记录时间、用量和状态；为了限制每个网络每天的用量，只保留网络地址加盐后的哈希值，保留一天。
 - AI 识别卡种默认关闭；开启后，或你在卡片详情里点“用 AI 推测卡种”时，会把未识别卡片的银行、地区和卡名（不含尾号和金额）经 Cardybara 服务发给 AI。
-- 网页版：钱包数据只保存在你输入它的那个浏览器里，不上传，也不同步到其他设备。
-- 网页版唯一上传的是你向用卡助手提的问题，附带的内容和上面一样（对话前文、持有的卡种、积分估值、是否填了年费日、助手请求的钱包查询结果），不含卡号、余额或账单。
+- 网页版：钱包数据默认只保存在你输入它的那个浏览器里，不上传。只有你登录账号并开启同步后，才会存一份到服务器，并在登录同一账号的其他设备间合并；银行密码、Cookie、验证码和银行页面内容永远不会上传。
+- 开启同步后，上传到服务器的是钱包数据本身：卡片和你对卡片的修改、福利和费用记录、积分估值、提醒设置、付款标记，以及读取到的金额和读取时间；如果你导入过备份，还有备份里的卡片快照。关闭同步后不再上传，服务器上的副本保留，直到你删除账号。
+- 没有开启同步时，网页版上传的只有你向用卡助手提的问题，附带的内容和上面一样（对话前文、持有的卡种、积分估值、是否填了年费日、助手请求的钱包查询结果），不含卡号、余额或账单。
 - 网页版里的卡片和金额都由你手动填写；读取银行只在桌面版 Chrome 扩展里提供。
 - 浏览器可能清除没有添加到主屏幕的网站的数据，请经常在“数据管理”里导出备份。
 - 没有广告，也没有使用统计。
@@ -98,11 +99,12 @@ This is a beta for friends, not a Chrome Web Store release.
 - Chase cards and most American Express US cards show the issuer's published card image.
 
 ### Privacy
-- Your wallet stays in Chrome on this computer; it is not uploaded or synced.
+- By default your wallet stays in Chrome on this computer and is not uploaded. A copy goes to the Cardybara server only when you sign in and turn on “Sync wallet between devices”; bank passwords, cookies, one-time codes and bank page content are never uploaded.
 - The assistant runs on the Cardybara service: it receives your question, the earlier turns of the conversation, the card products you hold, your point valuations, whether each card has an annual fee date, and the wallet lookups the assistant asks for, and passes them to an AI model; it does not receive card numbers, balances or statements. The service does not store any of it; it records only time, usage and status. To limit each network's daily use, it keeps only a salted hash of the network address, for one day.
 - AI card recognition is off by default; when you turn it on, or click “Ask AI for the card type” in card details, the unrecognised card's bank, region and name (no tail or amounts) go through the Cardybara service to the AI.
-- Web version: your wallet data stays in the browser where you entered it; it is not uploaded or synced to other devices.
-- The only thing the web version uploads is the questions you ask the assistant, with the same content as above (earlier turns, the card products you hold, point valuations, whether an annual fee date is filled in, and the wallet lookups the assistant asks for); never card numbers, balances or statements.
+- Web version: by default your wallet data stays in the browser where you entered it and is not uploaded. A copy goes to the server, and is merged across the devices signed in to the same account, only when you sign in and turn on sync; bank passwords, cookies, one-time codes and bank page content are never uploaded.
+- When sync is on, what goes to the server is the wallet data itself: cards and your edits to them, benefit and cost records, point valuations, reminder settings, payment marks, and the amounts read from your bank with when they were read; if you imported a backup, the card snapshot in it too. Turning sync off stops uploads; the server copy stays until you delete the account.
+- With sync off, the only thing the web version uploads is the questions you ask the assistant, with the same content as above (earlier turns, the card products you hold, point valuations, whether an annual fee date is filled in, and the wallet lookups the assistant asks for); never card numbers, balances or statements.
 - In the web version you enter cards and amounts by hand; reading banks is only available in the desktop Chrome extension.
 - A browser may clear the data of a site that is not on the Home Screen, so export a backup often (Data → Export backup).
 - No ads and no usage analytics.
