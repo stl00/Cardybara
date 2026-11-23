@@ -138,6 +138,27 @@ Besides the log line, the Worker writes one Workers Analytics Engine data point 
 | `double13` `public_tool_calls` | public-knowledge tool calls in an answered turn |
 | `double14` `wallet_results` | wallet tool results the extension sent with this request |
 
+Push sender runs (#569). Each run of the 15-minute push sender (`sendDuePushes`, `gateway/src/push.js`) that is not skipped (no VAPID secrets) writes one point to the same dataset, with `blob1` = `push` and no other string field. Agent-turn queries filter on `blob1 = 'agent'` and are unchanged. The doubles are positional and mean something else than the table above:
+
+| Field | Meaning |
+| --- | --- |
+| `index1`, `blob1` | `push` |
+| `double1` `due` | devices with a fire time due at the start of the run |
+| `double2` `sent` | devices the push service accepted |
+| `double3` `gone` | devices deleted because the push service refused the subscription (400, 403, 404, 410) |
+| `double4` `failed` | devices not sent (push service error, network failure, unreadable record); due times stay for the next run |
+| `double5` `expired` | due times dropped after waiting more than two days |
+| `double6` `devices` | devices taken by this run (at most 200; the rest wait for the next run) |
+| `double7` `oldest_due_age_s` | age in seconds of the oldest due fire time at the start of the run, 0 when nothing is due |
+
+A point holds counts and one age: never a device id, endpoint, subscription, card or reminder text. A run that throws midway is written too, with the counts so far. Example, per day:
+
+```sql
+SELECT toDate(timestamp) AS day, SUM(_sample_interval) AS runs, SUM(_sample_interval * double2) AS sent,
+  SUM(_sample_interval * double4) AS failed, MAX(double7) AS worst_oldest_due_age_s
+FROM cardybara_agent_metrics WHERE blob1 = 'push' AND timestamp > NOW() - INTERVAL '7' DAY GROUP BY day ORDER BY day
+```
+
 Example queries against the SQL API (`POST https://api.cloudflare.com/client/v4/accounts/<account>/analytics_engine/sql`; the account id stays out of Git):
 
 ```sql

@@ -11,6 +11,8 @@ import {localGateway} from '../gateway/src/local.mjs';
 import {ROUTES} from '../gateway/src/gateway.js';
 import {parsePut,sendDuePushes,PUSH_PREFIX,EXPIRY_SECONDS,validEndpoint,MAX_TIMES} from '../gateway/src/push.js';
 import {generateVapid} from '../scripts/gateway-vapid.mjs';
+import {HOUR_SQL,WEEK_SQL,SILENCE_SQL} from '../gateway/src/alerts.js';
+import {PUSH_DOUBLES} from '../gateway/src/metrics.js';
 import worker from '../gateway/src/worker.js';
 
 const ORIGIN='chrome-extension://'+'a'.repeat(32);
@@ -313,4 +315,67 @@ test('gateway-set-vapid.sh refuses to replace an existing pair unless ROTATE=1',
  const root=new URL('..',import.meta.url).pathname;
  const r=spawnSync('bash',[root+'scripts/gateway-set-vapid.sh'],{encoding:'utf8',env:{...process.env,PATH:dir+':'+process.env.PATH}});
  assert.equal(r.status,4);assert.match(r.stderr,/ROTATE=1/);
+});
+
+test('each non-skipped run writes one push data point: route only, counts and an age in a fixed order',async()=>{
+ const points=[];
+ const g=await setup({vars:{AGENT_METRICS:{writeDataPoint:p=>points.push(structuredClone(p))}}});
+ const dev=i=>deviceId(i);
+ const ep=i=>'https://fcm.googleapis.com/fcm/send/m-'+i;
+ await put(g,base({device:dev(1),subscription:{endpoint:ep(1),keys:KEYS},times:[{at:SEC-600,kind:'payment'}]}));// sent
+ await put(g,base({device:dev(2),subscription:{endpoint:ep(2),keys:KEYS},times:[{at:SEC-10,kind:'fee'}]}));// gone
+ await put(g,base({device:dev(3),subscription:{endpoint:ep(3),keys:KEYS},times:[{at:SEC-10,kind:'fee'}]}));// failed
+ await put(g,base({device:dev(4),subscription:{endpoint:ep(4),keys:KEYS},times:[{at:SEC-5,kind:'fee'},{at:SEC-6,kind:'credit'}]}));// failed, expired later
+ await put(g,base({device:dev(5),subscription:{endpoint:ep(5),keys:KEYS},times:[{at:SEC+9999,kind:'fee'}]}));// not due
+ const status=url=>url===ep(2)?410:url===ep(3)||url===ep(4)?500:201;
+ const r=await run(g,pushWorld(status));
+ assert.equal(points.length,1);
+ const p=points[0];
+ assert.deepEqual(p.indexes,['push']);assert.deepEqual(p.blobs,['push']);
+ assert.deepEqual(PUSH_DOUBLES,['due','sent','gone','failed','expired','devices','oldest_due_age_s']);
+ assert.deepEqual(p.doubles,[4,1,1,2,0,4,600]);
+ assert.equal(r.sent,1);
+ // Only the route is a string, and no id, endpoint or key appears anywhere in the point.
+ assert.ok(p.doubles.every(Number.isFinite));
+ const text=JSON.stringify(p);
+ for(const secret of [DEVICE,dev(1),'fcm.googleapis.com',KEYS.auth,KEYS.p256dh])assert.ok(!text.includes(secret));
+ // A later run, after the wait limit: the failed device's times expire.
+ await run(g,pushWorld(()=>500),T0+(2*86400+60)*1000);
+ assert.equal(points.length,2);
+ assert.ok(points[1].doubles[4]>=1);assert.equal(points[1].doubles[6],2*86400+60+10,'the oldest still-due time at the start of the run');
+ assert.deepEqual(points[1].blobs,['push']);
+});
+
+test('a push point is written for an empty run with age 0, and not for a skipped run',async()=>{
+ const points=[];
+ const g=await setup({vars:{AGENT_METRICS:{writeDataPoint:p=>points.push(p)}}});
+ await run(g,pushWorld());
+ assert.deepEqual(points.map(p=>p.doubles),[[0,0,0,0,0,0,0]]);
+ const off=await setup({vars:{VAPID_PRIVATE_KEY:undefined,AGENT_METRICS:{writeDataPoint:p=>points.push(p)}}});
+ await run(off,pushWorld());
+ assert.equal(points.length,1);
+});
+
+test('a throwing or missing metrics binding does not change the run result',async()=>{
+ const results=[];
+ for(const binding of [undefined,{writeDataPoint(){throw Error('boom');}},{}]){
+  const g=await setup({vars:{AGENT_METRICS:binding}});
+  await put(g,base({times:[{at:SEC-10,kind:'payment'}]}));
+  const {logs,...r}=await run(g,pushWorld());results.push(r);
+  assert.equal(r.sent,1);assert.deepEqual(await timesOf(g),[]);
+ }
+ assert.deepEqual(results[1],results[0]);assert.deepEqual(results[2],results[0]);
+});
+
+test('push points do not change the agent turn queries: all of them filter on blob1 = agent',()=>{
+ for(const q of [HOUR_SQL,WEEK_SQL,SILENCE_SQL])assert.match(q,/blob1 = 'agent'/);
+ assert.ok(!/blob1 = 'push'|push/.test(HOUR_SQL+WEEK_SQL+SILENCE_SQL));
+});
+
+test('a push point never carries a string field other than the route',async()=>{
+ const {pushPoint}=await import('../gateway/src/metrics.js');
+ const p=pushPoint({due:'dev-secret',sent:'x',gone:NaN,failed:-1,expired:2.4,extra:'https://fcm.googleapis.com/x'},'id',Infinity);
+ assert.deepEqual(p.blobs,['push']);assert.deepEqual(p.indexes,['push']);
+ assert.ok(p.doubles.every(n=>typeof n==='number'&&Number.isFinite(n)));
+ assert.equal(p.doubles.length,PUSH_DOUBLES.length);
 });
