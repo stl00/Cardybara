@@ -27,8 +27,25 @@ import {matchCardProduct} from './productCatalog.js';
  * name. The page name is kept as `pageName`, so matching and suggestions always start from what the bank showed.
  * A name the user typed is theirs: it is never cleaned or replaced.
  */
+// Words that name no product: what Plaid or a bank list gives for a card it does not name ("CREDIT CARD", "Visa
+// Signature"), plus the issuer itself. A card whose name is only these words carries no name of its own.
+const GENERIC=new Set(['credit','card','cards','account','visa','mastercard','master','signature','infinite','world','elite','rewards',
+ 'chase','amex','american','express','bank','of','america','boa','bofa','citi','citibank','hsbc','sc','standard','chartered','us','u.s.']);
+/** True when a card's name says nothing beyond "a card from this bank" (or is the `bank tail` fallback name). */
+export function genericCardName(card){
+ const name=String(card?.name??'').normalize('NFKC').toLowerCase().replace(/[®™℠]/gu,' ');
+ if(card?.tail&&name.replace(/\s+/g,' ').trim()===`${String(card.bank||'').toLowerCase()} ${card.tail}`)return true;
+ const words=name.split(/[^\p{L}\p{N}.]+/u).filter(Boolean);
+ return words.length===0||words.every(w=>GENERIC.has(w));
+}
 export function presentCard(card,language){
- if(card.identitySource!=='bank-page')return card;
+ // Not read from a bank page (a manual or Plaid-added card): its name is kept, except that a card type the user chose
+ // replaces a name that names no product (#580 follow-up: Plaid calls many cards just "CREDIT CARD").
+ if(card.identitySource!=='bank-page'){
+  if(!card.productChosen||card.userSet?.includes('name')||!genericCardName(card))return card;
+  const named=productDisplayName(card.productId,language);
+  return named?{...card,pageName:card.pageName??card.name,name:named}:card;
+ }
  const pageName=cleanPageName(card.pageName??card.name)||String(card.pageName??card.name??'');
  const m=matchCardProduct({...card,name:pageName});
  // A name the user set on a bank-page card wins over both; the bank's words stay in pageName.
