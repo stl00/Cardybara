@@ -47,3 +47,21 @@ export async function shortHash(value){
  const bytes=new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value)));
  return [...bytes.slice(0,4)].map(b=>b.toString(16).padStart(2,'0')).join('');
 }
+
+/** Doubles of a `push` data point (route `push` is the only blob): one point per push sender run that was not skipped. */
+export const PUSH_DOUBLES=['due','sent','gone','failed','expired','devices','oldest_due_age_s'];
+
+/** The data point for one push sender run: counts and an age in seconds. Never a device, endpoint, subscription or text. */
+export function pushPoint(counts,devices,oldestAgeSeconds){
+ const c=counts||{};
+ return {indexes:['push'],blobs:['push'],doubles:[count(c.due),count(c.sent),count(c.gone),count(c.failed),count(c.expired),count(devices),count(oldestAgeSeconds)]};
+}
+
+/** Writes the push point. Never throws and never waits: a missing or throwing binding costs nothing. */
+export function writePushMetrics(env,counts,devices,oldestAgeSeconds){
+ try{
+  const dataset=env?.AGENT_METRICS;
+  if(!dataset||typeof dataset.writeDataPoint!=='function')return;
+  dataset.writeDataPoint(pushPoint(counts,devices,oldestAgeSeconds));
+ }catch{}
+}
