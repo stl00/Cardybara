@@ -93,6 +93,6 @@ export default function CardProductPicker({card}){
   {askable&&<Flex gap={8} wrap align="center" style={{marginTop:8}}><Button size="small" loading={asking} onClick={ask}>{t('用 AI 推测卡种')}</Button><Text type="secondary" style={{fontSize:12}}>{t('会把银行、地区和卡名（不含尾号）发给 AI 服务。')}</Text></Flex>}
   {answeredNone&&<Paragraph type="secondary" style={{margin:'6px 0 0',fontSize:12}}>{t('AI 也无法确定这张卡的卡种。')}</Paragraph>}
   {!product&&!scoped.length&&<Paragraph type="secondary" style={{margin:'6px 0 0'}}>{t('资料库里还没有这家银行的卡种。')}</Paragraph>}
-  {showPicker&&<Paragraph type="secondary" style={{margin:'6px 0 0',fontSize:12}}>{t('只用来显示卡面和公开福利，不改变银行读到的卡名和金额。')}</Paragraph>}
+  {showPicker&&<Paragraph type="secondary" style={{margin:'6px 0 0',fontSize:12}}>{t('用来显示卡面和公开福利，不改变读到的金额。像“CREDIT CARD”这样的笼统卡名会换成卡种名。')}</Paragraph>}
  </div>;
 }

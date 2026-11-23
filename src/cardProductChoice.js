@@ -1,6 +1,7 @@
 import {cardProducts,matchCardProduct} from './productCatalog.js';
 // The card type a user picked for a card the wallet could not recognise. It sets productId only, so the
-// product's own art and benefits apply; it never changes the card's name, bank or readings.
+// product's own art and benefits apply; it never changes the card's bank or readings. Its name is shown in place of a
+// generic one ("CREDIT CARD") by presentCard in cardName.js; the stored name is not changed.
 export const CARD_PRODUCT_KEY='cardybara-card-products-v1';
 const MAX=200;
 const validFor=(card,productId,products=cardProducts)=>products.some(p=>p.id===productId&&p.bank===card.bank&&p.region===card.region);
