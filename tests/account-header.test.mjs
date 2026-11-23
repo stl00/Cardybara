@@ -74,14 +74,13 @@ for (const lang of ['zh-CN', 'zh-TW', 'en-US']) {
       await oneRow(c, `${lang} signed in`);
       assert.ok((await c.evaluate('window.__calls')).includes('POST /v2/account/passkey/login/verify'), `${lang}: signed in through the passkey route`);
       assert.equal(await c.evaluate(`!!document.querySelector('.account-drawer.ant-drawer-open')`), false, `${lang}: the sheet closes after signing in`);
-      assert.equal((await entry(c)).sync, 'off', `${lang}: no sync dot while sync is off`);
+      assert.notEqual((await entry(c)).sync, 'off', `${lang}: sync is on after sign-in, so the dot shows`);
 
-      // Sync on from the avatar sheet, then the dot follows the status event.
+      // Sync is already on (default after sign-in); open the avatar sheet, then the dot follows the status event.
       await c.tap('.app-header .account-avatar');
       await c.until(`document.querySelector('.account-drawer.ant-drawer-open .account-sync-switch .ant-switch')`, 'the account sheet');
       await c.pause(400);
-      await c.tap('.account-drawer .account-sync-switch .ant-switch');
-      await c.until(`document.querySelector('.app-header .account-avatar').dataset.sync!=='off'`, 'a sync dot');
+      assert.equal(await c.evaluate(`document.querySelector('.account-drawer .account-sync-switch .ant-switch').classList.contains('ant-switch-checked')`), true, `${lang}: the switch is already on`);
       for (const s of ['offline', 'error', 'synced']) {
         await c.evaluate(`window.dispatchEvent(new CustomEvent('cardybara-sync-status',{detail:${JSON.stringify(s)}}))`);
         await c.pause(150);

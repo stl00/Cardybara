@@ -76,13 +76,13 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
  useEffect(()=>{
   if(sheet||!pkOk||account||mode!=='signin'||platform.account?.passkeySignIn)return;
   const ac=new AbortController();
-  client.signInWithPasskey({conditional:true,signal:ac.signal}).then(r=>{if(r.ok){setAccount(readAccount(store()));setOn(false);setStatus(null);toast.success(t('已登录。'));}}).catch(()=>{});
+  client.signInWithPasskey({conditional:true,signal:ac.signal}).then(r=>{if(r.ok){setAccount(readAccount(store()));setOn(true);setStatus('syncing');toast.success(t('已登录。'));}}).catch(()=>{});
   return()=>ac.abort();
  },[client,pkOk,account,mode]);
  const fail=r=>setErr(errorText(r.code,r.retryAfter));
  const go=m=>{setMode(m);setErr(null);setNote(null);setCode('');setPassword('');};
  const run=async fn=>{setBusy(true);setErr(null);try{try{await platform.account?.allow(gateway);}catch{/* without the permission the request itself fails and says so */}await fn();}finally{setBusy(false);}};
- const signedIn=r=>{setAccount(readAccount(store()));setOn(false);setStatus(null);setEmail('');setPassword('');setCode('');setMode('signin');toast.success(t('已登录。'));};
+ const signedIn=r=>{setAccount(readAccount(store()));setOn(true);setStatus('syncing');setEmail('');setPassword('');setCode('');setMode('signin');toast.success(t('已登录。'));};
  const checkEmail=()=>emailLooksValid(email)?true:(setErr(errorText('bad_request')),false);
 
  const signUp=()=>checkEmail()&&(passwordLongEnough(password)?run(async()=>{
@@ -140,6 +140,7 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
    <div><Text type="secondary">{t('已登录')}</Text><div className="account-email"><Text strong>{maskEmail(account.email)||t('（邮箱未记录）')}</Text></div></div>
    <div>
     <label className="account-sync-switch"><Switch aria-label={t('在设备间同步钱包')} checked={on} onChange={toggle}/><Text>{t('在设备间同步钱包')}</Text></label>
+    <Paragraph type="secondary" className="account-sync-copy" style={{marginTop:8,marginBottom:0}}>{t('你的钱包会在你登录的设备间同步。银行密码永远不会上传。')}</Paragraph>
     <div><Text className="account-sync-status" type={on&&(status==='error'||status==='signed_out')?'danger':'secondary'}>{lineText(syncLine({on,status,syncedAt}))}</Text></div>
    </div>
    {err&&<Alert type="error" showIcon title={err} role="alert"/>}
@@ -152,7 +153,8 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
    <div><Text type="secondary">{t('已登录')}</Text><div className="account-email" style={{wordBreak:'break-all'}}><Text strong>{account.email||t('（邮箱未记录）')}</Text></div></div>
    <div>
     <label className="account-sync-switch"><Switch aria-label={t('在设备间同步钱包')} checked={on} onChange={toggle}/><Text strong>{t('在设备间同步钱包')}</Text></label>
-    <Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{on?t('钱包的一份副本存在 Cardybara 服务器上，同一账号的其他设备会合并成同一个钱包。关闭后不再同步，服务器上的副本保留，直到你删除账号。'):t('默认关闭。开启后，钱包的一份副本会存到 Cardybara 服务器，并在登录同一账号的设备间合并。不含银行密码或登录信息。')}</Paragraph>
+    <Paragraph type="secondary" className="account-sync-copy" style={{marginTop:8,marginBottom:0}}>{t('你的钱包会在你登录的设备间同步。银行密码永远不会上传。')}</Paragraph>
+    <Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{on?t('钱包的一份副本存在 Cardybara 服务器上，同一账号的其他设备会合并成同一个钱包。关闭后不再同步，服务器上的副本保留，直到你删除账号。'):t('同步已关闭，这台设备的钱包没有上传。再次登录会重新开启；也可以随时在这里打开。')}</Paragraph>
     {!on&&<Text className="account-sync-status" type="warning">{lineText(syncLine({on,status,syncedAt}))}</Text>}
     {on&&<Text className="account-sync-status" type={status==='error'||status==='signed_out'?'danger':'secondary'}>{lineText(syncLine({on,status,syncedAt}))}</Text>}
    </div>

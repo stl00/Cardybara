@@ -17,7 +17,7 @@ test('PRIVACY.md describes the optional account, what the server holds, who can 
 test('CLAUDE.md red line allows wallet upload only with account sync on and never bank credentials', () => {
   const c = read('CLAUDE.md');
   assert.doesNotMatch(c, /wallet data never leaves the browser/);
-  assert.match(c, /wallet data is uploaded only when the user turns on account sync, and bank credentials never are/);
+  assert.match(c, /wallet data is uploaded only for a signed-in account with sync on \(on by default after sign-in, owner 2026-11-23, #579\), and bank credentials never are/);
 });
 
 test('an account body with only wallet fields passes; credentials, codes, cookies and page evidence fail', () => {

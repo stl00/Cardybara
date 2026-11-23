@@ -2,7 +2,7 @@
 // against a local gateway (the gateway's own code on in-memory D1 and mail), reads the synthetic bank and syncs the wallet;
 // then the built PWA, in a second profile at phone width with two manual cards, signs in, syncs once and shows the bank-read
 // amounts with the 'From your bank' label. The synced document is checked for anything the bank gave that must never leave
-// the extension. Synthetic data only; no bank, no live service. Negative control: an extension that never turns sync on
+// the extension. Synthetic data only; no bank, no live service. Negative control: an extension that turns sync off after signing in
 // leaves the PWA without the amounts, and the same assertions fail.
 // Runs only in CI's `npm run test:web` (SEPARATE in scripts/run-tests.mjs), where release/ and dist/web are both built.
 import test from 'node:test';
@@ -69,6 +69,7 @@ async function scenario({syncOn}) {
         await until('the extension to sync', async () => { const t = await pageText('wallet'); return JSON.parse(words('已同步')).some(w => t.includes(w)); });
         await until('the wallet document on the server', async () => walletDoc().includes('1234.56'));
       }
+      else await until('sync to be turned off', async () => { await evaluate('wallet', `(()=>{const s=document.querySelector('.account-sync-switch button[role=switch]');if(s&&s.getAttribute('aria-checked')==='true')s.click();return true})()`); return evaluate('wallet', `document.querySelector('.account-sync-switch button[role=switch]')?.getAttribute('aria-checked')==='false'`); });
       note('extension signed in' + (syncOn ? ' and synced' : ' with sync left off'));
 
       // The PWA: a second profile at phone width, two manual cards, signed in with the same account, one sync.
@@ -82,7 +83,7 @@ async function scenario({syncOn}) {
         await c.type('.account-settings input[type=password]', PASSWORD);
         await c.tap('.account-settings .ant-btn-primary');
         await c.until(`document.querySelector('.account-email')`, 'the PWA to sign in', 15000);
-        await c.tap('.account-sync-switch .ant-switch');
+        // Sync is on by default after sign-in (#579): no tap.
         await c.until(`document.querySelector('.account-sync-status')&&/Synced|已同步|已同步/.test(document.querySelector('.account-sync-status').innerText)`, 'the PWA to sync', 20000);
         await c.evaluate(`location.hash='wallet'`);
         await c.until(`document.querySelector('.card-title')`, 'the cards');
