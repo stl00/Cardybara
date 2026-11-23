@@ -83,7 +83,9 @@
     "或用邮箱": "Or use email",
     "登录卡疲扒拉": "Sign in to Cardybara",
     "同一个钱包，在手机和电脑上都能用。": "The same wallet on your phone and your computer.",
-    "不登录也能完整使用钱包；开启同步后，钱包副本才会存到服务器。": "The wallet works fully without signing in; a copy goes to the server only after you turn on sync."
+    "不登录也能完整使用钱包；开启同步后，钱包副本才会存到服务器。": "The wallet works fully without signing in; a copy goes to the server only after you turn on sync.",
+    "这个主屏幕 App 和 Safari 是分开的。登录后，把你的钱包带到这里。": "This Home Screen app is separate from Safari. Sign in to bring your wallet here.",
+    "主屏幕上的 App 和 Safari 是两个独立的浏览器，数据不共用，需要在主屏幕 App 里重新登录。": "The Home Screen app and Safari are separate browsers and do not share data. Sign in again inside the Home Screen app."
   },
   "zh-TW": {
     "连不上服务器。检查网络后再试。": "連不上伺服器。檢查網路後再試。",
@@ -169,6 +171,8 @@
     "或用邮箱": "或用信箱",
     "登录卡疲扒拉": "登入卡疲扒拉",
     "同一个钱包，在手机和电脑上都能用。": "同一個錢包，在手機和電腦上都能用。",
-    "不登录也能完整使用钱包；开启同步后，钱包副本才会存到服务器。": "不登入也能完整使用錢包；開啟同步後，錢包副本才會存到伺服器。"
+    "不登录也能完整使用钱包；开启同步后，钱包副本才会存到服务器。": "不登入也能完整使用錢包；開啟同步後，錢包副本才會存到伺服器。",
+    "这个主屏幕 App 和 Safari 是分开的。登录后，把你的钱包带到这里。": "這個主畫面 App 和 Safari 是分開的。登入後，把你的錢包帶到這裡。",
+    "主屏幕上的 App 和 Safari 是两个独立的浏览器，数据不共用，需要在主屏幕 App 里重新登录。": "主畫面上的 App 和 Safari 是兩個獨立的瀏覽器，資料不共用，需要在主畫面 App 裡重新登入。"
   }
 }

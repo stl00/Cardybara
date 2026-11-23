@@ -36,9 +36,24 @@ function writeState(storage,state){try{if(state)storage.setItem(PUSH_STATE_KEY,J
 export function pushSupport({nav=globalThis.navigator,win=globalThis.window,Notification=globalThis.Notification}={}){
  if(!nav)return 'unsupported';
  const ios=/iPad|iPhone|iPod/.test(nav.userAgent||'')||(nav.platform==='MacIntel'&&nav.maxTouchPoints>1);
- const standalone=nav.standalone===true||!!win?.matchMedia?.('(display-mode: standalone)')?.matches;
+ const standalone=isStandalone({nav,win});
  if(ios&&!standalone)return 'install';
  return nav.serviceWorker&&win?.PushManager&&typeof Notification!=='undefined'?'ready':'unsupported';
+}
+
+/** True when the page runs as an installed web app (iOS Home Screen or any display-mode: standalone). */
+export function isStandalone({nav=globalThis.navigator,win=globalThis.window}={}){
+ return nav?.standalone===true||!!win?.matchMedia?.('(display-mode: standalone)')?.matches;
+}
+
+/**
+ * Support is not fixed at mount: an iOS user adds the app to the Home Screen, or changes permission in Settings, and comes
+ * back to this page. Calls `recheck` on visibilitychange (page shown again) and pageshow (back/forward cache). Returns the unsubscribe.
+ */
+export function watchSupport(recheck,{doc=globalThis.document,win=globalThis.window}={}){
+ const onVisible=()=>{if(!doc||doc.visibilityState!=='hidden')recheck();};
+ doc?.addEventListener?.('visibilitychange',onVisible);win?.addEventListener?.('pageshow',recheck);
+ return()=>{doc?.removeEventListener?.('visibilitychange',onVisible);win?.removeEventListener?.('pageshow',recheck);};
 }
 
 /** One debounced runner: the last call within `ms` wins. */

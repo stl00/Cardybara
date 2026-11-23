@@ -10,6 +10,8 @@ export const SYNC_CHANGE_EVENT='cardybara-sync-change';
 export const SYNC_STATUS_EVENT='cardybara-sync-status';
 // Fired on this page whenever the stored session is written or dropped, so every account view (Settings, the header) agrees.
 export const ACCOUNT_CHANGE_EVENT='cardybara-account-change';
+// Asks the header's account entry to open its sign-in sheet (the Home Screen banner uses it).
+export const OPEN_ACCOUNT_EVENT='cardybara-open-account';
 const accountChanged=()=>{try{globalThis.window?.dispatchEvent?.(new Event(ACCOUNT_CHANGE_EVENT));}catch{}};
 export const PASSWORD_MIN=10;
 

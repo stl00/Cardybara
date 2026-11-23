@@ -3,7 +3,7 @@ import {Alert,App,Button,Card,Checkbox,Flex,Select,Switch,Typography} from 'antd
 import {t,ruleField,useI18n} from './i18n';
 import {usePersonalMarks} from './PersonalWallet.jsx';
 import {PAYMENT_MARKS_CHANGE,loadPaymentMarks} from './PaymentAssistant.jsx';
-import {pushTimes,debounce} from './webPush.js';
+import {pushTimes,debounce,watchSupport} from './webPush.js';
 import {LEAD_DAYS,REMINDER_SENT_KEY,REMINDER_SETTINGS_KEY,SCHEDULE_DAYS,normalizeSettings,pendingNotifications,pruneSent,publishSchedule,readSent,readSettings} from './reminders.js';
 import {PAYMENT_MARKS_KEY} from './paymentStates.js';
 import {PUSH_GENERIC_KEY,REMINDER_SCHEDULE_KEY} from './pushMirror.js';
@@ -73,17 +73,19 @@ export function ReminderRunner({cards}){
   };
   // Another tab's card changes arrive through the cards prop once this tab has reloaded them, so they are not checked here against the old cards.
   const fromOtherTab=e=>{if([REMINDER_SETTINGS_KEY,PAYMENT_MARKS_KEY].includes(e.key))check();};
-  check();const timer=setInterval(check,CHECK_MS);window.addEventListener('storage',fromOtherTab);
+  check();const timer=setInterval(check,CHECK_MS);const unwatch=watchSupport(check);window.addEventListener('storage',fromOtherTab);
   for(const name of ['focus',CHANGE,PAYMENT_MARKS_CHANGE])window.addEventListener(name,check);
-  return()=>{clearInterval(timer);window.removeEventListener('storage',fromOtherTab);for(const name of ['focus',CHANGE,PAYMENT_MARKS_CHANGE])window.removeEventListener(name,check)};
+  return()=>{clearInterval(timer);unwatch();window.removeEventListener('storage',fromOtherTab);for(const name of ['focus',CHANGE,PAYMENT_MARKS_CHANGE])window.removeEventListener(name,check)};
  },[day,events,ready,language,signature]);
  return null;
 }
-export default function ReminderSettings(){
+export default function ReminderSettings({pushApi}={}){
  useI18n();const {message:toast}=App.useApp();
+ // Re-read support when the page is shown again (Home Screen install, permission change in Settings), not once at mount.
+ const [,recheck]=useState(0);useEffect(()=>watchSupport(()=>recheck(n=>n+1)),[]);
  const [settings,setSettings]=useState(()=>{try{return readSettings(localStorage)}catch{return normalizeSettings(null)}}),[denied,setDenied]=useState(false),[busy,setBusy]=useState(false);
  const update=patch=>{const next=normalizeSettings({...settings,...patch});try{saveSettings(next);setSettings(next)}catch{toast.error(t('保存失败，刚才的设置没有生效。'))}};
- const push=platform.notifications.push,support=push?.support()??'unsupported',[pushOn,setPushOn]=useState(()=>!!push?.active());
+ const push=pushApi??platform.notifications.push,support=push?.support()??'unsupported',[pushOn,setPushOn]=useState(()=>!!push?.active());
  const turnOnPush=async()=>{
   setDenied(false);setBusy(true);
   try{if(!await askPermission()){setDenied(true);return;}await push.enable();update({enabled:true});setPushOn(true);window.dispatchEvent(new Event(CHANGE));}catch{setDenied(true)}finally{setBusy(false)}
@@ -98,9 +100,9 @@ export default function ReminderSettings(){
  const lead=()=>LEAD_DAYS.map(days=>({value:days,label:t('提前 {0} 天',[days])}));
  const lost=settings.enabled&&supported()&&Notification.permission!=='granted';
  return <Card title={t('账单和福利提醒')} style={{marginBottom:20}}>
-  <label className="account-sync-switch"><Switch aria-label={t('开启提醒')} checked={settings.enabled} loading={busy} disabled={!supported()} onChange={toggle}/><Text strong>{t('开启浏览器通知')}</Text></label>
-  <Paragraph type="secondary" style={{marginTop:12}}>{worker()?t('默认关闭。开启时 Chrome 会请求通知权限，关闭后不再提醒。钱包页面关闭时也会提醒，但 Chrome 需要在运行；Chrome 没运行时到点的提醒，下次启动后补发，已经过时的不再发。提醒按你上次打开钱包时的数据，安排接下来 {0} 天：在银行付款后，到钱包标记已处理才会停止。',[SCHEDULE_DAYS]):platform.kind==='web'?t('默认关闭。开启时浏览器会请求通知权限，关闭后不再提醒。只在打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。'):t('默认关闭。开启时 Chrome 会请求通知权限，关闭后不再提醒。只在 Chrome 中打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。')}</Paragraph>
-  {support==='install'&&<Alert type="info" showIcon title={t('在 iPhone 或 iPad 上，要先把 Cardybara 添加到主屏幕（iOS 16.4 或更高），才能收到钱包关闭时的提醒。')} description={t('在 Safari 点“分享”，选“添加到主屏幕”，再从主屏幕图标打开钱包，回到这里开启。')} style={{marginBottom:12}}/>}
+  {support!=='install'&&<><label className="account-sync-switch"><Switch aria-label={t('开启提醒')} checked={settings.enabled} loading={busy} disabled={!supported()} onChange={toggle}/><Text strong>{t('开启浏览器通知')}</Text></label>
+  <Paragraph type="secondary" style={{marginTop:12}}>{worker()?t('默认关闭。开启时 Chrome 会请求通知权限，关闭后不再提醒。钱包页面关闭时也会提醒，但 Chrome 需要在运行；Chrome 没运行时到点的提醒，下次启动后补发，已经过时的不再发。提醒按你上次打开钱包时的数据，安排接下来 {0} 天：在银行付款后，到钱包标记已处理才会停止。',[SCHEDULE_DAYS]):platform.kind==='web'?t('默认关闭。开启时浏览器会请求通知权限，关闭后不再提醒。只在打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。'):t('默认关闭。开启时 Chrome 会请求通知权限，关闭后不再提醒。只在 Chrome 中打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。')}</Paragraph></>}
+  {support==='install'&&<Alert type="info" showIcon title={t('在 iPhone 或 iPad 上，要先把 Cardybara 添加到主屏幕（iOS 16.4 或更高），才能收到钱包关闭时的提醒。')} description={<>{t('在 Safari 点“分享”，选“添加到主屏幕”，再从主屏幕图标打开钱包，回到这里开启。')}<br/>{t('主屏幕上的 App 和 Safari 是两个独立的浏览器，数据不共用，需要在主屏幕 App 里重新登录。')}</>} style={{marginBottom:12}}/>}
   {support==='ready'&&<div style={{marginBottom:12}}>
    {pushOn?<Flex align="center" gap={12} wrap><Text>{t('钱包关闭时也会提醒（Web Push）。')}</Text><Button size="small" loading={busy} onClick={turnOffPush}>{t('关闭后台提醒')}</Button></Flex>
    :<><Button type="primary" className="wrap-button" loading={busy} onClick={turnOnPush}>{t('开启钱包关闭时的提醒')}</Button><Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{t('只把提醒的时间发给 Cardybara 服务器，不含卡名、尾号、金额；提醒的文字由本机生成。')}</Paragraph></>}
