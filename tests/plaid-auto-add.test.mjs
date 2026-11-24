@@ -11,6 +11,7 @@ import {join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {WEB_DIR, withPhone} from './helpers/mobile-chrome.mjs';
 import {findChrome} from '../scripts/dev-collector/chrome-launcher.mjs';
+import {assertWalletBody} from './helpers/account-body.mjs';
 import {GUIDE_KEY} from '../src/webFirstLaunch.js';
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
@@ -71,6 +72,7 @@ test('PWA, sync on: two Plaid cards land in an empty wallet with their balances 
     await c.until(`window.__puts.some(p=>(p.document?.walletCards?.cards||[]).length===2)`, 'a push with both cards', 60000);
     const pushed = await c.evaluate(`window.__puts.at(-1).document.walletCards.cards.map(c=>[c.bank,c.tail,c.name]).sort()`);
     assert.deepEqual(pushed, [['Amex US', '71001', 'Synthetic Gold'], ['Chase', '1234', 'Synthetic Sapphire']]);
+    for (const p of await c.evaluate(`window.__puts`)) assertWalletBody(p, 'pushed wallet body');
     // No Plaid amounts or ids ride in the registry rows; the push carries what sync already sends.
     const body = await c.evaluate(`JSON.stringify(window.__puts.at(-1).document.walletCards)`);
     for (const s of ['acc_1', 'acc_2', 'item_1', '410.5']) assert.ok(!body.includes(s), 'registry push carries ' + s);

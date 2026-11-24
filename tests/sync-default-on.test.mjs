@@ -6,6 +6,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {localGateway,memoryD1,memoryMail} from '../gateway/src/local.mjs';
 import {createAccountClient,setSync,syncIsOn,SYNC_CHANGE_EVENT} from '../src/accountClient.js';
+import {guardWalletPuts} from './helpers/account-body.mjs';
 import {startWalletSync} from '../src/walletSync.js';
 import {readWalletDocument,replaceWalletDocument} from '../src/walletDocument.js';
 
@@ -23,7 +24,7 @@ async function setup(){
  const requests=[];
  const fetchFn=async(url,init)=>{requests.push({url,method:init.method});return g.handle(new Request(url,{method:init.method,body:init.body,headers:{Origin:ORIGIN,...init.headers}}));};
  const lastCode=to=>/\b(\d{6})\b/.exec([...mail.sent].reverse().find(x=>x.to===to)?.text||'')?.[1]??null;
- return {fetchFn,requests,lastCode};
+ return {fetchFn:guardWalletPuts(fetchFn),requests,lastCode};
 }
 function device(srv,extra={}){
  const storage=memory(),win=new EventTarget(),events=[];
