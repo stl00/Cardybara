@@ -124,6 +124,7 @@ button.pc-card-name{cursor:pointer}button.pc-card-name:hover{color:var(--ant-col
 /* Phone first run (issue 377): 44 px touch targets, modals that fit the screen, safe-area insets in standalone mode. */
 @media(max-width:767px){
 .ant-btn,.ant-input,.ant-input-affix-wrapper,.ant-input-number,.ant-select-selector,.ant-picker{min-height:44px}
+.plaid-offer .ant-alert-close-icon{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
 .ant-btn{min-width:44px}.ant-input-number .ant-input-number-input{height:42px}.ant-select-single,.ant-select-single .ant-select-selector{height:44px}.ant-select-single .ant-select-selector{align-items:center}
 .ant-input-affix-wrapper>input.ant-input{min-height:0}.ant-modal .ant-modal-close,.ant-drawer .ant-drawer-close{width:44px!important;height:44px!important;top:8px}
 .ant-drawer-header-title{min-width:0}.ant-drawer-close{margin-inline-end:0}

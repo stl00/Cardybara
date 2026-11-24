@@ -37,7 +37,13 @@
     "还没有对应到钱包里的卡，金额只在这里显示。": "Not linked to a wallet card yet; its amounts show only here.",
     "对应到钱包里的卡": "Link to a wallet card",
     "添加到钱包": "Add to wallet",
-    "已把 {0} 张通过 Plaid 连接的卡加入钱包。": "Added {0} Plaid-linked card(s) to the wallet."
+    "已把 {0} 张通过 Plaid 连接的卡加入钱包。": "Added {0} Plaid-linked card(s) to the wallet.",
+    "连接美国信用卡（Plaid），自动填入余额和还款日。": "Connect your US credit cards (Plaid) to fill balances and due dates automatically.",
+    "连接信用卡": "Connect cards",
+    "登录并连接": "Sign in and connect",
+    "美国信用卡自动导入": "Import US credit cards automatically",
+    "如果你有美国信用卡，可以登录后通过 Plaid 连接，自动读取余额、账单金额、最低还款和还款日。": "If you have US credit cards, sign in and connect them through Plaid to read balances, statement amounts, minimum payments and due dates automatically.",
+    "只读，银行密码只交给银行和 Plaid。在“总览”或“设置”里随时可以连接，也可以不连。": "Read-only; your bank password goes only to the bank and Plaid. You can connect any time from Overview or Settings, or skip it."
   },
   "zh-TW": {
     "Plaid 连接服务还没开通，钱包照常使用。": "Plaid 連線服務尚未開通，錢包照常使用。",
@@ -77,6 +83,12 @@
     "还没有对应到钱包里的卡，金额只在这里显示。": "尚未對應到錢包裡的卡，金額只在這裡顯示。",
     "对应到钱包里的卡": "對應到錢包裡的卡",
     "添加到钱包": "加入錢包",
-    "已把 {0} 张通过 Plaid 连接的卡加入钱包。": "已把 {0} 張透過 Plaid 連接的卡加入錢包。"
+    "已把 {0} 张通过 Plaid 连接的卡加入钱包。": "已把 {0} 張透過 Plaid 連接的卡加入錢包。",
+    "连接美国信用卡（Plaid），自动填入余额和还款日。": "連接美國信用卡（Plaid），自動填入餘額和還款日。",
+    "连接信用卡": "連接信用卡",
+    "登录并连接": "登入並連接",
+    "美国信用卡自动导入": "美國信用卡自動匯入",
+    "如果你有美国信用卡，可以登录后通过 Plaid 连接，自动读取余额、账单金额、最低还款和还款日。": "如果你有美國信用卡，可以登入後透過 Plaid 連接，自動讀取餘額、帳單金額、最低還款和還款日。",
+    "只读，银行密码只交给银行和 Plaid。在“总览”或“设置”里随时可以连接，也可以不连。": "唯讀，銀行密碼只交給銀行和 Plaid。在「總覽」或「設定」裡隨時可以連接，也可以不連。"
   }
 }
