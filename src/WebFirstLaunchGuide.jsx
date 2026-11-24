@@ -1,7 +1,9 @@
 import React,{useState} from 'react';
 import {Button,Flex,Modal,Typography} from 'antd';
 import {t,useI18n} from './i18n';
-import {GUIDE_STEPS,browserPlatform,installKind,isStandalone} from './webFirstLaunch.js';
+import appPlatform from './platform';
+import {gatewayConfigured} from '../extension-next/model-client.js';
+import {guideSteps,browserPlatform,installKind,isStandalone} from './webFirstLaunch.js';
 const {Paragraph,Title}=Typography;
 const INSTALL={
  ios:'iPhone / iPad（Safari）：点底部的“分享”，选“添加到主屏幕”。',
@@ -18,18 +20,19 @@ export function GuideStep({step,platform,standalone,onExport}){
   {install==='ios'&&<Paragraph>{t('iPhone 上的 Safari 可能清除约一周没打开的网站的数据，添加到主屏幕后不受此影响。')}</Paragraph>}
   <Paragraph>{t('清除网站数据会删除钱包。请经常在“数据管理”里导出备份。')}</Paragraph>
   <Button className="guide-export" onClick={onExport}>{t('现在导出备份')}</Button></>;
+ if(step==='plaid')return <><Title level={4}>{t('美国信用卡自动导入')}</Title><Paragraph>{t('如果你有美国信用卡，可以登录后通过 Plaid 连接，自动读取余额、账单金额、最低还款和还款日。')}</Paragraph><Paragraph>{t('只读，银行密码只交给银行和 Plaid。在“总览”或“设置”里随时可以连接，也可以不连。')}</Paragraph></>;
  return <><Title level={4}>{t('可选功能')}</Title>
   <Paragraph>{t('到期提醒需要你允许通知权限；在 iPhone 上还需要先添加到主屏幕。')}</Paragraph>
   <Paragraph>{t('用卡助手会把你的问题、对话前文、持有的卡种、积分估值、是否填了年费日和助手请求的钱包查询结果发送到 Cardybara 服务来回答；不含卡号、余额或账单。')}</Paragraph></>;
 }
 // The modal: skippable, closing it counts as finished, so the caller records "seen" in `onClose`.
-export default function WebFirstLaunchGuide({open,onClose,onExport,platform=browserPlatform(),standalone=isStandalone()}){
- useI18n();const [i,setI]=useState(0),last=i===GUIDE_STEPS.length-1;
+export default function WebFirstLaunchGuide({open,onClose,onExport,platform=browserPlatform(),standalone=isStandalone(),plaid=!!appPlatform.plaid&&gatewayConfigured}){
+ useI18n();const steps=guideSteps({plaid}),[i,setI]=useState(0),last=i===steps.length-1;
  const close=()=>{setI(0);onClose();};
- return <Modal className="web-guide" open={open} onCancel={close} centered title={`${i+1} / ${GUIDE_STEPS.length}`} destroyOnHidden
+ return <Modal className="web-guide" open={open} onCancel={close} centered title={`${i+1} / ${steps.length}`} destroyOnHidden
   styles={{body:{maxHeight:'60vh',overflowY:'auto'}}} width={440}
   footer={<Flex justify="space-between" gap={8}><Button className="guide-skip" type="text" onClick={close}>{last?t('关闭'):t('跳过')}</Button>
    <Flex gap={8}>{i>0&&<Button className="guide-back" onClick={()=>setI(i-1)}>{t('上一步')}</Button>}<Button className="guide-next" type="primary" onClick={()=>last?close():setI(i+1)}>{last?t('开始使用'):t('下一步')}</Button></Flex></Flex>}>
-  <GuideStep step={GUIDE_STEPS[i]} platform={platform} standalone={standalone} onExport={onExport}/>
+  <GuideStep step={steps[i]} platform={platform} standalone={standalone} onExport={onExport}/>
  </Modal>;
 }
