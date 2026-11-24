@@ -15,15 +15,12 @@ const NO_STATED_CYCLE={
  // The issuer does state a cycle here (12 months from the first day of the month after the annual fee is assessed; first year from account
  // opening), but no existing period value matches that start, and account-anniversary would shift the dates, so period stays null.
  'rule.wells-fargo-us-autograph-journey-visa-card.airline-credit':'issuer states a cycle (12 months from the month after the annual fee posts) but no period value matches it',
- // Page not readable.
- 'rule.amex-us-us-business-platinum-card.hotel-credit':'page not readable: Amex Business Platinum product page returned no benefit text to a signed-out fetch',
- 'rule.amex-us-us-delta-skymiles-reserve-card.delta-stays':'page not readable: Amex Delta Stays benefit pages returned only navigation text',
- 'rule.amex-us-us-delta-skymiles-platinum-business-card.delta-stays':'page not readable: Amex Delta Stays benefit pages returned only navigation text',
- 'rule.amex-us-us-delta-skymiles-gold-business-card.delta-stays':'page not readable: Amex Delta Stays benefit pages returned only navigation text',
- 'rule.amex-us-us-delta-skymiles-reserve-business-card.delta-stays':'page not readable: Amex Delta Stays benefit pages returned only navigation text',
- 'rule.bilt-us-bilt-obsidian-card.bilt-cash-2027':'page not readable: Bilt terms are a PDF/404 to the fetch tool',
- 'rule.bilt-us-bilt-palladium-card.bilt-cash':'page not readable: Bilt terms are a PDF/404 to the fetch tool',
- 'rule.bilt-us-bilt-palladium-card.bilt-cash-2027':'page not readable: Bilt terms are a PDF/404 to the fetch tool',
+ // Page not readable. Amex pages re-tried 2026-11-24 (signed-out WebFetch of the card pages, ?intlink variants and /terms/ paths returned only navigation text, truncated); not bypassed.
+ 'rule.amex-us-us-business-platinum-card.hotel-credit':'page not readable: Amex Business Platinum product page returned no benefit text to a signed-out fetch (re-tried 2026-11-24: card page, ?intlink and /terms/ URLs)',
+ 'rule.amex-us-us-delta-skymiles-reserve-card.delta-stays':'page not readable: Amex Delta Stays benefit pages returned only navigation text (re-tried 2026-11-24: card page, ?intlink and /terms/ URLs for Reserve; Platinum Business page errored)',
+ 'rule.amex-us-us-delta-skymiles-platinum-business-card.delta-stays':'page not readable: Amex Delta Stays benefit pages returned only navigation text (re-tried 2026-11-24: card page, ?intlink and /terms/ URLs for Reserve; Platinum Business page errored)',
+ 'rule.amex-us-us-delta-skymiles-gold-business-card.delta-stays':'page not readable: Amex Delta Stays benefit pages returned only navigation text (re-tried 2026-11-24: card page, ?intlink and /terms/ URLs for Reserve; Platinum Business page errored)',
+ 'rule.amex-us-us-delta-skymiles-reserve-business-card.delta-stays':'page not readable: Amex Delta Stays benefit pages returned only navigation text (re-tried 2026-11-24: card page, ?intlink and /terms/ URLs for Reserve; Platinum Business page errored)',
  // Rules where no period value fits what the page says, or the page does not state a start (re-checked in #348 for Marriott Bonvoy Boundless and IHG One, which now carry a period).
  'rule.us-bank-us-altitude-go-visa-signature-card.streaming':'12-month credit, page does not state when the 12 months start: not stated',
  'rule.amex-us-us-delta-skymiles-reserve-business-card.sky-club':'counted per Medallion year; no matching period value',
@@ -49,4 +46,9 @@ test('rules with a stated cycle carry the matching period (#348)',()=>{
  const byId=new Map(rules.map(r=>[r.id,r]));
  assert.equal(byId.get('rule.chase-us-ihg-one-rewards-credit-card.fourth-night').terms.period,'earned-year-plus-next');
  assert.equal(byId.get('rule.chase-us-marriott-bonvoy-boundless-credit-card.airline-credit').terms.period,'promotion-period');
+});
+// stl00/Cardybara#612: the Bilt terms PDF states the cycle (credited at account opening and on each Card Anniversary Date).
+test('Bilt Cash rules carry the account-anniversary period (#612)',()=>{
+ const byId=new Map(rules.map(r=>[r.id,r]));
+ for(const id of ['rule.bilt-us-bilt-obsidian-card.bilt-cash-2027','rule.bilt-us-bilt-palladium-card.bilt-cash','rule.bilt-us-bilt-palladium-card.bilt-cash-2027'])assert.equal(byId.get(id).terms.period,'account-anniversary',id);
 });

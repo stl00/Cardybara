@@ -100475,5 +100475,269 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.bilt-cash-2027",
+    "revision": 2,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.bilt-cash-2027@2026-11-24.2",
+    "supersedes": "rule.bilt-us-bilt-obsidian-card.bilt-cash-2027@2026-11-11.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "card-ownership",
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "每年100美元 Bilt Cash（2027年起）",
+      "summary": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放100美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+      "sourceText": "You, as the Primary Cardholder, will receive $100 in Bilt Cash.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放100美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": "2027-01-01",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放100美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card-terms"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$100 Bilt Cash Benefit",
+      "summary": "$100 in Bilt Cash is credited to the primary cardholder's Bilt Rewards Account at account opening and on each card anniversary while the account stays open and in good standing.",
+      "howToUse": [
+        "Bilt Cash is credited automatically; use it in the Bilt app or website before it expires."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card-terms",
+          "text": "You, as the Primary Cardholder, will receive $100 in Bilt Cash."
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card-terms",
+          "text": "This $100 annual Bilt Cash benefit is separate from and in addition to"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.bilt-cash",
+    "revision": 2,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.bilt-cash@2026-11-24.2",
+    "supersedes": "rule.bilt-us-bilt-palladium-card.bilt-cash@2026-11-11.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "card-ownership",
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "每年200美元 Bilt Cash",
+      "summary": "2027年1月1日前开户的账户，开户时和每个开卡周年日向主卡持卡人发放200美元 Bilt Cash；在2027年1月1日或之后的第一个开卡周年日改为新的每年 Bilt Cash，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+      "sourceText": "You, as the Primary Cardholder, will receive $200 in Bilt Cash.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "2027年1月1日前开户的账户，开户时和每个开卡周年日向主卡持卡人发放200美元 Bilt Cash；在2027年1月1日或之后的第一个开卡周年日改为新的每年 Bilt Cash，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 200,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "2027年1月1日前开户的账户，开户时和每个开卡周年日向主卡持卡人发放200美元 Bilt Cash；在2027年1月1日或之后的第一个开卡周年日改为新的每年 Bilt Cash，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card-terms"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Bilt Cash Benefit",
+      "summary": "$200 in Bilt Cash is credited to the primary cardholder's Bilt Rewards Account at account opening and on each card anniversary while the account stays open and in good standing.",
+      "howToUse": [
+        "Bilt Cash is credited automatically; use it in the Bilt app or website before it expires."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "You, as the Primary Cardholder, will receive $200 in Bilt Cash."
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "This $200 annual Bilt Cash benefit is separate from and in addition to"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.bilt-cash-2027",
+    "revision": 2,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.bilt-cash-2027@2026-11-24.2",
+    "supersedes": "rule.bilt-us-bilt-palladium-card.bilt-cash-2027@2026-11-11.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "card-ownership",
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "每年600美元 Bilt Cash（2027年起）",
+      "summary": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放600美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+      "sourceText": "You, as the Primary Cardholder, will receive $600 in Bilt Cash.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放600美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 600,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": "2027-01-01",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放600美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card-terms"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$600 Bilt Cash Benefit",
+      "summary": "$600 in Bilt Cash is credited to the primary cardholder's Bilt Rewards Account at account opening and on each card anniversary while the account stays open and in good standing.",
+      "howToUse": [
+        "Bilt Cash is credited automatically; use it in the Bilt app or website before it expires."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "You, as the Primary Cardholder, will receive $600 in Bilt Cash."
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "This $600 annual Bilt Cash benefit is separate from and in addition to"
+        }
+      ]
+    }
   }
 ]
