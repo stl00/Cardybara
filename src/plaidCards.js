@@ -145,7 +145,9 @@ export function applyPlaid(wallet,plaidCards,{links=[],pairs}={}){
   for(const [k,from] of FIELDS){
    const v=p[from];
    if(v==null)continue;
-   const old=fieldDate(card,k);
+   // Only a value the card holds can be newer than Plaid's. A bank reading moves `updated` (live.js) without holding
+   // a due date, so that date must not hide Plaid's for a field the card has nothing in (#585).
+   const old=card[k]!=null?fieldDate(card,k):null;
    if(old&&Date.parse(old)>Date.parse(readAt))continue;
    next[k]=v;next.fieldDates[k]=readAt;next.fieldSources[k]={method:'plaid'};
   }

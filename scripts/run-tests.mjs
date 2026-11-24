@@ -23,6 +23,7 @@ export const SEPARATE = {
   'tests/account-header.test.mjs': 'test:web',
   'tests/plaid-auto-add.test.mjs': 'test:web',
   'tests/pet-clearance.test.mjs': 'test:web',
+  'tests/readings-phone.test.mjs': 'test:web',
   // Agent model plumbing and multi-turn evals run with the agent evals.
   'tests/model-client.test.mjs': 'check:agent',
   'tests/agent-scripted-model.test.mjs': 'check:agent',

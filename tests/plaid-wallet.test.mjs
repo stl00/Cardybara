@@ -67,6 +67,15 @@ test('applyPlaid fills the billing-cycle fields when newer, skips nulls, keeps n
  assert.equal(applyPlaid(wallet,[]),wallet);
 });
 
+test('an older Plaid read still fills a field the card holds nothing in, though a later bank reading moved its date (#585)',()=>{
+ const wallet={cards:[{id:'a',bank:'Chase',name:'Synthetic',tail:'1234',currency:'USD',balance:5,updated:'2026-11-20',fieldDates:{balance:'2026-11-20T10:00:00Z'}}]};
+ const [c]=applyPlaid(wallet,[plaidCard()]).cards;
+ assert.equal(c.balance,5,'the newer bank read stays');
+ assert.equal(c.due,'2026-11-26');assert.equal(c.statement,390.25);
+ assert.equal(c.fieldDates.due,'2026-11-16T12:00:00.000Z','dated by Plaid\'s own read');
+ assert.equal(c.fieldDates.balance,'2026-11-20T10:00:00Z');
+});
+
 test('a manual link wins over issuer and last four, survives a re-link (new account_id), and takes one wallet card',()=>{
  const wallet=[{id:'w1',bank:'Chase',currency:'USD',tail:'1234'},{id:'w2',bank:'Chase',currency:'USD',name:'No tail yet'}];
  const p=plaidCard({persistentAccountId:'pers_1'});
