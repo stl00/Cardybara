@@ -36,6 +36,8 @@ export const DEVICE_ONLY={
  'cardybara-pet-v1':'pet state',
  'cardybara-plaid-offer-dismissed-v1':'whether this browser closed the Overview card that offers Plaid; each browser decides for itself',
  'cardybara-home-screen-banner-v1':'whether this Home Screen app already showed its sign-in banner; each browser is its own app',
+ 'cardybara-last-export-v1':'when this device last exported a backup file; the backup reminder reads it',
+ 'cardybara-backup-nudge-v1':'when this browser first saw a card and last dismissed the backup reminder; each browser decides for itself',
  'cardybara-auto-sync':'auto-sync switch of this browser',
  'cardybara-reminders-sent-v1':'which reminders this device already showed',
  'cardybara-fee-date-migration-v1':'marker that a one-time migration ran here',
