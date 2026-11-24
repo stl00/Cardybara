@@ -13,6 +13,7 @@ import {creditCategoryLabel} from './creditCategories';
 import {cycleLabel,cycleFacts} from './creditCycle';
 import {CardIdentity} from './Identity';
 import LedgerCard from './LedgerCard';
+import WalletLedgerSummary from './WalletLedgerSummary';
 import ItemLogo from './ItemLogo';
 const {Text,Paragraph,Title}=Typography;
 const Personal=createContext(null);
@@ -72,7 +73,7 @@ export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
   {dating===r.key&&<Flex gap={8} wrap align="center" style={{marginTop:8}}><label>{t('上次使用日期')} <Input type="date" size="small" style={{width:150}} max={day} value={dateValue} onChange={e=>setDateValue(e.target.value)}/></label><Button size="small" type="primary" disabled={!dateValue||dateValue>day} loading={busy===r.key} onClick={()=>offMark(r,'used',{usedOn:dateValue})}>{t('保存')}</Button><Button size="small" onClick={()=>setDating(null)}>{t('取消')}</Button></Flex>}</div>
   <Space wrap size={8}>{four?<><Button size="small" type={used?'default':'primary'} disabled={!ready||!!busy} onClick={()=>{setDating(r.key);setDateValue(st.usedOn||'')}}>{t('记录使用日期')}</Button>{used&&<Button size="small" disabled={!ready||!!busy} onClick={()=>offMark(r,'unknown')}>{t('撤销')}</Button>}</>:<><Button size="small" type={st.status==='used'?'default':'primary'} loading={busy===r.key} disabled={!ready} onClick={()=>offMark(r,st.status==='used'?'unknown':'used')}>{st.status==='used'?t('撤销'):t('已用完')}</Button><Button size="small" disabled={!ready||!!busy} onClick={()=>offMark(r,st.status==='skipped'?'unknown':'skipped')}>{st.status==='skipped'?t('撤销'):t('不相关')}</Button></>}<Dropdown disabled={!ready||!!busy} trigger={['click']} menu={{items:[{key:'dismiss',label:t('不再提醒')}],onClick:()=>setDismissed(r,'dismissed')}}><Button size="small" aria-label={t('更多操作')} icon={<EllipsisOutlined/>}/></Dropdown></Space></Flex></div>;};
  const headline=view.open.length?(view.ending.length?t('{0} 项 {1} 天内截止，共 {2} 项待处理',[view.ending.length,ENDING_SOON_DAYS,view.open.length]):t('{0} 项待处理',[view.open.length])):null;
- return <Card className="credit-manager" title={t(compact&&!singleCard&&view.ending.length?'快到期的福利':'本期 Credit')} style={{marginBottom:20}} extra={compact?(singleCard?(view.rows.length+needFee.length>COMPACT_LIST&&<Button type="link" onClick={()=>setExpanded(!expanded)}>{expanded?t('收起'):t('查看本卡全部')}</Button>):<Button type="link" onClick={()=>location.hash='credits'}>{t('查看全部')}</Button>):<Button onClick={calendar}>{t('添加本期日历提醒')}</Button>}>
+ return <>{!compact&&cards.length>1&&<WalletLedgerSummary cards={cards} events={events} day={day} hidden={hidden} onSetFeeDate={onSetFeeDate}/>}<Card className="credit-manager" title={t(compact&&!singleCard&&view.ending.length?'快到期的福利':'本期 Credit')} style={{marginBottom:20}} extra={compact?(singleCard?(view.rows.length+needFee.length>COMPACT_LIST&&<Button type="link" onClick={()=>setExpanded(!expanded)}>{expanded?t('收起'):t('查看本卡全部')}</Button>):<Button type="link" onClick={()=>location.hash='credits'}>{t('查看全部')}</Button>):<Button onClick={calendar}>{t('添加本期日历提醒')}</Button>}>
  {error&&<Alert type="error" showIcon title={error}/>}
  {needFeeCount>0&&<Alert className="fee-date-hint" type="info" showIcon style={{marginBottom:16}} title={t('{0} 项年度福利需要年费日期',[needFeeCount])} description={compact?null:t('没有年费日期就不会猜周期：设置后，这些福利会按持卡年度显示本期和截止日。')}/>}
  {headline&&<Paragraph type="secondary">{headline} · {t('用完点一下；默认是待确认，不会替你猜已用或未用。')}</Paragraph>}
@@ -97,7 +98,7 @@ export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
  </>}]}/>}
  {!compact&&<Paragraph type="secondary" style={{marginTop:16}}>{t('标记由你记录，可撤销；新周期重新确认。')} {t('这里是公开周期清单，不代表已登记或仍有余额。周年不明和版本未确认的福利在卡片详情中查看。钱包打开时显示临期提示；钱包关闭时，可以在设置里开启提醒，或用导出的本期日历提醒，日历的后续周期需重新添加。')}</Paragraph>}
  <CreditAmountModal task={editingUsage} previous={editingUsage?latest(editingUsage):null} onClose={()=>setEditingUsage(null)} onSave={async v=>{const task=editingUsage;await mark(task.key,v.amount>=task.limit?'used':v.amount>0?'partial':'unused',task.revisionId,v.amount>0?{usage:{amount:v.amount,value:v.value??null,date:v.date,currency:task.currency,limit:task.limit,title:task.title}}:{});}}/>
- </Card>;
+ </Card></>;
 }
 export const usePersonalMarks=()=>useContext(Personal);
 export function PortfolioSummary({cards,hidden}){const {events}=useContext(Personal);return <PortfolioMetrics cards={cards} benefitEvents={events} hidden={hidden}/>;}
