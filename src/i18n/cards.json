@@ -172,7 +172,10 @@
     "都不是同一张卡": "None of these is the same card",
     "撤销失败，卡片没有变化。": "Could not undo; the cards are unchanged.",
     "已撤销合并，这两张卡不会再被建议合并。": "Merge undone. These two cards will not be suggested again.",
-    "合并没有完成，卡片没有变化。": "The merge could not be completed; the cards are unchanged."
+    "合并没有完成，卡片没有变化。": "The merge could not be completed; the cards are unchanged.",
+    "全部卡的 Credit 账本": "Credit ledger across all cards",
+    "{0} 可用 · {1} 已用 · {2} 未记录": "{0} available · {1} used · {2} not captured",
+    "每张卡按自己的持卡年度计算；不同币种不相加。“已用”只来自你自己的标记，“未记录”是周期已结束但没有标记的部分。": "Each card is counted over its own card year; currencies are never added together. “Used” comes only from your own marks; “not captured” is what ended without a mark."
   },
   "zh-TW": {
     "{0} 产品卡面": "{0} 產品卡面",
@@ -347,6 +350,9 @@
     "都不是同一张卡": "都不是同一張卡",
     "撤销失败，卡片没有变化。": "撤銷失敗，卡片沒有變化。",
     "已撤销合并，这两张卡不会再被建议合并。": "已撤銷合併，這兩張卡不會再被建議合併。",
-    "合并没有完成，卡片没有变化。": "合併沒有完成，卡片沒有變化。"
+    "合并没有完成，卡片没有变化。": "合併沒有完成，卡片沒有變化。",
+    "全部卡的 Credit 账本": "全部卡的 Credit 帳本",
+    "{0} 可用 · {1} 已用 · {2} 未记录": "{0} 可用 · {1} 已用 · {2} 未記錄",
+    "每张卡按自己的持卡年度计算；不同币种不相加。“已用”只来自你自己的标记，“未记录”是周期已结束但没有标记的部分。": "每張卡按自己的持卡年度計算；不同幣種不相加。「已用」只來自你自己的標記，「未記錄」是週期已結束但沒有標記的部分。"
   }
 }
