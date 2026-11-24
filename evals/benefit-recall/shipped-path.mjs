@@ -63,3 +63,17 @@ export async function runShippedSet(set,{chat,judgeComplete,limit=Infinity,shoul
   searchedShare:mean(done.map(x=>x.searched?1:0)),
   stillNoisy:absent.filter(x=>x.noisy).map(x=>x.id),lostRecall:scored.filter(x=>x.recall<1).map(x=>x.id),rows};
 }
+
+// #575 pass conditions, fixed before any live run: frozen no-answer noise at most 20%, held-out recall@12 at least
+// 91.9 minus 1. A set that was not run, stopped early or lost questions to failed requests is `incomplete`, never a pass.
+// `failing` names the questions a follow-up issue should list.
+export const TARGETS={frozenNoiseMax:0.2,holdoutRecallMin:0.909};
+export function checkTargets(sets){
+ const complete=s=>!!s&&!s.stopped&&s.failedRequests===0&&s.answered>0;
+ const frozen=sets?.noanswer,holdout=sets?.holdout;
+ const noise=complete(frozen)?(frozen.noise<=TARGETS.frozenNoiseMax?'pass':'fail'):'incomplete';
+ const recall=complete(holdout)?(holdout.recallAt12>=TARGETS.holdoutRecallMin?'pass':'fail'):'incomplete';
+ const verdict=noise==='fail'||recall==='fail'?'fail':noise==='pass'&&recall==='pass'?'pass':'incomplete';
+ return {verdict,frozenNoise:{status:noise,value:frozen?.noise??null,max:TARGETS.frozenNoiseMax},holdoutRecallAt12:{status:recall,value:holdout?.recallAt12??null,min:TARGETS.holdoutRecallMin},
+  failing:{frozenStillNoisy:noise==='fail'?frozen.stillNoisy:[],holdoutLostRecall:recall==='fail'?holdout.lostRecall:[]}};
+}

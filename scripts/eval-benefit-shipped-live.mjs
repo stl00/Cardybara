@@ -7,10 +7,11 @@
 // never printed or written. The report keeps question ids, tool names, find_benefits arguments, counts and yes/no.
 // Frozen-set rule: report its aggregate and its still-noisy ids; never change the judge prompt after reading them.
 import {readFile,writeFile} from 'node:fs/promises';
+import {randomUUID} from 'node:crypto';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {loadGolden,K} from '../evals/benefit-recall/lib.mjs';
-import {runShippedSet} from '../evals/benefit-recall/shipped-path.mjs';
+import {runShippedSet,checkTargets} from '../evals/benefit-recall/shipped-path.mjs';
 import {JUDGE_GATE} from '../src/benefitAnswerJudge.js';
 import {JUDGE_MAX_TOKENS} from '../src/judgeClient.js';
 
@@ -60,16 +61,20 @@ if(dry){
  };
 }
 
-const report={schema:1,createdAt:new Date().toISOString(),dryRun:dry,k:K,gate:JUDGE_GATE,priceAssumption:PRICE,maxUsd:dry?null:maxUsd,sets:{}};
+// runId: quote it in the README next to the numbers, so the numbers trace to one report.
+const report={schema:1,runId:`shipped-${new Date().toISOString().slice(0,10)}-${randomUUID().slice(0,8)}`,createdAt:new Date().toISOString(),dryRun:dry,k:K,gate:JUDGE_GATE,priceAssumption:PRICE,maxUsd:dry?null:maxUsd,sets:{}};
 for(const set of sets){
  const data=await loadGolden(resolve(root,`evals/benefit-recall/${set}.json`));
  report.sets[set]=await runShippedSet(data,{chat,judgeComplete,limit,shouldStop:()=>!!stopped});
  if(stopped)break;
 }
-report.spend={...spend,usd:Number(spend.usd.toFixed(4))};report.stopped=stopped;
+report.spend={...spend,usd:Number(spend.usd.toFixed(4))};report.stopped=stopped;report.targets=checkTargets(report.sets);
 await writeFile(output,JSON.stringify(report,null,1)+'\n');
 const pct=x=>x==null?'-':(100*x).toFixed(1)+'%';
 for(const [set,s] of Object.entries(report.sets))console.log(`${set}: recall@${K} ${pct(s.recallAt12)} (n=${s.scored}) · no-answer noise ${pct(s.noise)} (n=${s.absent}) · judge asked on ${pct(s.judgeShare)} of questions (${pct(s.judgeShareOfSearched)} of those that searched, ${s.judgeCalls} calls) · searched ${pct(s.searchedShare)} · failed requests ${s.failedRequests}${s.stopped?' · STOPPED':''}`);
 for(const [set,s] of Object.entries(report.sets))if(s.absent)console.log(`${set}: still noisy ${s.stillNoisy.join(', ')||'none'}`);
 console.log(dry?'dry run: stub model and stub judge, no model call, no spend':`live: ${spend.calls} assistant + ${spend.judgeCalls} judge calls, ${spend.promptTokens} prompt (${spend.cacheHitTokens} cached) + ${spend.completionTokens} output tokens, about $${spend.usd.toFixed(4)} at assumed peak prices${spend.errors?` · ${spend.errors} failed requests`:''}${stopped?` · STOPPED (${stopped})`:''}`);
-console.log(`Report: ${output}`);
+const t=report.targets;
+console.log(`#575 targets: ${t.verdict} · frozen noise ${t.frozenNoise.status} (max ${pct(t.frozenNoise.max)}) · held-out recall@${K} ${t.holdoutRecallAt12.status} (min ${pct(t.holdoutRecallAt12.min)})${dry?' · dry run, not a measurement':''}`);
+if(!dry&&t.verdict==='fail')console.log(`follow-up issue: frozen still noisy ${t.failing.frozenStillNoisy.join(', ')||'none'} · held-out lost recall ${t.failing.holdoutLostRecall.join(', ')||'none'}`);
+console.log(`Run id: ${report.runId} · Report: ${output}`);

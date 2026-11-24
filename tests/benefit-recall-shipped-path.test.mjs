@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {loadGolden} from '../evals/benefit-recall/lib.mjs';
-import {runShippedSet,askShipped,revisionIds} from '../evals/benefit-recall/shipped-path.mjs';
+import {runShippedSet,askShipped,revisionIds,checkTargets} from '../evals/benefit-recall/shipped-path.mjs';
 
 const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
 const frozen=await loadGolden(resolve(root,'evals/benefit-recall/noanswer.json'));
@@ -62,4 +62,17 @@ test('shouldStop ends the set early and marks it stopped',async()=>{
  let n=0;
  const r=await runShippedSet(frozen,{chat:rewriteChat,judgeComplete:keep,shouldStop:()=>n++>=4});
  assert.equal(r.stopped,true);assert.equal(r.questions,4);
+});
+
+test('#575 targets: pass, fail with the failing ids, and incomplete when a set is missing, stopped or lost requests',()=>{
+ const set=(o)=>({stopped:false,failedRequests:0,answered:10,stillNoisy:['n1'],lostRecall:['h1'],...o});
+ assert.equal(checkTargets({noanswer:set({noise:0.2}),holdout:set({recallAt12:0.909})}).verdict,'pass');
+ const f=checkTargets({noanswer:set({noise:0.21}),holdout:set({recallAt12:0.95})});
+ assert.equal(f.verdict,'fail');assert.deepEqual(f.failing,{frozenStillNoisy:['n1'],holdoutLostRecall:[]});
+ assert.deepEqual(checkTargets({noanswer:set({noise:0.1}),holdout:set({recallAt12:0.9})}).failing.holdoutLostRecall,['h1']);
+ assert.equal(checkTargets({noanswer:set({noise:0.1})}).verdict,'incomplete');
+ assert.equal(checkTargets({noanswer:set({noise:0.1,stopped:true}),holdout:set({recallAt12:0.95})}).verdict,'incomplete');
+ assert.equal(checkTargets({noanswer:set({noise:0.1,failedRequests:1}),holdout:set({recallAt12:0.95})}).verdict,'incomplete');
+ // a known failure wins over an incomplete set
+ assert.equal(checkTargets({noanswer:set({noise:0.5})}).verdict,'fail');
 });
