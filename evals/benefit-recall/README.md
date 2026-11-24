@@ -389,8 +389,18 @@ Open choices for the owner: (a) accept 1.9 points of held-out recall (about 2 qu
 - `node scripts/eval-benefit-shipped-live.mjs --dry-run`: no model, no network, no key. A stub model writes each question's golden rewrite and the judge keeps every result, so it checks the plumbing and shows the gate's call share on the golden rewrites; its noise and recall are not a measurement of the model.
 - `CARDYBARA_MODEL_CONFIG=/path/to/.env.local npm run eval:benefit-recall:shipped -- --max-usd=0.2`: the live run. Costs money: **owner approval needed, not yet run.** It stops when the next call could pass `--max-usd` (assumed peak prices of the live recall eval) or after three failed requests in a row.
 - Offline tests: `tests/benefit-recall-shipped-path.test.mjs` (stub model and judge).
+- Each run has a `runId` (printed, and in the report) and a `targets` block that checks the pass conditions below: `pass`, `fail` (with the frozen still-noisy ids and held-out lost-recall ids for the follow-up issue) or `incomplete` (a set not run, stopped by the budget or with failed requests; never a pass).
 
 Pass conditions, from #575: frozen noise at most 20%, held-out recall@12 at least 90.9 (91.9 minus 1); if either fails, a follow-up issue names the failing questions. The judge prompt and the frozen and held-out sets are not changed after reading per-question results. **No live numbers yet: this section is filled in after the run, with its run id.**
+
+| Shipped path, live | Value |
+| --- | --- |
+| Run id | not_run |
+| Frozen no-answer noise (target at most 20%) | not_run |
+| Dev recall@12 | not_run |
+| Held-out recall@12 (target at least 90.9) | not_run |
+| Judge call share, per set (of questions / of those that searched) | not_run |
+| Spend | not_run |
 
 ## Live re-measure after soft filters and routing (#290, 2026-11-15)
 
