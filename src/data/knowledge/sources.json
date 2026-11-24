@@ -1314,5 +1314,12 @@
     "title": "Amex US Gold · 会员权益页（未登录公开内容）",
     "checkedAt": "2026-11-17",
     "authority": "official"
+  },
+  {
+    "id": "card-amex-us-us-business-platinum-card-car-rental-doc",
+    "url": "https://www.americanexpress.com/content/dam/amex/us/credit-cards/features-benefits/policies/pdf/CRLDI-DOC-OSBN-PLAT.pdf",
+    "title": "Amex · Business Platinum 租车损失与损坏保险说明（官方 PDF）",
+    "checkedAt": "2026-11-23",
+    "authority": "official"
   }
 ]

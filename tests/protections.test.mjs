@@ -123,7 +123,12 @@ test('a wallet holding Platinum and a Delta card gets Platinum protections with 
  assert.equal(rental.rules.length,2);assert.ok(rental.rules.every(r=>r.requiresCardPayment!==true));
  // Platinum's page shows only the heading, so no basis; Gold's page states it is secondary (#326).
  assert.deepEqual(rental.rules.map(r=>r.basis).sort(),['not-stated','secondary']);
- assert.equal(queryKnowledge({productId:'amex-us-us-business-platinum-card',category:'protection'}).count,0);
+ // #441: Business Platinum has only the car rental rule, from Amex's public Description of Coverage PDF; its terms page is still unreadable.
+ const bp=queryKnowledge({productId:'amex-us-us-business-platinum-card',category:'protection'});
+ assert.equal(bp.count,1);assert.equal(bp.rules[0].terms.coverage.type,'rental-car');assert.equal(bp.rules[0].evidence.checkedAt,'2026-11-23');
+ assert.equal(bp.rules[0].terms.coverage.basis,null);assert.match(bp.rules[0].original.summary,/excess insurance/);
+ for(const id of ['business-gold-card','blue-business-plus-credit-card','blue-business-cash-card'])
+  assert.equal(queryKnowledge({productId:'amex-us-us-'+id,category:'protection'}).count,0,id);
 });
 
 // #316: Lost Luggage Reimbursement on Chase personal cards, and the pages that showed no protection text.
@@ -248,7 +253,7 @@ test('a wallet holding Platinum and a Delta card gets only the protections their
  const trip=runWalletTool(call('find_protections',{type:'trip-delay',cardName:'Delta SkyMiles Reserve American Express Card'}),ctx);
  assert.ok(trip.rules.length>=1&&trip.rules.every(r=>r.basis==='secondary'));
  for(const id of ['amex-us-us-delta-skymiles-reserve-card','amex-us-us-delta-skymiles-gold-card','amex-us-us-marriott-bonvoy-brilliant-card','amex-us-us-hilton-honors-aspire-card'])assert.ok(queryKnowledge({productId:id,category:'protection'}).rules.every(r=>r.evidence.checkedAt==='2026-11-17'&&r.evidence.fullTermsReviewed===false&&r.terms.amount===null));
- for(const id of ['amex-us-us-business-platinum-card','amex-us-us-business-gold-card','amex-us-us-blue-business-plus-credit-card','amex-us-us-business-green-rewards-card','amex-us-us-graphite-business-cash-unlimited-card'])assert.equal(queryKnowledge({productId:id,category:'protection'}).count,0,id);
+ for(const id of ['amex-us-us-business-gold-card','amex-us-us-blue-business-plus-credit-card','amex-us-us-business-green-rewards-card','amex-us-us-graphite-business-cash-unlimited-card'])assert.equal(queryKnowledge({productId:id,category:'protection'}).count,0,id);
 });
 
 // #306: Blue Cash Preferred and Delta Blue terms pages were readable; the business cards' pages were not, so they stay unknown.
