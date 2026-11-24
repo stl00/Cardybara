@@ -100371,5 +100371,109 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-business-platinum-card.rental",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-business-platinum-card.rental@2026-11-23.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-business-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "官网公开的租车损失与损坏保险说明（Description of Coverage）写明：用 Business Platinum 卡支付租车、本人为主租人时，保障租赁车辆的损坏或被盗；属超额（excess）保险，仅限在美国及其属地租的车，连续租期不超过 30 天；原价 $75,000 及以上的豪车不在保障内；本人和乘客的随身物品各最高 $1,000、全部乘员合计 $2,000；承保方为 AMEX Assurance Company。该说明不是保单本身，具体条件以保单为准。",
+      "howToUse": [
+        "官网公开的租车损失与损坏保险说明（Description of Coverage）写明：用 Business Platinum 卡支付租车、本人为主租人时，保障租赁车辆的损坏或被盗；属超额（excess）保险，仅限在美国及其属地租的车，连续租期不超过 30 天；原价 $75,000 及以上的豪车不在保障内；本人和乘客的随身物品各最高 $1,000、全部乘员合计 $2,000；承保方为 AMEX Assurance Company。该说明不是保单本身，具体条件以保单为准。",
+        "该条目基于官网公开的保障说明文件，未逐条核对全部除外责任；核对完整保单、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Loss and Damage Insurance",
+      "summary": "The official public Description of Coverage says Car Rental Loss and Damage Insurance covers damage to or theft of a rental auto when the Business Platinum Card is used and the cardmember is the primary renter. It is excess insurance, only for autos rented in the U.S. and its territories, for no more than 30 consecutive days; cars with an original MSRP of $75,000 or more are not covered; personal property is covered up to $1,000 for the cardmember and for passengers, $2,000 in total; underwritten by AMEX Assurance Company. The document is not the policy itself.",
+      "howToUse": [
+        "This is based on the official public Description of Coverage; not every exclusion was reviewed. Check the policy, the exclusions and the claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card-car-rental-doc",
+          "text": "This coverage is excess insurance."
+        },
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card-car-rental-doc",
+          "text": "Car Rental Loss and Damage Insurance is an excess insurance plan and is only available for Rental Autos rented in the U.S., its territories and possessions."
+        },
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card-car-rental-doc",
+          "text": "In no event shall coverage be provided when the Cardmember rents a Rental Auto beyond 30 consecutive days from the same Rental Company"
+        },
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card-car-rental-doc",
+          "text": "expensive cars, which means cars with an original manufacturer's suggested retail price of $75,000 or more when new"
+        },
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card-car-rental-doc",
+          "text": "Cardmember property and Passenger property are each covered for up to $1,000 while the total coverage for all occupants is $2,000."
+        },
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card-car-rental-doc",
+          "text": "This coverage is underwritten by AMEX Assurance Company"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官网公开的租车损失与损坏保险说明（Description of Coverage）写明：用 Business Platinum 卡支付租车、本人为主租人时，保障租赁车辆的损坏或被盗；属超额（excess）保险，仅限在美国及其属地租的车，连续租期不超过 30 天；原价 $75,000 及以上的豪车不在保障内；本人和乘客的随身物品各最高 $1,000、全部乘员合计 $2,000；承保方为 AMEX Assurance Company。该说明不是保单本身，具体条件以保单为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-business-platinum-card-car-rental-doc"
+      ],
+      "checkedAt": "2026-11-23",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-23",
+      "reviewAfter": "2027-02-21",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]
