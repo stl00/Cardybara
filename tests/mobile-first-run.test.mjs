@@ -30,6 +30,12 @@ const chrome = await findChrome().then(() => { ensureBuild(); return withPhone(a
 });
 const shots = process.env.CARDYBARA_SHOTS ? resolve(process.env.CARDYBARA_SHOTS) : null;
 
+// #610: nothing on the phone path may throw or log an error, and the web page has no extension `chrome.*` API (headless Chrome itself defines a bare `chrome` object).
+async function assertCleanConsole(c, what) {
+  assert.equal(await c.evaluate(`typeof (globalThis.chrome && (chrome.storage || chrome.tabs || chrome.runtime?.id))`), 'undefined', `${what}: the web page has no extension API (chrome.storage, tabs, runtime.id)`);
+  assert.deepEqual(c.errors, [], `${what}: uncaught exceptions, console.error or error-level browser logs`);
+}
+
 // Every step of the path, with what must be on screen; run once per language because the long strings are what overflow.
 async function walk(c, lang) {
   const log = [];
@@ -84,6 +90,7 @@ async function walk(c, lang) {
   const text = await c.text();
   assert.ok(text.includes('2030-01-15'), `${lang}: the due date shows on the card`);
   await check('due-date-saved');
+  await assertCleanConsole(c, lang);
   return log;
 }
 
@@ -114,6 +121,7 @@ test('focus stays in the fee date when the add-card dialog finishes opening late
     assert.equal(await c.evaluate(`document.activeElement===document.querySelectorAll('.add-card-form .ant-input-number-input')[0]`), true, 'focus stayed in the month field');
     await c.page('Input.insertText', {text: '3'});
     assert.equal(await c.evaluate(`document.querySelector('.add-card-tail').value`), '', 'nothing typed after the animation went into the tail field');
+    await assertCleanConsole(c, 'late-open dialog');
   }, {init: `localStorage.setItem('cardybara-language','en-US');localStorage.setItem(${JSON.stringify(GUIDE_KEY)},'1');`});
 });
 
@@ -132,5 +140,6 @@ test('the first-launch guide fits a 375 px phone', {timeout: 60000, skip: !chrom
       await c.tap('.web-guide .guide-next');
       await c.pause(350);
     }
+    await assertCleanConsole(c, 'first-launch guide');
   }, {init: `localStorage.setItem('cardybara-language','zh-CN');`});
 });

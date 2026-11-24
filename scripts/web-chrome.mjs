@@ -75,13 +75,39 @@ function cdpPipe(child) {
   return send;
 }
 
+// Known, intentional browser messages, matched by exact text (never by pattern). Anything else on the console at error
+// level, or any uncaught exception, is a failure: tests assert `errors` is empty (#610).
+// `{origin}` stands for the loopback server's own origin (its port changes every run).
+export const ALLOWED_ERRORS = [
+  // Known gap, not a decision: the web build still asks the loopback server for the collector's status route, which a static
+  // server answers with 404. Remove this line when the web build stops probing /api/parser/status.
+  'log: Failed to load resource: the server responded with a status of 404 (Not Found) ({origin}/api/parser/status)',
+];
+
+const argText = a => a.value !== undefined ? String(a.value) : (a.description || a.type);
+// Collects, for a whole Chrome session, uncaught exceptions (Runtime.exceptionThrown), console.error calls
+// (Runtime.consoleAPICalled type 'error') and Log.entryAdded entries of level 'error'. Feed it every protocol event.
+export function errorCollector(allowed = ALLOWED_ERRORS) {
+  const errors = [];
+  const add = text => { if (!allowed.includes(text.replaceAll(/http:\/\/127\.0\.0\.1:\d+/g, '{origin}'))) errors.push(text); };
+  return {
+    errors,
+    onEvent(msg) {
+      const p = msg.params || {};
+      if (msg.method === 'Runtime.exceptionThrown') add('exception: ' + (p.exceptionDetails?.exception?.description || p.exceptionDetails?.text));
+      else if (msg.method === 'Runtime.consoleAPICalled' && p.type === 'error') add('console.error: ' + (p.args || []).map(argText).join(' '));
+      else if (msg.method === 'Log.entryAdded' && p.entry?.level === 'error') add('log: ' + p.entry.text + (p.entry.url ? ' (' + p.entry.url + ')' : ''));
+    },
+  };
+}
+
 const snapshot = `(async()=>{
   for(let n=0;n<200&&!document.querySelector('#root > *');n++)await new Promise(r=>setTimeout(r,50));
   await new Promise(r=>setTimeout(r,500));
   const seed=await fetch('/data.json').then(r=>r.json());
   return {text:document.body.innerText,width:document.documentElement.scrollWidth,viewport:innerWidth,
     controlled:!!navigator.serviceWorker?.controller,cards:seed.cards.length,rewards:seed.rewards.length,
-    persist:localStorage.getItem('cardybara-web-storage-persist'),csp:window.__cspViolations||[]};
+    persist:localStorage.getItem('cardybara-web-storage-persist'),csp:window.__cspViolations||[],extensionApi:typeof (globalThis.chrome&&(chrome.storage||chrome.tabs||chrome.runtime?.id))};
 })()`;
 
 export async function run({shot, dir = WEB_DIR} = {}) {
@@ -92,11 +118,14 @@ export async function run({shot, dir = WEB_DIR} = {}) {
     const origin = `http://127.0.0.1:${server.address().port}`;
     child = spawn(await findChrome(), ['--user-data-dir=' + join(work, 'profile'), '--remote-debugging-pipe', '--headless=new', '--no-first-run', '--no-default-browser-check', '--hide-scrollbars', '--force-color-profile=srgb', ...SANDBOX_SAFE_ARGS, 'about:blank'], {stdio: ['ignore', 'ignore', 'ignore', 'pipe', 'pipe']});
     const send = cdpPipe(child);
+    const collected = errorCollector();
+    send.on(collected.onEvent);
     const {targetId} = await send('Target.createTarget', {url: 'about:blank'});
     const {sessionId} = await send('Target.attachToTarget', {targetId, flatten: true});
     const page = (m, p) => send(m, p, sessionId);
     await page('Page.enable');
     await page('Runtime.enable');
+    await page('Log.enable');
     await page('Emulation.setDeviceMetricsOverride', {width: 375, height: 812, deviceScaleFactor: 2, mobile: true});
     await page('Page.addScriptToEvaluateOnNewDocument', {source: `window.__cspViolations=[];document.addEventListener('securitypolicyviolation',e=>window.__cspViolations.push(e.violatedDirective+' '+e.blockedURI));`});
     const evaluate = async expression => (await page('Runtime.evaluate', {expression, awaitPromise: true, returnByValue: true})).result.value;
@@ -115,7 +144,7 @@ export async function run({shot, dir = WEB_DIR} = {}) {
     await page('Page.reload');
     const offline = await evaluate(snapshot);
     if (shot) await writeFile(shot, Buffer.from((await page('Page.captureScreenshot', {format: 'png'})).data, 'base64'));
-    return {online, ready, registrations, controlled, offline};
+    return {online, ready, registrations, controlled, offline, errors: collected.errors};
   } finally {
     if (child && child.exitCode === null && child.signalCode === null) { const exited = once(child, 'exit').catch(() => {}); child.kill(); await Promise.race([exited, wait(5000)]); }
     server?.closeAllConnections?.();

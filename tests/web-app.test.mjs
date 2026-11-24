@@ -17,9 +17,11 @@ test('the web app loads at phone width, reloads offline and still shows the empt
     assert.equal(page.rewards, 0, `${name}: the built-in seed has no rewards`);
     assert.equal(page.viewport, 375, `${name}: phone width`);
     assert.ok(page.width <= 375, `${name}: no horizontal scroll (${page.width}px)`);
+    assert.equal(page.extensionApi, 'undefined', `${name}: the web build has no extension chrome.* API (a bare chrome object is Chrome's own)`);
     assert.deepEqual(page.csp, [], `${name}: the shipped Content-Security-Policy blocks nothing the app needs`);
     assert.ok(page.persist && 'persisted' in JSON.parse(page.persist), `${name}: the storage-persistence answer is recorded`);
   }
+  assert.deepEqual(r.errors, [], 'no uncaught exception, console.error or error-level browser log in the whole session');
   assert.equal(r.registrations, 1);
   assert.ok(r.ready.entries >= 4, 'the worker cached the app shell');
   assert.equal(r.offline.controlled, true, 'the offline reload was answered by the worker');
