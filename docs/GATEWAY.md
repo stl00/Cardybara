@@ -138,6 +138,26 @@ Besides the log line, the Worker writes one Workers Analytics Engine data point 
 | `double13` `public_tool_calls` | public-knowledge tool calls in an answered turn |
 | `double14` `wallet_results` | wallet tool results the extension sent with this request |
 
+Account routes (#571). Each request to an account route (`/v2/account/...`: sign-up, code, sign-in, sign-out, password reset and change, wallet sync, export, delete, passkeys) writes one point with `blob1` = `account`. Its positions are its own, shorter than the agent table; agent queries filter on `blob1 = 'agent'` and are unchanged, and the unfiltered per-route queries below now name `agent` and `chat`. Refused requests (wrong origin, bad body, rate limit) are written too; a path that is no account route, and the Plaid routes, are not.
+
+| Field | Meaning |
+| --- | --- |
+| `index1`, `blob1` | `account` |
+| `blob2` `name` | one of a fixed list: `signup`, `code` (verify), `signin`, `signout`, `forgot`, `reset`, `password`, `sync_pull` (wallet GET), `sync_push` (wallet PUT), `export`, `delete`, `passkey` (all passkey routes). Never a path parameter such as a credential id |
+| `blob3` `error` | the error code of the answer, empty when none; only codes of a fixed list (`code_invalid`, `invalid_credentials`, `stale_revision`, `mail_failed`, `account_unavailable`, `rate_limited`...), anything else is `other` |
+| `double1` `status` | HTTP status |
+| `double2` `duration_ms` | whole request |
+
+A point holds no email address, user id, session id, device id, address, code, password, token or wallet content. Example, 5xx rate per route over the last hour (run once after the deploy that adds this):
+
+```sql
+SELECT blob2 AS name, SUM(_sample_interval) AS requests,
+  SUM(_sample_interval * IF(double1 >= 500, 1, 0)) AS errors_5xx,
+  SUM(_sample_interval * IF(double1 >= 500, 1, 0)) / SUM(_sample_interval) AS rate_5xx
+FROM cardybara_agent_metrics WHERE blob1 = 'account' AND timestamp > NOW() - INTERVAL '1' HOUR
+GROUP BY name ORDER BY rate_5xx DESC
+```
+
 Push sender runs (#569). Each run of the 15-minute push sender (`sendDuePushes`, `gateway/src/push.js`) that is not skipped (no VAPID secrets) writes one point to the same dataset, with `blob1` = `push` and no other string field. Agent-turn queries filter on `blob1 = 'agent'` and are unchanged. The doubles are positional and mean something else than the table above:
 
 | Field | Meaning |
@@ -173,14 +193,14 @@ GROUP BY day, version ORDER BY day, version
 ```sql
 -- p95 duration by route
 SELECT blob1 AS route, quantileWeighted(0.95, double7, _sample_interval) AS p95_ms
-FROM cardybara_agent_metrics WHERE timestamp > NOW() - INTERVAL '7' DAY GROUP BY route
+FROM cardybara_agent_metrics WHERE blob1 IN ('agent', 'chat') AND timestamp > NOW() - INTERVAL '7' DAY GROUP BY route
 ```
 
 ```sql
 -- tokens by route per day
 SELECT toDate(timestamp) AS day, blob1 AS route,
   SUM(_sample_interval * (double5 + double6)) AS tokens
-FROM cardybara_agent_metrics WHERE timestamp > NOW() - INTERVAL '7' DAY GROUP BY day, route ORDER BY day, tokens DESC
+FROM cardybara_agent_metrics WHERE blob1 IN ('agent', 'chat') AND timestamp > NOW() - INTERVAL '7' DAY GROUP BY day, route ORDER BY day, tokens DESC
 ```
 
 ### Baseline report

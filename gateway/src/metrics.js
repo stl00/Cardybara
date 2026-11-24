@@ -15,6 +15,22 @@ const text=v=>typeof v==='string'?v.slice(0,96):'';
 /** "find_benefits:2,get_card_rules:1": tool names (never arguments or results) with how many times each ran. */
 const toolCounts=counts=>Object.entries(counts||{}).filter(([k,n])=>/^[a-z_]{1,48}$/.test(k)&&n>0).sort(([a],[b])=>a<b?-1:1).map(([k,n])=>k+':'+n).join(',');
 
+/** Account routes (accounts.js, passkeys.js, #571): the log record's route name and method to the one fixed name written as blob2. A path parameter, an unknown route or a wrong method is never written. */
+const ACCOUNT_NAMES={
+ 'account_signup POST':'signup','account_verify POST':'code','account_session POST':'signin','account_session DELETE':'signout',
+ 'account_forgot POST':'forgot','account_reset POST':'reset','account_password POST':'password',
+ 'account_wallet GET':'sync_pull','account_wallet PUT':'sync_push','account_export GET':'export','account DELETE':'delete',
+ 'passkey_status GET':'passkey','passkey_register_options POST':'passkey','passkey_register_verify POST':'passkey',
+ 'passkey_login_options POST':'passkey','passkey_login_verify POST':'passkey','passkey_list GET':'passkey','passkey_remove DELETE':'passkey',
+};
+/** Error codes an account point may carry (blob3); anything else is written as `other`, so a code can never be free text. */
+export const ACCOUNT_ERRORS=['bad_request','origin_forbidden','not_found','method_not_allowed','too_large','unsupported_media_type','rate_limited','gateway_not_configured','gateway_busy',
+ 'weak_password','code_invalid','code_expired','invalid_credentials','unauthorized','email_unverified','stale_revision','invalid_document','passkey_invalid','challenge_expired','passkey_unavailable',
+ 'account_locked','too_many_codes','mail_failed','account_unavailable','plaid_unavailable'];
+export const ACCOUNT_BLOBS=['route','name','error'];
+export const ACCOUNT_DOUBLES=['status','duration_ms'];
+const accountError=e=>!e?'':ACCOUNT_ERRORS.includes(e)?e:'other';
+
 /**
  * The data point for one finished request, from the log record (route, status, tokens, counts) and the
  * agent's own summary of the turn (ctx.metrics: model, prompt hash, snapshot, repaired, fallback, tool counts).
@@ -22,6 +38,8 @@ const toolCounts=counts=>Object.entries(counts||{}).filter(([k,n])=>/^[a-z_]{1,4
  */
 export function metricsPoint(ctx,durationMs){
  const r=ctx.record,m=ctx.metrics||{};
+ const account=ACCOUNT_NAMES[r.route+' '+ctx.request?.method];
+ if(account)return {indexes:['account'],blobs:['account',account,accountError(r.error)],doubles:[count(r.status),count(durationMs)]};
  if(r.route!=='agent'&&r.route!=='chat')return null;
  const answered=r.route==='agent'?!!r.answered:r.status===200&&!r.error;
  return {

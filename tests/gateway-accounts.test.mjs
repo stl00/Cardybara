@@ -430,3 +430,67 @@ test('the per-client rate limiter runs on every /v2/account route before D1 or E
  assert.equal(t.mail.sent.length,sent,'no mail once limited');assert.equal(t.db.tables.get('users').length,users,'no new user once limited');
  allow=true;assert.notEqual((await t.call('GET',ROUTES.wallet,undefined,token)).status,429,'allowed again when the limiter allows');
 });
+
+// Account metrics (stl00/Cardybara#571): one data point per account request, counts and codes only.
+test('metrics: every account route writes one point with a fixed name, status, duration and an allow-listed error',async()=>{
+ const points=[];
+ const t=await setup({vars:{AGENT_METRICS:{writeDataPoint:p=>points.push(structuredClone(p))},CF_VERSION_METADATA:{id:'ver-acct-1'}}});
+ const last=()=>points[points.length-1];
+ const shape=(name,status,error='')=>{
+  assert.deepEqual(last().indexes,['account']);
+  assert.deepEqual(last().blobs,['account',name,error]);
+  assert.equal(last().doubles.length,2);
+  assert.equal(last().doubles[0],status);
+  assert.ok(Number.isInteger(last().doubles[1])&&last().doubles[1]>=0);
+ };
+ assert.equal((await t.call('POST',ROUTES.signUp,{email:EMAIL,password:PASSWORD})).status,202);shape('signup',202);
+ assert.equal((await t.call('POST',ROUTES.verify,{email:EMAIL,code:'000000'})).status,400);shape('code',400,'code_invalid');
+ const v=await json(await t.call('POST',ROUTES.verify,{email:EMAIL,code:t.lastCode(EMAIL)}));shape('code',200);
+ const token=v.body.token;
+ assert.equal((await t.call('POST',ROUTES.session,{email:EMAIL,password:'wrong-password-9999'})).status,401);shape('signin',401,'invalid_credentials');
+ assert.equal((await t.call('POST',ROUTES.session,{email:EMAIL,password:PASSWORD})).status,200);shape('signin',200);
+ assert.equal((await t.call('GET',ROUTES.wallet,undefined,token)).status,200);shape('sync_pull',200);
+ assert.equal((await t.call('PUT',ROUTES.wallet,{baseRevision:5,formatVersion:1,document:{cards:[]}},token)).status,409);shape('sync_push',409,'stale_revision');
+ assert.equal((await t.call('PUT',ROUTES.wallet,{baseRevision:0,formatVersion:1,document:{cards:[]}},token)).status,200);shape('sync_push',200);
+ assert.equal((await t.call('GET',ROUTES.export,undefined,token)).status,200);shape('export',200);
+ assert.equal((await t.call('POST',ROUTES.forgot,{email:EMAIL})).status,202);shape('forgot',202);
+ assert.equal((await t.call('GET',ROUTES.passkeyStatus,undefined,token)).status,200);shape('passkey',200);
+ assert.equal((await t.call('GET',ROUTES.wallet)).status,401);shape('sync_pull',401,'unauthorized');
+ assert.equal((await t.call('DELETE',ROUTES.session,undefined,token)).status,200);shape('signout',200);
+ const again=await json(await t.call('POST',ROUTES.session,{email:EMAIL,password:PASSWORD}));
+ assert.equal((await t.call('DELETE',ROUTES.account,{password:PASSWORD},again.body.token)).status,200);shape('delete',200);
+ // A credential id in the path is never a name; a path that is no account route is not metered.
+ const before=points.length;
+ await t.call('DELETE',ROUTES.passkeys+'/abc-credential-id',undefined,token);
+ assert.equal(last().blobs[1],'passkey');assert.ok(!JSON.stringify(last()).includes('abc-credential-id'));
+ await t.call('GET','/v2/account/nothing-here',undefined,token);
+ assert.equal(points.length,before+1,'an unknown path writes no account point');
+});
+
+test('metrics: an account point holds no email, code, password, token or wallet content',async()=>{
+ const points=[];
+ const t=await setup({vars:{AGENT_METRICS:{writeDataPoint:p=>points.push(structuredClone(p))}}});
+ await t.call('POST',ROUTES.signUp,{email:EMAIL,password:PASSWORD});
+ const code=t.lastCode(EMAIL);
+ const v=await json(await t.call('POST',ROUTES.verify,{email:EMAIL,code}));
+ await t.call('POST',ROUTES.verify,{email:EMAIL,code:'123456'});
+ await t.call('PUT',ROUTES.wallet,{baseRevision:0,formatVersion:1,document:{cards:[{id:'card-synthetic-9',nickname:'synthetic-nickname-9'}]}},v.body.token);
+ await t.call('POST',ROUTES.session,{email:OTHER,password:NEW_PASSWORD});
+ assert.ok(points.length>=5);
+ const all=JSON.stringify(points);
+ for(const secret of [EMAIL,OTHER,code,'123456',PASSWORD,NEW_PASSWORD,v.body.token,'synthetic-nickname-9','card-synthetic-9','example.test'])assert.ok(!all.includes(secret),'a data point carries '+secret);
+ for(const p of points){
+  assert.equal(p.blobs.length,3);
+  assert.ok(p.blobs.every(b=>typeof b==='string'&&b.length<=24),'blobs are short fixed words');
+ }
+});
+
+test('metrics: a missing or throwing binding changes nothing for the account caller',async()=>{
+ for(const binding of [undefined,{},{writeDataPoint(){throw Error('binding exploded');}}]){
+  const t=await setup({vars:{AGENT_METRICS:binding}});
+  assert.equal((await t.call('POST',ROUTES.signUp,{email:EMAIL,password:PASSWORD})).status,202);
+  const v=await json(await t.call('POST',ROUTES.verify,{email:EMAIL,code:t.lastCode(EMAIL)}));
+  assert.equal(v.status,200);
+  assert.equal((await t.call('GET',ROUTES.wallet,undefined,v.body.token)).status,200);
+ }
+});
