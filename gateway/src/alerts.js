@@ -23,12 +23,16 @@ export const DEFAULT_THRESHOLDS={
  minHourlyTurns:5,
  // Push: the oldest overdue reminder, in hours, that every sender run of the last hour left unsent (#570).
  pushOverdueHours:1,
+ // Accounts (#616): share of 5xx responses over the account and Plaid routes in the last hour, with at least
+ // accountMinRequests requests in that hour (below it the state is unknown). 4xx answers (wrong code, wrong password) never count.
+ accountErrorPercent:5,
+ accountMinRequests:20,
 };
-export const SIGNALS=['budget','errors','repair','fallback','silence','push'];
+export const SIGNALS=['budget','errors','repair','fallback','silence','push','accounts'];
 export const LABELS=['agent-incident','P1'];
 export const DOCS_URL='https://github.com/stl00/Cardybara/blob/main/docs/GATEWAY.md#alerts-and-switches';
 const TITLE='Assistant alert: ';
-const MEANING={budget:'monthly budget used',errors:'error rate, last hour',repair:'repair rate vs 7-day mean',fallback:'fallback rate vs 7-day mean',silence:'no turns recorded, last 3 hours',push:'push sender stalled, last hour'};
+const MEANING={budget:'monthly budget used',errors:'error rate, last hour',repair:'repair rate vs 7-day mean',fallback:'fallback rate vs 7-day mean',silence:'no turns recorded, last 3 hours',push:'push sender stalled, last hour',accounts:'server errors on account and Plaid routes, last hour'};
 
 /** Defaults with each valid number of settings.alerts applied; an invalid one is ignored and named in `invalid`. */
 export function readThresholds(settings){
@@ -52,15 +56,23 @@ export const SILENCE_SQL=`SELECT SUM(_sample_interval) AS turns FROM cardybara_a
 // Push sender runs (#569): one point per run that was not skipped, blob1 = 'push'. double2 = sent, double4 = failed,
 // double7 = age in seconds of the oldest reminder that was due. MIN(age) above the threshold means every run of the hour
 // left something overdue; `stuck` counts runs that sent nothing and failed at least once.
+// Account and Plaid routes (#571, #615): one point per request, blob1 = 'account' or 'plaid', blob2 a fixed route name,
+// double1 the status. A 5xx is a status of 500 or more; a 4xx is the caller's error and is not counted.
+const ACCOUNTS="blob1 IN ('account', 'plaid')";
+export const ACCOUNTS_SQL=`SELECT SUM(_sample_interval) AS requests, SUM(_sample_interval * IF(double1 >= 500, 1, 0)) AS server_errors FROM cardybara_agent_metrics WHERE ${ACCOUNTS} AND timestamp > NOW() - INTERVAL '1' HOUR FORMAT JSON`;
+export const ACCOUNTS_ROUTES_SQL=`SELECT blob1 AS family, blob2 AS name, SUM(_sample_interval) AS server_errors FROM cardybara_agent_metrics WHERE ${ACCOUNTS} AND double1 >= 500 AND timestamp > NOW() - INTERVAL '1' HOUR GROUP BY family, name ORDER BY server_errors DESC LIMIT 5 FORMAT JSON`;
+
 const PUSH="blob1 = 'push'";
 export const PUSH_SQL=`SELECT SUM(_sample_interval) AS runs, SUM(_sample_interval * IF(double2 = 0 AND double4 > 0, 1, 0)) AS stuck, MIN(double7) AS min_age FROM cardybara_agent_metrics WHERE ${PUSH} AND timestamp > NOW() - INTERVAL '1' HOUR FORMAT JSON`;
 export const PUSH_RECENT_SQL=`SELECT SUM(_sample_interval) AS runs FROM cardybara_agent_metrics WHERE ${PUSH} AND timestamp > NOW() - INTERVAL '3' HOUR FORMAT JSON`;
 
-async function sqlRow(env,fetch,query){
+async function sqlRows(env,fetch,query){
  const r=await fetch(`https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(env.CF_ACCOUNT_ID)}/analytics_engine/sql`,{method:'POST',headers:{Authorization:'Bearer '+env.ANALYTICS_SQL_TOKEN},body:query});
  if(!r.ok){await r.body?.cancel().catch(()=>{});throw Error('sql_failed');}
- return (await r.json())?.data?.[0]||{};
+ const data=(await r.json())?.data;
+ return Array.isArray(data)?data:[];
 }
+async function sqlRow(env,fetch,query){return (await sqlRows(env,fetch,query))[0]||{};}
 async function sql(env,fetch,query){
  const row=await sqlRow(env,fetch,query);
  const n=v=>{const x=Number(v);return Number.isFinite(x)&&x>=0?x:0;};
@@ -74,12 +86,20 @@ async function pushSql(env,fetch){
  return {push:{runs:num(h.runs),stuck:num(h.stuck),minAge:age},pushRecent:{runs:num(r.runs)}};
 }
 
+async function accountsSql(env,fetch){
+ const num=v=>{const x=Number(v);return Number.isFinite(x)&&x>=0?x:0;};
+ const [h,rows]=await Promise.all([sqlRow(env,fetch,ACCOUNTS_SQL),sqlRows(env,fetch,ACCOUNTS_ROUTES_SQL)]);
+ // Route names are a fixed list written by the gateway; keep only plain words so nothing else can reach an incident body.
+ const routes=rows.filter(r=>/^(account|plaid)$/.test(r.family)&&/^[a-z_]{1,24}$/.test(r.name)).map(r=>({route:r.family+'/'+r.name,serverErrors:num(r.server_errors)}));
+ return {accounts:{requests:num(h.requests),serverErrors:num(h.server_errors),routes}};
+}
+
 /**
  * Turns the numbers into one verdict per signal: {signal, state:'breach'|'ok'|'unknown', figures}. `unknown` (too few
  * turns, or the source could not be read) neither opens nor closes an incident. hour/week are query results or null,
  * spend is {micros,budgetMicros} or null.
  */
-export function evaluate({hour,week,spend,recent,push,pushRecent},t=DEFAULT_THRESHOLDS){
+export function evaluate({hour,week,spend,recent,push,pushRecent,accounts},t=DEFAULT_THRESHOLDS){
  const out=[];
  if(spend&&spend.budgetMicros>0){
   const pct=100*spend.micros/spend.budgetMicros;
@@ -87,6 +107,7 @@ export function evaluate({hour,week,spend,recent,push,pushRecent},t=DEFAULT_THRE
  }else out.push({signal:'budget',state:'unknown',figures:{}});
  out.push(silence(recent,week,t));
  out.push(pushSender(push,pushRecent,t));
+ out.push(accountRoutes(accounts,t));
  const enough=hour&&hour.turns>=t.minTurns;
  if(!enough){for(const s of ['errors','repair','fallback'])out.push({signal:s,state:'unknown',figures:{turnsLastHour:hour?hour.turns:null,minTurns:t.minTurns}});return out;}
  const errPct=100*hour.errors/hour.turns;
@@ -115,6 +136,14 @@ function pushSender(push,pushRecent,t){
  const limit=Math.round(t.pushOverdueHours*3600),minAge=push.minAge==null?0:push.minAge;
  const overdue=minAge>=limit&&limit>0,allFailed=push.stuck>=push.runs;
  return {signal:'push',state:overdue||allFailed?'breach':'ok',figures:{runsLastHour:push.runs,runsSentNothingAndFailed:push.stuck,smallestOldestOverdueMinutes:Math.round(minAge/60),thresholdMinutes:Math.round(limit/60)}};
+}
+// accounts: requests and 5xx responses over the account and Plaid routes in the last hour, plus the routes with the most 5xx.
+function accountRoutes(accounts,t){
+ if(!accounts||accounts.requests<t.accountMinRequests)return {signal:'accounts',state:'unknown',figures:{requestsLastHour:accounts?accounts.requests:null,minRequests:t.accountMinRequests}};
+ const pct=100*accounts.serverErrors/accounts.requests;
+ const figures={serverErrorPercent:round(pct),thresholdPercent:t.accountErrorPercent,requestsLastHour:accounts.requests,serverErrorsLastHour:accounts.serverErrors};
+ if(accounts.routes&&accounts.routes.length)figures.routesWithServerErrors=accounts.routes.map(r=>r.route+'='+r.serverErrors).join(', ');
+ return {signal:'accounts',state:pct>=t.accountErrorPercent?'breach':'ok',figures};
 }
 const round=v=>Math.round(v*100)/100;
 
@@ -168,7 +197,7 @@ export async function runAlerts(env,{fetch=(...a)=>globalThis.fetch(...a),now=Da
   const {thresholds,invalid}=readThresholds(settings);
   for(const key of invalid)say({ignored:'alerts.'+key});
   const config=await withSettings(base,env);
-  let spend=null,hour=null,week=null,recent=null,push=null,pushRecent=null;
+  let spend=null,hour=null,week=null,recent=null,push=null,pushRecent=null,accounts=null;
   try{
    const month=new Date(now()).toISOString().slice(0,7);
    const {micros}=await callLedger(env,'month',{month});
@@ -177,8 +206,9 @@ export async function runAlerts(env,{fetch=(...a)=>globalThis.fetch(...a),now=Da
   if(env.ANALYTICS_SQL_TOKEN&&env.CF_ACCOUNT_ID){
    try{[hour,week,recent]=await Promise.all([sql(env,fetch,HOUR_SQL),sql(env,fetch,WEEK_SQL),sql(env,fetch,SILENCE_SQL)]);}catch{say('metrics_unreadable');hour=week=recent=null;}
    try{({push,pushRecent}=await pushSql(env,fetch));}catch{say('push_metrics_unreadable');push=pushRecent=null;}
+   try{({accounts}=await accountsSql(env,fetch));}catch{say('accounts_metrics_unreadable');accounts=null;}
   }else say('sql_token_missing');
-  const results=evaluate({hour,week,spend,recent,push,pushRecent},thresholds);
+  const results=evaluate({hour,week,spend,recent,push,pushRecent,accounts},thresholds);
   const done=await applyIncidents(results,{gh:github(env,fetch),version:env.CF_VERSION_METADATA?.id,at:new Date(now()).toISOString()});
   say({states:Object.fromEntries(results.map(r=>[r.signal,r.state])),done});
   return {results,done};
