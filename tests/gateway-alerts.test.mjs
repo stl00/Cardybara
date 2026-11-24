@@ -1,7 +1,7 @@
 // Hourly alert check and KV switches (stl00/Cardybara#259). Synthetic query results and an in-memory GitHub only.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {evaluate,readThresholds,runAlerts,DEFAULT_THRESHOLDS,HOUR_SQL,WEEK_SQL,SILENCE_SQL,LABELS} from '../gateway/src/alerts.js';
+import {evaluate,readThresholds,runAlerts,DEFAULT_THRESHOLDS,HOUR_SQL,WEEK_SQL,SILENCE_SQL,PUSH_SQL,PUSH_RECENT_SQL,LABELS} from '../gateway/src/alerts.js';
 import {parseSwitches,withoutDisabledTools,unavailableText} from '../gateway/src/switches.js';
 import {callLedger,SETTINGS_KEY} from '../gateway/src/gateway.js';
 import {localGateway} from '../gateway/src/local.mjs';
@@ -50,14 +50,14 @@ test('thresholds come from KV settings.alerts over the defaults; an invalid one 
 });
 
 // A fake GitHub and SQL API behind one fetch.
-function world({hour={turns:100,errors:0,repaired:0,fallbacks:0},week={turns:1000,repaired:0,fallbacks:0},recent={turns:100},issues=[]}={}){
- const w={hour,week,recent,issues,calls:[],failSql:false};
+function world({hour={turns:100,errors:0,repaired:0,fallbacks:0},week={turns:1000,repaired:0,fallbacks:0},recent={turns:100},push={runs:4,stuck:0,min_age:0},pushRecent={runs:12},issues=[]}={}){
+ const w={hour,week,recent,push,pushRecent,issues,calls:[],failSql:false};
  w.fetch=async(url,init={})=>{
   w.calls.push(url);
   if(url.includes('/analytics_engine/sql')){
    if(w.failSql)return new Response('x',{status:500});
    assert.equal(init.headers.Authorization,'Bearer synthetic-sql-token');
-   const row=init.body===HOUR_SQL?w.hour:init.body===WEEK_SQL?w.week:init.body===SILENCE_SQL?w.recent:assert.fail('unexpected query');
+   const row=init.body===HOUR_SQL?w.hour:init.body===WEEK_SQL?w.week:init.body===SILENCE_SQL?w.recent:init.body===PUSH_SQL?w.push:init.body===PUSH_RECENT_SQL?w.pushRecent:assert.fail('unexpected query');
    return Response.json({data:[row]});
   }
   assert.equal(init.headers.Authorization,'Bearer synthetic-github-token');
@@ -260,4 +260,56 @@ test('a silence breach opens one incident with aggregates only and the next heal
 test('unreadable metrics leave silence unknown and do not open or close it',async()=>{
  const env=await alertEnv(),w=world({issues:[{number:3,state:'open',title:'Assistant alert: silence',labels:LABELS,comments:[]}]});w.failSql=true;
  assert.deepEqual((await run(env,w)).done,[]);assert.equal(w.issues[0].state,'open');
+});
+
+// --- push sender (#570)
+const pushRuns=(runs,stuck,minAge)=>({runs,stuck,minAge});
+test('push: an hour where every run left a reminder overdue by an hour breaches; a clear run or fresh age is ok',()=>{
+ const rec={runs:12};
+ assert.equal(state(evaluate({push:pushRuns(4,0,3600),pushRecent:rec}),'push'),'breach','exactly the threshold');
+ assert.equal(state(evaluate({push:pushRuns(4,0,3599),pushRecent:rec}),'push'),'ok');
+ assert.equal(state(evaluate({push:pushRuns(4,0,0),pushRecent:rec}),'push'),'ok','a run with nothing overdue clears the hour');
+ assert.equal(state(evaluate({push:pushRuns(3,3,0),pushRecent:rec}),'push'),'breach','every run sent nothing and failed');
+ assert.equal(state(evaluate({push:pushRuns(4,3,0),pushRecent:rec}),'push'),'ok','one run that did not fail');
+ assert.equal(state(evaluate({push:pushRuns(4,0,null),pushRecent:rec}),'push'),'ok');
+});
+test('push: no runs, or an unreadable source, is unknown, not ok',()=>{
+ assert.equal(state(evaluate({push:pushRuns(0,0,null),pushRecent:{runs:0}}),'push'),'unknown','no push points in 3 hours');
+ assert.equal(state(evaluate({push:pushRuns(0,0,null),pushRecent:{runs:5}}),'push'),'unknown');
+ assert.equal(state(evaluate({push:null,pushRecent:null}),'push'),'unknown');
+ assert.equal(state(evaluate({}),'push'),'unknown');
+});
+test('push: pushOverdueHours is a threshold; an invalid value is ignored and named',()=>{
+ assert.equal(DEFAULT_THRESHOLDS.pushOverdueHours,1);
+ const {thresholds,invalid}=readThresholds({alerts:{pushOverdueHours:2}});
+ assert.equal(thresholds.pushOverdueHours,2);assert.deepEqual(invalid,[]);
+ assert.equal(state(evaluate({push:pushRuns(4,0,3600),pushRecent:{runs:12}},thresholds),'push'),'ok');
+ assert.equal(state(evaluate({push:pushRuns(4,0,7200),pushRecent:{runs:12}},thresholds),'push'),'breach');
+ for(const bad of [0,-1,'1',NaN,101])assert.deepEqual(readThresholds({alerts:{pushOverdueHours:bad}}).invalid,['pushOverdueHours']);
+});
+test('push: the docs list the same default as the code',async()=>{
+ const {readFile}=await import('node:fs/promises');
+ const docs=await readFile(new URL('../docs/GATEWAY.md',import.meta.url),'utf8');
+ const example=JSON.parse(docs.match(/\{"alerts":\{[^\n`]*\}\}/)[0]).alerts;
+ assert.deepEqual(example,DEFAULT_THRESHOLDS);
+});
+test('a push breach opens one incident with aggregates only; it is commented on, then closed by a healthy check',async()=>{
+ const env=await alertEnv(),w=world({push:{runs:4,stuck:2,min_age:5400}});
+ const first=await run(env,w);
+ assert.deepEqual(first.done,['push:opened']);
+ const [issue]=w.issues;
+ assert.equal(issue.title,'Assistant alert: push');assert.deepEqual(issue.labels,['agent-incident','P1']);
+ assert.match(issue.body,/runsLastHour: 4/);assert.match(issue.body,/smallestOldestOverdueMinutes: 90/);assert.match(issue.body,/thresholdMinutes: 60/);
+ assert.ok(!/synthetic-(github|sql)-token|synthetic-account/.test(issue.body));
+ assert.deepEqual((await run(env,w)).done,['push:commented']);assert.equal(w.issues.length,1);
+ w.push={runs:4,stuck:0,min_age:0};
+ assert.deepEqual((await run(env,w)).done,['push:closed']);
+ assert.equal(w.issues[0].state,'closed');assert.match(w.issues[0].comments.at(-1),/Healthy again/);
+});
+test('push: silence of the sender neither opens nor closes an incident; an unreadable push query leaves other signals working',async()=>{
+ const env=await alertEnv({spentUsd:8.5}),w=world({push:{runs:0,stuck:0,min_age:null},pushRecent:{runs:0},issues:[{number:7,state:'open',title:'Assistant alert: push',labels:LABELS,comments:[]}]});
+ assert.deepEqual((await run(env,w)).done,['budget:opened'],'the open push incident is left alone');
+ assert.equal(w.issues.find(i=>i.number===7).state,'open');
+ const w2=world();const orig=w2.fetch;w2.fetch=async(url,init)=>init?.body===PUSH_SQL?new Response('x',{status:500}):orig(url,init);
+ assert.deepEqual((await run(await alertEnv({spentUsd:8.5}),w2)).done,['budget:opened']);
 });

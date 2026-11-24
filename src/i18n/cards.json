@@ -29,7 +29,7 @@
     "选择这张卡的卡种": "Choose this card’s type",
     "改选卡种": "Change card type",
     "改回自动识别": "Use automatic recognition",
-    "只用来显示卡面和公开福利，不改变银行读到的卡名和金额。": "Used only for the card image and public benefits. It does not change the name or amounts read from the bank.",
+    "用来显示卡面和公开福利，不改变读到的金额。像“CREDIT CARD”这样的笼统卡名会换成卡种名。": "Used for the card image and public benefits. Amounts are not changed. A generic card name such as \"CREDIT CARD\" is replaced by the card type's name.",
     "未识别卡种，打开卡片可选择": "Card type not recognised. Open the card to choose it.",
     "无法保存福利标记，请先导出备份并检查浏览器存储。": "Benefit storage is unavailable. Check browser storage and preserve a backup.",
     "查看官方条款": "Official terms",
@@ -137,6 +137,11 @@
     "Credit 账本": "Credit ledger",
     "持卡年度": "Card year",
     "日历年": "Calendar year",
+    "本期": "This period",
+    "上一期": "Previous period",
+    "上期可用 Credit": "Credit available last period",
+    "四年期 / 一次性 Credit（上期已用）": "Four-year / one-off credits used last period",
+    "这张卡在上一个持卡年度还没开，没有账本。": "This card was not open in the previous card year, so there is no ledger.",
     "本期可用 Credit": "Credit available",
     "你标记已用": "Marked used by you",
     "未记录（周期已结束）": "Not captured (cycle ended)",
@@ -167,7 +172,10 @@
     "都不是同一张卡": "None of these is the same card",
     "撤销失败，卡片没有变化。": "Could not undo; the cards are unchanged.",
     "已撤销合并，这两张卡不会再被建议合并。": "Merge undone. These two cards will not be suggested again.",
-    "合并没有完成，卡片没有变化。": "The merge could not be completed; the cards are unchanged."
+    "合并没有完成，卡片没有变化。": "The merge could not be completed; the cards are unchanged.",
+    "全部卡的 Credit 账本": "Credit ledger across all cards",
+    "{0} 可用 · {1} 已用 · {2} 未记录": "{0} available · {1} used · {2} not captured",
+    "每张卡按自己的持卡年度计算；不同币种不相加。“已用”只来自你自己的标记，“未记录”是周期已结束但没有标记的部分。": "Each card is counted over its own card year; currencies are never added together. “Used” comes only from your own marks; “not captured” is what ended without a mark."
   },
   "zh-TW": {
     "{0} 产品卡面": "{0} 產品卡面",
@@ -199,7 +207,7 @@
     "选择这张卡的卡种": "選擇這張卡的卡種",
     "改选卡种": "改選卡種",
     "改回自动识别": "改回自動識別",
-    "只用来显示卡面和公开福利，不改变银行读到的卡名和金额。": "只用來顯示卡面和公開福利，不改變銀行讀到的卡名和金額。",
+    "用来显示卡面和公开福利，不改变读到的金额。像“CREDIT CARD”这样的笼统卡名会换成卡种名。": "用來顯示卡面和公開福利，不改變讀到的金額。像「CREDIT CARD」這樣的籠統卡名會換成卡種名。",
     "未识别卡种，打开卡片可选择": "未識別卡種，打開卡片可選擇",
     "无法保存福利标记，请先导出备份并检查浏览器存储。": "無法儲存福利標記，請先匯出備份並檢查瀏覽器儲存。",
     "查看官方条款": "檢視官方條款",
@@ -307,6 +315,11 @@
     "Credit 账本": "Credit 帳本",
     "持卡年度": "持卡年度",
     "日历年": "曆年",
+    "本期": "本期",
+    "上一期": "上一期",
+    "上期可用 Credit": "上期可用 Credit",
+    "四年期 / 一次性 Credit（上期已用）": "四年期 / 一次性 Credit（上期已用）",
+    "这张卡在上一个持卡年度还没开，没有账本。": "這張卡在上一個持卡年度還沒開，沒有帳本。",
     "本期可用 Credit": "本期可用 Credit",
     "你标记已用": "你標記已用",
     "未记录（周期已结束）": "未記錄（週期已結束）",
@@ -337,6 +350,9 @@
     "都不是同一张卡": "都不是同一張卡",
     "撤销失败，卡片没有变化。": "撤銷失敗，卡片沒有變化。",
     "已撤销合并，这两张卡不会再被建议合并。": "已撤銷合併，這兩張卡不會再被建議合併。",
-    "合并没有完成，卡片没有变化。": "合併沒有完成，卡片沒有變化。"
+    "合并没有完成，卡片没有变化。": "合併沒有完成，卡片沒有變化。",
+    "全部卡的 Credit 账本": "全部卡的 Credit 帳本",
+    "{0} 可用 · {1} 已用 · {2} 未记录": "{0} 可用 · {1} 已用 · {2} 未記錄",
+    "每张卡按自己的持卡年度计算；不同币种不相加。“已用”只来自你自己的标记，“未记录”是周期已结束但没有标记的部分。": "每張卡按自己的持卡年度計算；不同幣種不相加。「已用」只來自你自己的標記，「未記錄」是週期已結束但沒有標記的部分。"
   }
 }

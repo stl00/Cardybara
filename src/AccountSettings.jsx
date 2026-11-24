@@ -3,6 +3,8 @@ import {Alert,App,Button,Card,Flex,Input,Modal,Segmented,Switch,Typography} from
 import {t,useI18n} from './i18n';
 import platform from './platform';
 import {CapybaraMark} from './NavIcon.jsx';
+import {syncLine} from './syncStatus.js';
+import {readSyncState} from './walletSync.js';
 import {ACCOUNT_CHANGE_EVENT,SYNC_CHANGE_EVENT,SYNC_STATUS_EVENT,createAccountClient,emailLooksValid,passwordLongEnough,PASSWORD_MIN,readAccount,setSync,syncIsOn} from './accountClient.js';
 const {Paragraph,Text}=Typography;
 
@@ -27,7 +29,20 @@ const errorText=(code,retryAfter)=>({
  cancelled:t('已取消。'),
  too_large:t('钱包太大，无法同步。'),
 })[code]||t('出错了，请稍后再试。');
-const syncText=s=>({syncing:t('正在同步…'),synced:t('已同步'),offline:t('离线：恢复网络后会自动同步。'),signed_out:t('登录已失效，请重新登录。'),newer:t('另一台设备用了更新版本。请重新加载页面更新。'),error:t('同步没有成功，稍后会重试。')})[s]||null;
+
+// The sync line under the switch (#580): the time of the last finished sync instead of an endless "Syncing…", and a plain
+// sentence when this device is signed in but not uploading. `when` is the time in the viewer's own locale.
+const when=at=>new Intl.DateTimeFormat(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(at));
+const lineText=({kind,at})=>({
+ off:()=>t('这台设备没有上传钱包，其他设备看不到它读到的银行数据。打开上面的开关即可。'),
+ syncing:()=>t('正在同步…'),
+ syncing_since:()=>t('正在同步…上次成功同步 {0}',[when(at)]),
+ synced:()=>at!=null?t('已同步 · {0}',[when(at)]):t('已同步'),
+ error:()=>at!=null?t('同步没有成功，稍后会重试。上次成功同步 {0}',[when(at)]):t('同步没有成功，稍后会重试。'),
+ offline:()=>t('离线：恢复网络后会自动同步。'),
+ signed_out:()=>t('登录已失效，请重新登录。'),
+ newer:()=>t('另一台设备用了更新版本。请重新加载页面更新。'),
+})[kind]();
 
 // Server-side rendering (tests) has no localStorage; the screens then read as signed out.
 const noStore={getItem:()=>null,setItem:()=>{},removeItem:()=>{}};
@@ -37,6 +52,8 @@ const field={style:{minHeight:44},maxLength:1024};
 export const maskEmail=email=>{const [user,domain]=String(email||'').split('@');if(!domain)return email||'';return user.slice(0,Math.min(2,Math.max(1,user.length-1)))+'•••@'+domain;};
 // `variant="card"` is the full Settings card. `variant="sheet"` is the header's sign-in sheet / account popover (#500): the same
 // flows and error texts, with the passkey first, and when signed in only sync, passkeys, a link to Settings and sign out.
+// One state-dependent sentence under the sync switch (#600): when sync is off, the sentence that says it syncs must not show.
+export const syncCopy=on=>on?t('你的钱包会在你登录的设备间同步。银行密码永远不会上传。'):t('同步已关闭，这台设备的钱包没有上传。再次登录会重新开启；也可以随时在这里打开。');
 export default function AccountSettings({gateway,variant='card',onSettings}){
  const sheet=variant==='sheet';
  useI18n();const {message:toast}=App.useApp();
@@ -44,13 +61,14 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
  const [account,setAccount]=useState(()=>readAccount(store()));
  const [on,setOn]=useState(()=>syncIsOn(store()));
  const [status,setStatus]=useState(null);
+ const [syncedAt,setSyncedAt]=useState(()=>readSyncState(store()).syncedAt??null);
  const [mode,setMode]=useState('signin');
  const [email,setEmail]=useState(''),[password,setPassword]=useState(''),[code,setCode]=useState('');
  const [err,setErr]=useState(null),[note,setNote]=useState(null),[busy,setBusy]=useState(false);
  const [pw,setPw]=useState(false),[cur,setCur]=useState(''),[next,setNext]=useState('');
  const [del,setDel]=useState(false),[delPw,setDelPw]=useState('');
  const [pkOk,setPkOk]=useState(false),[pks,setPks]=useState([]);
- useEffect(()=>{const h=e=>setStatus(e.detail);window.addEventListener(SYNC_STATUS_EVENT,h);return()=>window.removeEventListener(SYNC_STATUS_EVENT,h);},[]);
+ useEffect(()=>{const h=e=>{setStatus(e.detail);setSyncedAt(readSyncState(store()).syncedAt??null);};window.addEventListener(SYNC_STATUS_EVENT,h);return()=>window.removeEventListener(SYNC_STATUS_EVENT,h);},[]);
  // Another view (the header or Settings) signed in or out, or turned sync on or off.
  useEffect(()=>{const a=()=>setAccount(readAccount(store())),o=()=>setOn(syncIsOn(store()));window.addEventListener(ACCOUNT_CHANGE_EVENT,a);window.addEventListener(SYNC_CHANGE_EVENT,o);return()=>{window.removeEventListener(ACCOUNT_CHANGE_EVENT,a);window.removeEventListener(SYNC_CHANGE_EVENT,o);};},[]);
 
@@ -60,13 +78,13 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
  useEffect(()=>{
   if(sheet||!pkOk||account||mode!=='signin'||platform.account?.passkeySignIn)return;
   const ac=new AbortController();
-  client.signInWithPasskey({conditional:true,signal:ac.signal}).then(r=>{if(r.ok){setAccount(readAccount(store()));setOn(false);setStatus(null);toast.success(t('已登录。'));}}).catch(()=>{});
+  client.signInWithPasskey({conditional:true,signal:ac.signal}).then(r=>{if(r.ok){setAccount(readAccount(store()));setOn(true);setStatus('syncing');toast.success(t('已登录。'));}}).catch(()=>{});
   return()=>ac.abort();
  },[client,pkOk,account,mode]);
  const fail=r=>setErr(errorText(r.code,r.retryAfter));
  const go=m=>{setMode(m);setErr(null);setNote(null);setCode('');setPassword('');};
  const run=async fn=>{setBusy(true);setErr(null);try{try{await platform.account?.allow(gateway);}catch{/* without the permission the request itself fails and says so */}await fn();}finally{setBusy(false);}};
- const signedIn=r=>{setAccount(readAccount(store()));setOn(false);setStatus(null);setEmail('');setPassword('');setCode('');setMode('signin');toast.success(t('已登录。'));};
+ const signedIn=r=>{setAccount(readAccount(store()));setOn(true);setStatus('syncing');setEmail('');setPassword('');setCode('');setMode('signin');toast.success(t('已登录。'));};
  const checkEmail=()=>emailLooksValid(email)?true:(setErr(errorText('bad_request')),false);
 
  const signUp=()=>checkEmail()&&(passwordLongEnough(password)?run(async()=>{
@@ -99,7 +117,7 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
  });
  const removePk=id=>run(async()=>{const r=await client.removePasskey(id);if(!r.ok)return fail(r);setPks(p=>p.filter(x=>x.id!==id));toast.success(t('已移除通行密钥。'));});
  const signOut=()=>run(async()=>{await client.signOut();setAccount(null);setOn(false);setStatus(null);setPw(false);toast.success(t('已退出登录。这台设备上的钱包没有动。'));});
- const toggle=v=>{setSync(store(),v);setOn(v);setStatus(v?'syncing':null);};
+ const toggle=v=>{setSync(store(),v);setOn(v);setStatus(v?'syncing':null);setSyncedAt(readSyncState(store()).syncedAt??null);};
  const changePw=()=>passwordLongEnough(next)?run(async()=>{
   const r=await client.changePassword(cur,next);
   if(!r.ok)return fail(r);
@@ -124,7 +142,8 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
    <div><Text type="secondary">{t('已登录')}</Text><div className="account-email"><Text strong>{maskEmail(account.email)||t('（邮箱未记录）')}</Text></div></div>
    <div>
     <label className="account-sync-switch"><Switch aria-label={t('在设备间同步钱包')} checked={on} onChange={toggle}/><Text>{t('在设备间同步钱包')}</Text></label>
-    <div><Text className="account-sync-status" type={on&&(status==='error'||status==='signed_out')?'danger':'secondary'}>{on?(syncText(status)||t('正在同步…')):t('同步已关闭')}</Text></div>
+    <Paragraph type="secondary" className="account-sync-copy" style={{marginTop:8,marginBottom:0}}>{syncCopy(on)}</Paragraph>
+    <div><Text className="account-sync-status" type={on&&(status==='error'||status==='signed_out')?'danger':'secondary'}>{lineText(syncLine({on,status,syncedAt}))}</Text></div>
    </div>
    {err&&<Alert type="error" showIcon title={err} role="alert"/>}
    {pkOk&&!platform.account?.passkeySignIn&&<Button loading={busy} onClick={addPk}>{t('添加通行密钥')}{pks.length?` · ${pks.length}`:''}</Button>}
@@ -136,8 +155,10 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
    <div><Text type="secondary">{t('已登录')}</Text><div className="account-email" style={{wordBreak:'break-all'}}><Text strong>{account.email||t('（邮箱未记录）')}</Text></div></div>
    <div>
     <label className="account-sync-switch"><Switch aria-label={t('在设备间同步钱包')} checked={on} onChange={toggle}/><Text strong>{t('在设备间同步钱包')}</Text></label>
-    <Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{on?t('钱包的一份副本存在 Cardybara 服务器上，同一账号的其他设备会合并成同一个钱包。关闭后不再同步，服务器上的副本保留，直到你删除账号。'):t('默认关闭。开启后，钱包的一份副本会存到 Cardybara 服务器，并在登录同一账号的设备间合并。不含银行密码或登录信息。')}</Paragraph>
-    {on&&syncText(status)&&<Text className="account-sync-status" type={status==='error'||status==='signed_out'?'danger':'secondary'}>{syncText(status)}</Text>}
+    <Paragraph type="secondary" className="account-sync-copy" style={{marginTop:8,marginBottom:0}}>{syncCopy(on)}</Paragraph>
+    {on&&<Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{t('钱包的一份副本存在 Cardybara 服务器上，同一账号的其他设备会合并成同一个钱包。关闭后不再同步，服务器上的副本保留，直到你删除账号。')}</Paragraph>}
+    {!on&&<Text className="account-sync-status" type="warning">{lineText(syncLine({on,status,syncedAt}))}</Text>}
+    {on&&<Text className="account-sync-status" type={status==='error'||status==='signed_out'?'danger':'secondary'}>{lineText(syncLine({on,status,syncedAt}))}</Text>}
    </div>
    {pkOk&&!platform.account?.passkeySignIn&&<div className="account-passkeys">
     <Text strong>{t('通行密钥')}</Text>

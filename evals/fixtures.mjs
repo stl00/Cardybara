@@ -57,6 +57,7 @@ export const planCases=[
  {id:'plan-end-of-cycle-stay',when:'2026-12-29 to 2026-12-31',check:r=>find(r,'unknownStatus',RESORT_TITLE)[0]?.nextCycleStarts==='2027-01-01'&&r.dateSensitivity.exactDatesCouldChangeAnswer===false},
  {id:'plan-month-roll-over',when:'1月',check:r=>r.window.start==='2027-01-01'&&r.groups.outsideDates.some(i=>i.reason==='current-cycle-ends-before-dates'&&i.title===LODGING_TITLE)&&r.groups.outsideDates.some(i=>i.reason==='rule-expired')&&find(r,'unknownStatus',LODGING_TITLE)[0]?.minimumNights===2},
  {id:'plan-anniversary-unknown',when:'12月',check:r=>find(r,'cycleUnknown',RENOWNED_TITLE)[0]?.reason==='anniversary-date-unknown'&&find(r,'cycleUnknown',RENOWNED_TITLE)[0]?.cycle===null},
+ {id:'plan-cycle-not-stated',cards:[cardFor('amex-us-us-business-platinum-card')],use:'hotel',when:'12月',check:r=>find(r,'cycleUnknown','FHR 或 THC 预付酒店抵扣')[0]?.reason==='cycle-not-stated'&&find(r,'cycleUnknown','FHR 或 THC 预付酒店抵扣')[0]?.cycle===null&&!find(r,'noFixedCycle','FHR 或 THC 预付酒店抵扣').length},
  {id:'plan-enrollment-required',use:'dining',when:'12月',check:r=>r.needsEnrollmentOrChannel.some(i=>i.enrollment==='required')},
  {id:'plan-traditional-chinese',when:'十二月聖誕節',check:r=>r.window.start==='2026-12-01'&&r.window.precision==='holiday'},
  {id:'plan-english',when:'Christmas in December',check:r=>r.window.end==='2026-12-31'&&r.window.precision==='holiday'},
@@ -371,6 +372,8 @@ export const liveCases=[
  {id:'trip-english',question:'I want to travel and stay in a hotel at Christmas in December. Which hotel credits have I not used?',expectTool:'query_credits',expectedArgs:{use:'hotel'},expectedWindow:{start:'2026-12-01',end:'2026-12-31'},answerPatterns:['December 2026|Dec\\.? 2026|2026-12']},
  {id:'trip-marks-respected',events:secondHalfMarks,question:'12月圣诞节想住酒店，我还有什么酒店 credit 没用？',expectTool:'query_credits',expectedWindow:{start:'2026-12-01',end:'2026-12-31'},answerPatterns:['Morgan Stanley|住宿预订','The Edit']},
  {id:'trip-whole-question',question:'12月20日到27日坐达美飞东京，住凯悦，怎么付最好？有什么保障？',expectAllTools:['plan_flight','query_credits','find_protections'],expectedArgs:{use:'hotel'},expectTool:'query_credits',sameDateWords:true,expectedWindow:{start:'2026-12-20',end:'2026-12-27'}},
+ // #564: the hotel stay paid with a programme's points, which the daily set had no case for. Synthetic numbers; the nights and the two point figures are the user's own words, so the call must carry them as stated.
+ {id:'stay-points-hotel',question:'我想用凯悦积分住东京凯悦 5 晚，每晚 20000 点，我现在有 90000 点，12月20日到25日，够吗？简短回答。',expectTool:'plan_stay',expectedArgs:{nights:5,pointsPerNight:20000,points:90000}},
  {id:'trip-whole-traditional',question:'聖誕節搭國泰飛東京，住凱悅，怎麼付比較好？有什麼保障？',expectAllTools:['plan_flight','query_credits','find_protections'],sameDateWords:true},
  {id:'trip-whole-english',question:'Flying Delta to Tokyo Dec 20-27 and staying at a Hyatt — how should I pay and what covers me?',expectAllTools:['plan_flight','query_credits','find_protections'],sameDateWords:true,answerPatterns:['2026']},
  {id:'cycle-card-year-no-fee-date',question:'我的 Sapphire Reserve 卡年度旅行 credit 还剩多少？不要猜我的年费日。简短回答。',expectTool:'query_credits',answerPatterns:['年费日|年費日|fee date']},

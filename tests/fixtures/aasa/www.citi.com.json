@@ -1,0 +1,209 @@
+{
+ "applinks": {
+  "details": [
+   {
+    "appIDs": [
+     "NCFW2F5ELP.com.citigroup.citimobile",
+     "5S2BSU62P2.com.citigroup.citimobile",
+     "5KLJKY3T39.com.citi.mobile.brave.uat",
+     "68PVU7J6S8.com.citi.mobile.citibank.ent"
+    ],
+    "defaults": {
+     "caseSensitive": false
+    },
+    "components": [
+     {
+      "/": "/login",
+      "?": {
+       "nextRoute": "updateincomeinfo"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "nextRoute": "balancetransfer"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "nextRoute": "creditlineincrease"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "nextRoute": "citi-flex-loan/customizeloan"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "nextRoute": "citi-flex-loan%2Fcustomizeloan"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "nextRoute": "citi-flex-pay/select-transaction"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "nextRoute": "citi-flex-pay%2Fselect-transaction"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "nextRoute": "lending/landingroute"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "nextRoute": "lending%2Flandingroute"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "nextRoute": "?*"
+      },
+      "exclude": true
+     },
+     {
+      "/": "/login",
+      "?": {
+       "next_page": "jfp|jUSCBOL_balancetransfer"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "next_page": "jfp|OmniChannelAlertsDeepDrop"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "next_page": "jfp|jUSCBOL_NCManageAuthUser"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "next_page": "jfp|jUSCBOL_paymentHub_makeatransfer"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "next_page": "?*"
+      },
+      "exclude": true
+     },
+     {
+      "/": "/login",
+      "?": {
+       "featureId": "benefitsRewardsHub"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "featureId": "rewardsDashboard"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "featureId": "rewardsHubDashboard"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "featureId": "lat"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "featureId": "wealth"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "featureId": "acat"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "featureId": "OmniChannelPayHubDeepDrop"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "featureId": "paymentHub"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "featureId": "cli"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "featureId": "balcon"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "featureId": "baufunding"
+      }
+     },
+     {
+      "/": "/login",
+      "?": {
+       "featureId": "?*"
+      },
+      "exclude": true
+     },
+     {
+      "/": "/login",
+      "exclude": true
+     },
+     {
+      "/": "/banking/citi-mobile-app-download/landing"
+     },
+     {
+      "/": "/splurgecredit"
+     },
+     {
+      "/": "/selfselect"
+     },
+     {
+      "/": "/*",
+      "exclude": true
+     }
+    ]
+   }
+  ]
+ },
+ "appclips": {
+  "apps": [
+   "NCFW2F5ELP.com.citigroup.citimobile.Clip",
+   "5S2BSU62P2.com.citigroup.citimobile.Clip",
+   "5S2BSU62P2.com.citigroup.citimobile.AppClip",
+   "NCFW2F5ELP.com.citigroup.citimobile.AppClip"
+  ]
+ }
+}

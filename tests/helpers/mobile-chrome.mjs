@@ -5,7 +5,7 @@ import {once} from 'node:events';
 import {mkdtemp, rm, writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {WEB_DIR, serve} from '../../scripts/web-chrome.mjs';
+import {WEB_DIR, serve, errorCollector} from '../../scripts/web-chrome.mjs';
 import {findChrome, SANDBOX_SAFE_ARGS} from '../../scripts/dev-collector/chrome-launcher.mjs';
 
 export {WEB_DIR};
@@ -88,11 +88,15 @@ export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external 
     child = spawn(await findChrome(), ['--user-data-dir=' + join(work, 'profile'), '--remote-debugging-pipe', '--headless=new', '--no-first-run', '--no-default-browser-check', '--hide-scrollbars', '--force-color-profile=srgb', ...SANDBOX_SAFE_ARGS, ...args, 'about:blank'], {stdio: ['ignore', 'ignore', 'ignore', 'pipe', 'pipe']});
     const send = cdpPipe(child);
     if (onEvent) send.on(onEvent);
+    // Every uncaught exception, console.error and error-level browser log of the session, as `ctl.errors` (#610).
+    const collected = errorCollector();
+    send.on(collected.onEvent);
     const {targetId} = await send('Target.createTarget', {url: 'about:blank'});
     const {sessionId} = await send('Target.attachToTarget', {targetId, flatten: true});
     const page = (m, p) => send(m, p, sessionId);
     await page('Page.enable');
     await page('Runtime.enable');
+    await page('Log.enable');
     await page('Emulation.setDeviceMetricsOverride', {...PHONE, deviceScaleFactor: 2, mobile: true});
     await page('Emulation.setEmulatedMedia', {features: [{name: 'prefers-color-scheme', value: 'light'}]});
     await page('Page.addScriptToEvaluateOnNewDocument', {source: `window.__taps=[];for(const k of ['mousedown','mouseup','click'])addEventListener(k,e=>window.__taps.push(k+'@'+Math.round(performance.now())+':'+(e.target.className?.toString?.()||e.target.tagName).replace(/css-\\S+/g,'').slice(0,50)),true);`});
@@ -103,7 +107,9 @@ export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external 
       return r.result.value;
     };
     const ctl = {
-      origin, evaluate, page,
+      origin, evaluate, page, errors: collected.errors,
+      // Takes the static server away for good (a phone with no network): only the service worker's cache can answer after this.
+      stopServer: async () => { if (!server) throw Error('stopServer needs the built-in static server'); await new Promise(r => server.close(r)); server.closeAllConnections?.(); },
       goto: async path => { await page('Page.navigate', {url: origin + path}); await ctl.until(`!!document.querySelector('#root > *')`); },
       // Polls a page expression until it is truthy.
       until: async (expr, what = expr, ms = 8000) => {

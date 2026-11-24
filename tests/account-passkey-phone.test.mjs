@@ -97,7 +97,7 @@ async function walk(c, srv, lang) {
   await c.type(`${A} input[autocomplete=one-time-code]`, srv.lastCode(EMAIL));
   await c.tap(`${A} .ant-btn-primary`);
   await c.until(`document.querySelector('${A} .account-email')`, 'the signed-in view');
-  await c.tap(`${A} .ant-switch`);
+  // Sync is on by default after sign-in (#579): the switch is already on, no tap.
   await c.until(`document.querySelector('${A} .ant-switch-checked')`, 'sync on');
   await c.until(`window.__calls.some(x=>x.startsWith('PUT')&&x.endsWith('/wallet'))`, 'the wallet copy upload');
   await check('signed-in');

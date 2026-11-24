@@ -215,3 +215,10 @@ test('removing a snapshot card hides its rows and keeps reward pools and other c
 test('the removal message reaches the worker through the page bridge',()=>{
  for(const bridge of ['extension-next/dashboard.js','scripts/dev-collector/page-bridge.js'])assert.match(readFileSync(bridge,'utf8'),/'remove-card'/,bridge);assert.match(readFileSync('extension-next/background.js','utf8'),/m\.type==='remove-card'/);
 });
+test('the first-launch guide does not claim the wallet is never synced',()=>{
+ const bad=/不上传，也不同步|不同步到其他|not uploaded or synced|不同步到其他裝置|也不同步/i;
+ const src=readFileSync(new URL('../src/WebFirstLaunchGuide.jsx',import.meta.url),'utf8');assert.doesNotMatch(src,bad);
+ const dict=JSON.parse(readFileSync(new URL('../src/i18n/onboarding.json',import.meta.url),'utf8'));
+ for(const [lang,map] of Object.entries(dict))for(const [k,v] of Object.entries(map))assert.doesNotMatch(k+' '+v,bad,`${lang}: ${k}`);
+ for(const lang of ['en-US','zh-TW'])assert.ok(dict[lang]['钱包数据默认只保存在你输入它的那个浏览器里，不上传。只有你登录账号并开启同步后，才会存一份到服务器；银行密码、Cookie 和验证码永远不会上传。'],`${lang} has the corrected paragraph`);
+});

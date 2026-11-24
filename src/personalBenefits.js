@@ -65,7 +65,8 @@ export const nextFourYears=day=>{const d=new Date(day+'T00:00:00Z');d.setUTCFull
 /**
  * Credit and promo rules that are not a calendar or card-year cycle task and not a needs-fee-date row. Each is exactly one of:
  * four-year (marked with the date used; next date = +4 years), one-off (explicit row, mark used / not relevant),
- * ongoing (a perk to read, no cycle, no marks). A cycle rule with no positive public limit also lands in ongoing, never nowhere.
+ * ongoing (a perk to read, no cycle, no marks), cycle-not-stated (an amount with no period the issuer states: no reset date, no
+ * reminder, no marks, not counted). A cycle rule with no positive public limit also lands in ongoing, never nowhere.
  */
 export function offCycleRows(cards,asOf=walletDay()){
  const rows=[];
@@ -76,14 +77,14 @@ export function offCycleRows(cards,asOf=walletDay()){
    if(b.period==='account-anniversary'&&!cleanFeeDate(card.feeDate))continue; // needs-fee-date row
    if(hasLimit&&benefitPeriod(b,asOf,{feeDate:card.feeDate}))continue; // cycle task
   }
-  const kind=b.period==='rolling-four-years'?'four-year':ONE_OFF_PERIODS.has(b.period)?'one-off':'ongoing';
-  rows.push({state:kind,key:kind==='ongoing'?dismissKey(card.id,b.knowledgeRuleId):JSON.stringify([card.id,b.knowledgeRuleId,kind]),cardId:card.id,ruleId:b.knowledgeRuleId,revisionId:b.revisionId,title:b.title,condition:b.condition,sourceIds:b.sourceIds,limit:hasLimit?(b.quantity?limit*b.quantity:limit):null,currency:b.currency||card.currency,period:b.period||null,categories:creditCategoriesForRuleId(b.knowledgeRuleId),...(b.original?{original:structuredClone(b.original)}:{}),...(b.translations?{translations:structuredClone(b.translations)}:{})});
+  const kind=b.period==='rolling-four-years'?'four-year':ONE_OFF_PERIODS.has(b.period)?'one-off':!b.period&&hasLimit?'cycle-not-stated':'ongoing';
+  rows.push({state:kind,key:kind==='ongoing'||kind==='cycle-not-stated'?dismissKey(card.id,b.knowledgeRuleId):JSON.stringify([card.id,b.knowledgeRuleId,kind]),cardId:card.id,ruleId:b.knowledgeRuleId,revisionId:b.revisionId,title:b.title,condition:b.condition,sourceIds:b.sourceIds,limit:hasLimit?(b.quantity?limit*b.quantity:limit):null,currency:b.currency||card.currency,period:b.period||null,categories:creditCategoriesForRuleId(b.knowledgeRuleId),...(b.original?{original:structuredClone(b.original)}:{}),...(b.translations?{translations:structuredClone(b.translations)}:{})});
  }
  return rows.sort((a,b)=>a.cardId.localeCompare(b.cardId)||a.ruleId.localeCompare(b.ruleId));
 }
 /** Status of an off-cycle row: four-year -> {status:'available'|'used', usedOn, nextEligible}; one-off -> unknown|used|skipped; ongoing -> null. */
 export function offCycleStatus(row,events){
- if(row.state==='ongoing')return null;
+ if(row.state==='ongoing'||row.state==='cycle-not-stated')return null;
  const latest=events.filter(e=>e.key===row.key).sort((a,b)=>Date.parse(b.at)-Date.parse(a.at)||b.id.localeCompare(a.id))[0];
  if(row.state==='four-year'){const used=latest?.status==='used'&&latest.usedOn;return used?{status:'used',usedOn:latest.usedOn,nextEligible:nextFourYears(latest.usedOn)}:{status:'available',usedOn:null,nextEligible:null};}
  return {status:latest&&(!latest.revisionId||latest.revisionId===row.revisionId)?latest.status:'unknown'};

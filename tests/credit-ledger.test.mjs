@@ -127,3 +127,46 @@ test('a one-off credit marked used inside the window counts once; skipped or out
  assert.equal(off(hyatt,[oneOff('2026-09-05T10:00:00.000Z','skipped')],asOf,'card-year').count,0);
  assert.equal(off(hyatt,[],asOf,'card-year').count,0);
 });
+// Previous period (#567): the card year or calendar year before the current one. Everything in it has ended.
+const prev=(card,evs,day,basis)=>creditLedger([card],evs,day,{basis,previous:true})[0];
+test('previous calendar year: window, nothing open, marks inside it count',()=>{
+ const none=prev(plat,[],asOf,'calendar-year');
+ assert.deepEqual(none.period,{start:'2025-01-01',end:'2025-12-31'});
+ assert.equal(none.open,0);assert.equal(none.used,0);assert.equal(none.notCaptured,none.available,'no marks: all not captured, never used or missed');
+ // Uber Cash Nov and Dec 2025, 15 each, marked used; a 2026 mark must not leak in.
+ const marks=[mark(plat,'uber-cash','2025-11-01','2025-11-30','used'),mark(plat,'uber-cash','2025-12-01','2025-12-31','used'),mark(plat,'uber-cash',...month('04',30),'used')];
+ const l=prev(plat,marks,asOf,'calendar-year');
+ assert.equal(l.used,30);assert.equal(l.notCaptured,cents(none.available-30));assert.equal(l.open,0);
+ assert.equal(l.available,none.available);
+});
+const cents=x=>Math.round(x*100)/100;
+test('previous card year: Platinum 2025-03-15..2026-03-14, current year unchanged',()=>{
+ const l=prev(plat,[],asOf,'card-year');
+ assert.deepEqual(l.period,{start:'2025-03-15',end:'2026-03-14'});
+ // The 2026 calendar-year credits (Uber One 120, airline 200, CLEAR 219) start on 2026-01-01, inside this card year, but their cycle ends
+ // 2026-12-31: still open today, so they are 539 open, not 'not captured'. Every other cycle in the window has ended.
+ assert.equal(l.open,539);assert.equal(l.notCaptured,cents(l.available-539));assert.equal(l.used,0);
+ // Uber Cash Apr 2025 used, and the same month a year later (a different cycle) used: only the first is in the window.
+ const m=[mark(plat,'uber-cash','2025-04-01','2025-04-30','used'),mark(plat,'uber-cash',...month('04',30),'used')];
+ assert.equal(prev(plat,m,asOf,'card-year').used,15);
+ assert.deepEqual(pick(by(creditLedger([plat],m,asOf,{basis:'card-year'}),'plat')).used,15+0,'current card year (Mar 2026-Mar 2027) holds the Apr 2026 mark only');
+});
+test('previous card year with no fee date asks for it; before the first fee date there is no ledger',()=>{
+ const bare={...plat,feeDate:undefined};
+ const a=prev(bare,[],asOf,'card-year');assert.equal(a.needsFeeDate,true);assert.equal(a.period,null);
+ const young={...plat,feeDate:{month:3,day:15,year:2026}};
+ const b=prev(young,[],asOf,'card-year');assert.equal(b.period,null);assert.equal(b.needsFeeDate,false);assert.equal(b.beforeCard,true);assert.equal(b.available,0);
+ assert.equal(creditLedger([young],[],asOf,{basis:'card-year'})[0].beforeCard,false);
+ assert.equal(ledgerWindow('card-year',{month:3,day:15},asOf,{previous:true}).start,'2025-03-15');
+});
+test('a four-year credit used in the previous window counts there and not in the current one',()=>{
+ const ev=[fourYear('2025-09-10')];
+ assert.equal(prev(csr,ev,asOf,'card-year').offCycle.used,120,'card year 2025-08-01..2026-07-31');
+ assert.equal(off(csr,ev,asOf,'card-year').count,0);
+ assert.equal(prev(csr,ev,asOf,'calendar-year').offCycle.used,120);
+ assert.equal(off(csr,ev,asOf,'calendar-year').count,0);
+});
+test('the default is still the current period',()=>{
+ const a=creditLedger([plat],events,asOf,{basis:'card-year'})[0],b=creditLedger([plat],events,asOf,{basis:'card-year',previous:false})[0];
+ assert.deepEqual(a,b);assert.equal(a.previous,false);
+});

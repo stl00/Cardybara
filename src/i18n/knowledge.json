@@ -621,7 +621,9 @@
     "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "The terms page lists Car Rental Loss and Damage Insurance and names AMEX Assurance Company as the underwriter. It does not say whether the coverage is primary or secondary.",
     "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "The terms page lists Purchase Protection and names AMEX Assurance Company as the underwriter. It states no limit.",
     "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "The terms page lists Extended Warranty and names AMEX Assurance Company as the underwriter. It states no limit.",
-    "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "The terms page lists Return Protection and says it is subject to additional terms, conditions and exclusions. It names no underwriter and states no limit."
+    "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "The terms page lists Return Protection and says it is subject to additional terms, conditions and exclusions. It names no underwriter and states no limit.",
+    "官网公开的租车损失与损坏保险说明（Description of Coverage）写明：用 Business Platinum 卡支付租车、本人为主租人时，保障租赁车辆的损坏或被盗；属超额（excess）保险，仅限在美国及其属地租的车，连续租期不超过 30 天；原价 $75,000 及以上的豪车不在保障内；本人和乘客的随身物品各最高 $1,000、全部乘员合计 $2,000；承保方为 AMEX Assurance Company。该说明不是保单本身，具体条件以保单为准。": "The official public Description of Coverage says Car Rental Loss and Damage Insurance covers damage to or theft of a rental auto when the Business Platinum Card is used and the cardmember is the primary renter. It is excess insurance, only for autos rented in the U.S. and its territories, for no more than 30 consecutive days; cars with an original MSRP of $75,000 or more are not covered; personal property is covered up to $1,000 for the cardmember and for passengers, $2,000 in total; underwritten by AMEX Assurance Company. The document is not the policy itself.",
+    "该条目基于官网公开的保障说明文件，未逐条核对全部除外责任；核对完整保单、除外责任和所需证明后再判断。": "This is based on the official public Description of Coverage; not every exclusion was reviewed. Check the policy, the exclusions and the claim requirements before relying on it."
   },
   "zh-TW": {
     "直订航班": "直訂航班",
@@ -1245,6 +1247,8 @@
     "条款页列出租车损失与损坏保险（Car Rental Loss and Damage Insurance），承保方为 AMEX Assurance Company；页面未写明属于主要还是次要保障。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "條款頁列出租車損失與損壞保險（Car Rental Loss and Damage Insurance），承保方為 AMEX Assurance Company；頁面未寫明屬於主要還是次要保障。官網條款頁未寫賠付額、觸發條件和除外責任；具體條件須查完整保障指南。",
     "条款页列出购物保障（Purchase Protection），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "條款頁列出購物保障（Purchase Protection），承保方為 AMEX Assurance Company。官網條款頁未寫賠付額、觸發條件和除外責任；具體條件須查完整保障指南。",
     "条款页列出延长保修（Extended Warranty），承保方为 AMEX Assurance Company。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "條款頁列出延長保修（Extended Warranty），承保方為 AMEX Assurance Company。官網條款頁未寫賠付額、觸發條件和除外責任；具體條件須查完整保障指南。",
-    "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "條款頁列出退貨保障（Return Protection），稱受額外條款、條件和除外責任約束；頁面未寫明承保方。官網條款頁未寫賠付額、觸發條件和除外責任；具體條件須查完整保障指南。"
+    "条款页列出退货保障（Return Protection），称受额外条款、条件和除外责任约束；页面未写明承保方。官网条款页未写赔付额、触发条件和除外责任；具体条件须查完整保障指南。": "條款頁列出退貨保障（Return Protection），稱受額外條款、條件和除外責任約束；頁面未寫明承保方。官網條款頁未寫賠付額、觸發條件和除外責任；具體條件須查完整保障指南。",
+    "官网公开的租车损失与损坏保险说明（Description of Coverage）写明：用 Business Platinum 卡支付租车、本人为主租人时，保障租赁车辆的损坏或被盗；属超额（excess）保险，仅限在美国及其属地租的车，连续租期不超过 30 天；原价 $75,000 及以上的豪车不在保障内；本人和乘客的随身物品各最高 $1,000、全部乘员合计 $2,000；承保方为 AMEX Assurance Company。该说明不是保单本身，具体条件以保单为准。": "官網公開的租車損失與損壞保險說明（Description of Coverage）寫明：用 Business Platinum 卡支付租車、本人為主租人時，保障租賃車輛的損壞或被盜；屬超額（excess）保險，僅限在美國及其屬地租的車，連續租期不超過 30 天；原價 $75,000 及以上的豪車不在保障內；本人和乘客的隨身物品各最高 $1,000、全部乘員合計 $2,000；承保方為 AMEX Assurance Company。該說明不是保單本身，具體條件以保單為準。",
+    "该条目基于官网公开的保障说明文件，未逐条核对全部除外责任；核对完整保单、除外责任和所需证明后再判断。": "該條目基於官網公開的保障說明檔案，未逐條核對全部除外責任；核對完整保單、除外責任和所需證明後再判斷。"
   }
 }

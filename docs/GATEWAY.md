@@ -138,6 +138,56 @@ Besides the log line, the Worker writes one Workers Analytics Engine data point 
 | `double13` `public_tool_calls` | public-knowledge tool calls in an answered turn |
 | `double14` `wallet_results` | wallet tool results the extension sent with this request |
 
+Account routes (#571). Each request to an account route (`/v2/account/...`: sign-up, code, sign-in, sign-out, password reset and change, wallet sync, export, delete, passkeys) writes one point with `blob1` = `account`. Its positions are its own, shorter than the agent table; agent queries filter on `blob1 = 'agent'` and are unchanged, and the unfiltered per-route queries below now name `agent` and `chat`. Refused requests (wrong origin, bad body, rate limit) are written too; a path that is no account route is not (the Plaid routes have their own point, below).
+
+| Field | Meaning |
+| --- | --- |
+| `index1`, `blob1` | `account` |
+| `blob2` `name` | one of a fixed list: `signup`, `code` (verify), `signin`, `signout`, `forgot`, `reset`, `password`, `sync_pull` (wallet GET), `sync_push` (wallet PUT), `export`, `delete`, `passkey` (all passkey routes). Never a path parameter such as a credential id |
+| `blob3` `error` | the error code of the answer, empty when none; only codes of a fixed list (`code_invalid`, `invalid_credentials`, `stale_revision`, `mail_failed`, `account_unavailable`, `rate_limited`...), anything else is `other` |
+| `double1` `status` | HTTP status |
+| `double2` `duration_ms` | whole request |
+
+A point holds no email address, user id, session id, device id, address, code, password, token or wallet content. Example, 5xx rate per route over the last hour (run once after the deploy that adds this):
+
+```sql
+SELECT blob2 AS name, SUM(_sample_interval) AS requests,
+  SUM(_sample_interval * IF(double1 >= 500, 1, 0)) AS errors_5xx,
+  SUM(_sample_interval * IF(double1 >= 500, 1, 0)) / SUM(_sample_interval) AS rate_5xx
+FROM cardybara_agent_metrics WHERE blob1 = 'account' AND timestamp > NOW() - INTERVAL '1' HOUR
+GROUP BY name ORDER BY rate_5xx DESC
+```
+
+Plaid routes (#615). Each request to a Plaid route writes one point with `blob1` = `plaid`, the same fields as an account point (`blob2` name, `blob3` error, `double1` status, `double2` duration_ms). Names are one fixed word per route and method: `link_start` (POST `/v2/plaid/link`), `link_page` (GET same path), `link_token`, `link_complete`, `link_exit`, `cards`, `transactions`, `refresh`, `item_remove`, `webhook`. `blob3` is only a gateway code of a fixed list (the account list plus `plaid_error`, `plaid_limit`, `link_expired`, `item_not_found`, `webhook_invalid`); anything else, and any Plaid `error_code`, is written as `other`. A point never holds an item id, account id, access, public or link token, link handle, institution name, mask, amount or transaction data, and a wrong method or unknown path is not written. Example, status and error mix per route over the last day (run once after the deploy that adds this, and compare with a real link or refresh):
+
+```sql
+SELECT blob2 AS name, blob3 AS error, double1 AS status, SUM(_sample_interval) AS requests,
+  SUM(_sample_interval * double2) / SUM(_sample_interval) AS avg_ms
+FROM cardybara_agent_metrics WHERE blob1 = 'plaid' AND timestamp > NOW() - INTERVAL '1' DAY
+GROUP BY name, error, status ORDER BY requests DESC
+```
+
+Push sender runs (#569). Each run of the 15-minute push sender (`sendDuePushes`, `gateway/src/push.js`) that is not skipped (no VAPID secrets) writes one point to the same dataset, with `blob1` = `push` and no other string field. Agent-turn queries filter on `blob1 = 'agent'` and are unchanged. The doubles are positional and mean something else than the table above:
+
+| Field | Meaning |
+| --- | --- |
+| `index1`, `blob1` | `push` |
+| `double1` `due` | devices with a fire time due at the start of the run |
+| `double2` `sent` | devices the push service accepted |
+| `double3` `gone` | devices deleted because the push service refused the subscription (400, 403, 404, 410) |
+| `double4` `failed` | devices not sent (push service error, network failure, unreadable record); due times stay for the next run |
+| `double5` `expired` | due times dropped after waiting more than two days |
+| `double6` `devices` | devices taken by this run (at most 200; the rest wait for the next run) |
+| `double7` `oldest_due_age_s` | age in seconds of the oldest due fire time at the start of the run, 0 when nothing is due |
+
+A point holds counts and one age: never a device id, endpoint, subscription, card or reminder text. A run that throws midway is written too, with the counts so far. Example, per day:
+
+```sql
+SELECT toDate(timestamp) AS day, SUM(_sample_interval) AS runs, SUM(_sample_interval * double2) AS sent,
+  SUM(_sample_interval * double4) AS failed, MAX(double7) AS worst_oldest_due_age_s
+FROM cardybara_agent_metrics WHERE blob1 = 'push' AND timestamp > NOW() - INTERVAL '7' DAY GROUP BY day ORDER BY day
+```
+
 Example queries against the SQL API (`POST https://api.cloudflare.com/client/v4/accounts/<account>/analytics_engine/sql`; the account id stays out of Git):
 
 ```sql
@@ -152,14 +202,14 @@ GROUP BY day, version ORDER BY day, version
 ```sql
 -- p95 duration by route
 SELECT blob1 AS route, quantileWeighted(0.95, double7, _sample_interval) AS p95_ms
-FROM cardybara_agent_metrics WHERE timestamp > NOW() - INTERVAL '7' DAY GROUP BY route
+FROM cardybara_agent_metrics WHERE blob1 IN ('agent', 'chat') AND timestamp > NOW() - INTERVAL '7' DAY GROUP BY route
 ```
 
 ```sql
 -- tokens by route per day
 SELECT toDate(timestamp) AS day, blob1 AS route,
   SUM(_sample_interval * (double5 + double6)) AS tokens
-FROM cardybara_agent_metrics WHERE timestamp > NOW() - INTERVAL '7' DAY GROUP BY day, route ORDER BY day, tokens DESC
+FROM cardybara_agent_metrics WHERE blob1 IN ('agent', 'chat') AND timestamp > NOW() - INTERVAL '7' DAY GROUP BY day, route ORDER BY day, tokens DESC
 ```
 
 ### Baseline report
@@ -199,14 +249,15 @@ Each run reads the last hour and the 7 days before it from the metrics dataset t
 | `repair` | repair rate of the last hour is at least double its mean over the 7 days before (and at least 5%, so a mean of zero does not make one repair an incident) | at least 20 turns in the hour |
 | `fallback` | the same for the fallback rate | at least 20 turns in the hour |
 | `silence` | the last 3 hours had no turns at all while the 7 days before averaged at least `minHourlyTurns` (5) turns per hour; `ok` as soon as there is a turn | a prior week at or above that level, so low beta traffic never raises it |
+| `push` | over the last hour the push sender (metrics route `push`, one point per run) either left a reminder overdue by at least `pushOverdueHours` (1) in every run (the smallest oldest-overdue age is at least that, so at least four runs in a row), or every run sent nothing and had at least one failure | at least one push run in the last hour; with no push points in the last hour (or none in the last 3 hours) it is `unknown`, never `ok`, because a silent sender cannot be told from a quiet one |
 
-Defaults are in code (`DEFAULT_THRESHOLDS`); KV `settings.alerts` overrides each one: `{"alerts":{"budgetPercent":80,"errorPercent":5,"rateMultiple":2,"minRatePercent":5,"minTurns":20,"minHourlyTurns":5}}`. A value that is not a positive number is ignored and logged.
+Defaults are in code (`DEFAULT_THRESHOLDS`); KV `settings.alerts` overrides each one: `{"alerts":{"budgetPercent":80,"errorPercent":5,"rateMultiple":2,"minRatePercent":5,"minTurns":20,"minHourlyTurns":5,"pushOverdueHours":1}}`. A value that is not a positive number is ignored and logged.
 
 ### Incident flow
 
 - A breach opens one GitHub issue per signal, titled `Assistant alert: <signal>`, labelled `agent-incident` and `P1`. The body holds the aggregates that tripped it, the checked time, the Worker version id and a link to this section. Never a client id, a question or per-turn data. If an incident for the signal is already open, the check comments on it instead of opening another (once per hourly check while the breach lasts).
 - The next check where the signal is healthy comments "Healthy again" and closes the issue. A signal that cannot be judged (fewer than 20 turns, a quiet prior week for `silence`, or the source could not be read) neither opens nor closes anything.
-- What to do: `budget` is the spend guard (raise the cap with `set-caps --yes` only if the spend is expected; `assistantOff` below stops the assistant at once); `silence` means turns stopped being recorded (a deploy that throws before the agent route, a broken binding, a client that cannot reach the gateway): check the latest deploy and `wrangler tail`, and roll back by version (Release); `errors` and `fallback` after a release: compare by `version_id` (Metrics) and roll back (Release); `repair` points at a prompt or model change.
+- What to do: `budget` is the spend guard (raise the cap with `set-caps --yes` only if the spend is expected; `assistantOff` below stops the assistant at once); `push` means reminders are not leaving (a broken VAPID key or subscription store, the push service rejecting every send, or the Cron Trigger not running): read `wrangler tail` for the `*/15` run and the push data points (Metrics), fix the cause, nothing is retried by the alert; `silence` means turns stopped being recorded (a deploy that throws before the agent route, a broken binding, a client that cannot reach the gateway): check the latest deploy and `wrangler tail`, and roll back by version (Release); `errors` and `fallback` after a release: compare by `version_id` (Metrics) and roll back (Release); `repair` points at a prompt or model change.
 - The Worker sends no push notification, and nothing is rolled back automatically.
 
 Live since 2026-11-16 (#371): both Cron Triggers are deployed, the secret `CF_ACCOUNT_ID` is set (not a credential) and the labels `agent-incident` and `P1` exist. Optional var `GITHUB_REPO` (default `stl00/Cardybara`). Without the two tokens the check logs what is missing (`github_token_missing`, `sql_token_missing`) and does nothing; without the SQL one it still checks the budget.

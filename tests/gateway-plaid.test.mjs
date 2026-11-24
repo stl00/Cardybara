@@ -381,3 +381,49 @@ test('the scrub keeps long snake_case field names but still redacts opaque runs,
  const e=await plaidCall(ctx,'/link/token/create',{user:{client_user_id:'u_abc'}}).catch(x=>x);
  assert.ok(e instanceof PlaidError);assert.equal(e.explanation,'client_user_id [redacted] is invalid');
 });
+
+// Plaid metrics (stl00/Cardybara#615): one point per Plaid request, a fixed name, status, duration and an allow-listed error; no ids or tokens.
+test('metrics: each Plaid route writes one point with its fixed name and no id or token',async()=>{
+ const points=[];
+ const t=await setup({vars:{AGENT_METRICS:{writeDataPoint:p=>points.push(structuredClone(p))}}});
+ const token=await signIn(t);
+ const last=()=>points[points.length-1];
+ const expect=(name,status,error='')=>{
+  assert.deepEqual(last().indexes,['plaid']);
+  assert.deepEqual(last().blobs,['plaid',name,error]);
+  assert.equal(last().doubles.length,2);assert.equal(last().doubles[0],status);
+  assert.ok(Number.isInteger(last().doubles[1])&&last().doubles[1]>=0);
+ };
+ const start=await json(await t.call('POST',ROUTES.plaidLink,{},{token}));expect('link_start',200);
+ const handle=/#s=(pls_[A-Za-z0-9_-]{43})$/.exec(start.body.url)[1];
+ assert.equal((await t.call('GET',ROUTES.plaidLink,undefined,{origin:null})).status,200);expect('link_page',200);
+ const lt=await json(await t.page(ROUTES.plaidLinkToken,{handle}));expect('link_token',200);
+ assert.equal((await t.page(ROUTES.plaidLinkComplete,{handle,publicToken:PUBLIC,metadata:META})).status,200);expect('link_complete',200);
+ assert.equal((await t.call('GET',ROUTES.plaidCards,undefined,{token})).status,200);expect('cards',200);
+ assert.equal((await t.call('GET',ROUTES.plaidTransactions,undefined,{token})).status,200);expect('transactions',200);
+ t.advance(REFRESH_COOLDOWN_SECONDS+1);
+ assert.equal((await t.call('POST',ROUTES.plaidRefresh,{},{token})).status,200);expect('refresh',200);
+ assert.equal((await t.call('POST',ROUTES.plaidLinkExit,{handle:'pls_'+'A'.repeat(43)},{origin:GW})).status,last().doubles[0]);expect('link_exit',last().doubles[0],last().blobs[2]);
+ assert.equal((await t.call('POST',ROUTES.plaidWebhook,{webhook_type:'ITEM'},{origin:null})).status,401);expect('webhook',401,'webhook_invalid');
+ assert.equal((await t.call('DELETE',ROUTES.plaidItem,{itemId:'item_unknown_0009'},{token})).status,404);expect('item_remove',404,'item_not_found');
+ assert.equal((await t.page(ROUTES.plaidLinkToken,{handle})).status,410);expect('link_token',410,'link_expired');
+ const names=new Set(points.filter(p=>p.blobs[0]==='plaid').map(p=>p.blobs[1]));
+ assert.equal(names.size,10,'every Plaid route was metered once under its own name');
+ const all=JSON.stringify(points);
+ for(const secret of [ACCESS,PUBLIC,ITEM,'item_unknown_0009','acc_card_1','3333','Platypus',lt.body.linkToken,handle,token,EMAIL,'Synthetic Merchant'])assert.ok(!all.includes(secret),'leaked '+secret.slice(0,8));
+ // A wrong method on a Plaid path and an unknown path write no Plaid point.
+ const before=points.filter(p=>p.blobs[0]==='plaid').length;
+ await t.call('PUT',ROUTES.plaidCards,{},{token});
+ assert.equal(points.filter(p=>p.blobs[0]==='plaid').length,before);
+});
+
+test('metrics: an unknown Plaid error code is written as other; a throwing binding costs nothing',async()=>{
+ const {metricsPoint}=await import('../gateway/src/metrics.js');
+ const ctx=error=>({request:{method:'POST'},record:{route:'plaid_refresh',status:502,error},env:{}});
+ assert.deepEqual(metricsPoint(ctx('plaid_error'),12).blobs,['plaid','refresh','plaid_error']);
+ assert.deepEqual(metricsPoint(ctx('ITEM_LOGIN_REQUIRED item_secret_1'),12).blobs,['plaid','refresh','other']);
+ assert.deepEqual(metricsPoint(ctx(undefined),12).blobs,['plaid','refresh','']);
+ const t=await setup({vars:{AGENT_METRICS:{writeDataPoint(){throw Error('boom');}}}});
+ const token=await signIn(t);
+ assert.equal((await t.call('GET',ROUTES.plaidCards,undefined,{token})).status,200);
+});

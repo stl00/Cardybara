@@ -1,0 +1,59 @@
+{
+ "applinks": {
+  "apps": [],
+  "details": [
+   {
+    "appID": "G262XGGUKK.com.chase.lifestyle",
+    "paths": [
+     "/aurora/nav*"
+    ]
+   },
+   {
+    "appID": "G262XGGUKK.com.chase.jpmmonogram",
+    "paths": [
+     "/monogram/nav*"
+    ]
+   },
+   {
+    "appID": "7548H5BWX5.com.chase.lifestyle.enterprise",
+    "paths": [
+     "/aurora/nav*"
+    ]
+   },
+   {
+    "appID": "7548H5BWX5.com.chase.jpmmonogram.enterprise",
+    "paths": [
+     "/monogram/nav*"
+    ]
+   },
+   {
+    "appID": "NPRBHRGX35.com.chase.jpm",
+    "paths": [
+     "/web/auth/nav*",
+     "/web/auth/nav/ncaap*"
+    ]
+   },
+   {
+    "appID": "7548H5BWX5.com.chase.jpm.enterprisedistribution",
+    "paths": [
+     "/web/auth/nav*",
+     "/web/auth/nav/ncaap*"
+    ]
+   },
+   {
+    "appID": "88MPW8R88P.com.chase",
+    "paths": [
+     "/web/auth/nav*",
+     "/web/auth/nav/ncaap*"
+    ]
+   },
+   {
+    "appID": "7548H5BWX5.com.chase.enterprisedistribution",
+    "paths": [
+     "/web/auth/nav*",
+     "/web/auth/nav/ncaap*"
+    ]
+   }
+  ]
+ }
+}

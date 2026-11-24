@@ -219,7 +219,7 @@ test('an ordinal the user said in words may be echoed as a digit, and only that 
 
 // ---- follow-ups of find_protections, plan_flight and points_accounts (#482) ----
 test('coverage, trip and pooling follow-ups: two or three dialogues each, in at least two languages, ending in the tool they test',()=>{
- const tools={'coverage-followup':'find_protections','trip-followup':'plan_flight','pooling-followup':'points_accounts'};
+ const tools={'coverage-followup':'find_protections','trip-followup':'plan_flight','pooling-followup':'points_accounts','stay-followup':'plan_stay'};
  for(const [kind,toolName] of Object.entries(tools)){
   const group=dialogues.filter(d=>d.kind===kind);
   assert.ok(group.length>=2&&group.length<=3,kind);

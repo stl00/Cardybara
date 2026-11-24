@@ -2,8 +2,8 @@
 // against a local gateway (the gateway's own code on in-memory D1 and mail), reads the synthetic bank and syncs the wallet;
 // then the built PWA, in a second profile at phone width with two manual cards, signs in, syncs once and shows the bank-read
 // amounts with the 'From your bank' label. The synced document is checked for anything the bank gave that must never leave
-// the extension. Synthetic data only; no bank, no live service. Negative control: an extension that never turns sync on
-// leaves the PWA without the amounts, and the same assertions fail.
+// the extension. Synthetic data only; no bank, no live service. Negative control: an extension that never signs in
+// leaves the PWA without the amounts, and the same assertions fail. (Signing in pushes at once since #579, so "sign in, then turn sync off" is not a negative case.)
 // Runs only in CI's `npm run test:web` (SEPARATE in scripts/run-tests.mjs), where release/ and dist/web are both built.
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -34,7 +34,8 @@ const skip = (!required && !(existsSync(RELEASE) && existsSync(WEB_DIR)) && 'rel
 
 const setNative = (selector, value) => `(()=>{const e=document.querySelector(${JSON.stringify(selector)});Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,${JSON.stringify(value)});e.dispatchEvent(new Event('input',{bubbles:true}));return true})()`;
 
-async function scenario({syncOn}) {
+// mode: 'on' (signs in and syncs) or 'never' (never signs in).
+async function scenario({mode}) {
   assert.ok(!required || (existsSync(RELEASE) && existsSync(WEB_DIR)), 'release/ and dist/web must be built before npm run test:web');
   const db = memoryD1(); await db.exec(MIGRATION);
   const mail = memoryMail();
@@ -55,21 +56,23 @@ async function scenario({syncOn}) {
       assert.equal((await api.verify(EMAIL, code)).ok, true);
 
       // The extension: sign in from the settings page with the email and the password, turn sync on, wait for the first sync.
-      await evaluate('wallet', 'location.hash="settings"');
-      await until('the sign-in form', () => evaluate('wallet', `!!document.querySelector('.account-settings input[type=email]')`));
-      await evaluate('wallet', setNative('.account-settings input[type=email]', EMAIL));
-      await evaluate('wallet', setNative('.account-settings input[type=password]', PASSWORD));
-      await until('the sign-in to finish', async () => {
-        await evaluate('wallet', `(()=>{const b=document.querySelector('.account-settings .ant-btn-primary');if(b&&!b.disabled&&!document.querySelector('.account-email'))b.click();return true})()`);
-        return evaluate('wallet', `!!document.querySelector('.account-email')`);
-      });
-      assert.ok((await pageText('wallet')).includes(EMAIL), 'the extension shows the signed-in account');
-      if (syncOn) {
-        await until('sync to be turned on', async () => { await evaluate('wallet', `(()=>{const s=document.querySelector('.account-sync-switch button[role=switch]');if(s&&s.getAttribute('aria-checked')!=='true')s.click();return true})()`); return evaluate('wallet', `document.querySelector('.account-sync-switch button[role=switch]')?.getAttribute('aria-checked')==='true'`); });
-        await until('the extension to sync', async () => { const t = await pageText('wallet'); return JSON.parse(words('已同步')).some(w => t.includes(w)); });
-        await until('the wallet document on the server', async () => walletDoc().includes('1234.56'));
+      // Since #579 signing in turns sync on and pushes at once, so the 'never' control does not sign in at all.
+      if (mode !== 'never') {
+        await evaluate('wallet', 'location.hash="settings"');
+        await until('the sign-in form', () => evaluate('wallet', `!!document.querySelector('.account-settings input[type=email]')`));
+        await evaluate('wallet', setNative('.account-settings input[type=email]', EMAIL));
+        await evaluate('wallet', setNative('.account-settings input[type=password]', PASSWORD));
+        await until('the sign-in to finish', async () => {
+          await evaluate('wallet', `(()=>{const b=document.querySelector('.account-settings .ant-btn-primary');if(b&&!b.disabled&&!document.querySelector('.account-email'))b.click();return true})()`);
+          return evaluate('wallet', `!!document.querySelector('.account-email')`);
+        });
+        assert.ok((await pageText('wallet')).includes(EMAIL), 'the extension shows the signed-in account');
+        if (mode === 'on') {
+          await until('the extension to sync', async () => { const t = await pageText('wallet'); return JSON.parse(words('已同步')).some(w => t.includes(w)); });
+          await until('the wallet document on the server', async () => walletDoc().includes('1234.56'));
+        }
       }
-      note('extension signed in' + (syncOn ? ' and synced' : ' with sync left off'));
+      note(mode === 'on' ? 'extension signed in and synced' : 'extension never signed in');
 
       // The PWA: a second profile at phone width, two manual cards, signed in with the same account, one sync.
       bank.page.handle = await staticHandler(WEB_DIR);
@@ -82,7 +85,7 @@ async function scenario({syncOn}) {
         await c.type('.account-settings input[type=password]', PASSWORD);
         await c.tap('.account-settings .ant-btn-primary');
         await c.until(`document.querySelector('.account-email')`, 'the PWA to sign in', 15000);
-        await c.tap('.account-sync-switch .ant-switch');
+        // Sync is on by default after sign-in (#579): no tap.
         await c.until(`document.querySelector('.account-sync-status')&&/Synced|已同步|已同步/.test(document.querySelector('.account-sync-status').innerText)`, 'the PWA to sync', 20000);
         await c.evaluate(`location.hash='wallet'`);
         await c.until(`document.querySelector('.card-title')`, 'the cards');
@@ -109,7 +112,7 @@ function assertPwa(r) {
 }
 
 test('the extension signs in, reads the fixture bank and syncs; the PWA shows the bank amounts after one sync', {timeout: 240000, skip}, async () => {
-  const r = await scenario({syncOn: true});
+  const r = await scenario({mode: 'on'});
   assertPwa(r);
   assert.ok(r.pwa.audit.scrollWidth <= 375, `no horizontal scroll on the PWA (${r.pwa.audit.scrollWidth}px)`);
   // Only the page's own origin and the gateway were reached.
@@ -123,8 +126,8 @@ test('the extension signs in, reads the fixture bank and syncs; the PWA shows th
     assert.ok(!doc.toLowerCase().includes(bad.toLowerCase()), `${bad} is not in the document`);
 });
 
-test('negative control: an extension that never turns sync on leaves the PWA without the bank amounts, so the checks fail', {timeout: 240000, skip}, async () => {
-  const r = await scenario({syncOn: false});
+test('negative control: an extension that never signs in leaves the PWA without the bank amounts, so the checks fail', {timeout: 240000, skip}, async () => {
+  const r = await scenario({mode: 'never'});
   assert.ok(!r.document.includes('1234.56'), 'nothing was synced from the extension');
   assert.throws(() => assertPwa(r), 'the positive assertions fail on this PWA');
 });

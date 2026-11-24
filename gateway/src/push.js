@@ -8,6 +8,8 @@
 // the earliest fire time in the key's metadata so the cron lists keys once and reads only the devices that are
 // due. Every PUT refreshes a 60-day expiry; a device the wallet stops updating disappears by itself.
 //
+import {writePushMetrics} from './metrics.js';
+
 // This module imports nothing from gateway.js (no cycle): gateway.js wraps these functions as routes.
 
 export const PUSH_PREFIX='push:';
@@ -120,6 +122,7 @@ async function forgetPlace(env,device){
 export async function sendDuePushes(env,{fetch=(...a)=>globalThis.fetch(...a),now=Date.now,log=l=>console.log(l),perRun=MAX_DEVICES_PER_RUN}={}){
  const counts={due:0,sent:0,gone:0,failed:0,expired:0};
  const say=o=>log(JSON.stringify({push:o}));
+ let taken=0,oldest=0;
  if(!pushConfigured(env)){return {skipped:true};}
  try{
   const nowSec=Math.floor(now()/1000),due=[];let cursor;
@@ -132,6 +135,7 @@ export async function sendDuePushes(env,{fetch=(...a)=>globalThis.fetch(...a),no
   // claiming an old fire time, and when more are due than one run takes, every one is reached within a few runs.
   due.sort((a,b)=>a.name<b.name?-1:a.name>b.name?1:0);
   counts.due=due.length;
+  oldest=due.length?Math.max(0,nowSec-Math.min(...due.map(d=>d.next))):0;
   let batch=due;
   if(due.length>perRun){
    let after=null;try{after=await env.INVITES.get(CURSOR_KEY);}catch{}
@@ -139,6 +143,7 @@ export async function sendDuePushes(env,{fetch=(...a)=>globalThis.fetch(...a),no
    batch=[...due.slice(start),...due.slice(0,start)].slice(0,perRun);
    await env.INVITES.put(CURSOR_KEY,batch.at(-1).name).catch(()=>{});
   }
+  taken=batch.length;
   const headers=new Map();
   for(const {name,exp} of batch){
    let record=null;try{record=await env.INVITES.get(name,{type:'json'});}catch{}
@@ -166,7 +171,8 @@ export async function sendDuePushes(env,{fetch=(...a)=>globalThis.fetch(...a),no
    const times=fresh.times.filter(t=>!gone.has(t.at+':'+t.kind));
    await storePush(env.INVITES,{device:name.slice(PUSH_PREFIX.length),subscription:fresh.subscription,times},now(),Number.isInteger(meta?.exp)?meta.exp:exp);
   }
- }catch(e){say({failed:String(e?.message||'error').slice(0,40)});return {failed:true,...counts};}
+ }catch(e){say({failed:String(e?.message||'error').slice(0,40)});writePushMetrics(env,counts,taken,oldest);return {failed:true,...counts};}
  say(counts);
+ writePushMetrics(env,counts,taken,oldest);
  return counts;
 }

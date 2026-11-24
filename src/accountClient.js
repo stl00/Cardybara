@@ -10,6 +10,8 @@ export const SYNC_CHANGE_EVENT='cardybara-sync-change';
 export const SYNC_STATUS_EVENT='cardybara-sync-status';
 // Fired on this page whenever the stored session is written or dropped, so every account view (Settings, the header) agrees.
 export const ACCOUNT_CHANGE_EVENT='cardybara-account-change';
+// Asks the header's account entry to open its sign-in sheet (the Home Screen banner uses it).
+export const OPEN_ACCOUNT_EVENT='cardybara-open-account';
 const accountChanged=()=>{try{globalThis.window?.dispatchEvent?.(new Event(ACCOUNT_CHANGE_EVENT));}catch{}};
 export const PASSWORD_MIN=10;
 
@@ -83,9 +85,11 @@ export function createAccountClient({gateway,storage=globalThis.localStorage,fet
  }
  const norm=e=>String(e).trim();
  /** A session came back: keep it and answer without the token. */
- const keep=(r,email)=>{if(r.ok&&typeof r.token==='string'){writeSession(storage,r,email,mirror);forgetSync();return {ok:true,email,expiresAt:r.expiresAt};}return r;};
+ const keep=(r,email)=>{if(r.ok&&typeof r.token==='string'){writeSession(storage,r,email,mirror);signedInSync();return {ok:true,email,expiresAt:r.expiresAt};}return r;};
  /** The account changed: its sync copy is not this device's any more. */
  const forgetSync=()=>setSync(storage,false,win);
+ /** Sign-in is the consent point (owner 2026-11-23): sync starts on, from a clean state so another account's base never carries over. */
+ const signedInSync=()=>{setSyncOn(storage,false);setSync(storage,true,win);};
  return {
   // Passkeys. The gateway's /v2/account/passkey routes answer 404 until they ship; the screens then hide the passkey controls.
   /** True when the browser can do passkeys and the gateway has the routes. Never throws. */
@@ -108,7 +112,7 @@ export function createAccountClient({gateway,storage=globalThis.localStorage,fet
     let s;try{s=await webSignIn();}catch{return {ok:false,code:'cancelled'};}
     if(typeof s?.token!=='string'||!s.token)return {ok:false,code:'cancelled'};
     const email=typeof s.email==='string'?s.email:'';
-    writeSession(storage,s,email,mirror);forgetSync();
+    writeSession(storage,s,email,mirror);signedInSync();
     return {ok:true,email,expiresAt:s.expiresAt};
    }
    const o=await call('POST','/v2/account/passkey/login/options',{});

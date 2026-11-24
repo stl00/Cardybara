@@ -100371,5 +100371,373 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-business-platinum-card.rental",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-business-platinum-card.rental@2026-11-23.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "amex-us-us-business-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车损坏保障",
+      "summary": "官网公开的租车损失与损坏保险说明（Description of Coverage）写明：用 Business Platinum 卡支付租车、本人为主租人时，保障租赁车辆的损坏或被盗；属超额（excess）保险，仅限在美国及其属地租的车，连续租期不超过 30 天；原价 $75,000 及以上的豪车不在保障内；本人和乘客的随身物品各最高 $1,000、全部乘员合计 $2,000；承保方为 AMEX Assurance Company。该说明不是保单本身，具体条件以保单为准。",
+      "howToUse": [
+        "官网公开的租车损失与损坏保险说明（Description of Coverage）写明：用 Business Platinum 卡支付租车、本人为主租人时，保障租赁车辆的损坏或被盗；属超额（excess）保险，仅限在美国及其属地租的车，连续租期不超过 30 天；原价 $75,000 及以上的豪车不在保障内；本人和乘客的随身物品各最高 $1,000、全部乘员合计 $2,000；承保方为 AMEX Assurance Company。该说明不是保单本身，具体条件以保单为准。",
+        "该条目基于官网公开的保障说明文件，未逐条核对全部除外责任；核对完整保单、除外责任和所需证明后再判断。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Loss and Damage Insurance",
+      "summary": "The official public Description of Coverage says Car Rental Loss and Damage Insurance covers damage to or theft of a rental auto when the Business Platinum Card is used and the cardmember is the primary renter. It is excess insurance, only for autos rented in the U.S. and its territories, for no more than 30 consecutive days; cars with an original MSRP of $75,000 or more are not covered; personal property is covered up to $1,000 for the cardmember and for passengers, $2,000 in total; underwritten by AMEX Assurance Company. The document is not the policy itself.",
+      "howToUse": [
+        "This is based on the official public Description of Coverage; not every exclusion was reviewed. Check the policy, the exclusions and the claim requirements before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card-car-rental-doc",
+          "text": "This coverage is excess insurance."
+        },
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card-car-rental-doc",
+          "text": "Car Rental Loss and Damage Insurance is an excess insurance plan and is only available for Rental Autos rented in the U.S., its territories and possessions."
+        },
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card-car-rental-doc",
+          "text": "In no event shall coverage be provided when the Cardmember rents a Rental Auto beyond 30 consecutive days from the same Rental Company"
+        },
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card-car-rental-doc",
+          "text": "expensive cars, which means cars with an original manufacturer's suggested retail price of $75,000 or more when new"
+        },
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card-car-rental-doc",
+          "text": "Cardmember property and Passenger property are each covered for up to $1,000 while the total coverage for all occupants is $2,000."
+        },
+        {
+          "sourceId": "card-amex-us-us-business-platinum-card-car-rental-doc",
+          "text": "This coverage is underwritten by AMEX Assurance Company"
+        }
+      ]
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "官网公开的租车损失与损坏保险说明（Description of Coverage）写明：用 Business Platinum 卡支付租车、本人为主租人时，保障租赁车辆的损坏或被盗；属超额（excess）保险，仅限在美国及其属地租的车，连续租期不超过 30 天；原价 $75,000 及以上的豪车不在保障内；本人和乘客的随身物品各最高 $1,000、全部乘员合计 $2,000；承保方为 AMEX Assurance Company。该说明不是保单本身，具体条件以保单为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-amex-us-us-business-platinum-card-car-rental-doc"
+      ],
+      "checkedAt": "2026-11-23",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-23",
+      "reviewAfter": "2027-02-21",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.bilt-us-bilt-obsidian-card.bilt-cash-2027",
+    "revision": 2,
+    "revisionId": "rule.bilt-us-bilt-obsidian-card.bilt-cash-2027@2026-11-24.2",
+    "supersedes": "rule.bilt-us-bilt-obsidian-card.bilt-cash-2027@2026-11-11.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-obsidian-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "card-ownership",
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "每年100美元 Bilt Cash（2027年起）",
+      "summary": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放100美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+      "sourceText": "You, as the Primary Cardholder, will receive $100 in Bilt Cash.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放100美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": "2027-01-01",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放100美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-obsidian-card-terms"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$100 Bilt Cash Benefit",
+      "summary": "$100 in Bilt Cash is credited to the primary cardholder's Bilt Rewards Account at account opening and on each card anniversary while the account stays open and in good standing.",
+      "howToUse": [
+        "Bilt Cash is credited automatically; use it in the Bilt app or website before it expires."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card-terms",
+          "text": "You, as the Primary Cardholder, will receive $100 in Bilt Cash."
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-obsidian-card-terms",
+          "text": "This $100 annual Bilt Cash benefit is separate from and in addition to"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.bilt-cash",
+    "revision": 2,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.bilt-cash@2026-11-24.2",
+    "supersedes": "rule.bilt-us-bilt-palladium-card.bilt-cash@2026-11-11.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "card-ownership",
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "每年200美元 Bilt Cash",
+      "summary": "2027年1月1日前开户的账户，开户时和每个开卡周年日向主卡持卡人发放200美元 Bilt Cash；在2027年1月1日或之后的第一个开卡周年日改为新的每年 Bilt Cash，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+      "sourceText": "You, as the Primary Cardholder, will receive $200 in Bilt Cash.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "2027年1月1日前开户的账户，开户时和每个开卡周年日向主卡持卡人发放200美元 Bilt Cash；在2027年1月1日或之后的第一个开卡周年日改为新的每年 Bilt Cash，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 200,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "2027年1月1日前开户的账户，开户时和每个开卡周年日向主卡持卡人发放200美元 Bilt Cash；在2027年1月1日或之后的第一个开卡周年日改为新的每年 Bilt Cash，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card-terms"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$200 Bilt Cash Benefit",
+      "summary": "$200 in Bilt Cash is credited to the primary cardholder's Bilt Rewards Account at account opening and on each card anniversary while the account stays open and in good standing.",
+      "howToUse": [
+        "Bilt Cash is credited automatically; use it in the Bilt app or website before it expires."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "You, as the Primary Cardholder, will receive $200 in Bilt Cash."
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "This $200 annual Bilt Cash benefit is separate from and in addition to"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.bilt-us-bilt-palladium-card.bilt-cash-2027",
+    "revision": 2,
+    "revisionId": "rule.bilt-us-bilt-palladium-card.bilt-cash-2027@2026-11-24.2",
+    "supersedes": "rule.bilt-us-bilt-palladium-card.bilt-cash-2027@2026-11-11.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "bilt-us-bilt-palladium-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Bilt"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "card-ownership",
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.bilt-rewards"
+    ],
+    "content": {
+      "title": "每年600美元 Bilt Cash（2027年起）",
+      "summary": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放600美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+      "sourceText": "You, as the Primary Cardholder, will receive $600 in Bilt Cash.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放600美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 600,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": "2027-01-01",
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "2027年1月1日或之后开户的账户，开户时和每个开卡周年日向主卡持卡人发放600美元 Bilt Cash；更早开户的账户从2027年1月1日或之后的第一个开卡周年日起适用，除非作了 Legacy Election。Bilt Cash 不是账单抵扣，发放后12个月到期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-bilt-us-bilt-palladium-card-terms"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$600 Bilt Cash Benefit",
+      "summary": "$600 in Bilt Cash is credited to the primary cardholder's Bilt Rewards Account at account opening and on each card anniversary while the account stays open and in good standing.",
+      "howToUse": [
+        "Bilt Cash is credited automatically; use it in the Bilt app or website before it expires."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "You, as the Primary Cardholder, will receive $600 in Bilt Cash."
+        },
+        {
+          "sourceId": "card-bilt-us-bilt-palladium-card-terms",
+          "text": "This $600 annual Bilt Cash benefit is separate from and in addition to"
+        }
+      ]
+    }
   }
 ]

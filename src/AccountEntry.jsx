@@ -2,7 +2,7 @@ import React,{useEffect,useRef,useState} from 'react';
 import {Avatar,Button,Drawer,Modal,Popover} from 'antd';
 import {t,useI18n} from './i18n';
 import AccountSettings from './AccountSettings.jsx';
-import {ACCOUNT_CHANGE_EVENT,SYNC_CHANGE_EVENT,SYNC_STATUS_EVENT,readAccount,syncIsOn} from './accountClient.js';
+import {ACCOUNT_CHANGE_EVENT,OPEN_ACCOUNT_EVENT,SYNC_CHANGE_EVENT,SYNC_STATUS_EVENT,readAccount,syncIsOn} from './accountClient.js';
 
 // The header's account entry (#500): a plain Sign in button when signed out (never a badge or a prompt), an avatar with a
 // sync dot when signed in. The panel is the same AccountSettings flow as Settings, in a bottom sheet on phones and a
@@ -23,8 +23,10 @@ export default function AccountEntry({gateway,phone,onSettings}){
   const a=()=>{const next=readAccount(store());if(!!next!==was.current){was.current=!!next;setOpen(false);}setAccount(next);setOn(syncIsOn(store()));};
   const o=()=>{setOn(syncIsOn(store()));setStatus(null);};
   const s=e=>setStatus(e.detail);
+  const openSheet=()=>{if(!readAccount(store()))setOpen(true);};
+  window.addEventListener(OPEN_ACCOUNT_EVENT,openSheet);
   window.addEventListener(ACCOUNT_CHANGE_EVENT,a);window.addEventListener(SYNC_CHANGE_EVENT,o);window.addEventListener(SYNC_STATUS_EVENT,s);
-  return()=>{window.removeEventListener(ACCOUNT_CHANGE_EVENT,a);window.removeEventListener(SYNC_CHANGE_EVENT,o);window.removeEventListener(SYNC_STATUS_EVENT,s);};
+  return()=>{window.removeEventListener(OPEN_ACCOUNT_EVENT,openSheet);window.removeEventListener(ACCOUNT_CHANGE_EVENT,a);window.removeEventListener(SYNC_CHANGE_EVENT,o);window.removeEventListener(SYNC_STATUS_EVENT,s);};
  },[]);
  const panel=<AccountSettings gateway={gateway} variant="sheet" onSettings={()=>{setOpen(false);onSettings?.();}}/>;
  const sheet=<Drawer rootClassName="account-drawer" placement="bottom" size="auto" open={open} onClose={()=>setOpen(false)} destroyOnHidden title={null} closable={false} aria-label={account?t('账号'):t('登录卡疲扒拉')}><div className="more-handle" aria-hidden="true"/>{panel}</Drawer>;

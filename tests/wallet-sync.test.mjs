@@ -8,6 +8,7 @@ import {readWalletDocument,replaceWalletDocument,WALLET_FORMAT_VERSION} from '..
 import {newWalletCard} from '../src/walletRegistry.js';
 import {cardProducts} from '../src/productCatalog.js';
 import {validateCostEvent} from '../src/costTracking.js';
+import {assertWalletBody} from './helpers/account-body.mjs';
 import {SYNC_STATE_KEY,ACCOUNT_SESSION_KEY,CHANGE_EVENTS,createAccountTransport,createWalletSync,startWalletSync,mergeWalletDocuments,readSyncState,setSyncOn,stableJson} from '../src/walletSync.js';
 
 const GATEWAY='https://gateway.example.test';
@@ -25,6 +26,8 @@ function fakeServer(nowSec){
   const reply=(status,body)=>({ok:status<300,status,json:async()=>body});
   if(init.method==='GET')return reply(200,{revision:s.revision,formatVersion:s.formatVersion,document:s.document,updatedAt:s.updatedAt});
   if(s.beforePut){const f=s.beforePut;s.beforePut=null;f();}
+  // Every captured PUT body must stay inside the sync boundary (PRIVACY.md, #410, #547).
+  assertWalletBody(init.body,'PUT body');
   const b=JSON.parse(init.body);
   if(b.baseRevision!==s.revision)return reply(409,{error:{code:'stale_revision',revision:s.revision}});
   s.revision++;s.document=JSON.parse(JSON.stringify(b.document));s.formatVersion=b.formatVersion;s.updatedAt=nowSec?nowSec():++s.clock;
@@ -242,4 +245,12 @@ test('sync on: start pulls once and registers its listeners; stop removes them',
  assert.equal(readSyncState(storage).revision,1);
  stop();
  assert.equal(added.size,0);assert.ok(cleared);
+});
+
+test('the sync boundary check is live: a PUT body with a stray section or a credential-like key fails the stand-in server',async()=>{
+ const server=fakeServer();
+ const put=document=>server.fetch(GATEWAY+'/v2/account/wallet',{method:'PUT',headers:{Authorization:'Bearer '+TOKEN},credentials:'omit',body:JSON.stringify({baseRevision:0,formatVersion:1,document})});
+ await assert.rejects(put({walletCards:{cards:[]},bankSnapshot:{}}),/leaves the wallet document/);
+ await assert.rejects(put({walletCards:{cards:[{id:'a',cookie:'x'}]}}),/leaves the wallet document/);
+ assert.equal((await put({walletCards:{cards:[]}})).status,200);
 });

@@ -2,6 +2,8 @@
 // Pure functions over plain values so tests need no browser. The extension never shows it: it keeps its own onboarding.
 export const GUIDE_KEY='cardybara.webGuideSeen';
 export const GUIDE_STEPS=['what','where','keep','extras'];
+// #581: with Plaid offered (web, gateway set up) the guide adds a step for US credit cards before the optional features.
+export const guideSteps=({plaid=false}={})=>plaid?['what','where','keep','plaid','extras']:GUIDE_STEPS;
 
 // 'ios' (iPhone, iPad, and iPadOS that reports itself as a Mac), 'android', or 'desktop' (everything else).
 export function detectPlatform({userAgent='',platform='',maxTouchPoints=0}={}){

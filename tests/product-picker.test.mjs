@@ -106,3 +106,10 @@ test('the panel shows only a product\'s own art, and its strings exist in three 
  const catalog=i18nCatalog;
  for(const file of ['ProductPickerPanel.jsx','WalletOnboarding.jsx','CardProductPicker.jsx'])for(const [,key] of readFileSync(new URL('../src/'+file,import.meta.url),'utf8').matchAll(/\bt\('([^']+)'/g))for(const l of ['en-US','zh-TW'])assert.ok(catalog[l][key],`${file} ${l}: ${key}`);
 });
+
+test('the picker does not scroll its list or raise the phone keyboard when it finishes opening',()=>{
+ const panel=readFileSync(new URL('../src/ProductPickerPanel.jsx',import.meta.url),'utf8');
+ assert.match(panel,/afterOpenChange=\{o=>\{if\(o\)\{if\(!narrow\)input\.current\?\.focus\(\{preventScroll:true\}\);\}/);
+ assert.match(panel,/autoFocus=\{!narrow\}/);
+ assert.doesNotMatch(panel,/input\.current\?\.focus\(\)\}?[,;]?\s*else\{setQuery/);
+});

@@ -1,0 +1,203 @@
+{
+ "applinks": {
+  "details": [
+   {
+    "appIDs": [
+     "NCFW2F5ELP.com.citigroup.citimobile",
+     "5S2BSU62P2.com.citigroup.citimobile",
+     "5KLJKY3T39.com.citi.mobile.brave.uat",
+     "68PVU7J6S8.com.citi.mobile.citibank.ent"
+    ],
+    "defaults": {
+     "caseSensitive": false
+    },
+    "components": [
+     {
+      "/": "/US/ag/cards/application",
+      "?": {
+       "PO": "?*"
+      },
+      "exclude": true
+     },
+     {
+      "/": "/US/ag/cards/application",
+      "?": {
+       "cmp": "?*"
+      },
+      "exclude": true
+     },
+     {
+      "/": "/US/ag/cards/application",
+      "?": {
+       "src": "noul"
+      },
+      "exclude": true
+     },
+     {
+      "/": "/US/ag/cards/application",
+      "?": {
+       "pid": "920",
+       "app": "UNSOL"
+      }
+     },
+     {
+      "/": "/US/nga/cards/application",
+      "?": {
+       "PO": "?*"
+      },
+      "exclude": true
+     },
+     {
+      "/": "/US/nga/cards/application",
+      "?": {
+       "cmp": "?*"
+      },
+      "exclude": true
+     },
+     {
+      "/": "/US/nga/cards/application",
+      "?": {
+       "src": "noul"
+      },
+      "exclude": true
+     },
+     {
+      "/": "/US/nga/cards/application",
+      "?": {
+       "pid": "920",
+       "app": "UNSOL"
+      }
+     },
+     {
+      "/": "/US/ag/cards/invitation",
+      "?": {
+       "ID": "????????????"
+      }
+     },
+     {
+      "/": "/US/nga/cards/invitation",
+      "?": {
+       "ID": "????????????"
+      }
+     },
+     {
+      "/": "/US/ag/accstatement"
+     },
+     {
+      "/": "/US/ag/paymentHub/landing",
+      "?": {
+       "ID": [
+        "payee",
+        "bills",
+        "accounts",
+        "zelle",
+        "insPayment"
+       ]
+      }
+     },
+     {
+      "/": "/US/ag/paymentHub/landing",
+      "exclude": true
+     },
+     {
+      "/": "/US/nga/payments/autopay",
+      "?": {
+       "action": [
+        "enroll",
+        "edit"
+       ],
+       "last4": "????"
+      }
+     },
+     {
+      "/": "/US/nga/payments/autopay",
+      "exclude": true
+     },
+     {
+      "/": "/US/nga/directdeposit"
+     },
+     {
+      "/": "/US/ag/cch/paze"
+     },
+     {
+      "/": "/US/nga/activate/index"
+     },
+     {
+      "/": "/US/ag/activate/index"
+     },
+     {
+      "/": "/US/nga/alerts"
+     },
+     {
+      "/": "/US/ag/alerts"
+     },
+     {
+      "/": "/US/nga/citi-mobile-app-download/landing"
+     },
+     {
+      "/": "/US/ag/citi-mobile-app-download/landing"
+     },
+     {
+      "/": "/US/nga/ContactInfo/Profiles",
+      "?": {
+       "cmp": "YSIR_Bounceback_letter"
+      }
+     },
+     {
+      "/": "/US/nga/reward/creditmonitoring",
+      "?": {
+       "src": "ul"
+      }
+     },
+     {
+      "/": "/US/ag/citi-self-invest"
+     },
+     {
+      "/": "/US/ag/selfinvestdashboard"
+     },
+     {
+      "/": "/US/ag/dashboard",
+      "?": {
+       "chatFlow": "ivr"
+      }
+     },
+     {
+      "/": "/US/nga/dashboard",
+      "?": {
+       "chatFlow": "ivr"
+      }
+     },
+     {
+      "/": "/US/ag/dashboard",
+      "exclude": true
+     },
+     {
+      "/": "/US/nga/dashboard",
+      "exclude": true
+     },
+     {
+      "/": "/US/nga/bank/registration/set-up-online-access"
+     },
+     {
+      "/": "/US/nga/accstatement",
+      "?": {
+       "chatFlow": "statements"
+      }
+     },
+     {
+      "/": "/US/nga/accstatement",
+      "exclude": true
+     }
+    ]
+   }
+  ]
+ },
+ "appclips": {
+  "apps": [
+   "NCFW2F5ELP.com.citigroup.citimobile.Clip",
+   "5S2BSU62P2.com.citigroup.citimobile.Clip",
+   "5S2BSU62P2.com.citigroup.citimobile.AppClip",
+   "NCFW2F5ELP.com.citigroup.citimobile.AppClip"
+  ]
+ }
+}
