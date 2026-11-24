@@ -138,7 +138,7 @@ Besides the log line, the Worker writes one Workers Analytics Engine data point 
 | `double13` `public_tool_calls` | public-knowledge tool calls in an answered turn |
 | `double14` `wallet_results` | wallet tool results the extension sent with this request |
 
-Account routes (#571). Each request to an account route (`/v2/account/...`: sign-up, code, sign-in, sign-out, password reset and change, wallet sync, export, delete, passkeys) writes one point with `blob1` = `account`. Its positions are its own, shorter than the agent table; agent queries filter on `blob1 = 'agent'` and are unchanged, and the unfiltered per-route queries below now name `agent` and `chat`. Refused requests (wrong origin, bad body, rate limit) are written too; a path that is no account route, and the Plaid routes, are not.
+Account routes (#571). Each request to an account route (`/v2/account/...`: sign-up, code, sign-in, sign-out, password reset and change, wallet sync, export, delete, passkeys) writes one point with `blob1` = `account`. Its positions are its own, shorter than the agent table; agent queries filter on `blob1 = 'agent'` and are unchanged, and the unfiltered per-route queries below now name `agent` and `chat`. Refused requests (wrong origin, bad body, rate limit) are written too; a path that is no account route is not (the Plaid routes have their own point, below).
 
 | Field | Meaning |
 | --- | --- |
@@ -156,6 +156,15 @@ SELECT blob2 AS name, SUM(_sample_interval) AS requests,
   SUM(_sample_interval * IF(double1 >= 500, 1, 0)) / SUM(_sample_interval) AS rate_5xx
 FROM cardybara_agent_metrics WHERE blob1 = 'account' AND timestamp > NOW() - INTERVAL '1' HOUR
 GROUP BY name ORDER BY rate_5xx DESC
+```
+
+Plaid routes (#615). Each request to a Plaid route writes one point with `blob1` = `plaid`, the same fields as an account point (`blob2` name, `blob3` error, `double1` status, `double2` duration_ms). Names are one fixed word per route and method: `link_start` (POST `/v2/plaid/link`), `link_page` (GET same path), `link_token`, `link_complete`, `link_exit`, `cards`, `transactions`, `refresh`, `item_remove`, `webhook`. `blob3` is only a gateway code of a fixed list (the account list plus `plaid_error`, `plaid_limit`, `link_expired`, `item_not_found`, `webhook_invalid`); anything else, and any Plaid `error_code`, is written as `other`. A point never holds an item id, account id, access, public or link token, link handle, institution name, mask, amount or transaction data, and a wrong method or unknown path is not written. Example, status and error mix per route over the last day (run once after the deploy that adds this, and compare with a real link or refresh):
+
+```sql
+SELECT blob2 AS name, blob3 AS error, double1 AS status, SUM(_sample_interval) AS requests,
+  SUM(_sample_interval * double2) / SUM(_sample_interval) AS avg_ms
+FROM cardybara_agent_metrics WHERE blob1 = 'plaid' AND timestamp > NOW() - INTERVAL '1' DAY
+GROUP BY name, error, status ORDER BY requests DESC
 ```
 
 Push sender runs (#569). Each run of the 15-minute push sender (`sendDuePushes`, `gateway/src/push.js`) that is not skipped (no VAPID secrets) writes one point to the same dataset, with `blob1` = `push` and no other string field. Agent-turn queries filter on `blob1 = 'agent'` and are unchanged. The doubles are positional and mean something else than the table above:

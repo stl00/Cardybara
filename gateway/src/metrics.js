@@ -23,12 +23,21 @@ const ACCOUNT_NAMES={
  'passkey_status GET':'passkey','passkey_register_options POST':'passkey','passkey_register_verify POST':'passkey',
  'passkey_login_options POST':'passkey','passkey_login_verify POST':'passkey','passkey_list GET':'passkey','passkey_remove DELETE':'passkey',
 };
+/** Plaid routes (plaid.js, #615): same shape as an account point under `blob1` = `plaid`; the name is one fixed word per route and method. */
+const PLAID_NAMES={
+ 'plaid_link_start POST':'link_start','plaid_cards GET':'cards','plaid_transactions GET':'transactions','plaid_refresh POST':'refresh','plaid_item_remove DELETE':'item_remove',
+ 'plaid_link_page GET':'link_page','plaid_link_token POST':'link_token','plaid_link_complete POST':'link_complete','plaid_link_exit POST':'link_exit','plaid_webhook POST':'webhook',
+};
 /** Error codes an account point may carry (blob3); anything else is written as `other`, so a code can never be free text. */
 export const ACCOUNT_ERRORS=['bad_request','origin_forbidden','not_found','method_not_allowed','too_large','unsupported_media_type','rate_limited','gateway_not_configured','gateway_busy',
  'weak_password','code_invalid','code_expired','invalid_credentials','unauthorized','email_unverified','stale_revision','invalid_document','passkey_invalid','challenge_expired','passkey_unavailable',
- 'account_locked','too_many_codes','mail_failed','account_unavailable','plaid_unavailable'];
+ 'account_locked','too_many_codes','mail_failed','account_unavailable',
+ // The gateway's own Plaid refusals (never Plaid's error_code, which can name an institution problem per Item).
+ 'plaid_unavailable','plaid_error','plaid_limit','link_expired','item_not_found','webhook_invalid'];
 export const ACCOUNT_BLOBS=['route','name','error'];
 export const ACCOUNT_DOUBLES=['status','duration_ms'];
+export const PLAID_BLOBS=ACCOUNT_BLOBS;
+export const PLAID_DOUBLES=ACCOUNT_DOUBLES;
 const accountError=e=>!e?'':ACCOUNT_ERRORS.includes(e)?e:'other';
 
 /**
@@ -40,6 +49,8 @@ export function metricsPoint(ctx,durationMs){
  const r=ctx.record,m=ctx.metrics||{};
  const account=ACCOUNT_NAMES[r.route+' '+ctx.request?.method];
  if(account)return {indexes:['account'],blobs:['account',account,accountError(r.error)],doubles:[count(r.status),count(durationMs)]};
+ const plaidName=PLAID_NAMES[r.route+' '+ctx.request?.method];
+ if(plaidName)return {indexes:['plaid'],blobs:['plaid',plaidName,accountError(r.error)],doubles:[count(r.status),count(durationMs)]};
  if(r.route!=='agent'&&r.route!=='chat')return null;
  const answered=r.route==='agent'?!!r.answered:r.status===200&&!r.error;
  return {
