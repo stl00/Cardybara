@@ -57,7 +57,7 @@ for(const [name,signIn] of Object.entries(PATHS)){
   assert.equal(syncIsOn(d.storage),true,'sync is on after sign-in');
   assert.ok(d.events.includes('sync-change'),'the page is told to start the loop');
   const stop=d.startSync();
-  if(!name.startsWith('extension')){await settle(srv,before+1);assert.equal(walletGets(srv)-before,1,'exactly one pull');}
+  await settle(srv,before+1);assert.equal(walletGets(srv)-before,1,'exactly one pull');
   stop();
  });
 }
