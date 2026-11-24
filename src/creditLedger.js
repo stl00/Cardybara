@@ -11,10 +11,12 @@ const ZERO=()=>({available:0,used:0,unused:0,skipped:0,notCaptured:0,open:0});
 const addDay=day=>new Date(Date.parse(day+'T00:00:00Z')+86400000).toISOString().slice(0,10);
 const cents=n=>Math.round(n*100)/100;
 function latestMark(events,key){return events.filter(e=>e.key===key).sort((a,b)=>Date.parse(b.at)-Date.parse(a.at)||String(b.id).localeCompare(String(a.id)))[0];}
-/** The window a basis covers: the card year containing asOf (null without a usable fee date) or the calendar year of asOf. */
-export function ledgerWindow(basis,feeDate,asOf){
- if(basis==='calendar-year'){const y=asOf.slice(0,4);return {start:`${y}-01-01`,end:`${y}-12-31`};}
- return anniversaryPeriod(feeDate,asOf);
+/** The window a basis covers: the card year containing asOf (null without a usable fee date) or the calendar year of asOf; `previous` steps back one period (null before the card's first fee date). */
+export function ledgerWindow(basis,feeDate,asOf,{previous=false}={}){
+ if(basis==='calendar-year'){const y=String(Number(asOf.slice(0,4))-(previous?1:0));return {start:`${y}-01-01`,end:`${y}-12-31`};}
+ const now=anniversaryPeriod(feeDate,asOf);
+ if(!previous||!now)return now;
+ return anniversaryPeriod(feeDate,new Date(Date.parse(now.start+'T00:00:00Z')-86400000).toISOString().slice(0,10));
 }
 /**
  * Every cycle of a credit that starts inside the window, in order. Counting by start day gives a monthly credit 12
@@ -62,18 +64,18 @@ const sum=(into,row)=>{for(const k of Object.keys(ZERO()))into[k]=cents(into[k]+
  * @param {object[]} cards wallet cards (id, name, bank, region, currency, feeDate)
  * @param {object[]} events the user's credit marks
  * @param {string} asOf wallet day, YYYY-MM-DD
- * @param {{basis?:'card-year'|'calendar-year'}} options
+ * @param {{basis?:'card-year'|'calendar-year',previous?:boolean}} options previous: the period before the current one. Its cycles have all ended, so nothing in it is open
  * @returns one entry per card with a known credit profile: amounts in the card's currency (available = used +
  * unused + skipped + notCaptured + open), the published annual fee, and a note when the basis cannot be worked out.
  */
-export function creditLedger(cards,events,asOf,{basis='card-year'}={}){
+export function creditLedger(cards,events,asOf,{basis='card-year',previous=false}={}){
  if(!LEDGER_BASES.includes(basis))throw Error('invalid_ledger_basis');
  const dismissed=dismissedKeys(events),out=[];
  for(const card of cards||[]){
   const profile=profileForCard(card);if(!profile)continue;
-  const feeDate=cleanFeeDate(card.feeDate)?card.feeDate:null,window=ledgerWindow(basis,feeDate,asOf);
+  const feeDate=cleanFeeDate(card.feeDate)?card.feeDate:null,window=ledgerWindow(basis,feeDate,asOf,{previous});
   const fee=profile.fees?.currency===card.currency||!card.currency?profile.fees?.primaryAnnual??null:null;
-  const entry={cardId:card.id,basis,currency:card.currency||profile.fees?.currency,period:window,annualFee:fee,...ZERO(),credits:[],needsFeeDate:false,excluded:{cardYearCredits:0,oneOffOrOngoing:0},offCycle:{available:0,used:0,count:0,credits:[]}};
+  const entry={cardId:card.id,basis,previous,currency:card.currency||profile.fees?.currency,period:window,annualFee:fee,...ZERO(),credits:[],needsFeeDate:false,beforeCard:false,excluded:{cardYearCredits:0,oneOffOrOngoing:0},offCycle:{available:0,used:0,count:0,credits:[]}};
   const totals=ZERO();
   for(const b of profile.benefits||[]){
    if(!['credit','promo'].includes(b.category)||b.applicability||dismissed.has(dismissKey(card.id,b.knowledgeRuleId)))continue;
@@ -94,7 +96,7 @@ export function creditLedger(cards,events,asOf,{basis='card-year'}={}){
    const credit={ruleId:b.knowledgeRuleId,title:b.title,cycle:b.period,cycles:rows.length,...rows.reduce(sum,ZERO())};
    entry.credits.push(credit);sum(totals,credit);
   }
-  if(basis==='card-year'&&!window)entry.needsFeeDate=true;
+  if(basis==='card-year'&&!window){if(previous&&feeDate)entry.beforeCard=true;else entry.needsFeeDate=true;}
   Object.assign(entry,totals);
   entry.netOfFee={used:fee==null?null:cents(entry.used-fee),available:fee==null?null:cents(entry.available-fee)};
   out.push(entry);
