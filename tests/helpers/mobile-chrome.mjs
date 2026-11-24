@@ -108,6 +108,8 @@ export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external 
     };
     const ctl = {
       origin, evaluate, page, errors: collected.errors,
+      // Takes the static server away for good (a phone with no network): only the service worker's cache can answer after this.
+      stopServer: async () => { if (!server) throw Error('stopServer needs the built-in static server'); await new Promise(r => server.close(r)); server.closeAllConnections?.(); },
       goto: async path => { await page('Page.navigate', {url: origin + path}); await ctl.until(`!!document.querySelector('#root > *')`); },
       // Polls a page expression until it is truthy.
       until: async (expr, what = expr, ms = 8000) => {
