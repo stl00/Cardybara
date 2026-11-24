@@ -1,7 +1,7 @@
 // Hourly alert check and KV switches (stl00/Cardybara#259). Synthetic query results and an in-memory GitHub only.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {evaluate,readThresholds,runAlerts,DEFAULT_THRESHOLDS,HOUR_SQL,WEEK_SQL,SILENCE_SQL,PUSH_SQL,PUSH_RECENT_SQL,LABELS} from '../gateway/src/alerts.js';
+import {evaluate,readThresholds,runAlerts,DEFAULT_THRESHOLDS,HOUR_SQL,WEEK_SQL,SILENCE_SQL,PUSH_SQL,PUSH_RECENT_SQL,ACCOUNTS_SQL,ACCOUNTS_ROUTES_SQL,LABELS} from '../gateway/src/alerts.js';
 import {parseSwitches,withoutDisabledTools,unavailableText} from '../gateway/src/switches.js';
 import {callLedger,SETTINGS_KEY} from '../gateway/src/gateway.js';
 import {localGateway} from '../gateway/src/local.mjs';
@@ -50,14 +50,15 @@ test('thresholds come from KV settings.alerts over the defaults; an invalid one 
 });
 
 // A fake GitHub and SQL API behind one fetch.
-function world({hour={turns:100,errors:0,repaired:0,fallbacks:0},week={turns:1000,repaired:0,fallbacks:0},recent={turns:100},push={runs:4,stuck:0,min_age:0},pushRecent={runs:12},issues=[]}={}){
- const w={hour,week,recent,push,pushRecent,issues,calls:[],failSql:false};
+function world({hour={turns:100,errors:0,repaired:0,fallbacks:0},week={turns:1000,repaired:0,fallbacks:0},recent={turns:100},push={runs:4,stuck:0,min_age:0},pushRecent={runs:12},accounts={requests:100,server_errors:0},accountRoutes=[],issues=[]}={}){
+ const w={hour,week,recent,push,pushRecent,accounts,accountRoutes,issues,calls:[],failSql:false};
  w.fetch=async(url,init={})=>{
   w.calls.push(url);
   if(url.includes('/analytics_engine/sql')){
    if(w.failSql)return new Response('x',{status:500});
    assert.equal(init.headers.Authorization,'Bearer synthetic-sql-token');
-   const row=init.body===HOUR_SQL?w.hour:init.body===WEEK_SQL?w.week:init.body===SILENCE_SQL?w.recent:init.body===PUSH_SQL?w.push:init.body===PUSH_RECENT_SQL?w.pushRecent:assert.fail('unexpected query');
+   if(init.body===ACCOUNTS_ROUTES_SQL)return Response.json({data:w.accountRoutes});
+   const row=init.body===ACCOUNTS_SQL?w.accounts:init.body===HOUR_SQL?w.hour:init.body===WEEK_SQL?w.week:init.body===SILENCE_SQL?w.recent:init.body===PUSH_SQL?w.push:init.body===PUSH_RECENT_SQL?w.pushRecent:assert.fail('unexpected query');
    return Response.json({data:[row]});
   }
   assert.equal(init.headers.Authorization,'Bearer synthetic-github-token');
@@ -312,4 +313,42 @@ test('push: silence of the sender neither opens nor closes an incident; an unrea
  assert.equal(w.issues.find(i=>i.number===7).state,'open');
  const w2=world();const orig=w2.fetch;w2.fetch=async(url,init)=>init?.body===PUSH_SQL?new Response('x',{status:500}):orig(url,init);
  assert.deepEqual((await run(await alertEnv({spentUsd:8.5}),w2)).done,['budget:opened']);
+});
+
+// --- account and Plaid routes (#616)
+const acc=(requests,serverErrors,routes=[])=>({requests,serverErrors,routes});
+test('accounts: 5 percent 5xx over the account and Plaid routes breaches; fewer than 20 requests is unknown',()=>{
+ assert.equal(state(evaluate({accounts:acc(100,4)}),'accounts'),'ok');
+ assert.equal(state(evaluate({accounts:acc(100,5)}),'accounts'),'breach');
+ assert.equal(state(evaluate({accounts:acc(20,1)}),'accounts'),'breach');
+ assert.equal(state(evaluate({accounts:acc(19,19)}),'accounts'),'unknown','too few requests to judge');
+ assert.equal(state(evaluate({accounts:null}),'accounts'),'unknown');
+ assert.equal(state(evaluate({}),'accounts'),'unknown');
+});
+test('accounts: thresholds are overridable, invalid values are ignored, and the docs list the defaults',()=>{
+ assert.equal(DEFAULT_THRESHOLDS.accountErrorPercent,5);assert.equal(DEFAULT_THRESHOLDS.accountMinRequests,20);
+ const {thresholds,invalid}=readThresholds({alerts:{accountErrorPercent:10,accountMinRequests:50}});
+ assert.deepEqual(invalid,[]);
+ assert.equal(state(evaluate({accounts:acc(100,9)},thresholds),'accounts'),'ok');
+ assert.equal(state(evaluate({accounts:acc(40,40)},thresholds),'accounts'),'unknown');
+ for(const bad of [0,-1,'5',NaN,101])assert.deepEqual(readThresholds({alerts:{accountErrorPercent:bad}}).invalid,['accountErrorPercent']);
+});
+test('accounts: a 5xx burst opens one incident with counts and route names only, comments, then closes on recovery',async()=>{
+ const env=await alertEnv(),w=world({accounts:{requests:200,server_errors:30},accountRoutes:[{family:'account',name:'sync_push',server_errors:20},{family:'plaid',name:'refresh',server_errors:10},{family:'plaid',name:'user@example.com',server_errors:1}]});
+ assert.deepEqual((await run(env,w)).done,['accounts:opened']);
+ const [issue]=w.issues;
+ assert.equal(issue.title,'Assistant alert: accounts');assert.deepEqual(issue.labels,['agent-incident','P1']);
+ assert.match(issue.body,/serverErrorPercent: 15/);assert.match(issue.body,/requestsLastHour: 200/);assert.match(issue.body,/account\/sync_push=20, plaid\/refresh=10/);
+ assert.ok(!/@|synthetic-(github|sql)-token|synthetic-account/.test(issue.body),'only fixed route names and counts');
+ assert.deepEqual((await run(env,w)).done,['accounts:commented']);assert.equal(w.issues.length,1);
+ w.accounts={requests:200,server_errors:2};w.accountRoutes=[];
+ assert.deepEqual((await run(env,w)).done,['accounts:closed']);
+ assert.equal(w.issues[0].state,'closed');assert.match(w.issues[0].comments.at(-1),/Healthy again/);
+});
+test('accounts: too few requests or an unreadable query leaves an open incident alone and other signals working',async()=>{
+ const open=[{number:9,state:'open',title:'Assistant alert: accounts',labels:LABELS,comments:[]}];
+ const w=world({accounts:{requests:3,server_errors:3},issues:open});
+ assert.deepEqual((await run(await alertEnv(),w)).done,[]);assert.equal(w.issues[0].state,'open');
+ const w2=world({issues:[{...open[0]}]});const orig=w2.fetch;w2.fetch=async(url,init)=>init?.body===ACCOUNTS_SQL?new Response('x',{status:500}):orig(url,init);
+ assert.deepEqual((await run(await alertEnv({spentUsd:8.5}),w2)).done,['budget:opened']);assert.equal(w2.issues[0].state,'open');
 });
