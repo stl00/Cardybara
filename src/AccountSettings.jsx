@@ -52,6 +52,8 @@ const field={style:{minHeight:44},maxLength:1024};
 export const maskEmail=email=>{const [user,domain]=String(email||'').split('@');if(!domain)return email||'';return user.slice(0,Math.min(2,Math.max(1,user.length-1)))+'•••@'+domain;};
 // `variant="card"` is the full Settings card. `variant="sheet"` is the header's sign-in sheet / account popover (#500): the same
 // flows and error texts, with the passkey first, and when signed in only sync, passkeys, a link to Settings and sign out.
+// One state-dependent sentence under the sync switch (#600): when sync is off, the sentence that says it syncs must not show.
+export const syncCopy=on=>on?t('你的钱包会在你登录的设备间同步。银行密码永远不会上传。'):t('同步已关闭，这台设备的钱包没有上传。再次登录会重新开启；也可以随时在这里打开。');
 export default function AccountSettings({gateway,variant='card',onSettings}){
  const sheet=variant==='sheet';
  useI18n();const {message:toast}=App.useApp();
@@ -140,7 +142,7 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
    <div><Text type="secondary">{t('已登录')}</Text><div className="account-email"><Text strong>{maskEmail(account.email)||t('（邮箱未记录）')}</Text></div></div>
    <div>
     <label className="account-sync-switch"><Switch aria-label={t('在设备间同步钱包')} checked={on} onChange={toggle}/><Text>{t('在设备间同步钱包')}</Text></label>
-    <Paragraph type="secondary" className="account-sync-copy" style={{marginTop:8,marginBottom:0}}>{t('你的钱包会在你登录的设备间同步。银行密码永远不会上传。')}</Paragraph>
+    <Paragraph type="secondary" className="account-sync-copy" style={{marginTop:8,marginBottom:0}}>{syncCopy(on)}</Paragraph>
     <div><Text className="account-sync-status" type={on&&(status==='error'||status==='signed_out')?'danger':'secondary'}>{lineText(syncLine({on,status,syncedAt}))}</Text></div>
    </div>
    {err&&<Alert type="error" showIcon title={err} role="alert"/>}
@@ -153,8 +155,8 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
    <div><Text type="secondary">{t('已登录')}</Text><div className="account-email" style={{wordBreak:'break-all'}}><Text strong>{account.email||t('（邮箱未记录）')}</Text></div></div>
    <div>
     <label className="account-sync-switch"><Switch aria-label={t('在设备间同步钱包')} checked={on} onChange={toggle}/><Text strong>{t('在设备间同步钱包')}</Text></label>
-    <Paragraph type="secondary" className="account-sync-copy" style={{marginTop:8,marginBottom:0}}>{t('你的钱包会在你登录的设备间同步。银行密码永远不会上传。')}</Paragraph>
-    <Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{on?t('钱包的一份副本存在 Cardybara 服务器上，同一账号的其他设备会合并成同一个钱包。关闭后不再同步，服务器上的副本保留，直到你删除账号。'):t('同步已关闭，这台设备的钱包没有上传。再次登录会重新开启；也可以随时在这里打开。')}</Paragraph>
+    <Paragraph type="secondary" className="account-sync-copy" style={{marginTop:8,marginBottom:0}}>{syncCopy(on)}</Paragraph>
+    {on&&<Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{t('钱包的一份副本存在 Cardybara 服务器上，同一账号的其他设备会合并成同一个钱包。关闭后不再同步，服务器上的副本保留，直到你删除账号。')}</Paragraph>}
     {!on&&<Text className="account-sync-status" type="warning">{lineText(syncLine({on,status,syncedAt}))}</Text>}
     {on&&<Text className="account-sync-status" type={status==='error'||status==='signed_out'?'danger':'secondary'}>{lineText(syncLine({on,status,syncedAt}))}</Text>}
    </div>
