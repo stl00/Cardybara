@@ -68,3 +68,14 @@ test('batch 12 records what the Bank of America pages state and leaves the rest 
  // Claims with no quote behind them stay out: reward expiry on the cash card, local transit and rideshare on the 2x tier.
  assert.doesNotMatch(JSON.stringify(find(cash,'earning-0')),/expire|过期/);assert.doesNotMatch(JSON.stringify(find(ascent,'earning-1')),/transit|rideshare|交通|网约车/);
 });
+test('batch 13 records what the Citi pages state and leaves the rest unknown',()=>{
+ const rules=productId=>queryKnowledge({productId,asOf:'2026-11-24'}).rules,find=(productId,key)=>rules(productId).find(r=>r.id===`rule.${productId}.${key}`);
+ const strata='citi-us-citi-strata-card',costco='citi-us-costco-anywhere-visa-card-by-citi';
+ assert.deepEqual([0,1,2,3,4,5].map(i=>find(strata,`earning-${i}`).terms.multiplier),[5,3,3,3,2,1]);
+ assert.deepEqual([0,1,2,3,4].map(i=>find(costco,`earning-${i}`).terms.multiplier),[5,4,3,2,1]);
+ assert.equal(find(costco,'earning-0').terms.spendCap.amount,7000);assert.equal(find(costco,'earning-0').terms.afterCapPercent,1);
+ assert.equal(find(costco,'car-rental').terms.amount,null,'the page gives only the name');
+ for(const id of ['citi-us-citi-simplicity-card','citi-us-citi-diamond-preferred-card'])assert.equal(rules(id).filter(r=>r.kind==='earning-rate').length,0,id);
+ // Their annual fee is not rendered on the public page, so they stay without rules.
+ for(const id of ['citi-us-citi-aadvantage-globe-card','citi-us-citi-aadvantage-business-card'])assert.equal(rules(id).length,0,id);
+});

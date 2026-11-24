@@ -269,7 +269,13 @@
   "超市（自选类别）": "shopping",
   "航空、酒店、邮轮和租车直接消费": "travel",
   "Alaska Airlines 和 Hawaiian Airlines 消费": "airline",
-  "加油站、充电站、有线电视和流媒体": "general"
+  "加油站、充电站、有线电视和流媒体": "general",
+  "加油站、充电和指定交通": "ground-transport",
+  "Costco 加油": "ground-transport",
+  "其他合资格加油和充电": "ground-transport",
+  "餐厅和合资格旅行": "dining",
+  "Costco 和 Costco.com 其他消费": "shopping",
+  "超市和杂货配送": "shopping"
  },
  "brands": [
   {
