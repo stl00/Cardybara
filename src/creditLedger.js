@@ -6,7 +6,8 @@ import {anniversaryPeriod,cleanFeeDate} from './feeDate.js';
 // what the user marked. A cycle that ended with no mark is "not captured": the wallet does not know, and never
 // calls it used or missed.
 export const LEDGER_BASES=['card-year','calendar-year'];
-const CYCLES=new Set(['calendar-month','calendar-quarter','calendar-half-year','calendar-year','account-anniversary']);
+const CYCLES=new Set(['calendar-month','calendar-quarter','calendar-half-year','calendar-year','account-anniversary','fee-month-year']);
+const FEE_DATE_PERIODS=new Set(['account-anniversary','fee-month-year']);
 const ZERO=()=>({available:0,used:0,unused:0,skipped:0,notCaptured:0,open:0});
 const addDay=day=>new Date(Date.parse(day+'T00:00:00Z')+86400000).toISOString().slice(0,10);
 const cents=n=>Math.round(n*100)/100;
@@ -88,7 +89,7 @@ export function creditLedger(cards,events,asOf,{basis='card-year',previous=false
     }
     continue;
    }
-   if(b.period==='account-anniversary'&&!feeDate&&basis==='calendar-year'){entry.excluded.cardYearCredits++;entry.needsFeeDate=true;continue;}
+   if(FEE_DATE_PERIODS.has(b.period)&&!feeDate&&basis==='calendar-year'){entry.excluded.cardYearCredits++;entry.needsFeeDate=true;continue;}
    if(!window)continue;
    const cycles=cyclesInWindow(b,window,feeDate).filter(p=>(!b.validFrom||b.validFrom<=p.end)&&(!b.validThrough||b.validThrough>=p.start));
    const rows=cycles.map(p=>cycleRow(card,b,p,events,asOf)).filter(Boolean);

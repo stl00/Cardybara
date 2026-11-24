@@ -108,6 +108,7 @@
     "calendar-quarter",
     "calendar-month",
     "account-anniversary",
+    "fee-month-year",
     "rolling-four-years",
     "activation-based",
     "fixed-date",

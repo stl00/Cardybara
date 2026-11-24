@@ -100739,5 +100739,87 @@
         }
       ]
     }
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-journey-visa-card.airline-credit",
+    "revision": 2,
+    "revisionId": "rule.wells-fargo-us-autograph-journey-visa-card.airline-credit@2026-11-24.2",
+    "supersedes": "rule.wells-fargo-us-autograph-journey-visa-card.airline-credit@2026-11-04.1",
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-autograph-journey-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel",
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "航空消费抵扣",
+      "summary": "每年50美元，须有至少50美元航空消费；首年从开户起，之后的12个月从年费入账次月1日起算。",
+      "sourceText": "$50 annual statement credit with $50 minimum airline purchase",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每年50美元，须有至少50美元航空消费；首年从开户起，之后的12个月从年费入账次月1日起算。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "$50 airline statement credit",
+      "summary": "Each year, a one-time $50 statement credit for the first airline purchase of at least $50 on the card.",
+      "howToUse": [
+        "Make an airline purchase of at least $50 with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-autograph-journey-visa-card",
+          "text": "Each year, you will receive a one-time $50 statement credit applied to your account when your card is used for your first airline purchase of at least $50."
+        }
+      ]
+    },
+    "terms": {
+      "category": "credit",
+      "period": "fee-month-year",
+      "amount": 50,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每年50美元，须有至少50美元航空消费；首年从开户起，之后的12个月从年费入账次月1日起算。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-journey-visa-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]

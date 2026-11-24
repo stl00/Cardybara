@@ -31,6 +31,18 @@ export function anniversaryPeriod(feeDate,asOf){
  if(d.year!=null&&startYear<d.year)return null;
  return {start:feeDayIn(d,startYear),end:shift(feeDayIn(d,startYear+1),-1)};
 }
+/**
+ * The 12 months that start on the first day of the month after the annual fee posts (fee-month-year), containing asOf.
+ * Fee in March: Apr 1 to Mar 31. Fee in December: Jan 1 to Dec 31 of the next year. Null without a fee date, and before the
+ * first window when the user gave the year the card was opened.
+ */
+export function feeMonthPeriod(feeDate,asOf){
+ const d=cleanFeeDate(feeDate);if(!d||!isDay(asOf))return null;
+ const startIn=y=>d.month===12?`${y+1}-01-01`:`${y}-${pad(d.month+1)}-01`;
+ const y=Number(asOf.slice(0,4)),startYear=startIn(y)<=asOf?y:y-1;
+ if(d.year!=null&&startYear<d.year)return null;
+ return {start:startIn(startYear),end:shift(startIn(startYear+1),-1)};
+}
 /** The next fee date on or after asOf, or null without a fee date. */
 export function nextFeeDay(feeDate,asOf){
  const d=cleanFeeDate(feeDate);if(!d||!isDay(asOf))return null;

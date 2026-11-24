@@ -17,7 +17,7 @@ export function useCardEdits(){
 }
 /** Credits on this card that reset on the account anniversary and are in force today. */
 export function anniversaryCredits(card,asOf=walletDay()){
- return (profileForCard(card)?.benefits||[]).filter(b=>['credit','promo'].includes(b.category)&&b.period==='account-anniversary'&&!b.applicability&&!(b.validFrom&&b.validFrom>asOf)&&!(b.validThrough&&b.validThrough<asOf));
+ return (profileForCard(card)?.benefits||[]).filter(b=>['credit','promo'].includes(b.category)&&['account-anniversary','fee-month-year'].includes(b.period)&&!b.applicability&&!(b.validFrom&&b.validFrom>asOf)&&!(b.validThrough&&b.validThrough<asOf));
 }
 /**
  * Month and day, and the year only if the user knows it. Empty means not set: nothing is filled in for the
