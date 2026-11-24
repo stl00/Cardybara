@@ -315,7 +315,7 @@ test('push: silence of the sender neither opens nor closes an incident; an unrea
  assert.deepEqual((await run(await alertEnv({spentUsd:8.5}),w2)).done,['budget:opened']);
 });
 
-// --- account and Plaid routes (#616)
+// --- account and Plaid routes (#616), web push subscription routes (#625)
 const acc=(requests,serverErrors,routes=[])=>({requests,serverErrors,routes});
 test('accounts: 5 percent 5xx over the account and Plaid routes breaches; fewer than 20 requests is unknown',()=>{
  assert.equal(state(evaluate({accounts:acc(100,4)}),'accounts'),'ok');
@@ -352,3 +352,16 @@ test('accounts: too few requests or an unreadable query leaves an open incident 
  const w2=world({issues:[{...open[0]}]});const orig=w2.fetch;w2.fetch=async(url,init)=>init?.body===ACCOUNTS_SQL?new Response('x',{status:500}):orig(url,init);
  assert.deepEqual((await run(await alertEnv({spentUsd:8.5}),w2)).done,['budget:opened']);assert.equal(w2.issues[0].state,'open');
 });
+
+test('accounts: 5xx on the web push subscription routes breaches and names the route; the sender signal is separate',async()=>{
+ for(const q of [ACCOUNTS_SQL,ACCOUNTS_ROUTES_SQL])assert.match(q,/blob1 IN \('account', 'plaid', 'webpush'\)/);
+ for(const q of [PUSH_SQL,PUSH_RECENT_SQL]){assert.match(q,/blob1 = 'push'/);assert.ok(!q.includes('webpush'));}
+ const env=await alertEnv(),w=world({accounts:{requests:40,server_errors:12},accountRoutes:[{family:'webpush',name:'subscribe',server_errors:12}]});
+ const r=await run(env,w);
+ assert.deepEqual(r.done,['accounts:opened']);
+ assert.equal(state(r.results,'push'),'ok','the sender stall signal is unchanged');
+ const [issue]=w.issues;
+ assert.equal(issue.title,'Assistant alert: accounts');
+ assert.match(issue.body,/web push subscription routes/);assert.match(issue.body,/serverErrorPercent: 30/);assert.match(issue.body,/webpush\/subscribe=12/);
+});
+

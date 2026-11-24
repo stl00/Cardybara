@@ -319,7 +319,8 @@ test('gateway-set-vapid.sh refuses to replace an existing pair unless ROTATE=1',
 
 test('each non-skipped run writes one push data point: route only, counts and an age in a fixed order',async()=>{
  const points=[];
- const g=await setup({vars:{AGENT_METRICS:{writeDataPoint:p=>points.push(structuredClone(p))}}});
+ // The PUTs below write their own request points (blob1 'webpush', #625); only the sender's are collected here.
+ const g=await setup({vars:{AGENT_METRICS:{writeDataPoint:p=>{if(p.blobs[0]!=='webpush')points.push(structuredClone(p));}}}});
  const dev=i=>deviceId(i);
  const ep=i=>'https://fcm.googleapis.com/fcm/send/m-'+i;
  await put(g,base({device:dev(1),subscription:{endpoint:ep(1),keys:KEYS},times:[{at:SEC-600,kind:'payment'}]}));// sent
@@ -379,3 +380,48 @@ test('a push point never carries a string field other than the route',async()=>{
  assert.ok(p.doubles.every(n=>typeof n==='number'&&Number.isFinite(n)));
  assert.equal(p.doubles.length,PUSH_DOUBLES.length);
 });
+
+// Subscription route metrics (stl00/Cardybara#625): one request point per route and method, no subscription data.
+test('metrics: each push route and method writes one point with its fixed name and nothing of the subscription',async()=>{
+ const points=[];
+ const g=await setup({vars:{AGENT_METRICS:{writeDataPoint:p=>points.push(structuredClone(p))}}});
+ assert.equal((await put(g,base())).status,200);
+ assert.equal((await g.handle(req('GET',ROUTES.pushKey,undefined))).status,200);
+ assert.equal((await g.handle(req('DELETE',ROUTES.push,{device:DEVICE}))).status,200);
+ assert.deepEqual(points.map(p=>p.blobs),[['webpush','subscribe',''],['webpush','key',''],['webpush','unsubscribe','']]);
+ for(const p of points){assert.deepEqual(p.indexes,['webpush']);assert.equal(p.doubles.length,2);assert.equal(p.doubles[0],200);assert.ok(Number.isFinite(p.doubles[1]));}
+ // Negative control: the synthetic subscription that was sent shows up nowhere in what was written.
+ const text=JSON.stringify(points),sent=base();
+ for(const secret of [DEVICE,ENDPOINT,'fcm.googleapis.com','synthetic-endpoint',KEYS.p256dh,KEYS.auth,...sent.times.map(t=>String(t.at)),...sent.times.map(t=>t.kind),ORIGIN])assert.ok(!text.includes(secret),secret);
+});
+
+test('metrics: an unknown path, a wrong method or a preflight on the push routes writes nothing',async()=>{
+ const points=[];
+ const g=await setup({vars:{AGENT_METRICS:{writeDataPoint:p=>points.push(p)}}});
+ for(const [method,path] of [['POST',ROUTES.push],['GET',ROUTES.push],['PUT',ROUTES.pushKey],['DELETE',ROUTES.pushKey],['GET','/v1/push/other'],['OPTIONS',ROUTES.push],['OPTIONS',ROUTES.pushKey]])
+  await g.handle(req(method,path,undefined));
+ assert.deepEqual(points,[]);
+});
+
+test('metrics: push refusals keep their own code; a code outside the list is written as other',async()=>{
+ const points=[],binding={writeDataPoint:p=>points.push(p)};
+ const off=await setup({vars:{VAPID_PRIVATE_KEY:undefined,AGENT_METRICS:binding}});
+ await put(off,base());await off.handle(req('GET',ROUTES.pushKey,undefined));
+ const full=await setup({vars:{MAX_PUSH_DEVICES:'0',AGENT_METRICS:binding}});
+ await put(full,base());
+ const capped=await setup({vars:{PUSH_WRITES_PER_CLIENT:'0',AGENT_METRICS:binding}});
+ await capped.handle(req('DELETE',ROUTES.push,{device:DEVICE}));
+ await put(capped,base({times:'synthetic'}));
+ assert.deepEqual(points.map(p=>[p.blobs[1],p.blobs[2],p.doubles[0]]),
+  [['subscribe','push_unavailable',503],['key','push_unavailable',503],['subscribe','push_capacity',503],['unsubscribe','push_daily_limit',429],['subscribe','bad_request',400]]);
+ const {metricsPoint}=await import('../gateway/src/metrics.js');
+ assert.deepEqual(metricsPoint({record:{route:'push',status:500,error:ENDPOINT},request:{method:'PUT'}},3).blobs,['webpush','subscribe','other']);
+});
+
+test('metrics: a missing or throwing binding changes nothing for the subscribing caller',async()=>{
+ for(const binding of [undefined,{},{writeDataPoint(){throw Error('boom');}}]){
+  const g=await setup({vars:{AGENT_METRICS:binding}});
+  const r=await put(g,base());assert.equal(r.status,200);assert.deepEqual(await r.json(),{status:'stored',times:2});
+ }
+});
+

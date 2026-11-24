@@ -23,7 +23,7 @@ export const DEFAULT_THRESHOLDS={
  minHourlyTurns:5,
  // Push: the oldest overdue reminder, in hours, that every sender run of the last hour left unsent (#570).
  pushOverdueHours:1,
- // Accounts (#616): share of 5xx responses over the account and Plaid routes in the last hour, with at least
+ // Accounts (#616): share of 5xx responses over the account, Plaid and web push subscription routes in the last hour, with at least
  // accountMinRequests requests in that hour (below it the state is unknown). 4xx answers (wrong code, wrong password) never count.
  accountErrorPercent:5,
  accountMinRequests:20,
@@ -32,7 +32,7 @@ export const SIGNALS=['budget','errors','repair','fallback','silence','push','ac
 export const LABELS=['agent-incident','P1'];
 export const DOCS_URL='https://github.com/stl00/Cardybara/blob/main/docs/GATEWAY.md#alerts-and-switches';
 const TITLE='Assistant alert: ';
-const MEANING={budget:'monthly budget used',errors:'error rate, last hour',repair:'repair rate vs 7-day mean',fallback:'fallback rate vs 7-day mean',silence:'no turns recorded, last 3 hours',push:'push sender stalled, last hour',accounts:'server errors on account and Plaid routes, last hour'};
+const MEANING={budget:'monthly budget used',errors:'error rate, last hour',repair:'repair rate vs 7-day mean',fallback:'fallback rate vs 7-day mean',silence:'no turns recorded, last 3 hours',push:'push sender stalled, last hour',accounts:'server errors on account, Plaid and web push subscription routes, last hour'};
 
 /** Defaults with each valid number of settings.alerts applied; an invalid one is ignored and named in `invalid`. */
 export function readThresholds(settings){
@@ -56,9 +56,9 @@ export const SILENCE_SQL=`SELECT SUM(_sample_interval) AS turns FROM cardybara_a
 // Push sender runs (#569): one point per run that was not skipped, blob1 = 'push'. double2 = sent, double4 = failed,
 // double7 = age in seconds of the oldest reminder that was due. MIN(age) above the threshold means every run of the hour
 // left something overdue; `stuck` counts runs that sent nothing and failed at least once.
-// Account and Plaid routes (#571, #615): one point per request, blob1 = 'account' or 'plaid', blob2 a fixed route name,
-// double1 the status. A 5xx is a status of 500 or more; a 4xx is the caller's error and is not counted.
-const ACCOUNTS="blob1 IN ('account', 'plaid')";
+// Account, Plaid and web push subscription routes (#571, #615, #625): one point per request, blob1 = 'account', 'plaid'
+// or 'webpush' (not 'push', which is the sender run below), blob2 a fixed route name, double1 the status. A 5xx is a status of 500 or more; a 4xx is the caller's error and is not counted.
+const ACCOUNTS="blob1 IN ('account', 'plaid', 'webpush')";
 export const ACCOUNTS_SQL=`SELECT SUM(_sample_interval) AS requests, SUM(_sample_interval * IF(double1 >= 500, 1, 0)) AS server_errors FROM cardybara_agent_metrics WHERE ${ACCOUNTS} AND timestamp > NOW() - INTERVAL '1' HOUR FORMAT JSON`;
 export const ACCOUNTS_ROUTES_SQL=`SELECT blob1 AS family, blob2 AS name, SUM(_sample_interval) AS server_errors FROM cardybara_agent_metrics WHERE ${ACCOUNTS} AND double1 >= 500 AND timestamp > NOW() - INTERVAL '1' HOUR GROUP BY family, name ORDER BY server_errors DESC LIMIT 5 FORMAT JSON`;
 
@@ -90,7 +90,7 @@ async function accountsSql(env,fetch){
  const num=v=>{const x=Number(v);return Number.isFinite(x)&&x>=0?x:0;};
  const [h,rows]=await Promise.all([sqlRow(env,fetch,ACCOUNTS_SQL),sqlRows(env,fetch,ACCOUNTS_ROUTES_SQL)]);
  // Route names are a fixed list written by the gateway; keep only plain words so nothing else can reach an incident body.
- const routes=rows.filter(r=>/^(account|plaid)$/.test(r.family)&&/^[a-z_]{1,24}$/.test(r.name)).map(r=>({route:r.family+'/'+r.name,serverErrors:num(r.server_errors)}));
+ const routes=rows.filter(r=>/^(account|plaid|webpush)$/.test(r.family)&&/^[a-z_]{1,24}$/.test(r.name)).map(r=>({route:r.family+'/'+r.name,serverErrors:num(r.server_errors)}));
  return {accounts:{requests:num(h.requests),serverErrors:num(h.server_errors),routes}};
 }
 
@@ -137,7 +137,7 @@ function pushSender(push,pushRecent,t){
  const overdue=minAge>=limit&&limit>0,allFailed=push.stuck>=push.runs;
  return {signal:'push',state:overdue||allFailed?'breach':'ok',figures:{runsLastHour:push.runs,runsSentNothingAndFailed:push.stuck,smallestOldestOverdueMinutes:Math.round(minAge/60),thresholdMinutes:Math.round(limit/60)}};
 }
-// accounts: requests and 5xx responses over the account and Plaid routes in the last hour, plus the routes with the most 5xx.
+// accounts: requests and 5xx responses over the account, Plaid and web push subscription routes in the last hour, plus the routes with the most 5xx.
 function accountRoutes(accounts,t){
  if(!accounts||accounts.requests<t.accountMinRequests)return {signal:'accounts',state:'unknown',figures:{requestsLastHour:accounts?accounts.requests:null,minRequests:t.accountMinRequests}};
  const pct=100*accounts.serverErrors/accounts.requests;
