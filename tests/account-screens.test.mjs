@@ -7,6 +7,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {localGateway,memoryD1,memoryMail} from '../gateway/src/local.mjs';
 import {TABLES} from '../gateway/src/accounts.js';
+import {guardWalletPuts} from './helpers/account-body.mjs';
 import {createAccountClient,readAccount,setSync,syncIsOn,emailLooksValid,passwordLongEnough,SYNC_CHANGE_EVENT} from '../src/accountClient.js';
 import {startWalletSync,readSyncState,ACCOUNT_SESSION_KEY,SYNC_STATE_KEY} from '../src/walletSync.js';
 import {readWalletDocument,replaceWalletDocument} from '../src/walletDocument.js';
@@ -27,7 +28,7 @@ async function setup(){
  const requests=[];
  const fetchFn=async(url,init)=>{requests.push({url,method:init.method,body:init.body??null});return g.handle(new Request(url,{method:init.method,body:init.body,headers:{Origin:ORIGIN,...init.headers}}));};
  const lastCode=to=>{const m=[...mail.sent].reverse().find(x=>x.to===to);return /\b(\d{6})\b/.exec(m?.text||'')?.[1]??null;};
- return {db,mail,requests,fetchFn,lastCode,advance:s=>{clock+=s*1000;}};
+ return {db,mail,requests,fetchFn:guardWalletPuts(fetchFn),seedFetch:fetchFn,lastCode,advance:s=>{clock+=s*1000;}};
 }
 // A fresh browser profile: its own storage, its own event target, its own client.
 function profile(srv){
@@ -40,10 +41,10 @@ function profile(srv){
  const addCard=(name,tail,id)=>storage.setItem('cardybara-wallet-cards-v1',JSON.stringify([...JSON.parse(storage.getItem('cardybara-wallet-cards-v1')||'[]'),newWalletCard({bank,name,tail},id)]));
  return {storage,win,events,client,read,startSync,addCard};
 }
-// A document the gateway's schema accepts today, written straight to the server so a row exists to be kept or deleted.
+// A seed, not a sync body (so it skips the boundary check): a document the gateway's schema accepts today, written straight to the server so a row exists to be kept or deleted.
 async function putServerCopy(srv,p){
  const token=JSON.parse(p.storage.getItem(ACCOUNT_SESSION_KEY)).token;
- const r=await srv.fetchFn(GATEWAY+'/v2/account/wallet',{method:'PUT',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({baseRevision:0,formatVersion:1,document:{cards:[]}})});
+ const r=await srv.seedFetch(GATEWAY+'/v2/account/wallet',{method:'PUT',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({baseRevision:0,formatVersion:1,document:{cards:[]}})});
  assert.equal(r.status,200);
 }
 const tails=doc=>doc.walletCards.cards.map(c=>c.name+':'+c.tail).sort();

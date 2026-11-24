@@ -16,7 +16,7 @@ const SECRETS = [/gh[pousr]_[A-Za-z0-9]{25,}/, /github_pat_[A-Za-z0-9_]{30,}/, /
 
 // Account sync boundary (stl00/Cardybara#410, #418). The `PUT /v2/account/wallet` request body may hold the wallet document and
 // nothing else (the sign-up, sign-in and password routes carry a password by design): never a bank credential, a one-time code, a cookie or bank page evidence. `checkAccountBody` is the
-// check meant for the sync tests to run on every captured body (tests/wallet-sync.test.mjs does, #547); `allowed` is the wallet document's field list (#411) when known.
+// check the sync tests run on every captured wallet body (tests/helpers/account-body.mjs, #420, #547); `allowed` is the wallet document's field list (#411) when known.
 export const ACCOUNT_FORBIDDEN_KEY = /pass(?:word|code)|^pwd$|cookie|one[-_]?time|^otp$|^code$|session[-_]?token|auth(?:orization|[-_]?code)|^secret$|api[-_]?key|evidence|raw[-_]?(?:text|html|page)|^html$|page[-_]?text/i;
 export function checkAccountBody(body, {allowed = null} = {}) {
   const problems = [];

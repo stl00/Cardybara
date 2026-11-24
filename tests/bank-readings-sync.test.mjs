@@ -11,6 +11,7 @@ import {readWalletDocument,replaceWalletDocument,writeWalletDocument,migrateWall
 import {readingsFromLive,mergeBankReadings,readBankReadings,storeBankReadings,lastBankRead,emptyReadings} from '../src/bankReadings.js';
 import {applyLive,mergeBankResult,LIVE_KEY} from '../src/live.js';
 import {mergeWalletCards,newWalletCard} from '../src/walletRegistry.js';
+import {guardWalletPuts} from './helpers/account-body.mjs';
 import {validWalletDocument} from '../gateway/src/walletSchema.js';
 
 const ORIGIN='https://app.cardybara.test',GATEWAY='https://gateway.test';
@@ -30,7 +31,7 @@ async function setup(){
  const requests=[];
  const fetchFn=async(url,init)=>{requests.push({url,method:init.method,body:init.body??null});return g.handle(new Request(url,{method:init.method,body:init.body,headers:{Origin:ORIGIN,...init.headers}}));};
  const lastCode=to=>/\b(\d{6})\b/.exec([...mail.sent].reverse().find(x=>x.to===to)?.text||'')?.[1]??null;
- return {db,requests,fetchFn,lastCode};
+ return {db,requests,fetchFn:guardWalletPuts(fetchFn),lastCode};
 }
 function device(srv){
  const storage=memory(),win=new EventTarget();

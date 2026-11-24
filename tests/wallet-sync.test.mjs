@@ -8,14 +8,9 @@ import {readWalletDocument,replaceWalletDocument,WALLET_FORMAT_VERSION} from '..
 import {newWalletCard} from '../src/walletRegistry.js';
 import {cardProducts} from '../src/productCatalog.js';
 import {validateCostEvent} from '../src/costTracking.js';
-import {checkAccountBody} from '../scripts/check-web.mjs';
-import {WALLET_SECTIONS} from '../gateway/src/walletSchema.js';
+import {assertWalletBody} from './helpers/account-body.mjs';
 import {SYNC_STATE_KEY,ACCOUNT_SESSION_KEY,CHANGE_EVENTS,createAccountTransport,createWalletSync,startWalletSync,mergeWalletDocuments,readSyncState,setSyncOn,stableJson} from '../src/walletSync.js';
 
-// The sections the gateway schema lists (nine), plus what the client's document also carries today: the format
-// version and the bankReadings (numeric fields and read times only) and cardMerges sections (src/walletDocument.js).
-// The gateway's WALLET_SECTIONS does not list those two yet; it accepts them as plain-named snapshot keys.
-const ALLOWED_SECTIONS=[...Object.keys(WALLET_SECTIONS),'formatVersion','bankReadings','cardMerges'];
 const GATEWAY='https://gateway.example.test';
 const TOKEN='cbs_'+'A'.repeat(43);
 const bank=cardProducts[0].bank;
@@ -32,7 +27,7 @@ function fakeServer(nowSec){
   if(init.method==='GET')return reply(200,{revision:s.revision,formatVersion:s.formatVersion,document:s.document,updatedAt:s.updatedAt});
   if(s.beforePut){const f=s.beforePut;s.beforePut=null;f();}
   // Every captured PUT body must stay inside the sync boundary (PRIVACY.md, #410, #547).
-  assert.deepEqual(checkAccountBody(init.body,{allowed:ALLOWED_SECTIONS}),[],'PUT body leaves the wallet document');
+  assertWalletBody(init.body,'PUT body');
   const b=JSON.parse(init.body);
   if(b.baseRevision!==s.revision)return reply(409,{error:{code:'stale_revision',revision:s.revision}});
   s.revision++;s.document=JSON.parse(JSON.stringify(b.document));s.formatVersion=b.formatVersion;s.updatedAt=nowSec?nowSec():++s.clock;
