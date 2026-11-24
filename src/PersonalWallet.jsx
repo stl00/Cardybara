@@ -8,7 +8,7 @@ import {t,ruleField,useI18n} from './i18n';
 import {profileForCard,benefitPeriod,benefitSources} from './benefitRules';
 import {creditTasks,taskStatus,reminderTasks,creditCalendar,walletDay,activeTasks,feeDateNeededRows,offCycleRows,offCycleStatus,dismissKey,dismissedCredits} from './personalBenefits';
 import {readBenefitEvents,appendBenefitEvent} from './personalStore';
-import {creditView,isDone,ENDING_SOON_DAYS,SHORT_LIST,COMPACT_LIST} from './creditView';
+import {creditView,offCycleBuckets,isDone,ENDING_SOON_DAYS,SHORT_LIST,COMPACT_LIST} from './creditView';
 import {creditCategoryLabel} from './creditCategories';
 import {cycleLabel,cycleFacts} from './creditCycle';
 import {CardIdentity} from './Identity';
@@ -42,7 +42,7 @@ export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
  const needFee=chosen===day&&filter!=='done'?activeTasks(feeDateNeededRows(cards,day),events).filter(r=>!query.trim()||textOf(r).toLowerCase().includes(query.trim().toLowerCase())):[],needFeeCount=needFee.length;
  const matchQuery=r=>!query.trim()||textOf(r).toLowerCase().includes(query.trim().toLowerCase());
  const offAll=chosen===day&&!compact?activeTasks(offCycleRows(cards,day),events).filter(matchQuery):[];
- const offOpen=offAll.filter(r=>r.state!=='ongoing').map(r=>({r,st:offCycleStatus(r,events)})).filter(({r,st})=>filter==='all'||(filter==='done'?st.status==='used'||st.status==='skipped'&&r.state==='one-off':!(st.status==='skipped'||r.state==='one-off'&&st.status==='used'))),perks=filter==='done'?[]:offAll.filter(r=>r.state==='ongoing'),unstated=filter==='done'?[]:offAll.filter(r=>r.state==='cycle-not-stated');
+ const {open:offOpen,perks,unstated}=offCycleBuckets(offAll,events,filter);
  const singleCard=cards.length===1,limit=expanded||view.filtered?Infinity:compact?COMPACT_LIST:SHORT_LIST,rows=view.rows.slice(0,limit),more=view.rows.length-rows.length,feeRows=needFee.slice(0,limit),feeMore=needFee.length-feeRows.length;
  const latest=task=>events.filter(e=>e.key===task.key).sort((a,b)=>b.at.localeCompare(a.at)||b.id.localeCompare(a.id))[0];
  const change=async(task,status)=>{const previous=taskStatus(task,events),previousEvent=latest(task);setBusy(task.key);try{await mark(task.key,status,task.revisionId);message.open({key:'credit-change',type:'success',duration:6,content:<Space><span><ItemLogo ruleId={task.ruleId}/>{ruleField(task.title,task,'title')}</span> · {t('已更新')}<Button type="link" size="small" onClick={()=>mark(task.key,previous,task.revisionId,previousEvent?.usage?{usage:previousEvent.usage}:{}).then(()=>message.destroy('credit-change')).catch(()=>message.error(t('保存失败，刚才的标记没有生效。')))}>{t('撤销')}</Button></Space>})}catch{message.error(t('保存失败，刚才的标记没有生效。'))}finally{setBusy('')}};
@@ -88,7 +88,7 @@ export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
  {rows.map(row)}
  {feeRows.map(feeRow)}
  {offOpen.map(offRow)}
- {unstated.length>0&&<Collapse ghost size="small" className="credit-perks" items={[{key:'unstated',label:t('未公布周期（{0}）',[unstated.length]),children:<>{unstated.map(r=><div key={r.key} className="credit-row"><Flex wrap align="center" gap={6}><ItemLogo ruleId={r.ruleId}/><Text>{ruleField(r.title,r,'title')}</Text>{!singleCard&&<CardIdentity card={cards.find(c=>c.id===r.cardId)}/>}</Flex><Text type="secondary" className="credit-row-facts">{t('发卡行没有公布这笔 Credit 何时重置，请以卡片条款为准；不显示重置日期，也不提醒。')}</Text><Sources ids={r.sourceIds}/></div>)}</>}]}/>}
+ {unstated.length>0&&<Collapse ghost size="small" className="credit-perks" items={[{key:'unstated',label:t('未公布周期（{0}）',[unstated.length]),children:<>{unstated.map(r=><div key={r.key} className="credit-row"><Flex wrap align="center" gap={6}><ItemLogo ruleId={r.ruleId}/><Text>{ruleField(r.title,r,'title')}</Text>{!singleCard&&<CardIdentity card={cards.find(c=>c.id===r.cardId)}/>}</Flex><Text type="secondary" className="credit-row-facts">{t('发卡行没有公布这笔 Credit 何时重置，请以卡片条款为准；不显示重置日期，也不提醒。')}</Text><Sources ids={r.sourceIds}/><Dropdown disabled={!ready||!!busy} trigger={['click']} menu={{items:[{key:'dismiss',label:t('不再提醒')}],onClick:()=>setDismissed(r,'dismissed')}}><Button size="small" aria-label={t('更多操作')} icon={<EllipsisOutlined/>}/></Dropdown></div>)}</>}]}/>}
  {perks.length>0&&<Collapse ghost size="small" className="credit-perks" items={[{key:'perks',label:t('长期权益（{0}）',[perks.length]),children:<>{perks.map(r=><div key={r.key} className="credit-row"><Flex wrap align="center" gap={6}><ItemLogo ruleId={r.ruleId}/><Text>{ruleField(r.title,r,'title')}</Text>{!singleCard&&<CardIdentity card={cards.find(c=>c.id===r.cardId)}/>}</Flex><Text type="secondary" className="credit-row-facts">{t('没有固定周期，作为长期权益查看')}</Text><Sources ids={r.sourceIds}/></div>)}</>}]}/>}
  {more+feeMore>0&&!(compact&&singleCard)&&<Flex justify="center"><Button type="link" onClick={()=>compact&&!singleCard?location.hash='credits':setExpanded(true)}>{t('查看其余 {0} 项',[more+feeMore])}</Button></Flex>}
  {!compact&&expanded&&!view.filtered&&view.rows.length>SHORT_LIST&&<Flex justify="center"><Button type="link" onClick={()=>setExpanded(false)}>{t('收起')}</Button></Flex>}

@@ -1,4 +1,4 @@
-import {activeTasks,taskStatus} from './personalBenefits.js';
+import {activeTasks,taskStatus,offCycleStatus} from './personalBenefits.js';
 import {CREDIT_CATEGORIES} from './creditCategories.js';
 import {CYCLE_ORDER,cycleGroup,cycleGroupLabel} from './creditCycle.js';
 // What the benefit view shows: a short list of what is ending, with everything else behind a
@@ -22,4 +22,10 @@ export function creditView(tasks,events,asOf,{state='todo',category='all',cycle=
  const active=categories.some(c=>c.id===category)?category:'all',needle=query.trim().toLowerCase();
  const matches=pool.filter(r=>(activeCycle==='all'||cycleGroup(r.task.cycle)===activeCycle)&&(active==='all'||r.task.categories?.includes(active))&&(!needle||textOf(r.task).toLowerCase().includes(needle)));
  return {rows:matches,open,done,pool,categories,ending:open.filter(r=>r.endingSoon),category:active,cycles,cycle:activeCycle,filtered:active!=='all'||activeCycle!=='all'||!!needle};
+}
+
+/** Splits off-cycle rows (already matched against the search) for the list: rows with a mark, long-term perks, and cycle-not-stated rows (no mark, no status). */
+export function offCycleBuckets(offAll,events,filter){
+ const open=offAll.filter(r=>r.state!=='ongoing'&&r.state!=='cycle-not-stated').map(r=>({r,st:offCycleStatus(r,events)})).filter(({r,st})=>filter==='all'||(filter==='done'?st.status==='used'||st.status==='skipped'&&r.state==='one-off':!(st.status==='skipped'||r.state==='one-off'&&st.status==='used')));
+ return {open,perks:filter==='done'?[]:offAll.filter(r=>r.state==='ongoing'),unstated:filter==='done'?[]:offAll.filter(r=>r.state==='cycle-not-stated')};
 }
