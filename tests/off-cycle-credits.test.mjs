@@ -14,7 +14,7 @@ const products=benefitProfiles.filter(p=>p.coverage!=='variant-unconfirmed').map
 const card=(product,i,extra={})=>({...newWalletCard({bank:product.bank,name:'Synthetic '+i,tail:String(1000+i)},'manual-'+i),productId:product.id,...extra});
 
 test('every credit/promo rule appears in exactly one of: cycle task, needs-fee-date, four-year, one-off, ongoing',()=>{
- const counts={task:0,'needs-fee-date':0,'four-year':0,'one-off':0,ongoing:0};
+ const counts={task:0,'needs-fee-date':0,'four-year':0,'one-off':0,ongoing:0,'cycle-not-stated':0};
  for(const feeDate of [undefined,{month:5,day:20}])for(const [i,product] of products.entries()){
   const c=card(product,i,feeDate?{feeDate}:{}),expected=benefitProfiles.find(p=>p.productId===product.id).benefits.filter(inForce).map(b=>b.knowledgeRuleId).sort();
   const groups=[creditTasks([c],DAY).map(t=>['task',t.ruleId]),feeDateNeededRows([c],DAY).map(r=>['needs-fee-date',r.ruleId]),offCycleRows([c],DAY).map(r=>[r.state,r.ruleId])].flat();
@@ -54,7 +54,7 @@ test('one-off rows take used / not relevant; ongoing rows take no mark but can b
  assert.ok(!activeTasks(rows,off).some(r=>r.ruleId===ongoing.ruleId));
 });
 
-const KEYS=["可再次申请", "记录使用日期", "上次使用日期", "下次可申请 {0}（上次 {1}）", "每四年一次，没有固定截止日", "按次使用", "按住宿次数", "需要先激活", "限定日期", "促销期内", "一次性权益：{0}。用过或与你无关就标记一下。", "长期权益（{0}）", "没有固定周期，作为长期权益查看", "已使用", "不相关"];
+const KEYS=["可再次申请", "记录使用日期", "上次使用日期", "下次可申请 {0}（上次 {1}）", "每四年一次，没有固定截止日", "按次使用", "按住宿次数", "需要先激活", "限定日期", "促销期内", "一次性权益：{0}。用过或与你无关就标记一下。", "长期权益（{0}）", "没有固定周期，作为长期权益查看", "未公布周期（{0}）", "发卡行没有公布这笔 Credit 何时重置，请以卡片条款为准；不显示重置日期，也不提醒。", "已使用", "不相关"];
 test('strings exist in all three languages',()=>{
  const b=JSON.parse(readFileSync(new URL('../src/i18n/benefits.json',import.meta.url),'utf8'));
  for(const k of KEYS)for(const l of ['en-US','zh-TW'])assert.ok(b[l][k],l+' '+k);
@@ -77,4 +77,34 @@ test('a four-year or one-off credit can be dismissed: it leaves the list and reu
  const src=readFileSync(new URL('../src/PersonalWallet.jsx',import.meta.url),'utf8'),off_=src.slice(src.indexOf('const offRow='),src.indexOf('const headline='));
  assert.match(off_,/setDismissed\(r,'dismissed'\)/);
  assert.match(off_,/t\('不再提醒'\)/);
+});
+
+test('synthetic wallet: null-period credit is cycle-not-stated, ongoing promo stays ongoing, monthly credit is a cycle task',async()=>{
+ const {offCycleBuckets}=await import('../src/creditView.js');
+ const product=cardProducts.find(p=>p.id==='chase-us-united-quest'),profile=benefitProfiles.find(p=>p.productId===product.id),saved=profile.benefits;
+ const rule=(id,period,extra={})=>({id,category:extra.category||'credit',period,amount:extra.amount??10,currency:'USD',title:'Synthetic '+id,condition:'Synthetic.',sourceIds:['quest-us'],knowledgeRuleId:'rule.synthetic.'+id,revisionId:'rule.synthetic.'+id+'@2026-01-01.1'});
+ profile.benefits=[rule('nullperiod',undefined),rule('promo','ongoing',{category:'promo'}),rule('monthly','calendar-month')];
+ try{
+  const c=card(product,1),rows=offCycleRows([c],DAY),tasks=creditTasks([c],DAY),state=id=>rows.find(r=>r.ruleId==='rule.synthetic.'+id)?.state;
+  assert.equal(state('nullperiod'),'cycle-not-stated');
+  assert.equal(state('promo'),'ongoing');
+  assert.equal(state('monthly'),undefined,'monthly is not an off-cycle row');
+  assert.deepEqual(tasks.map(t=>t.ruleId),['rule.synthetic.monthly']);
+  assert.equal(rows.length,2);
+  const ns=rows.find(r=>r.state==='cycle-not-stated');
+  assert.equal(ns.period,null);assert.equal(ns.limit,10);assert.equal(ns.key,dismissKey(c.id,ns.ruleId));assert.equal(offCycleStatus(ns,[]),null);
+  // The list logic must not touch a status for rows that have none, for every filter, and must not list a row twice.
+  for(const filter of ['todo','done','all']){
+   const b=offCycleBuckets(rows,[],filter);
+   assert.ok(!b.open.length,'no marked rows here ('+filter+')');
+   assert.deepEqual(b.unstated.map(r=>r.ruleId),filter==='done'?[]:['rule.synthetic.nullperiod']);
+   assert.deepEqual(b.perks.map(r=>r.ruleId),filter==='done'?[]:['rule.synthetic.promo']);
+  }
+  // A dismissed cycle-not-stated row leaves the list.
+  const off=[validatePersonalEvent({schema:1,id:'d',key:ns.key,status:'dismissed',at:'2026-11-01T00:00:00.000Z'})];
+  assert.equal(offCycleBuckets(activeTasks(rows,off),off,'all').unstated.length,0);
+ }finally{profile.benefits=saved}
+ // Source: the not-stated rows offer "stop reminding", as the PR says.
+ const src=readFileSync(new URL('../src/PersonalWallet.jsx',import.meta.url),'utf8'),block=src.slice(src.indexOf('key:\'unstated\''),src.indexOf('key:\'perks\''));
+ assert.match(block,/setDismissed\(r,'dismissed'\)/);
 });

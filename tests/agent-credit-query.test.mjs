@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {referenceContext,liveCases,referenceCards as cards,creditMark,planIds} from '../evals/fixtures.mjs';
+import {referenceContext,liveCases,referenceCards as cards,cards as allCards,creditMark,planIds} from '../evals/fixtures.mjs';
 import {resolveTripDates} from '../src/tripDates.js';
 import {queryCredits,creditNamesForCards} from '../src/creditQuery.js';
 import {runWalletTool,validateToolCall} from '../src/walletAgent.js';
@@ -445,4 +445,11 @@ test('use "travel" with the card name returns the four-year credit with its next
   assert.ok(item,`Global Entry missing for use=${use}`);
   assert.deepEqual(item.fourYear,{lastUsedOn:'2023-05-10',nextEligible:'2027-05-10'},`use=${use}`);
  }
+});
+
+test('a credit with an amount and no stated period is cycleUnknown with its own reason, not noFixedCycle',()=>{
+ const biz=allCards.find(c=>c.productId==='amex-us-us-business-platinum-card'),r=queryCredits({use:'hotel',when:'12月'},{cards:[biz],events:[],day:TODAY});
+ const item=inGroup(r,'cycleUnknown','FHR 或 THC 预付酒店抵扣')[0];
+ assert.ok(item);assert.equal(item.reason,'cycle-not-stated');assert.equal(item.cycle,null);assert.equal(item.status,'unknown');
+ assert.ok(!inGroup(r,'noFixedCycle','FHR 或 THC 预付酒店抵扣').length);
 });

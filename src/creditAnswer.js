@@ -19,6 +19,7 @@ const REASONS={
  'last-use-date-unknown':{'zh-CN':'上次使用日期未知','zh-TW':'上次使用日期未知',en:'last use date unknown'},
  'earning-year-unknown':{'zh-CN':'达标年份未知','zh-TW':'達標年份未知',en:'qualifying year unknown'},
  'promotion-dates-unverified':{'zh-CN':'活动日期未核实','zh-TW':'活動日期未核實',en:'promotion dates unverified'},
+ 'cycle-not-stated':{'zh-CN':'发卡行没有公布周期','zh-TW':'發卡行沒有公布週期',en:'issuer does not state the cycle'},
  'cycle-dates-unknown':{'zh-CN':'周期日期未知','zh-TW':'週期日期未知',en:'cycle dates unknown'},
 };
 export function answerLanguage(question){
