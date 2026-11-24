@@ -64,9 +64,8 @@ test('create account, sync on, a second fresh profile signs in with the same ema
  assert.equal(v.ok,true);
  assert.equal(readAccount(A.storage).email,EMAIL);
  assert.equal(JSON.stringify(v).includes('cbs_'),false,'the token is not handed to the screen');
- assert.equal(readSyncState(A.storage).on,false,'signing in does not turn sync on by itself');
+ assert.equal(readSyncState(A.storage).on,true,'signing in turns sync on by default (#579)');
 
- setSync(A.storage,true,A.win);
  assert.ok(A.events.includes('sync-change'),'the page is told to start the sync loop');
  const a=A.startSync();await settle(a);a.stop();
  assert.ok(a.statuses.includes('synced'));
@@ -134,7 +133,7 @@ test('signing in as another account on a device never carries over the last acco
  setSync(A.storage,true,A.win);
  A.storage.setItem(SYNC_STATE_KEY,JSON.stringify({on:true,revision:7,base:{x:1},changedAt:null}));
  await A.client.signIn(EMAIL,PASSWORD);
- assert.deepEqual(readSyncState(A.storage),{on:false,revision:0,base:null,changedAt:null});
+ assert.deepEqual(readSyncState(A.storage),{on:true,revision:0,base:null,changedAt:null},'sync is on again, from a clean state');
 });
 
 test('forgot password: a code sets a new password, signs in, and the old password stops working',async()=>{

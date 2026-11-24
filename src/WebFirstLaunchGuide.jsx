@@ -12,7 +12,7 @@ const INSTALL={
 export function GuideStep({step,platform,standalone,onExport}){
  useI18n();const install=installKind({platform,standalone});
  if(step==='what')return <><Title level={4}>{t('这是什么')}</Title><Paragraph>{t('卡疲扒拉是一个在浏览器里运行的信用卡钱包，也可以当作应用使用。')}</Paragraph><Paragraph>{t('不需要账号、注册或银行登录。你手动添加自己的卡，就能看到每张卡的福利、额度和年费日。')}</Paragraph></>;
- if(step==='where')return <><Title level={4}>{t('数据保存在哪里')}</Title><Paragraph>{t('钱包数据只保存在你输入它的那个浏览器里，不上传，也不同步到其他设备。')}</Paragraph><Paragraph>{t('如果你想在多台设备上用，可以在“设置”里登录并开启同步（可选）。只有开启后，钱包的一份副本才会存到服务器。')}</Paragraph><Paragraph>{t('没开启同步时，我们看不到你的钱包。没有同步的话，换一部手机、换一个浏览器，或使用隐私窗口，打开的都是另一个空钱包。')}</Paragraph></>;
+ if(step==='where')return <><Title level={4}>{t('数据保存在哪里')}</Title><Paragraph>{t('钱包数据只保存在你输入它的那个浏览器里，不上传，也不同步到其他设备。')}</Paragraph><Paragraph>{t('如果你想在多台设备上用，可以在“设置”里登录（可选）。登录后同步默认开启，钱包的一份副本会存到服务器；可随时关闭。')}</Paragraph><Paragraph>{t('没有同步时，我们看不到你的钱包。没有同步的话，换一部手机、换一个浏览器，或使用隐私窗口，打开的都是另一个空钱包。')}</Paragraph></>;
  if(step==='keep')return <><Title level={4}>{t('怎么保住数据')}</Title>
   {install?<Paragraph className="guide-install">{t('添加到主屏幕或安装成应用，数据更不容易丢。')}{' '}{t(INSTALL[install])}</Paragraph>:<Paragraph>{t('你正在以应用方式运行，不需要再安装。')}</Paragraph>}
   {install==='ios'&&<Paragraph>{t('iPhone 上的 Safari 可能清除约一周没打开的网站的数据，添加到主屏幕后不受此影响。')}</Paragraph>}

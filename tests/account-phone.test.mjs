@@ -111,7 +111,7 @@ async function firstDevice(c, srv, lang) {
   assert.ok((await c.text()).includes(EMAIL), `${lang}: the account email shows`);
   await check('signed-in');
   assert.deepEqual(await walletNames(c), ['Synthetic One:1111', 'Synthetic Two:2222'], `${lang}: A holds its two cards`);
-  await c.tap(`${A} .ant-switch`);
+  // Sync is on by default after sign-in (#579): the switch is already on, no tap.
   await c.until(`document.querySelector('${A} .ant-switch-checked')`, 'sync on');
   assert.ok(await c.evaluate(`JSON.parse(localStorage.getItem('cardybara-sync-v1')).on===true`), `${lang}: sync is on`);
   await c.until(`window.__calls.some(x=>x.startsWith('PUT')&&x.endsWith('/wallet'))`, 'the wallet copy upload');
@@ -136,7 +136,7 @@ async function secondDevice(c, srv, lang) {
   await c.until(`document.querySelector('${A} .account-email')`, 'the signed-in view');
   assert.ok((await c.text()).includes(EMAIL), `${lang}: B is signed in as the same account`);
   await check('signed-in');
-  await c.tap(`${A} .ant-switch`);
+  // Sync is on by default after sign-in (#579): the switch is already on, no tap.
   await c.until(`document.querySelector('${A} .ant-switch-checked')`, 'sync on');
   await c.until(`localStorage.getItem(${JSON.stringify(WALLET_CARDS_KEY)})&&JSON.stringify(JSON.parse(localStorage.getItem(${JSON.stringify(WALLET_CARDS_KEY)}))).includes('Synthetic Two')`, 'the wallet copy on B', 15000);
   assert.deepEqual(await walletNames(c), ['Synthetic One:1111', 'Synthetic Two:2222'], `${lang}: B holds the same wallet as A`);
