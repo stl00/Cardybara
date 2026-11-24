@@ -44,7 +44,7 @@ if(!live){
   check(c.id,{found:!!rule,terms:!!rule&&Object.entries(c.terms).every(([key,value])=>rule.terms[key]===value),sourced:!!rule?.sources.some(s=>s.url),regional:result.rules.every(r=>r.cards.every(card=>card.region===c.args.region))});
  }
  for(const c of planCases){
-  const result=runWalletTool({id:c.id,function:{name:'query_credits',arguments:JSON.stringify({use:c.use||'hotel',...(c.when?{when:c.when}:{})})}},{...referenceContext,events:c.events||[]});
+  const result=runWalletTool({id:c.id,function:{name:'query_credits',arguments:JSON.stringify({use:c.use||'hotel',...(c.when?{when:c.when}:{})})}},{...referenceContext,...(c.cards?{cards:c.cards}:{}),events:c.events||[]});
   check(c.id,{expected:c.check(result)});
  }
  for(const c of cycleCases){

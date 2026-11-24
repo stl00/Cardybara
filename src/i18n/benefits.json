@@ -83,6 +83,8 @@
     "一次性权益：{0}。用过或与你无关就标记一下。": "One-off perk: {0}. Mark it when used or not relevant.",
     "长期权益（{0}）": "Ongoing perks ({0})",
     "没有固定周期，作为长期权益查看": "No fixed cycle; read it as an ongoing perk",
+    "未公布周期（{0}）": "Cycle not stated ({0})",
+    "发卡行没有公布这笔 Credit 何时重置，请以卡片条款为准；不显示重置日期，也不提醒。": "The issuer does not publish when this credit resets. Check the card terms; no reset date is shown and there is no reminder.",
     "已使用": "Used",
     "不相关": "Not relevant"
   },
@@ -170,6 +172,8 @@
     "一次性权益：{0}。用过或与你无关就标记一下。": "一次性權益：{0}。用過或與你無關就標記一下。",
     "长期权益（{0}）": "長期權益（{0}）",
     "没有固定周期，作为长期权益查看": "沒有固定週期，作為長期權益查看",
+    "未公布周期（{0}）": "未公布週期（{0}）",
+    "发卡行没有公布这笔 Credit 何时重置，请以卡片条款为准；不显示重置日期，也不提醒。": "發卡行沒有公布這筆 Credit 何時重置，請以卡片條款為準；不顯示重置日期，也不提醒。",
     "已使用": "已使用",
     "不相关": "不相關"
   }

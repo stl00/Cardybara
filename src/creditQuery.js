@@ -131,7 +131,7 @@ export function queryCredits({use,when,destination,reuseRememberedDates},{cards,
     if(!row.period){
      const period=row.rule.terms.period;
      if(NO_FIXED_CYCLE.has(period))groups.noFixedCycle.push({...item,cycle:null,status:'unknown'});
-     else groups.cycleUnknown.push({...item,reason:UNKNOWN_CYCLE_REASON[period]||'cycle-dates-unknown',cycle:null,status:'unknown',...unknownCycleFacts(period,card,id,events)});
+     else groups.cycleUnknown.push({...item,reason:UNKNOWN_CYCLE_REASON[period]||(period==null?'cycle-not-stated':'cycle-dates-unknown'),cycle:null,status:'unknown',...unknownCycleFacts(period,card,id,events)});
      continue;
     }
     const {task,status}=statusOf(row.period),endsWithinDates=row.period.end<=window.end;

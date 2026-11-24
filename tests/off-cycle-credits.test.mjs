@@ -14,7 +14,7 @@ const products=benefitProfiles.filter(p=>p.coverage!=='variant-unconfirmed').map
 const card=(product,i,extra={})=>({...newWalletCard({bank:product.bank,name:'Synthetic '+i,tail:String(1000+i)},'manual-'+i),productId:product.id,...extra});
 
 test('every credit/promo rule appears in exactly one of: cycle task, needs-fee-date, four-year, one-off, ongoing',()=>{
- const counts={task:0,'needs-fee-date':0,'four-year':0,'one-off':0,ongoing:0};
+ const counts={task:0,'needs-fee-date':0,'four-year':0,'one-off':0,ongoing:0,'cycle-not-stated':0};
  for(const feeDate of [undefined,{month:5,day:20}])for(const [i,product] of products.entries()){
   const c=card(product,i,feeDate?{feeDate}:{}),expected=benefitProfiles.find(p=>p.productId===product.id).benefits.filter(inForce).map(b=>b.knowledgeRuleId).sort();
   const groups=[creditTasks([c],DAY).map(t=>['task',t.ruleId]),feeDateNeededRows([c],DAY).map(r=>['needs-fee-date',r.ruleId]),offCycleRows([c],DAY).map(r=>[r.state,r.ruleId])].flat();
@@ -54,7 +54,7 @@ test('one-off rows take used / not relevant; ongoing rows take no mark but can b
  assert.ok(!activeTasks(rows,off).some(r=>r.ruleId===ongoing.ruleId));
 });
 
-const KEYS=["可再次申请", "记录使用日期", "上次使用日期", "下次可申请 {0}（上次 {1}）", "每四年一次，没有固定截止日", "按次使用", "按住宿次数", "需要先激活", "限定日期", "促销期内", "一次性权益：{0}。用过或与你无关就标记一下。", "长期权益（{0}）", "没有固定周期，作为长期权益查看", "已使用", "不相关"];
+const KEYS=["可再次申请", "记录使用日期", "上次使用日期", "下次可申请 {0}（上次 {1}）", "每四年一次，没有固定截止日", "按次使用", "按住宿次数", "需要先激活", "限定日期", "促销期内", "一次性权益：{0}。用过或与你无关就标记一下。", "长期权益（{0}）", "没有固定周期，作为长期权益查看", "未公布周期（{0}）", "发卡行没有公布这笔 Credit 何时重置，请以卡片条款为准；不显示重置日期，也不提醒。", "已使用", "不相关"];
 test('strings exist in all three languages',()=>{
  const b=JSON.parse(readFileSync(new URL('../src/i18n/benefits.json',import.meta.url),'utf8'));
  for(const k of KEYS)for(const l of ['en-US','zh-TW'])assert.ok(b[l][k],l+' '+k);
@@ -77,4 +77,20 @@ test('a four-year or one-off credit can be dismissed: it leaves the list and reu
  const src=readFileSync(new URL('../src/PersonalWallet.jsx',import.meta.url),'utf8'),off_=src.slice(src.indexOf('const offRow='),src.indexOf('const headline='));
  assert.match(off_,/setDismissed\(r,'dismissed'\)/);
  assert.match(off_,/t\('不再提醒'\)/);
+});
+
+test('an amount with no stated period is cycle-not-stated, not ongoing; real ongoing and monthly rules keep their states',()=>{
+ let notStated=0,ongoing=0,monthlyInRows=0;
+ for(const [i,product] of products.entries()){
+  const c=card(product,i,{feeDate:{month:5,day:20}}),rows=offCycleRows([c],DAY),tasks=creditTasks([c],DAY);
+  const profile=benefitProfiles.find(p=>p.productId===product.id);
+  for(const r of rows){
+   if(r.state==='cycle-not-stated'){notStated++;assert.equal(r.period,null);assert.ok(r.limit>0,'has an amount');assert.equal(offCycleStatus(r,[]),null);assert.equal(r.key,dismissKey(c.id,r.ruleId));}
+   if(r.state==='ongoing'){ongoing++;assert.ok(r.period!==null||!(r.limit>0),'a null-period amount is never ongoing');}
+   if(r.period==='calendar-month')monthlyInRows++;
+  }
+  assert.ok(!tasks.some(t=>rows.some(r=>r.ruleId===t.ruleId)),'a cycle task is not also an off-cycle row');
+  assert.ok(profile);
+ }
+ assert.ok(notStated>0,'some rule has no stated cycle');assert.ok(ongoing>0);assert.equal(monthlyInRows,0);
 });

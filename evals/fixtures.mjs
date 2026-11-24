@@ -57,6 +57,7 @@ export const planCases=[
  {id:'plan-end-of-cycle-stay',when:'2026-12-29 to 2026-12-31',check:r=>find(r,'unknownStatus',RESORT_TITLE)[0]?.nextCycleStarts==='2027-01-01'&&r.dateSensitivity.exactDatesCouldChangeAnswer===false},
  {id:'plan-month-roll-over',when:'1月',check:r=>r.window.start==='2027-01-01'&&r.groups.outsideDates.some(i=>i.reason==='current-cycle-ends-before-dates'&&i.title===LODGING_TITLE)&&r.groups.outsideDates.some(i=>i.reason==='rule-expired')&&find(r,'unknownStatus',LODGING_TITLE)[0]?.minimumNights===2},
  {id:'plan-anniversary-unknown',when:'12月',check:r=>find(r,'cycleUnknown',RENOWNED_TITLE)[0]?.reason==='anniversary-date-unknown'&&find(r,'cycleUnknown',RENOWNED_TITLE)[0]?.cycle===null},
+ {id:'plan-cycle-not-stated',cards:[cardFor('amex-us-us-business-platinum-card')],use:'hotel',when:'12月',check:r=>find(r,'cycleUnknown','FHR 或 THC 预付酒店抵扣')[0]?.reason==='cycle-not-stated'&&find(r,'cycleUnknown','FHR 或 THC 预付酒店抵扣')[0]?.cycle===null&&!find(r,'noFixedCycle','FHR 或 THC 预付酒店抵扣').length},
  {id:'plan-enrollment-required',use:'dining',when:'12月',check:r=>r.needsEnrollmentOrChannel.some(i=>i.enrollment==='required')},
  {id:'plan-traditional-chinese',when:'十二月聖誕節',check:r=>r.window.start==='2026-12-01'&&r.window.precision==='holiday'},
  {id:'plan-english',when:'Christmas in December',check:r=>r.window.end==='2026-12-31'&&r.window.precision==='holiday'},
