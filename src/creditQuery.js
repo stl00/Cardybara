@@ -10,7 +10,7 @@ import {creditLedger,LEDGER_BASES} from './creditLedger.js';
 import {translations} from './i18n/index.js';
 const MAX_ITEMS=30;
 const NO_FIXED_CYCLE=new Set(['ongoing','per-stay','per-trip','event-based']);
-const UNKNOWN_CYCLE_REASON={'account-anniversary':'anniversary-date-unknown','activation-based':'activation-date-unknown','rolling-four-years':'last-use-date-unknown','earned-year-plus-next':'earning-year-unknown','fixed-date':'promotion-dates-unverified','promotion-period':'promotion-dates-unverified'};
+const UNKNOWN_CYCLE_REASON={'account-anniversary':'anniversary-date-unknown','fee-month-year':'anniversary-date-unknown','activation-based':'activation-date-unknown','rolling-four-years':'last-use-date-unknown','earned-year-plus-next':'earning-year-unknown','fixed-date':'promotion-dates-unverified','promotion-period':'promotion-dates-unverified'};
 // A general travel credit may also pay for a hotel, but its terms may not say so; matchKind flags that for the answer.
 const travelWideForHotel=(rule,use)=>use==='hotel'&&Number.isFinite(rule.terms.amount)&&creditCategoriesForRule(rule).includes('travel');
 const relevant=(rule,use)=>(['credit','promo'].includes(rule.category)||rule.category==='hotel-service'&&Number.isFinite(rule.terms.amount))&&(!use||creditCategoriesForRule(rule).includes(use)||travelWideForHotel(rule,use));
@@ -75,7 +75,7 @@ function describe(card,row,destination,asOf,use,brief,purchase){
 }
 /** What the user's own data says when a credit has no computable cycle: a missing fee date to ask for, or a four-year last-use date. */
 function unknownCycleFacts(period,card,ruleId,events){
- if(period==='account-anniversary')return {needsFeeDate:true,nextStep:'The card has no annual fee date. Ask the user to set it on the card; do not guess the card year or fall back to the calendar year.'};
+ if(period==='account-anniversary'||period==='fee-month-year')return {needsFeeDate:true,nextStep:'The card has no annual fee date. Ask the user to set it on the card; do not guess the card year or fall back to the calendar year.'};
  if(period==='rolling-four-years'){
   const status=offCycleStatus({state:'four-year',key:JSON.stringify([card.id,ruleId,'four-year'])},events);
   return {fourYear:status.status==='used'?{lastUsedOn:status.usedOn,nextEligible:status.nextEligible}:{lastUsedOn:null,nextEligible:null},nextStep:status.status==='used'?'Next eligible is four years after the recorded last-use date.':'No last-use date is recorded, so the next eligible date is unknown. Ask the user for the date they last used it; do not guess it.'};

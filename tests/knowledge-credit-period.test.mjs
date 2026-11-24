@@ -12,9 +12,6 @@ const today=new Date().toISOString().slice(0,10);
 // "page not readable": the issuer page is script-rendered or missing and returned no benefit text to a signed-out fetch (checked 2026-11-16),
 // so no period is recorded rather than guessing from search excerpts or sibling cards.
 const NO_STATED_CYCLE={
- // The issuer does state a cycle here (12 months from the first day of the month after the annual fee is assessed; first year from account
- // opening), but no existing period value matches that start, and account-anniversary would shift the dates, so period stays null.
- 'rule.wells-fargo-us-autograph-journey-visa-card.airline-credit':'issuer states a cycle (12 months from the month after the annual fee posts) but no period value matches it',
  // Page not readable. Amex pages re-tried 2026-11-24 (signed-out WebFetch of the card pages, ?intlink variants and /terms/ paths returned only navigation text, truncated); not bypassed.
  'rule.amex-us-us-business-platinum-card.hotel-credit':'page not readable: Amex Business Platinum product page returned no benefit text to a signed-out fetch (re-tried 2026-11-24: card page, ?intlink and /terms/ URLs)',
  'rule.amex-us-us-delta-skymiles-reserve-card.delta-stays':'page not readable: Amex Delta Stays benefit pages returned only navigation text (re-tried 2026-11-24: card page, ?intlink and /terms/ URLs for Reserve; Platinum Business page errored)',
@@ -51,4 +48,10 @@ test('rules with a stated cycle carry the matching period (#348)',()=>{
 test('Bilt Cash rules carry the account-anniversary period (#612)',()=>{
  const byId=new Map(rules.map(r=>[r.id,r]));
  for(const id of ['rule.bilt-us-bilt-obsidian-card.bilt-cash-2027','rule.bilt-us-bilt-palladium-card.bilt-cash','rule.bilt-us-bilt-palladium-card.bilt-cash-2027'])assert.equal(byId.get(id).terms.period,'account-anniversary',id);
+});
+
+// stl00/Cardybara#614: Wells Fargo states 12 months from the first of the month after the annual fee is assessed (page read 2026-11-24).
+test('Autograph Journey airline credit carries the fee-month-year period (#614)',()=>{
+ const rule=rules.filter(r=>r.id==='rule.wells-fargo-us-autograph-journey-visa-card.airline-credit').sort((a,b)=>b.revision-a.revision)[0];
+ assert.equal(rule.revision,2);assert.equal(rule.terms.period,'fee-month-year');
 });

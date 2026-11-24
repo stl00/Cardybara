@@ -1,7 +1,7 @@
 import {benefitProfileView,benefitSourceView,hsbcRewardCashView} from './knowledge.js';
 const data={profiles:benefitProfileView(),sources:benefitSourceView,hsbcRewardCash:hsbcRewardCashView};
 import {matchCardProduct} from './productCatalog.js';
-import {anniversaryPeriod} from './feeDate.js';
+import {anniversaryPeriod,feeMonthPeriod} from './feeDate.js';
 export const benefitProfiles=data.profiles;
 export const benefitSources=data.sources;
 export const hsbcRewardCash=data.hsbcRewardCash;
@@ -15,6 +15,7 @@ export function benefitPeriod(rule,asOf,account={}){
  if(rule.period==='calendar-half-year')return {start:`${y}-${m<=6?'01':'07'}-01`,end:`${y}-${m<=6?'06-30':'12-31'}`};
  if(rule.period==='calendar-month'){const end=new Date(Date.UTC(y,m,0)).getUTCDate();return {start:`${y}-${String(m).padStart(2,'0')}-01`,end:`${y}-${String(m).padStart(2,'0')}-${end}`};}
  if(rule.period==='account-anniversary')return anniversaryPeriod(account?.feeDate,asOf);
+ if(rule.period==='fee-month-year')return feeMonthPeriod(account?.feeDate,asOf);
  return null; // Rolling and activation periods, and an anniversary the user has not set, require account-specific dates.
 }
 export function benefitStatus(rule,asOf,account={}){

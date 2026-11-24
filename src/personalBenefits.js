@@ -38,6 +38,8 @@ export function creditTasks(cards,asOf=walletDay()){
  }
  return rows.sort((a,b)=>a.period.end.localeCompare(b.period.end)||a.cardId.localeCompare(b.cardId));
 }
+/** Periods that only a fee date the user set can place on the calendar. */
+const FEE_DATE_PERIODS=new Set(['account-anniversary','fee-month-year']);
 /**
  * Card-year credits of cards with no usable fee date. Without the date there is no cycle, and none is guessed
  * (no calendar-year fallback), so they are not tasks; they stay in the list as a row that asks for the date.
@@ -48,7 +50,7 @@ export function feeDateNeededRows(cards,asOf=walletDay()){
  for(const card of cards){
   if(cleanFeeDate(card.feeDate))continue;
   for(const b of profileForCard(card)?.benefits||[]){
-   if(!['credit','promo'].includes(b.category)||b.period!=='account-anniversary'||b.validFrom&&b.validFrom>asOf||b.validThrough&&b.validThrough<asOf||b.applicability)continue;
+   if(!['credit','promo'].includes(b.category)||!FEE_DATE_PERIODS.has(b.period)||b.validFrom&&b.validFrom>asOf||b.validThrough&&b.validThrough<asOf||b.applicability)continue;
    const limit=b.monthlyAmounts?.[Number(asOf.slice(5,7))-1]??b.amount,known=Number.isFinite(limit)&&limit>0;
    rows.push({state:'needs-fee-date',key:JSON.stringify([card.id,b.knowledgeRuleId,'needs-fee-date']),cardId:card.id,ruleId:b.knowledgeRuleId,revisionId:b.revisionId,title:b.title,condition:b.condition,sourceIds:b.sourceIds,limit:known?(b.quantity?limit*b.quantity:limit):null,currency:b.currency||card.currency,categories:creditCategoriesForRuleId(b.knowledgeRuleId),...(b.original?{original:structuredClone(b.original)}:{}),...(b.translations?{translations:structuredClone(b.translations)}:{})});
   }
@@ -58,7 +60,7 @@ export function feeDateNeededRows(cards,asOf=walletDay()){
 
 const isRealDate=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v+'T00:00:00Z'))&&new Date(v+'T00:00:00Z').toISOString().slice(0,10)===v;
 export const OFF_CYCLE_KEYS=['four-year','one-off'];
-const CYCLE_PERIODS=new Set(['calendar-year','calendar-quarter','calendar-half-year','calendar-month','account-anniversary']);
+const CYCLE_PERIODS=new Set(['calendar-year','calendar-quarter','calendar-half-year','calendar-month','account-anniversary','fee-month-year']);
 export const ONE_OFF_PERIODS=new Set(['per-trip','per-stay','activation-based','fixed-date','promotion-period']);
 /** Date four years after a day (same month and day; every date that can be used on Feb 29 has a Feb 29 four years on). */
 export const nextFourYears=day=>{const d=new Date(day+'T00:00:00Z');d.setUTCFullYear(d.getUTCFullYear()+4);return d.toISOString().slice(0,10);};
@@ -74,7 +76,7 @@ export function offCycleRows(cards,asOf=walletDay()){
   if(!['credit','promo'].includes(b.category)||b.validFrom&&b.validFrom>asOf||b.validThrough&&b.validThrough<asOf||b.applicability)continue;
   const limit=b.monthlyAmounts?.[Number(asOf.slice(5,7))-1]??b.amount,hasLimit=Number.isFinite(limit)&&limit>0;
   if(CYCLE_PERIODS.has(b.period)){
-   if(b.period==='account-anniversary'&&!cleanFeeDate(card.feeDate))continue; // needs-fee-date row
+   if(FEE_DATE_PERIODS.has(b.period)&&!cleanFeeDate(card.feeDate))continue; // needs-fee-date row
    if(hasLimit&&benefitPeriod(b,asOf,{feeDate:card.feeDate}))continue; // cycle task
   }
   const kind=b.period==='rolling-four-years'?'four-year':ONE_OFF_PERIODS.has(b.period)?'one-off':!b.period&&hasLimit?'cycle-not-stated':'ongoing';
