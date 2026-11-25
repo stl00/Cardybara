@@ -1475,5 +1475,26 @@
     "title": "Wells Fargo · Wells Fargo Reflect® Card 官方产品页",
     "checkedAt": "2026-11-24",
     "authority": "official"
+  },
+  {
+    "id": "card-discover-us-discover-it-miles-credit-card",
+    "url": "https://www.discover.com/credit-cards/travel/",
+    "title": "Discover · Discover it Miles Credit Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-discover-us-discover-it-chrome-gas-restaurants-credit-card",
+    "url": "https://www.discover.com/credit-cards/cash-back/chrome/",
+    "title": "Discover · Discover it Chrome Gas & Restaurants Credit Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-discover-us-discover-it-balance-transfer-credit-card",
+    "url": "https://www.discover.com/credit-cards/balance-transfer-credit-cards/cash-back-bt-card/",
+    "title": "Discover · Discover it Balance Transfer Credit Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
   }
 ]

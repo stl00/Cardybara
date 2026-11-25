@@ -1,0 +1,416 @@
+{
+ "batch": 16,
+ "checkedAt": "2026-11-24",
+ "reviewAfter": "2027-02-22",
+ "cards": [
+  {
+   "id": "discover-us-discover-it-miles-credit-card",
+   "page": "discover-us-discover-it-miles-credit-card",
+   "issuer": "Discover",
+   "collection": "not-supported",
+   "url": "https://www.discover.com/credit-cards/travel/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Discover it Miles has no annual fee."
+   },
+   "earning": [
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 1.5,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "Earn unlimited 1.5x miles on travel purchases and all your everyday purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "redemption",
+     "zh": "里程兑现或抵扣旅行消费",
+     "en": "Redeem miles as cash or travel statement credit",
+     "noteZh": "里程可兑换成现金，或抵扣旅行消费账单；没有最低兑换数量。",
+     "noteEn": "Turn miles into cash or a statement credit for travel purchases; there is no minimum to redeem.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Turn miles into cash. Or redeem as a statement credit for your travel purchases",
+     "original": {
+      "title": "Redeem miles as cash or travel statement credit",
+      "summary": "Turn miles into cash or a statement credit for travel purchases; there is no minimum to redeem.",
+      "howToUse": [
+       "Redeem miles in your Discover account."
+      ],
+      "quotes": [
+       "There is no minimum requirement to how many miles you have to redeem at a time"
+      ]
+     }
+    },
+    {
+     "key": "no-expiry",
+     "zh": "里程在账户有效期内不过期",
+     "en": "Miles do not expire",
+     "noteZh": "账户有效期内里程不过期。",
+     "noteEn": "Miles do not expire for the life of the account.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "And your miles don’t expire for the life of the account.",
+     "original": {
+      "title": "Miles do not expire",
+      "summary": "Miles do not expire for the life of the account.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "fraud-liability",
+     "zh": "盗刷零责任",
+     "en": "No liability for unauthorized purchases",
+     "noteZh": "Discover 卡上的未授权消费，持卡人不承担责任。",
+     "noteEn": "You are not responsible for unauthorized purchases on the card.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "You’re never responsible for unauthorized purchases on your Discover Card.",
+     "original": {
+      "title": "No liability for unauthorized purchases",
+      "summary": "You are not responsible for unauthorized purchases on the card.",
+      "howToUse": [
+       "Report an unauthorized purchase to the issuer."
+      ]
+     }
+    },
+    {
+     "key": "card-lock",
+     "zh": "手机应用锁卡",
+     "en": "Card lock in the mobile app",
+     "noteZh": "卡片遗失、放错或被盗时可在手机应用锁卡；退款、入账、还款和利息等部分账户活动仍会继续。",
+     "noteEn": "Lock a misplaced, lost or stolen card in the app; some account activity continues while it is locked.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Lock your card in the mobile app if it’s misplaced, lost, or stolen.",
+     "original": {
+      "title": "Card lock in the mobile app",
+      "summary": "Lock a misplaced, lost or stolen card in the app; some account activity continues while it is locked.",
+      "howToUse": [
+       "Lock the card in the mobile app."
+      ],
+      "quotes": [
+       "When Card Lock is enabled, some activity may continue, including returns, credits, payments, interest"
+      ]
+     }
+    },
+    {
+     "key": "ssn-alerts",
+     "zh": "社安号暗网提醒（CreditWise）",
+     "en": "Social Security number alerts (CreditWise)",
+     "noteZh": "在暗网发现你的社安号时提醒；须注册 CreditWise（满18岁），没有 Discover 卡的人也可注册。",
+     "noteEn": "An alert if your Social Security number is found on the dark web; CreditWise sign-up is needed and is also open to people without a Discover card.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Get an alert if we find your Social Security number on the dark web.",
+     "original": {
+      "title": "Social Security number alerts (CreditWise)",
+      "summary": "An alert if your Social Security number is found on the dark web; CreditWise sign-up is needed and is also open to people without a Discover card.",
+      "howToUse": [
+       "Sign up for CreditWise."
+      ],
+      "quotes": [
+       "You do not need to have a Capital One account (which includes Discover card accounts) to sign up for CreditWise.",
+       "you need to be over the age of 18"
+      ]
+     },
+     "enrollment": true
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户首年返现或里程翻倍和免息期等限时优惠未录入。",
+     "en": "The first-year match and intro APR offers are not recorded."
+    },
+    {
+     "zh": "产品页没有提到外币交易费，是否收取未知。",
+     "en": "The product page does not mention a foreign transaction fee, so it is unknown."
+    },
+    {
+     "zh": "余额转移手续费不是年费，未录入。",
+     "en": "The balance transfer fee is not recorded."
+    }
+   ]
+  },
+  {
+   "id": "discover-us-discover-it-chrome-gas-restaurants-credit-card",
+   "page": "discover-us-discover-it-chrome-gas-restaurants-credit-card",
+   "issuer": "Discover",
+   "collection": "not-supported",
+   "url": "https://www.discover.com/credit-cards/cash-back/chrome/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "No annual fee"
+   },
+   "earning": [
+    {
+     "zh": "加油站和餐厅",
+     "en": "Gas stations and restaurants",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "dining",
+     "cap": {
+      "amount": 1000,
+      "currency": "USD",
+      "period": "calendar-quarter"
+     },
+     "noteZh": "加油站和餐厅每季合计前1,000美元，自动享受；超市、超级购物中心或仓储会员店附属的加油站，以及设在酒店或商店内的餐厅可能不算。",
+     "noteEn": "Up to $1,000 in combined purchases each quarter, automatically; gas stations tied to supermarkets, supercenters or wholesale clubs and restaurants inside other businesses may not qualify.",
+     "quote": "Earn 2% cash back at gas stations and restaurants on up to $1,000 in combined purchases each quarter, automatically."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Plus, earn unlimited 1% cash back on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "redemption",
+     "zh": "返现任意金额可兑换",
+     "en": "Redeem cash back in any amount",
+     "noteZh": "返现可按任意金额兑换。",
+     "noteEn": "Cash back can be redeemed in any amount.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "The Discover it Chrome Card lets you redeem cash back for any amount.",
+     "original": {
+      "title": "Redeem cash back in any amount",
+      "summary": "Cash back can be redeemed in any amount.",
+      "howToUse": [
+       "Redeem cash back in your Discover account."
+      ]
+     }
+    },
+    {
+     "key": "no-expiry",
+     "zh": "返现在账户有效期内不过期",
+     "en": "Cash back does not expire",
+     "noteZh": "账户有效期内返现不过期。",
+     "noteEn": "Cash back does not expire for the life of the account.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "your cash back won’t expire for the life of the account.",
+     "original": {
+      "title": "Cash back does not expire",
+      "summary": "Cash back does not expire for the life of the account.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "fraud-liability",
+     "zh": "盗刷零责任",
+     "en": "No liability for unauthorized purchases",
+     "noteZh": "Discover 卡上的未授权消费，持卡人不承担责任。",
+     "noteEn": "You are not responsible for unauthorized purchases on the card.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "You’re never responsible for unauthorized purchases on your Discover Card.",
+     "original": {
+      "title": "No liability for unauthorized purchases",
+      "summary": "You are not responsible for unauthorized purchases on the card.",
+      "howToUse": [
+       "Report an unauthorized purchase to the issuer."
+      ]
+     }
+    },
+    {
+     "key": "card-lock",
+     "zh": "手机应用锁卡",
+     "en": "Card lock in the mobile app",
+     "noteZh": "卡片遗失、放错或被盗时可在手机应用锁卡；退款、入账、还款和利息等部分账户活动仍会继续。",
+     "noteEn": "Lock a misplaced, lost or stolen card in the app; some account activity continues while it is locked.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Lock your card in the mobile app if it’s misplaced, lost, or stolen.",
+     "original": {
+      "title": "Card lock in the mobile app",
+      "summary": "Lock a misplaced, lost or stolen card in the app; some account activity continues while it is locked.",
+      "howToUse": [
+       "Lock the card in the mobile app."
+      ],
+      "quotes": [
+       "When Card Lock is enabled, some activity may continue, including returns, credits, payments, interest"
+      ]
+     }
+    },
+    {
+     "key": "ssn-alerts",
+     "zh": "社安号暗网提醒（CreditWise）",
+     "en": "Social Security number alerts (CreditWise)",
+     "noteZh": "在暗网发现你的社安号时提醒；须注册 CreditWise（满18岁且有有效社安号），没有 Discover 卡的人也可注册。",
+     "noteEn": "An alert if your Social Security number is found on the dark web; CreditWise sign-up is needed and is also open to people without a Discover card.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Get an alert if we find your Social Security number on the dark web.",
+     "original": {
+      "title": "Social Security number alerts (CreditWise)",
+      "summary": "An alert if your Social Security number is found on the dark web; CreditWise sign-up is needed and is also open to people without a Discover card.",
+      "howToUse": [
+       "Sign up for CreditWise."
+      ],
+      "quotes": [
+       "Sign up for CreditWise today - it's available even if you don't have a Discover card.",
+       "In order to enroll in CreditWise, you need to be over the age of 18 with a valid social security number"
+      ]
+     },
+     "enrollment": true
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户首年返现或里程翻倍和免息期等限时优惠未录入。",
+     "en": "The first-year match and intro APR offers are not recorded."
+    },
+    {
+     "zh": "产品页没有提到外币交易费，是否收取未知。",
+     "en": "The product page does not mention a foreign transaction fee, so it is unknown."
+    },
+    {
+     "zh": "余额转移手续费不是年费，未录入。",
+     "en": "The balance transfer fee is not recorded."
+    }
+   ]
+  },
+  {
+   "id": "discover-us-discover-it-balance-transfer-credit-card",
+   "page": "discover-us-discover-it-balance-transfer-credit-card",
+   "issuer": "Discover",
+   "collection": "not-supported",
+   "url": "https://www.discover.com/credit-cards/balance-transfer-credit-cards/cash-back-bt-card/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "No annual fee"
+   },
+   "earning": [
+    {
+     "zh": "每季轮换类别",
+     "en": "Rotating quarterly categories",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "general",
+     "noteZh": "每季须激活，有季度上限；本页没有写上限金额。",
+     "noteEn": "Activation is needed each quarter and there is a quarterly maximum; this page states no amount.",
+     "quote": "Earn 5% cash back on everyday purchases at different places you shop each quarter, up to the quarterly maximum when you activate."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Plus, earn 1% cash back on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "fraud-liability",
+     "zh": "盗刷零责任",
+     "en": "No liability for unauthorized purchases",
+     "noteZh": "Discover 卡上的未授权消费，持卡人不承担责任。",
+     "noteEn": "You are not responsible for unauthorized purchases on the card.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "You're never responsible for unauthorized purchases on your Discover Card.",
+     "original": {
+      "title": "No liability for unauthorized purchases",
+      "summary": "You are not responsible for unauthorized purchases on the card.",
+      "howToUse": [
+       "Report an unauthorized purchase to the issuer."
+      ]
+     }
+    },
+    {
+     "key": "card-lock",
+     "zh": "手机应用锁卡",
+     "en": "Card lock in the mobile app",
+     "noteZh": "卡片遗失、放错或被盗时可在手机应用锁卡；退款、入账、还款和利息等部分账户活动仍会继续。",
+     "noteEn": "Lock a misplaced, lost or stolen card in the app; some account activity continues while it is locked.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Lock your card in the mobile app if it's misplaced, lost, or stolen.",
+     "original": {
+      "title": "Card lock in the mobile app",
+      "summary": "Lock a misplaced, lost or stolen card in the app; some account activity continues while it is locked.",
+      "howToUse": [
+       "Lock the card in the mobile app."
+      ],
+      "quotes": [
+       "When Card Lock is enabled, some activity may continue, including returns, credits, payments, interest"
+      ]
+     }
+    },
+    {
+     "key": "ssn-alerts",
+     "zh": "社安号暗网提醒（CreditWise）",
+     "en": "Social Security number alerts (CreditWise)",
+     "noteZh": "在暗网发现你的社安号时提醒；须注册 CreditWise（满18岁），没有 Discover 卡的人也可注册。",
+     "noteEn": "An alert if your Social Security number is found on the dark web; CreditWise sign-up is needed and is also open to people without a Discover card.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Get an alert if we find your Social Security number on the dark web.",
+     "original": {
+      "title": "Social Security number alerts (CreditWise)",
+      "summary": "An alert if your Social Security number is found on the dark web; CreditWise sign-up is needed and is also open to people without a Discover card.",
+      "howToUse": [
+       "Sign up for CreditWise."
+      ],
+      "quotes": [
+       "Sign up for CreditWise today - it's available even if you don't have a Discover card.",
+       "You do not need to have a Capital One account (which includes Discover card accounts) to sign up for CreditWise.",
+       "In order to enroll in CreditWise, you need to be over the age of 18"
+      ]
+     },
+     "enrollment": true
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户首年返现或里程翻倍和免息期等限时优惠未录入。",
+     "en": "The first-year match and intro APR offers are not recorded."
+    },
+    {
+     "zh": "产品页没有提到外币交易费，是否收取未知。",
+     "en": "The product page does not mention a foreign transaction fee, so it is unknown."
+    },
+    {
+     "zh": "余额转移手续费不是年费，未录入。",
+     "en": "The balance transfer fee is not recorded."
+    },
+    {
+     "zh": "5% 类别的季度上限金额本页未写。",
+     "en": "The page states no amount for the 5% quarterly maximum."
+    },
+    {
+     "zh": "页面没有说明返现兑换方式和是否过期。",
+     "en": "The page does not describe redemption or expiry."
+    }
+   ]
+  }
+ ]
+}
