@@ -8,8 +8,9 @@ import {convertPoints,transferOptions,transferProgrammes,transferRoutes} from '.
 import {runWalletTool} from '../src/walletAgent.js';
 import {knowledgeSources} from '../src/knowledge.js';
 const C1='programme.capital-one-miles',VENTURE='capital-one-us-venture-rewards-credit-card',VENTURE_X='capital-one-us-venture-x-rewards-credit-card',VENTURE_X_BIZ='capital-one-us-venture-x-business-card';
+// #643 adds VentureOne Business.
 // #631: VentureOne and Venture Business earn Capital One Miles, so the linked-products records reach them too.
-const LINKED=[VENTURE,VENTURE_X,VENTURE_X_BIZ,'capital-one-us-ventureone-rewards-credit-card','capital-one-us-venture-business-credit-card'];
+const LINKED=[VENTURE,VENTURE_X,VENTURE_X_BIZ,'capital-one-us-ventureone-rewards-credit-card','capital-one-us-venture-business-credit-card','capital-one-us-ventureone-business-credit-card'];
 const ARTICLE='https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/';
 const product=id=>cardProducts.find(p=>p.id===id),held=id=>({id:'c-'+id,bank:product(id).bank,region:'US',name:product(id).name});
 const call=(name,args)=>({id:'t1',type:'function',function:{name,arguments:JSON.stringify(args)}});
@@ -34,7 +35,7 @@ test('Capital One Miles lists the 23 partners Capital One names, each with its p
 });
 test('only the Miles cards link to Capital One transfers; cash cards do not',()=>{
  for(const id of LINKED)assert.equal(product(id).transferProgrammeId,C1,id);
- for(const id of ['capital-one-us-savor-credit-card','capital-one-us-spark-cash-plus-card','capital-one-us-quicksilver-rewards-credit-card','capital-one-us-savorone-rewards-credit-card']){
+ for(const id of ['capital-one-us-savor-credit-card','capital-one-us-spark-cash-plus-card','capital-one-us-quicksilver-rewards-credit-card','capital-one-us-savorone-rewards-credit-card','capital-one-us-platinum-credit-card']){
   assert.equal(product(id).transferProgrammeId,undefined,id);
   const r=transferOptions([held(id)]);assert.equal(r.programmes.length,0,id);assert.equal(r.cardsWithoutTransferRecord.length,1,id);
  }

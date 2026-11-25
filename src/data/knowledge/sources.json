@@ -1531,5 +1531,33 @@
     "title": "U.S. Bank · U.S. Bank Business Altitude® Connect Visa Signature® Card 官方产品页",
     "checkedAt": "2026-11-24",
     "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-ventureone-business-credit-card",
+    "url": "https://www.capitalone.com/small-business/credit-cards/ventureone-business/",
+    "title": "Capital One · VentureOne Business Credit Card 官方产品页",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-platinum-credit-card",
+    "url": "https://www.capitalone.com/credit-cards/platinum/",
+    "title": "Capital One · Platinum Credit Card 官方产品页",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
+  },
+  {
+    "id": "card-wells-fargo-us-signify-business-cash-card",
+    "url": "https://www.wellsfargo.com/biz/business-credit/credit-cards/signify-business-cash-credit-card-terms-conditions/",
+    "title": "Wells Fargo · Wells Fargo Signify Business Cash® Card 官方条款页",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
+  },
+  {
+    "id": "card-wells-fargo-us-signify-business-cash-card-guide",
+    "url": "https://www.wellsfargo.com/biz/business-credit/credit-cards/signify-business-cash-guide-to-benefits/",
+    "title": "Wells Fargo · Signify Business Cash 权益指南",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
   }
 ]
