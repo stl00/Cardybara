@@ -173,6 +173,18 @@ test('a billing record fills a field the card holds nothing in, though a later b
  const [held]=applyAgentRecords({cards:[{...card,due:'2026-12-01',autopay:'on'}]},records).cards;
  assert.equal(held.due,'2026-12-01');assert.equal(held.autopay,'on');
 });
+test('a numeric record fills a field the card holds nothing in, though a later balance reading moved its date (#641)',()=>{
+ const record=(key,value)=>({kind:'card',bank:'HSBC HK',cardId:'card-one',key,currency:'HKD',value,capturedAt:'2026-10-16T12:00:00Z'});
+ const records=[record('statement',120),record('minimum',35),record('creditLimit',5000),record('balance',1)];
+ const card={id:'card-one',bank:'HSBC HK',currency:'HKD',balance:15,updated:'2026-10-20',fieldDates:{balance:'2026-10-20T10:00:00Z'}};
+ const [c]=applyAgentRecords({cards:[card]},records).cards;
+ assert.equal(c.statement,120);assert.equal(c.minimum,35);assert.equal(c.creditLimit,5000);
+ for(const key of ['statement','minimum','creditLimit'])assert.equal(c.fieldDates[key],'2026-10-16T12:00:00Z','dated by the record\'s own read');
+ assert.equal(c.balance,15);assert.equal(c.fieldDates.balance,'2026-10-20T10:00:00Z');
+ // A held value, zero included, is still dated by `updated` when it has no field date of its own.
+ const [held]=applyAgentRecords({cards:[{...card,statement:90,minimum:0}]},records).cards;
+ assert.equal(held.statement,90);assert.equal(held.minimum,0);
+});
 test('same-page AI cannot replace an evidence-grounded rule field; newer readings can',()=>{
  const base={kind:'card',bank:'HSBC HK',cardId:'card-one',key:'balance',currency:'HKD',value:1,capturedAt:'2026-10-26T12:00:00Z',method:'rules'};
  assert.equal(mergeRecords([base],[{...base,value:2,method:'ai'}])[0].value,1);
