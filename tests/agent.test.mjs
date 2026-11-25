@@ -160,6 +160,19 @@ test('billing dates and autopay require explicit evidence and preserve field-lev
  const d=applyAgentRecords(data,good.items);assert.equal(d.cards[0].due,'2026-11-02');assert.equal(d.cards[0].autopay,'off');assert.equal(d.cards[0].balance,15);assert.equal(d.cards[0].fieldDates.due,s.capturedAt);
  const newer=structuredClone(d);newer.cards[0].fieldDates.due='2026-10-25T00:00:00Z';newer.cards[0].due='2026-12-01';assert.equal(applyAgentRecords(newer,good.items).cards[0].due,'2026-12-01');
 });
+test('a billing record fills a field the card holds nothing in, though a later balance reading moved its date (#626)',()=>{
+ const record=(key,over)=>({kind:'billing',bank:'HSBC HK',cardId:'card-one',key,currency:'HKD',value:null,capturedAt:'2026-10-16T12:00:00Z',...over});
+ const statement='No payment required';
+ const records=[record('due',{date:'2026-11-02'}),record('autopay',{status:'off'}),record('duePartial',{title:'Nov 2',date:'',status:'unknown',evidence:'Minimum payment due\n$35.00 due Nov 2'}),record('paymentStatus',{title:statement,date:'',status:'unknown',evidence:statement})];
+ const card={id:'card-one',bank:'HSBC HK',currency:'HKD',balance:15,updated:'2026-10-20',fieldDates:{balance:'2026-10-20T10:00:00Z'}};
+ const [c]=applyAgentRecords({cards:[card]},records).cards;
+ assert.equal(c.due,'2026-11-02');assert.equal(c.autopay,'off');assert.equal(c.duePartial,'Nov 2');assert.equal(c.paymentStatus,statement);
+ for(const key of ['due','autopay','duePartial','paymentStatus'])assert.equal(c.fieldDates[key],'2026-10-16T12:00:00Z','dated by the record\'s own read');
+ assert.equal(c.balance,15);assert.equal(c.fieldDates.balance,'2026-10-20T10:00:00Z');
+ // A value the card holds without its own field date is still dated by `updated`.
+ const [held]=applyAgentRecords({cards:[{...card,due:'2026-12-01',autopay:'on'}]},records).cards;
+ assert.equal(held.due,'2026-12-01');assert.equal(held.autopay,'on');
+});
 test('same-page AI cannot replace an evidence-grounded rule field; newer readings can',()=>{
  const base={kind:'card',bank:'HSBC HK',cardId:'card-one',key:'balance',currency:'HKD',value:1,capturedAt:'2026-10-26T12:00:00Z',method:'rules'};
  assert.equal(mergeRecords([base],[{...base,value:2,method:'ai'}])[0].value,1);

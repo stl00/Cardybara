@@ -18,7 +18,9 @@ export function applyAgentRecords(data,records=[]){
    if(['paymentStatus','duePartial'].includes(i.key)&&!billingObservation(i))continue;
    if(i.key==='due'&&!/^\d{4}-\d{2}-\d{2}$/.test(i.date))continue;
    if(i.key==='autopay'&&!['on','off'].includes(i.status))continue;
-   const old=c.fieldDates?.[i.key]||c.updated;if(old&&Date.parse(old)>Date.parse(i.capturedAt))continue;
+   // Only a value the card holds can be newer than this record. A balance reading moves `updated` (live.js) without
+   // holding billing fields, so that date must not hide a record for a field the card has nothing in (#626, as #585).
+   const old=c[i.key]!=null?c.fieldDates?.[i.key]||c.updated:null;if(old&&Date.parse(old)>Date.parse(i.capturedAt))continue;
    c[i.key]=i.key==='due'?i.date:['paymentStatus','duePartial'].includes(i.key)?i.title:i.status;(c.fieldDates??={})[i.key]=i.capturedAt;(c.fieldSources??={})[i.key]={method:i.method==='rules'?'rules-evidence-validated':'ai-evidence-validated',page:i.page,region:i.region,...(['paymentStatus','duePartial'].includes(i.key)?{evidence:i.evidence}: {})};
   }
   if(i.kind==='reward'){
