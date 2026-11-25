@@ -121288,5 +121288,1878 @@
         }
       ]
     }
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-visa-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-visa-card.fee-primary@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "us-bank-us-business-essentials-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "The U.S. Bank Business Essentials™ Visa® Card has a $0 annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-visa-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-visa-card.earning-0@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-business-essentials-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Travel Center 预付酒店和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 6% cash back on prepaid hotels and car rentals booked directly in the Travel Center when you use this card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 6,
+      "unit": "cashback-percent",
+      "spendCategory": "Travel Center 预付酒店和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-visa-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-visa-card.earning-1@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-business-essentials-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他合资格消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Unlimited 2% cash back on every purchase",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "其他合资格消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-visa-card.balance-bonus",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-visa-card.balance-bonus@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-essentials-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "按存款余额的返现加成",
+      "summary": "在合资格 U.S. Bank 企业支票账户保有1万美元及以上合资格余额时总计2.5%，只适用于每个账单周期前1万美元合资格消费。余额未核实。",
+      "sourceText": "Business Essentials Earning Bonus applies to a maximum of $10,000 in eligible Net Purchases each Card billing cycle.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "在合资格 U.S. Bank 企业支票账户保有1万美元及以上合资格余额时总计2.5%，只适用于每个账单周期前1万美元合资格消费。余额未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在合资格 U.S. Bank 企业支票账户保有1万美元及以上合资格余额时总计2.5%，只适用于每个账单周期前1万美元合资格消费。余额未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Business Essentials Earning Bonus",
+      "summary": "With a qualifying balance of $10,000 or more in a qualifying U.S. Bank business checking account, 2.5% total on up to $10,000 of eligible purchases per billing cycle. Your balance is unverified.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-essentials-visa-card",
+          "text": "Business Essentials Earning Bonus applies to a maximum of $10,000 in eligible Net Purchases each Card billing cycle."
+        },
+        {
+          "sourceId": "card-us-bank-us-business-essentials-visa-card",
+          "text": "2.5% total cash back on your first $10,000 in eligible Net Purchases each month when paired with qualifying balances"
+        },
+        {
+          "sourceId": "card-us-bank-us-business-essentials-visa-card",
+          "text": "Have a \"Qualifying Balance\" of $10,000 or more with U.S. Bank in a Qualifying Business Checking Account."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-visa-card.spend-management",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-visa-card.spend-management@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-essentials-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "U.S. Bank Spend Management 支出管理",
+      "summary": "可用 U.S. Bank Spend Management 管理卡支出。",
+      "sourceText": "Take control of your card spend with U.S. Bank Spend Management",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "可用 U.S. Bank Spend Management 管理卡支出。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "可用 U.S. Bank Spend Management 管理卡支出。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "U.S. Bank Spend Management",
+      "summary": "U.S. Bank Spend Management for controlling card spend.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-essentials-visa-card",
+          "text": "Take control of your card spend with U.S. Bank Spend Management"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-visa-card.redemption",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-visa-card.redemption@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-essentials-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "积分兑换为存款或账单抵扣",
+      "summary": "积分可存入合资格 U.S. Bank 存款账户或抵扣账单；礼品卡、旅行等其他兑换方式的价值可能较低。",
+      "sourceText": "Points can be redeemed as a deposit into an eligible U.S. Bank deposit account or statement credit.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "积分可存入合资格 U.S. Bank 存款账户或抵扣账单；礼品卡、旅行等其他兑换方式的价值可能较低。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "积分可存入合资格 U.S. Bank 存款账户或抵扣账单；礼品卡、旅行等其他兑换方式的价值可能较低。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Redeem points as a deposit or statement credit",
+      "summary": "Points go to an eligible U.S. Bank deposit account or a statement credit; other redemptions such as gift cards and travel may be at a reduced rate.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-essentials-visa-card",
+          "text": "Points can be redeemed as a deposit into an eligible U.S. Bank deposit account or statement credit."
+        },
+        {
+          "sourceId": "card-us-bank-us-business-essentials-visa-card",
+          "text": "Other redemptions, such as for gift cards or travel, may be at a reduced redemption rate."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-visa-card.points-expiry",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-visa-card.points-expiry@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-essentials-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "连续12个账单周期无活动积分过期",
+      "summary": "卡账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。",
+      "sourceText": "Points will expire if there is no reward, Purchase, or balance activity on your Card account",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "卡账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "卡账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Points expire after 12 inactive statement cycles",
+      "summary": "Points expire if the card account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-essentials-visa-card",
+          "text": "Points will expire if there is no reward, Purchase, or balance activity on your Card account"
+        },
+        {
+          "sourceId": "card-us-bank-us-business-essentials-visa-card",
+          "text": "for 12 consecutive statement cycles."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-plus-visa-signature-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-plus-visa-signature-card.fee-primary@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "us-bank-us-business-essentials-plus-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$295 annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 295,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-plus-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-plus-visa-signature-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-plus-visa-signature-card.earning-0@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-business-essentials-plus-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Travel Center 预付酒店和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 10% cash back on prepaid hotels and car rentals booked directly in the Travel Center",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 10,
+      "unit": "cashback-percent",
+      "spendCategory": "Travel Center 预付酒店和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-plus-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-plus-visa-signature-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-plus-visa-signature-card.earning-1@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-business-essentials-plus-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "每月消费最高的合资格类别",
+      "summary": "自动取当月消费最高的合资格类别；每个开户周年年度前20万美元，之后2%。合资格类别可能随时调整。",
+      "sourceText": "Earn 5% cash back on your top eligible spend category each month automatically up to $200,000 spent annually.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "自动取当月消费最高的合资格类别；每个开户周年年度前20万美元，之后2%。合资格类别可能随时调整。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "每月消费最高的合资格类别",
+      "spendCap": {
+        "amount": 200000,
+        "currency": "USD",
+        "period": "account-anniversary"
+      },
+      "creditedSpendMayNotEarn": null,
+      "afterCapPercent": 2
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "自动取当月消费最高的合资格类别；每个开户周年年度前20万美元，之后2%。合资格类别可能随时调整。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-plus-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-plus-visa-signature-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-plus-visa-signature-card.earning-2@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-business-essentials-plus-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他合资格消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Unlimited 2% cash back on every purchase.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "其他合资格消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-plus-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-plus-visa-signature-card.balance-bonus",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-plus-visa-signature-card.balance-bonus@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-essentials-plus-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "按存款余额的返现加成",
+      "summary": "按合资格余额：1.5万至74,999美元总计2.5%，7.5万至149,999美元总计3%，15万美元及以上总计3.5%；加成适用于每个开户周年年度前20万美元合资格消费。余额和等级未核实。",
+      "sourceText": "Business Essentials Plus Earning Bonus applies to a maximum of $200,000 in eligible Net Purchases annually",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "按合资格余额：1.5万至74,999美元总计2.5%，7.5万至149,999美元总计3%，15万美元及以上总计3.5%；加成适用于每个开户周年年度前20万美元合资格消费。余额和等级未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "按合资格余额：1.5万至74,999美元总计2.5%，7.5万至149,999美元总计3%，15万美元及以上总计3.5%；加成适用于每个开户周年年度前20万美元合资格消费。余额和等级未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-plus-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Business Essentials Plus Earning Bonus",
+      "summary": "By qualifying balance: 2.5% total at $15,000 to $74,999, 3% at $75,000 to $149,999, 3.5% at $150,000 or more; the bonus covers up to $200,000 of eligible purchases in each year from account opening. Your balance and tier are unverified.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-essentials-plus-visa-signature-card",
+          "text": "Business Essentials Plus Earning Bonus applies to a maximum of $200,000 in eligible Net Purchases annually"
+        },
+        {
+          "sourceId": "card-us-bank-us-business-essentials-plus-visa-signature-card",
+          "text": "2.5% cash back with $15,000 to $74,999 in qualifying balances"
+        },
+        {
+          "sourceId": "card-us-bank-us-business-essentials-plus-visa-signature-card",
+          "text": "3% cash back with $75,000 to $149,999 in qualifying balances"
+        },
+        {
+          "sourceId": "card-us-bank-us-business-essentials-plus-visa-signature-card",
+          "text": "3.5% cash back with $150,000 or more in qualifying balances"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-plus-visa-signature-card.spend-management",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-plus-visa-signature-card.spend-management@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-essentials-plus-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "U.S. Bank Spend Management 支出管理",
+      "summary": "可用 U.S. Bank Spend Management 管理卡支出。",
+      "sourceText": "Take control of your card spend with U.S. Bank Spend Management",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "可用 U.S. Bank Spend Management 管理卡支出。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "可用 U.S. Bank Spend Management 管理卡支出。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-plus-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "U.S. Bank Spend Management",
+      "summary": "U.S. Bank Spend Management for controlling card spend.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-essentials-plus-visa-signature-card",
+          "text": "Take control of your card spend with U.S. Bank Spend Management"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-plus-visa-signature-card.redemption",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-plus-visa-signature-card.redemption@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-essentials-plus-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "积分兑换为存款或账单抵扣",
+      "summary": "积分可存入合资格 U.S. Bank 存款账户或抵扣账单；礼品卡、旅行等其他兑换方式的价值可能较低。",
+      "sourceText": "Points can be redeemed as a deposit into an eligible U.S. Bank deposit account or statement credit.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "积分可存入合资格 U.S. Bank 存款账户或抵扣账单；礼品卡、旅行等其他兑换方式的价值可能较低。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "积分可存入合资格 U.S. Bank 存款账户或抵扣账单；礼品卡、旅行等其他兑换方式的价值可能较低。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-plus-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Redeem points as a deposit or statement credit",
+      "summary": "Points go to an eligible U.S. Bank deposit account or a statement credit; other redemptions such as gift cards and travel may be at a reduced rate.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-essentials-plus-visa-signature-card",
+          "text": "Points can be redeemed as a deposit into an eligible U.S. Bank deposit account or statement credit."
+        },
+        {
+          "sourceId": "card-us-bank-us-business-essentials-plus-visa-signature-card",
+          "text": "Other redemptions, such as for gift cards or travel, may be at a reduced redemption rate."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-essentials-plus-visa-signature-card.points-expiry",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-essentials-plus-visa-signature-card.points-expiry@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-essentials-plus-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "连续12个账单周期无活动积分过期",
+      "summary": "卡账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。",
+      "sourceText": "Points will expire if there is no reward, Purchase, or balance activity on your Card account",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "卡账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "卡账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-essentials-plus-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Points expire after 12 inactive statement cycles",
+      "summary": "Points expire if the card account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-essentials-plus-visa-signature-card",
+          "text": "Points will expire if there is no reward, Purchase, or balance activity on your Card account"
+        },
+        {
+          "sourceId": "card-us-bank-us-business-essentials-plus-visa-signature-card",
+          "text": "for 12 consecutive statement cycles."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-shield-visa-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-shield-visa-card.fee-primary@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "us-bank-us-business-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "There is no annual fee on the U.S. Bank Business Shield® Visa® Card, and no fee for additional employee credit cards.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-shield-visa-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-shield-visa-card.fee-additional@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "us-bank-us-business-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "no fee for additional employee credit cards",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-shield-visa-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-shield-visa-card.earning-0@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-business-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Travel Center 预付机票、酒店和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "5% cash back on prepaid air, hotel and car reservations booked directly in the Travel Center when using your card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Travel Center 预付机票、酒店和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-shield-visa-card.annual-credit",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-shield-visa-card.annual-credit@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Travel Center 消费达标每年抵扣50美元",
+      "summary": "每个开户周年年度内在 Travel Center 预订消费满5,000美元，获得50美元账单抵扣。个人进度未核实。",
+      "sourceText": "Earn a $50 annual statement credit after $5,000 in purchases made through the Travel Center when you use your card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个开户周年年度内在 Travel Center 预订消费满5,000美元，获得50美元账单抵扣。个人进度未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "account-anniversary",
+      "amount": 50,
+      "currency": "USD",
+      "spendThreshold": 5000,
+      "spendScope": "category"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个开户周年年度内在 Travel Center 预订消费满5,000美元，获得50美元账单抵扣。个人进度未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$50 annual statement credit after Travel Center spend",
+      "summary": "A $50 statement credit after at least $5,000 of qualified travel bought in the Travel Center within each 12-month period from account opening. Your progress is unverified.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-shield-visa-card",
+          "text": "Earn a $50 annual statement credit after $5,000 in purchases made through the Travel Center when you use your card."
+        },
+        {
+          "sourceId": "card-us-bank-us-business-shield-visa-card",
+          "text": "The annual period starts on the date the account is opened and starts over on the anniversary"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-shield-visa-card.purchase-security",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-shield-visa-card.purchase-security@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障 Purchase Security",
+      "summary": "用本卡购买的合资格物品失窃或损坏时可协助报销；期限和上限未列，以福利指南为准。",
+      "sourceText": "If an item is stolen or damaged, Purchase Security can help reimburse you for the eligible item.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "用本卡购买的合资格物品失窃或损坏时可协助报销；期限和上限未列，以福利指南为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用本卡购买的合资格物品失窃或损坏时可协助报销；期限和上限未列，以福利指南为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Security",
+      "summary": "Can help reimburse an eligible item bought with the card that is stolen or damaged; the period and limits are not stated.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-shield-visa-card",
+          "text": "If an item is stolen or damaged, Purchase Security can help reimburse you for the eligible item."
+        },
+        {
+          "sourceId": "card-us-bank-us-business-shield-visa-card",
+          "text": "When you use your card, your purchases are protected."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-shield-visa-card.extendpay",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-shield-visa-card.extendpay@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "每年一次免费的3个月 ExtendPay 分期",
+      "summary": "开户首发0%消费 APR 到期后，每个自然年可设一次3个月 $0 的 ExtendPay 分期。",
+      "sourceText": "Get an opportunity to set up a 3-month $0 fee ExtendPay Plan offer each calendar year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "开户首发0%消费 APR 到期后，每个自然年可设一次3个月 $0 的 ExtendPay 分期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "开户首发0%消费 APR 到期后，每个自然年可设一次3个月 $0 的 ExtendPay 分期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Yearly 3-month $0 ExtendPay Plan offer",
+      "summary": "After the intro purchase APR ends, one 3-month $0 ExtendPay Plan offer each calendar year.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-shield-visa-card",
+          "text": "Get an opportunity to set up a 3-month $0 fee ExtendPay Plan offer each calendar year"
+        },
+        {
+          "sourceId": "card-us-bank-us-business-shield-visa-card",
+          "text": "after the new account 0% introductory purchase APR offer has expired."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-shield-visa-card.spend-management",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-shield-visa-card.spend-management@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "U.S. Bank Spend Management 支出管理",
+      "summary": "可用 U.S. Bank Spend Management 管理卡支出。",
+      "sourceText": "U.S. Bank Spend Management a game-changing platform for monitoring and managing business expenses.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "可用 U.S. Bank Spend Management 管理卡支出。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "可用 U.S. Bank Spend Management 管理卡支出。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "U.S. Bank Spend Management",
+      "summary": "U.S. Bank Spend Management for controlling card spend.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-shield-visa-card",
+          "text": "U.S. Bank Spend Management a game-changing platform for monitoring and managing business expenses."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-shield-visa-card.rewards-expiry",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-shield-visa-card.rewards-expiry@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "账户保持活跃时奖励不过期",
+      "summary": "页面写明账户保持活跃时奖励不过期；多久无活动算不活跃未写明。",
+      "sourceText": "Points do not expire as long as the account remains active.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明账户保持活跃时奖励不过期；多久无活动算不活跃未写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明账户保持活跃时奖励不过期；多久无活动算不活跃未写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Rewards do not expire while the account stays active",
+      "summary": "The page states rewards do not expire while the account stays active; it does not say what counts as inactive.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-shield-visa-card",
+          "text": "Points do not expire as long as the account remains active."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-shield-visa-card.redemption",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-shield-visa-card.redemption@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "返现可抵扣账单",
+      "summary": "返现可抵扣本卡账单；最低兑换额视方式而定。",
+      "sourceText": "Cash rewards can be redeemed in the form of a statement credit to your credit card account",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "返现可抵扣本卡账单；最低兑换额视方式而定。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "返现可抵扣本卡账单；最低兑换额视方式而定。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Redeem as statement credit",
+      "summary": "Cash rewards redeem as a statement credit to the card account; minimum redemption amounts vary.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-shield-visa-card",
+          "text": "Cash rewards can be redeemed in the form of a statement credit to your credit card account"
+        },
+        {
+          "sourceId": "card-us-bank-us-business-shield-visa-card",
+          "text": "Minimum redemption amounts vary and are subject to change without notice."
+        }
+      ]
+    }
   }
 ]

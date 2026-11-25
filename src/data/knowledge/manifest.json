@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-25.cards-18",
+  "snapshotId": "cardybara-public-knowledge-2026-11-25.cards-19",
   "asOf": "2026-11-25",
   "locale": "zh-CN",
   "files": [
@@ -2080,6 +2080,59 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "us-bank-us-business-essentials-visa-card": {
+      "checkedAt": "2026-11-25",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "U.S. Bank"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "产品页未提及外币交易费。",
+        "产品页未写明员工卡费用。",
+        "产品页未列出保险或购物、旅行保障。",
+        "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "us-bank-us-business-essentials-plus-visa-signature-card": {
+      "checkedAt": "2026-11-25",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "U.S. Bank"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "产品页未提及外币交易费。",
+        "产品页未写明员工卡费用。",
+        "产品页未列出保险或购物、旅行保障。",
+        "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "us-bank-us-business-shield-visa-card": {
+      "checkedAt": "2026-11-25",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "U.S. Bank"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Travel Center 以外消费的返现比例页面未写明。",
+        "产品页未提及外币交易费。",
+        "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -2226,6 +2279,9 @@
     "us-bank-us-business-altitude-connect-visa-signature-card",
     "capital-one-us-ventureone-business-credit-card",
     "capital-one-us-platinum-credit-card",
-    "wells-fargo-us-signify-business-cash-card"
+    "wells-fargo-us-signify-business-cash-card",
+    "us-bank-us-business-essentials-visa-card",
+    "us-bank-us-business-essentials-plus-visa-signature-card",
+    "us-bank-us-business-shield-visa-card"
   ]
 }
