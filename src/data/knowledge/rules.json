@@ -109382,5 +109382,4418 @@
         }
       ]
     }
+  },
+  {
+    "id": "rule.capital-one-us-quicksilver-rewards-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-quicksilver-rewards-credit-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-quicksilver-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$0 annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-quicksilver-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-quicksilver-rewards-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-quicksilver-rewards-credit-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-quicksilver-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Travel 酒店、度假屋和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 5% cash back on hotels, vacation rentals and rental car bookings.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Capital One Travel 酒店、度假屋和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-quicksilver-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-quicksilver-rewards-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-quicksilver-rewards-credit-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-quicksilver-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Entertainment",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "5% cash back with Capital One Entertainment.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Capital One Entertainment",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-quicksilver-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-quicksilver-rewards-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-quicksilver-rewards-credit-card.earning-2@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-quicksilver-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 1.5% cash back on every purchase, every day.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1.5,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-quicksilver-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-quicksilver-rewards-credit-card.no-foreign-fee",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-quicksilver-rewards-credit-card.no-foreign-fee@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-quicksilver-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "无外币交易费",
+      "summary": "页面写明不收外币交易费。",
+      "sourceText": "No foreign transaction fees",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明不收外币交易费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明不收外币交易费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-quicksilver-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+        "Use the card abroad without this fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-quicksilver-rewards-credit-card",
+          "text": "No foreign transaction fees"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-quicksilver-rewards-credit-card.hertz",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-quicksilver-rewards-credit-card.hertz@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-quicksilver-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Hertz Five Star 会籍",
+      "summary": "赠送 Hertz Five Star 身份；登记方式页面未写。",
+      "sourceText": "complimentary Hertz Five Star® status.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "赠送 Hertz Five Star 身份；登记方式页面未写。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "赠送 Hertz Five Star 身份；登记方式页面未写。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-quicksilver-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Hertz Five Star status",
+      "summary": "Complimentary Hertz Five Star status; the page does not say how to enrol.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-quicksilver-rewards-credit-card",
+          "text": "complimentary Hertz Five Star® status."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-quicksilver-rewards-credit-card.cafe",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-quicksilver-rewards-credit-card.cafe@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-quicksilver-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "dining"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Café 手工饮品半价",
+      "summary": "持卡人在 Capital One Café 的手工饮品半价。",
+      "sourceText": "Capital One cardholders enjoy 50% off all handcrafted beverages every day at any Capital One Café nationwide.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "持卡人在 Capital One Café 的手工饮品半价。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "持卡人在 Capital One Café 的手工饮品半价。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-quicksilver-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "50% off drinks at Capital One Café",
+      "summary": "Cardholders get 50% off handcrafted beverages at Capital One Cafés.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-quicksilver-rewards-credit-card",
+          "text": "Capital One cardholders enjoy 50% off all handcrafted beverages every day at any Capital One Café nationwide."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-quicksilver-rewards-credit-card.concierge",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-quicksilver-rewards-credit-card.concierge@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-quicksilver-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "礼宾服务",
+      "summary": "餐饮、娱乐和旅行的礼宾协助。",
+      "sourceText": "Receive complimentary, personalized assistance in dining, entertainment and travel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "餐饮、娱乐和旅行的礼宾协助。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "餐饮、娱乐和旅行的礼宾协助。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-quicksilver-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Concierge",
+      "summary": "Concierge help for dining, entertainment and travel.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-quicksilver-rewards-credit-card",
+          "text": "Receive complimentary, personalized assistance in dining, entertainment and travel"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-quicksilver-rewards-credit-card.price-drop",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-quicksilver-rewards-credit-card.price-drop@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-quicksilver-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "订后低价补差旅行额度",
+      "summary": "订后24小时内在别处找到更低价，合资格机票、酒店或租车可得差价旅行额度。",
+      "sourceText": "If you find a better price on another site within 24 hours of booking",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "订后24小时内在别处找到更低价，合资格机票、酒店或租车可得差价旅行额度。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "订后24小时内在别处找到更低价，合资格机票、酒店或租车可得差价旅行额度。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-quicksilver-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Travel credit if you find a better price",
+      "summary": "Find a better price within 24 hours of booking an eligible flight, hotel or rental car and get the difference as travel credit.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-quicksilver-rewards-credit-card",
+          "text": "If you find a better price on another site within 24 hours of booking"
+        },
+        {
+          "sourceId": "card-capital-one-us-quicksilver-rewards-credit-card",
+          "text": "you’ll get a travel credit for the difference."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-quicksilver-rewards-credit-card.travel-accident",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-quicksilver-rewards-credit-card.travel-accident@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-quicksilver-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行意外保险",
+      "summary": "用该卡买机票等车船票时自动获得承保损失保险；金额和条件页面未列。",
+      "sourceText": "Get automatic insurance for a covered loss at no extra charge when you use your credit card",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "用该卡买机票等车船票时自动获得承保损失保险；金额和条件页面未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用该卡买机票等车船票时自动获得承保损失保险；金额和条件页面未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-quicksilver-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Travel accident insurance",
+      "summary": "Automatic insurance for a covered loss when the card buys your fare; amounts and conditions are not stated.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-quicksilver-rewards-credit-card",
+          "text": "Get automatic insurance for a covered loss at no extra charge when you use your credit card"
+        },
+        {
+          "sourceId": "card-capital-one-us-quicksilver-rewards-credit-card",
+          "text": "to purchase your fare."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-quicksilver-rewards-credit-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-quicksilver-rewards-credit-card.extended-warranty@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-quicksilver-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页称用该卡购买的合资格商品可获额外保修；期限和上限未列。",
+      "sourceText": "You’ll get additional warranty protection at no charge on eligible items that are purchased with your credit card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "产品页称用该卡购买的合资格商品可获额外保修；期限和上限未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页称用该卡购买的合资格商品可获额外保修；期限和上限未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-quicksilver-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The page says eligible items bought with the card get extra warranty; limits are not stated.",
+      "howToUse": [
+        "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-quicksilver-rewards-credit-card",
+          "text": "You’ll get additional warranty protection at no charge on eligible items that are purchased with your credit card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-savorone-rewards-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savorone-rewards-credit-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-savorone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$39 annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 39,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savorone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-savorone-rewards-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savorone-rewards-credit-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-savorone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "超市、餐饮、娱乐和流媒体",
+      "summary": "超市不含 Walmart、Target 等大型超级商店；类别按条款认定。",
+      "sourceText": "Earn unlimited 3% cash back at grocery stores, on dining, entertainment and popular streaming services",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "超市不含 Walmart、Target 等大型超级商店；类别按条款认定。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "cashback-percent",
+      "spendCategory": "超市、餐饮、娱乐和流媒体",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "超市不含 Walmart、Target 等大型超级商店；类别按条款认定。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savorone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-savorone-rewards-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savorone-rewards-credit-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-savorone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Travel 酒店、度假屋和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 5% cash back on hotels, vacation rentals and rental car bookings.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Capital One Travel 酒店、度假屋和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savorone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-savorone-rewards-credit-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savorone-rewards-credit-card.earning-2@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-savorone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Entertainment",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "8% cash back with Capital One Entertainment.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 8,
+      "unit": "cashback-percent",
+      "spendCategory": "Capital One Entertainment",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savorone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-savorone-rewards-credit-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savorone-rewards-credit-card.earning-3@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-savorone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "plus 1% cash back on all other purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savorone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-savorone-rewards-credit-card.no-foreign-fee",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savorone-rewards-credit-card.no-foreign-fee@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-savorone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "无外币交易费",
+      "summary": "页面写明不收外币交易费。",
+      "sourceText": "Plus, there are no hidden or foreign transaction fees.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明不收外币交易费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明不收外币交易费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savorone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+        "Use the card abroad without this fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-savorone-rewards-credit-card",
+          "text": "Plus, there are no hidden or foreign transaction fees."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-savorone-rewards-credit-card.cafe",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savorone-rewards-credit-card.cafe@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-savorone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "dining"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Café 手工饮品半价",
+      "summary": "持卡人在 Capital One Café 的手工饮品半价。",
+      "sourceText": "Capital One cardholders enjoy 50% off all handcrafted beverages every day at any Capital One Café nationwide.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "持卡人在 Capital One Café 的手工饮品半价。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "持卡人在 Capital One Café 的手工饮品半价。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savorone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "50% off drinks at Capital One Café",
+      "summary": "Cardholders get 50% off handcrafted beverages at Capital One Cafés.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-savorone-rewards-credit-card",
+          "text": "Capital One cardholders enjoy 50% off all handcrafted beverages every day at any Capital One Café nationwide."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-savorone-rewards-credit-card.concierge",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savorone-rewards-credit-card.concierge@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-savorone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "礼宾服务",
+      "summary": "餐饮、娱乐和旅行的礼宾协助。",
+      "sourceText": "Receive complimentary, personalized assistance in dining, entertainment and travel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "餐饮、娱乐和旅行的礼宾协助。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "餐饮、娱乐和旅行的礼宾协助。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savorone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Concierge",
+      "summary": "Concierge help for dining, entertainment and travel.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-savorone-rewards-credit-card",
+          "text": "Receive complimentary, personalized assistance in dining, entertainment and travel"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-savorone-rewards-credit-card.price-drop",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savorone-rewards-credit-card.price-drop@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-savorone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "订后低价补差旅行额度",
+      "summary": "订后24小时内在别处找到更低价，合资格机票、酒店或租车可得差价旅行额度。",
+      "sourceText": "If you find a better price on another site within 24 hours of booking",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "订后24小时内在别处找到更低价，合资格机票、酒店或租车可得差价旅行额度。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "订后24小时内在别处找到更低价，合资格机票、酒店或租车可得差价旅行额度。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savorone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Travel credit if you find a better price",
+      "summary": "Find a better price within 24 hours of booking an eligible flight, hotel or rental car and get the difference as travel credit.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-savorone-rewards-credit-card",
+          "text": "If you find a better price on another site within 24 hours of booking"
+        },
+        {
+          "sourceId": "card-capital-one-us-savorone-rewards-credit-card",
+          "text": "you’ll get a travel credit for the difference."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-savorone-rewards-credit-card.travel-accident",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savorone-rewards-credit-card.travel-accident@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-savorone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行意外保险",
+      "summary": "用该卡买机票等车船票时自动获得承保损失保险；金额和条件页面未列。",
+      "sourceText": "Get automatic insurance for a covered loss at no extra charge when you use your credit card",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "用该卡买机票等车船票时自动获得承保损失保险；金额和条件页面未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用该卡买机票等车船票时自动获得承保损失保险；金额和条件页面未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savorone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Travel accident insurance",
+      "summary": "Automatic insurance for a covered loss when the card buys your fare; amounts and conditions are not stated.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-savorone-rewards-credit-card",
+          "text": "Get automatic insurance for a covered loss at no extra charge when you use your credit card"
+        },
+        {
+          "sourceId": "card-capital-one-us-savorone-rewards-credit-card",
+          "text": "to purchase your fare."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-savorone-rewards-credit-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-savorone-rewards-credit-card.extended-warranty@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-savorone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页称用该卡购买的合资格商品可获额外保修；期限和上限未列。",
+      "sourceText": "You’ll get additional warranty protection at no charge on eligible items that are purchased with your credit card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "产品页称用该卡购买的合资格商品可获额外保修；期限和上限未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页称用该卡购买的合资格商品可获额外保修；期限和上限未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-savorone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The page says eligible items bought with the card get extra warranty; limits are not stated.",
+      "howToUse": [
+        "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-savorone-rewards-credit-card",
+          "text": "You’ll get additional warranty protection at no charge on eligible items that are purchased with your credit card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-ventureone-rewards-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-ventureone-rewards-credit-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-ventureone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$0 Annual Fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-ventureone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-ventureone-rewards-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-ventureone-rewards-credit-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-ventureone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "Capital One Travel 酒店、度假屋和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 5 miles per dollar on hotels, vacation rentals and rental cars booked through Capital One Travel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "miles-per-USD",
+      "spendCategory": "Capital One Travel 酒店、度假屋和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-ventureone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-ventureone-rewards-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-ventureone-rewards-credit-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-ventureone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "所有消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 1.25 miles per dollar on every purchase",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1.25,
+      "unit": "miles-per-USD",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-ventureone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-ventureone-rewards-credit-card.no-foreign-fee",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-ventureone-rewards-credit-card.no-foreign-fee@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-ventureone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "无外币交易费",
+      "summary": "页面写明不收外币交易费。",
+      "sourceText": "No Foreign Transaction Fees",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明不收外币交易费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明不收外币交易费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-ventureone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+        "Use the card abroad without this fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-ventureone-rewards-credit-card",
+          "text": "No Foreign Transaction Fees"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-ventureone-rewards-credit-card.travel-redemption",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-ventureone-rewards-credit-card.travel-redemption@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-ventureone-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "里程抵扣旅行消费",
+      "summary": "旅行消费可用里程换账单抵扣，须在消费入账后90天内兑换。",
+      "sourceText": "redeem your miles as a statement credit toward the cost",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "旅行消费可用里程换账单抵扣，须在消费入账后90天内兑换。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "旅行消费可用里程换账单抵扣，须在消费入账后90天内兑换。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-ventureone-rewards-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Redeem miles for travel purchases",
+      "summary": "Redeem miles as a statement credit for a travel purchase within 90 days of posting.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-ventureone-rewards-credit-card",
+          "text": "redeem your miles as a statement credit toward the cost"
+        },
+        {
+          "sourceId": "card-capital-one-us-ventureone-rewards-credit-card",
+          "text": "redemptions must be made within 90 days from the date your travel purchase posts to your account."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-venture-business-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-business-credit-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-venture-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$95 annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-business-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-business-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-business-credit-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-venture-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "Capital One Business Travel 酒店、度假屋和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Unlimited 5X miles on hotels, vacation rentals, and rental cars booked through Capital One Business Travel.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "miles-per-USD",
+      "spendCategory": "Capital One Business Travel 酒店、度假屋和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-business-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-business-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-business-credit-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-venture-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [
+      "programme.capital-one-miles"
+    ],
+    "content": {
+      "title": "所有消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2X miles on every purchase",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-business-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-venture-business-credit-card.travel",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-business-credit-card.travel@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Business Travel 年度额度",
+      "summary": "每个账户周年年度50美元，须通过 Capital One Business Travel 预订，到下个周年日失效。",
+      "sourceText": "Receive an annual $50 travel credit for bookings through Capital One Business Travel.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户周年年度50美元，须通过 Capital One Business Travel 预订，到下个周年日失效。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 50,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户周年年度50美元，须通过 Capital One Business Travel 预订，到下个周年日失效。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-business-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Annual Capital One Business Travel credit",
+      "summary": "$50 each account anniversary year for Capital One Business Travel bookings; it expires on the next anniversary.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-business-credit-card",
+          "text": "Receive an annual $50 travel credit for bookings through Capital One Business Travel."
+        },
+        {
+          "sourceId": "card-capital-one-us-venture-business-credit-card",
+          "text": "Each annual Credit will expire on the next account open date anniversary."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-venture-business-credit-card.ad-software",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-business-credit-card.ad-software@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "广告和软件消费年度抵扣",
+      "summary": "合资格广告或软件商户消费每个账户周年年度最多抵扣50美元，未用部分到周年日失效。",
+      "sourceText": "Get an annual $50 statement credit for purchases at qualifying advertising or software merchants.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "合资格广告或软件商户消费每个账户周年年度最多抵扣50美元，未用部分到周年日失效。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "account-anniversary",
+      "amount": 50,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "合资格广告或软件商户消费每个账户周年年度最多抵扣50美元，未用部分到周年日失效。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-business-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Annual advertising and software credit",
+      "summary": "$50 a year in statement credit at qualifying advertising or software merchants; unused credit expires on the anniversary.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-business-credit-card",
+          "text": "Get an annual $50 statement credit for purchases at qualifying advertising or software merchants."
+        },
+        {
+          "sourceId": "card-capital-one-us-venture-business-credit-card",
+          "text": "Any unused credits will expire on your account open date anniversary."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-venture-business-credit-card.trusted-traveler",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-business-credit-card.trusted-traveler@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Global Entry 或 TSA PreCheck 申请费抵扣",
+      "summary": "每个账户每四年一次，最多120美元，须用本卡付申请费。",
+      "sourceText": "Receive up to a $120 credit for Global Entry or TSA PreCheck® every 4 years.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个账户每四年一次，最多120美元，须用本卡付申请费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "rolling-four-years",
+      "amount": 120,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个账户每四年一次，最多120美元，须用本卡付申请费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-business-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry or TSA PreCheck application fee credit",
+      "summary": "Up to $120 once every 4 years per account when the card pays the application fee.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-business-credit-card",
+          "text": "Receive up to a $120 credit for Global Entry or TSA PreCheck® every 4 years."
+        },
+        {
+          "sourceId": "card-capital-one-us-venture-business-credit-card",
+          "text": "One statement credit will be processed per account every 4 years"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-venture-business-credit-card.hertz",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-business-credit-card.hertz@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Hertz Gold+ 会籍升级",
+      "summary": "须通过指定权益链接登记。",
+      "sourceText": "Eligible cardholders must enroll in the Hertz® Gold+™ Rewards status upgrade through the unique Benefits Tab link",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须通过指定权益链接登记。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null,
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须通过指定权益链接登记。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-business-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Hertz Gold+ Rewards status upgrade",
+      "summary": "Enrol through the benefits link.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-business-credit-card",
+          "text": "Eligible cardholders must enroll in the Hertz® Gold+™ Rewards status upgrade through the unique Benefits Tab link"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-venture-business-credit-card.lifestyle-collection",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-business-credit-card.lifestyle-collection@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "hotel-service",
+    "scenarioIds": [
+      "hotel-stay"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Lifestyle Collection 体验额度",
+      "summary": "每次入住50美元体验额度，另有房型升级（视供应）。",
+      "sourceText": "Unlock premium benefits with every stay, like a $50 experience credit, room upgrades when available and more.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每次入住50美元体验额度，另有房型升级（视供应）。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "hotel-service",
+      "period": "per-stay",
+      "amount": 50,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每次入住50美元体验额度，另有房型升级（视供应）。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-business-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Lifestyle Collection experience credit",
+      "summary": "A $50 experience credit with every stay, plus upgrades when available.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-business-credit-card",
+          "text": "Unlock premium benefits with every stay, like a $50 experience credit, room upgrades when available and more."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-venture-business-credit-card.no-foreign-fee",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-business-credit-card.no-foreign-fee@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "无外币交易费",
+      "summary": "页面写明不收外币交易费。",
+      "sourceText": "Pay zero foreign transaction fees on purchases made outside of the United States.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明不收外币交易费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明不收外币交易费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-business-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+        "Use the card abroad without this fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-business-credit-card",
+          "text": "Pay zero foreign transaction fees on purchases made outside of the United States."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-venture-business-credit-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-venture-business-credit-card.extended-warranty@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-venture-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页称用该卡购买的合资格商品可获额外保修；期限和上限未列。",
+      "sourceText": "Get free additional warranty and protection on eligible items you purchase with your card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "产品页称用该卡购买的合资格商品可获额外保修；期限和上限未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页称用该卡购买的合资格商品可获额外保修；期限和上限未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-venture-business-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The page says eligible items bought with the card get extra warranty; limits are not stated.",
+      "howToUse": [
+        "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-venture-business-credit-card",
+          "text": "Get free additional warranty and protection on eligible items you purchase with your card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.wells-fargo-us-active-cash-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-active-cash-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "wells-fargo-us-active-cash-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$0 annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-active-cash-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-active-cash-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-active-cash-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "wells-fargo-us-active-cash-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "unlimited 2% cash rewards on purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-active-cash-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-active-cash-card.cell-phone",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-active-cash-card.cell-phone@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-active-cash-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "手机保障",
+      "summary": "用合资格 Wells Fargo 个人信用卡付手机账单时，损坏或失窃每次最多600美元，自付25美元，每12个月最多两次；不含遗失。",
+      "sourceText": "Up to $600 of cell phone protection against damage or theft. Subject to a $25 deductible",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "用合资格 Wells Fargo 个人信用卡付手机账单时，损坏或失窃每次最多600美元，自付25美元，每12个月最多两次；不含遗失。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用合资格 Wells Fargo 个人信用卡付手机账单时，损坏或失窃每次最多600美元，自付25美元，每12个月最多两次；不含遗失。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-active-cash-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Cell phone protection",
+      "summary": "Up to $600 per claim for damage or theft with a $25 deductible, at most two paid claims in 12 months, when the phone bill is paid with an eligible card; loss is not covered.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-active-cash-card",
+          "text": "Up to $600 of cell phone protection against damage or theft. Subject to a $25 deductible"
+        },
+        {
+          "sourceId": "card-wells-fargo-us-active-cash-card",
+          "text": "with an allowable maximum of two paid claims per 12-month period."
+        },
+        {
+          "sourceId": "card-wells-fargo-us-active-cash-card",
+          "text": "This benefit does not cover cell phones that are lost (i.e., mysteriously disappear)."
+        },
+        {
+          "sourceId": "card-wells-fargo-us-active-cash-card",
+          "text": "This protection is only available when cell phone bills are paid with an eligible Wells Fargo Consumer Credit Card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.wells-fargo-us-active-cash-card.rental",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-active-cash-card.rental@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-active-cash-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车保险",
+      "summary": "用合资格卡支付租车费用且拒绝租车公司的保险时，对承保的损坏或失窃理赔；为次要保障。",
+      "sourceText": "Pay for rental cars using an eligible card and get reimbursed for covered damage or theft",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "用合资格卡支付租车费用且拒绝租车公司的保险时，对承保的损坏或失窃理赔；为次要保障。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "secondary",
+        "requiresCardPayment": true,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用合资格卡支付租车费用且拒绝租车公司的保险时，对承保的损坏或失窃理赔；为次要保障。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-active-cash-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Coverage",
+      "summary": "Reimburses covered damage or theft when the card pays for the rental and you decline the company’s coverage; secondary.",
+      "howToUse": [
+        "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-active-cash-card",
+          "text": "Pay for rental cars using an eligible card and get reimbursed for covered damage or theft"
+        },
+        {
+          "sourceId": "card-wells-fargo-us-active-cash-card",
+          "text": "Coverage provided by this benefit is secondary."
+        },
+        {
+          "sourceId": "card-wells-fargo-us-active-cash-card",
+          "text": "Cardholder must decline coverage from the rental company to be eligible for this benefit."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.wells-fargo-us-active-cash-card.roadside",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-active-cash-card.roadside@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-active-cash-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "道路救援",
+      "summary": "需要拖车时可用，无需会员费；各项服务费用页面未列。",
+      "sourceText": "Available whenever you’re in need of a tow",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "需要拖车时可用，无需会员费；各项服务费用页面未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "roadside",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "需要拖车时可用，无需会员费；各项服务费用页面未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-active-cash-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Roadside Dispatch",
+      "summary": "Available for a tow with no membership; service charges are not stated.",
+      "howToUse": [
+        "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-active-cash-card",
+          "text": "Available whenever you’re in need of a tow"
+        },
+        {
+          "sourceId": "card-wells-fargo-us-active-cash-card",
+          "text": "24/7 with no membership required."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "wells-fargo-us-autograph-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$0 annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "wells-fargo-us-autograph-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "餐饮",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3X on restaurants",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "餐饮",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "wells-fargo-us-autograph-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "合资格旅行",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3X on travel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "合资格旅行",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-card.earning-2@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "wells-fargo-us-autograph-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "加油站和充电站",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3X on gas & transit",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "加油站和充电站",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-card.earning-3@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "wells-fargo-us-autograph-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "本地交通和通勤",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3X on gas & transit",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "本地交通和通勤",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-card.earning-4@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "wells-fargo-us-autograph-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "流媒体",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3X on popular streaming services",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "流媒体",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-card.earning-5",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-card.earning-5@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "wells-fargo-us-autograph-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "手机和电话服务",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3X on phone plans",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "手机和电话服务",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-card.earning-6",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-card.earning-6@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "wells-fargo-us-autograph-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1X on other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-card.no-foreign-fee",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-card.no-foreign-fee@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-autograph-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "无外币交易费",
+      "summary": "页面写明不收外币交易费。",
+      "sourceText": "No Foreign Transaction Fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明不收外币交易费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明不收外币交易费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+        "Use the card abroad without this fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-autograph-card",
+          "text": "No Foreign Transaction Fee"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-card.cell-phone",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-card.cell-phone@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-autograph-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "手机保障",
+      "summary": "用合资格 Wells Fargo 个人信用卡付手机账单时，损坏或失窃每次最多600美元，自付25美元，每12个月最多两次；不含遗失。",
+      "sourceText": "Up to $600 of cell phone protection against damage or theft. Subject to a $25 deductible",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "用合资格 Wells Fargo 个人信用卡付手机账单时，损坏或失窃每次最多600美元，自付25美元，每12个月最多两次；不含遗失。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用合资格 Wells Fargo 个人信用卡付手机账单时，损坏或失窃每次最多600美元，自付25美元，每12个月最多两次；不含遗失。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Cell phone protection",
+      "summary": "Up to $600 per claim for damage or theft with a $25 deductible, at most two paid claims in 12 months, when the phone bill is paid with an eligible card; loss is not covered.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-autograph-card",
+          "text": "Up to $600 of cell phone protection against damage or theft. Subject to a $25 deductible"
+        },
+        {
+          "sourceId": "card-wells-fargo-us-autograph-card",
+          "text": "with an allowable maximum of two paid claims per 12-month period."
+        },
+        {
+          "sourceId": "card-wells-fargo-us-autograph-card",
+          "text": "This benefit does not cover cell phones that are lost (i.e., mysteriously disappear)."
+        },
+        {
+          "sourceId": "card-wells-fargo-us-autograph-card",
+          "text": "This protection is only available when cell phone bills are paid with an eligible Wells Fargo Consumer Credit Card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-card.rental",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-card.rental@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-autograph-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车保险",
+      "summary": "用合资格卡支付租车费用且拒绝租车公司的保险时，对承保的损坏或失窃理赔；为次要保障。",
+      "sourceText": "Pay for rental cars using an eligible card and get reimbursed for covered damage or theft",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "用合资格卡支付租车费用且拒绝租车公司的保险时，对承保的损坏或失窃理赔；为次要保障。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": "secondary",
+        "requiresCardPayment": true,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用合资格卡支付租车费用且拒绝租车公司的保险时，对承保的损坏或失窃理赔；为次要保障。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Car Rental Coverage",
+      "summary": "Reimburses covered damage or theft when the card pays for the rental and you decline the company’s coverage; secondary.",
+      "howToUse": [
+        "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-autograph-card",
+          "text": "Pay for rental cars using an eligible card and get reimbursed for covered damage or theft"
+        },
+        {
+          "sourceId": "card-wells-fargo-us-autograph-card",
+          "text": "Coverage provided by this benefit is secondary."
+        },
+        {
+          "sourceId": "card-wells-fargo-us-autograph-card",
+          "text": "Cardholder must decline coverage from the rental company to be eligible for this benefit."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.wells-fargo-us-autograph-card.roadside",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-autograph-card.roadside@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-autograph-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "道路救援",
+      "summary": "需要拖车时可用，无需会员费；各项服务费用页面未列。",
+      "sourceText": "Available whenever you’re in need of a tow",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "需要拖车时可用，无需会员费；各项服务费用页面未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "roadside",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "需要拖车时可用，无需会员费；各项服务费用页面未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-autograph-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Roadside Dispatch",
+      "summary": "Available for a tow with no membership; service charges are not stated.",
+      "howToUse": [
+        "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-autograph-card",
+          "text": "Available whenever you’re in need of a tow"
+        },
+        {
+          "sourceId": "card-wells-fargo-us-autograph-card",
+          "text": "24/7 with no membership required."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.wells-fargo-us-reflect-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-reflect-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "wells-fargo-us-reflect-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$0 Annual Fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-reflect-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.wells-fargo-us-reflect-card.cell-phone",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-reflect-card.cell-phone@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-reflect-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "手机保障",
+      "summary": "用合资格 Wells Fargo 个人信用卡付手机账单时，损坏或失窃每次最多600美元，自付25美元，每12个月最多两次；不含遗失。",
+      "sourceText": "Up to $600 of cell phone protection against damage or theft. Subject to a $25 deductible",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "用合资格 Wells Fargo 个人信用卡付手机账单时，损坏或失窃每次最多600美元，自付25美元，每12个月最多两次；不含遗失。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用合资格 Wells Fargo 个人信用卡付手机账单时，损坏或失窃每次最多600美元，自付25美元，每12个月最多两次；不含遗失。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-reflect-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Cell phone protection",
+      "summary": "Up to $600 per claim for damage or theft with a $25 deductible, at most two paid claims in 12 months, when the phone bill is paid with an eligible card; loss is not covered.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-reflect-card",
+          "text": "Up to $600 of cell phone protection against damage or theft. Subject to a $25 deductible"
+        },
+        {
+          "sourceId": "card-wells-fargo-us-reflect-card",
+          "text": "with an allowable maximum of two paid claims per 12-month period."
+        },
+        {
+          "sourceId": "card-wells-fargo-us-reflect-card",
+          "text": "This benefit does not cover cell phones that are lost (i.e., mysteriously disappear)."
+        },
+        {
+          "sourceId": "card-wells-fargo-us-reflect-card",
+          "text": "This protection is only available when cell phone bills are paid with an eligible Wells Fargo Consumer Credit Card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.wells-fargo-us-reflect-card.roadside",
+    "revision": 1,
+    "revisionId": "rule.wells-fargo-us-reflect-card.roadside@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "wells-fargo-us-reflect-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Wells Fargo"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "道路救援",
+      "summary": "需要拖车时可用，无需会员费；各项服务费用页面未列。",
+      "sourceText": "Available whenever you’re in need of a tow",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "需要拖车时可用，无需会员费；各项服务费用页面未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "roadside",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "需要拖车时可用，无需会员费；各项服务费用页面未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-wells-fargo-us-reflect-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Roadside Dispatch",
+      "summary": "Available for a tow with no membership; service charges are not stated.",
+      "howToUse": [
+        "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-wells-fargo-us-reflect-card",
+          "text": "Available whenever you’re in need of a tow"
+        },
+        {
+          "sourceId": "card-wells-fargo-us-reflect-card",
+          "text": "24/7 with no membership required."
+        }
+      ]
+    }
   }
 ]

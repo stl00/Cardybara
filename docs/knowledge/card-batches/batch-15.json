@@ -1,0 +1,1015 @@
+{
+ "batch": 15,
+ "checkedAt": "2026-11-24",
+ "reviewAfter": "2027-02-22",
+ "cards": [
+  {
+   "id": "capital-one-us-quicksilver-rewards-credit-card",
+   "page": "capital-one-us-quicksilver-rewards-credit-card",
+   "issuer": "Capital One",
+   "collection": "not-supported",
+   "url": "https://www.capitalone.com/credit-cards/quicksilver/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "$0 annual fee"
+   },
+   "earning": [
+    {
+     "zh": "Capital One Travel 酒店、度假屋和租车",
+     "en": "Hotels, vacation rentals and rental cars through Capital One Travel",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "travel",
+     "quote": "Earn unlimited 5% cash back on hotels, vacation rentals and rental car bookings."
+    },
+    {
+     "zh": "Capital One Entertainment",
+     "en": "Capital One Entertainment purchases",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "entertainment",
+     "quote": "5% cash back with Capital One Entertainment."
+    },
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 1.5,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn unlimited 1.5% cash back on every purchase, every day."
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "No foreign transaction fees",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Use the card abroad without this fee."
+      ]
+     }
+    },
+    {
+     "key": "hertz",
+     "zh": "Hertz Five Star 会籍",
+     "en": "Hertz Five Star status",
+     "noteZh": "赠送 Hertz Five Star 身份；登记方式页面未写。",
+     "noteEn": "Complimentary Hertz Five Star status; the page does not say how to enrol.",
+     "scenario": "ground-transport",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "complimentary Hertz Five Star® status.",
+     "original": {
+      "title": "Hertz Five Star status",
+      "summary": "Complimentary Hertz Five Star status; the page does not say how to enrol.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "cafe",
+     "zh": "Capital One Café 手工饮品半价",
+     "en": "50% off drinks at Capital One Café",
+     "noteZh": "持卡人在 Capital One Café 的手工饮品半价。",
+     "noteEn": "Cardholders get 50% off handcrafted beverages at Capital One Cafés.",
+     "scenario": "dining",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Capital One cardholders enjoy 50% off all handcrafted beverages every day at any Capital One Café nationwide.",
+     "original": {
+      "title": "50% off drinks at Capital One Café",
+      "summary": "Cardholders get 50% off handcrafted beverages at Capital One Cafés.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "concierge",
+     "zh": "礼宾服务",
+     "en": "Concierge",
+     "noteZh": "餐饮、娱乐和旅行的礼宾协助。",
+     "noteEn": "Concierge help for dining, entertainment and travel.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Receive complimentary, personalized assistance in dining, entertainment and travel",
+     "original": {
+      "title": "Concierge",
+      "summary": "Concierge help for dining, entertainment and travel.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "price-drop",
+     "zh": "订后低价补差旅行额度",
+     "en": "Travel credit if you find a better price",
+     "noteZh": "订后24小时内在别处找到更低价，合资格机票、酒店或租车可得差价旅行额度。",
+     "noteEn": "Find a better price within 24 hours of booking an eligible flight, hotel or rental car and get the difference as travel credit.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "per-trip",
+     "quote": "If you find a better price on another site within 24 hours of booking",
+     "original": {
+      "title": "Travel credit if you find a better price",
+      "summary": "Find a better price within 24 hours of booking an eligible flight, hotel or rental car and get the difference as travel credit.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "you’ll get a travel credit for the difference."
+      ]
+     }
+    },
+    {
+     "key": "travel-accident",
+     "zh": "旅行意外保险",
+     "en": "Travel accident insurance",
+     "noteZh": "用该卡买机票等车船票时自动获得承保损失保险；金额和条件页面未列。",
+     "noteEn": "Automatic insurance for a covered loss when the card buys your fare; amounts and conditions are not stated.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Get automatic insurance for a covered loss at no extra charge when you use your credit card",
+     "original": {
+      "title": "Travel accident insurance",
+      "summary": "Automatic insurance for a covered loss when the card buys your fare; amounts and conditions are not stated.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "to purchase your fare."
+      ]
+     }
+    },
+    {
+     "key": "extended-warranty",
+     "zh": "延长保修",
+     "en": "Extended Warranty",
+     "noteZh": "产品页称用该卡购买的合资格商品可获额外保修；期限和上限未列。",
+     "noteEn": "The page says eligible items bought with the card get extra warranty; limits are not stated.",
+     "scenario": "shopping",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "You’ll get additional warranty protection at no charge on eligible items that are purchased with your credit card.",
+     "original": {
+      "title": "Extended Warranty",
+      "summary": "The page says eligible items bought with the card get extra warranty; limits are not stated.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "extended-warranty",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "capital-one-us-savorone-rewards-credit-card",
+   "page": "capital-one-us-savorone-rewards-credit-card",
+   "issuer": "Capital One",
+   "collection": "not-supported",
+   "url": "https://www.capitalone.com/credit-cards/savorone/",
+   "fee": {
+    "amount": 39,
+    "currency": "USD",
+    "quote": "$39 annual fee"
+   },
+   "earning": [
+    {
+     "zh": "超市、餐饮、娱乐和流媒体",
+     "en": "Grocery stores, dining, entertainment and popular streaming",
+     "multiplier": 3,
+     "unit": "cashback-percent",
+     "category": "dining",
+     "quote": "Earn unlimited 3% cash back at grocery stores, on dining, entertainment and popular streaming services",
+     "noteZh": "超市不含 Walmart、Target 等大型超级商店；类别按条款认定。",
+     "noteEn": "Superstores such as Walmart and Target are excluded from grocery stores; categories follow the terms."
+    },
+    {
+     "zh": "Capital One Travel 酒店、度假屋和租车",
+     "en": "Hotels, vacation rentals and rental cars through Capital One Travel",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "travel",
+     "quote": "Earn unlimited 5% cash back on hotels, vacation rentals and rental car bookings."
+    },
+    {
+     "zh": "Capital One Entertainment",
+     "en": "Capital One Entertainment purchases",
+     "multiplier": 8,
+     "unit": "cashback-percent",
+     "category": "entertainment",
+     "quote": "8% cash back with Capital One Entertainment."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "plus 1% cash back on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Plus, there are no hidden or foreign transaction fees.",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Use the card abroad without this fee."
+      ]
+     }
+    },
+    {
+     "key": "cafe",
+     "zh": "Capital One Café 手工饮品半价",
+     "en": "50% off drinks at Capital One Café",
+     "noteZh": "持卡人在 Capital One Café 的手工饮品半价。",
+     "noteEn": "Cardholders get 50% off handcrafted beverages at Capital One Cafés.",
+     "scenario": "dining",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Capital One cardholders enjoy 50% off all handcrafted beverages every day at any Capital One Café nationwide.",
+     "original": {
+      "title": "50% off drinks at Capital One Café",
+      "summary": "Cardholders get 50% off handcrafted beverages at Capital One Cafés.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "concierge",
+     "zh": "礼宾服务",
+     "en": "Concierge",
+     "noteZh": "餐饮、娱乐和旅行的礼宾协助。",
+     "noteEn": "Concierge help for dining, entertainment and travel.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Receive complimentary, personalized assistance in dining, entertainment and travel",
+     "original": {
+      "title": "Concierge",
+      "summary": "Concierge help for dining, entertainment and travel.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "price-drop",
+     "zh": "订后低价补差旅行额度",
+     "en": "Travel credit if you find a better price",
+     "noteZh": "订后24小时内在别处找到更低价，合资格机票、酒店或租车可得差价旅行额度。",
+     "noteEn": "Find a better price within 24 hours of booking an eligible flight, hotel or rental car and get the difference as travel credit.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "per-trip",
+     "quote": "If you find a better price on another site within 24 hours of booking",
+     "original": {
+      "title": "Travel credit if you find a better price",
+      "summary": "Find a better price within 24 hours of booking an eligible flight, hotel or rental car and get the difference as travel credit.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "you’ll get a travel credit for the difference."
+      ]
+     }
+    },
+    {
+     "key": "travel-accident",
+     "zh": "旅行意外保险",
+     "en": "Travel accident insurance",
+     "noteZh": "用该卡买机票等车船票时自动获得承保损失保险；金额和条件页面未列。",
+     "noteEn": "Automatic insurance for a covered loss when the card buys your fare; amounts and conditions are not stated.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Get automatic insurance for a covered loss at no extra charge when you use your credit card",
+     "original": {
+      "title": "Travel accident insurance",
+      "summary": "Automatic insurance for a covered loss when the card buys your fare; amounts and conditions are not stated.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "to purchase your fare."
+      ]
+     }
+    },
+    {
+     "key": "extended-warranty",
+     "zh": "延长保修",
+     "en": "Extended Warranty",
+     "noteZh": "产品页称用该卡购买的合资格商品可获额外保修；期限和上限未列。",
+     "noteEn": "The page says eligible items bought with the card get extra warranty; limits are not stated.",
+     "scenario": "shopping",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "You’ll get additional warranty protection at no charge on eligible items that are purchased with your credit card.",
+     "original": {
+      "title": "Extended Warranty",
+      "summary": "The page says eligible items bought with the card get extra warranty; limits are not stated.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "extended-warranty",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "capital-one-us-ventureone-rewards-credit-card",
+   "page": "capital-one-us-ventureone-rewards-credit-card",
+   "issuer": "Capital One",
+   "collection": "not-supported",
+   "url": "https://www.capitalone.com/credit-cards/ventureone/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "$0 Annual Fee"
+   },
+   "transfer": {
+    "name": "Capital One Miles",
+    "programmeId": "programme.capital-one-miles",
+    "quote": "Earn unlimited 1.25 miles per dollar on every purchase"
+   },
+   "earning": [
+    {
+     "zh": "Capital One Travel 酒店、度假屋和租车",
+     "en": "Hotels, vacation rentals and rental cars through Capital One Travel",
+     "multiplier": 5,
+     "unit": "miles-per-USD",
+     "category": "travel",
+     "quote": "Earn unlimited 5 miles per dollar on hotels, vacation rentals and rental cars booked through Capital One Travel"
+    },
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 1.25,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "Earn unlimited 1.25 miles per dollar on every purchase"
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "No Foreign Transaction Fees",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Use the card abroad without this fee."
+      ]
+     }
+    },
+    {
+     "key": "travel-redemption",
+     "zh": "里程抵扣旅行消费",
+     "en": "Redeem miles for travel purchases",
+     "noteZh": "旅行消费可用里程换账单抵扣，须在消费入账后90天内兑换。",
+     "noteEn": "Redeem miles as a statement credit for a travel purchase within 90 days of posting.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "redeem your miles as a statement credit toward the cost",
+     "original": {
+      "title": "Redeem miles for travel purchases",
+      "summary": "Redeem miles as a statement credit for a travel purchase within 90 days of posting.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "redemptions must be made within 90 days from the date your travel purchase posts to your account."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    },
+    {
+     "zh": "产品页没有提到转点伙伴；本卡赚取 Capital One Miles，转点记录来自 Capital One 官方转点文章。",
+     "en": "The product page does not mention transfer partners; the card earns Capital One Miles and the transfer records come from Capital One’s transfer article."
+    }
+   ]
+  },
+  {
+   "id": "capital-one-us-venture-business-credit-card",
+   "page": "capital-one-us-venture-business-credit-card",
+   "issuer": "Capital One",
+   "collection": "not-supported",
+   "url": "https://www.capitalone.com/small-business/credit-cards/venture-business/",
+   "fee": {
+    "amount": 95,
+    "currency": "USD",
+    "quote": "$95 annual fee"
+   },
+   "transfer": {
+    "name": "Capital One Miles",
+    "programmeId": "programme.capital-one-miles",
+    "quote": "you may be able to transfer miles to one of our 15+ partners"
+   },
+   "earning": [
+    {
+     "zh": "Capital One Business Travel 酒店、度假屋和租车",
+     "en": "Hotels, vacation rentals and rental cars through Capital One Business Travel",
+     "multiplier": 5,
+     "unit": "miles-per-USD",
+     "category": "travel",
+     "quote": "Unlimited 5X miles on hotels, vacation rentals, and rental cars booked through Capital One Business Travel."
+    },
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "2X miles on every purchase"
+    }
+   ],
+   "credits": [
+    {
+     "key": "travel",
+     "zh": "Capital One Business Travel 年度额度",
+     "en": "Annual Capital One Business Travel credit",
+     "noteZh": "每个账户周年年度50美元，须通过 Capital One Business Travel 预订，到下个周年日失效。",
+     "noteEn": "$50 each account anniversary year for Capital One Business Travel bookings; it expires on the next anniversary.",
+     "scenario": "travel",
+     "category": "credit",
+     "period": "account-anniversary",
+     "quote": "Receive an annual $50 travel credit for bookings through Capital One Business Travel.",
+     "original": {
+      "title": "Annual Capital One Business Travel credit",
+      "summary": "$50 each account anniversary year for Capital One Business Travel bookings; it expires on the next anniversary.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Each annual Credit will expire on the next account open date anniversary."
+      ]
+     },
+     "amount": 50
+    },
+    {
+     "key": "ad-software",
+     "zh": "广告和软件消费年度抵扣",
+     "en": "Annual advertising and software credit",
+     "noteZh": "合资格广告或软件商户消费每个账户周年年度最多抵扣50美元，未用部分到周年日失效。",
+     "noteEn": "$50 a year in statement credit at qualifying advertising or software merchants; unused credit expires on the anniversary.",
+     "scenario": "shopping",
+     "category": "credit",
+     "period": "account-anniversary",
+     "quote": "Get an annual $50 statement credit for purchases at qualifying advertising or software merchants.",
+     "original": {
+      "title": "Annual advertising and software credit",
+      "summary": "$50 a year in statement credit at qualifying advertising or software merchants; unused credit expires on the anniversary.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Any unused credits will expire on your account open date anniversary."
+      ]
+     },
+     "amount": 50
+    },
+    {
+     "key": "trusted-traveler",
+     "zh": "Global Entry 或 TSA PreCheck 申请费抵扣",
+     "en": "Global Entry or TSA PreCheck application fee credit",
+     "noteZh": "每个账户每四年一次，最多120美元，须用本卡付申请费。",
+     "noteEn": "Up to $120 once every 4 years per account when the card pays the application fee.",
+     "scenario": "airport",
+     "category": "credit",
+     "period": "rolling-four-years",
+     "quote": "Receive up to a $120 credit for Global Entry or TSA PreCheck® every 4 years.",
+     "original": {
+      "title": "Global Entry or TSA PreCheck application fee credit",
+      "summary": "Up to $120 once every 4 years per account when the card pays the application fee.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "One statement credit will be processed per account every 4 years"
+      ]
+     },
+     "amount": 120
+    },
+    {
+     "key": "hertz",
+     "zh": "Hertz Gold+ 会籍升级",
+     "en": "Hertz Gold+ Rewards status upgrade",
+     "noteZh": "须通过指定权益链接登记。",
+     "noteEn": "Enrol through the benefits link.",
+     "scenario": "ground-transport",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Eligible cardholders must enroll in the Hertz® Gold+™ Rewards status upgrade through the unique Benefits Tab link",
+     "original": {
+      "title": "Hertz Gold+ Rewards status upgrade",
+      "summary": "Enrol through the benefits link.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "enrollment": true
+    },
+    {
+     "key": "lifestyle-collection",
+     "zh": "Lifestyle Collection 体验额度",
+     "en": "Lifestyle Collection experience credit",
+     "noteZh": "每次入住50美元体验额度，另有房型升级（视供应）。",
+     "noteEn": "A $50 experience credit with every stay, plus upgrades when available.",
+     "scenario": "hotel-stay",
+     "category": "hotel-service",
+     "period": "per-stay",
+     "quote": "Unlock premium benefits with every stay, like a $50 experience credit, room upgrades when available and more.",
+     "original": {
+      "title": "Lifestyle Collection experience credit",
+      "summary": "A $50 experience credit with every stay, plus upgrades when available.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "amount": 50
+    },
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Pay zero foreign transaction fees on purchases made outside of the United States.",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Use the card abroad without this fee."
+      ]
+     }
+    },
+    {
+     "key": "extended-warranty",
+     "zh": "延长保修",
+     "en": "Extended Warranty",
+     "noteZh": "产品页称用该卡购买的合资格商品可获额外保修；期限和上限未列。",
+     "noteEn": "The page says eligible items bought with the card get extra warranty; limits are not stated.",
+     "scenario": "shopping",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Get free additional warranty and protection on eligible items you purchase with your card.",
+     "original": {
+      "title": "Extended Warranty",
+      "summary": "The page says eligible items bought with the card get extra warranty; limits are not stated.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "extended-warranty",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "wells-fargo-us-active-cash-card",
+   "page": "wells-fargo-us-active-cash-card",
+   "issuer": "Wells Fargo",
+   "collection": "not-supported",
+   "url": "https://creditcards.wellsfargo.com/active-cash-credit-card/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "$0 annual fee"
+   },
+   "earning": [
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "unlimited 2% cash rewards on purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "cell-phone",
+     "zh": "手机保障",
+     "en": "Cell phone protection",
+     "noteZh": "用合资格 Wells Fargo 个人信用卡付手机账单时，损坏或失窃每次最多600美元，自付25美元，每12个月最多两次；不含遗失。",
+     "noteEn": "Up to $600 per claim for damage or theft with a $25 deductible, at most two paid claims in 12 months, when the phone bill is paid with an eligible card; loss is not covered.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Up to $600 of cell phone protection against damage or theft. Subject to a $25 deductible",
+     "original": {
+      "title": "Cell phone protection",
+      "summary": "Up to $600 per claim for damage or theft with a $25 deductible, at most two paid claims in 12 months, when the phone bill is paid with an eligible card; loss is not covered.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "with an allowable maximum of two paid claims per 12-month period.",
+       "This benefit does not cover cell phones that are lost (i.e., mysteriously disappear).",
+       "This protection is only available when cell phone bills are paid with an eligible Wells Fargo Consumer Credit Card."
+      ]
+     }
+    },
+    {
+     "key": "rental",
+     "zh": "租车保险",
+     "en": "Car Rental Coverage",
+     "noteZh": "用合资格卡支付租车费用且拒绝租车公司的保险时，对承保的损坏或失窃理赔；为次要保障。",
+     "noteEn": "Reimburses covered damage or theft when the card pays for the rental and you decline the company’s coverage; secondary.",
+     "scenario": "ground-transport",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Pay for rental cars using an eligible card and get reimbursed for covered damage or theft",
+     "original": {
+      "title": "Car Rental Coverage",
+      "summary": "Reimburses covered damage or theft when the card pays for the rental and you decline the company’s coverage; secondary.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+       "Coverage provided by this benefit is secondary.",
+       "Cardholder must decline coverage from the rental company to be eligible for this benefit."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "rental-car",
+       "basis": "secondary",
+       "requiresCardPayment": true,
+       "exclusions": []
+      }
+     }
+    },
+    {
+     "key": "roadside",
+     "zh": "道路救援",
+     "en": "Roadside Dispatch",
+     "noteZh": "需要拖车时可用，无需会员费；各项服务费用页面未列。",
+     "noteEn": "Available for a tow with no membership; service charges are not stated.",
+     "scenario": "ground-transport",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Available whenever you’re in need of a tow",
+     "original": {
+      "title": "Roadside Dispatch",
+      "summary": "Available for a tow with no membership; service charges are not stated.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+       "24/7 with no membership required."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "roadside",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "wells-fargo-us-autograph-card",
+   "page": "wells-fargo-us-autograph-card",
+   "issuer": "Wells Fargo",
+   "collection": "not-supported",
+   "url": "https://creditcards.wellsfargo.com/autograph-visa-credit-card/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "$0 annual fee"
+   },
+   "earning": [
+    {
+     "zh": "餐饮",
+     "en": "Restaurants",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "quote": "3X on restaurants"
+    },
+    {
+     "zh": "合资格旅行",
+     "en": "Eligible travel",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "quote": "3X on travel"
+    },
+    {
+     "zh": "加油站和充电站",
+     "en": "Gas and EV charging",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "gas",
+     "quote": "3X on gas & transit"
+    },
+    {
+     "zh": "本地交通和通勤",
+     "en": "Transit",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "transit",
+     "quote": "3X on gas & transit"
+    },
+    {
+     "zh": "流媒体",
+     "en": "Popular streaming services",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "streaming",
+     "quote": "3X on popular streaming services"
+    },
+    {
+     "zh": "手机和电话服务",
+     "en": "Phone plans",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "3X on phone plans"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "1X on other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "No Foreign Transaction Fee",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Use the card abroad without this fee."
+      ]
+     }
+    },
+    {
+     "key": "cell-phone",
+     "zh": "手机保障",
+     "en": "Cell phone protection",
+     "noteZh": "用合资格 Wells Fargo 个人信用卡付手机账单时，损坏或失窃每次最多600美元，自付25美元，每12个月最多两次；不含遗失。",
+     "noteEn": "Up to $600 per claim for damage or theft with a $25 deductible, at most two paid claims in 12 months, when the phone bill is paid with an eligible card; loss is not covered.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Up to $600 of cell phone protection against damage or theft. Subject to a $25 deductible",
+     "original": {
+      "title": "Cell phone protection",
+      "summary": "Up to $600 per claim for damage or theft with a $25 deductible, at most two paid claims in 12 months, when the phone bill is paid with an eligible card; loss is not covered.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "with an allowable maximum of two paid claims per 12-month period.",
+       "This benefit does not cover cell phones that are lost (i.e., mysteriously disappear).",
+       "This protection is only available when cell phone bills are paid with an eligible Wells Fargo Consumer Credit Card."
+      ]
+     }
+    },
+    {
+     "key": "rental",
+     "zh": "租车保险",
+     "en": "Car Rental Coverage",
+     "noteZh": "用合资格卡支付租车费用且拒绝租车公司的保险时，对承保的损坏或失窃理赔；为次要保障。",
+     "noteEn": "Reimburses covered damage or theft when the card pays for the rental and you decline the company’s coverage; secondary.",
+     "scenario": "ground-transport",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Pay for rental cars using an eligible card and get reimbursed for covered damage or theft",
+     "original": {
+      "title": "Car Rental Coverage",
+      "summary": "Reimburses covered damage or theft when the card pays for the rental and you decline the company’s coverage; secondary.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+       "Coverage provided by this benefit is secondary.",
+       "Cardholder must decline coverage from the rental company to be eligible for this benefit."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "rental-car",
+       "basis": "secondary",
+       "requiresCardPayment": true,
+       "exclusions": []
+      }
+     }
+    },
+    {
+     "key": "roadside",
+     "zh": "道路救援",
+     "en": "Roadside Dispatch",
+     "noteZh": "需要拖车时可用，无需会员费；各项服务费用页面未列。",
+     "noteEn": "Available for a tow with no membership; service charges are not stated.",
+     "scenario": "ground-transport",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Available whenever you’re in need of a tow",
+     "original": {
+      "title": "Roadside Dispatch",
+      "summary": "Available for a tow with no membership; service charges are not stated.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+       "24/7 with no membership required."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "roadside",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "wells-fargo-us-reflect-card",
+   "page": "wells-fargo-us-reflect-card",
+   "issuer": "Wells Fargo",
+   "collection": "not-supported",
+   "url": "https://creditcards.wellsfargo.com/reflect-visa-credit-card/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "$0 Annual Fee"
+   },
+   "earning": [],
+   "credits": [
+    {
+     "key": "cell-phone",
+     "zh": "手机保障",
+     "en": "Cell phone protection",
+     "noteZh": "用合资格 Wells Fargo 个人信用卡付手机账单时，损坏或失窃每次最多600美元，自付25美元，每12个月最多两次；不含遗失。",
+     "noteEn": "Up to $600 per claim for damage or theft with a $25 deductible, at most two paid claims in 12 months, when the phone bill is paid with an eligible card; loss is not covered.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Up to $600 of cell phone protection against damage or theft. Subject to a $25 deductible",
+     "original": {
+      "title": "Cell phone protection",
+      "summary": "Up to $600 per claim for damage or theft with a $25 deductible, at most two paid claims in 12 months, when the phone bill is paid with an eligible card; loss is not covered.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "with an allowable maximum of two paid claims per 12-month period.",
+       "This benefit does not cover cell phones that are lost (i.e., mysteriously disappear).",
+       "This protection is only available when cell phone bills are paid with an eligible Wells Fargo Consumer Credit Card."
+      ]
+     }
+    },
+    {
+     "key": "roadside",
+     "zh": "道路救援",
+     "en": "Roadside Dispatch",
+     "noteZh": "需要拖车时可用，无需会员费；各项服务费用页面未列。",
+     "noteEn": "Available for a tow with no membership; service charges are not stated.",
+     "scenario": "ground-transport",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Available whenever you’re in need of a tow",
+     "original": {
+      "title": "Roadside Dispatch",
+      "summary": "Available for a tow with no membership; service charges are not stated.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+       "24/7 with no membership required."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "roadside",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    },
+    {
+     "zh": "页面没有公布赚取比例，未录入。",
+     "en": "The page publishes no earning rate."
+    }
+   ]
+  }
+ ]
+}

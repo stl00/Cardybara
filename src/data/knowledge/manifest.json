@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-24.cards-14",
+  "snapshotId": "cardybara-public-knowledge-2026-11-24.cards-15",
   "asOf": "2026-11-24",
   "locale": "zh-CN",
   "files": [
@@ -1788,6 +1788,113 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "capital-one-us-quicksilver-rewards-credit-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Capital One"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "capital-one-us-savorone-rewards-credit-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Capital One"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "capital-one-us-ventureone-rewards-credit-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Capital One"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "产品页没有提到转点伙伴；本卡赚取 Capital One Miles，转点记录来自 Capital One 官方转点文章。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "capital-one-us-venture-business-credit-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Capital One"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "wells-fargo-us-active-cash-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Wells Fargo"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "wells-fargo-us-autograph-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Wells Fargo"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "wells-fargo-us-reflect-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Wells Fargo"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "页面没有公布赚取比例，未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -1916,6 +2023,13 @@
     "boa-us-business-advantage-customized-cash-rewards-mastercard",
     "boa-us-business-advantage-unlimited-cash-rewards-mastercard",
     "boa-us-business-advantage-travel-rewards-world-mastercard",
-    "boa-us-air-france-klm-visa-signature-credit-card"
+    "boa-us-air-france-klm-visa-signature-credit-card",
+    "capital-one-us-quicksilver-rewards-credit-card",
+    "capital-one-us-savorone-rewards-credit-card",
+    "capital-one-us-ventureone-rewards-credit-card",
+    "capital-one-us-venture-business-credit-card",
+    "wells-fargo-us-active-cash-card",
+    "wells-fargo-us-autograph-card",
+    "wells-fargo-us-reflect-card"
   ]
 }

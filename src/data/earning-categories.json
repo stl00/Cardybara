@@ -128,6 +128,7 @@
   "餐饮、外卖和餐厅配送":[{"uses":["dining"]}],
   "超市、加油站和充电站":[{"uses":["supermarket","gas","ev-charging"]}],
   "流媒体":[{"uses":["streaming"]}],
+  "手机和电话服务":[{"uses":["telecom"]}],
   "自选两个类别":[{"condition":"chosen-category"}],
   "自选一个日常类别":[{"condition":"chosen-category"}],
   "Travel Center 预付旅行":[{"uses":["flight","hotel","car-rental"],"channel":"portal","via":"U.S. Bank Travel Center"}],
