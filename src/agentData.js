@@ -9,7 +9,8 @@ export function applyAgentRecords(data,records=[]){
   const c=d.cards.find(c=>c.id===i.cardId&&c.bank===i.bank);if(!c)continue;
   if(i.kind==='card'){
    if(!['balance','available','statement','statementClosing','minimum','creditLimit'].includes(i.key)||!Number.isFinite(i.value)||i.currency!==c.currency)continue;
-   const old=c.fieldDates?.[i.key]||c.updated;
+   // As for billing records below: `updated` only dates a value the card holds (#641).
+   const old=c[i.key]!=null?c.fieldDates?.[i.key]||c.updated:null;
    if(old&&Date.parse(old)>Date.parse(i.capturedAt))continue;
    c[i.key]=i.value;(c.fieldDates??={})[i.key]=i.capturedAt;(c.fieldSources??={})[i.key]={method:i.method==='rules'?'rules-evidence-validated':'ai-evidence-validated',page:i.page,region:i.region};
   }
