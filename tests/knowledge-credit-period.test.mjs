@@ -27,6 +27,11 @@ const NO_STATED_CYCLE={
  'rule.chase-us-united-club-business-card.better-together':'annual bonus, start of the year not stated: not stated',
  'rule.citi-us-citi-aadvantage-globe-card.turo':'up to $240 "annually"; the page does not say which year (calendar or cardmember): not stated',
  'rule.bilt-us-bilt-palladium-card.priority-pass':'membership with no repeating amount; no cycle stated',
+ // #637, U.S. Bank pages read 2026-11-24.
+ 'rule.us-bank-us-shield-visa-card.annual-credit':'12-month credit, page does not state when the 12 months start: not stated',
+ 'rule.us-bank-us-triple-cash-rewards-visa-business-card.software':'12-month credit, page does not state when the 12 months start: not stated',
+ 'rule.us-bank-us-altitude-connect-visa-signature-card.priority-pass':'12-month membership; the page does not state whether or when it renews',
+ 'rule.us-bank-us-business-altitude-connect-visa-signature-card.priority-pass':'four visits per membership year; no matching period value',
 };
 const needsCycle=r=>r.status==='published'&&r.kind==='benefit'
  &&(r.terms?.category!=='credit'||Number.isFinite(r.terms.amount)||(r.terms.monthlyAmounts||[]).some(Number.isFinite))

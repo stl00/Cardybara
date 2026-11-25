@@ -76,11 +76,12 @@ test('a calendar-year threshold on all purchases is a condition; a category thre
 
 test('spend-unlock rows that are not one spend amount, or whose page could not be read again, state no threshold',()=>{
  // #250: per-$ accruals, ride and purchase counts, dated offers and the Bilt housing points are not a single threshold.
+ // #637: the U.S. Bank Shield and Triple Cash credits count consecutive months of purchases.
  // The nine American Express rows keep revision 1 because their pages returned no text signed out on 2026-11-12.
- const rows=batches.flatMap(b=>b.cards.flatMap(c=>(c.credits||[]).filter(r=>r.category==='spend-unlock'&&!r.spendThreshold).map(r=>`rule.${c.id}.${r.key}`)));
- assert.equal(rows.length,23);
- for(const id of rows){const rule=getKnowledgeRule(id,{asOf:DAY});assert.equal(rule.terms.spendThreshold,undefined,id);assert.equal(rule.revision,1,id);}
- for(const key of ['a-list-tqp','mqd-boost','pqp','lyft','streaming','housing-points'])assert.ok(rows.some(id=>id.endsWith('.'+key)),key);
+ const rows=batches.flatMap(b=>b.cards.flatMap(c=>(c.credits||[]).filter(r=>r.category==='spend-unlock'&&!r.spendThreshold).map(r=>({id:`rule.${c.id}.${r.key}`,asOf:b.checkedAt>DAY?b.checkedAt:DAY}))));
+ assert.equal(rows.length,25);
+ for(const {id,asOf} of rows){const rule=getKnowledgeRule(id,{asOf});assert.equal(rule.terms.spendThreshold,undefined,id);assert.equal(rule.revision,1,id);}
+ for(const key of ['a-list-tqp','mqd-boost','pqp','lyft','streaming','annual-credit','software','housing-points'])assert.ok(rows.some(({id})=>id.endsWith('.'+key)),key);
 });
 
 test('every batch row that states a threshold matches its rule',()=>{

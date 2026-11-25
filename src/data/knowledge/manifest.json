@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-24.cards-16",
+  "snapshotId": "cardybara-public-knowledge-2026-11-24.cards-17",
   "asOf": "2026-11-24",
   "locale": "zh-CN",
   "files": [
@@ -1948,6 +1948,89 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "us-bank-us-smartly-visa-signature-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "U.S. Bank"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "产品页未提及外币交易费。",
+        "产品页未列出保障类福利。",
+        "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "us-bank-us-altitude-connect-visa-signature-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "U.S. Bank"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Global Entry 或 TSA PreCheck 抵扣金额和 Priority Pass 免费次数未列出。",
+        "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "us-bank-us-shield-visa-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "U.S. Bank"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Travel Center 以外消费的返现比例页面未写明。",
+        "产品页未提及外币交易费。",
+        "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "us-bank-us-triple-cash-rewards-visa-business-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "U.S. Bank"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "产品页未提及外币交易费。",
+        "产品页未列出保险或购物、旅行保障。",
+        "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "us-bank-us-business-altitude-connect-visa-signature-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "U.S. Bank"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "公开页面写明首年 $0 优惠年费，但之后的年费金额未显示，主卡年费未知。",
+        "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -2086,6 +2169,11 @@
     "wells-fargo-us-reflect-card",
     "discover-us-discover-it-miles-credit-card",
     "discover-us-discover-it-chrome-gas-restaurants-credit-card",
-    "discover-us-discover-it-balance-transfer-credit-card"
+    "discover-us-discover-it-balance-transfer-credit-card",
+    "us-bank-us-smartly-visa-signature-card",
+    "us-bank-us-altitude-connect-visa-signature-card",
+    "us-bank-us-shield-visa-card",
+    "us-bank-us-triple-cash-rewards-visa-business-card",
+    "us-bank-us-business-altitude-connect-visa-signature-card"
   ]
 }

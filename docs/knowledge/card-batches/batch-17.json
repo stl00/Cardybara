@@ -1,0 +1,970 @@
+{
+ "batch": 17,
+ "checkedAt": "2026-11-24",
+ "reviewAfter": "2027-02-22",
+ "cards": [
+  {
+   "id": "us-bank-us-smartly-visa-signature-card",
+   "page": "usb-smartly",
+   "issuer": "U.S. Bank",
+   "collection": "not-supported",
+   "url": "https://www.usbank.com/credit-cards/bank-smartly-visa-signature-credit-card.html",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Enjoy a cash back credit card with no annual fee."
+   },
+   "earning": [
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn unlimited 2% cash back on every purchase.",
+     "noteZh": "基础返现，不设上限；以积分形式发放（每消费1美元2点）。余额加成另见福利。",
+     "noteEn": "The base rate, with no cap, paid as 2 Points per $1. The balance-based bonus is listed as a benefit."
+    }
+   ],
+   "credits": [
+    {
+     "key": "smartly-earning-bonus",
+     "zh": "按存款余额的返现加成",
+     "en": "Smartly Earning Bonus",
+     "noteZh": "须开立 U.S. Bank Smartly Savings 账户，并在合资格个人支票或 Safe Debit 账户保有合资格余额：1万至49,999.99美元总计2.5%，5万至99,999.99美元总计3%，10万美元及以上总计4%。加成只适用于每个账单周期前1万美元合资格消费，部分类别不享加成。个人余额和等级未核实。",
+     "noteEn": "Needs a U.S. Bank Smartly Savings account and a qualifying balance in eligible consumer checking or Safe Debit accounts: 2.5% total at $10,000 to $49,999.99, 3% at $50,000 to $99,999.99, 4% at $100,000 or more. The bonus covers up to $10,000 of eligible purchases per billing cycle; some categories are excluded. Your balance and tier are unverified.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Smartly Earning Bonus applies to a maximum of $10,000 in eligible Net Purchases each Card billing cycle.",
+     "original": {
+      "title": "Smartly Earning Bonus",
+      "summary": "Needs a U.S. Bank Smartly Savings account and a qualifying balance in eligible consumer checking or Safe Debit accounts: 2.5% total at $10,000 to $49,999.99, 3% at $50,000 to $99,999.99, 4% at $100,000 or more. The bonus covers up to $10,000 of eligible purchases per billing cycle; some categories are excluded. Your balance and tier are unverified.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Between $10,000 - $49,999.99, to earn a total of 2.5 Points per $1 of eligible Net Purchases.",
+       "Between $50,000 - $99,999.99, to earn a total of 3 Points per $1 of eligible Net Purchases.",
+       "$100,000 or more to earn a total of 4 Points per $1 of eligible Net Purchases.",
+       "Have or open a U.S. Bank Smartly® Savings account with a minimum opening deposit of $25"
+      ]
+     }
+    },
+    {
+     "key": "redemption",
+     "zh": "积分兑换为存款或账单抵扣",
+     "en": "Redeem points as a deposit or statement credit",
+     "noteZh": "积分可存入合资格 U.S. Bank 存款账户或抵扣账单；礼品卡、旅行等其他兑换方式的价值可能较低。",
+     "noteEn": "Points go to an eligible U.S. Bank deposit account or a statement credit; other redemptions such as gift cards and travel may be at a reduced rate.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Points can be redeemed as a deposit into an eligible U.S. Bank deposit account or statement credit.",
+     "original": {
+      "title": "Redeem points as a deposit or statement credit",
+      "summary": "Points go to an eligible U.S. Bank deposit account or a statement credit; other redemptions such as gift cards and travel may be at a reduced rate.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Other redemptions, such as gift cards and travel, may be at a reduced redemption rate."
+      ]
+     }
+    },
+    {
+     "key": "points-expiry",
+     "zh": "连续12个账单周期无活动积分过期",
+     "en": "Points expire after 12 inactive statement cycles",
+     "noteZh": "卡账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。",
+     "noteEn": "Points expire if the card account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Points will expire if there is no reward, Purchase, or balance activity on your Card account",
+     "original": {
+      "title": "Points expire after 12 inactive statement cycles",
+      "summary": "Points expire if the card account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "for 12 consecutive statement cycles."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "产品页未提及外币交易费。",
+     "en": "The product page does not mention a foreign transaction fee."
+    },
+    {
+     "zh": "产品页未列出保障类福利。",
+     "en": "The product page lists no insurance or protection benefits."
+    },
+    {
+     "zh": "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+     "en": "The new-account bonus, intro APR and new-cardmember ExtendPay offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "us-bank-us-altitude-connect-visa-signature-card",
+   "page": "usb-altitude-connect",
+   "issuer": "U.S. Bank",
+   "collection": "not-supported",
+   "url": "https://www.usbank.com/credit-cards/altitude-connect-visa-signature-credit-card.html",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Enjoy no annual fee and get all of these great benefits."
+   },
+   "earning": [
+    {
+     "zh": "Travel Center 预付酒店和租车",
+     "en": "Prepaid hotels and car rentals in the Travel Center",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "quote": "5X points on prepaid hotels and car rentals booked directly in the Travel Center when you use this card."
+    },
+    {
+     "zh": "合资格旅行",
+     "en": "Eligible travel",
+     "multiplier": 4,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "quote": "You will earn 4 Points (1 base and 3 bonus Points) for every $1 spent on travel category purchases",
+     "noteZh": "向航空公司、酒店、租车、出租车、客运火车、邮轮等直接消费；Travel Center 预付酒店和租车不在此类。",
+     "noteEn": "Purchases made directly with airlines, hotels, car rentals, taxis, passenger trains, cruise lines and similar; Travel Center prepaid hotels and cars are not in this category."
+    },
+    {
+     "zh": "加油站和充电站",
+     "en": "Gas and EV charging stations",
+     "multiplier": 4,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "4X points at gas stations/EV charging stations* on your first $1,000 each quarter.",
+     "cap": {
+      "amount": 1000,
+      "currency": "USD",
+      "period": "calendar-quarter"
+     },
+     "noteZh": "每季前1,000美元；折扣店、大型超市、批发俱乐部和超市只得1倍。超过上限后的倍率页面未写明。",
+     "noteEn": "On your first $1,000 each quarter; discount stores, supercenters, wholesale clubs and grocery stores earn 1X. The page does not state the rate past the cap."
+    },
+    {
+     "zh": "超市、餐饮和流媒体",
+     "en": "Grocery stores, dining and streaming",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "2X points on dining, streaming services and at grocery stores.",
+     "noteZh": "折扣店、大型超市和批发俱乐部不算超市。",
+     "noteEn": "Discount stores, supercenters and wholesale clubs do not count as grocery stores."
+    },
+    {
+     "zh": "其他合资格消费",
+     "en": "All other eligible purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "1X point on all other eligible purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明无外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Enjoy no foreign transaction fees when making purchases outside the United States.",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "priority-pass",
+     "zh": "Priority Pass 会籍（12个月）",
+     "en": "12-month Priority Pass membership",
+     "noteZh": "须另行登记，获12个月 Priority Pass 会籍；免会费登记限账户内一位持卡人（含授权用户）。免费入场次数页面未写明。",
+     "noteEn": "Enroll to get a 12-month Priority Pass membership; the no-fee enrollment is limited to one cardholder on the account, authorized users included. The page does not state a number of free visits.",
+     "scenario": "airport",
+     "category": "lounge",
+     "period": null,
+     "quote": "Cardholders must enroll at prioritypass.com/usbankaltitudeconnect to receive a 12-month Priority Pass™ membership",
+     "original": {
+      "title": "12-month Priority Pass membership",
+      "summary": "Enroll to get a 12-month Priority Pass membership; the no-fee enrollment is limited to one cardholder on the account, authorized users included. The page does not state a number of free visits.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Enrollment with no membership fee is limited to one account cardholder (including authorized users)."
+      ]
+     },
+     "enrollment": true,
+     "programmeIds": [
+      "programme.priority-pass"
+     ]
+    },
+    {
+     "key": "global-entry",
+     "zh": "Global Entry 或 TSA PreCheck 申请费抵扣",
+     "en": "Global Entry or TSA PreCheck fee credit",
+     "noteZh": "用本卡支付申请费后以账单抵扣返还；金额和可用频率页面未写明。",
+     "noteEn": "A statement credit for the application fee paid with the card; the amount and how often it applies are not stated on the page.",
+     "scenario": "airport",
+     "category": "credit",
+     "period": null,
+     "quote": "You will receive a statement credit for your application fee within 1-2 billing cycles.",
+     "original": {
+      "title": "Global Entry or TSA PreCheck fee credit",
+      "summary": "A statement credit for the application fee paid with the card; the amount and how often it applies are not stated on the page.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "You must complete either the Global Entry® and/or TSA PreCheck® application(s) and pay the application fee(s)"
+      ]
+     }
+    },
+    {
+     "key": "trip-cancellation",
+     "zh": "行程取消和中断保障",
+     "en": "Trip Interruption and Cancellation coverage",
+     "noteZh": "须用本卡支付相关交易保障才适用；额度和条件页面未写明。",
+     "noteEn": "Applies only when the card is used to secure the transactions; limits and conditions are not stated on the page.",
+     "scenario": "travel",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "In order for coverage to apply for Trip Interruption/Cancellation and Trip Delay Reimbursement,",
+     "original": {
+      "title": "Trip Interruption and Cancellation coverage",
+      "summary": "Applies only when the card is used to secure the transactions; limits and conditions are not stated on the page.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "you must use your Altitude Connect Card to secure transactions."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "trip-cancellation",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    },
+    {
+     "key": "trip-delay",
+     "zh": "行程延误报销",
+     "en": "Trip Delay Reimbursement",
+     "noteZh": "须用本卡支付相关交易保障才适用；额度和延误时长页面未写明。",
+     "noteEn": "Applies only when the card is used to secure the transactions; limits and the delay length are not stated on the page.",
+     "scenario": "travel",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "In order for coverage to apply for Trip Interruption/Cancellation and Trip Delay Reimbursement,",
+     "original": {
+      "title": "Trip Delay Reimbursement",
+      "summary": "Applies only when the card is used to secure the transactions; limits and the delay length are not stated on the page.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "you must use your Altitude Connect Card to secure transactions."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "trip-delay",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    },
+    {
+     "key": "redemption",
+     "zh": "积分兑换旅行、礼品卡或存款",
+     "en": "Redeem points for travel, gift cards or a deposit",
+     "noteZh": "积分可兑换旅行、礼品卡、商品、慈善捐款，或存入合资格 U.S. Bank 账户。",
+     "noteEn": "Points redeem for travel, gift cards, merchandise, charitable donations, or a deposit to an eligible U.S. Bank account.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "can be redeemed for travel, gift cards, merchandise, charitable donations, or as a deposit to an eligible U.S. Bank account.",
+     "original": {
+      "title": "Redeem points for travel, gift cards or a deposit",
+      "summary": "Points redeem for travel, gift cards, merchandise, charitable donations, or a deposit to an eligible U.S. Bank account.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "points-expiry",
+     "zh": "连续12个账单周期无活动积分过期",
+     "en": "Points expire after 12 inactive statement cycles",
+     "noteZh": "账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。",
+     "noteEn": "Points expire if the account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Points will expire if there is no reward, purchase, or balance activity on your account for 12 consecutive statement cycles.",
+     "original": {
+      "title": "Points expire after 12 inactive statement cycles",
+      "summary": "Points expire if the account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "Global Entry 或 TSA PreCheck 抵扣金额和 Priority Pass 免费次数未列出。",
+     "en": "The Global Entry or TSA PreCheck credit amount and the number of free Priority Pass visits are not stated."
+    },
+    {
+     "zh": "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+     "en": "The new-account bonus, intro APR and new-cardmember ExtendPay offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "us-bank-us-shield-visa-card",
+   "page": "usb-shield",
+   "issuer": "U.S. Bank",
+   "collection": "not-supported",
+   "url": "https://www.usbank.com/credit-cards/shield-visa-credit-card.html",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Enjoy great benefits with no annual fee."
+   },
+   "earning": [
+    {
+     "zh": "Travel Center 预付旅行",
+     "en": "Prepaid travel in the Travel Center",
+     "multiplier": 4,
+     "unit": "cashback-percent",
+     "category": "travel",
+     "quote": "On prepaid air, hotel and car reservations booked directly in the Travel Center when you use your card.",
+     "noteZh": "4%返现，限经 Travel Center 直接预订的预付机票、酒店和租车。",
+     "noteEn": "4% cash back on prepaid air, hotel and car reservations booked directly in the Travel Center."
+    }
+   ],
+   "credits": [
+    {
+     "key": "annual-credit",
+     "zh": "连续11个月消费后每年抵扣20美元",
+     "en": "$20 annual statement credit",
+     "noteZh": "连续11个自然月有消费后自动抵扣20美元，每12个月一次，账户须状态良好；12个月从何时起算页面未写明。",
+     "noteEn": "An automatic $20 statement credit per 12-month period after 11 consecutive months of purchases, with the account in good standing. The page does not say when the 12 months start.",
+     "scenario": "card-ownership",
+     "category": "spend-unlock",
+     "period": null,
+     "quote": "An automatic statement credit of $20 per 12-month period",
+     "original": {
+      "title": "$20 annual statement credit",
+      "summary": "An automatic $20 statement credit per 12-month period after 11 consecutive months of purchases, with the account in good standing. The page does not say when the 12 months start.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Earn a $20 annual statement credit for 11 consecutive months of purchases."
+      ]
+     },
+     "amount": 20
+    },
+    {
+     "key": "cell-phone",
+     "zh": "手机保障",
+     "en": "Cell phone protection",
+     "noteZh": "用本卡支付每月手机账单时，手机失窃或损坏最多报销600美元；自付额和次数限制页面未写明。",
+     "noteEn": "Up to $600 reimbursed for a stolen or damaged phone when the monthly cellular bill is paid with the card; deductible and claim limits are not stated.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Get up to $600 reimbursed if your cell phone is stolen or damaged",
+     "original": {
+      "title": "Cell phone protection",
+      "summary": "Up to $600 reimbursed for a stolen or damaged phone when the monthly cellular bill is paid with the card; deductible and claim limits are not stated.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "In order for coverage to apply, you must pay your monthly cellular wireless bill with your Shield Card."
+      ]
+     }
+    },
+    {
+     "key": "purchase-security",
+     "zh": "购物保障 Purchase Security",
+     "en": "Purchase Security",
+     "noteZh": "可能保护承保物品免受失窃或损坏，受条款限制；期限和上限未列。",
+     "noteEn": "May help protect covered items against theft or damage, subject to terms; the period and limits are not stated.",
+     "scenario": "shopping",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Purchase Security may help protect covered items against theft or damage, subject to applicable terms and conditions.",
+     "original": {
+      "title": "Purchase Security",
+      "summary": "May help protect covered items against theft or damage, subject to terms; the period and limits are not stated.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "The U.S. Bank Shield® Visa® Card includes Purchase Security benefits."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "purchase-protection",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    },
+    {
+     "key": "credit-score",
+     "zh": "免费信用分查看",
+     "en": "Free credit score access",
+     "noteZh": "经 TransUnion CreditView Dashboard 查看信用分和提醒，限 U.S. Bank 网银和手机银行客户。",
+     "noteEn": "Credit score access and alerts through the TransUnion CreditView Dashboard, for U.S. Bank online and mobile banking customers only.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Enroll in the mobile app and online banking to view your score at anytime.",
+     "original": {
+      "title": "Free credit score access",
+      "summary": "Credit score access and alerts through the TransUnion CreditView Dashboard, for U.S. Bank online and mobile banking customers only.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "to U.S. Bank online and mobile banking customers only."
+      ]
+     },
+     "enrollment": true
+    },
+    {
+     "key": "extendpay",
+     "zh": "每年一次免费的3个月 ExtendPay 分期",
+     "en": "Yearly 3-month $0 ExtendPay Plan offer",
+     "noteZh": "开户首发0%消费 APR 到期后，每个自然年可设一次3个月 $0 的 ExtendPay 分期；资格按月判定。",
+     "noteEn": "After the intro purchase APR ends, one 3-month $0 ExtendPay Plan can be set up each calendar year; eligibility is determined monthly.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "calendar-year",
+     "quote": "Option to set up a 3-month $0 ExtendPay Plan offer each calendar year",
+     "original": {
+      "title": "Yearly 3-month $0 ExtendPay Plan offer",
+      "summary": "After the intro purchase APR ends, one 3-month $0 ExtendPay Plan can be set up each calendar year; eligibility is determined monthly.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "after the new account 0% introductory purchase APR offer has expired."
+      ]
+     }
+    },
+    {
+     "key": "redemption",
+     "zh": "返现可抵扣账单或存入账户",
+     "en": "Redeem as statement credit or deposit",
+     "noteZh": "返现可抵扣账单，或存入 U.S. Bank 储蓄或支票账户。",
+     "noteEn": "Cash back redeems as a statement credit or a deposit to a U.S. Bank savings or checking account.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Cash back is redeemed in the form of a statement credit or a deposit made to your U.S. Bank®",
+     "original": {
+      "title": "Redeem as statement credit or deposit",
+      "summary": "Cash back redeems as a statement credit or a deposit to a U.S. Bank savings or checking account.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "rewards-expiry",
+     "zh": "连续12个账单周期无活动返现过期",
+     "en": "Cash rewards expire after 12 inactive statement cycles",
+     "noteZh": "账户连续12个账单周期没有奖励、消费或余额活动，返现会过期。",
+     "noteEn": "Cash rewards expire if the account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Cash Rewards will expire if you do not have any reward, purchase, or balance activity on your account",
+     "original": {
+      "title": "Cash rewards expire after 12 inactive statement cycles",
+      "summary": "Cash rewards expire if the account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "for 12 consecutive statement cycles."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "Travel Center 以外消费的返现比例页面未写明。",
+     "en": "The page states no earning rate for purchases outside the Travel Center."
+    },
+    {
+     "zh": "产品页未提及外币交易费。",
+     "en": "The product page does not mention a foreign transaction fee."
+    },
+    {
+     "zh": "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+     "en": "The new-account bonus, intro APR and new-cardmember ExtendPay offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "us-bank-us-triple-cash-rewards-visa-business-card",
+   "page": "usb-triple-business",
+   "issuer": "U.S. Bank",
+   "collection": "not-supported",
+   "url": "https://www.usbank.com/business-banking/business-credit-cards/business-triple-cash-back-credit-card.html",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "There is no annual fee and employee credit cards are free."
+   },
+   "additionalFee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "There is no annual fee and employee credit cards are free."
+   },
+   "earning": [
+    {
+     "zh": "Travel Center 预付酒店和租车",
+     "en": "Prepaid hotels and car rentals in the Travel Center",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "travel",
+     "quote": "Earn 5% cash back on prepaid hotels and car rentals booked directly in the Travel Center when you use this card."
+    },
+    {
+     "zh": "餐厅、办公用品店、手机服务和加油充电",
+     "en": "Restaurants, office supply stores, cell phone providers, gas and EV charging",
+     "multiplier": 3,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "You will earn 3% Cash Back for every $1 spent in eligible Net Purchases at restaurants/restaurant delivery,",
+     "noteZh": "含餐厅和餐厅配送；加油或充电单笔超过200美元只得1%；不含批发俱乐部、折扣店和大型超市。页面写明奖励总额不设上限。",
+     "noteEn": "Includes restaurants and restaurant delivery; a gas or charging transaction over $200 earns 1%; wholesale clubs, discount stores and supercenters are excluded. The page states no limit on total rewards."
+    },
+    {
+     "zh": "其他合资格消费",
+     "en": "All other eligible purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "1% cash back on all other eligible purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "software",
+     "zh": "软件订阅每年抵扣100美元",
+     "en": "$100 annual software credit",
+     "noteZh": "连续11个月直接向软件服务商支付合资格订阅后自动抵扣100美元，每12个月一次；12个月从何时起算页面未写明。",
+     "noteEn": "An automatic $100 statement credit per 12-month period after 11 consecutive months of eligible software purchases made directly with a provider. The page does not say when the 12 months start.",
+     "scenario": "shopping",
+     "category": "spend-unlock",
+     "period": null,
+     "quote": "An automatic statement credit of $100 per 12-month period",
+     "original": {
+      "title": "$100 annual software credit",
+      "summary": "An automatic $100 statement credit per 12-month period after 11 consecutive months of eligible software purchases made directly with a provider. The page does not say when the 12 months start.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "billing cycles following 11 consecutive months of eligible software service purchases made directly with"
+      ]
+     },
+     "amount": 100
+    },
+    {
+     "key": "spend-management",
+     "zh": "U.S. Bank Spend Management 支出管理",
+     "en": "U.S. Bank Spend Management",
+     "noteZh": "可用 U.S. Bank Spend Management 管理卡支出。",
+     "noteEn": "U.S. Bank Spend Management for controlling card spend.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Take control of your card spend with U.S. Bank Spend Management",
+     "original": {
+      "title": "U.S. Bank Spend Management",
+      "summary": "U.S. Bank Spend Management for controlling card spend.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "redemption",
+     "zh": "返现可抵扣账单或存入账户",
+     "en": "Redeem as statement credit or deposit",
+     "noteZh": "返现可抵扣账单或存入合资格 U.S. Bank 账户。",
+     "noteEn": "Cash back redeems towards a statement credit or a deposit to a qualifying U.S. Bank account.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "It’s easy to redeem your reward cash back towards a statement credit, deposit to a qualifying U.S. Bank account",
+     "original": {
+      "title": "Redeem as statement credit or deposit",
+      "summary": "Cash back redeems towards a statement credit or a deposit to a qualifying U.S. Bank account.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "rewards-expiry",
+     "zh": "账户保持活跃时返现不过期",
+     "en": "Cash rewards do not expire while the account stays active",
+     "noteZh": "账户保持活跃时返现不过期；连续12个账单周期没有奖励、消费或余额活动则过期。",
+     "noteEn": "Cash rewards do not expire while the account stays active; they expire after 12 consecutive statement cycles with no reward, purchase or balance activity.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Cash Rewards do not expire as long as the account remains active.",
+     "original": {
+      "title": "Cash rewards do not expire while the account stays active",
+      "summary": "Cash rewards do not expire while the account stays active; they expire after 12 consecutive statement cycles with no reward, purchase or balance activity.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Cash Rewards will expire if there is no reward, purchase, or balance activity on your account",
+       "for 12 consecutive statement cycles."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "产品页未提及外币交易费。",
+     "en": "The product page does not mention a foreign transaction fee."
+    },
+    {
+     "zh": "产品页未列出保险或购物、旅行保障。",
+     "en": "The product page lists no insurance, purchase or travel protections."
+    },
+    {
+     "zh": "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+     "en": "The new-account bonus, intro APR and new-cardmember ExtendPay offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "us-bank-us-business-altitude-connect-visa-signature-card",
+   "page": "usb-business-connect",
+   "issuer": "U.S. Bank",
+   "collection": "not-supported",
+   "url": "https://www.usbank.com/business-banking/business-credit-cards/business-altitude-connect-credit-card.html",
+   "feeUnknown": true,
+   "additionalFee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Plus, free employee cards."
+   },
+   "earning": [
+    {
+     "zh": "Travel Center 预付酒店和租车",
+     "en": "Prepaid hotels and car rentals in the Travel Center",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "quote": "5X points Hotel and car rentals are 5X more rewarding when booked directly in the Travel Center when you use this card."
+    },
+    {
+     "zh": "旅行、加油站和充电站",
+     "en": "Travel, gas and EV charging stations",
+     "multiplier": 4,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "quote": "4X points on travel, including airfare, hotels, gas and EV charging stations* on the first $150,000 in combined annual spend.",
+     "cap": {
+      "amount": 150000,
+      "currency": "USD",
+      "period": "calendar-year"
+     },
+     "noteZh": "这些类别每个自然年合计前150,000美元；之后1倍。不含折扣店、大型超市和批发俱乐部。",
+     "noteEn": "On the first $150,000 combined in these categories each calendar year, then 1X. Discount stores, supercenters and wholesale clubs are excluded.",
+     "afterCap": 1
+    },
+    {
+     "zh": "餐饮和手机服务",
+     "en": "Dining and cell phone services",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "2X points on dining, takeout, restaurant delivery and cell phone services and 1 point for all other purchases.",
+     "noteZh": "含外卖和餐厅配送；不设上限。",
+     "noteEn": "Includes takeout and restaurant delivery; no maximum."
+    },
+    {
+     "zh": "其他合资格消费",
+     "en": "All other eligible purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "2X points on dining, takeout, restaurant delivery and cell phone services and 1 point for all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明无外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Enjoy no foreign transaction fees when making purchases outside the United States.",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "priority-pass",
+     "zh": "Priority Pass 会籍和每年4次免费进入",
+     "en": "Priority Pass membership with four free visits",
+     "noteZh": "须另行登记 Priority Pass；每个会籍年度4次免费进入。超出次数的费用页面未写明。",
+     "noteEn": "Enroll in Priority Pass; four complimentary visits per membership year. Charges beyond them are not stated on the page.",
+     "scenario": "airport",
+     "category": "lounge",
+     "period": null,
+     "quote": "Priority Pass™ annual membership with access to more than 1,900 VIP lounges worldwide,",
+     "original": {
+      "title": "Priority Pass membership with four free visits",
+      "summary": "Enroll in Priority Pass; four complimentary visits per membership year. Charges beyond them are not stated on the page.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "plus four complimentary visits per membership year.",
+       "Please visit prioritypass.com/usbankbizconnect to enroll in Priority Pass™ and for further details."
+      ]
+     },
+     "enrollment": true,
+     "programmeIds": [
+      "programme.priority-pass"
+     ],
+     "terms": {
+      "quantity": 4
+     }
+    },
+    {
+     "key": "rideshare",
+     "zh": "连续3个月打车后抵扣25美元",
+     "en": "$25 taxi or rideshare credit",
+     "noteZh": "连续3个月每月至少一笔出租车或网约车消费后抵扣25美元；抵扣处理后的下一个月起可重新累计。",
+     "noteEn": "A $25 statement credit after three consecutive months with a taxi or rideshare purchase paid with the card; earning starts again the month after the credit is processed.",
+     "scenario": "ground-transport",
+     "category": "credit",
+     "period": "event-based",
+     "quote": "Receive a $25 statement credit after three consecutive monthly taxi or rideshare transactions paid for with your card.",
+     "original": {
+      "title": "$25 taxi or rideshare credit",
+      "summary": "A $25 statement credit after three consecutive months with a taxi or rideshare purchase paid with the card; earning starts again the month after the credit is processed.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "you must make at least one rideshare service purchase per month for 3 consecutive months.",
+       "Starting the month after your credit is processed, you will again be eligible to earn the service credit"
+      ]
+     },
+     "amount": 25
+    },
+    {
+     "key": "rental-car",
+     "zh": "租车碰撞损失豁免",
+     "en": "Auto rental collision damage waiver",
+     "noteZh": "页面只列出名称；主次、额度和条件未写明。",
+     "noteEn": "Only the name is listed; primary or secondary basis, limits and conditions are not stated.",
+     "scenario": "travel",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "The Business Altitude Connect Card can give you peace of mind with auto rental collision damage waiver,",
+     "original": {
+      "title": "Auto rental collision damage waiver",
+      "summary": "Only the name is listed; primary or secondary basis, limits and conditions are not stated.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "rental-car",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    },
+    {
+     "key": "lost-luggage",
+     "zh": "行李丢失保险",
+     "en": "Lost luggage insurance",
+     "noteZh": "页面只列出名称；额度和条件未写明。",
+     "noteEn": "Only the name is listed; limits and conditions are not stated.",
+     "scenario": "travel",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "lost luggage insurance and travel assistance services.",
+     "original": {
+      "title": "Lost luggage insurance",
+      "summary": "Only the name is listed; limits and conditions are not stated.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "lost-luggage",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    },
+    {
+     "key": "travel-assistance",
+     "zh": "旅行协助服务",
+     "en": "Travel assistance services",
+     "noteZh": "页面只列出名称。",
+     "noteEn": "Only the name is listed.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "lost luggage insurance and travel assistance services.",
+     "original": {
+      "title": "Travel assistance services",
+      "summary": "Only the name is listed.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "accounting-sync",
+     "zh": "与记账软件同步",
+     "en": "Accounting software sync",
+     "noteZh": "可与记账软件同步，跟踪支出、留存收据并设置卡片控制。",
+     "noteEn": "Sync with accounting software to track spending, capture receipts and set card controls.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Easily sync with your accounting software to track spending, capture receipts, set card controls and more.",
+     "original": {
+      "title": "Accounting software sync",
+      "summary": "Sync with accounting software to track spending, capture receipts and set card controls.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "points-transfer",
+     "zh": "商务与个人 Altitude 卡积分互转",
+     "en": "Move points between business and personal Altitude cards",
+     "noteZh": "可在本人的商务和个人 Altitude 卡之间转移积分。",
+     "noteEn": "Transfer points between your business and personal Altitude cards.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Transfer points between your business and personal Altitude cards so you can redeem points sooner.",
+     "original": {
+      "title": "Move points between business and personal Altitude cards",
+      "summary": "Transfer points between your business and personal Altitude cards.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "redemption",
+     "zh": "积分兑换商品、账单抵扣、存款或旅行",
+     "en": "Redeem points for merchandise, credit, deposit or travel",
+     "noteZh": "积分可兑换商品、账单抵扣、存入合资格 U.S. Bank 账户、礼品卡和旅行，或用 Real-Time Rewards 即时兑换。",
+     "noteEn": "Points redeem for merchandise, statement credit, a deposit to a qualifying U.S. Bank account, gift cards and travel, or instantly with Real-Time Rewards.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "It’s easy to redeem your reward points toward merchandise, statement credit, deposit to a qualifying U.S. Bank account,",
+     "original": {
+      "title": "Redeem points for merchandise, credit, deposit or travel",
+      "summary": "Points redeem for merchandise, statement credit, a deposit to a qualifying U.S. Bank account, gift cards and travel, or instantly with Real-Time Rewards.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "gift cards and travel or redeem instantly with Real-Time Rewards."
+      ]
+     }
+    },
+    {
+     "key": "points-expiry",
+     "zh": "账户保持活跃时积分不过期",
+     "en": "Points do not expire while the account stays active",
+     "noteZh": "账户保持活跃时积分不过期；连续12个账单周期没有奖励、消费或余额活动则过期。",
+     "noteEn": "Points do not expire while the account stays active; they expire after 12 consecutive statement cycles with no reward, purchase or balance activity.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Points do not expire as long as the account remains active.",
+     "original": {
+      "title": "Points do not expire while the account stays active",
+      "summary": "Points do not expire while the account stays active; they expire after 12 consecutive statement cycles with no reward, purchase or balance activity.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Points will expire if there is no reward, purchase, or balance activity on your account for 12 consecutive statement cycles."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "公开页面写明首年 $0 优惠年费，但之后的年费金额未显示，主卡年费未知。",
+     "en": "The public page states a $0 intro annual fee for the first year but does not show the later amount, so the primary fee is unknown."
+    },
+    {
+     "zh": "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+     "en": "The new-account bonus, intro APR and new-cardmember ExtendPay offers are not recorded."
+    }
+   ]
+  }
+ ]
+}

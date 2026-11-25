@@ -171,6 +171,11 @@
   "Air France、KLM 和 SkyTeam 航司消费":[{"merchants":["air france","klm"]}],
   "旅行和餐饮":[{"uses":["any-travel","dining"]}],
   "日常消费":[{"base":true}],
-  "BofA Travel 旅行预订":[{"uses":["any-travel"],"channel":"portal","via":"BofA Travel"}]
+  "BofA Travel 旅行预订":[{"uses":["any-travel"],"channel":"portal","via":"BofA Travel"}],
+  "Travel Center 预付酒店和租车":[{"uses":["hotel","car-rental"],"channel":"portal","via":"U.S. Bank Travel Center"}],
+  "超市、餐饮和流媒体":[{"uses":["supermarket","dining","streaming"]}],
+  "餐厅、办公用品店、手机服务和加油充电":[{"uses":["dining","office","telecom","gas","ev-charging"]}],
+  "旅行、加油站和充电站":[{"uses":["any-travel","gas","ev-charging"]}],
+  "餐饮和手机服务":[{"uses":["dining","telecom"]}]
  }
 }

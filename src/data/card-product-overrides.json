@@ -2122,5 +2122,40 @@
     "checkedAt": "2026-11-24",
     "verification": "issuer-listed",
     "collection": "not-supported"
+  },
+  {
+    "id": "us-bank-us-smartly-visa-signature-card",
+    "sourceUrl": "https://www.usbank.com/credit-cards/bank-smartly-visa-signature-credit-card.html",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "us-bank-us-altitude-connect-visa-signature-card",
+    "sourceUrl": "https://www.usbank.com/credit-cards/altitude-connect-visa-signature-credit-card.html",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "us-bank-us-shield-visa-card",
+    "sourceUrl": "https://www.usbank.com/credit-cards/shield-visa-credit-card.html",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "us-bank-us-triple-cash-rewards-visa-business-card",
+    "sourceUrl": "https://www.usbank.com/business-banking/business-credit-cards/business-triple-cash-back-credit-card.html",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "us-bank-us-business-altitude-connect-visa-signature-card",
+    "sourceUrl": "https://www.usbank.com/business-banking/business-credit-cards/business-altitude-connect-credit-card.html",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
   }
 ]
