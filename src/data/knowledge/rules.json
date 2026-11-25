@@ -100821,5 +100821,4784 @@
       "state": "reviewed-summary"
     },
     "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "citi-us-citi-strata-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "No Annual Fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Citi Travel 酒店、租车和景点",
+      "summary": "限在 cititravel.com 预订。",
+      "sourceText": "5 points per dollar spent on Hotels, Car Rentals, and Attractions booked on cititravel.com",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "限在 cititravel.com 预订。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "points-per-USD",
+      "spendCategory": "Citi Travel 酒店、租车和景点",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "限在 cititravel.com 预订。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "超市",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3 points per dollar spent at Supermarkets",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "超市",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-card.earning-2@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "加油站、充电和指定交通",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "3 points per dollar spent at Gas & EV Charging Stations and on Select Transit.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "加油站、充电和指定交通",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-card.earning-3@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "自选类别",
+      "summary": "可选健身、流媒体、现场娱乐、美容理发或宠物用品，每个日历季度可改一次。",
+      "sourceText": "3 points per dollar spent on an eligible Self-Select Category of your choice",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "可选健身、流媒体、现场娱乐、美容理发或宠物用品，每个日历季度可改一次。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "points-per-USD",
+      "spendCategory": "自选类别",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "可选健身、流媒体、现场娱乐、美容理发或宠物用品，每个日历季度可改一次。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-card.earning-4@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "餐厅",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2 points per dollar spent at Restaurants",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "餐厅",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-card.earning-5",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-card.earning-5@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-strata-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1 point per dollar spent on All Other Purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-strata-card.quick-lock",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-strata-card.quick-lock@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-strata-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Quick Lock 锁卡",
+      "summary": "可暂时锁卡，阻止新的消费。",
+      "sourceText": "Citi® Quick Lock",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "可暂时锁卡，阻止新的消费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "可暂时锁卡，阻止新的消费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-strata-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Citi Quick Lock",
+      "summary": "The page lists Citi Quick Lock, which blocks new charges.",
+      "howToUse": [
+        "Use Citi Quick Lock in your Citi account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-strata-card",
+          "text": "Citi® Quick Lock"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-card-by-citi.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-card-by-citi.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "No annual fee with paid Costco membership.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-card-by-citi.earning-0",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-card-by-citi.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Costco 加油",
+      "summary": "与其他合资格加油和充电合计每年 7,000 美元内，超出后 1%。",
+      "sourceText": "5% and 4% earn is on a combined $7,000 spend per year, 1% thereafter",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "与其他合资格加油和充电合计每年 7,000 美元内，超出后 1%。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Costco 加油",
+      "spendCap": {
+        "amount": 7000,
+        "currency": "USD",
+        "period": "calendar-year"
+      },
+      "creditedSpendMayNotEarn": null,
+      "afterCapPercent": 1
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "与其他合资格加油和充电合计每年 7,000 美元内，超出后 1%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-card-by-citi.earning-1",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-card-by-citi.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他合资格加油和充电",
+      "summary": "与 Costco 加油合计每年 7,000 美元内，超出后 1%。",
+      "sourceText": "4% cash back on other eligible gas and electric vehicle (EV) charging purchases worldwide for the first $7,000 per year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "与 Costco 加油合计每年 7,000 美元内，超出后 1%。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "cashback-percent",
+      "spendCategory": "其他合资格加油和充电",
+      "spendCap": {
+        "amount": 7000,
+        "currency": "USD",
+        "period": "calendar-year"
+      },
+      "creditedSpendMayNotEarn": null,
+      "afterCapPercent": 1
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "与 Costco 加油合计每年 7,000 美元内，超出后 1%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-card-by-citi.earning-2",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-card-by-citi.earning-2@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "餐厅和合资格旅行",
+      "summary": "包括 Costco Travel。",
+      "sourceText": "3% On restaurants and eligible travel, including Costco Travel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "包括 Costco Travel。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "cashback-percent",
+      "spendCategory": "餐厅和合资格旅行",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "包括 Costco Travel。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-card-by-citi.earning-3",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-card-by-citi.earning-3@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Costco 和 Costco.com 其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2% On all other Costco and Costco.com purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "Costco 和 Costco.com 其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-card-by-citi.earning-4",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-card-by-citi.earning-4@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1% On all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-card-by-citi.reward-certificate",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-card-by-citi.reward-certificate@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "返现以年度奖励券发放",
+      "summary": "返现以每年一张信用卡奖励券发放，在 2 月账单出账后提供。",
+      "sourceText": "will be provided as an annual credit card reward certificate once your February billing statement closes",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "返现以每年一张信用卡奖励券发放，在 2 月账单出账后提供。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "返现以每年一张信用卡奖励券发放，在 2 月账单出账后提供。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Annual reward certificate",
+      "summary": "Rewards are provided as an annual certificate after the February statement closes.",
+      "howToUse": [
+        "Redeem the certificate as the issuer describes."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-costco-anywhere-visa-card-by-citi",
+          "text": "will be provided as an annual credit card reward certificate once your February billing statement closes"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-card-by-citi.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-card-by-citi.purchase-protection@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物损坏和盗窃保障",
+      "summary": "页面写明可能赔付维修或报销；额度和条件未列。",
+      "sourceText": "Damage & Theft Purchase Protection may cover you for repairs or reimbursement",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明可能赔付维修或报销；额度和条件未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明可能赔付维修或报销；额度和条件未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Damage and theft purchase protection",
+      "summary": "The page says the protection may cover repairs or reimbursement.",
+      "howToUse": [
+        "Read the Citi benefit terms before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-costco-anywhere-visa-card-by-citi",
+          "text": "Damage & Theft Purchase Protection may cover you for repairs or reimbursement"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-card-by-citi.car-rental",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-card-by-citi.car-rental@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "全球租车保险",
+      "summary": "页面只列出名称；主次、额度和条件未列。",
+      "sourceText": "Worldwide Car Rental Insurance",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面只列出名称；主次、额度和条件未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面只列出名称；主次、额度和条件未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Worldwide Car Rental Insurance",
+      "summary": "The page lists Worldwide Car Rental Insurance.",
+      "howToUse": [
+        "Read the Citi benefit terms before declining rental cover."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-costco-anywhere-visa-card-by-citi",
+          "text": "Worldwide Car Rental Insurance"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-business-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "No annual fee with paid Costco membership.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-business-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.earning-0",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-business-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Costco 加油",
+      "summary": "与其他合资格加油和充电合计每年 7,000 美元内，超出后 1%。",
+      "sourceText": "5% and 4% earn is on a combined $7,000 spend per year, 1% thereafter",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "与其他合资格加油和充电合计每年 7,000 美元内，超出后 1%。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Costco 加油",
+      "spendCap": {
+        "amount": 7000,
+        "currency": "USD",
+        "period": "calendar-year"
+      },
+      "creditedSpendMayNotEarn": null,
+      "afterCapPercent": 1
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "与其他合资格加油和充电合计每年 7,000 美元内，超出后 1%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-business-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.earning-1",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-business-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他合资格加油和充电",
+      "summary": "与 Costco 加油合计每年 7,000 美元内，超出后 1%。",
+      "sourceText": "4% cash back on other eligible gas and electric vehicle (EV) charging purchases worldwide for the first $7,000 per year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "与 Costco 加油合计每年 7,000 美元内，超出后 1%。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "cashback-percent",
+      "spendCategory": "其他合资格加油和充电",
+      "spendCap": {
+        "amount": 7000,
+        "currency": "USD",
+        "period": "calendar-year"
+      },
+      "creditedSpendMayNotEarn": null,
+      "afterCapPercent": 1
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "与 Costco 加油合计每年 7,000 美元内，超出后 1%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-business-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.earning-2",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.earning-2@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-business-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "餐厅和合资格旅行",
+      "summary": "包括 Costco Travel。",
+      "sourceText": "3% On restaurants and eligible travel, including Costco Travel",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "包括 Costco Travel。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "cashback-percent",
+      "spendCategory": "餐厅和合资格旅行",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "包括 Costco Travel。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-business-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.earning-3",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.earning-3@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-business-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Costco 和 Costco.com 其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2% On all other Costco and Costco.com purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "Costco 和 Costco.com 其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-business-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.earning-4",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.earning-4@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-business-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1% On all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-business-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.reward-certificate",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.reward-certificate@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-business-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "返现以年度奖励券发放",
+      "summary": "返现以每年一张信用卡奖励券发放，在 2 月账单出账后提供。",
+      "sourceText": "will be provided as an annual credit card reward certificate once your February billing statement closes",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "返现以每年一张信用卡奖励券发放，在 2 月账单出账后提供。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "返现以每年一张信用卡奖励券发放，在 2 月账单出账后提供。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-business-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Annual reward certificate",
+      "summary": "Rewards are provided as an annual certificate after the February statement closes.",
+      "howToUse": [
+        "Redeem the certificate as the issuer describes."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-costco-anywhere-visa-business-card-by-citi",
+          "text": "will be provided as an annual credit card reward certificate once your February billing statement closes"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.purchase-protection",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.purchase-protection@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-business-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物损坏和盗窃保障",
+      "summary": "页面写明可能赔付维修或报销；额度和条件未列。",
+      "sourceText": "Damage & Theft Purchase Protection may cover you for repairs or reimbursement",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明可能赔付维修或报销；额度和条件未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明可能赔付维修或报销；额度和条件未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-business-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Damage and theft purchase protection",
+      "summary": "The page says the protection may cover repairs or reimbursement.",
+      "howToUse": [
+        "Read the Citi benefit terms before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-costco-anywhere-visa-business-card-by-citi",
+          "text": "Damage & Theft Purchase Protection may cover you for repairs or reimbursement"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.car-rental",
+    "revision": 1,
+    "revisionId": "rule.citi-us-costco-anywhere-visa-business-card-by-citi.car-rental@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-costco-anywhere-visa-business-card-by-citi"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "全球租车保险",
+      "summary": "页面只列出名称；主次、额度和条件未列。",
+      "sourceText": "Worldwide Car Rental Insurance",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面只列出名称；主次、额度和条件未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面只列出名称；主次、额度和条件未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-costco-anywhere-visa-business-card-by-citi"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Worldwide Car Rental Insurance",
+      "summary": "The page lists Worldwide Car Rental Insurance.",
+      "howToUse": [
+        "Read the Citi benefit terms before declining rental cover."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-costco-anywhere-visa-business-card-by-citi",
+          "text": "Worldwide Car Rental Insurance"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-aadvantage-mileup-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.citi-us-aadvantage-mileup-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "citi-us-aadvantage-mileup-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "No Annual Fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-aadvantage-mileup-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-aadvantage-mileup-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.citi-us-aadvantage-mileup-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-aadvantage-mileup-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "American Airlines 消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 AAdvantage® miles for every $1 spent on eligible American Airlines purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "American Airlines 消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-aadvantage-mileup-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-aadvantage-mileup-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.citi-us-aadvantage-mileup-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-aadvantage-mileup-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "超市和杂货配送",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 AAdvantage® miles for each $1 spent at grocery stores, including grocery delivery services",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "超市和杂货配送",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-aadvantage-mileup-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-aadvantage-mileup-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.citi-us-aadvantage-mileup-card.earning-2@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-aadvantage-mileup-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 1 AAdvantage® mile for every $1 spent on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "miles-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-aadvantage-mileup-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-aadvantage-mileup-card.inflight",
+    "revision": 1,
+    "revisionId": "rule.citi-us-aadvantage-mileup-card.inflight@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-aadvantage-mileup-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "机上餐饮25%返还",
+      "summary": "机上餐饮消费优惠25%。",
+      "sourceText": "25% savings on inflight food and beverage purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "机上餐饮消费优惠25%。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "机上餐饮消费优惠25%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-aadvantage-mileup-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "25% inflight savings",
+      "summary": "25% savings on inflight food and beverage purchases.",
+      "howToUse": [
+        "Pay with this card on board."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-aadvantage-mileup-card",
+          "text": "25% savings on inflight food and beverage purchases"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-simplicity-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-simplicity-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "citi-us-citi-simplicity-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "No annual fee — ever",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-simplicity-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-simplicity-card.quick-lock",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-simplicity-card.quick-lock@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-simplicity-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Quick Lock 锁卡",
+      "summary": "可暂时锁卡，阻止新的消费。",
+      "sourceText": "Citi® Quick Lock",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "可暂时锁卡，阻止新的消费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "可暂时锁卡，阻止新的消费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-simplicity-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Citi Quick Lock",
+      "summary": "The page lists Citi Quick Lock, which blocks new charges.",
+      "howToUse": [
+        "Use Citi Quick Lock in your Citi account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-simplicity-card",
+          "text": "Citi® Quick Lock"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-diamond-preferred-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-diamond-preferred-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "citi-us-citi-diamond-preferred-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "There is no annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-diamond-preferred-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-diamond-preferred-card.quick-lock",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-diamond-preferred-card.quick-lock@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-diamond-preferred-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Quick Lock 锁卡",
+      "summary": "可暂时锁卡，阻止新的消费。",
+      "sourceText": "Citi® Quick Lock",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "可暂时锁卡，阻止新的消费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "可暂时锁卡，阻止新的消费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-diamond-preferred-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Citi Quick Lock",
+      "summary": "The page lists Citi Quick Lock, which blocks new charges.",
+      "howToUse": [
+        "Use Citi Quick Lock in your Citi account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-diamond-preferred-card",
+          "text": "Citi® Quick Lock"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "American Airlines 消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 3 AAdvantage® miles for every $1 spent on eligible American Airlines purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "miles-per-USD",
+      "spendCategory": "American Airlines 消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "AAdvantage Hotels 预订",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 6 AAdvantage® miles for every $1 spent on eligible AAdvantage Hotels® bookings",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 6,
+      "unit": "miles-per-USD",
+      "spendCategory": "AAdvantage Hotels 预订",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.earning-2@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "餐厅和外卖",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 AAdvantage® miles for every $1 spent at restaurants, including takeout and delivery",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "餐厅和外卖",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.earning-3@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "网约车和公共交通",
+      "summary": "包括出租车、网约车和公共交通。",
+      "sourceText": "Earn 2 AAdvantage® miles for every $1 spent on eligible Rides and Rails™ purchases,",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "包括出租车、网约车和公共交通。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "网约车和公共交通",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "包括出租车、网约车和公共交通。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.earning-4@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 1 AAdvantage® mile for every $1 spent on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "miles-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.club-passes",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.club-passes@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "lounge",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "每年4张 Admirals Club Globe 通行证",
+      "summary": "每自然年4张。",
+      "sourceText": "Every calendar year, receive 4 Admirals Club® Globe™ Passes",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每自然年4张。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "lounge",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每自然年4张。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "4 Admirals Club Globe Passes",
+      "summary": "4 Admirals Club Globe Passes every calendar year.",
+      "howToUse": [
+        "Present a digital pass from your AAdvantage wallet at the lounge."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "Every calendar year, receive 4 Admirals Club® Globe™ Passes"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.first-bag",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.first-bag@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "美国国内航线首件托运行李免费",
+      "summary": "你和同一订单最多8名同行人。",
+      "sourceText": "on domestic American Airlines itineraries for you and up to 8 travel companions",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "你和同一订单最多8名同行人。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "你和同一订单最多8名同行人。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "First checked bag free",
+      "summary": "First checked bag free on domestic American Airlines itineraries for you and up to 8 companions.",
+      "howToUse": [
+        "Book domestic American Airlines travel as the issuer describes."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "on domestic American Airlines itineraries for you and up to 8 travel companions"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.preferred-boarding",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.preferred-boarding@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "优先登机",
+      "summary": "你和同一订单最多8名同行人。",
+      "sourceText": "Preferred boarding on American Airlines flights",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "你和同一订单最多8名同行人。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "你和同一订单最多8名同行人。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Preferred boarding",
+      "summary": "Preferred boarding on American Airlines flights.",
+      "howToUse": [
+        "Board with the preferred group on American Airlines flights."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "Preferred boarding on American Airlines flights"
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "for you and up to 8 companions traveling with you and listed on the same reservation"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.companion-certificate",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.companion-certificate@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "hotel-service",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "年度同行凭证",
+      "summary": "续卡后从第二个持卡年起获得，适用一次美国国内主舱往返；另付99美元出票费和税费。",
+      "sourceText": "Earn an American Airlines Companion Certificate starting in your second cardmembership year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "续卡后从第二个持卡年起获得，适用一次美国国内主舱往返；另付99美元出票费和税费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "hotel-service",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "续卡后从第二个持卡年起获得，适用一次美国国内主舱往返；另付99美元出票费和税费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "American Airlines Companion Certificate",
+      "summary": "A Companion Certificate from the second cardmembership year when renewed; a $99 ticketing fee plus taxes and fees applies.",
+      "howToUse": [
+        "Redeem the certificate as the issuer describes."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "Earn an American Airlines Companion Certificate starting in your second cardmembership year"
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "Redeeming the certificate costs $99 for the ticketing fee, plus taxes and fees"
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "Companion certificate is good for a single qualifying round-trip main cabin domestic flight."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.turo",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.turo@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Turo 租车返现",
+      "summary": "每次合资格行程最多30美元，每年合计最多240美元；须在 Turo 绑定卡并用本卡付款。年度按何种周期计算未写明。",
+      "sourceText": "for a total of up to $240 in statement credits annually.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每次合资格行程最多30美元，每年合计最多240美元；须在 Turo 绑定卡并用本卡付款。年度按何种周期计算未写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": 240,
+      "currency": "USD",
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每次合资格行程最多30美元，每年合计最多240美元；须在 Turo 绑定卡并用本卡付款。年度按何种周期计算未写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Turo statement credits",
+      "summary": "Up to $30 per eligible Turo trip, up to $240 in statement credits annually.",
+      "howToUse": [
+        "Link the card to your Turo account and pay for the trip with it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "for a total of up to $240 in statement credits annually."
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "Earn up to $30 in statement credits for each eligible Turo trip completed,"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.inflight-credit",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.inflight-credit@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "机上消费抵扣",
+      "summary": "每自然年最多100美元。",
+      "sourceText": "Every calendar year, earn up to $100 in statement credits on inflight purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每自然年最多100美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-year",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每自然年最多100美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "American Airlines inflight credit",
+      "summary": "Up to $100 in statement credits on inflight purchases every calendar year.",
+      "howToUse": [
+        "Pay for inflight purchases with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "Every calendar year, earn up to $100 in statement credits on inflight purchases"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.brand-credit",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.brand-credit@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "指定品牌抵扣",
+      "summary": "每自然年最多100美元，可选最多2个：1stDibs、AAdvantage Hotels、Future Personal Training、Live Nation；有除外项。",
+      "sourceText": "Every calendar year, earn up to $100 in statement credits on your choice of up to 2",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每自然年最多100美元，可选最多2个：1stDibs、AAdvantage Hotels、Future Personal Training、Live Nation；有除外项。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "calendar-year",
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每自然年最多100美元，可选最多2个：1stDibs、AAdvantage Hotels、Future Personal Training、Live Nation；有除外项。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Select brand statement credit",
+      "summary": "Up to $100 each calendar year on up to 2 of the listed brands.",
+      "howToUse": [
+        "Choose the brands as the issuer describes and pay with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "Every calendar year, earn up to $100 in statement credits on your choice of up to 2"
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "of the following brands: 1stDibs, eligible AAdvantage Hotels® bookings, Future Personal Training and Live Nation"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.global-entry",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.global-entry@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Global Entry 或 TSA PreCheck 费用抵扣",
+      "summary": "每4年最多120美元。",
+      "sourceText": "Receive a statement credit, up to $120 every 4 years,",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每4年最多120美元。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "rolling-four-years",
+      "amount": 120,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每4年最多120美元。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry or TSA PreCheck fee credit",
+      "summary": "A statement credit up to $120 every 4 years for the application fee.",
+      "howToUse": [
+        "Pay the application fee with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "Receive a statement credit, up to $120 every 4 years,"
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "as reimbursement for your application fee for Global Entry® or TSA Precheck"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.flight-streak",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.flight-streak@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Flight Streak 忠诚点数奖励",
+      "summary": "每完成4段合资格 American Airlines 航班得5,000 Loyalty Points，每个会籍年度最多额外15,000。",
+      "sourceText": "Earn a 5,000 Loyalty Point bonus after every 4 qualifying American Airlines flights",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每完成4段合资格 American Airlines 航班得5,000 Loyalty Points，每个会籍年度最多额外15,000。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每完成4段合资格 American Airlines 航班得5,000 Loyalty Points，每个会籍年度最多额外15,000。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Flight Streak bonus",
+      "summary": "5,000 Loyalty Points after every 4 qualifying flights, up to 15,000 more each status qualification year.",
+      "howToUse": [
+        "Fly qualifying American Airlines flights."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "Earn a 5,000 Loyalty Point bonus after every 4 qualifying American Airlines flights"
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "up to 15,000 additional Loyalty Points each status qualification year"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.travel-protection",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.travel-protection@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行和购物保障",
+      "summary": "页面列出行程取消/中断、行李丢失或损坏、租车、行程延误、延长保修和 Purchase Assurance Plus；额度和条件未列。",
+      "sourceText": "Help stay protected with travel and shopping protection benefits:",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面列出行程取消/中断、行李丢失或损坏、租车、行程延误、延长保修和 Purchase Assurance Plus；额度和条件未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面列出行程取消/中断、行李丢失或损坏、租车、行程延误、延长保修和 Purchase Assurance Plus；额度和条件未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Travel and shopping protections",
+      "summary": "The page lists travel and shopping protection benefits by name.",
+      "howToUse": [
+        "Read the Citi benefit terms before relying on a protection."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "Help stay protected with travel and shopping protection benefits:"
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "Enhanced Trip Cancellation Interruption, Lost or Damaged Luggage,"
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "MasterRental® Coverage (Car Rental), Trip Delay, Extended Warranty and Purchase Assurance Plus."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.no-foreign-fee",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.no-foreign-fee@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "无外币交易费",
+      "summary": "页面写明本卡不收外币交易费。",
+      "sourceText": "No foreign transaction fees",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明本卡不收外币交易费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明本卡不收外币交易费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+        "Pay with the card abroad."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "No foreign transaction fees"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-globe-card.quick-lock",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-globe-card.quick-lock@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-globe-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Quick Lock 锁卡",
+      "summary": "可暂时锁卡，阻止新的消费；定期扣款继续。",
+      "sourceText": "to instantly block new charges while allowing recurring transactions to continue without disruption.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "可暂时锁卡，阻止新的消费；定期扣款继续。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "可暂时锁卡，阻止新的消费；定期扣款继续。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-globe-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Citi Quick Lock",
+      "summary": "Quick Lock blocks new charges while recurring transactions continue.",
+      "howToUse": [
+        "Use Citi Quick Lock in the Citi Mobile App or at citi.com."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "to instantly block new charges while allowing recurring transactions to continue without disruption."
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-globe-card",
+          "text": "Use Citi Quick Lock in the Citi Mobile"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-business-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-business-card.fee-additional@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "citi-us-citi-aadvantage-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Receive employee cards at no additional cost",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-business-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-business-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "American Airlines 消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 AAdvantage® miles for your business on every $1 spent on eligible American Airlines purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "American Airlines 消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-business-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-business-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车和加油站",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 AAdvantage® miles for your business on every $1 spent at car rental merchants and gas stations",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "租车和加油站",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-business-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-business-card.earning-2@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "电信、有线和卫星电视",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 2 AAdvantage® miles for your business on every $1 spent at telecommunications merchants and cable and satellite providers",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "miles-per-USD",
+      "spendCategory": "电信、有线和卫星电视",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-business-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-business-card.earning-3@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "citi-us-citi-aadvantage-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 1 AAdvantage® mile for your business on every $1 spent on all other purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "miles-per-USD",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-business-card.first-bag",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-business-card.first-bag@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "美国国内航线首件托运行李免费",
+      "summary": "你和同一订单最多4名同行人。",
+      "sourceText": "for you and up to 4 companions traveling with you on the same reservation.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "你和同一订单最多4名同行人。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "你和同一订单最多4名同行人。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "First checked bag free",
+      "summary": "First checked bag free on domestic American Airlines itineraries for you and up to 4 companions.",
+      "howToUse": [
+        "Book domestic American Airlines travel as the issuer describes."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-business-card",
+          "text": "for you and up to 4 companions traveling with you on the same reservation."
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-business-card",
+          "text": "First checked bag free on domestic American Airlines itineraries"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-business-card.preferred-boarding",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-business-card.preferred-boarding@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "优先登机",
+      "summary": "American Airlines 航班优先登机。",
+      "sourceText": "Preferred boarding on American Airlines flights",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "American Airlines 航班优先登机。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "per-trip",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "American Airlines 航班优先登机。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Preferred boarding",
+      "summary": "Preferred boarding on American Airlines flights.",
+      "howToUse": [
+        "Board with the preferred group on American Airlines flights."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-business-card",
+          "text": "Preferred boarding on American Airlines flights"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-business-card.inflight",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-business-card.inflight@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "机上消费25%优惠",
+      "summary": "机上餐饮和 Wi-Fi 消费优惠25%。",
+      "sourceText": "25% savings on inflight food, beverages and Wi-Fi purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "机上餐饮和 Wi-Fi 消费优惠25%。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "机上餐饮和 Wi-Fi 消费优惠25%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "25% inflight savings",
+      "summary": "25% savings on inflight food, beverages and Wi-Fi purchases.",
+      "howToUse": [
+        "Pay with this card on board."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-business-card",
+          "text": "25% savings on inflight food, beverages and Wi-Fi purchases"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-business-card.companion-certificate",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-business-card.companion-certificate@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "消费达标同行凭证",
+      "summary": "每个持卡年消费满30,000美元并续卡后获得，适用合资格国内旅行；另付99美元出票费和税费。",
+      "sourceText": "after you spend $30,000 in purchases each cardmembership year and cardmembership is renewed.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每个持卡年消费满30,000美元并续卡后获得，适用合资格国内旅行；另付99美元出票费和税费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": "account-anniversary",
+      "amount": null,
+      "currency": null,
+      "spendThreshold": 30000
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每个持卡年消费满30,000美元并续卡后获得，适用合资格国内旅行；另付99美元出票费和税费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "American Airlines Companion Certificate",
+      "summary": "A Companion Certificate after $30,000 in purchases each cardmembership year with renewal.",
+      "howToUse": [
+        "Track purchases for the cardmembership year and redeem as the issuer describes."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-business-card",
+          "text": "after you spend $30,000 in purchases each cardmembership year and cardmembership is renewed."
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-business-card",
+          "text": "Earn an American Airlines Companion Certificate for qualifying domestic travel"
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-business-card",
+          "text": "Redeeming the certificate is $99 for the ticketing fee plus taxes and fees."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-business-card.loyalty-points",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-business-card.loyalty-points@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "消费赚 Loyalty Points",
+      "summary": "主卡和员工卡每消费1美元得1个 Loyalty Point。",
+      "sourceText": "Each cardmember (primary and employees) earns 1 Loyalty Point for every $1 spent",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "主卡和员工卡每消费1美元得1个 Loyalty Point。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "主卡和员工卡每消费1美元得1个 Loyalty Point。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Loyalty Points on purchases",
+      "summary": "Each cardmember earns 1 Loyalty Point per $1 spent.",
+      "howToUse": [
+        "Pay with the card."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-business-card",
+          "text": "Each cardmember (primary and employees) earns 1 Loyalty Point for every $1 spent"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-business-card.no-foreign-fee",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-business-card.no-foreign-fee@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "无外币交易费",
+      "summary": "页面写明本卡不收外币交易费。",
+      "sourceText": "No foreign transaction fees",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明本卡不收外币交易费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明本卡不收外币交易费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+        "Pay with the card abroad."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-business-card",
+          "text": "No foreign transaction fees"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.citi-us-citi-aadvantage-business-card.quick-lock",
+    "revision": 1,
+    "revisionId": "rule.citi-us-citi-aadvantage-business-card.quick-lock@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "citi-us-citi-aadvantage-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Citi US"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Quick Lock 锁卡",
+      "summary": "可暂时锁卡，阻止新的消费；定期扣款继续。",
+      "sourceText": "to instantly block new charges while allowing recurring transactions to continue without disruption.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "可暂时锁卡，阻止新的消费；定期扣款继续。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "可暂时锁卡，阻止新的消费；定期扣款继续。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-citi-us-citi-aadvantage-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Citi Quick Lock",
+      "summary": "Quick Lock blocks new charges while recurring transactions continue.",
+      "howToUse": [
+        "Use Citi Quick Lock in the Citi Mobile App or at citi.com."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-business-card",
+          "text": "to instantly block new charges while allowing recurring transactions to continue without disruption."
+        },
+        {
+          "sourceId": "card-citi-us-citi-aadvantage-business-card",
+          "text": "Use Citi Quick Lock in the Citi Mobile"
+        }
+      ]
+    }
   }
 ]

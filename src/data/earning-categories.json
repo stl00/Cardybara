@@ -154,6 +154,16 @@
   "超市（自选类别）":[{"uses":["supermarket"],"condition":"chosen-category"}],
   "航空、酒店、邮轮和租车直接消费":[{"uses":["flight","hotel","car-rental","travel"],"channel":"direct"}],
   "Alaska Airlines 和 Hawaiian Airlines 消费":[{"merchants":["alaska","hawaiian"]}],
-  "加油站、充电站、有线电视和流媒体":[{"uses":["gas","ev-charging","telecom","streaming"]}]
+  "加油站、充电站、有线电视和流媒体":[{"uses":["gas","ev-charging","telecom","streaming"]}],
+  "Costco 加油":[{"uses":["gas"],"condition":"selected-merchants"}],
+  "其他合资格加油和充电":[{"uses":["gas","ev-charging"]}],
+  "餐厅和合资格旅行":[{"uses":["dining","any-travel"]}],
+  "Costco 和 Costco.com 其他消费":[{"condition":"selected-merchants"}],
+  "加油站、充电和指定交通":[{"uses":["gas","ev-charging"]},{"uses":["transit"],"condition":"selected-merchants"}],
+  "超市和杂货配送":[{"uses":["supermarket"]}],
+  "AAdvantage Hotels 预订":[{"uses":["hotel"],"channel":"portal","via":"AAdvantage Hotels"}],
+  "网约车和公共交通":[{"uses":["transit"]}],
+  "租车和加油站":[{"uses":["car-rental","gas"]}],
+  "电信、有线和卫星电视":[{"uses":["telecom"]}]
  }
 }

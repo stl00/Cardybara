@@ -1946,5 +1946,53 @@
       "url": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
       "checkedAt": "2026-11-12"
     }
+  },
+  {
+    "id": "citi-us-citi-strata-card",
+    "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-credit-card",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "citi-us-costco-anywhere-visa-card-by-citi",
+    "sourceUrl": "https://www.citi.com/credit-cards/costco-anywhere-visa-card",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "citi-us-costco-anywhere-visa-business-card-by-citi",
+    "sourceUrl": "https://www.citi.com/credit-cards/costco-anywhere-visa-business-card",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "citi-us-aadvantage-mileup-card",
+    "sourceUrl": "https://www.citi.com/credit-cards/aadvantage-mile-up-credit-card",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "citi-us-citi-simplicity-card",
+    "sourceUrl": "https://www.citi.com/credit-cards/citi-simplicity-credit-card",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "citi-us-citi-diamond-preferred-card",
+    "sourceUrl": "https://www.citi.com/credit-cards/citi-diamond-preferred-credit-card",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "citi-us-citi-aadvantage-globe-card",
+    "sourceUrl": "https://www.citi.com/credit-cards/citi-aadvantage-globe-mastercard",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "citi-us-citi-aadvantage-business-card",
+    "sourceUrl": "https://www.citi.com/credit-cards/citi-aadvantage-business-credit-card",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed"
   }
 ]

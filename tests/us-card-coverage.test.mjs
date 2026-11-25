@@ -27,9 +27,18 @@ test('each recorded fact has an official source, a date and the issuer wording',
   if(card.fee){const fee=rows.find(r=>r.kind==='fee'&&r.terms.cardholderRole==='primary');assert.equal(fee.terms.amount,card.fee.amount);assert.equal(fee.terms.actualCharge,null);}
  }
 });
-test('the assistant answers a listed card with its official source',()=>{
+test('a card states its annual fee or says it is unknown, never both and never neither',()=>{
  for(const card of cards){
-assert.ok(card.fee,`${card.id} has no annual fee`);
+  assert.notEqual(Boolean(card.fee),card.feeUnknown===true,card.id);
+  if(card.feeUnknown){
+   assert.equal(queryKnowledge({productId:card.id,asOf:checkedOn(card)}).rules.filter(r=>r.kind==='fee'&&r.terms.cardholderRole==='primary').length,0,card.id);
+   assert.equal(profileForCard({bank:product(card.id).bank,region:product(card.id).region,name:product(card.id).name}).fees.primaryAnnual,null,`${card.id}: unknown is not zero`);
+   assert.ok(card.unknown.some(u=>u.zh.includes('年费')),`${card.id} does not say the fee is unknown`);
+  }
+ }
+});
+test('the assistant answers a listed card with its official source',()=>{
+ for(const card of cards.filter(c=>c.fee)){
   const p=product(card.id);const result=runWalletTool(call('get_card_rules',{kind:'fee'}),{cards:[{id:'x',bank:p.bank,region:p.region,name:p.name}],events:[],day:checkedOn(card)});assert.ok(result.rules.length,card.id);// The fee cites the page its batch names: the product page, or the extra source the fee points to.
   assert.ok(JSON.stringify(result).includes(card.fee.source?card.extraSources[card.fee.source].url:card.url),card.id);}
 });
@@ -67,4 +76,33 @@ test('batch 12 records what the Bank of America pages state and leaves the rest 
  assert.equal(product(ascent).transferProgrammeId,undefined,'the page names no transfer partners');
  // Claims with no quote behind them stay out: reward expiry on the cash card, local transit and rideshare on the 2x tier.
  assert.doesNotMatch(JSON.stringify(find(cash,'earning-0')),/expire|过期/);assert.doesNotMatch(JSON.stringify(find(ascent,'earning-1')),/transit|rideshare|交通|网约车/);
+});
+test('batch 13 records what the Citi pages state and leaves the rest unknown',()=>{
+ const rules=productId=>queryKnowledge({productId,asOf:'2026-11-24'}).rules,find=(productId,key)=>rules(productId).find(r=>r.id===`rule.${productId}.${key}`);
+ const strata='citi-us-citi-strata-card',costco='citi-us-costco-anywhere-visa-card-by-citi';
+ assert.deepEqual([0,1,2,3,4,5].map(i=>find(strata,`earning-${i}`).terms.multiplier),[5,3,3,3,2,1]);
+ assert.deepEqual([0,1,2,3,4].map(i=>find(costco,`earning-${i}`).terms.multiplier),[5,4,3,2,1]);
+ assert.equal(find(costco,'earning-0').terms.spendCap.amount,7000);assert.equal(find(costco,'earning-0').terms.afterCapPercent,1);
+ assert.equal(find(costco,'car-rental').terms.amount,null,'the page gives only the name');
+ for(const id of ['citi-us-citi-simplicity-card','citi-us-citi-diamond-preferred-card'])assert.equal(rules(id).filter(r=>r.kind==='earning-rate').length,0,id);
+ // Each Costco rate quotes its own number, and the gas tiers quote the cap, so a --pages run checks them.
+ for(const id of [costco,'citi-us-costco-anywhere-visa-business-card-by-citi']){
+  const quotes=[0,1,2,3,4].map(i=>find(id,`earning-${i}`).content.sourceText);
+  [5,4,3,2,1].forEach((rate,i)=>assert.ok(quotes[i].includes(`${rate}%`),`${id}: ${quotes[i]}`));
+  for(const quote of quotes.slice(0,2))assert.ok(quote.includes('$7,000'),`${id}: ${quote}`);
+ }
+});
+test('batch 13 records the AAdvantage Globe and Business rates and benefits while the annual fee stays unknown',()=>{
+ const rules=productId=>queryKnowledge({productId,asOf:'2026-11-24'}).rules,find=(productId,key)=>rules(productId).find(r=>r.id===`rule.${productId}.${key}`);
+ const globe='citi-us-citi-aadvantage-globe-card',business='citi-us-citi-aadvantage-business-card';
+ assert.deepEqual([0,1,2,3,4].map(i=>find(globe,`earning-${i}`).terms.multiplier),[3,6,2,2,1]);
+ assert.deepEqual([0,1,2,3].map(i=>find(business,`earning-${i}`).terms.multiplier),[2,2,2,1]);
+ assert.equal(find(globe,'turo').terms.amount,240);assert.equal(find(globe,'turo').terms.period,null,'the page does not say which year');
+ assert.equal(find(business,'companion-certificate').terms.spendThreshold,30000);
+ assert.equal(find(business,'fee-additional').terms.amount,0);
+ for(const id of [globe,business]){
+  assert.equal(find(id,'fee-primary'),undefined,id);
+  const p=product(id),result=runWalletTool(call('find_benefits',{cardName:p.name,query:'checked bag'}),{cards:[{id:'x',bank:p.bank,region:p.region,name:p.name}],events:[],day:'2026-11-24'});
+  assert.ok(JSON.stringify(result).includes(p.sourceUrl),`${id}: ${JSON.stringify(result).slice(0,600)}`);
+ }
 });

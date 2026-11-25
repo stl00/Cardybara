@@ -1321,5 +1321,61 @@
     "title": "Amex · Business Platinum 租车损失与损坏保险说明（官方 PDF）",
     "checkedAt": "2026-11-23",
     "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-strata-card",
+    "url": "https://www.citi.com/credit-cards/citi-strata-credit-card",
+    "title": "Citi · Citi Strata Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-costco-anywhere-visa-card-by-citi",
+    "url": "https://www.citi.com/credit-cards/costco-anywhere-visa-card",
+    "title": "Citi · Costco Anywhere Visa Card by Citi 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-costco-anywhere-visa-business-card-by-citi",
+    "url": "https://www.citi.com/credit-cards/costco-anywhere-visa-business-card",
+    "title": "Citi · Costco Anywhere Visa Business Card by Citi 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-aadvantage-mileup-card",
+    "url": "https://www.citi.com/credit-cards/aadvantage-mile-up-credit-card",
+    "title": "Citi · AAdvantage MileUp Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-simplicity-card",
+    "url": "https://www.citi.com/credit-cards/citi-simplicity-credit-card",
+    "title": "Citi · Citi Simplicity Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-diamond-preferred-card",
+    "url": "https://www.citi.com/credit-cards/citi-diamond-preferred-credit-card",
+    "title": "Citi · Citi Diamond Preferred Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-aadvantage-globe-card",
+    "url": "https://www.citi.com/credit-cards/citi-aadvantage-globe-mastercard",
+    "title": "Citi · Citi / AAdvantage Globe Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-aadvantage-business-card",
+    "url": "https://www.citi.com/credit-cards/citi-aadvantage-business-credit-card",
+    "title": "Citi · Citi / AAdvantage Business Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
   }
 ]
