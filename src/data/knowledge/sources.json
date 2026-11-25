@@ -1559,5 +1559,26 @@
     "title": "Wells Fargo · Signify Business Cash 权益指南",
     "checkedAt": "2026-11-25",
     "authority": "official"
+  },
+  {
+    "id": "card-us-bank-us-business-essentials-visa-card",
+    "url": "https://www.usbank.com/business-banking/business-credit-cards/business-essentials-credit-card.html",
+    "title": "U.S. Bank · U.S. Bank Business Essentials™ Visa® Card 官方产品页",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
+  },
+  {
+    "id": "card-us-bank-us-business-essentials-plus-visa-signature-card",
+    "url": "https://www.usbank.com/business-banking/business-credit-cards/business-essentials-plus-credit-card.html",
+    "title": "U.S. Bank · U.S. Bank Business Essentials™ Plus Visa Signature® Card 官方产品页",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
+  },
+  {
+    "id": "card-us-bank-us-business-shield-visa-card",
+    "url": "https://www.usbank.com/business-banking/business-credit-cards/business-shield-credit-card.html",
+    "title": "U.S. Bank · U.S. Bank Business Shield® Visa® Card 官方产品页",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
   }
 ]

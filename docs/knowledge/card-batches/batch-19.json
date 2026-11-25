@@ -1,0 +1,466 @@
+{
+ "batch": 19,
+ "checkedAt": "2026-11-25",
+ "reviewAfter": "2027-02-23",
+ "cards": [
+  {
+   "id": "us-bank-us-business-essentials-visa-card",
+   "page": "usb-essentials",
+   "issuer": "U.S. Bank",
+   "collection": "not-supported",
+   "url": "https://www.usbank.com/business-banking/business-credit-cards/business-essentials-credit-card.html",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "The U.S. Bank Business Essentials™ Visa® Card has a $0 annual fee"
+   },
+   "earning": [
+    {
+     "zh": "Travel Center 预付酒店和租车",
+     "en": "Prepaid hotels and car rentals in the Travel Center",
+     "multiplier": 6,
+     "unit": "cashback-percent",
+     "category": "travel",
+     "quote": "Earn 6% cash back on prepaid hotels and car rentals booked directly in the Travel Center when you use this card."
+    },
+    {
+     "zh": "其他合资格消费",
+     "en": "All other eligible purchases",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Unlimited 2% cash back on every purchase"
+    }
+   ],
+   "credits": [
+    {
+     "key": "balance-bonus",
+     "zh": "按存款余额的返现加成",
+     "en": "Business Essentials Earning Bonus",
+     "noteZh": "在合资格 U.S. Bank 企业支票账户保有1万美元及以上合资格余额时总计2.5%，只适用于每个账单周期前1万美元合资格消费。余额未核实。",
+     "noteEn": "With a qualifying balance of $10,000 or more in a qualifying U.S. Bank business checking account, 2.5% total on up to $10,000 of eligible purchases per billing cycle. Your balance is unverified.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Business Essentials Earning Bonus applies to a maximum of $10,000 in eligible Net Purchases each Card billing cycle.",
+     "original": {
+      "title": "Business Essentials Earning Bonus",
+      "summary": "With a qualifying balance of $10,000 or more in a qualifying U.S. Bank business checking account, 2.5% total on up to $10,000 of eligible purchases per billing cycle. Your balance is unverified.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "2.5% total cash back on your first $10,000 in eligible Net Purchases each month when paired with qualifying balances",
+       "Have a \"Qualifying Balance\" of $10,000 or more with U.S. Bank in a Qualifying Business Checking Account."
+      ]
+     }
+    },
+    {
+     "key": "spend-management",
+     "zh": "U.S. Bank Spend Management 支出管理",
+     "en": "U.S. Bank Spend Management",
+     "noteZh": "可用 U.S. Bank Spend Management 管理卡支出。",
+     "noteEn": "U.S. Bank Spend Management for controlling card spend.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Take control of your card spend with U.S. Bank Spend Management",
+     "original": {
+      "title": "U.S. Bank Spend Management",
+      "summary": "U.S. Bank Spend Management for controlling card spend.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "redemption",
+     "zh": "积分兑换为存款或账单抵扣",
+     "en": "Redeem points as a deposit or statement credit",
+     "noteZh": "积分可存入合资格 U.S. Bank 存款账户或抵扣账单；礼品卡、旅行等其他兑换方式的价值可能较低。",
+     "noteEn": "Points go to an eligible U.S. Bank deposit account or a statement credit; other redemptions such as gift cards and travel may be at a reduced rate.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Points can be redeemed as a deposit into an eligible U.S. Bank deposit account or statement credit.",
+     "original": {
+      "title": "Redeem points as a deposit or statement credit",
+      "summary": "Points go to an eligible U.S. Bank deposit account or a statement credit; other redemptions such as gift cards and travel may be at a reduced rate.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Other redemptions, such as for gift cards or travel, may be at a reduced redemption rate."
+      ]
+     }
+    },
+    {
+     "key": "points-expiry",
+     "zh": "连续12个账单周期无活动积分过期",
+     "en": "Points expire after 12 inactive statement cycles",
+     "noteZh": "卡账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。",
+     "noteEn": "Points expire if the card account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Points will expire if there is no reward, Purchase, or balance activity on your Card account",
+     "original": {
+      "title": "Points expire after 12 inactive statement cycles",
+      "summary": "Points expire if the card account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "for 12 consecutive statement cycles."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "产品页未提及外币交易费。",
+     "en": "The product page does not mention a foreign transaction fee."
+    },
+    {
+     "zh": "产品页未写明员工卡费用。",
+     "en": "The product page does not state an employee card fee."
+    },
+    {
+     "zh": "产品页未列出保险或购物、旅行保障。",
+     "en": "The product page lists no insurance, purchase or travel protections."
+    },
+    {
+     "zh": "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+     "en": "The new-account bonus, intro APR and new-cardmember ExtendPay offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "us-bank-us-business-essentials-plus-visa-signature-card",
+   "page": "usb-essentials-plus",
+   "issuer": "U.S. Bank",
+   "collection": "not-supported",
+   "url": "https://www.usbank.com/business-banking/business-credit-cards/business-essentials-plus-credit-card.html",
+   "fee": {
+    "amount": 295,
+    "currency": "USD",
+    "quote": "$295 annual fee"
+   },
+   "earning": [
+    {
+     "zh": "Travel Center 预付酒店和租车",
+     "en": "Prepaid hotels and car rentals in the Travel Center",
+     "multiplier": 10,
+     "unit": "cashback-percent",
+     "category": "travel",
+     "quote": "Earn 10% cash back on prepaid hotels and car rentals booked directly in the Travel Center"
+    },
+    {
+     "zh": "每月消费最高的合资格类别",
+     "en": "Top eligible spend category each month",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn 5% cash back on your top eligible spend category each month automatically up to $200,000 spent annually.",
+     "cap": {
+      "amount": 200000,
+      "currency": "USD",
+      "period": "account-anniversary"
+     },
+     "afterCap": 2,
+     "noteZh": "自动取当月消费最高的合资格类别；每个开户周年年度前20万美元，之后2%。合资格类别可能随时调整。",
+     "noteEn": "Applies automatically to the month's top eligible category, on up to $200,000 in each year from account opening, then 2%. Eligible categories may change without notice."
+    },
+    {
+     "zh": "其他合资格消费",
+     "en": "All other eligible purchases",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Unlimited 2% cash back on every purchase."
+    }
+   ],
+   "credits": [
+    {
+     "key": "balance-bonus",
+     "zh": "按存款余额的返现加成",
+     "en": "Business Essentials Plus Earning Bonus",
+     "noteZh": "按合资格余额：1.5万至74,999美元总计2.5%，7.5万至149,999美元总计3%，15万美元及以上总计3.5%；加成适用于每个开户周年年度前20万美元合资格消费。余额和等级未核实。",
+     "noteEn": "By qualifying balance: 2.5% total at $15,000 to $74,999, 3% at $75,000 to $149,999, 3.5% at $150,000 or more; the bonus covers up to $200,000 of eligible purchases in each year from account opening. Your balance and tier are unverified.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Business Essentials Plus Earning Bonus applies to a maximum of $200,000 in eligible Net Purchases annually",
+     "original": {
+      "title": "Business Essentials Plus Earning Bonus",
+      "summary": "By qualifying balance: 2.5% total at $15,000 to $74,999, 3% at $75,000 to $149,999, 3.5% at $150,000 or more; the bonus covers up to $200,000 of eligible purchases in each year from account opening. Your balance and tier are unverified.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "2.5% cash back with $15,000 to $74,999 in qualifying balances",
+       "3% cash back with $75,000 to $149,999 in qualifying balances",
+       "3.5% cash back with $150,000 or more in qualifying balances"
+      ]
+     }
+    },
+    {
+     "key": "spend-management",
+     "zh": "U.S. Bank Spend Management 支出管理",
+     "en": "U.S. Bank Spend Management",
+     "noteZh": "可用 U.S. Bank Spend Management 管理卡支出。",
+     "noteEn": "U.S. Bank Spend Management for controlling card spend.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Take control of your card spend with U.S. Bank Spend Management",
+     "original": {
+      "title": "U.S. Bank Spend Management",
+      "summary": "U.S. Bank Spend Management for controlling card spend.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "redemption",
+     "zh": "积分兑换为存款或账单抵扣",
+     "en": "Redeem points as a deposit or statement credit",
+     "noteZh": "积分可存入合资格 U.S. Bank 存款账户或抵扣账单；礼品卡、旅行等其他兑换方式的价值可能较低。",
+     "noteEn": "Points go to an eligible U.S. Bank deposit account or a statement credit; other redemptions such as gift cards and travel may be at a reduced rate.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Points can be redeemed as a deposit into an eligible U.S. Bank deposit account or statement credit.",
+     "original": {
+      "title": "Redeem points as a deposit or statement credit",
+      "summary": "Points go to an eligible U.S. Bank deposit account or a statement credit; other redemptions such as gift cards and travel may be at a reduced rate.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Other redemptions, such as for gift cards or travel, may be at a reduced redemption rate."
+      ]
+     }
+    },
+    {
+     "key": "points-expiry",
+     "zh": "连续12个账单周期无活动积分过期",
+     "en": "Points expire after 12 inactive statement cycles",
+     "noteZh": "卡账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。",
+     "noteEn": "Points expire if the card account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Points will expire if there is no reward, Purchase, or balance activity on your Card account",
+     "original": {
+      "title": "Points expire after 12 inactive statement cycles",
+      "summary": "Points expire if the card account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "for 12 consecutive statement cycles."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "产品页未提及外币交易费。",
+     "en": "The product page does not mention a foreign transaction fee."
+    },
+    {
+     "zh": "产品页未写明员工卡费用。",
+     "en": "The product page does not state an employee card fee."
+    },
+    {
+     "zh": "产品页未列出保险或购物、旅行保障。",
+     "en": "The product page lists no insurance, purchase or travel protections."
+    },
+    {
+     "zh": "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+     "en": "The new-account bonus, intro APR and new-cardmember ExtendPay offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "us-bank-us-business-shield-visa-card",
+   "page": "usb-business-shield",
+   "issuer": "U.S. Bank",
+   "collection": "not-supported",
+   "url": "https://www.usbank.com/business-banking/business-credit-cards/business-shield-credit-card.html",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "There is no annual fee on the U.S. Bank Business Shield® Visa® Card, and no fee for additional employee credit cards."
+   },
+   "additionalFee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "no fee for additional employee credit cards"
+   },
+   "earning": [
+    {
+     "zh": "Travel Center 预付机票、酒店和租车",
+     "en": "Prepaid air, hotel and car reservations in the Travel Center",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "travel",
+     "quote": "5% cash back on prepaid air, hotel and car reservations booked directly in the Travel Center when using your card."
+    }
+   ],
+   "credits": [
+    {
+     "key": "annual-credit",
+     "zh": "Travel Center 消费达标每年抵扣50美元",
+     "en": "$50 annual statement credit after Travel Center spend",
+     "noteZh": "每个开户周年年度内在 Travel Center 预订消费满5,000美元，获得50美元账单抵扣。个人进度未核实。",
+     "noteEn": "A $50 statement credit after at least $5,000 of qualified travel bought in the Travel Center within each 12-month period from account opening. Your progress is unverified.",
+     "scenario": "travel",
+     "category": "spend-unlock",
+     "period": "account-anniversary",
+     "quote": "Earn a $50 annual statement credit after $5,000 in purchases made through the Travel Center when you use your card.",
+     "original": {
+      "title": "$50 annual statement credit after Travel Center spend",
+      "summary": "A $50 statement credit after at least $5,000 of qualified travel bought in the Travel Center within each 12-month period from account opening. Your progress is unverified.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "The annual period starts on the date the account is opened and starts over on the anniversary"
+      ]
+     },
+     "amount": 50,
+     "spendThreshold": {
+      "amount": 5000,
+      "currency": "USD",
+      "period": "account-anniversary",
+      "scope": "category"
+     }
+    },
+    {
+     "key": "purchase-security",
+     "zh": "购物保障 Purchase Security",
+     "en": "Purchase Security",
+     "noteZh": "用本卡购买的合资格物品失窃或损坏时可协助报销；期限和上限未列，以福利指南为准。",
+     "noteEn": "Can help reimburse an eligible item bought with the card that is stolen or damaged; the period and limits are not stated.",
+     "scenario": "shopping",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "If an item is stolen or damaged, Purchase Security can help reimburse you for the eligible item.",
+     "original": {
+      "title": "Purchase Security",
+      "summary": "Can help reimburse an eligible item bought with the card that is stolen or damaged; the period and limits are not stated.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "When you use your card, your purchases are protected."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "purchase-protection",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    },
+    {
+     "key": "extendpay",
+     "zh": "每年一次免费的3个月 ExtendPay 分期",
+     "en": "Yearly 3-month $0 ExtendPay Plan offer",
+     "noteZh": "开户首发0%消费 APR 到期后，每个自然年可设一次3个月 $0 的 ExtendPay 分期。",
+     "noteEn": "After the intro purchase APR ends, one 3-month $0 ExtendPay Plan offer each calendar year.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "calendar-year",
+     "quote": "Get an opportunity to set up a 3-month $0 fee ExtendPay Plan offer each calendar year",
+     "original": {
+      "title": "Yearly 3-month $0 ExtendPay Plan offer",
+      "summary": "After the intro purchase APR ends, one 3-month $0 ExtendPay Plan offer each calendar year.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "after the new account 0% introductory purchase APR offer has expired."
+      ]
+     }
+    },
+    {
+     "key": "spend-management",
+     "zh": "U.S. Bank Spend Management 支出管理",
+     "en": "U.S. Bank Spend Management",
+     "noteZh": "可用 U.S. Bank Spend Management 管理卡支出。",
+     "noteEn": "U.S. Bank Spend Management for controlling card spend.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "U.S. Bank Spend Management a game-changing platform for monitoring and managing business expenses.",
+     "original": {
+      "title": "U.S. Bank Spend Management",
+      "summary": "U.S. Bank Spend Management for controlling card spend.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "rewards-expiry",
+     "zh": "账户保持活跃时奖励不过期",
+     "en": "Rewards do not expire while the account stays active",
+     "noteZh": "页面写明账户保持活跃时奖励不过期；多久无活动算不活跃未写明。",
+     "noteEn": "The page states rewards do not expire while the account stays active; it does not say what counts as inactive.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Points do not expire as long as the account remains active.",
+     "original": {
+      "title": "Rewards do not expire while the account stays active",
+      "summary": "The page states rewards do not expire while the account stays active; it does not say what counts as inactive.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "redemption",
+     "zh": "返现可抵扣账单",
+     "en": "Redeem as statement credit",
+     "noteZh": "返现可抵扣本卡账单；最低兑换额视方式而定。",
+     "noteEn": "Cash rewards redeem as a statement credit to the card account; minimum redemption amounts vary.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Cash rewards can be redeemed in the form of a statement credit to your credit card account",
+     "original": {
+      "title": "Redeem as statement credit",
+      "summary": "Cash rewards redeem as a statement credit to the card account; minimum redemption amounts vary.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Minimum redemption amounts vary and are subject to change without notice."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "Travel Center 以外消费的返现比例页面未写明。",
+     "en": "The page states no rate outside the Travel Center."
+    },
+    {
+     "zh": "产品页未提及外币交易费。",
+     "en": "The product page does not mention a foreign transaction fee."
+    },
+    {
+     "zh": "开户奖励、免息期和 ExtendPay 开户优惠未录入。",
+     "en": "The new-account bonus, intro APR and new-cardmember ExtendPay offers are not recorded."
+    }
+   ]
+  }
+ ]
+}

@@ -2186,5 +2186,26 @@
     "checkedAt": "2026-11-25",
     "verification": "issuer-listed",
     "collection": "not-supported"
+  },
+  {
+    "id": "us-bank-us-business-essentials-visa-card",
+    "sourceUrl": "https://www.usbank.com/business-banking/business-credit-cards/business-essentials-credit-card.html",
+    "checkedAt": "2026-11-25",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "us-bank-us-business-essentials-plus-visa-signature-card",
+    "sourceUrl": "https://www.usbank.com/business-banking/business-credit-cards/business-essentials-plus-credit-card.html",
+    "checkedAt": "2026-11-25",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "us-bank-us-business-shield-visa-card",
+    "sourceUrl": "https://www.usbank.com/business-banking/business-credit-cards/business-shield-credit-card.html",
+    "checkedAt": "2026-11-25",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
   }
 ]

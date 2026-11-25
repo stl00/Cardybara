@@ -289,7 +289,9 @@
   "超市、餐饮和流媒体": "general",
   "餐厅、办公用品店、手机服务和加油充电": "general",
   "旅行、加油站和充电站": "travel",
-  "餐饮和手机服务": "general"
+  "餐饮和手机服务": "general",
+  "每月消费最高的合资格类别": "general",
+  "Travel Center 预付机票、酒店和租车": "travel"
  },
  "brands": [
   {

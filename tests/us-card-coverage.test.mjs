@@ -178,3 +178,18 @@ test('batch 18 records what the Capital One and Wells Fargo Signify pages state 
  assert.equal(find(signify,'baggage-delay').terms.amount,null,'a claim cap is not a credit');
  assert.equal(find(signify,'priority-pass').terms.requiresEnrollment,true);
 });
+test('batch 19 records what the three U.S. Bank business pages state and leaves the rest unknown',()=>{
+ const rules=productId=>queryKnowledge({productId,asOf:'2026-11-25'}).rules,find=(productId,key)=>rules(productId).find(r=>r.id===`rule.${productId}.${key}`);
+ const essentials='us-bank-us-business-essentials-visa-card',plus='us-bank-us-business-essentials-plus-visa-signature-card',shield='us-bank-us-business-shield-visa-card';
+ assert.deepEqual([essentials,plus,shield].map(id=>find(id,'fee-primary').terms.amount),[0,295,0]);
+ assert.equal(find(shield,'fee-additional').terms.amount,0);
+ for(const id of [essentials,plus])assert.equal(find(id,'fee-additional'),undefined,'the product page states no employee card fee');
+ const earning=id=>rules(id).filter(r=>r.kind==='earning-rate').sort((a,b)=>a.id.localeCompare(b.id)).map(r=>r.terms.multiplier);
+ assert.deepEqual(earning(essentials),[6,2],'the balance bonus is not a general earning rate');
+ assert.deepEqual(earning(plus),[10,5,2]);assert.deepEqual(earning(shield),[5],'the page states no rate outside the Travel Center');
+ assert.deepEqual(find(plus,'earning-1').terms.spendCap,{amount:200000,currency:'USD',period:'account-anniversary'});assert.equal(find(plus,'earning-1').terms.afterCapPercent,2);
+ const credit=find(shield,'annual-credit').terms;
+ assert.deepEqual([credit.amount,credit.spendThreshold,credit.spendScope,credit.period],[50,5000,'category','account-anniversary']);
+ assert.equal(find(shield,'purchase-security').terms.coverage.basis,null);
+ for(const id of [essentials,plus,shield])assert.equal(find(id,'no-foreign-fee'),undefined,'the product page does not mention a foreign transaction fee');
+});
