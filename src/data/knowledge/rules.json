@@ -115438,5 +115438,4009 @@
         }
       ]
     }
+  },
+  {
+    "id": "rule.us-bank-us-smartly-visa-signature-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-smartly-visa-signature-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "us-bank-us-smartly-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Enjoy a cash back credit card with no annual fee.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-smartly-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-smartly-visa-signature-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-smartly-visa-signature-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-smartly-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "基础返现，不设上限；以积分形式发放（每消费1美元2点）。余额加成另见福利。",
+      "sourceText": "Earn unlimited 2% cash back on every purchase.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "基础返现，不设上限；以积分形式发放（每消费1美元2点）。余额加成另见福利。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "基础返现，不设上限；以积分形式发放（每消费1美元2点）。余额加成另见福利。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-smartly-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-smartly-visa-signature-card.smartly-earning-bonus",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-smartly-visa-signature-card.smartly-earning-bonus@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-smartly-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "按存款余额的返现加成",
+      "summary": "须开立 U.S. Bank Smartly Savings 账户，并在合资格个人支票或 Safe Debit 账户保有合资格余额：1万至49,999.99美元总计2.5%，5万至99,999.99美元总计3%，10万美元及以上总计4%。加成只适用于每个账单周期前1万美元合资格消费，部分类别不享加成。个人余额和等级未核实。",
+      "sourceText": "Smartly Earning Bonus applies to a maximum of $10,000 in eligible Net Purchases each Card billing cycle.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须开立 U.S. Bank Smartly Savings 账户，并在合资格个人支票或 Safe Debit 账户保有合资格余额：1万至49,999.99美元总计2.5%，5万至99,999.99美元总计3%，10万美元及以上总计4%。加成只适用于每个账单周期前1万美元合资格消费，部分类别不享加成。个人余额和等级未核实。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须开立 U.S. Bank Smartly Savings 账户，并在合资格个人支票或 Safe Debit 账户保有合资格余额：1万至49,999.99美元总计2.5%，5万至99,999.99美元总计3%，10万美元及以上总计4%。加成只适用于每个账单周期前1万美元合资格消费，部分类别不享加成。个人余额和等级未核实。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-smartly-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Smartly Earning Bonus",
+      "summary": "Needs a U.S. Bank Smartly Savings account and a qualifying balance in eligible consumer checking or Safe Debit accounts: 2.5% total at $10,000 to $49,999.99, 3% at $50,000 to $99,999.99, 4% at $100,000 or more. The bonus covers up to $10,000 of eligible purchases per billing cycle; some categories are excluded. Your balance and tier are unverified.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-smartly-visa-signature-card",
+          "text": "Smartly Earning Bonus applies to a maximum of $10,000 in eligible Net Purchases each Card billing cycle."
+        },
+        {
+          "sourceId": "card-us-bank-us-smartly-visa-signature-card",
+          "text": "Between $10,000 - $49,999.99, to earn a total of 2.5 Points per $1 of eligible Net Purchases."
+        },
+        {
+          "sourceId": "card-us-bank-us-smartly-visa-signature-card",
+          "text": "Between $50,000 - $99,999.99, to earn a total of 3 Points per $1 of eligible Net Purchases."
+        },
+        {
+          "sourceId": "card-us-bank-us-smartly-visa-signature-card",
+          "text": "$100,000 or more to earn a total of 4 Points per $1 of eligible Net Purchases."
+        },
+        {
+          "sourceId": "card-us-bank-us-smartly-visa-signature-card",
+          "text": "Have or open a U.S. Bank Smartly® Savings account with a minimum opening deposit of $25"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-smartly-visa-signature-card.redemption",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-smartly-visa-signature-card.redemption@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-smartly-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "积分兑换为存款或账单抵扣",
+      "summary": "积分可存入合资格 U.S. Bank 存款账户或抵扣账单；礼品卡、旅行等其他兑换方式的价值可能较低。",
+      "sourceText": "Points can be redeemed as a deposit into an eligible U.S. Bank deposit account or statement credit.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "积分可存入合资格 U.S. Bank 存款账户或抵扣账单；礼品卡、旅行等其他兑换方式的价值可能较低。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "积分可存入合资格 U.S. Bank 存款账户或抵扣账单；礼品卡、旅行等其他兑换方式的价值可能较低。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-smartly-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Redeem points as a deposit or statement credit",
+      "summary": "Points go to an eligible U.S. Bank deposit account or a statement credit; other redemptions such as gift cards and travel may be at a reduced rate.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-smartly-visa-signature-card",
+          "text": "Points can be redeemed as a deposit into an eligible U.S. Bank deposit account or statement credit."
+        },
+        {
+          "sourceId": "card-us-bank-us-smartly-visa-signature-card",
+          "text": "Other redemptions, such as gift cards and travel, may be at a reduced redemption rate."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-smartly-visa-signature-card.points-expiry",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-smartly-visa-signature-card.points-expiry@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-smartly-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "连续12个账单周期无活动积分过期",
+      "summary": "卡账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。",
+      "sourceText": "Points will expire if there is no reward, Purchase, or balance activity on your Card account",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "卡账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "卡账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-smartly-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Points expire after 12 inactive statement cycles",
+      "summary": "Points expire if the card account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-smartly-visa-signature-card",
+          "text": "Points will expire if there is no reward, Purchase, or balance activity on your Card account"
+        },
+        {
+          "sourceId": "card-us-bank-us-smartly-visa-signature-card",
+          "text": "for 12 consecutive statement cycles."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-altitude-connect-visa-signature-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-altitude-connect-visa-signature-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "us-bank-us-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Enjoy no annual fee and get all of these great benefits.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-altitude-connect-visa-signature-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-altitude-connect-visa-signature-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Travel Center 预付酒店和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "5X points on prepaid hotels and car rentals booked directly in the Travel Center when you use this card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "points-per-USD",
+      "spendCategory": "Travel Center 预付酒店和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-altitude-connect-visa-signature-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-altitude-connect-visa-signature-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "合资格旅行",
+      "summary": "向航空公司、酒店、租车、出租车、客运火车、邮轮等直接消费；Travel Center 预付酒店和租车不在此类。",
+      "sourceText": "You will earn 4 Points (1 base and 3 bonus Points) for every $1 spent on travel category purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "向航空公司、酒店、租车、出租车、客运火车、邮轮等直接消费；Travel Center 预付酒店和租车不在此类。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "points-per-USD",
+      "spendCategory": "合资格旅行",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "向航空公司、酒店、租车、出租车、客运火车、邮轮等直接消费；Travel Center 预付酒店和租车不在此类。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-altitude-connect-visa-signature-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-altitude-connect-visa-signature-card.earning-2@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "加油站和充电站",
+      "summary": "每季前1,000美元；折扣店、大型超市、批发俱乐部和超市只得1倍。超过上限后的倍率页面未写明。",
+      "sourceText": "4X points at gas stations/EV charging stations* on your first $1,000 each quarter.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每季前1,000美元；折扣店、大型超市、批发俱乐部和超市只得1倍。超过上限后的倍率页面未写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "points-per-USD",
+      "spendCategory": "加油站和充电站",
+      "spendCap": {
+        "amount": 1000,
+        "currency": "USD",
+        "period": "calendar-quarter"
+      },
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每季前1,000美元；折扣店、大型超市、批发俱乐部和超市只得1倍。超过上限后的倍率页面未写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-altitude-connect-visa-signature-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-altitude-connect-visa-signature-card.earning-3@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "超市、餐饮和流媒体",
+      "summary": "折扣店、大型超市和批发俱乐部不算超市。",
+      "sourceText": "2X points on dining, streaming services and at grocery stores.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "折扣店、大型超市和批发俱乐部不算超市。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "超市、餐饮和流媒体",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "折扣店、大型超市和批发俱乐部不算超市。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-altitude-connect-visa-signature-card.earning-4",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-altitude-connect-visa-signature-card.earning-4@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他合资格消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1X point on all other eligible purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他合资格消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-altitude-connect-visa-signature-card.no-foreign-fee",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-altitude-connect-visa-signature-card.no-foreign-fee@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "无外币交易费",
+      "summary": "页面写明无外币交易费。",
+      "sourceText": "Enjoy no foreign transaction fees when making purchases outside the United States.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明无外币交易费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明无外币交易费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-altitude-connect-visa-signature-card",
+          "text": "Enjoy no foreign transaction fees when making purchases outside the United States."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-altitude-connect-visa-signature-card.priority-pass",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-altitude-connect-visa-signature-card.priority-pass@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "lounge",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.priority-pass"
+    ],
+    "content": {
+      "title": "Priority Pass 会籍（12个月）",
+      "summary": "须另行登记，获12个月 Priority Pass 会籍；免会费登记限账户内一位持卡人（含授权用户）。免费入场次数页面未写明。",
+      "sourceText": "Cardholders must enroll at prioritypass.com/usbankaltitudeconnect to receive a 12-month Priority Pass™ membership",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须另行登记，获12个月 Priority Pass 会籍；免会费登记限账户内一位持卡人（含授权用户）。免费入场次数页面未写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "lounge",
+      "period": null,
+      "amount": null,
+      "currency": null,
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须另行登记，获12个月 Priority Pass 会籍；免会费登记限账户内一位持卡人（含授权用户）。免费入场次数页面未写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "12-month Priority Pass membership",
+      "summary": "Enroll to get a 12-month Priority Pass membership; the no-fee enrollment is limited to one cardholder on the account, authorized users included. The page does not state a number of free visits.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-altitude-connect-visa-signature-card",
+          "text": "Cardholders must enroll at prioritypass.com/usbankaltitudeconnect to receive a 12-month Priority Pass™ membership"
+        },
+        {
+          "sourceId": "card-us-bank-us-altitude-connect-visa-signature-card",
+          "text": "Enrollment with no membership fee is limited to one account cardholder (including authorized users)."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-altitude-connect-visa-signature-card.global-entry",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-altitude-connect-visa-signature-card.global-entry@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Global Entry 或 TSA PreCheck 申请费抵扣",
+      "summary": "用本卡支付申请费后以账单抵扣返还；金额和可用频率页面未写明。",
+      "sourceText": "You will receive a statement credit for your application fee within 1-2 billing cycles.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "用本卡支付申请费后以账单抵扣返还；金额和可用频率页面未写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": null,
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用本卡支付申请费后以账单抵扣返还；金额和可用频率页面未写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Global Entry or TSA PreCheck fee credit",
+      "summary": "A statement credit for the application fee paid with the card; the amount and how often it applies are not stated on the page.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-altitude-connect-visa-signature-card",
+          "text": "You will receive a statement credit for your application fee within 1-2 billing cycles."
+        },
+        {
+          "sourceId": "card-us-bank-us-altitude-connect-visa-signature-card",
+          "text": "You must complete either the Global Entry® and/or TSA PreCheck® application(s) and pay the application fee(s)"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-altitude-connect-visa-signature-card.trip-cancellation",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-altitude-connect-visa-signature-card.trip-cancellation@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行程取消和中断保障",
+      "summary": "须用本卡支付相关交易保障才适用；额度和条件页面未写明。",
+      "sourceText": "In order for coverage to apply for Trip Interruption/Cancellation and Trip Delay Reimbursement,",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须用本卡支付相关交易保障才适用；额度和条件页面未写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-cancellation",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须用本卡支付相关交易保障才适用；额度和条件页面未写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Interruption and Cancellation coverage",
+      "summary": "Applies only when the card is used to secure the transactions; limits and conditions are not stated on the page.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-altitude-connect-visa-signature-card",
+          "text": "In order for coverage to apply for Trip Interruption/Cancellation and Trip Delay Reimbursement,"
+        },
+        {
+          "sourceId": "card-us-bank-us-altitude-connect-visa-signature-card",
+          "text": "you must use your Altitude Connect Card to secure transactions."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-altitude-connect-visa-signature-card.trip-delay",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-altitude-connect-visa-signature-card.trip-delay@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行程延误报销",
+      "summary": "须用本卡支付相关交易保障才适用；额度和延误时长页面未写明。",
+      "sourceText": "In order for coverage to apply for Trip Interruption/Cancellation and Trip Delay Reimbursement,",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须用本卡支付相关交易保障才适用；额度和延误时长页面未写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "trip-delay",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须用本卡支付相关交易保障才适用；额度和延误时长页面未写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Trip Delay Reimbursement",
+      "summary": "Applies only when the card is used to secure the transactions; limits and the delay length are not stated on the page.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-altitude-connect-visa-signature-card",
+          "text": "In order for coverage to apply for Trip Interruption/Cancellation and Trip Delay Reimbursement,"
+        },
+        {
+          "sourceId": "card-us-bank-us-altitude-connect-visa-signature-card",
+          "text": "you must use your Altitude Connect Card to secure transactions."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-altitude-connect-visa-signature-card.redemption",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-altitude-connect-visa-signature-card.redemption@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "积分兑换旅行、礼品卡或存款",
+      "summary": "积分可兑换旅行、礼品卡、商品、慈善捐款，或存入合资格 U.S. Bank 账户。",
+      "sourceText": "can be redeemed for travel, gift cards, merchandise, charitable donations, or as a deposit to an eligible U.S. Bank account.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "积分可兑换旅行、礼品卡、商品、慈善捐款，或存入合资格 U.S. Bank 账户。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "积分可兑换旅行、礼品卡、商品、慈善捐款，或存入合资格 U.S. Bank 账户。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Redeem points for travel, gift cards or a deposit",
+      "summary": "Points redeem for travel, gift cards, merchandise, charitable donations, or a deposit to an eligible U.S. Bank account.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-altitude-connect-visa-signature-card",
+          "text": "can be redeemed for travel, gift cards, merchandise, charitable donations, or as a deposit to an eligible U.S. Bank account."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-altitude-connect-visa-signature-card.points-expiry",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-altitude-connect-visa-signature-card.points-expiry@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "连续12个账单周期无活动积分过期",
+      "summary": "账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。",
+      "sourceText": "Points will expire if there is no reward, purchase, or balance activity on your account for 12 consecutive statement cycles.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "账户连续12个账单周期没有奖励、消费或余额活动，积分会过期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Points expire after 12 inactive statement cycles",
+      "summary": "Points expire if the account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-altitude-connect-visa-signature-card",
+          "text": "Points will expire if there is no reward, purchase, or balance activity on your account for 12 consecutive statement cycles."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-shield-visa-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-shield-visa-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "us-bank-us-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Enjoy great benefits with no annual fee.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-shield-visa-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-shield-visa-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Travel Center 预付旅行",
+      "summary": "4%返现，限经 Travel Center 直接预订的预付机票、酒店和租车。",
+      "sourceText": "On prepaid air, hotel and car reservations booked directly in the Travel Center when you use your card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "4%返现，限经 Travel Center 直接预订的预付机票、酒店和租车。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "cashback-percent",
+      "spendCategory": "Travel Center 预付旅行",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "4%返现，限经 Travel Center 直接预订的预付机票、酒店和租车。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-shield-visa-card.annual-credit",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-shield-visa-card.annual-credit@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "连续11个月消费后每年抵扣20美元",
+      "summary": "连续11个自然月有消费后自动抵扣20美元，每12个月一次，账户须状态良好；12个月从何时起算页面未写明。",
+      "sourceText": "An automatic statement credit of $20 per 12-month period",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "连续11个自然月有消费后自动抵扣20美元，每12个月一次，账户须状态良好；12个月从何时起算页面未写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": null,
+      "amount": 20,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "连续11个自然月有消费后自动抵扣20美元，每12个月一次，账户须状态良好；12个月从何时起算页面未写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$20 annual statement credit",
+      "summary": "An automatic $20 statement credit per 12-month period after 11 consecutive months of purchases, with the account in good standing. The page does not say when the 12 months start.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-shield-visa-card",
+          "text": "An automatic statement credit of $20 per 12-month period"
+        },
+        {
+          "sourceId": "card-us-bank-us-shield-visa-card",
+          "text": "Earn a $20 annual statement credit for 11 consecutive months of purchases."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-shield-visa-card.cell-phone",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-shield-visa-card.cell-phone@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "手机保障",
+      "summary": "用本卡支付每月手机账单时，手机失窃或损坏最多报销600美元；自付额和次数限制页面未写明。",
+      "sourceText": "Get up to $600 reimbursed if your cell phone is stolen or damaged",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "用本卡支付每月手机账单时，手机失窃或损坏最多报销600美元；自付额和次数限制页面未写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "用本卡支付每月手机账单时，手机失窃或损坏最多报销600美元；自付额和次数限制页面未写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Cell phone protection",
+      "summary": "Up to $600 reimbursed for a stolen or damaged phone when the monthly cellular bill is paid with the card; deductible and claim limits are not stated.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-shield-visa-card",
+          "text": "Get up to $600 reimbursed if your cell phone is stolen or damaged"
+        },
+        {
+          "sourceId": "card-us-bank-us-shield-visa-card",
+          "text": "In order for coverage to apply, you must pay your monthly cellular wireless bill with your Shield Card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-shield-visa-card.purchase-security",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-shield-visa-card.purchase-security@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "购物保障 Purchase Security",
+      "summary": "可能保护承保物品免受失窃或损坏，受条款限制；期限和上限未列。",
+      "sourceText": "Purchase Security may help protect covered items against theft or damage, subject to applicable terms and conditions.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "可能保护承保物品免受失窃或损坏，受条款限制；期限和上限未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "purchase-protection",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "可能保护承保物品免受失窃或损坏，受条款限制；期限和上限未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Purchase Security",
+      "summary": "May help protect covered items against theft or damage, subject to terms; the period and limits are not stated.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-shield-visa-card",
+          "text": "Purchase Security may help protect covered items against theft or damage, subject to applicable terms and conditions."
+        },
+        {
+          "sourceId": "card-us-bank-us-shield-visa-card",
+          "text": "The U.S. Bank Shield® Visa® Card includes Purchase Security benefits."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-shield-visa-card.credit-score",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-shield-visa-card.credit-score@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "免费信用分查看",
+      "summary": "经 TransUnion CreditView Dashboard 查看信用分和提醒，限 U.S. Bank 网银和手机银行客户。",
+      "sourceText": "Enroll in the mobile app and online banking to view your score at anytime.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "经 TransUnion CreditView Dashboard 查看信用分和提醒，限 U.S. Bank 网银和手机银行客户。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null,
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "经 TransUnion CreditView Dashboard 查看信用分和提醒，限 U.S. Bank 网银和手机银行客户。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Free credit score access",
+      "summary": "Credit score access and alerts through the TransUnion CreditView Dashboard, for U.S. Bank online and mobile banking customers only.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-shield-visa-card",
+          "text": "Enroll in the mobile app and online banking to view your score at anytime."
+        },
+        {
+          "sourceId": "card-us-bank-us-shield-visa-card",
+          "text": "to U.S. Bank online and mobile banking customers only."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-shield-visa-card.extendpay",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-shield-visa-card.extendpay@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "每年一次免费的3个月 ExtendPay 分期",
+      "summary": "开户首发0%消费 APR 到期后，每个自然年可设一次3个月 $0 的 ExtendPay 分期；资格按月判定。",
+      "sourceText": "Option to set up a 3-month $0 ExtendPay Plan offer each calendar year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "开户首发0%消费 APR 到期后，每个自然年可设一次3个月 $0 的 ExtendPay 分期；资格按月判定。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "calendar-year",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "开户首发0%消费 APR 到期后，每个自然年可设一次3个月 $0 的 ExtendPay 分期；资格按月判定。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Yearly 3-month $0 ExtendPay Plan offer",
+      "summary": "After the intro purchase APR ends, one 3-month $0 ExtendPay Plan can be set up each calendar year; eligibility is determined monthly.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-shield-visa-card",
+          "text": "Option to set up a 3-month $0 ExtendPay Plan offer each calendar year"
+        },
+        {
+          "sourceId": "card-us-bank-us-shield-visa-card",
+          "text": "after the new account 0% introductory purchase APR offer has expired."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-shield-visa-card.redemption",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-shield-visa-card.redemption@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "返现可抵扣账单或存入账户",
+      "summary": "返现可抵扣账单，或存入 U.S. Bank 储蓄或支票账户。",
+      "sourceText": "Cash back is redeemed in the form of a statement credit or a deposit made to your U.S. Bank®",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "返现可抵扣账单，或存入 U.S. Bank 储蓄或支票账户。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "返现可抵扣账单，或存入 U.S. Bank 储蓄或支票账户。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Redeem as statement credit or deposit",
+      "summary": "Cash back redeems as a statement credit or a deposit to a U.S. Bank savings or checking account.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-shield-visa-card",
+          "text": "Cash back is redeemed in the form of a statement credit or a deposit made to your U.S. Bank®"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-shield-visa-card.rewards-expiry",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-shield-visa-card.rewards-expiry@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-shield-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "连续12个账单周期无活动返现过期",
+      "summary": "账户连续12个账单周期没有奖励、消费或余额活动，返现会过期。",
+      "sourceText": "Cash Rewards will expire if you do not have any reward, purchase, or balance activity on your account",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "账户连续12个账单周期没有奖励、消费或余额活动，返现会过期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "账户连续12个账单周期没有奖励、消费或余额活动，返现会过期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-shield-visa-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Cash rewards expire after 12 inactive statement cycles",
+      "summary": "Cash rewards expire if the account has no reward, purchase or balance activity for 12 consecutive statement cycles.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-shield-visa-card",
+          "text": "Cash Rewards will expire if you do not have any reward, purchase, or balance activity on your account"
+        },
+        {
+          "sourceId": "card-us-bank-us-shield-visa-card",
+          "text": "for 12 consecutive statement cycles."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-triple-cash-rewards-visa-business-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-triple-cash-rewards-visa-business-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "us-bank-us-triple-cash-rewards-visa-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "There is no annual fee and employee credit cards are free.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-triple-cash-rewards-visa-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-triple-cash-rewards-visa-business-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-triple-cash-rewards-visa-business-card.fee-additional@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "us-bank-us-triple-cash-rewards-visa-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "There is no annual fee and employee credit cards are free.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-triple-cash-rewards-visa-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-triple-cash-rewards-visa-business-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-triple-cash-rewards-visa-business-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-triple-cash-rewards-visa-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Travel Center 预付酒店和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn 5% cash back on prepaid hotels and car rentals booked directly in the Travel Center when you use this card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Travel Center 预付酒店和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-triple-cash-rewards-visa-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-triple-cash-rewards-visa-business-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-triple-cash-rewards-visa-business-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-triple-cash-rewards-visa-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "餐厅、办公用品店、手机服务和加油充电",
+      "summary": "含餐厅和餐厅配送；加油或充电单笔超过200美元只得1%；不含批发俱乐部、折扣店和大型超市。页面写明奖励总额不设上限。",
+      "sourceText": "You will earn 3% Cash Back for every $1 spent in eligible Net Purchases at restaurants/restaurant delivery,",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "含餐厅和餐厅配送；加油或充电单笔超过200美元只得1%；不含批发俱乐部、折扣店和大型超市。页面写明奖励总额不设上限。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 3,
+      "unit": "cashback-percent",
+      "spendCategory": "餐厅、办公用品店、手机服务和加油充电",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "含餐厅和餐厅配送；加油或充电单笔超过200美元只得1%；不含批发俱乐部、折扣店和大型超市。页面写明奖励总额不设上限。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-triple-cash-rewards-visa-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-triple-cash-rewards-visa-business-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-triple-cash-rewards-visa-business-card.earning-2@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-triple-cash-rewards-visa-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他合资格消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "1% cash back on all other eligible purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他合资格消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-triple-cash-rewards-visa-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-triple-cash-rewards-visa-business-card.software",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-triple-cash-rewards-visa-business-card.software@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-triple-cash-rewards-visa-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "spend-unlock",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "软件订阅每年抵扣100美元",
+      "summary": "连续11个月直接向软件服务商支付合资格订阅后自动抵扣100美元，每12个月一次；12个月从何时起算页面未写明。",
+      "sourceText": "An automatic statement credit of $100 per 12-month period",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "连续11个月直接向软件服务商支付合资格订阅后自动抵扣100美元，每12个月一次；12个月从何时起算页面未写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "spend-unlock",
+      "period": null,
+      "amount": 100,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "连续11个月直接向软件服务商支付合资格订阅后自动抵扣100美元，每12个月一次；12个月从何时起算页面未写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-triple-cash-rewards-visa-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$100 annual software credit",
+      "summary": "An automatic $100 statement credit per 12-month period after 11 consecutive months of eligible software purchases made directly with a provider. The page does not say when the 12 months start.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-triple-cash-rewards-visa-business-card",
+          "text": "An automatic statement credit of $100 per 12-month period"
+        },
+        {
+          "sourceId": "card-us-bank-us-triple-cash-rewards-visa-business-card",
+          "text": "billing cycles following 11 consecutive months of eligible software service purchases made directly with"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-triple-cash-rewards-visa-business-card.spend-management",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-triple-cash-rewards-visa-business-card.spend-management@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-triple-cash-rewards-visa-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "U.S. Bank Spend Management 支出管理",
+      "summary": "可用 U.S. Bank Spend Management 管理卡支出。",
+      "sourceText": "Take control of your card spend with U.S. Bank Spend Management",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "可用 U.S. Bank Spend Management 管理卡支出。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "可用 U.S. Bank Spend Management 管理卡支出。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-triple-cash-rewards-visa-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "U.S. Bank Spend Management",
+      "summary": "U.S. Bank Spend Management for controlling card spend.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-triple-cash-rewards-visa-business-card",
+          "text": "Take control of your card spend with U.S. Bank Spend Management"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-triple-cash-rewards-visa-business-card.redemption",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-triple-cash-rewards-visa-business-card.redemption@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-triple-cash-rewards-visa-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "返现可抵扣账单或存入账户",
+      "summary": "返现可抵扣账单或存入合资格 U.S. Bank 账户。",
+      "sourceText": "It’s easy to redeem your reward cash back towards a statement credit, deposit to a qualifying U.S. Bank account",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "返现可抵扣账单或存入合资格 U.S. Bank 账户。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "返现可抵扣账单或存入合资格 U.S. Bank 账户。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-triple-cash-rewards-visa-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Redeem as statement credit or deposit",
+      "summary": "Cash back redeems towards a statement credit or a deposit to a qualifying U.S. Bank account.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-triple-cash-rewards-visa-business-card",
+          "text": "It’s easy to redeem your reward cash back towards a statement credit, deposit to a qualifying U.S. Bank account"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-triple-cash-rewards-visa-business-card.rewards-expiry",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-triple-cash-rewards-visa-business-card.rewards-expiry@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-triple-cash-rewards-visa-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "账户保持活跃时返现不过期",
+      "summary": "账户保持活跃时返现不过期；连续12个账单周期没有奖励、消费或余额活动则过期。",
+      "sourceText": "Cash Rewards do not expire as long as the account remains active.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "账户保持活跃时返现不过期；连续12个账单周期没有奖励、消费或余额活动则过期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "账户保持活跃时返现不过期；连续12个账单周期没有奖励、消费或余额活动则过期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-triple-cash-rewards-visa-business-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Cash rewards do not expire while the account stays active",
+      "summary": "Cash rewards do not expire while the account stays active; they expire after 12 consecutive statement cycles with no reward, purchase or balance activity.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-triple-cash-rewards-visa-business-card",
+          "text": "Cash Rewards do not expire as long as the account remains active."
+        },
+        {
+          "sourceId": "card-us-bank-us-triple-cash-rewards-visa-business-card",
+          "text": "Cash Rewards will expire if there is no reward, purchase, or balance activity on your account"
+        },
+        {
+          "sourceId": "card-us-bank-us-triple-cash-rewards-visa-business-card",
+          "text": "for 12 consecutive statement cycles."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.fee-additional@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Plus, free employee cards.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Travel Center 预付酒店和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "5X points Hotel and car rentals are 5X more rewarding when booked directly in the Travel Center when you use this card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "points-per-USD",
+      "spendCategory": "Travel Center 预付酒店和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行、加油站和充电站",
+      "summary": "这些类别每个自然年合计前150,000美元；之后1倍。不含折扣店、大型超市和批发俱乐部。",
+      "sourceText": "4X points on travel, including airfare, hotels, gas and EV charging stations* on the first $150,000 in combined annual spend.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "这些类别每个自然年合计前150,000美元；之后1倍。不含折扣店、大型超市和批发俱乐部。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 4,
+      "unit": "points-per-USD",
+      "spendCategory": "旅行、加油站和充电站",
+      "spendCap": {
+        "amount": 150000,
+        "currency": "USD",
+        "period": "calendar-year"
+      },
+      "creditedSpendMayNotEarn": null,
+      "afterCapPercent": 1
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "这些类别每个自然年合计前150,000美元；之后1倍。不含折扣店、大型超市和批发俱乐部。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.earning-2",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.earning-2@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "餐饮和手机服务",
+      "summary": "含外卖和餐厅配送；不设上限。",
+      "sourceText": "2X points on dining, takeout, restaurant delivery and cell phone services and 1 point for all other purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "含外卖和餐厅配送；不设上限。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "points-per-USD",
+      "spendCategory": "餐饮和手机服务",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "含外卖和餐厅配送；不设上限。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.earning-3",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.earning-3@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他合资格消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "2X points on dining, takeout, restaurant delivery and cell phone services and 1 point for all other purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "points-per-USD",
+      "spendCategory": "其他合资格消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.no-foreign-fee",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.no-foreign-fee@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "无外币交易费",
+      "summary": "页面写明无外币交易费。",
+      "sourceText": "Enjoy no foreign transaction fees when making purchases outside the United States.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明无外币交易费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明无外币交易费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "Enjoy no foreign transaction fees when making purchases outside the United States."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.priority-pass",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.priority-pass@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "lounge",
+    "scenarioIds": [
+      "airport"
+    ],
+    "programmeIds": [
+      "programme.priority-pass"
+    ],
+    "content": {
+      "title": "Priority Pass 会籍和每年4次免费进入",
+      "summary": "须另行登记 Priority Pass；每个会籍年度4次免费进入。超出次数的费用页面未写明。",
+      "sourceText": "Priority Pass™ annual membership with access to more than 1,900 VIP lounges worldwide,",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "须另行登记 Priority Pass；每个会籍年度4次免费进入。超出次数的费用页面未写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "lounge",
+      "period": null,
+      "amount": null,
+      "currency": null,
+      "requiresEnrollment": true,
+      "quantity": 4
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "须另行登记 Priority Pass；每个会籍年度4次免费进入。超出次数的费用页面未写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Priority Pass membership with four free visits",
+      "summary": "Enroll in Priority Pass; four complimentary visits per membership year. Charges beyond them are not stated on the page.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "Priority Pass™ annual membership with access to more than 1,900 VIP lounges worldwide,"
+        },
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "plus four complimentary visits per membership year."
+        },
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "Please visit prioritypass.com/usbankbizconnect to enroll in Priority Pass™ and for further details."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.rideshare",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.rideshare@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "credit",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "连续3个月打车后抵扣25美元",
+      "summary": "连续3个月每月至少一笔出租车或网约车消费后抵扣25美元；抵扣处理后的下一个月起可重新累计。",
+      "sourceText": "Receive a $25 statement credit after three consecutive monthly taxi or rideshare transactions paid for with your card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "连续3个月每月至少一笔出租车或网约车消费后抵扣25美元；抵扣处理后的下一个月起可重新累计。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "credit",
+      "period": "event-based",
+      "amount": 25,
+      "currency": "USD"
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "连续3个月每月至少一笔出租车或网约车消费后抵扣25美元；抵扣处理后的下一个月起可重新累计。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "$25 taxi or rideshare credit",
+      "summary": "A $25 statement credit after three consecutive months with a taxi or rideshare purchase paid with the card; earning starts again the month after the credit is processed.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "Receive a $25 statement credit after three consecutive monthly taxi or rideshare transactions paid for with your card."
+        },
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "you must make at least one rideshare service purchase per month for 3 consecutive months."
+        },
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "Starting the month after your credit is processed, you will again be eligible to earn the service credit"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.rental-car",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.rental-car@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "租车碰撞损失豁免",
+      "summary": "页面只列出名称；主次、额度和条件未写明。",
+      "sourceText": "The Business Altitude Connect Card can give you peace of mind with auto rental collision damage waiver,",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面只列出名称；主次、额度和条件未写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "rental-car",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面只列出名称；主次、额度和条件未写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Auto rental collision damage waiver",
+      "summary": "Only the name is listed; primary or secondary basis, limits and conditions are not stated.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "The Business Altitude Connect Card can give you peace of mind with auto rental collision damage waiver,"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.lost-luggage",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.lost-luggage@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "行李丢失保险",
+      "summary": "页面只列出名称；额度和条件未写明。",
+      "sourceText": "lost luggage insurance and travel assistance services.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面只列出名称；额度和条件未写明。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "lost-luggage",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面只列出名称；额度和条件未写明。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Lost luggage insurance",
+      "summary": "Only the name is listed; limits and conditions are not stated.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "lost luggage insurance and travel assistance services."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.travel-assistance",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.travel-assistance@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "旅行协助服务",
+      "summary": "页面只列出名称。",
+      "sourceText": "lost luggage insurance and travel assistance services.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面只列出名称。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面只列出名称。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Travel assistance services",
+      "summary": "Only the name is listed.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "lost luggage insurance and travel assistance services."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.accounting-sync",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.accounting-sync@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "与记账软件同步",
+      "summary": "可与记账软件同步，跟踪支出、留存收据并设置卡片控制。",
+      "sourceText": "Easily sync with your accounting software to track spending, capture receipts, set card controls and more.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "可与记账软件同步，跟踪支出、留存收据并设置卡片控制。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "可与记账软件同步，跟踪支出、留存收据并设置卡片控制。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Accounting software sync",
+      "summary": "Sync with accounting software to track spending, capture receipts and set card controls.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "Easily sync with your accounting software to track spending, capture receipts, set card controls and more."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.points-transfer",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.points-transfer@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "商务与个人 Altitude 卡积分互转",
+      "summary": "可在本人的商务和个人 Altitude 卡之间转移积分。",
+      "sourceText": "Transfer points between your business and personal Altitude cards so you can redeem points sooner.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "可在本人的商务和个人 Altitude 卡之间转移积分。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "可在本人的商务和个人 Altitude 卡之间转移积分。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Move points between business and personal Altitude cards",
+      "summary": "Transfer points between your business and personal Altitude cards.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "Transfer points between your business and personal Altitude cards so you can redeem points sooner."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.redemption",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.redemption@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "积分兑换商品、账单抵扣、存款或旅行",
+      "summary": "积分可兑换商品、账单抵扣、存入合资格 U.S. Bank 账户、礼品卡和旅行，或用 Real-Time Rewards 即时兑换。",
+      "sourceText": "It’s easy to redeem your reward points toward merchandise, statement credit, deposit to a qualifying U.S. Bank account,",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "积分可兑换商品、账单抵扣、存入合资格 U.S. Bank 账户、礼品卡和旅行，或用 Real-Time Rewards 即时兑换。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "积分可兑换商品、账单抵扣、存入合资格 U.S. Bank 账户、礼品卡和旅行，或用 Real-Time Rewards 即时兑换。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Redeem points for merchandise, credit, deposit or travel",
+      "summary": "Points redeem for merchandise, statement credit, a deposit to a qualifying U.S. Bank account, gift cards and travel, or instantly with Real-Time Rewards.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "It’s easy to redeem your reward points toward merchandise, statement credit, deposit to a qualifying U.S. Bank account,"
+        },
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "gift cards and travel or redeem instantly with Real-Time Rewards."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.us-bank-us-business-altitude-connect-visa-signature-card.points-expiry",
+    "revision": 1,
+    "revisionId": "rule.us-bank-us-business-altitude-connect-visa-signature-card.points-expiry@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "us-bank-us-business-altitude-connect-visa-signature-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "U.S. Bank"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "账户保持活跃时积分不过期",
+      "summary": "账户保持活跃时积分不过期；连续12个账单周期没有奖励、消费或余额活动则过期。",
+      "sourceText": "Points do not expire as long as the account remains active.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "账户保持活跃时积分不过期；连续12个账单周期没有奖励、消费或余额活动则过期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "账户保持活跃时积分不过期；连续12个账单周期没有奖励、消费或余额活动则过期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-us-bank-us-business-altitude-connect-visa-signature-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Points do not expire while the account stays active",
+      "summary": "Points do not expire while the account stays active; they expire after 12 consecutive statement cycles with no reward, purchase or balance activity.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "Points do not expire as long as the account remains active."
+        },
+        {
+          "sourceId": "card-us-bank-us-business-altitude-connect-visa-signature-card",
+          "text": "Points will expire if there is no reward, purchase, or balance activity on your account for 12 consecutive statement cycles."
+        }
+      ]
+    }
   }
 ]

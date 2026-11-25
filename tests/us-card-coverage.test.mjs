@@ -142,3 +142,23 @@ test('batch 16 records what the Discover pages state and leaves the rest unknown
  assert.equal(find(transfer,'earning-0').terms.spendCap,null,'the page states no quarterly maximum amount');
  assert.equal(find(transfer,'redemption'),undefined,'the page does not describe redemption');
 });
+test('batch 17 records what the U.S. Bank pages state and leaves the rest unknown',()=>{
+ const rules=productId=>queryKnowledge({productId,asOf:'2026-11-24'}).rules,find=(productId,key)=>rules(productId).find(r=>r.id===`rule.${productId}.${key}`);
+ const smartly='us-bank-us-smartly-visa-signature-card',connect='us-bank-us-altitude-connect-visa-signature-card',shield='us-bank-us-shield-visa-card',triple='us-bank-us-triple-cash-rewards-visa-business-card',business='us-bank-us-business-altitude-connect-visa-signature-card';
+ for(const id of [smartly,connect,shield,triple])assert.equal(find(id,'fee-primary').terms.amount,0,id);
+ assert.equal(find(business,'fee-primary'),undefined,'the page shows no fee after the intro year');
+ for(const id of [business,triple])assert.equal(find(id,'fee-additional').terms.amount,0,id);
+ const earning=id=>rules(id).filter(r=>r.kind==='earning-rate').sort((a,b)=>a.id.localeCompare(b.id)).map(r=>r.terms.multiplier);
+ assert.deepEqual(earning(smartly),[2],'the balance bonus is not a general earning rate');
+ assert.deepEqual(earning(connect),[5,4,4,2,1]);assert.deepEqual(earning(shield),[4],'the page states no rate outside the Travel Center');
+ assert.deepEqual(earning(triple),[5,3,1]);assert.deepEqual(earning(business),[5,4,2,1]);
+ assert.deepEqual(find(connect,'earning-2').terms.spendCap,{amount:1000,currency:'USD',period:'calendar-quarter'});
+ assert.equal(find(connect,'earning-2').terms.afterCapPercent,undefined,'the page states no rate past the gas cap');
+ assert.deepEqual(find(business,'earning-1').terms.spendCap,{amount:150000,currency:'USD',period:'calendar-year'});assert.equal(find(business,'earning-1').terms.afterCapPercent,1);
+ assert.equal(find(connect,'global-entry').terms.amount,null,'the page gives no credit amount');
+ assert.equal(find(shield,'annual-credit').terms.amount,20);assert.equal(find(triple,'software').terms.amount,100);assert.equal(find(business,'rideshare').terms.amount,25);
+ assert.equal(find(shield,'cell-phone').terms.amount,null,'a claim cap is not a credit');
+ assert.equal(find(business,'priority-pass').terms.quantity,4);assert.equal(find(connect,'priority-pass').terms.quantity,undefined,'the page states no visit count');
+ for(const id of [smartly,shield,triple])assert.equal(find(id,'no-foreign-fee'),undefined,'the product page does not mention a foreign transaction fee');
+ assert.equal(find(business,'rental-car').terms.coverage.basis,null);
+});
