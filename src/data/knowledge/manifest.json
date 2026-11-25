@@ -1643,6 +1643,38 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "citi-us-citi-aadvantage-globe-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Citi US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "公开页面的年费金额未渲染，主卡年费未知。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "citi-us-citi-aadvantage-business-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Citi US"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "公开页面写明首年免年费，但之后的年费金额未渲染，主卡年费未知。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -1762,6 +1794,8 @@
     "citi-us-costco-anywhere-visa-business-card-by-citi",
     "citi-us-aadvantage-mileup-card",
     "citi-us-citi-simplicity-card",
-    "citi-us-citi-diamond-preferred-card"
+    "citi-us-citi-diamond-preferred-card",
+    "citi-us-citi-aadvantage-globe-card",
+    "citi-us-citi-aadvantage-business-card"
   ]
 }

@@ -23,6 +23,7 @@ const NO_STATED_CYCLE={
  'rule.amex-us-us-delta-skymiles-reserve-business-card.sky-club':'counted per Medallion year; no matching period value',
  'rule.amex-us-us-delta-skymiles-reserve-business-card.mqd-headstart':'granted per Medallion qualification year; no matching period value',
  'rule.chase-us-united-club-business-card.better-together':'annual bonus, start of the year not stated: not stated',
+ 'rule.citi-us-citi-aadvantage-globe-card.turo':'up to $240 "annually"; the page does not say which year (calendar or cardmember): not stated',
  'rule.bilt-us-bilt-palladium-card.priority-pass':'membership with no repeating amount; no cycle stated',
 };
 const needsCycle=r=>r.status==='published'&&r.kind==='benefit'

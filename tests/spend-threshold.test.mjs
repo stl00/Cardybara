@@ -11,7 +11,8 @@ import {getKnowledgeRule,inspectRuleRequirements,ruleRevisions,validateKnowledge
 const root=fileURLToPath(new URL('..',import.meta.url)),DAY='2026-11-12';
 const read=path=>JSON.parse(readFileSync(join(root,path),'utf8'));
 const batches=readdirSync(join(root,'docs/knowledge/card-batches')).filter(n=>n.startsWith('batch-')).map(n=>read(`docs/knowledge/card-batches/${n}`));
-const stated=batches.flatMap(b=>b.cards.flatMap(c=>(c.credits||[]).filter(r=>r.spendThreshold).map(row=>({id:`rule.${c.id}.${row.key}`,row}))));
+// A rule is read as of DAY, or as of its batch's own day when the batch was checked later.
+const stated=batches.flatMap(b=>b.cards.flatMap(c=>(c.credits||[]).filter(r=>r.spendThreshold).map(row=>({id:`rule.${c.id}.${row.key}`,row,asOf:b.checkedAt>DAY?b.checkedAt:DAY}))));
 const helper=(row,currency='USD')=>{const run=spawnSync('python3',['scripts/spend_threshold.py'],{cwd:root,input:JSON.stringify({row,currency}),encoding:'utf8'});assert.equal(run.status,0,run.stderr);return JSON.parse(run.stdout);};
 const BA='rule.chase-us-british-airways-visa-signature-credit-card.travel-together',AER='rule.chase-us-aer-lingus-visa-signature-credit-card.companion-ticket';
 const RESORT='rule.chase-us-disney-inspire-visa-card.resort-stays',TICKETS='rule.chase-us-disney-inspire-visa-card.park-tickets';
@@ -20,13 +21,15 @@ const SPARK='rule.capital-one-us-spark-cash-plus-card.fee-refund',EXPLORER='rule
 const UNITED_BIZ='rule.chase-us-united-business-card.economy-plus',CLUB_BIZ='rule.chase-us-united-club-business-card.economy-plus';
 // #244: made after #246, so the batch row stated the threshold from the start and the rule has one revision.
 const ASCENT='rule.boa-us-atmos-rewards-ascent-visa-signature.companion-fare';
+// #629: first revision made with its threshold, checked after DAY.
+const AA_BUSINESS='rule.citi-us-citi-aadvantage-business-card.companion-certificate';
 // #252: free nights added as first revisions that already carry the threshold; tests/chase-free-nights.test.mjs checks them.
 const FREE_NIGHTS=['chase-us-world-of-hyatt-credit-card','chase-us-ihg-one-rewards-premier-select-credit-card','chase-us-ihg-one-rewards-business-credit-card'].map(id=>`rule.${id}.spend-free-night`);
 const MORE={[SPARK]:[150000,'account-anniversary'],[EXPLORER]:[10000,'calendar-year'],[BOUNTIFUL]:[15000,'calendar-year'],[UNITED_BIZ]:[25000,'calendar-year'],[CLUB_BIZ]:[40000,'calendar-year']};
 
 test('the companion tickets and the Disney Inspire spend rewards expose their spend threshold',()=>{
  assert.equal(validateKnowledge().valid,true);
- assert.deepEqual(stated.map(s=>s.id).sort(),[AER,ASCENT,BA,RESORT,TICKETS,...Object.keys(MORE),...FREE_NIGHTS].sort());
+ assert.deepEqual(stated.map(s=>s.id).sort(),[AA_BUSINESS,AER,ASCENT,BA,RESORT,TICKETS,...Object.keys(MORE),...FREE_NIGHTS].sort());
  const want={[BA]:[30000,'calendar-year'],[AER]:[30000,'calendar-year'],[RESORT]:[2000,'account-anniversary'],[TICKETS]:[200,'account-anniversary'],...MORE};
  for(const [id,[amount,period]] of Object.entries(want)){
   const rule=getKnowledgeRule(id,{asOf:DAY});
@@ -78,8 +81,8 @@ test('spend-unlock rows that are not one spend amount, or whose page could not b
 });
 
 test('every batch row that states a threshold matches its rule',()=>{
- for(const {id,row} of stated){
-  const {terms,conditions,errors}=helper(row),rule=getKnowledgeRule(id,{asOf:DAY});
+ for(const {id,row,asOf} of stated){
+  const {terms,conditions,errors}=helper(row),rule=getKnowledgeRule(id,{asOf});
   assert.deepEqual(errors,[],id);assert.equal(rule.terms.spendThreshold,terms.spendThreshold,id);assert.equal(rule.terms.spendScope,terms.spendScope,id);assert.deepEqual(rule.conditions.all,conditions,id);
  }
 });

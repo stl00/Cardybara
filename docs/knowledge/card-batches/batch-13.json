@@ -115,7 +115,7 @@
      "multiplier": 5,
      "unit": "cashback-percent",
      "category": "ground-transport",
-     "quote": "On gas at Costco",
+     "quote": "5% and 4% earn is on a combined $7,000 spend per year, 1% thereafter",
      "cap": {
       "amount": 7000,
       "currency": "USD",
@@ -131,7 +131,7 @@
      "multiplier": 4,
      "unit": "cashback-percent",
      "category": "ground-transport",
-     "quote": "On other eligible gas and EV charging",
+     "quote": "4% cash back on other eligible gas and electric vehicle (EV) charging purchases worldwide for the first $7,000 per year",
      "cap": {
       "amount": 7000,
       "currency": "USD",
@@ -147,7 +147,7 @@
      "multiplier": 3,
      "unit": "cashback-percent",
      "category": "dining",
-     "quote": "On restaurants and eligible travel, including Costco Travel",
+     "quote": "3% On restaurants and eligible travel, including Costco Travel",
      "noteZh": "包括 Costco Travel。",
      "noteEn": "Includes Costco Travel."
     },
@@ -157,7 +157,7 @@
      "multiplier": 2,
      "unit": "cashback-percent",
      "category": "shopping",
-     "quote": "On all other Costco and Costco.com purchases"
+     "quote": "2% On all other Costco and Costco.com purchases"
     },
     {
      "zh": "其他消费",
@@ -165,7 +165,7 @@
      "multiplier": 1,
      "unit": "cashback-percent",
      "category": "general",
-     "quote": "On all other purchases"
+     "quote": "1% On all other purchases"
     }
    ],
    "credits": [
@@ -252,7 +252,7 @@
      "multiplier": 5,
      "unit": "cashback-percent",
      "category": "ground-transport",
-     "quote": "On gas at Costco",
+     "quote": "5% and 4% earn is on a combined $7,000 spend per year, 1% thereafter",
      "cap": {
       "amount": 7000,
       "currency": "USD",
@@ -268,7 +268,7 @@
      "multiplier": 4,
      "unit": "cashback-percent",
      "category": "ground-transport",
-     "quote": "On other eligible gas and EV charging",
+     "quote": "4% cash back on other eligible gas and electric vehicle (EV) charging purchases worldwide for the first $7,000 per year",
      "cap": {
       "amount": 7000,
       "currency": "USD",
@@ -284,7 +284,7 @@
      "multiplier": 3,
      "unit": "cashback-percent",
      "category": "dining",
-     "quote": "On restaurants and eligible travel, including Costco Travel",
+     "quote": "3% On restaurants and eligible travel, including Costco Travel",
      "noteZh": "包括 Costco Travel。",
      "noteEn": "Includes Costco Travel."
     },
@@ -294,7 +294,7 @@
      "multiplier": 2,
      "unit": "cashback-percent",
      "category": "shopping",
-     "quote": "On all other Costco and Costco.com purchases"
+     "quote": "2% On all other Costco and Costco.com purchases"
     },
     {
      "zh": "其他消费",
@@ -302,7 +302,7 @@
      "multiplier": 1,
      "unit": "cashback-percent",
      "category": "general",
-     "quote": "On all other purchases"
+     "quote": "1% On all other purchases"
     }
    ],
    "credits": [
@@ -516,6 +516,515 @@
     {
      "zh": "页面写明本卡不赚取奖励；未给出外币交易费数字。",
      "en": "The page says the card earns no rewards; no foreign transaction fee value is given."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "The new-account bonus and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "citi-us-citi-aadvantage-globe-card",
+   "page": "citi-us-citi-aadvantage-globe-card",
+   "issuer": "Citi",
+   "url": "https://www.citi.com/credit-cards/citi-aadvantage-globe-mastercard",
+   "feeUnknown": true,
+   "earning": [
+    {
+     "zh": "American Airlines 消费",
+     "en": "American Airlines purchases",
+     "multiplier": 3,
+     "unit": "miles-per-USD",
+     "category": "airline",
+     "quote": "Earn 3 AAdvantage® miles for every $1 spent on eligible American Airlines purchases"
+    },
+    {
+     "zh": "AAdvantage Hotels 预订",
+     "en": "AAdvantage Hotels bookings",
+     "multiplier": 6,
+     "unit": "miles-per-USD",
+     "category": "travel",
+     "quote": "Earn 6 AAdvantage® miles for every $1 spent on eligible AAdvantage Hotels® bookings"
+    },
+    {
+     "zh": "餐厅和外卖",
+     "en": "Restaurants, including takeout",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "dining",
+     "quote": "Earn 2 AAdvantage® miles for every $1 spent at restaurants, including takeout and delivery"
+    },
+    {
+     "zh": "网约车和公共交通",
+     "en": "Rides and public transit",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "ground-transport",
+     "quote": "Earn 2 AAdvantage® miles for every $1 spent on eligible Rides and Rails™ purchases,",
+     "noteZh": "包括出租车、网约车和公共交通。",
+     "noteEn": "Includes taxis, rideshares and public transit."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "Earn 1 AAdvantage® mile for every $1 spent on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "club-passes",
+     "zh": "每年4张 Admirals Club Globe 通行证",
+     "en": "4 Admirals Club Globe Passes a year",
+     "noteZh": "每自然年4张。",
+     "noteEn": "4 passes every calendar year.",
+     "scenario": "airport",
+     "category": "lounge",
+     "period": "calendar-year",
+     "quote": "Every calendar year, receive 4 Admirals Club® Globe™ Passes",
+     "original": {
+      "title": "4 Admirals Club Globe Passes",
+      "summary": "4 Admirals Club Globe Passes every calendar year.",
+      "howToUse": [
+       "Present a digital pass from your AAdvantage wallet at the lounge."
+      ]
+     }
+    },
+    {
+     "key": "first-bag",
+     "zh": "美国国内航线首件托运行李免费",
+     "en": "First checked bag free on domestic American Airlines itineraries",
+     "noteZh": "你和同一订单最多8名同行人。",
+     "noteEn": "For you and up to 8 companions on the same reservation.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "per-trip",
+     "quote": "on domestic American Airlines itineraries for you and up to 8 travel companions",
+     "original": {
+      "title": "First checked bag free",
+      "summary": "First checked bag free on domestic American Airlines itineraries for you and up to 8 companions.",
+      "howToUse": [
+       "Book domestic American Airlines travel as the issuer describes."
+      ]
+     }
+    },
+    {
+     "key": "preferred-boarding",
+     "zh": "优先登机",
+     "en": "Preferred boarding",
+     "noteZh": "你和同一订单最多8名同行人。",
+     "noteEn": "For you and up to 8 companions on the same reservation.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "per-trip",
+     "quote": "Preferred boarding on American Airlines flights",
+     "original": {
+      "title": "Preferred boarding",
+      "summary": "Preferred boarding on American Airlines flights.",
+      "howToUse": [
+       "Board with the preferred group on American Airlines flights."
+      ],
+      "quotes": [
+       "for you and up to 8 companions traveling with you and listed on the same reservation"
+      ]
+     }
+    },
+    {
+     "key": "companion-certificate",
+     "zh": "年度同行凭证",
+     "en": "American Airlines Companion Certificate",
+     "noteZh": "续卡后从第二个持卡年起获得，适用一次美国国内主舱往返；另付99美元出票费和税费。",
+     "noteEn": "From the second cardmembership year with renewal, for one domestic main cabin round trip; a $99 ticketing fee plus taxes and fees applies.",
+     "scenario": "travel",
+     "category": "hotel-service",
+     "period": "account-anniversary",
+     "quote": "Earn an American Airlines Companion Certificate starting in your second cardmembership year",
+     "original": {
+      "title": "American Airlines Companion Certificate",
+      "summary": "A Companion Certificate from the second cardmembership year when renewed; a $99 ticketing fee plus taxes and fees applies.",
+      "howToUse": [
+       "Redeem the certificate as the issuer describes."
+      ],
+      "quotes": [
+       "Redeeming the certificate costs $99 for the ticketing fee, plus taxes and fees",
+       "Companion certificate is good for a single qualifying round-trip main cabin domestic flight."
+      ]
+     }
+    },
+    {
+     "key": "turo",
+     "zh": "Turo 租车返现",
+     "en": "Turo statement credits",
+     "noteZh": "每次合资格行程最多30美元，每年合计最多240美元；须在 Turo 绑定卡并用本卡付款。年度按何种周期计算未写明。",
+     "noteEn": "Up to $30 per eligible trip, $240 annually; link the card on Turo and pay with it. The page does not say which year is meant.",
+     "scenario": "ground-transport",
+     "category": "credit",
+     "period": null,
+     "quote": "for a total of up to $240 in statement credits annually.",
+     "amount": 240,
+     "enrollment": true,
+     "original": {
+      "title": "Turo statement credits",
+      "summary": "Up to $30 per eligible Turo trip, up to $240 in statement credits annually.",
+      "howToUse": [
+       "Link the card to your Turo account and pay for the trip with it."
+      ],
+      "quotes": [
+       "Earn up to $30 in statement credits for each eligible Turo trip completed,"
+      ]
+     }
+    },
+    {
+     "key": "inflight-credit",
+     "zh": "机上消费抵扣",
+     "en": "American Airlines inflight credit",
+     "noteZh": "每自然年最多100美元。",
+     "noteEn": "Up to $100 each calendar year.",
+     "scenario": "airport",
+     "category": "credit",
+     "period": "calendar-year",
+     "quote": "Every calendar year, earn up to $100 in statement credits on inflight purchases",
+     "amount": 100,
+     "original": {
+      "title": "American Airlines inflight credit",
+      "summary": "Up to $100 in statement credits on inflight purchases every calendar year.",
+      "howToUse": [
+       "Pay for inflight purchases with the card."
+      ]
+     }
+    },
+    {
+     "key": "brand-credit",
+     "zh": "指定品牌抵扣",
+     "en": "Select brand statement credit",
+     "noteZh": "每自然年最多100美元，可选最多2个：1stDibs、AAdvantage Hotels、Future Personal Training、Live Nation；有除外项。",
+     "noteEn": "Up to $100 each calendar year on up to 2 of 1stDibs, AAdvantage Hotels bookings, Future Personal Training and Live Nation; exclusions apply.",
+     "scenario": "shopping",
+     "category": "credit",
+     "period": "calendar-year",
+     "quote": "Every calendar year, earn up to $100 in statement credits on your choice of up to 2",
+     "amount": 100,
+     "original": {
+      "title": "Select brand statement credit",
+      "summary": "Up to $100 each calendar year on up to 2 of the listed brands.",
+      "howToUse": [
+       "Choose the brands as the issuer describes and pay with the card."
+      ],
+      "quotes": [
+       "of the following brands: 1stDibs, eligible AAdvantage Hotels® bookings, Future Personal Training and Live Nation"
+      ]
+     }
+    },
+    {
+     "key": "global-entry",
+     "zh": "Global Entry 或 TSA PreCheck 费用抵扣",
+     "en": "Global Entry or TSA PreCheck fee credit",
+     "noteZh": "每4年最多120美元。",
+     "noteEn": "Up to $120 every 4 years.",
+     "scenario": "airport",
+     "category": "credit",
+     "period": "rolling-four-years",
+     "quote": "Receive a statement credit, up to $120 every 4 years,",
+     "amount": 120,
+     "original": {
+      "title": "Global Entry or TSA PreCheck fee credit",
+      "summary": "A statement credit up to $120 every 4 years for the application fee.",
+      "howToUse": [
+       "Pay the application fee with the card."
+      ],
+      "quotes": [
+       "as reimbursement for your application fee for Global Entry® or TSA Precheck"
+      ]
+     }
+    },
+    {
+     "key": "flight-streak",
+     "zh": "Flight Streak 忠诚点数奖励",
+     "en": "Flight Streak Loyalty Point bonus",
+     "noteZh": "每完成4段合资格 American Airlines 航班得5,000 Loyalty Points，每个会籍年度最多额外15,000。",
+     "noteEn": "5,000 Loyalty Points after every 4 qualifying American Airlines flights, up to 15,000 more each status qualification year.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Earn a 5,000 Loyalty Point bonus after every 4 qualifying American Airlines flights",
+     "original": {
+      "title": "Flight Streak bonus",
+      "summary": "5,000 Loyalty Points after every 4 qualifying flights, up to 15,000 more each status qualification year.",
+      "howToUse": [
+       "Fly qualifying American Airlines flights."
+      ],
+      "quotes": [
+       "up to 15,000 additional Loyalty Points each status qualification year"
+      ]
+     }
+    },
+    {
+     "key": "travel-protection",
+     "zh": "旅行和购物保障",
+     "en": "Travel and shopping protections",
+     "noteZh": "页面列出行程取消/中断、行李丢失或损坏、租车、行程延误、延长保修和 Purchase Assurance Plus；额度和条件未列。",
+     "noteEn": "The page lists trip cancellation and interruption, lost or damaged luggage, car rental, trip delay, extended warranty and Purchase Assurance Plus; limits and conditions are not stated.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Help stay protected with travel and shopping protection benefits:",
+     "original": {
+      "title": "Travel and shopping protections",
+      "summary": "The page lists travel and shopping protection benefits by name.",
+      "howToUse": [
+       "Read the Citi benefit terms before relying on a protection."
+      ],
+      "quotes": [
+       "Enhanced Trip Cancellation Interruption, Lost or Damaged Luggage,",
+       "MasterRental® Coverage (Car Rental), Trip Delay, Extended Warranty and Purchase Assurance Plus."
+      ]
+     }
+    },
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明本卡不收外币交易费。",
+     "noteEn": "The page says there are no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "No foreign transaction fees",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Pay with the card abroad."
+      ]
+     }
+    },
+    {
+     "key": "quick-lock",
+     "zh": "Quick Lock 锁卡",
+     "en": "Citi Quick Lock",
+     "noteZh": "可暂时锁卡，阻止新的消费；定期扣款继续。",
+     "noteEn": "Temporarily lock the card to block new charges; recurring charges continue.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "to instantly block new charges while allowing recurring transactions to continue without disruption.",
+     "original": {
+      "title": "Citi Quick Lock",
+      "summary": "Quick Lock blocks new charges while recurring transactions continue.",
+      "howToUse": [
+       "Use Citi Quick Lock in the Citi Mobile App or at citi.com."
+      ],
+      "quotes": [
+       "Use Citi Quick Lock in the Citi Mobile"
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "公开页面的年费金额未渲染，主卡年费未知。",
+     "en": "The public page does not render the annual fee amount, so the primary fee is unknown."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "The new-account bonus and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "citi-us-citi-aadvantage-business-card",
+   "page": "citi-us-citi-aadvantage-business-card",
+   "issuer": "Citi",
+   "url": "https://www.citi.com/credit-cards/citi-aadvantage-business-credit-card",
+   "feeUnknown": true,
+   "additionalFee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Receive employee cards at no additional cost"
+   },
+   "earning": [
+    {
+     "zh": "American Airlines 消费",
+     "en": "American Airlines purchases",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "airline",
+     "quote": "Earn 2 AAdvantage® miles for your business on every $1 spent on eligible American Airlines purchases"
+    },
+    {
+     "zh": "租车和加油站",
+     "en": "Car rental merchants and gas stations",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "ground-transport",
+     "quote": "Earn 2 AAdvantage® miles for your business on every $1 spent at car rental merchants and gas stations"
+    },
+    {
+     "zh": "电信、有线和卫星电视",
+     "en": "Telecommunications, cable and satellite providers",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "Earn 2 AAdvantage® miles for your business on every $1 spent at telecommunications merchants and cable and satellite providers"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "Earn 1 AAdvantage® mile for your business on every $1 spent on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "first-bag",
+     "zh": "美国国内航线首件托运行李免费",
+     "en": "First checked bag free on domestic American Airlines itineraries",
+     "noteZh": "你和同一订单最多4名同行人。",
+     "noteEn": "For you and up to 4 companions on the same reservation.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "per-trip",
+     "quote": "for you and up to 4 companions traveling with you on the same reservation.",
+     "original": {
+      "title": "First checked bag free",
+      "summary": "First checked bag free on domestic American Airlines itineraries for you and up to 4 companions.",
+      "howToUse": [
+       "Book domestic American Airlines travel as the issuer describes."
+      ],
+      "quotes": [
+       "First checked bag free on domestic American Airlines itineraries"
+      ]
+     }
+    },
+    {
+     "key": "preferred-boarding",
+     "zh": "优先登机",
+     "en": "Preferred boarding",
+     "noteZh": "American Airlines 航班优先登机。",
+     "noteEn": "Preferred boarding on American Airlines flights.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "per-trip",
+     "quote": "Preferred boarding on American Airlines flights",
+     "original": {
+      "title": "Preferred boarding",
+      "summary": "Preferred boarding on American Airlines flights.",
+      "howToUse": [
+       "Board with the preferred group on American Airlines flights."
+      ]
+     }
+    },
+    {
+     "key": "inflight",
+     "zh": "机上消费25%优惠",
+     "en": "25% inflight savings",
+     "noteZh": "机上餐饮和 Wi-Fi 消费优惠25%。",
+     "noteEn": "25% savings on inflight food, beverages and Wi-Fi.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "25% savings on inflight food, beverages and Wi-Fi purchases",
+     "original": {
+      "title": "25% inflight savings",
+      "summary": "25% savings on inflight food, beverages and Wi-Fi purchases.",
+      "howToUse": [
+       "Pay with this card on board."
+      ]
+     }
+    },
+    {
+     "key": "companion-certificate",
+     "zh": "消费达标同行凭证",
+     "en": "Companion Certificate after spend",
+     "noteZh": "每个持卡年消费满30,000美元并续卡后获得，适用合资格国内旅行；另付99美元出票费和税费。",
+     "noteEn": "After $30,000 in purchases in a cardmembership year and renewal, for qualifying domestic travel; a $99 ticketing fee plus taxes and fees applies.",
+     "scenario": "travel",
+     "category": "spend-unlock",
+     "period": "account-anniversary",
+     "quote": "after you spend $30,000 in purchases each cardmembership year and cardmembership is renewed.",
+     "spendThreshold": {
+      "amount": 30000,
+      "currency": "USD",
+      "period": "account-anniversary"
+     },
+     "original": {
+      "title": "American Airlines Companion Certificate",
+      "summary": "A Companion Certificate after $30,000 in purchases each cardmembership year with renewal.",
+      "howToUse": [
+       "Track purchases for the cardmembership year and redeem as the issuer describes."
+      ],
+      "quotes": [
+       "Earn an American Airlines Companion Certificate for qualifying domestic travel",
+       "Redeeming the certificate is $99 for the ticketing fee plus taxes and fees."
+      ]
+     }
+    },
+    {
+     "key": "loyalty-points",
+     "zh": "消费赚 Loyalty Points",
+     "en": "Loyalty Points on purchases",
+     "noteZh": "主卡和员工卡每消费1美元得1个 Loyalty Point。",
+     "noteEn": "The primary and employee cardmembers each earn 1 Loyalty Point per $1 of purchases.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Each cardmember (primary and employees) earns 1 Loyalty Point for every $1 spent",
+     "original": {
+      "title": "Loyalty Points on purchases",
+      "summary": "Each cardmember earns 1 Loyalty Point per $1 spent.",
+      "howToUse": [
+       "Pay with the card."
+      ]
+     }
+    },
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明本卡不收外币交易费。",
+     "noteEn": "The page says there are no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "No foreign transaction fees",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Pay with the card abroad."
+      ]
+     }
+    },
+    {
+     "key": "quick-lock",
+     "zh": "Quick Lock 锁卡",
+     "en": "Citi Quick Lock",
+     "noteZh": "可暂时锁卡，阻止新的消费；定期扣款继续。",
+     "noteEn": "Temporarily lock the card to block new charges; recurring charges continue.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "to instantly block new charges while allowing recurring transactions to continue without disruption.",
+     "original": {
+      "title": "Citi Quick Lock",
+      "summary": "Quick Lock blocks new charges while recurring transactions continue.",
+      "howToUse": [
+       "Use Citi Quick Lock in the Citi Mobile App or at citi.com."
+      ],
+      "quotes": [
+       "Use Citi Quick Lock in the Citi Mobile"
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "公开页面写明首年免年费，但之后的年费金额未渲染，主卡年费未知。",
+     "en": "The public page says the fee is waived for the first year but does not render the later amount, so the primary fee is unknown."
     },
     {
      "zh": "开户奖励和免息期等限时优惠未录入。",

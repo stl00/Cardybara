@@ -90,5 +90,5 @@
 | 13 | AAdvantage MileUp Card | $0 | 3 | 1 | American Airlines AAdvantage | 已支持的银行，未验收 | 产品页未给出外币交易费数字；页面写明不含免费托运行李。；开户奖励和免息期等限时优惠未录入。 | https://www.citi.com/credit-cards/aadvantage-mile-up-credit-card |
 | 13 | Citi Simplicity Card | $0 | 0 | 1 | — | 已支持的银行，未验收 | 页面写明本卡不赚取奖励；未给出外币交易费数字。；开户奖励和免息期等限时优惠未录入。 | https://www.citi.com/credit-cards/citi-simplicity-credit-card |
 | 13 | Citi Diamond Preferred Card | $0 | 0 | 1 | — | 已支持的银行，未验收 | 页面写明本卡不赚取奖励；未给出外币交易费数字。；开户奖励和免息期等限时优惠未录入。 | https://www.citi.com/credit-cards/citi-diamond-preferred-credit-card |
-| — | Citi / AAdvantage Globe Card | — | — | — | — | — | 2026-11-24 公开页面的年费数字未渲染，暂不录入 | — |
-| — | Citi / AAdvantage Business Card | — | — | — | — | — | 2026-11-24 公开页面的年费数字未渲染，暂不录入 | — |
+| 13 | Citi / AAdvantage Globe Card | 未知 | 5 | 12 | American Airlines AAdvantage | 已支持的银行，未验收 | 公开页面的年费金额未渲染，主卡年费未知。；开户奖励和免息期等限时优惠未录入。 | https://www.citi.com/credit-cards/citi-aadvantage-globe-mastercard |
+| 13 | Citi / AAdvantage Business Card | 未知 | 4 | 7 | American Airlines AAdvantage | 已支持的银行，未验收 | 公开页面写明首年免年费，但之后的年费金额未渲染，主卡年费未知。；开户奖励和免息期等限时优惠未录入。 | https://www.citi.com/credit-cards/citi-aadvantage-business-credit-card |

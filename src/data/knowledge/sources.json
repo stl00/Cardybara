@@ -1363,5 +1363,19 @@
     "title": "Citi · Citi Diamond Preferred Card 官方产品页",
     "checkedAt": "2026-11-24",
     "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-aadvantage-globe-card",
+    "url": "https://www.citi.com/credit-cards/citi-aadvantage-globe-mastercard",
+    "title": "Citi · Citi / AAdvantage Globe Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-citi-us-citi-aadvantage-business-card",
+    "url": "https://www.citi.com/credit-cards/citi-aadvantage-business-credit-card",
+    "title": "Citi · Citi / AAdvantage Business Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
   }
 ]

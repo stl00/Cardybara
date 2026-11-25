@@ -275,7 +275,11 @@
   "其他合资格加油和充电": "ground-transport",
   "餐厅和合资格旅行": "dining",
   "Costco 和 Costco.com 其他消费": "shopping",
-  "超市和杂货配送": "shopping"
+  "超市和杂货配送": "shopping",
+  "AAdvantage Hotels 预订": "travel",
+  "网约车和公共交通": "ground-transport",
+  "租车和加油站": "ground-transport",
+  "电信、有线和卫星电视": "general"
  },
  "brands": [
   {

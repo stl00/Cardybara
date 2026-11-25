@@ -1982,5 +1982,17 @@
     "sourceUrl": "https://www.citi.com/credit-cards/citi-diamond-preferred-credit-card",
     "checkedAt": "2026-11-24",
     "verification": "issuer-listed"
+  },
+  {
+    "id": "citi-us-citi-aadvantage-globe-card",
+    "sourceUrl": "https://www.citi.com/credit-cards/citi-aadvantage-globe-mastercard",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed"
+  },
+  {
+    "id": "citi-us-citi-aadvantage-business-card",
+    "sourceUrl": "https://www.citi.com/credit-cards/citi-aadvantage-business-credit-card",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed"
   }
 ]

@@ -340,13 +340,11 @@
     },
     {
       "id": "citi-us-citi-aadvantage-globe-card",
-      "name": "Citi / AAdvantage Globe Card",
-      "skip": "2026-11-24 公开页面的年费数字未渲染，暂不录入"
+      "name": "Citi / AAdvantage Globe Card"
     },
     {
       "id": "citi-us-citi-aadvantage-business-card",
-      "name": "Citi / AAdvantage Business Card",
-      "skip": "2026-11-24 公开页面的年费数字未渲染，暂不录入"
+      "name": "Citi / AAdvantage Business Card"
     }
   ]
 }

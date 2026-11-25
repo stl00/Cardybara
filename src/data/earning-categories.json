@@ -160,6 +160,10 @@
   "餐厅和合资格旅行":[{"uses":["dining","any-travel"]}],
   "Costco 和 Costco.com 其他消费":[{"condition":"selected-merchants"}],
   "加油站、充电和指定交通":[{"uses":["gas","ev-charging"]},{"uses":["transit"],"condition":"selected-merchants"}],
-  "超市和杂货配送":[{"uses":["supermarket"]}]
+  "超市和杂货配送":[{"uses":["supermarket"]}],
+  "AAdvantage Hotels 预订":[{"uses":["hotel"],"channel":"portal","via":"AAdvantage Hotels"}],
+  "网约车和公共交通":[{"uses":["transit"]}],
+  "租车和加油站":[{"uses":["car-rental","gas"]}],
+  "电信、有线和卫星电视":[{"uses":["telecom"]}]
  }
 }
