@@ -123161,5 +123161,1839 @@
         }
       ]
     }
+  },
+  {
+    "id": "rule.capital-one-us-spark-2-cash-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-2-cash-credit-card.fee-primary@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-spark-2-cash-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "$95 annual fee after your first year",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 95,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-2-cash-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-2-cash-credit-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-2-cash-credit-card.fee-additional@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-spark-2-cash-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Free employee cards",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-2-cash-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-2-cash-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-2-cash-credit-card.earning-0@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-spark-2-cash-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Business Travel 酒店和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 5% cash back on hotels and rental cars booked through Capital One Business Travel.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Capital One Business Travel 酒店和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-2-cash-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-2-cash-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-2-cash-credit-card.earning-1@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-spark-2-cash-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 2% cash back for your business on every purchase, everywhere, no limits or category restrictions.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-2-cash-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-2-cash-credit-card.cash-redemption",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-2-cash-credit-card.cash-redemption@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-2-cash-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "返现兑换方式",
+      "summary": "返现可兑换为账单抵扣或支票等。",
+      "sourceText": "You'll see different ways you can redeem your cash back, such as through a statement credit or check.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "返现可兑换为账单抵扣或支票等。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "返现可兑换为账单抵扣或支票等。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-2-cash-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Cash back redemption",
+      "summary": "Redeem cash back in different ways, such as a statement credit or check.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-2-cash-credit-card",
+          "text": "You'll see different ways you can redeem your cash back, such as through a statement credit or check."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-spark-2-cash-credit-card.rewards-no-expiry",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-2-cash-credit-card.rewards-no-expiry@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-2-cash-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "返现不过期",
+      "summary": "页面写明返现没有上限和过期日期。",
+      "sourceText": "Earn unlimited 2% cash back on every purchase with no limits or expiration dates",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明返现没有上限和过期日期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明返现没有上限和过期日期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-2-cash-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Rewards do not expire",
+      "summary": "The page states no limits or expiration dates on the cash back.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-2-cash-credit-card",
+          "text": "Earn unlimited 2% cash back on every purchase with no limits or expiration dates"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-spark-2-cash-credit-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-2-cash-credit-card.extended-warranty@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-2-cash-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页称用该卡购买的合资格商品可获额外保修和保障；期限和上限未列。",
+      "sourceText": "Get free additional warranty and protection on eligible items you purchase with your card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "产品页称用该卡购买的合资格商品可获额外保修和保障；期限和上限未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页称用该卡购买的合资格商品可获额外保修和保障；期限和上限未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-2-cash-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The page says eligible items bought with the card get additional warranty and protection; limits are not stated.",
+      "howToUse": [
+        "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-2-cash-credit-card",
+          "text": "Get free additional warranty and protection on eligible items you purchase with your card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-5-cash-select-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-5-cash-select-credit-card.fee-primary@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-spark-1-5-cash-select-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Enjoy a $0 annual fee in addition to the big rewards and cash bonus you can earn.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-5-cash-select-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-5-cash-select-credit-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-5-cash-select-credit-card.fee-additional@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-spark-1-5-cash-select-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Free employee cards",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-5-cash-select-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-5-cash-select-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-5-cash-select-credit-card.earning-0@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-spark-1-5-cash-select-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "Capital One Business Travel 酒店和租车",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Plus, earn unlimited 5% cash back on hotels and rental cars booked through Capital One Business Travel.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "Capital One Business Travel 酒店和租车",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-5-cash-select-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-5-cash-select-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-5-cash-select-credit-card.earning-1@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-spark-1-5-cash-select-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 1.5% cash back for your business on every purchase, everywhere, no limits or category restrictions.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1.5,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-5-cash-select-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-5-cash-select-credit-card.no-foreign-fee",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-5-cash-select-credit-card.no-foreign-fee@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-1-5-cash-select-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "无外币交易费",
+      "summary": "页面写明不收外币交易费。",
+      "sourceText": "Pay zero foreign transaction fees on purchases made outside of the United States.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明不收外币交易费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明不收外币交易费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-5-cash-select-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-1-5-cash-select-credit-card",
+          "text": "Pay zero foreign transaction fees on purchases made outside of the United States."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-5-cash-select-credit-card.cash-redemption",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-5-cash-select-credit-card.cash-redemption@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-1-5-cash-select-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "返现兑换方式",
+      "summary": "返现可兑换为账单抵扣或支票等。",
+      "sourceText": "You'll see different ways you can redeem your cash back, such as through a statement credit or check.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "返现可兑换为账单抵扣或支票等。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "返现可兑换为账单抵扣或支票等。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-5-cash-select-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Cash back redemption",
+      "summary": "Redeem cash back in different ways, such as a statement credit or check.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-1-5-cash-select-credit-card",
+          "text": "You'll see different ways you can redeem your cash back, such as through a statement credit or check."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-5-cash-select-credit-card.rewards-no-expiry",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-5-cash-select-credit-card.rewards-no-expiry@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-1-5-cash-select-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "返现不过期",
+      "summary": "页面写明账户存续期间返现不过期。",
+      "sourceText": "Get cash back rewards for any amount at any time with no expiration date for the life of the account.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明账户存续期间返现不过期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明账户存续期间返现不过期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-5-cash-select-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Rewards do not expire",
+      "summary": "The page states no expiration date for the life of the account.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-1-5-cash-select-credit-card",
+          "text": "Get cash back rewards for any amount at any time with no expiration date for the life of the account."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-5-cash-select-credit-card.roadside",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-5-cash-select-credit-card.roadside@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-1-5-cash-select-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "道路救援",
+      "summary": "汽车相关紧急情况的协助服务，例如搭电、换胎和拖车；费用和次数页面未列。",
+      "sourceText": "Our business cards offer services to help you during auto-related emergencies",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "汽车相关紧急情况的协助服务，例如搭电、换胎和拖车；费用和次数页面未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "roadside",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "汽车相关紧急情况的协助服务，例如搭电、换胎和拖车；费用和次数页面未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-5-cash-select-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Roadside assistance",
+      "summary": "Help in auto-related emergencies, such as jump-starting, tire changing and towing; fees and limits are not stated.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-1-5-cash-select-credit-card",
+          "text": "Our business cards offer services to help you during auto-related emergencies"
+        },
+        {
+          "sourceId": "card-capital-one-us-spark-1-5-cash-select-credit-card",
+          "text": "tire changing and towing."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-5-cash-select-credit-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-5-cash-select-credit-card.extended-warranty@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-1-5-cash-select-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页称用该卡购买的合资格商品可获额外保修和保障；期限和上限未列。",
+      "sourceText": "Get free additional warranty and protection on eligible items that you purchase with your card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "产品页称用该卡购买的合资格商品可获额外保修和保障；期限和上限未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页称用该卡购买的合资格商品可获额外保修和保障；期限和上限未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-5-cash-select-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The page says eligible items bought with the card get additional warranty and protection; limits are not stated.",
+      "howToUse": [
+        "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-1-5-cash-select-credit-card",
+          "text": "Get free additional warranty and protection on eligible items that you purchase with your card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-classic-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-classic-credit-card.fee-primary@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-spark-1-classic-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "A card with no annual fee, so you can focus on building for the future.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-classic-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-classic-credit-card.fee-additional",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-classic-credit-card.fee-additional@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "capital-one-us-spark-1-classic-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "附属卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Free employee cards",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "additional",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-classic-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-classic-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-classic-credit-card.earning-0@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "capital-one-us-spark-1-classic-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Build a strong foundation for your business while earning unlimited 1% cash back and no annual fee.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-classic-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-classic-credit-card.no-foreign-fee",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-classic-credit-card.no-foreign-fee@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-1-classic-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "travel"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "无外币交易费",
+      "summary": "页面写明不收外币交易费。",
+      "sourceText": "Pay zero foreign transaction fees on purchases made outside of the United States.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明不收外币交易费。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明不收外币交易费。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-classic-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-1-classic-credit-card",
+          "text": "Pay zero foreign transaction fees on purchases made outside of the United States."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-classic-credit-card.cash-redemption",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-classic-credit-card.cash-redemption@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-1-classic-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "返现兑换方式",
+      "summary": "返现可兑换为账单抵扣或支票等。",
+      "sourceText": "You'll see different ways you can redeem your cash back, such as through a statement credit or check.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "返现可兑换为账单抵扣或支票等。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "返现可兑换为账单抵扣或支票等。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-classic-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Cash back redemption",
+      "summary": "Redeem cash back in different ways, such as a statement credit or check.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-1-classic-credit-card",
+          "text": "You'll see different ways you can redeem your cash back, such as through a statement credit or check."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-classic-credit-card.rewards-no-expiry",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-classic-credit-card.rewards-no-expiry@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-1-classic-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "返现不过期",
+      "summary": "页面写明返现没有最低额和过期日期。",
+      "sourceText": "Earn unlimited cash rewards on every purchase with no minimums or expiration date.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "页面写明返现没有最低额和过期日期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "页面写明返现没有最低额和过期日期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-classic-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Rewards do not expire",
+      "summary": "The page states no minimums or expiration date on the cash rewards.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-1-classic-credit-card",
+          "text": "Earn unlimited cash rewards on every purchase with no minimums or expiration date."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-classic-credit-card.roadside",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-classic-credit-card.roadside@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-1-classic-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "ground-transport"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "道路救援",
+      "summary": "汽车相关紧急情况的协助服务，例如搭电、换胎和拖车；费用和次数页面未列。",
+      "sourceText": "Our business cards offer services to help you during auto-related emergencies",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "汽车相关紧急情况的协助服务，例如搭电、换胎和拖车；费用和次数页面未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "roadside",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "汽车相关紧急情况的协助服务，例如搭电、换胎和拖车；费用和次数页面未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-classic-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Roadside assistance",
+      "summary": "Help in auto-related emergencies, such as jump-starting, tire changing and towing; fees and limits are not stated.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-1-classic-credit-card",
+          "text": "Our business cards offer services to help you during auto-related emergencies"
+        },
+        {
+          "sourceId": "card-capital-one-us-spark-1-classic-credit-card",
+          "text": "tire changing and towing."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.capital-one-us-spark-1-classic-credit-card.extended-warranty",
+    "revision": 1,
+    "revisionId": "rule.capital-one-us-spark-1-classic-credit-card.extended-warranty@2026-11-25.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "capital-one-us-spark-1-classic-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Capital One"
+    },
+    "category": "protection",
+    "scenarioIds": [
+      "shopping"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "延长保修",
+      "summary": "产品页称用该卡购买的合资格商品可获额外保修和保障；期限和上限未列。",
+      "sourceText": "Get free additional warranty and protection on eligible items that you purchase with your card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "产品页称用该卡购买的合资格商品可获额外保修和保障；期限和上限未列。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "protection",
+      "period": "event-based",
+      "amount": null,
+      "currency": null,
+      "coverage": {
+        "type": "extended-warranty",
+        "basis": null,
+        "requiresCardPayment": null,
+        "exclusions": []
+      }
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "产品页称用该卡购买的合资格商品可获额外保修和保障；期限和上限未列。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-capital-one-us-spark-1-classic-credit-card"
+      ],
+      "checkedAt": "2026-11-25",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-25",
+      "reviewAfter": "2027-02-23",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Extended Warranty",
+      "summary": "The page says eligible items bought with the card get additional warranty and protection; limits are not stated.",
+      "howToUse": [
+        "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-capital-one-us-spark-1-classic-credit-card",
+          "text": "Get free additional warranty and protection on eligible items that you purchase with your card."
+        }
+      ]
+    }
   }
 ]
