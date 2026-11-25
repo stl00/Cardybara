@@ -1,5 +1,5 @@
 {
-  "method": "2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这份名单。 名单共 50 项：49 张有资料，1 张因发卡行页面读不到数字而跳过。 2026-11-11 起第6批及以后按 #195 补充 friends beta 测试者常持有的 Chase 和 Amex US 卡（Chase 已在产品目录中但缺规则，Amex US 为新增产品），事实同样只来自发卡行页面。 2026-11-11 第10批按 #231 加入 Bilt Card 2.0 的三张卡（仅手动添加，不读取账户），事实只来自 Bilt 和 Cardless 的公开页面。 2026-11-12 第12批按 #244 补充目录中已有但缺规则的 Bank of America Unlimited Cash Rewards 和 Atmos Rewards Ascent。 2026-11-24 第13批按 #629 补充目录中已有但缺规则的 Citi US 卡（理由：支持银行的目录产品缺规则；未使用 US Credit Card Guide）。",
+  "method": "2026-11-04 选卡方法：只用 uscreditcardguide.com 的两个列表页（best-credit-card-sign-up-bonus、best-rewards-credit-cards-to-keep）链接到的卡名决定优先级。该站页脚写明 CC BY-NC-ND 4.0，所以没有复制或改写它的文字、评测和数据。所有事实只来自发卡行页面。资料库已有规则的卡（Sapphire Reserve、Amex Gold、Morgan Stanley Platinum、Blue Cash Everyday、Hilton Aspire、Freedom Unlimited、United Quest、IHG Premier、Atmos Summit、Customized Cash）不计入这份名单。 名单共 50 项：49 张有资料，1 张因发卡行页面读不到数字而跳过。 2026-11-11 起第6批及以后按 #195 补充 friends beta 测试者常持有的 Chase 和 Amex US 卡（Chase 已在产品目录中但缺规则，Amex US 为新增产品），事实同样只来自发卡行页面。 2026-11-11 第10批按 #231 加入 Bilt Card 2.0 的三张卡（仅手动添加，不读取账户），事实只来自 Bilt 和 Cardless 的公开页面。 2026-11-12 第12批按 #244 补充目录中已有但缺规则的 Bank of America Unlimited Cash Rewards 和 Atmos Rewards Ascent。 2026-11-24 第13批按 #629 补充目录中已有但缺规则的 Citi US 卡（理由：支持银行的目录产品缺规则；未使用 US Credit Card Guide）。 2026-11-24 第14批按 #630 补充目录中已有但缺规则的 Bank of America 卡（理由：支持银行的目录产品缺规则；未使用 US Credit Card Guide）。",
   "cards": [
     {
       "id": "chase-us-chase-sapphire-preferred-credit-card",
@@ -345,6 +345,34 @@
     {
       "id": "citi-us-citi-aadvantage-business-card",
       "name": "Citi / AAdvantage Business Card"
+    },
+    {
+      "id": "boa-us-bank-of-america-travel-rewards-credit-card",
+      "name": "Bank of America Travel Rewards credit card"
+    },
+    {
+      "id": "boa-us-bank-of-america-premium-rewards-elite-credit-card",
+      "name": "Bank of America Premium Rewards Elite credit card"
+    },
+    {
+      "id": "boa-us-bankamericard-credit-card",
+      "name": "BankAmericard credit card"
+    },
+    {
+      "id": "boa-us-business-advantage-customized-cash-rewards-mastercard",
+      "name": "Business Advantage Customized Cash Rewards Mastercard"
+    },
+    {
+      "id": "boa-us-business-advantage-unlimited-cash-rewards-mastercard",
+      "name": "Business Advantage Unlimited Cash Rewards Mastercard"
+    },
+    {
+      "id": "boa-us-business-advantage-travel-rewards-world-mastercard",
+      "name": "Business Advantage Travel Rewards World Mastercard"
+    },
+    {
+      "id": "boa-us-air-france-klm-visa-signature-credit-card",
+      "name": "Air France KLM Visa Signature Credit Card"
     }
   ]
 }

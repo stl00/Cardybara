@@ -1377,5 +1377,54 @@
     "title": "Citi · Citi / AAdvantage Business Card 官方产品页",
     "checkedAt": "2026-11-24",
     "authority": "official"
+  },
+  {
+    "id": "card-boa-us-bank-of-america-travel-rewards-credit-card",
+    "url": "https://www.bankofamerica.com/credit-cards/products/travel-rewards-credit-card/",
+    "title": "Bank of America · Bank of America Travel Rewards credit card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-boa-us-bank-of-america-premium-rewards-elite-credit-card",
+    "url": "https://www.bankofamerica.com/credit-cards/products/premium-rewards-elite-credit-card/",
+    "title": "Bank of America · Bank of America Premium Rewards Elite credit card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-boa-us-bankamericard-credit-card",
+    "url": "https://www.bankofamerica.com/credit-cards/products/bankamericard-credit-card/",
+    "title": "Bank of America · BankAmericard credit card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-boa-us-business-advantage-customized-cash-rewards-mastercard",
+    "url": "https://business.bankofamerica.com/en/credit-cards/business-advantage-customized-cash-rewards",
+    "title": "Bank of America · Business Advantage Customized Cash Rewards Mastercard 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-boa-us-business-advantage-unlimited-cash-rewards-mastercard",
+    "url": "https://business.bankofamerica.com/en/credit-cards/business-advantage-unlimited-cash-rewards",
+    "title": "Bank of America · Business Advantage Unlimited Cash Rewards Mastercard 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-boa-us-business-advantage-travel-rewards-world-mastercard",
+    "url": "https://business.bankofamerica.com/en/credit-cards/business-advantage-travel-rewards",
+    "title": "Bank of America · Business Advantage Travel Rewards World Mastercard 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-boa-us-air-france-klm-visa-signature-credit-card",
+    "url": "https://www.bankofamerica.com/credit-cards/products/air-france-credit-card/",
+    "title": "Bank of America · Air France KLM Visa Signature Credit Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
   }
 ]

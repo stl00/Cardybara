@@ -19,7 +19,9 @@
   "iberia":{"aliases":["iberia","西班牙国家航空","西班牙國家航空","伊比利亚航空","伊比利亞航空"],"category":"flight"},
   "disney":{"aliases":["disney","迪士尼"],"category":"entertainment"},
   "disney streaming":{"aliases":["disneyplus","disney+","hulu","espn+","stream.espn"],"category":"streaming"},
-  "lyft":{"aliases":["lyft"],"category":"transit"}
+  "lyft":{"aliases":["lyft"],"category":"transit"},
+  "air france":{"aliases":["air france","airfrance","法国航空","法國航空","法航"],"category":"flight"},
+  "klm":{"aliases":["klm","荷兰皇家航空","荷蘭皇家航空","荷航"],"category":"flight"}
  },
  "spendCategories":{
   "AAdvantage Hotels 和 AAdvantage Cars":[{"uses":["hotel","car-rental"],"channel":"portal","via":"AAdvantage Hotels / Cars"}],
@@ -164,6 +166,10 @@
   "AAdvantage Hotels 预订":[{"uses":["hotel"],"channel":"portal","via":"AAdvantage Hotels"}],
   "网约车和公共交通":[{"uses":["transit"]}],
   "租车和加油站":[{"uses":["car-rental","gas"]}],
-  "电信、有线和卫星电视":[{"uses":["telecom"]}]
+  "电信、有线和卫星电视":[{"uses":["telecom"]}],
+  "Air France、KLM 和 SkyTeam 航司消费":[{"merchants":["air france","klm"]}],
+  "旅行和餐饮":[{"uses":["any-travel","dining"]}],
+  "日常消费":[{"base":true}],
+  "BofA Travel 旅行预订":[{"uses":["any-travel"],"channel":"portal","via":"BofA Travel"}]
  }
 }

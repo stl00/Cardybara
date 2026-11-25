@@ -1,0 +1,891 @@
+{
+ "batch": 14,
+ "checkedAt": "2026-11-24",
+ "reviewAfter": "2027-02-22",
+ "cards": [
+  {
+   "id": "boa-us-bank-of-america-travel-rewards-credit-card",
+   "page": "boa-us-bank-of-america-travel-rewards-credit-card",
+   "issuer": "Bank of America",
+   "url": "https://www.bankofamerica.com/credit-cards/products/travel-rewards-credit-card/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "No annual fee† and no foreign transaction fees†"
+   },
+   "earning": [
+    {
+     "zh": "日常消费",
+     "en": "Everyday purchases",
+     "multiplier": 1.5,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn unlimited 1.5 points for every $1 you spend on everyday purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "No annual fee† and no foreign transaction fees†",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "No foreign transaction fees.",
+      "howToUse": [
+       "Use the card abroad without this fee."
+      ]
+     }
+    },
+    {
+     "key": "travel-redemption",
+     "zh": "积分抵扣旅行和餐饮消费",
+     "en": "Redeem points for travel and dining",
+     "noteZh": "积分可兑成账单抵扣，用于旅行和餐饮消费；账户开着时积分不过期。",
+     "noteEn": "Points redeem as a statement credit for travel and dining purchases and do not expire while the account stays open.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Flexibility to redeem points for a statement credit to pay for travel and dining purchases,",
+     "original": {
+      "title": "Redeem points for travel and dining",
+      "summary": "Redeem points as a statement credit for travel and dining.",
+      "howToUse": [
+       "Redeem in your Bank of America account."
+      ],
+      "quotes": [
+       "points do not expire as long as your account remains open."
+      ]
+     }
+    },
+    {
+     "key": "rewards-bonus",
+     "zh": "BofA Rewards 加成",
+     "en": "BofA Rewards bonus",
+     "noteZh": "加入 BofA Rewards 后可对消费多得奖励；页面未给出比例。是否加入未核实。",
+     "noteEn": "Joining BofA Rewards can add bonus rewards on purchases; the page gives no rate. Enrollment is unverified.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Credit card rewards bonus: When you join BofA Rewards™, you can earn bonus rewards",
+     "original": {
+      "title": "BofA Rewards bonus",
+      "summary": "Joining BofA Rewards can add bonus rewards on purchases.",
+      "howToUse": [
+       "Check your BofA Rewards status with Bank of America."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "页面提到加入 BofA Rewards 可多得奖励，但未给出比例，未录入比例。",
+     "en": "The page mentions a BofA Rewards bonus but gives no rate."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "The new-account bonus and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "boa-us-bank-of-america-premium-rewards-elite-credit-card",
+   "page": "boa-us-bank-of-america-premium-rewards-elite-credit-card",
+   "issuer": "Bank of America",
+   "url": "https://www.bankofamerica.com/credit-cards/products/premium-rewards-elite-credit-card/",
+   "fee": {
+    "amount": 550,
+    "currency": "USD",
+    "quote": "$550 annual fee and no foreign transaction fees†"
+   },
+   "earning": [
+    {
+     "zh": "旅行和餐饮",
+     "en": "Travel and dining",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "quote": "Earn unlimited 2 points for every dollar spent on travel and dining purchases"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1.5,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "unlimited 1.5 points per dollar on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "airline-incidental",
+     "zh": "每年最高300美元航空杂费抵扣",
+     "en": "Up to $300 a year in airline incidental credits",
+     "noteZh": "每年最高300美元，如选座升级、行李费、休息室费和机上服务；页面未写按日历年还是持卡年。",
+     "noteEn": "Up to $300 a year for purchases such as seat upgrades, baggage fees, lounge fees and in-flight services; the page does not say which year.",
+     "scenario": "airport",
+     "category": "credit",
+     "period": null,
+     "quote": "Receive up to $300 annually in Airline Incidental Statement Credits",
+     "original": {
+      "title": "Up to $300 a year in airline incidental credits",
+      "summary": "Up to $300 a year in airline incidental statement credits.",
+      "howToUse": [
+       "Pay eligible airline incidentals with the card."
+      ],
+      "quotes": [
+       "baggage fees, airline lounge fees and in-flight services"
+      ]
+     },
+     "amount": 300
+    },
+    {
+     "key": "lifestyle",
+     "zh": "每年最高150美元生活类抵扣",
+     "en": "Up to $150 a year in lifestyle credits",
+     "noteZh": "每年最高150美元，如流媒体、外卖、健身订阅和网约车；页面未写按日历年还是持卡年。",
+     "noteEn": "Up to $150 a year for video streaming, food delivery, fitness subscriptions and rideshare; the page does not say which year.",
+     "scenario": "entertainment",
+     "category": "credit",
+     "period": null,
+     "quote": "Receive up to $150 annually for lifestyle conveniences including video streaming services, food delivery",
+     "original": {
+      "title": "Up to $150 a year in lifestyle credits",
+      "summary": "Up to $150 a year in lifestyle statement credits.",
+      "howToUse": [
+       "Pay eligible services with the card."
+      ],
+      "quotes": [
+       "fitness subscriptions and rideshare services"
+      ]
+     },
+     "amount": 150
+    },
+    {
+     "key": "global-entry",
+     "zh": "每4年最高120美元 Global Entry / TSA PreCheck",
+     "en": "Up to $120 for Global Entry or TSA PreCheck every four years",
+     "noteZh": "每4年最高120美元申请费抵扣。",
+     "noteEn": "Up to $120 in statement credits for the application fee, every four years.",
+     "scenario": "airport",
+     "category": "credit",
+     "period": "rolling-four-years",
+     "quote": "Receive up to $120 in statement credits for Global Entry or TSA PreCheck® application fees",
+     "original": {
+      "title": "Up to $120 for Global Entry or TSA PreCheck every four years",
+      "summary": "Up to $120 every four years for the application fee.",
+      "howToUse": [
+       "Pay the application fee with the card."
+      ],
+      "quotes": [
+       "every four years"
+      ]
+     },
+     "amount": 120
+    },
+    {
+     "key": "lounge",
+     "zh": "机场休息室 Priority Pass Select",
+     "en": "Priority Pass Select lounge access",
+     "noteZh": "可免费使用机场休息室，页面写最多4个免费 Priority Pass Select 会籍；开通步骤以发卡行为准。",
+     "noteEn": "Unlimited lounge access with up to 4 complimentary Priority Pass Select memberships.",
+     "scenario": "airport",
+     "category": "lounge",
+     "period": "ongoing",
+     "quote": "Enjoy free unlimited access to airport lounges and experiences worldwide with up to 4 complimentary",
+     "original": {
+      "title": "Priority Pass Select lounge access",
+      "summary": "Lounge access with up to 4 complimentary Priority Pass Select memberships.",
+      "howToUse": [
+       "Enroll for Priority Pass through Bank of America."
+      ]
+     }
+    },
+    {
+     "key": "airfare-savings",
+     "zh": "积分付机票省20%",
+     "en": "20% savings on airfare paid with points",
+     "noteZh": "用积分支付任意舱位国内或国际机票时省20%。",
+     "noteEn": "Save 20% on domestic or international airfare in any class when paying with points.",
+     "scenario": "reward-redemption",
+     "category": "promo",
+     "period": "ongoing",
+     "quote": "Save 20% on domestic or international airfare for any class when you pay with points",
+     "original": {
+      "title": "20% savings on airfare paid with points",
+      "summary": "20% savings on airfare paid with points.",
+      "howToUse": [
+       "Book through BofA Travel or the Concierge with points."
+      ]
+     }
+    },
+    {
+     "key": "travel-insurance",
+     "zh": "旅行保障",
+     "en": "Travel insurance protections",
+     "noteZh": "页面列出行程延误、取消和中断、行李延误和丢失、道路救援、紧急撤离等；额度未给出。",
+     "noteEn": "Trip delay, cancellation and interruption, baggage delay, lost luggage, roadside assistance and emergency evacuation; no limits stated.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Travel Insurance protections to assist with trip delays, cancellations and interruptions, baggage delay,",
+     "original": {
+      "title": "Travel insurance protections",
+      "summary": "Trip, baggage, roadside and evacuation protections are listed.",
+      "howToUse": [
+       "Read the benefit terms before relying on it."
+      ],
+      "quotes": [
+       "lost luggage reimbursement, roadside assistance, and emergency evacuation and transportation."
+      ]
+     }
+    },
+    {
+     "key": "rewards-bonus",
+     "zh": "BofA Rewards 加成",
+     "en": "BofA Rewards bonus",
+     "noteZh": "加入 BofA Rewards 后可对消费多得奖励；页面未给出比例。是否加入未核实。",
+     "noteEn": "Joining BofA Rewards can add bonus rewards on purchases; the page gives no rate. Enrollment is unverified.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Credit card rewards bonus: When you join BofA Rewards™, you can earn bonus rewards",
+     "original": {
+      "title": "BofA Rewards bonus",
+      "summary": "Joining BofA Rewards can add bonus rewards on purchases.",
+      "howToUse": [
+       "Check your BofA Rewards status with Bank of America."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "页面提到加入 BofA Rewards 可多得奖励，但未给出比例，未录入比例。",
+     "en": "The page mentions a BofA Rewards bonus but gives no rate."
+    },
+    {
+     "zh": "酒店礼遇、租车优惠和礼宾服务未单独录入；旅行保障额度页面未给出。",
+     "en": "Hotel benefits, car rental offers and concierge are not recorded; the page gives no insurance limits."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "The new-account bonus and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "boa-us-bankamericard-credit-card",
+   "page": "boa-us-bankamericard-credit-card",
+   "issuer": "Bank of America",
+   "url": "https://www.bankofamerica.com/credit-cards/products/bankamericard-credit-card/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "No annual fee†"
+   },
+   "earning": [],
+   "credits": [
+    {
+     "key": "no-penalty-apr",
+     "zh": "逾期不自动加罚息 APR",
+     "en": "No penalty APR",
+     "noteZh": "逾期还款不会自动提高 APR；其他费用和条款仍适用。",
+     "noteEn": "Paying late does not automatically raise the APR; other account pricing and terms apply.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "No penalty APR. Paying late won't automatically raise your interest rate (APR).",
+     "original": {
+      "title": "No penalty APR",
+      "summary": "No penalty APR.",
+      "howToUse": [
+       "Still pay on time; other terms apply."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "页面未列任何奖励计划；未给出外币交易费。",
+     "en": "The page lists no rewards program and states no foreign transaction fee."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "The new-account bonus and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "boa-us-business-advantage-customized-cash-rewards-mastercard",
+   "page": "boa-us-business-advantage-customized-cash-rewards-mastercard",
+   "issuer": "Bank of America",
+   "url": "https://business.bankofamerica.com/en/credit-cards/business-advantage-customized-cash-rewards",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Enjoy no annual fee while earning cash back."
+   },
+   "earning": [
+    {
+     "zh": "自选类别",
+     "en": "Choice category",
+     "multiplier": 3,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "3% cash back in the category of your choice",
+     "cap": {
+      "amount": 50000,
+      "currency": "USD",
+      "period": "calendar-year"
+     },
+     "afterCap": 1,
+     "noteZh": "自选加油和充电（默认）、办公用品、旅行、电视电信和无线、电脑服务或商业咨询；与餐饮合计每日历年前50,000美元，之后1%。",
+     "noteEn": "Gas and EV charging (default), office supply, travel, TV, telecom and wireless, computer or business consulting; first $50,000 a calendar year combined with dining, then 1%."
+    },
+    {
+     "zh": "餐厅",
+     "en": "Dining",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "dining",
+     "quote": "Earn 2% cash back on dining purchases and unlimited 1% cash back on all other purchases.",
+     "cap": {
+      "amount": 50000,
+      "currency": "USD",
+      "period": "calendar-year"
+     },
+     "afterCap": 1,
+     "noteZh": "与自选类别合计每日历年前50,000美元，之后1%。",
+     "noteEn": "First $50,000 a calendar year combined with the choice category, then 1%."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "unlimited 1% cash back on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "employee-cards",
+     "zh": "员工卡不另收费",
+     "en": "Employee cards at no additional cost",
+     "noteZh": "员工卡不额外收费，可查看所有交易。",
+     "noteEn": "Employee cards at no additional cost, with transaction monitoring.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Maintain a fleet of cards for your employees at no additional cost",
+     "original": {
+      "title": "Employee cards at no additional cost",
+      "summary": "Employee cards at no additional cost.",
+      "howToUse": [
+       "Request employee cards from Bank of America."
+      ]
+     }
+    },
+    {
+     "key": "travel-coverage",
+     "zh": "租车保险和旅行意外险",
+     "en": "Auto rental coverage and travel accident insurance",
+     "noteZh": "页面写明含租车保险和100万美元旅行意外险；条件以福利条款为准。",
+     "noteEn": "The page lists auto rental coverage and $1 million in travel accident insurance; conditions follow the benefit terms.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Travel services include auto rental coverage and $1 million in travel accident insurance",
+     "original": {
+      "title": "Auto rental coverage and travel accident insurance",
+      "summary": "Auto rental coverage and $1 million in travel accident insurance.",
+      "howToUse": [
+       "Read the benefit terms before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "purchase-protection",
+     "zh": "购物保障和延长保修",
+     "en": "Purchase protection and extended warranty",
+     "noteZh": "部分消费可保丢失、损坏、盗窃或火灾，并延长保修；额度和条件开卡后提供。",
+     "noteEn": "Covers certain purchases against loss, damage, theft or fire, with extended warranty; limits and conditions come with the card.",
+     "scenario": "shopping",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Additional protection covers certain purchases against loss, damage, theft or fire",
+     "original": {
+      "title": "Purchase protection and extended warranty",
+      "summary": "Certain purchases are covered against loss, damage, theft or fire, with extended warranty.",
+      "howToUse": [
+       "Read the benefit terms before relying on it."
+      ],
+      "quotes": [
+       "and provides extended warranty coverage."
+      ]
+     }
+    },
+    {
+     "key": "rewards-bonus",
+     "zh": "Preferred Rewards for Business 加成 25%–75%",
+     "en": "Preferred Rewards for Business bonus of 25% to 75%",
+     "noteZh": "Gold 25%、Platinum 50%、Platinum Honors 75%；需合资格企业支票账户和余额等级。是否达标未核实。",
+     "noteEn": "Gold 25%, Platinum 50%, Platinum Honors 75%; it needs an eligible business checking account and balance tier. Whether you qualify is unverified.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Gold 25% rewards bonus",
+     "original": {
+      "title": "Preferred Rewards for Business bonus of 25% to 75%",
+      "summary": "A 25% to 75% rewards bonus by Preferred Rewards for Business tier.",
+      "howToUse": [
+       "Check your tier with Bank of America."
+      ],
+      "quotes": [
+       "Platinum 50% rewards bonus",
+       "Platinum Honors 75% rewards bonus"
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "页面未给出外币交易费。",
+     "en": "The page states no foreign transaction fee."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "The new-account bonus and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "boa-us-business-advantage-unlimited-cash-rewards-mastercard",
+   "page": "boa-us-business-advantage-unlimited-cash-rewards-mastercard",
+   "issuer": "Bank of America",
+   "url": "https://business.bankofamerica.com/en/credit-cards/business-advantage-unlimited-cash-rewards",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Enjoy no annual fee while earning cash back."
+   },
+   "earning": [
+    {
+     "zh": "所有消费",
+     "en": "All purchases",
+     "multiplier": 1.5,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "1.5% cash back on all purchases",
+     "noteZh": "无年度上限；账户开着时奖励不过期。",
+     "noteEn": "No annual cap; rewards do not expire while the account stays open."
+    }
+   ],
+   "credits": [
+    {
+     "key": "employee-cards",
+     "zh": "员工卡不另收费",
+     "en": "Employee cards at no additional cost",
+     "noteZh": "员工卡不额外收费，可查看所有交易。",
+     "noteEn": "Employee cards at no additional cost, with transaction monitoring.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Maintain a fleet of cards for your employees at no additional cost",
+     "original": {
+      "title": "Employee cards at no additional cost",
+      "summary": "Employee cards at no additional cost.",
+      "howToUse": [
+       "Request employee cards from Bank of America."
+      ]
+     }
+    },
+    {
+     "key": "travel-coverage",
+     "zh": "租车保险和旅行意外险",
+     "en": "Auto rental coverage and travel accident insurance",
+     "noteZh": "页面写明含租车保险和10万美元旅行意外险；条件以福利条款为准。",
+     "noteEn": "The page lists auto rental coverage and $100,000 in travel accident insurance; conditions follow the benefit terms.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Travel services include auto rental coverage and $100,000 in travel accident insurance",
+     "original": {
+      "title": "Auto rental coverage and travel accident insurance",
+      "summary": "Auto rental coverage and $100,000 in travel accident insurance.",
+      "howToUse": [
+       "Read the benefit terms before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "purchase-protection",
+     "zh": "购物保障和延长保修",
+     "en": "Purchase protection and extended warranty",
+     "noteZh": "部分消费可保丢失、损坏、盗窃或火灾，并延长保修；额度和条件开卡后提供。",
+     "noteEn": "Covers certain purchases against loss, damage, theft or fire, with extended warranty; limits and conditions come with the card.",
+     "scenario": "shopping",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Additional protection covers certain purchases against loss, damage, theft or fire",
+     "original": {
+      "title": "Purchase protection and extended warranty",
+      "summary": "Certain purchases are covered against loss, damage, theft or fire, with extended warranty.",
+      "howToUse": [
+       "Read the benefit terms before relying on it."
+      ],
+      "quotes": [
+       "and provides extended warranty coverage."
+      ]
+     }
+    },
+    {
+     "key": "rewards-bonus",
+     "zh": "Preferred Rewards for Business 加成 25%–75%",
+     "en": "Preferred Rewards for Business bonus of 25% to 75%",
+     "noteZh": "Gold 25%、Platinum 50%、Platinum Honors 75%；需合资格企业支票账户和余额等级。是否达标未核实。",
+     "noteEn": "Gold 25%, Platinum 50%, Platinum Honors 75%; it needs an eligible business checking account and balance tier. Whether you qualify is unverified.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Gold 25% reward bonus",
+     "original": {
+      "title": "Preferred Rewards for Business bonus of 25% to 75%",
+      "summary": "A 25% to 75% rewards bonus by Preferred Rewards for Business tier.",
+      "howToUse": [
+       "Check your tier with Bank of America."
+      ],
+      "quotes": [
+       "Platinum 50% reward bonus",
+       "Platinum Honors 75% reward bonus"
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "页面未给出外币交易费。",
+     "en": "The page states no foreign transaction fee."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "The new-account bonus and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "boa-us-business-advantage-travel-rewards-world-mastercard",
+   "page": "boa-us-business-advantage-travel-rewards-world-mastercard",
+   "issuer": "Bank of America",
+   "url": "https://business.bankofamerica.com/en/credit-cards/business-advantage-travel-rewards",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Enjoy no annual fee and no international transaction fees while earning points on all purchases."
+   },
+   "earning": [
+    {
+     "zh": "BofA Travel 旅行预订",
+     "en": "Travel booked at BofA Travel",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "quote": "for every $1 spent on travel purchases made at BofA Travel"
+    },
+    {
+     "zh": "日常消费",
+     "en": "Everyday purchases",
+     "multiplier": 1.5,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn unlimited 1.5 points for every $1 spent on everyday purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无国际交易费",
+     "en": "No international transaction fees",
+     "noteZh": "页面写明不收国际交易费。",
+     "noteEn": "The page states no international transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Enjoy no annual fee and no international transaction fees",
+     "original": {
+      "title": "No international transaction fees",
+      "summary": "No international transaction fees.",
+      "howToUse": [
+       "Use the card abroad without this fee."
+      ]
+     }
+    },
+    {
+     "key": "travel-redemption",
+     "zh": "积分抵扣旅行和餐饮，2,500分起",
+     "en": "Redeem for travel and dining from 2,500 points",
+     "noteZh": "账单抵扣旅行和餐饮消费，2,500分起兑。",
+     "noteEn": "Statement credit for travel and dining; redemptions start at 2,500 points.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "redemptions start at 2,500 points.",
+     "original": {
+      "title": "Redeem for travel and dining from 2,500 points",
+      "summary": "Redemptions start at 2,500 points.",
+      "howToUse": [
+       "Redeem in your Bank of America account."
+      ],
+      "quotes": [
+       "when points are redeemed for a statement credit to offset travel and dining purchases,"
+      ]
+     }
+    },
+    {
+     "key": "employee-cards",
+     "zh": "员工卡不另收费",
+     "en": "Employee cards at no additional cost",
+     "noteZh": "员工卡不额外收费，可查看所有交易。",
+     "noteEn": "Employee cards at no additional cost, with transaction monitoring.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Maintain a fleet of cards for your employees at no additional cost",
+     "original": {
+      "title": "Employee cards at no additional cost",
+      "summary": "Employee cards at no additional cost.",
+      "howToUse": [
+       "Request employee cards from Bank of America."
+      ]
+     }
+    },
+    {
+     "key": "travel-coverage",
+     "zh": "租车保险和旅行意外险",
+     "en": "Auto rental coverage and travel accident insurance",
+     "noteZh": "页面写明含租车保险和100万美元旅行意外险；条件以福利条款为准。",
+     "noteEn": "The page lists auto rental coverage and $1 million in travel accident insurance; conditions follow the benefit terms.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Travel services include auto rental coverage and $1 million in travel accident insurance",
+     "original": {
+      "title": "Auto rental coverage and travel accident insurance",
+      "summary": "Auto rental coverage and $1 million in travel accident insurance.",
+      "howToUse": [
+       "Read the benefit terms before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "purchase-protection",
+     "zh": "购物保障和延长保修",
+     "en": "Purchase protection and extended warranty",
+     "noteZh": "部分消费可保丢失、损坏、盗窃或火灾，并延长保修；额度和条件开卡后提供。",
+     "noteEn": "Covers certain purchases against loss, damage, theft or fire, with extended warranty; limits and conditions come with the card.",
+     "scenario": "shopping",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Additional protection covers certain purchases against loss, damage, theft or fire",
+     "original": {
+      "title": "Purchase protection and extended warranty",
+      "summary": "Certain purchases are covered against loss, damage, theft or fire, with extended warranty.",
+      "howToUse": [
+       "Read the benefit terms before relying on it."
+      ],
+      "quotes": [
+       "and provides extended warranty coverage."
+      ]
+     }
+    },
+    {
+     "key": "rewards-bonus",
+     "zh": "Preferred Rewards for Business 加成 25%–75%",
+     "en": "Preferred Rewards for Business bonus of 25% to 75%",
+     "noteZh": "Gold 25%、Platinum 50%、Platinum Honors 75%；需合资格企业支票账户和余额等级。是否达标未核实。",
+     "noteEn": "Gold 25%, Platinum 50%, Platinum Honors 75%; it needs an eligible business checking account and balance tier. Whether you qualify is unverified.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "25% rewards bonus",
+     "original": {
+      "title": "Preferred Rewards for Business bonus of 25% to 75%",
+      "summary": "A 25% to 75% rewards bonus by Preferred Rewards for Business tier.",
+      "howToUse": [
+       "Check your tier with Bank of America."
+      ],
+      "quotes": [
+       "50% rewards bonus",
+       "75% rewards bonus"
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "页面未给出积分是否过期。",
+     "en": "The page does not say whether points expire."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "The new-account bonus and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "boa-us-air-france-klm-visa-signature-credit-card",
+   "page": "boa-us-air-france-klm-visa-signature-credit-card",
+   "issuer": "Bank of America",
+   "url": "https://www.bankofamerica.com/credit-cards/products/air-france-credit-card/",
+   "fee": {
+    "amount": 89,
+    "currency": "USD",
+    "quote": "Low $89 annual fee† and no foreign transaction fees†"
+   },
+   "earning": [
+    {
+     "zh": "Air France、KLM 和 SkyTeam 航司消费",
+     "en": "Air France, KLM and SkyTeam airline purchases",
+     "multiplier": 3,
+     "unit": "miles-per-USD",
+     "category": "airline",
+     "quote": "Earn 3 Miles for every $1 spent on eligible Air France, KLM Royal Dutch Airlines and SkyTeam member airline purchases."
+    },
+    {
+     "zh": "餐厅",
+     "en": "Dining",
+     "multiplier": 3,
+     "unit": "miles-per-USD",
+     "category": "dining",
+     "quote": "Earn 3 Miles for every $1 spent on eligible dining purchases."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1.5,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "earn 1.5 Miles for every $1 spent on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "anniversary-miles",
+     "zh": "周年5,000 Miles",
+     "en": "5,000 anniversary Miles",
+     "noteZh": "周年年度消费满50美元，账户周年得5,000 Miles。",
+     "noteEn": "5,000 Miles on your account anniversary after $50 or more in purchases in the anniversary year.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "5,000 Miles every year on your account anniversary after you spend $50 or more",
+     "original": {
+      "title": "5,000 anniversary Miles",
+      "summary": "5,000 Miles each anniversary after $50 in purchases.",
+      "howToUse": [
+       "Make at least $50 of purchases in the anniversary year."
+      ]
+     }
+    },
+    {
+     "key": "anniversary-xp",
+     "zh": "周年20 XP",
+     "en": "20 anniversary XP",
+     "noteZh": "每个账户周年得20 XP。",
+     "noteEn": "20 XP every year on your account anniversary.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "Receive 20 XP every year on your account anniversary.",
+     "original": {
+      "title": "20 anniversary XP",
+      "summary": "20 XP each account anniversary.",
+      "howToUse": [
+       "Nothing to do beyond keeping the card."
+      ]
+     }
+    },
+    {
+     "key": "xp-15000",
+     "zh": "消费满15,000美元多得80 XP",
+     "en": "80 more XP after $15,000",
+     "noteZh": "上一周年年度消费达15,000美元，账户周年多得80 XP（合计100 XP）。是否达标未核实。",
+     "noteEn": "An extra 80 XP (100 XP in total) on the account anniversary after spending $15,000 or more. Whether you reach it is unverified.",
+     "scenario": "travel",
+     "category": "spend-unlock",
+     "period": "account-anniversary",
+     "quote": "Earn an additional 80 XP (totaling 100 XP) on the account anniversary after you spend at least $15,000",
+     "original": {
+      "title": "80 more XP after $15,000",
+      "summary": "80 more XP after $15,000 in purchases.",
+      "howToUse": [
+       "Track your anniversary-year spend."
+      ]
+     },
+     "spendThreshold": {
+      "amount": 15000,
+      "currency": "USD",
+      "period": "account-anniversary"
+     }
+    },
+    {
+     "key": "xp-25000",
+     "zh": "消费满25,000美元多得60 XP",
+     "en": "60 more XP after $25,000",
+     "noteZh": "上一周年年度消费达25,000美元，账户周年多得60 XP（合计160 XP）。是否达标未核实。",
+     "noteEn": "An extra 60 XP (160 XP in total) on the account anniversary after spending $25,000 or more. Whether you reach it is unverified.",
+     "scenario": "travel",
+     "category": "spend-unlock",
+     "period": "account-anniversary",
+     "quote": "Plus, earn an additional 60 XP (totaling 160 XP) on the account anniversary after you spend $25,000",
+     "original": {
+      "title": "60 more XP after $25,000",
+      "summary": "60 more XP after $25,000 in purchases.",
+      "howToUse": [
+       "Track your anniversary-year spend."
+      ]
+     },
+     "spendThreshold": {
+      "amount": 25000,
+      "currency": "USD",
+      "period": "account-anniversary"
+     }
+    },
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Low $89 annual fee† and no foreign transaction fees†",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "No foreign transaction fees.",
+      "howToUse": [
+       "Use the card abroad without this fee."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "页面未给出 Miles 是否过期。",
+     "en": "The page does not say whether Miles expire."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "The new-account bonus and intro APR offers are not recorded."
+    }
+   ]
+  }
+ ]
+}

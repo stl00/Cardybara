@@ -106,3 +106,12 @@ test('batch 13 records the AAdvantage Globe and Business rates and benefits whil
   assert.ok(JSON.stringify(result).includes(p.sourceUrl),`${id}: ${JSON.stringify(result).slice(0,600)}`);
  }
 });
+test('batch 14 records what the Bank of America pages state and leaves the rest unknown',()=>{
+ const rules=productId=>queryKnowledge({productId,asOf:'2026-11-24'}).rules,find=(productId,key)=>rules(productId).find(r=>r.id===`rule.${productId}.${key}`);
+ const elite='boa-us-bank-of-america-premium-rewards-elite-credit-card',plain='boa-us-bankamericard-credit-card',choice='boa-us-business-advantage-customized-cash-rewards-mastercard',af='boa-us-air-france-klm-visa-signature-credit-card';
+ assert.equal(find(elite,'fee-primary').terms.amount,550);assert.equal(find(elite,'airline-incidental').terms.period,null,'the page says annually without naming the year');assert.equal(find(elite,'global-entry').terms.period,'rolling-four-years');
+ assert.equal(rules(plain).filter(r=>r.kind==='earning-rate').length,0,'the page lists no rewards programme');
+ assert.equal(find(choice,'earning-0').terms.spendCap.amount,50000);assert.equal(find(choice,'earning-0').terms.afterCapPercent,1);
+ assert.equal(find(af,'xp-25000').terms.spendThreshold,25000);assert.equal(product(af).transferProgrammeId,undefined,'the page names no transfer partners');
+ assert.equal(find('boa-us-bank-of-america-travel-rewards-credit-card','rewards-bonus').terms.amount,null,'the page gives no bonus rate');
+});

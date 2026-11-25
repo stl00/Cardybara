@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-24.cards-13",
+  "snapshotId": "cardybara-public-knowledge-2026-11-24.cards-14",
   "asOf": "2026-11-24",
   "locale": "zh-CN",
   "files": [
@@ -1675,6 +1675,119 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "boa-us-bank-of-america-travel-rewards-credit-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "BOA"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "页面提到加入 BofA Rewards 可多得奖励，但未给出比例，未录入比例。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "boa-us-bank-of-america-premium-rewards-elite-credit-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "BOA"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "页面提到加入 BofA Rewards 可多得奖励，但未给出比例，未录入比例。",
+        "酒店礼遇、租车优惠和礼宾服务未单独录入；旅行保障额度页面未给出。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "boa-us-bankamericard-credit-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "BOA"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "页面未列任何奖励计划；未给出外币交易费。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "boa-us-business-advantage-customized-cash-rewards-mastercard": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "BOA"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "页面未给出外币交易费。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "boa-us-business-advantage-unlimited-cash-rewards-mastercard": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "BOA"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "页面未给出外币交易费。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "boa-us-business-advantage-travel-rewards-world-mastercard": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "BOA"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "页面未给出积分是否过期。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "boa-us-air-france-klm-visa-signature-credit-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "BOA"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "页面未给出 Miles 是否过期。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -1796,6 +1909,13 @@
     "citi-us-citi-simplicity-card",
     "citi-us-citi-diamond-preferred-card",
     "citi-us-citi-aadvantage-globe-card",
-    "citi-us-citi-aadvantage-business-card"
+    "citi-us-citi-aadvantage-business-card",
+    "boa-us-bank-of-america-travel-rewards-credit-card",
+    "boa-us-bank-of-america-premium-rewards-elite-credit-card",
+    "boa-us-bankamericard-credit-card",
+    "boa-us-business-advantage-customized-cash-rewards-mastercard",
+    "boa-us-business-advantage-unlimited-cash-rewards-mastercard",
+    "boa-us-business-advantage-travel-rewards-world-mastercard",
+    "boa-us-air-france-klm-visa-signature-credit-card"
   ]
 }

@@ -12,6 +12,8 @@ const today=new Date().toISOString().slice(0,10);
 // "page not readable": the issuer page is script-rendered or missing and returned no benefit text to a signed-out fetch (checked 2026-11-16),
 // so no period is recorded rather than guessing from search excerpts or sibling cards.
 const NO_STATED_CYCLE={
+ 'rule.boa-us-bank-of-america-premium-rewards-elite-credit-card.airline-incidental':'The Bank of America page says annually without saying calendar or card year',
+ 'rule.boa-us-bank-of-america-premium-rewards-elite-credit-card.lifestyle':'The Bank of America page says annually without saying calendar or card year',
  // Page not readable. Amex pages re-tried 2026-11-24 (signed-out WebFetch of the card pages, ?intlink variants and /terms/ paths returned only navigation text, truncated); not bypassed.
  'rule.amex-us-us-business-platinum-card.hotel-credit':'page not readable: Amex Business Platinum product page returned no benefit text to a signed-out fetch (re-tried 2026-11-24: card page, ?intlink and /terms/ URLs)',
  'rule.amex-us-us-delta-skymiles-reserve-card.delta-stays':'page not readable: Amex Delta Stays benefit pages returned only navigation text (re-tried 2026-11-24: card page, ?intlink and /terms/ URLs for Reserve; Platinum Business page errored)',
