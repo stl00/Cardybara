@@ -1,0 +1,495 @@
+{
+ "batch": 18,
+ "checkedAt": "2026-11-25",
+ "reviewAfter": "2027-02-23",
+ "cards": [
+  {
+   "id": "capital-one-us-ventureone-business-credit-card",
+   "page": "capital-one-us-ventureone-business-credit-card",
+   "issuer": "Capital One",
+   "collection": "not-supported",
+   "url": "https://www.capitalone.com/small-business/credit-cards/ventureone-business/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Enjoy a $0 annual fee in addition to the rewards and bonus miles you can earn."
+   },
+   "additionalFee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Free employee cards"
+   },
+   "transfer": {
+    "name": "Capital One Miles",
+    "programmeId": "programme.capital-one-miles",
+    "quote": "you may be able to transfer miles to one of our 15+ partners"
+   },
+   "earning": [
+    {
+     "zh": "Capital One Business Travel 酒店、度假屋和租车",
+     "en": "Hotels, vacation rentals and rental cars through Capital One Business Travel",
+     "multiplier": 5,
+     "unit": "miles-per-USD",
+     "category": "travel",
+     "quote": "Earn unlimited 5X miles on hotels, vacation rentals and rentals cars booked through Capital One Business Travel."
+    },
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 1.5,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "Earn unlimited 1.5X miles on every purchase for your business."
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Pay zero foreign transaction fees on purchases made outside of the United States.",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "travel-redemption",
+     "zh": "里程兑换旅行",
+     "en": "Flexible miles redemption",
+     "noteZh": "里程可在 Capital One 旅行网站兑换，或报销用该卡支付的旅行消费。",
+     "noteEn": "Redeem miles through the Capital One travel site, or get reimbursed for travel expenses paid with the card.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Redeem your miles through our travel site, or get reimbursed for travel expenses made with your card",
+     "original": {
+      "title": "Flexible miles redemption",
+      "summary": "Redeem miles through the Capital One travel site, or get reimbursed for travel expenses paid with the card.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "hertz",
+     "zh": "Hertz Five Star 会籍",
+     "en": "Hertz Five Star status",
+     "noteZh": "部分门店免排柜台、更多车型；须通过 Capital One 网站或 App 的权益页登记。",
+     "noteEn": "Skip the counter at select locations and get a wider choice of cars; enrol through the Benefits tab on the Capital One website or app.",
+     "scenario": "ground-transport",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Skip the counter at select locations, enjoy a wider selection of rental cars and more",
+     "original": {
+      "title": "Hertz Five Star status",
+      "summary": "Skip the counter at select locations and get a wider choice of cars; enrol through the Benefits tab on the Capital One website or app.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Eligible cardholders must enroll"
+      ]
+     },
+     "enrollment": true
+    },
+    {
+     "key": "rental-car",
+     "zh": "租车损失保障",
+     "en": "Rental collision insurance",
+     "noteZh": "产品页称租用合资格车辆时承保损坏或被盗；主次赔付和上限未列。",
+     "noteEn": "The page says damage or theft is covered when you rent an eligible car; primary or secondary basis and limits are not stated.",
+     "scenario": "ground-transport",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "With your VentureOne Business card, you’re covered for any damage or theft that may happen when you rent an eligible car.",
+     "original": {
+      "title": "Rental collision insurance",
+      "summary": "The page says damage or theft is covered when you rent an eligible car; primary or secondary basis and limits are not stated.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "rental-car",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    },
+    {
+     "key": "roadside",
+     "zh": "道路救援",
+     "en": "Roadside assistance",
+     "noteZh": "汽车相关紧急情况的协助服务，例如搭电、换胎和拖车；费用和次数页面未列。",
+     "noteEn": "Help in auto-related emergencies, such as jump-starting, tire changing and towing; fees and limits are not stated.",
+     "scenario": "ground-transport",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Our business cards offer services to help you during auto-related emergencies",
+     "original": {
+      "title": "Roadside assistance",
+      "summary": "Help in auto-related emergencies, such as jump-starting, tire changing and towing; fees and limits are not stated.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "tire changing and towing."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "roadside",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    },
+    {
+     "key": "extended-warranty",
+     "zh": "延长保修",
+     "en": "Extended Warranty",
+     "noteZh": "产品页称用该卡购买的合资格商品可获额外保修和保障；期限和上限未列。",
+     "noteEn": "The page says eligible items bought with the card get additional warranty and protection; limits are not stated.",
+     "scenario": "shopping",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Get free additional warranty and protection on eligible items you purchase with your card.",
+     "original": {
+      "title": "Extended Warranty",
+      "summary": "The page says eligible items bought with the card get additional warranty and protection; limits are not stated.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "extended-warranty",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "capital-one-us-platinum-credit-card",
+   "page": "capital-one-us-platinum-credit-card",
+   "issuer": "Capital One",
+   "collection": "not-supported",
+   "url": "https://www.capitalone.com/credit-cards/platinum/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Get the credit you need with no annual fee."
+   },
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "You won’t pay transaction fees when making purchases outside of the United States.",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "credit-line-review",
+     "zh": "自动考虑提额",
+     "en": "Automatic credit line reviews",
+     "noteZh": "最快6个月后自动考虑提高额度；不保证提额。",
+     "noteEn": "Automatic consideration for a higher credit line in as little as 6 months; an increase is not guaranteed.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Be automatically considered for a higher credit line in as little as 6 months.",
+     "original": {
+      "title": "Automatic credit line reviews",
+      "summary": "Automatic consideration for a higher credit line in as little as 6 months; an increase is not guaranteed.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "creditwise",
+     "zh": "CreditWise 信用监测",
+     "en": "CreditWise credit monitoring",
+     "noteZh": "通过 CreditWise 免费查看信用情况。",
+     "noteEn": "Free credit monitoring with CreditWise from Capital One.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Monitor your credit for free with CreditWise from Capital One.",
+     "original": {
+      "title": "CreditWise credit monitoring",
+      "summary": "Free credit monitoring with CreditWise from Capital One.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "cafe",
+     "zh": "Capital One Café 手工饮品半价",
+     "en": "50% off drinks at Capital One Café",
+     "noteZh": "持卡人在 Capital One Café 的手工饮品半价。",
+     "noteEn": "Cardholders get 50% off handcrafted beverages at Capital One Cafés.",
+     "scenario": "dining",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Capital One cardholders enjoy 50% off all handcrafted beverages every day at any Capital One Café nationwide.",
+     "original": {
+      "title": "50% off drinks at Capital One Café",
+      "summary": "Cardholders get 50% off handcrafted beverages at Capital One Cafés.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "产品页没有列出任何返现或里程比例。",
+     "en": "The product page states no cash back or miles rate."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "wells-fargo-us-signify-business-cash-card",
+   "page": "wf-signify-terms",
+   "issuer": "Wells Fargo",
+   "collection": "not-supported",
+   "url": "https://www.wellsfargo.com/biz/business-credit/credit-cards/signify-business-cash-credit-card-terms-conditions/",
+   "sourceTitle": {
+    "zh": "官方条款页",
+    "en": "official terms and conditions"
+   },
+   "extraSources": {
+    "guide": {
+     "page": "wf-signify-guide",
+     "url": "https://www.wellsfargo.com/biz/business-credit/credit-cards/signify-business-cash-guide-to-benefits/",
+     "zh": "Wells Fargo · Signify Business Cash 权益指南",
+     "en": "Wells Fargo · Signify Business Cash Guide to Benefits"
+    }
+   },
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Annual Fee: None"
+   },
+   "earning": [
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "For every $1 you spend with this Business Credit Card for qualifying purchases, you earn two cents",
+     "noteZh": "适用于合资格消费；条款称现金返还不设上限（除非另行通知）；奖励加成可能设限。",
+     "noteEn": "Applies to qualifying purchases. The terms say Cash Rewards are unlimited unless Wells Fargo tells you otherwise; bonus rewards may be limited."
+    }
+   ],
+   "credits": [
+    {
+     "key": "rewards-no-expiry",
+     "zh": "现金返还不过期",
+     "en": "Cash Rewards do not expire",
+     "noteZh": "信用卡账户开着期间，现金返还不过期。",
+     "noteEn": "Cash Rewards do not expire while the card account is open.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Cash Rewards do not expire while the Business Credit Card Account is open.",
+     "original": {
+      "title": "Cash Rewards do not expire",
+      "summary": "Cash Rewards do not expire while the card account is open.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "rental-car",
+     "zh": "租车损失保障（MasterRental）",
+     "en": "MasterRental Insurance Coverage",
+     "noteZh": "权益指南称按主要赔付承保租车的实物损坏和被盗；须发起并支付整份租车协议，租期不超过连续31天。",
+     "noteEn": "The guide states primary coverage for physical damage and theft of a rental vehicle; you must initiate and pay for the rental, for no more than 31 consecutive days.",
+     "scenario": "ground-transport",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "We will pay for the following on a primary basis:",
+     "original": {
+      "title": "MasterRental Insurance Coverage",
+      "summary": "The guide states primary coverage for physical damage and theft of a rental vehicle; you must initiate and pay for the rental, for no more than 31 consecutive days.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+       "Physical Damage and theft of the Vehicle, not to exceed the limits outlined below.",
+       "You must initiate and then pay for the entire Rental Agreement",
+       "no more than thirty-one (31) consecutive days."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "rental-car",
+       "basis": "primary",
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     },
+     "source": "guide"
+    },
+    {
+     "key": "baggage-delay",
+     "zh": "行李延误报销",
+     "en": "Baggage Delay Reimbursement",
+     "noteZh": "行李延误时报销必需个人物品费用；每位受保旅客每次行程最高 $300。",
+     "noteEn": "Reimbursement for essential personal items while baggage is delayed, up to $300 per covered traveler per trip.",
+     "scenario": "travel",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "You are eligible for reimbursement for the cost of essential personal items until their baggage arrives.",
+     "original": {
+      "title": "Baggage Delay Reimbursement",
+      "summary": "Reimbursement for essential personal items while baggage is delayed, up to $300 per covered traveler per trip.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+       "$300 per Covered Traveler per Trip"
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "baggage-delay",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     },
+     "source": "guide"
+    },
+    {
+     "key": "travel-accident",
+     "zh": "公共交通旅行意外保险",
+     "en": "Common Carrier Travel Accident Insurance",
+     "noteZh": "行程中因意外发生承保损失时可能赔付，每个账户最高 $250,000。",
+     "noteEn": "Payment may be made for a covered loss from an accident on a trip, up to $250,000 per account.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "If You suffer a covered Loss due to an Accident while on a trip, We may provide payment.",
+     "original": {
+      "title": "Common Carrier Travel Accident Insurance",
+      "summary": "Payment may be made for a covered loss from an accident on a trip, up to $250,000 per account.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+       "$250,000 per Account"
+      ]
+     },
+     "source": "guide"
+    },
+    {
+     "key": "priority-pass",
+     "zh": "Priority Pass 会籍（按次付费）",
+     "en": "Priority Pass membership (pay per visit)",
+     "noteZh": "权益指南提供 Priority Pass 会籍；每次进入贵宾室按人收费，须先在 Priority Pass 网站登记。",
+     "noteEn": "Priority Pass membership; lounge visits are charged per person, and you register on the Priority Pass site first.",
+     "scenario": "airport",
+     "category": "lounge",
+     "period": "ongoing",
+     "quote": "Membership to 1,300+ Priority Pass lounges worldwide regardless of airline, frequent flyer membership or class of ticket.",
+     "original": {
+      "title": "Priority Pass membership (pay per visit)",
+      "summary": "Priority Pass membership; lounge visits are charged per person, and you register on the Priority Pass site first.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+       "for current fee per visit, per person.",
+       "Before traveling, eligible cardholders can log on to their Priority Pass website"
+      ]
+     },
+     "enrollment": true,
+     "source": "guide"
+    },
+    {
+     "key": "id-theft",
+     "zh": "Mastercard 身份盗用保护",
+     "en": "Mastercard ID Theft Protection",
+     "noteZh": "监测并提醒可能的身份盗用；须先登记。",
+     "noteEn": "Alerts you to possible identity theft; enrollment is required.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "alerts you to possible identity theft by monitoring the surface, dark and deep web",
+     "original": {
+      "title": "Mastercard ID Theft Protection",
+      "summary": "Alerts you to possible identity theft; enrollment is required.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ],
+      "quotes": [
+       "To receive ID Theft Protection, you must enroll at"
+      ]
+     },
+     "enrollment": true,
+     "source": "guide"
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "原产品页网址返回404；事实来自官方条款页和权益指南（指南标明截至 2025-01-01）。",
+     "en": "The old product page URL returns 404; facts come from the official terms page and the Guide to Benefits (stated as of 01/01/2025)."
+    },
+    {
+     "zh": "员工卡费用在本卡条款页没有写明，未知。",
+     "en": "The terms page does not state an employee card fee, so it is unknown."
+    },
+    {
+     "zh": "条款页列出 3% 外币交易费；它不是年费，未录入。",
+     "en": "The terms page lists a 3% foreign transaction fee; it is not an annual fee and is not recorded."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  }
+ ]
+}

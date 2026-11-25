@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-24.cards-17",
-  "asOf": "2026-11-24",
+  "snapshotId": "cardybara-public-knowledge-2026-11-25.cards-18",
+  "asOf": "2026-11-25",
   "locale": "zh-CN",
   "files": [
     "taxonomy.json",
@@ -2031,6 +2031,55 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "capital-one-us-ventureone-business-credit-card": {
+      "checkedAt": "2026-11-25",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Capital One"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "capital-one-us-platinum-credit-card": {
+      "checkedAt": "2026-11-25",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Capital One"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "产品页没有列出任何返现或里程比例。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "wells-fargo-us-signify-business-cash-card": {
+      "checkedAt": "2026-11-25",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Wells Fargo"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "原产品页网址返回404；事实来自官方条款页和权益指南（指南标明截至 2025-01-01）。",
+        "员工卡费用在本卡条款页没有写明，未知。",
+        "条款页列出 3% 外币交易费；它不是年费，未录入。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -2174,6 +2223,9 @@
     "us-bank-us-altitude-connect-visa-signature-card",
     "us-bank-us-shield-visa-card",
     "us-bank-us-triple-cash-rewards-visa-business-card",
-    "us-bank-us-business-altitude-connect-visa-signature-card"
+    "us-bank-us-business-altitude-connect-visa-signature-card",
+    "capital-one-us-ventureone-business-credit-card",
+    "capital-one-us-platinum-credit-card",
+    "wells-fargo-us-signify-business-cash-card"
   ]
 }

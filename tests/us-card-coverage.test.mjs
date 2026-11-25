@@ -162,3 +162,19 @@ test('batch 17 records what the U.S. Bank pages state and leaves the rest unknow
  for(const id of [smartly,shield,triple])assert.equal(find(id,'no-foreign-fee'),undefined,'the product page does not mention a foreign transaction fee');
  assert.equal(find(business,'rental-car').terms.coverage.basis,null);
 });
+test('batch 18 records what the Capital One and Wells Fargo Signify pages state and leaves the rest unknown',()=>{
+ const rules=productId=>queryKnowledge({productId,asOf:'2026-11-25'}).rules,find=(productId,key)=>rules(productId).find(r=>r.id===`rule.${productId}.${key}`);
+ const venture='capital-one-us-ventureone-business-credit-card',platinum='capital-one-us-platinum-credit-card',signify='wells-fargo-us-signify-business-cash-card';
+ for(const id of [venture,platinum,signify])assert.equal(find(id,'fee-primary').terms.amount,0,id);
+ assert.equal(find(venture,'fee-additional').terms.amount,0);
+ assert.equal(find(signify,'fee-additional'),undefined,'the card terms page states no employee card fee');
+ const earning=id=>rules(id).filter(r=>r.kind==='earning-rate').sort((a,b)=>a.id.localeCompare(b.id)).map(r=>r.terms.multiplier);
+ assert.deepEqual(earning(venture),[5,1.5]);assert.deepEqual(earning(platinum),[],'the Platinum page publishes no rewards');assert.deepEqual(earning(signify),[2]);
+ assert.equal(find(signify,'no-foreign-fee'),undefined,'the Signify terms list a foreign transaction fee');
+ for(const id of [venture,platinum])assert.ok(find(id,'no-foreign-fee'),id);
+ assert.equal(product(venture).transferProgrammeId,'programme.capital-one-miles');
+ assert.equal(find(venture,'rental-car').terms.coverage.basis,null);
+ assert.equal(find(signify,'rental-car').terms.coverage.basis,'primary');
+ assert.equal(find(signify,'baggage-delay').terms.amount,null,'a claim cap is not a credit');
+ assert.equal(find(signify,'priority-pass').terms.requiresEnrollment,true);
+});

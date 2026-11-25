@@ -3964,7 +3964,7 @@
       "rewardPrograms": [],
       "art": null,
       "sourceUrl": "https://www.capitalone.com/credit-cards/platinum/",
-      "checkedAt": "2026-11-16",
+      "checkedAt": "2026-11-25",
       "verification": "issuer-listed",
       "collection": "not-supported"
     },
@@ -4147,9 +4147,14 @@
       ],
       "art": null,
       "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/ventureone-business/",
-      "checkedAt": "2026-11-16",
+      "checkedAt": "2026-11-25",
       "verification": "issuer-listed",
-      "collection": "not-supported"
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://www.capitalone.com/small-business/credit-cards/ventureone-business/",
+        "checkedAt": "2026-11-25"
+      },
+      "transferProgrammeId": "programme.capital-one-miles"
     },
     {
       "id": "capital-one-us-t-mobile-visa-card",
@@ -4885,8 +4890,8 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "sourceUrl": "https://www.wellsfargo.com/business-credit-cards/signify-business-cash-credit-card/",
-      "checkedAt": "2026-11-16",
+      "sourceUrl": "https://www.wellsfargo.com/biz/business-credit/credit-cards/signify-business-cash-credit-card-terms-conditions/",
+      "checkedAt": "2026-11-25",
       "verification": "issuer-listed",
       "collection": "not-supported"
     },
