@@ -27,9 +27,12 @@ const AA_BUSINESS='rule.citi-us-citi-aadvantage-business-card.companion-certific
 const FREE_NIGHTS=['chase-us-world-of-hyatt-credit-card','chase-us-ihg-one-rewards-premier-select-credit-card','chase-us-ihg-one-rewards-business-credit-card'].map(id=>`rule.${id}.spend-free-night`);
 const MORE={[SPARK]:[150000,'account-anniversary'],[EXPLORER]:[10000,'calendar-year'],[BOUNTIFUL]:[15000,'calendar-year'],[UNITED_BIZ]:[25000,'calendar-year'],[CLUB_BIZ]:[40000,'calendar-year']};
 
+// Air France KLM (BOA, batch 14): both XP tiers state their threshold on the signed-out product page.
+const AF_XP=['xp-15000','xp-25000'].map(k=>`rule.boa-us-air-france-klm-visa-signature-credit-card.${k}`);
+
 test('the companion tickets and the Disney Inspire spend rewards expose their spend threshold',()=>{
  assert.equal(validateKnowledge().valid,true);
- assert.deepEqual(stated.map(s=>s.id).sort(),[AA_BUSINESS,AER,ASCENT,BA,RESORT,TICKETS,...Object.keys(MORE),...FREE_NIGHTS].sort());
+ assert.deepEqual(stated.map(s=>s.id).sort(),[AA_BUSINESS,...AF_XP,AER,ASCENT,BA,RESORT,TICKETS,...Object.keys(MORE),...FREE_NIGHTS].sort());
  const want={[BA]:[30000,'calendar-year'],[AER]:[30000,'calendar-year'],[RESORT]:[2000,'account-anniversary'],[TICKETS]:[200,'account-anniversary'],...MORE};
  for(const [id,[amount,period]] of Object.entries(want)){
   const rule=getKnowledgeRule(id,{asOf:DAY});

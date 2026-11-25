@@ -279,7 +279,11 @@
   "AAdvantage Hotels 预订": "travel",
   "网约车和公共交通": "ground-transport",
   "租车和加油站": "ground-transport",
-  "电信、有线和卫星电视": "general"
+  "电信、有线和卫星电视": "general",
+  "日常消费": "general",
+  "旅行和餐饮": "travel",
+  "BofA Travel 旅行预订": "travel",
+  "Air France、KLM 和 SkyTeam 航司消费": "airline"
  },
  "brands": [
   {
