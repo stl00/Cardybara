@@ -113795,5 +113795,1648 @@
         }
       ]
     }
+  },
+  {
+    "id": "rule.discover-us-discover-it-miles-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-miles-credit-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "discover-us-discover-it-miles-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "Discover it Miles has no annual fee.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-miles-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.discover-us-discover-it-miles-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-miles-credit-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "discover-us-discover-it-miles-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "所有消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Earn unlimited 1.5x miles on travel purchases and all your everyday purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1.5,
+      "unit": "miles-per-USD",
+      "spendCategory": "所有消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-miles-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.discover-us-discover-it-miles-credit-card.redemption",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-miles-credit-card.redemption@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "discover-us-discover-it-miles-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "里程兑现或抵扣旅行消费",
+      "summary": "里程可兑换成现金，或抵扣旅行消费账单；没有最低兑换数量。",
+      "sourceText": "Turn miles into cash. Or redeem as a statement credit for your travel purchases",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "里程可兑换成现金，或抵扣旅行消费账单；没有最低兑换数量。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "里程可兑换成现金，或抵扣旅行消费账单；没有最低兑换数量。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-miles-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Redeem miles as cash or travel statement credit",
+      "summary": "Turn miles into cash or a statement credit for travel purchases; there is no minimum to redeem.",
+      "howToUse": [
+        "Redeem miles in your Discover account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-discover-us-discover-it-miles-credit-card",
+          "text": "Turn miles into cash. Or redeem as a statement credit for your travel purchases"
+        },
+        {
+          "sourceId": "card-discover-us-discover-it-miles-credit-card",
+          "text": "There is no minimum requirement to how many miles you have to redeem at a time"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.discover-us-discover-it-miles-credit-card.no-expiry",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-miles-credit-card.no-expiry@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "discover-us-discover-it-miles-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "里程在账户有效期内不过期",
+      "summary": "账户有效期内里程不过期。",
+      "sourceText": "And your miles don’t expire for the life of the account.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "账户有效期内里程不过期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "账户有效期内里程不过期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-miles-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Miles do not expire",
+      "summary": "Miles do not expire for the life of the account.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-discover-us-discover-it-miles-credit-card",
+          "text": "And your miles don’t expire for the life of the account."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.discover-us-discover-it-miles-credit-card.fraud-liability",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-miles-credit-card.fraud-liability@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "discover-us-discover-it-miles-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "盗刷零责任",
+      "summary": "Discover 卡上的未授权消费，持卡人不承担责任。",
+      "sourceText": "You’re never responsible for unauthorized purchases on your Discover Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "Discover 卡上的未授权消费，持卡人不承担责任。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Discover 卡上的未授权消费，持卡人不承担责任。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-miles-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No liability for unauthorized purchases",
+      "summary": "You are not responsible for unauthorized purchases on the card.",
+      "howToUse": [
+        "Report an unauthorized purchase to the issuer."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-discover-us-discover-it-miles-credit-card",
+          "text": "You’re never responsible for unauthorized purchases on your Discover Card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.discover-us-discover-it-miles-credit-card.card-lock",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-miles-credit-card.card-lock@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "discover-us-discover-it-miles-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "手机应用锁卡",
+      "summary": "卡片遗失、放错或被盗时可在手机应用锁卡；退款、入账、还款和利息等部分账户活动仍会继续。",
+      "sourceText": "Lock your card in the mobile app if it’s misplaced, lost, or stolen.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "卡片遗失、放错或被盗时可在手机应用锁卡；退款、入账、还款和利息等部分账户活动仍会继续。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "卡片遗失、放错或被盗时可在手机应用锁卡；退款、入账、还款和利息等部分账户活动仍会继续。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-miles-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Card lock in the mobile app",
+      "summary": "Lock a misplaced, lost or stolen card in the app; some account activity continues while it is locked.",
+      "howToUse": [
+        "Lock the card in the mobile app."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-discover-us-discover-it-miles-credit-card",
+          "text": "Lock your card in the mobile app if it’s misplaced, lost, or stolen."
+        },
+        {
+          "sourceId": "card-discover-us-discover-it-miles-credit-card",
+          "text": "When Card Lock is enabled, some activity may continue, including returns, credits, payments, interest"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.discover-us-discover-it-miles-credit-card.ssn-alerts",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-miles-credit-card.ssn-alerts@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "discover-us-discover-it-miles-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "社安号暗网提醒（CreditWise）",
+      "summary": "在暗网发现你的社安号时提醒；须注册 CreditWise（满18岁），没有 Discover 卡的人也可注册。",
+      "sourceText": "Get an alert if we find your Social Security number on the dark web.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "在暗网发现你的社安号时提醒；须注册 CreditWise（满18岁），没有 Discover 卡的人也可注册。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null,
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在暗网发现你的社安号时提醒；须注册 CreditWise（满18岁），没有 Discover 卡的人也可注册。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-miles-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Social Security number alerts (CreditWise)",
+      "summary": "An alert if your Social Security number is found on the dark web; CreditWise sign-up is needed and is also open to people without a Discover card.",
+      "howToUse": [
+        "Sign up for CreditWise."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-discover-us-discover-it-miles-credit-card",
+          "text": "Get an alert if we find your Social Security number on the dark web."
+        },
+        {
+          "sourceId": "card-discover-us-discover-it-miles-credit-card",
+          "text": "You do not need to have a Capital One account (which includes Discover card accounts) to sign up for CreditWise."
+        },
+        {
+          "sourceId": "card-discover-us-discover-it-miles-credit-card",
+          "text": "you need to be over the age of 18"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "discover-us-discover-it-chrome-gas-restaurants-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "No annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-chrome-gas-restaurants-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "discover-us-discover-it-chrome-gas-restaurants-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "加油站和餐厅",
+      "summary": "加油站和餐厅每季合计前1,000美元，自动享受；超市、超级购物中心或仓储会员店附属的加油站，以及设在酒店或商店内的餐厅可能不算。",
+      "sourceText": "Earn 2% cash back at gas stations and restaurants on up to $1,000 in combined purchases each quarter, automatically.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "加油站和餐厅每季合计前1,000美元，自动享受；超市、超级购物中心或仓储会员店附属的加油站，以及设在酒店或商店内的餐厅可能不算。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 2,
+      "unit": "cashback-percent",
+      "spendCategory": "加油站和餐厅",
+      "spendCap": {
+        "amount": 1000,
+        "currency": "USD",
+        "period": "calendar-quarter"
+      },
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "加油站和餐厅每季合计前1,000美元，自动享受；超市、超级购物中心或仓储会员店附属的加油站，以及设在酒店或商店内的餐厅可能不算。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-chrome-gas-restaurants-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "discover-us-discover-it-chrome-gas-restaurants-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Plus, earn unlimited 1% cash back on all other purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-chrome-gas-restaurants-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.redemption",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.redemption@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "discover-us-discover-it-chrome-gas-restaurants-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "返现任意金额可兑换",
+      "summary": "返现可按任意金额兑换。",
+      "sourceText": "The Discover it Chrome Card lets you redeem cash back for any amount.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "返现可按任意金额兑换。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "返现可按任意金额兑换。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-chrome-gas-restaurants-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Redeem cash back in any amount",
+      "summary": "Cash back can be redeemed in any amount.",
+      "howToUse": [
+        "Redeem cash back in your Discover account."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-discover-us-discover-it-chrome-gas-restaurants-credit-card",
+          "text": "The Discover it Chrome Card lets you redeem cash back for any amount."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.no-expiry",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.no-expiry@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "discover-us-discover-it-chrome-gas-restaurants-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "返现在账户有效期内不过期",
+      "summary": "账户有效期内返现不过期。",
+      "sourceText": "your cash back won’t expire for the life of the account.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "账户有效期内返现不过期。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "账户有效期内返现不过期。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-chrome-gas-restaurants-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Cash back does not expire",
+      "summary": "Cash back does not expire for the life of the account.",
+      "howToUse": [
+        "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-discover-us-discover-it-chrome-gas-restaurants-credit-card",
+          "text": "your cash back won’t expire for the life of the account."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.fraud-liability",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.fraud-liability@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "discover-us-discover-it-chrome-gas-restaurants-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "盗刷零责任",
+      "summary": "Discover 卡上的未授权消费，持卡人不承担责任。",
+      "sourceText": "You’re never responsible for unauthorized purchases on your Discover Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "Discover 卡上的未授权消费，持卡人不承担责任。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Discover 卡上的未授权消费，持卡人不承担责任。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-chrome-gas-restaurants-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No liability for unauthorized purchases",
+      "summary": "You are not responsible for unauthorized purchases on the card.",
+      "howToUse": [
+        "Report an unauthorized purchase to the issuer."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-discover-us-discover-it-chrome-gas-restaurants-credit-card",
+          "text": "You’re never responsible for unauthorized purchases on your Discover Card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.card-lock",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.card-lock@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "discover-us-discover-it-chrome-gas-restaurants-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "手机应用锁卡",
+      "summary": "卡片遗失、放错或被盗时可在手机应用锁卡；退款、入账、还款和利息等部分账户活动仍会继续。",
+      "sourceText": "Lock your card in the mobile app if it’s misplaced, lost, or stolen.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "卡片遗失、放错或被盗时可在手机应用锁卡；退款、入账、还款和利息等部分账户活动仍会继续。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "卡片遗失、放错或被盗时可在手机应用锁卡；退款、入账、还款和利息等部分账户活动仍会继续。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-chrome-gas-restaurants-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Card lock in the mobile app",
+      "summary": "Lock a misplaced, lost or stolen card in the app; some account activity continues while it is locked.",
+      "howToUse": [
+        "Lock the card in the mobile app."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-discover-us-discover-it-chrome-gas-restaurants-credit-card",
+          "text": "Lock your card in the mobile app if it’s misplaced, lost, or stolen."
+        },
+        {
+          "sourceId": "card-discover-us-discover-it-chrome-gas-restaurants-credit-card",
+          "text": "When Card Lock is enabled, some activity may continue, including returns, credits, payments, interest"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.ssn-alerts",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-chrome-gas-restaurants-credit-card.ssn-alerts@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "discover-us-discover-it-chrome-gas-restaurants-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "社安号暗网提醒（CreditWise）",
+      "summary": "在暗网发现你的社安号时提醒；须注册 CreditWise（满18岁且有有效社安号），没有 Discover 卡的人也可注册。",
+      "sourceText": "Get an alert if we find your Social Security number on the dark web.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "在暗网发现你的社安号时提醒；须注册 CreditWise（满18岁且有有效社安号），没有 Discover 卡的人也可注册。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null,
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在暗网发现你的社安号时提醒；须注册 CreditWise（满18岁且有有效社安号），没有 Discover 卡的人也可注册。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-chrome-gas-restaurants-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Social Security number alerts (CreditWise)",
+      "summary": "An alert if your Social Security number is found on the dark web; CreditWise sign-up is needed and is also open to people without a Discover card.",
+      "howToUse": [
+        "Sign up for CreditWise."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-discover-us-discover-it-chrome-gas-restaurants-credit-card",
+          "text": "Get an alert if we find your Social Security number on the dark web."
+        },
+        {
+          "sourceId": "card-discover-us-discover-it-chrome-gas-restaurants-credit-card",
+          "text": "Sign up for CreditWise today - it's available even if you don't have a Discover card."
+        },
+        {
+          "sourceId": "card-discover-us-discover-it-chrome-gas-restaurants-credit-card",
+          "text": "In order to enroll in CreditWise, you need to be over the age of 18 with a valid social security number"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.discover-us-discover-it-balance-transfer-credit-card.fee-primary",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-balance-transfer-credit-card.fee-primary@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "discover-us-discover-it-balance-transfer-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "主卡年费",
+      "summary": "公布标准年费，不代表个人已收取或已获豁免。",
+      "sourceText": "No annual fee",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布标准年费，不代表个人已收取或已获豁免。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "amount": 0,
+      "currency": "USD",
+      "period": "annual-fee",
+      "billingCycle": "issuer-account-terms",
+      "cardholderRole": "primary",
+      "actualCharge": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布标准年费，不代表个人已收取或已获豁免。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-balance-transfer-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.discover-us-discover-it-balance-transfer-credit-card.earning-0",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-balance-transfer-credit-card.earning-0@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "discover-us-discover-it-balance-transfer-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "每季轮换类别",
+      "summary": "每季须激活，有季度上限；本页没有写上限金额。",
+      "sourceText": "Earn 5% cash back on everyday purchases at different places you shop each quarter, up to the quarterly maximum when you activate.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "每季须激活，有季度上限；本页没有写上限金额。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 5,
+      "unit": "cashback-percent",
+      "spendCategory": "每季轮换类别",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "每季须激活，有季度上限；本页没有写上限金额。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-balance-transfer-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.discover-us-discover-it-balance-transfer-credit-card.earning-1",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-balance-transfer-credit-card.earning-1@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "earning-rate",
+    "productIds": [
+      "discover-us-discover-it-balance-transfer-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "earning",
+    "scenarioIds": [
+      "reward-redemption"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "其他消费",
+      "summary": "公布赚取比例；类别范围和限额以条款为准。",
+      "sourceText": "Plus, earn 1% cash back on all other purchases.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "公布赚取比例；类别范围和限额以条款为准。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ]
+    },
+    "terms": {
+      "multiplier": 1,
+      "unit": "cashback-percent",
+      "spendCategory": "其他消费",
+      "spendCap": null,
+      "creditedSpendMayNotEarn": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "公布赚取比例；类别范围和限额以条款为准。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-balance-transfer-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.discover-us-discover-it-balance-transfer-credit-card.fraud-liability",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-balance-transfer-credit-card.fraud-liability@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "discover-us-discover-it-balance-transfer-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "盗刷零责任",
+      "summary": "Discover 卡上的未授权消费，持卡人不承担责任。",
+      "sourceText": "You're never responsible for unauthorized purchases on your Discover Card.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "Discover 卡上的未授权消费，持卡人不承担责任。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "Discover 卡上的未授权消费，持卡人不承担责任。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-balance-transfer-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "No liability for unauthorized purchases",
+      "summary": "You are not responsible for unauthorized purchases on the card.",
+      "howToUse": [
+        "Report an unauthorized purchase to the issuer."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-discover-us-discover-it-balance-transfer-credit-card",
+          "text": "You're never responsible for unauthorized purchases on your Discover Card."
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.discover-us-discover-it-balance-transfer-credit-card.card-lock",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-balance-transfer-credit-card.card-lock@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "discover-us-discover-it-balance-transfer-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "手机应用锁卡",
+      "summary": "卡片遗失、放错或被盗时可在手机应用锁卡；退款、入账、还款和利息等部分账户活动仍会继续。",
+      "sourceText": "Lock your card in the mobile app if it's misplaced, lost, or stolen.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "卡片遗失、放错或被盗时可在手机应用锁卡；退款、入账、还款和利息等部分账户活动仍会继续。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "卡片遗失、放错或被盗时可在手机应用锁卡；退款、入账、还款和利息等部分账户活动仍会继续。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-balance-transfer-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Card lock in the mobile app",
+      "summary": "Lock a misplaced, lost or stolen card in the app; some account activity continues while it is locked.",
+      "howToUse": [
+        "Lock the card in the mobile app."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-discover-us-discover-it-balance-transfer-credit-card",
+          "text": "Lock your card in the mobile app if it's misplaced, lost, or stolen."
+        },
+        {
+          "sourceId": "card-discover-us-discover-it-balance-transfer-credit-card",
+          "text": "When Card Lock is enabled, some activity may continue, including returns, credits, payments, interest"
+        }
+      ]
+    }
+  },
+  {
+    "id": "rule.discover-us-discover-it-balance-transfer-credit-card.ssn-alerts",
+    "revision": 1,
+    "revisionId": "rule.discover-us-discover-it-balance-transfer-credit-card.ssn-alerts@2026-11-24.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "benefit",
+    "productIds": [
+      "discover-us-discover-it-balance-transfer-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Discover"
+    },
+    "category": "membership",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "社安号暗网提醒（CreditWise）",
+      "summary": "在暗网发现你的社安号时提醒；须注册 CreditWise（满18岁），没有 Discover 卡的人也可注册。",
+      "sourceText": "Get an alert if we find your Social Security number on the dark web.",
+      "howToUse": [
+        "先核对卡种、当前官方条款和适用条件。",
+        "在暗网发现你的社安号时提醒；须注册 CreditWise（满18岁），没有 Discover 卡的人也可注册。",
+        "个人资格、登记和剩余额度未核实；知识库不代办操作。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "terms": {
+      "category": "membership",
+      "period": "ongoing",
+      "amount": null,
+      "currency": null,
+      "requiresEnrollment": true
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "在暗网发现你的社安号时提醒；须注册 CreditWise（满18岁），没有 Discover 卡的人也可注册。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "card-discover-us-discover-it-balance-transfer-credit-card"
+      ],
+      "checkedAt": "2026-11-24",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms",
+        "validity"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-24",
+      "reviewAfter": "2027-02-22",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge",
+    "original": {
+      "lang": "en-US",
+      "title": "Social Security number alerts (CreditWise)",
+      "summary": "An alert if your Social Security number is found on the dark web; CreditWise sign-up is needed and is also open to people without a Discover card.",
+      "howToUse": [
+        "Sign up for CreditWise."
+      ],
+      "quotes": [
+        {
+          "sourceId": "card-discover-us-discover-it-balance-transfer-credit-card",
+          "text": "Get an alert if we find your Social Security number on the dark web."
+        },
+        {
+          "sourceId": "card-discover-us-discover-it-balance-transfer-credit-card",
+          "text": "Sign up for CreditWise today - it's available even if you don't have a Discover card."
+        },
+        {
+          "sourceId": "card-discover-us-discover-it-balance-transfer-credit-card",
+          "text": "You do not need to have a Capital One account (which includes Discover card accounts) to sign up for CreditWise."
+        },
+        {
+          "sourceId": "card-discover-us-discover-it-balance-transfer-credit-card",
+          "text": "In order to enroll in CreditWise, you need to be over the age of 18"
+        }
+      ]
+    }
   }
 ]

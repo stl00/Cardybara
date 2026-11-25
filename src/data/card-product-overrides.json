@@ -2101,5 +2101,26 @@
     "checkedAt": "2026-11-24",
     "verification": "issuer-listed",
     "collection": "not-supported"
+  },
+  {
+    "id": "discover-us-discover-it-miles-credit-card",
+    "sourceUrl": "https://www.discover.com/credit-cards/travel/",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "discover-us-discover-it-chrome-gas-restaurants-credit-card",
+    "sourceUrl": "https://www.discover.com/credit-cards/cash-back/chrome/",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "discover-us-discover-it-balance-transfer-credit-card",
+    "sourceUrl": "https://www.discover.com/credit-cards/balance-transfer-credit-cards/cash-back-bt-card/",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
   }
 ]

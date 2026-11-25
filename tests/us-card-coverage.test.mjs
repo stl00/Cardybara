@@ -127,3 +127,18 @@ test('batch 15 records what the Capital One and Wells Fargo pages state and leav
  assert.equal(find('capital-one-us-venture-business-credit-card','travel').terms.period,'account-anniversary');
  assert.equal(product('wells-fargo-us-autograph-card').transferProgrammeId,undefined,'the page names no transfer partners');
 });
+test('batch 16 records what the Discover pages state and leaves the rest unknown',()=>{
+ const rules=productId=>queryKnowledge({productId,asOf:'2026-11-24'}).rules,find=(productId,key)=>rules(productId).find(r=>r.id===`rule.${productId}.${key}`);
+ const miles='discover-us-discover-it-miles-credit-card',chrome='discover-us-discover-it-chrome-gas-restaurants-credit-card',transfer='discover-us-discover-it-balance-transfer-credit-card';
+ for(const id of [miles,chrome,transfer]){
+  assert.equal(find(id,'fee-primary').terms.amount,0,id);
+  assert.equal(find(id,'ssn-alerts').terms.requiresEnrollment,true,id);
+  assert.equal(find(id,'no-foreign-fee'),undefined,'the product page does not mention a foreign transaction fee');
+ }
+ assert.equal(find(miles,'earning-0').terms.multiplier,1.5);assert.equal(find(miles,'earning-0').terms.unit,'miles-per-USD');assert.equal(product(miles).transferProgrammeId,undefined,'the page names no transfer partners');
+ assert.deepEqual([0,1].map(i=>find(chrome,`earning-${i}`).terms.multiplier),[2,1]);
+ assert.deepEqual(find(chrome,'earning-0').terms.spendCap,{amount:1000,currency:'USD',period:'calendar-quarter'});
+ assert.deepEqual([0,1].map(i=>find(transfer,`earning-${i}`).terms.multiplier),[5,1]);
+ assert.equal(find(transfer,'earning-0').terms.spendCap,null,'the page states no quarterly maximum amount');
+ assert.equal(find(transfer,'redemption'),undefined,'the page does not describe redemption');
+});

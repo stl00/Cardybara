@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-24.cards-15",
+  "snapshotId": "cardybara-public-knowledge-2026-11-24.cards-16",
   "asOf": "2026-11-24",
   "locale": "zh-CN",
   "files": [
@@ -1895,6 +1895,59 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "discover-us-discover-it-miles-credit-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Discover"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户首年返现或里程翻倍和免息期等限时优惠未录入。",
+        "产品页没有提到外币交易费，是否收取未知。",
+        "余额转移手续费不是年费，未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "discover-us-discover-it-chrome-gas-restaurants-credit-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Discover"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户首年返现或里程翻倍和免息期等限时优惠未录入。",
+        "产品页没有提到外币交易费，是否收取未知。",
+        "余额转移手续费不是年费，未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "discover-us-discover-it-balance-transfer-credit-card": {
+      "checkedAt": "2026-11-24",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Discover"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户首年返现或里程翻倍和免息期等限时优惠未录入。",
+        "产品页没有提到外币交易费，是否收取未知。",
+        "余额转移手续费不是年费，未录入。",
+        "5% 类别的季度上限金额本页未写。",
+        "页面没有说明返现兑换方式和是否过期。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -2030,6 +2083,9 @@
     "capital-one-us-venture-business-credit-card",
     "wells-fargo-us-active-cash-card",
     "wells-fargo-us-autograph-card",
-    "wells-fargo-us-reflect-card"
+    "wells-fargo-us-reflect-card",
+    "discover-us-discover-it-miles-credit-card",
+    "discover-us-discover-it-chrome-gas-restaurants-credit-card",
+    "discover-us-discover-it-balance-transfer-credit-card"
   ]
 }
