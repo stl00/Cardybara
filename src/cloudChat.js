@@ -5,7 +5,7 @@ import {postAgent,hostedError} from '../extension-next/model-client.js';
 import {runWalletToolAsync} from './walletAgent.js';
 import {heldCards} from './heldCards.js';
 import {validateState} from './conversationState.js';
-import {buildWalletSummary,assistantCardName,WALLET_TOOLS} from './walletSummary.js';
+import {buildWalletSummary,toolCardName,WALLET_TOOLS} from './walletSummary.js';
 import {trimHistory,sseEvents,MAX_ROUNDS,MAX_REQUEST_BYTES} from './cloudProtocol.js';
 
 /**
@@ -15,8 +15,9 @@ import {trimHistory,sseEvents,MAX_ROUNDS,MAX_REQUEST_BYTES} from './cloudProtoco
  */
 export async function runCloudTurn({history=[],memory={},question,context,signal,onProgress=()=>{},onDelta=()=>{},post=postAgent}){
  const summary=buildWalletSummary({cards:context.cards,day:context.day,language:context.language,pointValues:context.pointValues});
- // Wallet tools here name cards as the summary does, so the agent sees one name per card and never a name with digits.
- const local={...context,cards:heldCards(context.cards).map(c=>({...c,name:assistantCardName(c)}))};
+ // Wallet tools here name cards as the gateway's tools do, so the agent sees one name per card. The only digits a name
+ // can carry are those of a public catalogue product name; bank or user text with digits is never used.
+ const local={...context,cards:heldCards(context.cards).map(c=>({...c,name:toolCardName(c)}))};
  const base={question,history:trimHistory(history),memory,summary};
  let rounds=null,turn=null;
  for(let request=0;request<=MAX_ROUNDS;request++){

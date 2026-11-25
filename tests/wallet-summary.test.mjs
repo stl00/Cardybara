@@ -3,7 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {buildWalletSummary,validateWalletSummary,summaryCards,summaryContext,assistantCardName,WALLET_TOOLS} from '../src/walletSummary.js';
+import {buildWalletSummary,validateWalletSummary,summaryCards,summaryContext,assistantCardName,toolCardName,WALLET_TOOLS} from '../src/walletSummary.js';
 import {runWalletTool,agentTools} from '../src/walletAgent.js';
 import {searchBenefitKnowledge} from '../src/benefitSearch.js';
 import * as dev from '../evals/fixtures.mjs';
@@ -63,6 +63,23 @@ test('a card name with digits becomes its product name, else its bank, never the
  assert.equal(assistantCardName({name:'Sapphire Reserve ...4821',bank:'Chase',region:'US'}),'Sapphire Reserve');
  assert.equal(assistantCardName({name:'My card 4821',bank:'Chase',region:'US'}),'Chase card');
  assert.equal(assistantCardName({name:'Freedom Unlimited',bank:'Chase',region:'US'}),'Freedom Unlimited');
+});
+
+test('a catalogue name with digits is not sent, and is restored from the productId on both sides',()=>{
+ const card={id:'c1',name:'My Spark 7319',bank:'Capital One',region:'US',currency:'USD',productId:'capital-one-us-spark-2-cash-credit-card'};
+ const s=buildWalletSummary({cards:[card],day:DAY,language:'en-US'});
+ assert.equal(s.cards[0].name,'Capital One card');
+ assert.equal(s.cards[0].productId,card.productId);
+ assert.doesNotThrow(()=>validateWalletSummary(s));
+ // The validator is unchanged: a summary that carries the digit name is still refused.
+ assert.throws(()=>validateWalletSummary({...s,cards:[{...s.cards[0],name:'Spark 2% Cash Credit Card'}]}),/invalid_summary/);
+ assert.equal(summaryCards(s)[0].name,'Spark 2% Cash Credit Card');
+ assert.equal(toolCardName(card),'Spark 2% Cash Credit Card');
+ assert.match(summaryContext(s),/Spark 2% Cash/);
+ assert.doesNotMatch(summaryContext(s),/7319|My Spark/);
+ // Unrecognised bank or user text with digits stays out.
+ assert.equal(toolCardName({name:'My card 4821',bank:'Capital One',region:'US'}),'Capital One card');
+ assert.equal(summaryCards({cards:[{name:'Capital One card',bank:'Capital One',region:'US',currency:null,productId:null}]})[0].name,'Capital One card');
 });
 
 test('wallet tools are exactly the tools that read the user\'s wallet; the rest are public knowledge',()=>{

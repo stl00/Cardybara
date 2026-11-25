@@ -24,7 +24,8 @@ const MAX_CARDS=150,MAX_VALUES=20;
 
 /**
  * The name the assistant uses for a card: its catalogue product's name when recognised, else the wallet name if it
- * has no digit (a digit could be a tail or an amount), else the bank's. Catalogue names have no digits.
+ * has no digit (a digit could be a tail or an amount), else the bank's. A catalogue name with a digit is not sent
+ * either: the receiver restores it from the productId (toolCardName).
  */
 export function assistantCardName(card){
  // A recognised card goes by its catalogue name: the wallet name is bank or user text and could carry a nickname.
@@ -35,6 +36,16 @@ export function assistantCardName(card){
  return BANKS.has(card?.bank)?card.bank+' card':'Card';
 }
 const safeName=n=>typeof n==='string'&&n.length>=1&&n.length<=120&&!/[\p{Nd}<>`{}\[\]\\]/u.test(n)&&!/[\u0000-\u001f]/.test(n);
+
+/**
+ * The name tools use for a card. Some catalogue names contain a digit ("Spark 2% Cash"); the summary does not carry
+ * them, so the wire format and its validator stay as older gateways know them. Such a name is public catalogue data,
+ * found again by productId. Bank or user text with a digit is never used.
+ */
+export function toolCardName(card){
+ const product=matchCardProduct(card).product?.name;
+ return product&&/\p{Nd}/u.test(product)?product:assistantCardName(card);
+}
 
 /** The summary for one turn: held cards only (a hidden card is not held), in a fixed shape. */
 export function buildWalletSummary({cards,day,language,pointValues=[]}){
@@ -69,7 +80,11 @@ export function validateWalletSummary(s){
 }
 
 /** Card records the agent's public-knowledge tools run on: what the summary says, nothing more. */
-export const summaryCards=s=>s.cards.map((c,i)=>({id:'summary-card-'+(i+1),name:c.name,bank:c.bank,region:c.region,currency:c.currency,...(c.productId?{productId:c.productId}:{})}));
+export const summaryCards=s=>s.cards.map((c,i)=>{
+ const card={id:'summary-card-'+(i+1),name:c.name,bank:c.bank,region:c.region,currency:c.currency,...(c.productId?{productId:c.productId}:{})};
+ // Only a productId restores a name: without one, the sent name is all there is.
+ return c.productId?{...card,name:toolCardName(card)}:card;
+});
 
 /** The summary as system-context text: held products, their programme and pooling rule, the user's point values. */
 export function summaryContext(s){
