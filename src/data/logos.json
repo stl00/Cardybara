@@ -283,7 +283,8 @@
   "日常消费": "general",
   "旅行和餐饮": "travel",
   "BofA Travel 旅行预订": "travel",
-  "Air France、KLM 和 SkyTeam 航司消费": "airline"
+  "Air France、KLM 和 SkyTeam 航司消费": "airline",
+  "手机和电话服务": "general"
  },
  "brands": [
   {

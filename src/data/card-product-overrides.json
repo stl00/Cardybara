@@ -2036,5 +2036,70 @@
     "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/air-france-credit-card/",
     "checkedAt": "2026-11-24",
     "verification": "issuer-listed"
+  },
+  {
+    "id": "capital-one-us-quicksilver-rewards-credit-card",
+    "sourceUrl": "https://www.capitalone.com/credit-cards/quicksilver/",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "capital-one-us-savorone-rewards-credit-card",
+    "sourceUrl": "https://www.capitalone.com/credit-cards/savorone/",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "capital-one-us-ventureone-rewards-credit-card",
+    "sourceUrl": "https://www.capitalone.com/credit-cards/ventureone/",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported",
+    "rewardPrograms": [
+      "Capital One Miles"
+    ],
+    "rewardSource": {
+      "url": "https://www.capitalone.com/credit-cards/ventureone/",
+      "checkedAt": "2026-11-24"
+    },
+    "transferProgrammeId": "programme.capital-one-miles"
+  },
+  {
+    "id": "capital-one-us-venture-business-credit-card",
+    "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/venture-business/",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported",
+    "rewardPrograms": [
+      "Capital One Miles"
+    ],
+    "rewardSource": {
+      "url": "https://www.capitalone.com/small-business/credit-cards/venture-business/",
+      "checkedAt": "2026-11-24"
+    },
+    "transferProgrammeId": "programme.capital-one-miles"
+  },
+  {
+    "id": "wells-fargo-us-active-cash-card",
+    "sourceUrl": "https://creditcards.wellsfargo.com/active-cash-credit-card/",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "wells-fargo-us-autograph-card",
+    "sourceUrl": "https://creditcards.wellsfargo.com/autograph-visa-credit-card/",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "wells-fargo-us-reflect-card",
+    "sourceUrl": "https://creditcards.wellsfargo.com/reflect-visa-credit-card/",
+    "checkedAt": "2026-11-24",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
   }
 ]

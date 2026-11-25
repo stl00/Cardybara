@@ -1426,5 +1426,54 @@
     "title": "Bank of America · Air France KLM Visa Signature Credit Card 官方产品页",
     "checkedAt": "2026-11-24",
     "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-quicksilver-rewards-credit-card",
+    "url": "https://www.capitalone.com/credit-cards/quicksilver/",
+    "title": "Capital One · Quicksilver Rewards Credit Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-savorone-rewards-credit-card",
+    "url": "https://www.capitalone.com/credit-cards/savorone/",
+    "title": "Capital One · SavorOne Rewards Credit Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-ventureone-rewards-credit-card",
+    "url": "https://www.capitalone.com/credit-cards/ventureone/",
+    "title": "Capital One · VentureOne Rewards Credit Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-venture-business-credit-card",
+    "url": "https://www.capitalone.com/small-business/credit-cards/venture-business/",
+    "title": "Capital One · Venture Business Credit Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-wells-fargo-us-active-cash-card",
+    "url": "https://creditcards.wellsfargo.com/active-cash-credit-card/",
+    "title": "Wells Fargo · Wells Fargo Active Cash® Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-wells-fargo-us-autograph-card",
+    "url": "https://creditcards.wellsfargo.com/autograph-visa-credit-card/",
+    "title": "Wells Fargo · Wells Fargo Autograph® Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
+  },
+  {
+    "id": "card-wells-fargo-us-reflect-card",
+    "url": "https://creditcards.wellsfargo.com/reflect-visa-credit-card/",
+    "title": "Wells Fargo · Wells Fargo Reflect® Card 官方产品页",
+    "checkedAt": "2026-11-24",
+    "authority": "official"
   }
 ]

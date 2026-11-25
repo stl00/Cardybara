@@ -115,3 +115,15 @@ test('batch 14 records what the Bank of America pages state and leaves the rest 
  assert.equal(find(af,'xp-25000').terms.spendThreshold,25000);assert.equal(product(af).transferProgrammeId,undefined,'the page names no transfer partners');
  assert.equal(find('boa-us-bank-of-america-travel-rewards-credit-card','rewards-bonus').terms.amount,null,'the page gives no bonus rate');
 });
+test('batch 15 records what the Capital One and Wells Fargo pages state and leaves the rest unknown',()=>{
+ const find=(productId,key)=>queryKnowledge({productId,asOf:'2026-11-24'}).rules.find(r=>r.id===`rule.${productId}.${key}`);
+ const fees={'capital-one-us-quicksilver-rewards-credit-card':0,'capital-one-us-savorone-rewards-credit-card':39,'capital-one-us-ventureone-rewards-credit-card':0,'capital-one-us-venture-business-credit-card':95,'wells-fargo-us-active-cash-card':0,'wells-fargo-us-autograph-card':0,'wells-fargo-us-reflect-card':0};
+ for(const [id,amount] of Object.entries(fees))assert.equal(find(id,'fee-primary').terms.amount,amount,id);
+ assert.equal(find('wells-fargo-us-reflect-card','earning-0'),undefined,'the Reflect page publishes no earning rate');
+ assert.equal(find('wells-fargo-us-reflect-card','rental'),undefined,'the Reflect page lists no rental cover');
+ assert.equal(find('wells-fargo-us-active-cash-card','earning-0').terms.multiplier,2);
+ assert.equal(find('wells-fargo-us-active-cash-card','cell-phone').terms.amount,null,'a claim cap is not a credit');
+ assert.equal(find('wells-fargo-us-autograph-card','rental').terms.coverage.basis,'secondary');
+ assert.equal(find('capital-one-us-venture-business-credit-card','travel').terms.period,'account-anniversary');
+ assert.equal(product('wells-fargo-us-autograph-card').transferProgrammeId,undefined,'the page names no transfer partners');
+});

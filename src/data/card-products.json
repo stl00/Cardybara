@@ -3824,7 +3824,7 @@
       "rewardPrograms": [],
       "art": null,
       "sourceUrl": "https://www.capitalone.com/credit-cards/quicksilver/",
-      "checkedAt": "2026-11-16",
+      "checkedAt": "2026-11-24",
       "verification": "issuer-listed",
       "collection": "not-supported"
     },
@@ -3883,9 +3883,14 @@
       ],
       "art": null,
       "sourceUrl": "https://www.capitalone.com/credit-cards/ventureone/",
-      "checkedAt": "2026-11-16",
+      "checkedAt": "2026-11-24",
       "verification": "issuer-listed",
-      "collection": "not-supported"
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://www.capitalone.com/credit-cards/ventureone/",
+        "checkedAt": "2026-11-24"
+      },
+      "transferProgrammeId": "programme.capital-one-miles"
     },
     {
       "id": "capital-one-us-ventureone-rewards-for-good-credit",
@@ -3923,7 +3928,7 @@
       "rewardPrograms": [],
       "art": null,
       "sourceUrl": "https://www.capitalone.com/credit-cards/savorone/",
-      "checkedAt": "2026-11-16",
+      "checkedAt": "2026-11-24",
       "verification": "issuer-listed",
       "collection": "not-supported"
     },
@@ -4116,9 +4121,14 @@
       ],
       "art": null,
       "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/venture-business/",
-      "checkedAt": "2026-11-16",
+      "checkedAt": "2026-11-24",
       "verification": "issuer-listed",
-      "collection": "not-supported"
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://www.capitalone.com/small-business/credit-cards/venture-business/",
+        "checkedAt": "2026-11-24"
+      },
+      "transferProgrammeId": "programme.capital-one-miles"
     },
     {
       "id": "capital-one-us-ventureone-business-credit-card",
@@ -4755,8 +4765,8 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "sourceUrl": "https://www.wellsfargo.com/active-cash-credit-card/",
-      "checkedAt": "2026-11-16",
+      "sourceUrl": "https://creditcards.wellsfargo.com/active-cash-credit-card/",
+      "checkedAt": "2026-11-24",
       "verification": "issuer-listed",
       "collection": "not-supported"
     },
@@ -4775,8 +4785,8 @@
       ],
       "currencies": [],
       "rewardPrograms": [],
-      "sourceUrl": "https://www.wellsfargo.com/autograph-visa-credit-card/",
-      "checkedAt": "2026-11-16",
+      "sourceUrl": "https://creditcards.wellsfargo.com/autograph-visa-credit-card/",
+      "checkedAt": "2026-11-24",
       "verification": "issuer-listed",
       "collection": "not-supported"
     },
@@ -4796,7 +4806,7 @@
       "currencies": [],
       "rewardPrograms": [],
       "sourceUrl": "https://creditcards.wellsfargo.com/reflect-visa-credit-card/",
-      "checkedAt": "2026-11-16",
+      "checkedAt": "2026-11-24",
       "verification": "issuer-listed",
       "collection": "not-supported"
     },

@@ -10,6 +10,8 @@ const context={cards,events:[],day:'2026-11-10',language:'en'};
 const call=(name,args={})=>({id:'p1',type:'function',function:{name,arguments:JSON.stringify(args)}});
 const protections=args=>runWalletTool(call('find_protections',args),context);
 
+// Cards added later by knowledge batch 15 (#631) were checked on their own day.
+const BATCH_15=JSON.parse(readFileSync(new URL('../docs/knowledge/card-batches/batch-15.json',import.meta.url))).cards.map(c=>c.id);
 test('rental car coverage states primary only where the terms say so, and the card payment requirement',()=>{
  const result=protections({type:'rental-car'});
  assert.equal(result.kind,'protections');assert.match(result.coverage,/guide to benefits controls/);assert.match(result.coverage,/not insurance advice/);
@@ -188,7 +190,7 @@ test('a wallet holding a Strata card and a Venture card gets their recorded prot
  // Double Cash says secondary; Custom Cash and Platinum Select pages name none.
  assert.equal(queryKnowledge({productId:'citi-us-citi-double-cash-card',category:'protection'}).rules[0].terms.coverage.basis,'secondary');
  for(const id of ['citi-us-citi-custom-cash-card','citi-us-citi-aadvantage-platinum-select-card','capital-one-us-venture-x-rewards-credit-card'])assert.equal(queryKnowledge({productId:id,category:'protection'}).count,0,id);
- assert.ok(queryKnowledge({kind:'benefit',category:'protection'}).rules.filter(r=>/capital-one|citi-us/.test(r.productIds[0])).every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt==='2026-11-16'));
+ assert.ok(queryKnowledge({kind:'benefit',category:'protection'}).rules.filter(r=>/capital-one|citi-us/.test(r.productIds[0])).every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt===(BATCH_15.includes(r.productIds[0])?'2026-11-24':'2026-11-16')));
 });
 
 // #343: OpenCC reads 列出租车 as 列 + 出租车 (taxi); zh-TW must say 租車, never 計程車, there.
@@ -217,7 +219,7 @@ test('a wallet holding Autograph Journey and Bilt Obsidian gets their recorded p
  const n=id=>queryKnowledge({productId:id,category:'protection'}).count;
  assert.equal(n('bilt-us-bilt-blue-card'),2);assert.equal(n('bilt-us-bilt-palladium-card'),7);
  for(const id of ['boa-us-atmos-rewards-summit-visa-infinite','boa-us-atmos-rewards-ascent-visa-signature','boa-us-bank-of-america-unlimited-cash-rewards','boa-us-customized-cash-rewards-visa-signature','us-bank-us-altitude-go-visa-signature-card','us-bank-us-cash-plus-visa-signature-card','discover-us-discover-it-cash-back-credit-card'])assert.equal(n(id),0,id);
- assert.ok(queryKnowledge({kind:'benefit',category:'protection'}).rules.filter(r=>/wells-fargo|bilt/.test(r.productIds[0])).every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt==='2026-11-16'));
+ assert.ok(queryKnowledge({kind:'benefit',category:'protection'}).rules.filter(r=>/wells-fargo|bilt/.test(r.productIds[0])).every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt===(BATCH_15.includes(r.productIds[0])?'2026-11-24':'2026-11-16')));
 });
 
 // #326: Schwab and Morgan Stanley Platinum public terms pages name seven protections each; cards whose pages show no text stay unknown.
