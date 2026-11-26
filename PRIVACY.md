@@ -16,6 +16,10 @@ The conversational assistant uses the Cardybara hosted service, with no invite c
 
 The conversational assistant uses the configured local proxy to send chat text and necessary public card/benefit information and explicit manual benefit marks to DeepSeek. Its read-only tools do not expose bank balances or card numbers. It has no included shared API key. The local proxy key is stored in the user's private .env.local; direct-parser keys, when configured through the extension, are session-scoped. The optional loopback proxy is HTTP restricted to the user's own machine; provider requests use HTTPS.
 
+## Voice input (optional)
+
+The microphone button in the assistant composer uses the browser's on-device speech recognition when it is available (the browser may first ask to download its own language model). Otherwise, and only after you accept a one-time notice, the browser sends the audio to its own speech service (for example Google in Chrome or Apple in Safari) under that vendor's terms. Cardybara never records, stores or receives audio. The transcript is ordinary chat text in the box and follows the assistant data flow above only when you press send. You can withdraw the consent in Settings.
+
 ## Reminders
 
 Bill and benefit reminders are optional and off by default. Turning them on asks Chrome for notification permission. Reminders are decided on this device. So that they can arrive with the wallet page closed while Chrome is running, the wallet page saves a short plan in the extension's local storage for its background worker: reminder ids, card and benefit names, dates and notification wording, and a bill amount only if the user asks for amounts. Reminders show a card or benefit name, and show an amount only if the user asks for that, because notifications can appear on a lock screen. The plan is replaced whenever the wallet page syncs and removed when reminders are turned off. Reminder settings and a list of reminders already shown stay in local browser storage, and uninstalling the extension removes them. Nothing is sent to a server.
