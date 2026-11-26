@@ -3842,8 +3842,8 @@
       "currencies": [],
       "rewardPrograms": [],
       "art": null,
-      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
-      "checkedAt": "2026-11-16",
+      "sourceUrl": "https://www.capitalone.com/credit-cards/quicksilverone/",
+      "checkedAt": "2026-11-25",
       "verification": "issuer-listed",
       "collection": "not-supported"
     },
@@ -3860,8 +3860,8 @@
       "currencies": [],
       "rewardPrograms": [],
       "art": null,
-      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
-      "checkedAt": "2026-11-16",
+      "sourceUrl": "https://www.capitalone.com/credit-cards/quicksilver-good-credit/",
+      "checkedAt": "2026-11-25",
       "verification": "issuer-listed",
       "collection": "not-supported"
     },
@@ -3907,10 +3907,14 @@
         "Capital One Miles"
       ],
       "art": null,
-      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
-      "checkedAt": "2026-11-16",
+      "sourceUrl": "https://www.capitalone.com/credit-cards/ventureone-good-credit/",
+      "checkedAt": "2026-11-25",
       "verification": "issuer-listed",
-      "collection": "not-supported"
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://www.capitalone.com/credit-cards/ventureone-good-credit/",
+        "checkedAt": "2026-11-25"
+      }
     },
     {
       "id": "capital-one-us-savorone-rewards-credit-card",
@@ -3945,8 +3949,8 @@
       "currencies": [],
       "rewardPrograms": [],
       "art": null,
-      "sourceUrl": "https://www.capitalone.com/credit-cards/compare/",
-      "checkedAt": "2026-11-16",
+      "sourceUrl": "https://www.capitalone.com/credit-cards/savor-good-credit/",
+      "checkedAt": "2026-11-25",
       "verification": "issuer-listed",
       "collection": "not-supported"
     },

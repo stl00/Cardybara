@@ -1601,5 +1601,33 @@
     "title": "Capital One · Spark 1% Classic Credit Card 官方产品页",
     "checkedAt": "2026-11-25",
     "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-quicksilverone-rewards-credit-card",
+    "url": "https://www.capitalone.com/credit-cards/quicksilverone/",
+    "title": "Capital One · QuicksilverOne Rewards Credit Card 官方产品页",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-quicksilver-rewards-for-good-credit",
+    "url": "https://www.capitalone.com/credit-cards/quicksilver-good-credit/",
+    "title": "Capital One · Quicksilver Rewards for Good Credit 官方产品页",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-ventureone-rewards-for-good-credit",
+    "url": "https://www.capitalone.com/credit-cards/ventureone-good-credit/",
+    "title": "Capital One · VentureOne Rewards for Good Credit 官方产品页",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-savor-rewards-for-good-credit",
+    "url": "https://www.capitalone.com/credit-cards/savor-good-credit/",
+    "title": "Capital One · Savor Rewards for Good Credit 官方产品页",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
   }
 ]
