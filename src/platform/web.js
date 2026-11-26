@@ -3,10 +3,13 @@
 // `notifications.push` (src/webPush.js) is made on first use, so nothing touches the browser at import time.
 import {createWebPush} from '../webPush.js';
 import {mirrorArea} from '../pushMirror.js';
+import {speechCapability} from './speech.js';
 import {GATEWAY_ORIGIN,gatewayConfigured} from '../../extension-next/model-client.js';
 let push=null;
 export const web={
  kind:'web',
+ // The browser's speech recognition (#655); undefined where the browser has none.
+ get speech(){return speechCapability();},
  notifications:{
   worker:false,
   get push(){return push??=Object.assign(createWebPush({gateway:gatewayConfigured?GATEWAY_ORIGIN:null}),{area:()=>mirrorArea()});}

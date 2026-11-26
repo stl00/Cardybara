@@ -2,6 +2,7 @@
 //   notifications  reminder permission and test notification; `worker` says whether a background worker fires them
 //   collection     read bank pages (extension and dev only); absent on the web
 //   assistant      the extension's assistant and parser transport; absent on the web
+//   speech         voice input through the browser's recognizer; absent where the browser has none
 //   plaid          open the gateway's Plaid Link page: a tab in the extension, this same window on the web (PWA)
 import {runtimeKind} from '../runtime.js';
 import extension from './extension.js';

@@ -1,9 +1,12 @@
 // The Chrome extension's side of the platform: the only file in src/ that calls the browser extension API.
 // Shared code imports `platform` from './platform' and never reaches for it directly.
 import {signInUrl,sessionFromRedirect} from '../extensionSignIn.js';
+import {speechCapability} from './speech.js';
 const NOTIFICATIONS={permissions:['notifications']};
 export const extension={
  kind:'extension',
+ // The browser's speech recognition (#655); undefined where the browser has none.
+ get speech(){return speechCapability();},
  // The reminder worker keeps its schedule here, so it can fire when the wallet page is closed.
  notifications:{
   worker:true,

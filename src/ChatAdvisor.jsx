@@ -5,7 +5,8 @@ import {Alert,Button,Tooltip,Typography,App} from 'antd';
 import Bubble from '@ant-design/x/es/bubble';
 import Sender from '@ant-design/x/es/sender';
 import Welcome from '@ant-design/x/es/welcome';
-import {ArrowUpOutlined,ArrowDownOutlined,PlusOutlined,StopOutlined,CopyOutlined,CheckOutlined,InfoCircleOutlined,ShopOutlined,CrownOutlined,GiftOutlined} from '@ant-design/icons';
+import {ArrowUpOutlined,ArrowDownOutlined,PlusOutlined,StopOutlined,CopyOutlined,CheckOutlined,InfoCircleOutlined,ShopOutlined,CrownOutlined,GiftOutlined,AudioOutlined,AudioFilled,LoadingOutlined} from '@ant-design/icons';
+import {useDictation} from './useDictation.js';
 import {useI18n,t} from './i18n';
 import {runAgentTurn} from './agentSession';
 import {loadPointValues} from './PointValueSettings.jsx';
@@ -37,8 +38,12 @@ export default function ChatAdvisor({cards,events,day}){
  const toLatest=()=>{follow.current=true;setAway(false);thread.current?.scrollTo({top:thread.current.scrollHeight,behavior:'smooth'})};
  useEffect(()=>{if(follow.current)thread.current?.scrollTo({top:thread.current.scrollHeight,behavior:'smooth'})},[turns,busy,progress,draft]);
  const copy=async(text,index)=>{try{await navigator.clipboard.writeText(text);setCopied(index);setTimeout(()=>{if(mounted.current)setCopied(-1)},1800)}catch{message.warning(ui.copyFailed)}};
+ const voice=useDictation({language,value:question,setValue:setQuestion,focus:()=>sender.current?.focus({cursor:'end'})});
+ const voiceLabel=voice.state==='recording'?t('停止录音'):voice.state==='downloading'?t('正在下载语音模型，点击取消'):t('语音输入');
+ const mic=voice.supported&&<Tooltip title={voiceLabel}><Button className="chat-mic" shape="circle" type={voice.state==='recording'?'primary':'text'} danger={voice.state==='recording'} aria-label={voiceLabel} aria-pressed={voice.state==='recording'} icon={voice.state==='recording'?<AudioFilled/>:voice.state==='downloading'?<LoadingOutlined/>:<AudioOutlined/>} disabled={busy||aiReady!==true} onClick={voice.toggle}/></Tooltip>;
  const ask=async(value=question)=>{
   if(busy||!value.trim()||aiReady!==true)return;
+  voice.cancel();
   const q=value.trim();follow.current=true;setAway(false);setBusy(true);setQuestion('');setError('');setFailed('');setDraft('');setProgress(s.connecting);controller.current=new AbortController();
   setTurns([...session.turns,{role:'user',content:q}]);
   // Earlier answers may name a card the user has hidden or unhidden since (#198): the model then starts from this question.
@@ -53,7 +58,7 @@ export default function ChatAdvisor({cards,events,day}){
  const empty=!turns.length&&!busy;
  const promptIcons=[<ShopOutlined/>,<CrownOutlined/>,<GiftOutlined/>];
  return <section className={'wallet-chat chat-x'+(empty?' is-empty':'')}>
- <header className="chat-header"><div className="chat-heading"><Text strong>{s.title}</Text><Tooltip title={hosted?t('由 Cardybara 服务回答：服务收到你的问题、持有的卡种和助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单，钱包只保存在本机。对话仅保留在本次页面会话。'):s.notice}><Button type="text" size="small" className="chat-model" aria-label={ui.details}>DeepSeek <InfoCircleOutlined/></Button></Tooltip></div><Tooltip title={s.new}><Button type="text" icon={<PlusOutlined/>} disabled={busy} onClick={()=>{session={history:[],turns:[]};setTurns([]);setError('');setQuestion('');setFailed('');follow.current=true;setAway(false);sender.current?.focus()}}>{s.new}</Button></Tooltip></header>
+ <header className="chat-header"><div className="chat-heading"><Text strong>{s.title}</Text><Tooltip title={hosted?t('由 Cardybara 服务回答：服务收到你的问题、持有的卡种和助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单，钱包只保存在本机。对话仅保留在本次页面会话。'):s.notice}><Button type="text" size="small" className="chat-model" aria-label={ui.details}>DeepSeek <InfoCircleOutlined/></Button></Tooltip></div><Tooltip title={s.new}><Button type="text" icon={<PlusOutlined/>} disabled={busy} onClick={()=>{session={history:[],turns:[]};voice.cancel();setTurns([]);setError('');setQuestion('');setFailed('');follow.current=true;setAway(false);sender.current?.focus()}}>{s.new}</Button></Tooltip></header>
  <div className="chat-body">{aiReady===false&&<Alert style={{margin:16}} type="info" showIcon title={t('聊天助手已在设置里关闭，钱包其他功能不受影响。')} action={<Button onClick={()=>location.hash='settings'}>{t('打开设置')}</Button>}/>}
  <div className="chat-thread" ref={thread} onScroll={()=>{const el=thread.current;const far=el.scrollHeight-el.scrollTop-el.clientHeight>100;follow.current=!far;setAway(far)}}>
  <div className="chat-flow" aria-live="polite">
@@ -66,7 +71,7 @@ export default function ChatAdvisor({cards,events,day}){
  <div className="chat-composer-area">{away&&<Tooltip title={ui.down}><Button className="chat-jump" shape="circle" aria-label={ui.down} icon={<ArrowDownOutlined/>} onClick={toLatest}/></Tooltip>}
  <div className="chat-compose">
  {error&&<Alert type="warning" showIcon title={error} action={failed&&<Button size="small" disabled={busy} onClick={()=>ask(failed)}>{s.retry}</Button>} style={{marginBottom:12}}/>}
- <Sender disabled={aiReady!==true} ref={sender} value={question} placeholder={ui.placeholder} loading={busy} onChange={value=>setQuestion(value.slice(0,4000))} onSubmit={value=>ask(value)} onCancel={()=>controller.current?.abort()} submitType="enter" autoSize={{minRows:2,maxRows:7}} suffix={false} footer={(_, {components:{SendButton,LoadingButton}})=><div className="chat-sender-footer"><Text type="secondary">{ui.hint}</Text>{busy?<LoadingButton aria-label={s.stop} title={s.stop} shape="circle" icon={<StopOutlined/>}/>:<SendButton aria-label={s.send} title={s.send} shape="circle" icon={<ArrowUpOutlined/>} disabled={aiReady!==true||!question.trim()}/>}</div>}/>
+ <Sender disabled={aiReady!==true} ref={sender} value={question} placeholder={ui.placeholder} loading={busy} onChange={value=>{voice.typed();setQuestion(value.slice(0,4000))}} onSubmit={value=>ask(value)} onCancel={()=>controller.current?.abort()} submitType="enter" autoSize={{minRows:2,maxRows:7}} suffix={false} footer={(_, {components:{SendButton,LoadingButton}})=><div className="chat-sender-footer"><Text type="secondary">{ui.hint}</Text><div className="chat-sender-actions">{mic}{busy?<LoadingButton aria-label={s.stop} title={s.stop} shape="circle" icon={<StopOutlined/>}/>:<SendButton aria-label={s.send} title={s.send} shape="circle" icon={<ArrowUpOutlined/>} disabled={aiReady!==true||!question.trim()}/>}</div></div>}/>
  <div className="chat-under-composer">{empty?<div className="chat-prompts">{s.examples.map((q,i)=><Button key={q} disabled={aiReady!==true} icon={promptIcons[i]} onClick={()=>ask(q)}>{ui.chips[i]}</Button>)}</div>:<Text type="secondary">{ui.check}</Text>}</div>
  </div></div>
  </div></section>;

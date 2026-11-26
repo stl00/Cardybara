@@ -119,3 +119,97 @@ test('negative control: a gateway over its daily cap makes the check fail and th
   // The positive check's assertion on the answer would fail on this page: that is what makes it a control.
   assert.throws(() => assert.ok(r.text.includes(ANSWER_MARK), 'the streamed answer shows'));
 });
+
+// #655: the mic button, at phone and desktop width, with a mocked recognizer (no microphone). VOICE_SHOTS=<dir> keeps
+// screenshots of the composer on the empty synthetic wallet.
+const DESKTOP = {width: 1280, height: 800};
+const MIC = '.chat-compose .chat-mic';
+const BOX = '.chat-compose textarea';
+const HEARD = 'which card for dinner?';
+const fakeRecognizer = mode => mode === 'none'
+  ? `Object.defineProperty(window,'SpeechRecognition',{value:undefined});Object.defineProperty(window,'webkitSpeechRecognition',{value:undefined});`
+  : `window.__recs=[];window.SpeechRecognition=class{
+      static available(){return Promise.resolve(${JSON.stringify(mode === 'local' ? 'available' : 'unavailable')})}
+      constructor(){window.__recs.push(this)}
+      start(){}
+      stop(){this.onend&&this.onend()}
+      abort(){}
+      say(t){this.onresult({results:[[{transcript:t}]]})}
+    };`;
+
+async function voice(mode, desktop) {
+  const gatewayUrl = await shippedGateway();
+  const gateway = await startScriptedGateway({host: gatewayUrl.hostname, dir: WEB_DIR});
+  try {
+    return await withPhone(async c => {
+      gateway.allow(gateway.pageOrigin);
+      if (desktop) await c.page('Emulation.setDeviceMetricsOverride', {...DESKTOP, deviceScaleFactor: 1, mobile: false});
+      await c.goto('/#advisor');
+      await c.until(`document.querySelector('${BOX}') && !document.querySelector('${BOX}').disabled`, 'the chat composer');
+      if (mode === 'none') {
+        await c.pause(300);
+        assert.equal(await c.evaluate(`!!document.querySelector('${MIC}')`), false, 'no mic button without the API');
+        return;
+      }
+      const value = () => c.evaluate(`document.querySelector('${BOX}').value`);
+      const pressed = () => c.evaluate(`document.querySelector('${MIC}').getAttribute('aria-pressed')`);
+      const shoot = async name => {
+        if (!process.env.VOICE_SHOTS) return;
+        for (const scheme of ['light', 'dark']) {
+          await c.page('Emulation.setEmulatedMedia', {features: [{name: 'prefers-color-scheme', value: scheme}]});
+          await c.pause(500);
+          await c.shot(join(process.env.VOICE_SHOTS, `${name}-${scheme}.png`));
+        }
+        await c.page('Emulation.setEmulatedMedia', {features: [{name: 'prefers-color-scheme', value: 'light'}]});
+      };
+      await shoot(`composer-${desktop ? 'desktop' : 'phone'}-${mode}`);
+      await c.type(BOX, 'Tonight:');
+      await c.tap(MIC);
+      if (mode === 'cloud') {
+        await c.until(`document.querySelector('.ant-modal-confirm')`, 'the cloud notice');
+        await shoot(`notice-${desktop ? 'desktop' : 'phone'}`);
+        assert.equal(await c.evaluate(`window.__recs.length`), 0, 'no recognizer before consent');
+        await c.tap('.ant-modal-confirm .ant-btn-default');
+        await c.until(`!document.querySelector('.ant-modal-confirm')`, 'the notice to close');
+        assert.equal(await c.evaluate(`window.__recs.length`), 0, 'declining makes none');
+        await c.tap(MIC);
+        await c.until(`document.querySelector('.ant-modal-confirm')`, 'the notice again');
+        await c.tap('.ant-modal-confirm .ant-btn-primary');
+      }
+      await c.until(`window.__recs.length===1 && document.querySelector('${MIC}[aria-pressed="true"]')`, 'the recording state');
+      assert.equal(await c.evaluate(`window.__recs[0].lang`), 'en-US');
+      assert.equal(await c.evaluate(`window.__recs[0].processLocally===true`), mode === 'local');
+      await c.evaluate(`window.__recs[0].say(${JSON.stringify(HEARD)})`);
+      await c.pause(100);
+      assert.equal(await value(), `Tonight: ${HEARD}`);
+      await shoot(`recording-${desktop ? 'desktop' : 'phone'}-${mode}`);
+      await c.tap(MIC);
+      await c.pause(200);
+      assert.equal(await pressed(), 'false');
+      assert.equal(await value(), `Tonight: ${HEARD}`);
+      assert.equal(await c.evaluate(`document.activeElement===document.querySelector('${BOX}')`), true, 'focus returns to the box');
+      assert.equal(await c.evaluate(`document.querySelectorAll('.chat-bubble').length`), 0, 'nothing was sent');
+      assert.ok(!gateway.requests.some(q => q.path === '/v1/chat' && q.method === 'POST'), 'the gateway got no question');
+      const a = await c.audit();
+      assert.ok(a.scrollWidth <= a.vw, `no horizontal scroll (${a.scrollWidth}px)`);
+      // Checked before Settings, whose account card asks the scripted gateway for routes it does not have.
+      assert.deepEqual(c.errors, []);
+      if (mode === 'cloud') {
+        // The consent is remembered, and Settings takes it back.
+        await c.evaluate(`location.hash='settings'`);
+        await c.until(`document.querySelector('.voice-settings .ant-switch-checked')`, 'the voice setting, on');
+        await c.tap('.voice-settings .ant-switch');
+        await c.until(`!document.querySelector('.voice-settings .ant-switch-checked')`, 'the voice setting, off');
+        assert.equal(await c.evaluate(`localStorage.getItem('cardybara-voice-cloud-v1')`), null);
+      }
+    }, {
+      origin: gateway.pageOrigin,
+      args: gateway.chromeArgs(),
+      init: `localStorage.setItem('cardybara-language','en-US');localStorage.setItem(${JSON.stringify(GUIDE_KEY)},'1');` + fakeRecognizer(mode),
+    });
+  } finally { await gateway.close(); }
+}
+
+for (const desktop of [false, true]) for (const mode of ['none', 'local', 'cloud']) {
+  test(`voice input, ${desktop ? 'desktop' : 'phone'}, ${mode === 'none' ? 'no speech API: no button' : mode + ' recognizer: the words reach the box and nothing is sent'}`, {timeout: 90000, skip}, () => voice(mode, desktop));
+}
