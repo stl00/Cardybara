@@ -217,3 +217,14 @@ test('batch 21 records what the QuicksilverOne and for Good Credit pages state, 
  for(const key of ['credit-line-review','creditwise','fraud-liability'])assert.ok(find(one,key),key);
  for(const id of [quick,venture,savor])for(const key of ['hertz','cafe','concierge','travel-accident','extended-warranty'])assert.equal(find(id,key),undefined,`${id} ${key}`);
 });
+test('#652 skips the Discover for Good Credit cards, which have no discover.com page of their own, and names each with the reason',()=>{
+ const coverage=readFileSync(new URL('../docs/knowledge/US_CARD_COVERAGE.md',import.meta.url),'utf8').split('\n');
+ for(const [id,name] of [['discover-us-discover-it-cash-back-for-good-credit','Discover it Cash Back for Good Credit'],['discover-us-discover-it-miles-for-good-credit','Discover it Miles for Good Credit'],['discover-us-discover-it-chrome-for-good-credit','Discover it Chrome for Good Credit']]){
+  // No fact may come from the shared listing page or the regular Discover it cards.
+  assert.equal(queryKnowledge({productId:id,asOf:'2026-11-26'}).rules.length,0,id);
+  assert.equal(cards.some(c=>c.id===id),false,`${id} is in no batch`);
+  const row=selection.cards.find(c=>c.id===id);
+  assert.ok(row?.skip?.includes('#652')&&row.skip.includes('https://www.discover.com/credit-cards/'),`${name} has a skip reason`);
+  assert.ok(coverage.some(line=>line.startsWith(`| — | ${name} |`)&&line.includes(row.skip)),`${name} is named as skipped`);
+ }
+});
