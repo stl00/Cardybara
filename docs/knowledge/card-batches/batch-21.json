@@ -1,0 +1,435 @@
+{
+ "batch": 21,
+ "checkedAt": "2026-11-25",
+ "reviewAfter": "2027-02-23",
+ "cards": [
+  {
+   "id": "capital-one-us-quicksilverone-rewards-credit-card",
+   "page": "capital-one-us-quicksilverone-rewards-credit-card",
+   "issuer": "Capital One",
+   "collection": "not-supported",
+   "url": "https://www.capitalone.com/credit-cards/quicksilverone/",
+   "fee": {
+    "amount": 39,
+    "currency": "USD",
+    "quote": "Annual Fee $39"
+   },
+   "earning": [
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 1.5,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn unlimited 1.5% cash back on every purchase, every day"
+    }
+   ],
+   "credits": [
+    {
+     "key": "cash-redemption",
+     "zh": "返现兑换方式",
+     "en": "Cash back redemption",
+     "noteZh": "返现任意金额可兑换：支票、账单抵扣、直接抵扣近期消费或礼品卡；账单抵扣不能抵最低还款。",
+     "noteEn": "Redeem any amount as a check, statement credit, cover for a recent purchase or gift cards; statement credits do not count toward the minimum payment.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "We'll send you a check or you can apply rewards as a statement credit",
+     "original": {
+      "title": "Cash back redemption",
+      "summary": "Redeem any amount as a check, statement credit, cover for a recent purchase or gift cards; statement credits do not count toward the minimum payment.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Redeem your cash back for any amount.",
+       "Apply your cash back to directly cover a recent purchase.",
+       "Spend your rewards on gift cards.",
+       "Statement credits lower your account balance but cannot be used to meet any minimum payment obligations."
+      ]
+     }
+    },
+    {
+     "key": "rewards-no-expiry",
+     "zh": "奖励在账户存续期间不过期",
+     "en": "Rewards do not expire",
+     "noteZh": "页面写明账户存续期间奖励不过期。",
+     "noteEn": "The page states rewards do not expire for the life of the account.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Rewards don't expire for the life of the account.",
+     "original": {
+      "title": "Rewards do not expire",
+      "summary": "The page states rewards do not expire for the life of the account.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "credit-line-review",
+     "zh": "自动考虑提额",
+     "en": "Automatic credit line reviews",
+     "noteZh": "最快6个月后自动考虑提高额度；不保证提额。",
+     "noteEn": "Automatic consideration for a higher credit line in as little as 6 months; an increase is not guaranteed.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Be automatically considered for a higher credit line in as little as 6 months.",
+     "original": {
+      "title": "Automatic credit line reviews",
+      "summary": "Automatic consideration for a higher credit line in as little as 6 months; an increase is not guaranteed.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "creditwise",
+     "zh": "CreditWise 信用监测",
+     "en": "CreditWise credit monitoring",
+     "noteZh": "通过 CreditWise 免费查看信用评分和监测工具。",
+     "noteEn": "Free access to your credit score and monitoring tools with CreditWise.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Enjoy unlimited access to your credit score and tools to help you monitor your credit profile",
+     "original": {
+      "title": "CreditWise credit monitoring",
+      "summary": "Free access to your credit score and monitoring tools with CreditWise.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "fraud-liability",
+     "zh": "盗刷零责任",
+     "en": "No liability for unauthorized purchases",
+     "noteZh": "卡片遗失或被盗时，欺诈消费责任为 $0。",
+     "noteEn": "$0 fraud liability if the card is lost or stolen.",
+     "scenario": "card-ownership",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "You're covered by $0 Fraud Liability if your card is ever lost or stolen.",
+     "original": {
+      "title": "No liability for unauthorized purchases",
+      "summary": "$0 fraud liability if the card is lost or stolen.",
+      "howToUse": [
+       "Report a lost or stolen card to the issuer."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "产品页未提及外币交易费，也未列出 Capital One Travel 或 Entertainment 返现比例。",
+     "en": "The product page does not mention a foreign transaction fee or any Capital One Travel or Entertainment rate."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "capital-one-us-quicksilver-rewards-for-good-credit",
+   "page": "capital-one-us-quicksilver-rewards-for-good-credit",
+   "issuer": "Capital One",
+   "collection": "not-supported",
+   "url": "https://www.capitalone.com/credit-cards/quicksilver-good-credit/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "$0 annual fee"
+   },
+   "earning": [
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 1.5,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn unlimited 1.5% cash back on every purchase, every day."
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "You won't pay a transaction fee when making purchases outside of the United States.",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Use the card abroad without this fee."
+      ]
+     }
+    },
+    {
+     "key": "cash-redemption",
+     "zh": "返现兑换方式",
+     "en": "Cash back redemption",
+     "noteZh": "返现任意金额可兑换：支票、账单抵扣、直接抵扣近期消费或礼品卡；账单抵扣不能抵最低还款。",
+     "noteEn": "Redeem any amount as a check, statement credit, cover for a recent purchase or gift cards; statement credits do not count toward the minimum payment.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "We'll send you a check or you can apply rewards as a statement credit",
+     "original": {
+      "title": "Cash back redemption",
+      "summary": "Redeem any amount as a check, statement credit, cover for a recent purchase or gift cards; statement credits do not count toward the minimum payment.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Redeem your cash back for any amount.",
+       "Apply your cash back to directly cover a recent purchase.",
+       "Spend your rewards on gift cards.",
+       "Statement credits lower your account balance but cannot be used to meet any minimum payment obligations."
+      ]
+     }
+    },
+    {
+     "key": "rewards-no-expiry",
+     "zh": "奖励在账户存续期间不过期",
+     "en": "Rewards do not expire",
+     "noteZh": "页面写明账户存续期间奖励不过期。",
+     "noteEn": "The page states rewards do not expire for the life of the account.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Rewards don't expire for the life of the account.",
+     "original": {
+      "title": "Rewards do not expire",
+      "summary": "The page states rewards do not expire for the life of the account.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "产品页未列出 Capital One Travel 或 Entertainment 返现比例。",
+     "en": "The product page states no Capital One Travel or Entertainment rate."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "capital-one-us-ventureone-rewards-for-good-credit",
+   "page": "capital-one-us-ventureone-rewards-for-good-credit",
+   "issuer": "Capital One",
+   "collection": "not-supported",
+   "url": "https://www.capitalone.com/credit-cards/ventureone-good-credit/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "$0 Annual Fee"
+   },
+   "transfer": {
+    "name": "Capital One Miles",
+    "programmeId": "programme.capital-one-miles",
+    "linkOnly": true,
+    "quote": "Earn unlimited 1.25 miles per dollar on every purchase"
+   },
+   "earning": [
+    {
+     "zh": "Capital One Travel 酒店、度假屋和租车",
+     "en": "Hotels, vacation rentals and rental cars through Capital One Travel",
+     "multiplier": 5,
+     "unit": "miles-per-USD",
+     "category": "travel",
+     "quote": "Earn unlimited 5 miles per dollar on hotels, vacation rentals and rental cars booked through Capital One Travel"
+    },
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 1.25,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "Earn unlimited 1.25 miles per dollar on every purchase"
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "You won't pay a transaction fee when making purchases outside of the United States.",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Use the card abroad without this fee."
+      ]
+     }
+    },
+    {
+     "key": "travel-redemption",
+     "zh": "里程兑换旅行",
+     "en": "Flexible miles redemption",
+     "noteZh": "可经 Capital One Travel 用里程订行程，或把旅行消费用里程换账单抵扣（须在消费入账后90天内）。",
+     "noteEn": "Book trips with miles through Capital One Travel, or redeem miles as a statement credit for a travel purchase within 90 days of posting.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "use miles to get reimbursed for past travel purchases made elsewhere.",
+     "original": {
+      "title": "Flexible miles redemption",
+      "summary": "Book trips with miles through Capital One Travel, or redeem miles as a statement credit for a travel purchase within 90 days of posting.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "redemptions must be made within 90 days",
+       "from the date your travel purchase posts to your account."
+      ]
+     }
+    },
+    {
+     "key": "rewards-no-expiry",
+     "zh": "奖励在账户存续期间不过期",
+     "en": "Rewards do not expire",
+     "noteZh": "页面写明账户存续期间奖励不过期。",
+     "noteEn": "The page states rewards do not expire for the life of the account.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Rewards don't expire for the life of the account.",
+     "original": {
+      "title": "Rewards do not expire",
+      "summary": "The page states rewards do not expire for the life of the account.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "产品页未提及转点伙伴；本卡的转点资格未核实。",
+     "en": "The product page does not mention transfer partners; transfer eligibility for this card is unverified."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "capital-one-us-savor-rewards-for-good-credit",
+   "page": "capital-one-us-savor-rewards-for-good-credit",
+   "issuer": "Capital One",
+   "collection": "not-supported",
+   "url": "https://www.capitalone.com/credit-cards/savor-good-credit/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Annual Fee $0"
+   },
+   "earning": [
+    {
+     "zh": "超市、餐饮、娱乐和流媒体",
+     "en": "Grocery stores, dining, entertainment and popular streaming",
+     "multiplier": 3,
+     "unit": "cashback-percent",
+     "category": "dining",
+     "quote": "Earn unlimited 3% cash back at grocery stores, on dining, entertainment and popular streaming services",
+     "noteZh": "超市不含 Walmart、Target 等大型超级商店；类别按条款认定。",
+     "noteEn": "Superstores such as Walmart and Target are excluded from grocery stores; categories follow the terms."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "plus 1% cash back on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "You won’t pay a transaction fee when making purchases outside of the United States.",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Use the card abroad without this fee."
+      ]
+     }
+    },
+    {
+     "key": "cash-redemption",
+     "zh": "返现兑换方式",
+     "en": "Cash back redemption",
+     "noteZh": "页面写明返现任意金额均可兑换；兑换渠道未列。",
+     "noteEn": "The page says cash back can be redeemed for any amount; redemption methods are not listed.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "you can redeem cash back for any amount.",
+     "original": {
+      "title": "Cash back redemption",
+      "summary": "The page says cash back can be redeemed for any amount; redemption methods are not listed.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "rewards-no-expiry",
+     "zh": "奖励在账户存续期间不过期",
+     "en": "Rewards do not expire",
+     "noteZh": "页面写明账户存续期间奖励不过期。",
+     "noteEn": "The page states rewards do not expire for the life of the account.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Rewards don’t expire for the life of the account",
+     "original": {
+      "title": "Rewards do not expire",
+      "summary": "The page states rewards do not expire for the life of the account.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "产品页未列出 Capital One Travel 或 Entertainment 返现比例。",
+     "en": "The product page states no Capital One Travel or Entertainment rate."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  }
+ ]
+}

@@ -204,3 +204,16 @@ test('batch 20 records what the three Capital One Spark pages state and leaves t
  for(const id of [select,classic]){assert.ok(find(id,'no-foreign-fee'),id);assert.equal(find(id,'roadside').terms.coverage.type,'roadside',id);}
  for(const id of [cash,select,classic])assert.equal(find(id,'extended-warranty').terms.coverage.basis,null,id);
 });
+test('batch 21 records what the QuicksilverOne and for Good Credit pages state, without copying the non-variant cards',()=>{
+ const rules=productId=>queryKnowledge({productId,asOf:'2026-11-25'}).rules,find=(productId,key)=>rules(productId).find(r=>r.id===`rule.${productId}.${key}`);
+ const one='capital-one-us-quicksilverone-rewards-credit-card',quick='capital-one-us-quicksilver-rewards-for-good-credit',venture='capital-one-us-ventureone-rewards-for-good-credit',savor='capital-one-us-savor-rewards-for-good-credit';
+ const pages={[one]:'quicksilverone',[quick]:'quicksilver-good-credit',[venture]:'ventureone-good-credit',[savor]:'savor-good-credit'};
+ for(const [id,page] of Object.entries(pages)){assert.equal(product(id).sourceUrl,`https://www.capitalone.com/credit-cards/${page}/`);assert.equal(find(id,'fee-primary').terms.amount,id===one?39:0,id);assert.equal(find(id,'fee-additional'),undefined,id);assert.equal(product(id).transferProgrammeId,undefined,id);assert.ok(find(id,'rewards-no-expiry'),id);}
+ const earning=id=>rules(id).filter(r=>r.kind==='earning-rate').sort((a,b)=>a.id.localeCompare(b.id)).map(r=>r.terms.multiplier);
+ assert.deepEqual(earning(one),[1.5],'no travel rate on this page');assert.deepEqual(earning(quick),[1.5],'no travel rate on this page');
+ assert.deepEqual(earning(venture),[5,1.25]);assert.deepEqual(earning(savor),[3,1],'the 8% and travel rates of other Savor pages are not copied');
+ assert.equal(find(one,'no-foreign-fee'),undefined,'the QuicksilverOne page does not mention a foreign transaction fee');
+ for(const id of [quick,venture,savor])assert.ok(find(id,'no-foreign-fee'),id);
+ for(const key of ['credit-line-review','creditwise','fraud-liability'])assert.ok(find(one,key),key);
+ for(const id of [quick,venture,savor])for(const key of ['hertz','cafe','concierge','travel-accident','extended-warranty'])assert.equal(find(id,key),undefined,`${id} ${key}`);
+});
