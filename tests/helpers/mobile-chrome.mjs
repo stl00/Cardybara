@@ -177,3 +177,14 @@ export async function withPhone(fn, {dir = WEB_DIR, init = '', origin: external 
     await rm(work, {recursive: true, force: true, maxRetries: 5, retryDelay: 200});
   }
 }
+
+// The wallet's "Add card" button: with Plaid on the gateway it starts Plaid Link, and typing a card in (the catalogue) is the
+// menu beside it; otherwise the button opens the catalogue itself. `scope` is the container holding the button.
+export async function openManualAdd(c, scope) {
+  if (await c.evaluate(`!!document.querySelector(${JSON.stringify(scope + ' .add-card-more')})`)) {
+    await c.tap(`${scope} .add-card-more`);
+    const item = '.ant-dropdown:not(.ant-dropdown-hidden) .ant-dropdown-menu-item[data-menu-id$="-manual"]';
+    await c.until(`document.querySelector(${JSON.stringify(item)})`, 'the add-card menu');
+    await c.tap(item);
+  } else await c.tap(`${scope} button`);
+}

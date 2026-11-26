@@ -43,7 +43,11 @@
     "登录并连接": "Sign in and connect",
     "美国信用卡自动导入": "Import US credit cards automatically",
     "如果你有美国信用卡，可以登录后通过 Plaid 连接，自动读取余额、账单金额、最低还款和还款日。": "If you have US credit cards, sign in and connect them through Plaid to read balances, statement amounts, minimum payments and due dates automatically.",
-    "只读，银行密码只交给银行和 Plaid。在“总览”或“设置”里随时可以连接，也可以不连。": "Read-only; your bank password goes only to the bank and Plaid. You can connect any time from Overview or Settings, or skip it."
+    "只读，银行密码只交给银行和 Plaid。在“总览”或“设置”里随时可以连接，也可以不连。": "Read-only; your bank password goes only to the bank and Plaid. You can connect any time from Overview or Settings, or skip it.",
+    "登录并添加卡片": "Sign in and add card",
+    "通过 Plaid 连接美国信用卡（自动读取余额和还款日）": "Connect US credit cards through Plaid (reads balances and due dates)",
+    "手动添加（选卡种、填尾号）": "Add manually (pick the card, enter the last digits)",
+    "更多添加方式": "More ways to add"
   },
   "zh-TW": {
     "Plaid 连接服务还没开通，钱包照常使用。": "Plaid 連線服務尚未開通，錢包照常使用。",
@@ -89,6 +93,10 @@
     "登录并连接": "登入並連接",
     "美国信用卡自动导入": "美國信用卡自動匯入",
     "如果你有美国信用卡，可以登录后通过 Plaid 连接，自动读取余额、账单金额、最低还款和还款日。": "如果你有美國信用卡，可以登入後透過 Plaid 連接，自動讀取餘額、帳單金額、最低還款和還款日。",
-    "只读，银行密码只交给银行和 Plaid。在“总览”或“设置”里随时可以连接，也可以不连。": "唯讀，銀行密碼只交給銀行和 Plaid。在「總覽」或「設定」裡隨時可以連接，也可以不連。"
+    "只读，银行密码只交给银行和 Plaid。在“总览”或“设置”里随时可以连接，也可以不连。": "唯讀，銀行密碼只交給銀行和 Plaid。在「總覽」或「設定」裡隨時可以連接，也可以不連。",
+    "登录并添加卡片": "登入並新增卡片",
+    "通过 Plaid 连接美国信用卡（自动读取余额和还款日）": "透過 Plaid 連接美國信用卡（自動讀取餘額和還款日）",
+    "手动添加（选卡种、填尾号）": "手動新增（選卡種、填尾號）",
+    "更多添加方式": "更多新增方式"
   }
 }
