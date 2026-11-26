@@ -8,7 +8,7 @@ import assert from 'node:assert/strict';
 import {existsSync} from 'node:fs';
 import {readFile} from 'node:fs/promises';
 import {join} from 'node:path';
-import {WEB_DIR, PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {WEB_DIR, PHONE, withPhone, openManualAdd} from './helpers/mobile-chrome.mjs';
 import {startScriptedGateway, ANSWER_MARK, QUESTION} from './helpers/scripted-gateway.mjs';
 import {headersFor} from '../scripts/web-chrome.mjs';
 import {findChrome} from '../scripts/dev-collector/chrome-launcher.mjs';
@@ -44,7 +44,7 @@ async function chat({dailyRequests}) {
       await c.page('Network.enable');
       await c.goto('/');
       await c.until(`document.querySelector('.empty-wallet-manual')`, 'the empty wallet');
-      await c.tap('.empty-wallet-manual button');
+      await openManualAdd(c, '.empty-wallet-manual');
       await c.until(`document.querySelector('.product-tile')`, 'the card catalogue');
       await c.tap('.product-tile');
       await c.until(`document.querySelector('.add-card-tail')`, 'the add-card form');

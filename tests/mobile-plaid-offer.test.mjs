@@ -115,3 +115,42 @@ test('signed out: the button opens sign-in first, then continues into Plaid Link
   }, opts);
   assert.equal(linkNav(opts.nav).length, 1, 'after sign-in the Link page opened');
 });
+
+// Owner 2026-11-25: the wallet's "Add card" button is the Plaid entry itself, not only the panel in Settings.
+test('the wallet "Add card" button keeps typing a card in as the menu beside it', {timeout: 90000, skip}, async () => {
+  ensureBuild();
+  const opts = {init: init('en-US'), nav: []};
+  await run(async c => {
+    await c.goto('/#wallet');
+    await c.until(`document.querySelector('.page-heading .add-card-plaid')`, 'the Plaid add-card button');
+    assert.deepEqual((await c.audit()).small, [], 'controls under 44 px');
+    await c.tap('.page-heading .add-card-more');
+    await c.until(`document.querySelector('.ant-dropdown:not(.ant-dropdown-hidden) .ant-dropdown-menu-item')`, 'the add-card menu');
+    await c.tap('.ant-dropdown:not(.ant-dropdown-hidden) .ant-dropdown-menu-item', {text: 'Add manually'});
+    await c.until(`document.querySelector('.product-tile')`, 'the card catalogue');
+  }, opts);
+  assert.equal(linkNav(opts.nav).length, 0, 'the manual choice does not open Plaid');
+});
+
+test('the wallet "Add card" button itself opens Plaid Link', {timeout: 90000, skip}, async () => {
+  ensureBuild();
+  const opts = {init: init('zh-CN'), nav: []};
+  await run(async c => {
+    await c.goto('/#wallet');
+    await c.until(`document.querySelector('.page-heading .add-card-plaid')`, 'the Plaid add-card button');
+    await c.tap('.page-heading .add-card-plaid .ant-btn', {text: '添加卡片'});
+    for (let i = 0; i < 100 && !linkNav(opts.nav).length; i++) await c.pause(50);
+  }, opts);
+  assert.equal(linkNav(opts.nav).length, 1, 'the button went to the gateway\'s Link page');
+});
+
+test('when the gateway reports plaid_unavailable, "Add card" is the manual button again', {timeout: 90000, skip}, async () => {
+  ensureBuild();
+  await run(async c => {
+    await c.goto('/#wallet');
+    await c.until(`document.querySelector('.app-header .account-avatar')`, 'the signed-in header');
+    await c.until(`!document.querySelector('.add-card-plaid')`, 'the Plaid button to be withdrawn');
+    await c.tap('.page-heading .ant-btn', {text: 'Add card'});
+    await c.until(`document.querySelector('.product-tile')`, 'the card catalogue');
+  }, {init: init('en-US', {cards: 503}), nav: []});
+});

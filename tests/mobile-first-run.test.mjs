@@ -8,7 +8,7 @@ import {spawnSync} from 'node:child_process';
 import {existsSync, mkdirSync, readdirSync, statSync} from 'node:fs';
 import {join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {WEB_DIR, PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {WEB_DIR, PHONE, withPhone, openManualAdd} from './helpers/mobile-chrome.mjs';
 import {findChrome} from '../scripts/dev-collector/chrome-launcher.mjs';
 import {GUIDE_KEY} from '../src/webFirstLaunch.js';
 
@@ -54,7 +54,7 @@ async function walk(c, lang) {
   await c.goto('/');
   await c.until(`document.querySelector('.empty-wallet-manual')`, 'the empty wallet');
   await check('empty-wallet');
-  await c.tap('.empty-wallet-manual button');
+  await openManualAdd(c, '.empty-wallet-manual');
   await c.until(`document.querySelector('.product-tile')`, 'the card catalogue');
   assert.equal((await check('catalogue')).modals.length, 1);
   await c.tap('.product-tile');
@@ -110,7 +110,7 @@ test('focus stays in the fee date when the add-card dialog finishes opening late
   await withPhone(async c => {
     await c.goto('/');
     await c.until(`document.querySelector('.empty-wallet-manual')`, 'the empty wallet');
-    await c.tap('.empty-wallet-manual button');
+    await openManualAdd(c, '.empty-wallet-manual');
     await c.until(`document.querySelector('.product-tile')`, 'the card catalogue');
     await c.tap('.product-tile');
     // As soon as the form exists, while the animations are still running, move into the month field and type.

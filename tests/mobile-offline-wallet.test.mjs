@@ -9,7 +9,7 @@ import {spawnSync} from 'node:child_process';
 import {existsSync, mkdirSync, readdirSync, statSync} from 'node:fs';
 import {join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {WEB_DIR, PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {WEB_DIR, PHONE, withPhone, openManualAdd} from './helpers/mobile-chrome.mjs';
 import {findChrome} from '../scripts/dev-collector/chrome-launcher.mjs';
 import {GUIDE_KEY} from '../src/webFirstLaunch.js';
 
@@ -51,7 +51,8 @@ async function walk(c, lang) {
   };
   const addCard = async (card, first) => {
     // The empty wallet leads with its own button; once a card exists the page header carries the same "add card" button.
-    if (first) await c.tap('.empty-wallet-manual button');
+    // With Plaid on the gateway the button starts Plaid Link, so typing a card in is the menu beside it (openManualAdd).
+    if (first || await c.evaluate(`!!document.querySelector('.page-heading .add-card-more')`)) await openManualAdd(c, first ? '.empty-wallet-manual' : '.page-heading');
     else await c.tap('.app-layout .ant-btn:not(.ant-btn-primary)', {text: lang === 'en-US' ? 'Add card' : '添加卡片'});
     await c.until(`document.querySelector('.product-tile')`, 'the card catalogue');
     const id = await c.evaluate(`document.querySelectorAll('.product-tile')[${card.tile - 1}].dataset.productId`);
