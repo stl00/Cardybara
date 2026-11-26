@@ -30,6 +30,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build:web
+        env:
+          # The About view shows this commit. On a pull request GITHUB_SHA is a temporary merge commit, so name the head.
+          CARDYBARA_COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       - run: npm run check:web
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:

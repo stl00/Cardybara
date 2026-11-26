@@ -2,6 +2,7 @@ import React from 'react';
 import {Button,Flex,Typography} from 'antd';
 import release from '../release.json' with {type:'json'};
 import {t,useI18n} from './i18n';
+import platform from './platform';
 const {Paragraph,Text,Title,Link}=Typography;
 const REPO='https://github.com/stl00/Cardybara/blob/main/';
 export const AUTHOR='Ollie Sun';
@@ -12,7 +13,7 @@ export default function About({collects,cardCount,onRelease}){
  return <div className="about-view">
   <Title level={5} style={{marginTop:0}}>{t('Cardybara · 卡疲扒拉')}</Title>
   <Paragraph>{t('一个钱包看清信用卡账单、还款日、积分和福利。')}</Paragraph>
-  <Paragraph><Text type="secondary">{t('版本 {0}',[release.label])}</Text><br/><Text type="secondary">{t('作者：{0}',[AUTHOR])}</Text></Paragraph>
+  <Paragraph><Text type="secondary">{t('版本 {0}',[platform.commit??release.label])}</Text><br/><Text type="secondary">{t('作者：{0}',[AUTHOR])}</Text></Paragraph>
   <Flex wrap gap="0 16px" align="center" className="about-links">
    <Link href={REPO+'PRIVACY.md'} target="_blank" rel="noopener noreferrer">{t('隐私说明')}</Link>
    <Link href={REPO+'SECURITY.md'} target="_blank" rel="noopener noreferrer">{t('安全问题反馈')}</Link>
