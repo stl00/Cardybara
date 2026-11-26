@@ -37,7 +37,7 @@ export default function ModelKeySettings(){
  return <Card title={t('AI 服务')} extra={<Tag color={status?.ready?'success':'default'}>{status?.ready?t('已就绪'):status?.provider?t('已关闭'):t('未添加')}</Tag>}>
   {hosted&&<Flex vertical gap={12}>
    <Paragraph style={{margin:0}}>{t('聊天助手和 AI 识别卡种通过 Cardybara 托管服务运行，不需要邀请码，打开就能用。不想用 AI 可以在这里关闭，钱包其他功能不受影响。')}</Paragraph>
-   <Paragraph type="secondary" style={{margin:0}}>{t('聊天助手在 Cardybara 服务上运行：服务收到你的问题、持有的卡种和助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单，钱包只保存在本机。服务不保存这些内容，只记录时间、用量和状态。为了限制每个网络每天的用量，服务只保留网络地址加盐后的哈希值，保留一天。卡片识别也经过 Cardybara 服务。')}</Paragraph>
+   <Paragraph type="secondary" style={{margin:0}}>{t('聊天助手在 Cardybara 服务上运行：服务收到你的问题、持有的卡种和助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单，钱包默认只保存在本机，只有登录账号并开启同步时才会另存一份到服务器。服务不保存这些内容，只记录时间、用量和状态。为了限制每个网络每天的用量，服务只保留网络地址加盐后的哈希值，保留一天。卡片识别也经过 Cardybara 服务。')}</Paragraph>
    {!gatewayConfigured&&<Alert showIcon type="info" title={t(devOwn?'托管服务还没有开通，暂时请使用自己的 key。':'托管服务还没有开通，请稍后再试。')}/>}
    {status?.provider&&toggle}
    {status?.provider&&<Space wrap><Button loading={busy==='test'} onClick={test}>{t('测试连接')}</Button></Space>}
