@@ -2263,26 +2263,5 @@
     "checkedAt": "2026-11-25",
     "verification": "issuer-listed",
     "collection": "not-supported"
-  },
-  {
-    "id": "discover-us-discover-it-cash-back-for-good-credit",
-    "sourceUrl": "https://www.discover.com/credit-cards/",
-    "checkedAt": "2026-11-25",
-    "verification": "issuer-listed",
-    "collection": "not-supported"
-  },
-  {
-    "id": "discover-us-discover-it-miles-for-good-credit",
-    "sourceUrl": "https://www.discover.com/credit-cards/",
-    "checkedAt": "2026-11-25",
-    "verification": "issuer-listed",
-    "collection": "not-supported"
-  },
-  {
-    "id": "discover-us-discover-it-chrome-for-good-credit",
-    "sourceUrl": "https://www.discover.com/credit-cards/",
-    "checkedAt": "2026-11-25",
-    "verification": "issuer-listed",
-    "collection": "not-supported"
   }
 ]

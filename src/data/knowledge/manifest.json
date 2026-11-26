@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-25.cards-22",
+  "snapshotId": "cardybara-public-knowledge-2026-11-25.cards-21",
   "asOf": "2026-11-25",
   "locale": "zh-CN",
   "files": [
@@ -2244,58 +2244,6 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
-    },
-    "discover-us-discover-it-cash-back-for-good-credit": {
-      "checkedAt": "2026-11-25",
-      "coverage": "issuer-page-summary",
-      "market": {
-        "country": "US",
-        "issuer": "Discover"
-      },
-      "communitySourceIds": [],
-      "changeNotes": [],
-      "knowledgeGaps": [
-        "本卡没有自己的产品页，事实只来自 discover.com 全部卡片列表页中本卡的卡片栏；不从普通版 Discover it Cash Back 抄任何事实。",
-        "5% 类别的季度上限金额列表页未写。",
-        "首年返现翻倍和利率等新卡优惠未录入。",
-        "列表页没有写返现兑换方式、是否过期和外币交易费，未知。",
-        "个人登记、使用进度及完整保障细则尚未核实。"
-      ],
-      "feeNotes": null
-    },
-    "discover-us-discover-it-miles-for-good-credit": {
-      "checkedAt": "2026-11-25",
-      "coverage": "issuer-page-summary",
-      "market": {
-        "country": "US",
-        "issuer": "Discover"
-      },
-      "communitySourceIds": [],
-      "changeNotes": [],
-      "knowledgeGaps": [
-        "本卡没有自己的产品页，事实只来自 discover.com 全部卡片列表页中本卡的卡片栏；不从普通版 Discover it Miles 抄任何事实。",
-        "首年里程翻倍和利率等新卡优惠未录入。",
-        "列表页没有写里程兑换方式、是否过期和外币交易费，未知。",
-        "个人登记、使用进度及完整保障细则尚未核实。"
-      ],
-      "feeNotes": null
-    },
-    "discover-us-discover-it-chrome-for-good-credit": {
-      "checkedAt": "2026-11-25",
-      "coverage": "issuer-page-summary",
-      "market": {
-        "country": "US",
-        "issuer": "Discover"
-      },
-      "communitySourceIds": [],
-      "changeNotes": [],
-      "knowledgeGaps": [
-        "本卡没有自己的产品页，事实只来自 discover.com 全部卡片列表页中本卡的卡片栏；不从普通版 Discover it Chrome 抄任何事实。",
-        "首年返现翻倍和利率等新卡优惠未录入。",
-        "列表页没有写返现兑换方式、是否过期和外币交易费，未知。",
-        "个人登记、使用进度及完整保障细则尚未核实。"
-      ],
-      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -2452,9 +2400,6 @@
     "capital-one-us-quicksilverone-rewards-credit-card",
     "capital-one-us-quicksilver-rewards-for-good-credit",
     "capital-one-us-ventureone-rewards-for-good-credit",
-    "capital-one-us-savor-rewards-for-good-credit",
-    "discover-us-discover-it-cash-back-for-good-credit",
-    "discover-us-discover-it-miles-for-good-credit",
-    "discover-us-discover-it-chrome-for-good-credit"
+    "capital-one-us-savor-rewards-for-good-credit"
   ]
 }

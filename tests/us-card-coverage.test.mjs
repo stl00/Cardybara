@@ -217,22 +217,14 @@ test('batch 21 records what the QuicksilverOne and for Good Credit pages state, 
  for(const key of ['credit-line-review','creditwise','fraud-liability'])assert.ok(find(one,key),key);
  for(const id of [quick,venture,savor])for(const key of ['hertz','cafe','concierge','travel-accident','extended-warranty'])assert.equal(find(id,key),undefined,`${id} ${key}`);
 });
-test('batch 22 records what the discover.com listing page states for each for Good Credit card, without copying the regular cards',()=>{
- const rules=productId=>queryKnowledge({productId,asOf:'2026-11-25'}).rules.filter(r=>r.id.startsWith(`rule.${productId}.`)),find=(productId,key)=>rules(productId).find(r=>r.id===`rule.${productId}.${key}`);
- const cash='discover-us-discover-it-cash-back-for-good-credit',miles='discover-us-discover-it-miles-for-good-credit',chrome='discover-us-discover-it-chrome-for-good-credit';
- for(const id of [cash,miles,chrome]){
-  assert.equal(product(id).sourceUrl,'https://www.discover.com/credit-cards/',id);
-  assert.equal(find(id,'fee-primary').terms.amount,0,id);assert.equal(find(id,'fee-primary').content.sourceText,'No annual fee',id);
-  assert.equal(rules(id).filter(r=>r.kind==='benefit').length,0,`${id}: the listing page states no benefit beyond the new card match`);
-  for(const key of ['redemption','no-expiry','fraud-liability','card-lock','ssn-alerts'])assert.equal(find(id,key),undefined,`${id} ${key} is not copied from the regular card`);
-  assert.ok(rules(id).every(r=>knowledgeSources(r.evidence.sourceIds).every(s=>s.url==='https://www.discover.com/credit-cards/')),id);
- }
- const earning=id=>rules(id).filter(r=>r.kind==='earning-rate').sort((a,b)=>a.id.localeCompare(b.id)).map(r=>[r.terms.multiplier,r.terms.unit]);
- assert.deepEqual(earning(cash),[[5,'cashback-percent'],[1,'cashback-percent']]);
- assert.deepEqual(earning(miles),[[1.5,'miles-per-USD']]);
- assert.deepEqual(earning(chrome),[[2,'cashback-percent'],[1,'cashback-percent']]);
- assert.equal(find(cash,'earning-0').terms.spendCap,null,'the listing page states no amount for the 5% quarterly maximum');
- assert.deepEqual(find(chrome,'earning-0').terms.spendCap,{amount:1000,currency:'USD',period:'calendar-quarter'});
+test('#652 skips the Discover for Good Credit cards, which have no discover.com page of their own, and names each with the reason',()=>{
  const coverage=readFileSync(new URL('../docs/knowledge/US_CARD_COVERAGE.md',import.meta.url),'utf8').split('\n');
- for(const [name,earn] of [['Discover it Cash Back for Good Credit',2],['Discover it Miles for Good Credit',1],['Discover it Chrome for Good Credit',2]])assert.ok(coverage.some(row=>row.startsWith(`| 22 | ${name} | $0 | ${earn} | 0 |`)),name);
+ for(const [id,name] of [['discover-us-discover-it-cash-back-for-good-credit','Discover it Cash Back for Good Credit'],['discover-us-discover-it-miles-for-good-credit','Discover it Miles for Good Credit'],['discover-us-discover-it-chrome-for-good-credit','Discover it Chrome for Good Credit']]){
+  // No fact may come from the shared listing page or the regular Discover it cards.
+  assert.equal(queryKnowledge({productId:id,asOf:'2026-11-26'}).rules.length,0,id);
+  assert.equal(cards.some(c=>c.id===id),false,`${id} is in no batch`);
+  const row=selection.cards.find(c=>c.id===id);
+  assert.ok(row?.skip?.includes('#652')&&row.skip.includes('https://www.discover.com/credit-cards/'),`${name} has a skip reason`);
+  assert.ok(coverage.some(line=>line.startsWith(`| — | ${name} |`)&&line.includes(row.skip)),`${name} is named as skipped`);
+ }
 });
