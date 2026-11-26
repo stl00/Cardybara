@@ -30,6 +30,7 @@ export const DOCUMENT_STORAGE={
  */
 export const DEVICE_ONLY={
  'cardybara-language':'display language',
+ 'cardybara-voice-cloud-v1':'whether the user let this browser\'s speech service recognise voice input; each browser asks for itself',
  'cardybara-plaid-cards-v1':'cache of the Plaid-linked cards; the gateway holds them for the account and the wallet reads them again',
  'cardybara-plaid-links-v1':'manual Plaid card to wallet card links made on this device; "Add to wallet" makes a synced manual card that matches by issuer and last four everywhere',
  'cardybara-plaid-dismissed-v1':'Plaid cards whose auto-added wallet card was removed on this device; other devices learn of the removal from the synced removal list',
