@@ -2,23 +2,13 @@
 // overflow and "Export now" runs the existing export, which records the export day and hides the notice.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {spawnSync} from 'node:child_process';
-import {existsSync, readdirSync, statSync} from 'node:fs';
-import {join, resolve} from 'node:path';
-import {fileURLToPath} from 'node:url';
-import {WEB_DIR, PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {prepareWebTestBuild} from './helpers/web-test-build.mjs';
 import {findChrome} from '../scripts/dev-collector/chrome-launcher.mjs';
 import {GUIDE_KEY} from '../src/webFirstLaunch.js';
 
-const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
-const newest = dir => readdirSync(dir, {withFileTypes: true}).reduce((m, e) => Math.max(m, e.isDirectory() ? newest(join(dir, e.name)) : statSync(join(dir, e.name)).mtimeMs), 0);
-function ensureBuild() {
-  const index = join(WEB_DIR, 'index.html');
-  if (existsSync(index) && statSync(index).mtimeMs >= Math.max(newest(join(root, 'src')), statSync(join(root, 'index.html')).mtimeMs)) return;
-  const built = spawnSync('npm', ['run', 'build:web'], {cwd: root, encoding: 'utf8'});
-  assert.equal(built.status, 0, 'npm run build:web failed:\n' + built.stdout.slice(-2000) + built.stderr.slice(-2000));
-}
-const chrome = await findChrome().then(() => { ensureBuild(); return withPhone(async () => true); }, () => false).then(ok => ok || false, err => {
+let buildDir;
+const chrome = await findChrome().then(() => { buildDir = prepareWebTestBuild(); return withPhone(async () => true, {dir: buildDir}); }, () => false).then(ok => ok || false, err => {
   if (process.env.GITHUB_ACTIONS) throw err;
   console.warn('Chrome found but cannot start here, phone tests skipped: ' + err.message);
   return false;
@@ -30,7 +20,6 @@ const TEXT = {'zh-CN': '现在导出', 'zh-TW': '現在匯出', 'en-US': 'Export
 
 for (const lang of ['zh-CN', 'zh-TW', 'en-US']) {
   test(`${lang} 375 px: the backup notice shows without overflow and Export now exports`, {timeout: 90000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
-    ensureBuild();
     await withPhone(async c => {
       await c.goto('/#wallet');
       await c.until(`document.querySelector('.backup-nudge')`, 'the backup notice');
@@ -41,16 +30,15 @@ for (const lang of ['zh-CN', 'zh-TW', 'en-US']) {
       await c.tap('.backup-nudge .ant-btn-primary');
       await c.until(`localStorage.getItem('cardybara-last-export-v1')`, 'the export day recorded');
       await c.until(`!document.querySelector('.backup-nudge')`, 'the notice gone after export');
-    }, {init: init(lang)});
+    }, {dir: buildDir, init: init(lang)});
   });
 }
 test('Later hides the notice', {timeout: 90000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
-  ensureBuild();
   await withPhone(async c => {
     await c.goto('/#wallet');
     await c.until(`document.querySelector('.backup-nudge')`, 'the backup notice');
     await c.tap('.backup-nudge .ant-btn:not(.ant-btn-primary)');
     await c.until(`!document.querySelector('.backup-nudge')`, 'the notice gone after Later');
     assert.equal(await c.evaluate(`localStorage.getItem('cardybara-last-export-v1')`), null);
-  }, {init: init('en-US')});
+  }, {dir: buildDir, init: init('en-US')});
 });

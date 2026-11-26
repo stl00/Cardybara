@@ -3,23 +3,13 @@
 // Nothing sticks out of the viewport. The totals are covered in tests/wallet-ledger.test.mjs.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {spawnSync} from 'node:child_process';
-import {existsSync, readdirSync, statSync} from 'node:fs';
-import {join, resolve} from 'node:path';
-import {fileURLToPath} from 'node:url';
-import {WEB_DIR, PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {prepareWebTestBuild} from './helpers/web-test-build.mjs';
 import {findChrome} from '../scripts/dev-collector/chrome-launcher.mjs';
 import {GUIDE_KEY} from '../src/webFirstLaunch.js';
 
-const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
-const newest = dir => readdirSync(dir, {withFileTypes: true}).reduce((m, e) => Math.max(m, e.isDirectory() ? newest(join(dir, e.name)) : statSync(join(dir, e.name)).mtimeMs), 0);
-function ensureBuild() {
-  const index = join(WEB_DIR, 'index.html');
-  if (existsSync(index) && statSync(index).mtimeMs >= Math.max(newest(join(root, 'src')), statSync(join(root, 'index.html')).mtimeMs)) return;
-  const built = spawnSync('npm', ['run', 'build:web'], {cwd: root, encoding: 'utf8'});
-  assert.equal(built.status, 0, 'npm run build:web failed:\n' + built.stdout.slice(-2000) + built.stderr.slice(-2000));
-}
-const chrome = await findChrome().then(() => { ensureBuild(); return withPhone(async () => true); }, () => false).then(ok => ok || false, err => {
+let buildDir;
+const chrome = await findChrome().then(() => { buildDir = prepareWebTestBuild(); return withPhone(async () => true, {dir: buildDir}); }, () => false).then(ok => ok || false, err => {
   if (process.env.GITHUB_ACTIONS) throw err;
   console.warn('Chrome found but cannot start here, phone tests skipped: ' + err.message);
   return false;
@@ -42,7 +32,6 @@ const summary = c => c.evaluate(`document.querySelector('.wallet-ledger')?.inner
 
 for (const lang of ['zh-CN', 'zh-TW', 'en-US']) {
   test(`${lang} 375 px: the wallet credit summary lists each card, totals per currency and does not overflow`, {timeout: 90000, skip}, async () => {
-    ensureBuild();
     await withPhone(async c => {
       await c.goto('/#credits');
       await c.until(`document.querySelector('.wallet-ledger')`, 'the wallet credit summary');
@@ -54,6 +43,6 @@ for (const lang of ['zh-CN', 'zh-TW', 'en-US']) {
       const a = await c.audit();
       assert.ok(a.scrollWidth <= PHONE.width, `${lang}: no horizontal scroll`);
       assert.deepEqual(a.overflow, [], `${lang}: nothing outside the viewport`);
-    }, {init: init(lang)});
+    }, {dir: buildDir, init: init(lang)});
   });
 }

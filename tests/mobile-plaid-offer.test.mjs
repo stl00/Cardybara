@@ -6,24 +6,14 @@
 // covered in tests/plaid-offer.test.mjs).
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {spawnSync} from 'node:child_process';
-import {existsSync, readdirSync, statSync} from 'node:fs';
-import {join, resolve} from 'node:path';
-import {fileURLToPath} from 'node:url';
-import {WEB_DIR, PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {prepareWebTestBuild} from './helpers/web-test-build.mjs';
 import {findChrome} from '../scripts/dev-collector/chrome-launcher.mjs';
 import {GUIDE_KEY} from '../src/webFirstLaunch.js';
 
-const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const GATEWAY = 'https://cardybara-gateway.cardybara.workers.dev';
-const newest = dir => readdirSync(dir, {withFileTypes: true}).reduce((m, e) => Math.max(m, e.isDirectory() ? newest(join(dir, e.name)) : statSync(join(dir, e.name)).mtimeMs), 0);
-function ensureBuild() {
-  const index = join(WEB_DIR, 'index.html');
-  if (existsSync(index) && statSync(index).mtimeMs >= Math.max(newest(join(root, 'src')), statSync(join(root, 'index.html')).mtimeMs)) return;
-  const built = spawnSync('npm', ['run', 'build:web'], {cwd: root, encoding: 'utf8'});
-  assert.equal(built.status, 0, 'npm run build:web failed:\n' + built.stdout.slice(-2000) + built.stderr.slice(-2000));
-}
-const chrome = await findChrome().then(() => { ensureBuild(); return withPhone(async () => true); }, () => false).then(ok => ok || false, err => {
+let buildDir;
+const chrome = await findChrome().then(() => { buildDir = prepareWebTestBuild(); return withPhone(async () => true, {dir: buildDir}); }, () => false).then(ok => ok || false, err => {
   if (process.env.GITHUB_ACTIONS) throw err;
   console.warn('Chrome found but cannot start here, phone tests skipped: ' + err.message);
   return false;
@@ -45,12 +35,11 @@ const LINKED = {items: [{itemId: 'item-1', institution: 'Synthetic Bank', status
 const init = (lang, {signedIn = true, cards = EMPTY, extra = ''} = {}) => `${SESSION}${signedIn ? `localStorage.setItem('cardybara-account-session-v1',window.__session);` : ''}localStorage.setItem('cardybara-language',${JSON.stringify(lang)});localStorage.setItem(${JSON.stringify(GUIDE_KEY)},'1');${WALLET}${extra}${stub(cards)}`;
 const offer = c => c.evaluate(`!!document.querySelector('.plaid-offer')`);
 const TEXT = {'zh-CN': '连接美国信用卡（Plaid）', 'zh-TW': '連接美國信用卡（Plaid）', 'en-US': 'Connect your US credit cards (Plaid)'};
-const run = (fn, opts) => withPhone(fn, {...opts, onEvent: msg => { if (msg.method === 'Page.frameRequestedNavigation') (opts.nav ??= []).push(msg.params.url); }});
+const run = (fn, opts) => withPhone(fn, {...opts, dir: buildDir, onEvent: msg => { if (msg.method === 'Page.frameRequestedNavigation') (opts.nav ??= []).push(msg.params.url); }});
 const linkNav = nav => nav.filter(u => u.startsWith(GATEWAY + '/v2/plaid/link'));
 
 for (const lang of ['zh-CN', 'zh-TW', 'en-US']) {
   test(`${lang} signed in, no Plaid link: the Overview card shows, fits the phone and its button opens Plaid Link`, {timeout: 90000, skip}, async () => {
-    ensureBuild();
     const opts = {init: init(lang), nav: []};
     await run(async c => {
       await c.goto('/#overview');
@@ -68,7 +57,6 @@ for (const lang of ['zh-CN', 'zh-TW', 'en-US']) {
 }
 
 test('with a Plaid link the card does not show', {timeout: 90000, skip}, async () => {
-  ensureBuild();
   await run(async c => {
     await c.goto('/#overview');
     await c.until(`document.querySelector('.app-header .account-avatar')`, 'the signed-in header');
@@ -78,7 +66,6 @@ test('with a Plaid link the card does not show', {timeout: 90000, skip}, async (
 });
 
 test('when the gateway reports plaid_unavailable the card goes away', {timeout: 90000, skip}, async () => {
-  ensureBuild();
   await run(async c => {
     await c.goto('/#overview');
     await c.until(`document.querySelector('.app-header .account-avatar')`, 'the signed-in header');
@@ -87,7 +74,6 @@ test('when the gateway reports plaid_unavailable the card goes away', {timeout: 
 });
 
 test('dismissing the card is remembered on this device', {timeout: 90000, skip}, async () => {
-  ensureBuild();
   await run(async c => {
     await c.goto('/#overview');
     await c.until(`document.querySelector('.plaid-offer .ant-alert-close-icon')`, 'the close control');
@@ -101,7 +87,6 @@ test('dismissing the card is remembered on this device', {timeout: 90000, skip},
 });
 
 test('signed out: the button opens sign-in first, then continues into Plaid Link', {timeout: 90000, skip}, async () => {
-  ensureBuild();
   const opts = {init: init('en-US', {signedIn: false}), nav: []};
   await run(async c => {
     await c.goto('/#overview');
@@ -118,7 +103,6 @@ test('signed out: the button opens sign-in first, then continues into Plaid Link
 
 // Owner 2026-11-25: the wallet's "Add card" button is the Plaid entry itself, not only the panel in Settings.
 test('the wallet "Add card" button keeps typing a card in as the menu beside it', {timeout: 90000, skip}, async () => {
-  ensureBuild();
   const opts = {init: init('en-US'), nav: []};
   await run(async c => {
     await c.goto('/#wallet');
@@ -133,7 +117,6 @@ test('the wallet "Add card" button keeps typing a card in as the menu beside it'
 });
 
 test('the wallet "Add card" button itself opens Plaid Link', {timeout: 90000, skip}, async () => {
-  ensureBuild();
   const opts = {init: init('zh-CN'), nav: []};
   await run(async c => {
     await c.goto('/#wallet');
@@ -145,7 +128,6 @@ test('the wallet "Add card" button itself opens Plaid Link', {timeout: 90000, sk
 });
 
 test('when the gateway reports plaid_unavailable, "Add card" is the manual button again', {timeout: 90000, skip}, async () => {
-  ensureBuild();
   await run(async c => {
     await c.goto('/#wallet');
     await c.until(`document.querySelector('.app-header .account-avatar')`, 'the signed-in header');

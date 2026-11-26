@@ -1,5 +1,11 @@
 {
   "en-US": {
+    "关于 Cardybara": "About Cardybara",
+    "一个钱包看清信用卡账单、还款日、积分和福利。": "One wallet for your credit card statements, due dates, points and benefits.",
+    "作者：{0}": "Author: {0}",
+    "隐私说明": "Privacy notice",
+    "安全问题反馈": "Security reporting",
+    "版本说明": "Release notes",
     "版本 {0}": "Version {0}",
     "这是给朋友试用的测试版，不是 Chrome 应用商店版本。功能和银行页面都可能变化，遇到问题请告诉我们。": "This is a beta for friends, not a Chrome Web Store release. Features and bank pages may change; please tell us when something goes wrong.",
     "这是内部测试版，不是 Chrome 应用商店版本。": "This is an internal test build, not a Chrome Web Store release.",
@@ -65,6 +71,12 @@
     "网页版里的卡片和金额由你手动填写；登录账号后，也可以通过 Plaid 只读连接美国信用卡，读取余额、账单和还款日。读取银行页面只在桌面版 Chrome 扩展里提供。": "In the web version you enter cards and amounts by hand; once signed in, you can also connect US credit cards read-only through Plaid for balances, statements and due dates. Reading bank pages is only available in the desktop Chrome extension."
   },
   "zh-TW": {
+    "关于 Cardybara": "關於 Cardybara",
+    "一个钱包看清信用卡账单、还款日、积分和福利。": "一個錢包看清信用卡帳單、還款日、積分和福利。",
+    "作者：{0}": "作者：{0}",
+    "隐私说明": "私隱說明",
+    "安全问题反馈": "安全問題回報",
+    "版本说明": "版本說明",
     "版本 {0}": "版本 {0}",
     "这是给朋友试用的测试版，不是 Chrome 应用商店版本。功能和银行页面都可能变化，遇到问题请告诉我们。": "這是給朋友試用的測試版，不是 Chrome 應用商店版本。功能和銀行頁面都可能變化，遇到問題請告訴我們。",
     "这是内部测试版，不是 Chrome 应用商店版本。": "這是內部測試版，不是 Chrome 應用商店版本。",
