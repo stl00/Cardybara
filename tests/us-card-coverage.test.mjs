@@ -193,3 +193,14 @@ test('batch 19 records what the three U.S. Bank business pages state and leaves 
  assert.equal(find(shield,'purchase-security').terms.coverage.basis,null);
  for(const id of [essentials,plus,shield])assert.equal(find(id,'no-foreign-fee'),undefined,'the product page does not mention a foreign transaction fee');
 });
+test('batch 20 records what the three Capital One Spark pages state and leaves the rest unknown',()=>{
+ const rules=productId=>queryKnowledge({productId,asOf:'2026-11-25'}).rules,find=(productId,key)=>rules(productId).find(r=>r.id===`rule.${productId}.${key}`);
+ const cash='capital-one-us-spark-2-cash-credit-card',select='capital-one-us-spark-1-5-cash-select-credit-card',classic='capital-one-us-spark-1-classic-credit-card';
+ for(const [id,fee] of [[cash,95],[select,0],[classic,0]]){assert.equal(find(id,'fee-primary').terms.amount,fee,id);assert.equal(find(id,'fee-additional').terms.amount,0,id);assert.equal(product(id).transferProgrammeId,undefined,id);}
+ const earning=id=>rules(id).filter(r=>r.kind==='earning-rate').sort((a,b)=>a.id.localeCompare(b.id)).map(r=>r.terms.multiplier);
+ assert.deepEqual(earning(cash),[5,2]);assert.deepEqual(earning(select),[5,1.5]);assert.deepEqual(earning(classic),[1],'the Classic page states no travel rate');
+ assert.equal(find(cash,'no-foreign-fee'),undefined,'the 2% Cash page does not mention a foreign transaction fee');
+ assert.equal(find(cash,'roadside'),undefined,'the 2% Cash page does not mention roadside assistance');
+ for(const id of [select,classic]){assert.ok(find(id,'no-foreign-fee'),id);assert.equal(find(id,'roadside').terms.coverage.type,'roadside',id);}
+ for(const id of [cash,select,classic])assert.equal(find(id,'extended-warranty').terms.coverage.basis,null,id);
+});

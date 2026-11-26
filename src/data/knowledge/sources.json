@@ -1580,5 +1580,26 @@
     "title": "U.S. Bank · U.S. Bank Business Shield® Visa® Card 官方产品页",
     "checkedAt": "2026-11-25",
     "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-spark-2-cash-credit-card",
+    "url": "https://www.capitalone.com/small-business/credit-cards/spark-cash/",
+    "title": "Capital One · Spark 2% Cash Credit Card 官方产品页",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-spark-1-5-cash-select-credit-card",
+    "url": "https://www.capitalone.com/small-business/credit-cards/spark-cash-select/",
+    "title": "Capital One · Spark 1.5% Cash Select Credit Card 官方产品页",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
+  },
+  {
+    "id": "card-capital-one-us-spark-1-classic-credit-card",
+    "url": "https://www.capitalone.com/small-business/credit-cards/spark-classic/",
+    "title": "Capital One · Spark 1% Classic Credit Card 官方产品页",
+    "checkedAt": "2026-11-25",
+    "authority": "official"
   }
 ]

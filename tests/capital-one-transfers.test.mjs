@@ -35,7 +35,7 @@ test('Capital One Miles lists the 23 partners Capital One names, each with its p
 });
 test('only the Miles cards link to Capital One transfers; cash cards do not',()=>{
  for(const id of LINKED)assert.equal(product(id).transferProgrammeId,C1,id);
- for(const id of ['capital-one-us-savor-credit-card','capital-one-us-spark-cash-plus-card','capital-one-us-quicksilver-rewards-credit-card','capital-one-us-savorone-rewards-credit-card','capital-one-us-platinum-credit-card']){
+ for(const id of ['capital-one-us-savor-credit-card','capital-one-us-spark-cash-plus-card','capital-one-us-quicksilver-rewards-credit-card','capital-one-us-savorone-rewards-credit-card','capital-one-us-platinum-credit-card','capital-one-us-spark-2-cash-credit-card','capital-one-us-spark-1-5-cash-select-credit-card','capital-one-us-spark-1-classic-credit-card']){
   assert.equal(product(id).transferProgrammeId,undefined,id);
   const r=transferOptions([held(id)]);assert.equal(r.programmes.length,0,id);assert.equal(r.cardsWithoutTransferRecord.length,1,id);
  }

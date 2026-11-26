@@ -13,6 +13,8 @@ const protections=args=>runWalletTool(call('find_protections',args),context);
 // Cards added later by knowledge batch 15 (#631) were checked on their own day.
 // Batch 18 (#643) too.
 const BATCH_18=JSON.parse(readFileSync(new URL('../docs/knowledge/card-batches/batch-18.json',import.meta.url))).cards.map(c=>c.id);
+// Batch 20 (#645) too.
+const BATCH_20=JSON.parse(readFileSync(new URL('../docs/knowledge/card-batches/batch-20.json',import.meta.url))).cards.map(c=>c.id);
 const BATCH_15=JSON.parse(readFileSync(new URL('../docs/knowledge/card-batches/batch-15.json',import.meta.url))).cards.map(c=>c.id);
 test('rental car coverage states primary only where the terms say so, and the card payment requirement',()=>{
  const result=protections({type:'rental-car'});
@@ -192,7 +194,7 @@ test('a wallet holding a Strata card and a Venture card gets their recorded prot
  // Double Cash says secondary; Custom Cash and Platinum Select pages name none.
  assert.equal(queryKnowledge({productId:'citi-us-citi-double-cash-card',category:'protection'}).rules[0].terms.coverage.basis,'secondary');
  for(const id of ['citi-us-citi-custom-cash-card','citi-us-citi-aadvantage-platinum-select-card','capital-one-us-venture-x-rewards-credit-card'])assert.equal(queryKnowledge({productId:id,category:'protection'}).count,0,id);
- assert.ok(queryKnowledge({kind:'benefit',category:'protection'}).rules.filter(r=>/capital-one|citi-us/.test(r.productIds[0])).every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt===(BATCH_18.includes(r.productIds[0])?'2026-11-25':BATCH_15.includes(r.productIds[0])?'2026-11-24':'2026-11-16')));
+ assert.ok(queryKnowledge({kind:'benefit',category:'protection'}).rules.filter(r=>/capital-one|citi-us/.test(r.productIds[0])).every(r=>r.evidence.verification==='official-summary'&&r.evidence.checkedAt===(BATCH_18.includes(r.productIds[0])||BATCH_20.includes(r.productIds[0])?'2026-11-25':BATCH_15.includes(r.productIds[0])?'2026-11-24':'2026-11-16')));
 });
 
 // #343: OpenCC reads 列出租车 as 列 + 出租车 (taxi); zh-TW must say 租車, never 計程車, there.

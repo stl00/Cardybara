@@ -1,0 +1,416 @@
+{
+ "batch": 20,
+ "checkedAt": "2026-11-25",
+ "reviewAfter": "2027-02-23",
+ "cards": [
+  {
+   "id": "capital-one-us-spark-2-cash-credit-card",
+   "page": "capital-one-us-spark-2-cash-credit-card",
+   "issuer": "Capital One",
+   "collection": "not-supported",
+   "url": "https://www.capitalone.com/small-business/credit-cards/spark-cash/",
+   "fee": {
+    "amount": 95,
+    "currency": "USD",
+    "quote": "$95 annual fee after your first year"
+   },
+   "additionalFee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Free employee cards"
+   },
+   "earning": [
+    {
+     "zh": "Capital One Business Travel 酒店和租车",
+     "en": "Hotels and rental cars through Capital One Business Travel",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "travel",
+     "quote": "Earn unlimited 5% cash back on hotels and rental cars booked through Capital One Business Travel."
+    },
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn unlimited 2% cash back for your business on every purchase, everywhere, no limits or category restrictions."
+    }
+   ],
+   "credits": [
+    {
+     "key": "cash-redemption",
+     "zh": "返现兑换方式",
+     "en": "Cash back redemption",
+     "noteZh": "返现可兑换为账单抵扣或支票等。",
+     "noteEn": "Redeem cash back in different ways, such as a statement credit or check.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "You'll see different ways you can redeem your cash back, such as through a statement credit or check.",
+     "original": {
+      "title": "Cash back redemption",
+      "summary": "Redeem cash back in different ways, such as a statement credit or check.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "rewards-no-expiry",
+     "zh": "返现不过期",
+     "en": "Rewards do not expire",
+     "noteZh": "页面写明返现没有上限和过期日期。",
+     "noteEn": "The page states no limits or expiration dates on the cash back.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Earn unlimited 2% cash back on every purchase with no limits or expiration dates",
+     "original": {
+      "title": "Rewards do not expire",
+      "summary": "The page states no limits or expiration dates on the cash back.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "extended-warranty",
+     "zh": "延长保修",
+     "en": "Extended Warranty",
+     "noteZh": "产品页称用该卡购买的合资格商品可获额外保修和保障；期限和上限未列。",
+     "noteEn": "The page says eligible items bought with the card get additional warranty and protection; limits are not stated.",
+     "scenario": "shopping",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Get free additional warranty and protection on eligible items you purchase with your card.",
+     "original": {
+      "title": "Extended Warranty",
+      "summary": "The page says eligible items bought with the card get additional warranty and protection; limits are not stated.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "extended-warranty",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "页面写明首年 $0 优惠年费，之后每年 $95；录入的是之后的年费。",
+     "en": "The page states a $0 intro annual fee for the first year and $95 after that; the later fee is recorded."
+    },
+    {
+     "zh": "产品页未提及外币交易费和道路救援。",
+     "en": "The product page does not mention a foreign transaction fee or roadside assistance."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "capital-one-us-spark-1-5-cash-select-credit-card",
+   "page": "capital-one-us-spark-1-5-cash-select-credit-card",
+   "issuer": "Capital One",
+   "collection": "not-supported",
+   "url": "https://www.capitalone.com/small-business/credit-cards/spark-cash-select/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Enjoy a $0 annual fee in addition to the big rewards and cash bonus you can earn."
+   },
+   "additionalFee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Free employee cards"
+   },
+   "earning": [
+    {
+     "zh": "Capital One Business Travel 酒店和租车",
+     "en": "Hotels and rental cars through Capital One Business Travel",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "travel",
+     "quote": "Plus, earn unlimited 5% cash back on hotels and rental cars booked through Capital One Business Travel."
+    },
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 1.5,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn unlimited 1.5% cash back for your business on every purchase, everywhere, no limits or category restrictions."
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Pay zero foreign transaction fees on purchases made outside of the United States.",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "cash-redemption",
+     "zh": "返现兑换方式",
+     "en": "Cash back redemption",
+     "noteZh": "返现可兑换为账单抵扣或支票等。",
+     "noteEn": "Redeem cash back in different ways, such as a statement credit or check.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "You'll see different ways you can redeem your cash back, such as through a statement credit or check.",
+     "original": {
+      "title": "Cash back redemption",
+      "summary": "Redeem cash back in different ways, such as a statement credit or check.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "rewards-no-expiry",
+     "zh": "返现不过期",
+     "en": "Rewards do not expire",
+     "noteZh": "页面写明账户存续期间返现不过期。",
+     "noteEn": "The page states no expiration date for the life of the account.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Get cash back rewards for any amount at any time with no expiration date for the life of the account.",
+     "original": {
+      "title": "Rewards do not expire",
+      "summary": "The page states no expiration date for the life of the account.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "roadside",
+     "zh": "道路救援",
+     "en": "Roadside assistance",
+     "noteZh": "汽车相关紧急情况的协助服务，例如搭电、换胎和拖车；费用和次数页面未列。",
+     "noteEn": "Help in auto-related emergencies, such as jump-starting, tire changing and towing; fees and limits are not stated.",
+     "scenario": "ground-transport",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Our business cards offer services to help you during auto-related emergencies",
+     "original": {
+      "title": "Roadside assistance",
+      "summary": "Help in auto-related emergencies, such as jump-starting, tire changing and towing; fees and limits are not stated.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "tire changing and towing."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "roadside",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    },
+    {
+     "key": "extended-warranty",
+     "zh": "延长保修",
+     "en": "Extended Warranty",
+     "noteZh": "产品页称用该卡购买的合资格商品可获额外保修和保障；期限和上限未列。",
+     "noteEn": "The page says eligible items bought with the card get additional warranty and protection; limits are not stated.",
+     "scenario": "shopping",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Get free additional warranty and protection on eligible items that you purchase with your card.",
+     "original": {
+      "title": "Extended Warranty",
+      "summary": "The page says eligible items bought with the card get additional warranty and protection; limits are not stated.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "extended-warranty",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "capital-one-us-spark-1-classic-credit-card",
+   "page": "capital-one-us-spark-1-classic-credit-card",
+   "issuer": "Capital One",
+   "collection": "not-supported",
+   "url": "https://www.capitalone.com/small-business/credit-cards/spark-classic/",
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "A card with no annual fee, so you can focus on building for the future."
+   },
+   "additionalFee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Free employee cards"
+   },
+   "earning": [
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Build a strong foundation for your business while earning unlimited 1% cash back and no annual fee."
+    }
+   ],
+   "credits": [
+    {
+     "key": "no-foreign-fee",
+     "zh": "无外币交易费",
+     "en": "No foreign transaction fees",
+     "noteZh": "页面写明不收外币交易费。",
+     "noteEn": "The page states no foreign transaction fees.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Pay zero foreign transaction fees on purchases made outside of the United States.",
+     "original": {
+      "title": "No foreign transaction fees",
+      "summary": "The page states no foreign transaction fees.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "cash-redemption",
+     "zh": "返现兑换方式",
+     "en": "Cash back redemption",
+     "noteZh": "返现可兑换为账单抵扣或支票等。",
+     "noteEn": "Redeem cash back in different ways, such as a statement credit or check.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "You'll see different ways you can redeem your cash back, such as through a statement credit or check.",
+     "original": {
+      "title": "Cash back redemption",
+      "summary": "Redeem cash back in different ways, such as a statement credit or check.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "rewards-no-expiry",
+     "zh": "返现不过期",
+     "en": "Rewards do not expire",
+     "noteZh": "页面写明返现没有最低额和过期日期。",
+     "noteEn": "The page states no minimums or expiration date on the cash rewards.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Earn unlimited cash rewards on every purchase with no minimums or expiration date.",
+     "original": {
+      "title": "Rewards do not expire",
+      "summary": "The page states no minimums or expiration date on the cash rewards.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "roadside",
+     "zh": "道路救援",
+     "en": "Roadside assistance",
+     "noteZh": "汽车相关紧急情况的协助服务，例如搭电、换胎和拖车；费用和次数页面未列。",
+     "noteEn": "Help in auto-related emergencies, such as jump-starting, tire changing and towing; fees and limits are not stated.",
+     "scenario": "ground-transport",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Our business cards offer services to help you during auto-related emergencies",
+     "original": {
+      "title": "Roadside assistance",
+      "summary": "Help in auto-related emergencies, such as jump-starting, tire changing and towing; fees and limits are not stated.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "tire changing and towing."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "roadside",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    },
+    {
+     "key": "extended-warranty",
+     "zh": "延长保修",
+     "en": "Extended Warranty",
+     "noteZh": "产品页称用该卡购买的合资格商品可获额外保修和保障；期限和上限未列。",
+     "noteEn": "The page says eligible items bought with the card get additional warranty and protection; limits are not stated.",
+     "scenario": "shopping",
+     "category": "protection",
+     "period": "event-based",
+     "quote": "Get free additional warranty and protection on eligible items that you purchase with your card.",
+     "original": {
+      "title": "Extended Warranty",
+      "summary": "The page says eligible items bought with the card get additional warranty and protection; limits are not stated.",
+      "howToUse": [
+       "Read the Guide to Benefits before relying on it."
+      ]
+     },
+     "terms": {
+      "coverage": {
+       "type": "extended-warranty",
+       "basis": null,
+       "requiresCardPayment": null,
+       "exclusions": []
+      }
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  }
+ ]
+}

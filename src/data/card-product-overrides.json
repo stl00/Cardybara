@@ -2207,5 +2207,26 @@
     "checkedAt": "2026-11-25",
     "verification": "issuer-listed",
     "collection": "not-supported"
+  },
+  {
+    "id": "capital-one-us-spark-2-cash-credit-card",
+    "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/spark-cash/",
+    "checkedAt": "2026-11-25",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "capital-one-us-spark-1-5-cash-select-credit-card",
+    "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/spark-cash-select/",
+    "checkedAt": "2026-11-25",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
+  },
+  {
+    "id": "capital-one-us-spark-1-classic-credit-card",
+    "sourceUrl": "https://www.capitalone.com/small-business/credit-cards/spark-classic/",
+    "checkedAt": "2026-11-25",
+    "verification": "issuer-listed",
+    "collection": "not-supported"
   }
 ]
