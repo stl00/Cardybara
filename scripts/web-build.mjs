@@ -2,6 +2,7 @@
 // Same Vite app from src/ as the extension build; only this plugin and web/shell.js differ. Output is a deployable
 // folder, nothing is published from here. The site headers allow only this origin plus, when set, the gateway.
 import {copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {extname, join} from 'node:path';
 import {build as esbuild} from 'esbuild';
@@ -28,6 +29,16 @@ export function gatewayOrigin(env = process.env) {
 // CARDYBARA_GATEWAY_ORIGIN overrides it (a test or staging gateway).
 export function webGatewayOrigin(env = process.env) {
   return gatewayOrigin(env) ?? (gatewayConfigured ? GATEWAY_ORIGIN : null);
+}
+
+// The web build is identified by its commit (stl00/Cardybara#666). The deploy workflow names it in
+// CARDYBARA_COMMIT_SHA, other CI runs have GITHUB_SHA, and a local build asks git. With none of these the build
+// still succeeds: the answer is '' and the About view shows the release.json label.
+export function commitSha(env = process.env, cwd = process.cwd()) {
+  const short = value => /^[0-9a-f]{7,40}$/i.test((value || '').trim()) ? value.trim().slice(0, 7).toLowerCase() : '';
+  const named = short(env.CARDYBARA_COMMIT_SHA) || short(env.GITHUB_SHA);
+  if (named) return named;
+  try { return short(execFileSync('git', ['rev-parse', 'HEAD'], {cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore']})); } catch { return ''; }
 }
 
 export function webHeaders(gateway = null) {
@@ -140,6 +151,8 @@ export function webAppPlugin({root, env = process.env}) {
     name: 'cardybara-web-app',
     apply: 'build',
     enforce: 'pre',
+    // Read by src/platform/web.js only.
+    config: () => ({define: {__WEB_COMMIT__: JSON.stringify(commitSha(env, rootDir))}}),
     configResolved(config) { outDir = config.build.outDir.startsWith('/') ? config.build.outDir : join(config.root, config.build.outDir); },
     transformIndexHtml: {
       order: 'pre',

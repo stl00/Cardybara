@@ -8,6 +8,8 @@ import {GATEWAY_ORIGIN,gatewayConfigured} from '../../extension-next/model-clien
 let push=null;
 export const web={
  kind:'web',
+ // The short commit SHA of a `npm run build:web` build (scripts/web-build.mjs); undefined in any other build.
+ get commit(){return typeof __WEB_COMMIT__==='string'&&__WEB_COMMIT__||undefined;},
  // The browser's speech recognition (#655); undefined where the browser has none.
  get speech(){return speechCapability();},
  notifications:{
