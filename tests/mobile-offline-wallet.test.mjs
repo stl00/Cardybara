@@ -51,7 +51,13 @@ async function walk(c, lang) {
   };
   const addCard = async (card, first) => {
     // The empty wallet leads with its own button; once a card exists the page header carries the same "add card" button.
-    if (first) await c.tap('.empty-wallet-manual button');
+    // With Plaid on the gateway the button starts Plaid Link, so typing a card in is the menu beside it.
+    const scope = first ? '.empty-wallet-manual' : '.page-heading';
+    if (await c.evaluate(`!!document.querySelector('${scope} .add-card-more')`)) {
+      await c.tap(`${scope} .add-card-more`);
+      await c.until(`document.querySelector('.ant-dropdown:not(.ant-dropdown-hidden) .ant-dropdown-menu-item')`, 'the add-card menu');
+      await c.tap('.ant-dropdown:not(.ant-dropdown-hidden) .ant-dropdown-menu-item', {text: lang === 'en-US' ? 'Add manually' : '手动添加'});
+    } else if (first) await c.tap('.empty-wallet-manual button');
     else await c.tap('.app-layout .ant-btn:not(.ant-btn-primary)', {text: lang === 'en-US' ? 'Add card' : '添加卡片'});
     await c.until(`document.querySelector('.product-tile')`, 'the card catalogue');
     const id = await c.evaluate(`document.querySelectorAll('.product-tile')[${card.tile - 1}].dataset.productId`);
