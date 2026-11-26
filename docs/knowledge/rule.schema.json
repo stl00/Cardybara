@@ -4,6 +4,25 @@
   "title": "Cardybara public knowledge rule revision",
   "type": "object",
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {"properties": {"terms": {"required": ["period"], "properties": {"period": {"const": "foreign-transaction"}}}}},
+      "then": {
+        "properties": {
+          "kind": {"const": "fee"},
+          "category": {"const": "fee"},
+          "terms": {
+            "required": ["period", "rate", "amount"],
+            "not": {"required": ["cardholderRole"]},
+            "properties": {
+              "rate": {"type": "number", "minimum": 0, "exclusiveMaximum": 10, "description": "Percent of the transaction; 0 only when the issuer states there is no fee."},
+              "amount": {"type": "null"}
+            }
+          }
+        }
+      }
+    }
+  ],
   "required": [
     "id",
     "revision",

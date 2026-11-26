@@ -13,7 +13,8 @@ const rules=json('../src/data/knowledge/rules.json'),taxonomy=json('../src/data/
 const next=(period,asOf,feeDate)=>nextResetDay({period:benefitPeriod({period},asOf,{feeDate})});
 
 test('every terms.period used in rules.json and the taxonomy has a cycle label',()=>{
- const used=new Set(rules.map(r=>r.terms?.period).filter(Boolean));
+ // A fee period (a foreign transaction fee) is not a credit cycle and gets no cycle label.
+ const used=new Set(rules.map(r=>r.terms?.period).filter(p=>p&&!taxonomy.feePeriods.includes(p)));
  assert.ok(used.size>=10,'rules.json should use many period values');
  for(const p of [...used,...taxonomy.periods])assert.ok(cycleLabel(p),`terms.period "${p}" has no cycle label in src/creditCycle.js`);
  assert.equal(cycleLabel('some-new-period'),null,'an unmapped value is null, never a guess');

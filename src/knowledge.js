@@ -109,6 +109,16 @@ export function validateCoverage(r){
  if(!Array.isArray(c.exclusions)||c.exclusions.some(e=>typeof e!=='string'||!quotes.some(q=>q.includes(e))))errors.push('exclusions must quote the source');
  return errors;
 }
+// A foreign transaction fee is a percent the issuer's own wording states; 0 only where it says there is none.
+export function validateForeignTransactionFee(r){
+ const {rate,amount,cardholderRole}=r.terms,errors=[],quotes=(r.original?.quotes||[]).map(q=>q.text);
+ if(r.kind!=='fee'||r.category!=='fee')errors.push('must be a fee rule in category fee');
+ if(cardholderRole!==undefined)errors.push('cardholderRole belongs to annual fees');
+ if(amount!==null)errors.push('amount must be null');
+ if(!(typeof rate==='number'&&Number.isFinite(rate)&&rate>=0&&rate<10))errors.push('rate must be a percent');
+ else if(!quotes.some(q=>rate===0?/\bnone\b|\bno foreign transaction fee/i.test(q):new RegExp('(?<![\\d.])'+String(rate).replace('.','\\.')+'%').test(q)))errors.push('rate not stated in a quote');
+ return errors;
+}
 export function validateKnowledge(records=rules){
  const errors=[],ids=new Map(),revIds=new Set(),sourceIds=new Set(sources.map(s=>s.id)),productIds=new Set(cardProducts.map(p=>p.id)),programmeIds=new Set(entities.programmes.map(p=>p.id));
  for(const r of records){
@@ -125,7 +135,9 @@ export function validateKnowledge(records=rules){
   if(!isDate(r.evidence.checkedAt)||!isDate(r.review.reviewAfter)||r.review.reviewAfter<r.evidence.checkedAt)fail('invalid review dates');
   for(const key of ['effectiveFrom','effectiveThrough','enrollBy'])if(r.validity[key]!==null&&!isDate(r.validity[key]))fail('invalid validity date');
   if(r.validity.effectiveFrom&&r.validity.effectiveThrough&&r.validity.effectiveFrom>r.validity.effectiveThrough)fail('reversed validity');
-  if(r.terms.period&&!taxonomy.periods.includes(r.terms.period))fail('unknown period');
+  // Fee periods are not credit cycles, so only a fee rule may use one.
+  if(r.terms.period&&!taxonomy.periods.includes(r.terms.period)&&!(r.kind==='fee'&&taxonomy.feePeriods.includes(r.terms.period)))fail('unknown period');
+  if(r.terms.period==='foreign-transaction')for(const error of validateForeignTransactionFee(r))fail('foreign transaction fee: '+error);
   if(r.kind==='earning-rate'&&!taxonomy.rateUnits.includes(r.terms.unit))fail('unknown earning unit');
   if(!r.content.title||!r.content.summary||!r.content.howToUse.length)fail('missing explanation');
   if(r.original){
