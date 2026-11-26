@@ -3,23 +3,13 @@
 // normal tab: no banner. No network: the gateway is an in-page stub. Synthetic data only.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {spawnSync} from 'node:child_process';
-import {existsSync, readdirSync, statSync} from 'node:fs';
-import {join, resolve} from 'node:path';
-import {fileURLToPath} from 'node:url';
-import {WEB_DIR, PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {PHONE, withPhone} from './helpers/mobile-chrome.mjs';
+import {prepareWebTestBuild} from './helpers/web-test-build.mjs';
 import {findChrome} from '../scripts/dev-collector/chrome-launcher.mjs';
 import {GUIDE_KEY} from '../src/webFirstLaunch.js';
 
-const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
-const newest = dir => readdirSync(dir, {withFileTypes: true}).reduce((m, e) => Math.max(m, e.isDirectory() ? newest(join(dir, e.name)) : statSync(join(dir, e.name)).mtimeMs), 0);
-function ensureBuild() {
-  const index = join(WEB_DIR, 'index.html');
-  if (existsSync(index) && statSync(index).mtimeMs >= Math.max(newest(join(root, 'src')), statSync(join(root, 'index.html')).mtimeMs)) return;
-  const built = spawnSync('npm', ['run', 'build:web'], {cwd: root, encoding: 'utf8'});
-  assert.equal(built.status, 0, 'npm run build:web failed:\n' + built.stdout.slice(-2000) + built.stderr.slice(-2000));
-}
-const chrome = await findChrome().then(() => { ensureBuild(); return withPhone(async () => true); }, () => false).then(ok => ok || false, err => {
+let buildDir;
+const chrome = await findChrome().then(() => { buildDir = prepareWebTestBuild(); return withPhone(async () => true, {dir: buildDir}); }, () => false).then(ok => ok || false, err => {
   if (process.env.GITHUB_ACTIONS) throw err;
   console.warn('Chrome found but cannot start here, phone tests skipped: ' + err.message);
   return false;
@@ -35,7 +25,6 @@ const BANNER_TEXT = {'zh-CN': '这个主屏幕 App 和 Safari 是分开的', 'en
 
 for (const lang of ['zh-CN', 'en-US']) {
   test(`${lang} standalone, signed out: the sign-in banner shows on Overview and opens the account sheet`, {timeout: 90000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
-    ensureBuild();
     await withPhone(async c => {
       await c.goto('/#overview');
       await c.until(`document.querySelector('.home-screen-banner')`, 'the Home Screen banner');
@@ -46,24 +35,22 @@ for (const lang of ['zh-CN', 'en-US']) {
       await c.tap('.home-screen-banner .ant-btn');
       await c.until(`document.querySelector('.account-drawer.ant-drawer-open .account-sheet')`, 'the account sheet');
       assert.equal(await banner(c), false, `${lang}: the banner is gone once used (one-time)`);
-    }, {init: init(lang, false)});
+    }, {dir: buildDir, init: init(lang, false)});
   });
   test(`${lang} standalone, signed in: no banner`, {timeout: 90000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
-    ensureBuild();
     await withPhone(async c => {
       await c.goto('/#overview');
       await c.until(`document.querySelector('.app-header .account-avatar')`, 'the signed-in avatar');
       await c.pause(800);
       assert.equal(await banner(c), false, `${lang}: signed in shows no banner`);
-    }, {init: init(lang, true)});
+    }, {dir: buildDir, init: init(lang, true)});
   });
 }
 test('a normal browser tab, signed out: no banner', {timeout: 90000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
-  ensureBuild();
   await withPhone(async c => {
     await c.goto('/#overview');
     await c.until(`document.querySelector('.app-header .account-entry')`, 'the header');
     await c.pause(800);
     assert.equal(await banner(c), false);
-  }, {init: init('en-US', false, false)});
+  }, {dir: buildDir, init: init('en-US', false, false)});
 });
