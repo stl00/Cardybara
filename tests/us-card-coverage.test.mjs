@@ -217,3 +217,10 @@ test('batch 21 records what the QuicksilverOne and for Good Credit pages state, 
  for(const key of ['credit-line-review','creditwise','fraud-liability'])assert.ok(find(one,key),key);
  for(const id of [quick,venture,savor])for(const key of ['hertz','cafe','concierge','travel-accident','extended-warranty'])assert.equal(find(id,key),undefined,`${id} ${key}`);
 });
+test('the Discover for Good Credit variants have no page of their own, so they stay without rules',()=>{
+ const coverage=readFileSync(new URL('../docs/knowledge/US_CARD_COVERAGE.md',import.meta.url),'utf8').split('\n');
+ for(const [id,name] of [['discover-us-discover-it-cash-back-for-good-credit','Discover it Cash Back for Good Credit'],['discover-us-discover-it-miles-for-good-credit','Discover it Miles for Good Credit'],['discover-us-discover-it-chrome-for-good-credit','Discover it Chrome for Good Credit']]){
+  assert.equal(queryKnowledge({productId:id,asOf:'2026-11-25'}).rules.length,0,id);
+  assert.ok(coverage.some(row=>row.startsWith(`| — | ${name} |`)&&row.includes('#652')),`${name} is named as skipped`);
+ }
+});

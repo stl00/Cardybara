@@ -56,6 +56,9 @@
 | 5 | Wells Fargo Autograph Journey Visa Card | $95 | 4 | 1 | — | 暂不支持 | Wells Fargo 未登录的官方页面没有列出转点伙伴，因此不记录伙伴；页面只写可转到部分旅行会员计划、数量不限、转后不可撤销，条款写默认1点换1单位（另有说明除外）。 | https://creditcards.wellsfargo.com/autograph-journey-visa-credit-card/ |
 | 5 | Citi Custom Cash | $0 | 2 | 0 | — | 已支持的银行，未验收 | Citi 自2026年5月28日起停止受理新申请，已持卡者不受影响；资料来自页面内嵌数据，可见页面显示 Not Available。 | https://www.citi.com/credit-cards/citi-custom-cash-credit-card |
 | — | BOA Premium Rewards | — | — | — | — | — | 发卡行页面的公开内容里读不到年费和赚取比例，已跳过。 | — |
+| — | Discover it Cash Back for Good Credit | — | — | — | — | — | #652（2026-11-25）：discover.com 上没有找到本变体自己的产品页，只在全部卡片列表页看到名称、年费和赚取说明；按 #652 的要求跳过，不从普通版卡片抄任何事实。 | https://www.discover.com/credit-cards/ |
+| — | Discover it Miles for Good Credit | — | — | — | — | — | #652（2026-11-25）：discover.com 上没有找到本变体自己的产品页，只在全部卡片列表页看到名称、年费和赚取说明；按 #652 的要求跳过，不从普通版卡片抄任何事实。 | https://www.discover.com/credit-cards/ |
+| — | Discover it Chrome for Good Credit | — | — | — | — | — | #652（2026-11-25）：discover.com 上没有找到本变体自己的产品页，只在全部卡片列表页看到名称、年费和赚取说明；按 #652 的要求跳过，不从普通版卡片抄任何事实。 | https://www.discover.com/credit-cards/ |
 | 6 | Chase Prime Visa | $0 | 4 | 1 | — | 已支持的银行，未验收 | 页面只列出“Travel & Purchase Protection”，没有写保障内容，未录入。 | https://creditcards.chase.com/cash-back-credit-cards/amazon-prime-rewards |
 | 6 | Chase Amazon Visa | $0 | 4 | 0 | — | 已支持的银行，未验收 | 页面只列出“Travel & Purchase Protection”，没有写保障内容，未录入。 | https://creditcards.chase.com/cash-back-credit-cards/amazon-rewards |
 | 6 | Chase Marriott Bonvoy Bold | $0 | 5 | 2 | Marriott Bonvoy | 已支持的银行，未验收 | Pay Yourself Back（积分抵扣直订机票和 Marriott 酒店消费，每年最多兑换750美元）和行李延误、行程延误等保障未录入。 | https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold |
