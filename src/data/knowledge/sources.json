@@ -1629,5 +1629,796 @@
     "title": "Capital One · Savor Rewards for Good Credit 官方产品页",
     "checkedAt": "2026-11-25",
     "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-sapphire-reserve",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC64842.html",
+    "title": "Chase · Sapphire Reserve Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-sapphire-reserve-product",
+    "url": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve",
+    "title": "Chase · Sapphire Reserve 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-freedom-unlimited",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65873.html",
+    "title": "Chase · Freedom Unlimited Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-freedom-unlimited-product",
+    "url": "https://creditcards.chase.com/cash-back-credit-cards/freedom/unlimited",
+    "title": "Chase · Freedom Unlimited 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-united-quest",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65756.html",
+    "title": "Chase · United Quest Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-united-quest-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/united/united-quest",
+    "title": "Chase · United Quest 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ihg-premier",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65909.html",
+    "title": "Chase · IHG Premier Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ihg-premier-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier",
+    "title": "Chase · IHG Premier 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-chase-freedom-flex-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC60938.html",
+    "title": "Chase · Chase Freedom Flex Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-chase-freedom-flex-credit-card-product",
+    "url": "https://creditcards.chase.com/cash-back-credit-cards/freedom/flex",
+    "title": "Chase · Chase Freedom Flex Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-chase-freedom-rise-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65397.html",
+    "title": "Chase · Chase Freedom Rise Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-chase-freedom-rise-credit-card-product",
+    "url": "https://creditcards.chase.com/cash-back-credit-cards/freedom/rise",
+    "title": "Chase · Chase Freedom Rise Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-chase-sapphire-preferred-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65358.html",
+    "title": "Chase · Chase Sapphire Preferred Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-chase-sapphire-preferred-credit-card-product",
+    "url": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
+    "title": "Chase · Chase Sapphire Preferred Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-slate-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63300.html",
+    "title": "Chase · Slate Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-slate-credit-card-product",
+    "url": "https://creditcards.chase.com/balance-transfer-credit-cards/slate",
+    "title": "Chase · Slate Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-slate-edge-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC64148.html",
+    "title": "Chase · Slate Edge Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-slate-edge-credit-card-product",
+    "url": "https://creditcards.chase.com/credit-building-credit-cards/edge",
+    "title": "Chase · Slate Edge Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-united-explorer-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63218.html",
+    "title": "Chase · United Explorer Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-united-explorer-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer",
+    "title": "Chase · United Explorer Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-united-gateway-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65777.html",
+    "title": "Chase · United Gateway Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-united-gateway-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/united/united-gateway",
+    "title": "Chase · United Gateway Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-united-club-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC62957.html",
+    "title": "Chase · United Club Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-united-club-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/united/club-infinite",
+    "title": "Chase · United Club Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-southwest-rapid-rewards-plus-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC64433.html",
+    "title": "Chase · Southwest Rapid Rewards Plus Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-southwest-rapid-rewards-plus-credit-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/southwest/plus",
+    "title": "Chase · Southwest Rapid Rewards Plus Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-southwest-rapid-rewards-priority-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC64414.html",
+    "title": "Chase · Southwest Rapid Rewards Priority Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-southwest-rapid-rewards-priority-credit-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/southwest/priority",
+    "title": "Chase · Southwest Rapid Rewards Priority Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-southwest-rapid-rewards-premier-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC64337.html",
+    "title": "Chase · Southwest Rapid Rewards Premier Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-southwest-rapid-rewards-premier-credit-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/southwest/premier",
+    "title": "Chase · Southwest Rapid Rewards Premier Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-marriott-bonvoy-boundless-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65195.html",
+    "title": "Chase · Marriott Bonvoy Boundless Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-marriott-bonvoy-boundless-credit-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless",
+    "title": "Chase · Marriott Bonvoy Boundless Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-marriott-bonvoy-bountiful-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61472.html",
+    "title": "Chase · Marriott Bonvoy Bountiful Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-marriott-bonvoy-bountiful-credit-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bountiful",
+    "title": "Chase · Marriott Bonvoy Bountiful Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-marriott-bonvoy-bold-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65105.html",
+    "title": "Chase · Marriott Bonvoy Bold Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-marriott-bonvoy-bold-credit-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold",
+    "title": "Chase · Marriott Bonvoy Bold Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ihg-one-rewards-premier-select-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65907.html",
+    "title": "Chase · IHG One Rewards Premier Select Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ihg-one-rewards-premier-select-credit-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier-select",
+    "title": "Chase · IHG One Rewards Premier Select Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ihg-one-rewards-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC62162.html",
+    "title": "Chase · IHG One Rewards Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ihg-one-rewards-credit-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/one-rewards",
+    "title": "Chase · IHG One Rewards Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-world-of-hyatt-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65549.html",
+    "title": "Chase · World of Hyatt Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-world-of-hyatt-credit-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card",
+    "title": "Chase · World of Hyatt Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-disney-inspire-visa-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC64083.html",
+    "title": "Chase · Disney Inspire Visa Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-disney-inspire-visa-card-product",
+    "url": "https://creditcards.chase.com/rewards-credit-cards/disney/inspire",
+    "title": "Chase · Disney Inspire Visa Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-disney-premier-visa-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63172.html",
+    "title": "Chase · Disney Premier Visa Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-disney-premier-visa-card-product",
+    "url": "https://creditcards.chase.com/rewards-credit-cards/disney/premier",
+    "title": "Chase · Disney Premier Visa Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-disney-visa-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63171.html",
+    "title": "Chase · Disney Visa Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-disney-visa-card-product",
+    "url": "https://creditcards.chase.com/rewards-credit-cards/disney/rewards",
+    "title": "Chase · Disney Visa Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-prime-visa",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC59341.html",
+    "title": "Chase · Prime Visa Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-prime-visa-product",
+    "url": "https://creditcards.chase.com/cash-back-credit-cards/amazon-prime-rewards",
+    "title": "Chase · Prime Visa 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-amazon-visa",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC59309.html",
+    "title": "Chase · Amazon Visa Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-amazon-visa-product",
+    "url": "https://creditcards.chase.com/cash-back-credit-cards/amazon-rewards",
+    "title": "Chase · Amazon Visa 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-air-canada-aeroplan-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65930.html",
+    "title": "Chase · Air Canada Aeroplan Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-air-canada-aeroplan-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/aircanada/aeroplan",
+    "title": "Chase · Air Canada Aeroplan Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-british-airways-visa-signature-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61716.html",
+    "title": "Chase · British Airways Visa Signature Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-british-airways-visa-signature-credit-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/avios/british-airways",
+    "title": "Chase · British Airways Visa Signature Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-aer-lingus-visa-signature-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61785.html",
+    "title": "Chase · Aer Lingus Visa Signature Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-aer-lingus-visa-signature-credit-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/avios/aer-lingus",
+    "title": "Chase · Aer Lingus Visa Signature Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-iberia-visa-signature-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61715.html",
+    "title": "Chase · Iberia Visa Signature Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-iberia-visa-signature-credit-card-product",
+    "url": "https://creditcards.chase.com/travel-credit-cards/avios/iberia",
+    "title": "Chase · Iberia Visa Signature Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-doordash-rewards-mastercard",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61934.html",
+    "title": "Chase · DoorDash Rewards Mastercard Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-doordash-rewards-mastercard-product",
+    "url": "https://creditcards.chase.com/cash-back-credit-cards/doordash",
+    "title": "Chase · DoorDash Rewards Mastercard 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-instacart-mastercard",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC60680.html",
+    "title": "Chase · Instacart Mastercard Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-instacart-mastercard-product",
+    "url": "https://creditcards.chase.com/cash-back-credit-cards/instacart",
+    "title": "Chase · Instacart Mastercard 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ink-business-unlimited-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63749.html",
+    "title": "Chase · Ink Business Unlimited Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ink-business-unlimited-credit-card-product",
+    "url": "https://creditcards.chase.com/business-credit-cards/ink/unlimited",
+    "title": "Chase · Ink Business Unlimited Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ink-business-cash-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63827.html",
+    "title": "Chase · Ink Business Cash Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ink-business-cash-credit-card-product",
+    "url": "https://creditcards.chase.com/business-credit-cards/ink/cash",
+    "title": "Chase · Ink Business Cash Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ink-business-preferred-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65943.html",
+    "title": "Chase · Ink Business Preferred Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ink-business-preferred-credit-card-product",
+    "url": "https://creditcards.chase.com/business-credit-cards/ink/business-preferred",
+    "title": "Chase · Ink Business Preferred Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ink-business-premier-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63834.html",
+    "title": "Chase · Ink Business Premier Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ink-business-premier-credit-card-product",
+    "url": "https://creditcards.chase.com/business-credit-cards/ink/premier",
+    "title": "Chase · Ink Business Premier Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-sapphire-reserve-for-business-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC64346.html",
+    "title": "Chase · Sapphire Reserve for Business Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-sapphire-reserve-for-business-credit-card-product",
+    "url": "https://creditcards.chase.com/business-credit-cards/sapphire/reserve",
+    "title": "Chase · Sapphire Reserve for Business Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-united-business-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65426.html",
+    "title": "Chase · United Business Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-united-business-card-product",
+    "url": "https://creditcards.chase.com/business-credit-cards/united/united-business-card",
+    "title": "Chase · United Business Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-united-club-business-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65424.html",
+    "title": "Chase · United Club Business Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-united-club-business-card-product",
+    "url": "https://creditcards.chase.com/business-credit-cards/united/united-club-business",
+    "title": "Chase · United Club Business Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61809.html",
+    "title": "Chase · Southwest Rapid Rewards Performance Business Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-southwest-rapid-rewards-performance-business-credit-card-product",
+    "url": "https://creditcards.chase.com/business-credit-cards/southwest/performance-business",
+    "title": "Chase · Southwest Rapid Rewards Performance Business Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61808.html",
+    "title": "Chase · Southwest Rapid Rewards Premier Business Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-southwest-rapid-rewards-premier-business-credit-card-product",
+    "url": "https://creditcards.chase.com/business-credit-cards/southwest/premier-business",
+    "title": "Chase · Southwest Rapid Rewards Premier Business Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ihg-one-rewards-business-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65912.html",
+    "title": "Chase · IHG One Rewards Business Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-ihg-one-rewards-business-credit-card-product",
+    "url": "https://creditcards.chase.com/business-credit-cards/IHG/business",
+    "title": "Chase · IHG One Rewards Business Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-world-of-hyatt-business-credit-card",
+    "url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC65087.html",
+    "title": "Chase · World of Hyatt Business Credit Card Pricing & Terms 费率页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-chase-us-world-of-hyatt-business-credit-card-product",
+    "url": "https://creditcards.chase.com/business-credit-cards/world-of-hyatt/hyatt-business-card",
+    "title": "Chase · World of Hyatt Business Credit Card 产品页（链接到该卡费率页）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-american-express-gold-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-charge/american-express-gold-card-09-30-2026.pdf",
+    "title": "Amex US · American Express Gold Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-morgan-stanley-platinum-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-charge/morgan-stanley-platinum-09-30-2026.pdf",
+    "title": "Amex US · Morgan Stanley Platinum Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-blue-cash-everyday",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-lending/blue-cash-everyday-09-30-2026.pdf",
+    "title": "Amex US · Blue Cash Everyday 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-hilton-honors-aspire-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-lending/hilton-honors-american-express-aspire-card-09-30-2026.pdf",
+    "title": "Amex US · Hilton Honors Aspire Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-the-platinum-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-charge/platinum-card-09-30-2026.pdf",
+    "title": "Amex US · The Platinum Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-business-platinum-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/sbs-small-business/business-platinum-09-30-2026.pdf",
+    "title": "Amex US · Business Platinum Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-business-gold-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/sbs-small-business/business-gold-09-30-2026.pdf",
+    "title": "Amex US · Business Gold Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-blue-business-plus-credit-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/sbs-small-business/blue-business-plus-cc-09-30-2026.pdf",
+    "title": "Amex US · Blue Business Plus Credit Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-delta-skymiles-gold-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-lending/delta-skymiles-gold-09-30-2026.pdf",
+    "title": "Amex US · Delta SkyMiles Gold American Express Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-delta-skymiles-platinum-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-lending/delta-skymiles-platinum-09-30-2026.pdf",
+    "title": "Amex US · Delta SkyMiles Platinum American Express Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-delta-skymiles-reserve-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-lending/delta-reserve-09-30-2026.pdf",
+    "title": "Amex US · Delta SkyMiles Reserve American Express Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-marriott-bonvoy-brilliant-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-lending/bonvoy-brilliant-amex-card-09-30-2026.pdf",
+    "title": "Amex US · Marriott Bonvoy Brilliant American Express Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-marriott-bonvoy-bevy-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-lending/bonvoy-bevy-amex-card-09-30-2026.pdf",
+    "title": "Amex US · Marriott Bonvoy Bevy American Express Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-hilton-honors-business-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/sbs-small-business/hilton-honors-american-express-business-card-09-30-2026.pdf",
+    "title": "Amex US · Hilton Honors American Express Business Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-delta-skymiles-platinum-business-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/sbs-small-business/delta-skymiles-platinum-business-09-30-2026.pdf",
+    "title": "Amex US · Delta SkyMiles Platinum Business Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-delta-skymiles-gold-business-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/sbs-small-business/delta-skymiles-gold-business-09-30-2026.pdf",
+    "title": "Amex US · Delta SkyMiles Gold Business Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-blue-cash-preferred-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-lending/blue-cash-preferred-09-30-2026.pdf",
+    "title": "Amex US · Blue Cash Preferred Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-green-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q2-pdf-cmas/cps-charge/american-express-green-card-06-30-2026.pdf",
+    "title": "Amex US · Green Card 持卡协议费率表（2026-06-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-hilton-honors-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-lending/hilton-honors-american-express-card-09-30-2026.pdf",
+    "title": "Amex US · Hilton Honors American Express Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-hilton-honors-surpass-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-lending/hilton-honors-american-express-surpass-card-09-30-2026.pdf",
+    "title": "Amex US · Hilton Honors American Express Surpass Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-delta-skymiles-blue-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-lending/delta-skymiles-blue-09-30-2026.pdf",
+    "title": "Amex US · Delta SkyMiles Blue American Express Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-blue-business-cash-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/sbs-small-business/blue-business-cash-09-30-2026.pdf",
+    "title": "Amex US · Blue Business Cash Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-marriott-bonvoy-business-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/sbs-small-business/bonvoy-business-amex-card-09-30-2026.pdf",
+    "title": "Amex US · Marriott Bonvoy Business American Express Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-delta-skymiles-reserve-business-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/sbs-small-business/delta-skymiles-reserve-business-09-30-2026.pdf",
+    "title": "Amex US · Delta SkyMiles Reserve Business Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-business-green-rewards-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/sbs-small-business/business-green-rewards-09-30-2026.pdf",
+    "title": "Amex US · Business Green Rewards Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-graphite-business-cash-unlimited-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/sbs-small-business/graphite-business-cash-unlimited-09-30-2026.pdf",
+    "title": "Amex US · Graphite Business Cash Unlimited Card 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-us-us-schwab-platinum-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/en-us/company/legal/cardmember-agreements/public-site-2026-q3-pdf-cmas/cps-charge/schwab-platinum-09-30-2026.pdf",
+    "title": "Amex US · Platinum Card from American Express Exclusively for Charles Schwab 持卡协议费率表（2026-09-30 版）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
   }
 ]

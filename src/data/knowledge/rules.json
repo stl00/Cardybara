@@ -126847,5 +126847,5578 @@
         }
       ]
     }
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-sapphire-reserve"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-sapphire-reserve",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-sapphire-reserve",
+        "ftf-chase-us-sapphire-reserve-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-freedom-unlimited.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-freedom-unlimited.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-freedom-unlimited"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布每笔收取美元金额的 3%。",
+      "sourceText": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布每笔收取美元金额的 3%。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "3% of the amount of each transaction in U.S. dollars."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-freedom-unlimited",
+          "text": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 3,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布每笔收取美元金额的 3%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-freedom-unlimited",
+        "ftf-chase-us-freedom-unlimited-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-quest.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-quest.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-united-quest"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-united-quest",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-united-quest",
+        "ftf-chase-us-united-quest-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ihg-premier.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-premier.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-ihg-premier"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-ihg-premier",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-ihg-premier",
+        "ftf-chase-us-ihg-premier-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-chase-freedom-flex-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-chase-freedom-flex-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-chase-freedom-flex-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-chase-freedom-flex-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-chase-freedom-flex-credit-card",
+        "ftf-chase-us-chase-freedom-flex-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-chase-freedom-rise-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-chase-freedom-rise-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-chase-freedom-rise-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布每笔收取美元金额的 3%。",
+      "sourceText": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布每笔收取美元金额的 3%。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "3% of the amount of each transaction in U.S. dollars."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-chase-freedom-rise-credit-card",
+          "text": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 3,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布每笔收取美元金额的 3%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-chase-freedom-rise-credit-card",
+        "ftf-chase-us-chase-freedom-rise-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-chase-sapphire-preferred-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-chase-sapphire-preferred-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-chase-sapphire-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-chase-sapphire-preferred-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-chase-sapphire-preferred-credit-card",
+        "ftf-chase-us-chase-sapphire-preferred-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-slate-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-slate-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-slate-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布每笔收取美元金额的 3%。",
+      "sourceText": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布每笔收取美元金额的 3%。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "3% of the amount of each transaction in U.S. dollars."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-slate-credit-card",
+          "text": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 3,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布每笔收取美元金额的 3%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-slate-credit-card",
+        "ftf-chase-us-slate-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-slate-edge-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-slate-edge-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-slate-edge-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布每笔收取美元金额的 3%。",
+      "sourceText": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布每笔收取美元金额的 3%。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "3% of the amount of each transaction in U.S. dollars."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-slate-edge-credit-card",
+          "text": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 3,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布每笔收取美元金额的 3%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-slate-edge-credit-card",
+        "ftf-chase-us-slate-edge-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-explorer-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-explorer-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-united-explorer-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-united-explorer-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-united-explorer-card",
+        "ftf-chase-us-united-explorer-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-gateway-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-gateway-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-united-gateway-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-united-gateway-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-united-gateway-card",
+        "ftf-chase-us-united-gateway-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-united-club-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-united-club-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-united-club-card",
+        "ftf-chase-us-united-club-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-plus-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-plus-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-southwest-rapid-rewards-plus-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-southwest-rapid-rewards-plus-credit-card",
+        "ftf-chase-us-southwest-rapid-rewards-plus-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-priority-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-priority-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-southwest-rapid-rewards-priority-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-southwest-rapid-rewards-priority-credit-card",
+        "ftf-chase-us-southwest-rapid-rewards-priority-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-southwest-rapid-rewards-premier-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-southwest-rapid-rewards-premier-credit-card",
+        "ftf-chase-us-southwest-rapid-rewards-premier-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-boundless-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-boundless-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-marriott-bonvoy-boundless-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-marriott-bonvoy-boundless-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-marriott-bonvoy-boundless-credit-card",
+        "ftf-chase-us-marriott-bonvoy-boundless-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bountiful-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bountiful-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-marriott-bonvoy-bountiful-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-marriott-bonvoy-bountiful-credit-card",
+        "ftf-chase-us-marriott-bonvoy-bountiful-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-marriott-bonvoy-bold-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-marriott-bonvoy-bold-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-marriott-bonvoy-bold-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-marriott-bonvoy-bold-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-marriott-bonvoy-bold-credit-card",
+        "ftf-chase-us-marriott-bonvoy-bold-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-premier-select-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-premier-select-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-ihg-one-rewards-premier-select-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-ihg-one-rewards-premier-select-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-ihg-one-rewards-premier-select-credit-card",
+        "ftf-chase-us-ihg-one-rewards-premier-select-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-ihg-one-rewards-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-ihg-one-rewards-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-ihg-one-rewards-credit-card",
+        "ftf-chase-us-ihg-one-rewards-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-world-of-hyatt-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-world-of-hyatt-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-world-of-hyatt-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-world-of-hyatt-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-world-of-hyatt-credit-card",
+        "ftf-chase-us-world-of-hyatt-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-inspire-visa-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-inspire-visa-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-disney-inspire-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-disney-inspire-visa-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-disney-inspire-visa-card",
+        "ftf-chase-us-disney-inspire-visa-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-premier-visa-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-premier-visa-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-disney-premier-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布每笔收取美元金额的 3%。",
+      "sourceText": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布每笔收取美元金额的 3%。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "3% of the amount of each transaction in U.S. dollars."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-disney-premier-visa-card",
+          "text": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 3,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布每笔收取美元金额的 3%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-disney-premier-visa-card",
+        "ftf-chase-us-disney-premier-visa-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-disney-visa-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-disney-visa-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-disney-visa-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布每笔收取美元金额的 3%。",
+      "sourceText": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布每笔收取美元金额的 3%。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "3% of the amount of each transaction in U.S. dollars."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-disney-visa-card",
+          "text": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 3,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布每笔收取美元金额的 3%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-disney-visa-card",
+        "ftf-chase-us-disney-visa-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-prime-visa.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-prime-visa.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-prime-visa"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-prime-visa",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-prime-visa",
+        "ftf-chase-us-prime-visa-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-amazon-visa.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-amazon-visa.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-amazon-visa"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-amazon-visa",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-amazon-visa",
+        "ftf-chase-us-amazon-visa-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-air-canada-aeroplan-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-air-canada-aeroplan-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-air-canada-aeroplan-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-air-canada-aeroplan-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-air-canada-aeroplan-card",
+        "ftf-chase-us-air-canada-aeroplan-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-british-airways-visa-signature-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-british-airways-visa-signature-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-british-airways-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-british-airways-visa-signature-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-british-airways-visa-signature-credit-card",
+        "ftf-chase-us-british-airways-visa-signature-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-aer-lingus-visa-signature-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-aer-lingus-visa-signature-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-aer-lingus-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-aer-lingus-visa-signature-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-aer-lingus-visa-signature-credit-card",
+        "ftf-chase-us-aer-lingus-visa-signature-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-iberia-visa-signature-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-iberia-visa-signature-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-iberia-visa-signature-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-iberia-visa-signature-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-iberia-visa-signature-credit-card",
+        "ftf-chase-us-iberia-visa-signature-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-doordash-rewards-mastercard.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-doordash-rewards-mastercard.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-doordash-rewards-mastercard"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-doordash-rewards-mastercard",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-doordash-rewards-mastercard",
+        "ftf-chase-us-doordash-rewards-mastercard-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-instacart-mastercard.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-instacart-mastercard.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-instacart-mastercard"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-instacart-mastercard",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-instacart-mastercard",
+        "ftf-chase-us-instacart-mastercard-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-unlimited-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-unlimited-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-ink-business-unlimited-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布每笔收取美元金额的 3%。",
+      "sourceText": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布每笔收取美元金额的 3%。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "3% of the amount of each transaction in U.S. dollars."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-ink-business-unlimited-credit-card",
+          "text": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 3,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布每笔收取美元金额的 3%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-ink-business-unlimited-credit-card",
+        "ftf-chase-us-ink-business-unlimited-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-cash-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-cash-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-ink-business-cash-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布每笔收取美元金额的 3%。",
+      "sourceText": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布每笔收取美元金额的 3%。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "3% of the amount of each transaction in U.S. dollars.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "3% of the amount of each transaction in U.S. dollars."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-ink-business-cash-credit-card",
+          "text": "Foreign Transactions: 3% of the amount of each transaction in U.S. dollars."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 3,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布每笔收取美元金额的 3%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-ink-business-cash-credit-card",
+        "ftf-chase-us-ink-business-cash-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-preferred-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-preferred-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-ink-business-preferred-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-ink-business-preferred-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-ink-business-preferred-credit-card",
+        "ftf-chase-us-ink-business-preferred-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ink-business-premier-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ink-business-premier-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-ink-business-premier-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-ink-business-premier-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-ink-business-premier-credit-card",
+        "ftf-chase-us-ink-business-premier-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-sapphire-reserve-for-business-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-sapphire-reserve-for-business-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-sapphire-reserve-for-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-sapphire-reserve-for-business-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-sapphire-reserve-for-business-credit-card",
+        "ftf-chase-us-sapphire-reserve-for-business-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-business-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-business-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-united-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-united-business-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-united-business-card",
+        "ftf-chase-us-united-business-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-united-club-business-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-united-club-business-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-united-club-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-united-club-business-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-united-club-business-card",
+        "ftf-chase-us-united-club-business-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-performance-business-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-performance-business-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-performance-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-southwest-rapid-rewards-performance-business-credit-card",
+        "ftf-chase-us-southwest-rapid-rewards-performance-business-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-southwest-rapid-rewards-premier-business-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-southwest-rapid-rewards-premier-business-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-southwest-rapid-rewards-premier-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-southwest-rapid-rewards-premier-business-credit-card",
+        "ftf-chase-us-southwest-rapid-rewards-premier-business-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-ihg-one-rewards-business-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-ihg-one-rewards-business-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-ihg-one-rewards-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-ihg-one-rewards-business-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-ihg-one-rewards-business-credit-card",
+        "ftf-chase-us-ihg-one-rewards-business-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.chase-us-world-of-hyatt-business-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.chase-us-world-of-hyatt-business-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "chase-us-world-of-hyatt-business-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Chase"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transactions: None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-chase-us-world-of-hyatt-business-credit-card",
+          "text": "Foreign Transactions: None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-chase-us-world-of-hyatt-business-credit-card",
+        "ftf-chase-us-world-of-hyatt-business-credit-card-product"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-american-express-gold-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-american-express-gold-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-american-express-gold-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-american-express-gold-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-american-express-gold-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-morgan-stanley-platinum-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-morgan-stanley-platinum-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-morgan-stanley-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-morgan-stanley-platinum-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-morgan-stanley-platinum-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-blue-cash-everyday.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-cash-everyday.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-blue-cash-everyday"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布每笔收取换算成美元后金额的 2.7%。",
+      "sourceText": "Foreign Transaction: 2.7% of the converted U.S. dollar amount.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布每笔收取换算成美元后金额的 2.7%。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "2.7% of the converted U.S. dollar amount of each transaction.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "2.7% of the converted U.S. dollar amount of each transaction."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-blue-cash-everyday",
+          "text": "Foreign Transaction: 2.7% of the converted U.S. dollar amount."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 2.7,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布每笔收取换算成美元后金额的 2.7%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-blue-cash-everyday"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-aspire-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-aspire-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-hilton-honors-aspire-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-hilton-honors-aspire-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-hilton-honors-aspire-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-the-platinum-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-the-platinum-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-the-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-the-platinum-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-the-platinum-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-business-platinum-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-business-platinum-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-business-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-business-platinum-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-business-platinum-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-business-gold-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-business-gold-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-business-gold-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-business-gold-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-business-gold-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-blue-business-plus-credit-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-business-plus-credit-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-blue-business-plus-credit-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布每笔收取换算成美元后金额的 2.7%。",
+      "sourceText": "Foreign Transaction: 2.7% of the converted U.S. dollar amount.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布每笔收取换算成美元后金额的 2.7%。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "2.7% of the converted U.S. dollar amount of each transaction.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "2.7% of the converted U.S. dollar amount of each transaction."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-blue-business-plus-credit-card",
+          "text": "Foreign Transaction: 2.7% of the converted U.S. dollar amount."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 2.7,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布每笔收取换算成美元后金额的 2.7%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-blue-business-plus-credit-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-gold-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-gold-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-delta-skymiles-gold-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-delta-skymiles-gold-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-delta-skymiles-gold-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-platinum-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-platinum-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-delta-skymiles-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-delta-skymiles-platinum-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-delta-skymiles-platinum-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-delta-skymiles-reserve-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-delta-skymiles-reserve-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-brilliant-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-brilliant-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-brilliant-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-marriott-bonvoy-brilliant-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-marriott-bonvoy-brilliant-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-bevy-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-bevy-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-bevy-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-marriott-bonvoy-bevy-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-marriott-bonvoy-bevy-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-business-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-business-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-hilton-honors-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-hilton-honors-business-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-hilton-honors-business-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-platinum-business-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-platinum-business-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-delta-skymiles-platinum-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-delta-skymiles-platinum-business-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-delta-skymiles-platinum-business-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-gold-business-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-gold-business-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-delta-skymiles-gold-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-delta-skymiles-gold-business-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-delta-skymiles-gold-business-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-blue-cash-preferred-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-cash-preferred-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-blue-cash-preferred-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布每笔收取换算成美元后金额的 2.7%。",
+      "sourceText": "Foreign Transaction: 2.7% of the converted U.S. dollar amount.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布每笔收取换算成美元后金额的 2.7%。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "2.7% of the converted U.S. dollar amount of each transaction.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "2.7% of the converted U.S. dollar amount of each transaction."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-blue-cash-preferred-card",
+          "text": "Foreign Transaction: 2.7% of the converted U.S. dollar amount."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 2.7,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布每笔收取换算成美元后金额的 2.7%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-blue-cash-preferred-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-green-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-green-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-green-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-green-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-green-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-hilton-honors-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-hilton-honors-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-hilton-honors-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-hilton-honors-surpass-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-hilton-honors-surpass-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-hilton-honors-surpass-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-hilton-honors-surpass-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-hilton-honors-surpass-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-blue-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-blue-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-delta-skymiles-blue-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-delta-skymiles-blue-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-delta-skymiles-blue-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-blue-business-cash-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-blue-business-cash-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-blue-business-cash-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布每笔收取换算成美元后金额的 2.7%。",
+      "sourceText": "Foreign Transaction: 2.7% of the converted U.S. dollar amount.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布每笔收取换算成美元后金额的 2.7%。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "2.7% of the converted U.S. dollar amount of each transaction.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "2.7% of the converted U.S. dollar amount of each transaction."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-blue-business-cash-card",
+          "text": "Foreign Transaction: 2.7% of the converted U.S. dollar amount."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 2.7,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布每笔收取换算成美元后金额的 2.7%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-blue-business-cash-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-marriott-bonvoy-business-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-marriott-bonvoy-business-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-marriott-bonvoy-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-marriott-bonvoy-business-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-marriott-bonvoy-business-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-delta-skymiles-reserve-business-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-delta-skymiles-reserve-business-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-delta-skymiles-reserve-business-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction None",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-delta-skymiles-reserve-business-card",
+          "text": "Foreign Transaction None"
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-delta-skymiles-reserve-business-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-business-green-rewards-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-business-green-rewards-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-business-green-rewards-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布每笔收取换算成美元后金额的 2.7%。",
+      "sourceText": "Foreign Transaction: 2.7% of the converted U.S. dollar amount.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布每笔收取换算成美元后金额的 2.7%。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "2.7% of the converted U.S. dollar amount of each transaction.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "2.7% of the converted U.S. dollar amount of each transaction."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-business-green-rewards-card",
+          "text": "Foreign Transaction: 2.7% of the converted U.S. dollar amount."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 2.7,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布每笔收取换算成美元后金额的 2.7%。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-business-green-rewards-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-graphite-business-cash-unlimited-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-graphite-business-cash-unlimited-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-graphite-business-cash-unlimited-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-graphite-business-cash-unlimited-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-graphite-business-cash-unlimited-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
+  },
+  {
+    "id": "rule.amex-us-us-schwab-platinum-card.foreign-transaction-fee",
+    "revision": 1,
+    "revisionId": "rule.amex-us-us-schwab-platinum-card.foreign-transaction-fee@2026-11-26.1",
+    "supersedes": null,
+    "status": "published",
+    "kind": "fee",
+    "productIds": [
+      "amex-us-us-schwab-platinum-card"
+    ],
+    "market": {
+      "country": "US",
+      "issuer": "Amex US"
+    },
+    "category": "fee",
+    "scenarioIds": [
+      "card-ownership"
+    ],
+    "programmeIds": [],
+    "content": {
+      "title": "境外交易手续费",
+      "summary": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。",
+      "sourceText": "Foreign Transaction: None.",
+      "howToUse": [
+        "刷卡前以当前官方费率条款为准。",
+        "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+      ],
+      "translatedFrom": "en-US"
+    },
+    "original": {
+      "lang": "en-US",
+      "title": "Foreign transaction fee",
+      "summary": "No foreign transaction fee.",
+      "howToUse": [
+        "Check the current official pricing terms before you pay.",
+        "No foreign transaction fee."
+      ],
+      "quotes": [
+        {
+          "sourceId": "ftf-amex-us-us-schwab-platinum-card",
+          "text": "Foreign Transaction: None."
+        }
+      ]
+    },
+    "terms": {
+      "period": "foreign-transaction",
+      "rate": 0,
+      "amount": null
+    },
+    "validity": {
+      "effectiveFrom": null,
+      "effectiveThrough": null,
+      "enrollBy": null
+    },
+    "conditions": {
+      "coverage": "partial",
+      "all": [],
+      "unparsedText": "发卡行公布不收境外交易手续费；商户、ATM 或汇率换算方的费用不在内。"
+    },
+    "evidence": {
+      "sourceIds": [
+        "ftf-amex-us-us-schwab-platinum-card"
+      ],
+      "checkedAt": "2026-11-26",
+      "verification": "official-summary",
+      "supports": [
+        "content.summary",
+        "content.sourceText",
+        "terms"
+      ],
+      "fullTermsReviewed": false
+    },
+    "review": {
+      "checkedAt": "2026-11-26",
+      "reviewAfter": "2027-02-24",
+      "state": "reviewed-summary"
+    },
+    "personalState": "not-in-public-knowledge"
   }
 ]

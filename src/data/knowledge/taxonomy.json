@@ -120,6 +120,9 @@
     "promotion-period",
     "per-trip"
   ],
+  "feePeriods": [
+    "foreign-transaction"
+  ],
   "rateUnits": [
     "points-per-USD",
     "points-per-CAD",
