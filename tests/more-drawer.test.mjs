@@ -17,7 +17,7 @@ export const render=(props,lang='zh-CN')=>{activateLanguage(lang);return renderT
   return mod = module.exports;
 }
 const noop = () => {};
-const props = (collects, extra = {}) => ({groups: navGroups({collects}), page: 'overview', onGo: noop, onExport: noop, onImport: noop, language: 'zh-CN', setLanguage: noop, onSources: noop, onRelease: noop, ...extra});
+const props = (collects, extra = {}) => ({groups: navGroups({collects}), page: 'overview', onGo: noop, onExport: noop, onImport: noop, language: 'zh-CN', setLanguage: noop, onAbout: noop, onRelease: noop, ...extra});
 const entries = html => [...html.matchAll(/data-(nav-key|action)="([^"]+)"/g)].map(m => (m[1] === 'nav-key' ? 'nav:' : 'action:') + m[2]);
 
 test('web: the more pages without connections, then export, import, language and settings', async () => {
@@ -34,7 +34,7 @@ test('the current more page is marked, and the footer links are in the sheet', a
   const {render} = await load();
   const html = render(props(false, {page: 'catalog'}), 'en-US');
   assert.match(html, /class="more-tile is-active" data-nav-key="catalog" aria-current="page"/);
-  for (const text of ['Export backup', 'Import backup', 'Settings', 'Sources and notes', 'About this version', 'EN']) assert.ok(html.includes(text), text);
+  for (const text of ['Export backup', 'Import backup', 'Settings', 'About Cardybara', 'About this version', 'EN']) assert.ok(html.includes(text), text);
 });
 
 test('phones lose the page-heading data menu and the footer; settings keeps card-type import and the guide', () => {

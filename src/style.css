@@ -211,3 +211,5 @@ body:has(.ant-modal-wrap:not([style*="display: none"])) .mobile-tabbar.is-over{z
 .account-popover{width:280px}
 .account-drawer .ant-drawer-section{border-radius:16px 16px 0 0;max-height:90dvh}.account-drawer .ant-drawer-body{padding:8px 16px calc(16px + env(safe-area-inset-bottom))}
 .account-sheet .ant-segmented-item-label,.account-settings .ant-segmented-item-label{min-height:36px;line-height:36px}
+/* About view: finger-sized links on phones and desktop alike. */
+.about-links{margin-bottom:12px}.about-links a,.about-links .ant-btn{display:inline-flex;align-items:center;min-height:44px}.about-links .ant-btn{padding:0}
