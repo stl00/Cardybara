@@ -78,6 +78,15 @@ export function paymentItem(card,marks=[],asOf=walletDay()){
  return {card,key,cycle,state,soon,days,stale,readAt,autopay:autopayOn?'on':card.autopay==='off'?'off':'unknown',autopayOld:autopayOn&&isOld(oldestReading(card,['autopay'],asOf)),handled:state!=='nothing_billed'&&(isHandled(key,marks,asOf)||!!legacyKey&&isHandled(legacyKey,marks,asOf)),legacyKey,canMark:!!key&&state!=='nothing_billed'};
 }
 
+/** The one tag a wallet tile may show: an overdue bill, else its due date, else nothing. A handled bill shows nothing. */
+export function tileDue(card,marks=[],asOf=walletDay()){
+ const item=paymentItem(card,marks,asOf);
+ if(item.handled||item.state==='no_payment')return null;
+ if(item.state==='overdue')return {kind:'overdue'};
+ if(item.cycle?.kind==='date')return {kind:'date',date:item.cycle.date};
+ return item.cycle?{kind:'yearless',label:item.cycle.label}:null;
+}
+
 const RANKS={overdue:0,yearless:3,stale:5,autopay:6,nothing_billed:7,no_payment:7,unknown:8};
 export function paymentRank(item){
  if(item.state==='overdue')return item.autopay==='on'?1:0;

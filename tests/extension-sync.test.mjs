@@ -90,7 +90,19 @@ async function scenario({mode}) {
         await c.evaluate(`location.hash='wallet'`);
         await c.until(`document.querySelector('.card-title')`, 'the cards');
         await c.pause(500);
-        return {text: await c.text(), audit: await c.audit(), sources: await c.evaluate(`[...document.querySelectorAll('.card-source')].map(e=>e.innerText)`)};
+        const text = await c.text(), audit = await c.audit(), sources = [];
+        // Where a card came from is in its detail's collapsed "Data source" section (#684): open every card and read it.
+        const cardCount = await c.evaluate(`document.querySelectorAll('.wallet-card .card-title').length`);
+        for (let i = 0; i < cardCount; i++) {
+          await c.evaluate(`document.querySelectorAll('.wallet-card .card-title')[${i}].click()`);
+          await c.until(`document.querySelector('.ant-drawer-open .card-data-source .ant-collapse-header')`, 'the data source section');
+          await c.evaluate(`document.querySelector('.ant-drawer-open .card-data-source .ant-collapse-header').click()`);
+          await c.until(`document.querySelector('.ant-drawer-open .card-data-source .source-note')`, 'the data source');
+          sources.push(...await c.evaluate(`[...document.querySelectorAll('.ant-drawer-open .card-source')].map(e=>e.innerText)`));
+          await c.evaluate(`document.querySelector('.ant-drawer-open .ant-drawer-close').click()`);
+          await c.until(`!document.querySelector('.ant-drawer-open')`, 'the detail to close');
+        }
+        return {text, audit, sources};
       }, {
         origin: PAGE,
         args: [`--host-rules=MAP ${GATEWAY_HOST} 127.0.0.1:${bank.port}, MAP ${PAGE_HOST} 127.0.0.1:${bank.port}`, '--ignore-certificate-errors-spki-list=' + bank.spki],

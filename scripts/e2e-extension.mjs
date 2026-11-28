@@ -673,7 +673,11 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    // 9b. Hide a card (stl00/Cardybara#198): the bank keeps it, but the overview and the assistant act as if it is not held.
    const HIDE_TAIL='1234',walletCardJs=`[...document.querySelectorAll('.wallet-card')].find(c=>c.innerText.includes(${JSON.stringify(HIDE_TAIL)}))`;
    const hiddenEdit=async()=>(JSON.parse(await evaluate('wallet',`localStorage.getItem('cardybara-card-edits-v1')||'[]'`))).find(e=>e.hidden);
-   const toggleHide=async label=>{if(!await until(`the ${label} button on the card ending ${HIDE_TAIL}`,()=>evaluate('wallet',`(()=>{const b=${walletCardJs}?.querySelector('.hide-card-button');if(!b)return false;b.click();return true;})()`)))throw new StepError('no '+label+' button');};
+   // Hide and unhide sit in the tile's ⋯ menu (#684).
+   const toggleHide=async label=>{
+    if(!await until(`the menu on the card ending ${HIDE_TAIL}`,()=>evaluate('wallet',`(()=>{const b=${walletCardJs}?.querySelector('.more-menu-trigger');if(!b)return false;b.click();return true;})()`)))throw new StepError('no menu for '+label);
+    if(!await until(`the ${label} item on the card ending ${HIDE_TAIL}`,()=>evaluate('wallet',`(()=>{const i=document.querySelector('.ant-dropdown:not(.ant-dropdown-hidden) .ant-dropdown-menu-item[data-menu-id$="-hide"]');if(!i)return false;i.click();return true;})()`)))throw new StepError('no '+label+' item');
+   };
    await evaluate('wallet','location.hash="wallet"');
    const hideName=await until('the name of the card ending '+HIDE_TAIL,()=>evaluate('wallet',`${walletCardJs}?.querySelector('.card-title')?.innerText?.trim()||''`));
    await evaluate('wallet','location.hash="overview"');

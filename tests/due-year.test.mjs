@@ -5,6 +5,7 @@ import {inferDueDate,parseMonthDay,readDayOf} from '../src/dueYear.js';
 import {cardDue} from '../src/agentData.js';
 import {translations as i18nCatalog} from '../src/i18n/index.js';
 
+import {tileDue} from '../src/paymentStates.js';
 test('the year is the one that puts the date nearest the day it was read (issue cases)',()=>{
  assert.equal(inferDueDate('January 15','2026-12-20'),'2027-01-15');
  assert.equal(inferDueDate('December 28','2026-01-03'),'2025-12-28');
@@ -56,8 +57,11 @@ test('a card gets its due date from the latest reading, the bank\'s full date fi
  assert.equal(cardDue(card({duePartial:'Jul 2',fieldDates:{duePartial:'2027-01-01T12:00:00Z'}})).date,'2027-07-02','read day 2027-01-01: 182 ahead beats 183 back');
 });
 test('the wallet shows the inferred date with its note in three languages',()=>{
- const main=readFileSync(new URL('../src/main.jsx',import.meta.url),'utf8'),pay=readFileSync(new URL('../src/PaymentAssistant.jsx',import.meta.url),'utf8');
+ const main=readFileSync(new URL('../src/main.jsx',import.meta.url),'utf8'),tile=readFileSync(new URL('../src/WalletTile.jsx',import.meta.url),'utf8'),pay=readFileSync(new URL('../src/PaymentAssistant.jsx',import.meta.url),'utf8');
  const catalog=i18nCatalog;
- assert.match(main,/cardDue\(c\)/,'card list');assert.match(main,/cardDue\(detail\)/,'card details');assert.match(pay,/cycle\.inferred/,'payment assistant');
- for(const key of ['（年份按读取日期推断）','年份按读取日期推断',' · 推断年份'])for(const lang of ['en-US','zh-TW'])assert.ok(catalog[lang][key],`${lang}: ${key}`);
+ // The tile shows the inferred date; where it came from is said in the drawer's data source (#684).
+ assert.match(tile,/tileDue\(card,/,'card list');assert.match(tile,/cardDue\(card\)\?\.inferred&&line\('year',t\('年份按读取日期推断'\)\)/,'data source');
+ assert.deepEqual(tileDue({id:'s',bank:'Amex US',currency:'USD',updated:'2026-12-20',duePartial:'Jan 15',fieldDates:{duePartial:'2026-12-20T18:00:00Z'}},[],'2026-12-21'),{kind:'date',date:'2027-01-15'});
+assert.match(main,/cardDue\(detail\)/,'card details');assert.match(pay,/cycle\.inferred/,'payment assistant');
+ for(const key of ['（年份按读取日期推断）','年份按读取日期推断'])for(const lang of ['en-US','zh-TW'])assert.ok(catalog[lang][key],`${lang}: ${key}`);
 });

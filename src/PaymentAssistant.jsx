@@ -12,7 +12,7 @@ const SEARCH_FROM=6;
 
 export function loadPaymentMarks(){try{return readPaymentMarks(localStorage);}catch{return []}}
 export function savePaymentMarks(marks){localStorage.setItem(PAYMENT_MARKS_KEY,JSON.stringify(marks));window.dispatchEvent(new Event(CHANGE));}
-function usePaymentMarks(){
+export function usePaymentMarks(){
  const [marks,setMarks]=useState(loadPaymentMarks);
  useEffect(()=>{const load=()=>setMarks(loadPaymentMarks());window.addEventListener(CHANGE,load);window.addEventListener('storage',load);return()=>{window.removeEventListener(CHANGE,load);window.removeEventListener('storage',load)}},[]);
  return marks;

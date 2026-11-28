@@ -9,7 +9,8 @@
 // Metrics: buttons/tags/alerts = visible .ant-btn/.ant-tag/.ant-alert; paragraphs = secondary typography that is a
 // Paragraph, or runs to PARAGRAPH_CHARS characters of English; tagsPerRow/buttonsPerRow = the most in any one row
 // (`rows`, minus `rowButtonExclude`); filterRows = visible filter chip groups.
-// The ⓘ of InfoTip is not an .ant-btn and is not counted; the ⋯ of MoreMenu is, except per credit row.
+// The ⓘ of InfoTip is not an .ant-btn and is not counted; the ⋯ of MoreMenu is, except per credit row. A wallet tile's ⋯
+// shows only on hover, keyboard focus or while its menu is open (#684), so at rest there is none to count.
 export const PARAGRAPH_CHARS = 40;
 
 export const SCREENS = [
@@ -19,7 +20,7 @@ export const SCREENS = [
     baseline: {buttons: 8, tags: 1, alerts: 1, paragraphs: 2},
   },
   {
-    id: 'wallet', label: 'Wallet list', mode: 'report', rows: '.wallet-card', rowButtonExclude: '.card-title',
+    id: 'wallet', label: 'Wallet list', mode: 'enforce', rows: '.wallet-card',
     budget: {tagsPerRow: 1, buttonsPerRow: 0, alerts: 1},
     baseline: {tagsPerRow: 4, buttonsPerRow: 2, alerts: 1},
   },
