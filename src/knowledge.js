@@ -109,14 +109,15 @@ export function validateCoverage(r){
  if(!Array.isArray(c.exclusions)||c.exclusions.some(e=>typeof e!=='string'||!quotes.some(q=>q.includes(e))))errors.push('exclusions must quote the source');
  return errors;
 }
-// A foreign transaction fee is a percent the issuer's own wording states; 0 only where it says there is none.
+// A foreign transaction fee is a percent the issuer's own wording states; 0 only where it says there is none
+// (or, in a Hong Kong fee table, that it is waived).
 export function validateForeignTransactionFee(r){
  const {rate,amount,cardholderRole}=r.terms,errors=[],quotes=(r.original?.quotes||[]).map(q=>q.text);
  if(r.kind!=='fee'||r.category!=='fee')errors.push('must be a fee rule in category fee');
  if(cardholderRole!==undefined)errors.push('cardholderRole belongs to annual fees');
  if(amount!==null)errors.push('amount must be null');
  if(!(typeof rate==='number'&&Number.isFinite(rate)&&rate>=0&&rate<10))errors.push('rate must be a percent');
- else if(!quotes.some(q=>rate===0?/\bnone\b|\bno foreign transaction fee/i.test(q):new RegExp('(?<![\\d.])'+String(rate).replace('.','\\.')+'%').test(q)))errors.push('rate not stated in a quote');
+ else if(!quotes.some(q=>rate===0?/\bnone\b|\bno foreign transaction fee|foreign currency\b.*:\s*waived\b/i.test(q):new RegExp('(?<![\\d.])'+String(rate).replace('.','\\.')+'%').test(q)))errors.push('rate not stated in a quote');
  return errors;
 }
 export function validateKnowledge(records=rules){
