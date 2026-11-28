@@ -28,7 +28,7 @@ const SESSION=JSON.stringify({token:'cbs_synthetic',expiresAt:9e9,email:'synthet
 
 test('extension, signed in: due date, statement balance and the other billing fields are shown; a broken login offers Reconnect',async()=>{
  const text=await renderPanel({chrome,location:{protocol:'chrome-extension:',hash:''},localStorage:storage({'cardybara-account-session-v1':SESSION,'cardybara-plaid-cards-v1':JSON.stringify(CACHE)})});
- for(const s of ['通过 Plaid 连接的美国信用卡','添加信用卡','Synthetic Credit Card ••3333','到期还款日','2026-11-26','账单金额','$390.25','最低还款','$35.00','$410.50','$2,000.00','24.99%','账单日','2026-11-01','重新连接','Synthetic Second Bank 需要重新登录才能继续同步。'])
+ for(const s of ['已连接的卡','添加信用卡','Synthetic Credit Card ••3333','到期还款日','2026-11-26','账单金额','$390.25','最低还款','$35.00','$410.50','$2,000.00','24.99%','账单日','2026-11-01','重新连接','Synthetic Second Bank 需要重新登录才能继续同步。'])
   assert.ok(text.includes(s),'missing: '+s);
 });
 test('extension, signed out: an explanation and no Add button',async()=>{
@@ -37,7 +37,7 @@ test('extension, signed out: an explanation and no Add button',async()=>{
 });
 test('web (PWA), signed in: the same panel with due date and statement balance, and the Add button',async()=>{
  const text=await renderPanel({location:{protocol:'https:',hash:'',origin:'https://wallet.example'},localStorage:storage({'cardybara-account-session-v1':SESSION,'cardybara-plaid-cards-v1':JSON.stringify(CACHE)})});
- for(const s of ['通过 Plaid 连接的美国信用卡','添加信用卡','Synthetic Credit Card ••3333','到期还款日','2026-11-26','账单金额','$390.25'])
+ for(const s of ['已连接的卡','添加信用卡','Synthetic Credit Card ••3333','到期还款日','2026-11-26','账单金额','$390.25'])
   assert.ok(text.includes(s),'missing: '+s);
 });
 test('web (PWA), signed out: an explanation and no Add button',async()=>{

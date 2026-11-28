@@ -5,6 +5,8 @@ import {speechCapability} from './speech.js';
 const NOTIFICATIONS={permissions:['notifications']};
 export const extension={
  kind:'extension',
+ // The local dev extension (scripts/build-dev-extension.mjs) renames itself; the wallet then shows its archived experiments.
+ get devBuild(){try{return chrome.runtime.getManifest().name==='Cardybara Dev';}catch{return false;}},
  // The browser's speech recognition (#655); undefined where the browser has none.
  get speech(){return speechCapability();},
  // The reminder worker keeps its schedule here, so it can fire when the wallet page is closed.

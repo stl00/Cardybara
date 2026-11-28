@@ -157,7 +157,6 @@
     "停止本轮刷新": "Stop this refresh",
     "入账状态未确认": "Posting status unconfirmed",
     "公开产品资料与账户读数分开；卡种覆盖不代表银行采集已验收。": "Public product data is separate from account readings. Catalogue coverage does not imply verified bank sync.",
-    "管理提醒、银行读取与可选 AI 设置。": "Manage reminders, bank reading and optional AI.",
     "福利资料库": "Benefit library",
     "按持有卡查看年费、积分、福利、会员关系与使用限制。": "Review fees, rewards, benefits, memberships and restrictions for held cards.",
     "本期福利": "Current benefits",
@@ -211,7 +210,8 @@
     "页面": "Pages",
     "数据": "Data",
     "偏好": "Preferences",
-    "备份与指南": "Backup and guide"
+    "备份与指南": "Backup and guide",
+    "高级": "Advanced"
   },
   "zh-TW": {
     "待更新": "待更新",
@@ -371,7 +371,6 @@
     "停止本轮刷新": "停止本輪重新整理",
     "入账状态未确认": "入帳狀態未確認",
     "公开产品资料与账户读数分开；卡种覆盖不代表银行采集已验收。": "公開產品資料與帳戶讀數分開；卡種覆蓋不代表銀行採集已驗收。",
-    "管理提醒、银行读取与可选 AI 设置。": "管理提醒、銀行讀取與可選 AI 設定。",
     "福利资料库": "福利資料庫",
     "按持有卡查看年费、积分、福利、会员关系与使用限制。": "按持有卡檢視年費、積分、福利、會員關係與使用限制。",
     "本期福利": "本期福利",
@@ -425,6 +424,7 @@
     "页面": "頁面",
     "数据": "資料",
     "偏好": "偏好",
-    "备份与指南": "備份與指南"
+    "备份与指南": "備份與指南",
+    "高级": "進階"
   }
 }

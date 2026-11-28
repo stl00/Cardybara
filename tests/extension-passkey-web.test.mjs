@@ -67,7 +67,7 @@ test('extension sign-in route: passkey made on the web signs in and redirects to
       await c.page('WebAuthn.enable');
       await c.page('WebAuthn.addVirtualAuthenticator', {options: {protocol: 'ctap2', transport: 'internal', hasResidentKey: true, hasUserVerification: true, isUserVerified: true, automaticPresenceSimulation: true}});
       // Make an account and a passkey on the web origin.
-      await c.goto('/#settings');
+      await c.goto('/#account');
       await c.until(`document.querySelector('${A} input[type=email]')`, 'the sign-in form');
       await c.until(`window.__calls.includes('GET /v2/account/passkey/status')`, 'the passkey status call');
       await c.tap(`${A} .ant-segmented-item`, 'Sign up');

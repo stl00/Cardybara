@@ -31,8 +31,9 @@ for (const lang of ['zh-CN', 'zh-TW', 'en-US']) {
   });
 }
 
-test('the card and the sheet both use the one sentence; no fixed sync claim is left in the component', () => {
+// #679: the header sheet shows only the status line, so the sentence is on the account card alone.
+test('the card uses the one sentence; no fixed sync claim is left in the component', () => {
   const src = readFileSync(new URL('../src/AccountSettings.jsx', import.meta.url), 'utf8');
-  assert.equal((src.match(/\{syncCopy\(on\)\}/g) || []).length, 2);
+  assert.equal((src.match(/\{syncCopy\(on\)\}/g) || []).length, 1);
   assert.equal((src.match(/t\('你的钱包会在你登录的设备间同步。银行密码永远不会上传。'\)/g) || []).length, 1, 'only inside syncCopy');
 });

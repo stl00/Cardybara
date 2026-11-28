@@ -77,14 +77,32 @@ test('a web link to the bank connection page opens the overview instead',async()
  assert.doesNotMatch(html,/page-connections/);
 });
 
-test('the web settings page has the reminder card but no bank refresh, parser or model settings',async()=>{
+test('the web settings page has the reminder card, one sign-in row and no bank refresh, parser or model settings',async()=>{
  const html=await withGlobals({location:{hash:'#settings',protocol:'https:',origin:'https://wallet.example'}},()=>render(empty));
  const text=html.replace(/<[^>]+>/g,' ');
  assert.match(text,/账单和福利提醒/);
- assert.match(text,/账号与同步/,'the optional account section is there, signed out');
- assert.match(text,/忘记密码/);
- assert.match(text,/开启时浏览器会请求通知权限/);
- assert.doesNotMatch(text,/银行刷新|AI 服务|可选 AI 解析|自动补全银行数据|Chrome/);
+ assert.match(html,/class="settings-row account-row"/,'the optional account section is one row, signed out');
+ assert.match(text,/账号与同步/);
+ assert.doesNotMatch(html,/type="password"|type="email"|忘记密码/,'no inline sign-in form');
+ assert.match(text,/高级/,'the advanced section is there, collapsed');
+ assert.doesNotMatch(text,/银行刷新|AI 服务|可选 AI 解析|自动补全银行数据|已归档的实验功能|Chrome/);
+});
+
+test('the web account page has the sign-in form',async()=>{
+ const html=await withGlobals({location:{hash:'#account',protocol:'https:',origin:'https://wallet.example'}},()=>render(empty));
+ assert.match(html,/page-account/);
+ assert.match(html,/type="email"/);
+ assert.match(html,/忘记密码/);
+});
+
+test('the web reminder explanation is the browser one',async()=>{
+ const help=await withGlobals({location:{hash:'#settings',protocol:'https:',origin:'https://wallet.example'}},async()=>{
+  const {outputFiles:[out]}=await build({stdin:{contents:"export {reminderHelp} from './src/ReminderSettings.jsx';",resolveDir:root,loader:'jsx'},bundle:true,write:false,format:'cjs',platform:'node',jsx:'automatic',logLevel:'silent',loader:{'.css':'empty','.svg':'dataurl','.png':'dataurl','.jpg':'dataurl','.webp':'dataurl'}});
+  const module={exports:{}};new Function('module','exports','require',out.text)(module,module.exports,createRequire(new URL('../package.json',import.meta.url)));
+  return module.exports.reminderHelp();
+ });
+ assert.match(help,/开启时浏览器会请求通知权限/);
+ assert.doesNotMatch(help,/Chrome/);
 });
 
 test('control: the same wallet on an extension page still shows bank connection',async()=>{

@@ -4,6 +4,8 @@ import {t,useI18n} from './i18n';
 import platform from './platform';
 import {CapybaraMark} from './NavIcon.jsx';
 import {syncLine} from './syncStatus.js';
+import InfoTip from './InfoTip.jsx';
+import RightOutlined from '@ant-design/icons/es/icons/RightOutlined';
 import {readSyncState} from './walletSync.js';
 import {ACCOUNT_CHANGE_EVENT,SYNC_CHANGE_EVENT,SYNC_STATUS_EVENT,createAccountClient,emailLooksValid,passwordLongEnough,PASSWORD_MIN,readAccount,setSync,syncIsOn} from './accountClient.js';
 const {Paragraph,Text}=Typography;
@@ -51,11 +53,12 @@ const field={style:{minHeight:44},maxLength:1024};
 // `sy•••@example.com`: enough to recognise the account in a header popover without showing the whole address.
 export const maskEmail=email=>{const [user,domain]=String(email||'').split('@');if(!domain)return email||'';return user.slice(0,Math.min(2,Math.max(1,user.length-1)))+'•••@'+domain;};
 // `variant="card"` is the full Settings card. `variant="sheet"` is the header's sign-in sheet / account popover (#500): the same
-// flows and error texts, with the passkey first, and when signed in only sync, passkeys, a link to Settings and sign out.
+// flows and error texts, with the passkey first; signed in it shows only the status and a link to the account page (#679).
+// `variant="row"` is the one summary row on Settings; it opens the account page, where the full card is.
 // One state-dependent sentence under the sync switch (#600): when sync is off, the sentence that says it syncs must not show.
 export const syncCopy=on=>on?t('你的钱包会在你登录的设备间同步。银行密码永远不会上传。'):t('同步已关闭，这台设备的钱包没有上传。再次登录会重新开启；也可以随时在这里打开。');
 export default function AccountSettings({gateway,variant='card',onSettings}){
- const sheet=variant==='sheet';
+ const sheet=variant==='sheet',row=variant==='row';
  useI18n();const {message:toast}=App.useApp();
  const client=useMemo(()=>createAccountClient({gateway,storage:store(),mirror:platform.account?.mirror,webSignIn:platform.account?.passkeySignIn}),[gateway]);
  const [account,setAccount]=useState(()=>readAccount(store()));
@@ -73,8 +76,8 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
  useEffect(()=>{const a=()=>setAccount(readAccount(store())),o=()=>setOn(syncIsOn(store()));window.addEventListener(ACCOUNT_CHANGE_EVENT,a);window.addEventListener(SYNC_CHANGE_EVENT,o);return()=>{window.removeEventListener(ACCOUNT_CHANGE_EVENT,a);window.removeEventListener(SYNC_CHANGE_EVENT,o);};},[]);
 
  // Passkeys: the controls appear only when the browser and the gateway both support them; email and password stay the fallback.
- useEffect(()=>{let live=true;client.passkeysAvailable().then(v=>live&&setPkOk(v)).catch(()=>{});return()=>{live=false;};},[client]);
- useEffect(()=>{if(!pkOk||!account)return;let live=true;client.listPasskeys().then(r=>live&&r.ok&&setPks(r.passkeys));return()=>{live=false;};},[client,pkOk,account]);
+ useEffect(()=>{if(row)return;let live=true;client.passkeysAvailable().then(v=>live&&setPkOk(v)).catch(()=>{});return()=>{live=false;};},[client]);
+ useEffect(()=>{if(sheet||!pkOk||!account)return;let live=true;client.listPasskeys().then(r=>live&&r.ok&&setPks(r.passkeys));return()=>{live=false;};},[client,pkOk,account]);
  useEffect(()=>{
   if(sheet||!pkOk||account||mode!=='signin'||platform.account?.passkeySignIn)return;
   const ac=new AbortController();
@@ -137,32 +140,33 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
  const link=(label,m)=><Button type="link" style={{padding:'0 4px',minHeight:44}} onClick={()=>go(m)}>{label}</Button>;
 
  let body;
+ if(row){
+  const line=account&&(on?lineText(syncLine({on,status,syncedAt})):t('同步已关闭'));
+  return <Card className="account-row-card" style={{marginBottom:20}} styles={{body:{padding:0}}}>
+   <button type="button" className="settings-row account-row" onClick={onSettings}>
+    <span className="settings-row-main"><strong>{account?t('账号与同步'):t('登录')}</strong>
+     <span className="settings-row-sub">{account?<><span className="account-email">{account.email||t('（邮箱未记录）')}</span> · <span className={'account-sync-status'+(!on||status==='error'||status==='signed_out'?' is-warning':'')}>{line}</span></>:t('账号与同步')}</span></span>
+    <RightOutlined aria-hidden="true"/>
+   </button>
+  </Card>;
+ }
  if(account&&sheet){
   body=<Flex vertical gap={12} className="account-sheet-signed-in">
    <div><Text type="secondary">{t('已登录')}</Text><div className="account-email"><Text strong>{maskEmail(account.email)||t('（邮箱未记录）')}</Text></div></div>
-   <div>
-    <label className="account-sync-switch"><Switch aria-label={t('在设备间同步钱包')} checked={on} onChange={toggle}/><Text>{t('在设备间同步钱包')}</Text></label>
-    <Paragraph type="secondary" className="account-sync-copy" style={{marginTop:8,marginBottom:0}}>{syncCopy(on)}</Paragraph>
-    <div><Text className="account-sync-status" type={on&&(status==='error'||status==='signed_out')?'danger':'secondary'}>{lineText(syncLine({on,status,syncedAt}))}</Text></div>
-   </div>
-   {err&&<Alert type="error" showIcon title={err} role="alert"/>}
-   {pkOk&&!platform.account?.passkeySignIn&&<Button loading={busy} onClick={addPk}>{t('添加通行密钥')}{pks.length?` · ${pks.length}`:''}</Button>}
+   <Text className="account-sync-status" type={on&&(status==='error'||status==='signed_out')?'danger':'secondary'}>{on?lineText(syncLine({on,status,syncedAt})):t('同步已关闭')}</Text>
    <Button onClick={onSettings} className="account-open-settings">{t('账号设置')}</Button>
-   <Button loading={busy} onClick={signOut} className="account-signout">{t('退出登录')}</Button>
   </Flex>;
  }else if(account){
   body=<Flex vertical gap={16}>
    <div><Text type="secondary">{t('已登录')}</Text><div className="account-email" style={{wordBreak:'break-all'}}><Text strong>{account.email||t('（邮箱未记录）')}</Text></div></div>
    <div>
-    <label className="account-sync-switch"><Switch aria-label={t('在设备间同步钱包')} checked={on} onChange={toggle}/><Text strong>{t('在设备间同步钱包')}</Text></label>
+    <label className="account-sync-switch"><Switch aria-label={t('在设备间同步钱包')} checked={on} onChange={toggle}/><Text strong>{t('在设备间同步钱包')}</Text>{on&&<InfoTip title={t('钱包的一份副本存在 Cardybara 服务器上，同一账号的其他设备会合并成同一个钱包。关闭后不再同步，服务器上的副本保留，直到你删除账号。')}/>}</label>
     <Paragraph type="secondary" className="account-sync-copy" style={{marginTop:8,marginBottom:0}}>{syncCopy(on)}</Paragraph>
-    {on&&<Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{t('钱包的一份副本存在 Cardybara 服务器上，同一账号的其他设备会合并成同一个钱包。关闭后不再同步，服务器上的副本保留，直到你删除账号。')}</Paragraph>}
     {!on&&<Text className="account-sync-status" type="warning">{lineText(syncLine({on,status,syncedAt}))}</Text>}
     {on&&<Text className="account-sync-status" type={status==='error'||status==='signed_out'?'danger':'secondary'}>{lineText(syncLine({on,status,syncedAt}))}</Text>}
    </div>
    {pkOk&&!platform.account?.passkeySignIn&&<div className="account-passkeys">
-    <Text strong>{t('通行密钥')}</Text>
-    <Paragraph type="secondary" style={{margin:'4px 0 8px'}}>{t('用指纹、面容或设备锁登录。邮箱和密码仍然可用，丢了通行密钥也不会被锁在外面。')}</Paragraph>
+    <div className="settings-title" style={{marginBottom:8}}><Text strong>{t('通行密钥')}</Text><InfoTip title={t('用指纹、面容或设备锁登录。邮箱和密码仍然可用，丢了通行密钥也不会被锁在外面。')}/></div>
     {pks.map(k=><Flex key={k.id} gap={8} align="center" justify="space-between" wrap style={{marginBottom:8}}><Text>{k.name||t('通行密钥')}</Text><Button size="small" style={{minHeight:44}} loading={busy} onClick={()=>removePk(k.id)}>{t('移除')}</Button></Flex>)}
     <Button loading={busy} onClick={addPk}>{t('添加通行密钥')}</Button>
    </div>}
@@ -171,8 +175,7 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
     {alerts}{pwInput(t('当前密码'),cur,setCur,'current-password')}{pwInput(t('新密码（至少 {0} 个字符）',[PASSWORD_MIN]),next,setNext,'new-password')}
     <Flex gap={8} wrap><Button type="primary" loading={busy} onClick={changePw}>{t('修改密码')}</Button><Button onClick={()=>{setPw(false);setErr(null);}}>{t('取消')}</Button></Flex></Flex>
    :<Button onClick={()=>{setPw(true);setErr(null);}}>{t('修改密码')}</Button>}
-   <Button loading={busy} onClick={signOut}>{t('退出登录')}</Button>
-   <Paragraph type="secondary" style={{marginBottom:0}}>{t('退出登录只清除这台设备上的登录，钱包留在这里。')}</Paragraph>
+   <Flex align="center" gap={4}><Button loading={busy} onClick={signOut} className="account-signout" style={{flex:1}}>{t('退出登录')}</Button><InfoTip title={t('退出登录只清除这台设备上的登录，钱包留在这里。')}/></Flex>
    <Button danger onClick={()=>{setDel(true);setErr(null);}}>{t('删除账号')}</Button>
    <Modal open={del} title={t('删除账号')} onCancel={()=>{setDel(false);setErr(null);setDelPw('');}} destroyOnHidden
     footer={<Flex gap={8} justify="end" wrap><Button onClick={()=>{setDel(false);setErr(null);setDelPw('');}}>{t('取消')}</Button><Button danger type="primary" loading={busy} disabled={!delPw} onClick={remove}>{t('永久删除账号')}</Button></Flex>}>
@@ -202,10 +205,9 @@ export default function AccountSettings({gateway,variant='card',onSettings}){
  if(sheet)return <div className="account-sheet">
   {!account&&<div className="account-sheet-head"><CapybaraMark size={48}/><Typography.Title level={4}>{t('登录卡疲扒拉')}</Typography.Title><Paragraph type="secondary">{t('同一个钱包，在手机和电脑上都能用。')}</Paragraph></div>}
   {body}
-  {!account&&mode==='signin'&&<Paragraph type="secondary" className="account-sheet-privacy">{t('不登录也能完整使用钱包；开启同步后，钱包副本才会存到服务器。')}</Paragraph>}
+  {!account&&mode==='signin'&&<Paragraph type="secondary" className="account-sheet-privacy">{t('不登录也能完整使用钱包；登录后同步默认开启，钱包副本才会存到服务器。')}</Paragraph>}
  </div>;
- return <Card className="account-settings" title={t('账号与同步')} style={{marginBottom:20}}>
-  {!account&&<Paragraph type="secondary">{t('可选。不登录也能完整使用钱包，数据只在这个浏览器里。登录并开启同步后，才会把钱包副本存到服务器，在你的其他设备上使用。')}</Paragraph>}
+ return <Card className="account-settings" style={{marginBottom:20}} title={<span className="settings-title">{t('账号与同步')}{!account&&<InfoTip title={t('可选。不登录也能完整使用钱包，数据只在这个浏览器里。登录后同步默认开启，钱包副本会存到服务器，在你的其他设备上使用；可随时关闭。')}/>}</span>}>
   {body}
  </Card>;
 }
