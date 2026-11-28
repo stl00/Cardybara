@@ -5259,6 +5259,744 @@
       "checkedAt": "2026-11-23",
       "verification": "issuer-listed",
       "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-jetblue-card",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "JetBlue Card",
+      "aliases": [
+        "JetBlue Card",
+        "JetBlue Mastercard",
+        "JetBlue World Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "JetBlue TrueBlue"
+      ],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/jetblue-card/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://cards.barclaycardus.com/banking/cards/jetblue-card/",
+        "checkedAt": "2026-11-27"
+      }
+    },
+    {
+      "id": "barclays-us-jetblue-plus-card",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "JetBlue Plus Card",
+      "aliases": [
+        "JetBlue Plus Card",
+        "JetBlue Plus",
+        "JetBlue Plus Mastercard",
+        "JetBlue Plus World Elite Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "JetBlue TrueBlue"
+      ],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/jetblue-plus-card/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://cards.barclaycardus.com/banking/cards/jetblue-plus-card/",
+        "checkedAt": "2026-11-27"
+      }
+    },
+    {
+      "id": "barclays-us-jetblue-premier-card",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "JetBlue Premier Card",
+      "aliases": [
+        "JetBlue Premier Card",
+        "JetBlue Premier",
+        "JetBlue Premier Mastercard",
+        "JetBlue Premier World Elite Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "JetBlue TrueBlue"
+      ],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/jetblue-premier-card/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://cards.barclaycardus.com/banking/cards/jetblue-premier-card/",
+        "checkedAt": "2026-11-27"
+      }
+    },
+    {
+      "id": "barclays-us-jetblue-business-card",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "JetBlue Business Card",
+      "aliases": [
+        "JetBlue Business Card",
+        "JetBlue Business",
+        "JetBlue Business Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "JetBlue TrueBlue"
+      ],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/jetblue-business-card/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://cards.barclaycardus.com/banking/cards/jetblue-business-card/",
+        "checkedAt": "2026-11-27"
+      }
+    },
+    {
+      "id": "barclays-us-wyndham-rewards-earner-card",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Wyndham Rewards Earner Card",
+      "aliases": [
+        "Wyndham Rewards Earner Card",
+        "Wyndham Rewards Earner",
+        "Wyndham Earner"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Wyndham Rewards"
+      ],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-card/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-card/",
+        "checkedAt": "2026-11-27"
+      }
+    },
+    {
+      "id": "barclays-us-wyndham-rewards-earner-plus-card",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Wyndham Rewards Earner Plus Card",
+      "aliases": [
+        "Wyndham Rewards Earner Plus Card",
+        "Wyndham Rewards Earner Plus",
+        "Wyndham Earner Plus"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Wyndham Rewards"
+      ],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-plus-card/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-plus-card/",
+        "checkedAt": "2026-11-27"
+      }
+    },
+    {
+      "id": "barclays-us-wyndham-rewards-earner-premier-card",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Wyndham Rewards Earner Premier Card",
+      "aliases": [
+        "Wyndham Rewards Earner Premier Card",
+        "Wyndham Rewards Earner Premier",
+        "Wyndham Earner Premier"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Wyndham Rewards"
+      ],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-premier-card/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-premier-card/",
+        "checkedAt": "2026-11-27"
+      }
+    },
+    {
+      "id": "barclays-us-wyndham-rewards-earner-business-card",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Wyndham Rewards Earner Business Card",
+      "aliases": [
+        "Wyndham Rewards Earner Business Card",
+        "Wyndham Rewards Earner Business",
+        "Wyndham Earner Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Wyndham Rewards"
+      ],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-business-card/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-business-card/",
+        "checkedAt": "2026-11-27"
+      }
+    },
+    {
+      "id": "barclays-us-emirates-skywards-premium-world-elite-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Emirates Skywards Premium World Elite Mastercard",
+      "aliases": [
+        "Emirates Skywards Premium World Elite Mastercard",
+        "Emirates Skywards Premium",
+        "Emirates Skywards Premium World Elite",
+        "Emirates Premium"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Emirates Skywards"
+      ],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/emirates-skywards-premium-world-elite-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://cards.barclaycardus.com/banking/cards/emirates-skywards-premium-world-elite-mastercard/",
+        "checkedAt": "2026-11-27"
+      }
+    },
+    {
+      "id": "barclays-us-emirates-skywards-rewards-world-elite-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Emirates Skywards Rewards World Elite Mastercard",
+      "aliases": [
+        "Emirates Skywards Rewards World Elite Mastercard",
+        "Emirates Skywards Rewards",
+        "Emirates Skywards Rewards World Elite"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "Emirates Skywards"
+      ],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/emirates-skywards-rewards-world-elite-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported",
+      "rewardSource": {
+        "url": "https://cards.barclaycardus.com/banking/cards/emirates-skywards-rewards-world-elite-mastercard/",
+        "checkedAt": "2026-11-27"
+      }
+    },
+    {
+      "id": "barclays-us-miles-more-world-elite-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Miles & More World Elite Mastercard",
+      "aliases": [
+        "Miles & More World Elite Mastercard",
+        "Miles & More",
+        "Miles and More World Elite Mastercard",
+        "Miles & More Mastercard",
+        "Lufthansa Miles & More World Elite Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/lufthansa-miles-more-world-elite-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-frontier-airlines-world-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Frontier Airlines World Mastercard",
+      "aliases": [
+        "Frontier Airlines World Mastercard",
+        "Frontier Airlines Mastercard",
+        "Frontier World Mastercard",
+        "Frontier Airlines World"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/frontier-airlines-world-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-breeze-easy-visa-credit-card",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Breeze Easy Visa Credit Card",
+      "aliases": [
+        "Breeze Easy Visa Credit Card",
+        "Breeze Easy",
+        "Breeze Easy Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/breeze-airways/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-aarp-travel-rewards-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "AARP Travel Rewards Mastercard",
+      "aliases": [
+        "AARP Travel Rewards Mastercard",
+        "AARP Travel Rewards",
+        "AARP Travel Rewards Mastercard from Barclays"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/aarp-travel-rewards-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-aarp-essential-rewards-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "AARP Essential Rewards Mastercard",
+      "aliases": [
+        "AARP Essential Rewards Mastercard",
+        "AARP Essential Rewards",
+        "AARP Essential Rewards Mastercard from Barclays"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/aarp-essential-rewards-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-upromise-world-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Upromise World Mastercard",
+      "aliases": [
+        "Upromise World Mastercard",
+        "Upromise Mastercard",
+        "Upromise"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/upromise-world-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-gm-rewards-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "GM Rewards Mastercard",
+      "aliases": [
+        "GM Rewards Mastercard",
+        "GM Rewards",
+        "GM Rewards Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/general-motors/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-gm-business-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "GM Business Mastercard",
+      "aliases": [
+        "GM Business Mastercard",
+        "GM Business",
+        "GM Business Card"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/general-motors-business/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-carnival-rewards-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Carnival Rewards Mastercard",
+      "aliases": [
+        "Carnival Rewards Mastercard",
+        "Carnival Rewards",
+        "Carnival Mastercard",
+        "Carnival World Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/carnival-rewards-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-barnes-noble-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Barnes & Noble Mastercard",
+      "aliases": [
+        "Barnes & Noble Mastercard",
+        "Barnes & Noble",
+        "Barnes and Noble Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/barnes-noble-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-capital-vacations-world-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Capital Vacations World Mastercard",
+      "aliases": [
+        "Capital Vacations World Mastercard",
+        "Capital Vacations",
+        "Capital Vacations Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/capital-vacations/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-rci-elite-rewards-world-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "RCI Elite Rewards World Mastercard",
+      "aliases": [
+        "RCI Elite Rewards World Mastercard",
+        "RCI Elite Rewards",
+        "RCI Elite Rewards Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/rci-elite-rewards-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-gap-encore-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Gap Encore Mastercard",
+      "aliases": [
+        "Gap Encore Mastercard",
+        "Gap Encore",
+        "Gap Good Rewards Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/gap-encore-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-old-navy-encore-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Old Navy Encore Mastercard",
+      "aliases": [
+        "Old Navy Encore Mastercard",
+        "Old Navy Encore",
+        "Navyist Rewards Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/old-navy-encore-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-banana-republic-encore-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Banana Republic Encore Mastercard",
+      "aliases": [
+        "Banana Republic Encore Mastercard",
+        "Banana Republic Encore",
+        "Banana Republic Rewards Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/banana-republic-encore-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-athleta-encore-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Athleta Encore Mastercard",
+      "aliases": [
+        "Athleta Encore Mastercard",
+        "Athleta Encore",
+        "Athleta Rewards Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/athleta-encore-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-xbox-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Xbox Mastercard",
+      "aliases": [
+        "Xbox Mastercard",
+        "Xbox"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/xbox-mastercard/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-barclays-view-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Barclays View Mastercard",
+      "aliases": [
+        "Barclays View Mastercard",
+        "View Mastercard",
+        "Barclays View"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/cards/barclaysview/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-aadvantage-aviator-red-world-elite-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "AAdvantage Aviator Red World Elite Mastercard",
+      "aliases": [
+        "AAdvantage Aviator Red World Elite Mastercard",
+        "AAdvantage Aviator Red",
+        "AAdvantage Aviator Red Mastercard",
+        "Aviator Red"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "American Airlines AAdvantage"
+      ],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/contact-us/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-aadvantage-aviator-world-elite-business-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "AAdvantage Aviator World Elite Business Mastercard",
+      "aliases": [
+        "AAdvantage Aviator World Elite Business Mastercard",
+        "AAdvantage Aviator Business",
+        "AAdvantage Aviator Business Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [
+        "American Airlines AAdvantage"
+      ],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/contact-us/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-hawaiian-airlines-world-elite-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Hawaiian Airlines World Elite Mastercard",
+      "aliases": [
+        "Hawaiian Airlines World Elite Mastercard",
+        "Hawaiian Airlines Mastercard",
+        "Hawaiian Airlines"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/contact-us/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-hawaiian-airlines-world-elite-business-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Hawaiian Airlines World Elite Business Mastercard",
+      "aliases": [
+        "Hawaiian Airlines World Elite Business Mastercard",
+        "Hawaiian Airlines Business Mastercard",
+        "Hawaiian Airlines Business"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/contact-us/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-frontier-airlines-business-mastercard",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Frontier Airlines Business Mastercard",
+      "aliases": [
+        "Frontier Airlines Business Mastercard",
+        "Frontier Business Mastercard"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/contact-us/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-holland-america-line-rewards-visa-card",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Holland America Line Rewards Visa Card",
+      "aliases": [
+        "Holland America Line Rewards Visa Card",
+        "Holland America Line Visa Card",
+        "Holland America Line Rewards",
+        "Holland America"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/contact-us/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-princess-cruises-rewards-visa-card",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Princess Cruises Rewards Visa Card",
+      "aliases": [
+        "Princess Cruises Rewards Visa Card",
+        "Princess Cruises Visa",
+        "Princess Rewards Visa Card",
+        "Princess Cruises"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/contact-us/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-priceline-rewards-visa-card",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Priceline Rewards Visa Card",
+      "aliases": [
+        "Priceline Rewards Visa Card",
+        "Priceline Rewards",
+        "Priceline Rewards Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/contact-us/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
+    },
+    {
+      "id": "barclays-us-priceline-vip-rewards-visa-card",
+      "bank": "Barclays",
+      "region": "US",
+      "name": "Priceline VIP Rewards Visa Card",
+      "aliases": [
+        "Priceline VIP Rewards Visa Card",
+        "Priceline VIP Rewards",
+        "Priceline VIP Rewards Visa"
+      ],
+      "currencies": [],
+      "rewardPrograms": [],
+      "art": null,
+      "sourceUrl": "https://cards.barclaycardus.com/banking/about-us/newsroom/barclays-and-priceline-introduce-the-priceline-vip-rewards-visa-card/",
+      "checkedAt": "2026-11-27",
+      "verification": "issuer-listed",
+      "collection": "not-supported"
     }
   ]
 }

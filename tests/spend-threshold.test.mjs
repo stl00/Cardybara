@@ -30,11 +30,13 @@ const MORE={[SPARK]:[150000,'account-anniversary'],[EXPLORER]:[10000,'calendar-y
 // Air France KLM (BOA, batch 14): both XP tiers state their threshold on the signed-out product page.
 // #644: the page states the amount, the 12-month period and that only Travel Center purchases count.
 const SHIELD_BUSINESS='rule.us-bank-us-business-shield-visa-card.annual-credit';
+// #681: the page states the vacation credit's yearly net-purchase threshold.
+const RCI='rule.barclays-us-rci-elite-rewards-world-mastercard.vacation-credit';
 const AF_XP=['xp-15000','xp-25000'].map(k=>`rule.boa-us-air-france-klm-visa-signature-credit-card.${k}`);
 
 test('the companion tickets and the Disney Inspire spend rewards expose their spend threshold',()=>{
  assert.equal(validateKnowledge().valid,true);
- assert.deepEqual(stated.map(s=>s.id).sort(),[AA_BUSINESS,SHIELD_BUSINESS,...AF_XP,AER,ASCENT,BA,RESORT,TICKETS,...Object.keys(MORE),...FREE_NIGHTS].sort());
+ assert.deepEqual(stated.map(s=>s.id).sort(),[AA_BUSINESS,RCI,SHIELD_BUSINESS,...AF_XP,AER,ASCENT,BA,RESORT,TICKETS,...Object.keys(MORE),...FREE_NIGHTS].sort());
  const want={[BA]:[30000,'calendar-year'],[AER]:[30000,'calendar-year'],[RESORT]:[2000,'account-anniversary'],[TICKETS]:[200,'account-anniversary'],...MORE};
  for(const [id,[amount,period]] of Object.entries(want)){
   const rule=getKnowledgeRule(id,{asOf:DAY});

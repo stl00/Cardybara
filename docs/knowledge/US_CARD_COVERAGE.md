@@ -130,3 +130,40 @@
 | — | Discover it Cash Back for Good Credit | — | — | — | — | — | #652（2026-11-26 查）：discover.com 未登录的公开页面里没有本卡自己的页面；只在共用的全部卡片列表页 https://www.discover.com/credit-cards/ 有一个卡片栏，栏内没有指向本卡产品页或条款页的链接。按 #652 的范围跳过，不从普通版卡片抄事实。 | — |
 | — | Discover it Miles for Good Credit | — | — | — | — | — | #652（2026-11-26 查）：discover.com 未登录的公开页面里没有本卡自己的页面；只在共用的全部卡片列表页 https://www.discover.com/credit-cards/ 有一个卡片栏，栏内没有指向本卡产品页或条款页的链接。按 #652 的范围跳过，不从普通版卡片抄事实。 | — |
 | — | Discover it Chrome for Good Credit | — | — | — | — | — | #652（2026-11-26 查）：discover.com 未登录的公开页面里没有本卡自己的页面；只在共用的全部卡片列表页 https://www.discover.com/credit-cards/ 有一个卡片栏，栏内没有指向本卡产品页或条款页的链接。按 #652 的范围跳过，不从普通版卡片抄事实。 | — |
+| 22 | JetBlue Card | $0 | 3 | 1 | JetBlue TrueBlue | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/jetblue-card/ |
+| 22 | JetBlue Plus Card | $99 | 3 | 5 | JetBlue TrueBlue | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/jetblue-plus-card/ |
+| 22 | JetBlue Premier Card | $499 | 3 | 7 | JetBlue TrueBlue | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/jetblue-premier-card/ |
+| 22 | JetBlue Business Card | $99 | 3 | 4 | JetBlue TrueBlue | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/jetblue-business-card/ |
+| 22 | Wyndham Rewards Earner Card | $0 | 2 | 2 | Wyndham Rewards | 暂不支持 | 产品页对餐饮和超市同时写了 2 倍和 3 倍，两处冲突，未录入。；开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-card/ |
+| 22 | Wyndham Rewards Earner Plus Card | $95 | 3 | 4 | Wyndham Rewards | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-plus-card/ |
+| 22 | Wyndham Rewards Earner Premier Card | $395 | 3 | 8 | Wyndham Rewards | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-premier-card/ |
+| 22 | Wyndham Rewards Earner Business Card | $149 | 3 | 4 | Wyndham Rewards | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-business-card/ |
+| 22 | Emirates Skywards Premium World Elite Mastercard | $499 | 3 | 4 | Emirates Skywards | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/emirates-skywards-premium-world-elite-mastercard/ |
+| 22 | Emirates Skywards Rewards World Elite Mastercard | $99 | 3 | 1 | Emirates Skywards | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/emirates-skywards-rewards-world-elite-mastercard/ |
+| 22 | Miles & More World Elite Mastercard | $89 | 2 | 2 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/lufthansa-miles-more-world-elite-mastercard/ |
+| 22 | Frontier Airlines World Mastercard | $99 | 2 | 2 | — | 暂不支持 | Frontier 机票消费的"最高"倍数含会员等级加成，未录入。；开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/frontier-airlines-world-mastercard/ |
+| 22 | Breeze Easy Visa Credit Card | $89 | 2 | 2 | — | 暂不支持 | Breeze 机票套餐的倍数合并了购买和乘机两部分，未录入。；开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/breeze-airways/ |
+| 22 | AARP Travel Rewards Mastercard | $0 | 3 | 0 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/aarp-travel-rewards-mastercard/ |
+| 22 | AARP Essential Rewards Mastercard | $0 | 3 | 0 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/aarp-essential-rewards-mastercard/ |
+| 22 | Upromise World Mastercard | $0 | 1 | 0 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/upromise-world-mastercard/ |
+| 22 | GM Rewards Mastercard | $0 | 2 | 0 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/general-motors/ |
+| 22 | GM Business Mastercard | $0 | 2 | 0 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/general-motors-business/ |
+| 22 | Carnival Rewards Mastercard | $0 | 3 | 0 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/carnival-rewards-mastercard/ |
+| 22 | Barnes & Noble Mastercard | $0 | 3 | 1 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/barnes-noble-mastercard/ |
+| 22 | Capital Vacations World Mastercard | $0 | 3 | 1 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/capital-vacations/ |
+| 22 | RCI Elite Rewards World Mastercard | $0 | 3 | 1 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/rci-elite-rewards-mastercard/ |
+| 22 | Gap Encore Mastercard | $0 | 3 | 0 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/gap-encore-mastercard/ |
+| 22 | Old Navy Encore Mastercard | $0 | 3 | 0 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/old-navy-encore-mastercard/ |
+| 22 | Banana Republic Encore Mastercard | $0 | 3 | 0 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/banana-republic-encore-mastercard/ |
+| 22 | Athleta Encore Mastercard | $0 | 3 | 0 | — | 暂不支持 | 开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/athleta-encore-mastercard/ |
+| 22 | Xbox Mastercard | $0 | 4 | 0 | — | 暂不支持 | 页面没有申请入口，是否仍接受新申请未知。；开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/xbox-mastercard/ |
+| 22 | Barclays View Mastercard | 未知 | 4 | 0 | — | 暂不支持 | 读到的公开页面没有写年费。；页面没有申请入口，是否仍接受新申请未知。；开户奖励和免息期等限时优惠未录入。 | https://cards.barclaycardus.com/banking/cards/barclaysview/ |
+| — | AAdvantage Aviator Red World Elite Mastercard | — | — | — | — | — | #681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。 | — |
+| — | AAdvantage Aviator World Elite Business Mastercard | — | — | — | — | — | #681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。 | — |
+| — | Hawaiian Airlines World Elite Mastercard | — | — | — | — | — | #681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。 | — |
+| — | Hawaiian Airlines World Elite Business Mastercard | — | — | — | — | — | #681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。 | — |
+| — | Frontier Airlines Business Mastercard | — | — | — | — | — | #681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。 | — |
+| — | Holland America Line Rewards Visa Card | — | — | — | — | — | #681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。 | — |
+| — | Princess Cruises Rewards Visa Card | — | — | — | — | — | #681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。 | — |
+| — | Priceline Rewards Visa Card | — | — | — | — | — | #681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。 | — |
+| — | Priceline VIP Rewards Visa Card | — | — | — | — | — | #681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/about-us/newsroom/barclays-and-priceline-introduce-the-priceline-vip-rewards-visa-card/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。 | — |

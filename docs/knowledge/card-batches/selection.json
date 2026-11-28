@@ -500,6 +500,163 @@
       "id": "discover-us-discover-it-chrome-for-good-credit",
       "name": "Discover it Chrome for Good Credit",
       "skip": "#652（2026-11-26 查）：discover.com 未登录的公开页面里没有本卡自己的页面；只在共用的全部卡片列表页 https://www.discover.com/credit-cards/ 有一个卡片栏，栏内没有指向本卡产品页或条款页的链接。按 #652 的范围跳过，不从普通版卡片抄事实。"
+    },
+    {
+      "id": "barclays-us-jetblue-card",
+      "name": "JetBlue Card"
+    },
+    {
+      "id": "barclays-us-jetblue-plus-card",
+      "name": "JetBlue Plus Card"
+    },
+    {
+      "id": "barclays-us-jetblue-premier-card",
+      "name": "JetBlue Premier Card"
+    },
+    {
+      "id": "barclays-us-jetblue-business-card",
+      "name": "JetBlue Business Card"
+    },
+    {
+      "id": "barclays-us-wyndham-rewards-earner-card",
+      "name": "Wyndham Rewards Earner Card"
+    },
+    {
+      "id": "barclays-us-wyndham-rewards-earner-plus-card",
+      "name": "Wyndham Rewards Earner Plus Card"
+    },
+    {
+      "id": "barclays-us-wyndham-rewards-earner-premier-card",
+      "name": "Wyndham Rewards Earner Premier Card"
+    },
+    {
+      "id": "barclays-us-wyndham-rewards-earner-business-card",
+      "name": "Wyndham Rewards Earner Business Card"
+    },
+    {
+      "id": "barclays-us-emirates-skywards-premium-world-elite-mastercard",
+      "name": "Emirates Skywards Premium World Elite Mastercard"
+    },
+    {
+      "id": "barclays-us-emirates-skywards-rewards-world-elite-mastercard",
+      "name": "Emirates Skywards Rewards World Elite Mastercard"
+    },
+    {
+      "id": "barclays-us-miles-more-world-elite-mastercard",
+      "name": "Miles & More World Elite Mastercard"
+    },
+    {
+      "id": "barclays-us-frontier-airlines-world-mastercard",
+      "name": "Frontier Airlines World Mastercard"
+    },
+    {
+      "id": "barclays-us-breeze-easy-visa-credit-card",
+      "name": "Breeze Easy Visa Credit Card"
+    },
+    {
+      "id": "barclays-us-aarp-travel-rewards-mastercard",
+      "name": "AARP Travel Rewards Mastercard"
+    },
+    {
+      "id": "barclays-us-aarp-essential-rewards-mastercard",
+      "name": "AARP Essential Rewards Mastercard"
+    },
+    {
+      "id": "barclays-us-upromise-world-mastercard",
+      "name": "Upromise World Mastercard"
+    },
+    {
+      "id": "barclays-us-gm-rewards-mastercard",
+      "name": "GM Rewards Mastercard"
+    },
+    {
+      "id": "barclays-us-gm-business-mastercard",
+      "name": "GM Business Mastercard"
+    },
+    {
+      "id": "barclays-us-carnival-rewards-mastercard",
+      "name": "Carnival Rewards Mastercard"
+    },
+    {
+      "id": "barclays-us-barnes-noble-mastercard",
+      "name": "Barnes & Noble Mastercard"
+    },
+    {
+      "id": "barclays-us-capital-vacations-world-mastercard",
+      "name": "Capital Vacations World Mastercard"
+    },
+    {
+      "id": "barclays-us-rci-elite-rewards-world-mastercard",
+      "name": "RCI Elite Rewards World Mastercard"
+    },
+    {
+      "id": "barclays-us-gap-encore-mastercard",
+      "name": "Gap Encore Mastercard"
+    },
+    {
+      "id": "barclays-us-old-navy-encore-mastercard",
+      "name": "Old Navy Encore Mastercard"
+    },
+    {
+      "id": "barclays-us-banana-republic-encore-mastercard",
+      "name": "Banana Republic Encore Mastercard"
+    },
+    {
+      "id": "barclays-us-athleta-encore-mastercard",
+      "name": "Athleta Encore Mastercard"
+    },
+    {
+      "id": "barclays-us-xbox-mastercard",
+      "name": "Xbox Mastercard"
+    },
+    {
+      "id": "barclays-us-barclays-view-mastercard",
+      "name": "Barclays View Mastercard"
+    },
+    {
+      "id": "barclays-us-aadvantage-aviator-red-world-elite-mastercard",
+      "name": "AAdvantage Aviator Red World Elite Mastercard",
+      "skip": "#681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。"
+    },
+    {
+      "id": "barclays-us-aadvantage-aviator-world-elite-business-mastercard",
+      "name": "AAdvantage Aviator World Elite Business Mastercard",
+      "skip": "#681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。"
+    },
+    {
+      "id": "barclays-us-hawaiian-airlines-world-elite-mastercard",
+      "name": "Hawaiian Airlines World Elite Mastercard",
+      "skip": "#681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。"
+    },
+    {
+      "id": "barclays-us-hawaiian-airlines-world-elite-business-mastercard",
+      "name": "Hawaiian Airlines World Elite Business Mastercard",
+      "skip": "#681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。"
+    },
+    {
+      "id": "barclays-us-frontier-airlines-business-mastercard",
+      "name": "Frontier Airlines Business Mastercard",
+      "skip": "#681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。"
+    },
+    {
+      "id": "barclays-us-holland-america-line-rewards-visa-card",
+      "name": "Holland America Line Rewards Visa Card",
+      "skip": "#681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。"
+    },
+    {
+      "id": "barclays-us-princess-cruises-rewards-visa-card",
+      "name": "Princess Cruises Rewards Visa Card",
+      "skip": "#681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。"
+    },
+    {
+      "id": "barclays-us-priceline-rewards-visa-card",
+      "name": "Priceline Rewards Visa Card",
+      "skip": "#681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/contact-us/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。"
+    },
+    {
+      "id": "barclays-us-priceline-vip-rewards-visa-card",
+      "name": "Priceline VIP Rewards Visa Card",
+      "skip": "#681（2026-11-27 查）：发卡行公开页面列出此卡名（https://cards.barclaycardus.com/banking/about-us/newsroom/barclays-and-priceline-introduce-the-priceline-vip-rewards-visa-card/），但没有读到本卡的产品页或条款页。只录卡名，年费、赚取和福利未知。"
     }
   ]
 }

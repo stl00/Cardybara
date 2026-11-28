@@ -20,7 +20,7 @@ const REGIONS=['US','HK','CA'];
 const BANKS=new Set(cardProducts.map(p=>p.bank));
 const productIds=new Set(cardProducts.map(p=>p.id));
 // Above the catalogue's size, so a wallet is never cut short; the evals hold every catalogued card.
-const MAX_CARDS=150,MAX_VALUES=20;
+const MAX_CARDS=400,MAX_VALUES=20;
 
 /**
  * The name the assistant uses for a card: its catalogue product's name when recognised, else the wallet name if it

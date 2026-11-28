@@ -6,7 +6,7 @@ export const cardProducts=catalog.products.map(p=>{const more=[...(extra.aliases
 export const normalizeProductName=value=>String(value||'').replace(/[®™℠]/g,'').normalize('NFKC').replace(/\(\s*\.{3}\s*\d{4,5}\s*\)/g,'').replace(/[•*]{2,}\s*\d{4,5}/g,'').toLowerCase().replace(/(?<=[\p{L}\p{N}])\+/gu,'plus').replace(/[^\p{L}\p{N}]+/gu,'');
 // Words a bank page adds around a product name: the issuer, "the", "card" and "credit card", and Chinese equivalents.
 // Product words, networks and tiers stay, so "Gold" never meets "Platinum" and a business card never meets a personal one.
-const ISSUER=/\b(?:from\s+)?(?:american\s+express|amex|hsbc)\b|滙豐|匯豐|汇丰|美國運通|美国运通|渣打/giu,FILLER=/\b(?:the|credit\s+card|card)\b|信用卡|卡$/giu;
+const ISSUER=/\b(?:from\s+)?(?:american\s+express|amex|hsbc|barclays|barclaycard)\b|滙豐|匯豐|汇丰|美國運通|美国运通|渣打/giu,FILLER=/\b(?:the|credit\s+card|card)\b|信用卡|卡$/giu;
 function coreText(value){
  const text=String(value||'').replace(/[®™℠]/g,' ').normalize('NFKC').replace(/\(\s*\.{3}\s*\d{4,5}\s*\)/g,' ').replace(/[•*]{2,}\s*\d{4,5}/g,' ').toLowerCase();
  return text.replace(ISSUER,' ').replace(/\s+/g,' ').trim().replace(FILLER,' ').replace(/[^\p{L}\p{N}]+/gu,' ').trim();

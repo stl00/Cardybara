@@ -222,7 +222,7 @@ test('missing facts get a default, stated as an assumption, instead of a questio
 });
 test('the output is bounded and private fields stay out',()=>{
  const r=chooseCard(usDining,{cards:catalogue.map(c=>({...c,balance:987654321,lastFour:'9999'})),events:[],day:DAY});
- assert.ok(r.rows.length<=8);assert.ok(r.totalRows>8);assert.ok(JSON.stringify(r).length<30000,String(JSON.stringify(r).length));
+ assert.ok(r.rows.length<=8);assert.ok(r.totalRows>8);assert.ok(JSON.stringify(r).length<36000,String(JSON.stringify(r).length));
  const text=JSON.stringify(r);assert.ok(!text.includes('987654321'));assert.ok(!text.includes('9999'));assert.ok(!text.includes('eval-'));
 });
 test('tool arguments and purchase memory are validated, and merchant text stays out of memory',()=>{
