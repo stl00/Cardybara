@@ -198,6 +198,29 @@ test('coverage-no-record accepts a hedged no-record answer and still rejects a f
  assert.equal((await run('这张卡航班延误有保障。')).coversNamedProgrammes,false,'no "no record" wording and no pointer fails');
 });
 
+// #673: the 2026-11-27 live tries answered correctly and failed on wording again: "没有查到 … 记录" with the card name
+// between the two words was not read as "no record", and "没有查到航班延误保障的记录" was read as the flat claim
+// "没有…保障". The answers below are synthetic paraphrases of those two shapes.
+test('coverage-no-record accepts "没有查到" wording and still rejects a flat "没有保障"',async()=>{
+ const c=liveCases.find(x=>x.id==='coverage-no-record');
+ const chat=async()=>({content:'',tool_calls:[{function:{name:'find_protections',arguments:JSON.stringify({cardName:'Blue Cash Everyday',type:'trip-delay'})}}]});
+ const turn=answer=>async({request})=>{await request({});return {answer,trace:[],tools:[],memory:{},messages:[],context:{}};};
+ const run=async answer=>(await runLiveCase(c,{chat,turn:turn(answer)})).checks;
+ for(const answer of[
+  '钱包里没有查到 Blue Cash Everyday 这张卡的航班延误保障条目；这不代表它一定没有保障，请以 guide to benefits 为准。这不是保险建议。',
+  'Blue Cash Everyday：**没有查到航班延误保障的记录**，但这不代表一定没有，请看该卡的 guide to benefits。这不是保险建议。',
+  '我没有找到航班延误保障的记录，这不代表它一定没有保障，请以发卡行的保障指南为准。']){
+  const checks=await run(answer);
+  assert.ok(Object.values(checks).every(Boolean),`${answer} ${JSON.stringify(checks)}`);
+ }
+ // Flat claims still fail, including ones that also say nothing was found.
+ assert.equal((await run('没有查到记录。Blue Cash Everyday 没有航班延误保障，详见 guide to benefits。')).avoidsWrongTotals,false);
+ assert.equal((await run('没有查到记录，这张卡没有提供延误保障，请看发卡行说明。')).avoidsWrongTotals,false);
+ assert.equal((await run('没有查到记录，所以没有保障，请看 guide to benefits。')).avoidsWrongTotals,false);
+ assert.equal((await run('没有查到，请看 guide to benefits。但它不在保障范围内。')).avoidsWrongTotals,false);
+ assert.equal((await run('这张卡有航班延误保障，详见 guide to benefits。')).coversNamedProgrammes,false,'no "not found" wording fails');
+});
+
 // #260: the 2026-11-16 live try for trip-christmas-hotel answered correctly (no credit was marked, so none can be
 // confirmed used or unused) in wording the case did not list. The answer below is a synthetic copy of that wording.
 test('trip-christmas-hotel accepts "not marked, cannot confirm" wording and still rejects an answer with no status caveat',async()=>{
