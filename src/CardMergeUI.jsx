@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import {Alert,Button,Modal,Radio,Space,Typography} from 'antd';
 import {t} from './i18n';
+import {preselectedMerges} from './frictionDefaults.js';
 const {Paragraph,Text}=Typography;
 const label=c=>c.name+(c.tail?` · ${c.tail}`:'');
 /** Shown until the next sync cycle ends: a merge that happened, with the way back. */
@@ -11,7 +12,7 @@ export function CardMergeUndo({undos,onUndo}){
 }
 /** One prompt for every case the wallet cannot settle alone: pick the manual card that is the bank card, or none. */
 export function CardMergeQuestions({questions,onAnswer,onLater}){
- const [picked,setPicked]=useState({});
+ const [picked,setPicked]=useState(()=>preselectedMerges(questions));
  if(!questions.length)return null;
  const answers=()=>questions.map(q=>({bankId:q.bank.id,candidates:q.manual.map(c=>c.id),manualId:picked[q.bank.id]&&picked[q.bank.id]!=='none'?picked[q.bank.id]:null,decided:!!picked[q.bank.id]})).filter(a=>a.decided);
  return <Modal open title={t('这是同一张卡吗？')} className="card-merge-modal" onCancel={onLater}

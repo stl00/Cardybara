@@ -11,7 +11,7 @@ import {useI18n,t} from './i18n';
 import {runAgentTurn} from './agentSession';
 import {loadPointValues} from './PointValueSettings.jsx';
 import {requestAdvisor} from './advisorTransport';
-import {isModelReady,hostedReady} from '../extension-next/model-client.js';
+import {isModelReady,hostedReady,setModelEnabled} from '../extension-next/model-client.js';
 import platform from './platform';
 import {extensionChat} from './extensionChat.js';
 import {turnJudge} from './judgeClient.js';
@@ -32,7 +32,10 @@ export default function ChatAdvisor({cards,events,day}){
  const ui=language==='en-US'?{copy:'Copy answer',copied:'Copied',copyFailed:'Copy unavailable',down:'Jump to latest',details:'Privacy and model',placeholder:'Message Cardybara',chips:['Choose a card','Hotel benefits','This cycle’s credits'],hint:'Enter to send · Shift + Enter for a new line',check:'Cardybara can make mistakes. Check important details.'}:language==='zh-TW'?{copy:'複製回答',copied:'已複製',copyFailed:'暫時無法複製',down:'回到最新訊息',details:'模型與隱私',placeholder:'傳訊息給卡疲扒拉',chips:['這筆刷哪張','酒店與會籍','本期 Credit'],hint:'Enter 傳送 · Shift + Enter 換行',check:'卡疲扒拉也可能出錯，重要資訊請核實。'}:{copy:'复制回答',copied:'已复制',copyFailed:'暂时无法复制',down:'回到最新消息',details:'模型与隐私',placeholder:'发消息给卡疲扒拉',chips:['这笔刷哪张','酒店与会籍','本期 Credit'],hint:'Enter 发送 · Shift + Enter 换行',check:'卡疲扒拉也可能出错，重要信息请核实。'};
  const [aiReady,setAiReady]=useState(null),[hosted,setHosted]=useState(false),[draft,setDraft]=useState('');
  // By default the assistant runs on the Cardybara gateway, with no invite code (stl00/Cardybara#210); the developer own-key mode runs it here.
- useEffect(()=>{let alive=true;const probe=async()=>{try{let ready;if(hostedChannel()){ready=await isModelReady();const cloud=ready&&await hostedReady();if(alive)setHosted(!!cloud);}else{const r=await fetch('/api/parser/status',{signal:AbortSignal.timeout(2500)});ready=r.ok&&(await r.json()).configured===true;}if(alive)setAiReady(!!ready);}catch{if(alive)setAiReady(false)}};void probe();return()=>{alive=false}},[]);
+ const [probed,setProbed]=useState(0);
+ // The web wallet turns the assistant on where it is asked about (#680); if that fails, Settings explains why.
+ const turnOn=async()=>{try{await setModelEnabled(true);setAiReady(null);setProbed(n=>n+1)}catch{location.hash='settings'}};
+ useEffect(()=>{let alive=true;const probe=async()=>{try{let ready;if(hostedChannel()){ready=await isModelReady();const cloud=ready&&await hostedReady();if(alive)setHosted(!!cloud);}else{const r=await fetch('/api/parser/status',{signal:AbortSignal.timeout(2500)});ready=r.ok&&(await r.json()).configured===true;}if(alive)setAiReady(!!ready);}catch{if(alive)setAiReady(false)}};void probe();return()=>{alive=false}},[probed]);
  const [turns,setTurns]=useState(session.turns),[question,setQuestion]=useState(''),[busy,setBusy]=useState(false),[progress,setProgress]=useState(''),[error,setError]=useState(''),[failed,setFailed]=useState('');const controller=useRef(null),bottom=useRef(null),mounted=useRef(true),thread=useRef(null),follow=useRef(true),sender=useRef(null);const [away,setAway]=useState(false),[copied,setCopied]=useState(-1);
  useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;controller.current?.abort()}},[]);
  const toLatest=()=>{follow.current=true;setAway(false);thread.current?.scrollTo({top:thread.current.scrollHeight,behavior:'smooth'})};
@@ -59,7 +62,7 @@ export default function ChatAdvisor({cards,events,day}){
  const promptIcons=[<ShopOutlined/>,<CrownOutlined/>,<GiftOutlined/>];
  return <section className={'wallet-chat chat-x'+(empty?' is-empty':'')}>
  <header className="chat-header"><div className="chat-heading"><Text strong>{s.title}</Text><Tooltip title={<><div>{hosted?t('由 Cardybara 服务回答：服务收到你的问题、持有的卡种和助手请求的钱包查询结果，交给 AI 模型处理；不收到卡号、余额或账单，钱包默认只保存在本机，只有登录账号并开启同步时才会另存一份到服务器。对话仅保留在本次页面会话。'):s.notice}</div><div>{t('语音输入（可选）：浏览器能在本机识别时在本机识别；否则先让你同意一次性提示，之后由浏览器把音频发给它自己的语音服务（例如 Chrome 用 Google、Safari 用 Apple），按该厂商条款处理。卡疲扒拉不录音，也不接收或保存音频。识别出的文字只进输入框，按发送后才发给助手。可在设置里撤回同意。')}</div></>}><Button type="text" size="small" className="chat-model" aria-label={ui.details}>DeepSeek <InfoCircleOutlined/></Button></Tooltip></div><Tooltip title={s.new}><Button type="text" icon={<PlusOutlined/>} disabled={busy} onClick={()=>{session={history:[],turns:[]};voice.cancel();setTurns([]);setError('');setQuestion('');setFailed('');follow.current=true;setAway(false);sender.current?.focus()}}>{s.new}</Button></Tooltip></header>
- <div className="chat-body">{aiReady===false&&<Alert style={{margin:16}} type="info" showIcon title={t('聊天助手已在设置里关闭，钱包其他功能不受影响。')} action={<Button onClick={()=>location.hash='settings'}>{t('打开设置')}</Button>}/>}
+ <div className="chat-body">{aiReady===false&&<Alert style={{margin:16}} type="info" showIcon title={t('聊天助手已在设置里关闭，钱包其他功能不受影响。')} action={platform.kind==='web'?<Button type="primary" className="chat-turn-on" onClick={turnOn}>{t('开启')}</Button>:<Button onClick={()=>location.hash='settings'}>{t('打开设置')}</Button>}/>}
  <div className="chat-thread" ref={thread} onScroll={()=>{const el=thread.current;const far=el.scrollHeight-el.scrollTop-el.clientHeight>100;follow.current=!far;setAway(far)}}>
  <div className="chat-flow" aria-live="polite">
  {empty&&<div className="chat-welcome"><Welcome variant="borderless" icon={<img src="/brand/zen.svg" alt="Cardybara" width="64" height="64"/>} title={s.intro}/></div>}
