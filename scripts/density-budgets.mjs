@@ -29,7 +29,7 @@ export const SCREENS = [
     baseline: {buttons: 7, tags: 6, alerts: 0},
   },
   {
-    id: 'credits', label: 'Credits', mode: 'report', rows: '.credit-row', rowButtonExclude: '.more-menu-trigger', filters: '.credit-filters [role="group"]',
+    id: 'credits', label: 'Credits', mode: 'enforce', rows: '.credit-row', rowButtonExclude: '.more-menu-trigger', filters: '.credit-filters [role="group"]',
     budget: {tagsPerRow: 1, buttonsPerRow: 1, filterRows: 1},
     baseline: {tagsPerRow: 4, buttonsPerRow: 2, filterRows: 2},
   },
