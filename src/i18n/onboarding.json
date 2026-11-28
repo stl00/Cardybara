@@ -47,7 +47,13 @@
     "钱包已经有一阵子没有导出备份了。把它存成一个文件，换手机或浏览器清理数据时才不会丢。": "This wallet has not been exported for a while. Save it as a file so it survives a new phone or cleared browser data.",
     "现在导出": "Export now",
     "以后再说": "Later",
-    "安装应用": "Install app"
+    "安装应用": "Install app",
+    "{0} 信用卡": "{0} card",
+    "卡片名称（可不填，默认用银行名称）": "Card name (optional; the bank name by default)",
+    "连接卡片": "Connect a card",
+    "记下你的信用卡，就能看到福利、额度和年费日。数据默认只保存在这个浏览器里。": "Add your credit cards to see their benefits, credits and annual fee dates. By default the data stays in this browser.",
+    "查看": "View",
+    "开启": "Turn on"
   },
   "zh-TW": {
     "添加卡片": "新增卡片",
@@ -97,6 +103,12 @@
     "钱包已经有一阵子没有导出备份了。把它存成一个文件，换手机或浏览器清理数据时才不会丢。": "錢包已經有一陣子沒有匯出備份了。把它存成一個檔案，換手機或瀏覽器清除資料時才不會遺失。",
     "现在导出": "現在匯出",
     "以后再说": "以後再說",
-    "安装应用": "安裝應用程式"
+    "安装应用": "安裝應用程式",
+    "{0} 信用卡": "{0} 信用卡",
+    "卡片名称（可不填，默认用银行名称）": "卡片名稱（可不填，預設用銀行名稱）",
+    "连接卡片": "連接卡片",
+    "记下你的信用卡，就能看到福利、额度和年费日。数据默认只保存在这个浏览器里。": "記下你的信用卡，就能看到福利、額度和年費日。資料預設只保存在這個瀏覽器裡。",
+    "查看": "查看",
+    "开启": "開啟"
   }
 }

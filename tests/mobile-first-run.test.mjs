@@ -131,15 +131,21 @@ test('the first-launch guide fits a 375 px phone', {timeout: 60000, skip: !chrom
     await c.goto('/');
     await c.until(`document.querySelector('.web-guide .ant-modal-container')`, 'the guide');
     await c.pause(500);
-    for (let step = 0; step < 4; step++) {
+    const fits = async label => {
       const a = await c.audit();
-      assert.ok(a.scrollWidth <= PHONE.width, `guide step ${step + 1}: horizontal scroll`);
-      assert.deepEqual(a.overflow, [], `guide step ${step + 1}: elements outside the viewport`);
-      assert.deepEqual(a.small, [], `guide step ${step + 1}: controls under 44 px`);
-      for (const m of a.modals) assert.ok(m.l >= 0 && m.r <= PHONE.width && m.t >= 0 && m.b <= PHONE.height + 1, `guide step ${step + 1}: outside the screen`);
-      await c.tap('.web-guide .guide-next');
-      await c.pause(350);
-    }
+      assert.ok(a.scrollWidth <= PHONE.width, `${label}: horizontal scroll`);
+      assert.deepEqual(a.overflow, [], `${label}: elements outside the viewport`);
+      assert.deepEqual(a.small, [], `${label}: controls under 44 px`);
+      for (const m of a.modals) assert.ok(m.l >= 0 && m.r <= PHONE.width && m.t >= 0 && m.b <= PHONE.height + 1, `${label}: outside the screen`);
+    };
+    await fits('guide');
+    assert.equal(await c.evaluate(`document.querySelectorAll('.web-guide .ant-btn-primary').length`), 1, 'one primary action');
+    await c.tap('.web-guide .ant-collapse-header');
+    await c.pause(350);
+    await fits('guide with a section open');
+    // The primary action is not pressed here: with Plaid it opens sign-in, which asks the real gateway.
+    await c.tap('.web-guide .guide-skip');
+    await c.until(`!document.querySelector('.web-guide .ant-modal-container')`, 'the guide to close');
     await assertCleanConsole(c, 'first-launch guide');
   }, {init: `localStorage.setItem('cardybara-language','zh-CN');`});
 });
