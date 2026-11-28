@@ -42,7 +42,16 @@ function valueBasis(v){
  if(v.basis==='default')return t('积分按默认市场估值每点 {0} {1}（{2}），可在设置里改',[v.cents,unit,v.source?.name||'']);
  return v.basis==='user'?t('积分按你设定的每点 {0} {1}',[v.cents,unit]):t('积分按你说的每点 {0} {1}',[v.cents,unit]);
 }
+// #661: the fee as recorded; nothing recorded is said as unknown, never shown as none.
+function feeText(fee){
+ if(!fee)return '';
+ if(fee.status==='unknown')return t('外币手续费未记录');
+ if(fee.applies==='unconfirmed')return t('外币手续费 {0}%（是否收取未确认）',[fee.rate]);
+ return fee.rate===0?t('无外币手续费'):t('外币手续费 {0}%',[fee.rate]);
+}
+const withFee=(text,fee)=>fee?`${text} · ${feeText(fee)}`:text;
 function changeText(c){
+ if(c.kind==='foreign-fee-may-apply')return t('{0} 的外币手续费 {1}% 在这种付款方式下是否收取未确认。',[c.card,c.rate]);
  if(c.kind==='credit-if-it-applies')return c.wouldChangeChoice?t('如果 {0} 的「{1}」还能用，它会更划算。',[c.card,t(c.title)]):t('{0} 的「{1}」没有计入：还没标记为未使用，或商户不在名单上。',[c.card,t(c.title)]);
  if(c.kind==='higher-rate-if')return t('{0} 满足额外条件时可达 {1}。',[c.card,rateText(c)]);
  if(c.kind==='if-coded-differently')return t('如果商户没有按这个类别入账，{0} 更好。',[c.card]);
@@ -65,6 +74,7 @@ function gapText(lead,o,currency,hidden){
 // #193: a default valuation is named as one beside the figure, and a counted credit is said to be in the money.
 function caption(r,big,cash,hidden){
  const fromDefault=r.pointValue?.basis==='default';
+ if(big&&r.foreignFee?.applies==='yes'&&r.foreignFee.rate>0&&!(r.basis==='money'&&r.value!=null))return t('扣除外币手续费后');
  if(r.basis==='money'&&r.value!=null){const amount=money(r.value,r.currency,hidden);return r.credit?t('这笔约得 {0}（含抵扣）',[amount]):fromDefault?t('这笔约得 {0}（默认估值）',[amount]):t('这笔约得 {0}',[amount]);}
  if(!big)return r.earn?.nonCash?t('不是现金，未折算'):t('积分未估值');
  return cash?t('现金返现'):fromDefault?t('按默认估值折算'):t('按积分估值折算');
@@ -80,6 +90,7 @@ function Hero({r,card,hidden,onDetail}){
    <Text className="pc-rule">{ruleText(r.earn)}</Text>
    <Space size={[6,6]} wrap className="pc-tags">
     <Tag color={r.certainty==='confirmed'?'success':'warning'}>{r.certainty==='confirmed'?t('规则没有附加条件'):t('有附加条件')}</Tag>
+    {r.foreignFee&&<Tag color={r.foreignFee.status==='recorded'&&(r.foreignFee.rate===0)?'success':'warning'}>{feeText(r.foreignFee)}</Tag>}
     {r.credit&&<Tag color="blue">{t('已计入 {0}',[t(r.credit.title)])}</Tag>}
    </Space>
   </div>
@@ -97,7 +108,7 @@ function RunnerUps({r,cards,hidden,breakEven}){
    const gap=r.kind==='use-card'?gapText(r,o,r.currency,hidden):null,even=breakEven.get(o.card);
    return <li key={i} className="pc-other">
     <ChoiceArt key={o.card} card={cardFor(cards,o.card,o.cardRegion)} height={28} size="row"/>
-    <span className="pc-other-main"><span className="pc-other-name">{o.card}</span><Text type="secondary" className="pc-other-rule" title={ruleText(o)}>{ruleText(o)}</Text></span>
+    <span className="pc-other-main"><span className="pc-other-name">{o.card}</span><Text type="secondary" className="pc-other-rule" title={withFee(ruleText(o),o.foreignFee)}>{withFee(ruleText(o),o.foreignFee)}</Text></span>
     <span className="pc-other-return">{o.percent!=null?<span className="pc-other-percent">{`${o.isCash?'':APPROX}${percentText(o.percent)}`}</span>:null}{gap?<Text type="secondary" className="pc-other-gap">{gap}</Text>:even!=null&&r.kind==='use-card'?<Text type="secondary" className="pc-other-gap">{t('每点估值超过 {0} 分时更划算',[even])}</Text>:null}</span>
    </li>;
   })}</ul>

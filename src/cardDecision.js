@@ -96,6 +96,20 @@ function creditsFor(card,purchase,day,events){
  });
 }
 const round2=n=>Math.round(n*100)/100;
+const round4=n=>Math.round(n*1e4)/1e4;
+/**
+ * The card's own foreign transaction fee for a purchase in another currency or abroad (#661), else null. No rule means
+ * unknown, never zero. A recorded fee is charged when the purchase currency differs from the billing currency, or when
+ * it is abroad with no currency given (local currency assumed). Abroad in the billing currency, a non-zero fee may or
+ * may not be charged, so it is shown and not subtracted.
+ */
+function foreignFeeOf(productId,purchase,card){
+ if(!isForeign(purchase,card))return null;
+ const rule=queryKnowledge({productId,kind:'fee',asOf:purchase.date}).rules.find(r=>r.terms.period==='foreign-transaction');
+ if(!rule)return {status:'unknown'};
+ const rate=rule.terms.rate,sameCurrency=purchase.currency===card.currency;
+ return {status:'recorded',rate,applies:rate===0||!sameCurrency?'yes':'unconfirmed',...(rate>0&&!purchase.currency?{currencyAssumed:true}:{}),reviewDue:rule.assessment.reviewDue,sources:knowledgeSources(rule.evidence.sourceIds).map(s=>({title:s.title,url:s.url}))};
+}
 function evaluateCard(card,purchase,{day,events}){
  const match=matchCardProduct(card);
  if(match.status!=='matched'||!match.product?.id)return {excluded:{card:card.name,cardRegion:card.region,reason:'product-unmatched'}};
@@ -121,18 +135,21 @@ function evaluateCard(card,purchase,{day,events}){
  if(earn.cap)reasons.push('remaining-cap-unknown');
  if(earn.capExceeded)reasons.push('cap-exceeded');
  const foreign=isForeign(purchase,card);
- if(foreign)reasons.push('foreign-fee-unknown');
- if(chosen.rule.assessment.reviewDue)reasons.push('rule-due-for-review');
+ const fee=foreignFeeOf(match.product.id,purchase,card),{reviewDue:feeReviewDue,sources:feeSources=[],...foreignFee}=fee||{};
+ if(fee?.status==='unknown')reasons.push('foreign-fee-unknown');
+ if(fee?.applies==='unconfirmed')reasons.push('foreign-fee-may-apply');
+ if(fee?.currencyAssumed)reasons.push('foreign-currency-assumed');
+ if(chosen.rule.assessment.reviewDue||feeReviewDue)reasons.push('rule-due-for-review');
  if(counted&&counted.enrollment!=='not-required')reasons.push('credit-enrollment-unconfirmed');
  const programme=earn.isCash?null:earn.rewardCurrency||programmeOf(chosen.rule,match.product);
  return {row:{
-  card:card.name,cardRegion:card.region,currency:card.currency,foreign,
+  card:card.name,cardRegion:card.region,currency:card.currency,foreign,...(fee?{foreignFee}:{}),
   earn:{...earn,programme,spendCategory:chosen.rule.terms.spendCategory,...(chosen.via?{via:chosen.via}:{})},
   ...(chosen.rule.terms.creditedSpendMayNotEarn&&counted?{creditedSpendMayNotEarn:true}:{}),
   credits,countedCredit:counted?{title:counted.title,value:counted.value}:null,
   certainty:reasons.length?'conditional':'confirmed',reasons,
   optional:optional.map(o=>({rate:o.rule.terms.multiplier,unit:o.rule.terms.unit,spendCategory:o.rule.terms.spendCategory,needs:o.needs,...(o.via?{via:o.via}:{})})),
-  sources:knowledgeSources(chosen.rule.evidence.sourceIds).map(s=>({title:s.title,url:s.url})),
+  sources:[...knowledgeSources(chosen.rule.evidence.sourceIds).map(s=>({title:s.title,url:s.url})),...feeSources],
   unclassified,_baseRate:base?base.rule.terms:null
  }};
 }
@@ -177,16 +194,25 @@ function valueOf(row,values){
  if(cents!=null)return {value:credit||null,valued:true,centsPerPoint:cents,pointValue,valuedRate:earn.unit==='HKD-per-mile'?cents/earn.rate:earn.rate*cents};
  return {value:credit||(earn.reward==null?null:0),valued:false};
 }
-function compare(rows,values){
+/** The fee a row is sure to be charged, in percent; null when there is none to subtract or it is not known. */
+export const chargedFee=row=>row.foreignFee?.applies==='yes'?row.foreignFee.rate:null;
+function compare(rows,values,currency){
  const comparable=rows.filter(r=>!r.foreign),pool=comparable.length?comparable:rows;
- const scored=pool.map(row=>({row,...valueOf(row,values)}));
+ const scored=pool.map(row=>({row,currency,...valueOf(row,values)}));
  const moneyBasis=scored.some(s=>s.value!=null)&&scored.filter(s=>s.row.earn.isCash).every(s=>s.value!=null);
  // Without an amount, or across currencies, only cash rates can be compared.
- const rank=s=>moneyBasis?(s.value??-1):s.row.earn.isCash?s.row.earn.rate:s.valuedRate??-1;
- // On a tie, cash wins: a cash amount is certain, a value per point is an estimate.
- const sorted=[...scored].sort((a,b)=>rank(b)-rank(a)||Number(!!b.row.earn.isCash)-Number(!!a.row.earn.isCash));
+ const gross=s=>moneyBasis?(s.value??-1):s.row.earn.isCash?s.row.earn.rate:s.valuedRate??-1;
+ // A rate comparison is net of the foreign transaction fee. An unvalued row stays unvalued: there is nothing to net.
+ const valuedRow=s=>s.row.earn.isCash||s.valuedRate!=null;
+ const rank=s=>!moneyBasis&&valuedRow(s)?round4(gross(s)-(chargedFee(s.row)||0)):gross(s);
+ // In another currency an unrecorded fee is not zero: a card whose return is known to cover its fee comes first,
+ // then cards whose fee is unknown, then cards known to cost more than they return. Home rows are all one tier.
+ const tier=s=>!s.row.foreignFee||s.row.currency===s.currency?0:!valuedRow(s)?-2:s.row.foreignFee.status==='unknown'?0:rank(s)>=0?1:-1;
+ // On a tie, cash wins: a cash amount is certain, a value per point is an estimate. Then the smaller known fee.
+ const feeOrder=s=>!s.row.foreignFee?0:s.row.foreignFee.rate??Infinity;
+ const sorted=[...scored].sort((a,b)=>tier(b)-tier(a)||rank(b)-rank(a)||Number(!!b.row.earn.isCash)-Number(!!a.row.earn.isCash)||(feeOrder(a)===feeOrder(b)?0:feeOrder(a)<feeOrder(b)?-1:1));
  const lead=sorted.find(s=>moneyBasis?s.value>0:s.row.earn.isCash||s.valuedRate!=null)||null;
- return {sorted,lead,moneyBasis,pool,outside:rows.filter(r=>!pool.includes(r))};
+ return {sorted,lead,moneyBasis,pool,gross,rank,outside:rows.filter(r=>!pool.includes(r))};
 }
 function decide(purchase,context,values){
  const rows=[],excluded=[],unclassified=[];
@@ -195,7 +221,7 @@ function decide(purchase,context,values){
   if(result.excluded){excluded.push(result.excluded);unclassified.push(...(result.excluded.unclassified||[]));continue;}
   rows.push(result.row);unclassified.push(...result.row.unclassified);
  }
- return {rows,excluded,unclassified:[...new Set(unclassified)],...compare(rows,values)};
+ return {rows,excluded,unclassified:[...new Set(unclassified)],...compare(rows,values,purchase.currency)};
 }
 function resolvePurchase(raw,day){
  const assumptions=[],groups=merchantGroupsFor(raw.merchant);
@@ -216,6 +242,12 @@ const ceil2=n=>Math.ceil(Math.round(n*1e6)/1e4)/100;
 const publicRow=({_baseRate,unclassified,...row})=>row;
 const POINT_VALUE_NOTE='Points were compared at pointValue.cents per point, in cents of pointValue.currency. Say which value was used for each programme: basis stated is the value the user said in this chat; user is the value the user set in settings; default is a published market valuation, not the user\'s view, so say it is the default market valuation and that the user can change it in settings. Never present a default as the user\'s value, and never use any other value.';
 const NON_CASH_NOTE='A row with earn.nonCash earns a restricted reward currency, named in earn.rewardCurrency, not cash back. Name that currency when you mention the card; never call it cash back, never add it to cash and never compare it with cash as if it were cash. It was ranked as cash only if a pointValue is shown for it.';
+const FOREIGN_FEE_NOTE='A row with foreignFee is a purchase abroad or in another currency. status recorded: rate is that card\'s published foreign transaction fee in percent; applies yes means it was subtracted (netPercentAfterForeignFee is the earn minus the fee, in percent of spend) and 0 means the issuer says there is none; applies unconfirmed means the payment is in the card\'s own currency abroad, so whether it is charged is not confirmed and nothing was subtracted; currencyAssumed means no currency was given and the local one was assumed. status unknown: no fee is recorded for that card, so it is unknown and not zero. Say the fee, or that it is unknown, for the chosen card.';
+/** A row's return net of a fee it is charged, in percent of spend; null when the row has no percent to net. */
+function netAfterFee(row,percent){
+ const fee=chargedFee(row),gross=row.earn.isCash?row.earn.rate:percent;
+ return fee==null||gross==null?null:round2(gross-fee);
+}
 const whoLeads=d=>d.lead?.row||null;
 /**
  * pointValues are the user's own values from settings. marketDefaults false leaves programmes the user has not valued
@@ -252,7 +284,13 @@ export function chooseCard(raw,{cards,events=[],day,pointValues=[],marketDefault
   const other=whoLeads(fallback);
   if(other&&other.card!==lead.card)couldChange.push({kind:'if-coded-differently',card:other.card,cardRegion:other.cardRegion});
  }
- if(lead?.foreign)couldChange.push({kind:'foreign-fee-unknown',card:lead.card});
+ if(lead?.foreignFee?.status==='unknown')couldChange.push({kind:'foreign-fee-unknown',card:lead.card});
+ else if(lead?.foreignFee){
+  if(lead.foreignFee.applies==='unconfirmed')couldChange.push({kind:'foreign-fee-may-apply',card:lead.card,rate:lead.foreignFee.rate});
+  // An unrecorded fee could be small or none: name the best such card that earns more than the lead keeps.
+  const hidden=main.moneyBasis?null:main.sorted.filter(s=>s.row.foreignFee?.status==='unknown'&&main.gross(s)>main.rank(main.lead)).sort((a,b)=>main.gross(b)-main.gross(a))[0];
+  if(hidden)couldChange.push({kind:'foreign-fee-unknown',card:hidden.row.card});
+ }
  if(raw.alternateCategory&&raw.alternateCategory!==purchase.category){
   const other=whoLeads(decide({...purchase,category:raw.alternateCategory},context,values));
   couldChange.push({kind:'if-category-is',category:raw.alternateCategory,card:other?.card||null,wouldChangeChoice:!!other&&other.card!==lead?.card});
@@ -264,7 +302,7 @@ export function chooseCard(raw,{cards,events=[],day,pointValues=[],marketDefault
  for(const s of main.sorted.filter(s=>!s.row.earn.isCash&&s.row!==lead)){
   const credit=s.row.countedCredit?.value||0,points=s.row.earn.reward,gap=main.moneyBasis&&leadValue!=null?leadValue-credit:null;
   const nonCash=!!s.row.earn.nonCash;
-  pointsAlternatives.push({card:s.row.card,cardRegion:s.row.cardRegion,programme:s.row.earn.programme,rate:s.row.earn.rate,unit:s.row.earn.unit,points,...(nonCash?{nonCash,rewardCurrency:s.row.earn.rewardCurrency}:{}),...(gap!=null&&points>0&&!nonCash?{breakEvenCentsPerPoint:round2(Math.max(gap,0)/points*100)}:{}),...(s.valued?{pointValue:s.pointValue,...(main.moneyBasis&&s.value!=null?{valueAtPointValue:s.value}:{})}:{})});
+  pointsAlternatives.push({card:s.row.card,cardRegion:s.row.cardRegion,programme:s.row.earn.programme,rate:s.row.earn.rate,unit:s.row.earn.unit,points,...(s.row.foreignFee?{foreignFee:s.row.foreignFee}:{}),...(nonCash?{nonCash,rewardCurrency:s.row.earn.rewardCurrency}:{}),...(gap!=null&&points>0&&!nonCash?{breakEvenCentsPerPoint:round2(Math.max(gap,0)/points*100)}:{}),...(s.valued?{pointValue:s.pointValue,...(main.moneyBasis&&s.value!=null?{valueAtPointValue:s.value}:{})}:{})});
  }
  // A points lead holds down to the value per point at which the next card would catch it.
  const leadPoints=main.lead?.valued&&main.moneyBasis&&lead.earn.reward>0?lead.earn.reward:null;
@@ -272,17 +310,18 @@ export function chooseCard(raw,{cards,events=[],day,pointValues=[],marketDefault
  const sameProgramme=s=>s.valued&&s.pointValue.programme===main.lead.pointValue.programme&&s.pointValue.currency===main.lead.pointValue.currency;
  const runnerUp=leadPoints?Math.max(0,...main.sorted.filter(s=>s!==main.lead&&s.value!=null&&!sameProgramme(s)).map(s=>s.value)):null;
  const choice=lead
-  ?{kind:'use-card',card:lead.card,cardRegion:lead.cardRegion,basis:main.moneyBasis?'money':lead.earn.isCash?'cash-rate':'rate-at-point-value',value:main.moneyBasis?leadValue:null,currency:purchase.currency,valuedPoints:!!main.lead.valued,...(main.lead.valued?{pointValue:main.lead.pointValue,...(leadPoints?{holdsAboveCentsPerPoint:ceil2(Math.max(runnerUp-(lead.countedCredit?.value||0),0)/leadPoints*100)}:{})}:{}),certainty:lead.certainty,reasons:lead.reasons}
+  ?{kind:'use-card',card:lead.card,cardRegion:lead.cardRegion,basis:main.moneyBasis?'money':lead.earn.isCash?'cash-rate':'rate-at-point-value',value:main.moneyBasis?leadValue:null,currency:purchase.currency,valuedPoints:!!main.lead.valued,...(main.lead.valued?{pointValue:main.lead.pointValue,...(leadPoints?{holdsAboveCentsPerPoint:ceil2(Math.max(runnerUp-(lead.countedCredit?.value||0),0)/leadPoints*100)}:{})}:{}),certainty:lead.certainty,reasons:lead.reasons,...(lead.foreignFee?{foreignFee:lead.foreignFee}:{})}
   :main.rows.length?{kind:'points-depends',reason:'no-cash-card-and-no-point-value'}:{kind:'none',reason:'no-eligible-card'};
  // Every value used, once, with whose number it is: the answer must say so and never call a default the user's.
  const used=new Map();for(const s of main.sorted)if(s.valued)used.set(s.pointValue.programme+'|'+s.pointValue.basis,s.pointValue);
  return {
   tool:'choose_card',today:day,purchase,assumptions,choice,
-  rows:main.sorted.slice(0,MAX_ROWS).map(s=>({...publicRow(s.row),...(s.valued?{valueAtPointValue:s.value,centsPerPoint:s.centsPerPoint,pointValue:s.pointValue,...(s.valuedRate!=null?{percentAtPointValue:round2(s.valuedRate)}:{})}:{})})),totalRows:main.sorted.length,
+  rows:main.sorted.slice(0,MAX_ROWS).map(s=>({...publicRow(s.row),...(netAfterFee(s.row,s.valuedRate)!=null?{netPercentAfterForeignFee:netAfterFee(s.row,s.valuedRate)}:{}),...(s.valued?{valueAtPointValue:s.value,centsPerPoint:s.centsPerPoint,pointValue:s.pointValue,...(s.valuedRate!=null?{percentAtPointValue:round2(s.valuedRate)}:{})}:{})})),totalRows:main.sorted.length,
   ...(used.size?{pointValues:[...used.values()],pointValueNote:POINT_VALUE_NOTE}:{}),
   ...(main.sorted.some(s=>s.row.earn.nonCash)?{nonCashNote:NON_CASH_NOTE}:{}),
+  ...(main.sorted.some(s=>s.row.foreignFee)?{foreignFeeNote:FOREIGN_FEE_NOTE}:{}),
   otherCurrencyCards:main.outside.map(r=>({card:r.card,cardRegion:r.cardRegion,currency:r.currency,rate:r.earn.rate,unit:r.earn.unit,reason:'different-billing-currency-so-not-compared'})),
   pointsAlternatives:pointsAlternatives.slice(0,MAX_ROWS),couldChange:couldChange.slice(0,20),excluded:main.excluded,unclassifiedRules:main.unclassified,
-  limits:'Merchant coding, network acceptance, remaining caps and enrollment are not known. Foreign transaction fees are not recorded, so they are unknown and not zero. Offers are not included. Never a global best: this compares held cards on recorded rules.'
+  limits:'Merchant coding, network acceptance, remaining caps and enrollment are not known. Foreign transaction fees are recorded for some cards only (foreignFee on a row): for a card without one the fee is unknown and not zero, and merchant, ATM or currency-conversion charges are not included. Offers are not included. Never a global best: this compares held cards on recorded rules.'
  };
 }

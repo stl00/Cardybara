@@ -120,7 +120,7 @@ export function flightCashComparison({args,programmes,valuation,credits}){
 // currency, the same point values); a separate fact that never changes the cashComparison verdict.
 export function flightPayCash({args,cards,events,day,pointValues,marketDefaults}){
  const r=chooseCard({category:'flight',amount:args.cashFare,currency:args.cashFareCurrency,...(args.pointValues?{pointValues:args.pointValues}:{})},{cards,events,day,pointValues,marketDefaults});
- return {kind:'pay-cash-card',purchase:r.purchase,choice:r.choice,rows:r.rows,...(r.pointValues?{pointValues:r.pointValues,pointValueNote:r.pointValueNote}:{}),
+ return {kind:'pay-cash-card',purchase:r.purchase,choice:r.choice,rows:r.rows,...(r.pointValues?{pointValues:r.pointValues,pointValueNote:r.pointValueNote}:{}),...(r.foreignFeeNote?{foreignFeeNote:r.foreignFeeNote}:{}),
   note:'What earning on this card returns if the cash fare is paid with it, from choose_card for category flight at the stated fare and currency. It is a separate fact and does not change the award-or-cash verdict in cashComparison. The fare was stated by the user, not looked up.'};
 }
 export function stayRows(programmes,{nights,pointsPerNight,points}){

@@ -1,10 +1,10 @@
 // The wallet's "which card" entry: the same engine as the chat's choose_card tool, with no model in between.
-import {chooseCard,PURCHASE_CATEGORIES} from './cardDecision.js';
+import {chooseCard,chargedFee,PURCHASE_CATEGORIES} from './cardDecision.js';
 
 /** The categories offered on the wallet entry, in display order; each is one the engine knows. */
 export const QUICK_CATEGORIES=['dining','supermarket','gas','online-retail','flight','hotel','travel','transit','streaming','drugstore','entertainment','other'].filter(c=>PURCHASE_CATEGORIES.includes(c));
 const MAX_OTHERS=3,MAX_CHANGES=3;
-const SIMPLE_CHANGES=new Set(['credit-if-it-applies','higher-rate-if','if-coded-differently','cap','foreign-fee-unknown']);
+const SIMPLE_CHANGES=new Set(['credit-if-it-applies','higher-rate-if','if-coded-differently','cap','foreign-fee-unknown','foreign-fee-may-apply']);
 
 /** Billing currencies of the held cards, so the entry can ask for one only when it matters. */
 export function walletCurrencies(cards=[]){return [...new Set(cards.map(c=>c.currency).filter(Boolean))].sort();}
@@ -23,22 +23,24 @@ const round2=n=>Math.round(n*100)/100;
 /**
  * What a row returns per 100 of spend, as the engine valued it: cash at its rate, points at the value per point it
  * used, and null for points with no value. A counted credit is not in it (it is not a rate); a cap the amount runs
- * past blends the rates. Display only: the ranking is the engine's.
+ * past blends the rates, and a foreign transaction fee the row is charged is taken off. Display only: the ranking is
+ * the engine's.
  */
 export function effectivePercent(row,amount){
  const earn=row?.earn;if(!earn)return null;
  const cents=earn.isCash?null:row.centsPerPoint??null;
  if(!earn.isCash&&cents==null)return null;
  if(earn.capExceeded&&earn.reward!=null&&Number.isFinite(amount)&&amount>0)return round2((earn.isCash?earn.reward:earn.reward*cents/100)/amount*100);
- if(earn.isCash)return earn.rate;
- return round2(earn.unit==='HKD-per-mile'?cents/earn.rate:earn.rate*cents);
+ const fee=chargedFee(row)||0;
+ if(earn.isCash)return fee?round2(earn.rate-fee):earn.rate;
+ return round2((earn.unit==='HKD-per-mile'?cents/earn.rate:earn.rate*cents)-fee);
 }
 /** The money a row comes to on a money basis: cash and counted credit, or points at their value; else null. */
 function moneyOf(row){
  if(row.earn.isCash)return row.earn.reward==null?null:round2(row.earn.reward+(row.countedCredit?.value||0));
  return row.valueAtPointValue??null;
 }
-const shown=(row,amount,money)=>({card:row.card,cardRegion:row.cardRegion||null,...earnOf(row),percent:effectivePercent(row,amount),value:money?moneyOf(row):null});
+const shown=(row,amount,money)=>({card:row.card,cardRegion:row.cardRegion||null,...earnOf(row),percent:effectivePercent(row,amount),value:money?moneyOf(row):null,foreignFee:row.foreignFee||null});
 
 /** Runs chooseCard and keeps what the wallet shows: the choice, a few alternatives and what could change it. */
 export function quickChoice(input,{cards=[],events=[],day,pointValues=[],marketDefaults=true}){
@@ -56,6 +58,7 @@ export function quickChoice(input,{cards=[],events=[],day,pointValues=[],marketD
   reasons:choice.reasons||[],
   earn:earnOf(lead),
   percent:lead?effectivePercent(lead,input?.amount):null,
+  foreignFee:lead?.foreignFee||null,
   pointValue:choice.pointValue||null,
   holdsAbove:choice.holdsAboveCentsPerPoint??null,
   credit:lead?.countedCredit||null,
