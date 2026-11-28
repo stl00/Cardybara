@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.2.0",
-  "snapshotId": "cardybara-public-knowledge-2026-11-26.foreign-transaction-fees-2",
-  "asOf": "2026-11-26",
+  "snapshotId": "cardybara-public-knowledge-2026-11-27.barclays",
+  "asOf": "2026-11-27",
   "locale": "zh-CN",
   "files": [
     "taxonomy.json",
@@ -2244,6 +2244,432 @@
         "个人登记、使用进度及完整保障细则尚未核实。"
       ],
       "feeNotes": null
+    },
+    "barclays-us-jetblue-card": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-jetblue-plus-card": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-jetblue-premier-card": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-jetblue-business-card": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-wyndham-rewards-earner-card": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "产品页对餐饮和超市同时写了 2 倍和 3 倍，两处冲突，未录入。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-wyndham-rewards-earner-plus-card": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-wyndham-rewards-earner-premier-card": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-wyndham-rewards-earner-business-card": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-emirates-skywards-premium-world-elite-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-emirates-skywards-rewards-world-elite-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-miles-more-world-elite-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-frontier-airlines-world-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Frontier 机票消费的\"最高\"倍数含会员等级加成，未录入。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-breeze-easy-visa-credit-card": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "Breeze 机票套餐的倍数合并了购买和乘机两部分，未录入。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-aarp-travel-rewards-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-aarp-essential-rewards-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-upromise-world-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-gm-rewards-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-gm-business-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-carnival-rewards-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-barnes-noble-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-capital-vacations-world-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-rci-elite-rewards-world-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-gap-encore-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-old-navy-encore-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-banana-republic-encore-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-athleta-encore-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-xbox-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "页面没有申请入口，是否仍接受新申请未知。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
+    },
+    "barclays-us-barclays-view-mastercard": {
+      "checkedAt": "2026-11-27",
+      "coverage": "issuer-page-summary",
+      "market": {
+        "country": "US",
+        "issuer": "Barclays"
+      },
+      "communitySourceIds": [],
+      "changeNotes": [],
+      "knowledgeGaps": [
+        "读到的公开页面没有写年费。",
+        "页面没有申请入口，是否仍接受新申请未知。",
+        "开户奖励和免息期等限时优惠未录入。",
+        "个人登记、使用进度及完整保障细则尚未核实。"
+      ],
+      "feeNotes": null
     }
   },
   "hsbcRewardCash": {
@@ -2400,6 +2826,34 @@
     "capital-one-us-quicksilverone-rewards-credit-card",
     "capital-one-us-quicksilver-rewards-for-good-credit",
     "capital-one-us-ventureone-rewards-for-good-credit",
-    "capital-one-us-savor-rewards-for-good-credit"
+    "capital-one-us-savor-rewards-for-good-credit",
+    "barclays-us-jetblue-card",
+    "barclays-us-jetblue-plus-card",
+    "barclays-us-jetblue-premier-card",
+    "barclays-us-jetblue-business-card",
+    "barclays-us-wyndham-rewards-earner-card",
+    "barclays-us-wyndham-rewards-earner-plus-card",
+    "barclays-us-wyndham-rewards-earner-premier-card",
+    "barclays-us-wyndham-rewards-earner-business-card",
+    "barclays-us-emirates-skywards-premium-world-elite-mastercard",
+    "barclays-us-emirates-skywards-rewards-world-elite-mastercard",
+    "barclays-us-miles-more-world-elite-mastercard",
+    "barclays-us-frontier-airlines-world-mastercard",
+    "barclays-us-breeze-easy-visa-credit-card",
+    "barclays-us-aarp-travel-rewards-mastercard",
+    "barclays-us-aarp-essential-rewards-mastercard",
+    "barclays-us-upromise-world-mastercard",
+    "barclays-us-gm-rewards-mastercard",
+    "barclays-us-gm-business-mastercard",
+    "barclays-us-carnival-rewards-mastercard",
+    "barclays-us-barnes-noble-mastercard",
+    "barclays-us-capital-vacations-world-mastercard",
+    "barclays-us-rci-elite-rewards-world-mastercard",
+    "barclays-us-gap-encore-mastercard",
+    "barclays-us-old-navy-encore-mastercard",
+    "barclays-us-banana-republic-encore-mastercard",
+    "barclays-us-athleta-encore-mastercard",
+    "barclays-us-xbox-mastercard",
+    "barclays-us-barclays-view-mastercard"
   ]
 }

@@ -32,6 +32,11 @@ const NO_STATED_CYCLE={
  'rule.us-bank-us-triple-cash-rewards-visa-business-card.software':'12-month credit, page does not state when the 12 months start: not stated',
  'rule.us-bank-us-altitude-connect-visa-signature-card.priority-pass':'12-month membership; the page does not state whether or when it renews',
  'rule.us-bank-us-business-altitude-connect-visa-signature-card.priority-pass':'four visits per membership year; no matching period value',
+ // #681, Barclays pages read 2026-11-27.
+ 'rule.barclays-us-jetblue-plus-card.vacations-credit':'once per year; the page does not say which year: not stated',
+ 'rule.barclays-us-jetblue-business-card.vacations-credit':'no limit or cycle stated',
+ 'rule.barclays-us-wyndham-rewards-earner-plus-card.meal-delivery':'every 6 months; the page does not say how they are counted: not stated',
+ 'rule.barclays-us-wyndham-rewards-earner-business-card.wholesale-club':'annual credit; the page does not say which year: not stated',
 };
 const needsCycle=r=>r.status==='published'&&r.kind==='benefit'
  &&(r.terms?.category!=='credit'||Number.isFinite(r.terms.amount)||(r.terms.monthlyAmounts||[]).some(Number.isFinite))

@@ -117,7 +117,7 @@ export function validateForeignTransactionFee(r){
  if(cardholderRole!==undefined)errors.push('cardholderRole belongs to annual fees');
  if(amount!==null)errors.push('amount must be null');
  if(!(typeof rate==='number'&&Number.isFinite(rate)&&rate>=0&&rate<10))errors.push('rate must be a percent');
- else if(!quotes.some(q=>rate===0?/\bnone\b|\bno foreign transaction fee|foreign currency\b.*:\s*waived\b/i.test(q):new RegExp('(?<![\\d.])'+String(rate).replace('.','\\.')+'%').test(q)))errors.push('rate not stated in a quote');
+ else if(!quotes.some(q=>rate===0?/\bnone\b|\bno foreign transaction fee|foreign currency\b.*:\s*waived\b|\bforeign transaction fee:\s*0%/i.test(q):new RegExp('(?<![\\d.])'+String(rate).replace('.','\\.')+'%').test(q)))errors.push('rate not stated in a quote');
  return errors;
 }
 export function validateKnowledge(records=rules){

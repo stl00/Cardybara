@@ -1,0 +1,2501 @@
+{
+ "batch": 22,
+ "checkedAt": "2026-11-27",
+ "reviewAfter": "2027-02-25",
+ "cards": [
+  {
+   "id": "barclays-us-jetblue-card",
+   "page": "barclays-us-jetblue-card",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/jetblue-card/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "JetBlue Card"
+   },
+   "aliases": [
+    "JetBlue Mastercard",
+    "JetBlue World Mastercard"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Annual Fee is $0."
+   },
+   "transfer": {
+    "programmeId": "programme.jetblue-trueblue",
+    "name": "JetBlue TrueBlue",
+    "quote": "3X points on eligible JetBlue purchases",
+    "linkOnly": true
+   },
+   "earning": [
+    {
+     "zh": "JetBlue 消费",
+     "en": "Eligible JetBlue purchases",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "airline",
+     "quote": "3X points on eligible JetBlue purchases"
+    },
+    {
+     "zh": "餐厅和符合条件超市",
+     "en": "Restaurants and eligible grocery stores",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "quote": "2X points at restaurants and eligible grocery stores"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "1X points on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "inflight-savings",
+     "zh": "机上消费五折",
+     "en": "50% off eligible inflight purchases",
+     "noteZh": "JetBlue 运营航班上符合条件的机上消费享 50% 优惠。",
+     "noteEn": "50% savings on eligible inflight purchases on JetBlue-operated flights.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "50% savings on eligible inflight purchases on JetBlue-operated flights",
+     "original": {
+      "title": "50% off eligible inflight purchases",
+      "summary": "50% savings on eligible inflight purchases on JetBlue-operated flights.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-jetblue-plus-card",
+   "page": "barclays-us-jetblue-plus-card",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/jetblue-plus-card/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "JetBlue Plus Card"
+   },
+   "aliases": [
+    "JetBlue Plus",
+    "JetBlue Plus Mastercard",
+    "JetBlue Plus World Elite Mastercard"
+   ],
+   "fee": {
+    "amount": 99,
+    "currency": "USD",
+    "quote": "Annual Fee is $99."
+   },
+   "transfer": {
+    "programmeId": "programme.jetblue-trueblue",
+    "name": "JetBlue TrueBlue",
+    "quote": "6X points on eligible JetBlue purchases",
+    "linkOnly": true
+   },
+   "earning": [
+    {
+     "zh": "JetBlue 消费",
+     "en": "Eligible JetBlue purchases",
+     "multiplier": 6,
+     "unit": "points-per-USD",
+     "category": "airline",
+     "quote": "6X points on eligible JetBlue purchases"
+    },
+    {
+     "zh": "餐厅和符合条件超市",
+     "en": "Restaurants and eligible grocery stores",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "quote": "2X points at restaurants and eligible grocery stores"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "1X points on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "checked-bag",
+     "zh": "首件托运行李免费",
+     "en": "Free first checked bag",
+     "noteZh": "JetBlue 运营航班上持卡人和同行人首件托运行李免费，条件以条款为准。",
+     "noteEn": "Free first checked bag for the cardmember and eligible companions on JetBlue-operated flights, subject to terms.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Free first checked bag for you and up to 3 eligible travel companions on JetBlue-operated flights",
+     "original": {
+      "title": "Free first checked bag",
+      "summary": "Free first checked bag for the cardmember and eligible companions on JetBlue-operated flights, subject to terms.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "inflight-savings",
+     "zh": "机上消费五折",
+     "en": "50% off eligible inflight purchases",
+     "noteZh": "JetBlue 运营航班上符合条件的机上消费享 50% 优惠。",
+     "noteEn": "50% savings on eligible inflight purchases on JetBlue-operated flights.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "50% savings on eligible inflight purchases on JetBlue-operated flights",
+     "original": {
+      "title": "50% off eligible inflight purchases",
+      "summary": "50% savings on eligible inflight purchases on JetBlue-operated flights.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "anniversary-points",
+     "zh": "周年赠送 5,000 点",
+     "en": "5,000 anniversary bonus points",
+     "noteZh": "每个账户周年获赠 5,000 点。",
+     "noteEn": "5,000 bonus points each year after the account anniversary.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "Earn 5,000 bonus points each year after your JetBlue Plus Card account anniversary",
+     "original": {
+      "title": "5,000 anniversary bonus points",
+      "summary": "5,000 bonus points each year after the account anniversary.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "award-rebate",
+     "zh": "奖励机票返还 10% 点数",
+     "en": "10% points back on award flights",
+     "noteZh": "兑换并搭乘 JetBlue 运营的奖励航班后返还 10% 点数。",
+     "noteEn": "10% of points back after redeeming for and flying a JetBlue-operated Award Flight.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Get 10% of your points back after you redeem for and travel on a JetBlue-operated Award Flight",
+     "original": {
+      "title": "10% points back on award flights",
+      "summary": "10% of points back after redeeming for and flying a JetBlue-operated Award Flight.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "vacations-credit",
+     "zh": "JetBlue Vacations 抵扣",
+     "en": "JetBlue Vacations statement credit",
+     "noteZh": "用本卡购买满 $100 的 JetBlue Vacations 套餐返 $100，每年限一次；按哪种年度计算页面未写明。",
+     "noteEn": "$100 statement credit after a JetBlue Vacations package of $100 or more, once per year; the page does not say which year.",
+     "scenario": "travel",
+     "category": "credit",
+     "period": null,
+     "quote": "Receive a $100 statement credit after you purchase a JetBlue Vacations package of $100 or more",
+     "original": {
+      "title": "JetBlue Vacations statement credit",
+      "summary": "$100 statement credit after a JetBlue Vacations package of $100 or more, once per year; the page does not say which year.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Limit one statement credit per year."
+      ]
+     },
+     "amount": 100
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-jetblue-premier-card",
+   "page": "barclays-us-jetblue-premier-card",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/jetblue-premier-card/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "JetBlue Premier Card"
+   },
+   "aliases": [
+    "JetBlue Premier",
+    "JetBlue Premier Mastercard",
+    "JetBlue Premier World Elite Mastercard"
+   ],
+   "fee": {
+    "amount": 499,
+    "currency": "USD",
+    "quote": "$499 ($150 for each authorized user)"
+   },
+   "additionalFee": {
+    "amount": 150,
+    "currency": "USD",
+    "quote": "$499 ($150 for each authorized user)"
+   },
+   "transfer": {
+    "programmeId": "programme.jetblue-trueblue",
+    "name": "JetBlue TrueBlue",
+    "quote": "6X points on eligible JetBlue purchases",
+    "linkOnly": true
+   },
+   "earning": [
+    {
+     "zh": "JetBlue 消费",
+     "en": "Eligible JetBlue purchases",
+     "multiplier": 6,
+     "unit": "points-per-USD",
+     "category": "airline",
+     "quote": "6X points on eligible JetBlue purchases"
+    },
+    {
+     "zh": "餐厅和符合条件超市",
+     "en": "Restaurants and eligible grocery stores",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "quote": "2X points at restaurants and eligible grocery stores"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "1X points on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "travel-credit",
+     "zh": "TrueBlue Travel 抵扣",
+     "en": "TrueBlue Travel statement credits",
+     "noteZh": "每自然年 TrueBlue Travel 消费最多返 $300。",
+     "noteEn": "Up to $300 in statement credits on TrueBlue Travel purchases per calendar year.",
+     "scenario": "travel",
+     "category": "credit",
+     "period": "calendar-year",
+     "quote": "Earn up to $300 in statement credits on TrueBlue Travel purchases per calendar year",
+     "original": {
+      "title": "TrueBlue Travel statement credits",
+      "summary": "Up to $300 in statement credits on TrueBlue Travel purchases per calendar year.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "amount": 300
+    },
+    {
+     "key": "global-entry",
+     "zh": "Global Entry 或 TSA PreCheck 抵扣",
+     "en": "Global Entry or TSA PreCheck credit",
+     "noteZh": "申请费最多返 $120，每 4 年一次。",
+     "noteEn": "Up to $120 application fee statement credit every 4 years.",
+     "scenario": "airport",
+     "category": "credit",
+     "period": "rolling-four-years",
+     "quote": "Up to $120 application fee statement credit every 4 years for Global Entry or TSA PreCheck",
+     "original": {
+      "title": "Global Entry or TSA PreCheck credit",
+      "summary": "Up to $120 application fee statement credit every 4 years.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "amount": 120
+    },
+    {
+     "key": "priority-pass",
+     "zh": "Priority Pass 贵宾室",
+     "en": "Priority Pass lounge access",
+     "noteZh": "页面列出 Priority Pass 贵宾室权益；人数和次数以条款为准。",
+     "noteEn": "The page lists Priority Pass lounge access; guests and visits follow the terms.",
+     "scenario": "airport",
+     "category": "lounge",
+     "period": "ongoing",
+     "quote": "Access to over 1,800 participating lounges and travel experiences",
+     "original": {
+      "title": "Priority Pass lounge access",
+      "summary": "The page lists Priority Pass lounge access; guests and visits follow the terms.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "checked-bag",
+     "zh": "首件托运行李免费",
+     "en": "Free first checked bag",
+     "noteZh": "JetBlue 运营航班上持卡人和同行人首件托运行李免费，条件以条款为准。",
+     "noteEn": "Free first checked bag for the cardmember and eligible companions on JetBlue-operated flights, subject to terms.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Free first checked bag for the primary cardmember and up to 3 eligible travel companions",
+     "original": {
+      "title": "Free first checked bag",
+      "summary": "Free first checked bag for the cardmember and eligible companions on JetBlue-operated flights, subject to terms.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "inflight-savings",
+     "zh": "机上消费五折",
+     "en": "50% off eligible inflight purchases",
+     "noteZh": "JetBlue 运营航班上符合条件的机上消费享 50% 优惠。",
+     "noteEn": "50% savings on eligible inflight purchases on JetBlue-operated flights.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "50% savings on eligible inflight purchases on JetBlue-operated flights",
+     "original": {
+      "title": "50% off eligible inflight purchases",
+      "summary": "50% savings on eligible inflight purchases on JetBlue-operated flights.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "anniversary-points",
+     "zh": "周年赠送 5,000 点",
+     "en": "5,000 anniversary bonus points",
+     "noteZh": "每个账户周年获赠 5,000 点。",
+     "noteEn": "5,000 bonus points each year after the account anniversary.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "Earn 5,000 bonus points each year after your JetBlue Premier Card account anniversary",
+     "original": {
+      "title": "5,000 anniversary bonus points",
+      "summary": "5,000 bonus points each year after the account anniversary.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "award-rebate",
+     "zh": "奖励机票返还 15% 点数",
+     "en": "15% points back on award flights",
+     "noteZh": "兑换并搭乘奖励航班后返还 15% 点数。",
+     "noteEn": "15% of points back after redeeming for and flying an Award Flight.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Get 15% of your points back after you redeem for and travel on an Award Flight",
+     "original": {
+      "title": "15% points back on award flights",
+      "summary": "15% of points back after redeeming for and flying an Award Flight.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-jetblue-business-card",
+   "page": "barclays-us-jetblue-business-card",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/jetblue-business-card/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "JetBlue Business Card"
+   },
+   "aliases": [
+    "JetBlue Business",
+    "JetBlue Business Mastercard"
+   ],
+   "fee": {
+    "amount": 99,
+    "currency": "USD",
+    "quote": "$99"
+   },
+   "transfer": {
+    "programmeId": "programme.jetblue-trueblue",
+    "name": "JetBlue TrueBlue",
+    "quote": "6X points on eligible JetBlue purchases",
+    "linkOnly": true
+   },
+   "earning": [
+    {
+     "zh": "JetBlue 消费",
+     "en": "Eligible JetBlue purchases",
+     "multiplier": 6,
+     "unit": "points-per-USD",
+     "category": "airline",
+     "quote": "6X points on eligible JetBlue purchases"
+    },
+    {
+     "zh": "餐厅和办公用品店",
+     "en": "Restaurants and office supply stores",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "quote": "2X points at restaurants and office supply stores"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "1X points on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "checked-bag",
+     "zh": "首件托运行李免费",
+     "en": "Free first checked bag",
+     "noteZh": "JetBlue 运营航班上持卡人和同行人首件托运行李免费，条件以条款为准。",
+     "noteEn": "Free first checked bag for the cardmember and eligible companions on JetBlue-operated flights, subject to terms.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Free first checked bag for the primary cardmember and up to 3 eligible travel companions",
+     "original": {
+      "title": "Free first checked bag",
+      "summary": "Free first checked bag for the cardmember and eligible companions on JetBlue-operated flights, subject to terms.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "inflight-savings",
+     "zh": "机上消费五折",
+     "en": "50% off eligible inflight purchases",
+     "noteZh": "JetBlue 运营航班上符合条件的机上消费享 50% 优惠。",
+     "noteEn": "50% savings on eligible inflight purchases on JetBlue-operated flights.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "50% savings on eligible inflight purchases on JetBlue-operated flights",
+     "original": {
+      "title": "50% off eligible inflight purchases",
+      "summary": "50% savings on eligible inflight purchases on JetBlue-operated flights.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "anniversary-points",
+     "zh": "周年赠送 5,000 点",
+     "en": "5,000 anniversary bonus points",
+     "noteZh": "每个账户周年获赠 5,000 点。",
+     "noteEn": "5,000 bonus points each year after the account anniversary.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "5,000 bonus points each year after your JetBlue Business Card account anniversary",
+     "original": {
+      "title": "5,000 anniversary bonus points",
+      "summary": "5,000 bonus points each year after the account anniversary.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "vacations-credit",
+     "zh": "JetBlue Vacations 抵扣",
+     "en": "JetBlue Vacations statement credit",
+     "noteZh": "购买满 $100 的 JetBlue Vacations 套餐返 $100；次数限制未读到。",
+     "noteEn": "$100 statement credit after a JetBlue Vacations package of $100 or more; the limit was not read.",
+     "scenario": "travel",
+     "category": "credit",
+     "period": null,
+     "quote": "Receive a $100 statement credit after you purchase a JetBlue Vacations package of $100 or more",
+     "original": {
+      "title": "JetBlue Vacations statement credit",
+      "summary": "$100 statement credit after a JetBlue Vacations package of $100 or more; the limit was not read.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "amount": 100
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-wyndham-rewards-earner-card",
+   "page": "barclays-us-wyndham-rewards-earner-card",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-card/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Wyndham Rewards Earner Card"
+   },
+   "aliases": [
+    "Wyndham Rewards Earner",
+    "Wyndham Earner"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Annual fee $0"
+   },
+   "transfer": {
+    "programmeId": "programme.wyndham-rewards",
+    "name": "Wyndham Rewards",
+    "quote": "Earn 5 points per $1 spent on eligible purchases made at Hotels by Wyndham",
+    "linkOnly": true
+   },
+   "earning": [
+    {
+     "zh": "Hotels by Wyndham 消费",
+     "en": "Hotels by Wyndham purchases",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "quote": "Earn 5 points per $1 spent on eligible purchases made at Hotels by Wyndham"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1 point per $1 spent on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "elite-status",
+     "zh": "Wyndham Rewards 金卡等级",
+     "en": "Wyndham Rewards Gold status",
+     "noteZh": "自动获得 GOLD 会员等级。",
+     "noteEn": "Automatic Wyndham Rewards GOLD member level.",
+     "scenario": "hotel-stay",
+     "category": "hotel-service",
+     "period": "ongoing",
+     "quote": "Automatically receive a Wyndham Rewards GOLD member level",
+     "original": {
+      "title": "Wyndham Rewards Gold status",
+      "summary": "Automatic Wyndham Rewards GOLD member level.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "redemption-discount",
+     "zh": "兑换房晚少用 10% 点数",
+     "en": "10% fewer points for free nights",
+     "noteZh": "兑换免费房晚所需点数少 10%。",
+     "noteEn": "10% fewer Wyndham Rewards points when redeeming free nights.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Redeem 10% fewer Wyndham Rewards points for free nights",
+     "original": {
+      "title": "10% fewer points for free nights",
+      "summary": "10% fewer Wyndham Rewards points when redeeming free nights.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "产品页对餐饮和超市同时写了 2 倍和 3 倍，两处冲突，未录入。",
+     "en": "The product page states both 2 and 3 points for dining and grocery stores; the conflict is left unrecorded."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-wyndham-rewards-earner-plus-card",
+   "page": "barclays-us-wyndham-rewards-earner-plus-card",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-plus-card/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Wyndham Rewards Earner Plus Card"
+   },
+   "aliases": [
+    "Wyndham Rewards Earner Plus",
+    "Wyndham Earner Plus"
+   ],
+   "fee": {
+    "amount": 95,
+    "currency": "USD",
+    "quote": "$0 introductory annual fee the first year, $95 after that"
+   },
+   "transfer": {
+    "programmeId": "programme.wyndham-rewards",
+    "name": "Wyndham Rewards",
+    "quote": "Earn 6 points per $1 spent on eligible purchases made at Hotels by Wyndham",
+    "linkOnly": true
+   },
+   "earning": [
+    {
+     "zh": "Hotels by Wyndham 消费",
+     "en": "Hotels by Wyndham purchases",
+     "multiplier": 6,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "quote": "Earn 6 points per $1 spent on eligible purchases made at Hotels by Wyndham"
+    },
+    {
+     "zh": "餐饮、超市和旅行",
+     "en": "Dining, grocery stores and travel",
+     "multiplier": 4,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "quote": "Earn 4 points per $1 spent on eligible dining, grocery store purchases",
+     "noteZh": "超市不含 Target 和 Walmart。",
+     "noteEn": "Grocery stores exclude Target and Walmart."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1 point per $1 spent on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "anniversary-points",
+     "zh": "周年赠送 15,000 点",
+     "en": "15,000 anniversary bonus points",
+     "noteZh": "缴年费后每个周年年度获赠 15,000 点。",
+     "noteEn": "15,000 bonus points each anniversary year after paying the annual fee.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "Receive 15,000 bonus points each anniversary year after payment of your annual fee",
+     "original": {
+      "title": "15,000 anniversary bonus points",
+      "summary": "15,000 bonus points each anniversary year after paying the annual fee.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "elite-status",
+     "zh": "首年钻石、之后白金等级",
+     "en": "Diamond status first year, then Platinum",
+     "noteZh": "首年 DIAMOND，之后 PLATINUM 会员等级。",
+     "noteEn": "DIAMOND member level in the first year, PLATINUM after that.",
+     "scenario": "hotel-stay",
+     "category": "hotel-service",
+     "period": "ongoing",
+     "quote": "Automatically receive a Wyndham Rewards DIAMOND member level during your first year.",
+     "original": {
+      "title": "Diamond status first year, then Platinum",
+      "summary": "DIAMOND member level in the first year, PLATINUM after that.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "redemption-discount",
+     "zh": "兑换房晚少用 10% 点数",
+     "en": "10% fewer points for free nights",
+     "noteZh": "兑换免费房晚所需点数少 10%。",
+     "noteEn": "10% fewer Wyndham Rewards points when redeeming free nights.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Redeem 10% fewer Wyndham Rewards points for free nights",
+     "original": {
+      "title": "10% fewer points for free nights",
+      "summary": "10% fewer Wyndham Rewards points when redeeming free nights.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "meal-delivery",
+     "zh": "外卖配送抵扣",
+     "en": "Meal delivery credit",
+     "noteZh": "每 6 个月最多返 $25；6 个月的起算方式未读到。",
+     "noteEn": "Up to $25 in statement credits every 6 months on eligible meal delivery; how the 6 months are counted was not read.",
+     "scenario": "dining",
+     "category": "credit",
+     "period": null,
+     "quote": "Enjoy up to $25 in statement credits back every 6 months on eligible meal delivery purchases",
+     "original": {
+      "title": "Meal delivery credit",
+      "summary": "Up to $25 in statement credits every 6 months on eligible meal delivery; how the 6 months are counted was not read.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "amount": 25
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-wyndham-rewards-earner-premier-card",
+   "page": "barclays-us-wyndham-rewards-earner-premier-card",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-premier-card/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Wyndham Rewards Earner Premier Card"
+   },
+   "aliases": [
+    "Wyndham Rewards Earner Premier",
+    "Wyndham Earner Premier"
+   ],
+   "fee": {
+    "amount": 395,
+    "currency": "USD",
+    "quote": "$395"
+   },
+   "transfer": {
+    "programmeId": "programme.wyndham-rewards",
+    "name": "Wyndham Rewards",
+    "quote": "Earn 8 points per $1 spent on eligible purchases made at Hotels by Wyndham",
+    "linkOnly": true
+   },
+   "earning": [
+    {
+     "zh": "Hotels by Wyndham 消费",
+     "en": "Hotels by Wyndham purchases",
+     "multiplier": 8,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "quote": "Earn 8 points per $1 spent on eligible purchases made at Hotels by Wyndham"
+    },
+    {
+     "zh": "度假俱乐部、旅行、餐饮和超市",
+     "en": "Vacation Club, travel, dining and grocery stores",
+     "multiplier": 4,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "quote": "Earn 4 points per $1 spent on eligible Vacation Club, travel, dining and grocery store purchases",
+     "noteZh": "超市不含 Target 和 Walmart。",
+     "noteEn": "Grocery stores exclude Target and Walmart."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1 point per $1 spent on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "anniversary-points",
+     "zh": "周年赠送 30,000 点",
+     "en": "30,000 anniversary bonus points",
+     "noteZh": "缴年费后每个周年年度获赠 30,000 点。",
+     "noteEn": "30,000 bonus points each anniversary year after paying the annual fee.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "Receive 30,000 bonus points each anniversary year after payment of your annual fee",
+     "original": {
+      "title": "30,000 anniversary bonus points",
+      "summary": "30,000 bonus points each anniversary year after paying the annual fee.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "elite-status",
+     "zh": "Wyndham Rewards 钻石等级",
+     "en": "Wyndham Rewards Diamond status",
+     "noteZh": "自动获得 DIAMOND 会员等级。",
+     "noteEn": "Automatic Wyndham Rewards DIAMOND member level.",
+     "scenario": "hotel-stay",
+     "category": "hotel-service",
+     "period": "ongoing",
+     "quote": "Automatically receive a Wyndham Rewards DIAMOND member level",
+     "original": {
+      "title": "Wyndham Rewards Diamond status",
+      "summary": "Automatic Wyndham Rewards DIAMOND member level.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "redemption-discount",
+     "zh": "兑换房晚少用 25% 点数",
+     "en": "25% fewer points for free nights",
+     "noteZh": "兑换免费房晚所需点数少 25%。",
+     "noteEn": "25% fewer Wyndham Rewards points when redeeming free nights.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Redeem 25% fewer Wyndham Rewards points when you book free nights.",
+     "original": {
+      "title": "25% fewer points for free nights",
+      "summary": "25% fewer Wyndham Rewards points when redeeming free nights.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "hotel-credit",
+     "zh": "酒店消费抵扣",
+     "en": "Eligible hotel purchase credit",
+     "noteZh": "每自然年最多返 $100。",
+     "noteEn": "Up to $100 each calendar year.",
+     "scenario": "hotel-stay",
+     "category": "credit",
+     "period": "calendar-year",
+     "quote": "the maximum credit available per Account is $100 each calendar year",
+     "original": {
+      "title": "Eligible hotel purchase credit",
+      "summary": "Up to $100 each calendar year.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "amount": 100
+    },
+    {
+     "key": "meal-delivery",
+     "zh": "外卖配送抵扣",
+     "en": "Meal delivery credit",
+     "noteZh": "每月最多 $10，每自然年最多 $120。",
+     "noteEn": "Up to $10 per month and $120 per calendar year.",
+     "scenario": "dining",
+     "category": "credit",
+     "period": "calendar-year",
+     "quote": "up to $10 per month and $120 in the aggregate per calendar year.",
+     "original": {
+      "title": "Meal delivery credit",
+      "summary": "Up to $10 per month and $120 per calendar year.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "amount": 120
+    },
+    {
+     "key": "streaming",
+     "zh": "流媒体抵扣",
+     "en": "Streaming credit",
+     "noteZh": "每自然年最多返 $100。",
+     "noteEn": "Up to $100 per calendar year.",
+     "scenario": "entertainment",
+     "category": "credit",
+     "period": "calendar-year",
+     "quote": "up to $100 in the aggregate per calendar year",
+     "original": {
+      "title": "Streaming credit",
+      "summary": "Up to $100 per calendar year.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "amount": 100
+    },
+    {
+     "key": "wholesale-club",
+     "zh": "仓储会员店抵扣",
+     "en": "Wholesale club credit",
+     "noteZh": "每自然年在仓储会员店消费满 $65 返 $65。",
+     "noteEn": "One $65 statement credit after $65 of wholesale club spend in a calendar year.",
+     "scenario": "shopping",
+     "category": "credit",
+     "period": "calendar-year",
+     "quote": "a single statement credit of $65 once you spend $65 or more",
+     "original": {
+      "title": "Wholesale club credit",
+      "summary": "One $65 statement credit after $65 of wholesale club spend in a calendar year.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "amount": 65
+    },
+    {
+     "key": "global-entry",
+     "zh": "Global Entry 或 TSA PreCheck 抵扣",
+     "en": "Global Entry or TSA PreCheck credit",
+     "noteZh": "最多返 $120，自上次入账起 4 年后重置。",
+     "noteEn": "Up to $120; resets 4 years after the prior posting date.",
+     "scenario": "airport",
+     "category": "credit",
+     "period": "rolling-four-years",
+     "quote": "Up to $120: Statement Credit after applying for TSA Precheck or Global Entry",
+     "original": {
+      "title": "Global Entry or TSA PreCheck credit",
+      "summary": "Up to $120; resets 4 years after the prior posting date.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "Eligibility to receive the application fee credit will reset 4 years from the prior transaction posting date."
+      ]
+     },
+     "amount": 120
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-wyndham-rewards-earner-business-card",
+   "page": "barclays-us-wyndham-rewards-earner-business-card",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/wyndham-rewards-earner-business-card/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Wyndham Rewards Earner Business Card"
+   },
+   "aliases": [
+    "Wyndham Rewards Earner Business",
+    "Wyndham Earner Business"
+   ],
+   "fee": {
+    "amount": 149,
+    "currency": "USD",
+    "quote": "Annual fee $149"
+   },
+   "transfer": {
+    "programmeId": "programme.wyndham-rewards",
+    "name": "Wyndham Rewards",
+    "quote": "Earn 8 points per $1 spent on eligible purchases made at Hotels by Wyndham",
+    "linkOnly": true
+   },
+   "earning": [
+    {
+     "zh": "Hotels by Wyndham 消费",
+     "en": "Hotels by Wyndham purchases",
+     "multiplier": 8,
+     "unit": "points-per-USD",
+     "category": "hotel",
+     "quote": "Earn 8 points per $1 spent on eligible purchases made at Hotels by Wyndham"
+    },
+    {
+     "zh": "度假俱乐部、加油充电、营销广告、办公用品和运输",
+     "en": "Vacation Club, gas, EV charging, marketing, office supplies and shipping",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "ground-transport",
+     "quote": "Earn 5 points per $1 spent on eligible Vacation Club, gas, EV charging, marketing, advertising,"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1 point per $1 spent on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "anniversary-points",
+     "zh": "周年赠送 15,000 点",
+     "en": "15,000 anniversary bonus points",
+     "noteZh": "缴年费后每个周年年度获赠 15,000 点。",
+     "noteEn": "15,000 bonus points each anniversary year after paying the annual fee.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "Receive 15,000 bonus points each anniversary year after payment of your annual fee",
+     "original": {
+      "title": "15,000 anniversary bonus points",
+      "summary": "15,000 bonus points each anniversary year after paying the annual fee.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "elite-status",
+     "zh": "Wyndham Rewards 钻石等级",
+     "en": "Wyndham Rewards Diamond status",
+     "noteZh": "自动获得 DIAMOND 会员等级。",
+     "noteEn": "Automatic Wyndham Rewards DIAMOND member level.",
+     "scenario": "hotel-stay",
+     "category": "hotel-service",
+     "period": "ongoing",
+     "quote": "Automatically receive a Wyndham Rewards DIAMOND member level",
+     "original": {
+      "title": "Wyndham Rewards Diamond status",
+      "summary": "Automatic Wyndham Rewards DIAMOND member level.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "redemption-discount",
+     "zh": "兑换房晚少用 20% 点数",
+     "en": "20% fewer points for free nights",
+     "noteZh": "兑换免费房晚所需点数少 20%。",
+     "noteEn": "20% fewer Wyndham Rewards points when redeeming free nights.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Redeem 20% fewer Wyndham Rewards points when you book free nights",
+     "original": {
+      "title": "20% fewer points for free nights",
+      "summary": "20% fewer Wyndham Rewards points when redeeming free nights.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "wholesale-club",
+     "zh": "仓储会员店抵扣",
+     "en": "Wholesale club credit",
+     "noteZh": "每年返 $65；按哪种年度计算页面未写明。",
+     "noteEn": "Annual $65 statement credit on eligible wholesale clubs; the page does not say which year.",
+     "scenario": "shopping",
+     "category": "credit",
+     "period": null,
+     "quote": "Enjoy an annual $65 statement credit on eligible Wholesale Member clubs.",
+     "original": {
+      "title": "Wholesale club credit",
+      "summary": "Annual $65 statement credit on eligible wholesale clubs; the page does not say which year.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "amount": 65
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-emirates-skywards-premium-world-elite-mastercard",
+   "page": "barclays-us-emirates-skywards-premium-world-elite-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/emirates-skywards-premium-world-elite-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Emirates Skywards Premium World Elite Mastercard"
+   },
+   "aliases": [
+    "Emirates Skywards Premium",
+    "Emirates Skywards Premium World Elite",
+    "Emirates Premium"
+   ],
+   "fee": {
+    "amount": 499,
+    "currency": "USD",
+    "quote": "$499"
+   },
+   "transfer": {
+    "programmeId": "programme.emirates-skywards",
+    "name": "Emirates Skywards",
+    "quote": "Earn 3 Skywards Miles on eligible Emirates purchases",
+    "linkOnly": true
+   },
+   "earning": [
+    {
+     "zh": "Emirates 消费",
+     "en": "Eligible Emirates purchases",
+     "multiplier": 3,
+     "unit": "miles-per-USD",
+     "category": "airline",
+     "quote": "Earn 3 Skywards Miles on eligible Emirates purchases"
+    },
+    {
+     "zh": "旅行消费",
+     "en": "Eligible travel purchases",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "travel",
+     "quote": "Earn 2 Skywards Miles on eligible travel purchases"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "Earn 1 Skywards Mile on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "anniversary-miles",
+     "zh": "每年赠送 10,000 里程",
+     "en": "10,000 anniversary miles",
+     "noteZh": "每年获赠 10,000 Skywards 里程。",
+     "noteEn": "10,000 anniversary bonus Skywards Miles annually.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "Earn 10,000 anniversary bonus Skywards Miles annually",
+     "original": {
+      "title": "10,000 anniversary miles",
+      "summary": "10,000 anniversary bonus Skywards Miles annually.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "priority-pass",
+     "zh": "Priority Pass Select 贵宾室",
+     "en": "Priority Pass Select lounge access",
+     "noteZh": "页面写明主卡人及宾客可使用贵宾室。",
+     "noteEn": "The page states lounge access for the primary cardmember and guests.",
+     "scenario": "airport",
+     "category": "lounge",
+     "period": "ongoing",
+     "quote": "provides unlimited access to over 1,200 lounges worldwide",
+     "original": {
+      "title": "Priority Pass Select lounge access",
+      "summary": "The page states lounge access for the primary cardmember and guests.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "global-entry",
+     "zh": "Global Entry 或 TSA PreCheck 抵扣",
+     "en": "Global Entry or TSA PreCheck credit",
+     "noteZh": "每 5 年返一次申请费。",
+     "noteEn": "One application fee credit every five years.",
+     "scenario": "airport",
+     "category": "credit",
+     "period": null,
+     "quote": "statement credit for the cost of one Global Entry or TSA PreCheck application fee every five years",
+     "original": {
+      "title": "Global Entry or TSA PreCheck credit",
+      "summary": "One application fee credit every five years.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "miles-discount",
+     "zh": "购买或赠送里程 25% 优惠",
+     "en": "25% off buying or gifting miles",
+     "noteZh": "购买或赠送 Skywards 里程享 25% 优惠。",
+     "noteEn": "25% savings when buying or gifting miles.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Receive 25% savings when you Buy or Gift Miles",
+     "original": {
+      "title": "25% off buying or gifting miles",
+      "summary": "25% savings when buying or gifting miles.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-emirates-skywards-rewards-world-elite-mastercard",
+   "page": "barclays-us-emirates-skywards-rewards-world-elite-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/emirates-skywards-rewards-world-elite-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Emirates Skywards Rewards World Elite Mastercard"
+   },
+   "aliases": [
+    "Emirates Skywards Rewards",
+    "Emirates Skywards Rewards World Elite"
+   ],
+   "fee": {
+    "amount": 99,
+    "currency": "USD",
+    "quote": "Annual Fee is $99."
+   },
+   "transfer": {
+    "programmeId": "programme.emirates-skywards",
+    "name": "Emirates Skywards",
+    "quote": "Earn 3 Skywards Miles on eligible Emirates purchases",
+    "linkOnly": true
+   },
+   "earning": [
+    {
+     "zh": "Emirates 消费",
+     "en": "Eligible Emirates purchases",
+     "multiplier": 3,
+     "unit": "miles-per-USD",
+     "category": "airline",
+     "quote": "Earn 3 Skywards Miles on eligible Emirates purchases"
+    },
+    {
+     "zh": "旅行消费",
+     "en": "Eligible travel purchases",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "travel",
+     "quote": "Earn 2 Skywards Miles on eligible travel purchases"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "Earn 1 Skywards Mile on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "miles-discount",
+     "zh": "购买或赠送里程 25% 优惠",
+     "en": "25% off buying or gifting miles",
+     "noteZh": "购买或赠送 Skywards 里程享 25% 优惠。",
+     "noteEn": "25% savings when buying or gifting miles.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Receive 25% savings when you Buy or Gift Miles",
+     "original": {
+      "title": "25% off buying or gifting miles",
+      "summary": "25% savings when buying or gifting miles.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-miles-more-world-elite-mastercard",
+   "page": "barclays-us-miles-more-world-elite-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/lufthansa-miles-more-world-elite-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Miles & More World Elite Mastercard"
+   },
+   "aliases": [
+    "Miles & More",
+    "Miles and More World Elite Mastercard",
+    "Miles & More Mastercard",
+    "Lufthansa Miles & More World Elite Mastercard"
+   ],
+   "fee": {
+    "amount": 89,
+    "currency": "USD",
+    "quote": "Annual Fee is $89."
+   },
+   "earning": [
+    {
+     "zh": "Miles & More 合作航空机票",
+     "en": "Miles & More partner airline tickets",
+     "multiplier": 2,
+     "unit": "miles-per-USD",
+     "category": "airline",
+     "quote": "Earn 2 miles per $1 spent on Miles & More partner airline tickets."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "Earn 1 mile per $1 spent on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "lounge-vouchers",
+     "zh": "汉莎商务贵宾室券",
+     "en": "Lufthansa Business Lounge vouchers",
+     "noteZh": "每年两张汉莎商务贵宾室券。",
+     "noteEn": "Two complimentary Lufthansa Business Lounge Vouchers annually.",
+     "scenario": "airport",
+     "category": "lounge",
+     "period": "ongoing",
+     "quote": "two complimentary Lufthansa Business Lounge Vouchers annually.",
+     "original": {
+      "title": "Lufthansa Business Lounge vouchers",
+      "summary": "Two complimentary Lufthansa Business Lounge Vouchers annually.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "companion-ticket",
+     "zh": "周年同行机票",
+     "en": "Annual companion ticket",
+     "noteZh": "账户周年后获得同行机票，税费另付。",
+     "noteEn": "An annual companion ticket after each account anniversary; taxes and fees apply.",
+     "scenario": "travel",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "Receive an Annual Companion Ticket after each account anniversary",
+     "original": {
+      "title": "Annual companion ticket",
+      "summary": "An annual companion ticket after each account anniversary; taxes and fees apply.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-frontier-airlines-world-mastercard",
+   "page": "barclays-us-frontier-airlines-world-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/frontier-airlines-world-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Frontier Airlines World Mastercard"
+   },
+   "aliases": [
+    "Frontier Airlines Mastercard",
+    "Frontier World Mastercard",
+    "Frontier Airlines World"
+   ],
+   "fee": {
+    "amount": 99,
+    "currency": "USD",
+    "quote": "$99 annual fee"
+   },
+   "earning": [
+    {
+     "zh": "餐厅",
+     "en": "Restaurant purchases",
+     "multiplier": 3,
+     "unit": "miles-per-USD",
+     "category": "dining",
+     "quote": "Earn 3x miles on eligible restaurant purchases and 1x miles on all other purchases."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "miles-per-USD",
+     "category": "general",
+     "quote": "Earn 3x miles on eligible restaurant purchases and 1x miles on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "checked-bags",
+     "zh": "两件免费托运行李",
+     "en": "Two free checked bags",
+     "noteZh": "Frontier 航班两件托运行李免费，条件以条款为准。",
+     "noteEn": "Two free checked bags on Frontier flights, subject to terms.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Two Free Checked Bags",
+     "original": {
+      "title": "Two free checked bags",
+      "summary": "Two free checked bags on Frontier flights, subject to terms.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "flight-voucher",
+     "zh": "周年机票代金券",
+     "en": "Anniversary flight voucher",
+     "noteZh": "每个账户周年在有合格消费时获得 $100 机票代金券。",
+     "noteEn": "A $100 flight voucher every account anniversary with eligible purchases.",
+     "scenario": "travel",
+     "category": "credit",
+     "period": "account-anniversary",
+     "quote": "Earn a $100 Flight Voucher every account anniversary with eligible purchases.",
+     "original": {
+      "title": "Anniversary flight voucher",
+      "summary": "A $100 flight voucher every account anniversary with eligible purchases.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     },
+     "amount": 100
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "Frontier 机票消费的\"最高\"倍数含会员等级加成，未录入。",
+     "en": "The \"up to\" rate on Frontier purchases includes status bonuses and is not recorded."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-breeze-easy-visa-credit-card",
+   "page": "barclays-us-breeze-easy-visa-credit-card",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/breeze-airways/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Breeze Easy Visa Credit Card"
+   },
+   "aliases": [
+    "Breeze Easy",
+    "Breeze Easy Visa"
+   ],
+   "fee": {
+    "amount": 89,
+    "currency": "USD",
+    "quote": "Annual Fee is $89."
+   },
+   "earning": [
+    {
+     "zh": "超市和餐厅",
+     "en": "Grocery stores and restaurants",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "quote": "2X on eligible grocery store and restaurant purchases"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1 BreezePoint for every $1 spent on all other Net Purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "priority-boarding",
+     "zh": "优先登机",
+     "en": "Zone 1 priority boarding",
+     "noteZh": "主卡人和同行人享 Zone 1 优先登机。",
+     "noteEn": "Zone 1 priority boarding for the primary cardmember and companions.",
+     "scenario": "airport",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Primary cardmembers and their companions receive Zone 1 priority boarding",
+     "original": {
+      "title": "Zone 1 priority boarding",
+      "summary": "Zone 1 priority boarding for the primary cardmember and companions.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    },
+    {
+     "key": "anniversary-points",
+     "zh": "周年赠送 7,500 点",
+     "en": "7,500 anniversary BreezePoints",
+     "noteZh": "账户周年且有合格消费时获赠 7,500 点。",
+     "noteEn": "7,500 BreezePoints after each account anniversary with eligible purchases.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "account-anniversary",
+     "quote": "Earn 7,500 Anniversary Bonus BreezePoints after every account anniversary",
+     "original": {
+      "title": "7,500 anniversary BreezePoints",
+      "summary": "7,500 BreezePoints after each account anniversary with eligible purchases.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "Breeze 机票套餐的倍数合并了购买和乘机两部分，未录入。",
+     "en": "Breeze bundle rates combine buying and flying and are not recorded."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-aarp-travel-rewards-mastercard",
+   "page": "barclays-us-aarp-travel-rewards-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/aarp-travel-rewards-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "AARP Travel Rewards Mastercard"
+   },
+   "aliases": [
+    "AARP Travel Rewards",
+    "AARP Travel Rewards Mastercard from Barclays"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Annual Fee is $0."
+   },
+   "earning": [
+    {
+     "zh": "机票、酒店和租车",
+     "en": "Airfare, hotel stays and car rentals",
+     "multiplier": 3,
+     "unit": "cashback-percent",
+     "category": "travel",
+     "quote": "Earn 3% Cash Back on Airfare, Hotel Stays and Car Rentals."
+    },
+    {
+     "zh": "餐厅",
+     "en": "Restaurant purchases",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "dining",
+     "quote": "Earn 2% Cash Back on eligible Restaurant purchases."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn 1% Cash Back on all other purchases."
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-aarp-essential-rewards-mastercard",
+   "page": "barclays-us-aarp-essential-rewards-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/aarp-essential-rewards-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "AARP Essential Rewards Mastercard"
+   },
+   "aliases": [
+    "AARP Essential Rewards",
+    "AARP Essential Rewards Mastercard from Barclays"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Annual Fee is $0."
+   },
+   "earning": [
+    {
+     "zh": "加油和药店",
+     "en": "Gas and drug stores",
+     "multiplier": 3,
+     "unit": "cashback-percent",
+     "category": "ground-transport",
+     "quote": "on Gas and Drug Store purchases (excluding Target and Walmart).",
+     "noteZh": "不含 Target 和 Walmart。",
+     "noteEn": "Excludes Target and Walmart."
+    },
+    {
+     "zh": "医疗支出",
+     "en": "Eligible medical expenses",
+     "multiplier": 2,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "on eligible Medical expenses"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn Unlimited 1% Cash Back"
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-upromise-world-mastercard",
+   "page": "barclays-us-upromise-world-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/upromise-world-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Upromise World Mastercard"
+   },
+   "aliases": [
+    "Upromise Mastercard",
+    "Upromise"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Annual Fee is $0."
+   },
+   "earning": [
+    {
+     "zh": "所有消费",
+     "en": "Every purchase",
+     "multiplier": 1.25,
+     "unit": "cashback-percent",
+     "category": "general",
+     "quote": "Earn 1.25% Cash Back Rewards",
+     "noteZh": "关联合格大学储蓄计划账户时页面公布 1.529%。",
+     "noteEn": "The page states 1.529% when a qualifying college savings account is linked."
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-gm-rewards-mastercard",
+   "page": "barclays-us-gm-rewards-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/general-motors/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "GM Rewards Mastercard"
+   },
+   "aliases": [
+    "GM Rewards",
+    "GM Rewards Card"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "$0"
+   },
+   "earning": [
+    {
+     "zh": "GM 消费",
+     "en": "Eligible GM purchases",
+     "multiplier": 7,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "7x points on every $1 spent on eligible GM purchases"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 3x points for every $1 spent on all other purchases"
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-gm-business-mastercard",
+   "page": "barclays-us-gm-business-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/general-motors-business/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "GM Business Mastercard"
+   },
+   "aliases": [
+    "GM Business",
+    "GM Business Card"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Annual Fee is $0."
+   },
+   "earning": [
+    {
+     "zh": "GM 消费",
+     "en": "Eligible GM purchases",
+     "multiplier": 7,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 7x Business Card Points for every $1 spent on eligible GM purchases"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 3x Business Card Points for every $1 spent on everything else."
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-carnival-rewards-mastercard",
+   "page": "barclays-us-carnival-rewards-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/carnival-rewards-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Carnival Rewards Mastercard"
+   },
+   "aliases": [
+    "Carnival Rewards",
+    "Carnival Mastercard",
+    "Carnival World Mastercard"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "$0"
+   },
+   "earning": [
+    {
+     "zh": "Carnival 消费",
+     "en": "Carnival purchases",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "quote": "Earn 3x points from your card, plus up to 3x points through Carnival Rewards.",
+     "noteZh": "另有 Carnival Rewards 会员最多 3 倍，未计入。",
+     "noteEn": "Up to 3x more through Carnival Rewards membership is not included."
+    },
+    {
+     "zh": "餐厅和超市",
+     "en": "Restaurants and grocery stores",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "quote": "Earn 2x points for every dollar spent at eligible restaurants and grocery stores",
+     "noteZh": "超市不含 Target 和 Walmart。",
+     "noteEn": "Grocery stores exclude Target and Walmart."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1x points for every dollar spent on all other purchases."
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-barnes-noble-mastercard",
+   "page": "barclays-us-barnes-noble-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/barnes-noble-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Barnes & Noble Mastercard"
+   },
+   "aliases": [
+    "Barnes & Noble",
+    "Barnes and Noble Mastercard"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Annual Fee is $0."
+   },
+   "earning": [
+    {
+     "zh": "Barnes & Noble 和 Paper Source 门店",
+     "en": "Barnes & Noble and Paper Source stores",
+     "multiplier": 5,
+     "unit": "cashback-percent",
+     "category": "shopping",
+     "quote": "Earn 5% back when you use your card at any Barnes & Noble and Paper Source stores"
+    },
+    {
+     "zh": "餐厅",
+     "en": "Restaurant purchases",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "quote": "Earn 2x points for every $1 spent at restaurants"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1x points for every $1 spent on all other purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "gift-card",
+     "zh": "积分满额换礼品卡",
+     "en": "Automatic gift card",
+     "noteZh": "每赚满 2,500 点自动获得 $25 礼品卡。",
+     "noteEn": "A $25 Barnes & Noble gift card for every 2,500 points.",
+     "scenario": "shopping",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Automatically receive a $25 Barnes & Noble Gift Card every time you earn 2,500 points",
+     "original": {
+      "title": "Automatic gift card",
+      "summary": "A $25 Barnes & Noble gift card for every 2,500 points.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-capital-vacations-world-mastercard",
+   "page": "barclays-us-capital-vacations-world-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/capital-vacations/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Capital Vacations World Mastercard"
+   },
+   "aliases": [
+    "Capital Vacations",
+    "Capital Vacations Mastercard"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Annual Fee is $0."
+   },
+   "earning": [
+    {
+     "zh": "Capital Vacations 消费",
+     "en": "Capital Vacations purchases",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "quote": "For every $1 spent on all eligible Capital Vacations purchases"
+    },
+    {
+     "zh": "RCI、旅行、加油和充电",
+     "en": "RCI, travel, gas and EV charging",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "quote": "for every $1 spent on all eligible RCI, travel, gas and EV charging purchases"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "for every $1 spent on all other eligible purchases"
+    }
+   ],
+   "credits": [
+    {
+     "key": "redemption-rebate",
+     "zh": "兑换返还 5%",
+     "en": "5% rewards back on redemption",
+     "noteZh": "每次兑换返还 5% 奖励。",
+     "noteEn": "5% of rewards back every time you redeem.",
+     "scenario": "reward-redemption",
+     "category": "membership",
+     "period": "ongoing",
+     "quote": "Get 5% of your Rewards back",
+     "original": {
+      "title": "5% rewards back on redemption",
+      "summary": "5% of rewards back every time you redeem.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ]
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-rci-elite-rewards-world-mastercard",
+   "page": "barclays-us-rci-elite-rewards-world-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/rci-elite-rewards-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "RCI Elite Rewards World Mastercard"
+   },
+   "aliases": [
+    "RCI Elite Rewards",
+    "RCI Elite Rewards Mastercard"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Annual fee $0"
+   },
+   "earning": [
+    {
+     "zh": "RCI 消费",
+     "en": "RCI purchases",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "quote": "Earn 5X Rewards for every $1 spent on all eligible RCI purchases."
+    },
+    {
+     "zh": "旅行、加油和充电",
+     "en": "Travel, gas and EV charging",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "travel",
+     "quote": "Earn 2X Rewards for every $1 spent on all eligible travel"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1X Rewards for every $1 spent on all other purchases."
+    }
+   ],
+   "credits": [
+    {
+     "key": "vacation-credit",
+     "zh": "度假抵扣",
+     "en": "Vacation credit",
+     "noteZh": "每自然年净消费满 $10,000 获 $250 度假抵扣。",
+     "noteEn": "A $250 vacation credit after $10,000 in net purchases each calendar year.",
+     "scenario": "travel",
+     "category": "spend-unlock",
+     "period": "calendar-year",
+     "quote": "Earn a $250 USD Vacation Credit",
+     "original": {
+      "title": "Vacation credit",
+      "summary": "A $250 vacation credit after $10,000 in net purchases each calendar year.",
+      "howToUse": [
+       "Check the current terms with the issuer before relying on it."
+      ],
+      "quotes": [
+       "after spending $10,000 in net purchases each calendar year."
+      ]
+     },
+     "amount": 250,
+     "spendThreshold": {
+      "amount": 10000,
+      "currency": "USD",
+      "period": "calendar-year"
+     }
+    }
+   ],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-gap-encore-mastercard",
+   "page": "barclays-us-gap-encore-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/gap-encore-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Gap Encore Mastercard"
+   },
+   "aliases": [
+    "Gap Encore",
+    "Gap Good Rewards Mastercard"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "No Annual Fee"
+   },
+   "earning": [
+    {
+     "zh": "Gap Inc. 旗下品牌",
+     "en": "Gap Inc. family of brands",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 5X points for every $1 spent at the Gap Inc. family of brands"
+    },
+    {
+     "zh": "服装零售品牌",
+     "en": "Eligible apparel retailers",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 3X points for every $1"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1X points for every $1 spent everywhere else"
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-old-navy-encore-mastercard",
+   "page": "barclays-us-old-navy-encore-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/old-navy-encore-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Old Navy Encore Mastercard"
+   },
+   "aliases": [
+    "Old Navy Encore",
+    "Navyist Rewards Mastercard"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "No Annual Fee"
+   },
+   "earning": [
+    {
+     "zh": "Gap Inc. 旗下品牌",
+     "en": "Gap Inc. family of brands",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 5X points for every $1 spent at the Gap Inc. family of brands"
+    },
+    {
+     "zh": "服装零售品牌",
+     "en": "Eligible apparel retailers",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 3X points for every $1"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1X points for every $1 spent everywhere else"
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-banana-republic-encore-mastercard",
+   "page": "barclays-us-banana-republic-encore-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/banana-republic-encore-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Banana Republic Encore Mastercard"
+   },
+   "aliases": [
+    "Banana Republic Encore",
+    "Banana Republic Rewards Mastercard"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "No Annual Fee"
+   },
+   "earning": [
+    {
+     "zh": "Gap Inc. 旗下品牌",
+     "en": "Gap Inc. family of brands",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 5X points for every $1 spent at the Gap Inc. family of brands"
+    },
+    {
+     "zh": "服装零售品牌",
+     "en": "Eligible apparel retailers",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 3X points for every $1"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1X points for every $1 spent everywhere else"
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-athleta-encore-mastercard",
+   "page": "barclays-us-athleta-encore-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/athleta-encore-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Athleta Encore Mastercard"
+   },
+   "aliases": [
+    "Athleta Encore",
+    "Athleta Rewards Mastercard"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "No Annual Fee"
+   },
+   "earning": [
+    {
+     "zh": "Gap Inc. 旗下品牌",
+     "en": "Gap Inc. family of brands",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 5X points for every $1 spent at the Gap Inc. family of brands"
+    },
+    {
+     "zh": "服装零售品牌",
+     "en": "Eligible apparel retailers",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 3X points for every $1"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1X points for every $1 spent everywhere else"
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-xbox-mastercard",
+   "page": "barclays-us-xbox-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/xbox-mastercard/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Xbox Mastercard"
+   },
+   "aliases": [
+    "Xbox"
+   ],
+   "fee": {
+    "amount": 0,
+    "currency": "USD",
+    "quote": "Annual Fee is $0."
+   },
+   "earning": [
+    {
+     "zh": "Microsoft 数字商店",
+     "en": "Digital Microsoft Store",
+     "multiplier": 5,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 5X card points for every $1 spent on eligible products at the digital Microsoft Store"
+    },
+    {
+     "zh": "流媒体",
+     "en": "Eligible streaming services",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "entertainment",
+     "quote": "Earn 3X card points for every $1 spent on eligible streaming services"
+    },
+    {
+     "zh": "外卖配送",
+     "en": "Eligible dining delivery services",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "quote": "Earn 3X card points for every $1 spent on eligible dining delivery services"
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1X card points for every $1 spent on everyday purchases"
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "页面没有申请入口，是否仍接受新申请未知。",
+     "en": "The page has no application link; whether it accepts new applications is unknown."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  },
+  {
+   "id": "barclays-us-barclays-view-mastercard",
+   "page": "barclays-us-barclays-view-mastercard",
+   "issuer": "Barclays",
+   "collection": "not-supported",
+   "url": "https://cards.barclaycardus.com/banking/cards/barclaysview/",
+   "new": {
+    "bank": "Barclays",
+    "region": "US",
+    "name": "Barclays View Mastercard"
+   },
+   "aliases": [
+    "View Mastercard",
+    "Barclays View"
+   ],
+   "feeUnknown": true,
+   "earning": [
+    {
+     "zh": "餐厅",
+     "en": "Restaurant purchases",
+     "multiplier": 3,
+     "unit": "points-per-USD",
+     "category": "dining",
+     "quote": "Earn 3X points on restaurant purchases"
+    },
+    {
+     "zh": "网络、流媒体、电话和电视",
+     "en": "Internet, streaming, phone and TV",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "entertainment",
+     "quote": "Earn 2X points on internet, select streaming, phone and TV services"
+    },
+    {
+     "zh": "超市",
+     "en": "Grocery stores",
+     "multiplier": 2,
+     "unit": "points-per-USD",
+     "category": "shopping",
+     "quote": "Earn 2X points on grocery store purchases",
+     "noteZh": "超市不含 Target 和 Walmart。",
+     "noteEn": "Grocery stores exclude Target and Walmart."
+    },
+    {
+     "zh": "其他消费",
+     "en": "All other purchases",
+     "multiplier": 1,
+     "unit": "points-per-USD",
+     "category": "general",
+     "quote": "Earn 1X points on all other purchases"
+    }
+   ],
+   "credits": [],
+   "unknown": [
+    {
+     "zh": "读到的公开页面没有写年费。",
+     "en": "The public page read states no annual fee."
+    },
+    {
+     "zh": "页面没有申请入口，是否仍接受新申请未知。",
+     "en": "The page has no application link; whether it accepts new applications is unknown."
+    },
+    {
+     "zh": "开户奖励和免息期等限时优惠未录入。",
+     "en": "Welcome and intro APR offers are not recorded."
+    }
+   ]
+  }
+ ]
+}

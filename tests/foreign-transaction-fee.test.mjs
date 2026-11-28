@@ -18,6 +18,8 @@ const UNKNOWN=new Set([
  'sc-hk-hk-simply-cash-visa-card','boa-us-allways-rewards-visa',
  ...ids('citi-us-','citi-double-cash-card citi-custom-cash-card citi-strata-card aadvantage-mileup-card citi-diamond-preferred-card citi-simplicity-card citi-secured-mastercard my-best-buy-credit-cards macys-credit-cards bloomingdales-credit-cards the-home-depot-consumer-credit-card pro-xtra-credit-card tsc-credit-cards l-l-bean-mastercard dillards-credit-cards wayfair-credit-cards goodyear-credit-card'),
  ...cardProducts.filter(p=>p.bank==='Discover').map(p=>p.id),
+ // Barclays (2026-11-27): Gap Inc. and View pages state no fee; the name-only cards had no product page read.
+ ...ids('barclays-us-','gap-encore-mastercard old-navy-encore-mastercard banana-republic-encore-mastercard athleta-encore-mastercard barclays-view-mastercard aadvantage-aviator-red-world-elite-mastercard aadvantage-aviator-world-elite-business-mastercard hawaiian-airlines-world-elite-mastercard hawaiian-airlines-world-elite-business-mastercard frontier-airlines-business-mastercard holland-america-line-rewards-visa-card princess-cruises-rewards-visa-card priceline-rewards-visa-card priceline-vip-rewards-visa-card'),
  ...cardProducts.filter(p=>p.bank==='U.S. Bank'&&!p.id.includes('altitude-connect')).map(p=>p.id),
 ]);
 
