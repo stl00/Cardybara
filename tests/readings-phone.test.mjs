@@ -133,8 +133,12 @@ async function scenario({live = READINGS, twin = false} = {}) {
       await c.until(`document.querySelector('.payment-row')`, 'the payment row');
       const row = await c.evaluate(`document.querySelector('.payment-row').innerText`);
       const state = await c.evaluate(`document.querySelector('.payment-row').dataset.state`);
+      // Minimum and read day sit one tap away, behind the row's info tip (#686).
+      await c.tap('.payment-row .info-tip');
+      await c.until(`document.querySelector('.info-tip-content')?.innerText.includes('读取')`, 'the row facts');
+      const facts = await c.evaluate(`document.querySelector('.info-tip-content').innerText`);
       errors.push(...c.errors);
-      return {cards, detail, row, state};
+      return {cards, detail, row, facts, state};
     }, {origin: srv.origin, init: init(twin ? [TWIN] : null, null)});
     return {...seen, errors};
   } finally { srv.server.closeAllConnections?.(); srv.server.close(); }
@@ -157,7 +161,8 @@ test('phone: old desktop readings show on the card detail with their read day, l
   assertReadings(r);
   // A bank reading holds no due date: it stays "not collected", with no date made up for it.
   assert.deepEqual(r.detail['还款日'], {label: '还款日 · 未采集', value: '未采集'});
-  for (const s of ['200.00', '35.00', `读取于 ${BANK_DAY}`, '读数已过期']) assert.ok(r.row.includes(s), `the overview row is missing ${s}: ${r.row}`);
+  for (const s of ['200.00', '读数已过期']) assert.ok(r.row.includes(s), `the overview row is missing ${s}: ${r.row}`);
+  for (const s of ['35.00', `读取于 ${BANK_DAY}`]) assert.ok(r.facts.includes(s), `the row facts are missing ${s}: ${r.facts}`);
   assert.deepEqual(r.errors, []);
 });
 
@@ -167,7 +172,8 @@ test('phone with a Plaid-added twin: one card, the newer desktop amounts and the
   assert.equal(r.detail['还款日'].label, `还款日 · ${PLAID_DAY}`);
   assert.ok(r.detail['还款日'].value.includes(PLAID_DUE), 'the due date as Plaid gave it: ' + r.detail['还款日'].value);
   // The row is as old as its oldest reading, and an old past due date is not called overdue.
-  for (const s of ['200.00', '35.00', PLAID_DUE, `读取于 ${PLAID_DAY}`, '读数已过期']) assert.ok(r.row.includes(s), `the overview row is missing ${s}: ${r.row}`);
+  for (const s of ['200.00', PLAID_DUE, '读数已过期']) assert.ok(r.row.includes(s), `the overview row is missing ${s}: ${r.row}`);
+  for (const s of ['35.00', `读取于 ${PLAID_DAY}`]) assert.ok(r.facts.includes(s), `the row facts are missing ${s}: ${r.facts}`);
   assert.equal(r.state, 'stale');
   assert.deepEqual(r.errors, []);
 });
