@@ -2420,5 +2420,474 @@
     "title": "Amex US · Platinum Card from American Express Exclusively for Charles Schwab 持卡协议费率表（2026-09-30 版）",
     "checkedAt": "2026-11-26",
     "authority": "official"
+  },
+  {
+    "id": "ftf-wells-fargo-us-active-cash-card",
+    "url": "https://www.wellsfargo.com/credit-cards/active-cash/terms/",
+    "title": "Wells Fargo · Wells Fargo Active Cash® Card 费率条款页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-wells-fargo-us-autograph-card",
+    "url": "https://www.wellsfargo.com/credit-cards/autograph-visa/terms/?product_code=CC&subproduct_code=AU&sub_channel=WEB&vendor_code=WF",
+    "title": "Wells Fargo · Wells Fargo Autograph® Card 费率条款页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-wells-fargo-us-autograph-journey-visa-card",
+    "url": "https://www.wellsfargo.com/credit-cards/autograph-journey-visa/terms/?product_code=CC&subproduct_code=MT&sub_channel=WEB&vendor_code=WF",
+    "title": "Wells Fargo · Wells Fargo Autograph Journey Visa Card 费率条款页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-wells-fargo-us-reflect-card",
+    "url": "https://www.wellsfargo.com/credit-cards/reflect-visa/terms/?product_code=CC&subproduct_code=VV&sub_channel=WEB&vendor_code=WF",
+    "title": "Wells Fargo · Wells Fargo Reflect® Card 费率条款页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-wells-fargo-us-one-key-card",
+    "url": "https://www.wellsfargo.com/credit-cards/documents/one-key-agreement/?FPID=21231AIXP10000&subproduct_code=OW",
+    "title": "Wells Fargo · Wells Fargo One Key® Card 持卡协议",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-wells-fargo-us-choice-privileges-mastercard",
+    "url": "https://www.wellsfargo.com/credit-cards/documents/choice-agreement/",
+    "title": "Wells Fargo · Wells Fargo Choice Privileges® Mastercard® 持卡协议",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-wells-fargo-us-choice-privileges-select-mastercard",
+    "url": "https://www.wellsfargo.com/credit-cards/documents/choice-select-agreement/",
+    "title": "Wells Fargo · Wells Fargo Choice Privileges® Select Mastercard® 持卡协议",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-wells-fargo-us-signify-business-cash-card",
+    "url": "https://www.wellsfargo.com/biz/business-credit/credit-cards/signify-business-cash-credit-card-terms-conditions/",
+    "title": "Wells Fargo · Wells Fargo Signify Business Cash® Card 费率条款页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-bank-of-america-unlimited-cash-rewards",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4082058&poCd=6E&locale=en_US&isMobile=true",
+    "title": "BOA · Bank of America Unlimited Cash Rewards 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-bank-of-america-unlimited-cash-rewards-b",
+    "url": "https://www.bankofamerica.com/credit-cards/products/unlimited-cash-back-credit-card/",
+    "title": "BOA · Bank of America Unlimited Cash Rewards 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-atmos-rewards-ascent-visa-signature",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4081418&poCd=PV&locale=en_US&isMobile=true",
+    "title": "BOA · Atmos Rewards Ascent Visa Signature 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-atmos-rewards-ascent-visa-signature-b",
+    "url": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
+    "title": "BOA · Atmos Rewards Ascent Visa Signature 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-royal-one-visa-signature",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4081180&poCd=E3&locale=en_US&isMobile=true",
+    "title": "BOA · Royal ONE Visa Signature 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-royal-one-visa-signature-b",
+    "url": "https://www.bankofamerica.com/credit-cards/products/royal-one-credit-card/",
+    "title": "BOA · Royal ONE Visa Signature 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-royal-one-plus-visa-signature",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4081136&poCd=7F&locale=en_US&isMobile=true",
+    "title": "BOA · Royal ONE Plus Visa Signature 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-royal-one-plus-visa-signature-b",
+    "url": "https://www.bankofamerica.com/credit-cards/products/royal-one-plus-credit-card/",
+    "title": "BOA · Royal ONE Plus Visa Signature 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-customized-cash-rewards-visa-signature",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4079537&poCd=8H&locale=en_US&isMobile=true",
+    "title": "BOA · Customized Cash Rewards Visa Signature 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-customized-cash-rewards-visa-signature-b",
+    "url": "https://www.bankofamerica.com/credit-cards/products/cash-back-credit-card/",
+    "title": "BOA · Customized Cash Rewards Visa Signature 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-bank-of-america-travel-rewards-credit-card",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4079333&poCd=75&locale=en_US&isMobile=true",
+    "title": "BOA · Bank of America Travel Rewards credit card 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-bank-of-america-travel-rewards-credit-card-b",
+    "url": "https://www.bankofamerica.com/credit-cards/products/travel-rewards-credit-card/",
+    "title": "BOA · Bank of America Travel Rewards credit card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-bank-of-america-premium-rewards-credit-card",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4079485&poCd=UN&locale=en_US&isMobile=true",
+    "title": "BOA · Bank of America Premium Rewards credit card 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-bank-of-america-premium-rewards-credit-card-b",
+    "url": "https://www.bankofamerica.com/credit-cards/products/premium-rewards-credit-card/",
+    "title": "BOA · Bank of America Premium Rewards credit card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-bank-of-america-premium-rewards-elite-credit-card",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4079322&poCd=R9&locale=en_US&isMobile=true",
+    "title": "BOA · Bank of America Premium Rewards Elite credit card 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-bank-of-america-premium-rewards-elite-credit-card-b",
+    "url": "https://www.bankofamerica.com/credit-cards/products/premium-rewards-elite-credit-card/",
+    "title": "BOA · Bank of America Premium Rewards Elite credit card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-bankamericard-credit-card",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4079406&poCd=5Y&locale=en_US&isMobile=true",
+    "title": "BOA · BankAmericard credit card 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-bankamericard-credit-card-b",
+    "url": "https://www.bankofamerica.com/credit-cards/products/bankamericard-credit-card/",
+    "title": "BOA · BankAmericard credit card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-susan-g-komen-customized-cash-rewards-credit-card",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4079144&poCd=WH&locale=en_US&isMobile=true",
+    "title": "BOA · Susan G. Komen Customized Cash Rewards credit card 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-susan-g-komen-customized-cash-rewards-credit-card-b",
+    "url": "https://www.bankofamerica.com/credit-cards/products/susan-komen-credit-card/",
+    "title": "BOA · Susan G. Komen Customized Cash Rewards credit card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-air-france-klm-visa-signature-credit-card",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4079102&poCd=8S&locale=en_US&isMobile=true",
+    "title": "BOA · Air France KLM Visa Signature Credit Card 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-air-france-klm-visa-signature-credit-card-b",
+    "url": "https://www.bankofamerica.com/credit-cards/products/air-france-credit-card/",
+    "title": "BOA · Air France KLM Visa Signature Credit Card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-norwegian-cruise-line-world-mastercard",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4079074&poCd=9Y&locale=en_US&isMobile=true",
+    "title": "BOA · Norwegian Cruise Line World Mastercard 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-norwegian-cruise-line-world-mastercard-b",
+    "url": "https://www.bankofamerica.com/credit-cards/products/norwegian-cruise-lines-credit-card/",
+    "title": "BOA · Norwegian Cruise Line World Mastercard 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-business-advantage-unlimited-cash-rewards-mastercard",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4078727&poCd=7B&locale=en_US&isMobile=true",
+    "title": "BOA · Business Advantage Unlimited Cash Rewards Mastercard 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-business-advantage-unlimited-cash-rewards-mastercard-b",
+    "url": "https://business.bankofamerica.com/en/credit-cards/business-advantage-unlimited-cash-rewards",
+    "title": "BOA · Business Advantage Unlimited Cash Rewards Mastercard 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-business-advantage-customized-cash-rewards-mastercard",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4076847&poCd=NX&locale=en_US&isMobile=true",
+    "title": "BOA · Business Advantage Customized Cash Rewards Mastercard 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-business-advantage-customized-cash-rewards-mastercard-b",
+    "url": "https://business.bankofamerica.com/en/credit-cards/business-advantage-customized-cash-rewards",
+    "title": "BOA · Business Advantage Customized Cash Rewards Mastercard 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-business-advantage-travel-rewards-world-mastercard",
+    "url": "https://secure.bankofamerica.com/apply-now-services/credit-cards/rest/get-disclosures/v1/usa/show-in-browser?cId=4078683&poCd=4X&locale=en_US&isMobile=true",
+    "title": "BOA · Business Advantage Travel Rewards World Mastercard 费率披露文件（产品页链接）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-business-advantage-travel-rewards-world-mastercard-b",
+    "url": "https://business.bankofamerica.com/en/credit-cards/business-advantage-travel-rewards",
+    "title": "BOA · Business Advantage Travel Rewards World Mastercard 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-boa-us-atmos-rewards-summit-visa-infinite",
+    "url": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-infinite-credit-card/",
+    "title": "BOA · Atmos Rewards Summit Visa Infinite 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-citi-us-citi-strata-premier-card",
+    "url": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
+    "title": "Citi US · Citi Strata Premier Card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-citi-us-citi-strata-elite-card",
+    "url": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card",
+    "title": "Citi US · Citi Strata Elite Card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-citi-us-citi-aadvantage-platinum-select-card",
+    "url": "https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard",
+    "title": "Citi US · Citi / AAdvantage Platinum Select Card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-citi-us-citi-aadvantage-executive-card",
+    "url": "https://www.citi.com/credit-cards/citi-aadvantage-executive-world-legend-mastercard",
+    "title": "Citi US · Citi / AAdvantage Executive Card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-citi-us-costco-anywhere-visa-card-by-citi",
+    "url": "https://www.citi.com/credit-cards/costco-anywhere-visa-card",
+    "title": "Citi US · Costco Anywhere Visa Card by Citi 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-citi-us-costco-anywhere-visa-business-card-by-citi",
+    "url": "https://www.citi.com/credit-cards/costco-anywhere-visa-business-card",
+    "title": "Citi US · Costco Anywhere Visa Business Card by Citi 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-citi-us-citi-aadvantage-globe-card",
+    "url": "https://www.citi.com/credit-cards/citi-aadvantage-globe-mastercard",
+    "title": "Citi US · Citi / AAdvantage Globe Card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-citi-us-citi-aadvantage-business-card",
+    "url": "https://www.citi.com/credit-cards/citi-aadvantage-business-credit-card",
+    "title": "Citi US · Citi / AAdvantage Business Card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-citi-us-at-t-points-plus-card-from-citi",
+    "url": "https://www.citi.com/credit-cards/citi-att-pointsplus-credit-card",
+    "title": "Citi US · AT&T Points Plus Card from Citi 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-us-bank-us-altitude-connect-visa-signature-card",
+    "url": "https://www.usbank.com/credit-cards/altitude-connect-visa-signature-credit-card.html",
+    "title": "U.S. Bank · U.S. Bank Altitude® Connect Visa Signature® Card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-us-bank-us-business-altitude-connect-visa-signature-card",
+    "url": "https://www.usbank.com/business-banking/business-credit-cards/business-altitude-connect-credit-card.html",
+    "title": "U.S. Bank · U.S. Bank Business Altitude® Connect Visa Signature® Card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-bilt-rates-and-fees",
+    "url": "https://legal.cardless.com/schumer/bilt/rates_and_fees.pdf",
+    "title": "Bilt · 费率披露文件（bilt.com 卡片页链接）（rates-and-fees）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-bilt-card",
+    "url": "https://www.bilt.com/card",
+    "title": "Bilt · 产品页（card）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-hsbc-hk-key-fact-statement",
+    "url": "https://www.hsbc.com.hk/content/dam/hsbc/hk/docs/credit-cards/key-fact-statement.pdf",
+    "title": "HSBC HK · 资料概要（Key Facts Statement）（key-fact-statement）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-sc-hk-hk-cathay-mastercard",
+    "url": "https://av.sc.com/hk/content/docs/hk-cc-cathaycard-kfs.pdf",
+    "title": "SC HK · Cathay Mastercard 资料概要（Key Facts Statement）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-sc-hk-hk-a-point-card",
+    "url": "https://av.sc.com/hk/content/docs/hk-cc-apointcard-kfs.pdf",
+    "title": "SC HK · A. Point Card 资料概要（Key Facts Statement）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-sc-hk-hk-a-point-card-b",
+    "url": "https://www.sc.com/hk/credit-cards/apointcard/",
+    "title": "SC HK · A. Point Card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-sc-hk-hk-standard-chartered-smart-credit-card",
+    "url": "https://av.sc.com/hk/content/docs/hk-cc-smartcard-kfs.pdf",
+    "title": "SC HK · Standard Chartered Smart Credit Card 资料概要（Key Facts Statement）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-sc-hk-hk-standard-chartered-smart-credit-card-b",
+    "url": "https://www.sc.com/hk/credit-cards/smart/",
+    "title": "SC HK · Standard Chartered Smart Credit Card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-hk-plat-r-fnc",
+    "url": "https://www.americanexpress.com/content/dam/amex/hk/en/staticassets/pdf/cardmember-agreement-and-fees-and-charges/Plat_R_FnC.pdf",
+    "title": "Amex HK · 资料概要（Key Facts Statement）（plat-r-fnc）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-hk-rcp-fnc",
+    "url": "https://www.americanexpress.com/content/dam/amex/hk/en/staticassets/pdf/cardmember-agreement-and-fees-and-charges/RCP_FnC.pdf",
+    "title": "Amex HK · 资料概要（Key Facts Statement）（rcp-fnc）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-hk-grcc-fnc",
+    "url": "https://www.americanexpress.com/content/dam/amex/hk/en/staticassets/pdf/cardmember-agreement-and-fees-and-charges/GRCC_FnC.pdf",
+    "title": "Amex HK · 资料概要（Key Facts Statement）（grcc-fnc）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-hk-hk-american-express-platinum-credit-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/hk/en/staticassets/pdf/cardmember-agreement-and-fees-and-charges/PGRCC_fees_charges.pdf",
+    "title": "Amex HK · American Express Platinum Credit Card 资料概要（Key Facts Statement）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-hk-hk-blue-cash-credit-card-from-american-express",
+    "url": "https://www.americanexpress.com/content/dam/amex/hk/en/staticassets/pdf/cardmember-agreement-and-fees-and-charges/BlueCash_KFS_FnC_EN.pdf",
+    "title": "Amex HK · Blue Cash Credit Card from American Express 资料概要（Key Facts Statement）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-hk-hk-american-express-essential-credit-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/hk/en/staticassets/pdf/cardmember-agreement-and-fees-and-charges/Essential_KFS_FnC_ENG.pdf",
+    "title": "Amex HK · American Express Essential Credit Card 资料概要（Key Facts Statement）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-hk-hk-american-express-explorer-credit-card",
+    "url": "https://www.americanexpress.com/content/dam/amex/hk/en/staticassets/pdf/cardmember-agreement-and-fees-and-charges/Explorer_CMA_ENG.pdf",
+    "title": "Amex HK · American Express Explorer Credit Card 持卡协议",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-amex-ca-ca-american-express-cobalt-card",
+    "url": "https://www.americanexpress.com/en-ca/credit-cards/cobalt-card/",
+    "title": "Amex CA · American Express Cobalt Card 产品页",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
+  },
+  {
+    "id": "ftf-capital-one-understanding-credit-card-fees",
+    "url": "https://www.capitalone.com/help-center/credit-cards/understanding-credit-card-fees/",
+    "title": "Capital One · 帮助中心费用说明（适用于其全部美国发行信用卡）",
+    "checkedAt": "2026-11-26",
+    "authority": "official"
   }
 ]
