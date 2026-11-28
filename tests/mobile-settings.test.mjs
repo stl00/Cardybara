@@ -112,3 +112,26 @@ test('signed out: one Sign in row, which opens the form on the account page', {t
     await c.until(`document.querySelector('.account-settings input[type=email]')`, 'the sign-in form');
   });
 });
+
+// Notification, the push manager and the push routes are stubbed in the page; no real permission prompt or push service.
+const PUSH = `(()=>{window.__asked=0;let permission='default',sub=null;
+window.Notification=class{static get permission(){return permission}static async requestPermission(){window.__asked++;return permission='granted'}close(){}};
+const manager={getSubscription:async()=>sub,subscribe:async()=>sub={toJSON:()=>({endpoint:'https://push.example.test/synthetic',keys:{p256dh:'P'.repeat(87),auth:'A'.repeat(22)}}),unsubscribe:async()=>{sub=null;return true}}};
+Object.defineProperty(ServiceWorkerContainer.prototype,'ready',{configurable:true,get:()=>Promise.resolve({pushManager:manager})});
+const real=window.fetch;window.fetch=async(url,o={})=>{if(!String(url).includes('/v1/push'))return real(url,o);
+ window.__calls.push((o.method||'GET')+' '+String(url).slice(String(url).indexOf('/v1/')));
+ return new Response(JSON.stringify({publicKey:'BAEB'.repeat(21)+'BAE'}),{status:window.__pushDown?503:200})};})();`;
+const SWITCH = `document.querySelector('.reminder-settings button[role=switch]')`;
+
+for (const down of [false, true]) test(`one reminder switch asks permission and ${down ? 'says so when Web Push cannot be enabled' : 'enables Web Push'}`, {timeout: 90000, skip}, async () => {
+  await withPhone(async c => {
+    await loaded(c);
+    await c.evaluate(`window.__pushDown=${down}`);
+    await c.tap('.reminder-settings button[role=switch]');
+    await c.until(down ? `document.querySelector('.reminder-settings .ant-alert-warning')` : `document.querySelector('.reminder-settings').innerText.includes('Web Push')`, 'the result of the one switch', 15000);
+    assert.equal(await c.evaluate('window.__asked'), 1, 'permission asked once');
+    assert.equal(await c.evaluate(`${SWITCH}.getAttribute('aria-checked')`), 'true');
+    assert.ok((await c.evaluate('window.__calls')).includes('GET /v1/push/key'));
+    assert.equal(await c.evaluate(`[...document.querySelectorAll('.reminder-settings button')].some(b=>/closed/i.test(b.innerText)&&/Turn on/i.test(b.innerText))`), down, 'the separate button is only for a failed enable');
+  }, {dir: buildDir, init: init(true) + PUSH});
+});
