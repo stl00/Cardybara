@@ -213,3 +213,8 @@ body:has(.ant-modal-wrap:not([style*="display: none"])) .mobile-tabbar.is-over{z
 .account-sheet .ant-segmented-item-label,.account-settings .ant-segmented-item-label{min-height:36px;line-height:36px}
 /* About view: finger-sized links on phones and desktop alike. */
 .about-links{margin-bottom:12px}.about-links a,.about-links .ant-btn{display:inline-flex;align-items:center;min-height:44px}.about-links .ant-btn{padding:0}
+/* Quiet UI */
+.info-tip{display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:24px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;color:var(--ant-color-text-secondary,rgba(0,0,0,.45))}
+@media (max-width:767px){.info-tip{min-width:44px;min-height:44px}}
+.info-tip-content{max-width:280px}
+.nudge-item:not(:empty)~.nudge-item{display:none}

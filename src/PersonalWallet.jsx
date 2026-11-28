@@ -15,6 +15,7 @@ import {CardIdentity} from './Identity';
 import LedgerCard from './LedgerCard';
 import WalletLedgerSummary from './WalletLedgerSummary';
 import ItemLogo from './ItemLogo';
+import MoreMenu from './MoreMenu';
 const {Text,Paragraph,Title}=Typography;
 const Personal=createContext(null);
 function broadcast(){if(typeof BroadcastChannel!=='undefined'){const c=new BroadcastChannel('cardybara-personal');c.postMessage('changed');c.close();}}
@@ -60,7 +61,7 @@ export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
     {currentUsage&&<Paragraph type="secondary" style={{fontSize:12,margin:'6px 0 0'}}>{t('累计已用 {0} · 实际价值 {1}',[hidden?'••••':cash(currentUsage.amount,currentUsage.currency),hidden?'••••':currentUsage.value==null?t('尚未估值'):cash(currentUsage.value,currentUsage.currency)])}</Paragraph>}
    </div>
    <Space wrap size={8}><Button size="small" loading={busy===task.key} disabled={!ready||busy===dismissKey(task.cardId,task.ruleId)} type={done?'default':'primary'} onClick={()=>currentUsage&&!done?setEditingUsage({...task,fillFull:true}):change(task,done?'unknown':'used')}>{done?t('撤销'):t('已用完')}</Button>
-    <Dropdown disabled={!ready||!!busy} trigger={['click']} menu={{items:others,onClick:({key})=>key==='amount'?setEditingUsage(task):key==='dismiss'?setDismissed(task,'dismissed'):change(task,key)}}><Button size="small" aria-label={t('更多操作')} icon={<EllipsisOutlined/>}/></Dropdown></Space>
+    <MoreMenu items={others} disabled={!ready||!!busy} onClick={key=>key==='amount'?setEditingUsage(task):key==='dismiss'?setDismissed(task,'dismissed'):change(task,key)}/></Space>
   </Flex>{!compact&&<Collapse ghost size="small" items={[{key:'terms',label:t('使用条件与来源'),children:<><Paragraph>{ruleField(task.condition,task,'summary')}</Paragraph><Sources ids={task.sourceIds}/></>}]}/>}</div>;
  };
  const feeRow=r=>{const card=cards.find(c=>c.id===r.cardId);return <div key={r.key} className="credit-row credit-row-needs-fee"><Flex justify="space-between" align="start" gap={12} wrap><div className="credit-row-main"><Flex wrap align="center" gap={6}><ItemLogo ruleId={r.ruleId}/><Text strong>{ruleField(r.title,r,'title')}</Text><Tag color="processing">{t('需要设置年费日期')}</Tag></Flex>{!singleCard&&<div className="credit-row-card"><CardIdentity card={card}/></div>}<Text type="secondary" className="credit-row-facts">{r.limit!=null?t('公开上限 {0} · 按持卡年度计算，还没有周期',[cash(r.limit,r.currency)]):t('按持卡年度计算，还没有周期')}</Text></div><Button size="small" type="primary" className="fee-date-row-set" disabled={!card||!onSetFeeDate} onClick={()=>onSetFeeDate(card)}>{t('设置年费日期')}</Button></Flex></div>;};
