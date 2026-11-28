@@ -123,10 +123,10 @@ test('every import error code maps to a translated message in all languages',()=
  assert.ok(main.includes('t(key):err.message'));
 });
 
-test('a version 1 document migrates to 2, and a generic-issuer card survives write then read (#676)',async()=>{
- assert.equal(WALLET_FORMAT_VERSION,2);
+test('a version 1 document migrates to the current version, and a generic-issuer card survives write then read (#676)',async()=>{
+ assert.equal(WALLET_FORMAT_VERSION,3);
  const old=fixtures.full(),doc=migrateWalletDocument(old);
- assert.equal(old.formatVersion,1);assert.equal(doc.formatVersion,2);assert.deepEqual(doc.walletCards,old.walletCards);
+ assert.equal(old.formatVersion,1);assert.equal(doc.formatVersion,3);assert.deepEqual(doc.walletCards,old.walletCards);
  const card=newWalletCard({bank:'Synthetic Platypus Bank',name:'Synthetic Platypus Card',tail:'3333',genericBank:true},'generic-1');
  const {got}=await roundTrip({formatVersion:2,walletCards:{cards:[card],removed:[]}});
  assert.deepEqual(got.walletCards.cards,[card]);

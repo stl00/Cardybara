@@ -91,7 +91,7 @@ import {cardRouteId} from './cardRoute.js';
 import {bankLink} from './bankAppLinks.js';
 const {Header,Sider,Content,Footer}=Layout,{Title,Text,Paragraph,Link}=Typography;
 const getCountries=()=> ({US:t("美国"),HK:t("香港"),CA:t("加拿大")});
-const getBankNames=()=> ({'Citi US':'Citi','Amex US':t("American Express 美国"),'Amex HK':t("American Express 香港"),'Amex CA':t("American Express 加拿大"),'HSBC HK':t("香港汇丰"),'SC HK':t("香港渣打"),'Chase':'Chase','BOA':'Bank of America','Capital One':'Capital One',Discover:'Discover','U.S. Bank':'U.S. Bank','Wells Fargo':'Wells Fargo',Bilt:'Bilt'});
+const getBankNames=()=> ({'Citi US':'Citi','Amex US':t("American Express 美国"),'Amex HK':t("American Express 香港"),'Amex CA':t("American Express 加拿大"),'HSBC HK':t("香港汇丰"),'SC HK':t("香港渣打"),'Chase':'Chase','BOA':'Bank of America','Capital One':'Capital One',Discover:'Discover','U.S. Bank':'U.S. Bank','Wells Fargo':'Wells Fargo',Barclays:'Barclays',Bilt:'Bilt'});
 const urls={...Object.fromEntries(Object.entries(MANUAL_BANKS).map(([bank,p])=>[bank,p.url])),'Amex US':'https://www.americanexpress.com/en-us/account/login','Amex HK':'https://www.americanexpress.com/zh-hk/account/login','Citi US':'https://www.citi.com/','Amex CA':'https://www.americanexpress.com/en-ca/account/login','Chase':'https://secure.chase.com/web/auth/?treatment=chase','HSBC HK':'https://www.hsbc.com.hk/','SC HK':'https://www.sc.com/hk/','BOA':'https://www.bankofamerica.com/'};
 const showArchivedHighlights=false;
 // Page names for routing and the header; the menus come from navigation.js.

@@ -45,7 +45,7 @@ test('issuer matching: catalogue US issuers by name; one wallet card per Plaid c
  assert.equal(issuerOf('Chase'),'Chase');assert.equal(issuerOf('American Express'),'Amex US');assert.equal(issuerOf('Bank of America'),'BOA');assert.equal(issuerOf('Citibank Online'),'Citi US');
  assert.equal(issuerOf('Capital One'),'Capital One');assert.equal(issuerOf('Discover'),'Discover');assert.equal(issuerOf('U.S. Bank'),'U.S. Bank');assert.equal(issuerOf('US Bank - Credit Cards'),'U.S. Bank');assert.equal(issuerOf('Wells Fargo'),'Wells Fargo');
  assert.equal(issuerOf('First Platypus Bank'),null);assert.equal(issuerOf(null),null);
- for(const other of ['Discovery Federal Credit Union','First US Bank','Barclays'])assert.equal(issuerOf(other),null,other);
+ for(const other of ['Discovery Federal Credit Union','First US Bank','Barclays (UK)'])assert.equal(issuerOf(other),null,other);
  assert.deepEqual(matchPlaidCards([{id:'g',bank:'First Platypus Bank',genericBank:true,currency:'USD',tail:'1234'}],[plaidCard({institution:'First Platypus Bank'})]).map(([id])=>id),['g'],'a generic issuer matches by its institution name');
  const wallet=[{id:'w1',bank:'Chase',currency:'USD',tail:'1234'},{id:'w2',bank:'Chase',currency:'USD',tail:'9999'},{id:'w3',bank:'Amex US',currency:'USD',tail:'1234'}];
  assert.deepEqual(matchPlaidCards(wallet,[plaidCard()]).map(([id])=>id),['w1']);
@@ -249,7 +249,7 @@ test('auto-add: an unknown institution and the four catalogue-only issuers all l
  const edited=editManualCard(registry,registry[0],{name:'My platypus',tail:'7777'});
  assert.deepEqual([edited[0].name,edited[0].tail,edited[0].genericBank],['My platypus','7777',true]);
  const doc=mergeWalletDocuments({base:null,local:migrateWalletDocument({formatVersion:2,walletCards:{cards:registry,removed:[]}}),remote:migrateWalletDocument({formatVersion:1}),localNewer:true});
- assert.equal(doc.formatVersion,2);assert.deepEqual(doc.walletCards.cards,registry);
+ assert.equal(doc.formatVersion,3);assert.deepEqual(doc.walletCards.cards,registry);
 });
 
 test('only a card marked genericBank may name an unknown bank; a known bank never keeps the mark',()=>{
