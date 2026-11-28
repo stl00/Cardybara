@@ -88,12 +88,12 @@ const byName=(a,b)=>Number(a.business)-Number(b.business)||a.label.localeCompare
  * before business ones, by name. With a query only matches remain, best first, and the group holding the
  * best match comes first, so the first tile is always the best match.
  */
-export function groupEntries(entries,{query='',bank=null,type='all',pinned=[]}={}){
- const searching=!!normalizeSearch(query),pin=new Set(pinned);
+export function groupEntries(entries,{query='',bank=null,type='all',pinned=[],keepPinnedOrder=false}={}){
+ const searching=!!normalizeSearch(query),pin=new Set(pinned),rank=id=>keepPinnedOrder&&pin.has(id)?pinned.indexOf(id):0;
  const rows=entries.filter(e=>(!bank||e.bank===bank)&&(type==='all'||(type==='business')===e.business)).map(e=>({entry:e,score:scoreEntry(e,query)})).filter(r=>r.score>0);
  const groups=new Map();
  for(const r of rows){if(!groups.has(r.entry.bank))groups.set(r.entry.bank,[]);groups.get(r.entry.bank).push(r);}
- const order=(a,b)=>Number(pin.has(b.entry.id))-Number(pin.has(a.entry.id))||(searching?b.score-a.score:0)||byName(a.entry,b.entry);
+ const order=(a,b)=>Number(pin.has(b.entry.id))-Number(pin.has(a.entry.id))||rank(a.entry.id)-rank(b.entry.id)||(searching?b.score-a.score:0)||byName(a.entry,b.entry);
  return [...groups].map(([bank,items])=>({bank,items:items.sort(order),best:Math.max(...items.map(r=>r.score+(pin.has(r.entry.id)?1000:0)))}))
   .sort((a,b)=>(searching?b.best-a.best:0)||bankRank(a.bank)-bankRank(b.bank)||a.bank.localeCompare(b.bank))
   .map(({bank,items})=>({bank,items:items.map(r=>r.entry)}));

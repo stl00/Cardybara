@@ -47,7 +47,14 @@
     "登录并添加卡片": "Sign in and add card",
     "通过 Plaid 连接美国信用卡（自动读取余额和还款日）": "Connect US credit cards through Plaid (reads balances and due dates)",
     "手动添加（选卡种、填尾号）": "Add manually (pick the card, enter the last digits)",
-    "更多添加方式": "More ways to add"
+    "更多添加方式": "More ways to add",
+    "正在读取你的卡…": "Reading your cards…",
+    "还在读取你的卡，读到后会自动出现。": "Still reading your cards. They will appear here once read.",
+    "{0} 张卡需要选卡种": "{0} card(s) need a card type",
+    "去看看": "Check",
+    "已添加到钱包。": "Added to your wallet.",
+    "已添加到钱包。卡种还没认出来。": "Added to your wallet. Card type not recognised yet.",
+    "保持现状": "Keep as is"
   },
   "zh-TW": {
     "Plaid 连接服务还没开通，钱包照常使用。": "Plaid 連線服務尚未開通，錢包照常使用。",
@@ -97,6 +104,13 @@
     "登录并添加卡片": "登入並新增卡片",
     "通过 Plaid 连接美国信用卡（自动读取余额和还款日）": "透過 Plaid 連接美國信用卡（自動讀取餘額和還款日）",
     "手动添加（选卡种、填尾号）": "手動新增（選卡種、填尾號）",
-    "更多添加方式": "更多新增方式"
+    "更多添加方式": "更多新增方式",
+    "正在读取你的卡…": "正在讀取你的卡…",
+    "还在读取你的卡，读到后会自动出现。": "還在讀取你的卡，讀到後會自動出現。",
+    "{0} 张卡需要选卡种": "{0} 張卡需要選卡種",
+    "去看看": "去看看",
+    "已添加到钱包。": "已加入錢包。",
+    "已添加到钱包。卡种还没认出来。": "已加入錢包。卡種還沒認出來。",
+    "保持现状": "保持現狀"
   }
 }

@@ -11,7 +11,8 @@
 // The hosted wallet (PWA) opens this page in its own window (a home-screen PWA has no tabs), so the page sends it back:
 // `&r=<origin>` in the fragment names the wallet's origin, and the page follows it only when it is exactly one of the
 // gateway's listed web origins (ALLOWED_ORIGINS, embedded below by the server), never any other URL. The extension
-// passes no `r` and its tab is simply closed.
+// passes no `r` and its tab is simply closed. A new link goes back to `#plaid-added`, where the wallet lands on the new
+// card (#677); a wallet built before that hash shows its Overview. A repair or the back link goes to `#settings`.
 const LINK_SCRIPT='https://cdn.plaid.com/link/v2/stable/link-initialize.js';
 
 const nonce=()=>{const b=crypto.getRandomValues(new Uint8Array(16));let s='';for(const x of b)s+=String.fromCharCode(x);return btoa(s);};
@@ -53,8 +54,10 @@ try{
 }catch{if(m){handle=m[1];back=listed(asked);}}
 // Where the wallet shows its Plaid panel (the web wallet's settings page).
 const backUrl=back?back+'/#settings':null;
+// After a new link the wallet shows the new card itself.
+const addedUrl=back?back+'/#plaid-added':null;
 if(backUrl){backLink.href=backUrl;backLink.textContent=T.back;backLink.hidden=false;}
-const goBack=()=>{if(backUrl)setTimeout(()=>location.replace(backUrl),1200);};
+const goBack=url=>{if(url){backLink.href=url;setTimeout(()=>location.replace(url),1200);}};
 if(m)history.replaceState(null,'',location.pathname+location.search);
 const forget=()=>{try{localStorage.removeItem(KEY);}catch{}};
 const isLimit=code=>['TRIAL_CONNECTION_LIMIT','CREDITS_EXHAUSTED','ADDITION_LIMIT','plaid_limit'].includes(code);
@@ -84,8 +87,8 @@ async function start(){
    let c;
    try{c=await post('/v2/plaid/link/complete',mode==='update'?{handle,metadata}:{handle,publicToken,metadata});}catch{say(T.unavailable,'error');return;}
    forget();
-   if(c.ok&&c.data?.status==='linked'){say(backUrl?T.backDone:T.done,'ok');goBack();}
-   else if(c.ok&&c.data?.status==='repaired'){say(backUrl?T.backDone:T.repaired,'ok');goBack();}
+   if(c.ok&&c.data?.status==='linked'){say(backUrl?T.backDone:T.done,'ok');goBack(addedUrl);}
+   else if(c.ok&&c.data?.status==='repaired'){say(backUrl?T.backDone:T.repaired,'ok');goBack(backUrl);}
    else if(c.ok&&c.data?.status==='duplicate')say(T.duplicate,'ok');
    else if(c.data?.error?.code==='link_expired')say(T.expired,'error');
    else if(isLimit(c.data?.error?.code))say(T.limit,'error');

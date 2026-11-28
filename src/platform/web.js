@@ -18,8 +18,8 @@ export const web={
  },
  // Plaid-linked credit cards (PLAID_PLAN.md; owner 2026-11-17: the PWA too, for every signed-in user). The gateway hosts
  // Plaid Link; the wallet goes there in this same window, because a home-screen PWA has no tabs and a pop-up would
- // leave it. The Link page sends the user back to this origin's settings page when it is done (only to an origin the
- // gateway lists), and the panel reads the cards again on load.
+ // leave it. The Link page sends the user back to this origin when it is done (only to an origin the gateway lists):
+ // to `#plaid-added` after a new link (src/plaidLanding.js), else to the settings page.
  plaid:{
   open:url=>{location.assign(url);}
  }

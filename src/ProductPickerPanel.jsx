@@ -28,9 +28,10 @@ export function ChosenProduct({product,extra}){
 
 /**
  * A panel of card tiles grouped by bank, with search on top. Type to search, arrows to move, Enter to choose,
- * Esc to close. `badges` puts tags on tiles (and those tiles first); `onOther` adds the "not listed" way out.
+ * Esc to close. `badges` puts tags on tiles (and those tiles first); `onOther` adds the "not listed" way out; `onKeep`
+ * adds "keep as is" below the list and keeps the tagged tiles in the order `badges` lists them.
  */
-export default function ProductPickerPanel({open,onClose,afterClose,onChoose,onOther,products,title,badges={},selectedId}){
+export default function ProductPickerPanel({open,onClose,afterClose,onChoose,onOther,onKeep,products,title,badges={},selectedId}){
  const {language}=useI18n(),screen=Grid.useBreakpoint(),narrow=!screen.md;
  const [query,setQuery]=useState(''),[bank,setBank]=useState(null),[type,setType]=useState('all'),[active,setActive]=useState(0);
  const input=useRef(null),list=useRef(null),fromKeys=useRef(false);
@@ -38,7 +39,7 @@ export default function ProductPickerPanel({open,onClose,afterClose,onChoose,onO
  const banks=useMemo(()=>[...new Set(entries.map(e=>e.bank))].sort((a,b)=>PICKER_BANKS.indexOf(a)-PICKER_BANKS.indexOf(b)),[entries]);
  const hasBusiness=entries.some(e=>e.business)&&entries.some(e=>!e.business);
  const pinned=Object.keys(badges);
- const groups=useMemo(()=>groupEntries(entries,{query,bank,type,pinned}),[entries,query,bank,type,pinned.join()]);
+ const groups=useMemo(()=>groupEntries(entries,{query,bank,type,pinned,keepPinnedOrder:!!onKeep}),[entries,query,bank,type,pinned.join()]);
  const flat=groups.flatMap(g=>g.items);
  useEffect(()=>{setActive(0);if(list.current)list.current.scrollTop=0;},[query,bank,type]);
  useEffect(()=>{if(fromKeys.current)document.getElementById(`product-tile-${flat[active]?.id}`)?.scrollIntoView({block:'nearest'});fromKeys.current=false;},[active]);
@@ -64,7 +65,7 @@ export default function ProductPickerPanel({open,onClose,afterClose,onChoose,onO
   else if(!inInput&&e.key.length===1&&!e.metaKey&&!e.ctrlKey&&!e.altKey)input.current?.focus();
  };
  const other=onOther&&<Button className="product-picker-other" type="dashed" block onClick={()=>onOther(bank)}>{t('找不到我的卡')}<Text type="secondary" style={{marginInlineStart:6}}>{t('（自己填写卡名）')}</Text></Button>;
- return <Modal className={`product-picker-modal${narrow?' narrow':''}`} title={title||t('选择卡种')} open={open} onCancel={onClose} footer={null} width={narrow?'100%':920} destroyOnHidden centered={!narrow} afterOpenChange={o=>{if(o){if(!narrow)input.current?.focus({preventScroll:true});}else{setQuery('');setBank(null);setType('all');setActive(0);afterClose?.();}}}>
+ return <Modal className={`product-picker-modal${narrow?' narrow':''}`} title={title||t('选择卡种')} open={open} onCancel={onClose} footer={onKeep?<Button className="product-picker-keep" block onClick={onKeep}>{t('保持现状')}</Button>:null} width={narrow?'100%':920} destroyOnHidden centered={!narrow} afterOpenChange={o=>{if(o){if(!narrow)input.current?.focus({preventScroll:true});}else{setQuery('');setBank(null);setType('all');setActive(0);afterClose?.();}}}>
   <div className="product-picker" onKeyDown={onKeyDown}>
    <Input ref={input} className="product-picker-search" size="large" autoFocus={!narrow} allowClear prefix={<SearchOutlined/>} value={query} onChange={e=>setQuery(e.target.value)}
     placeholder={t('搜索卡名、品牌或银行，例如 Sapphire、Marriott、万豪')} aria-label={t('搜索卡种')} role="combobox" aria-expanded aria-controls="product-picker-list" aria-activedescendant={flat[active]?`product-tile-${flat[active].id}`:undefined}/>
