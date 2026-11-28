@@ -3,6 +3,8 @@ import {Alert,App,Button,Card,Collapse,Empty,Flex,Input,Segmented,Space,Tag,Typo
 import SearchOutlined from '@ant-design/icons/es/icons/SearchOutlined';
 import {t,useI18n} from './i18n';
 import {CardIdentity} from './Identity';
+import InfoTip from './InfoTip.jsx';
+import MoreMenu from './MoreMenu.jsx';
 import {walletDay} from './personalBenefits';
 import {PAYMENT_MARKS_KEY,paymentGroup,paymentView,readPaymentMarks,withPaymentMark,withoutPaymentMark} from './paymentStates';
 const {Text}=Typography;
@@ -34,18 +36,19 @@ function dueDayText(cycle,days){
  if(days===1)return t('还款日 {0} · 明天到期',[cycle.date]);
  return t('还款日 {0} · 还有 {1} 天',[cycle.date,days]);
 }
-function StateTags({item}){
+// One tag per row (#682): the single most urgent fact.
+function StateTag({item}){
  const {state,soon,stale,handled}=item;
- return <>{handled&&<Tag color="success">{t('本期已处理')}</Tag>}
-  {!handled&&state==='overdue'&&<Tag color="error">{t('还款日已过')}</Tag>}
-  {!handled&&state==='due'&&soon&&<Tag color="warning">{t('即将到期')}</Tag>}
-  {!handled&&state==='due'&&!soon&&<Tag>{t('待还款')}</Tag>}
-  {!handled&&state==='yearless'&&<Tag color="warning">{t('年份未知')}</Tag>}
-  {!handled&&state==='autopay'&&<Tag color="processing">{t('自动还款已开启')}</Tag>}
-  {!handled&&state==='no_payment'&&<Tag>{t('无需付款')}</Tag>}
-  {!handled&&state==='nothing_billed'&&<Tag>{t('没有应付金额')}</Tag>}
-  {!handled&&state==='unknown'&&<Tag>{t('未读取')}</Tag>}
-  {stale&&<Tag color="orange">{t('读数已过期')}</Tag>}</>;
+ if(handled)return <Tag color="success">{t('本期已处理')}</Tag>;
+ if(state==='overdue')return <Tag color="error">{t('还款日已过')}</Tag>;
+ if(stale)return <Tag color="orange">{t('读数已过期')}</Tag>;
+ if(state==='due')return soon?<Tag color="warning">{t('即将到期')}</Tag>:<Tag>{t('待还款')}</Tag>;
+ if(state==='yearless')return <Tag color="warning">{t('年份未知')}</Tag>;
+ if(state==='autopay')return <Tag color="processing">{t('自动还款已开启')}</Tag>;
+ if(state==='no_payment')return <Tag>{t('无需付款')}</Tag>;
+ if(state==='nothing_billed')return <Tag>{t('没有应付金额')}</Tag>;
+ if(state==='unknown')return <Tag>{t('未读取')}</Tag>;
+ return null;
 }
 function note(item){
  if(item.state==='overdue')return item.autopay==='on'?t('自动还款已开启，请到银行核对是否已扣款。'):t('钱包不知道你是否已还款；请到银行核对，或标记已处理。');
@@ -56,24 +59,28 @@ function note(item){
 function PaymentRow({item,money,urls,onDetail,onMark,onUndo}){
  const {card,state}=item,paid=state==='no_payment',bank=urls[card.bank],hint=!item.handled&&note(item);
  const autopay=item.autopay==='on'?t('已开启'):item.autopay==='off'?t('未开启'):t('未读取');
+ const about=<>{hint&&<div>{hint}</div>}{!paid&&<div>{t('最低 {0}',[money(card.minimum,card.currency)])}</div>}<div>{t('自动还款 {0}',[autopay])}</div><div>{item.readAt?t('读取于 {0}',[item.readAt]):t('读取时间未知')}</div></>;
  return <div className="payment-row" data-state={state}>
   <div className="payment-row-main">
-   <Flex wrap align="center" gap={6}><CardIdentity card={card}/>{card.tail&&<Text type="secondary">•••• {card.tail}</Text>}<StateTags item={item}/></Flex>
+   <Flex wrap align="center" gap={6}><CardIdentity card={card}/>{card.tail&&<Text type="secondary">•••• {card.tail}</Text>}<StateTag item={item}/><InfoTip title={about}/></Flex>
    <Text strong className="payment-due">{dueText(item)}</Text>
-   <Text type="secondary" className="payment-facts">
-    {!paid&&<>{t('账单 {0}',[money(card.statement,card.currency)])}<span> · </span>{t('最低 {0}',[money(card.minimum,card.currency)])}<span> · </span></>}
-    {t('自动还款 {0}',[autopay])}<span> · </span>{item.readAt?t('读取于 {0}',[item.readAt]):t('读取时间未知')}
-   </Text>
-   {hint&&<Text type="secondary" className="payment-hint">{hint}</Text>}
+   {!paid&&<Text className="payment-amount">{t('账单 {0}',[money(card.statement,card.currency)])}</Text>}
   </div>
-  <Space wrap size={8} className="payment-actions">
+  <Space size={8} className="payment-actions">
    {item.handled?<Button size="small" onClick={()=>onUndo(item)}>{t('撤销')}</Button>:item.canMark&&<Button size="small" onClick={()=>onMark(item)}>{t('标记已处理')}</Button>}
-   {bank&&<Button size="small" href={bank} target="_blank" rel="noopener noreferrer">{t('去银行')}</Button>}
-   <Button size="small" type="link" onClick={()=>onDetail(card)}>{t('详情')}</Button>
+   <MoreMenu items={[bank&&{key:'bank',label:<a href={bank} target="_blank" rel="noopener noreferrer">{t('去银行')}</a>},{key:'detail',label:t('详情')}]} onClick={key=>{if(key==='detail')onDetail(card)}}/>
   </Space>
  </div>;
 }
-export default function PaymentAssistant({cards,hidden=false,urls,onDetail,onRefresh}){
+// The "cannot judge" notice, drawn in the page's one banner slot (#686).
+export function UnjudgedBills({cards,onRefresh}){
+ useI18n();
+ const marks=usePaymentMarks(),day=walletDay();
+ const count=useMemo(()=>paymentView(cards,marks,day).refresh.length,[cards,marks,day]);
+ if(!count)return null;
+ return <Alert className="payment-refresh" type="info" showIcon style={{marginBottom:20}} title={t('{0} 张卡的账单未读取或读数已过期，暂时无法判断是否要还款',[count])} action={onRefresh&&<Button size="small" onClick={onRefresh}>{t('刷新银行')}</Button>}/>;
+}
+export default function PaymentAssistant({cards,hidden=false,urls,onDetail}){
  useI18n();
  const {message}=App.useApp(),marks=usePaymentMarks(),day=walletDay();
  const [filter,setFilter]=useState('all'),[search,setSearch]=useState('');
@@ -98,10 +105,9 @@ export default function PaymentAssistant({cards,hidden=false,urls,onDetail,onRef
  const query=search.trim().toLowerCase();
  const rows=query?pool.filter(i=>[i.card.name,i.card.bank,i.card.tail].join(' ').toLowerCase().includes(query)):pool;
  const headline=view.action?(view.urgent?t('{0} 笔要尽快处理，共 {1} 笔待还款',[view.urgent,view.action]):t('{0} 笔待还款',[view.action])):t('没有已知要处理的账单');
- const unjudged=view.refresh.length>0&&<Alert className="payment-refresh" type="info" showIcon title={t('{0} 张卡的账单未读取或读数已过期，暂时无法判断是否要还款',[view.refresh.length])} action={onRefresh&&<Button size="small" onClick={onRefresh}>{t('刷新银行')}</Button>}/>;
- return <Card className="payment-assistant" style={{marginBottom:20}} title={t('现在要处理')} extra={<Text type="secondary" className="payment-headline">{headline}</Text>}>
+ const about=<><div>{t('钱包不会替你付款。“已处理”只是你在本机的记号，下一期账单会重新提醒。')}</div><a href="#settings">{t('设置提醒')}</a></>;
+ return <Card className="payment-assistant" style={{marginBottom:20}} title={<Space size={4}>{t('现在要处理')}<InfoTip title={about}/></Space>} extra={<Text type="secondary" className="payment-headline">{headline}</Text>}>
   {view.top.map(row)}
-  {unjudged}
   {counts.all>0&&<Collapse ghost size="small" className="payment-rest" items={[{key:'rest',label:t('其余 {0} 张卡',[counts.all]),children:<>
    <Flex wrap gap={12} align="center" justify="space-between" style={{marginBottom:8}}>
     <div className="payment-filter"><Segmented size="small" value={active} onChange={setFilter} options={options}/></div>
@@ -109,6 +115,5 @@ export default function PaymentAssistant({cards,hidden=false,urls,onDetail,onRef
    </Flex>
    {rows.length?rows.map(row):<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t('没有匹配的卡片，请调整筛选条件')}/>}
   </>}]}/>}
-  <Text type="secondary" className="payment-foot">{t('钱包不会替你付款。“已处理”只是你在本机的记号，下一期账单会重新提醒。')} <a href="#settings">{t('设置提醒')}</a></Text>
  </Card>;
 }

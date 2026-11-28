@@ -20,7 +20,7 @@ export const OTHER_PRODUCT='other';
  * pages did not show. The product comes from the same catalogue the detected-card picker
  * uses, so a manual card gets the same art, benefits and credits; a free-text name covers anything else.
  */
-export function AddWalletCard({onAdd,plaidGateway=null,headless=false,startSignal=0}){
+export function AddWalletCard({onAdd,plaidGateway=null,headless=false,startSignal=0,primaryOnly=false}){
  const {language}=useI18n();const plaid=usePlaidLink({gateway:plaidGateway,active:!!plaidGateway});const [open,setOpen]=useState(false),[picking,setPicking]=useState(false),[form]=Form.useForm(),[error,setError]=useState('');const lastField=useRef(null);
  // undefined until the user picks a tile or "not listed"; the product decides the bank, so only "not listed" asks for one.
  const [choice,setChoice]=useState(),[otherBank,setOtherBank]=useState();
@@ -40,7 +40,8 @@ export function AddWalletCard({onAdd,plaidGateway=null,headless=false,startSigna
  const closePicker=()=>{setPicking(false);if(choice===undefined)setOpen(false);};
  const submit=async()=>{try{const value=await form.validateFields();const bank=product?product.bank:value.bank,productId=product?product.id:null;onAdd({...value,name:manualCardName({name:value.name,productId,bankLabel:productId?'':bankName(bank)},t),bank,productId});form.resetFields();setError('');close();}catch(e){if(!e.errorFields)setError(t(e.message==='duplicate_card'?'这家银行的同一尾号卡片已经在钱包里。':'卡片未保存，请检查信息或浏览器存储空间。'));}};
  const viaPlaid=!!plaidGateway&&!plaid.unavailable;
- return <>{headless?null:viaPlaid?<Space.Compact className="add-card-plaid"><Button type="primary" loading={plaid.busy} onClick={plaid.press}>{plaid.signedIn()?t('添加卡片'):t('登录并添加卡片')}</Button>
+ // #686: Overview keeps only the primary button (`primaryOnly`); typing a card in stays on the wallet page's menu.
+ return <>{headless?null:viaPlaid&&primaryOnly?<Button type="primary" className="add-card-plaid-primary" loading={plaid.busy} onClick={plaid.press}>{plaid.signedIn()?t('添加卡片'):t('登录并添加卡片')}</Button>:viaPlaid?<Space.Compact className="add-card-plaid"><Button type="primary" loading={plaid.busy} onClick={plaid.press}>{plaid.signedIn()?t('添加卡片'):t('登录并添加卡片')}</Button>
   <Dropdown trigger={['click']} placement="bottomRight" menu={{items:[{key:'plaid',label:t('通过 Plaid 连接美国信用卡（自动读取余额和还款日）')},{key:'manual',label:t('手动添加（选卡种、填尾号）')}],onClick:({key})=>key==='manual'?start():plaid.press()}}>
    <Button type="primary" className="add-card-more" aria-label={t('更多添加方式')} icon={<DownOutlined/>}/></Dropdown></Space.Compact>
  :<Button onClick={start}>{t('添加卡片')}</Button>}
