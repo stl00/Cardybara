@@ -77,6 +77,9 @@ jobs:
       - run: npm run build:web
       - run: npm run check:web
       - run: npm run test:web
+      # Quiet UI (#682): prints the density table; fails when an enforcing screen is over its budget.
+      - name: UI density budgets
+        run: node scripts/density-check.mjs
       - name: Check tag matches release metadata
         if: startsWith(github.ref, 'refs/tags/')
         run: node -e 'if(process.env.GITHUB_REF_NAME !== "v"+JSON.parse(require("fs").readFileSync("release.json")).label) process.exit(1)'
