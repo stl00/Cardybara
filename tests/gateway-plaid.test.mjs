@@ -318,6 +318,11 @@ test('PWA: a listed web origin links and is sent back only there; other pages ar
  // The page embeds only the listed web origins as places to go back to (never an extension origin, never the fragment's).
  const html=await (await t.call('GET',ROUTES.plaidLink,undefined,{origin:null})).text();
  assert.match(html,/RETURN_ORIGINS=\["https:\/\/app\.cardybara\.test"\]/);
+ // A new link goes back to the new card (#677); a repair and the back link keep the settings page older wallets know.
+ assert.ok(html.includes("const backUrl=back?back+'/#settings':null;"));
+ assert.ok(html.includes("const addedUrl=back?back+'/#plaid-added':null;"));
+ assert.match(html,/status==='linked'\)\{[^}]*goBack\(addedUrl\);\}/);
+ assert.match(html,/status==='repaired'\)\{[^}]*goBack\(backUrl\);\}/);
  // The Trial plan's connection cap: one call (no retry), 429 plaid_limit, no link session.
  t.plaid.state.linkError='TRIAL_CONNECTION_LIMIT';
  const before=t.plaid.count('/link/token/create');

@@ -218,3 +218,5 @@ body:has(.ant-modal-wrap:not([style*="display: none"])) .mobile-tabbar.is-over{z
 @media (max-width:767px){.info-tip{min-width:44px;min-height:44px}}
 .info-tip-content{max-width:280px}
 .nudge-item:not(:empty)~.nudge-item{display:none}
+/* Cards a Plaid link just added (src/plaidLanding.js). */
+.wallet-card.is-new{outline:2px solid var(--ant-color-primary);outline-offset:1px}
