@@ -49,7 +49,7 @@ function publicRule(r,cards,language){
 }
 // A foreign transaction fee is a fee rule (terms.period foreign-transaction, #659), not a benefit, so a benefit search
 // never finds it. A question about it gets each held card's fee rule, or no-record: unknown, never zero.
-export const FOREIGN_FEE_WORDS=/foreign[\s-]*(?:transaction|currency|exchange|purchase)?[\s-]*(?:fee|charge)s?|\bftf\b|(?:外币|外幣|境外|海外|国外|國外|出国|出國|跨境|货币转换|貨幣轉換)[^，。,.?？!！]{0,6}?(?:手续费|手續費|收费|收費|费率|費率|交易费|交易費|转换费|轉換費)/gi;
+export const FOREIGN_FEE_WORDS=/foreign[\s-]*(?:transaction|currency|exchange|purchase)?[\s-]*(?:fee|charge)s?|\bftf\b|(?:外币|外幣|境外|海外|国外|國外|出国|出國|跨境|货币转换|貨幣轉換)(?:刷卡|消费|消費|交易|用卡|购物|購物|付款|支付|有|会|會|要|收|的|时|時)*(?:手续费|手續費|收费|收費|费率|費率|交易费|交易費|转换费|轉換費)/gi;
 // What a question asks besides the fee, such as 出国 lounge 外币手续费: the fee words, card names and filler removed.
 const FEE_FILLER=/\b(?:does|do|did|my|the|a|an|any|card|cards|charge|charges|charged|have|has|is|are|there|which|what|of|on|for|with|abroad|overseas|when|use|using|pay|paying|i|me)\b|我的|我|有没有|有沒有|没有|沒有|有|吗|嗎|么|麼|呢|哪张|哪張|哪些|卡|会|會|不收|收|是否|请问|請問|刷卡|用|多少|几|幾|要/gi;
 const restOfQuery=(query,cards)=>{let q=String(query).replace(FOREIGN_FEE_WORDS,' ');for(const c of cards)for(const n of [c.name,c.pageName,c.bank])if(n)for(const w of String(n).split(/\s+/))if(w.length>1)q=q.split(w).join(' ');return q.replace(FEE_FILLER,' ').replace(/[\p{P}\p{S}\d]+/gu,' ').replace(/\s+/g,' ').trim();};

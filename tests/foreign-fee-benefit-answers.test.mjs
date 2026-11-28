@@ -33,6 +33,18 @@ test('a question that also asks for other benefits keeps those benefits beside t
  assert.ok(r.rules.some(x=>/lounge|休息室/i.test(x.title+x.summary)));
 });
 
+test('a place word and a benefit before 收费 is a benefit question, and a benefit beside the fee words survives', () => {
+ for(const [query,re] of [['国外机场贵宾室收费吗',/lounge|休息室|贵宾室/i],['海外酒店收费吗',/hotel|酒店/i],['国外租车收费吗',/rental|租车/i]]){
+  const r=find({query});
+  assert.equal(r.foreignTransactionFees,undefined,query);
+  assert.ok(r.rules.some(x=>re.test(x.title+x.summary)),query);
+ }
+ const r=find({query:'出国贵宾室外币手续费'});
+ assert.ok(r.foreignTransactionFees);
+ assert.ok(r.rules.some(x=>/lounge|休息室|贵宾室/i.test(x.title+x.summary)));
+ assert.ok(find({query:'海外刷卡收费吗'}).foreignTransactionFees);
+});
+
 test('other benefit questions are unchanged, and spending abroad is not a fee question', () => {
  assert.equal(find({query:'rental car insurance'}).foreignTransactionFees,undefined);
  assert.equal(find({query:'境外消费返现'}).foreignTransactionFees,undefined);
