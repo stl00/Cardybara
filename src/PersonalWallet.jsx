@@ -45,7 +45,7 @@ export function CreditManager({cards,compact=false,hidden=false,onSetFeeDate}){
  const matchQuery=r=>!query.trim()||textOf(r).toLowerCase().includes(query.trim().toLowerCase());
  const offAll=chosen===day&&!compact?activeTasks(offCycleRows(cards,day),events).filter(matchQuery):[];
  const {open:offOpen,perks,unstated}=offCycleBuckets(offAll,events,filter);
- const singleCard=cards.length===1,limit=expanded||view.filtered?Infinity:compact?COMPACT_LIST:SHORT_LIST,rows=view.rows.slice(0,limit),more=view.rows.length-rows.length,feeRows=needFee.slice(0,limit),feeMore=needFee.length-feeRows.length;
+ const singleCard=cards.length===1,limit=expanded||view.filtered?Infinity:compact?COMPACT_LIST:SHORT_LIST,rows=view.rows.slice(0,limit),more=view.rows.length-rows.length,feeRows=needFee.slice(0,compact&&!singleCard?Math.max(0,limit-rows.length):limit),feeMore=needFee.length-feeRows.length;
  const latest=task=>events.filter(e=>e.key===task.key).sort((a,b)=>b.at.localeCompare(a.at)||b.id.localeCompare(a.id))[0];
  const change=async(task,status)=>{const previous=taskStatus(task,events),previousEvent=latest(task);setBusy(task.key);try{await mark(task.key,status,task.revisionId);message.open({key:'credit-change',type:'success',duration:6,content:<Space><span><ItemLogo ruleId={task.ruleId}/>{ruleField(task.title,task,'title')}</span> · {t('已更新')}<Button type="link" size="small" onClick={()=>mark(task.key,previous,task.revisionId,previousEvent?.usage?{usage:previousEvent.usage}:{}).then(()=>message.destroy('credit-change')).catch(()=>message.error(t('保存失败，刚才的标记没有生效。')))}>{t('撤销')}</Button></Space>})}catch{message.error(t('保存失败，刚才的标记没有生效。'))}finally{setBusy('')}};
  const dismissedList=dismissedCredits(cards,events),showDismissed=!compact||singleCard;

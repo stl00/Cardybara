@@ -51,6 +51,11 @@ async function walk(c, lang) {
   };
   const addCard = async (card, first) => {
     // The empty wallet leads with its own button; once a card exists the page header carries the same "add card" button.
+    // With Plaid, Overview keeps only the primary button (#686), so a second card is typed in from the Wallet page.
+    if (!first && await c.evaluate(`!!document.querySelector('.page-heading .add-card-plaid-primary')`)) {
+      await c.tap('.mobile-tabbar [data-nav-key="wallet"]');
+      await c.until(`document.querySelector('.page-heading .add-card-more')`, 'the add-card menu on the Wallet page');
+    }
     // With Plaid on the gateway the button starts Plaid Link, so typing a card in is the menu beside it (openManualAdd).
     if (first || await c.evaluate(`!!document.querySelector('.page-heading .add-card-more')`)) await openManualAdd(c, first ? '.empty-wallet-manual' : '.page-heading');
     else await c.tap('.app-layout .ant-btn:not(.ant-btn-primary)', {text: lang === 'en-US' ? 'Add card' : '添加卡片'});

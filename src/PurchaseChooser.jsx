@@ -16,8 +16,8 @@ const CATEGORY_LABELS={dining:'餐厅',supermarket:'超市',gas:'加油',['onlin
 // The icon each chip shows, from the logo registry's categories, so a chip looks like the same thing elsewhere.
 const CATEGORY_ICONS={dining:'dining',supermarket:'grocery',gas:'fuel',['online-retail']:'shopping',flight:'airline',hotel:'hotel',travel:'travel',transit:'ground-transport',streaming:'streaming',drugstore:'pharmacy',entertainment:'entertainment',other:'general'};
 // Most-used first; the rest open under "more". Only categories the engine offers are drawn.
-// Flights and hotels earn apart from other travel, so each has its own chip up front (#222 review).
-const PRIMARY=['dining','supermarket','online-retail','gas','flight','hotel','travel','other'].filter(c=>QUICK_CATEGORIES.includes(c));
+// Four up front (#686); flights and hotels keep their own chips under "more", apart from other travel (#222 review).
+const PRIMARY=['dining','supermarket','online-retail','gas'].filter(c=>QUICK_CATEGORIES.includes(c));
 const MORE=QUICK_CATEGORIES.filter(c=>!PRIMARY.includes(c));
 const MAX_RUNNERS_UP=2;
 const SYMBOLS={USD:'US$',HKD:'HK$',CAD:'CA$'};
@@ -90,8 +90,8 @@ function Hero({r,card,hidden,onDetail}){
    <Text className="pc-rule">{ruleText(r.earn)}</Text>
    <Space size={[6,6]} wrap className="pc-tags">
     <Tag color={r.certainty==='confirmed'?'success':'warning'}>{r.certainty==='confirmed'?t('规则没有附加条件'):t('有附加条件')}</Tag>
-    {r.foreignFee&&<Tag color={r.foreignFee.status==='recorded'&&(r.foreignFee.rate===0)?'success':'warning'}>{feeText(r.foreignFee)}</Tag>}
-    {r.credit&&<Tag color="blue">{t('已计入 {0}',[t(r.credit.title)])}</Tag>}
+    {r.foreignFee&&<Text type={r.foreignFee.status==='recorded'&&r.foreignFee.rate===0?undefined:'warning'} className="pc-fee">{feeText(r.foreignFee)}</Text>}
+    {r.credit&&<Text className="pc-credit">{t('已计入 {0}',[t(r.credit.title)])}</Text>}
    </Space>
   </div>
   <div className="pc-hero-return">
@@ -127,7 +127,7 @@ function Why({r,onSettings}){
  if(r.otherCurrency)lines.push(t('{0} 张卡以其他货币结算，未参与比较。',[r.otherCurrency]));
  lines.push(t('按持有卡的公开规则计算，不含优惠活动；实际入账以银行为准。'));
  const count=r.changes.length;
- return <Collapse ghost size="small" className="pc-why" items={[{key:'why',label:<span>{t('为什么 · 可能改变结果的情况')}{count?<Tag className="pc-why-count">{count}</Tag>:null}</span>,children:<>
+ return <Collapse ghost size="small" className="pc-why" items={[{key:'why',label:<span>{t('为什么 · 可能改变结果的情况')}{count?<span className="pc-why-count"> ({count})</span>:null}</span>,children:<>
   <ul className="pc-why-list">{lines.map((line,i)=><li key={i}>{line}</li>)}</ul>
   {values.size>0&&onSettings&&<Button type="link" size="small" className="pc-why-settings" onClick={onSettings}>{t('调整积分估值')}</Button>}
  </>}]}/>;
@@ -162,6 +162,7 @@ function CategoryChips({value,onChange}){
 export default function PurchaseChooser({cards,hidden=false,onAsk,onDetail,onSettings}){
  useI18n();const {events=[],day}=usePersonalMarks()||{},pointValues=usePointValues();
  const currencies=walletCurrencies(cards);
+ const [details,setDetails]=useState(false);
  const [category,setCategory]=useState('dining'),[amount,setAmount]=useState(null),[merchant,setMerchant]=useState(''),[currency,setCurrency]=useState(currencies.length===1?currencies[0]:undefined);
  const result=useMemo(()=>day?quickChoice({category,amount,merchant,currency},{cards,events,day,pointValues}):null,[category,amount,merchant,currency,cards,events,day,pointValues]);
  const single=currencies.length===1?currencies[0]:null;
@@ -169,10 +170,11 @@ export default function PurchaseChooser({cards,hidden=false,onAsk,onDetail,onSet
  const summary=result?.kind==='use-card'?t('建议用 {0}',[result.card])+(result.percent!=null?' · '+percentText(result.percent):''):result?.kind==='none'?t('你持有的卡里，没有这类消费的规则。'):result?.kind==='points-depends'?t('这笔没有现金返现卡可比；积分卡之间要看你给每点的估值，可在设置的积分估值里填写。'):'';
  return <Card className="purchase-chooser" title={t('这笔消费，用哪张卡？')} extra={onAsk&&<Button type="link" icon={<MessageOutlined/>} onClick={onAsk}>{t('问卡疲扒拉')}</Button>}>
   <CategoryChips value={category} onChange={setCategory}/>
-  <div className="pc-fields">
+  <button type="button" className="pc-details-toggle" aria-expanded={details} onClick={()=>setDetails(!details)}>{details?t('收起'):t('补充金额和商户')}{details?<UpOutlined aria-hidden="true"/>:<DownOutlined aria-hidden="true"/>}</button>
+  {details&&<div className="pc-fields">
    {currencies.length>1?<Space.Compact className="pc-amount-group"><Select aria-label={t('付款货币')} placeholder={t('付款货币')} allowClear value={currency} onChange={setCurrency} options={currencies.map(value=>({value,label:value}))} className="pc-currency-select"/>{amountField}</Space.Compact>:amountField}
    <Input aria-label={t('商户（选填）')} placeholder={t('商户（选填）')} value={merchant} onChange={e=>setMerchant(e.target.value)} maxLength={80} allowClear className="pc-merchant"/>
-  </div>
+  </div>}
   <span className="pc-sr" aria-live="polite">{summary}</span>
   {result&&<div className="pc-result"><ChoiceResult r={result} cards={cards} hidden={hidden} onDetail={onDetail} onSettings={onSettings} setCurrency={setCurrency}/></div>}
  </Card>;

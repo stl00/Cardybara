@@ -1,3 +1,5 @@
+import {QUICK_CATEGORIES} from '../src/purchaseChoice.js';
+import {readFileSync} from 'node:fs';
 // #222: the chooser draws what the engine decided — the winner as the hero, at most two runner-ups, caveats folded.
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -65,14 +67,14 @@ test('hidden cards never reach the chooser, and an empty answer says so',async()
  assert.match(empty,/pc-empty/);assert.ok(text(empty).includes('没有这类消费的规则'));
 });
 
-test('the input is a labelled radio group of category chips with the currency on the amount',async()=>{
+test('the input is a labelled radio group of category chips, with amount and merchant folded',async()=>{
  const {whole}=await load(),html=whole({cards,hidden:false});
  assert.match(html,/role="radiogroup" aria-label="消费类别"/);
  const radios=[...html.matchAll(/role="radio" aria-checked="(true|false)" tabindex="(-?\d)"/g)];
- assert.equal(radios.length,8,'the most-used categories before "more"');
+ assert.equal(radios.length,4,'the four most-used categories before "more"');
  assert.equal(radios.filter(m=>m[1]==='true').length,1,'one chosen');
  assert.ok(radios.every(m=>(m[1]==='true')===(m[2]==='0')),'only the chosen chip is in the tab order');
- assert.match(html,/aria-expanded="false"/);assert.ok(text(html).includes('US$'));
+ assert.match(html,/class="pc-details-toggle" aria-expanded="false"/);assert.doesNotMatch(html,/pc-fields|pc-merchant/,'folded by default (#686)');
 });
 
 test('effective return: cash at its rate, points at their value, unvalued points have none',()=>{
@@ -84,10 +86,12 @@ test('effective return: cash at its rate, points at their value, unvalued points
  assert.equal(effectivePercent({earn:{isCash:true,rate:3,unit:'cashback-percent',capExceeded:true,reward:200}},8000),2.5);
 });
 
-test('flights and hotels have their own chips up front; the travel chip says it is other travel (#222 review)',async()=>{
+test('flights and hotels have their own chips; the travel chip says it is other travel (#222 review)',async()=>{
  const {whole}=await load(),html=whole({cards,hidden:false});
- for(const c of ['flight','hotel','travel'])assert.match(html,new RegExp(`role="radio" aria-checked="(true|false)" tabindex="-?\\d" data-category="${c}"`),c);
- assert.ok(text(html).includes('其他旅行'));assert.ok(!/>旅行</.test(html),'never a bare "travel" that reads as flights too');
+ // Only four chips are up front (#686); the others are drawn once "more" is open (tests/mobile-quiet-overview.test.mjs).
+ for(const c of ['flight','hotel','travel'])assert.ok(QUICK_CATEGORIES.includes(c),c);
+ assert.ok(!/>旅行</.test(html),'never a bare "travel" that reads as flights too');
+ assert.match(readFileSync(new URL('../src/PurchaseChooser.jsx',import.meta.url),'utf8'),/travel:'其他旅行'/);
  // The reason: on the engine, a flight is not "travel".
  assert.notEqual(quickChoice({category:'flight',currency:'USD'},wallet).card,quickChoice({category:'travel',currency:'USD'},wallet).card);
 });

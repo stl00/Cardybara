@@ -15,7 +15,7 @@ export const PARAGRAPH_CHARS = 40;
 
 export const SCREENS = [
   {
-    id: 'overview', label: 'Overview', mode: 'report',
+    id: 'overview', label: 'Overview', mode: 'enforce',
     budget: {buttons: 6, tags: 4, alerts: 1, paragraphs: 1},
     baseline: {buttons: 8, tags: 1, alerts: 1, paragraphs: 2},
   },

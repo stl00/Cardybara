@@ -80,7 +80,7 @@ test('dismissing the card is remembered on this device', {timeout: 90000, skip},
     await c.tap('.plaid-offer .ant-alert-close-icon');
     await c.until(`!document.querySelector('.plaid-offer')`, 'the card to close');
     await c.goto('/#overview');
-    await c.until(`document.querySelector('.ask-card')`, 'the Overview');
+    await c.until(`document.querySelector('.payment-assistant')`, 'the Overview');
     await c.pause(800);
     assert.equal(await offer(c), false, 'still dismissed after a reload');
   }, {init: init('en-US'), nav: []});
