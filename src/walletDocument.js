@@ -1,3 +1,4 @@
+import {rematchCards,rematchRemovals} from './manualBanks.js';
 import {WALLET_CARDS_KEY,WALLET_REMOVED_KEY,mergeWalletCards,liftRemoval} from './walletRegistry.js';
 import {CARD_EDITS_KEY,readCardEdits,mergeCardEdits} from './cardEdits.js';
 import {CARD_PRODUCT_KEY,readCardProductChoices,mergeCardProductChoices} from './cardProductChoice.js';
@@ -13,7 +14,7 @@ import {readBankReadings,storeBankReadings,mergeBankReadings,cleanReadings,empty
 // The bank snapshot rows (cards, rewards, transactions ...) stay at the top level, as older backups have them, so an
 // older build can still read a file written here. Every other section is `{schema:1,...}` and is merged and
 // validated by the module that owns it; nothing here copies their rules.
-export const WALLET_FORMAT_VERSION=2;
+export const WALLET_FORMAT_VERSION=3;
 export const FAVORITES_KEY='cardybara-favorites',IMPORT_KEY='cardybara-import';
 /** Storage key (localStorage) or database (IndexedDB) -> the document section that carries it. */
 export const DOCUMENT_STORAGE={
@@ -63,7 +64,13 @@ const MAX_FAVORITES=200,MAX_REMOVED=200,MAX_CARDS=40;
 // Add one function per version here (key = the version it upgrades from) and a test with an old fixture.
 // 2 (#676): a registry card may belong to any US issuer (`genericBank:true`, or Capital One, Discover, U.S. Bank or Wells
 // Fargo), which an older build rejects; version 1 documents carry over unchanged.
-const MIGRATIONS={0:doc=>({...doc,formatVersion:1}),1:doc=>({...doc,formatVersion:2})};
+// 3 (#694): Barclays is a known bank, which an older build rejects without `genericBank`; cards, removals and snapshot
+// rows stored under a Barclays institution name as a generic issuer move to it.
+const toBarclays=doc=>({...doc,formatVersion:3,
+ ...(Array.isArray(doc.cards)?{cards:rematchCards(doc.cards)}:{}),
+ ...(plain(doc.walletCards)?{walletCards:{...doc.walletCards,cards:rematchCards(doc.walletCards.cards),removed:rematchRemovals(doc.walletCards.removed)}}:{}),
+});
+const MIGRATIONS={0:doc=>({...doc,formatVersion:1}),1:doc=>({...doc,formatVersion:2}),2:toBarclays};
 const EMPTY={
  walletCards:()=>({cards:[],removed:[]}),cardEdits:()=>({schema:1,edits:[]}),cardProducts:()=>({schema:1,choices:[]}),
  paymentMarks:()=>({schema:1,marks:[]}),pointValues:()=>storedPointValues([]),reminderSettings:()=>normalizeSettings(null),

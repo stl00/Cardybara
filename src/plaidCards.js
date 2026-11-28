@@ -14,12 +14,12 @@
 // A null Plaid field never overwrites anything (Liabilities fields are nullable per institution).
 
 import {PLAID_CHANGE_EVENT} from './plaidClient.js';
-import {genericBankName} from './manualBanks.js';
+import {genericBankName,BARCLAYS_US} from './manualBanks.js';
 
 // Issuer from the institution name: the US issuers the catalogue knows. Anything else matches none of them. The names that
 // are also common words are matched only at the start.
 const ISSUERS=[[/american express|\bamex\b/i,'Amex US'],[/\bchase\b/i,'Chase'],[/bank of america/i,'BOA'],[/\bciti(bank)?\b/i,'Citi US'],
- [/\bcapital one\b/i,'Capital One'],[/^discover\b/i,'Discover'],[/^u\.? ?s\.? ?bank\b/i,'U.S. Bank'],[/\bwells fargo\b/i,'Wells Fargo'],[/^bilt\b/i,'Bilt']];
+ [/\bcapital one\b/i,'Capital One'],[/^discover\b/i,'Discover'],[/^u\.? ?s\.? ?bank\b/i,'U.S. Bank'],[/\bwells fargo\b/i,'Wells Fargo'],[/^bilt\b/i,'Bilt'],[BARCLAYS_US,'Barclays']];
 // The four whose Plaid cards kept Plaid's account name first before #676.
 const NAME_FIRST=new Set(['Amex US','Chase','BOA','Citi US']);
 export function issuerOf(institution){

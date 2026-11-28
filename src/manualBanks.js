@@ -11,8 +11,23 @@ export const MANUAL_BANKS={
  'U.S. Bank':us('U.S. Bank','https://www.usbank.com/'),
  'Wells Fargo':us('Wells Fargo','https://www.wellsfargo.com/'),
  Bilt:us('Bilt','https://www.bilt.com/'),
+ Barclays:us('Barclays','https://cards.barclaycardus.com/'),
 };
 export const MANUAL_BANK_NAMES=Object.keys(MANUAL_BANKS);
+// Plaid's institution names for Barclays US ("Barclays - Cards", "Barclaycard US"). Link offers US institutions only.
+export const BARCLAYS_US=/^\s*barclay(?:s|card)\b(?!.*\buk\b)/i;
+/**
+ * A card stored as a generic issuer before Barclays was mapped (#694), moved to the Barclays bank so it matches the
+ * catalogue. Any other card is returned as it is.
+ */
+export function rematchCard(card){
+ if(card?.genericBank!==true||!BARCLAYS_US.test(card.bank))return card;
+ const {genericBank,...rest}=card;return {...rest,bank:'Barclays'};
+}
+// A removal row has no genericBank mark; it follows its card so the removed card is still recognised.
+const rematchRemoved=row=>typeof row?.bank==='string'&&row.bank!=='Barclays'&&BARCLAYS_US.test(row.bank)?{...row,bank:'Barclays'}:row;
+export const rematchCards=rows=>Array.isArray(rows)?rows.map(rematchCard):rows;
+export const rematchRemovals=rows=>Array.isArray(rows)?rows.map(rematchRemoved):rows;
 export const manualOnly=bank=>typeof bank==='string'&&!Object.hasOwn(PROVIDERS,bank);
 /**
  * The bank name stored for a card of an issuer the wallet does not know (a Plaid institution name, #676): trimmed, or

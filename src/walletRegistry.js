@@ -1,6 +1,6 @@
 import {ACTIVE_BANKS,PROVIDERS,bankOrder,scopedBanks} from '../extension-next/providers.js';
 import {cleanPageName} from './cardName.js';
-import {bankProfile,manualOnly} from './manualBanks.js';
+import {bankProfile,manualOnly,rematchCard,rematchCards} from './manualBanks.js';
 // An archived bank shows only for a wallet already holding its cards, and never joins a refresh-all. A scoped build
 // (the beta) shows only its own banks: a manual card of another bank stays in the wallet, but its bank can't be connected.
 // Chase and Amex US come first. `scope` defaults to this build's (extension-next/build-scope.js).
@@ -10,14 +10,15 @@ export const selectableBanks=(banks,cards,scope)=>{const offered=scopedBanks(sco
 export const selectableRegions=(regions,cards,scope)=>{const offered=scopedBanks(scope)||ACTIVE_BANKS;return regions.filter(r=>offered.some(b=>PROVIDERS[b].region===r)||cards.some(c=>c.region===r));};
 export const defaultRefreshBanks=(cards,scope)=>{const offered=scopedBanks(scope)||ACTIVE_BANKS;return [...new Set(cards.map(c=>c.bank))].filter(b=>offered.includes(b));};
 export const WALLET_CARDS_KEY='cardybara-wallet-cards-v1';
-export function newWalletCard({bank,name,tail,currency,genericBank},id=crypto.randomUUID()){
+export function newWalletCard(value,id=crypto.randomUUID()){
+ const {bank,name,tail,currency,genericBank}=rematchCard(value);
  const p=bankProfile(bank,{genericBank});const label=String(name||'').trim();
  if(!p||!label||label.length>100||/[<>\u0000-\u001f]/.test(label)||/(?:\d[ -]?){9,}/.test(label)||typeof tail!=='string'||!/^\d{4,5}$/.test(tail)||typeof id!=='string'||!/^[a-zA-Z0-9-]{1,64}$/.test(id))throw Error('invalid_card');
  return {id,bank,name:label,tail,region:p.region,currency:p.cardCurrencies?.includes(currency)?currency:p.currency,identitySource:'manual',...(p.generic?{genericBank:true}:{})};
 }
 export function mergeWalletCards(base,extra=[]){
  if(!Array.isArray(extra)||extra.length>40)throw Error('invalid_registry');
- const cards=base.cards.map(c=>c.identitySource==='bank-page'&&typeof c.name==='string'?{...c,name:cleanPageName(c.name)||c.name}:c);
+ const cards=rematchCards(base.cards).map(c=>c.identitySource==='bank-page'&&typeof c.name==='string'?{...c,name:cleanPageName(c.name)||c.name}:c);
  for(const c of extra){
   // A bank page's name keeps no last digits, currency side or trademark signs once it is stored.
   const clean=newWalletCard(c.identitySource==='bank-page'?{...c,name:cleanPageName(c.name)||c.name}:c,c.id);
