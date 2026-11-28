@@ -3,8 +3,9 @@
 // that, the same issuer (from the institution's name) and the same last four digits. Each field is taken only when
 // Plaid's read is newer than what the card already holds, and is marked with the source {method:'plaid'} so the card
 // details say where it came from. A Plaid card that matches no wallet card is added to the wallet as a manual card on its
-// own (#535, plaidCardsToAdd) when plaidWalletCard can place it: a known US issuer, USD and four or five digits, named
-// with Plaid's own account name, never a guessed product. One the user removed after that is not added again
+// own (#535, plaidCardsToAdd) when plaidWalletCard can place it: an institution name, USD and four or five digits, named
+// with Plaid's own account name, never a guessed product. An institution the wallet does not know becomes the card's
+// bank as it is (a generic US issuer, #676). One the user removed after that is not added again
 // (PLAID_DISMISSED_KEY, plus the wallet's synced removal list for other devices). A card Plaid cannot place stays in
 // the Plaid panel (PlaidCards.jsx), where the user can link it to a wallet card by hand.
 //
@@ -13,13 +14,20 @@
 // A null Plaid field never overwrites anything (Liabilities fields are nullable per institution).
 
 import {PLAID_CHANGE_EVENT} from './plaidClient.js';
+import {genericBankName} from './manualBanks.js';
 
-// Issuer from the institution name. Only the US banks the wallet knows; anything else matches nothing.
-const ISSUERS=[[/american express|\bamex\b/i,'Amex US'],[/\bchase\b/i,'Chase'],[/bank of america/i,'BOA'],[/\bciti(bank)?\b/i,'Citi US']];
+// Issuer from the institution name: the US issuers the catalogue knows. Anything else matches none of them. The names that
+// are also common words are matched only at the start.
+const ISSUERS=[[/american express|\bamex\b/i,'Amex US'],[/\bchase\b/i,'Chase'],[/bank of america/i,'BOA'],[/\bciti(bank)?\b/i,'Citi US'],
+ [/\bcapital one\b/i,'Capital One'],[/^discover\b/i,'Discover'],[/^u\.? ?s\.? ?bank\b/i,'U.S. Bank'],[/\bwells fargo\b/i,'Wells Fargo'],[/^bilt\b/i,'Bilt']];
+// The four whose Plaid cards kept Plaid's account name first before #676.
+const NAME_FIRST=new Set(['Amex US','Chase','BOA','Citi US']);
 export function issuerOf(institution){
  if(typeof institution!=='string')return null;
  return ISSUERS.find(([re])=>re.test(institution))?.[1]||null;
 }
+/** The wallet bank for a Plaid card: its issuer, else the institution's own name; null without a usable name. */
+export const plaidBank=p=>issuerOf(p?.institution)||genericBankName(p?.institution);
 const tail=v=>typeof v==='string'?v.replace(/\D/g,'').slice(-4):'';
 // A wallet card's last four: its own tail, or the bank's reading when the user's edit has not set one.
 const walletTail=c=>tail(c.tail)||tail(c.detected?.tail);
@@ -71,7 +79,7 @@ export function matchPlaidCards(walletCards,plaidCards,links=[]){
  }
  for(const p of plaid){
   if(done.has(p))continue;
-  const bank=issuerOf(p.institution),last=tail(p.mask);
+  const bank=plaidBank(p),last=tail(p.mask);
   if(!bank||last.length!==4)continue;
   const hits=cards.filter(c=>c.bank===bank&&walletTail(c)===last&&!used.has(c.id)&&canTakePlaid(c,p));
   // Two wallet cards with the same issuer and last four: ambiguous, fill neither.
@@ -81,16 +89,20 @@ export function matchPlaidCards(walletCards,plaidCards,links=[]){
  return pairs;
 }
 
-/** The new manual wallet card for an unmatched Plaid card ({bank,name,tail} for newWalletCard), or null for an unknown issuer. */
+/**
+ * The new manual wallet card for an unmatched Plaid card ({bank,name,tail} for newWalletCard, with genericBank for an
+ * issuer the wallet does not know), or null when it cannot be placed. The wallet shows the mask (`tail`) beside the name,
+ * so the name itself carries no card digits.
+ */
 export function plaidWalletCard(p){
- const bank=issuerOf(p?.institution),digits=typeof p?.mask==='string'?p.mask.replace(/\D/g,''):'';
+ const issuer=issuerOf(p?.institution),bank=issuer||genericBankName(p?.institution),digits=typeof p?.mask==='string'?p.mask.replace(/\D/g,''):'';
  if(!bank||digits.length<4||(p.currency&&p.currency!=='USD'))return null;
  // The mask as Plaid gives it when it is 4 or 5 digits (an Amex US page shows five), so the bank page's own reading of the
  // same card later merges with this row instead of becoming a second card.
  const last=digits.length<=5?digits:digits.slice(-4);
  // Plaid's account name, without long digit runs (newWalletCard refuses anything that could be a card number).
- const name=[p.name,p.officialName].map(n=>typeof n==='string'?n.replace(/(?:\d[ -]?){5,}/g,'').replace(/\s+/g,' ').trim():'').find(n=>n&&n.length<=100&&!/[<>\u0000-\u001f]/.test(n));
- return {bank,tail:last,name:name||bank+' '+last};
+ const name=(NAME_FIRST.has(issuer)?[p.name,p.officialName]:[p.officialName,p.name]).map(n=>typeof n==='string'?n.replace(/(?:\d[ -]?){5,}/g,'').replace(/\s+/g,' ').trim():'').find(n=>n&&n.length<=100&&!/[<>\u0000-\u001f]/.test(n));
+ return {bank,tail:last,name:name||(bank+' '+last).slice(-100),...(issuer?{}:{genericBank:true})};
 }
 
 export const PLAID_DISMISSED_KEY='cardybara-plaid-dismissed-v1';

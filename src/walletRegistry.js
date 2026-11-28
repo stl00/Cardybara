@@ -10,10 +10,10 @@ export const selectableBanks=(banks,cards,scope)=>{const offered=scopedBanks(sco
 export const selectableRegions=(regions,cards,scope)=>{const offered=scopedBanks(scope)||ACTIVE_BANKS;return regions.filter(r=>offered.some(b=>PROVIDERS[b].region===r)||cards.some(c=>c.region===r));};
 export const defaultRefreshBanks=(cards,scope)=>{const offered=scopedBanks(scope)||ACTIVE_BANKS;return [...new Set(cards.map(c=>c.bank))].filter(b=>offered.includes(b));};
 export const WALLET_CARDS_KEY='cardybara-wallet-cards-v1';
-export function newWalletCard({bank,name,tail,currency},id=crypto.randomUUID()){
- const p=bankProfile(bank);const label=String(name||'').trim();
+export function newWalletCard({bank,name,tail,currency,genericBank},id=crypto.randomUUID()){
+ const p=bankProfile(bank,{genericBank});const label=String(name||'').trim();
  if(!p||!label||label.length>100||/[<>\u0000-\u001f]/.test(label)||/(?:\d[ -]?){9,}/.test(label)||typeof tail!=='string'||!/^\d{4,5}$/.test(tail)||typeof id!=='string'||!/^[a-zA-Z0-9-]{1,64}$/.test(id))throw Error('invalid_card');
- return {id,bank,name:label,tail,region:p.region,currency:p.cardCurrencies?.includes(currency)?currency:p.currency,identitySource:'manual'};
+ return {id,bank,name:label,tail,region:p.region,currency:p.cardCurrencies?.includes(currency)?currency:p.currency,identitySource:'manual',...(p.generic?{genericBank:true}:{})};
 }
 export function mergeWalletCards(base,extra=[]){
  if(!Array.isArray(extra)||extra.length>40)throw Error('invalid_registry');
@@ -26,7 +26,7 @@ export function mergeWalletCards(base,extra=[]){
   if(held>=0){cards[held]={...cards[held],currency:clean.currency};continue;}
   // The registry is where a manual card is edited, so its row wins over an older copy of the same card (a snapshot or import).
   const own=c.identitySource==='bank-page'?-1:cards.findIndex(old=>old.id===clean.id&&old.identitySource!=='bank-page');
-  if(own>=0){const {name,tail,bank,region,currency}=clean;cards[own]={...cards[own],name,tail,bank,region,currency};continue;}
+  if(own>=0){const {name,tail,bank,region,currency,genericBank}=clean;cards[own]={...cards[own],name,tail,bank,region,currency,...(genericBank?{genericBank}:{})};continue;}
   if(cards.some(old=>old.id===clean.id||old.bank===clean.bank&&old.tail===clean.tail))continue;
   if(cards.length>=40)throw Error('card_limit');
   cards.push({...clean,identitySource:c.identitySource==='bank-page'?'bank-page':'manual'});
@@ -43,7 +43,7 @@ export function mergeWalletCards(base,extra=[]){
 export function editManualCard(registry,card,patch,others=[]){
  const i=registry.findIndex(c=>c.id===card.id&&c.identitySource!=='bank-page');
  const old=i>=0?registry[i]:card;if(old.identitySource==='bank-page')throw Error('invalid_card');
- const next=newWalletCard({bank:patch.bank??old.bank,name:patch.name??old.name,tail:patch.tail??old.tail,currency:old.currency},old.id);
+ const next=newWalletCard({bank:patch.bank??old.bank,name:patch.name??old.name,tail:patch.tail??old.tail,currency:old.currency,genericBank:old.genericBank},old.id);
  if([...registry,...others].some(c=>c.id!==card.id&&c.bank===next.bank&&(c.tail===next.tail||c.detected?.tail===next.tail)))throw Error('duplicate_card');
  return i>=0?registry.map((c,k)=>k===i?{...c,...next}:c):[...registry,next];
 }

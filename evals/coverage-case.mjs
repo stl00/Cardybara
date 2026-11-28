@@ -4,6 +4,8 @@
 // makes it break one rule on purpose, so each check can be shown to fail. Synthetic public products only, no network.
 import {cards} from './fixtures.mjs';
 import {runAgentTurn} from '../tests/helpers/agent-target.mjs';
+import {plaidWalletCard} from '../src/plaidCards.js';
+import {newWalletCard} from '../src/walletRegistry.js';
 
 export const COVERAGE_DAY='2026-11-16';
 const GOLD='amex-us-us-american-express-gold-card',BLUE='amex-us-us-blue-cash-everyday',STRATA='citi-us-citi-strata-premier-card';
@@ -23,7 +25,12 @@ export const coverageCases=[
  {id:'coverage-rental-recorded-zh',products:[GOLD],language:'zh-CN',question:'我的 Amex Gold 租车有保障吗？是主要还是次要保障？',args:{type:'rental-car'},expectNames:['American Express Gold Card'],basis:{'American Express Gold Card':'secondary'}},
 ];
 
-const heldCards=c=>c.products.map(id=>cards.find(x=>x.productId===id));
+// #676: a Plaid-linked card of an issuer the catalogue does not know, as auto-add stores it. It has no product, so the
+// answer must not give it any benefit.
+const PLATYPUS=newWalletCard(plaidWalletCard({institution:'Synthetic Platypus Bank',officialName:'Synthetic Platypus Card',mask:'0000',currency:'USD'}),'eval-generic-issuer');
+coverageCases.push({id:'coverage-generic-issuer-no-benefits',cards:[PLATYPUS],question:'Does my Synthetic Platypus Card cover a rental car?',args:{type:'rental-car'},expectNames:['Synthetic Platypus Card'],noRecord:['Synthetic Platypus Card']});
+
+const heldCards=c=>c.cards||c.products.map(id=>cards.find(x=>x.productId===id));
 const basisWord=(basis,zh)=>zh?{primary:'主要保障（按记录）',secondary:'次要保障（按记录）'}[basis]||'记录中没有写明主要或次要':{primary:'primary coverage as recorded',secondary:'secondary coverage as recorded'}[basis]||'primary or secondary is not stated in our records';
 
 /** The reference answer, written only from the tool result; `fault` breaks one rule. */
