@@ -58,7 +58,7 @@ async function scenario({mode}) {
       // The extension: sign in from the settings page with the email and the password, turn sync on, wait for the first sync.
       // Since #579 signing in turns sync on and pushes at once, so the 'never' control does not sign in at all.
       if (mode !== 'never') {
-        await evaluate('wallet', 'location.hash="settings"');
+        await evaluate('wallet', 'location.hash="account"');
         await until('the sign-in form', () => evaluate('wallet', `!!document.querySelector('.account-settings input[type=email]')`));
         await evaluate('wallet', setNative('.account-settings input[type=email]', EMAIL));
         await evaluate('wallet', setNative('.account-settings input[type=password]', PASSWORD));
@@ -79,7 +79,7 @@ async function scenario({mode}) {
       const cards = MANUAL.map(([name, tail], i) => newWalletCard({bank: 'Chase', name, tail}, 'manual-' + (i + 1)));
       const requested = [];
       out.pwa = await withPhone(async c => {
-        await c.goto('/#settings');
+        await c.goto('/#account');
         await c.until(`document.querySelector('.account-settings input[type=email]')`, 'the PWA sign-in form');
         await c.type('.account-settings input[type=email]', EMAIL);
         await c.type('.account-settings input[type=password]', PASSWORD);

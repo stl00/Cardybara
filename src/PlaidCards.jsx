@@ -1,6 +1,9 @@
 import React,{useCallback,useEffect,useMemo,useState} from 'react';
-import {Alert,App,Button,Card,Descriptions,Empty,Flex,List,Popconfirm,Select,Space,Tag,Typography} from 'antd';
+import {Alert,App,Button,Card,Descriptions,Empty,Flex,Select,Tag,Typography} from 'antd';
 import {t,useI18n,formatNumber,formatDateTime} from './i18n';
+import InfoTip from './InfoTip.jsx';
+import MoreMenu from './MoreMenu.jsx';
+import NudgeSlot from './NudgeSlot.jsx';
 import platform from './platform';
 import {readAccount} from './accountClient.js';
 import {createPlaidClient,readPlaidCache,PLAID_CHANGE_EVENT} from './plaidClient.js';
@@ -14,6 +17,8 @@ const {Text,Paragraph}=Typography;
 // keeps the linked cards and Sync but offers no new link. Each card says which wallet card it fills (`pairs` from
 // main.jsx's matchPlaidCards). main.jsx adds an unmatched card it can place to the wallet on its own (#535); one it cannot
 // place, or one the user removed from the wallet, can be linked to a wallet card by hand or added to the wallet here.
+// Layout (#679, quiet UI #682): grouped by connection, problems first; one compact row per card with one status tag; the full
+// figures open under the row (a card that fills no wallet card starts open, it needs an answer); disconnect is in ⋯.
 const noStore={getItem:()=>null,setItem:()=>{},removeItem:()=>{}};
 const store=()=>typeof localStorage==='undefined'?noStore:localStorage;
 const errorText=code=>({
@@ -26,10 +31,13 @@ const errorText=code=>({
  item_not_found:t('这个连接已经不存在了。'),
 })[code]||t('出错了，请稍后再试。');
 const statusTag=s=>({ok:<Tag color="success">{t('已连接')}</Tag>,login_required:<Tag color="warning">{t('需要重新登录')}</Tag>,pending_disconnect:<Tag color="warning">{t('即将断开，请重新连接')}</Tag>,revoked:<Tag color="error">{t('已在银行撤销授权')}</Tag>,error:<Tag color="error">{t('连接出错')}</Tag>})[s]||<Tag>{s}</Tag>;
+const broken=s=>['login_required','pending_disconnect'].includes(s);
+// One tag per row, the most urgent fact: overdue, then the connection's problem, then connected.
+const rowTag=(c,item)=>c.isOverdue?<Tag color="error">{t('已逾期')}</Tag>:item?statusTag(item.status):null;
 const money=(v,currency)=>v==null?t('未知'):formatNumber(v,{style:'currency',currency:currency||'USD'});
 
 export default function PlaidCards({gateway,walletCards=[],pairs=[],onAddCard}){
- useI18n();const {message:toast}=App.useApp();
+ useI18n();const {message:toast,modal}=App.useApp();
  const client=useMemo(()=>createPlaidClient({gateway,storage:store()}),[gateway]);
  const [view,setView]=useState(()=>readPlaidCache(store()));
  const [err,setErr]=useState(null),[busy,setBusy]=useState(null);
@@ -53,7 +61,6 @@ export default function PlaidCards({gateway,walletCards=[],pairs=[],onAddCard}){
  });
  const refresh=()=>run('refresh',async()=>{const r=await client.refresh();if(!r.ok)return setErr(r.code);setView(readPlaidCache(store()));toast.success(t('已同步。'));});
  const remove=itemId=>run('remove:'+itemId,async()=>{const r=await client.remove(itemId);if(!r.ok)return setErr(r.code);setView(readPlaidCache(store()));toast.success(t('已断开这个连接。'));});
- const itemOf=id=>view.items.find(i=>i.itemId===id);
  const walletOf=c=>{const id=pairs.find(([,p])=>p.accountId===c.accountId)?.[0];return id?walletCards.find(w=>w.id===id)||null:null;};
  const cardLabel=w=>w.name+(w.tail?` ••${w.tail}`:'');
  const link=(c,cardId)=>{try{savePlaidLinks(store(),withPlaidLink(readPlaidLinks(store()),c,cardId));}catch{toast.error(t('这张卡缺少尾号信息，不能手动对应。'));}};
@@ -71,36 +78,55 @@ export default function PlaidCards({gateway,walletCards=[],pairs=[],onAddCard}){
     {spec&&<Button size="small" onClick={()=>addToWallet(c)}>{t('添加到钱包')}</Button>}</Flex></Flex>;
  };
  const unavailable=err==='plaid_unavailable',full=err==='plaid_limit';
- return <Card className="plaid-cards" style={{marginBottom:20}} title={t('通过 Plaid 连接的美国信用卡')}>
+ const confirmRemove=itemId=>modal.confirm({title:t('断开这个连接？'),content:t('这家银行的所有卡都会停止同步，已同步的数据从服务器删除。'),okText:t('断开'),okButtonProps:{danger:true},cancelText:t('取消'),onOk:()=>remove(itemId)});
+ // One group per connection: the ones needing a login first, then the ones with an overdue card. A card whose connection is
+ // not in the list still shows, under its own institution name.
+ const groups=[...view.items,...[...new Set(view.cards.map(c=>c.itemId))].filter(id=>!view.items.some(i=>i.itemId===id)).map(id=>({itemId:id,institution:view.cards.find(c=>c.itemId===id).institution,status:null}))]
+  .map(item=>({item,cards:view.cards.filter(c=>c.itemId===item.itemId).sort((a,b)=>!!b.isOverdue-!!a.isOverdue)}))
+  .map(g=>({...g,rank:g.item.status&&g.item.status!=='ok'?0:g.cards.some(c=>c.isOverdue)?1:2})).sort((a,b)=>a.rank-b.rank);
+ const row=(c,item)=>{const apr=purchaseApr(c);return <details key={c.accountId} className="plaid-row" open={!walletOf(c)}>
+  <summary>
+   <span className="plaid-row-main"><span className="plaid-row-name">{c.name||c.officialName||t('信用卡')}{c.mask&&` ••${c.mask}`}</span>
+    <span className="plaid-row-figures">{t('到期还款日')} {c.dueDate||t('未知')} · {t('账单金额')} {money(c.statementBalance,c.currency)}</span></span>
+   {rowTag(c,item)}
+  </summary>
+  <Flex vertical gap={8} className="plaid-row-detail">
+   <Descriptions size="small" column={{xs:1,sm:2,md:3}} items={[
+    {key:'due',label:t('到期还款日'),children:c.dueDate||t('未知')},
+    {key:'statement',label:t('账单金额'),children:money(c.statementBalance,c.currency)},
+    {key:'minimum',label:t('最低还款'),children:money(c.minimumPayment,c.currency)},
+    {key:'balance',label:t('当前余额'),children:money(c.balance,c.currency)},
+    {key:'limit',label:t('信用额度'),children:money(c.limit,c.currency)},
+    {key:'apr',label:t('购物 APR'),children:apr==null?t('未知'):formatNumber(apr/100,{style:'percent',maximumFractionDigits:2})},
+    ...(c.statementDate?[{key:'statementDate',label:t('账单日'),children:c.statementDate}]:[]),
+   ]}/>
+   {walletRow(c)}
+   {!!c.readAt&&<Text type="secondary">{t('读取于 {0}',[formatDateTime(c.readAt*1000,{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})])}</Text>}
+  </Flex>
+ </details>;};
+ const nudges=[
+  {kind:'error',key:'request',node:err&&<Alert type={unavailable?'info':'warning'} showIcon title={errorText(err)}/>},
+  // One banner at a time; every broken connection also has Reconnect in its ⋯ menu.
+  ...view.items.filter(i=>broken(i.status)).map(i=>({kind:'error',key:i.itemId,node:<Alert type="warning" showIcon
+   title={t('{0} 需要重新登录才能继续同步。',[i.institution||t('这家银行')])} action={<Button size="small" loading={busy==='repair:'+i.itemId} onClick={()=>open(i.itemId)}>{t('重新连接')}</Button>}/>})),
+ ];
+ const actions=signedIn&&!unavailable;
+ return <Card className="plaid-cards" style={{marginBottom:20}}
+  title={<span className="settings-title">{t('已连接的卡')}<InfoTip title={<>{t('通过 Plaid 连接的美国信用卡')}<br/>{t('只读：卡疲扒拉不能动钱。银行密码只交给银行和 Plaid；连接可以随时断开。')}</>}/></span>}>
   {/* The actions sit in the body, not the title bar, so a phone-width title is not cut off. */}
-  {signedIn&&!unavailable&&<Space wrap style={{marginBottom:12}}>
-  <Button type="primary" onClick={()=>open()} loading={busy==='link'} disabled={full}>{t('添加信用卡')}</Button>
-  {view.items.length>0&&<Button onClick={refresh} loading={busy==='refresh'}>{t('同步')}</Button>}</Space>}
-  {!signedIn?<Paragraph type="secondary">{t('在设置里登录卡疲扒拉账号后，可以通过 Plaid 添加美国信用卡，自动读取余额、账单金额、最低还款、还款日和 APR。')}</Paragraph>:<>
-  <Paragraph type="secondary">{t('只读：卡疲扒拉不能动钱。银行密码只交给银行和 Plaid；连接可以随时断开。')}</Paragraph>
-  {err&&<Alert type={unavailable?'info':'warning'} showIcon title={errorText(err)} style={{marginBottom:12}}/>}
-  {view.items.filter(i=>['login_required','pending_disconnect'].includes(i.status)).map(i=><Alert key={i.itemId} type="warning" showIcon style={{marginBottom:12}}
-   title={t('{0} 需要重新登录才能继续同步。',[i.institution||t('这家银行')])} action={<Button size="small" loading={busy==='repair:'+i.itemId} onClick={()=>open(i.itemId)}>{t('重新连接')}</Button>}/>)}
-  {view.items.some(i=>i.status==='ok'&&!i.historicalComplete)&&<Paragraph type="secondary">{t('还在导入历史交易，稍后点「同步」查看。')}</Paragraph>}
-  {view.cards.length===0?<Empty description={view.items.length?t('还没有读到信用卡数据，稍后点「同步」。'):t('还没有连接信用卡。')}/>:
-  <List dataSource={view.cards} rowKey="accountId" renderItem={c=>{const item=itemOf(c.itemId),apr=purchaseApr(c);return <List.Item>
-   <Flex vertical gap={8} style={{width:'100%'}}>
-    <Flex justify="space-between" align="center" wrap gap={8}><Text strong>{c.name||c.officialName||t('信用卡')}{c.mask&&` ••${c.mask}`}</Text>
-     <Space size={4} wrap><Text type="secondary">{c.institution}</Text>{item&&statusTag(item.status)}{c.isOverdue&&<Tag color="error">{t('已逾期')}</Tag>}</Space></Flex>
-    <Descriptions size="small" column={{xs:1,sm:2,md:3}} items={[
-     {key:'due',label:t('到期还款日'),children:c.dueDate||t('未知')},
-     {key:'statement',label:t('账单金额'),children:money(c.statementBalance,c.currency)},
-     {key:'minimum',label:t('最低还款'),children:money(c.minimumPayment,c.currency)},
-     {key:'balance',label:t('当前余额'),children:money(c.balance,c.currency)},
-     {key:'limit',label:t('信用额度'),children:money(c.limit,c.currency)},
-     {key:'apr',label:t('购物 APR'),children:apr==null?t('未知'):formatNumber(apr/100,{style:'percent',maximumFractionDigits:2})},
-     ...(c.statementDate?[{key:'statementDate',label:t('账单日'),children:c.statementDate}]:[]),
-    ]}/>
-    {walletRow(c)}
-    <Flex justify="space-between" align="center" wrap gap={8}><Text type="secondary">{c.readAt?t('读取于 {0}',[formatDateTime(c.readAt*1000,{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})]):''}</Text>
-     <Popconfirm title={t('断开这个连接？')} description={t('这家银行的所有卡都会停止同步，已同步的数据从服务器删除。')} okText={t('断开')} cancelText={t('取消')} onConfirm={()=>remove(c.itemId)}>
-      <Button size="small" type="link" danger loading={busy==='remove:'+c.itemId}>{t('断开')}</Button></Popconfirm></Flex>
-   </Flex></List.Item>;}}/>}
+  {actions&&<Flex gap={8} wrap style={{marginBottom:8}}>
+   <Button type="primary" onClick={()=>open()} loading={busy==='link'} disabled={full}>{t('添加信用卡')}</Button>
+   {view.items.length>0&&<Button onClick={refresh} loading={busy==='refresh'}>{t('同步')}</Button>}</Flex>}
+  {!signedIn?<Paragraph type="secondary" style={{marginBottom:0}}>{t('在设置里登录卡疲扒拉账号后，可以通过 Plaid 添加美国信用卡，自动读取余额、账单金额、最低还款、还款日和 APR。')}</Paragraph>:<>
+  <NudgeSlot nudges={nudges}/>
+  {view.items.some(i=>i.status==='ok'&&!i.historicalComplete)&&<Paragraph type="secondary" style={{marginBottom:8}}>{t('还在导入历史交易，稍后点「同步」查看。')}</Paragraph>}
+  {!groups.length?<Empty description={t('还没有连接信用卡。')}/>:groups.map(({item,cards})=><section key={item.itemId} className="plaid-group">
+   <Flex justify="space-between" align="center" gap={8} className="plaid-group-head"><Text strong>{item.institution||t('这家银行')}</Text>
+    <MoreMenu label={t('{0} 的更多操作',[item.institution||t('这家银行')])} disabled={busy==='remove:'+item.itemId}
+     items={item.status&&[broken(item.status)&&{key:'repair',label:t('重新连接')},{key:'disconnect',label:t('断开'),danger:true}]}
+     onClick={key=>key==='repair'?open(item.itemId):confirmRemove(item.itemId)}/></Flex>
+   {cards.length?cards.map(c=>row(c,item.status?item:null)):<Flex justify="space-between" align="center" gap={8}><Text type="secondary">{t('还没有读到信用卡数据，稍后点「同步」。')}</Text>{statusTag(item.status)}</Flex>}
+  </section>)}
   </>}
  </Card>;
 }

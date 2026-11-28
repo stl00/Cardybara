@@ -299,6 +299,8 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
   const secretFields=(...zh)=>`[...document.querySelectorAll('input[type=password]')].filter(e=>[${zh.map(z=>words(z).slice(1,-1)).join(',')}].includes(e.placeholder))`;
   const clickText=(name,selector,zh)=>evaluate(name,`(()=>{const want=${words(zh)};const el=[...document.querySelectorAll(${JSON.stringify(selector)})].find(e=>want.includes(e.textContent.trim()));if(!el)return false;el.click();return true;})()`);
   const pageText=name=>evaluate(name,'document.body?.innerText||""');
+  // AI settings sit in the collapsed Advanced section of the settings page (#679): open it once the page is there.
+  const openAdvanced=()=>until('the advanced settings',()=>evaluate('wallet',`(()=>{const head=document.querySelector('.settings-advanced .ant-collapse-header');if(head&&head.getAttribute('aria-expanded')!=='true')head.click();return !!document.querySelector('.settings-advanced .parser-settings')})()`));
   // Click with real mouse events at the element's centre, for steps that need a user gesture.
   const realClick=async(name,selector,wantJson)=>{
    const at=await evaluate(name,`(()=>{const want=${wantJson};const el=[...document.querySelectorAll(${JSON.stringify(selector)})].find(e=>want.includes(e.textContent.trim())&&!e.disabled);if(!el)return null;el.scrollIntoView({block:'center'});const r=el.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2};})()`);
@@ -556,6 +558,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
    if(hosted){
     await evaluate('wallet','location.hash="wallet"');await sleep(200);
     await evaluate('wallet','location.hash="settings"');
+    await openAdvanced();
     await until('the hosted service to show ready',async()=>{const t=await pageText('wallet');return JSON.parse(words('已就绪')).some(w=>t.includes(w));});
     const t=await pageText('wallet');
     if(await evaluate('wallet',`${secretFields('粘贴你的 API 密钥','粘贴邀请码')}.length>0`))throw new StepError('the settings page asks for a code or key in hosted mode');
@@ -573,6 +576,7 @@ export async function run(input,{out=join(root,'.debug/e2e'),mutate,stepMs,resta
     // Leave and re-enter settings so the page reads the flag afresh.
     await evaluate('wallet','location.hash="wallet"');await sleep(200);
     await evaluate('wallet','location.hash="settings"');
+    await openAdvanced();
     await until('the own-key button',()=>clickText('wallet','button','使用自己的 key'));
     const keyBox=await until('the '+what+' field',()=>evaluate('wallet',`(()=>{const el=${secretFields('粘贴你的 API 密钥')}[0];if(!el)return false;el.focus();return true;})()`));
     if(!keyBox)throw new StepError('no '+what+' field on the settings page');

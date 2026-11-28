@@ -2,11 +2,12 @@ import React,{useEffect,useMemo,useState} from 'react';
 import {App,Button,Card,Empty,InputNumber,Space,Table,Tag,Typography} from 'antd';
 import {t,useI18n} from './i18n';
 import ItemLogo from './ItemLogo';
+import InfoTip from './InfoTip.jsx';
 import {RegionFlag} from './Identity';
 import {cardEarnings} from './cardDecision.js';
 import {walletDay} from './personalBenefits.js';
 import {POINT_VALUES_KEY,MAX_CENTS,readPointValueOverrides,storedPointValues,valuationTable,walletValuations,withPointValue} from './pointValues.js';
-const {Paragraph,Text,Link}=Typography;
+const {Text,Link}=Typography;
 const CHANGE='cardybara-point-values-change';
 // #193: the user's own value per point, kept apart from the defaults so a reset brings the default back.
 export function loadPointValues(){try{return readPointValueOverrides(localStorage)}catch{return []}}
@@ -29,8 +30,7 @@ export default function PointValueSettings({cards=[]}){
   {title:t('比较时使用'),render:(_,p)=>p.own!=null?<Tag color="blue">{t('你的估值')}</Tag>:p.cents!=null?<Tag>{t('默认')}</Tag>:<Tag>{t('未估值')}</Tag>},
   {title:'',render:(_,p)=>p.own!=null?<Button size="small" onClick={()=>save(p,null)}>{t('恢复默认')}</Button>:null}
  ];
- return <Card title={t('积分估值')} style={{marginBottom:16}}>
-  <Paragraph type="secondary">{t('比较现金返现、积分和里程时，每点按这里的价值计算：你设了估值就用你的，否则用默认市场估值。默认值取自公开的估值文章（核对于 {0}），只是参考，不代表实际兑换价值。估值按计划自己的货币计算，不跨货币比较。',[valuationTable.checkedAt])}</Paragraph>
+ return <Card title={<span className="settings-title">{t('积分估值')}<InfoTip title={t('比较现金返现、积分和里程时，每点按这里的价值计算：你设了估值就用你的，否则用默认市场估值。默认值取自公开的估值文章（核对于 {0}），只是参考，不代表实际兑换价值。估值按计划自己的货币计算，不跨货币比较。',[valuationTable.checkedAt])}/></span>} style={{marginBottom:16}}>
   {rows.length?<Table size="small" rowKey="id" columns={columns} dataSource={rows} pagination={false} scroll={{x:720}}/>:<Empty description={t('钱包里的卡没有积分或里程计划。')}/>}
  </Card>;
 }

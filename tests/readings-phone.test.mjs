@@ -89,7 +89,7 @@ ${cards ? `localStorage.setItem(${JSON.stringify(WALLET_CARDS_KEY)},${JSON.strin
 ${live ? `localStorage.setItem(${JSON.stringify(LIVE_KEY)},${JSON.stringify(JSON.stringify(live))});` : ''}}})();`;
 
 async function signIn(c) {
-  await c.goto('/#settings');
+  await c.goto('/#account');
   await c.until(`document.querySelector('.account-settings input[type=email]')`, 'the sign-in form');
   await c.type('.account-settings input[type=email]', EMAIL);
   await c.type('.account-settings input[autocomplete=current-password]', PASSWORD);

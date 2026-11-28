@@ -66,7 +66,8 @@
     "关闭后台提醒": "Turn off closed-wallet reminders",
     "开启钱包关闭时的提醒": "Turn on reminders while the wallet is closed",
     "只把提醒的时间发给 Cardybara 服务器，不含卡名、尾号、金额；提醒的文字由本机生成。": "Only the reminder times go to the Cardybara server, with no card names, tails or amounts; the text of each reminder is written on this device.",
-    "打开钱包，看看有什么快到期。": "Open the wallet to see what is due soon."
+    "打开钱包，看看有什么快到期。": "Open the wallet to see what is due soon.",
+    "钱包关闭时的提醒没有开启成功，请稍后再试。": "Reminders for a closed wallet could not be turned on. Try again later."
   },
   "zh-TW": {
     "还款日已过 {0} 天": "還款日已過 {0} 天",
@@ -135,6 +136,7 @@
     "关闭后台提醒": "關閉背景提醒",
     "开启钱包关闭时的提醒": "開啟錢包關閉時的提醒",
     "只把提醒的时间发给 Cardybara 服务器，不含卡名、尾号、金额；提醒的文字由本机生成。": "只把提醒的時間傳給 Cardybara 伺服器，不含卡名、尾號、金額；提醒的文字由本機產生。",
-    "打开钱包，看看有什么快到期。": "打開錢包，看看有什麼快到期。"
+    "打开钱包，看看有什么快到期。": "打開錢包，看看有什麼快到期。",
+    "钱包关闭时的提醒没有开启成功，请稍后再试。": "錢包關閉時的提醒沒有開啟成功，請稍後再試。"
   }
 }

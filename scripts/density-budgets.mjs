@@ -38,4 +38,11 @@ export const SCREENS = [
     budget: {paragraphs: 0},
     baseline: {paragraphs: 3},
   },
+  {
+    // #679: not in the table of #682; its rules (one tag per row, one banner) with the Overview's button budget. Measured
+    // signed in with three Plaid cards; a row's own tap target is not an .ant-btn.
+    id: 'settings', label: 'Settings', mode: 'enforce', rows: '.plaid-row',
+    budget: {buttons: 6, tags: 3, alerts: 1, paragraphs: 1, tagsPerRow: 1, buttonsPerRow: 0},
+    baseline: {buttons: 4, tags: 0, alerts: 0, paragraphs: 4, tagsPerRow: 1, buttonsPerRow: 1},
+  },
 ];

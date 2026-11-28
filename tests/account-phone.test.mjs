@@ -94,7 +94,7 @@ function checker(c, lang, prefix, log) {
 // Profile A: create the account, turn sync on, and wait for the wallet copy to reach the server.
 async function firstDevice(c, srv, lang) {
   const w = TEXT[lang], log = [], check = checker(c, lang, 'account-a', log);
-  await c.goto('/#settings');
+  await c.goto('/#account');
   await c.until(`document.querySelector('${A} input[type=email]')`, 'the sign-in form');
   await check('signed-out');
   await c.tap(`${A} .ant-segmented-item`, w.signup);
@@ -126,7 +126,7 @@ async function firstDevice(c, srv, lang) {
 // Profile B: a second fresh profile with the same email and password gets the same wallet, then deletes the account.
 async function secondDevice(c, srv, lang) {
   const w = TEXT[lang], log = [], check = checker(c, lang, 'account-b', log);
-  await c.goto('/#settings');
+  await c.goto('/#account');
   await c.until(`document.querySelector('${A} input[type=email]')`, 'the sign-in form');
   assert.equal(await c.evaluate(`localStorage.getItem(${JSON.stringify(WALLET_CARDS_KEY)})`), null, `${lang}: B starts with no wallet`);
   await check('signed-out');

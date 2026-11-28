@@ -40,7 +40,8 @@ window.fetch=async(url,init={})=>{url=String(url);if(!url.includes('/v2/account'
  if(path==='/v2/account/wallet')return method==='GET'?J(200,{revision:0,formatVersion:null,document:null,updatedAt:null}):J(200,{revision:1,size:10});
  return J(400,{error:{code:'bad_request'}});};
 const buf=n=>new Uint8Array(n).buffer;
-Object.defineProperty(navigator.credentials,'get',{configurable:true,value:async()=>({id:'synthetic-credential',rawId:buf(4),type:'public-key',response:{clientDataJSON:buf(8),authenticatorData:buf(8),signature:buf(8),userHandle:buf(4)}})});})();`;
+// A conditional (autofill) request waits for the user to pick, as a real browser does; the account page makes one when signed out.
+Object.defineProperty(navigator.credentials,'get',{configurable:true,value:async o=>o?.mediation==='conditional'?new Promise((_,no)=>o.signal?.addEventListener('abort',()=>no(new DOMException('aborted','AbortError')))):({id:'synthetic-credential',rawId:buf(4),type:'public-key',response:{clientDataJSON:buf(8),authenticatorData:buf(8),signature:buf(8),userHandle:buf(4)}})});})();`;
 const init = lang => `${STUB}localStorage.setItem('cardybara-language',${JSON.stringify(lang)});localStorage.setItem(${JSON.stringify(GUIDE_KEY)},'1');`;
 const entry = c => c.evaluate(`(()=>{const e=document.querySelector('.app-header .account-entry');return e?{text:e.innerText.split(' ').join('').trim(),avatar:e.classList.contains('account-avatar'),sync:e.dataset.sync||null}:null})()`);
 const openDialogs = c => c.evaluate(`document.querySelectorAll('.ant-modal-wrap:not([style*="display: none"]) .ant-modal-container,.ant-drawer-open .ant-drawer-section').length`);
@@ -76,18 +77,24 @@ for (const lang of ['zh-CN', 'zh-TW', 'en-US']) {
       assert.equal(await c.evaluate(`!!document.querySelector('.account-drawer.ant-drawer-open')`), false, `${lang}: the sheet closes after signing in`);
       assert.notEqual((await entry(c)).sync, 'off', `${lang}: sync is on after sign-in, so the dot shows`);
 
-      // Sync is already on (default after sign-in); open the avatar sheet, then the dot follows the status event.
+      // Sync is already on (default after sign-in); open the avatar sheet: only the status and the link to the account (#679).
       await c.tap('.app-header .account-avatar');
-      await c.until(`document.querySelector('.account-drawer.ant-drawer-open .account-sync-switch .ant-switch')`, 'the account sheet');
+      await c.until(`document.querySelector('.account-drawer.ant-drawer-open .account-open-settings')`, 'the account sheet');
       await c.pause(400);
-      assert.equal(await c.evaluate(`document.querySelector('.account-drawer .account-sync-switch .ant-switch').classList.contains('ant-switch-checked')`), true, `${lang}: the switch is already on`);
+      assert.equal(await c.evaluate(`document.querySelectorAll('.account-drawer .ant-btn').length`), 1, `${lang}: one action`);
+      assert.equal(await c.evaluate(`!!document.querySelector('.account-drawer .ant-switch,.account-drawer .account-signout')`), false, `${lang}: no switch or sign out in the sheet`);
+      assert.equal(await c.evaluate(`JSON.parse(localStorage.getItem('cardybara-sync-v1')).on`), true, `${lang}: sync is on`);
       for (const s of ['offline', 'error', 'synced']) {
         await c.evaluate(`window.dispatchEvent(new CustomEvent('cardybara-sync-status',{detail:${JSON.stringify(s)}}))`);
         await c.pause(150);
         assert.equal((await entry(c)).sync, s, `${lang}: the dot shows ${s}`);
         assert.equal(await c.evaluate(`!!document.querySelector('.app-header .sync-dot-${s}')`), true);
       }
-      await c.tap('.account-drawer .account-signout');
+      await c.tap('.account-drawer .account-open-settings');
+      await c.until(`document.querySelector('.account-settings .account-signout')&&!document.querySelector('.account-drawer.ant-drawer-open')`, 'the account page');
+      assert.equal(await c.evaluate(`location.hash`), '#account');
+      await c.pause(400);
+      await c.tap('.account-settings .account-signout');
       await c.until(`document.querySelector('.app-header .account-entry:not(.account-avatar)')`, 'Sign in again after signing out');
       await c.pause(700);
       assert.equal(await openDialogs(c), 0, `${lang}: signing out opens nothing by itself`);
@@ -134,8 +141,11 @@ test('desktop: Sign in opens a modal; the signed-in avatar opens a popover with 
     await c.until(`document.querySelector('.account-popover .account-email')`, 'the account popover');
     const shown = await c.evaluate(`document.querySelector('.account-popover .account-email').innerText`);
     assert.equal(shown, 'sy•••@example.test', 'the popover masks the email');
-    assert.ok(await c.evaluate(`!!document.querySelector('.account-settings')===false`), 'the full Settings card is not in the header');
-    await c.tap('.account-popover .account-signout');
+    assert.ok(await c.evaluate(`!!document.querySelector('.account-settings')===false`), 'the full account card is not in the header');
+    await c.tap('.account-popover .account-open-settings');
+    await c.until(`document.querySelector('.account-settings .account-signout')`, 'the account page');
+    await c.pause(400);
+    await c.tap('.account-settings .account-signout');
     await c.until(`document.querySelector('.app-header .account-entry:not(.account-avatar)')`, 'Sign in after signing out');
     await c.pause(700);
     assert.equal(await openDialogs(c), 0, 'signing out on desktop opens no sign-in modal');

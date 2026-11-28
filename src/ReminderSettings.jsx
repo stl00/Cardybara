@@ -1,6 +1,7 @@
 import React,{useEffect,useRef,useState} from 'react';
 import {Alert,App,Button,Card,Checkbox,Flex,Select,Switch,Typography} from 'antd';
 import {t,ruleField,useI18n} from './i18n';
+import InfoTip from './InfoTip.jsx';
 import {usePersonalMarks} from './PersonalWallet.jsx';
 import {PAYMENT_MARKS_CHANGE,loadPaymentMarks} from './PaymentAssistant.jsx';
 import {pushTimes,debounce,watchSupport} from './webPush.js';
@@ -9,7 +10,7 @@ import {PAYMENT_MARKS_KEY} from './paymentStates.js';
 import {PUSH_GENERIC_KEY,REMINDER_SCHEDULE_KEY} from './pushMirror.js';
 import {reminderText} from '../extension-next/reminder-core.js';
 import platform from './platform';
-const {Paragraph,Text}=Typography;
+const {Text}=Typography;
 const CHECK_MS=30*60000,CHANGE='cardybara-reminder-settings-change';
 const supported=()=>typeof Notification!=='undefined';
 const worker=()=>!!platform.notifications.worker;
@@ -79,34 +80,41 @@ export function ReminderRunner({cards}){
  },[day,events,ready,language,signature]);
  return null;
 }
+/** What the switch does on this channel; it sits behind the ⓘ of the card title. */
+export const reminderHelp=()=>worker()?t('默认关闭。开启时 Chrome 会请求通知权限，关闭后不再提醒。钱包页面关闭时也会提醒，但 Chrome 需要在运行；Chrome 没运行时到点的提醒，下次启动后补发，已经过时的不再发。提醒按你上次打开钱包时的数据，安排接下来 {0} 天：在银行付款后，到钱包标记已处理才会停止。',[SCHEDULE_DAYS]):platform.kind==='web'?t('默认关闭。开启时浏览器会请求通知权限，关闭后不再提醒。只在打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。'):t('默认关闭。开启时 Chrome 会请求通知权限，关闭后不再提醒。只在 Chrome 中打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。');
+// One switch (#679): it asks for permission and, where Web Push is ready, turns on reminders for a closed wallet too.
 export default function ReminderSettings({pushApi}={}){
  useI18n();const {message:toast}=App.useApp();
  // Re-read support when the page is shown again (Home Screen install, permission change in Settings), not once at mount.
  const [,recheck]=useState(0);useEffect(()=>watchSupport(()=>recheck(n=>n+1)),[]);
- const [settings,setSettings]=useState(()=>{try{return readSettings(localStorage)}catch{return normalizeSettings(null)}}),[denied,setDenied]=useState(false),[busy,setBusy]=useState(false);
+ const [settings,setSettings]=useState(()=>{try{return readSettings(localStorage)}catch{return normalizeSettings(null)}}),[denied,setDenied]=useState(false),[busy,setBusy]=useState(false),[pushFailed,setPushFailed]=useState(false);
  const update=patch=>{const next=normalizeSettings({...settings,...patch});try{saveSettings(next);setSettings(next)}catch{toast.error(t('保存失败，刚才的设置没有生效。'))}};
  const push=pushApi??platform.notifications.push,support=push?.support()??'unsupported',[pushOn,setPushOn]=useState(()=>!!push?.active());
  const turnOnPush=async()=>{
-  setDenied(false);setBusy(true);
-  try{if(!await askPermission()){setDenied(true);return;}await push.enable();update({enabled:true});setPushOn(true);window.dispatchEvent(new Event(CHANGE));}catch{setDenied(true)}finally{setBusy(false)}
+  setDenied(false);setPushFailed(false);setBusy(true);
+  try{if(!await askPermission()){setDenied(true);return;}await push.enable();update({enabled:true});setPushOn(true);window.dispatchEvent(new Event(CHANGE));}catch{setPushFailed(true)}finally{setBusy(false)}
  };
  const turnOffPush=async()=>{setBusy(true);try{await push.disable();}catch{/* the subscription is gone either way */}setPushOn(false);setBusy(false);};
  const toggle=async on=>{
-  setDenied(false);
+  setDenied(false);setPushFailed(false);
   if(!on){update({enabled:false});await dropPermission();if(push?.active()){await push.disable().catch(()=>{});setPushOn(false);}return;}
   setBusy(true);
-  try{if(await askPermission())update({enabled:true});else setDenied(true);}catch{setDenied(true)}finally{setBusy(false)}
+  try{
+   if(!await askPermission()){setDenied(true);return;}
+   update({enabled:true});
+   if(push&&support==='ready'){try{await push.enable();setPushOn(true);window.dispatchEvent(new Event(CHANGE));}catch{setPushFailed(true)}}
+  }catch{setDenied(true)}finally{setBusy(false)}
  };
  const lead=()=>LEAD_DAYS.map(days=>({value:days,label:t('提前 {0} 天',[days])}));
  const lost=settings.enabled&&supported()&&Notification.permission!=='granted';
- return <Card title={t('账单和福利提醒')} style={{marginBottom:20}}>
+ const help=<>{reminderHelp()}{support==='ready'&&<><br/>{t('只把提醒的时间发给 Cardybara 服务器，不含卡名、尾号、金额；提醒的文字由本机生成。')}</>}<br/>{t('已处理、银行显示无需付款、未读取的账单不会提醒；自动还款已开启且读数较新的账单也不会提醒。只有月日、没有年份的还款日同样不会提醒，因为无法判断离现在多远。')}</>;
+ return <Card className="reminder-settings" title={<span className="settings-title">{t('账单和福利提醒')}<InfoTip title={help}/></span>} style={{marginBottom:20}}>
   {support!=='install'&&<><label className="account-sync-switch"><Switch aria-label={t('开启提醒')} checked={settings.enabled} loading={busy} disabled={!supported()} onChange={toggle}/><Text strong>{t('开启浏览器通知')}</Text></label>
-  <Paragraph type="secondary" style={{marginTop:12}}>{worker()?t('默认关闭。开启时 Chrome 会请求通知权限，关闭后不再提醒。钱包页面关闭时也会提醒，但 Chrome 需要在运行；Chrome 没运行时到点的提醒，下次启动后补发，已经过时的不再发。提醒按你上次打开钱包时的数据，安排接下来 {0} 天：在银行付款后，到钱包标记已处理才会停止。',[SCHEDULE_DAYS]):platform.kind==='web'?t('默认关闭。开启时浏览器会请求通知权限，关闭后不再提醒。只在打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。'):t('默认关闭。开启时 Chrome 会请求通知权限，关闭后不再提醒。只在 Chrome 中打开着钱包页面时检查；页面关闭时不会提醒。福利可以另外用福利页的日历提醒，账单目前没有这个备用方式。')}</Paragraph></>}
+  </>}
   {support==='install'&&<Alert type="info" showIcon title={t('在 iPhone 或 iPad 上，要先把 Cardybara 添加到主屏幕（iOS 16.4 或更高），才能收到钱包关闭时的提醒。')} description={<>{t('在 Safari 点“分享”，选“添加到主屏幕”，再从主屏幕图标打开钱包，回到这里开启。')}<br/>{t('主屏幕上的 App 和 Safari 是两个独立的浏览器，数据不共用，需要在主屏幕 App 里重新登录。')}</>} style={{marginBottom:12}}/>}
-  {support==='ready'&&<div style={{marginBottom:12}}>
-   {pushOn?<Flex align="center" gap={12} wrap><Text>{t('钱包关闭时也会提醒（Web Push）。')}</Text><Button size="small" loading={busy} onClick={turnOffPush}>{t('关闭后台提醒')}</Button></Flex>
-   :<><Button type="primary" className="wrap-button" loading={busy} onClick={turnOnPush}>{t('开启钱包关闭时的提醒')}</Button><Paragraph type="secondary" style={{marginTop:8,marginBottom:0}}>{t('只把提醒的时间发给 Cardybara 服务器，不含卡名、尾号、金额；提醒的文字由本机生成。')}</Paragraph></>}
-  </div>}
+  {support==='ready'&&settings.enabled&&!pushOn&&<div style={{marginBottom:12}}><Button className="wrap-button" loading={busy} onClick={turnOnPush}>{t('开启钱包关闭时的提醒')}</Button></div>}
+  {pushOn&&<Flex align="center" gap={12} wrap style={{margin:'8px 0 12px'}}><Text>{t('钱包关闭时也会提醒（Web Push）。')}</Text><Button size="small" loading={busy} onClick={turnOffPush}>{t('关闭后台提醒')}</Button></Flex>}
+  {pushFailed&&<Alert type="warning" showIcon title={t('钱包关闭时的提醒没有开启成功，请稍后再试。')} style={{marginBottom:12}}/>}
   {!supported()&&support!=='install'&&<Alert type="info" showIcon title={t('这个浏览器不支持通知。')} style={{marginBottom:12}}/>}
   {denied&&<Alert type="warning" showIcon title={platform.kind==='web'?t('没有获得通知权限，提醒保持关闭。可以在浏览器的网站设置里修改后再试。'):t('没有获得通知权限，提醒保持关闭。可以在 Chrome 的网站设置里修改后再试。')} style={{marginBottom:12}}/>}
   {lost&&<Alert type="warning" showIcon title={t('通知权限已被关闭，目前不会提醒。')} style={{marginBottom:12}}/>}
@@ -117,6 +125,5 @@ export default function ReminderSettings({pushApi}={}){
    <Checkbox checked={settings.showAmounts} onChange={e=>update({showAmounts:e.target.checked})}>{t('在通知里显示账单金额（锁屏上可能被看到）')}</Checkbox>
    <div><Button size="small" disabled={!allowed()} onClick={()=>worker()?platform.notifications.test(t('账单提醒'),t('这是一条测试通知，提醒已开启。')).catch(()=>{}):show(t('账单提醒'),t('这是一条测试通知，提醒已开启。'),'cardybara-test')}>{t('发送测试通知')}</Button></div>
   </Flex>}
-  <Paragraph type="secondary" style={{marginTop:12,marginBottom:0}}>{t('已处理、银行显示无需付款、未读取的账单不会提醒；自动还款已开启且读数较新的账单也不会提醒。只有月日、没有年份的还款日同样不会提醒，因为无法判断离现在多远。')}</Paragraph>
  </Card>;
 }

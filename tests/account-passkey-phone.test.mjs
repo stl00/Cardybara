@@ -83,7 +83,7 @@ async function walk(c, srv, lang) {
   // Chrome's own virtual authenticator: an internal, user-verifying, discoverable-credential authenticator.
   await c.page('WebAuthn.enable');
   const {authenticatorId} = await c.page('WebAuthn.addVirtualAuthenticator', {options: {protocol: 'ctap2', transport: 'internal', hasResidentKey: true, hasUserVerification: true, isUserVerified: true, automaticPresenceSimulation: true}});
-  await c.goto('/#settings');
+  await c.goto('/#account');
   await c.until(`document.querySelector('${A} input[type=email]')`, 'the sign-in form');
   await c.until(`window.__calls.includes('GET /v2/account/passkey/status')`, 'the passkey status call');
   await check('signed-out');

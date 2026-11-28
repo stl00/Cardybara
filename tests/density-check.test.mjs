@@ -54,7 +54,7 @@ test('within budget passes; an enforcing screen that was not measured fails', ()
 });
 
 test('the budgets cover the screens of #683, each with today\'s numbers recorded', () => {
-  assert.deepEqual(SCREENS.map(s => s.id), ['overview', 'wallet', 'drawer', 'credits', 'rewards']);
+  assert.deepEqual(SCREENS.map(s => s.id), ['overview', 'wallet', 'drawer', 'credits', 'rewards', 'settings']);
   for (const s of SCREENS) {
     assert.ok(['report', 'enforce'].includes(s.mode), s.id);
     assert.deepEqual(Object.keys(s.baseline), Object.keys(s.budget), s.id);

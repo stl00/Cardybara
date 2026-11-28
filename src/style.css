@@ -220,3 +220,23 @@ body:has(.ant-modal-wrap:not([style*="display: none"])) .mobile-tabbar.is-over{z
 .nudge-item:not(:empty)~.nudge-item{display:none}
 /* Cards a Plaid link just added (src/plaidLanding.js). */
 .wallet-card.is-new{outline:2px solid var(--ant-color-primary);outline-offset:1px}
+
+/* Settings: compact connection rows, the account row and the collapsed advanced section. */
+.settings-title{display:inline-flex;align-items:center;gap:4px}
+.plaid-cards .ant-card-head,.plaid-cards .ant-card-body{padding-inline:16px}.plaid-cards .ant-card-body{padding-block:8px}
+.plaid-cards .nudge-slot{margin:4px 0 8px}
+.plaid-group+.plaid-group{border-top:1px solid var(--ant-color-border-secondary);margin-top:4px;padding-top:4px}
+.plaid-group-head{min-height:32px}.plaid-group-head .more-menu-trigger{border-color:transparent;background:none;box-shadow:none}
+.plaid-row>summary{display:flex;align-items:center;gap:8px;min-height:48px;padding:4px 0;cursor:pointer;list-style:none}
+.plaid-row>summary::-webkit-details-marker{display:none}
+.plaid-row>summary:focus-visible,.settings-row:focus-visible{outline:2px solid var(--ant-color-primary);outline-offset:-2px}
+.plaid-row>summary .ant-tag{margin:0;flex:none}
+.plaid-row-main,.settings-row-main{display:flex;flex-direction:column;flex:1;min-width:0}
+.plaid-row-name{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.plaid-row-figures,.settings-row-sub{font-size:12px;color:var(--ant-color-text-secondary);overflow-wrap:anywhere}
+.plaid-row-detail{padding:8px 0}
+.settings-row{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:12px 16px;border:0;background:none;color:inherit;font:inherit;text-align:start;cursor:pointer}
+.settings-row-sub .is-warning{color:var(--ant-color-warning-text)}
+.settings-advanced{margin-bottom:20px}.settings-advanced .parser-settings,.settings-advanced .backup-guide-settings{margin-bottom:12px}
+.settings-back{padding-inline:0;min-height:44px;margin-bottom:8px}
+@media(max-width:767px){.plaid-cards .ant-btn{min-height:44px;min-width:44px}.settings-advanced .ant-collapse-header{min-height:44px;align-items:center!important}}

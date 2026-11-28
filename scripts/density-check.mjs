@@ -36,6 +36,19 @@ export const INIT = FIXED_CLOCK + NO_NETWORK + set('cardybara-language', 'en-US'
   + set('cardybara-wallet-cards-v1', JSON.stringify(CARDS)) + set('cardybara-card-edits-v1', JSON.stringify(EDITS))
   + set('cardybara-backup-nudge-v1', JSON.stringify({firstCardAt: Date.parse(NOW) - 10 * 86400000}));
 
+// Settings (#679) is measured signed in with three synthetic Plaid cards over two institutions, one needing a new login.
+// Sync is off, and the gateway's card list is answered in the page.
+const READ = Date.parse(NOW) / 1000 - 3600;
+const plaidCard = (n, itemId, institution, extra) => ({itemId, accountId: 'acc_' + n, institution, name: `Synthetic Card ${n}`, mask: String(n).repeat(4), currency: 'USD',
+  balance: 10 * n, statementBalance: 5 * n, minimumPayment: 1, dueDate: '2026-12-0' + n, isOverdue: false, aprs: [], readAt: READ, ...extra});
+export const PLAID = {
+  items: [{itemId: 'item_1', institution: 'Chase', status: 'ok', historicalComplete: true}, {itemId: 'item_2', institution: 'Synthetic Platypus Bank', status: 'login_required', historicalComplete: true}],
+  cards: [plaidCard(6, 'item_1', 'Chase'), plaidCard(7, 'item_1', 'Chase'), plaidCard(8, 'item_2', 'Synthetic Platypus Bank')],
+};
+const SETTINGS_SETUP = `(()=>{const real=window.fetch;window.fetch=async(url,init)=>String(url).includes('/v2/plaid/cards')?new Response(JSON.stringify(${JSON.stringify(PLAID)}),{status:200,headers:{'Content-Type':'application/json'}}):real(url,init);})();`
+  + set('cardybara-account-session-v1', JSON.stringify({token: 'cbs_' + 'A'.repeat(43), expiresAt: 4000000000, email: 'synthetic.user@example.test'}))
+  + set('cardybara-sync-v1', JSON.stringify({on: false})) + set('cardybara-plaid-cards-v1', JSON.stringify(PLAID));
+
 // ---- how each screen is reached ------------------------------------------------------------------------------------
 const ROUTES = {
   overview: async c => { await c.goto('/#overview'); await c.until(`document.querySelector('.credit-manager')`, 'Overview'); },
@@ -43,7 +56,9 @@ const ROUTES = {
   drawer: async c => { await ROUTES.wallet(c); await c.tap('.wallet-card .card-title'); await c.until(`document.querySelector('.ant-drawer-open .ant-drawer-section')`, 'the card drawer'); },
   credits: async c => { await c.goto('/#credits'); await c.until(`document.querySelector('.credit-row')`, 'credit rows'); },
   rewards: async c => { await c.goto('/#rewards'); await c.until(`document.querySelector('.ant-layout-content')?.innerText.trim().length>0`, 'Rewards'); },
+  settings: async c => { await c.goto('/#settings'); await c.until(`document.querySelector('.plaid-cards')?.innerText.includes('Synthetic Card 8')`, 'the connected cards'); },
 };
+const SETUP = {settings: SETTINGS_SETUP};
 
 // Runs in the page.
 const measureExpression = screen => `(()=>{
@@ -97,11 +112,11 @@ export function formatTable({rows}) {
     ...rows.map(r => `| ${r.screen} | ${r.metric} | ${r.count ?? '-'} | <= ${r.budget} | ${r.baseline ?? '-'} | ${r.mode} | ${status(r)} |`)].join('\n');
 }
 
-export async function runDensity({dir = prepareWebTestBuild(), screens = SCREENS, routes = ROUTES, init = INIT} = {}) {
+export async function runDensity({dir = prepareWebTestBuild(), screens = SCREENS, routes = ROUTES, init = INIT, setup = SETUP} = {}) {
   const measured = {};
   for (const screen of screens) {
     // One browser per screen: no state carries over.
-    await withPhone(async c => { await routes[screen.id](c); measured[screen.id] = await measure(c, screen); }, {dir, init});
+    await withPhone(async c => { await routes[screen.id](c); measured[screen.id] = await measure(c, screen); }, {dir, init: init + (setup[screen.id] || '')});
   }
   return {measured, ...judge(screens, measured)};
 }
