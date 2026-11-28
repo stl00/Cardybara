@@ -41,9 +41,12 @@ test('cleanCards drops malformed dates and APRs without a type or number',()=>{
  assert.equal(cards[0].dueDate,null);assert.deepEqual(cards[0].aprs,[]);
 });
 
-test('issuer matching: known US issuers only; one wallet card per Plaid card; ambiguity fills nothing',()=>{
+test('issuer matching: catalogue US issuers by name; one wallet card per Plaid card; ambiguity fills nothing',()=>{
  assert.equal(issuerOf('Chase'),'Chase');assert.equal(issuerOf('American Express'),'Amex US');assert.equal(issuerOf('Bank of America'),'BOA');assert.equal(issuerOf('Citibank Online'),'Citi US');
+ assert.equal(issuerOf('Capital One'),'Capital One');assert.equal(issuerOf('Discover'),'Discover');assert.equal(issuerOf('U.S. Bank'),'U.S. Bank');assert.equal(issuerOf('US Bank - Credit Cards'),'U.S. Bank');assert.equal(issuerOf('Wells Fargo'),'Wells Fargo');
  assert.equal(issuerOf('First Platypus Bank'),null);assert.equal(issuerOf(null),null);
+ for(const other of ['Discovery Federal Credit Union','First US Bank','Barclays'])assert.equal(issuerOf(other),null,other);
+ assert.deepEqual(matchPlaidCards([{id:'g',bank:'First Platypus Bank',genericBank:true,currency:'USD',tail:'1234'}],[plaidCard({institution:'First Platypus Bank'})]).map(([id])=>id),['g'],'a generic issuer matches by its institution name');
  const wallet=[{id:'w1',bank:'Chase',currency:'USD',tail:'1234'},{id:'w2',bank:'Chase',currency:'USD',tail:'9999'},{id:'w3',bank:'Amex US',currency:'USD',tail:'1234'}];
  assert.deepEqual(matchPlaidCards(wallet,[plaidCard()]).map(([id])=>id),['w1']);
  assert.deepEqual(matchPlaidCards([...wallet,{id:'w4',bank:'Chase',currency:'USD',tail:'**1234'}],[plaidCard()]),[],'two Chase cards ending 1234: ambiguous');
@@ -113,11 +116,14 @@ test('auto matching reads a bank-read tail too; applyPlaid takes precomputed pai
  assert.equal(out.cards[0].balance,410.5);assert.deepEqual(out.cards[0].fieldSources.balance,{method:'plaid'});
 });
 
-test('Add to wallet: a known issuer and four digits make a manual card spec; the name never carries a long number',()=>{
+test('Add to wallet: an issuer and four digits make a manual card spec; the name never carries a long number',()=>{
  assert.deepEqual(plaidWalletCard(plaidCard()),{bank:'Chase',tail:'1234',name:'Synthetic Sapphire'});
  assert.deepEqual(plaidWalletCard(plaidCard({name:'CREDIT CARD 4111 1111 1111 1234',officialName:null})),{bank:'Chase',tail:'1234',name:'CREDIT CARD'});
  assert.deepEqual(plaidWalletCard(plaidCard({name:null,officialName:null})),{bank:'Chase',tail:'1234',name:'Chase 1234'});
- assert.equal(plaidWalletCard(plaidCard({institution:'First Platypus Bank'})),null);
+ assert.deepEqual(plaidWalletCard(plaidCard({institution:'First Platypus Bank',officialName:'Synthetic Platypus Rewards Card'})),{bank:'First Platypus Bank',tail:'1234',name:'Synthetic Platypus Rewards Card',genericBank:true},'official name first');
+ assert.deepEqual(plaidWalletCard(plaidCard({institution:'Wells Fargo',name:null,officialName:null})),{bank:'Wells Fargo',tail:'1234',name:'Wells Fargo 1234'});
+ // No usable institution name, or one that is a bank the wallet reads under another market, is left to the panel.
+ for(const institution of [null,'','  ','<b>x</b>','HSBC HK','constructor','x'.repeat(101)])assert.equal(plaidWalletCard(plaidCard({institution})),null,String(institution));
  assert.equal(plaidWalletCard(plaidCard({mask:'12'})),null);
 });
 
@@ -151,8 +157,10 @@ test('links keep the newest hundred',()=>{
 
 // #535: Plaid cards land in the wallet on their own.
 import {plaidCardsToAdd,readPlaidDismissed,setPlaidDismissed,PLAID_DISMISSED_KEY} from '../src/plaidCards.js';
-import {newWalletCard,mergeWalletCards,removeWalletCard} from '../src/walletRegistry.js';
+import {newWalletCard,mergeWalletCards,removeWalletCard,editManualCard,defaultRefreshBanks} from '../src/walletRegistry.js';
+import {matchCardProduct} from '../src/productCatalog.js';
 import {mergeWalletDocuments} from '../src/walletSync.js';
+import {migrateWalletDocument} from '../src/walletDocument.js';
 
 // One auto-add pass, as main.jsx runs it: match, pick what to add, store it in the registry.
 const autoAdd=(registry,plaid,{dismissed=[],removed=[]}={})=>{
@@ -213,7 +221,7 @@ test('a removed auto-added card is not added again, here or on a synced device; 
 });
 
 test('auto-add leaves out what plaidWalletCard cannot place',()=>{
- const odd=[plaidCard({institution:'First Platypus Bank'}),plaidCard({accountId:'a2',mask:'12'}),plaidCard({accountId:'a3',currency:'CAD'}),plaidCard({accountId:'a4',mask:null})];
+ const odd=[plaidCard({institution:null}),plaidCard({accountId:'a2',mask:'12'}),plaidCard({accountId:'a3',currency:'CAD'}),plaidCard({accountId:'a4',mask:null})];
  assert.deepEqual(plaidCardsToAdd({plaidCards:odd}),[]);
 });
 
@@ -222,4 +230,30 @@ test('auto-add where bank pages are read too: an Amex US card with a four-digit 
  assert.deepEqual(plaidCardsToAdd({plaidCards:[short,plaidCard()],bankPages:true}).map(a=>a.spec.bank),['Chase']);
  assert.deepEqual(plaidCardsToAdd({plaidCards:[amex],bankPages:true}).map(a=>a.spec.tail),['71001'],'five digits still match the page');
  assert.deepEqual(plaidCardsToAdd({plaidCards:[short]}).map(a=>a.spec.tail),['1001'],'the PWA reads no bank pages');
+});
+
+// #676: every Plaid-linked US credit card enters the wallet, whatever the issuer.
+const OTHERS=['Synthetic Platypus Bank','Capital One','Discover','U.S. Bank','Wells Fargo'].map((institution,i)=>plaidCard({itemId:'item_o'+i,accountId:'acc_o'+i,institution,institutionId:'ins_o'+i,name:'Synthetic Card',mask:'200'+i,balance:10+i}));
+
+test('auto-add: an unknown institution and the four catalogue-only issuers all land in the wallet, filled and kept across devices',async()=>{
+ const {registry}=autoAdd([],OTHERS);
+ assert.deepEqual(registry.map(c=>[c.bank,c.tail,c.region,c.currency,c.genericBank]),[['Synthetic Platypus Bank','2000','US','USD',true],['Capital One','2001','US','USD',undefined],['Discover','2002','US','USD',undefined],['U.S. Bank','2003','US','USD',undefined],['Wells Fargo','2004','US','USD',undefined]]);
+ assert.deepEqual(applyPlaid({cards:registry},OTHERS).cards.map(c=>c.balance),[10,11,12,13,14]);
+ assert.deepEqual(autoAdd(registry,OTHERS).adds,[],'idempotent');
+ const wallet=mergeWalletCards({cards:[],connections:[]},registry);
+ assert.deepEqual(wallet.cards,registry,'the stored rows read back as they are');
+ assert.ok(!wallet.connections.some(c=>registry.some(r=>r.bank===c.bank)),'no connection row');
+ assert.deepEqual(defaultRefreshBanks(registry,null),[],'never joins a bank refresh');
+ for(const card of registry)assert.equal(matchCardProduct(card).status,'unknown','the product stays for the user to choose');
+ // The user can still rename a generic card and correct its tail.
+ const edited=editManualCard(registry,registry[0],{name:'My platypus',tail:'7777'});
+ assert.deepEqual([edited[0].name,edited[0].tail,edited[0].genericBank],['My platypus','7777',true]);
+ const doc=mergeWalletDocuments({base:null,local:migrateWalletDocument({formatVersion:2,walletCards:{cards:registry,removed:[]}}),remote:migrateWalletDocument({formatVersion:1}),localNewer:true});
+ assert.equal(doc.formatVersion,2);assert.deepEqual(doc.walletCards.cards,registry);
+});
+
+test('only a card marked genericBank may name an unknown bank; a known bank never keeps the mark',()=>{
+ assert.throws(()=>newWalletCard({bank:'Synthetic Platypus Bank',name:'Synthetic',tail:'1234'}),/invalid_card/);
+ assert.throws(()=>newWalletCard({bank:'<b>',name:'Synthetic',tail:'1234',genericBank:true}),/invalid_card/);
+ assert.equal(newWalletCard({bank:'Discover',name:'Synthetic',tail:'1234',genericBank:true}).genericBank,undefined);
 });

@@ -1,8 +1,8 @@
 // #535: Plaid-linked cards land in the wallet on their own, in the built PWA (dist/web) in headless Chrome at phone width.
 // The gateway is an in-page fetch stub for /v2/plaid and /v2/account/wallet, so no Plaid, account service or network is used.
 // With sync on, two Plaid cards into an empty wallet become two wallet cards with Plaid's balances, and the debounced push
-// carries both; with sync off they are added on this device only, and one the user removed is not added back. Negative control: with sync off and a card Plaid cannot place (an unknown institution), nothing is added,
-// the card stays in the Plaid panel, and nothing is sent to the wallet route. Synthetic data only.
+// carries both; with sync off they are added on this device only, and one the user removed is not added back. A card of an unknown institution is added too, with that name as its bank (#676). Negative control: with sync off
+// and a card Plaid cannot place (a two-digit mask), nothing is added, the card stays in the Plaid panel, and nothing is sent to the wallet route. Synthetic data only.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
@@ -49,6 +49,8 @@ if(!sessionStorage.getItem('seeded')){sessionStorage.setItem('seeded','1');
  ${signedIn ? `localStorage.setItem('cardybara-account-session-v1',JSON.stringify({token:'cbs_'+'A'.repeat(43),expiresAt:Math.floor(Date.now()/1000)+86400,email:'synthetic.user@example.test'}));` : ''}
  ${syncOn ? `localStorage.setItem('cardybara-sync-v1',JSON.stringify({on:true}));` : ''}}})();`;
 
+const UNPLACED = {items: UNKNOWN.items, cards: [{...UNKNOWN.cards[0], mask: '33'}]};
+
 const registry = c => c.evaluate(`JSON.parse(localStorage.getItem('cardybara-wallet-cards-v1')||'[]').map(c=>[c.bank,c.tail,c.identitySource])`);
 
 test('PWA, sync on: two Plaid cards land in an empty wallet with their balances and reach the server copy', {timeout: 120000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
@@ -79,16 +81,31 @@ test('PWA, sync on: two Plaid cards land in an empty wallet with their balances 
   }, {init: init({plaid: TWO, syncOn: true})});
 });
 
+test('PWA: a card of an unknown institution is added, with the institution as its bank, and shows on the wallet page', {timeout: 60000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
+  ensureBuild();
+  await withPhone(async c => {
+    await c.goto('/#wallet');
+    await c.until(`document.body.innerText.includes('Synthetic Platypus Card')`, 'the card on the wallet page', 15000);
+    assert.deepEqual(await registry(c), [['Synthetic Platypus Bank', '3333', 'manual']]);
+    assert.ok((await c.text()).includes('•••• 3333'), 'the mask beside the name');
+    // A reload reads the stored generic card back without error and adds nothing.
+    await c.goto('/#settings');
+    await c.until(`document.body.innerText.includes('Synthetic Platypus Card')`, 'the panel');
+    await c.pause(1500);
+    assert.equal((await registry(c)).length, 1);
+  }, {init: init({plaid: UNKNOWN, syncOn: false})});
+});
+
 test('PWA, sync off (negative control): a card Plaid cannot place stays in the panel and nothing is added or sent', {timeout: 60000, skip: !chrome && 'no working Chrome on this machine'}, async () => {
   ensureBuild();
   await withPhone(async c => {
     await c.goto('/#settings');
     await c.until(`document.body.innerText.includes('Synthetic Platypus Card')`, 'the Plaid panel lists the card');
     await c.pause(1500);
-    assert.deepEqual(await registry(c), [], 'an unknown institution is not added');
+    assert.deepEqual(await registry(c), [], 'a card without four mask digits is not added');
     assert.ok((await c.text()).includes('还没有对应到钱包里的卡'), 'the card stays in the panel, unmatched');
     assert.ok(!(await c.evaluate(`window.__calls.some(x=>x.includes('/v2/account/wallet'))`)), 'sync off: no wallet route is called');
-  }, {init: init({plaid: UNKNOWN, syncOn: false})});
+  }, {init: init({plaid: UNPLACED, syncOn: false})});
 });
 
 test('PWA, sync off: placeable cards are still added on this device; a removed one is not added back on the next read', {timeout: 90000, skip: !chrome && 'no working Chrome on this machine'}, async () => {

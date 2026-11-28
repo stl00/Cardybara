@@ -4,7 +4,7 @@ import {t,useI18n,formatNumber,formatDateTime} from './i18n';
 import platform from './platform';
 import {readAccount} from './accountClient.js';
 import {createPlaidClient,readPlaidCache,PLAID_CHANGE_EVENT} from './plaidClient.js';
-import {issuerOf,purchaseApr,plaidWalletCard,readPlaidLinks,savePlaidLinks,withPlaidLink,isManualLink,canTakePlaid,setPlaidDismissed} from './plaidCards.js';
+import {plaidBank,purchaseApr,plaidWalletCard,readPlaidLinks,savePlaidLinks,withPlaidLink,isManualLink,canTakePlaid,setPlaidDismissed} from './plaidCards.js';
 const {Text,Paragraph}=Typography;
 
 // US credit cards linked through Plaid (PLAID_PLAN.md), in the extension and the PWA (owner 2026-11-17), for any signed-in
@@ -62,7 +62,7 @@ export default function PlaidCards({gateway,walletCards=[],pairs=[],onAddCard}){
   const w=walletOf(c);
   if(w)return <Flex align="center" wrap gap={8}><Text type="secondary">{t('对应钱包里的卡：{0}',[cardLabel(w)])}</Text>
    {isManualLink(readPlaidLinks(store()),c,w.id)&&<Button size="small" type="link" onClick={()=>link(c,null)}>{t('取消对应')}</Button>}</Flex>;
-  const taken=new Set(pairs.map(([id])=>id)),bank=issuerOf(c.institution);
+  const taken=new Set(pairs.map(([id])=>id)),bank=plaidBank(c);
   // Same issuer first; a card another Plaid card already fills, or one in another currency, is not offered.
   const options=walletCards.filter(x=>!taken.has(x.id)&&canTakePlaid(x,c)).sort((a,b)=>(b.bank===bank)-(a.bank===bank)).map(x=>({value:x.id,label:cardLabel(x)}));
   const spec=onAddCard?plaidWalletCard(c):null;

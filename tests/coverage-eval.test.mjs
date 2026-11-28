@@ -48,3 +48,10 @@ test('the Chinese case states secondary as recorded, and claiming primary fails 
 });
 
 test('the fault list is the one the eval script offers',()=>{assert.deepEqual(FAULTS,['not-covered','invented-limit','valuation','no-tool']);});
+
+test('a generic-issuer Plaid card with no product gets no benefit from the tool or the answer (#676)',async()=>{
+ const c=byId('coverage-generic-issuer-no-benefits');
+ const result=runWalletTool({id:'t',type:'function',function:{name:'find_protections',arguments:JSON.stringify({})}},{cards:c.cards,events:[],day:'2026-11-16'});
+ assert.deepEqual(result.rules,[]);assert.deepEqual(result.cards.map(x=>[x.name,x.status==='found']),[['Synthetic Platypus Card',false]]);
+ assert.deepEqual(failed(await runCoverageCase(c)),[]);
+});
